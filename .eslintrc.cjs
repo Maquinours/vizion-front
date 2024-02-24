@@ -9,6 +9,7 @@ module.exports = {
     'plugin:jsx-a11y/recommended',
     'plugin:@typescript-eslint/recommended',
     'eslint-config-prettier',
+    'plugin:@tanstack/eslint-plugin-query/recommended',
   ],
   ignorePatterns: ['dist', '.eslintrc.cjs'],
   parser: '@typescript-eslint/parser',
