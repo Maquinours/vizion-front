@@ -10,6 +10,7 @@ import { SyncLoader } from 'react-spinners';
 import { login } from './api/authentication';
 import { isAxiosError } from 'axios';
 import { toast } from 'react-toastify';
+import { Link } from '@tanstack/react-router';
 
 const yupSchema = object({
   username: string().required("L'identifiant est requis."),
@@ -95,9 +96,9 @@ export default function LoginPage() {
             </form>
           </div>
 
-          {/* <div className={styles.card_forgot}> // TODO: reimplement this
+          <div className={styles.card_forgot}>
             <Link to="/auth/forgot-password">Mot de passe oublié ?</Link>
-          </div> */}
+          </div>
         </div>
       </div>
     </div>
