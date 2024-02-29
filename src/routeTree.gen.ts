@@ -19,6 +19,9 @@ import { Route as AuthLoginImport } from './routes/auth/login'
 // Create Virtual Routes
 
 const AuthForgotPasswordLazyImport = createFileRoute('/auth/forgot-password')()
+const AuthResetPasswordTokenLazyImport = createFileRoute(
+  '/auth/reset-password/$token',
+)()
 
 // Create/Update Routes
 
@@ -39,6 +42,15 @@ const AuthLoginRoute = AuthLoginImport.update({
   getParentRoute: () => AuthRoute,
 } as any)
 
+const AuthResetPasswordTokenLazyRoute = AuthResetPasswordTokenLazyImport.update(
+  {
+    path: '/reset-password/$token',
+    getParentRoute: () => AuthRoute,
+  } as any,
+).lazy(() =>
+  import('./routes/auth/reset-password.$token.lazy').then((d) => d.Route),
+)
+
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
@@ -55,13 +67,21 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthForgotPasswordLazyImport
       parentRoute: typeof AuthImport
     }
+    '/auth/reset-password/$token': {
+      preLoaderRoute: typeof AuthResetPasswordTokenLazyImport
+      parentRoute: typeof AuthImport
+    }
   }
 }
 
 // Create and export the route tree
 
 export const routeTree = rootRoute.addChildren([
-  AuthRoute.addChildren([AuthLoginRoute, AuthForgotPasswordLazyRoute]),
+  AuthRoute.addChildren([
+    AuthLoginRoute,
+    AuthForgotPasswordLazyRoute,
+    AuthResetPasswordTokenLazyRoute,
+  ]),
 ])
 
 /* prettier-ignore-end */
