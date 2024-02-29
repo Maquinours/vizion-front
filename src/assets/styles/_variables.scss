@@ -1,0 +1,87 @@
+$vizion-blue: #31385a;
+$vizion-light-blue: #16204e;
+$vizion-red: #f24c52;
+$vizion-grey: #f2f3f8;
+$vizion-grey-line: #9fa5b9;
+$vizion-white: #fbfcfe;
+$vizion-grey-light: #ebeef8;
+$vizion-backgroundColor: #dadae3;
+
+$primary-color: $vizion-blue;
+$primary-light-color: $vizion-light-blue;
+$secondary-color: $vizion-red;
+$grey-color: $vizion-grey;
+$grey-line: $vizion-grey-line;
+$white-color: $vizion-white;
+$grey-light-color: $vizion-grey-light;
+$bg-color: $vizion-backgroundColor;
+
+$assistance-comment-green: #5dc896;
+$assistance-comment-orange: #f08c62;
+$assistance-comment-red: #e26868;
+$assistance-comment-grey: #16204e;
+
+$main-margin: 60px;
+$main-margin-lg: 50px;
+$main-margin-md: 40px;
+$main-margin-xs: 15px;
+
+$primary-font-family: 'DIN2014';
+
+$font-style-normal: normal;
+$font-style-italic: italic;
+
+$font-weight-tiny: 100;
+$font-weight-extra-light: 200;
+$font-weight-light: 300;
+$font-weight-normal: normal;
+$font-weight-medium: 500;
+$font-weight-semi-bold: 600;
+$font-weight-bold: bold;
+$font-weight-extra-bold: 800;
+$font-weight-black: 900;
+$font-weight-extra-black: 950;
+
+$primary-color: $vizion-blue;
+$primary-light-color: $vizion-light-blue;
+$secondary-color: $vizion-red;
+$grey-color: $vizion-grey;
+$grey-line: $vizion-grey-line;
+$white-color: $vizion-white;
+$grey-light-color: $vizion-grey-light;
+$bg-color: $vizion-backgroundColor;
+
+$input-border-radius: 4px;
+$menu-animation-delay: 0.3s;
+$hover-animation-delay: 0.3s;
+
+/* Avatar */
+$avatar-width: 40px;
+$avatar-height: 40px;
+$avatar-border-radius: 50%;
+
+/* TopBar */
+$topbar-container-height: 58px;
+$topbar-mobile-container-height: 85px;
+
+/* Sidebar */
+$sidebar-container-width: 75px;
+$sidebar-mobile-container-width: 80%;
+
+/* LoadContainer */
+$load-container-width: 276px;
+
+/* footer */
+
+$mobile-footer-height: 83px;
+
+/* notification */
+
+$toastify-color-light: #fff;
+$toastify-color-dark: #121212;
+$toastify-color-info: #3498db;
+$toastify-color-success: #16204e;
+$toastify-color-warning: #f1c40f;
+$toastify-color-error: #f24c52;
+$toastify-color-transparent: rgba(255, 255, 255, 0.7);
+$toastify-font-family: 'din 2014';
