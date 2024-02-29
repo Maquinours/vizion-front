@@ -21,79 +21,79 @@ Table of Contents
 @font-face {
   font-family: 'DIN2014';
   font-weight: 700;
-  src: url('../src/assets/fonts/DIN2014/DIN2014-Bold.ttf') format('truetype');
+  src: url('/src/assets/fonts/DIN2014/DIN2014-Bold.ttf') format('truetype');
 }
 
 @font-face {
   font-family: 'DIN2014';
   font-weight: 700;
   font-style: italic;
-  src: url('../src/assets/fonts/DIN2014/DIN2014-BoldItalic.ttf') format('truetype');
+  src: url('/src/assets/fonts/DIN2014/DIN2014-BoldItalic.ttf') format('truetype');
 }
 
 @font-face {
   font-family: 'DIN2014';
   font-weight: 600;
-  src: url('../src/assets/fonts/DIN2014/DIN2014-DemiBold.ttf') format('truetype');
+  src: url('/src/assets/fonts/DIN2014/DIN2014-DemiBold.ttf') format('truetype');
 }
 
 @font-face {
   font-family: 'DIN2014';
   font-weight: 600;
   font-style: italic;
-  src: url('../src/assets/fonts/DIN2014/DIN2014-DemiBoldItalic.ttf') format('truetype');
+  src: url('/src/assets/fonts/DIN2014/DIN2014-DemiBoldItalic.ttf') format('truetype');
 }
 
 @font-face {
   font-family: 'DIN2014';
   font-weight: 900;
 
-  src: url('../src/assets/fonts/DIN2014/DIN2014-ExtraBold.ttf') format('truetype');
+  src: url('/src/assets/fonts/DIN2014/DIN2014-ExtraBold.ttf') format('truetype');
 }
 
 @font-face {
   font-family: 'DIN2014';
   font-weight: 900;
   font-style: italic;
-  src: url('../src/assets/fonts/DIN2014/DIN2014-ExtraBoldItalic.ttf') format('truetype');
+  src: url('/src/assets/fonts/DIN2014/DIN2014-ExtraBoldItalic.ttf') format('truetype');
 }
 
 @font-face {
   font-family: 'DIN2014';
   font-weight: 100;
-  src: url('../src/assets/fonts/DIN2014/DIN2014-ExtraLight.ttf') format('truetype');
+  src: url('/src/assets/fonts/DIN2014/DIN2014-ExtraLight.ttf') format('truetype');
 }
 
 @font-face {
   font-family: 'DIN2014';
   font-weight: 100;
   font-style: italic;
-  src: url('../src/assets/fonts/DIN2014/DIN2014-ExtraLightItalic.ttf') format('truetype');
+  src: url('/src/assets/fonts/DIN2014/DIN2014-ExtraLightItalic.ttf') format('truetype');
 }
 
 @font-face {
   font-family: 'DIN2014';
   font-style: italic;
-  src: url('../src/assets/fonts/DIN2014/DIN2014-Italic.ttf') format('truetype');
+  src: url('/src/assets/fonts/DIN2014/DIN2014-Italic.ttf') format('truetype');
 }
 
 @font-face {
   font-family: 'DIN2014';
   font-weight: 300;
-  src: url('../src/assets/fonts/DIN2014/DIN2014-Light.ttf') format('truetype');
+  src: url('/src/assets/fonts/DIN2014/DIN2014-Light.ttf') format('truetype');
 }
 
 @font-face {
   font-family: 'DIN2014';
   font-weight: 300;
   font-style: italic;
-  src: url('../src/assets/fonts/DIN2014/DIN2014-LightItalic.ttf') format('truetype');
+  src: url('/src/assets/fonts/DIN2014/DIN2014-LightItalic.ttf') format('truetype');
 }
 
 @font-face {
   font-family: 'DIN2014';
   font-weight: 400px;
-  src: url('../src/assets/fonts/DIN2014/DIN2014-Regular.ttf') format('truetype');
+  src: url('/src/assets/fonts/DIN2014/DIN2014-Regular.ttf') format('truetype');
 }
 
 /* 01.Base */
@@ -364,18 +364,6 @@ main.app__layout {
   ul {
     list-style-type: none;
   }
-}
-
-.background {
-  background: url('../auth_bg.png') no-repeat center center fixed;
-  background-size: cover;
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
 }
 
 #app {

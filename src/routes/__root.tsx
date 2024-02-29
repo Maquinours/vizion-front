@@ -1,6 +1,4 @@
-import { createRootRoute, Outlet } from '@tanstack/react-router';
+import { createRootRoute } from '@tanstack/react-router';
 import '../assets/styles/_vizion.style.scss';
 
-export const Route = createRootRoute({
-  component: () => <Outlet />,
-});
+export const Route = createRootRoute();

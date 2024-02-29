@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { HashLoader, PacmanLoader, ScaleLoader } from 'react-spinners';
 import styles from './Loader.module.scss';
 
