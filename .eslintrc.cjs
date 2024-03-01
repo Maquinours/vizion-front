@@ -10,7 +10,7 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'eslint-config-prettier',
     'plugin:@tanstack/eslint-plugin-query/recommended',
-    "plugin:react/jsx-runtime"
+    'plugin:react/jsx-runtime',
   ],
   ignorePatterns: ['dist', '.eslintrc.cjs'],
   parser: '@typescript-eslint/parser',
@@ -19,6 +19,6 @@ module.exports = {
     'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
   },
   settings: {
-    react: { version: "detect" }
-  }
+    react: { version: 'detect' },
+  },
 };

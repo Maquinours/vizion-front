@@ -1,19 +1,19 @@
 @import '/src/assets/styles/mixins';
 
 .container {
-    opacity: 1;
-    position: fixed;
-    top: var(--topbar-container-height);
-    left: 0;
-    z-index: 6;
-    height: 100%;
+  opacity: 1;
+  position: fixed;
+  top: var(--topbar-container-height);
+  left: 0;
+  z-index: 6;
+  height: 100%;
 
-    @include respond-below(sm) {
-        position: absolute;
-        top: calc(var(--topbar-mobile-container-height) - 5px);
+  @include respond-below(sm) {
+    position: absolute;
+    top: calc(var(--topbar-mobile-container-height) - 5px);
 
-        &.mobile_open {
-            width: 100%;
-        }
+    &.mobile_open {
+      width: 100%;
     }
+  }
 }
