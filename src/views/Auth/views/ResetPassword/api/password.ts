@@ -1,5 +1,5 @@
-import { publicInstance } from '../../../../utils/functions/axios';
-import ProfileResponseDto from '../../../../utils/types/ProfileResponseDto';
+import { publicInstance } from '../../../../../utils/functions/axios';
+import ProfileResponseDto from '../../../../../utils/types/ProfileResponseDto';
 
 export const resetPassword = async (token: string, password: string) => {
   return (

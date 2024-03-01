@@ -1,4 +1,4 @@
-import { publicInstance } from '../../../../utils/functions/axios';
+import { publicInstance } from '../../../../../utils/functions/axios';
 
 export const initializeResetPassword = async (email: string) => {
   return (
