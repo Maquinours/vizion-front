@@ -10,12 +10,15 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'eslint-config-prettier',
     'plugin:@tanstack/eslint-plugin-query/recommended',
+    "plugin:react/jsx-runtime"
   ],
   ignorePatterns: ['dist', '.eslintrc.cjs'],
   parser: '@typescript-eslint/parser',
   plugins: ['react-refresh'],
   rules: {
     'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
-    'react/react-in-jsx-scope': 'off',
   },
+  settings: {
+    react: { version: "detect" }
+  }
 };
