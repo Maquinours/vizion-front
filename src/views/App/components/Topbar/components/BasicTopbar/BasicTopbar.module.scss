@@ -1,0 +1,144 @@
+@import '/src/assets/styles/mixins';
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+
+    @include respond-below(sm) {
+        display: none;
+    }
+
+    .left {
+        flex: 1;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+
+        .user {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            .avatar {
+                width: var(--avatar-width);
+                height: var(--avatar-height);
+                border-radius: var(--avatar-border-radius);
+                background: var(--white-color) 0% 0% no-repeat padding-box;
+                border: 1px solid var(--grey-line);
+                opacity: 1;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+
+                svg {
+                    font-size: 24px;
+                    color: var(--primary-color);
+                }
+
+                &:hover {
+                    background-color: var(--secondary-color);
+                    border: 1px solid var(--secondary-color);
+                    -webkit-transition: background-color var(--hover-animation-delay) ease-out;
+                    -moz-transition: background-color var(--hover-animation-delay) ease-out;
+                    -o-transition: background-color var(--hover-animation-delay) ease-out;
+                    transition: background-color var(--hover-animation-delay) ease-out;
+
+                    svg {
+                        color: var(--white-color);
+                    }
+                }
+            }
+
+            .infos {
+                display: flex;
+                flex-direction: column;
+                text-align: left;
+                font: normal normal normal 14px/18px var(--primary-font-family);
+                letter-spacing: 0px;
+                color: var(--grey-line);
+                opacity: 1;
+                margin-left: 1rem;
+                width: 100px;
+            }
+        }
+    }
+
+    .right {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 1rem;
+        flex: 1;
+
+        .version {
+            color: white;
+        }
+
+        .email {
+            a {
+                background: var(--white-color) 0% 0% no-repeat padding-box;
+                box-shadow: 0px 3px 5px #10173526;
+                border-radius: 5px;
+                opacity: 1;
+                padding: 0.3rem 1.5rem;
+                outline: none;
+                text-align: center;
+                font: normal normal normal 16px/22px var(--primary-font-family);
+                letter-spacing: 0px;
+                color: var(--primary-color);
+                border: none;
+                cursor: pointer;
+                text-decoration: none;
+
+                &:hover {
+                    background-color: var(--secondary-color);
+                    color: var(--white-color);
+
+                    -webkit-transition: background-color var(--hover-animation-delay) ease-out;
+                    -moz-transition: background-color var(--hover-animation-delay) ease-out;
+                    -o-transition: background-color var(--hover-animation-delay) ease-out;
+                    transition: background-color var(--hover-animation-delay) ease-out;
+                }
+
+                &:focus {
+                    outline: none;
+                }
+            }
+        }
+
+        .icons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: row;
+            gap: 1.2rem;
+
+            .icon {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                cursor: pointer;
+                color: var(--white-color);
+                background: none;
+                border: none;
+
+                svg {
+                    font-size: 24px;
+                }
+
+                &:hover {
+                    color: var(--secondary-color);
+
+                    -webkit-transition: color var(--hover-animation-delay) ease-out;
+                    -moz-transition: color var(--hover-animation-delay) ease-out;
+                    -o-transition: color var(--hover-animation-delay) ease-out;
+                    transition: color var(--hover-animation-delay) ease-out;
+                }
+            }
+        }
+    }
+}

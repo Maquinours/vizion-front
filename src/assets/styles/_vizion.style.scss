@@ -127,6 +127,9 @@ Table of Contents
   --card-sm: #{$card-sm};
   --card-xs: #{$card-xs};
   --card-xxs: #{$card-xxs};
+  --avatar-border-radius: #{$avatar-border-radius};
+  --avatar-width: #{$avatar-width};
+  --avatar-height: #{$avatar-height};
 }
 
 *,
@@ -144,7 +147,9 @@ body {
   }
 
   height: 100%;
-  font-family: 'DIN2014', Arial, sans-serif;
+  font-family: 'DIN2014',
+  Arial,
+  sans-serif;
   background-color: $white-color;
 }
 
@@ -801,7 +806,9 @@ main.app__layout {
                 font-family: 'DIN2014', Arial, sans-serif;
               }
 
-              font-family: 'DIN2014', Arial, sans-serif;
+              font-family: 'DIN2014',
+              Arial,
+              sans-serif;
               font-size: 16px;
               line-height: 20px;
               color: $primary-color;
@@ -1390,7 +1397,7 @@ button[type='submit'].btn {
   background: rgba(0, 0, 0, 0.25) 0% 0% no-repeat padding-box;
   overflow-y: auto;
 
-  & > div {
+  &>div {
     outline: none;
   }
 

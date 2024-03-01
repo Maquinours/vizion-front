@@ -10,7 +10,8 @@ import { SyncLoader } from 'react-spinners';
 import { login } from './api/authentication';
 import { isAxiosError } from 'axios';
 import { toast } from 'react-toastify';
-import { Link } from '@tanstack/react-router';
+import { Link, useNavigate } from '@tanstack/react-router';
+import { setToken } from '../../../../utils/functions/token';
 
 const yupSchema = object({
   username: string().required("L'identifiant est requis."),
@@ -19,6 +20,8 @@ const yupSchema = object({
 });
 
 export default function LoginPage() {
+  const navigate = useNavigate();
+
   const [showPassword, setShowPassword] = useState(false);
 
   const {
@@ -32,7 +35,8 @@ export default function LoginPage() {
   const { mutate, isPending } = useMutation({
     mutationFn: ({ username, password }: InferType<typeof yupSchema>) => login(username, password),
     onSuccess: (data) => {
-      console.log(data);
+      setToken(data);
+      navigate({ to: '/app', search: { showMobileMenu: false } });
     },
     onError: (error) => {
       if (isAxiosError(error)) {

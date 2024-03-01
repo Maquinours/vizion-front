@@ -20,6 +20,7 @@ interface WrapProps {
 
 export const router = createRouter({
   routeTree,
+  context: { queryClient },
   defaultPendingComponent: Loader,
   Wrap: ({ children }: WrapProps) => (
     <>

@@ -1,0 +1,95 @@
+@import '../../../../../../assets/styles/mixins';
+
+.container {
+    @include respond-below(sm) {
+        display: none;
+    }
+
+    background: var(--primary-color) 0% 0% no-repeat padding-box;
+    width: var(--sidebar-container-width);
+    border-top: 1px solid var(--grey-line);
+    overflow-y: auto;
+    height: 100%;
+
+    &::-webkit-scrollbar {
+        width: 0px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: var(--white-color);
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+        background: var(--white-color);
+    }
+
+    .items {
+        padding-bottom: 5rem;
+
+        ul {
+            list-style-type: none;
+
+            a {
+                text-decoration: none;
+
+                &.active {
+                    li {
+                        background-color: var(--white-color);
+
+                        span.material-icons {
+                            color: var(--primary-color);
+                        }
+
+                        span.label {
+                            color: var(--primary-color);
+                        }
+                    }
+                }
+
+                li {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    gap: 0.2rem;
+                    margin: 1rem 0;
+                    cursor: pointer;
+
+                    span.material-icons {
+                        color: var(--white-color);
+                        opacity: 1;
+                        font-size: 32px;
+                        margin-top: 0.5rem;
+                    }
+
+                    span.label {
+                        text-align: center;
+                        font: normal normal normal 10px/13px var(--primary-font-family);
+                        letter-spacing: 0px;
+                        color: var(--white-color);
+                        margin-bottom: 0.5rem;
+                        opacity: 1;
+                    }
+
+                    &:hover {
+                        span.material-icons {
+                            color: var(--secondary-color);
+                            -webkit-transition: color var(--menu-animation-delay) ease-out;
+                            -moz-transition: color var(--menu-animation-delay) ease-out;
+                            -o-transition: color var(--menu-animation-delay) ease-out;
+                            transition: color var(--menu-animation-delay) ease-out;
+                        }
+
+                        span.label {
+                            color: var(--secondary-color);
+                            -webkit-transition: color var(--menu-animation-delay) ease-out;
+                            -moz-transition: color var(--menu-animation-delay) ease-out;
+                            -o-transition: color var(--menu-animation-delay) ease-out;
+                            transition: color var(--menu-animation-delay) ease-out;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

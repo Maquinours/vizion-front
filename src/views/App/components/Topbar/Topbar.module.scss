@@ -1,0 +1,24 @@
+@import '/src/assets/styles/mixins';
+
+.topbar {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: var(--topbar-container-height);
+    z-index: 1999;
+
+    @include respond-below(sm) {
+        height: var(--topbar-mobile-container-height);
+    }
+
+    .content {
+        display: flex;
+        background-color: var(--primary-color);
+        opacity: 1;
+        box-sizing: border-box;
+        padding: 0.5rem 0.8rem;
+    }
+}
