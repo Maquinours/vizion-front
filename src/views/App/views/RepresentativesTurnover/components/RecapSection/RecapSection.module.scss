@@ -1,0 +1,38 @@
+@import '/src/assets/styles/mixins';
+
+.recap_container {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+
+  .recap_content {
+    border: 1px solid var(--primary-color);
+    border-radius: 5px;
+    width: 50%;
+    padding: 1rem;
+
+    @include respond-below(sm) {
+      width: 80%;
+    }
+
+    .details {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+
+      .title {
+        font: normal normal bold 14px/19px 'DIN2014';
+        letter-spacing: 0px;
+        color: #16204e;
+
+        @include respond-below(sm) {
+          width: 60%;
+        }
+      }
+
+      .content {
+        font: normal normal bold 14px/19px 'DIN2014';
+      }
+    }
+  }
+}

@@ -1,0 +1,74 @@
+@import '/src/assets/styles/mixins';
+
+.research_container {
+  .research_content {
+    padding: 1rem 5px;
+
+    form {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+
+      .form_group {
+        width: 100%;
+        display: grid;
+        gap: 5px;
+
+        label {
+          align-self: center;
+          font: normal normal normal 16px/20px 'DIN2014';
+          letter-spacing: 0px;
+          text-align: right;
+          color: var(--primary-light);
+        }
+
+        select {
+          grid-area: input;
+          background: var(--grey-color) 0% 0% no-repeat padding-box;
+          border: 1px solid var(--primary-color);
+          border-radius: 5px;
+          padding: 0.2rem;
+          outline: none;
+          height: auto;
+          width: fit-content;
+          min-width: 100px;
+        }
+
+        p:nth-child(3) {
+          grid-area: error;
+          margin-top: 2px;
+        }
+
+        p.__errors {
+          text-align: left;
+          font-family: 'DIN2014';
+          font-style: normal;
+          font-weight: normal;
+          font-variant: normal;
+          font-size: 11px;
+          line-height: 10px;
+          letter-spacing: 0px;
+          color: var(--secondary-color);
+          opacity: 1;
+        }
+
+        grid-template-areas:
+          'label input'
+          'label error';
+
+        grid-template-columns: 40% auto;
+      }
+
+      .form_loader {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      @include respond-below(sm) {
+        grid-template-columns: repeat(1, 1fr);
+      }
+    }
+  }
+}
