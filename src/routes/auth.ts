@@ -7,7 +7,7 @@ export const Route = createFileRoute('/auth')({
     if (getToken())
       throw redirect({
         to: '/app',
-        search: { showMobileMenu: false },
+        search: { mobileSidebar: undefined },
       });
   },
   component: AuthLayout,

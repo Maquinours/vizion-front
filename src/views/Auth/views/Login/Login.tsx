@@ -36,7 +36,7 @@ export default function LoginPage() {
     mutationFn: ({ username, password }: InferType<typeof yupSchema>) => login(username, password),
     onSuccess: (data) => {
       setToken(data);
-      navigate({ to: '/app', search: { showMobileMenu: false } });
+      navigate({ to: '/app' });
     },
     onError: (error) => {
       if (isAxiosError(error)) {

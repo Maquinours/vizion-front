@@ -65,7 +65,7 @@
       align-items: center;
       padding-bottom: 2.5rem;
 
-      ul {
+      div {
         list-style-type: none;
         display: flex;
         flex-direction: column;
@@ -74,60 +74,54 @@
 
         a {
           text-decoration: none;
+          display: flex;
+          align-items: center;
+          gap: 0rem;
+          padding: 0.8rem 0 0.8rem 0.3rem;
+          cursor: pointer;
+          border-radius: 5px;
+          background-color: #eaeaef;
 
           &.active {
-            li {
-              background-color: #eaeaef;
+            .icon {
+              color: var(--primary-color);
+            }
 
-              span.material-icons {
-                color: var(--primary-color);
-              }
-
-              span.label {
-                color: var(--primary-color);
-              }
+            .label {
+              color: var(--primary-color);
             }
           }
 
-          li {
-            display: flex;
-            align-items: center;
-            gap: 0rem;
-            padding: 0.8rem 0 0.8rem 0.3rem;
-            cursor: pointer;
-            border-radius: 5px;
+          .icon {
+            color: var(--primary-color);
+            opacity: 1;
+            font-size: 24px;
+          }
 
-            span.material-icons {
-              color: var(--primary-color);
-              opacity: 1;
-              font-size: 24px;
+          .label {
+            text-align: center;
+            font: normal normal normal 16px/20px var(--primary-font-family);
+            letter-spacing: 0px;
+            color: var(--primary-color);
+            opacity: 1;
+            margin-left: 1rem;
+          }
+
+          &:hover {
+            .icon {
+              color: var(--secondary-color);
+              -webkit-transition: color var(--menu-animation-delay) ease-out;
+              -moz-transition: color var(--menu-animation-delay) ease-out;
+              -o-transition: color var(--menu-animation-delay) ease-out;
+              transition: color var(--menu-animation-delay) ease-out;
             }
 
-            span.label {
-              text-align: center;
-              font: normal normal normal 16px/20px var(--primary-font-family);
-              letter-spacing: 0px;
-              color: var(--primary-color);
-              opacity: 1;
-              margin-left: 1rem;
-            }
-
-            &:hover {
-              span.material-icons {
-                color: var(--secondary-color);
-                -webkit-transition: color var(--menu-animation-delay) ease-out;
-                -moz-transition: color var(--menu-animation-delay) ease-out;
-                -o-transition: color var(--menu-animation-delay) ease-out;
-                transition: color var(--menu-animation-delay) ease-out;
-              }
-
-              span.label {
-                color: var(--secondary-color);
-                -webkit-transition: color var(--menu-animation-delay) ease-out;
-                -moz-transition: color var(--menu-animation-delay) ease-out;
-                -o-transition: color var(--menu-animation-delay) ease-out;
-                transition: color var(--menu-animation-delay) ease-out;
-              }
+            .label {
+              color: var(--secondary-color);
+              -webkit-transition: color var(--menu-animation-delay) ease-out;
+              -moz-transition: color var(--menu-animation-delay) ease-out;
+              -o-transition: color var(--menu-animation-delay) ease-out;
+              transition: color var(--menu-animation-delay) ease-out;
             }
           }
         }

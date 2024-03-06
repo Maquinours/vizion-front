@@ -1,0 +1,13 @@
+@import '/src/assets/styles/mixins';
+
+.grid_two {
+  width: 100%;
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 75% auto;
+  margin-top: 1rem;
+
+  @include respond-below(sm) {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}

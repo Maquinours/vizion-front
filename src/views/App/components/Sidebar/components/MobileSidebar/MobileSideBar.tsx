@@ -1,19 +1,32 @@
-import { MdPerson } from 'react-icons/md';
+import { MdBusinessCenter, MdPerson } from 'react-icons/md';
 import styles from './MobileSidebar.module.scss';
 import { Link, LinkProps } from '@tanstack/react-router';
 import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthentifiedUser';
+import { IconType } from 'react-icons/lib';
+import React from 'react';
 
 type MenuItem = {
-  icon: JSX.Element;
+  icon: IconType;
   label: string;
   route: LinkProps;
   allowedRoles?: string[];
 };
 
-const menus: MenuItem[] = [];
+const MENUS: MenuItem[] = [
+  {
+    icon: MdBusinessCenter,
+    label: 'Nouvelle affaire',
+    route: {
+      params: (old) => old,
+      search: (old) => ({ ...old, modal: 'create-business', businessId: undefined, gedItemKey: undefined }),
+    },
+  },
+];
 
 export default function SidebarComponentMobileSidebarComponent() {
   const { data: currentUser } = useAuthentifiedUserQuery();
+
+  const menus = MENUS.filter((menu) => !menu.allowedRoles || menu.allowedRoles.some((role) => currentUser.userInfo.roles.includes(role)));
 
   return (
     <div className={styles.container}>
@@ -28,7 +41,7 @@ export default function SidebarComponentMobileSidebarComponent() {
           </div>
         </div>
         <div className={styles.bottom}>
-          <ul>
+          <div>
             {menus.map((menu) => (
               <Link
                 key={menu.label}
@@ -38,11 +51,11 @@ export default function SidebarComponentMobileSidebarComponent() {
                 }}
                 className={styles.item}
               >
-                {menu.icon}
+                {React.createElement(menu.icon, { className: styles.icon })}
                 <span className={styles.label}>{menu.label}</span>
               </Link>
             ))}
-          </ul>
+          </div>
 
           <div className={styles.footer}>
             <div className={styles.icons}></div>

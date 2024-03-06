@@ -1,0 +1,26 @@
+@import '../CreateBusinessModal/CreateBusinessModal.module.scss';
+
+.modal {
+  width: 30%;
+
+  .modal_container {
+    .modal_content {
+      form {
+        .form_custom_group {
+          margin: 1rem 0;
+          @extend .form_group !optional;
+
+          div.react_select_custom {
+            grid-area: input;
+            grid-template-areas:
+              'label'
+              'input'
+              'error';
+
+            grid-template-columns: repeat(1, 1fr);
+          }
+        }
+      }
+    }
+  }
+}

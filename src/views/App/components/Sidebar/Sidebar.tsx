@@ -7,12 +7,12 @@ import classNames from 'classnames';
 const Route = getRouteApi('/app');
 
 export default function AppViewSidebarComponent() {
-  const { showMobileMenu } = Route.useSearch();
+  const { mobileSidebar } = Route.useSearch();
 
   return (
-    <div className={classNames(styles.container, { [styles.mobile_open]: showMobileMenu })}>
+    <div className={classNames(styles.container, { [styles.mobile_open]: mobileSidebar })}>
       <SidebarComponentBasicSidebarComponent />
-      {showMobileMenu && <SidebarComponentMobileSidebarComponent />}
+      {mobileSidebar && <SidebarComponentMobileSidebarComponent />}
     </div>
   );
 }

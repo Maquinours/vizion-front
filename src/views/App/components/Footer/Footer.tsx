@@ -14,10 +14,10 @@ type MenuItem = {
 const menus: Array<MenuItem> = [];
 
 export default function AppViewFooterComponent() {
-  const { showMobileMenu } = Route.useSearch();
+  const { mobileSidebar } = Route.useSearch();
 
   return (
-    <footer className={classNames({ [styles.open]: showMobileMenu })}>
+    <footer className={classNames({ [styles.open]: mobileSidebar })}>
       <div className={styles.menu}>
         <div className={styles.items}>
           <ul>

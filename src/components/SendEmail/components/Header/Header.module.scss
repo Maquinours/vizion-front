@@ -1,0 +1,12 @@
+@import '/src/assets/styles/mixins';
+
+.grid_one {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 75% auto;
+  width: 100%;
+
+  @include respond-below(sm) {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}

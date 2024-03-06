@@ -2,6 +2,7 @@ import { MdPerson, MdPowerSettingsNew } from 'react-icons/md';
 import styles from './BasicTopbar.module.scss';
 import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthentifiedUser';
 import CategoryClient from '../../../../../../utils/enums/CategoryClient';
+import { Link } from '@tanstack/react-router';
 
 type AppLayoutTopbarComponentBasicTopbarComponentProps = {
   logout: () => void;
@@ -34,7 +35,11 @@ export default function AppLayoutTopbarComponentBasicTopbarComponent({ logout }:
           {import.meta.env.VITE_REACT_APP_VERSION}
           {import.meta.env.DEV && '-DEV'}
         </div>
-        <div className={styles.email}></div>
+        {currentUser.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && (
+          <div className={styles.email}>
+            <Link to="/app/emails/send">Écrire un mail</Link>
+          </div>
+        )}
 
         <div className={styles.icons}>
           <button className={styles.icon} onClick={logout}>

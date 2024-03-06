@@ -1,0 +1,46 @@
+import BusinessType from '../enums/BusinessType';
+import CategoryClient from '../enums/CategoryClient';
+
+type BusinessRequestDto = {
+  title?: string | null;
+  billingAddressOne?: string | null;
+  reduction?: number | null;
+  billingDepartmentCode?: string | null;
+  deliveryDepartmentCode?: string | null;
+  billingAddressTwo?: string | null;
+  billingZipCode: string;
+  billingCity?: string | null;
+  billingPhoneNumber?: string | null;
+  billingEmail?: string | null;
+  billingCompany: string;
+  billingName?: string | null;
+  deliverAddressOne?: string | null;
+  deliverAddressTwo?: string | null;
+  deliverAddressZipCode?: string | null;
+  deliverAddressCity?: string | null;
+  deliverAddressCompany?: string | null;
+  deliverAddressName?: string | null;
+  deliverPhoneNumber?: string | null;
+  deliverEmail?: string | null;
+  enterpriseId?: string | null;
+  enterpriseName?: string | null;
+  enterpriseCategory?: CategoryClient | null;
+  representativeId?: string | null;
+  representativeName?: string | null;
+  representativeZipCode?: string | null;
+  zipCode?: string | null;
+  deliveryMode?: string | null;
+  installerProfileId?: string | null;
+  installerProfileName?: string | null;
+  installerProfileEmail?: string | null;
+  type: BusinessType;
+  exportTva?: boolean | null;
+  billAndLock?: boolean | null;
+  profileId?: string | null;
+  profileName?: string | null;
+  profileEmail?: string | null;
+  profilePhone?: string | null;
+  documentName?: string | null;
+};
+
+export default BusinessRequestDto;
