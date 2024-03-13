@@ -1,0 +1,14 @@
+.modal_footer {
+  width: 100%;
+
+  .buttons_container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+
+    button {
+      padding: 0.5rem 2rem;
+    }
+  }
+}

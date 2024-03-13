@@ -12,7 +12,7 @@ export default function SendEmailComponentBodyComponentEmailContentComponent() {
       <Controller
         control={control}
         name="content"
-        render={({ field }) => <Quill {...field} placeholder="Contenu du mail" onChange={(text) => field.onChange(text)} />}
+        render={({ field: { value, onChange, onBlur } }) => <Quill value={value} placeholder="Contenu du mail" onChange={onChange} onBlur={onBlur} />}
       />
     </div>
   );

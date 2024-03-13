@@ -47,7 +47,7 @@ export default function SendEmailComponentPredefinedMessagesModalComponent({
         </div>
         <div className={styles.modal_content}>
           <div className={styles.table_content}>
-            <TableComponent columns={columns} isLoading={isLoading} data={data} onRowClick={onRowClick} />
+            <TableComponent columns={columns} isLoading={isLoading} data={data} onRowClick={onRowClick} rowId={'id'} />
           </div>
         </div>
       </div>

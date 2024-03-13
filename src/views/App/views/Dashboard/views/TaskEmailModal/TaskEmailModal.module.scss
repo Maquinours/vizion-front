@@ -1,0 +1,66 @@
+@import '../CreateCollectiveTaskModal/CreateCollectiveTaskModal.module.scss';
+
+.mail_modal {
+  @extend .modal;
+  top: 5%;
+  left: 50%;
+  transform: translate(-50%, 0);
+  width: 70%;
+  max-width: 900px;
+
+  .modal_container {
+    padding: 0;
+
+    .modal_title {
+      width: 100%;
+      background-color: var(--primary-color);
+      text-align: center;
+      padding: 0.5rem 0;
+      border-top-right-radius: 5px;
+      border-top-left-radius: 5px;
+
+      p {
+        font:
+          normal normal bold 14px/19px 'DIN2014',
+          Arial,
+          sans-serif;
+        color: #ebeef8;
+      }
+    }
+
+    .modal_content {
+      padding: 1rem 2rem;
+      width: 100%;
+
+      @include respond-below(sm) {
+        padding: 0.5rem;
+      }
+
+      .mailbox {
+        word-break: break-word;
+        border: 1px solid var(--primary-color);
+        border-radius: 5px;
+        padding: 8px;
+        background: #f2f3f8 0% 0% no-repeat padding-box;
+        opacity: 1;
+        width: 100%;
+        max-width: 100%;
+
+        div {
+          table {
+            width: 100%;
+            max-width: 100%;
+          }
+        }
+      }
+    }
+  }
+
+  @include respond-below(md) {
+    width: 75%;
+  }
+
+  @include respond-below(sm) {
+    width: 98%;
+  }
+}

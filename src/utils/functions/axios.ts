@@ -62,6 +62,6 @@ privateInstance.interceptors.response.use(
           removeToken();
           redirect({ to: '/auth/login' });
         });
-    }
+    } else throw error;
   },
 );

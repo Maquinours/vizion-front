@@ -1,0 +1,15 @@
+enum AllBusinessState {
+  CREATED = 'CREATED',
+  DEVIS = 'DEVIS',
+  ARC = 'ARC',
+  BP = 'BP',
+  BL = 'BL',
+  FACTURE = 'FACTURE',
+  BLOQUE = 'BLOQUE',
+  ARCHIVE = 'ARCHIVE',
+  PRISE_EN_CHARGE = 'PRISE_EN_CHARGE',
+  RECEPTION = 'RECEPTION',
+  ANALYSE_REPARATION_EXPEDITION = 'ANALYSE_REPARATION_EXPEDITION',
+}
+
+export default AllBusinessState;

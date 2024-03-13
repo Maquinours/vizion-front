@@ -10,7 +10,7 @@ const modules = {
   },
 };
 
-type QuillProps = ReactQuillProps;
+type QuillProps = Readonly<ReactQuillProps>;
 export default function Quill({ ...field }: QuillProps) {
   return <ReactQuill modules={modules} theme="snow" placeholder="Contenu" {...field} />;
 }

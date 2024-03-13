@@ -22,7 +22,14 @@ export default function AppViewFooterComponent() {
         <div className={styles.items}>
           <ul>
             {menus.map((item) => (
-              <Link key={item.label} {...item.route} activeProps={{ className: styles.active }} className={styles.item}>
+              <Link
+                key={item.label}
+                {...item.route}
+                activeOptions={{ exact: false, includeSearch: false }}
+                activeProps={{ className: styles.active }}
+                className={styles.item}
+                preload="intent"
+              >
                 {item.icon}
                 <span className={styles.label}>{item.label}</span>
               </Link>

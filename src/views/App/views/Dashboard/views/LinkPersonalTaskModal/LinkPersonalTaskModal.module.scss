@@ -1,0 +1,37 @@
+@import '../CreatePersonalTaskModal/CreatePersonalTaskModal.module.scss';
+
+.modal_link {
+  @extend .modal;
+
+  .modal_container {
+    .modal_content {
+      form {
+        .form__radio_group {
+          display: flex;
+          gap: 1rem;
+
+          .form__radio {
+            display: flex;
+            align-items: center;
+            gap: 0 0.2rem;
+
+            input[type='radio'] {
+              width: inherit;
+              align-self: center;
+            }
+
+            label {
+              font: normal normal normal 14px/18px 'DIN2014';
+              letter-spacing: 0px;
+              color: #16204e;
+            }
+          }
+        }
+
+        .react_select {
+          margin: 1rem 0;
+        }
+      }
+    }
+  }
+}

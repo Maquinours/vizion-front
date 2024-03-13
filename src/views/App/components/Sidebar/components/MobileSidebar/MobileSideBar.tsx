@@ -4,6 +4,9 @@ import { Link, LinkProps } from '@tanstack/react-router';
 import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthentifiedUser';
 import { IconType } from 'react-icons/lib';
 import React from 'react';
+import { IoMdHome } from 'react-icons/io';
+import TaskState from '../../../../../../utils/enums/TaskState';
+import { Views } from 'react-big-calendar';
 
 type MenuItem = {
   icon: IconType;
@@ -14,11 +17,29 @@ type MenuItem = {
 
 const MENUS: MenuItem[] = [
   {
+    icon: IoMdHome,
+    label: 'Tableau de bord',
+    route: {
+      to: '/app/dashboard',
+      search: (old) => ({
+        ...old,
+        personalTaskState: TaskState.CREATED,
+        personalTaskPage: 0,
+        personalTaskSize: 10,
+        schedulerView: Views.DAY,
+        schedulerDate: new Date(),
+      }),
+      params: {},
+    },
+    allowedRoles: ['ROLE_MEMBRE_VIZEO'],
+  },
+  {
     icon: MdBusinessCenter,
     label: 'Nouvelle affaire',
     route: {
       params: (old) => old,
-      search: (old) => ({ ...old, modal: 'create-business', businessId: undefined, gedItemKey: undefined }),
+      search: (old) => ({ ...old, appModal: 'create-business', businessId: undefined, gedItemKey: undefined }),
+      activeOptions: { exact: true, includeSearch: true },
     },
   },
 ];
@@ -45,10 +66,12 @@ export default function SidebarComponentMobileSidebarComponent() {
             {menus.map((menu) => (
               <Link
                 key={menu.label}
+                activeOptions={{ exact: false, includeSearch: false }}
                 {...menu.route}
                 activeProps={{
                   className: styles.active,
                 }}
+                preload="intent"
                 className={styles.item}
               >
                 {React.createElement(menu.icon, { className: styles.icon })}

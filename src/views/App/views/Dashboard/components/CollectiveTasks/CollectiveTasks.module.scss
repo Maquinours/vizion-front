@@ -1,0 +1,37 @@
+.container {
+  height: 100%;
+  min-height: 400px;
+
+  .header_container {
+    margin: 0.5rem;
+    text-align: right;
+
+    svg {
+      cursor: pointer;
+
+      &:hover {
+        fill: var(--secondary-color);
+      }
+    }
+  }
+
+  &::-webkit-scrollbar {
+    width: 3px;
+  }
+
+  /* Track */
+  &::-webkit-scrollbar-track {
+    background: var(--white-color);
+  }
+
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: var(--primary-color);
+  }
+
+  /* Handle on hover */
+  &::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-color);
+  }
+}

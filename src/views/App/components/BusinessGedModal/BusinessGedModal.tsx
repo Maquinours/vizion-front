@@ -13,7 +13,7 @@ export default function AppViewBusinessGedModalComponent() {
     <ReactModal
       isOpen={true}
       overlayClassName="Overlay"
-      onRequestClose={() => navigate({ from: Route.id, search: (old) => ({ ...old, modal: undefined, businessId: undefined, gedItemKey: undefined }) })}
+      onRequestClose={() => navigate({ from: Route.id, search: (old) => ({ ...old, appModal: undefined, businessId: undefined, gedItemKey: undefined }) })}
       className={styles.modal}
     >
       <div className={styles.modal_container}>

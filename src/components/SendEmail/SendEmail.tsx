@@ -12,6 +12,8 @@ import { sendEmail } from './utils/api/email';
 import SendEmailComponentPredefinedMessagesModalComponent from './components/PredefinedMessagesModal/PredefinedMessagesModal';
 import { SendEmailFormContext } from './utils/contexts/sendEmail';
 import { useMemo } from 'react';
+import MailResponseDto from '../../utils/types/MailResponseDto';
+import { formatDateWithHour } from '../../utils/functions/dates';
 
 const yupSchema = yup.object({
   recipient: yup
@@ -76,6 +78,7 @@ type SendEmailComponentProps = Readonly<{
   showPredefinedMessagesModal?: boolean;
   openPredefinedMessagesModal: () => void;
   closePredefinedMessagesModal: () => void;
+  emailToReply?: MailResponseDto;
 }>;
 export default function SendEmailComponent({
   defaultSubject,
@@ -88,6 +91,7 @@ export default function SendEmailComponent({
   showPredefinedMessagesModal = false,
   openPredefinedMessagesModal,
   closePredefinedMessagesModal,
+  emailToReply,
 }: SendEmailComponentProps) {
   const { data: user } = useAuthentifiedUserQuery();
 
@@ -102,11 +106,14 @@ export default function SendEmailComponent({
   } = useForm({
     resolver: yupResolver(yupSchema),
     defaultValues: {
-      recipient: defaultRecipient ?? [],
+      recipient: [...(emailToReply?.sender ? [emailToReply.sender] : []), ...(defaultRecipient ?? [])],
       cc: defaultCc ?? [],
       bcc: defaultBcc ?? [],
-      subject: defaultSubject ?? '',
-      content: (defaultContent ?? '') + generateUserEmailSignature(user),
+      subject: defaultSubject ?? (emailToReply?.subject ? `Re: ${emailToReply.subject}` : ''),
+      content:
+        (defaultContent ?? '') +
+        generateUserEmailSignature(user) +
+        (emailToReply ? `<br /><br />Le ${formatDateWithHour(emailToReply.sendDate)}, ${emailToReply.sender} a envoyé :<br />${emailToReply.content}` : ''),
       attachments: defaultAttachments?.map((file) => ({ id: file.name, file })) ?? [],
     },
   });

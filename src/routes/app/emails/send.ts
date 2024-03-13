@@ -8,14 +8,14 @@ const searchSchema = z.object({
 });
 
 export const Route = createFileRoute('/app/emails/send')({
-  beforeLoad: async ({ context: { queryClient }, location }) => {
+  beforeLoad: async ({ context: { queryClient } }) => {
     const user = await queryClient.ensureQueryData({
       queryKey: ['authentified-user'],
       queryFn: getAuthentifiedUser,
     });
     if (!user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO')) {
       console.warn('User is not allowed to access this route', user, Route);
-      throw redirect(location);
+      throw redirect({ to: '..' });
     }
   },
   validateSearch: searchSchema,

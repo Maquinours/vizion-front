@@ -1,0 +1,140 @@
+import ReactModal from 'react-modal';
+import * as yup from 'yup';
+import ProfileResponseDto from '../../../../../../utils/types/ProfileResponseDto';
+import { Controller, useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import styles from './CreatePersonalTaskModal.module.scss';
+import { PulseLoader } from 'react-spinners';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { createTask } from '../../../../../../utils/api/task';
+import WorkloadType from '../../../../../../utils/enums/WorkloadType';
+import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthentifiedUser';
+import { profileQueryKeys } from '../../../../../../utils/constants/queryKeys/profile';
+import { getProfilesByCategory } from '../../../../../../utils/api/profile';
+import CustomSelect from '../../../../../../components/CustomSelect/CustomSelect';
+import { taskQueryKeys } from '../../../../../../utils/constants/queryKeys/task';
+import { toast } from 'react-toastify';
+import CategoryClient from '../../../../../../utils/enums/CategoryClient';
+
+const Route = getRouteApi('/app/dashboard/create-personal-task');
+
+const yupSchema = yup.object({
+  content: yup.string().required('Ce champ est requis'),
+  profile: yup.mixed<ProfileResponseDto>().required('Ce champ est requis'),
+  deadline: yup.date().required('Ce champ est requis'),
+});
+
+export default function AppViewDashboardViewCreatePersonalTaskModalView() {
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
+
+  const { data: user } = useAuthentifiedUserQuery();
+
+  const {
+    register,
+    control,
+    formState: { errors },
+    handleSubmit,
+  } = useForm({
+    resolver: yupResolver(yupSchema),
+    defaultValues: {
+      deadline: new Date(),
+    },
+  });
+
+  const onClose = () => {
+    navigate({ from: Route.id, to: '..', search: (old) => old });
+  };
+
+  const { data: members, isLoading: isLoadingMembers } = useQuery({
+    queryKey: profileQueryKeys.listByCategory(CategoryClient.VIZEO),
+    queryFn: () => getProfilesByCategory(CategoryClient.VIZEO),
+    select: (data) => data.filter((item) => item.id !== user.profile.id),
+  });
+
+  const { mutate, isPending } = useMutation({
+    mutationFn: ({ content, profile, deadline }: yup.InferType<typeof yupSchema>) =>
+      createTask({
+        content,
+        type: WorkloadType.PERSONELLE,
+        profileId: profile.id,
+        senderId: user.profile.id,
+        deadline,
+        enterpriseName: user.profile.enterprise!.name,
+      }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: taskQueryKeys.all });
+      toast.success('Charge de travail personnelle créée avec succès');
+      onClose();
+    },
+    onError: (error) => {
+      console.error(error);
+      toast.error('Une erreur est survenue lors de la création de la charge de travail personnelle');
+    },
+  });
+
+  return (
+    <ReactModal isOpen={true} onRequestClose={onClose} className={styles.modal} overlayClassName="Overlay">
+      <div className={styles.modal_container}>
+        <div className={styles.modal_title}>
+          <p>Ajouter une charge de travail personnelle</p>
+        </div>
+
+        <div className={styles.modal_content}>
+          <form onSubmit={handleSubmit((data) => mutate(data))}>
+            <div className={styles.form_group}>
+              <label className="label" htmlFor="information">
+                Quoi :
+              </label>
+              <textarea rows={8} {...register('content')} id="information" autoCorrect="true" autoComplete="no" />
+              <p className={styles.errors}>{errors.content?.message}</p>
+            </div>
+            <div className={styles.form_group}>
+              <label className="label" htmlFor="information">
+                Qui :
+              </label>
+              <Controller
+                control={control}
+                name={'profile'}
+                render={({ field: { value, onChange, onBlur } }) => (
+                  <CustomSelect
+                    value={value}
+                    onChange={onChange}
+                    onBlur={onBlur}
+                    placeholder={'Sélectionnez un membre'}
+                    isLoading={isLoadingMembers}
+                    options={members}
+                    getOptionLabel={(opt) => `${opt.firstName} ${opt.lastName}`}
+                    getOptionValue={(opt) => opt.id}
+                  />
+                )}
+              />
+              <p className={styles.errors}>{errors.profile?.message}</p>
+            </div>
+            <div className={styles.form_group}>
+              <label className="label" htmlFor="date">
+                Quand :
+              </label>
+              <input type="date" {...register('deadline')} id="date" />
+              <p className={styles.errors}>{errors.deadline?.message}</p>
+            </div>
+
+            <div className={styles.form_loader}>
+              <PulseLoader color="#31385A" loading={isPending} className="" size={10} speedMultiplier={0.5} />
+            </div>
+
+            <div className={styles.form_buttons}>
+              <button className="btn btn-primary-light" onClick={onClose}>
+                Annuler
+              </button>
+              <button type="submit" className="btn btn-secondary">
+                Valider
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </ReactModal>
+  );
+}

@@ -1,0 +1,57 @@
+.users_container {
+  display: flex;
+  justify-content: flex-end;
+  margin: 0 1rem 1rem;
+
+  .others {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 5px;
+
+    .tag_tooltip {
+      color: inherit;
+      text-decoration: inherit;
+      padding: 5px;
+      background-color: transparent;
+      border: 1px solid var(--primary-color);
+      text-align: center;
+      border-radius: 50%;
+      height: fit-content;
+      width: fit-content;
+      font-size: 10px;
+      position: relative;
+
+      &.selected {
+        background-color: var(--primary-color);
+        color: var(--white-color);
+      }
+
+      .tag_content {
+        display: none;
+        position: absolute;
+        width: auto;
+        min-width: auto;
+        height: auto;
+        text-align: center;
+        color: var(--primary-light);
+        z-index: 3000;
+        top: 100%;
+        left: -3px;
+        background: #e5e5e5 0% 0% no-repeat padding-box;
+        border-radius: 5px;
+        padding: 5px;
+        font:
+          normal normal normal 12px/15px 'DIN2014',
+          Arial,
+          sans-serif;
+      }
+
+      &:hover {
+        .tag_content {
+          display: initial;
+        }
+      }
+    }
+  }
+}

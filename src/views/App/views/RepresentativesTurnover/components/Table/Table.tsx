@@ -39,7 +39,7 @@ type RepresentativesTurnoverViewTableComponentProps = Readonly<{
 export default function RepresentativesTurnoverViewTableComponent({ data, isLoading }: RepresentativesTurnoverViewTableComponentProps) {
   return (
     <div className={styles.table_container}>
-      <TableComponent columns={columns} data={data} isLoading={isLoading} />
+      <TableComponent columns={columns} data={data} isLoading={isLoading} rowId={'id'} />
     </div>
   );
 }

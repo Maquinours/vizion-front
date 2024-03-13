@@ -105,7 +105,7 @@ export default function GedComponentTableComponent({
     <>
       <div className={styles.ged_table}>
         <div className={styles.table_container}>
-          <TableComponent columns={gedColumns} data={data ?? []} isLoading={isLoading} onRowContextMenu={onRowContextMenu} />
+          <TableComponent columns={gedColumns} data={data ?? []} isLoading={isLoading} onRowContextMenu={onRowContextMenu} rowId={'key'} />
         </div>
       </div>
       <GedComponentTableComponentContextMenuComponent

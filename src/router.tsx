@@ -28,6 +28,7 @@ export const router = createRouter({
   routeTree,
   context: { queryClient },
   defaultPendingComponent: Loader,
+  defaultPreload: 'intent',
   Wrap: ({ children }: WrapProps) => (
     <>
       <ToastContainer position={'bottom-right'} hideProgressBar={true} theme={'colored'} autoClose={3000} />

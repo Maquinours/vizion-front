@@ -9,3 +9,12 @@ export const getEnterpriseById = async (id: string) => {
     })
   ).data;
 };
+
+export const getEnterprises = async () => {
+  return (
+    await privateInstance<Array<EnterpriseResponseDto>>({
+      method: 'GET',
+      url: `profile/v1/contact/all`,
+    })
+  ).data;
+};

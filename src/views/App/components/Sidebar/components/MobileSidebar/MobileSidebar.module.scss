@@ -80,9 +80,10 @@
           padding: 0.8rem 0 0.8rem 0.3rem;
           cursor: pointer;
           border-radius: 5px;
-          background-color: #eaeaef;
 
           &.active {
+            background-color: #eaeaef;
+
             .icon {
               color: var(--primary-color);
             }

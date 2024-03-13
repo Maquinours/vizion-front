@@ -1,0 +1,8 @@
+.file {
+  text-align: center;
+  margin-left: 20px;
+
+  &.is_selected {
+    border: 2px solid var(--secondary-color);
+  }
+}

@@ -1,0 +1,12 @@
+.container {
+  display: inline-flex;
+  gap: 1rem;
+  width: 100%;
+
+  .column {
+    background-clip: padding-box;
+    gap: 1rem;
+    display: flex;
+    flex-direction: column;
+  }
+}

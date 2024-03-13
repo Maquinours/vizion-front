@@ -23,13 +23,14 @@ export default function SendEmailComponentHeaderComponentInputsComponent() {
         <Controller
           control={control}
           name={'recipient'}
-          render={({ field }) => (
+          render={({ field: { onChange, onBlur } }) => (
             <ReactMultiEmail
               emails={watch('recipient')}
               className={styles.multi_email}
               placeholder="Destinataires"
               autoComplete="email"
-              {...field}
+              onChange={onChange}
+              onBlur={onBlur}
               getLabel={getEmailLabel}
             />
           )}
@@ -40,8 +41,16 @@ export default function SendEmailComponentHeaderComponentInputsComponent() {
         <Controller
           control={control}
           name={'cc'}
-          render={({ field }) => (
-            <ReactMultiEmail emails={watch('cc')} className={styles.multi_email} placeholder="CC" autoComplete="email" {...field} getLabel={getEmailLabel} />
+          render={({ field: { onChange, onBlur } }) => (
+            <ReactMultiEmail
+              emails={watch('cc')}
+              className={styles.multi_email}
+              placeholder="CC"
+              autoComplete="email"
+              onChange={onChange}
+              onBlur={onBlur}
+              getLabel={getEmailLabel}
+            />
           )}
         />
         <p className={styles.__errors}>{errors.cc?.message}</p>
@@ -50,8 +59,16 @@ export default function SendEmailComponentHeaderComponentInputsComponent() {
         <Controller
           control={control}
           name={'bcc'}
-          render={({ field }) => (
-            <ReactMultiEmail emails={watch('bcc')} className={styles.multi_email} placeholder="CCI" autoComplete="email" {...field} getLabel={getEmailLabel} />
+          render={({ field: { onChange, onBlur } }) => (
+            <ReactMultiEmail
+              emails={watch('bcc')}
+              className={styles.multi_email}
+              placeholder="CCI"
+              autoComplete="email"
+              onChange={onChange}
+              onBlur={onBlur}
+              getLabel={getEmailLabel}
+            />
           )}
         />
         <p className={styles.__errors}>{errors.bcc?.message}</p>

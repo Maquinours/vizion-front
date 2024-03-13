@@ -4,6 +4,9 @@ import { Link, LinkProps } from '@tanstack/react-router';
 import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthentifiedUser';
 import React from 'react';
 import { IconType } from 'react-icons/lib';
+import { IoMdHome } from 'react-icons/io';
+import TaskState from '../../../../../../utils/enums/TaskState';
+import { Views } from 'react-big-calendar';
 
 type MenuItem = {
   icon: IconType;
@@ -22,6 +25,23 @@ const MENUS: MenuItem[] = [
     },
     allowedRoles: ['ROLE_DISTRIBUTEUR', 'ROLE_CLIENT'],
   },
+  {
+    icon: IoMdHome,
+    label: 'Tableau de bord',
+    route: {
+      to: '/app/dashboard',
+      search: (old) => ({
+        ...old,
+        personalTaskState: TaskState.CREATED,
+        personalTaskPage: 0,
+        personalTaskSize: 10,
+        schedulerView: Views.DAY,
+        schedulerDate: new Date(),
+      }),
+      params: (old) => old,
+    },
+    allowedRoles: ['ROLE_MEMBRE_VIZEO'],
+  },
 ];
 
 export default function SidebarComponentBasicSidebarComponent() {
@@ -36,6 +56,7 @@ export default function SidebarComponentBasicSidebarComponent() {
           {menus.map((menu) => (
             <Link
               key={menu.label}
+              activeOptions={{ exact: false, includeSearch: false }}
               {...menu.route}
               preload="intent"
               activeProps={{

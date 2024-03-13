@@ -1,0 +1,41 @@
+.header_container {
+  display: flex;
+  margin: 0.5rem;
+  gap: 5px;
+
+  .tag_tooltip {
+    position: relative;
+
+    .icon {
+      font-size: 20px;
+    }
+
+    .tag_content {
+      display: none;
+      position: absolute;
+      width: auto;
+      min-width: auto;
+      height: auto;
+      text-align: center;
+      font-size: 16px;
+      font-weight: normal;
+      color: var(--primary-light);
+      z-index: 3000;
+      top: 100%;
+      left: -3px;
+      background: #e5e5e5 0% 0% no-repeat padding-box;
+      border-radius: 5px;
+      padding: 5px;
+      font:
+        normal normal normal 12px/15px 'DIN2014',
+        Arial,
+        sans-serif;
+    }
+
+    &:hover {
+      .tag_content {
+        display: initial;
+      }
+    }
+  }
+}

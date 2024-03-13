@@ -43,7 +43,7 @@ export default function AppViewCreateClientBusinessModalComponent() {
   });
 
   const onClose = () => {
-    navigate({ from: Route.id, search: (search) => ({ ...search, modal: undefined }) });
+    navigate({ from: Route.id, search: (search) => ({ ...search, appModal: undefined }) });
   };
 
   const { mutate, isPending } = useMutation({

@@ -1,0 +1,65 @@
+.modal_content {
+  height: 100%;
+  min-height: 30vh;
+  max-height: 70vh;
+  padding: 1rem;
+
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  overflow-y: auto;
+
+  .comment_loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+
+  .no_comment {
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    width: 100%;
+    height: 100%;
+  }
+
+  .comment_card {
+    border: 1px solid var(--secondary-color);
+    min-width: 150px;
+    max-width: 200px;
+    background-color: var(--secondary-color);
+    padding: 0.5rem;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+    align-self: flex-start;
+
+    .author {
+      font-weight: bold;
+      color: white;
+      font-size: 14px;
+    }
+
+    .comment {
+      width: 100%;
+      word-break: break-word;
+      font-size: 13px;
+      color: white;
+    }
+
+    &.isRight {
+      background-color: var(--primary-color);
+      border: 1px solid var(--primary-color);
+
+      align-self: flex-end;
+
+      .author {
+        color: white;
+      }
+
+      .comment {
+        color: white;
+      }
+    }
+  }
+}

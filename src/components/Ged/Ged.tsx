@@ -2,7 +2,6 @@ import { useQuery } from '@tanstack/react-query';
 import { gedQueryKeys } from '../../utils/constants/queryKeys/ged';
 import FileType from '../../utils/enums/FileType';
 import { getDirectoryByTypeAndIdOnS3 } from '../../utils/api/ged';
-import CommonCard from '../Card/Card';
 import GedComponentButtonsComponent from './components/Buttons/Buttons';
 import GedComponentTableComponent from './components/Table/Table';
 import GedComponentCreateDirectoryModalComponent from './components/CreateDirectoryModal/CreateDirectoryModal';
@@ -10,6 +9,7 @@ import FileDataTreeResponseDto from '../../utils/types/FileDataTreeResponseDto';
 import GedComponentImportFilesModalComponent from './components/ImportFilesModal/ImportFilesModal';
 import GedComponentRenameModalComponent from './components/RenameModal/RenameModal';
 import GedComponentDeleteModalComponent from './components/DeleteModal/DeleteModal';
+import CardComponent from '../Card/Card';
 
 type GedComponentProps = Readonly<{
   type: FileType;
@@ -61,7 +61,7 @@ export default function GedComponent({
 
   return (
     <>
-      <CommonCard title="Gestion électronique de documents">
+      <CardComponent title="Gestion électronique de documents">
         <div>
           <GedComponentButtonsComponent
             canMakeAction={canMakeAction}
@@ -79,7 +79,7 @@ export default function GedComponent({
             openDeleteModal={openDeleteModal}
           />
         </div>
-      </CommonCard>
+      </CardComponent>
       {modalElement}
     </>
   );

@@ -1,0 +1,27 @@
+.subject {
+  margin-bottom: 2rem;
+}
+
+.informations {
+  display: flex;
+  justify-content: space-between;
+
+  .sender {
+    color: var(--secondary-color);
+    font-weight: bolder;
+    font-size: 15px;
+  }
+
+  .receiver {
+    color: var(--primary-color);
+    font-weight: bold;
+    font-size: 15px;
+    margin-bottom: 1rem;
+  }
+
+  .receiveDate {
+    font-size: 14px;
+    color: var(--secondary-color);
+    font-weight: bold;
+  }
+}

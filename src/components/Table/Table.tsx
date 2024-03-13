@@ -1,4 +1,4 @@
-import { useReactTable, getCoreRowModel, ColumnDef, Row, getExpandedRowModel } from '@tanstack/react-table';
+import { useReactTable, getCoreRowModel, ColumnDef, Row, getExpandedRowModel, RowSelectionState } from '@tanstack/react-table';
 import TableComponentHeaderComponent from './components/Header/Header';
 import TableComponentBodyComponent from './components/Body/Body';
 import React from 'react';
@@ -9,13 +9,30 @@ type TableComponentProps<T> = Readonly<{
   isLoading?: boolean;
   onRowClick?: (e: React.MouseEvent, row: Row<T>) => void;
   onRowContextMenu?: (e: React.MouseEvent, row: Row<T>) => void;
+  rowSelection?: RowSelectionState;
+  setRowSelection?: React.Dispatch<React.SetStateAction<RowSelectionState>>;
+  rowId: keyof T;
 }>;
-export default function TableComponent<T>({ columns, data = [], isLoading = false, onRowClick, onRowContextMenu }: TableComponentProps<T>) {
+export default function TableComponent<T>({
+  columns,
+  data = [],
+  isLoading = false,
+  onRowClick,
+  onRowContextMenu,
+  rowSelection,
+  setRowSelection,
+  rowId,
+}: TableComponentProps<T>) {
   const { getHeaderGroups, getRowModel } = useReactTable({
     data,
     columns,
+    state: {
+      rowSelection,
+    },
+    onRowSelectionChange: setRowSelection,
     getCoreRowModel: getCoreRowModel(),
     getExpandedRowModel: getExpandedRowModel(),
+    getRowId: (row) => row[rowId] as string,
   });
 
   return (

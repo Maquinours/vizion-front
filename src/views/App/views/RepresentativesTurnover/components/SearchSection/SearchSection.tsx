@@ -1,4 +1,3 @@
-import CommonCard from '../../../../../../components/Card/Card';
 import { getRouteApi, useNavigate } from '@tanstack/react-router';
 import ReactSelect from 'react-select';
 import YEARS from '../../../../../../utils/constants/years';
@@ -9,6 +8,7 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 import CategoryClient from '../../../../../../utils/enums/CategoryClient';
 import { getEnterprisesByCategory } from '../../../../../../utils/api/enterprises';
 import { getAvailableMonthsForYear } from '../../../../../../utils/functions/moment';
+import CardComponent from '../../../../../../components/Card/Card';
 
 const Route = getRouteApi('/app/tools/representatives-turnover');
 
@@ -24,7 +24,7 @@ export default function RepresentativesTurnoverViewSearchSectionComponent() {
 
   return (
     <div className={styles.research_container}>
-      <CommonCard title="CA des représentants">
+      <CardComponent title="CA des représentants">
         <div className={styles.research_content}>
           <form>
             <div className={styles.form_group}>
@@ -94,7 +94,7 @@ export default function RepresentativesTurnoverViewSearchSectionComponent() {
             </div>
           </form>
         </div>
-      </CommonCard>
+      </CardComponent>
     </div>
   );
 }
