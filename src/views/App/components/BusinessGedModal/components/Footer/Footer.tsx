@@ -59,7 +59,7 @@ export default function AppViewBusinessGedModalComponentFooterComponent() {
             {"Transférer l'étude à VIZEO"}
           </button>
         ) : (
-          <Link from={Route.id} search={(old) => ({ ...old, modal: undefined, businessId: undefined })} className="btn btn-primary-light">
+          <Link from={Route.id} search={(old) => ({ ...old, appModal: undefined, businessId: undefined })} className="btn btn-primary-light">
             Fermer
           </Link>
         )}

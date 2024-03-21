@@ -1,49 +1,61 @@
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import styles from './Pagination.module.scss';
-import Page from '../../utils/types/Page';
 import usePagination from '@mui/material/usePagination/usePagination';
 import classNames from 'classnames';
+import { Link, LinkProps } from '@tanstack/react-router';
 
-type PaginationComponentProps<T> = Readonly<{
+type PaginationComponentProps = Readonly<{
   page: number;
-  pages: Page<T> | undefined;
-  onPageChange: (page: number) => void;
+  totalPages: number | undefined;
+  pageLink?: (page: number) => LinkProps;
+  onPageChange?: (page: number) => void;
 }>;
 
-export default function PaginationComponent<T>({ page, pages, onPageChange }: PaginationComponentProps<T>) {
+export default function PaginationComponent({ page, totalPages = 0, pageLink, onPageChange }: PaginationComponentProps) {
   const currentPage = page + 1;
 
   const { items } = usePagination({
-    count: pages?.totalPages ?? 0,
+    count: totalPages,
     page: currentPage,
-    onChange: (_e, page) => onPageChange(page - 1),
   });
 
   return (
     <nav>
       <ul className={styles.container}>
-        {items.map(({ page, type, selected, disabled, ...item }, index) => {
+        {items.map(({ page, type, selected, disabled }, index) => {
           let children = null;
 
           if (type === 'start-ellipsis' || type === 'end-ellipsis') {
             children = '…';
           } else if (type === 'page') {
-            children = (
-              <button type="button" {...item}>
-                {page}
-              </button>
+            children = pageLink ? (
+              <Link {...pageLink(page! - 1)}>{page}</Link>
+            ) : (
+              onPageChange !== undefined && <button onClick={() => onPageChange(page! - 1)}>{page}</button>
             );
           } else if (type === 'previous') {
-            children = (
-              <button type="button" {...item}>
+            children = pageLink ? (
+              <Link {...pageLink(page! - 1)}>
                 <IoIosArrowBack />
-              </button>
+              </Link>
+            ) : (
+              onPageChange !== undefined && (
+                <button onClick={() => onPageChange(page! - 1)}>
+                  <IoIosArrowBack />
+                </button>
+              )
             );
           } else if (type === 'next') {
-            children = (
-              <button type="button" {...item}>
+            children = pageLink ? (
+              <Link {...pageLink(page! - 1)}>
                 <IoIosArrowForward />
-              </button>
+              </Link>
+            ) : (
+              onPageChange !== undefined && (
+                <button onClick={() => onPageChange(page! - 1)}>
+                  <IoIosArrowForward />
+                </button>
+              )
             );
           }
 

@@ -1,4 +1,4 @@
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { getRouteApi } from '@tanstack/react-router';
 import PaginationComponent from '../../../../../../../../components/Pagination/Pagination';
 import Page from '../../../../../../../../utils/types/Page';
 import styles from './Pagination.module.scss';
@@ -10,16 +10,14 @@ type AppViewDashboardViewPersonalTasksComponentPaginationComponentProps = Readon
 export default function AppViewDashboardViewPersonalTasksComponentPaginationComponent({
   data,
 }: AppViewDashboardViewPersonalTasksComponentPaginationComponentProps) {
-  const navigate = useNavigate();
-
   const { personalTaskPage: page } = Route.useSearch();
 
   return (
     <div className={styles.container}>
       <PaginationComponent
         page={page}
-        pages={data}
-        onPageChange={(page) => navigate({ from: Route.id, search: (old) => ({ ...old, personalTaskPage: page }) })}
+        totalPages={data?.totalPages}
+        pageLink={(page) => ({ from: Route.id, to: Route.id, search: (old) => ({ ...old, personalTaskPage: page }), params: {} })}
       />
     </div>
   );

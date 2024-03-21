@@ -9,3 +9,12 @@ export const getProducts = async () => {
     })
   ).data;
 };
+
+export const getProductById = async (id: string) => {
+  return (
+    await privateInstance<ProductResponseDto>({
+      method: 'GET',
+      url: `/product/v1/find-by-id/${encodeURIComponent(id)}`,
+    })
+  ).data;
+};

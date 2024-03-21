@@ -4,6 +4,7 @@ import MailRequestDto from '../../../../utils/types/MailRequestDto';
 export const sendEmail = async (mail: MailRequestDto) => {
   const formData = new FormData();
   formData.set('content', mail.content);
+  formData.set('sender', mail.sender);
   formData.set('subject', mail.subject);
   formData.set('ownerId', mail.ownerId);
 

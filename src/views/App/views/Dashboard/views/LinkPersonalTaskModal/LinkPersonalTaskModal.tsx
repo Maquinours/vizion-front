@@ -22,6 +22,8 @@ import { getEnterprises } from '../../../../../../utils/api/enterprise';
 import { getProducts } from '../../../../../../utils/api/product';
 import CustomSelect from '../../../../../../components/CustomSelect/CustomSelect';
 import { PulseLoader } from 'react-spinners';
+import enterpriseQueryKeys from '../../../../../../utils/constants/queryKeys/enterprise';
+import { productQueryKeys } from '../../../../../../utils/constants/queryKeys/product';
 
 enum LinkType {
   BUSINESS,
@@ -61,9 +63,9 @@ export default function AppViewDashboardViewLinkPersonalTaskModalView() {
     queryFn: () => getTaskById(taskId),
   });
 
-  const { data: enterprises, isLoading: isLoadingEnterprises } = useQuery({ queryKey: allBusinessQueryKeys.listAll(), queryFn: getEnterprises });
-  const { data: businesses, isLoading: isLoadingBusiness } = useQuery({ queryKey: ['all-business', 'all'], queryFn: getAllBusinesses });
-  const { data: products, isLoading: isLoadingProducts } = useQuery({ queryKey: ['products', 'all'], queryFn: getProducts });
+  const { data: enterprises, isLoading: isLoadingEnterprises } = useQuery({ queryKey: enterpriseQueryKeys.listAll(), queryFn: getEnterprises });
+  const { data: businesses, isLoading: isLoadingBusiness } = useQuery({ queryKey: allBusinessQueryKeys.listAll(), queryFn: getAllBusinesses });
+  const { data: products, isLoading: isLoadingProducts } = useQuery({ queryKey: productQueryKeys.listAll(), queryFn: getProducts });
 
   const { register, control, watch, handleSubmit } = useForm({
     resolver: yupResolver(yupSchema),

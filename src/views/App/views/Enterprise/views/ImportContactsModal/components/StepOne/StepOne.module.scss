@@ -1,0 +1,304 @@
+@import '/src/assets/styles/mixins';
+
+.modal_container {
+  padding: 2rem 0;
+
+  .modal_title {
+    text-align: center;
+
+    h6 {
+      font: normal normal bold 16px/20px 'DIN2014';
+      color: var(--primary-light);
+    }
+  }
+
+  .modal_content {
+    padding: 0 3rem;
+    margin: 1rem 0;
+    font: normal normal normal 14px/18px 'DIN2014';
+
+    .table_content {
+      table {
+        width: 100%;
+        opacity: 1;
+        border-collapse: collapse;
+        border: 1px solid var(--primary-color);
+        table-layout: auto;
+
+        thead tr:nth-child(1) {
+          background: var(--primary-color) 0% 0% no-repeat padding-box;
+
+          th {
+            padding: 0.5rem 2rem;
+            text-align: left;
+            font: normal normal normal 14px/18px 'DIN2014';
+            letter-spacing: 0px;
+            color: #ebeef8;
+            opacity: 1;
+            border-right: 2px solid #686e89;
+
+            &:nth-last-child(1) {
+              border-right: none;
+            }
+          }
+        }
+
+        tr.table_loader {
+          width: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          text-align: center;
+          margin: 1rem 0;
+        }
+
+        tbody {
+          tr {
+            vertical-align: top;
+            background-color: #fff;
+          }
+
+          tr:hover {
+            background-color: #e5e5e5;
+          }
+
+          tr:nth-child(2n + 1) {
+            background: #f2f3f8 0% 0% no-repeat padding-box;
+            opacity: 1;
+          }
+
+          td {
+            padding: 0.5rem 0 0.5rem 1rem;
+            text-align: left;
+            font: normal normal normal 14px/18px 'DIN2014';
+            letter-spacing: 0px;
+            color: var(--primary-light-color);
+            opacity: 1;
+
+            // @include respond-below(md) {
+            //   div {
+            //     width: 7rem;
+            //   }
+            // }
+
+            &:nth-child(1) {
+              cursor: pointer;
+
+              &:hover {
+                color: var(--secondary-color);
+              }
+            }
+
+            &:nth-child(2) {
+              width: 25%;
+              max-width: 600px;
+            }
+
+            ul.vizeo_all_contacts_list {
+              list-style: none;
+
+              @include respond-below(md) {
+                min-width: 180px;
+              }
+
+              & > li {
+                width: 100%;
+                display: grid;
+                grid-template-columns: 40% auto;
+                gap: 1rem;
+                margin-bottom: 0.5rem;
+
+                & > {
+                  :nth-child(2) {
+                    ul {
+                      li {
+                        display: flex;
+                        justify-content: space-between;
+                        flex-wrap: wrap;
+                      }
+                    }
+
+                    // display: none;
+                  }
+                }
+
+                div.vizeo_all_contacts_tooltip {
+                  position: relative;
+
+                  svg {
+                    color: var(--secondary-color);
+                    font-size: 18px;
+                    align-self: center;
+                    cursor: pointer;
+                    position: relative;
+                  }
+
+                  .vizeo_all_contacts_tooltip_content {
+                    display: none;
+                    position: absolute;
+                    width: 182px;
+                    height: auto;
+                    font-size: 16px;
+                    font-weight: normal;
+                    color: #fff;
+                    border-radius: 6px;
+                    padding: 5px;
+                    z-index: 2;
+                    top: -10px;
+                    left: 30px;
+                    background: #ffffff 0% 0% no-repeat padding-box;
+                    border: 1px solid #31385a;
+                    border-radius: 5px;
+
+                    ul {
+                      width: 100%;
+                      height: 100%;
+                      overflow: auto;
+                      padding: 0.2rem 0;
+
+                      li {
+                        display: flex;
+                        justify-content: flex-start;
+                        align-items: center;
+                        // margin-bottom: 0.5rem;
+                        padding: 0.2rem 0.2rem;
+                        cursor: pointer;
+
+                        span.table_more_options_icon {
+                          margin-right: 4px;
+                        }
+
+                        span.table_more_options_text {
+                          font: normal normal normal 12px/15px 'DIN2014';
+                          letter-spacing: 0px;
+                          color: #16204e;
+                        }
+
+                        &:hover {
+                          background-color: #16204e1d;
+                        }
+                      }
+
+                      div.table_more_options_divider {
+                        margin: 3px 1rem;
+                        border: 1px solid #eaeaef;
+                      }
+
+                      &::-webkit-scrollbar {
+                        width: 3px;
+                      }
+
+                      /* Track */
+                      &::-webkit-scrollbar-track {
+                        background: var(--gray-line);
+                        border-radius: 5px;
+                      }
+
+                      /* Handle */
+                      &::-webkit-scrollbar-thumb {
+                        background: var(--primary-color);
+                      }
+
+                      /* Handle on hover */
+                      &::-webkit-scrollbar-thumb:hover {
+                        background: var(--grey-light);
+                      }
+                    }
+                  }
+
+                  .vizeo_all_contacts_tooltip_content::after {
+                    content: '';
+                    position: absolute;
+                    top: 13px;
+                    left: -11px;
+                    z-index: 5;
+                    width: 0;
+                    height: 0;
+                    border-top: 5px solid transparent;
+                    border-right: 10px solid var(--primary-color);
+                    border-bottom: 5px solid transparent;
+                  }
+
+                  &:hover {
+                    .vizeo_all_contacts_tooltip_content {
+                      display: inherit;
+                    }
+                  }
+                }
+              }
+            }
+
+            &.contact {
+              li span:nth-child(2) {
+                margin-left: 0.2rem;
+              }
+            }
+          }
+        }
+
+        @include respond-below(md) {
+          table-layout: auto;
+
+          tbody {
+            td {
+              &:nth-child(2) {
+                min-width: 300px;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .form_group {
+      display: flex;
+      flex-direction: column;
+
+      label {
+        grid-area: label;
+        font: normal normal bold 16px/24px 'DIN2014';
+        letter-spacing: 0px;
+        color: var(--primary-light);
+        margin-bottom: 0.6rem;
+        text-align: center;
+      }
+
+      .dropzone {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+        border-width: 2px;
+        border-radius: 2px;
+        border-color: #eeeeee;
+        border-style: dashed;
+        background-color: #fafafa;
+        color: #bdbdbd;
+        outline: none;
+        transition: border 0.24s ease-in-out;
+      }
+
+      p {
+        text-align: center;
+      }
+    }
+  }
+
+  .modal_loader {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .modal_buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+
+    button {
+      padding: 0.5rem 2rem;
+    }
+  }
+}

@@ -1,0 +1,42 @@
+@import '/src/assets/styles/mixins';
+
+.research_container {
+  margin: 1rem 0;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+
+  form {
+    display: flex;
+    gap: 10px;
+
+    input {
+      background: var(--grey-color) 0% 0% no-repeat padding-box;
+      border: 1px solid var(--primary-color);
+      border-radius: 5px;
+      padding: 0.5rem 0.5rem;
+      min-width: 300px;
+      width: auto;
+      font:
+        normal normal normal 11px/14px 'DIN2014',
+        Arial,
+        sans-serif;
+      outline: none;
+
+      @include respond-below(md) {
+        width: inherit;
+      }
+
+      &::placeholder {
+        text-align: left;
+        font:
+          normal normal normal 11px/14px 'DIN2014',
+          Arial,
+          sans-serif;
+        letter-spacing: 0px;
+        color: #9fa5b9;
+        opacity: 1;
+      }
+    }
+  }
+}

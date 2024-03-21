@@ -9,6 +9,7 @@ import styles from './TakeCollectiveTaskModal.module.scss';
 import TaskResponseDto from '../../../../../../utils/types/TaskResponseDto';
 import { toast } from 'react-toastify';
 import { PulseLoader } from 'react-spinners';
+import React from 'react';
 
 const Route = getRouteApi('/app/dashboard/take-collective-task/$taskId');
 

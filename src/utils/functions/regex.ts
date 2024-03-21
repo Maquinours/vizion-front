@@ -1,1 +1,1 @@
-export const fileFolderValidationRegex = /[<>:"/\\|?*]/gm;
+export const fileFolderValidationRegex = /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ']*$/;

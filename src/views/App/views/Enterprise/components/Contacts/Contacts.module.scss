@@ -1,0 +1,30 @@
+@import '/src/assets/styles/mixins';
+
+.container {
+  width: 100%;
+
+  .header {
+    padding: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    gap: 0.5rem;
+    height: fit-content;
+
+    @include respond-below(sm) {
+      flex-wrap: wrap;
+    }
+
+    &_search {
+      display: flex;
+
+      input {
+        outline: none;
+        padding-left: 0.3rem;
+      }
+    }
+  }
+
+  .body {
+    margin-bottom: 1rem;
+  }
+}

@@ -1,10 +1,8 @@
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { useNavigate } from '@tanstack/react-router';
 import ReactModal from 'react-modal';
 import styles from './BusinessGedModal.module.scss';
 import AppViewBusinessGedModalComponentBodyComponent from './components/Body/Body';
 import AppViewBusinessGedModalComponentFooterComponent from './components/Footer/Footer';
-
-const Route = getRouteApi('/app');
 
 export default function AppViewBusinessGedModalComponent() {
   const navigate = useNavigate();
@@ -13,12 +11,17 @@ export default function AppViewBusinessGedModalComponent() {
     <ReactModal
       isOpen={true}
       overlayClassName="Overlay"
-      onRequestClose={() => navigate({ from: Route.id, search: (old) => ({ ...old, appModal: undefined, businessId: undefined, gedItemKey: undefined }) })}
+      onRequestClose={() =>
+        navigate({
+          search: (old) => ({ ...old, appModal: undefined, businessId: undefined, gedItemKey: undefined }),
+          params: (old) => old,
+        })
+      }
       className={styles.modal}
     >
       <div className={styles.modal_container}>
         <div className={styles.modal_header}>
-          <h6>Importer vos photos dans l&pos;affaire</h6>
+          <h6>Importer vos photos dans l&apos;affaire</h6>
         </div>
         <AppViewBusinessGedModalComponentBodyComponent />
         <AppViewBusinessGedModalComponentFooterComponent />

@@ -85,7 +85,7 @@ export default function AppViewCreateBusinessModalComponent() {
     onSuccess: (business) => {
       toast.success(`Affaire créée avec succès.`);
       queryClient.setQueryData(businessQueryKeys.detailById(business.id), business);
-      navigate({ from: Route.id, search: (old) => ({ ...old, modal: 'business-ged', businessId: business.id }) });
+      navigate({ from: Route.id, search: (old) => ({ ...old, appModal: 'business-ged', businessId: business.id }) });
     },
   });
 

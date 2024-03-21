@@ -7,6 +7,7 @@ import TaskResponseDto from '../../../../../../utils/types/TaskResponseDto';
 import { taskQueryKeys } from '../../../../../../utils/constants/queryKeys/task';
 import { toast } from 'react-toastify';
 import styles from './DeleteCollectiveTasksModal.module.scss';
+import React from 'react';
 
 const Route = getRouteApi('/app/dashboard/delete-collective-tasks');
 

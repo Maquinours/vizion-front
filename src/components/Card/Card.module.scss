@@ -36,6 +36,9 @@
       display: flex;
 
       .action {
+        color: rgb(242, 76, 82);
+        font-size: 16px;
+
         &.reload {
           &.spin > svg {
             @keyframes spin {
@@ -52,10 +55,17 @@
           }
         }
 
-        svg {
-          margin-left: 5px;
-          font-size: 16px;
-          color: #f24c52;
+        &.add {
+          svg {
+            margin-left: 5px;
+          }
+        }
+
+        &.edit {
+          svg {
+            margin-left: 5px;
+            color: #fff;
+          }
         }
       }
     }

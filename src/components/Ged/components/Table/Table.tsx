@@ -65,21 +65,8 @@ const gedColumns = [
 type GedComponentTableComponentProps = Readonly<{
   isLoading: boolean;
   data: FileDataTreeResponseDto[] | undefined;
-  canMakeAction: boolean;
-  openCreateDirectoryModal: (item?: FileDataTreeResponseDto) => void;
-  openImportFilesModal: (item?: FileDataTreeResponseDto) => void;
-  openRenameModal: (item: FileDataTreeResponseDto) => void;
-  openDeleteModal: (item: FileDataTreeResponseDto) => void;
 }>;
-export default function GedComponentTableComponent({
-  isLoading,
-  data,
-  canMakeAction,
-  openCreateDirectoryModal,
-  openImportFilesModal,
-  openRenameModal,
-  openDeleteModal,
-}: GedComponentTableComponentProps) {
+export default function GedComponentTableComponent({ isLoading, data }: GedComponentTableComponentProps) {
   const [contextMenuAnchor, setContextMenuAnchor] = useState<VirtualElement>();
   const [selectedItem, setSelectedItem] = useState<FileDataTreeResponseDto>();
 
@@ -105,19 +92,17 @@ export default function GedComponentTableComponent({
     <>
       <div className={styles.ged_table}>
         <div className={styles.table_container}>
-          <TableComponent columns={gedColumns} data={data ?? []} isLoading={isLoading} onRowContextMenu={onRowContextMenu} rowId={'key'} />
+          <TableComponent
+            columns={gedColumns}
+            data={data ?? []}
+            isLoading={isLoading}
+            onRowContextMenu={onRowContextMenu}
+            rowId={'key'}
+            getSubRows={(row) => row.subRows ?? []}
+          />
         </div>
       </div>
-      <GedComponentTableComponentContextMenuComponent
-        anchorElement={contextMenuAnchor}
-        setAnchorElement={setContextMenuAnchor}
-        selectedItem={selectedItem}
-        canMakeAction={canMakeAction}
-        openCreateDirectoryModal={openCreateDirectoryModal}
-        openImportFilesModal={openImportFilesModal}
-        openRenameModal={openRenameModal}
-        openDeleteModal={openDeleteModal}
-      />
+      <GedComponentTableComponentContextMenuComponent anchorElement={contextMenuAnchor} setAnchorElement={setContextMenuAnchor} selectedItem={selectedItem} />
     </>
   );
 }

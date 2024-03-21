@@ -1,11 +1,12 @@
 import { Link, LinkProps, getRouteApi } from '@tanstack/react-router';
 import styles from './Footer.module.scss';
 import classNames from 'classnames';
+import React from 'react';
 
 const Route = getRouteApi('/app');
 
 type MenuItem = {
-  icon: JSX.Element;
+  icon: React.JSX.Element;
   label: string;
   route: LinkProps;
   allowedRoles?: string[];

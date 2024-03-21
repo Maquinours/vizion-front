@@ -71,7 +71,7 @@ export default function AppViewDashboardViewCollectiveTasksComponentTableCompone
                     <div dangerouslySetInnerHTML={{ __html: original.content ?? '' }} />
                   </div>
                   <p>
-                    A : {original.receiver?.to?.toString()?.split(';').join(' ')} {original.receiver?.cc?.toString()}
+                    À : {original.receiver?.to?.toString()?.split(';').join(' ')} {original.receiver?.cc?.toString()}
                   </p>
                   <p>
                     De : <a href={`mailto:${original.name}`}>{original.name}</a>

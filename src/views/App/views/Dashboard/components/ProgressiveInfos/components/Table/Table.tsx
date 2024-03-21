@@ -3,7 +3,7 @@ import TableComponent from '../../../../../../../../components/Table/Table';
 import ProgressiveInfoResponseDto from '../../../../../../../../utils/types/ProgressiveInfoResponseDto';
 import { formatDate } from '../../../../../../../../utils/functions/dates';
 import { VirtualElement } from '@popperjs/core';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import AppViewDashboardViewProgressiveInfosComponentTableComponentContextMenuComponent from './components/ContextMenu/ContextMenu';
 import styles from './Table.module.scss';
 

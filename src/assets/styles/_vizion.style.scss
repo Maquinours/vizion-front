@@ -365,10 +365,15 @@ main.app__layout {
     color: var(--secondary-color);
     opacity: 1;
   }
+}
 
-  ul {
-    list-style-type: none;
-  }
+a {
+  text-decoration: inherit;
+  color: inherit;
+}
+
+ul {
+  list-style-type: none;
 }
 
 #app {
@@ -1425,7 +1430,7 @@ button[type='submit'].btn {
 
 button {
   background: inherit;
-  border: inherit;
+  border: none;
   font: normal normal normal 14px/18px $primary-font-family;
   cursor: pointer;
 }

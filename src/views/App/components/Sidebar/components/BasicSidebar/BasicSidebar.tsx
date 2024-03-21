@@ -1,12 +1,10 @@
-import { MdBusinessCenter } from 'react-icons/md';
+import { MdBusinessCenter, MdGroups, MdGroup } from 'react-icons/md';
 import styles from './BasicSidebar.module.scss';
 import { Link, LinkProps } from '@tanstack/react-router';
 import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthentifiedUser';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { IconType } from 'react-icons/lib';
 import { IoMdHome } from 'react-icons/io';
-import TaskState from '../../../../../../utils/enums/TaskState';
-import { Views } from 'react-big-calendar';
 
 type MenuItem = {
   icon: IconType;
@@ -15,39 +13,58 @@ type MenuItem = {
   allowedRoles?: string[];
 };
 
-const MENUS: MenuItem[] = [
-  {
-    icon: MdBusinessCenter,
-    label: 'Nouvelle affaire',
-    route: {
-      params: (old) => old,
-      search: (old) => ({ ...old, modal: 'create-client-business', businessId: undefined, gedItemKey: undefined }),
-    },
-    allowedRoles: ['ROLE_DISTRIBUTEUR', 'ROLE_CLIENT'],
-  },
-  {
-    icon: IoMdHome,
-    label: 'Tableau de bord',
-    route: {
-      to: '/app/dashboard',
-      search: (old) => ({
-        ...old,
-        personalTaskState: TaskState.CREATED,
-        personalTaskPage: 0,
-        personalTaskSize: 10,
-        schedulerView: Views.DAY,
-        schedulerDate: new Date(),
-      }),
-      params: (old) => old,
-    },
-    allowedRoles: ['ROLE_MEMBRE_VIZEO'],
-  },
-];
-
 export default function SidebarComponentBasicSidebarComponent() {
   const { data: authentifiedUser } = useAuthentifiedUserQuery();
 
-  const menus = MENUS.filter((menu) => !menu.allowedRoles || menu.allowedRoles.some((role) => authentifiedUser.userInfo.roles.includes(role)));
+  const MENUS: MenuItem[] = useMemo(
+    () => [
+      {
+        icon: MdBusinessCenter,
+        label: 'Nouvelle affaire',
+        route: {
+          params: (old) => old,
+          search: (old) => ({ ...old, appModal: 'create-client-business', businessId: undefined, gedItemKey: undefined }),
+        },
+        allowedRoles: ['ROLE_DISTRIBUTEUR', 'ROLE_CLIENT'],
+      },
+      {
+        icon: IoMdHome,
+        label: 'Tableau de bord',
+        route: {
+          to: '/app/dashboard',
+          search: {},
+          params: {},
+        },
+        allowedRoles: ['ROLE_MEMBRE_VIZEO'],
+      },
+      {
+        icon: MdGroup,
+        label: 'Mon entreprise',
+        route: {
+          to: '/app/enterprises/$enterpriseId',
+          search: {},
+          params: { entepriseId: authentifiedUser.profile.enterprise!.id },
+        },
+        allowedRoles: ['ROLE_CLIENT'],
+      },
+      {
+        icon: MdGroups,
+        label: 'Entreprises',
+        route: {
+          to: '/app/enterprises',
+          search: {},
+          params: {},
+        },
+        allowedRoles: ['ROLE_MEMBRE_VIZEO', 'ROLE_REPRESENTANT', 'ROLE_DISTRIBUTEUR'],
+      },
+    ],
+    [authentifiedUser.profile.enterprise],
+  );
+
+  const menus = useMemo(
+    () => MENUS.filter((menu) => !menu.allowedRoles || menu.allowedRoles.some((role) => authentifiedUser.userInfo.roles.includes(role))),
+    [MENUS, authentifiedUser.userInfo.roles],
+  );
 
   return (
     <div className={styles.container}>

@@ -1,0 +1,190 @@
+@import '/src/assets/styles/mixins';
+
+.container {
+  width: 100%;
+  padding-bottom: 0.2rem;
+
+  table {
+    width: 100%;
+    opacity: 1;
+    border-collapse: collapse;
+    border-spacing: 0;
+    table-layout: auto;
+
+    thead tr:nth-child(1) {
+      border-top: 1px solid #9fa5b9;
+      border-bottom: 1px solid #9fa5b9;
+
+      th {
+        padding: 0.5rem 0 0.5rem 1rem;
+        text-align: left;
+        font: normal normal normal 12px/18px 'DIN2014';
+        letter-spacing: 0px;
+        color: var(--primary-light);
+        opacity: 1;
+        border-right: 1px solid #9fa5b9;
+        background-color: #fff;
+
+        &:nth-last-child(1) {
+          border-right: none;
+        }
+      }
+    }
+
+    tbody {
+      tr {
+        background-color: #fff;
+      }
+
+      tr:hover {
+        background-color: #e5e5e5;
+      }
+
+      tr:nth-child(2n + 1) {
+        background: #f2f3f8 0% 0% no-repeat padding-box;
+        opacity: 1;
+      }
+
+      td {
+        padding: 0.5rem 0 0.5rem 1rem;
+        text-align: left;
+        font: normal normal normal 12px/15px 'DIN2014';
+        letter-spacing: 0px;
+        color: var(--primary-light);
+        opacity: 1;
+
+        div.vizeo__contact__table__email_more_cell {
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+
+          div.vizeo__contact__table_tooltip {
+            position: relative;
+            width: auto;
+
+            svg {
+              position: relative;
+              color: var(--secondary-color);
+              font-size: 18px;
+              align-self: center;
+              cursor: pointer;
+              padding-right: 5px;
+            }
+
+            .vizeo__contact__table_tooltip_content {
+              display: none;
+              position: absolute;
+              width: 182px;
+              height: auto;
+              font-size: 16px;
+              font-weight: normal;
+              color: #fff;
+              border-radius: 6px;
+              padding: 5px;
+              z-index: 2;
+              top: -10px;
+              left: 20px;
+              background: #ffffff 0% 0% no-repeat padding-box;
+              border: 1px solid #31385a;
+              border-radius: 5px;
+
+              ul {
+                width: 100%;
+                height: 100%;
+                overflow: auto;
+                padding: 0.2rem 0;
+
+                li {
+                  display: flex;
+                  align-items: center;
+                  // margin-bottom: 0.5rem;
+                  padding: 0.2rem 0.2rem;
+                  cursor: pointer;
+
+                  span.table_more_options_icon {
+                    margin-right: 4px;
+                  }
+
+                  span.table_more_options_text {
+                    font: normal normal normal 12px/15px 'DIN2014';
+                    letter-spacing: 0px;
+                    color: #16204e;
+                  }
+
+                  &:hover {
+                    background-color: #16204e1d;
+                  }
+                }
+
+                div.table_more_options_divider {
+                  margin: 3px 1rem;
+                  border: 1px solid #eaeaef;
+                }
+
+                &::-webkit-scrollbar {
+                  width: 3px;
+                }
+
+                /* Track */
+                &::-webkit-scrollbar-track {
+                  background: var(--gray-line);
+                  border-radius: 5px;
+                }
+
+                /* Handle */
+                &::-webkit-scrollbar-thumb {
+                  background: var(--primary-color);
+                }
+
+                /* Handle on hover */
+                &::-webkit-scrollbar-thumb:hover {
+                  background: var(--grey-light);
+                }
+              }
+            }
+
+            .vizeo__contact__table_tooltip_content::after {
+              content: '';
+              position: absolute;
+              top: 13px;
+              left: -11px;
+              z-index: 5;
+              width: 0;
+              height: 0;
+              border-top: 5px solid transparent;
+              border-right: 10px solid var(--primary-color);
+              border-bottom: 5px solid transparent;
+            }
+
+            &:hover {
+              .vizeo__contact__table_tooltip_content {
+                display: inline;
+
+                @include respond-below(sm) {
+                  left: -190px;
+
+                  &::after {
+                    right: -11px;
+                    left: initial;
+                    border-right: none;
+                    border-left: 10px solid var(--primary-color);
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        @include respond-below(md) {
+          div {
+            width: 6rem;
+          }
+        }
+      }
+    }
+  }
+
+  @include respond-below(md) {
+    overflow-x: auto;
+  }
+}

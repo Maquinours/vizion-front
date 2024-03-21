@@ -4,83 +4,49 @@ import FileType from '../../utils/enums/FileType';
 import { getDirectoryByTypeAndIdOnS3 } from '../../utils/api/ged';
 import GedComponentButtonsComponent from './components/Buttons/Buttons';
 import GedComponentTableComponent from './components/Table/Table';
-import GedComponentCreateDirectoryModalComponent from './components/CreateDirectoryModal/CreateDirectoryModal';
-import FileDataTreeResponseDto from '../../utils/types/FileDataTreeResponseDto';
-import GedComponentImportFilesModalComponent from './components/ImportFilesModal/ImportFilesModal';
-import GedComponentRenameModalComponent from './components/RenameModal/RenameModal';
-import GedComponentDeleteModalComponent from './components/DeleteModal/DeleteModal';
 import CardComponent from '../Card/Card';
+import { GedContext } from './utils/contexts/ged';
+import FileDataTreeResponseDto from '../../utils/types/FileDataTreeResponseDto';
+import { useMemo } from 'react';
+import { LinkOptions } from '@tanstack/react-router';
 
 type GedComponentProps = Readonly<{
   type: FileType;
   id: string;
   canMakeAction?: boolean;
-  openCreateDirectoryModal: (item?: FileDataTreeResponseDto) => void;
-  openImportFilesModal: (item?: FileDataTreeResponseDto) => void;
-  openRenameModal: (item: FileDataTreeResponseDto) => void;
-  openDeleteModal: (item: FileDataTreeResponseDto) => void;
-  closeCreateDirectoryModal: () => void;
-  closeImportFilesModal: () => void;
-  closeRenameModal: () => void;
-  closeDeleteModal: () => void;
-  modal: 'create-directory' | 'import-files' | 'rename' | 'delete' | undefined;
-  element?: FileDataTreeResponseDto;
+  getCreateDirectoryLink: (data?: FileDataTreeResponseDto) => LinkOptions;
+  getImportFilesLink: (data?: FileDataTreeResponseDto) => LinkOptions;
+  getRenameLink: (data: FileDataTreeResponseDto) => LinkOptions;
+  getDeleteLink: (data: FileDataTreeResponseDto) => LinkOptions;
 }>;
 export default function GedComponent({
   type,
   id,
   canMakeAction = true,
-  openCreateDirectoryModal,
-  openImportFilesModal,
-  openRenameModal,
-  openDeleteModal,
-  closeCreateDirectoryModal,
-  closeImportFilesModal,
-  closeRenameModal,
-  closeDeleteModal,
-  modal,
-  element,
+  getCreateDirectoryLink,
+  getImportFilesLink,
+  getRenameLink,
+  getDeleteLink,
 }: GedComponentProps) {
   const { data, isLoading, refetch } = useQuery({
     queryKey: gedQueryKeys.detailByTypeAndId(type, id),
     queryFn: () => getDirectoryByTypeAndIdOnS3(type, id),
+    select: (data) => data.at(0)?.subRows ?? [],
   });
 
-  const modalElement = (() => {
-    switch (modal) {
-      case 'create-directory':
-        return <GedComponentCreateDirectoryModalComponent id={id} type={type} directory={element} onClose={closeCreateDirectoryModal} />;
-      case 'import-files':
-        return <GedComponentImportFilesModalComponent directory={element} id={id} type={type} onClose={closeImportFilesModal} />;
-      case 'rename':
-        return <GedComponentRenameModalComponent id={id} type={type} item={element!} onClose={closeRenameModal} />;
-      case 'delete':
-        return <GedComponentDeleteModalComponent type={type} id={id} item={element!} onClose={closeDeleteModal} />;
-    }
-  })();
+  const gedContextValue = useMemo(
+    () => ({ canMakeAction, getCreateDirectoryLink, getImportFilesLink, getRenameLink, getDeleteLink }),
+    [canMakeAction, getCreateDirectoryLink, getImportFilesLink, getRenameLink, getDeleteLink],
+  );
 
   return (
-    <>
-      <CardComponent title="Gestion électronique de documents">
-        <div>
-          <GedComponentButtonsComponent
-            canMakeAction={canMakeAction}
-            openImportFilesModal={openImportFilesModal}
-            openCreateDirectoryModal={openCreateDirectoryModal}
-            onReload={refetch}
-          />
-          <GedComponentTableComponent
-            isLoading={isLoading}
-            data={data}
-            canMakeAction={canMakeAction}
-            openCreateDirectoryModal={openCreateDirectoryModal}
-            openImportFilesModal={openImportFilesModal}
-            openRenameModal={openRenameModal}
-            openDeleteModal={openDeleteModal}
-          />
-        </div>
-      </CardComponent>
-      {modalElement}
-    </>
+    <CardComponent title="Gestion électronique de documents">
+      <div>
+        <GedContext.Provider value={gedContextValue}>
+          <GedComponentButtonsComponent onReload={refetch} />
+          <GedComponentTableComponent isLoading={isLoading} data={data} />
+        </GedContext.Provider>
+      </div>
+    </CardComponent>
   );
 }

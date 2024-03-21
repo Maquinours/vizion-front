@@ -1,0 +1,24 @@
+@import '/src/assets/styles/mixins';
+
+.no_content,
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.address_container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+
+  @include respond-below(md) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include respond-below(sm) {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}

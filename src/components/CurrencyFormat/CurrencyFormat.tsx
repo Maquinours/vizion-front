@@ -1,7 +1,7 @@
 import { NumericFormat } from 'react-number-format';
 
 type CurrencyFormatProps = Readonly<{
-  value: number;
+  value: string | number | null | undefined;
   className?: string;
 }>;
 export default function CurrencyFormat({ value, className }: CurrencyFormatProps) {

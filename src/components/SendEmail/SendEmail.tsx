@@ -14,6 +14,7 @@ import { SendEmailFormContext } from './utils/contexts/sendEmail';
 import { useMemo } from 'react';
 import MailResponseDto from '../../utils/types/MailResponseDto';
 import { formatDateWithHour } from '../../utils/functions/dates';
+import { toast } from 'react-toastify';
 
 const yupSchema = yup.object({
   recipient: yup
@@ -55,7 +56,7 @@ const yupSchema = yup.object({
 
 export type SendEmailFormSchema = yup.InferType<typeof yupSchema>;
 
-type SendEmailComponentProps = Readonly<{
+export type SendEmailComponentProps = Readonly<{
   defaultSubject?: string;
   defaultRecipient?: Array<string>;
   defaultCc?: Array<string>;
@@ -76,9 +77,10 @@ type SendEmailComponentProps = Readonly<{
     technicalAssistanceId?: string;
   };
   showPredefinedMessagesModal?: boolean;
-  openPredefinedMessagesModal: () => void;
-  closePredefinedMessagesModal: () => void;
+  openPredefinedMessagesModal?: () => void;
+  closePredefinedMessagesModal?: () => void;
   emailToReply?: MailResponseDto;
+  onEmailSent?: () => void;
 }>;
 export default function SendEmailComponent({
   defaultSubject,
@@ -92,6 +94,7 @@ export default function SendEmailComponent({
   openPredefinedMessagesModal,
   closePredefinedMessagesModal,
   emailToReply,
+  onEmailSent,
 }: SendEmailComponentProps) {
   const { data: user } = useAuthentifiedUserQuery();
 
@@ -131,6 +134,16 @@ export default function SendEmailComponent({
         files: data.attachments.map(({ file }) => file),
         ...lifeSheetInfoDto,
       }),
+    onSuccess: () => {
+      toast.success('Email envoyé avec succès.');
+      if (onEmailSent) {
+        onEmailSent();
+      }
+    },
+    onError: (error) => {
+      console.error(error);
+      toast.error("Une erreur est survenue lors de l'envoi de l'email.");
+    },
   });
 
   const contextValue = useMemo(() => ({ control, register, errors, watch, setValue }), [control, register, errors, watch, setValue]);
@@ -140,9 +153,11 @@ export default function SendEmailComponent({
       <div className={styles.container}>
         <div className={styles.header_container}>
           <div className={styles.header_right}>
-            <button className="btn btn-primary" onClick={() => openPredefinedMessagesModal()}>
-              Messages prédéfinis
-            </button>
+            {openPredefinedMessagesModal && closePredefinedMessagesModal && (
+              <button className="btn btn-primary" onClick={() => openPredefinedMessagesModal()}>
+                Messages prédéfinis
+              </button>
+            )}
           </div>
         </div>
         <div className={styles.mailbox_container}>
@@ -154,7 +169,7 @@ export default function SendEmailComponent({
           </form>
         </div>
       </div>
-      {showPredefinedMessagesModal && (
+      {showPredefinedMessagesModal && openPredefinedMessagesModal && closePredefinedMessagesModal && (
         <SendEmailComponentPredefinedMessagesModalComponent watch={watch} setValue={setValue} onClose={closePredefinedMessagesModal} />
       )}
       <LoaderModal isLoading={isPending} />

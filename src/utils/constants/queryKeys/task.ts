@@ -11,4 +11,5 @@ export const taskQueryKeys = {
   pages: () => [...taskQueryKeys.all, 'pages'] as const,
   pageByStateAndProfileId: (state: TaskState, profileId: string, page: number, size: number) =>
     [...taskQueryKeys.pages(), { state, profileId, page, size }] as const,
+  pageByEnterpriseId: (enterpriseId: string, page: number, size: number) => [...taskQueryKeys.pages(), { enterpriseId, page, size }] as const,
 };

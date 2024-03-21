@@ -5,6 +5,7 @@ export default function CustomSelect<T>({ ...props }: CustomSelectProps<T>) {
   return (
     <ReactSelect
       {...props}
+      loadingMessage={() => 'Chargement...'}
       theme={(theme) => ({
         ...theme,
         borderRadius: 5,

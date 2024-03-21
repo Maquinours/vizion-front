@@ -1,0 +1,23 @@
+.modal_header {
+  background-color: var(--primary-color);
+  width: 100%;
+  padding: 0.4rem;
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid var(--primary-color);
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+
+  svg {
+    cursor: pointer;
+  }
+
+  .modal_title {
+    text-align: center;
+    font:
+      normal normal bold 16px/21px 'DIN2014',
+      Arial,
+      sans-serif;
+    color: #fff;
+  }
+}

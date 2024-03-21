@@ -8,6 +8,7 @@ import { getProgressiveInfoById } from '../../../../../../utils/api/progressiveI
 import { toast } from 'react-toastify';
 import ProgressiveInfoResponseDto from '../../../../../../utils/types/ProgressiveInfoResponseDto';
 import styles from './DeleteProgressiveInfoModal.module.scss';
+import React from 'react';
 
 const Route = getRouteApi('/app/dashboard/delete-progressive-info/$progressiveInfoId');
 

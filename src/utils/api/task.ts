@@ -81,3 +81,17 @@ export const getPaginatedTasksByStateAndProfileId = async (state: TaskState, pro
     })
   ).data;
 };
+
+export const getTasksPageByEnterpriseId = async (enterpriseId: string, page: number, size: number) => {
+  return (
+    await privateInstance<Page<TaskResponseDto>>({
+      method: 'GET',
+      url: `/workloads/v1/tasks/all-by-enterprise-paged`,
+      params: {
+        enterpriseId,
+        page,
+        size,
+      },
+    })
+  ).data;
+};

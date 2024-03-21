@@ -6,17 +6,19 @@ import { FiMaximize2 } from 'react-icons/fi';
 import { VscChromeMinimize } from 'react-icons/vsc';
 import classNames from 'classnames';
 import { Link, LinkProps } from '@tanstack/react-router';
+import { HiPencilAlt } from 'react-icons/hi';
 
 type CardComponentProps = Readonly<{
   title: string;
   isMinimized?: boolean;
   setMinimized?: (value: boolean) => void;
   addLink?: LinkProps;
+  editLink?: LinkProps;
   onReload?: () => void;
   isReloading?: boolean;
   children: ReactNode;
 }>;
-export default function CardComponent({ title, isMinimized, setMinimized, addLink, onReload, isReloading, children }: CardComponentProps) {
+export default function CardComponent({ title, isMinimized, setMinimized, addLink, editLink, onReload, isReloading, children }: CardComponentProps) {
   return (
     <div className={styles.card}>
       <div className={styles.header}>
@@ -28,8 +30,13 @@ export default function CardComponent({ title, isMinimized, setMinimized, addLin
             </button>
           )}
           {addLink && (
-            <Link {...addLink} className={styles.action}>
+            <Link {...addLink} className={classNames(styles.action, styles.add)}>
               <IoMdAddCircleOutline />
+            </Link>
+          )}
+          {editLink && (
+            <Link {...editLink} className={classNames(styles.action, styles.edit)}>
+              <HiPencilAlt />
             </Link>
           )}
           {onReload && (

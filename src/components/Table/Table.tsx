@@ -12,6 +12,8 @@ type TableComponentProps<T> = Readonly<{
   rowSelection?: RowSelectionState;
   setRowSelection?: React.Dispatch<React.SetStateAction<RowSelectionState>>;
   rowId: keyof T;
+  getRowCanExpand?(row: Row<T>): boolean;
+  getSubRows?(row: T): Array<T>;
 }>;
 export default function TableComponent<T>({
   columns,
@@ -22,6 +24,8 @@ export default function TableComponent<T>({
   rowSelection,
   setRowSelection,
   rowId,
+  getRowCanExpand,
+  getSubRows,
 }: TableComponentProps<T>) {
   const { getHeaderGroups, getRowModel } = useReactTable({
     data,
@@ -32,6 +36,8 @@ export default function TableComponent<T>({
     onRowSelectionChange: setRowSelection,
     getCoreRowModel: getCoreRowModel(),
     getExpandedRowModel: getExpandedRowModel(),
+    getRowCanExpand,
+    getSubRows,
     getRowId: (row) => row[rowId] as string,
   });
 
