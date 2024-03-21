@@ -1,11 +1,10 @@
 import { createFileRoute, redirect } from '@tanstack/react-router';
 import { z } from 'zod';
-import YEARS from '../../../utils/constants/years';
-import { getAvailableMonthsForYear } from '../../../utils/functions/moment';
-import enterpriseQueryKeys from '../../../utils/constants/queryKeys/enterprise';
-import CategoryClient from '../../../utils/enums/CategoryClient';
-import { getEnterprisesByCategory } from '../../../utils/api/enterprises';
-import RepresentativesTurnoverView from '../../../views/App/views/RepresentativesTurnover/RepresentativesTurnover';
+import YEARS from '../../../../utils/constants/years';
+import { getAvailableMonthsForYear } from '../../../../utils/functions/moment';
+import enterpriseQueryKeys from '../../../../utils/constants/queryKeys/enterprise';
+import CategoryClient from '../../../../utils/enums/CategoryClient';
+import { getEnterprisesByCategory } from '../../../../utils/api/enterprises';
 
 const searchSchema = z.object({
   representativeId: z.string().optional().catch(undefined),
@@ -37,5 +36,4 @@ export const Route = createFileRoute('/app/tools/representatives-turnover')({
         search: { ...search, representativeId: undefined },
       });
   },
-  component: RepresentativesTurnoverView,
 });
