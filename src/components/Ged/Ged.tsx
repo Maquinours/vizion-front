@@ -28,7 +28,7 @@ export default function GedComponent({
   getRenameLink,
   getDeleteLink,
 }: GedComponentProps) {
-  const { data, isLoading, refetch } = useQuery({
+  const { data, isLoading, refetch, isRefetching } = useQuery({
     queryKey: gedQueryKeys.detailByTypeAndId(type, id),
     queryFn: () => getDirectoryByTypeAndIdOnS3(type, id),
     select: (data) => data.at(0)?.subRows ?? [],
@@ -43,7 +43,7 @@ export default function GedComponent({
     <CardComponent title="Gestion électronique de documents">
       <div>
         <GedContext.Provider value={gedContextValue}>
-          <GedComponentButtonsComponent onReload={refetch} />
+          <GedComponentButtonsComponent refetch={refetch} isRefetching={isRefetching} />
           <GedComponentTableComponent isLoading={isLoading} data={data} />
         </GedContext.Provider>
       </div>

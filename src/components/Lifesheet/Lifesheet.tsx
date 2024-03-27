@@ -10,7 +10,6 @@ import {
   getLifesheetPageByProductId,
   getLifesheetPageByRmaId,
 } from '../../utils/api/lifesheet';
-import { MdRefresh } from 'react-icons/md';
 import styles from './Lifesheet.module.scss';
 import TableComponent from '../Table/Table';
 import PaginationComponent from '../Pagination/Pagination';
@@ -18,6 +17,7 @@ import { createColumnHelper } from '@tanstack/react-table';
 import LifeSheetResponseDto from '../../utils/types/LifeSheetResponseDto';
 import { formatDateAndHourWithSlash } from '../../utils/functions/dates';
 import classNames from 'classnames';
+import RefreshButtonComponent from '../RefreshButton/RefreshButton';
 
 const size = 5;
 
@@ -47,7 +47,7 @@ type LifesheetComponentProps = Readonly<{
   pageLink: (page: number) => LinkProps;
 }>;
 export default function LifesheetComponent({ associatedItemType, associatedItemId, page, createLink, pageLink }: LifesheetComponentProps) {
-  const { data, isLoading, refetch } = useQuery({
+  const { data, isLoading, refetch, isRefetching } = useQuery({
     queryKey: lifesheetQueryKeys.pageByAssociatedItemAndId(associatedItemType, associatedItemId, page, size),
     queryFn: () => {
       switch (associatedItemType) {
@@ -71,9 +71,7 @@ export default function LifesheetComponent({ associatedItemType, associatedItemI
         <Link {...createLink} className={classNames('btn btn-primary', styles.link)}>
           Ajouter un commentaire
         </Link>
-        <button className={classNames('btn btn-primary', styles.button)} onClick={() => refetch()}>
-          <MdRefresh />
-        </button>
+        <RefreshButtonComponent className={classNames('btn btn-primary', styles.button)} onRefresh={refetch} isRefreshing={isRefetching} />
 
         <div className={styles.table_container}>
           <TableComponent columns={columns} data={data?.content} isLoading={isLoading} rowId={'id'} />
