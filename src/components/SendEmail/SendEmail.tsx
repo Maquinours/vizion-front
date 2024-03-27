@@ -9,12 +9,12 @@ import styles from './SendEmail.module.scss';
 import LoaderModal from '../LoaderModal/LoaderModal';
 import { useMutation } from '@tanstack/react-query';
 import { sendEmail } from './utils/api/email';
-import SendEmailComponentPredefinedMessagesModalComponent from './components/PredefinedMessagesModal/PredefinedMessagesModal';
 import { SendEmailFormContext } from './utils/contexts/sendEmail';
 import { useMemo } from 'react';
 import MailResponseDto from '../../utils/types/MailResponseDto';
 import { formatDateWithHour } from '../../utils/functions/dates';
 import { toast } from 'react-toastify';
+import { LinkProps, Outlet, Link } from '@tanstack/react-router';
 
 const yupSchema = yup.object({
   recipient: yup
@@ -76,9 +76,7 @@ export type SendEmailComponentProps = Readonly<{
     productReference?: string;
     technicalAssistanceId?: string;
   };
-  showPredefinedMessagesModal?: boolean;
-  openPredefinedMessagesModal?: () => void;
-  closePredefinedMessagesModal?: () => void;
+  predefinedMessagesModalLink?: LinkProps;
   emailToReply?: MailResponseDto;
   onEmailSent?: () => void;
 }>;
@@ -90,9 +88,7 @@ export default function SendEmailComponent({
   defaultContent,
   defaultAttachments,
   lifeSheetInfoDto,
-  showPredefinedMessagesModal = false,
-  openPredefinedMessagesModal,
-  closePredefinedMessagesModal,
+  predefinedMessagesModalLink,
   emailToReply,
   onEmailSent,
 }: SendEmailComponentProps) {
@@ -149,30 +145,26 @@ export default function SendEmailComponent({
   const contextValue = useMemo(() => ({ control, register, errors, watch, setValue }), [control, register, errors, watch, setValue]);
 
   return (
-    <>
+    <SendEmailFormContext.Provider value={contextValue}>
       <div className={styles.container}>
         <div className={styles.header_container}>
           <div className={styles.header_right}>
-            {openPredefinedMessagesModal && closePredefinedMessagesModal && (
-              <button className="btn btn-primary" onClick={() => openPredefinedMessagesModal()}>
+            {predefinedMessagesModalLink && (
+              <Link {...predefinedMessagesModalLink} className="btn btn-primary">
                 Messages prédéfinis
-              </button>
+              </Link>
             )}
           </div>
         </div>
         <div className={styles.mailbox_container}>
           <form onSubmit={handleSubmit((data) => mutate(data))} onReset={() => reset()}>
-            <SendEmailFormContext.Provider value={contextValue}>
-              <SendEmailComponentHeaderComponent />
-              <SendEmailComponentBodyComponent />
-            </SendEmailFormContext.Provider>
+            <SendEmailComponentHeaderComponent />
+            <SendEmailComponentBodyComponent />
           </form>
         </div>
       </div>
-      {showPredefinedMessagesModal && openPredefinedMessagesModal && closePredefinedMessagesModal && (
-        <SendEmailComponentPredefinedMessagesModalComponent watch={watch} setValue={setValue} onClose={closePredefinedMessagesModal} />
-      )}
       <LoaderModal isLoading={isPending} />
-    </>
+      <Outlet />
+    </SendEmailFormContext.Provider>
   );
 }

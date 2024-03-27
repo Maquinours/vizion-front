@@ -37,7 +37,7 @@ export default function AppLayoutTopbarComponentBasicTopbarComponent({ logout }:
         </div>
         {currentUser.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && (
           <div className={styles.email}>
-            <Link to="/app/emails/send">Écrire un mail</Link>
+            <Link to="/app/tools/emails/send">Écrire un mail</Link>
           </div>
         )}
 
