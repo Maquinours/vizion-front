@@ -20,7 +20,7 @@
       th {
         padding-left: 0.5rem;
         height: 25px;
-        text-align: left;
+        text-align: center;
         font:
           normal normal normal 12px/18px 'DIN2014',
           Arial,
@@ -32,10 +32,6 @@
         background-color: #fff;
 
         &:nth-last-child(1) {
-          border-right: none;
-        }
-
-        &:nth-last-child(2) {
           border-right: none;
         }
 
@@ -91,7 +87,7 @@
 
       td {
         padding: 0.5rem 0 0.5rem 0.5rem;
-        text-align: left;
+        text-align: center;
         font:
           normal normal normal 12px/15px 'DIN2014',
           Arial,

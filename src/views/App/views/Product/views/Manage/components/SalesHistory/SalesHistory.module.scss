@@ -46,6 +46,10 @@
     }
   }
 
+  .table .container table thead tr th:nth-child(4) {
+    width: 15%;
+  }
+
   .total_container {
     width: 100%;
     display: flex;
