@@ -95,3 +95,14 @@ export const getTasksPageByEnterpriseId = async (enterpriseId: string, page: num
     })
   ).data;
 };
+
+export const getTasksPageByProductId = (productId: string, page: number, size: number) => {
+  return privateInstance<Page<TaskResponseDto>>({
+    url: `/workloads/v1/tasks/all-by-product-paged`,
+    params: {
+      productId,
+      page,
+      size,
+    },
+  }).then((res) => res.data);
+};

@@ -8,9 +8,9 @@ type AdvancedSpecificationProductKeyResponseDto = {
 type AdvancedProductSpecificationProductResponseDto = {
   id: AdvancedSpecificationProductKeyResponseDto | null;
   specification: AdvancedProductSpecificationResponseDto | null;
-  value: string | null;
-  minValue: string | null;
-  maxValue: string | null;
+  value: number | null;
+  minValue: number | null;
+  maxValue: number | null;
   createdDate: Date;
   modifiedDate: Date | null;
   createdBy: string | null;

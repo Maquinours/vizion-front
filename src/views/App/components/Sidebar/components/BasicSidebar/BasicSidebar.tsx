@@ -1,4 +1,4 @@
-import { MdBusinessCenter, MdGroups, MdGroup } from 'react-icons/md';
+import { MdBusinessCenter, MdGroups, MdGroup, MdSell } from 'react-icons/md';
 import styles from './BasicSidebar.module.scss';
 import { Link, LinkProps } from '@tanstack/react-router';
 import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthentifiedUser';
@@ -46,6 +46,15 @@ export default function SidebarComponentBasicSidebarComponent() {
           params: { entepriseId: authentifiedUser.profile.enterprise!.id },
         },
         allowedRoles: ['ROLE_CLIENT'],
+      },
+      {
+        icon: MdSell,
+        label: 'Produits',
+        route: {
+          to: '/app/products',
+          search: {},
+          params: {},
+        },
       },
       {
         icon: MdGroups,

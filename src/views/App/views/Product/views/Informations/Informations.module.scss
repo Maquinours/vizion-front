@@ -1,0 +1,50 @@
+@import '/src/assets/styles/mixins';
+
+.product_info_container {
+  display: grid;
+  grid-template-columns: 350px repeat(1, 1fr);
+  gap: 1rem;
+
+  @include respond-below(md) {
+    grid-template-columns: initial;
+
+    & > div:nth-child(2) {
+      grid-column-start: 1;
+      grid-column-end: 4;
+    }
+
+    .info_ged_container {
+      grid-column-start: 1;
+      grid-column-end: 4;
+    }
+  }
+
+  .info_ged_container {
+    display: grid;
+    row-gap: 0.5rem;
+    height: fit-content;
+
+    & > div:nth-child(2) {
+      height: auto;
+    }
+  }
+
+  & > div:nth-child(2) {
+    grid-column-start: 2;
+    grid-column-end: 4;
+  }
+
+  & > div:nth-child(3) {
+    grid-column-start: 1;
+    grid-column-end: 4;
+    height: auto;
+  }
+
+  .info_lifeSheet_task_container {
+    display: grid;
+    grid-column-start: 1;
+    grid-column-end: 4;
+    gap: 1rem;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

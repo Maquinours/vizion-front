@@ -1,0 +1,40 @@
+@import '../../../Versions/components/Table/Table.module.scss';
+
+.container {
+  table {
+    border: none;
+    border-collapse: collapse;
+    table-layout: fixed;
+
+    thead tr {
+      th {
+        border-right: 1px solid #9fa5b9;
+
+        &:nth-last-child(1) {
+          border-right: none;
+          width: inherit;
+        }
+
+        &:nth-last-child(2) {
+          border-right: 1px solid #9fa5b9;
+          width: inherit;
+        }
+      }
+    }
+
+    tbody {
+      tr {
+        background-color: #fff;
+      }
+
+      tr:hover {
+        background-color: #e5e5e5;
+      }
+
+      tr:nth-child(2n + 1) {
+        background: #f2f3f8 0% 0% no-repeat padding-box;
+        opacity: 1;
+      }
+    }
+  }
+}

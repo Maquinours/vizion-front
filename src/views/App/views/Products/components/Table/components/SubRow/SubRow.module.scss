@@ -1,0 +1,17 @@
+.sub_row {
+  height: auto;
+  background: #b4cafcab 0% 0% no-repeat padding-box !important;
+
+  .sub_row_title {
+    text-align: left;
+    font: normal normal bold 14px/18px 'DIN2014';
+    letter-spacing: 0px;
+    color: #16204e;
+    opacity: 1;
+  }
+}
+
+.sub_row_content {
+  min-height: 150px;
+  background: #b4cafcab !important;
+}

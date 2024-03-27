@@ -1,0 +1,6 @@
+@import '../AssociatedProducts/AssociatedProducts.module.scss';
+
+.container {
+  @extend .container;
+  position: relative;
+}

@@ -17,6 +17,7 @@ const enterpriseQueryKeys = {
   lists: () => [...enterpriseQueryKeys.all, 'list'] as const,
   listAll: () => [...enterpriseQueryKeys.lists(), 'all'] as const,
   listByCategory: (category: CategoryClient) => [...enterpriseQueryKeys.lists(), { category }] as const,
+  listProviders: () => [...enterpriseQueryKeys.lists(), { provider: true }] as const,
   details: () => [...enterpriseQueryKeys.all, 'details'] as const,
   detailById: (id: string) => [...enterpriseQueryKeys.details(), { id }] as const,
   pages: () => [...enterpriseQueryKeys.all, 'page'] as const,

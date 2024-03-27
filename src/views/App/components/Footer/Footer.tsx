@@ -1,24 +1,67 @@
 import { Link, LinkProps, getRouteApi } from '@tanstack/react-router';
 import styles from './Footer.module.scss';
 import classNames from 'classnames';
-import React from 'react';
+import React, { useMemo } from 'react';
+import { useAuthentifiedUserQuery } from '../../utils/functions/getAuthentifiedUser';
+import { MdGroup, MdGroups, MdSell } from 'react-icons/md';
+import { IconType } from 'react-icons/lib';
 
 const Route = getRouteApi('/app');
 
 type MenuItem = {
-  icon: React.JSX.Element;
+  icon: IconType;
   label: string;
   route: LinkProps;
   allowedRoles?: string[];
 };
 
-const menus: Array<MenuItem> = [];
-
 export default function AppViewFooterComponent() {
   const { mobileSidebar } = Route.useSearch();
 
+  const { data: authentifiedUser } = useAuthentifiedUserQuery();
+
+  const MENUS: Array<MenuItem> = useMemo(
+    () => [
+      {
+        icon: MdGroup,
+        label: 'Mon entreprise',
+        route: {
+          to: '/app/enterprises/$enterpriseId',
+          search: {},
+          params: { entepriseId: authentifiedUser.profile.enterprise!.id },
+        },
+        allowedRoles: ['ROLE_CLIENT'],
+      },
+      {
+        icon: MdSell,
+        label: 'Produits',
+        route: {
+          to: '/app/products',
+          search: {},
+          params: {},
+        },
+      },
+      {
+        icon: MdGroups,
+        label: 'Entreprises',
+        route: {
+          to: '/app/enterprises',
+          search: {},
+          params: {},
+        },
+        allowedRoles: ['ROLE_MEMBRE_VIZEO', 'ROLE_REPRESENTANT', 'ROLE_DISTRIBUTEUR'],
+      },
+    ],
+    [authentifiedUser.profile.enterprise],
+  );
+
+  const menus = useMemo(
+    () => MENUS.filter((menu) => !menu.allowedRoles || menu.allowedRoles.some((role) => authentifiedUser.userInfo.roles.includes(role))),
+    [MENUS, authentifiedUser.userInfo.roles],
+  );
+
   return (
-    <footer className={classNames({ [styles.open]: mobileSidebar })}>
+    <footer className={classNames(styles.container, { [styles.open]: mobileSidebar })}>
       <div className={styles.menu}>
         <div className={styles.items}>
           <ul>
@@ -31,7 +74,7 @@ export default function AppViewFooterComponent() {
                 className={styles.item}
                 preload="intent"
               >
-                {item.icon}
+                {React.createElement(item.icon)}
                 <span className={styles.label}>{item.label}</span>
               </Link>
             ))}

@@ -1,0 +1,88 @@
+@import '../AssociatedProducts/AssociatedProducts.module.scss';
+
+.container {
+  width: 100%;
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0.8rem;
+
+    .search_container {
+      display: flex;
+      gap: 1rem;
+
+      input {
+        background: #f2f3f8 0% 0% no-repeat padding-box;
+        border: 0.5px solid #16204e;
+        border-radius: 5px;
+        height: 28px;
+        width: auto;
+        min-width: 200px;
+        outline: none;
+        padding-left: 0.5rem;
+        font:
+          normal normal normal 14px/18px 'DIN2014',
+          Arial,
+          sans-serif;
+
+        @include respond-below(sm) {
+          width: 100%;
+        }
+
+        &::placeholder {
+          text-align: left;
+          letter-spacing: 0px;
+          color: #9fa5b9;
+          opacity: 1;
+        }
+      }
+    }
+
+    .actions_container {
+      @extend .search_container;
+      margin: 0.5rem 0 0.5rem 0.5rem;
+    }
+  }
+
+  .total_container {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 1rem;
+
+    ._content {
+      margin-right: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+
+      div:nth-child(1),
+      div:nth-child(3) {
+        font:
+          normal normal bold 15px/19px 'DIN2014',
+          Arial,
+          sans-serif;
+        letter-spacing: 0px;
+        color: #16204e;
+      }
+
+      div:nth-child(2) {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+
+        span {
+          font:
+            normal normal normal 16px/20px 'DIN2014',
+            Arial,
+            sans-serif;
+          color: #16204e;
+          text-align: right;
+          padding-right: 5px;
+        }
+      }
+    }
+  }
+}

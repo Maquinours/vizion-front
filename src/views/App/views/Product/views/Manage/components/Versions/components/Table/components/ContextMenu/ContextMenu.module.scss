@@ -1,0 +1,48 @@
+.menu_container {
+  position: relative;
+  width: auto;
+  min-width: 160px;
+  height: auto;
+  font-size: 16px;
+  font-weight: normal;
+  padding: 5px;
+  border: 1px solid #31385a;
+  border-radius: 5px;
+  background-color: #fff;
+  background-clip: padding-box;
+  opacity: 1;
+  z-index: 9999;
+
+  ul {
+    overflow: auto;
+    padding: 0.2rem 0 0;
+    list-style: none;
+
+    li {
+      padding: 0rem;
+
+      a {
+        align-items: center;
+        width: 100%;
+        padding: 0.2rem 0.2rem;
+
+        .icon {
+          margin-right: 4px;
+        }
+
+        span.text {
+          font:
+            normal normal normal 12px/15px 'DIN2014',
+            Arial,
+            sans-serif;
+          letter-spacing: 0px;
+          color: var(--primary-light);
+        }
+
+        &:hover {
+          background-color: #16204e1d;
+        }
+      }
+    }
+  }
+}

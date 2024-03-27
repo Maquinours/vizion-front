@@ -1,12 +1,12 @@
 import { useLocalStorage } from '@uidotdev/usehooks';
 import styles from './TabsContainer.module.scss';
-import { Link } from '@tanstack/react-router';
+import { Link, LinkProps } from '@tanstack/react-router';
 import { MdClose } from 'react-icons/md';
 
 type Tab = {
   id: string;
   name: string;
-  route: string;
+  route: LinkProps;
 };
 
 export default function AppViewTabsContainerComponent() {
@@ -20,7 +20,7 @@ export default function AppViewTabsContainerComponent() {
     <div className={styles.container}>
       <div className={styles.tabs}>
         {tabs.map((tab) => (
-          <Link to={tab.route} key={tab.id}>
+          <Link {...tab.route} key={tab.id}>
             <span>{tab.name}</span>
             <button onClick={() => onCloseTab(tab)}>
               <MdClose />

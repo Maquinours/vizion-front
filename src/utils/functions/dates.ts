@@ -1,5 +1,9 @@
 import moment, { MomentInput } from 'moment';
 
+export const formatDateWithSlash = (date: MomentInput) => {
+  return moment(date).format('DD/MM/YYYY');
+};
+
 export const formatDateAndHourWithSlash = (date: MomentInput) => {
   return moment(date).format('DD/MM/YYYY HH:mm');
 };

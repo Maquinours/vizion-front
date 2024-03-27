@@ -1,0 +1,6 @@
+@import '../../AddSpecificationModal.module.scss';
+
+.value_modal {
+  @extend .modal;
+  width: 35%;
+}

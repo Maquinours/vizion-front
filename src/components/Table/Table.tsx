@@ -11,9 +11,10 @@ type TableComponentProps<T> = Readonly<{
   onRowContextMenu?: (e: React.MouseEvent, row: Row<T>) => void;
   rowSelection?: RowSelectionState;
   setRowSelection?: React.Dispatch<React.SetStateAction<RowSelectionState>>;
-  rowId: keyof T;
+  rowId?: keyof T;
   getRowCanExpand?(row: Row<T>): boolean;
   getSubRows?(row: T): Array<T>;
+  renderSubComponent?: (props: { row: Row<T> }) => React.ReactElement;
 }>;
 export default function TableComponent<T>({
   columns,
@@ -26,6 +27,7 @@ export default function TableComponent<T>({
   rowId,
   getRowCanExpand,
   getSubRows,
+  renderSubComponent,
 }: TableComponentProps<T>) {
   const { getHeaderGroups, getRowModel } = useReactTable({
     data,
@@ -38,7 +40,7 @@ export default function TableComponent<T>({
     getExpandedRowModel: getExpandedRowModel(),
     getRowCanExpand,
     getSubRows,
-    getRowId: (row) => row[rowId] as string,
+    getRowId: rowId ? (row) => row[rowId] as string : undefined,
   });
 
   return (
@@ -51,6 +53,7 @@ export default function TableComponent<T>({
         data={data}
         onRowClick={onRowClick}
         onRowContextMenu={onRowContextMenu}
+        renderSubComponent={renderSubComponent}
       />
     </table>
   );

@@ -14,6 +14,7 @@ import { getTasksPageByEnterpriseId } from '../../../../utils/api/task';
 import { gedQueryKeys } from '../../../../utils/constants/queryKeys/ged';
 import FileType from '../../../../utils/enums/FileType';
 import { getDirectoryByTypeAndIdOnS3 } from '../../../../utils/api/ged';
+import { WorkloadAssociatedItem } from '../../../../utils/enums/WorkloadAssociatedItem';
 
 const searchSchema = z.object({
   allBusinessPage: z.number().int().min(0).catch(0),
@@ -57,7 +58,7 @@ export const Route = createFileRoute('/app/enterprises/$enterpriseId')({
       queryFn: () => getLifesheetPageByEnterpriseId(enterpriseId, lifesheetPage, lifesheetSize),
     });
     queryClient.ensureQueryData({
-      queryKey: taskQueryKeys.pageByEnterpriseId(enterpriseId, workloadsPage, workloadsSize),
+      queryKey: taskQueryKeys.pageByAssociatedItemAndId(WorkloadAssociatedItem.ENTERPRISE, enterpriseId, workloadsPage, workloadsSize),
       queryFn: () => getTasksPageByEnterpriseId(enterpriseId, workloadsPage, workloadsSize),
     });
     queryClient.ensureQueryData({

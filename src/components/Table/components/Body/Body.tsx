@@ -10,6 +10,7 @@ type TableComponentBodyComponentProps<T> = {
   data: T[];
   onRowClick?: (e: React.MouseEvent, row: Row<T>) => void;
   onRowContextMenu?: (e: React.MouseEvent, row: Row<T>) => void;
+  renderSubComponent: ((props: { row: Row<T> }) => React.ReactElement) | undefined;
 };
 
 export default function TableComponentBodyComponent<T>({
@@ -19,6 +20,7 @@ export default function TableComponentBodyComponent<T>({
   data,
   onRowClick = () => {},
   onRowContextMenu = () => {},
+  renderSubComponent,
 }: TableComponentBodyComponentProps<T>) {
   return (
     <tbody>
@@ -33,11 +35,14 @@ export default function TableComponentBodyComponent<T>({
         </tr>
       ) : (
         getRowModel().rows.map((row) => (
-          <tr key={row.id} onContextMenu={(e) => onRowContextMenu(e, row)} onClick={(e) => onRowClick(e, row)}>
-            {row.getVisibleCells().map((cell) => (
-              <td key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</td>
-            ))}
-          </tr>
+          <React.Fragment key={row.id}>
+            <tr onContextMenu={(e) => onRowContextMenu(e, row)} onClick={(e) => onRowClick(e, row)}>
+              {row.getVisibleCells().map((cell) => (
+                <td key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</td>
+              ))}
+            </tr>
+            {renderSubComponent !== undefined && row.getIsExpanded() && renderSubComponent({ row })}
+          </React.Fragment>
         ))
       )}
     </tbody>

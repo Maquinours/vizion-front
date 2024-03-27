@@ -1,0 +1,57 @@
+@import '../AssociatedProducts/AssociatedProducts.module.scss';
+
+.container {
+  .table {
+    .container {
+      table {
+        thead tr {
+          th {
+            &:nth-last-child(2) {
+              border-right: none;
+            }
+
+            &:nth-last-child(1) {
+              border-left: 1px solid #9fa5b9;
+            }
+
+            &:nth-child(1) {
+              width: auto;
+            }
+
+            &:nth-child(2) {
+              width: auto;
+            }
+
+            &:nth-child(3) {
+              width: auto;
+            }
+
+            &:nth-child(4) {
+              width: 15%;
+              text-align: center;
+            }
+
+            &:nth-child(5) {
+              width: auto;
+              text-align: center;
+            }
+
+            &:nth-child(6) {
+              text-align: center;
+            }
+          }
+        }
+
+        tbody {
+          td {
+            &:nth-child(6),
+            &:nth-child(4),
+            &:nth-child(5) {
+              text-align: center;
+            }
+          }
+        }
+      }
+    }
+  }
+}

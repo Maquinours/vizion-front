@@ -70,3 +70,12 @@ export const updateEnterprise = async (enterprise: EnterpriseResponseDto, data: 
     })
   ).data;
 };
+
+export const getProviderEnterprises = async () => {
+  return (
+    await privateInstance<Array<EnterpriseResponseDto>>({
+      method: 'GET',
+      url: `profile/v1/contact/providers`,
+    })
+  ).data;
+};

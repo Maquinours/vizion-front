@@ -1,4 +1,5 @@
 import TaskState from '../../enums/TaskState';
+import { WorkloadAssociatedItem } from '../../enums/WorkloadAssociatedItem';
 import WorkloadType from '../../enums/WorkloadType';
 
 export const taskQueryKeys = {
@@ -11,5 +12,6 @@ export const taskQueryKeys = {
   pages: () => [...taskQueryKeys.all, 'pages'] as const,
   pageByStateAndProfileId: (state: TaskState, profileId: string, page: number, size: number) =>
     [...taskQueryKeys.pages(), { state, profileId, page, size }] as const,
-  pageByEnterpriseId: (enterpriseId: string, page: number, size: number) => [...taskQueryKeys.pages(), { enterpriseId, page, size }] as const,
+  pageByAssociatedItemAndId: (associatedItem: WorkloadAssociatedItem, itemId: string, page: number, size: number) =>
+    [...taskQueryKeys.pages(), { associatedItem, itemId, page, size }] as const,
 };
