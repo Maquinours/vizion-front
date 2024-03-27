@@ -36,7 +36,7 @@ export default function EmailModalComponent({ onClose, emailId, replyLink }: Ema
                 {email.pjList?.length > 0 ? (
                   <ul>
                     {email.pjList?.map((item) => (
-                      <li style={{ marginBottom: '5px', cursor: 'pointer' }}>
+                      <li key={item.id} style={{ marginBottom: '5px', cursor: 'pointer' }}>
                         <a href={`${PUBLIC_BASE_URL}mail/v1/download-file/${item.name}?ref=${email.id}`} target="_blank" rel="noopener noreferrer">
                           {item.name}
                         </a>
