@@ -1,3 +1,4 @@
+import CategoryBusiness from '../enums/CategoryBusiness';
 import { privateInstance } from '../functions/axios';
 import AssistanceRequestDto from '../types/AssistanceRequestDto';
 import AssistanceResponseDto from '../types/AssistanceResponseDto';
@@ -19,4 +20,16 @@ export const createRma = async (data: AssistanceRequestDto) => {
       data,
     })
   ).data;
+};
+
+export const createRmaFromBusiness = async (category: CategoryBusiness, number: string, serialNumbers: Array<string>) => {
+  return privateInstance<AssistanceResponseDto>({
+    method: 'POST',
+    url: '/rma/v1/assistance/from-old-business',
+    params: {
+      category,
+      number,
+      serialNumbers,
+    },
+  }).then((res) => res.data);
 };

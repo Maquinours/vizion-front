@@ -1,0 +1,139 @@
+@import '/src/assets/styles/mixins';
+
+.card_container {
+    width: 45%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .card_content {
+        padding: 1rem;
+
+        form {
+            .form_group {
+                position: relative;
+                display: grid;
+                align-self: center;
+                margin-bottom: 0.8rem;
+
+                label {
+                    margin-bottom: 0.5rem;
+                    grid-area: label;
+                    justify-self: left;
+                    font: normal normal normal 14px/18px 'DIN2014', Arial, sans-serif;
+                    letter-spacing: 0px;
+                    color: var(--primary-light);
+                }
+
+                &>input {
+                    background: var(--grey-color) 0% 0% no-repeat padding-box;
+                    border: 1px solid var(--primary-color);
+                    border-radius: 5px;
+                    padding: 0.5rem 0.5rem;
+                    outline: none;
+                    height: 35px;
+                    width: auto;
+
+                    @include respond-below(md) {
+                        width: inherit;
+                    }
+
+                    &::placeholder {
+                        text-align: left;
+                        font: normal normal normal 11px/14px 'DIN2014', Arial, sans-serif;
+                        letter-spacing: 0px;
+                        color: #9fa5b9;
+                        opacity: 1;
+                    }
+
+                    /* Internet Explorer 10-11 */
+                    &:-ms-input-placeholder {
+                        text-align: left;
+                        font: normal normal normal 11px/14px 'DIN2014', Arial, sans-serif;
+                        letter-spacing: 0px;
+                        color: #9fa5b9;
+                        opacity: 1;
+                    }
+
+                    /* Microsoft Edge */
+                    &::-ms-input-placeholder {
+                        text-align: left;
+                        font: normal normal normal 11px/14px 'DIN2014', Arial, sans-serif;
+                        letter-spacing: 0px;
+                        color: #9fa5b9;
+                        opacity: 1;
+                    }
+                }
+
+                .form_group_radio {
+                    display: flex;
+                    justify-content: flex-start;
+                    gap: 1rem;
+
+                    .form__radio {
+                        display: flex;
+                        align-items: center;
+                        gap: 0 0.2rem;
+
+                        input[type='radio'] {
+                            width: inherit;
+                            height: auto;
+                        }
+
+                        label {
+                            font: normal normal normal 14px/18px 'DIN2014', Arial, sans-serif;
+                            letter-spacing: 0px;
+                            color: #16204e;
+                            margin-bottom: 0;
+                        }
+                    }
+                }
+
+                .react_select_custom,
+                input {
+                    grid-area: input;
+                }
+
+                p:nth-child(3) {
+                    grid-area: error;
+                    margin-top: 2px;
+                }
+
+                grid-template-areas: 'label'
+                'input'
+                'error';
+
+                grid-template-columns: repeat(1, 1fr);
+
+                p.__errors {
+                    text-align: left;
+                    font-family: 'DIN2014', Arial, sans-serif;
+                    font-style: normal;
+                    font-weight: normal;
+                    font-variant: normal;
+                    font-size: 11px;
+                    line-height: 10px;
+                    letter-spacing: 0px;
+                    color: var(--secondary-color);
+                    opacity: 1;
+                }
+            }
+
+            .loader {
+                width: 100%;
+                display: flex;
+                justify-content: center;
+            }
+
+            .buttons_container {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+
+                button {
+                    padding: 0.5rem 2rem;
+                }
+            }
+        }
+    }
+}

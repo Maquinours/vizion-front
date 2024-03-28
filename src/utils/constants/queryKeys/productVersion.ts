@@ -1,6 +1,7 @@
 export const productVersionQueryKeys = {
   all: ['product-versions'] as const,
   lists: () => [...productVersionQueryKeys.all, 'list'] as const,
+  listAll: () => [...productVersionQueryKeys.lists(), 'all'] as const,
   listByProductId: (productId: string) => [...productVersionQueryKeys.lists(), { productId }] as const,
   pages: () => [...productVersionQueryKeys.all, 'page'] as const,
   pageByProductId: (productId: string, page: number, size: number) => [...productVersionQueryKeys.pages(), { productId, page, size }] as const,

@@ -54,3 +54,10 @@ export const getProductVersionsByProductId = (productId: string) => {
     },
   }).then((res) => res.data);
 };
+
+export const getProductVersions = () => {
+  return privateInstance<Array<ProductVersionResponseDto>>({
+    method: 'GET',
+    url: `/product/v1/version/list`,
+  }).then((res) => res.data);
+};
