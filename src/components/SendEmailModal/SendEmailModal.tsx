@@ -6,7 +6,7 @@ type SendEmailModalComponentProps = Readonly<SendEmailComponentProps & { isOpen:
 export default function SendEmailModalComponent({ isOpen, onClose, ...props }: SendEmailModalComponentProps) {
   return (
     <ReactModal isOpen={isOpen} onRequestClose={onClose} overlayClassName="Overlay" className={styles.modal}>
-      <SendEmailComponent {...props} />
+      <SendEmailComponent onEmailSent={onClose} {...props} />
     </ReactModal>
   );
 }

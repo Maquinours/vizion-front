@@ -3,7 +3,7 @@ import styles from './Footer.module.scss';
 import classNames from 'classnames';
 import React, { useMemo } from 'react';
 import { useAuthentifiedUserQuery } from '../../utils/functions/getAuthentifiedUser';
-import { MdGroup, MdGroups, MdSell } from 'react-icons/md';
+import { MdGroup, MdGroups, MdSell, MdQuestionAnswer } from 'react-icons/md';
 import { IconType } from 'react-icons/lib';
 
 const Route = getRouteApi('/app');
@@ -50,6 +50,15 @@ export default function AppViewFooterComponent() {
           params: {},
         },
         allowedRoles: ['ROLE_MEMBRE_VIZEO', 'ROLE_REPRESENTANT', 'ROLE_DISTRIBUTEUR'],
+      },
+      {
+        icon: MdQuestionAnswer,
+        label: 'FAQ',
+        route: {
+          to: '/app/faq',
+          search: {},
+          params: {},
+        },
       },
     ],
     [authentifiedUser.profile.enterprise],
