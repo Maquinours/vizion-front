@@ -1,4 +1,4 @@
-import { MdBusinessCenter, MdGroups, MdGroup, MdSell, MdQuestionAnswer } from 'react-icons/md';
+import { MdBusinessCenter, MdGroups, MdGroup, MdSell, MdQuestionAnswer, MdLeakAdd } from 'react-icons/md';
 import styles from './BasicSidebar.module.scss';
 import { Link, LinkProps } from '@tanstack/react-router';
 import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthentifiedUser';
@@ -71,6 +71,15 @@ export default function SidebarComponentBasicSidebarComponent() {
         label: 'FAQ',
         route: {
           to: '/app/faq',
+          search: {},
+          params: {},
+        },
+      },
+      {
+        icon: MdLeakAdd,
+        label: 'Liens externes',
+        route: {
+          to: '/app/external-links',
           search: {},
           params: {},
         },

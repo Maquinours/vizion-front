@@ -1,0 +1,109 @@
+@import '/src/assets/styles/mixins';
+
+.container {
+  width: 100%;
+  margin: 2rem 0;
+
+  .header_title {
+    font: normal normal bold 40px/56px 'DIN2014';
+    letter-spacing: 0px;
+    color: var(--primary-color);
+    text-transform: uppercase;
+    opacity: 1;
+    display: flex;
+    justify-content: center;
+    margin: 1rem 0;
+
+    @include respond-below(sm) {
+      font-size: 25px;
+      line-height: 29px;
+    }
+  }
+
+  .links_container {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4rem;
+    margin-top: 4rem;
+
+    .link_card {
+      min-width: 200px;
+      height: 100px;
+      border-radius: 5px;
+      cursor: pointer;
+      word-break: break-word;
+      background: linear-gradient(to top, var(--primary-color) 10%, var(--secondary-color) 100%);
+
+      &_title {
+        display: flex;
+        padding: 1rem;
+        text-transform: uppercase;
+        justify-content: space-between;
+        color: white;
+        font: normal normal bold 25px/30px 'DIN2014';
+        align-self: center;
+        cursor: pointer;
+        height: 50px;
+      }
+
+      &_content {
+        font: normal normal normal 18px/25px 'DIN2014';
+        margin-top: 5px;
+        width: fit-content;
+        padding: 1rem;
+        color: white;
+
+        &_description {
+          padding: 0.5rem;
+          max-height: 180px;
+          overflow-y: auto;
+          overflow-x: auto;
+          word-break: break-word;
+
+          &::-webkit-scrollbar {
+            width: 3px;
+            height: 3px;
+          }
+
+          /* Track */
+          &::-webkit-scrollbar-track {
+            background: var(--white-color);
+          }
+
+          /* Handle */
+          &::-webkit-scrollbar-thumb {
+            border-radius: 10px;
+            background: var(--primary-color);
+          }
+
+          /* Handle on hover */
+          &::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-color);
+          }
+        }
+      }
+
+      &:hover {
+        // background-color: var(--primary-color);
+        transform: scale(1.05);
+
+        // .faq_title_container {
+        //   .title {
+        //     color: white;
+        //   }
+        // }
+        .faq_content {
+          // color: white;
+          .faq_description {
+            cursor: none;
+          }
+        }
+      }
+    }
+
+    @include respond-below(sm) {
+      grid-template-columns: repeat(1, 1fr);
+    }
+  }
+}

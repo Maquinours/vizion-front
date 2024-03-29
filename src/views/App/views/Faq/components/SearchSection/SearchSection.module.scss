@@ -1,28 +1,28 @@
 @import '/src/assets/styles/mixins';
 
 .search_add {
-    display: flex;
-    gap: 1rem;
+  display: flex;
+  gap: 1rem;
 
-    input {
-        height: 30px;
-        background: #f2f3f8 0% 0% no-repeat padding-box;
-        border: 0.5px solid #16204e;
-        border-radius: 5px;
-        padding: 0.5rem 0.5rem;
-        font: normal normal normal 12px/15px 'DIN2014';
-        outline: none;
-        width: 300px;
+  input {
+    height: 30px;
+    background: #f2f3f8 0% 0% no-repeat padding-box;
+    border: 0.5px solid #16204e;
+    border-radius: 5px;
+    padding: 0.5rem 0.5rem;
+    font: normal normal normal 12px/15px 'DIN2014';
+    outline: none;
+    width: 300px;
 
-        &::placeholder {
-            text-align: left;
-            letter-spacing: 0px;
-            color: #9fa5b9;
-            opacity: 1;
-        }
-
-        @include respond-below(md) {
-            width: inherit;
-        }
+    &::placeholder {
+      text-align: left;
+      letter-spacing: 0px;
+      color: #9fa5b9;
+      opacity: 1;
     }
+
+    @include respond-below(md) {
+      width: inherit;
+    }
+  }
 }

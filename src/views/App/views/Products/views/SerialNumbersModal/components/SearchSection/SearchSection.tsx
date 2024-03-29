@@ -14,7 +14,7 @@ const yupSchema = yup.object({
 export default function AppViewProductsViewSerialNumbersModalViewSearchSectionComponent() {
   const navigate = useNavigate();
 
-  const {serialNumbersSearch} = routeApi.useSearch();
+  const { serialNumbersSearch } = routeApi.useSearch();
 
   const { register, setValue, handleSubmit } = useForm({
     resolver: yupResolver(yupSchema),
