@@ -5,12 +5,11 @@
   border-radius: 5px;
   opacity: 1;
   padding: 10px;
-  min-height: 80vh;
-  max-height: 100vh;
+  height: 100%;
   overflow-y: auto;
 
   :global div.dropzone {
-    height: 70%;
+    height: 100%;
 
     .plus {
       display: flex;

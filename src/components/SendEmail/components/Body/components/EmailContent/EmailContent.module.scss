@@ -6,9 +6,6 @@
     border-radius: 5px;
 
     .ql-editor {
-      min-height: 80vh;
-      max-height: 100vh;
-      height: 100%;
       overflow-y: auto;
       outline: none;
       word-break: break-all;
@@ -75,7 +72,7 @@
                 flex-direction: column;
                 flex-wrap: wrap;
 
-                & > div {
+                &>div {
                   font:
                     normal normal normal 14px/18px 'DIN2014',
                     Arial,
