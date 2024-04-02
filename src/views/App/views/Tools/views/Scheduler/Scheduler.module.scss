@@ -1,0 +1,14 @@
+@import '/src/assets/styles/mixins';
+
+.container {
+  width: 100%;
+
+  .header {
+    text-align: right;
+    margin: 1rem 0;
+
+    button {
+      margin-left: 5px;
+    }
+  }
+}

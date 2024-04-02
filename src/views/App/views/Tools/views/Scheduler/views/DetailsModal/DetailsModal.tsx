@@ -1,0 +1,107 @@
+import { useSuspenseQuery } from '@tanstack/react-query';
+import { Link, getRouteApi, useNavigate } from '@tanstack/react-router';
+import ReactModal from 'react-modal';
+import { rdvQueryKeys } from '../../../../../../../../utils/constants/queryKeys/rdv';
+import { getRdvById } from '../../../../../../../../utils/api/rdv';
+import moment from 'moment';
+import styles from './DetailsModal.module.scss';
+import { HiPencilAlt } from 'react-icons/hi';
+import { FaTrash } from 'react-icons/fa';
+
+// TODO: Finish this page to handle drag & drop events
+
+const routeApi = getRouteApi('/app/tools/scheduler/details/$rdvId');
+
+export default function AppViewToolsViewSchedulerViewDetailsModalView() {
+  const navigate = useNavigate();
+
+  const { rdvId } = routeApi.useParams();
+
+  const { data: rdv } = useSuspenseQuery({
+    queryKey: rdvQueryKeys.detailById(rdvId),
+    queryFn: () => getRdvById(rdvId),
+  });
+
+  const onClose = () => {
+    navigate({ from: routeApi.id, search: (old) => old });
+  };
+
+  return (
+    <ReactModal isOpen={true} onRequestClose={onClose} className={styles.event_modal} overlayClassName="Overlay">
+      <div className={styles.modal_container}>
+        <div className={styles.modal_header}>
+          <div className={styles.modal_title}>
+            <p>Détail du rendez-vous</p>
+          </div>
+        </div>
+        <div className={styles.modal_content}>
+          <div className={styles.modal_buttons}>
+            <Link from={routeApi.id} to="./update" search={(old) => old} params={(old) => old} className={styles.modal_header_icon}>
+              <HiPencilAlt width="16" height="16" color="#16204E" />
+            </Link>
+            <Link from={routeApi.id} to="./delete" search={(old) => old} params={(old) => old} className={styles.modal_header_icon}>
+              <FaTrash width="16" height="16" color="#16204E" />
+            </Link>
+          </div>
+          <div className={styles.table_container}>
+            <table>
+              <tbody>
+                <tr>
+                  <td>Participants (s)</td>
+                  <td>
+                    <ul style={{ listStyle: 'inside' }}>
+                      {rdv.infos.map((info) => (
+                        <li
+                          style={{
+                            color: '#F24C52',
+                            marginBottom: '2px',
+                          }}
+                          key={info.id}
+                        >
+                          {info.attributeToFirstName} {info.attributeToLastName}
+                        </li>
+                      ))}
+                    </ul>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Titre</td>
+                  <td>{rdv.title}</td>
+                </tr>
+                <tr>
+                  <td>Description</td>
+                  <td>{rdv.description}</td>
+                </tr>
+                <tr>
+                  <td>Lieu</td>
+                  <td>{rdv.place}</td>
+                </tr>
+                <tr>
+                  <td>Journée complète</td>
+                  <td>{rdv.fullTime ? 'Oui' : 'Non'}</td>
+                </tr>
+                <tr>
+                  <td>Date de début</td>
+                  <td>{moment(rdv.startDateTime).format('ddd DD MMM YYYY, HH:mm')}</td>
+                </tr>
+                {!rdv.fullTime && (
+                  <tr>
+                    <td>Date de fin</td>
+                    <td>{moment(rdv.endDatetime).format('ddd DD MMM YYYY, HH:mm')}</td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div className={styles.modal_footer}>
+          <div className={styles.buttons_container}>
+            <button className="btn btn-secondary" onClick={onClose}>
+              Fermer
+            </button>
+          </div>
+        </div>
+      </div>
+    </ReactModal>
+  );
+}

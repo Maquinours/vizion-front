@@ -5,7 +5,7 @@ type RdvUserInfoResponseDto = {
   attributeToId: string | null;
   attributeToLastName: string | null;
   attributeToFirstName: string | null;
-  rdv: RdvResponseDto | null;
+  rdv: Omit<RdvResponseDto, 'infos'> | null;
   createdDate: string;
   modifiedDate: string | null;
   createdBy: string | null;

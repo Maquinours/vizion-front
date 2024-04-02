@@ -1,5 +1,8 @@
+import RdvUserInfoResponseDto from './RdvUserInfoResponseDto';
+
 type RdvResponseDto = {
   id: string;
+  infos: Array<Omit<RdvUserInfoResponseDto, 'rdv'>>;
   title: string;
   description: string | null;
   place: string | null;
