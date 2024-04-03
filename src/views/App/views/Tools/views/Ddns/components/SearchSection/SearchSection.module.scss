@@ -1,0 +1,33 @@
+@import '/src/assets/styles/mixins';
+
+.inputs_container {
+  form {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+    width: 100%;
+
+    input {
+      height: 30px;
+      background: #f2f3f8 0% 0% no-repeat padding-box;
+      border: 0.5px solid #16204e;
+      border-radius: 5px;
+      padding: 0.5rem 0.5rem;
+      width: auto;
+      font: normal normal normal 12px/15px 'DIN2014';
+      outline: none;
+
+      &::placeholder {
+        text-align: left;
+        letter-spacing: 0px;
+        color: #9fa5b9;
+        opacity: 1;
+      }
+
+      @include respond-below(sm) {
+        width: 100%;
+      }
+    }
+  }
+}
