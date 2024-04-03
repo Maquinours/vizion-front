@@ -1,0 +1,15 @@
+.sub_row {
+  height: auto;
+  min-height: 100px;
+  background: var(--primary-color) !important;
+
+  .sub_row_content {
+    text-align: left;
+    padding: 1rem;
+    font: normal normal bold 16px/20px 'DIN2014';
+    letter-spacing: 0px;
+    color: white;
+    opacity: 1;
+    word-break: break-word;
+  }
+}
