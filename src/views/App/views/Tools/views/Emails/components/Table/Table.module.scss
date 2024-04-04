@@ -1,0 +1,108 @@
+@import '/src/assets/styles/mixins';
+
+.table_container {
+    margin-top: 1rem;
+    width: auto;
+
+    table {
+        width: 100%;
+        opacity: 1;
+        border-collapse: collapse;
+        table-layout: fixed;
+
+        thead {
+            background: var(--primary-color) 0% 0% no-repeat padding-box;
+
+            tr {
+                th {
+                    height: 40px;
+                    text-align: left;
+                    font: normal normal normal 14px/18px 'DIN2014';
+                    letter-spacing: 0px;
+                    color: #ebeef8;
+                    opacity: 1;
+                    padding: 0.2rem 0.5rem;
+                    border-right: 1px solid #686e89;
+
+                    @include respond-below(sm) {
+                        padding: 0.3rem;
+                    }
+
+                    &:nth-child(1) {
+                        border-top-left-radius: 5px;
+                    }
+
+                    &:nth-last-child(1) {
+                        border-right: none;
+                        border-top-right-radius: 5px;
+                    }
+                }
+            }
+        }
+
+        tbody {
+            border-left: 1px solid var(--primary-color);
+            border-bottom: 1px solid var(--primary-color);
+            border-right: 1px solid var(--primary-color);
+
+            tr {
+                background-color: #fff;
+                height: 66px;
+                // padding: 0.2rem 0.5rem;
+                cursor: pointer;
+
+                &:hover {
+                    background-color: #e5e5e5;
+                }
+
+                &:nth-child(2n + 1) {
+                    background: #f2f3f8 0% 0% no-repeat padding-box;
+                    opacity: 1;
+                }
+
+                td {
+                    padding-left: 0.7rem;
+                    text-align: left;
+                    font: normal normal normal 14px/18px 'DIN2014';
+                    letter-spacing: 0px;
+                    color: #16204e;
+                    opacity: 1;
+                    word-wrap: break-word;
+
+                    @include respond-below(sm) {
+                        padding-left: 0.3rem;
+                    }
+                }
+            }
+        }
+
+        @include respond-below(md) {
+            table-layout: auto;
+        }
+    }
+
+    @include respond-below(sm) {
+        overflow-x: auto;
+
+        &::-webkit-scrollbar {
+            width: 3px;
+            height: 3px;
+        }
+
+        /* Track */
+        &::-webkit-scrollbar-track {
+            background: var(--white-color);
+        }
+
+        /* Handle */
+        &::-webkit-scrollbar-thumb {
+            border-radius: 10px;
+            background: var(--primary-color);
+        }
+
+        /* Handle on hover */
+        &::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-color);
+        }
+    }
+}
