@@ -1,0 +1,89 @@
+.table_container {
+    width: 100%;
+    margin-top: 1rem;
+
+    table {
+        table-layout: auto;
+        border-collapse: collapse;
+        width: 100%;
+
+        thead {
+            font-style: normal;
+            font-weight: normal;
+
+            font-size: 15px;
+            line-height: 18px;
+            background-color: var(--primary-color);
+            color: white;
+            box-shadow: 0px 3px 5px #10173526;
+
+            th {
+                height: 40px;
+                text-align: left;
+                padding: 0 0.3rem;
+                border: none;
+                text-align: center;
+
+                &:nth-child(1) {
+                    border-top-left-radius: 5px;
+                    width: 25%;
+                }
+
+                &:nth-last-child(1) {
+                    border-top-right-radius: 5px;
+                    width: 15%;
+                }
+
+                &:nth-last-child(2) {
+                    border-right: 0.5px solid #898fa6;
+                    border-left: 0.5px solid #898fa6;
+                    width: 60%;
+                }
+            }
+        }
+
+        tbody {
+            border-left: 1px solid #31385a;
+            border-bottom: 1px solid #31385a;
+            border-right: 1px solid #31385a;
+
+            tr {
+                background-color: #fbfcfe;
+            }
+
+            tr:hover {
+                background-color: #e5e5e5;
+            }
+
+            tr:nth-child(2n + 1) {
+                background: #f2f3f8 0% 0% no-repeat padding-box;
+                opacity: 1;
+            }
+
+            tr {
+                td {
+                    font: normal normal normal 16px/20px 'DIN2014';
+                    color: #16204e;
+                    padding: 0.3rem;
+                    text-align: left;
+
+                    &:nth-child(3) {
+                        padding: 1rem 0 0.5rem 0;
+                        text-align: center;
+
+                        div {
+                            display: flex;
+                            justify-content: center;
+                            column-gap: 2rem;
+
+                            svg {
+                                font-size: 28px;
+                                cursor: pointer;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
