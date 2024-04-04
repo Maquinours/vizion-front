@@ -4,6 +4,9 @@ import { formatDateAndHourWithSlash } from '../../../../../../../../utils/functi
 import { PUBLIC_BASE_URL } from '../../../../../../../../utils/constants/api';
 import TableComponent from '../../../../../../../../components/Table/Table';
 import styles from './Table.module.scss';
+import { Link, getRouteApi } from '@tanstack/react-router';
+
+const routeApi = getRouteApi('/app/tools/emails');
 
 const columnHelper = createColumnHelper<MailResponseDto>();
 const columns = [
@@ -27,7 +30,11 @@ const columns = [
   }),
   columnHelper.display({
     header: 'Objet',
-    cell: ({ row: { original } }) => original.subject,
+    cell: ({ row: { original } }) => (
+      <Link from={routeApi.id} to="./$emailId" params={{ emailId: original.id }} search={(old) => old}>
+        {original.subject}
+      </Link>
+    ),
   }),
   columnHelper.display({
     header: 'Pièces jointes',

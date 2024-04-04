@@ -1,4 +1,4 @@
-import { useNavigate } from '@tanstack/react-router';
+import { getRouteApi, useNavigate } from '@tanstack/react-router';
 import SendEmailModalComponent from '../../../../../../../../../../components/SendEmailModal/SendEmailModal';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { emailQueryKeys } from '../../../../../../../../../../utils/constants/queryKeys/email';
@@ -9,7 +9,7 @@ const routeApi = getRouteApi('/app/tools/emails/$emailId/reply');
 export default function AppViewToolsViewEmailsViewEmailModalViewReplyModalView() {
   const navigate = useNavigate({ from: routeApi.id });
 
-  const { emailId } = routeApi.useSearch();
+  const { emailId } = routeApi.useParams();
 
   const { data: email } = useSuspenseQuery({
     queryKey: emailQueryKeys.detailById(emailId),
