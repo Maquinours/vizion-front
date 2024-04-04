@@ -18,6 +18,8 @@ import LifeSheetResponseDto from '../../utils/types/LifeSheetResponseDto';
 import { formatDateAndHourWithSlash } from '../../utils/functions/dates';
 import classNames from 'classnames';
 import RefreshButtonComponent from '../RefreshButton/RefreshButton';
+import parse from 'html-react-parser';
+import DOMPurify from 'dompurify';
 
 const size = 5;
 
@@ -33,9 +35,8 @@ const columns = [
   }),
   columnHelper.display({
     header: 'Description',
-    cell: ({ row: { original } }) => (
-      <div dangerouslySetInnerHTML={{ __html: `${original.receiver ? `à [${original.receiver.split(';').join(', ')}]` : ''} ${original.description}` }} />
-    ),
+    cell: ({ row: { original } }) =>
+      parse(DOMPurify.sanitize((original.receiver ? `à [${original.receiver.split(';').join(', ')}] ` : '') + original.description)),
   }),
 ];
 

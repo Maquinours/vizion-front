@@ -6,6 +6,8 @@ import { getEmailById } from '../../utils/api/email';
 import { PUBLIC_BASE_URL } from '../../utils/constants/api';
 import { Link, LinkProps, Outlet } from '@tanstack/react-router';
 import styles from './EmailModal.module.scss';
+import parse from 'html-react-parser';
+import DOMPurify from 'dompurify';
 
 type EmailModalComponentProps = Readonly<{
   onClose: () => void;
@@ -49,10 +51,7 @@ export default function EmailModalComponent({ onClose, emailId, replyLink }: Ema
               </div>
               <div className={styles.receiveDate}>Envoyé le : {formatDateWithHour(email?.sendDate)}</div>
             </div>
-
-            <div className={styles.mailbox}>
-              <div dangerouslySetInnerHTML={{ __html: email.content }} />
-            </div>
+            <div className={styles.mailbox}>{parse(DOMPurify.sanitize(email.content))}</div>
           </div>
           <div className={styles.modal_footer}>
             <div className={styles.buttons_container}>

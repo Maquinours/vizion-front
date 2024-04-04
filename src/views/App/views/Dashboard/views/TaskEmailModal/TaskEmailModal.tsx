@@ -9,6 +9,8 @@ import { getTaskById } from '../../../../../../utils/api/task';
 import AppViewDashboardViewTaskEmailModalViewAttachmentsComponent from './components/Attachments/Attachments';
 import AppViewDashboardViewTaskEmailModalViewFooterComponent from './components/Footer/Footer';
 import styles from './TaskEmailModal.module.scss';
+import parse from 'html-react-parser';
+import DOMPurify from 'dompurify';
 
 const Route = getRouteApi('/app/dashboard/task-email/$taskId');
 
@@ -41,9 +43,7 @@ export default function AppViewDashboardViewTaskEmailModalView() {
         <div className={styles.modal_content}>
           <AppViewDashboardViewTaskEmailModalViewInformationsComponent email={email} />
           <AppViewDashboardViewTaskEmailModalViewAttachmentsComponent task={task} email={email} />
-          <div className={styles.mailbox}>
-            <div dangerouslySetInnerHTML={{ __html: email.content }} />
-          </div>
+          <div className={styles.mailbox}>{parse(DOMPurify.sanitize(email.content))}</div>
         </div>
         <AppViewDashboardViewTaskEmailModalViewFooterComponent />
       </div>

@@ -5,6 +5,8 @@ import { Link, getRouteApi } from '@tanstack/react-router';
 import styles from './ExternalLinks.module.scss';
 import { externalLinkQueryKeys } from '../../../../utils/constants/queryKeys/externalLink';
 import { useCallback } from 'react';
+import parse from 'html-react-parser';
+import DOMPurify from 'dompurify';
 
 const routeApi = getRouteApi('/app/external-links');
 
@@ -22,9 +24,7 @@ export default function AppViewExternalLinksView() {
     return (
       <>
         <div className={styles.link_card_title}>{item.title}</div>
-        <div className={styles.link_card_content}>
-          <div dangerouslySetInnerHTML={{ __html: item.description }} />
-        </div>
+        <div className={styles.link_card_content}>{parse(DOMPurify.sanitize(item.description))}</div>
       </>
     );
   }, []);

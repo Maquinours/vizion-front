@@ -11,6 +11,8 @@ import { Link } from '@tanstack/react-router';
 import CardComponent from '../Card/Card';
 import TableComponent from '../Table/Table';
 import styles from './Workloads.module.scss';
+import parse from 'html-react-parser';
+import DOMPurify from 'dompurify';
 
 const columnHelper = createColumnHelper<TaskResponseDto>();
 
@@ -47,7 +49,7 @@ export default function WorkloadsComponent({ associatedItemType, associatedItemI
           <div className={styles.content_tooltip}>
             {original.mailId ? (
               <Link {...emailLink(original)}>
-                <div dangerouslySetInnerHTML={{ __html: original.content ?? '' }} />
+                {parse(DOMPurify.sanitize(original.content ?? ''))}
                 <p className="text-secondary">
                   À : {original.receiver?.to?.toString()?.split(';').join(' ')} {original.receiver?.cc?.toString()}
                 </p>
@@ -60,7 +62,7 @@ export default function WorkloadsComponent({ associatedItemType, associatedItemI
               </Link>
             ) : (
               <>
-                <div dangerouslySetInnerHTML={{ __html: original.content ?? '' }} />
+                {parse(DOMPurify.sanitize(original.content ?? ''))}
                 {original.enterpriseName && <div className={styles.content}>{original.enterpriseName}</div>}
               </>
             )}

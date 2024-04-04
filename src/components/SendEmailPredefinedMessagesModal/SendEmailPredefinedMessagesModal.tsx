@@ -8,11 +8,13 @@ import ReactModal from 'react-modal';
 import TableComponent from '../Table/Table';
 import styles from './SendEmailPredefinedMessagesModal.module.scss';
 import { useContext } from 'react';
+import parse from 'html-react-parser';
+import DOMPurify from 'dompurify';
 
 const columnHelper = createColumnHelper<PredefinedMessageResponseDto>();
 const columns = [
   columnHelper.display({ header: 'Nom', cell: ({ row: { original } }) => <div>{original.title}</div> }),
-  columnHelper.display({ header: 'Description', cell: ({ row: { original } }) => <div dangerouslySetInnerHTML={{ __html: original.description }} /> }),
+  columnHelper.display({ header: 'Description', cell: ({ row: { original } }) => parse(DOMPurify.sanitize(original.description)) }),
 ];
 
 type SendEmailPredefinedMessagesModalComponent = Readonly<{

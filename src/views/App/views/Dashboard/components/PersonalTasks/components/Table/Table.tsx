@@ -17,6 +17,8 @@ import { taskQueryKeys } from '../../../../../../../../utils/constants/queryKeys
 import { formatDate, formatDateWithHour, isDateOutdated } from '../../../../../../../../utils/functions/dates';
 import TaskState from '../../../../../../../../utils/enums/TaskState';
 import TableComponent from '../../../../../../../../components/Table/Table';
+import parse from 'html-react-parser';
+import DOMPurify from 'dompurify';
 
 const Route = getRouteApi('/app/dashboard');
 
@@ -76,7 +78,7 @@ export default function AppViewDashboardViewPersonalTasksComponentTableComponent
           if (original.mailId)
             item = (
               <button onClick={() => onMailTaskClick(original)}>
-                <div dangerouslySetInnerHTML={{ __html: original.content! }} />
+                {parse(DOMPurify.sanitize(original.content ?? ''))}
                 <p className="text-secondary">A : {original.receiver?.to?.toString().split(';').join(' ')}</p>
                 <p>
                   De :{' '}
@@ -90,7 +92,7 @@ export default function AppViewDashboardViewPersonalTasksComponentTableComponent
             const sender = members?.find((member) => member.id === original.senderId);
             item = (
               <>
-                <div dangerouslySetInnerHTML={{ __html: original.content! }} />
+                {parse(DOMPurify.sanitize(original.content ?? ''))}
                 <div className={styles.tag}>
                   {original.profileId !== original.senderId && currentUser.profile.id !== original.senderId && (
                     <span>{sender ? `De ${sender.firstName} ${sender.lastName}` : ''} </span>

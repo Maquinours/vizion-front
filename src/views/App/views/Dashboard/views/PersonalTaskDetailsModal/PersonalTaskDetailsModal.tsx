@@ -5,6 +5,8 @@ import { taskQueryKeys } from '../../../../../../utils/constants/queryKeys/task'
 import { getTaskById } from '../../../../../../utils/api/task';
 import { formatDate } from '../../../../../../utils/functions/dates';
 import styles from './PersonalTaskDetailsModal.module.scss';
+import parse from 'html-react-parser';
+import DOMPurify from 'dompurify';
 
 const Route = getRouteApi('/app/dashboard/personal-task-details/$taskId');
 
@@ -43,13 +45,7 @@ export default function AppViewDashboardViewPersonalTaskDetailsModalView() {
                 </tr>
                 <tr>
                   <td>Contenu</td>
-                  <td>
-                    <div
-                      dangerouslySetInnerHTML={{
-                        __html: task.content ?? '',
-                      }}
-                    ></div>
-                  </td>
+                  <td>{parse(DOMPurify.sanitize(task.content ?? ''))}</td>
                 </tr>
                 <tr>
                   <td>Date de création</td>

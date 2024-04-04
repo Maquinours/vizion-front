@@ -10,6 +10,8 @@ import IndeterminateCheckboxComponent from '../../../../../../../../components/I
 import { getRouteApi, useNavigate } from '@tanstack/react-router';
 import { useQueryClient } from '@tanstack/react-query';
 import { taskQueryKeys } from '../../../../../../../../utils/constants/queryKeys/task';
+import parse from 'html-react-parser';
+import DOMPurify from 'dompurify';
 
 const Route = getRouteApi('/app/dashboard');
 
@@ -67,9 +69,7 @@ export default function AppViewDashboardViewCollectiveTasksComponentTableCompone
             <div className={styles.content}>
               {original.mailId ? (
                 <button className={styles.mail_content} onClick={() => onRowContentClick(original)}>
-                  <div>
-                    <div dangerouslySetInnerHTML={{ __html: original.content ?? '' }} />
-                  </div>
+                  <div>{parse(DOMPurify.sanitize(original.content ?? ''))}</div>
                   <p>
                     À : {original.receiver?.to?.toString()?.split(';').join(' ')} {original.receiver?.cc?.toString()}
                   </p>
