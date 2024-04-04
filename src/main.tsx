@@ -7,9 +7,9 @@ import 'moment/dist/locale/fr';
 
 moment.locale('fr');
 
-ReactModal.setAppElement('#root');
+ReactModal.setAppElement('#app');
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
+ReactDOM.createRoot(document.getElementById('app')!).render(
   <React.StrictMode>
     <App />
   </React.StrictMode>,
