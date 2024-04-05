@@ -16,8 +16,7 @@ import { toast } from 'react-toastify';
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import styles from './LinkPersonalTaskModal.module.scss';
-import { allBusinessQueryKeys } from '../../../../../../utils/constants/queryKeys/allBusiness';
-import { getAllBusinesses } from '../../../../../../utils/api/allBusiness';
+import { allBusinesses } from '../../../../../../utils/constants/queryKeys/allBusiness';
 import { getEnterprises } from '../../../../../../utils/api/enterprise';
 import { getProducts } from '../../../../../../utils/api/product';
 import CustomSelect from '../../../../../../components/CustomSelect/CustomSelect';
@@ -64,7 +63,7 @@ export default function AppViewDashboardViewLinkPersonalTaskModalView() {
   });
 
   const { data: enterprises, isLoading: isLoadingEnterprises } = useQuery({ queryKey: enterpriseQueryKeys.listAll(), queryFn: getEnterprises });
-  const { data: businesses, isLoading: isLoadingBusiness } = useQuery({ queryKey: allBusinessQueryKeys.listAll(), queryFn: getAllBusinesses });
+  const { data: businesses, isLoading: isLoadingBusiness } = useQuery(allBusinesses.list);
   const { data: products, isLoading: isLoadingProducts } = useQuery({ queryKey: productQueryKeys.listAll(), queryFn: getProducts });
 
   const { register, control, watch, handleSubmit } = useForm({

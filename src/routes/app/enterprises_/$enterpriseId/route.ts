@@ -2,8 +2,7 @@ import { createFileRoute } from '@tanstack/react-router';
 import enterpriseQueryKeys from '../../../../utils/constants/queryKeys/enterprise';
 import { getEnterpriseById } from '../../../../utils/api/enterprise';
 import { z } from 'zod';
-import { allBusinessQueryKeys } from '../../../../utils/constants/queryKeys/allBusiness';
-import { getAllBusinessPageByEnterpriseId } from '../../../../utils/api/allBusiness';
+import { allBusinesses } from '../../../../utils/constants/queryKeys/allBusiness';
 import { profileQueryKeys } from '../../../../utils/constants/queryKeys/profile';
 import { getProfilesPageByEnterpriseId, getProfilesPageByEnterpriseIdAndSearch } from '../../../../utils/api/profile';
 import { lifesheetQueryKeys } from '../../../../utils/constants/queryKeys/lifesheet';
@@ -42,10 +41,7 @@ export const Route = createFileRoute('/app/enterprises/$enterpriseId')({
       queryKey: enterpriseQueryKeys.detailById(enterpriseId),
       queryFn: () => getEnterpriseById(enterpriseId),
     });
-    queryClient.ensureQueryData({
-      queryKey: allBusinessQueryKeys.pageByEnterpriseId(enterpriseId, allBusinessPage, allBusinessSize),
-      queryFn: () => getAllBusinessPageByEnterpriseId(enterpriseId, allBusinessPage, allBusinessSize),
-    });
+    queryClient.ensureQueryData(allBusinesses.page({ enterpriseId, page: allBusinessPage, size: allBusinessSize }));
     queryClient.ensureQueryData({
       queryKey: profileQueryKeys.pageByEnterpriseIdAndSearch(enterpriseId, contactsSearch, contactsPage, contactsSize),
       queryFn: () =>
