@@ -2,7 +2,7 @@ import { getRouteApi, useNavigate } from '@tanstack/react-router';
 import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
 import * as yup from 'yup';
-import { addressQueryKeys } from '../../../../../../../../utils/constants/queryKeys/address';
+import { addresses } from '../../../../../../../../utils/constants/queryKeys/address';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -62,7 +62,7 @@ export default function AppViewEnterpriseViewAddressBookModalViewCreateModalView
         enterpriseName: data.enterpriseName,
       }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: addressQueryKeys.pages() });
+      queryClient.invalidateQueries({ queryKey: addresses._def });
       onClose();
       toast.success('Adresse ajoutée avec succès');
     },

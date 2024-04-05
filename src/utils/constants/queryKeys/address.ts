@@ -1,8 +1,10 @@
-export const addressQueryKeys = {
-  all: ['address'] as const,
-  details: () => [...addressQueryKeys.all, 'detail'] as const,
-  detailById: (id: string) => [...addressQueryKeys.details(), { id }] as const,
-  pages: () => [...addressQueryKeys.all, 'page'] as const,
-  pageByEnterpriseIdWithSearch: (enterpriseId: string, search: string, page: number, size: number) =>
-    [...addressQueryKeys.pages(), { enterpriseId, search, page, size }] as const,
-};
+import { createQueryKeys } from '@lukemorales/query-key-factory';
+import { getAddressById, searchPaginatedAddressesByEnterpriseId } from '../../api/address';
+
+export const addresses = createQueryKeys('address', {
+  detail: ({ id }: { id: string }) => ({ queryKey: [{ id }], queryFn: () => getAddressById(id) }),
+  page: ({ enterpriseId, search, page, size }: { enterpriseId: string; search: string; page: number; size: number }) => ({
+    queryKey: [{ enterpriseId, search, page, size }],
+    queryFn: () => searchPaginatedAddressesByEnterpriseId(enterpriseId, search, page, size),
+  }),
+});
