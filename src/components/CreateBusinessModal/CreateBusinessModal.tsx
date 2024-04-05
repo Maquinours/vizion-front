@@ -5,7 +5,7 @@ import { profileQueryKeys } from '../../utils/constants/queryKeys/profile';
 import { getProfileById } from '../../utils/api/profile';
 import { createBusiness } from '../../utils/api/business';
 import { toast } from 'react-toastify';
-import { businessQueryKeys } from '../../utils/constants/queryKeys/business';
+import { businesses } from '../../utils/constants/queryKeys/business';
 import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
 import styles from './CreateBusinessModal.module.scss';
@@ -67,7 +67,7 @@ export default function CreateBusinessModalComponent({ contactId, onClose }: Cre
         billAndLock: false,
       }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: businessQueryKeys.all });
+      queryClient.invalidateQueries({ queryKey: businesses._def });
       toast.success('Affaire créée avec succès');
       // TODO: navigate to business
     },

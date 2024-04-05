@@ -4,8 +4,7 @@ import { getDirectoryByTypeAndIdOnS3 } from '../../../../../../utils/api/ged';
 import FileType from '../../../../../../utils/enums/FileType';
 import { Link, getRouteApi } from '@tanstack/react-router';
 import { createTask } from '../../../../../../utils/api/task';
-import { businessQueryKeys } from '../../../../../../utils/constants/queryKeys/business';
-import { getBusinessById } from '../../../../../../utils/api/business';
+import { businesses } from '../../../../../../utils/constants/queryKeys/business';
 import WorkloadType from '../../../../../../utils/enums/WorkloadType';
 import { toast } from 'react-toastify';
 import { PulseLoader } from 'react-spinners';
@@ -17,10 +16,7 @@ const Route = getRouteApi('/app');
 export default function AppViewBusinessGedModalComponentFooterComponent() {
   const { businessId } = Route.useSearch();
 
-  const { data: business } = useSuspenseQuery({
-    queryKey: businessQueryKeys.detailById(businessId!),
-    queryFn: () => getBusinessById(businessId!),
-  });
+  const { data: business } = useSuspenseQuery(businesses.detail(businessId!));
 
   const { data: canSendTask } = useQuery({
     queryKey: gedQueryKeys.detailByTypeAndId(FileType.AFFAIRE, businessId!),

@@ -23,8 +23,7 @@ import enterpriseQueryKeys from '../../utils/constants/queryKeys/enterprise';
 import { getEnterpriseById } from '../../utils/api/enterprise';
 import { rmaQueryKeys } from '../../utils/constants/queryKeys/rma';
 import { getRmaById } from '../../utils/api/rma';
-import { businessQueryKeys } from '../../utils/constants/queryKeys/business';
-import { getBusinessById } from '../../utils/api/business';
+import { businesses } from '../../utils/constants/queryKeys/business';
 import { lifesheetQueryKeys } from '../../utils/constants/queryKeys/lifesheet';
 import { toast } from 'react-toastify';
 import { Controller, useForm } from 'react-hook-form';
@@ -115,12 +114,7 @@ export default function CreateLifesheetModalComponent({ associatedItemType, asso
         case LifesheetAssociatedItem.BUSINESS:
           data = {
             businessId: associatedItemId,
-            businessNumber: (
-              await queryClient.ensureQueryData({
-                queryKey: businessQueryKeys.detailById(associatedItemId),
-                queryFn: () => getBusinessById(associatedItemId),
-              })
-            ).numBusiness,
+            businessNumber: (await queryClient.ensureQueryData(businesses.detail(associatedItemId))).numBusiness,
           };
           break;
       }

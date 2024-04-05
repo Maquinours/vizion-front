@@ -13,8 +13,7 @@ import { ddnsQueryKeys } from '../../../../../../../../utils/constants/queryKeys
 import { createDdns, getDdnsExistsBySubDomain } from '../../../../../../../../utils/api/ddns';
 import { toast } from 'react-toastify';
 import { useAuthentifiedUserQuery } from '../../../../../../utils/functions/getAuthentifiedUser';
-import { businessQueryKeys } from '../../../../../../../../utils/constants/queryKeys/business';
-import { getBusinessById } from '../../../../../../../../utils/api/business';
+import { businesses } from '../../../../../../../../utils/constants/queryKeys/business';
 import ProductSerialNumberResponseDto from '../../../../../../../../utils/types/ProductSerialNumberResponseDto';
 import BusinessResponseDto from '../../../../../../../../utils/types/BusinessResponseDto';
 
@@ -84,10 +83,7 @@ export default function AppViewToolsViewDdnsViewCreateModalView() {
           });
           if (!serialNumber.serialNumber || !serialNumber.category || !serialNumber.vizeo || !serialNumber.serialNumber.businessId) return result;
           result.serialNumber = serialNumber.serialNumber!;
-          const business = await queryClient.ensureQueryData({
-            queryKey: businessQueryKeys.detailById(serialNumber.serialNumber!.businessId!),
-            queryFn: () => getBusinessById(serialNumber.serialNumber!.businessId!),
-          });
+          const business = await queryClient.ensureQueryData(businesses.detail(serialNumber.serialNumber!.businessId!));
           result.business = business;
           return result;
         } catch (error) {

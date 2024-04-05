@@ -2,8 +2,7 @@ import { createFileRoute, redirect } from '@tanstack/react-router';
 import { z } from 'zod';
 import { getToken } from '../../utils/functions/token';
 import { toast } from 'react-toastify';
-import { businessQueryKeys } from '../../utils/constants/queryKeys/business';
-import { getBusinessById } from '../../utils/api/business';
+import { businesses } from '../../utils/constants/queryKeys/business';
 import { gedQueryKeys } from '../../utils/constants/queryKeys/ged';
 import FileType from '../../utils/enums/FileType';
 import { getDirectoryByTypeAndIdOnS3 } from '../../utils/api/ged';
@@ -59,8 +58,7 @@ export const Route = createFileRoute('/app')({
   loader: async ({ context: { queryClient }, deps: { appModal, businessId, gedItemKey } }) => {
     const userPromise = queryClient.ensureQueryData(users.authentified());
     const promises = [];
-    if (businessId)
-      promises.push(queryClient.ensureQueryData({ queryKey: businessQueryKeys.detailById(businessId), queryFn: () => getBusinessById(businessId) }));
+    if (businessId) promises.push(queryClient.ensureQueryData(businesses.detail(businessId)));
     if (gedItemKey) {
       queryClient
         .ensureQueryData({
