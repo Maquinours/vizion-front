@@ -217,23 +217,11 @@ export default function AppViewToolsViewSchedulerViewDetailsModalViewUpdateModal
                 <label htmlFor="place">Lieu :</label>
                 <div>
                   <select defaultValue={'Extérieur'} id="place" {...register('place')}>
-                    {places.map((item, key) => {
-                      if (Object.prototype.hasOwnProperty.call('item', 'allowedRoles')) {
-                        if (user.userInfo.roles.find((role) => item.allowedRoles?.includes(role))) {
-                          return (
-                            <option key={key} value={item.value}>
-                              {item.label}
-                            </option>
-                          );
-                        }
-                      } else {
-                        return (
-                          <option key={key} value={item.value}>
-                            {item.label}
-                          </option>
-                        );
-                      }
-                    })}
+                    {places.map((item, key) => (
+                      <option key={key} value={item.value}>
+                        {item.label}
+                      </option>
+                    ))}
                   </select>
                   {errors.place && <p className={styles.__errors}>{errors.place.message}</p>}
                 </div>
