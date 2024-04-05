@@ -1,5 +1,4 @@
 import { createFileRoute, redirect } from '@tanstack/react-router';
-import { getAuthentifiedUser } from '../../../../views/App/utils/api/authentifiedUser';
 import { z } from 'zod';
 import { productQueryKeys } from '../../../../utils/constants/queryKeys/product';
 import { getAssociatedProductsPage } from '../../../../utils/api/product';
@@ -13,6 +12,7 @@ import { productSaleQueryKeys } from '../../../../utils/constants/queryKeys/prod
 import { getProductSalesByProductId, getProductSalesByProductIdAndSearch } from '../../../../utils/api/productSale';
 import { productStockEntryQueryKeys } from '../../../../utils/constants/queryKeys/productStockEntry';
 import { getProductStockEntriesPageByProductId } from '../../../../utils/api/productStockEntry';
+import { users } from '../../../../utils/constants/queryKeys/user';
 
 const searchSchema = z.object({
   associatedProductsPage: z.number().min(0).catch(0),
@@ -30,7 +30,7 @@ const searchSchema = z.object({
 export const Route = createFileRoute('/app/products/$productId/manage')({
   validateSearch: searchSchema,
   beforeLoad: async ({ context: { queryClient } }) => {
-    const user = await queryClient.ensureQueryData({ queryKey: ['authentified-user'], queryFn: getAuthentifiedUser });
+    const user = await queryClient.ensureQueryData(users.authentified());
     if (!user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO'))
       throw redirect({ from: Route.id, to: '../informations', search: { lifesheetPage: 0 }, replace: true });
   },

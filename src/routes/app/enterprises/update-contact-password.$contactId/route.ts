@@ -1,15 +1,12 @@
 import { createFileRoute, redirect } from '@tanstack/react-router';
-import { getAuthentifiedUser } from '../../../../views/App/utils/api/authentifiedUser';
 import { profileQueryKeys } from '../../../../utils/constants/queryKeys/profile';
 import { getProfileById } from '../../../../utils/api/profile';
 import CategoryClient from '../../../../utils/enums/CategoryClient';
+import { users } from '../../../../utils/constants/queryKeys/user';
 
 export const Route = createFileRoute('/app/enterprises/update-contact-password/$contactId')({
   loader: async ({ context: { queryClient }, params: { contactId } }) => {
-    const userPromise = queryClient.ensureQueryData({
-      queryKey: ['authentified-user'],
-      queryFn: getAuthentifiedUser,
-    });
+    const userPromise = queryClient.ensureQueryData(users.authentified());
 
     const contactPromise = queryClient.ensureQueryData({
       queryKey: profileQueryKeys.detailById(contactId),

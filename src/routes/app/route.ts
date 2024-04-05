@@ -1,7 +1,6 @@
 import { createFileRoute, redirect } from '@tanstack/react-router';
 import { z } from 'zod';
 import { getToken } from '../../utils/functions/token';
-import { getAuthentifiedUser } from '../../views/App/utils/api/authentifiedUser';
 import { toast } from 'react-toastify';
 import { businessQueryKeys } from '../../utils/constants/queryKeys/business';
 import { getBusinessById } from '../../utils/api/business';
@@ -11,6 +10,7 @@ import { getDirectoryByTypeAndIdOnS3 } from '../../utils/api/ged';
 import { findRecursively } from '../../utils/functions/arrays';
 import { getEnterpriseById } from '../../utils/api/enterprise';
 import enterpriseQueryKeys from '../../utils/constants/queryKeys/enterprise';
+import { users } from '../../utils/constants/queryKeys/user';
 
 const searchSchema = z.object({
   mobileSidebar: z
@@ -57,10 +57,7 @@ export const Route = createFileRoute('/app')({
   },
   loaderDeps: ({ search: { appModal, businessId, gedItemKey } }) => ({ appModal, businessId, gedItemKey }),
   loader: async ({ context: { queryClient }, deps: { appModal, businessId, gedItemKey } }) => {
-    const userPromise = queryClient.ensureQueryData({
-      queryKey: ['authentified-user'],
-      queryFn: getAuthentifiedUser,
-    });
+    const userPromise = queryClient.ensureQueryData(users.authentified());
     const promises = [];
     if (businessId)
       promises.push(queryClient.ensureQueryData({ queryKey: businessQueryKeys.detailById(businessId), queryFn: () => getBusinessById(businessId) }));

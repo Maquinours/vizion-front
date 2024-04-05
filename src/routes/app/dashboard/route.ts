@@ -2,7 +2,6 @@ import { createFileRoute, defer, redirect } from '@tanstack/react-router';
 import { z } from 'zod';
 import TaskState from '../../../utils/enums/TaskState';
 import { Views } from 'react-big-calendar';
-import { getAuthentifiedUser } from '../../../views/App/utils/api/authentifiedUser';
 import WorkloadType from '../../../utils/enums/WorkloadType';
 import { taskQueryKeys } from '../../../utils/constants/queryKeys/task';
 import { getPaginatedTasksByStateAndProfileId, getTasksByType } from '../../../utils/api/task';
@@ -12,6 +11,7 @@ import { rdvUserInfosQueryKeys } from '../../../utils/constants/queryKeys/rdvUse
 import { getAllRdvUserInfos } from '../../../utils/api/rdvUserInfo';
 import { progressiveInfoQueryKeys } from '../../../utils/constants/queryKeys/progressiveInfo';
 import { getProgressiveInfos } from '../../../utils/api/progressiveInfo';
+import { users } from '../../../utils/constants/queryKeys/user';
 
 const searchSchema = z.object({
   personalTaskState: z.nativeEnum(TaskState).catch(TaskState.CREATED),
@@ -23,10 +23,7 @@ const searchSchema = z.object({
 
 export const Route = createFileRoute('/app/dashboard')({
   beforeLoad: async ({ context: { queryClient } }) => {
-    const user = await queryClient.ensureQueryData({
-      queryKey: ['authentified-user'],
-      queryFn: getAuthentifiedUser,
-    });
+    const user = await queryClient.ensureQueryData(users.authentified());
     if (!user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO')) {
       console.warn('User is not allowed to access this route', user, Route);
       throw redirect({ to: '..' });
@@ -50,10 +47,7 @@ export const Route = createFileRoute('/app/dashboard')({
       queryKey: progressiveInfoQueryKeys.listAll(),
       queryFn: getProgressiveInfos,
     });
-    const user = await queryClient.ensureQueryData({
-      queryKey: ['authentified-user'],
-      queryFn: getAuthentifiedUser,
-    });
+    const user = await queryClient.ensureQueryData(users.authentified());
     const personalTaskPromise = queryClient.ensureQueryData({
       queryKey: taskQueryKeys.pageByStateAndProfileId(personalTaskState, user.profile.id, personalTaskPage, personalTaskSize),
       queryFn: () => getPaginatedTasksByStateAndProfileId(personalTaskState, user.profile.id, personalTaskPage, personalTaskSize),

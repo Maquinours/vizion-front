@@ -1,8 +1,4 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
-import { getAuthentifiedUser } from '../api/authentifiedUser';
+import { users } from '../../../../utils/constants/queryKeys/user';
 
-export const useAuthentifiedUserQuery = () =>
-  useSuspenseQuery({
-    queryKey: ['authentified-user'],
-    queryFn: getAuthentifiedUser,
-  });
+export const useAuthentifiedUserQuery = () => useSuspenseQuery(users.authentified());
