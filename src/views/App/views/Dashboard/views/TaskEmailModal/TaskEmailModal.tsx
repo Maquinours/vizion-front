@@ -3,8 +3,7 @@ import ReactModal from 'react-modal';
 import AppViewDashboardViewTaskEmailModalViewInformationsComponent from './components/Informations/Informations';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { taskQueryKeys } from '../../../../../../utils/constants/queryKeys/task';
-import { emailQueryKeys } from '../../../../../../utils/constants/queryKeys/email';
-import { getEmailById } from '../../../../../../utils/api/email';
+import { emails } from '../../../../../../utils/constants/queryKeys/email';
 import { getTaskById } from '../../../../../../utils/api/task';
 import AppViewDashboardViewTaskEmailModalViewAttachmentsComponent from './components/Attachments/Attachments';
 import AppViewDashboardViewTaskEmailModalViewFooterComponent from './components/Footer/Footer';
@@ -24,10 +23,7 @@ export default function AppViewDashboardViewTaskEmailModalView() {
     queryFn: () => getTaskById(taskId),
   });
 
-  const { data: email } = useSuspenseQuery({
-    queryKey: emailQueryKeys.detailById(task.mailId!),
-    queryFn: () => getEmailById(task.mailId!),
-  });
+  const { data: email } = useSuspenseQuery(emails.detail(task.mailId!));
 
   return (
     <ReactModal

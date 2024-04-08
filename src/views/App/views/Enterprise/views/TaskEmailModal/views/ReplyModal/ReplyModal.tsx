@@ -4,8 +4,7 @@ import { getRouteApi, useNavigate } from '@tanstack/react-router';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { taskQueryKeys } from '../../../../../../../../utils/constants/queryKeys/task';
 import { getTaskById } from '../../../../../../../../utils/api/task';
-import { emailQueryKeys } from '../../../../../../../../utils/constants/queryKeys/email';
-import { getEmailById } from '../../../../../../../../utils/api/email';
+import { emails } from '../../../../../../../../utils/constants/queryKeys/email';
 
 const Route = getRouteApi('/app/enterprises/$enterpriseId/task-email/$taskId/reply');
 
@@ -19,10 +18,7 @@ export default function AppViewEnterpriseViewTaskEmailModalViewReplyModalView() 
     queryFn: () => getTaskById(taskId),
   });
 
-  const { data: email } = useSuspenseQuery({
-    queryKey: emailQueryKeys.detailById(task.mailId!),
-    queryFn: () => getEmailById(task.mailId!),
-  });
+  const { data: email } = useSuspenseQuery(emails.detail(task.mailId!));
 
   return (
     <ReactModal isOpen={true} onRequestClose={() => navigate({ from: Route.id, to: '..', search: (old) => old })} overlayClassName="Overlay">

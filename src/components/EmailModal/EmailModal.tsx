@@ -1,8 +1,7 @@
 import ReactModal from 'react-modal';
 import { formatDateWithHour } from '../../utils/functions/dates';
 import { useSuspenseQuery } from '@tanstack/react-query';
-import { emailQueryKeys } from '../../utils/constants/queryKeys/email';
-import { getEmailById } from '../../utils/api/email';
+import { emails } from '../../utils/constants/queryKeys/email';
 import { PUBLIC_BASE_URL } from '../../utils/constants/api';
 import { Link, LinkProps, Outlet } from '@tanstack/react-router';
 import styles from './EmailModal.module.scss';
@@ -15,10 +14,7 @@ type EmailModalComponentProps = Readonly<{
   replyLink?: LinkProps;
 }>;
 export default function EmailModalComponent({ onClose, emailId, replyLink }: EmailModalComponentProps) {
-  const { data: email } = useSuspenseQuery({
-    queryKey: emailQueryKeys.detailById(emailId),
-    queryFn: () => getEmailById(emailId),
-  });
+  const { data: email } = useSuspenseQuery(emails.detail(emailId));
 
   return (
     <>

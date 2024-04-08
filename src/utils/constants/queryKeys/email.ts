@@ -1,5 +1,6 @@
-export const emailQueryKeys = {
-  all: ['emails'] as const,
-  details: () => [...emailQueryKeys.all, 'details'] as const,
-  detailById: (id: string) => [...emailQueryKeys.details(), { id }] as const,
-};
+import { createQueryKeys } from '@lukemorales/query-key-factory';
+import { getEmailById } from '../../api/email';
+
+export const emails = createQueryKeys('emails', {
+  detail: (id: string) => ({ queryKey: [{ id }], queryFn: () => getEmailById(id) }),
+});
