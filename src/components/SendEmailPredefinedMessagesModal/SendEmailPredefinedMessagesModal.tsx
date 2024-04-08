@@ -1,15 +1,14 @@
 import { useQuery } from '@tanstack/react-query';
-import { predefinedMessageQueryKeys } from '../../utils/constants/queryKeys/predefinedMessage';
-import { getAllPredefinedMessages } from '../../utils/api/predefinedMessage';
 import { Row, createColumnHelper } from '@tanstack/react-table';
+import DOMPurify from 'dompurify';
+import parse from 'html-react-parser';
+import { useContext } from 'react';
+import ReactModal from 'react-modal';
+import { queries } from '../../utils/constants/queryKeys';
 import PredefinedMessageResponseDto from '../../utils/types/PredefinedMessageResponseDto';
 import { SendEmailFormContext } from '../SendEmail/utils/contexts/sendEmail';
-import ReactModal from 'react-modal';
 import TableComponent from '../Table/Table';
 import styles from './SendEmailPredefinedMessagesModal.module.scss';
-import { useContext } from 'react';
-import parse from 'html-react-parser';
-import DOMPurify from 'dompurify';
 
 const columnHelper = createColumnHelper<PredefinedMessageResponseDto>();
 const columns = [
@@ -23,10 +22,7 @@ type SendEmailPredefinedMessagesModalComponent = Readonly<{
 export default function SendEmailPredefinedMessagesModalComponent({ onClose }: SendEmailPredefinedMessagesModalComponent) {
   const { watch, setValue } = useContext(SendEmailFormContext)!;
 
-  const { data, isLoading } = useQuery({
-    queryKey: predefinedMessageQueryKeys.listAll(),
-    queryFn: getAllPredefinedMessages,
-  });
+  const { data, isLoading } = useQuery(queries['predefined-message'].list);
 
   const onRowClick = (_e: React.MouseEvent, row: Row<PredefinedMessageResponseDto>) => {
     setValue('content', row.original.description + watch('content'));
