@@ -1,12 +1,11 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { z } from 'zod';
-import { getLifesheetPageByEnterpriseId } from '../../../../utils/api/lifesheet';
 import { getProfilesPageByEnterpriseId, getProfilesPageByEnterpriseIdAndSearch } from '../../../../utils/api/profile';
 import { getTasksPageByEnterpriseId } from '../../../../utils/api/task';
 import { allBusinesses } from '../../../../utils/constants/queryKeys/allBusiness';
 import { enterprises } from '../../../../utils/constants/queryKeys/enterprise';
 import { geds } from '../../../../utils/constants/queryKeys/ged';
-import { lifesheetQueryKeys } from '../../../../utils/constants/queryKeys/lifesheet';
+import { lifesheets } from '../../../../utils/constants/queryKeys/lifesheet';
 import { profileQueryKeys } from '../../../../utils/constants/queryKeys/profile';
 import { taskQueryKeys } from '../../../../utils/constants/queryKeys/task';
 import FileType from '../../../../utils/enums/FileType';
@@ -44,10 +43,11 @@ export const Route = createFileRoute('/app/enterprises/$enterpriseId')({
           ? getProfilesPageByEnterpriseIdAndSearch(enterpriseId, contactsSearch, contactsPage, 5)
           : getProfilesPageByEnterpriseId(enterpriseId, contactsPage, 5),
     });
-    queryClient.ensureQueryData({
-      queryKey: lifesheetQueryKeys.pageByAssociatedItemAndId(LifesheetAssociatedItem.ENTERPRISE, enterpriseId, lifesheetPage, lifesheetSize),
-      queryFn: () => getLifesheetPageByEnterpriseId(enterpriseId, lifesheetPage, lifesheetSize),
-    });
+    queryClient.prefetchQuery(
+      lifesheets
+        .page({ page: lifesheetPage, size: lifesheetSize })
+        ._ctx.byAssociatedItem({ associatedItemType: LifesheetAssociatedItem.ENTERPRISE, associatedItemId: enterpriseId }),
+    );
     queryClient.ensureQueryData({
       queryKey: taskQueryKeys.pageByAssociatedItemAndId(WorkloadAssociatedItem.ENTERPRISE, enterpriseId, workloadsPage, workloadsSize),
       queryFn: () => getTasksPageByEnterpriseId(enterpriseId, workloadsPage, workloadsSize),

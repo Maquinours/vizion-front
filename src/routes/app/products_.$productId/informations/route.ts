@@ -1,9 +1,8 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { z } from 'zod';
-import { getLifesheetPageByProductId } from '../../../../utils/api/lifesheet';
 import { getTasksPageByProductId } from '../../../../utils/api/task';
 import { geds } from '../../../../utils/constants/queryKeys/ged';
-import { lifesheetQueryKeys } from '../../../../utils/constants/queryKeys/lifesheet';
+import { lifesheets } from '../../../../utils/constants/queryKeys/lifesheet';
 import { taskQueryKeys } from '../../../../utils/constants/queryKeys/task';
 import { users } from '../../../../utils/constants/queryKeys/user';
 import FileType from '../../../../utils/enums/FileType';
@@ -27,10 +26,11 @@ export const Route = createFileRoute('/app/products/$productId/informations')({
     if (!user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO')) {
       queryClient.prefetchQuery(geds.detail._ctx.byTypeAndId(FileType.PRODUIT, productId));
 
-      queryClient.ensureQueryData({
-        queryKey: lifesheetQueryKeys.pageByAssociatedItemAndId(LifesheetAssociatedItem.PRODUCT, productId, lifesheetPage, lifesheetSize),
-        queryFn: () => getLifesheetPageByProductId(productId, lifesheetPage, lifesheetSize),
-      });
+      queryClient.prefetchQuery(
+        lifesheets
+          .page({ page: lifesheetPage, size: lifesheetSize })
+          ._ctx.byAssociatedItem({ associatedItemType: LifesheetAssociatedItem.PRODUCT, associatedItemId: productId }),
+      );
 
       queryClient.ensureQueryData({
         queryKey: taskQueryKeys.pageByAssociatedItemAndId(WorkloadAssociatedItem.PRODUCT, productId, workloadsPage, workloadsSize),
