@@ -1,22 +1,21 @@
-import { Controller, useForm } from 'react-hook-form';
-import CardComponent from '../../../../../../../../components/Card/Card';
-import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useQuery } from '@tanstack/react-query';
+import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { createColumnHelper } from '@tanstack/react-table';
+import { fr } from 'date-fns/locale/fr';
+import React, { useEffect } from 'react';
 import DatePicker, { registerLocale } from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { fr } from 'date-fns/locale/fr';
+import { Controller, useForm } from 'react-hook-form';
 import { MdSearch } from 'react-icons/md';
-import { useQuery } from '@tanstack/react-query';
-import { productSaleQueryKeys } from '../../../../../../../../utils/constants/queryKeys/productSale';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import React, { useEffect } from 'react';
-import { createColumnHelper } from '@tanstack/react-table';
-import BpProductInfoHistoryResponseDto from '../../../../../../../../utils/types/BpProductInfoHistoryResponseDto';
-import { formatDateAndHourWithSlash } from '../../../../../../../../utils/functions/dates';
-import styles from './SalesHistory.module.scss';
-import TableComponent from '../../../../../../../../components/Table/Table';
+import * as yup from 'yup';
+import CardComponent from '../../../../../../../../components/Card/Card';
 import PaginationComponent from '../../../../../../../../components/Pagination/Pagination';
-import { getProductSalesByProductId, getProductSalesByProductIdAndSearch } from '../../../../../../../../utils/api/productSale';
+import TableComponent from '../../../../../../../../components/Table/Table';
+import { queries } from '../../../../../../../../utils/constants/queryKeys';
+import { formatDateAndHourWithSlash } from '../../../../../../../../utils/functions/dates';
+import BpProductInfoHistoryResponseDto from '../../../../../../../../utils/types/BpProductInfoHistoryResponseDto';
+import styles from './SalesHistory.module.scss';
 
 registerLocale('fr', fr);
 
@@ -47,13 +46,9 @@ export default function AppViewProductViewManageViewSalesHistoryComponent() {
     resolver: yupResolver(yupSchema),
   });
 
-  const { data, isLoading } = useQuery({
-    queryKey: productSaleQueryKeys.detailByProductIdAndSearch(productId, contact, dates?.at(0), dates?.at(1), page, size),
-    queryFn: () =>
-      !!contact || !!dates
-        ? getProductSalesByProductIdAndSearch(productId, contact, dates?.at(0), dates?.at(1), page, size)
-        : getProductSalesByProductId(productId, page, size),
-  });
+  const { data, isLoading } = useQuery(
+    queries['product-sale'].detail._ctx.byProductIdAndSearch({ productId, contact, startDate: dates?.at(0), endDate: dates?.at(1), page, size }),
+  );
 
   const onSearch = ({ dates, enterpriseName }: yup.InferType<typeof yupSchema>) => {
     console.log(dates);

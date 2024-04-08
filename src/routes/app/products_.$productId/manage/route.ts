@@ -1,12 +1,10 @@
 import { createFileRoute, redirect } from '@tanstack/react-router';
 import { z } from 'zod';
-import { getProductSalesByProductId, getProductSalesByProductIdAndSearch } from '../../../../utils/api/productSale';
 import { getProductSpecificationsPageByProductId } from '../../../../utils/api/productSpecification';
 import { getProductStockEntriesPageByProductId } from '../../../../utils/api/productStockEntry';
 import { getProductVersionsPageByProductId } from '../../../../utils/api/productVersion';
 import { getProductVersionShelfStocksPageByProductId } from '../../../../utils/api/productVersionShelfStock';
 import { queries } from '../../../../utils/constants/queryKeys';
-import { productSaleQueryKeys } from '../../../../utils/constants/queryKeys/productSale';
 import { productSpecificationQueryKeys } from '../../../../utils/constants/queryKeys/productSpecification';
 import { productStockEntryQueryKeys } from '../../../../utils/constants/queryKeys/productStockEntry';
 import { productVersionQueryKeys } from '../../../../utils/constants/queryKeys/productVersion';
@@ -99,13 +97,16 @@ export const Route = createFileRoute('/app/products/$productId/manage')({
       queryFn: () => getProductVersionShelfStocksPageByProductId(productId, stocksPage, stocksSize),
     });
 
-    queryClient.ensureQueryData({
-      queryKey: productSaleQueryKeys.detailByProductIdAndSearch(productId, salesContact, salesDates?.at(0), salesDates?.at(1), salesPage, salesSize),
-      queryFn: () =>
-        !!salesContact || !!salesDates
-          ? getProductSalesByProductIdAndSearch(productId, salesContact, salesDates?.at(0), salesDates?.at(1), salesPage, salesSize)
-          : getProductSalesByProductId(productId, salesPage, salesSize),
-    });
+    queryClient.prefetchQuery(
+      queries['product-sale'].detail._ctx.byProductIdAndSearch({
+        productId,
+        contact: salesContact,
+        startDate: salesDates?.at(0),
+        endDate: salesDates?.at(1),
+        page: salesPage,
+        size: salesSize,
+      }),
+    );
 
     queryClient.ensureQueryData({
       queryKey: productStockEntryQueryKeys.pageByProductId(productId, stockEntriesPage, stockEntriesSize),
