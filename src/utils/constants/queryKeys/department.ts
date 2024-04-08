@@ -1,5 +1,6 @@
-export const departmentQueryKeys = {
-  all: ['departments'] as const,
-  lists: () => [...departmentQueryKeys.all, 'lists'] as const,
-  listAll: () => [...departmentQueryKeys.lists(), 'all'] as const,
-};
+import { createQueryKeys } from '@lukemorales/query-key-factory';
+import { getAllDepartments } from '../../api/department';
+
+export const departments = createQueryKeys('department', {
+  list: { queryKey: null, queryFn: getAllDepartments },
+});

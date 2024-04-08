@@ -12,8 +12,7 @@ import { toast } from 'react-toastify';
 import countries from '../../../../../../utils/constants/countries';
 import enterpriseQueryKeys from '../../../../../../utils/constants/queryKeys/enterprise';
 import { getEnterpriseById, updateEnterprise } from '../../../../../../utils/api/enterprise';
-import { departmentQueryKeys } from '../../../../../../utils/constants/queryKeys/department';
-import { getAllDepartments } from '../../../../../../utils/api/department';
+import { departments } from '../../../../../../utils/constants/queryKeys/department';
 import EnterpriseResponseDto from '../../../../../../utils/types/EnterpriseResponseDto';
 import Page from '../../../../../../utils/types/Page';
 
@@ -59,10 +58,7 @@ export default function AppViewEnterpriseViewUpdateModalView() {
     queryFn: () => getEnterpriseById(enterpriseId),
   });
 
-  const { data: departments } = useQuery({
-    queryKey: departmentQueryKeys.listAll(),
-    queryFn: getAllDepartments,
-  });
+  const { data: departmentsList } = useQuery(departments.list);
 
   const {
     register,
@@ -90,7 +86,7 @@ export default function AppViewEnterpriseViewUpdateModalView() {
 
   const { mutate, isPending } = useMutation({
     mutationFn: (data: InferType<typeof yupSchema>) => {
-      const department = departments?.find((item) => item.code === data.zipCode.slice(0, 2) || item.code === data.zipCode.slice(0, 3));
+      const department = departmentsList?.find((item) => item.code === data.zipCode.slice(0, 2) || item.code === data.zipCode.slice(0, 3));
       return updateEnterprise(enterprise, {
         name: data.name,
         sign: data.sign,
