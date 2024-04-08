@@ -1,18 +1,18 @@
-import ReactModal from 'react-modal';
-import styles from './UpdateModal.module.scss';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { faqQueryKeys } from '../../../../../../utils/constants/queryKeys/faq';
-import { getFaqById, updateFaq } from '../../../../../../utils/api/faq';
-import * as yup from 'yup';
-import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import FaqAccessLevel from '../../../../../../utils/enums/FaqAccessLevel';
-import Quill from '../../../../../../components/Quill/Quill';
-import { PulseLoader } from 'react-spinners';
+import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
+import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { Controller, useForm } from 'react-hook-form';
+import ReactModal from 'react-modal';
 import { ReactMultiEmail } from 'react-multi-email';
-import { toast } from 'react-toastify';
 import 'react-multi-email/dist/style.css';
+import { PulseLoader } from 'react-spinners';
+import { toast } from 'react-toastify';
+import * as yup from 'yup';
+import Quill from '../../../../../../components/Quill/Quill';
+import { updateFaq } from '../../../../../../utils/api/faq';
+import { faqs } from '../../../../../../utils/constants/queryKeys/faq';
+import FaqAccessLevel from '../../../../../../utils/enums/FaqAccessLevel';
+import styles from './UpdateModal.module.scss';
 
 const yupSchema = yup.object().shape({
   title: yup.string().required('Le titre est requis.'),
@@ -48,10 +48,7 @@ export default function AppViewFaqViewUpdateModalView() {
 
   const { faqId } = routeApi.useParams();
 
-  const { data: faq } = useSuspenseQuery({
-    queryKey: faqQueryKeys.detailById(faqId),
-    queryFn: () => getFaqById(faqId),
-  });
+  const { data: faq } = useSuspenseQuery(faqs.detail._ctx.byId(faqId));
 
   const {
     register,
@@ -76,7 +73,7 @@ export default function AppViewFaqViewUpdateModalView() {
     mutationFn: ({ title, description, level, concerneds }: yup.InferType<typeof yupSchema>) =>
       updateFaq(faq.id, { title, description, accessLevel: level, faqConcernedNames: concerneds, archived: faq.archived }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: faqQueryKeys.all });
+      queryClient.invalidateQueries({ queryKey: faqs._def });
       toast.success('La FAQ a été modifiée avec succès.');
       onClose();
     },

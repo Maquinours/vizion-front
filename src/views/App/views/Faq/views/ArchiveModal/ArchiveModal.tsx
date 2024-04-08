@@ -1,12 +1,12 @@
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import ReactModal from 'react-modal';
-import { faqQueryKeys } from '../../../../../../utils/constants/queryKeys/faq';
-import { getFaqById, updateFaq } from '../../../../../../utils/api/faq';
 import React from 'react';
+import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
-import styles from './ArchiveModal.module.scss';
 import { toast } from 'react-toastify';
+import { updateFaq } from '../../../../../../utils/api/faq';
+import { faqs } from '../../../../../../utils/constants/queryKeys/faq';
+import styles from './ArchiveModal.module.scss';
 
 const routeApi = getRouteApi('/app/faq/archive/$faqId');
 
@@ -16,10 +16,7 @@ export default function AppViewFaqViewArchiveModalView() {
 
   const { faqId } = routeApi.useParams();
 
-  const { data: faq } = useSuspenseQuery({
-    queryKey: faqQueryKeys.detailById(faqId),
-    queryFn: () => getFaqById(faqId),
-  });
+  const { data: faq } = useSuspenseQuery(faqs.detail._ctx.byId(faqId));
 
   const onClose = () => {
     navigate({ from: routeApi.id, to: '../..', search: (old) => old });
@@ -28,7 +25,7 @@ export default function AppViewFaqViewArchiveModalView() {
   const { mutate, isPending } = useMutation({
     mutationFn: () => updateFaq(faq.id, { title: faq.title, description: faq.description, accessLevel: faq.accessLevel, archived: !faq.archived }),
     onSuccess: (data) => {
-      queryClient.invalidateQueries({ queryKey: faqQueryKeys.all });
+      queryClient.invalidateQueries({ queryKey: faqs._def });
       toast.success(`La FAQ a été ${data.archived ? 'archivée' : 'désarchivée'} avec succès.`);
       onClose();
     },
