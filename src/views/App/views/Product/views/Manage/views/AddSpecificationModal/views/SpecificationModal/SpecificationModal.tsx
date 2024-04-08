@@ -6,12 +6,10 @@ import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
 import { toast } from 'react-toastify';
 import * as yup from 'yup';
-import { getProductFilterById } from '../../../../../../../../../../utils/api/productFilter';
 import { addProductSpecificationToProduct } from '../../../../../../../../../../utils/api/productSpecification';
-import { productFilterQueryKeys } from '../../../../../../../../../../utils/constants/queryKeys/productFilter';
+import { queries } from '../../../../../../../../../../utils/constants/queryKeys';
 import { productSpecificationQueryKeys } from '../../../../../../../../../../utils/constants/queryKeys/productSpecification';
 import styles from './SpecificationModal.module.scss';
-import { queries } from '../../../../../../../../../../utils/constants/queryKeys';
 
 const routeApi = getRouteApi('/app/products/$productId/manage/add-specification/$filterId');
 
@@ -43,10 +41,7 @@ export default function AppViewProductViewManageViewAddSpecificationModalViewSpe
 
   const { productId, filterId } = routeApi.useParams();
 
-  const { data: filter } = useSuspenseQuery({
-    queryKey: productFilterQueryKeys.detailById(filterId),
-    queryFn: () => getProductFilterById(filterId),
-  });
+  const { data: filter } = useSuspenseQuery(queries['product-filter'].detail._ctx.byId(filterId));
 
   const {
     register,

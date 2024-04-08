@@ -1,7 +1,18 @@
-export const productFilterQueryKeys = {
-  all: ['product-filters'] as const,
-  lists: () => [...productFilterQueryKeys.all, 'list'] as const,
-  listAll: () => [...productFilterQueryKeys.lists(), 'all'] as const,
-  details: () => [...productFilterQueryKeys.all, 'detail'] as const,
-  detailById: (id: string) => [...productFilterQueryKeys.details(), { id }] as const,
-};
+import { createQueryKeys } from '@lukemorales/query-key-factory';
+import { getAllProductFilters, getProductFilterById } from '../../api/productFilter';
+
+export const productFilters = createQueryKeys('product-filter', {
+  list: {
+    queryKey: null,
+    queryFn: getAllProductFilters,
+  },
+  detail: {
+    queryKey: null,
+    contextQueries: {
+      byId: (id: string) => ({
+        queryKey: [id],
+        queryFn: () => getProductFilterById(id),
+      }),
+    },
+  },
+});
