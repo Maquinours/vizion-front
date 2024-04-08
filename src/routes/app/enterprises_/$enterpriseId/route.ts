@@ -1,6 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router';
-import enterpriseQueryKeys from '../../../../utils/constants/queryKeys/enterprise';
-import { getEnterpriseById } from '../../../../utils/api/enterprise';
+import { enterprises } from '../../../../utils/constants/queryKeys/enterprise';
 import { z } from 'zod';
 import { allBusinesses } from '../../../../utils/constants/queryKeys/allBusiness';
 import { profileQueryKeys } from '../../../../utils/constants/queryKeys/profile';
@@ -37,10 +36,7 @@ export const Route = createFileRoute('/app/enterprises/$enterpriseId')({
     const workloadsSize = 100;
     const workloadsPage = 0;
 
-    queryClient.ensureQueryData({
-      queryKey: enterpriseQueryKeys.detailById(enterpriseId),
-      queryFn: () => getEnterpriseById(enterpriseId),
-    });
+    queryClient.ensureQueryData(enterprises.detail(enterpriseId));
     queryClient.ensureQueryData(allBusinesses.page({ enterpriseId, page: allBusinessPage, size: allBusinessSize }));
     queryClient.ensureQueryData({
       queryKey: profileQueryKeys.pageByEnterpriseIdAndSearch(enterpriseId, contactsSearch, contactsPage, contactsSize),

@@ -9,11 +9,8 @@ import { PropagateLoader } from 'react-spinners';
 import styles from './UpdateAccountability.module.scss';
 import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthentifiedUser';
 import CategoryClient from '../../../../../../utils/enums/CategoryClient';
-import enterpriseQueryKeys from '../../../../../../utils/constants/queryKeys/enterprise';
-import { getEnterpriseById } from '../../../../../../utils/api/enterprise';
+import { enterprises } from '../../../../../../utils/constants/queryKeys/enterprise';
 import { updateEnterpriseAccountability } from '../../../../../../utils/api/enterpriseAccountability';
-import EnterpriseResponseDto from '../../../../../../utils/types/EnterpriseResponseDto';
-import Page from '../../../../../../utils/types/Page';
 
 const Route = getRouteApi('/app/enterprises/$enterpriseId/update-accountability');
 
@@ -25,10 +22,7 @@ export default function AppViewEnterpriseViewUpdateAccountabilityModalView() {
 
   const { data: currentUser } = useAuthentifiedUserQuery();
 
-  const { data: enterprise } = useSuspenseQuery({
-    queryKey: enterpriseQueryKeys.detailById(enterpriseId),
-    queryFn: () => getEnterpriseById(enterpriseId),
-  });
+  const { data: enterprise } = useSuspenseQuery(enterprises.detail(enterpriseId));
 
   const yupSchema = object({
     billingServiceName: string().nullable(),
@@ -83,21 +77,8 @@ export default function AppViewEnterpriseViewUpdateAccountabilityModalView() {
         accountingEmail: data.accountingEmail,
         accountNumber: data.accountNumber,
       }),
-    onSuccess: (accountability) => {
-      queryClient.setQueriesData<EnterpriseResponseDto>({ queryKey: enterpriseQueryKeys.details() }, (old) =>
-        old?.id === enterprise.id ? { ...old, accountability } : old,
-      );
-      queryClient.setQueriesData<Array<EnterpriseResponseDto>>({ queryKey: enterpriseQueryKeys.lists() }, (old) =>
-        old?.map((item) => (item.id === enterprise.id ? { ...item, accountability } : item)),
-      );
-      queryClient.setQueriesData<Page<EnterpriseResponseDto>>({ queryKey: enterpriseQueryKeys.pages() }, (old) =>
-        old
-          ? {
-              ...old,
-              content: old.content?.map((item) => (item.id === enterprise.id ? { ...item, accountability } : item)),
-            }
-          : old,
-      );
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: enterprises._def });
       toast.success("Comptabilité de l'entreprise modifiée avec succès");
       onClose();
     },

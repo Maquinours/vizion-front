@@ -1,7 +1,6 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { Outlet, getRouteApi } from '@tanstack/react-router';
-import enterpriseQueryKeys from '../../../../utils/constants/queryKeys/enterprise';
-import { getEnterpriseById } from '../../../../utils/api/enterprise';
+import { enterprises } from '../../../../utils/constants/queryKeys/enterprise';
 import AppViewEnterpriseViewHeaderComponent from './components/Header/Header';
 import AppViewEnterpriseViewInformationsComponent from './components/Informations/Informations';
 import styles from './Enterprise.module.scss';
@@ -20,10 +19,7 @@ export default function AppViewEnterpriseView() {
 
   const { data: user } = useAuthentifiedUserQuery();
 
-  const { data: enterprise } = useSuspenseQuery({
-    queryKey: enterpriseQueryKeys.detailById(enterpriseId),
-    queryFn: () => getEnterpriseById(enterpriseId),
-  });
+  const { data: enterprise } = useSuspenseQuery(enterprises.detail(enterpriseId));
 
   return (
     <>

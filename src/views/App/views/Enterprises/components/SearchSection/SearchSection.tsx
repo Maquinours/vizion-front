@@ -4,8 +4,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import styles from './SearchSection.module.scss';
 import { useQuery } from '@tanstack/react-query';
-import enterpriseQueryKeys from '../../../../../../utils/constants/queryKeys/enterprise';
-import { getEnterprisesByCategory } from '../../../../../../utils/api/enterprises';
+import { enterprises } from '../../../../../../utils/constants/queryKeys/enterprise';
 import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthentifiedUser';
 import { useEffect, useMemo } from 'react';
 import PhoneInput from 'react-phone-number-input/input';
@@ -76,10 +75,7 @@ export default function AppViewEnterprisesViewSearchSectionComponent() {
 
   const { data: user } = useAuthentifiedUserQuery();
 
-  const { data: representatives } = useQuery({
-    queryKey: enterpriseQueryKeys.listByCategory(CategoryClient.REPRESENTANT),
-    queryFn: () => getEnterprisesByCategory(CategoryClient.REPRESENTANT),
-  });
+  const { data: representatives } = useQuery(enterprises.list._ctx.byCategory(CategoryClient.REPRESENTANT));
 
   const availableCategoryOptions = useMemo(
     () => categoryOptions.filter((item) => !item.allowedRoles || item.allowedRoles.some((role) => user.userInfo.roles.includes(role))),

@@ -7,8 +7,7 @@ import { gedQueryKeys } from '../../utils/constants/queryKeys/ged';
 import FileType from '../../utils/enums/FileType';
 import { getDirectoryByTypeAndIdOnS3 } from '../../utils/api/ged';
 import { findRecursively } from '../../utils/functions/arrays';
-import { getEnterpriseById } from '../../utils/api/enterprise';
-import enterpriseQueryKeys from '../../utils/constants/queryKeys/enterprise';
+import { enterprises } from '../../utils/constants/queryKeys/enterprise';
 import { users } from '../../utils/constants/queryKeys/user';
 
 const searchSchema = z.object({
@@ -85,12 +84,7 @@ export const Route = createFileRoute('/app')({
     }
     if (appModal === 'create-business' || appModal === 'create-client-business') {
       const currentUser = await userPromise;
-      promises.push(
-        queryClient.ensureQueryData({
-          queryKey: enterpriseQueryKeys.detailById(currentUser.profile.enterprise!.id),
-          queryFn: () => getEnterpriseById(currentUser.profile.enterprise!.id),
-        }),
-      );
+      promises.push(queryClient.ensureQueryData(enterprises.detail(currentUser.profile.enterprise!.id)));
     }
     await Promise.all(promises);
   },

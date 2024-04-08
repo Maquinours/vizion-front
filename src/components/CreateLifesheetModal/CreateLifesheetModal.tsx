@@ -19,8 +19,7 @@ import { LifesheetAssociatedItem } from '../../utils/enums/LifesheetAssociatedIt
 import { productQueryKeys } from '../../utils/constants/queryKeys/product';
 import { getProductById } from '../../utils/api/product';
 import LifeSheetRequestDto from '../../utils/types/LifeSheetRequestDto';
-import enterpriseQueryKeys from '../../utils/constants/queryKeys/enterprise';
-import { getEnterpriseById } from '../../utils/api/enterprise';
+import { enterprises } from '../../utils/constants/queryKeys/enterprise';
 import { rmaQueryKeys } from '../../utils/constants/queryKeys/rma';
 import { getRmaById } from '../../utils/api/rma';
 import { businesses } from '../../utils/constants/queryKeys/business';
@@ -89,12 +88,7 @@ export default function CreateLifesheetModalComponent({ associatedItemType, asso
         case LifesheetAssociatedItem.ENTERPRISE:
           data = {
             enterpriseId: associatedItemId,
-            enterpriseName: (
-              await queryClient.ensureQueryData({
-                queryKey: enterpriseQueryKeys.detailById(associatedItemId),
-                queryFn: () => getEnterpriseById(associatedItemId),
-              })
-            ).name,
+            enterpriseName: (await queryClient.ensureQueryData(enterprises.detail(associatedItemId))).name,
           };
           break;
         case LifesheetAssociatedItem.RMA:

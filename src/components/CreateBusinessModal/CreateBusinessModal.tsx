@@ -9,8 +9,7 @@ import { businesses } from '../../utils/constants/queryKeys/business';
 import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
 import styles from './CreateBusinessModal.module.scss';
-import enterpriseQueryKeys from '../../utils/constants/queryKeys/enterprise';
-import { getEnterpriseById } from '../../utils/api/enterprise';
+import { enterprises } from '../../utils/constants/queryKeys/enterprise';
 
 type CreateBusinessModalComponentProps = Readonly<{
   contactId: string;
@@ -24,10 +23,7 @@ export default function CreateBusinessModalComponent({ contactId, onClose }: Cre
     queryFn: () => getProfileById(contactId),
   });
 
-  const { data: enterprise } = useSuspenseQuery({
-    queryKey: enterpriseQueryKeys.detailById(contact.enterprise!.id),
-    queryFn: () => getEnterpriseById(contact.enterprise!.id),
-  });
+  const { data: enterprise } = useSuspenseQuery(enterprises.detail(contact.enterprise!.id));
 
   const { mutate, isPending } = useMutation({
     mutationFn: () =>

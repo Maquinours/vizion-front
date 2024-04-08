@@ -1,20 +1,17 @@
 import { Link, getRouteApi, useNavigate } from '@tanstack/react-router';
 import * as yup from 'yup';
-import enterpriseQueryKeys from '../../../../../../utils/constants/queryKeys/enterprise';
+import { enterprises } from '../../../../../../utils/constants/queryKeys/enterprise';
 import CategoryClient from '../../../../../../utils/enums/CategoryClient';
 import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
 import { Controller, useForm } from 'react-hook-form';
 import CustomSelect from '../../../../../../components/CustomSelect/CustomSelect';
-import { getEnterprisesByCategory } from '../../../../../../utils/api/enterprises';
 import { useMutation, useQuery, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { getEnterpriseById } from '../../../../../../utils/api/enterprise';
 import { yupResolver } from '@hookform/resolvers/yup';
 import EnterpriseResponseDto from '../../../../../../utils/types/EnterpriseResponseDto';
 import { toast } from 'react-toastify';
 import styles from './UpdateRepresentativeModal.module.scss';
 import { updateEnterpriseInfoSup } from '../../../../../../utils/api/enterpriseInfoSup';
-import Page from '../../../../../../utils/types/Page';
 
 const Route = getRouteApi('/app/enterprises/$enterpriseId/update-representative');
 
@@ -32,15 +29,9 @@ export default function AppViewEnterpriseViewUpdateRepresentativeModalView() {
 
   const { enterpriseId } = Route.useParams();
 
-  const { data: enterprise } = useSuspenseQuery({
-    queryKey: enterpriseQueryKeys.detailById(enterpriseId),
-    queryFn: () => getEnterpriseById(enterpriseId),
-  });
+  const { data: enterprise } = useSuspenseQuery(enterprises.detail(enterpriseId));
 
-  const { data: representatives, isLoading: isLoadingRepresentatives } = useQuery({
-    queryKey: enterpriseQueryKeys.listByCategory(CategoryClient.REPRESENTANT),
-    queryFn: () => getEnterprisesByCategory(CategoryClient.REPRESENTANT),
-  });
+  const { data: representatives, isLoading: isLoadingRepresentatives } = useQuery(enterprises.list._ctx.byCategory(CategoryClient.REPRESENTANT));
 
   const {
     register,
@@ -69,21 +60,8 @@ export default function AppViewEnterpriseViewUpdateRepresentativeModalView() {
         enterpriseRelationShips: [data.relationOne, data.relationTwo, data.relationThree].filter((data) => !!data).map((itm) => ({ fullName: itm as string })),
         webSite: data.website,
       }),
-    onSuccess: (infoSup) => {
-      queryClient.setQueriesData<EnterpriseResponseDto>({ queryKey: enterpriseQueryKeys.details() }, (old) =>
-        old?.infoSup?.id === infoSup.id ? { ...old, infoSup } : old,
-      );
-      queryClient.setQueriesData<Array<EnterpriseResponseDto>>({ queryKey: enterpriseQueryKeys.lists() }, (old) =>
-        old?.map((itm) => (itm.infoSup?.id === infoSup.id ? { ...itm, infoSup } : itm)),
-      );
-      queryClient.setQueriesData<Page<EnterpriseResponseDto>>({ queryKey: enterpriseQueryKeys.pages() }, (old) =>
-        old
-          ? {
-              ...old,
-              content: old.content.map((itm) => (itm.infoSup?.id === infoSup.id ? { ...itm, infoSup } : itm)),
-            }
-          : old,
-      );
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: enterprises._def });
       toast.success('Le représentant a été modifié avec succès');
       onClose();
     },

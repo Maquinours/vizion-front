@@ -12,8 +12,7 @@ import AppViewProductViewUpdateModalComponentStepTwoComponent from './components
 import EnterpriseResponseDto from '../../../../../../utils/types/EnterpriseResponseDto';
 import { toast } from 'react-toastify';
 import styles from './UpdateModal.module.scss';
-import enterpriseQueryKeys from '../../../../../../utils/constants/queryKeys/enterprise';
-import { getProviderEnterprises } from '../../../../../../utils/api/enterprise';
+import { enterprises } from '../../../../../../utils/constants/queryKeys/enterprise';
 
 const routeApi = getRouteApi('/app/products/$productId');
 
@@ -129,15 +128,10 @@ export default function AppViewProductViewUpdateModalComponent() {
     if (product.reference) stepOneSetValue('reference', product.reference);
     stepOneSetValue('shortDescription', product.shortDescription);
     stepOneSetValue('longDescription', product.description);
-    queryClient
-      .ensureQueryData({
-        queryKey: enterpriseQueryKeys.listProviders(),
-        queryFn: getProviderEnterprises,
-      })
-      .then((data) => {
-        const provider = data.find(({ id }) => product.providerId === id);
-        if (provider) stepOneSetValue('provider', provider);
-      });
+    queryClient.ensureQueryData(enterprises.list._ctx.providers).then((data) => {
+      const provider = data.find(({ id }) => product.providerId === id);
+      if (provider) stepOneSetValue('provider', provider);
+    });
     if (product.category) stepOneSetValue('category', product.category);
     stepOneSetValue('isVizeo', product.vizeo ? 'yes' : 'no');
     stepOneSetValue('isVirtual', product.virtualQty ? 'yes' : 'no');

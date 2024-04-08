@@ -2,9 +2,8 @@ import { createFileRoute, redirect } from '@tanstack/react-router';
 import { z } from 'zod';
 import YEARS from '../../../../utils/constants/years';
 import { getAvailableMonthsForYear } from '../../../../utils/functions/moment';
-import enterpriseQueryKeys from '../../../../utils/constants/queryKeys/enterprise';
+import { enterprises } from '../../../../utils/constants/queryKeys/enterprise';
 import CategoryClient from '../../../../utils/enums/CategoryClient';
-import { getEnterprisesByCategory } from '../../../../utils/api/enterprises';
 
 const searchSchema = z.object({
   representativeId: z.string().optional().catch(undefined),
@@ -26,10 +25,7 @@ export const Route = createFileRoute('/app/tools/representatives-turnover')({
   },
   loaderDeps: ({ search }) => ({ search }),
   loader: async ({ context: { queryClient }, deps: { search } }) => {
-    const representatives = await queryClient.ensureQueryData({
-      queryKey: enterpriseQueryKeys.listByCategory(CategoryClient.REPRESENTANT),
-      queryFn: () => getEnterprisesByCategory(CategoryClient.REPRESENTANT),
-    });
+    const representatives = await queryClient.ensureQueryData(enterprises.list._ctx.byCategory(CategoryClient.REPRESENTANT));
     if (search.representativeId && !representatives.some((representative) => representative.id === search.representativeId))
       throw redirect({
         from: Route.id,

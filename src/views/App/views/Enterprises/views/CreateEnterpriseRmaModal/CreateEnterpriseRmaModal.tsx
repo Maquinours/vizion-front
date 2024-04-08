@@ -2,8 +2,7 @@ import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-q
 import { getRouteApi, useNavigate } from '@tanstack/react-router';
 import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
-import enterpriseQueryKeys from '../../../../../../utils/constants/queryKeys/enterprise';
-import { getEnterpriseById } from '../../../../../../utils/api/enterprise';
+import { enterprises } from '../../../../../../utils/constants/queryKeys/enterprise';
 import { createRma } from '../../../../../../utils/api/rma';
 import { toast } from 'react-toastify';
 import { rmaQueryKeys } from '../../../../../../utils/constants/queryKeys/rma';
@@ -17,10 +16,7 @@ export default function CreateEnterpriseRmaModal() {
 
   const { enterpriseId } = routeApi.useParams();
 
-  const { data: enterprise } = useSuspenseQuery({
-    queryKey: enterpriseQueryKeys.detailById(enterpriseId),
-    queryFn: () => getEnterpriseById(enterpriseId),
-  });
+  const { data: enterprise } = useSuspenseQuery(enterprises.detail(enterpriseId));
 
   const onClose = () => {
     navigate({ from: routeApi.id, to: '../..', search: (old) => old });

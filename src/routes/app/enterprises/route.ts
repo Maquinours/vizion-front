@@ -1,9 +1,7 @@
 import { createFileRoute, redirect } from '@tanstack/react-router';
 import { z } from 'zod';
 import CategoryClient from '../../../utils/enums/CategoryClient';
-import enterpriseQueryKeys from '../../../utils/constants/queryKeys/enterprise';
-import { searchPaginatedEnterprises } from '../../../utils/api/enterprise';
-import { getEnterprisesByCategory } from '../../../utils/api/enterprises';
+import { enterprises } from '../../../utils/constants/queryKeys/enterprise';
 
 import { users } from '../../../utils/constants/queryKeys/user';
 const searchSchema = z.object({
@@ -35,14 +33,8 @@ export const Route = createFileRoute('/app/enterprises')({
   }),
   loader: ({ context: { queryClient }, deps: { enterprise, contact, zipCode, city, phoneNumber, category, representativeId, page } }) => {
     const size = 20;
-    queryClient.ensureQueryData({
-      queryKey: enterpriseQueryKeys.pageWithSearch({ enterprise, contact, zipCode, city, phoneNumber, category, representativeId, page, size }),
-      queryFn: () => searchPaginatedEnterprises({ enterprise, contact, zipCode, city, phoneNumber, category, representativeId, page, size }),
-    });
-    queryClient.ensureQueryData({
-      queryKey: enterpriseQueryKeys.listByCategory(CategoryClient.REPRESENTANT),
-      queryFn: () => getEnterprisesByCategory(CategoryClient.REPRESENTANT),
-    });
+    queryClient.ensureQueryData(enterprises.page({ enterprise, contact, zipCode, city, phoneNumber, category, representativeId, page, size }));
+    queryClient.ensureQueryData(enterprises.list._ctx.byCategory(CategoryClient.REPRESENTANT));
   },
   validateSearch: searchSchema,
 });

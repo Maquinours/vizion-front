@@ -1,7 +1,6 @@
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import { businesses } from '../../../../utils/constants/queryKeys/business';
 import { useAuthentifiedUserQuery } from '../../utils/functions/getAuthentifiedUser';
-import { getEnterpriseById } from '../../../../utils/api/enterprise';
 import ReactModal from 'react-modal';
 import { useForm } from 'react-hook-form';
 import { InferType, object, string } from 'yup';
@@ -13,7 +12,7 @@ import { getRouteApi, useNavigate } from '@tanstack/react-router';
 import CategoryClient from '../../../../utils/enums/CategoryClient';
 import styles from './CreateBusinessModal.module.scss';
 import { PulseLoader } from 'react-spinners';
-import enterpriseQueryKeys from '../../../../utils/constants/queryKeys/enterprise';
+import { enterprises } from '../../../../utils/constants/queryKeys/enterprise';
 
 const Route = getRouteApi('/app');
 
@@ -27,10 +26,7 @@ export default function AppViewCreateBusinessModalComponent() {
 
   const { data: currentUser } = useAuthentifiedUserQuery();
 
-  const { data: enterprise } = useSuspenseQuery({
-    queryKey: enterpriseQueryKeys.detailById(currentUser.profile.enterprise!.id),
-    queryFn: () => getEnterpriseById(currentUser.profile.enterprise!.id),
-  });
+  const { data: enterprise } = useSuspenseQuery(enterprises.detail(currentUser.profile.enterprise!.id));
 
   const {
     register,

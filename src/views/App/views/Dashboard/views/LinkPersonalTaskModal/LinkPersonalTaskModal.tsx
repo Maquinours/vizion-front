@@ -17,11 +17,10 @@ import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import styles from './LinkPersonalTaskModal.module.scss';
 import { allBusinesses } from '../../../../../../utils/constants/queryKeys/allBusiness';
-import { getEnterprises } from '../../../../../../utils/api/enterprise';
 import { getProducts } from '../../../../../../utils/api/product';
 import CustomSelect from '../../../../../../components/CustomSelect/CustomSelect';
 import { PulseLoader } from 'react-spinners';
-import enterpriseQueryKeys from '../../../../../../utils/constants/queryKeys/enterprise';
+import { enterprises } from '../../../../../../utils/constants/queryKeys/enterprise';
 import { productQueryKeys } from '../../../../../../utils/constants/queryKeys/product';
 
 enum LinkType {
@@ -62,7 +61,7 @@ export default function AppViewDashboardViewLinkPersonalTaskModalView() {
     queryFn: () => getTaskById(taskId),
   });
 
-  const { data: enterprises, isLoading: isLoadingEnterprises } = useQuery({ queryKey: enterpriseQueryKeys.listAll(), queryFn: getEnterprises });
+  const { data: enterprisesList, isLoading: isLoadingEnterprises } = useQuery(enterprises.list);
   const { data: businesses, isLoading: isLoadingBusiness } = useQuery(allBusinesses.list);
   const { data: products, isLoading: isLoadingProducts } = useQuery({ queryKey: productQueryKeys.listAll(), queryFn: getProducts });
 
@@ -168,7 +167,7 @@ export default function AppViewDashboardViewLinkPersonalTaskModalView() {
             render={({ field: { value, onChange, onBlur } }) => (
               <CustomSelect
                 placeholder="Sélectionnez une entreprise"
-                options={enterprises}
+                options={enterprisesList}
                 isLoading={isLoadingEnterprises}
                 value={value}
                 onChange={onChange}
