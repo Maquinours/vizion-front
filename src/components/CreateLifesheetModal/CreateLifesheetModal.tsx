@@ -10,14 +10,13 @@ import { PulseLoader } from 'react-spinners';
 import { toast } from 'react-toastify';
 import * as yup from 'yup';
 import { createLifesheet } from '../../utils/api/lifesheet';
-import { getPredefinedTexts } from '../../utils/api/predefinedText';
 import { getProductById } from '../../utils/api/product';
 import { getProfilesByCategory } from '../../utils/api/profile';
 import { getRmaById } from '../../utils/api/rma';
+import { queries } from '../../utils/constants/queryKeys';
 import { businesses } from '../../utils/constants/queryKeys/business';
 import { enterprises } from '../../utils/constants/queryKeys/enterprise';
 import { lifesheets } from '../../utils/constants/queryKeys/lifesheet';
-import { predefinedTextQueryKeys } from '../../utils/constants/queryKeys/predefinedText';
 import { productQueryKeys } from '../../utils/constants/queryKeys/product';
 import { profileQueryKeys } from '../../utils/constants/queryKeys/profile';
 import { rmaQueryKeys } from '../../utils/constants/queryKeys/rma';
@@ -47,10 +46,7 @@ export default function CreateLifesheetModalComponent({ associatedItemType, asso
 
   const { data: currentUser } = useAuthentifiedUserQuery();
 
-  const { data: predefinedTexts } = useQuery({
-    queryKey: predefinedTextQueryKeys.listAll(),
-    queryFn: getPredefinedTexts,
-  });
+  const { data: predefinedTexts } = useQuery(queries['predefined-text'].list);
 
   const { data: vizeoMembers } = useQuery({
     queryKey: profileQueryKeys.listByCategory(CategoryClient.VIZEO),
