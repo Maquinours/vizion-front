@@ -1,12 +1,13 @@
+import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
+import { useEffect } from 'react';
 import ReactModal from 'react-modal';
 import { ClipLoader } from 'react-spinners';
-import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { deleteObjectOnS3, getDirectoryByTypeAndIdOnS3 } from '../../utils/api/ged';
-import FileType from '../../utils/enums/FileType';
-import { gedQueryKeys } from '../../utils/constants/queryKeys/ged';
 import { toast } from 'react-toastify';
-import styles from './DeleteGedObjectModal.module.scss';
+import { deleteObjectOnS3 } from '../../utils/api/ged';
+import { geds } from '../../utils/constants/queryKeys/ged';
+import FileType from '../../utils/enums/FileType';
 import { findRecursively } from '../../utils/functions/arrays';
+import styles from './DeleteGedObjectModal.module.scss';
 
 type DeleteGedObjectModalComponentProps = Readonly<{
   type: FileType;
@@ -18,20 +19,15 @@ export default function DeleteGedObjectModalComponent({ type, id, objectRelative
   const queryClient = useQueryClient();
 
   const { data: item } = useSuspenseQuery({
-    queryKey: gedQueryKeys.detailByTypeIdAndRelativePath(type, id, objectRelativePath),
-    queryFn: async () =>
-      findRecursively(
-        await queryClient.ensureQueryData({ queryKey: gedQueryKeys.detailByTypeAndId(type, id), queryFn: () => getDirectoryByTypeAndIdOnS3(type, id) }),
-        'subRows',
-        (el) => el.relativePath === objectRelativePath,
-      )!,
+    ...geds.detail._ctx.byTypeAndId(type, id),
+    select: (data) => findRecursively(data, 'subRows', (el) => el.relativePath === objectRelativePath),
   });
 
   const { mutate, isPending } = useMutation({
-    mutationFn: () => deleteObjectOnS3(type, id, item),
-    onMutate: () => ({ item }),
+    mutationFn: () => deleteObjectOnS3(type, id, item!),
+    onMutate: () => ({ item: item! }),
     onSuccess: (_data, _params, context) => {
-      queryClient.invalidateQueries({ queryKey: gedQueryKeys.all });
+      queryClient.invalidateQueries({ queryKey: geds.detail._ctx.byTypeAndId(type, id).queryKey });
       onClose();
       toast.success(`${context.item.dir ? 'dossier' : 'fichier'} supprimé avec succès`);
     },
@@ -46,38 +42,47 @@ export default function DeleteGedObjectModalComponent({ type, id, objectRelative
     mutate();
   };
 
+  useEffect(() => {
+    if (!item) {
+      toast.error('Impossible de trouver le dossier ou le fichier à supprimer');
+      onClose();
+    }
+  }, [item]);
+
   return (
     <ReactModal isOpen={true} onRequestClose={onClose} className={styles.delete_modal} overlayClassName="Overlay">
-      <div className={styles.container}>
-        <div className={styles.title}>
-          <h6>Suppression de {item.dir ? 'dossier' : 'fichier'}</h6>
-        </div>
+      {item && (
+        <div className={styles.container}>
+          <div className={styles.title}>
+            <h6>Suppression de {item.dir ? 'dossier' : 'fichier'}</h6>
+          </div>
 
-        <div className={styles.form}>
-          <form onSubmit={onSubmit} onReset={onClose}>
-            <div className={styles.form_container}>
-              <div className={styles.form_content}>
-                <p>
-                  Voulez-vous supprimer le {item.dir ? 'dossier' : 'fichier'} de nom <span>{item.name}</span>
-                </p>
-                <p>Cette action est irréversible.</p>
-              </div>
-              <div className={styles.loader}>
-                <ClipLoader color="#31385A" loading={isPending} size="18px" />
-              </div>
+          <div className={styles.form}>
+            <form onSubmit={onSubmit} onReset={onClose}>
+              <div className={styles.form_container}>
+                <div className={styles.form_content}>
+                  <p>
+                    Voulez-vous supprimer le {item.dir ? 'dossier' : 'fichier'} de nom <span>{item.name}</span>
+                  </p>
+                  <p>Cette action est irréversible.</p>
+                </div>
+                <div className={styles.loader}>
+                  <ClipLoader color="#31385A" loading={isPending} size="18px" />
+                </div>
 
-              <div className={styles.form_buttons}>
-                <button className="btn btn-primary-light" type="reset">
-                  Annuler
-                </button>
-                <button className="btn btn-secondary" type="submit">
-                  Supprimer
-                </button>
+                <div className={styles.form_buttons}>
+                  <button className="btn btn-primary-light" type="reset">
+                    Annuler
+                  </button>
+                  <button className="btn btn-secondary" type="submit">
+                    Supprimer
+                  </button>
+                </div>
               </div>
-            </div>
-          </form>
+            </form>
+          </div>
         </div>
-      </div>
+      )}
     </ReactModal>
   );
 }

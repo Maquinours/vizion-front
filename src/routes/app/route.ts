@@ -1,14 +1,13 @@
 import { createFileRoute, redirect } from '@tanstack/react-router';
-import { z } from 'zod';
-import { getToken } from '../../utils/functions/token';
 import { toast } from 'react-toastify';
+import { z } from 'zod';
 import { businesses } from '../../utils/constants/queryKeys/business';
-import { gedQueryKeys } from '../../utils/constants/queryKeys/ged';
-import FileType from '../../utils/enums/FileType';
-import { getDirectoryByTypeAndIdOnS3 } from '../../utils/api/ged';
-import { findRecursively } from '../../utils/functions/arrays';
 import { enterprises } from '../../utils/constants/queryKeys/enterprise';
+import { geds } from '../../utils/constants/queryKeys/ged';
 import { users } from '../../utils/constants/queryKeys/user';
+import FileType from '../../utils/enums/FileType';
+import { findRecursively } from '../../utils/functions/arrays';
+import { getToken } from '../../utils/functions/token';
 
 const searchSchema = z.object({
   mobileSidebar: z
@@ -59,20 +58,15 @@ export const Route = createFileRoute('/app')({
     const promises = [];
     if (businessId) promises.push(queryClient.ensureQueryData(businesses.detail(businessId)));
     if (gedItemKey) {
-      queryClient
-        .ensureQueryData({
-          queryKey: gedQueryKeys.detailByTypeAndId(FileType.AFFAIRE, businessId!),
-          queryFn: () => getDirectoryByTypeAndIdOnS3(FileType.AFFAIRE, businessId!),
-        })
-        .then((ged) => {
-          if (!findRecursively(ged, 'subRows', (d) => d.key === gedItemKey)) {
-            // ged element does not exists
-            throw redirect({
-              from: Route.id,
-              search: (old) => ({ ...old, appModal: 'business-ged', gedItemKey: undefined }),
-            });
-          }
-        });
+      queryClient.ensureQueryData(geds.detail._ctx.byTypeAndId(FileType.AFFAIRE, businessId!)).then((ged) => {
+        if (!findRecursively(ged, 'subRows', (d) => d.key === gedItemKey)) {
+          // ged element does not exists
+          throw redirect({
+            from: Route.id,
+            search: (old) => ({ ...old, appModal: 'business-ged', gedItemKey: undefined }),
+          });
+        }
+      });
     }
     if (appModal === 'create-client-business') {
       const currentUser = await userPromise;

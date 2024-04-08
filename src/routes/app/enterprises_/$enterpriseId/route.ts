@@ -1,17 +1,16 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { enterprises } from '../../../../utils/constants/queryKeys/enterprise';
 import { z } from 'zod';
-import { allBusinesses } from '../../../../utils/constants/queryKeys/allBusiness';
-import { profileQueryKeys } from '../../../../utils/constants/queryKeys/profile';
-import { getProfilesPageByEnterpriseId, getProfilesPageByEnterpriseIdAndSearch } from '../../../../utils/api/profile';
-import { lifesheetQueryKeys } from '../../../../utils/constants/queryKeys/lifesheet';
-import { LifesheetAssociatedItem } from '../../../../utils/enums/LifesheetAssociatedItem';
 import { getLifesheetPageByEnterpriseId } from '../../../../utils/api/lifesheet';
-import { taskQueryKeys } from '../../../../utils/constants/queryKeys/task';
+import { getProfilesPageByEnterpriseId, getProfilesPageByEnterpriseIdAndSearch } from '../../../../utils/api/profile';
 import { getTasksPageByEnterpriseId } from '../../../../utils/api/task';
-import { gedQueryKeys } from '../../../../utils/constants/queryKeys/ged';
+import { allBusinesses } from '../../../../utils/constants/queryKeys/allBusiness';
+import { enterprises } from '../../../../utils/constants/queryKeys/enterprise';
+import { geds } from '../../../../utils/constants/queryKeys/ged';
+import { lifesheetQueryKeys } from '../../../../utils/constants/queryKeys/lifesheet';
+import { profileQueryKeys } from '../../../../utils/constants/queryKeys/profile';
+import { taskQueryKeys } from '../../../../utils/constants/queryKeys/task';
 import FileType from '../../../../utils/enums/FileType';
-import { getDirectoryByTypeAndIdOnS3 } from '../../../../utils/api/ged';
+import { LifesheetAssociatedItem } from '../../../../utils/enums/LifesheetAssociatedItem';
 import { WorkloadAssociatedItem } from '../../../../utils/enums/WorkloadAssociatedItem';
 
 const searchSchema = z.object({
@@ -53,9 +52,6 @@ export const Route = createFileRoute('/app/enterprises/$enterpriseId')({
       queryKey: taskQueryKeys.pageByAssociatedItemAndId(WorkloadAssociatedItem.ENTERPRISE, enterpriseId, workloadsPage, workloadsSize),
       queryFn: () => getTasksPageByEnterpriseId(enterpriseId, workloadsPage, workloadsSize),
     });
-    queryClient.ensureQueryData({
-      queryKey: gedQueryKeys.detailByTypeAndId(FileType.CONTACT, enterpriseId),
-      queryFn: () => getDirectoryByTypeAndIdOnS3(FileType.CONTACT, enterpriseId),
-    });
+    queryClient.ensureQueryData(geds.detail._ctx.byTypeAndId(FileType.CONTACT, enterpriseId));
   },
 });
