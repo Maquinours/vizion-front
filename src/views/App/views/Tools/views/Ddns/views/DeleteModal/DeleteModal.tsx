@@ -1,8 +1,8 @@
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import { getRouteApi, useNavigate } from '@tanstack/react-router';
 import ReactModal from 'react-modal';
-import { ddnsQueryKeys } from '../../../../../../../../utils/constants/queryKeys/ddns';
-import { deleteDdns, getDdnsById } from '../../../../../../../../utils/api/ddns';
+import { ddns } from '../../../../../../../../utils/constants/queryKeys/ddns';
+import { deleteDdns } from '../../../../../../../../utils/api/ddns';
 import { toast } from 'react-toastify';
 import { PulseLoader } from 'react-spinners';
 import React from 'react';
@@ -16,19 +16,16 @@ export default function AppViewToolsViewDdnsViewDeleteModalView() {
 
   const { ddnsId } = routeApi.useParams();
 
-  const { data: ddns } = useSuspenseQuery({
-    queryKey: ddnsQueryKeys.detailById(ddnsId),
-    queryFn: () => getDdnsById(ddnsId),
-  });
+  const { data } = useSuspenseQuery(ddns.detail(ddnsId));
 
   const onClose = () => {
     navigate({ to: '../..', search: (old) => old });
   };
 
   const { mutate, isPending } = useMutation({
-    mutationFn: () => deleteDdns(ddns.id),
+    mutationFn: () => deleteDdns(data.id),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ddnsQueryKeys.all });
+      queryClient.invalidateQueries({ queryKey: ddns._def });
       toast.success('DDNS supprimé avec succès');
       onClose();
     },
@@ -54,7 +51,7 @@ export default function AppViewToolsViewDdnsViewDeleteModalView() {
             <div className={styles.content}>
               <p>
                 Êtes-vous certain.e de vouloir <span style={{ color: 'var(--primary-color)', fontWeight: 'bold' }}>supprimer</span> le domaine{' '}
-                <span style={{ color: 'var(--secondary-color)', fontWeight: 'bold' }}>{ddns.url}</span>
+                <span style={{ color: 'var(--secondary-color)', fontWeight: 'bold' }}>{data.url}</span>
               </p>
               <p style={{ marginTop: '5px' }}>Cette action irréversible va supprimer ce DDNS définitivement.</p>
             </div>

@@ -9,8 +9,8 @@ import { productSerialNumberQueryKeys } from '../../../../../../../../utils/cons
 import { getSerialNumberDataByNumberAndCategory } from '../../../../../../../../utils/api/productSerialNumber';
 import styles from './CreateModal.module.scss';
 import { useEffect } from 'react';
-import { ddnsQueryKeys } from '../../../../../../../../utils/constants/queryKeys/ddns';
-import { createDdns, getDdnsExistsBySubDomain } from '../../../../../../../../utils/api/ddns';
+import { ddns } from '../../../../../../../../utils/constants/queryKeys/ddns';
+import { createDdns } from '../../../../../../../../utils/api/ddns';
 import { toast } from 'react-toastify';
 import { useAuthentifiedUserQuery } from '../../../../../../utils/functions/getAuthentifiedUser';
 import { businesses } from '../../../../../../../../utils/constants/queryKeys/business';
@@ -59,8 +59,7 @@ export default function AppViewToolsViewDdnsViewCreateModalView() {
     isFetching: isDomainExistsFetching,
     refetch: refetchDomainExists,
   } = useQuery({
-    queryKey: ddnsQueryKeys.existsBySubDomain(domain),
-    queryFn: () => getDdnsExistsBySubDomain(domain),
+    ...ddns.exists(domain),
     enabled: false,
   });
 
@@ -105,7 +104,7 @@ export default function AppViewToolsViewDdnsViewCreateModalView() {
       });
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ddnsQueryKeys.all });
+      queryClient.invalidateQueries({ queryKey: ddns._def });
       toast.success('Le DDNS a été créé avec succès');
       onClose();
     },
