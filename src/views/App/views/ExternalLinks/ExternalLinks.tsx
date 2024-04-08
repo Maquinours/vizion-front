@@ -1,9 +1,8 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
 import ExternalLinkResponseDto from '../../../../utils/types/ExternalLinkResponseDto';
-import { getExternalLinksPageByArchiveState } from '../../../../utils/api/externalLink';
 import { Link, getRouteApi } from '@tanstack/react-router';
 import styles from './ExternalLinks.module.scss';
-import { externalLinkQueryKeys } from '../../../../utils/constants/queryKeys/externalLink';
+import { externalLinks } from '../../../../utils/constants/queryKeys/externalLink';
 import { useCallback } from 'react';
 import parse from 'html-react-parser';
 import DOMPurify from 'dompurify';
@@ -15,10 +14,7 @@ const size = 12;
 const archived = false;
 
 export default function AppViewExternalLinksView() {
-  const { data } = useSuspenseQuery({
-    queryKey: externalLinkQueryKeys.pageByArchiveState(archived, page, size),
-    queryFn: () => getExternalLinksPageByArchiveState(archived, page, size),
-  });
+  const { data } = useSuspenseQuery(externalLinks.page({ page, size })._ctx.byArchiveState(archived));
 
   const renderLinkChildren = useCallback((item: ExternalLinkResponseDto) => {
     return (

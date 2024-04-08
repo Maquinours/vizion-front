@@ -1,12 +1,8 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { getExternalLinkById } from '../../../utils/api/externalLink';
-import { externalLinkQueryKeys } from '../../../utils/constants/queryKeys/externalLink';
+import { externalLinks } from '../../../utils/constants/queryKeys/externalLink';
 
 export const Route = createFileRoute('/app/external-links/$externalLinkId')({
-  loader: ({ context: { queryClient }, params: { externalLinkId } }) => {
-    queryClient.ensureQueryData({
-      queryKey: externalLinkQueryKeys.detailById(externalLinkId),
-      queryFn: () => getExternalLinkById(externalLinkId),
-    });
+  loader: async ({ context: { queryClient }, params: { externalLinkId } }) => {
+    await queryClient.ensureQueryData(externalLinks.detail._ctx.byId(externalLinkId));
   },
 });
