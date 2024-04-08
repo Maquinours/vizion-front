@@ -1,7 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { z } from 'zod';
-import { productQueryKeys } from '../../../utils/constants/queryKeys/product';
-import { getProductById } from '../../../utils/api/product';
+import { queries } from '../../../utils/constants/queryKeys';
 import { enterprises } from '../../../utils/constants/queryKeys/enterprise';
 
 const searchSchema = z.object({
@@ -12,10 +11,7 @@ export const Route = createFileRoute('/app/products/$productId')({
   validateSearch: searchSchema,
   loaderDeps: ({ search: { productModal } }) => ({ productModal }),
   loader: ({ context: { queryClient }, params: { productId }, deps: { productModal } }) => {
-    queryClient.ensureQueryData({
-      queryKey: productQueryKeys.detailById(productId),
-      queryFn: () => getProductById(productId),
-    });
+    queryClient.ensureQueryData(queries.product.detail._ctx.byId(productId));
     if (productModal === 'update') {
       queryClient.ensureQueryData(enterprises.list._ctx.providers);
     }

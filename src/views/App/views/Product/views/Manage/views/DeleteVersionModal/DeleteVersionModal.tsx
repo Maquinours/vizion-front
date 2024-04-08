@@ -2,11 +2,11 @@ import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-q
 import { getRouteApi, useNavigate } from '@tanstack/react-router';
 import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
-import { productVersionQueryKeys } from '../../../../../../../../utils/constants/queryKeys/productVersion';
-import { deleteProductVersion, getProductVersionById } from '../../../../../../../../utils/api/productVersion';
-import { productQueryKeys } from '../../../../../../../../utils/constants/queryKeys/product';
 import { toast } from 'react-toastify';
+import { deleteProductVersion, getProductVersionById } from '../../../../../../../../utils/api/productVersion';
+import { productVersionQueryKeys } from '../../../../../../../../utils/constants/queryKeys/productVersion';
 import styles from './DeleteVersionModal.module.scss';
+import { queries } from '../../../../../../../../utils/constants/queryKeys';
 
 const routeApi = getRouteApi('/app/products/$productId/manage/delete-version/$versionId');
 
@@ -29,7 +29,7 @@ export default function AppViewProductViewManageViewDeleteVersionModalView() {
     mutationFn: () => deleteProductVersion(versionId),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: productVersionQueryKeys.all });
-      queryClient.invalidateQueries({ queryKey: productQueryKeys.all });
+      queryClient.invalidateQueries({ queryKey: queries.product._def });
       toast.success('La version a été supprimée avec succès.');
       onClose();
     },

@@ -1,13 +1,44 @@
-export const productQueryKeys = {
-  all: ['product'] as const,
-  details: () => [...productQueryKeys.all, 'details'] as const,
-  detailById: (id: string) => [...productQueryKeys.details(), id] as const,
-  lists: () => [...productQueryKeys.all, 'list'] as const,
-  listAll: () => [...productQueryKeys.lists(), 'all'] as const,
-  listNotAssociatedProducts: (productId: string) => [...productQueryKeys.lists(), 'not-associated', productId] as const,
-  pages: () => [...productQueryKeys.all, 'page'] as const,
-  pageWithSearch: (ref: string | undefined, designation: string | undefined, page: number, size: number) =>
-    [...productQueryKeys.pages(), { ref, designation, page, size }] as const,
-  pageByAssociatedProduct: (associatedProductId: string, page: number, size: number) =>
-    [...productQueryKeys.pages(), { associatedProductId, page, size }] as const,
-};
+import { createQueryKeys } from '@lukemorales/query-key-factory';
+import {
+  getAssociatedProductsPage,
+  getNotAssociatedProducts,
+  getProductById,
+  getProducts,
+  getProductsPage,
+  getProductsPageWithSearch,
+} from '../../api/product';
+
+export const products = createQueryKeys('product', {
+  detail: {
+    queryKey: null,
+    contextQueries: {
+      byId: (id: string) => ({
+        queryKey: [id],
+        queryFn: () => getProductById(id),
+      }),
+    },
+  },
+  list: {
+    queryKey: null,
+    queryFn: getProducts,
+    contextQueries: {
+      byNotAssociatedProductId: (notAssociatedProductId: string) => ({
+        queryKey: [notAssociatedProductId],
+        queryFn: () => getNotAssociatedProducts(notAssociatedProductId),
+      }),
+    },
+  },
+  page: ({ page, size }: { page: number; size: number }) => ({
+    queryKey: [page, size],
+    contextQueries: {
+      search: ({ ref, designation }: { ref: string | undefined; designation: string | undefined }) => ({
+        queryKey: [ref, designation],
+        queryFn: () => (ref || designation ? getProductsPageWithSearch(ref, designation, page, size) : getProductsPage(page, size)),
+      }),
+      byAssociatedProductId: (associatedProductId: string) => ({
+        queryKey: [associatedProductId],
+        queryFn: () => getAssociatedProductsPage(associatedProductId, page, size),
+      }),
+    },
+  }),
+});

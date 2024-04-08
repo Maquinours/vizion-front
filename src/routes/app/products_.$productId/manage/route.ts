@@ -1,17 +1,16 @@
 import { createFileRoute, redirect } from '@tanstack/react-router';
 import { z } from 'zod';
-import { productQueryKeys } from '../../../../utils/constants/queryKeys/product';
-import { getAssociatedProductsPage } from '../../../../utils/api/product';
-import { productVersionQueryKeys } from '../../../../utils/constants/queryKeys/productVersion';
-import { getProductVersionsPageByProductId } from '../../../../utils/api/productVersion';
-import { productSpecificationQueryKeys } from '../../../../utils/constants/queryKeys/productSpecification';
-import { getProductSpecificationsPageByProductId } from '../../../../utils/api/productSpecification';
-import { productVersionShelfStocksQueryKeys } from '../../../../utils/constants/queryKeys/productVersionShelfStock';
-import { getProductVersionShelfStocksPageByProductId } from '../../../../utils/api/productVersionShelfStock';
-import { productSaleQueryKeys } from '../../../../utils/constants/queryKeys/productSale';
 import { getProductSalesByProductId, getProductSalesByProductIdAndSearch } from '../../../../utils/api/productSale';
-import { productStockEntryQueryKeys } from '../../../../utils/constants/queryKeys/productStockEntry';
+import { getProductSpecificationsPageByProductId } from '../../../../utils/api/productSpecification';
 import { getProductStockEntriesPageByProductId } from '../../../../utils/api/productStockEntry';
+import { getProductVersionsPageByProductId } from '../../../../utils/api/productVersion';
+import { getProductVersionShelfStocksPageByProductId } from '../../../../utils/api/productVersionShelfStock';
+import { queries } from '../../../../utils/constants/queryKeys';
+import { productSaleQueryKeys } from '../../../../utils/constants/queryKeys/productSale';
+import { productSpecificationQueryKeys } from '../../../../utils/constants/queryKeys/productSpecification';
+import { productStockEntryQueryKeys } from '../../../../utils/constants/queryKeys/productStockEntry';
+import { productVersionQueryKeys } from '../../../../utils/constants/queryKeys/productVersion';
+import { productVersionShelfStocksQueryKeys } from '../../../../utils/constants/queryKeys/productVersionShelfStock';
 import { users } from '../../../../utils/constants/queryKeys/user';
 
 const searchSchema = z.object({
@@ -83,10 +82,7 @@ export const Route = createFileRoute('/app/products/$productId/manage')({
       stockEntriesSize,
     },
   }) => {
-    queryClient.ensureQueryData({
-      queryKey: productQueryKeys.pageByAssociatedProduct(productId, associatedProductsPage, associatedProductsSize),
-      queryFn: () => getAssociatedProductsPage(productId, associatedProductsPage, associatedProductsSize),
-    });
+    queryClient.prefetchQuery(queries.product.page({ page: associatedProductsPage, size: associatedProductsSize })._ctx.byAssociatedProductId(productId));
 
     queryClient.ensureQueryData({
       queryKey: productVersionQueryKeys.pageByProductId(productId, versionsPage, versionsSize),

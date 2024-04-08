@@ -1,15 +1,14 @@
-import { createColumnHelper } from '@tanstack/react-table';
-import ProductResponseDto from '../../../../../../../../utils/types/ProductResponseDto';
+import { useQuery } from '@tanstack/react-query';
 import { Link, getRouteApi } from '@tanstack/react-router';
+import { createColumnHelper } from '@tanstack/react-table';
 import { IoIosClose } from 'react-icons/io';
 import CardComponent from '../../../../../../../../components/Card/Card';
-import { productQueryKeys } from '../../../../../../../../utils/constants/queryKeys/product';
-import { useQuery } from '@tanstack/react-query';
-import { getAssociatedProductsPage } from '../../../../../../../../utils/api/product';
-import TableComponent from '../../../../../../../../components/Table/Table';
 import PaginationComponent from '../../../../../../../../components/Pagination/Pagination';
-import styles from './AssociatedProducts.module.scss';
 import RefreshButtonComponent from '../../../../../../../../components/RefreshButton/RefreshButton';
+import TableComponent from '../../../../../../../../components/Table/Table';
+import { queries } from '../../../../../../../../utils/constants/queryKeys';
+import ProductResponseDto from '../../../../../../../../utils/types/ProductResponseDto';
+import styles from './AssociatedProducts.module.scss';
 
 const routeApi = getRouteApi('/app/products/$productId/manage');
 
@@ -51,10 +50,7 @@ export default function AppViewProductViewManageViewAssociatedProductsComponent(
   const { productId } = routeApi.useParams();
   const { associatedProductsPage: page } = routeApi.useSearch();
 
-  const { data, isLoading, refetch, isRefetching } = useQuery({
-    queryKey: productQueryKeys.pageByAssociatedProduct(productId, page, size),
-    queryFn: () => getAssociatedProductsPage(productId, page, size),
-  });
+  const { data, isLoading, refetch, isRefetching } = useQuery(queries.product.page({ page, size })._ctx.byAssociatedProductId(productId));
 
   return (
     <CardComponent title="Produits associés">

@@ -1,17 +1,17 @@
+import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
+import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { useForm } from 'react-hook-form';
 import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
-import * as yup from 'yup';
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import { productFilterQueryKeys } from '../../../../../../../../../../utils/constants/queryKeys/productFilter';
-import { getProductFilterById } from '../../../../../../../../../../utils/api/productFilter';
-import { productSpecificationQueryKeys } from '../../../../../../../../../../utils/constants/queryKeys/productSpecification';
-import { productQueryKeys } from '../../../../../../../../../../utils/constants/queryKeys/product';
 import { toast } from 'react-toastify';
-import styles from './SpecificationModal.module.scss';
+import * as yup from 'yup';
+import { getProductFilterById } from '../../../../../../../../../../utils/api/productFilter';
 import { addProductSpecificationToProduct } from '../../../../../../../../../../utils/api/productSpecification';
+import { productFilterQueryKeys } from '../../../../../../../../../../utils/constants/queryKeys/productFilter';
+import { productSpecificationQueryKeys } from '../../../../../../../../../../utils/constants/queryKeys/productSpecification';
+import styles from './SpecificationModal.module.scss';
+import { queries } from '../../../../../../../../../../utils/constants/queryKeys';
 
 const routeApi = getRouteApi('/app/products/$productId/manage/add-specification/$filterId');
 
@@ -65,7 +65,7 @@ export default function AppViewProductViewManageViewAddSpecificationModalViewSpe
       addProductSpecificationToProduct(productId, filter.id, value ?? null, minValue ?? null, maxValue ?? null),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: productSpecificationQueryKeys.all });
-      queryClient.invalidateQueries({ queryKey: productQueryKeys.all });
+      queryClient.invalidateQueries({ queryKey: queries.product._def });
       toast.success('La valeur a été ajoutée avec succès.');
       onClose();
     },

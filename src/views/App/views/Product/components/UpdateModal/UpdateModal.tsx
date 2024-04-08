@@ -1,18 +1,18 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import * as yup from 'yup';
-import AppViewProductViewUpdateModalComponentStepOneComponent from './components/StepOne/StepOne';
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import { productQueryKeys } from '../../../../../../utils/constants/queryKeys/product';
-import { getProductById, updateProduct } from '../../../../../../utils/api/product';
+import { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
 import ReactModal from 'react-modal';
-import AppViewProductViewUpdateModalComponentStepTwoComponent from './components/StepTwo/StepTwo';
-import EnterpriseResponseDto from '../../../../../../utils/types/EnterpriseResponseDto';
 import { toast } from 'react-toastify';
-import styles from './UpdateModal.module.scss';
+import * as yup from 'yup';
+import { updateProduct } from '../../../../../../utils/api/product';
+import { queries } from '../../../../../../utils/constants/queryKeys';
 import { enterprises } from '../../../../../../utils/constants/queryKeys/enterprise';
+import EnterpriseResponseDto from '../../../../../../utils/types/EnterpriseResponseDto';
+import styles from './UpdateModal.module.scss';
+import AppViewProductViewUpdateModalComponentStepOneComponent from './components/StepOne/StepOne';
+import AppViewProductViewUpdateModalComponentStepTwoComponent from './components/StepTwo/StepTwo';
 
 const routeApi = getRouteApi('/app/products/$productId');
 
@@ -49,10 +49,7 @@ export default function AppViewProductViewUpdateModalComponent() {
 
   const { productId } = routeApi.useParams();
 
-  const { data: product } = useSuspenseQuery({
-    queryKey: productQueryKeys.detailById(productId),
-    queryFn: () => getProductById(productId),
-  });
+  const { data: product } = useSuspenseQuery(queries.product.detail._ctx.byId(productId));
 
   const {
     register: stepOneRegister,
@@ -103,7 +100,7 @@ export default function AppViewProductViewUpdateModalComponent() {
       });
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: productQueryKeys.all });
+      queryClient.invalidateQueries({ queryKey: queries.product._def });
       toast.success('Produit mis à jour avec succès !');
       onClose();
     },

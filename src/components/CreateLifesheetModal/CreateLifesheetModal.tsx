@@ -10,14 +10,12 @@ import { PulseLoader } from 'react-spinners';
 import { toast } from 'react-toastify';
 import * as yup from 'yup';
 import { createLifesheet } from '../../utils/api/lifesheet';
-import { getProductById } from '../../utils/api/product';
 import { getProfilesByCategory } from '../../utils/api/profile';
 import { getRmaById } from '../../utils/api/rma';
 import { queries } from '../../utils/constants/queryKeys';
 import { businesses } from '../../utils/constants/queryKeys/business';
 import { enterprises } from '../../utils/constants/queryKeys/enterprise';
 import { lifesheets } from '../../utils/constants/queryKeys/lifesheet';
-import { productQueryKeys } from '../../utils/constants/queryKeys/product';
 import { profileQueryKeys } from '../../utils/constants/queryKeys/profile';
 import { rmaQueryKeys } from '../../utils/constants/queryKeys/rma';
 import CategoryClient from '../../utils/enums/CategoryClient';
@@ -73,12 +71,7 @@ export default function CreateLifesheetModalComponent({ associatedItemType, asso
         case LifesheetAssociatedItem.PRODUCT:
           data = {
             productId: associatedItemId,
-            productReference: (
-              await queryClient.ensureQueryData({
-                queryKey: productQueryKeys.detailById(associatedItemId),
-                queryFn: () => getProductById(associatedItemId),
-              })
-            ).reference,
+            productReference: (await queryClient.ensureQueryData(queries.product.detail._ctx.byId(associatedItemId))).reference,
           };
           break;
         case LifesheetAssociatedItem.ENTERPRISE:

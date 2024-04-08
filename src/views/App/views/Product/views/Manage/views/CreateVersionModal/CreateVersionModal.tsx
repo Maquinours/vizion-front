@@ -1,16 +1,15 @@
+import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { useForm } from 'react-hook-form';
 import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
-import * as yup from 'yup';
-import { getProductById } from '../../../../../../../../utils/api/product';
-import { productQueryKeys } from '../../../../../../../../utils/constants/queryKeys/product';
-import { createProductVersion } from '../../../../../../../../utils/api/productVersion';
 import { toast } from 'react-toastify';
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import styles from './CreateVersionModal.module.scss';
+import * as yup from 'yup';
+import { createProductVersion } from '../../../../../../../../utils/api/productVersion';
+import { queries } from '../../../../../../../../utils/constants/queryKeys';
 import { productVersionQueryKeys } from '../../../../../../../../utils/constants/queryKeys/productVersion';
+import styles from './CreateVersionModal.module.scss';
 
 const routeApi = getRouteApi('/app/products/$productId/manage/create-version');
 
@@ -20,10 +19,7 @@ export default function AppViewProductViewManageViewCreateVersionModalView() {
 
   const { productId } = routeApi.useParams();
 
-  const { data: product } = useSuspenseQuery({
-    queryKey: productQueryKeys.detailById(productId),
-    queryFn: () => getProductById(productId),
-  });
+  const { data: product } = useSuspenseQuery(queries.product.detail._ctx.byId(productId));
 
   const yupSchema = yup.object().shape({
     reference: yup
@@ -80,7 +76,7 @@ export default function AppViewProductViewManageViewCreateVersionModalView() {
         vizeo: true,
       }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: productQueryKeys.all });
+      queryClient.invalidateQueries({ queryKey: queries.product._def });
       queryClient.invalidateQueries({ queryKey: productVersionQueryKeys.all });
       toast.success('Version ajoutée avec succès');
       onClose();
