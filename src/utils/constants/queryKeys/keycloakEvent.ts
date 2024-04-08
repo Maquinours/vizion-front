@@ -1,5 +1,9 @@
-export const keycloakEventQueryKeys = {
-  all: ['keycloak-events'] as const,
-  pages: () => [...keycloakEventQueryKeys.all, 'page'] as const,
-  page: (page: number, size: number) => [...keycloakEventQueryKeys.pages(), { page, size }] as const,
-};
+import { createQueryKeys } from '@lukemorales/query-key-factory';
+import { getLatestKeycloakEvents } from '../../../views/App/views/Dashboard/components/LatestConnections/utils/api/keycloakEvents';
+
+export const keycloakEvents = createQueryKeys('keycloak-events', {
+  page: ({ page, size }: { page: number; size: number }) => ({
+    queryKey: [page, size],
+    queryFn: () => getLatestKeycloakEvents(page, size),
+  }),
+});

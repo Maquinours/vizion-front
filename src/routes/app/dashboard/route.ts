@@ -1,17 +1,16 @@
 import { createFileRoute, defer, redirect } from '@tanstack/react-router';
-import { z } from 'zod';
-import TaskState from '../../../utils/enums/TaskState';
 import { Views } from 'react-big-calendar';
-import WorkloadType from '../../../utils/enums/WorkloadType';
-import { taskQueryKeys } from '../../../utils/constants/queryKeys/task';
-import { getPaginatedTasksByStateAndProfileId, getTasksByType } from '../../../utils/api/task';
-import { keycloakEventQueryKeys } from '../../../utils/constants/queryKeys/keycloakEvent';
-import { getLatestKeycloakEvents } from '../../../views/App/views/Dashboard/components/LatestConnections/utils/api/keycloakEvents';
-import { rdvUserInfosQueryKeys } from '../../../utils/constants/queryKeys/rdvUserInfo';
-import { getAllRdvUserInfos } from '../../../utils/api/rdvUserInfo';
-import { progressiveInfoQueryKeys } from '../../../utils/constants/queryKeys/progressiveInfo';
+import { z } from 'zod';
 import { getProgressiveInfos } from '../../../utils/api/progressiveInfo';
+import { getAllRdvUserInfos } from '../../../utils/api/rdvUserInfo';
+import { getPaginatedTasksByStateAndProfileId, getTasksByType } from '../../../utils/api/task';
+import { keycloakEvents } from '../../../utils/constants/queryKeys/keycloakEvent';
+import { progressiveInfoQueryKeys } from '../../../utils/constants/queryKeys/progressiveInfo';
+import { rdvUserInfosQueryKeys } from '../../../utils/constants/queryKeys/rdvUserInfo';
+import { taskQueryKeys } from '../../../utils/constants/queryKeys/task';
 import { users } from '../../../utils/constants/queryKeys/user';
+import TaskState from '../../../utils/enums/TaskState';
+import WorkloadType from '../../../utils/enums/WorkloadType';
 
 const searchSchema = z.object({
   personalTaskState: z.nativeEnum(TaskState).catch(TaskState.CREATED),
@@ -31,10 +30,7 @@ export const Route = createFileRoute('/app/dashboard')({
   },
   loaderDeps: ({ search: { personalTaskState, personalTaskPage, personalTaskSize } }) => ({ personalTaskState, personalTaskPage, personalTaskSize }),
   loader: async ({ context: { queryClient }, deps: { personalTaskState, personalTaskPage, personalTaskSize } }) => {
-    const keycloakEventsPromise = queryClient.ensureQueryData({
-      queryKey: keycloakEventQueryKeys.page(0, 100),
-      queryFn: () => getLatestKeycloakEvents(0, 100),
-    });
+    queryClient.prefetchQuery(keycloakEvents.page({ page: 0, size: 100 }));
     const collectiveTasksPromise = queryClient.ensureQueryData({
       queryKey: taskQueryKeys.listByType(WorkloadType.COLLECTIVE),
       queryFn: () => getTasksByType(WorkloadType.COLLECTIVE),
@@ -55,7 +51,6 @@ export const Route = createFileRoute('/app/dashboard')({
 
     return {
       collectiveTasks: defer(collectiveTasksPromise),
-      keycloakEvents: defer(keycloakEventsPromise),
       scheduler: await schedulerPromise,
       progressiveInfos: defer(progressiveInfosPromise),
       personalTask: defer(personalTaskPromise),
