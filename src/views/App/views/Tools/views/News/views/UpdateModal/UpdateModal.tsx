@@ -1,20 +1,20 @@
+import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import ReactModal from 'react-modal';
-import { newsQueryKeys } from '../../../../../../../../utils/constants/queryKeys/news';
-import { getNewsById, updateNews } from '../../../../../../../../utils/api/news';
-import styles from './UpdateModal.module.scss';
-import { Controller, useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { MdAdd } from 'react-icons/md';
-import Quill from '../../../../../../../../components/Quill/Quill';
-import * as yup from 'yup';
-import { FaTrash } from 'react-icons/fa';
-import { PulseLoader } from 'react-spinners';
 import { useDropzone } from 'react-dropzone';
-import { uploadFiles } from '../../../../../../../../utils/api/files';
-import UploadedFile from '../../../../../../../../utils/types/UploadedFile';
+import { Controller, useForm } from 'react-hook-form';
+import { FaTrash } from 'react-icons/fa';
+import { MdAdd } from 'react-icons/md';
+import ReactModal from 'react-modal';
+import { PulseLoader } from 'react-spinners';
 import { toast } from 'react-toastify';
+import * as yup from 'yup';
+import Quill from '../../../../../../../../components/Quill/Quill';
+import { uploadFiles } from '../../../../../../../../utils/api/files';
+import { updateNews } from '../../../../../../../../utils/api/news';
+import { news } from '../../../../../../../../utils/constants/queryKeys/news';
+import UploadedFile from '../../../../../../../../utils/types/UploadedFile';
+import styles from './UpdateModal.module.scss';
 
 const routeApi = getRouteApi('/app/tools/news/update/$newsId');
 
@@ -32,7 +32,7 @@ export default function AppViewToolsViewNewsViewUpdateModalView() {
 
   const { newsId } = routeApi.useParams();
 
-  const { data: news } = useSuspenseQuery({ queryKey: newsQueryKeys.detailById(newsId), queryFn: () => getNewsById(newsId) });
+  const { data: newsDetail } = useSuspenseQuery(news.detail._ctx.byId(newsId));
 
   const {
     register,
@@ -44,11 +44,11 @@ export default function AppViewToolsViewNewsViewUpdateModalView() {
   } = useForm({
     resolver: yupResolver(yupSchema),
     defaultValues: {
-      title: news.title,
-      subtitle: news.subtitle ?? '',
-      archive: news.archived ? 'Oui' : 'Non',
-      content: news.content,
-      files: news.files ? (Object.values(news.files) as Array<UploadedFile>) : [],
+      title: newsDetail.title,
+      subtitle: newsDetail.subtitle ?? '',
+      archive: newsDetail.archived ? 'Oui' : 'Non',
+      content: newsDetail.content,
+      files: newsDetail.files ? (Object.values(newsDetail.files) as Array<UploadedFile>) : [],
     },
   });
 
@@ -64,7 +64,7 @@ export default function AppViewToolsViewNewsViewUpdateModalView() {
 
   const { mutate, isPending } = useMutation({
     mutationFn: async ({ title, subtitle, content, archive, files }: yup.InferType<typeof yupSchema>) =>
-      updateNews(news.id, {
+      updateNews(newsDetail.id, {
         title,
         subtitle,
         content,
@@ -80,7 +80,7 @@ export default function AppViewToolsViewNewsViewUpdateModalView() {
         }, {}),
       }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: newsQueryKeys.all });
+      queryClient.invalidateQueries({ queryKey: news._def });
       toast.success('Actualité modifiée avec succès.');
       onClose();
     },
@@ -94,7 +94,7 @@ export default function AppViewToolsViewNewsViewUpdateModalView() {
     <ReactModal isOpen={true} onRequestClose={onClose} className={styles.modal} overlayClassName="Overlay">
       <div className={styles.container}>
         <div className={styles.title}>
-          <p>Modification de l&apos;actualité &quot;{news.title}&quot;</p>
+          <p>Modification de l&apos;actualité &quot;{newsDetail.title}&quot;</p>
         </div>
 
         <div className={styles.content}>

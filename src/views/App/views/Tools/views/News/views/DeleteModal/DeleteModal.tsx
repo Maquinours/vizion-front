@@ -1,11 +1,11 @@
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import React from 'react';
 import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
-import { newsQueryKeys } from '../../../../../../../../utils/constants/queryKeys/news';
-import { deleteNews, getNewsById } from '../../../../../../../../utils/api/news';
 import { toast } from 'react-toastify';
-import React from 'react';
+import { deleteNews } from '../../../../../../../../utils/api/news';
+import { news } from '../../../../../../../../utils/constants/queryKeys/news';
 import styles from './DeleteModal.module.scss';
 
 const routeApi = getRouteApi('/app/tools/news/delete/$newsId');
@@ -16,19 +16,16 @@ export default function AppViewToolsViewNewsViewDeleteModalView() {
 
   const { newsId } = routeApi.useParams();
 
-  const { data: news } = useSuspenseQuery({
-    queryKey: newsQueryKeys.detailById(newsId),
-    queryFn: () => getNewsById(newsId),
-  });
+  const { data: newsDetail } = useSuspenseQuery(news.detail._ctx.byId(newsId));
 
   const onClose = () => {
     navigate({ to: '../..', search: (old) => old });
   };
 
   const { mutate, isPending } = useMutation({
-    mutationFn: () => deleteNews(news.id),
+    mutationFn: () => deleteNews(newsDetail.id),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: newsQueryKeys.all });
+      queryClient.invalidateQueries({ queryKey: news._def });
       toast.success('Actualité supprimée avec succès.');
       onClose();
     },
@@ -49,7 +46,7 @@ export default function AppViewToolsViewNewsViewDeleteModalView() {
         <div className={styles.modal_title}>
           <h6>
             Êtes-vous certain.e de vouloir <span style={{ color: 'var(--secondary-color)' }}>supprimer</span> l&apos;actualité{' '}
-            <span style={{ color: 'var(--secondary-color)' }}>{news.title}</span> ?
+            <span style={{ color: 'var(--secondary-color)' }}>{newsDetail.title}</span> ?
           </h6>
         </div>
 

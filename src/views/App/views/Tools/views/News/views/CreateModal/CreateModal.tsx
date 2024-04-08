@@ -1,20 +1,20 @@
+import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import ReactModal from 'react-modal';
-import * as yup from 'yup';
-import styles from './CreateModal.module.scss';
-import { Controller, useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
 import { useDropzone } from 'react-dropzone';
-import { MdAdd } from 'react-icons/md';
-import Quill from '../../../../../../../../components/Quill/Quill';
+import { Controller, useForm } from 'react-hook-form';
 import { FaTrash } from 'react-icons/fa';
-import { uploadFiles } from '../../../../../../../../utils/api/files';
-import UploadedFile from '../../../../../../../../utils/types/UploadedFile';
-import { createNews } from '../../../../../../../../utils/api/news';
-import { newsQueryKeys } from '../../../../../../../../utils/constants/queryKeys/news';
-import { toast } from 'react-toastify';
+import { MdAdd } from 'react-icons/md';
+import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
+import { toast } from 'react-toastify';
+import * as yup from 'yup';
+import Quill from '../../../../../../../../components/Quill/Quill';
+import { uploadFiles } from '../../../../../../../../utils/api/files';
+import { createNews } from '../../../../../../../../utils/api/news';
+import { news } from '../../../../../../../../utils/constants/queryKeys/news';
+import UploadedFile from '../../../../../../../../utils/types/UploadedFile';
+import styles from './CreateModal.module.scss';
 
 const routeApi = getRouteApi('/app/tools/news/create');
 
@@ -67,7 +67,7 @@ export default function AppViewToolsViewNewsViewCreateModalView() {
         }, {}),
       }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: newsQueryKeys.all });
+      queryClient.invalidateQueries({ queryKey: news._def });
       toast.success('Actualité ajoutée avec succès');
       onClose();
     },
