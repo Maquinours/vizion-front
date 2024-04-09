@@ -1,8 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { productShelfQueryKeys } from '../../../../../utils/constants/queryKeys/productShelf';
-import { getAllProductShelves } from '../../../../../utils/api/productShelf';
-import { productVersionQueryKeys } from '../../../../../utils/constants/queryKeys/productVersion';
 import { getProductVersions } from '../../../../../utils/api/productVersion';
+import { queries } from '../../../../../utils/constants/queryKeys';
+import { productVersionQueryKeys } from '../../../../../utils/constants/queryKeys/productVersion';
 
 export const Route = createFileRoute('/app/products/serial-numbers/create')({
   loader: ({ context: { queryClient } }) => {
@@ -10,9 +9,6 @@ export const Route = createFileRoute('/app/products/serial-numbers/create')({
       queryKey: productVersionQueryKeys.listAll(),
       queryFn: getProductVersions,
     });
-    queryClient.ensureQueryData({
-      queryKey: productShelfQueryKeys.listAll(),
-      queryFn: getAllProductShelves,
-    });
+    queryClient.ensureQueryData(queries['product-shelves'].list);
   },
 });

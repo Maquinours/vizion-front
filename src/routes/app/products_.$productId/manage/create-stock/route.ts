@@ -1,8 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { productVersionQueryKeys } from '../../../../../utils/constants/queryKeys/productVersion';
 import { getProductVersionsByProductId } from '../../../../../utils/api/productVersion';
-import { productShelfQueryKeys } from '../../../../../utils/constants/queryKeys/productShelf';
-import { getAllProductShelves } from '../../../../../utils/api/productShelf';
+import { queries } from '../../../../../utils/constants/queryKeys';
+import { productVersionQueryKeys } from '../../../../../utils/constants/queryKeys/productVersion';
 
 export const Route = createFileRoute('/app/products/$productId/manage/create-stock')({
   loader: ({ context: { queryClient }, params: { productId } }) => {
@@ -10,9 +9,6 @@ export const Route = createFileRoute('/app/products/$productId/manage/create-sto
       queryKey: productVersionQueryKeys.listByProductId(productId),
       queryFn: () => getProductVersionsByProductId(productId),
     });
-    queryClient.ensureQueryData({
-      queryKey: productShelfQueryKeys.listAll(),
-      queryFn: getAllProductShelves,
-    });
+    queryClient.prefetchQuery(queries['product-shelves'].list);
   },
 });

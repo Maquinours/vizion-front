@@ -7,11 +7,9 @@ import { PulseLoader } from 'react-spinners';
 import { toast } from 'react-toastify';
 import * as yup from 'yup';
 import CustomSelect from '../../../../../../../../components/CustomSelect/CustomSelect';
-import { getAllProductShelves } from '../../../../../../../../utils/api/productShelf';
 import { getProductVersionsByProductId } from '../../../../../../../../utils/api/productVersion';
 import { createProductVersionShelfStock } from '../../../../../../../../utils/api/productVersionShelfStock';
 import { queries } from '../../../../../../../../utils/constants/queryKeys';
-import { productShelfQueryKeys } from '../../../../../../../../utils/constants/queryKeys/productShelf';
 import { productVersionQueryKeys } from '../../../../../../../../utils/constants/queryKeys/productVersion';
 import { productVersionShelfStocksQueryKeys } from '../../../../../../../../utils/constants/queryKeys/productVersionShelfStock';
 import ProductShelfResponseDto from '../../../../../../../../utils/types/ProductShelfResponseDto';
@@ -39,10 +37,7 @@ export default function AppViewProductViewManageViewCreateStockModalView() {
     queryFn: () => getProductVersionsByProductId(productId),
   });
 
-  const { data: shelves, isLoading: isLoadingShelves } = useQuery({
-    queryKey: productShelfQueryKeys.listAll(),
-    queryFn: getAllProductShelves,
-  });
+  const { data: shelves, isLoading: isLoadingShelves } = useQuery(queries['product-shelves'].list);
 
   const {
     register,

@@ -1,5 +1,9 @@
-export const productShelfQueryKeys = {
-  all: ['product-shelves'] as const,
-  lists: () => [...productShelfQueryKeys.all, 'list'] as const,
-  listAll: () => [...productShelfQueryKeys.lists(), 'all'] as const,
-};
+import { createQueryKeys } from '@lukemorales/query-key-factory';
+import { getAllProductShelves } from '../../api/productShelf';
+
+export const productShelves = createQueryKeys('product-shelves', {
+  list: {
+    queryKey: null,
+    queryFn: getAllProductShelves,
+  },
+});
