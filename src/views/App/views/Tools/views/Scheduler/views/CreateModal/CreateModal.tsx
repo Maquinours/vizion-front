@@ -11,7 +11,6 @@ import { toast } from 'react-toastify';
 import * as yup from 'yup';
 import { createRdv } from '../../../../../../../../utils/api/rdv';
 import { queries } from '../../../../../../../../utils/constants/queryKeys';
-import { rdvUserInfosQueryKeys } from '../../../../../../../../utils/constants/queryKeys/rdvUserInfo';
 import CategoryClient from '../../../../../../../../utils/enums/CategoryClient';
 import ProfileResponseDto from '../../../../../../../../utils/types/ProfileResponseDto';
 import { useAuthentifiedUserQuery } from '../../../../../../utils/functions/getAuthentifiedUser';
@@ -124,7 +123,7 @@ export default function AppViewToolsViewSchedulerViewCreateModalView() {
         endDatetime: endDateTime ?? new Date(),
       }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: rdvUserInfosQueryKeys.all });
+      queryClient.invalidateQueries({ queryKey: queries['rdv-user-infos']._def });
       toast.success('Rendez-vous créé avec succès');
       onClose();
     },

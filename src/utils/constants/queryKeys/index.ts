@@ -10,6 +10,7 @@ import { enterprises } from './enterprise';
 import { profiles } from './profile';
 import { progressiveInfos } from './progressiveInfo';
 import { rdvs } from './rdv';
+import { rdvUserInfos } from './rdvUserInfo';
 
 export const queries = mergeQueryKeys(
   enterprises,
@@ -23,4 +24,5 @@ export const queries = mergeQueryKeys(
   profiles,
   progressiveInfos,
   rdvs,
+  rdvUserInfos,
 );

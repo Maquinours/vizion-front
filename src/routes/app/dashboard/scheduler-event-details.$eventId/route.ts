@@ -1,8 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { rdvUserInfosQueryKeys } from '../../../../utils/constants/queryKeys/rdvUserInfo';
-import { getRdvUserInfosByRdvId } from '../../../../utils/api/rdvUserInfo';
+import { queries } from '../../../../utils/constants/queryKeys';
 
 export const Route = createFileRoute('/app/dashboard/scheduler-event-details/$eventId')({
-  loader: ({ context: { queryClient }, params: { eventId } }) =>
-    queryClient.ensureQueryData({ queryKey: rdvUserInfosQueryKeys.listByRdvId(eventId), queryFn: () => getRdvUserInfosByRdvId(eventId) }),
+  loader: ({ context: { queryClient }, params: { eventId } }) => queryClient.ensureQueryData(queries['rdv-user-infos'].list._ctx.byRdvId(eventId)),
 });

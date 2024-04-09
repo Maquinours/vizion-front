@@ -1,11 +1,9 @@
 import { createFileRoute, defer, redirect } from '@tanstack/react-router';
 import { Views } from 'react-big-calendar';
 import { z } from 'zod';
-import { getAllRdvUserInfos } from '../../../utils/api/rdvUserInfo';
 import { getPaginatedTasksByStateAndProfileId, getTasksByType } from '../../../utils/api/task';
 import { queries } from '../../../utils/constants/queryKeys';
 import { keycloakEvents } from '../../../utils/constants/queryKeys/keycloakEvent';
-import { rdvUserInfosQueryKeys } from '../../../utils/constants/queryKeys/rdvUserInfo';
 import { taskQueryKeys } from '../../../utils/constants/queryKeys/task';
 import { users } from '../../../utils/constants/queryKeys/user';
 import TaskState from '../../../utils/enums/TaskState';
@@ -34,10 +32,7 @@ export const Route = createFileRoute('/app/dashboard')({
       queryKey: taskQueryKeys.listByType(WorkloadType.COLLECTIVE),
       queryFn: () => getTasksByType(WorkloadType.COLLECTIVE),
     });
-    const schedulerPromise = queryClient.ensureQueryData({
-      queryKey: rdvUserInfosQueryKeys.listAll(),
-      queryFn: getAllRdvUserInfos,
-    });
+    const schedulerPromise = queryClient.ensureQueryData(queries['rdv-user-infos'].list);
     const progressiveInfosPromise = queryClient.ensureQueryData(queries['progressive-infos'].list);
     const user = await queryClient.ensureQueryData(users.authentified());
     const personalTaskPromise = queryClient.ensureQueryData({

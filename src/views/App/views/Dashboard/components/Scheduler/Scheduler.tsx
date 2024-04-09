@@ -1,14 +1,13 @@
 import { useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
+import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { useLocalStorage } from '@uidotdev/usehooks';
+import { useCallback } from 'react';
+import { View, Views } from 'react-big-calendar';
 import CardComponent from '../../../../../../components/Card/Card';
 import SchedulerCalendarComponent from '../../../../../../components/SchedulerCalendar/SchedulerCalendar';
-import { rdvUserInfosQueryKeys } from '../../../../../../utils/constants/queryKeys/rdvUserInfo';
-import { getAllRdvUserInfos } from '../../../../../../utils/api/rdvUserInfo';
-import { View, Views } from 'react-big-calendar';
-import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthentifiedUser';
-import { useLocalStorage } from '@uidotdev/usehooks';
+import { queries } from '../../../../../../utils/constants/queryKeys';
 import RdvUserInfoResponseDto from '../../../../../../utils/types/RdvUserInfoResponseDto';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import { useCallback } from 'react';
+import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthentifiedUser';
 
 const Route = getRouteApi('/app/dashboard');
 
@@ -25,8 +24,7 @@ export default function AppViewDashboardViewSchedulerComponent() {
   const { schedulerView: view, schedulerDate: date } = Route.useSearch();
 
   const { data, refetch, isRefetching } = useSuspenseQuery({
-    queryKey: rdvUserInfosQueryKeys.listAll(),
-    queryFn: getAllRdvUserInfos,
+    ...queries['rdv-user-infos'].list,
     select: (data) => data.filter((info) => info.attributeToId === user.profile.id),
   });
 
@@ -48,7 +46,7 @@ export default function AppViewDashboardViewSchedulerComponent() {
   const onEventClick = useCallback(
     (event: RdvUserInfoResponseDto) => {
       queryClient.setQueryData(
-        rdvUserInfosQueryKeys.listByRdvId(event.rdv!.id),
+        queries['rdv-user-infos'].list._ctx.byRdvId(event.rdv!.id).queryKey,
         data.filter((info) => info.rdv!.id === event.rdv!.id),
       );
       navigate({ from: Route.id, to: './scheduler-event-details/$eventId', params: { eventId: event.rdv!.id }, search: (old) => old });

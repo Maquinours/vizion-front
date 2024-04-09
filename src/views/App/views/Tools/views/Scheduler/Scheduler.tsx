@@ -1,11 +1,10 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
+import { Link, Outlet, getRouteApi, useNavigate } from '@tanstack/react-router';
+import { View, Views } from 'react-big-calendar';
 import RefreshButtonComponent from '../../../../../../components/RefreshButton/RefreshButton';
 import SchedulerCalendarComponent from '../../../../../../components/SchedulerCalendar/SchedulerCalendar';
-import { rdvUserInfosQueryKeys } from '../../../../../../utils/constants/queryKeys/rdvUserInfo';
-import { getAllRdvUserInfos } from '../../../../../../utils/api/rdvUserInfo';
-import { Link, Outlet, getRouteApi, useNavigate } from '@tanstack/react-router';
+import { queries } from '../../../../../../utils/constants/queryKeys';
 import styles from './Scheduler.module.scss';
-import { View, Views } from 'react-big-calendar';
 
 const routeApi = getRouteApi('/app/tools/scheduler');
 
@@ -14,10 +13,7 @@ const views = [Views.DAY, Views.WORK_WEEK, Views.MONTH, Views.WORK_WEEK, Views.A
 export default function AppViewToolsViewSchedulerView() {
   const navigate = useNavigate();
 
-  const { data, refetch, isRefetching } = useSuspenseQuery({
-    queryKey: rdvUserInfosQueryKeys.listAll(),
-    queryFn: getAllRdvUserInfos,
-  });
+  const { data, refetch, isRefetching } = useSuspenseQuery(queries['rdv-user-infos'].list);
 
   const { view, date } = routeApi.useSearch();
 
