@@ -1,10 +1,8 @@
 import { createFileRoute, redirect } from '@tanstack/react-router';
 import { z } from 'zod';
-import { getProductStockEntriesPageByProductId } from '../../../../utils/api/productStockEntry';
 import { getProductVersionsPageByProductId } from '../../../../utils/api/productVersion';
 import { getProductVersionShelfStocksPageByProductId } from '../../../../utils/api/productVersionShelfStock';
 import { queries } from '../../../../utils/constants/queryKeys';
-import { productStockEntryQueryKeys } from '../../../../utils/constants/queryKeys/productStockEntry';
 import { productVersionQueryKeys } from '../../../../utils/constants/queryKeys/productVersion';
 import { productVersionShelfStocksQueryKeys } from '../../../../utils/constants/queryKeys/productVersionShelfStock';
 import { users } from '../../../../utils/constants/queryKeys/user';
@@ -105,9 +103,6 @@ export const Route = createFileRoute('/app/products/$productId/manage')({
       }),
     );
 
-    queryClient.ensureQueryData({
-      queryKey: productStockEntryQueryKeys.pageByProductId(productId, stockEntriesPage, stockEntriesSize),
-      queryFn: () => getProductStockEntriesPageByProductId(productId, stockEntriesPage, stockEntriesSize),
-    });
+    queryClient.ensureQueryData(queries.product.detail._ctx.byId(productId)._ctx.stockEntries._ctx.page({ page: stockEntriesPage, size: stockEntriesSize }));
   },
 });

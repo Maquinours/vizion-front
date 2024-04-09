@@ -8,6 +8,7 @@ import {
   getProductsPageWithSearch,
 } from '../../api/product';
 import { getProductSpecificationById, getProductSpecificationsPageByProductId } from '../../api/productSpecification';
+import { getProductStockEntriesPageByProductId } from '../../api/productStockEntry';
 
 export const products = createQueryKeys('product', {
   detail: {
@@ -33,6 +34,15 @@ export const products = createQueryKeys('product', {
                   }),
                 },
               },
+            },
+          },
+          stockEntries: {
+            queryKey: null,
+            contextQueries: {
+              page: ({ page, size }: { page: number; size: number }) => ({
+                queryKey: [page, size],
+                queryFn: () => getProductStockEntriesPageByProductId(id, page, size),
+              }),
             },
           },
         },
