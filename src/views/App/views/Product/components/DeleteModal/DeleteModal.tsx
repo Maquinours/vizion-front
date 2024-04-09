@@ -14,7 +14,7 @@ export default function AppViewProductViewDeleteModalComponent() {
 
   const { productId } = routeApi.useParams();
 
-  const { data: product } = useSuspenseQuery(queries.product.detail._ctx.byId(productId));
+  const { data: product } = useSuspenseQuery(queries.product.detail(productId));
 
   const onClose = () => {
     navigate({ from: routeApi.id, search: (old) => ({ ...old, productModal: undefined }) });

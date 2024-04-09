@@ -9,46 +9,50 @@ import {
 } from '../../api/product';
 import { getProductSpecificationById, getProductSpecificationsPageByProductId } from '../../api/productSpecification';
 import { getProductStockEntriesPageByProductId } from '../../api/productStockEntry';
+import { getProductVersionById, getProductVersions, getProductVersionsByProductId, getProductVersionsPageByProductId } from '../../api/productVersion';
 
-export const products = createQueryKeys('product', {
-  detail: {
-    queryKey: null,
+const products = createQueryKeys('product', {
+  detail: (id: string) => ({
+    queryKey: [id],
+    queryFn: () => getProductById(id),
     contextQueries: {
-      byId: (id: string) => ({
-        queryKey: [id],
-        queryFn: () => getProductById(id),
+      specifications: {
+        queryKey: null,
         contextQueries: {
-          specifications: {
-            queryKey: null,
-            contextQueries: {
-              page: ({ page, size }: { page: number; size: number }) => ({
-                queryKey: [page, size],
-                queryFn: () => getProductSpecificationsPageByProductId(id, page, size),
-              }),
-              detail: {
-                queryKey: null,
-                contextQueries: {
-                  byId: (specificationId: string) => ({
-                    queryKey: [specificationId],
-                    queryFn: () => getProductSpecificationById(id, specificationId),
-                  }),
-                },
-              },
-            },
-          },
-          stockEntries: {
-            queryKey: null,
-            contextQueries: {
-              page: ({ page, size }: { page: number; size: number }) => ({
-                queryKey: [page, size],
-                queryFn: () => getProductStockEntriesPageByProductId(id, page, size),
-              }),
-            },
-          },
+          page: ({ page, size }: { page: number; size: number }) => ({
+            queryKey: [page, size],
+            queryFn: () => getProductSpecificationsPageByProductId(id, page, size),
+          }),
+          detail: (specificationId: string) => ({
+            queryKey: [specificationId],
+            queryFn: () => getProductSpecificationById(id, specificationId),
+          }),
         },
-      }),
+      },
+      stockEntries: {
+        queryKey: null,
+        contextQueries: {
+          page: ({ page, size }: { page: number; size: number }) => ({
+            queryKey: [page, size],
+            queryFn: () => getProductStockEntriesPageByProductId(id, page, size),
+          }),
+        },
+      },
+      versions: {
+        queryKey: null,
+        contextQueries: {
+          list: {
+            queryKey: null,
+            queryFn: () => getProductVersionsByProductId(id),
+          },
+          page: ({ page, size }) => ({
+            queryKey: [page, size],
+            queryFn: () => getProductVersionsPageByProductId(id, page, size),
+          }),
+        },
+      },
     },
-  },
+  }),
   list: {
     queryKey: null,
     queryFn: getProducts,
@@ -72,4 +76,20 @@ export const products = createQueryKeys('product', {
       }),
     },
   }),
+
+  versions: {
+    queryKey: null,
+    contextQueries: {
+      list: {
+        queryKey: null,
+        queryFn: getProductVersions,
+      },
+      detail: (id: string) => ({
+        queryKey: [id],
+        queryFn: () => getProductVersionById(id),
+      }),
+    },
+  },
 });
+
+export default products;

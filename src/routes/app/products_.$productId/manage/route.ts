@@ -1,9 +1,7 @@
 import { createFileRoute, redirect } from '@tanstack/react-router';
 import { z } from 'zod';
-import { getProductVersionsPageByProductId } from '../../../../utils/api/productVersion';
 import { getProductVersionShelfStocksPageByProductId } from '../../../../utils/api/productVersionShelfStock';
 import { queries } from '../../../../utils/constants/queryKeys';
-import { productVersionQueryKeys } from '../../../../utils/constants/queryKeys/productVersion';
 import { productVersionShelfStocksQueryKeys } from '../../../../utils/constants/queryKeys/productVersionShelfStock';
 import { users } from '../../../../utils/constants/queryKeys/user';
 
@@ -78,14 +76,9 @@ export const Route = createFileRoute('/app/products/$productId/manage')({
   }) => {
     queryClient.prefetchQuery(queries.product.page({ page: associatedProductsPage, size: associatedProductsSize })._ctx.byAssociatedProductId(productId));
 
-    queryClient.ensureQueryData({
-      queryKey: productVersionQueryKeys.pageByProductId(productId, versionsPage, versionsSize),
-      queryFn: () => getProductVersionsPageByProductId(productId, versionsPage, versionsSize),
-    });
+    queryClient.prefetchQuery(queries.product.detail(productId)._ctx.versions._ctx.page({ page: versionsPage, size: versionsSize }));
 
-    queryClient.ensureQueryData(
-      queries.product.detail._ctx.byId(productId)._ctx.specifications._ctx.page({ page: specificationsPage, size: specificationsSize }),
-    );
+    queryClient.ensureQueryData(queries.product.detail(productId)._ctx.specifications._ctx.page({ page: specificationsPage, size: specificationsSize }));
 
     queryClient.ensureQueryData({
       queryKey: productVersionShelfStocksQueryKeys.pageByProductId(productId, stocksPage, stocksSize),
@@ -103,6 +96,6 @@ export const Route = createFileRoute('/app/products/$productId/manage')({
       }),
     );
 
-    queryClient.ensureQueryData(queries.product.detail._ctx.byId(productId)._ctx.stockEntries._ctx.page({ page: stockEntriesPage, size: stockEntriesSize }));
+    queryClient.ensureQueryData(queries.product.detail(productId)._ctx.stockEntries._ctx.page({ page: stockEntriesPage, size: stockEntriesSize }));
   },
 });

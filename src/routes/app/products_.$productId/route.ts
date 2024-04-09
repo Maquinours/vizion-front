@@ -11,7 +11,7 @@ export const Route = createFileRoute('/app/products/$productId')({
   validateSearch: searchSchema,
   loaderDeps: ({ search: { productModal } }) => ({ productModal }),
   loader: ({ context: { queryClient }, params: { productId }, deps: { productModal } }) => {
-    queryClient.ensureQueryData(queries.product.detail._ctx.byId(productId));
+    queryClient.ensureQueryData(queries.product.detail(productId));
     if (productModal === 'update') {
       queryClient.ensureQueryData(enterprises.list._ctx.providers);
     }

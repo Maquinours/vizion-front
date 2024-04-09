@@ -15,7 +15,7 @@ export default function AppViewProductViewManageViewRemoveAssociatedProductModal
 
   const { productId, associatedProductId } = routeApi.useParams();
 
-  const { data: associatedProduct } = useSuspenseQuery(queries.product.detail._ctx.byId(associatedProductId));
+  const { data: associatedProduct } = useSuspenseQuery(queries.product.detail(associatedProductId));
 
   const onClose = () => {
     navigate({ from: routeApi.id, to: '../..', search: (old) => old });

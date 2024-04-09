@@ -15,7 +15,7 @@ export default function AppViewProductViewManageViewSpecificationsComponent() {
   const { productId } = routeApi.useParams();
   const { specificationsPage: page } = routeApi.useSearch();
 
-  const { data, isLoading, refetch, isRefetching } = useQuery(queries.product.detail._ctx.byId(productId)._ctx.specifications._ctx.page({ page, size }));
+  const { data, isLoading, refetch, isRefetching } = useQuery(queries.product.detail(productId)._ctx.specifications._ctx.page({ page, size }));
 
   return (
     <CardComponent title="Caractéristiques">

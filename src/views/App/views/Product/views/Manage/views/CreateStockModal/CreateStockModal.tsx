@@ -7,10 +7,8 @@ import { PulseLoader } from 'react-spinners';
 import { toast } from 'react-toastify';
 import * as yup from 'yup';
 import CustomSelect from '../../../../../../../../components/CustomSelect/CustomSelect';
-import { getProductVersionsByProductId } from '../../../../../../../../utils/api/productVersion';
 import { createProductVersionShelfStock } from '../../../../../../../../utils/api/productVersionShelfStock';
 import { queries } from '../../../../../../../../utils/constants/queryKeys';
-import { productVersionQueryKeys } from '../../../../../../../../utils/constants/queryKeys/productVersion';
 import { productVersionShelfStocksQueryKeys } from '../../../../../../../../utils/constants/queryKeys/productVersionShelfStock';
 import ProductShelfResponseDto from '../../../../../../../../utils/types/ProductShelfResponseDto';
 import ProductVersionResponseDto from '../../../../../../../../utils/types/ProductVersionResponseDto';
@@ -30,12 +28,9 @@ export default function AppViewProductViewManageViewCreateStockModalView() {
 
   const { productId } = routeApi.useParams();
 
-  const { data: product } = useSuspenseQuery(queries.product.detail._ctx.byId(productId));
+  const { data: product } = useSuspenseQuery(queries.product.detail(productId));
 
-  const { data: versions, isLoading: isLoadingVersions } = useQuery({
-    queryKey: productVersionQueryKeys.listByProductId(productId),
-    queryFn: () => getProductVersionsByProductId(productId),
-  });
+  const { data: versions, isLoading: isLoadingVersions } = useQuery(queries.product.detail(productId)._ctx.versions._ctx.list);
 
   const { data: shelves, isLoading: isLoadingShelves } = useQuery(queries['product-shelves'].list);
 

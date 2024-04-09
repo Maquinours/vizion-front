@@ -54,7 +54,7 @@ export default function AppViewProductViewManageViewStockMovementHistoryComponen
   const { productId } = routeApi.useParams();
   const { stockEntriesPage: page, stockEntriesSize: size } = routeApi.useSearch();
 
-  const { data, isLoading, refetch, isRefetching } = useQuery(queries.product.detail._ctx.byId(productId)._ctx.stockEntries._ctx.page({ page, size }));
+  const { data, isLoading, refetch, isRefetching } = useQuery(queries.product.detail(productId)._ctx.stockEntries._ctx.page({ page, size }));
 
   const onSizeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     navigate({

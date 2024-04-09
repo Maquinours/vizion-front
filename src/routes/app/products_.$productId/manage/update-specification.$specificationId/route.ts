@@ -3,6 +3,6 @@ import { queries } from '../../../../../utils/constants/queryKeys';
 
 export const Route = createFileRoute('/app/products/$productId/manage/update-specification/$specificationId')({
   loader: ({ context: { queryClient }, params: { productId, specificationId } }) => {
-    queryClient.ensureQueryData(queries.product.detail._ctx.byId(productId)._ctx.specifications._ctx.detail._ctx.byId(specificationId));
+    queryClient.ensureQueryData(queries.product.detail(productId)._ctx.specifications._ctx.detail(specificationId));
   },
 });

@@ -71,7 +71,7 @@ export default function CreateLifesheetModalComponent({ associatedItemType, asso
         case LifesheetAssociatedItem.PRODUCT:
           data = {
             productId: associatedItemId,
-            productReference: (await queryClient.ensureQueryData(queries.product.detail._ctx.byId(associatedItemId))).reference,
+            productReference: (await queryClient.ensureQueryData(queries.product.detail(associatedItemId))).reference,
           };
           break;
         case LifesheetAssociatedItem.ENTERPRISE:

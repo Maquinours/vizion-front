@@ -49,7 +49,7 @@ export default function AppViewProductViewUpdateModalComponent() {
 
   const { productId } = routeApi.useParams();
 
-  const { data: product } = useSuspenseQuery(queries.product.detail._ctx.byId(productId));
+  const { data: product } = useSuspenseQuery(queries.product.detail(productId));
 
   const {
     register: stepOneRegister,

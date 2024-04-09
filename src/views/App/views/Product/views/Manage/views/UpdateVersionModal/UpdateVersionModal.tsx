@@ -6,9 +6,8 @@ import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
 import { toast } from 'react-toastify';
 import * as yup from 'yup';
-import { getProductVersionById, updateProductVersion } from '../../../../../../../../utils/api/productVersion';
+import { updateProductVersion } from '../../../../../../../../utils/api/productVersion';
 import { queries } from '../../../../../../../../utils/constants/queryKeys';
-import { productVersionQueryKeys } from '../../../../../../../../utils/constants/queryKeys/productVersion';
 import styles from './UpdateVersionModal.module.scss';
 
 const routeApi = getRouteApi('/app/products/$productId/manage/update-version/$versionId');
@@ -19,12 +18,9 @@ export default function AppViewProductViewManageViewUpdateVersionModalView() {
 
   const { productId, versionId } = routeApi.useParams();
 
-  const { data: product } = useSuspenseQuery(queries.product.detail._ctx.byId(productId));
+  const { data: product } = useSuspenseQuery(queries.product.detail(productId));
 
-  const { data: version } = useSuspenseQuery({
-    queryKey: productVersionQueryKeys.detailById(versionId),
-    queryFn: () => getProductVersionById(versionId),
-  });
+  const { data: version } = useSuspenseQuery(queries.product.versions._ctx.detail(versionId));
 
   const yupSchema = yup.object().shape({
     reference: yup
@@ -81,7 +77,6 @@ export default function AppViewProductViewManageViewUpdateVersionModalView() {
       }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queries.product._def });
-      queryClient.invalidateQueries({ queryKey: productVersionQueryKeys.all });
       toast.success('La version a été modifiée avec succès.');
       onClose();
     },

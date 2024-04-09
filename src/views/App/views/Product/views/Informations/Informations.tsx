@@ -16,7 +16,7 @@ export default function AppViewProductViewInformationsView() {
 
   const { data: user } = useAuthentifiedUserQuery();
 
-  const { data: product } = useSuspenseQuery(queries.product.detail._ctx.byId(productId));
+  const { data: product } = useSuspenseQuery(queries.product.detail(productId));
 
   return (
     <>

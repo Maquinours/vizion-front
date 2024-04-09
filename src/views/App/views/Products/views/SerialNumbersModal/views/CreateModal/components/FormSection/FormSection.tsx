@@ -5,9 +5,7 @@ import { Controller, useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import CardComponent from '../../../../../../../../../../components/Card/Card';
 import CustomSelect from '../../../../../../../../../../components/CustomSelect/CustomSelect';
-import { getProductVersions } from '../../../../../../../../../../utils/api/productVersion';
 import { queries } from '../../../../../../../../../../utils/constants/queryKeys';
-import { productVersionQueryKeys } from '../../../../../../../../../../utils/constants/queryKeys/productVersion';
 import ProductSerialListRequestDto from '../../../../../../../../../../utils/types/ProductSerialListRequestDto';
 import ProductShelfResponseDto from '../../../../../../../../../../utils/types/ProductShelfResponseDto';
 import ProductVersionResponseDto from '../../../../../../../../../../utils/types/ProductVersionResponseDto';
@@ -65,10 +63,7 @@ export default function AppViewProductsViewSerialNumbersModalViewCreateModalView
   isPending,
   setRequestData,
 }: AppViewProductsViewSerialNumbersModalViewCreateModalViewFormSectionComponentProps) {
-  const { data: products, isLoading: isLoadingProducts } = useQuery({
-    queryKey: productVersionQueryKeys.listAll(),
-    queryFn: getProductVersions,
-  });
+  const { data: products, isLoading: isLoadingProducts } = useQuery(queries.product.versions._ctx.list);
 
   const { data: shelves, isLoading: isLoadingShelves } = useQuery(queries['product-shelves'].list);
 

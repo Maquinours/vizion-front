@@ -40,7 +40,7 @@ export default function AppViewProductViewManageViewUpdateSpecificationModalView
 
   const { productId, specificationId } = routeApi.useParams();
 
-  const { data: productSpec } = useSuspenseQuery(queries.product.detail._ctx.byId(productId)._ctx.specifications._ctx.detail._ctx.byId(specificationId));
+  const { data: productSpec } = useSuspenseQuery(queries.product.detail(productId)._ctx.specifications._ctx.detail(specificationId));
 
   const {
     register,
