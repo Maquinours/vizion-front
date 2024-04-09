@@ -1,14 +1,14 @@
-import { createColumnHelper } from '@tanstack/react-table';
-import TableComponent from '../../../../../../../../components/Table/Table';
-import styles from './StepTwo.module.scss';
-import ProfileRequestDto from '../../../../../../../../utils/types/ProfileRequestDto';
-import { PropagateLoader } from 'react-spinners';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { createProfiles } from '../../../../../../../../utils/api/profile';
-import { profileQueryKeys } from '../../../../../../../../utils/constants/queryKeys/profile';
 import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import { toast } from 'react-toastify';
+import { createColumnHelper } from '@tanstack/react-table';
 import React from 'react';
+import { PropagateLoader } from 'react-spinners';
+import { toast } from 'react-toastify';
+import TableComponent from '../../../../../../../../components/Table/Table';
+import { createProfiles } from '../../../../../../../../utils/api/profile';
+import { queries } from '../../../../../../../../utils/constants/queryKeys';
+import ProfileRequestDto from '../../../../../../../../utils/types/ProfileRequestDto';
+import styles from './StepTwo.module.scss';
 
 const Route = getRouteApi('/app/enterprises/$enterpriseId/import-contacts');
 
@@ -32,12 +32,10 @@ export default function AppViewEnterpriseViewImportContactsModalViewStepTwoCompo
   const queryClient = useQueryClient();
   const navigate = useNavigate();
 
-  const { enterpriseId } = Route.useParams();
-
   const { mutate, isPending } = useMutation({
     mutationFn: () => createProfiles(profiles),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: profileQueryKeys.listByEnterpriseId(enterpriseId) });
+      queryClient.invalidateQueries({ queryKey: queries.profiles._def });
       toast.success('Les contacts ont été importés avec succès');
       navigate({ from: Route.id, to: '..', search: (old) => old });
     },

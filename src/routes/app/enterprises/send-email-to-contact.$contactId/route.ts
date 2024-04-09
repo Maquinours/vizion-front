@@ -1,6 +1,5 @@
 import { createFileRoute, redirect } from '@tanstack/react-router';
-import { profileQueryKeys } from '../../../../utils/constants/queryKeys/profile';
-import { getProfileById } from '../../../../utils/api/profile';
+import { queries } from '../../../../utils/constants/queryKeys';
 import { users } from '../../../../utils/constants/queryKeys/user';
 
 export const Route = createFileRoute('/app/enterprises/send-email-to-contact/$contactId')({
@@ -9,10 +8,7 @@ export const Route = createFileRoute('/app/enterprises/send-email-to-contact/$co
     if (!user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO')) throw redirect({ from: Route.id, to: '../..', search: (old) => old });
   },
   loader: async ({ context: { queryClient }, params: { contactId } }) => {
-    const contact = await queryClient.ensureQueryData({
-      queryKey: profileQueryKeys.detailById(contactId),
-      queryFn: () => getProfileById(contactId),
-    });
+    const contact = await queryClient.ensureQueryData(queries.profiles.detail(contactId));
     if (!contact.email) throw redirect({ from: Route.id, to: '../..', search: (old) => old });
   },
 });

@@ -1,10 +1,10 @@
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import ReactModal from 'react-modal';
-import { profileQueryKeys } from '../../utils/constants/queryKeys/profile';
-import { deleteProfile, getProfileById } from '../../utils/api/profile';
-import { toast } from 'react-toastify';
 import React from 'react';
+import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
+import { toast } from 'react-toastify';
+import { deleteProfile } from '../../utils/api/profile';
+import { queries } from '../../utils/constants/queryKeys';
 import styles from './DeleteContactModal.module.scss';
 
 type DeleteContactModalComponentProps = Readonly<{
@@ -14,16 +14,12 @@ type DeleteContactModalComponentProps = Readonly<{
 export default function DeleteContactModalComponent({ contactId, onClose }: DeleteContactModalComponentProps) {
   const queryClient = useQueryClient();
 
-  const { data: contact } = useSuspenseQuery({
-    queryKey: profileQueryKeys.detailById(contactId),
-    queryFn: () => getProfileById(contactId),
-  });
+  const { data: contact } = useSuspenseQuery(queries.profiles.detail(contactId));
 
   const { mutate, isPending } = useMutation({
     mutationFn: () => deleteProfile(contact),
     onSuccess: () => {
-      queryClient.removeQueries({ queryKey: profileQueryKeys.detailById(contactId), exact: true });
-      queryClient.invalidateQueries({ queryKey: profileQueryKeys.all });
+      queryClient.invalidateQueries({ queryKey: queries.enterprise._def });
       toast.success('Le contact a été supprimé avec succès');
     },
     onError: (error) => {

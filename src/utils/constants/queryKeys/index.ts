@@ -6,5 +6,17 @@ import { productFilters } from './productFilter';
 import { productSales } from './productSale';
 import { productSerialNumbers } from './productSerialNumber';
 import { productShelves } from './productShelf';
+import { enterprises } from './enterprise';
+import { profiles } from './profile';
 
-export const queries = mergeQueryKeys(predefinedMessages, predefinedTexts, products, productFilters, productSales, productSerialNumbers, productShelves);
+export const queries = mergeQueryKeys(
+  enterprises,
+  predefinedMessages,
+  predefinedTexts,
+  products,
+  productFilters,
+  productSales,
+  productSerialNumbers,
+  productShelves,
+  profiles,
+);

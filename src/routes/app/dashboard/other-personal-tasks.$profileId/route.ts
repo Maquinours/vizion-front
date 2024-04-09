@@ -1,11 +1,9 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { z } from 'zod';
-import TaskState from '../../../../utils/enums/TaskState';
-import { profileQueryKeys } from '../../../../utils/constants/queryKeys/profile';
-import { getProfileById } from '../../../../utils/api/profile';
-import { taskQueryKeys } from '../../../../utils/constants/queryKeys/task';
 import { getPaginatedTasksByStateAndProfileId } from '../../../../utils/api/task';
-import { defer } from '@tanstack/react-router';
+import { queries } from '../../../../utils/constants/queryKeys';
+import { taskQueryKeys } from '../../../../utils/constants/queryKeys/task';
+import TaskState from '../../../../utils/enums/TaskState';
 
 const searchSchema = z.object({
   otherPersonalTaskState: z.nativeEnum(TaskState).catch(TaskState.CREATED),
@@ -21,15 +19,11 @@ export const Route = createFileRoute('/app/dashboard/other-personal-tasks/$profi
     size: otherPersonalTaskSize,
   }),
   loader: async ({ context: { queryClient }, params: { profileId }, deps: { state, page, size } }) => {
-    const profilePromise = queryClient.ensureQueryData({ queryKey: profileQueryKeys.detailById(profileId), queryFn: () => getProfileById(profileId) });
-    const dataPromise = queryClient.ensureQueryData({
+    queryClient.prefetchQuery({
       queryKey: taskQueryKeys.pageByStateAndProfileId(state, profileId, page, size),
       queryFn: () => getPaginatedTasksByStateAndProfileId(state, profileId, page, size),
     });
 
-    return {
-      profile: await profilePromise,
-      data: defer(dataPromise),
-    };
+    await queryClient.ensureQueryData(queries.profiles.detail(profileId));
   },
 });

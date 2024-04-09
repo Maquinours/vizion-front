@@ -1,15 +1,14 @@
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import CategoryClient from '../../utils/enums/CategoryClient';
-import BusinessType from '../../utils/enums/BusinessType';
-import { profileQueryKeys } from '../../utils/constants/queryKeys/profile';
-import { getProfileById } from '../../utils/api/profile';
-import { createBusiness } from '../../utils/api/business';
-import { toast } from 'react-toastify';
-import { businesses } from '../../utils/constants/queryKeys/business';
 import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
-import styles from './CreateBusinessModal.module.scss';
+import { toast } from 'react-toastify';
+import { createBusiness } from '../../utils/api/business';
+import { queries } from '../../utils/constants/queryKeys';
+import { businesses } from '../../utils/constants/queryKeys/business';
 import { enterprises } from '../../utils/constants/queryKeys/enterprise';
+import BusinessType from '../../utils/enums/BusinessType';
+import CategoryClient from '../../utils/enums/CategoryClient';
+import styles from './CreateBusinessModal.module.scss';
 
 type CreateBusinessModalComponentProps = Readonly<{
   contactId: string;
@@ -18,10 +17,7 @@ type CreateBusinessModalComponentProps = Readonly<{
 export default function CreateBusinessModalComponent({ contactId, onClose }: CreateBusinessModalComponentProps) {
   const queryClient = useQueryClient();
 
-  const { data: contact } = useSuspenseQuery({
-    queryKey: profileQueryKeys.detailById(contactId),
-    queryFn: () => getProfileById(contactId),
-  });
+  const { data: contact } = useSuspenseQuery(queries.profiles.detail(contactId));
 
   const { data: enterprise } = useSuspenseQuery(enterprises.detail(contact.enterprise!.id));
 

@@ -1,17 +1,16 @@
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useMutation, useSuspenseQuery } from '@tanstack/react-query';
+import { getRouteApi } from '@tanstack/react-router';
+import { Base64 } from 'js-base64';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import ReactModal from 'react-modal';
-import * as yup from 'yup';
-import styles from './StepOne.module.scss';
-import { useMutation, useSuspenseQuery } from '@tanstack/react-query';
-import { generateTravelVoucher } from './utils/api/travelVoucher';
-import React from 'react';
-import { Base64 } from 'js-base64';
-import { toast } from 'react-toastify';
 import { PulseLoader } from 'react-spinners';
-import { getRouteApi } from '@tanstack/react-router';
-import { profileQueryKeys } from '../../../../../../../../utils/constants/queryKeys/profile';
-import { getProfileById } from '../../../../../../../../utils/api/profile';
+import { toast } from 'react-toastify';
+import * as yup from 'yup';
+import { queries } from '../../../../../../../../utils/constants/queryKeys';
+import styles from './StepOne.module.scss';
+import { generateTravelVoucher } from './utils/api/travelVoucher';
 
 const routeApi = getRouteApi('/app/enterprises/create-contact-travel-voucher/$contactId');
 
@@ -41,10 +40,7 @@ export default function AppViewEnterprisesViewCreateContactTravelVoucherModalVie
 }: AppViewEnterprisesViewCreateContactTravelVoucherModalViewStepOneComponentProps) {
   const { contactId } = routeApi.useParams();
 
-  const { data: contact } = useSuspenseQuery({
-    queryKey: profileQueryKeys.detailById(contactId),
-    queryFn: () => getProfileById(contactId),
-  });
+  const { data: contact } = useSuspenseQuery(queries.profiles.detail(contactId));
 
   const {
     register,

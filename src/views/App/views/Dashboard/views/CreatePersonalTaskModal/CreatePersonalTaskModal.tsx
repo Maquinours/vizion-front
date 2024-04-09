@@ -1,21 +1,20 @@
-import ReactModal from 'react-modal';
-import * as yup from 'yup';
-import ProfileResponseDto from '../../../../../../utils/types/ProfileResponseDto';
-import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import styles from './CreatePersonalTaskModal.module.scss';
-import { PulseLoader } from 'react-spinners';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { createTask } from '../../../../../../utils/api/task';
-import WorkloadType from '../../../../../../utils/enums/WorkloadType';
-import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthentifiedUser';
-import { profileQueryKeys } from '../../../../../../utils/constants/queryKeys/profile';
-import { getProfilesByCategory } from '../../../../../../utils/api/profile';
-import CustomSelect from '../../../../../../components/CustomSelect/CustomSelect';
-import { taskQueryKeys } from '../../../../../../utils/constants/queryKeys/task';
+import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { Controller, useForm } from 'react-hook-form';
+import ReactModal from 'react-modal';
+import { PulseLoader } from 'react-spinners';
 import { toast } from 'react-toastify';
+import * as yup from 'yup';
+import CustomSelect from '../../../../../../components/CustomSelect/CustomSelect';
+import { createTask } from '../../../../../../utils/api/task';
+import { queries } from '../../../../../../utils/constants/queryKeys';
+import { taskQueryKeys } from '../../../../../../utils/constants/queryKeys/task';
 import CategoryClient from '../../../../../../utils/enums/CategoryClient';
+import WorkloadType from '../../../../../../utils/enums/WorkloadType';
+import ProfileResponseDto from '../../../../../../utils/types/ProfileResponseDto';
+import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthentifiedUser';
+import styles from './CreatePersonalTaskModal.module.scss';
 
 const Route = getRouteApi('/app/dashboard/create-personal-task');
 
@@ -48,8 +47,7 @@ export default function AppViewDashboardViewCreatePersonalTaskModalView() {
   };
 
   const { data: members, isLoading: isLoadingMembers } = useQuery({
-    queryKey: profileQueryKeys.listByCategory(CategoryClient.VIZEO),
-    queryFn: () => getProfilesByCategory(CategoryClient.VIZEO),
+    ...queries.profiles.list._ctx.byCategory(CategoryClient.VIZEO),
     select: (data) => data.filter((item) => item.id !== user.profile.id),
   });
 

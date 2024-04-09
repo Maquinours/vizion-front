@@ -1,11 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
-import styles from './Users.module.scss';
-import { getRouteApi } from '@tanstack/react-router';
-import { useAuthentifiedUserQuery } from '../../../../../../../../utils/functions/getAuthentifiedUser';
-import { profileQueryKeys } from '../../../../../../../../../../utils/constants/queryKeys/profile';
-import { getProfilesByEnterpriseId } from '../../../../../../../../../../utils/api/profile';
-import { Link } from '@tanstack/react-router';
+import { Link, getRouteApi } from '@tanstack/react-router';
 import classNames from 'classnames';
+import { queries } from '../../../../../../../../../../utils/constants/queryKeys';
+import { useAuthentifiedUserQuery } from '../../../../../../../../utils/functions/getAuthentifiedUser';
+import styles from './Users.module.scss';
 
 const Route = getRouteApi('/app/dashboard/other-personal-tasks/$profileId');
 
@@ -15,8 +13,7 @@ export default function AppViewDashboardViewOtherPersonalTasksModalViewHeaderCom
   const { profileId } = Route.useParams();
 
   const { data: otherMembers } = useQuery({
-    queryKey: profileQueryKeys.listByEnterpriseId(user.profile.enterprise!.id),
-    queryFn: () => getProfilesByEnterpriseId(user.profile.enterprise!.id),
+    ...queries.profiles.list._ctx.byEnterpriseId(user.profile.enterprise!.id),
     select: (data) => data.filter((item) => item.id !== user.profile.id),
   });
 

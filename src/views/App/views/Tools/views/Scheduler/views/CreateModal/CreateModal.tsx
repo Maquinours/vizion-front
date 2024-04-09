@@ -1,22 +1,21 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import ReactModal from 'react-modal';
-import { profileQueryKeys } from '../../../../../../../../utils/constants/queryKeys/profile';
-import CategoryClient from '../../../../../../../../utils/enums/CategoryClient';
-import { getProfilesByCategory } from '../../../../../../../../utils/api/profile';
-import * as yup from 'yup';
-import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import styles from './CreateModal.module.scss';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { getRouteApi, useNavigate } from '@tanstack/react-router';
 import classNames from 'classnames';
 import { useMemo } from 'react';
-import { useAuthentifiedUserQuery } from '../../../../../../utils/functions/getAuthentifiedUser';
-import { PulseLoader } from 'react-spinners';
-import ProfileResponseDto from '../../../../../../../../utils/types/ProfileResponseDto';
+import { Controller, useForm } from 'react-hook-form';
 import { MdPerson } from 'react-icons/md';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import { createRdv } from '../../../../../../../../utils/api/rdv';
-import { rdvUserInfosQueryKeys } from '../../../../../../../../utils/constants/queryKeys/rdvUserInfo';
+import ReactModal from 'react-modal';
+import { PulseLoader } from 'react-spinners';
 import { toast } from 'react-toastify';
+import * as yup from 'yup';
+import { createRdv } from '../../../../../../../../utils/api/rdv';
+import { queries } from '../../../../../../../../utils/constants/queryKeys';
+import { rdvUserInfosQueryKeys } from '../../../../../../../../utils/constants/queryKeys/rdvUserInfo';
+import CategoryClient from '../../../../../../../../utils/enums/CategoryClient';
+import ProfileResponseDto from '../../../../../../../../utils/types/ProfileResponseDto';
+import { useAuthentifiedUserQuery } from '../../../../../../utils/functions/getAuthentifiedUser';
+import styles from './CreateModal.module.scss';
 
 const routeApi = getRouteApi('/app/tools/scheduler/create');
 
@@ -83,10 +82,7 @@ export default function AppViewToolsViewSchedulerViewCreateModalView() {
 
   const { data: user } = useAuthentifiedUserQuery();
 
-  const { data: memberOptions } = useQuery({
-    queryKey: profileQueryKeys.listByCategory(CategoryClient.VIZEO),
-    queryFn: () => getProfilesByCategory(CategoryClient.VIZEO),
-  });
+  const { data: memberOptions } = useQuery(queries.profiles.list._ctx.byCategory(CategoryClient.VIZEO));
 
   const {
     register,

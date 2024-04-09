@@ -1,23 +1,22 @@
-import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import ReactModal from 'react-modal';
-import { profileQueryKeys } from '../../../../../../../../../../utils/constants/queryKeys/profile';
-import CategoryClient from '../../../../../../../../../../utils/enums/CategoryClient';
-import { getProfilesByCategory } from '../../../../../../../../../../utils/api/profile';
-import { useMemo } from 'react';
-import { useAuthentifiedUserQuery } from '../../../../../../../../utils/functions/getAuthentifiedUser';
-import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
-import { MdPerson } from 'react-icons/md';
-import classNames from 'classnames';
-import styles from './UpdateModal.module.scss';
-import ProfileResponseDto from '../../../../../../../../../../utils/types/ProfileResponseDto';
-import { PulseLoader } from 'react-spinners';
+import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import { getRdvById, updateRdv } from '../../../../../../../../../../utils/api/rdv';
-import { rdvQueryKeys } from '../../../../../../../../../../utils/constants/queryKeys/rdv';
-import { toast } from 'react-toastify';
+import classNames from 'classnames';
 import moment from 'moment';
+import { useMemo } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import { MdPerson } from 'react-icons/md';
+import ReactModal from 'react-modal';
+import { PulseLoader } from 'react-spinners';
+import { toast } from 'react-toastify';
+import * as yup from 'yup';
+import { getRdvById, updateRdv } from '../../../../../../../../../../utils/api/rdv';
+import { queries } from '../../../../../../../../../../utils/constants/queryKeys';
+import { rdvQueryKeys } from '../../../../../../../../../../utils/constants/queryKeys/rdv';
+import CategoryClient from '../../../../../../../../../../utils/enums/CategoryClient';
+import ProfileResponseDto from '../../../../../../../../../../utils/types/ProfileResponseDto';
+import { useAuthentifiedUserQuery } from '../../../../../../../../utils/functions/getAuthentifiedUser';
+import styles from './UpdateModal.module.scss';
 
 const routeApi = getRouteApi('/app/tools/scheduler/details/$rdvId/update');
 
@@ -91,10 +90,7 @@ export default function AppViewToolsViewSchedulerViewDetailsModalViewUpdateModal
     queryFn: () => getRdvById(rdvId),
   });
 
-  const { data: memberOptions } = useSuspenseQuery({
-    queryKey: profileQueryKeys.listByCategory(CategoryClient.VIZEO),
-    queryFn: () => getProfilesByCategory(CategoryClient.VIZEO),
-  });
+  const { data: memberOptions } = useSuspenseQuery(queries.profiles.list._ctx.byCategory(CategoryClient.VIZEO));
 
   const {
     register,

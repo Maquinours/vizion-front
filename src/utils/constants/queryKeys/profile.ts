@@ -1,13 +1,39 @@
+import { createQueryKeys } from '@lukemorales/query-key-factory';
 import CategoryClient from '../../enums/CategoryClient';
+import {
+  getProfileById,
+  getProfilesByCategory,
+  getProfilesByEnterpriseId,
+  getProfilesPageByEnterpriseId,
+  getProfilesPageByEnterpriseIdAndSearch,
+} from '../../api/profile';
 
-export const profileQueryKeys = {
-  all: ['tasks'] as const,
-  lists: () => [...profileQueryKeys.all, 'list'] as const,
-  listByEnterpriseId: (enterpriseId: string) => [...profileQueryKeys.lists(), { enterpriseId }] as const,
-  listByCategory: (category: CategoryClient) => [...profileQueryKeys.lists(), { category }] as const,
-  details: () => [...profileQueryKeys.all, 'detail'] as const,
-  detailById: (id: string) => [...profileQueryKeys.details(), { id }] as const,
-  pages: () => [...profileQueryKeys.all, 'page'] as const,
-  pageByEnterpriseIdAndSearch: (enterpriseId: string, search: string | undefined, page: number, size: number) =>
-    [...profileQueryKeys.pages(), { enterpriseId, search, page, size }] as const,
-};
+export const profiles = createQueryKeys('profiles', {
+  detail: (id: string) => ({
+    queryKey: [id],
+    queryFn: () => getProfileById(id),
+  }),
+  list: {
+    queryKey: null,
+    contextQueries: {
+      byEnterpriseId: (enterpriseId: string) => ({
+        queryKey: [enterpriseId],
+        queryFn: () => getProfilesByEnterpriseId(enterpriseId),
+      }),
+      byCategory: (category: CategoryClient) => ({
+        queryKey: [category],
+        queryFn: () => getProfilesByCategory(category),
+      }),
+    },
+  },
+  page: {
+    queryKey: null,
+    contextQueries: {
+      byEnterpriseIdAndSearch: (enterpriseId: string, searchText: string | undefined, { page, size }: { page: number; size: number }) => ({
+        queryKey: [enterpriseId, searchText, page, size],
+        queryFn: () =>
+          searchText ? getProfilesPageByEnterpriseIdAndSearch(enterpriseId, searchText, page, size) : getProfilesPageByEnterpriseId(enterpriseId, page, size),
+      }),
+    },
+  },
+});
