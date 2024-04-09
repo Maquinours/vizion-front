@@ -1,11 +1,10 @@
 import { createFileRoute, defer, redirect } from '@tanstack/react-router';
 import { Views } from 'react-big-calendar';
 import { z } from 'zod';
-import { getProgressiveInfos } from '../../../utils/api/progressiveInfo';
 import { getAllRdvUserInfos } from '../../../utils/api/rdvUserInfo';
 import { getPaginatedTasksByStateAndProfileId, getTasksByType } from '../../../utils/api/task';
+import { queries } from '../../../utils/constants/queryKeys';
 import { keycloakEvents } from '../../../utils/constants/queryKeys/keycloakEvent';
-import { progressiveInfoQueryKeys } from '../../../utils/constants/queryKeys/progressiveInfo';
 import { rdvUserInfosQueryKeys } from '../../../utils/constants/queryKeys/rdvUserInfo';
 import { taskQueryKeys } from '../../../utils/constants/queryKeys/task';
 import { users } from '../../../utils/constants/queryKeys/user';
@@ -39,10 +38,7 @@ export const Route = createFileRoute('/app/dashboard')({
       queryKey: rdvUserInfosQueryKeys.listAll(),
       queryFn: getAllRdvUserInfos,
     });
-    const progressiveInfosPromise = queryClient.ensureQueryData({
-      queryKey: progressiveInfoQueryKeys.listAll(),
-      queryFn: getProgressiveInfos,
-    });
+    const progressiveInfosPromise = queryClient.ensureQueryData(queries['progressive-infos'].list);
     const user = await queryClient.ensureQueryData(users.authentified());
     const personalTaskPromise = queryClient.ensureQueryData({
       queryKey: taskQueryKeys.pageByStateAndProfileId(personalTaskState, user.profile.id, personalTaskPage, personalTaskSize),

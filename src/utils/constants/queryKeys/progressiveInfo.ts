@@ -1,7 +1,13 @@
-export const progressiveInfoQueryKeys = {
-  all: ['progressive-infos'] as const,
-  lists: () => [...progressiveInfoQueryKeys.all, 'lists'] as const,
-  listAll: () => [...progressiveInfoQueryKeys.lists(), 'all'] as const,
-  details: () => [...progressiveInfoQueryKeys.all, 'details'] as const,
-  detailById: (id: string) => [...progressiveInfoQueryKeys.details(), { id }] as const,
-};
+import { createQueryKeys } from '@lukemorales/query-key-factory';
+import { getProgressiveInfoById, getProgressiveInfos } from '../../api/progressiveInfo';
+
+export const progressiveInfos = createQueryKeys('progressive-infos', {
+  list: {
+    queryKey: null,
+    queryFn: getProgressiveInfos,
+  },
+  detail: (id: string) => ({
+    queryKey: [id],
+    queryFn: () => getProgressiveInfoById(id),
+  }),
+});

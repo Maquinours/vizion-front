@@ -1,18 +1,14 @@
-import CardComponent from '../../../../../../components/Card/Card';
 import { useQuery } from '@tanstack/react-query';
-import { progressiveInfoQueryKeys } from '../../../../../../utils/constants/queryKeys/progressiveInfo';
-import { getProgressiveInfos } from '../../../../../../utils/api/progressiveInfo';
 import { useLocalStorage } from '@uidotdev/usehooks';
-import AppViewDashboardViewProgressiveInfosComponentTableComponent from './components/Table/Table';
+import CardComponent from '../../../../../../components/Card/Card';
+import { queries } from '../../../../../../utils/constants/queryKeys';
 import styles from './ProgressiveInfos.module.scss';
+import AppViewDashboardViewProgressiveInfosComponentTableComponent from './components/Table/Table';
 
 export default function AppViewDashboardViewProgressiveInfosComponent() {
   const [isMinimized, setMinimized] = useLocalStorage<boolean>('preferences.dashboard.progressiveInfos.minimized', false);
 
-  const { data, isLoading, refetch, isRefetching } = useQuery({
-    queryKey: progressiveInfoQueryKeys.listAll(),
-    queryFn: getProgressiveInfos,
-  });
+  const { data, isLoading, refetch, isRefetching } = useQuery(queries['progressive-infos'].list);
 
   return (
     <CardComponent

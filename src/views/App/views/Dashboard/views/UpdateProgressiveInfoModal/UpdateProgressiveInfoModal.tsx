@@ -1,17 +1,16 @@
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
+import { getRouteApi, useNavigate } from '@tanstack/react-router';
 import { Controller, useForm } from 'react-hook-form';
 import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
+import { toast } from 'react-toastify';
 import * as yup from 'yup';
 import Quill from '../../../../../../components/Quill/Quill';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { progressiveInfoQueryKeys } from '../../../../../../utils/constants/queryKeys/progressiveInfo';
-import { getProgressiveInfoById } from '../../../../../../utils/api/progressiveInfo';
-import { updateProgressiveInfo } from './utils/api/progressiveInfo';
+import { queries } from '../../../../../../utils/constants/queryKeys';
 import ProgressiveInfoResponseDto from '../../../../../../utils/types/ProgressiveInfoResponseDto';
-import { toast } from 'react-toastify';
 import styles from './UpdateProgressiveInfoModal.module.scss';
+import { updateProgressiveInfo } from './utils/api/progressiveInfo';
 
 const Route = getRouteApi('/app/dashboard/update-progressive-info/$progressiveInfoId');
 
@@ -25,10 +24,7 @@ export default function AppViewDashboardViewUpdateProgressiveInfoModalView() {
 
   const { progressiveInfoId: id } = Route.useParams();
 
-  const { data: progressiveInfo } = useSuspenseQuery({
-    queryKey: progressiveInfoQueryKeys.detailById(id),
-    queryFn: () => getProgressiveInfoById(id),
-  });
+  const { data: progressiveInfo } = useSuspenseQuery(queries['progressive-infos'].detail(id));
 
   const {
     control,
@@ -48,10 +44,10 @@ export default function AppViewDashboardViewUpdateProgressiveInfoModalView() {
   const { mutate, isPending } = useMutation({
     mutationFn: ({ content }: yup.InferType<typeof yupSchema>) => updateProgressiveInfo(id, { content }),
     onSuccess: (data) => {
-      queryClient.setQueriesData<Array<ProgressiveInfoResponseDto>>({ queryKey: progressiveInfoQueryKeys.lists() }, (old) =>
+      queryClient.setQueriesData<Array<ProgressiveInfoResponseDto>>({ queryKey: queries['progressive-infos'].list.queryKey }, (old) =>
         old?.map((item) => (item.id === data.id ? data : item)),
       );
-      queryClient.setQueriesData<ProgressiveInfoResponseDto>({ queryKey: progressiveInfoQueryKeys.details() }, (old) => (old?.id === data.id ? data : old));
+      queryClient.setQueryData(queries['progressive-infos'].detail(data.id).queryKey, data);
 
       toast.success(`Commentaire du fil de l'eau modifié`);
       onClose();

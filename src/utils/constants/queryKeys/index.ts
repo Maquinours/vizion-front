@@ -8,6 +8,7 @@ import { productSerialNumbers } from './productSerialNumber';
 import { productShelves } from './productShelf';
 import { enterprises } from './enterprise';
 import { profiles } from './profile';
+import { progressiveInfos } from './progressiveInfo';
 
 export const queries = mergeQueryKeys(
   enterprises,
@@ -19,4 +20,5 @@ export const queries = mergeQueryKeys(
   productSerialNumbers,
   productShelves,
   profiles,
+  progressiveInfos,
 );
