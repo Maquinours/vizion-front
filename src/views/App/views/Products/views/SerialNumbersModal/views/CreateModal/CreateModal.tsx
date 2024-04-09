@@ -1,14 +1,14 @@
-import { useState } from 'react';
-import AppViewProductsViewSerialNumbersModalViewCreateModalViewFormSectionComponent from './components/FormSection/FormSection';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { createProductSerialNumbers } from '../../../../../../../../utils/api/productSerialNumber';
-import ProductSerialListRequestDto from '../../../../../../../../utils/types/ProductSerialListRequestDto';
-import AppViewProductsViewSerialNumbersModalViewCreateModalViewTableComponent from './components/Table/Table';
-import styles from './CreateModal.module.scss';
-import ReactModal from 'react-modal';
 import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { useState } from 'react';
+import ReactModal from 'react-modal';
 import { toast } from 'react-toastify';
-import { productSerialNumberQueryKeys } from '../../../../../../../../utils/constants/queryKeys/productSerialNumber';
+import { createProductSerialNumbers } from '../../../../../../../../utils/api/productSerialNumber';
+import { queries } from '../../../../../../../../utils/constants/queryKeys';
+import ProductSerialListRequestDto from '../../../../../../../../utils/types/ProductSerialListRequestDto';
+import styles from './CreateModal.module.scss';
+import AppViewProductsViewSerialNumbersModalViewCreateModalViewFormSectionComponent from './components/FormSection/FormSection';
+import AppViewProductsViewSerialNumbersModalViewCreateModalViewTableComponent from './components/Table/Table';
 
 const routeApi = getRouteApi('/app/products/serial-numbers/create');
 
@@ -25,7 +25,7 @@ export default function AppViewProductsViewSerialNumbersModalViewCreateModalView
   const { mutate, isPending } = useMutation({
     mutationFn: () => createProductSerialNumbers(requestData!),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: productSerialNumberQueryKeys.all });
+      queryClient.invalidateQueries({ queryKey: queries['product-serial-numbers']._def });
       toast.success('Les numéros de série ont été ajoutés avec succès');
       onClose();
     },

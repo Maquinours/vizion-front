@@ -1,7 +1,6 @@
 import { createFileRoute, redirect } from '@tanstack/react-router';
 import { z } from 'zod';
-import { productSerialNumberQueryKeys } from '../../../../utils/constants/queryKeys/productSerialNumber';
-import { getProductSerialNumbersPage, getProductSerialNumbersPageWithSearch } from '../../../../utils/api/productSerialNumber';
+import { queries } from '../../../../utils/constants/queryKeys';
 import { users } from '../../../../utils/constants/queryKeys/user';
 
 const searchSchema = z.object({
@@ -17,9 +16,6 @@ export const Route = createFileRoute('/app/products/serial-numbers')({
     if (!user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && !user.profile.expert)
       throw redirect({ from: Route.id, to: '..', search: (old) => ({ ...old, serialNumberSearch: undefined, serialNumbersPage: undefined }) });
 
-    queryClient.ensureQueryData({
-      queryKey: productSerialNumberQueryKeys.pageWithSearch(search, page, 20),
-      queryFn: () => (search ? getProductSerialNumbersPageWithSearch(search, page, size) : getProductSerialNumbersPage(page, size)),
-    });
+    queryClient.ensureQueryData(queries['product-serial-numbers'].page({ page, size })._ctx.search(search));
   },
 });

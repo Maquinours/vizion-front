@@ -1,21 +1,20 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
-import * as yup from 'yup';
-import { productSerialNumberQueryKeys } from '../../../../../../../../utils/constants/queryKeys/productSerialNumber';
-import { getSerialNumberDataByNumberAndCategory } from '../../../../../../../../utils/api/productSerialNumber';
-import styles from './CreateModal.module.scss';
-import { useEffect } from 'react';
-import { ddns } from '../../../../../../../../utils/constants/queryKeys/ddns';
-import { createDdns } from '../../../../../../../../utils/api/ddns';
 import { toast } from 'react-toastify';
-import { useAuthentifiedUserQuery } from '../../../../../../utils/functions/getAuthentifiedUser';
+import * as yup from 'yup';
+import { createDdns } from '../../../../../../../../utils/api/ddns';
+import { queries } from '../../../../../../../../utils/constants/queryKeys';
 import { businesses } from '../../../../../../../../utils/constants/queryKeys/business';
-import ProductSerialNumberResponseDto from '../../../../../../../../utils/types/ProductSerialNumberResponseDto';
+import { ddns } from '../../../../../../../../utils/constants/queryKeys/ddns';
 import BusinessResponseDto from '../../../../../../../../utils/types/BusinessResponseDto';
+import ProductSerialNumberResponseDto from '../../../../../../../../utils/types/ProductSerialNumberResponseDto';
+import { useAuthentifiedUserQuery } from '../../../../../../utils/functions/getAuthentifiedUser';
+import styles from './CreateModal.module.scss';
 
 const routeApi = getRouteApi('/app/tools/ddns/create');
 
@@ -49,8 +48,7 @@ export default function AppViewToolsViewDdnsViewCreateModalView() {
     isFetching: isSerialNumberFetching,
     refetch: refetchSerialNumber,
   } = useQuery({
-    queryKey: productSerialNumberQueryKeys.dataByCategoryAndNumber('NVR', productSerialNumber!),
-    queryFn: () => getSerialNumberDataByNumberAndCategory('NVR', productSerialNumber!),
+    ...queries['product-serial-numbers'].data._ctx.byCategoryAndNumber('NVR', productSerialNumber!),
     enabled: false,
   });
 
@@ -76,10 +74,7 @@ export default function AppViewToolsViewDdnsViewCreateModalView() {
             business: undefined,
           };
           if (!productSerialNumber) return result;
-          const serialNumber = await queryClient.ensureQueryData({
-            queryKey: productSerialNumberQueryKeys.dataByCategoryAndNumber('NVR', productSerialNumber!),
-            queryFn: () => getSerialNumberDataByNumberAndCategory('NVR', productSerialNumber!),
-          });
+          const serialNumber = await queryClient.ensureQueryData(queries['product-serial-numbers'].data._ctx.byCategoryAndNumber('NVR', productSerialNumber!));
           if (!serialNumber.serialNumber || !serialNumber.category || !serialNumber.vizeo || !serialNumber.serialNumber.businessId) return result;
           result.serialNumber = serialNumber.serialNumber!;
           const business = await queryClient.ensureQueryData(businesses.detail(serialNumber.serialNumber!.businessId!));

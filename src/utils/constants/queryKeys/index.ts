@@ -4,5 +4,6 @@ import { predefinedTexts } from './predefinedText';
 import { products } from './product';
 import { productFilters } from './productFilter';
 import { productSales } from './productSale';
+import { productSerialNumbers } from './productSerialNumber';
 
-export const queries = mergeQueryKeys(predefinedMessages, predefinedTexts, products, productFilters, productSales);
+export const queries = mergeQueryKeys(predefinedMessages, predefinedTexts, products, productFilters, productSales, productSerialNumbers);
