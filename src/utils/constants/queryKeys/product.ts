@@ -11,6 +11,7 @@ import { getProductSpecificationById, getProductSpecificationsPageByProductId } 
 import { getProductStockEntriesPageByProductId } from '../../api/productStockEntry';
 import { getProductVersionById, getProductVersions, getProductVersionsByProductId, getProductVersionsPageByProductId } from '../../api/productVersion';
 import { getProductVersionShelfStockById, getProductVersionShelfStocksPageByProductId } from '../../api/productVersionShelfStock';
+import { getProductVersionShelfStockEntriesPageByProductShelfStock } from '../../api/productVersionShelfStockEntry';
 
 const products = createQueryKeys('product', {
   detail: (id: string) => ({
@@ -107,6 +108,14 @@ const products = createQueryKeys('product', {
       detail: (id: string) => ({
         queryKey: [id],
         queryFn: () => getProductVersionShelfStockById(id),
+        contextQueries: {
+          entries: {
+            queryKey: null,
+            contextQueries: {
+              page: ({ page, size }) => ({ queryKey: [page, size], queryFn: () => getProductVersionShelfStockEntriesPageByProductShelfStock(id, page, size) }),
+            },
+          },
+        },
       }),
     },
   },

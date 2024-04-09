@@ -5,9 +5,7 @@ import ReactModal from 'react-modal';
 import AmountFormat from '../../../../../../../../components/AmountFormat/AmountFormat';
 import PaginationComponent from '../../../../../../../../components/Pagination/Pagination';
 import TableComponent from '../../../../../../../../components/Table/Table';
-import { getProductVersionShelfStockEntriesPageByProductShelfStock } from '../../../../../../../../utils/api/productVersionShelfStockEntry';
 import { queries } from '../../../../../../../../utils/constants/queryKeys';
-import { productVersionShelfStockEntryQueryKeys } from '../../../../../../../../utils/constants/queryKeys/productVersionShelfStockEntry';
 import { formatDateAndHourWithSlash } from '../../../../../../../../utils/functions/dates';
 import ProductVersionShelfStockEntryResponseDto from '../../../../../../../../utils/types/ProductVersionShelfStockEntryResponseDto';
 import styles from './StockHistoryModal.module.scss';
@@ -38,10 +36,7 @@ export default function AppViewProductViewManageViewStockHistoryModalView() {
 
   const { data: stock } = useSuspenseQuery(queries.product.versionShelfStocks._ctx.detail(stockId));
 
-  const { data, isLoading } = useQuery({
-    queryKey: productVersionShelfStockEntryQueryKeys.pageByVersionShelfStockId(stockId, page, size),
-    queryFn: () => getProductVersionShelfStockEntriesPageByProductShelfStock(stockId, page, size),
-  });
+  const { data, isLoading } = useQuery(queries.product.versionShelfStocks._ctx.detail(stockId)._ctx.entries._ctx.page({ page, size }));
 
   const onClose = () => {
     navigate({ from: routeApi.id, to: '../..', search: (old) => ({ ...old, stockHistoryPage: undefined }) });
