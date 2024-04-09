@@ -10,12 +10,10 @@ import { PulseLoader } from 'react-spinners';
 import { toast } from 'react-toastify';
 import * as yup from 'yup';
 import { createLifesheet } from '../../utils/api/lifesheet';
-import { getRmaById } from '../../utils/api/rma';
 import { queries } from '../../utils/constants/queryKeys';
 import { businesses } from '../../utils/constants/queryKeys/business';
 import { enterprises } from '../../utils/constants/queryKeys/enterprise';
 import { lifesheets } from '../../utils/constants/queryKeys/lifesheet';
-import { rmaQueryKeys } from '../../utils/constants/queryKeys/rma';
 import CategoryClient from '../../utils/enums/CategoryClient';
 import { LifesheetAssociatedItem } from '../../utils/enums/LifesheetAssociatedItem';
 import LifeSheetRequestDto from '../../utils/types/LifeSheetRequestDto';
@@ -78,12 +76,7 @@ export default function CreateLifesheetModalComponent({ associatedItemType, asso
         case LifesheetAssociatedItem.RMA:
           data = {
             rmaId: associatedItemId,
-            rmaNumber: (
-              await queryClient.ensureQueryData({
-                queryKey: rmaQueryKeys.detailById(associatedItemId),
-                queryFn: () => getRmaById(associatedItemId),
-              })
-            ).number,
+            rmaNumber: (await queryClient.ensureQueryData(queries.rmas.detail(associatedItemId))).number,
           };
           break;
         case LifesheetAssociatedItem.ASSISTANCE:

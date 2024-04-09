@@ -2,10 +2,10 @@ import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-q
 import { getRouteApi, useNavigate } from '@tanstack/react-router';
 import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
-import { enterprises } from '../../../../../../utils/constants/queryKeys/enterprise';
-import { createRma } from '../../../../../../utils/api/rma';
 import { toast } from 'react-toastify';
-import { rmaQueryKeys } from '../../../../../../utils/constants/queryKeys/rma';
+import { createRma } from '../../../../../../utils/api/rma';
+import { queries } from '../../../../../../utils/constants/queryKeys';
+import { enterprises } from '../../../../../../utils/constants/queryKeys/enterprise';
 import styles from './CreateEnterpriseRmaModal.module.scss';
 
 const routeApi = getRouteApi('/app/enterprises/create-enterprise-rma/$enterpriseId');
@@ -39,7 +39,7 @@ export default function CreateEnterpriseRmaModal() {
       }),
     onSuccess: (data) => {
       toast.success('RMA créé avec succès');
-      queryClient.setQueryData(rmaQueryKeys.detailById(data.id), data);
+      queryClient.setQueryData(queries.rmas.detail(data.id).queryKey, data);
       // TODO: navigate to the created RMA
     },
     onError: (error) => {

@@ -11,6 +11,7 @@ import { profiles } from './profile';
 import { progressiveInfos } from './progressiveInfo';
 import { rdvs } from './rdv';
 import { rdvUserInfos } from './rdvUserInfo';
+import { rmas } from './rma';
 
 export const queries = mergeQueryKeys(
   enterprises,
@@ -25,4 +26,5 @@ export const queries = mergeQueryKeys(
   progressiveInfos,
   rdvs,
   rdvUserInfos,
+  rmas,
 );
