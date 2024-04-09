@@ -16,7 +16,7 @@ const typeOptions = [
 ];
 
 export default function AppViewToolsViewEmailsViewTypeSelectComponent() {
-  const navigate = useNavigate({ from: routeApi });
+  const navigate = useNavigate({ from: routeApi.id });
 
   const onTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     navigate({ search: (old) => ({ ...old, spam: e.target.value === 'SPAM' ? true : undefined, page: 0 }) });

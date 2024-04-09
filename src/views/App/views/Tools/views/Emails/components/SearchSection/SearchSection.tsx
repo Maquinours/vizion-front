@@ -12,7 +12,7 @@ const yupSchema = yup.object({
 });
 
 export default function AppViewToolsViewEmailsViewSearchSectionComponent() {
-  const navigate = useNavigate({ from: routeApi });
+  const navigate = useNavigate({ from: routeApi.id });
 
   const { search } = routeApi.useSearch();
 

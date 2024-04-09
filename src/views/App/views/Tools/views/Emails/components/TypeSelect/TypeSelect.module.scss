@@ -1,28 +1,28 @@
 .type_container {
-    display: flex;
-    gap: 1rem;
+  display: flex;
+  gap: 1rem;
 
-    select {
-        background: var(--grey-color) 0% 0% no-repeat padding-box;
-        border: 1px solid var(--primary-color);
-        border-radius: 5px;
-        padding: 0.5rem 0.5rem;
-        outline: none;
-        height: 32px;
-        width: inherit;
-        box-shadow: 0px 3px 2px #10173526;
-        text-align: left;
-        font: normal normal normal 12px/15px 'DIN2014';
-        letter-spacing: 0px;
-        color: var(--primary-light-color);
-        opacity: 1;
+  select {
+    background: var(--grey-color) 0% 0% no-repeat padding-box;
+    border: 1px solid var(--primary-color);
+    border-radius: 5px;
+    padding: 0.5rem 0.5rem;
+    outline: none;
+    height: 32px;
+    width: inherit;
+    box-shadow: 0px 3px 2px #10173526;
+    text-align: left;
+    font: normal normal normal 12px/15px 'DIN2014';
+    letter-spacing: 0px;
+    color: var(--primary-light-color);
+    opacity: 1;
 
-        option {
-            padding: 1rem 0.5rem;
-        }
-
-        option:checked {
-            color: var(--secondary-color);
-        }
+    option {
+      padding: 1rem 0.5rem;
     }
+
+    option:checked {
+      color: var(--secondary-color);
+    }
+  }
 }

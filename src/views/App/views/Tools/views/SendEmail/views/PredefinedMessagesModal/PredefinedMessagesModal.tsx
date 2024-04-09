@@ -6,5 +6,5 @@ const routeApi = getRouteApi('/app/tools/emails/send/predefined-messages');
 export default function AppViewToolsViewSendEmailViewPredefinedMessagesModalView() {
   const navigate = useNavigate();
 
-  return <SendEmailPredefinedMessagesModalComponent onClose={() => navigate({ from: routeApi.id, to: '..' })} />;
+  return <SendEmailPredefinedMessagesModalComponent onClose={() => navigate({ from: routeApi.id, to: '..', search: (old) => old })} />;
 }

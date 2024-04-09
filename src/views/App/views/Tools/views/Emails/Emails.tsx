@@ -17,7 +17,7 @@ export default function AppViewToolsViewEmailsView() {
   const { page, spam, search } = routeApi.useSearch();
 
   const { data, isLoading } = useQuery({
-    queryKey: emailQueryKeys.pageBySpamStateWithSearch(spam, page, size, search),
+    queryKey: emailQueryKeys.pageBySpamStateWithSearch(spam ?? false, page, size, search),
     queryFn: () =>
       search
         ? getEmailsPageWithSearch(spam ? [MailType.SPAM] : [MailType.ENVOIE, MailType.RECEPTION], search, page, size)
