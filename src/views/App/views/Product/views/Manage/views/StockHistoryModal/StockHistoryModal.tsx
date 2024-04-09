@@ -1,16 +1,15 @@
+import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
+import { getRouteApi, useNavigate } from '@tanstack/react-router';
 import { createColumnHelper } from '@tanstack/react-table';
 import ReactModal from 'react-modal';
-import ProductVersionShelfStockEntryResponseDto from '../../../../../../../../utils/types/ProductVersionShelfStockEntryResponseDto';
-import { formatDateAndHourWithSlash } from '../../../../../../../../utils/functions/dates';
 import AmountFormat from '../../../../../../../../components/AmountFormat/AmountFormat';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
-import { productVersionShelfStocksQueryKeys } from '../../../../../../../../utils/constants/queryKeys/productVersionShelfStock';
-import { getProductVersionShelfStockById } from '../../../../../../../../utils/api/productVersionShelfStock';
-import { productVersionShelfStockEntryQueryKeys } from '../../../../../../../../utils/constants/queryKeys/productVersionShelfStockEntry';
-import { getProductVersionShelfStockEntriesPageByProductShelfStock } from '../../../../../../../../utils/api/productVersionShelfStockEntry';
-import TableComponent from '../../../../../../../../components/Table/Table';
 import PaginationComponent from '../../../../../../../../components/Pagination/Pagination';
+import TableComponent from '../../../../../../../../components/Table/Table';
+import { getProductVersionShelfStockEntriesPageByProductShelfStock } from '../../../../../../../../utils/api/productVersionShelfStockEntry';
+import { queries } from '../../../../../../../../utils/constants/queryKeys';
+import { productVersionShelfStockEntryQueryKeys } from '../../../../../../../../utils/constants/queryKeys/productVersionShelfStockEntry';
+import { formatDateAndHourWithSlash } from '../../../../../../../../utils/functions/dates';
+import ProductVersionShelfStockEntryResponseDto from '../../../../../../../../utils/types/ProductVersionShelfStockEntryResponseDto';
 import styles from './StockHistoryModal.module.scss';
 
 const routeApi = getRouteApi('/app/products/$productId/manage/stock-history/$stockId');
@@ -37,10 +36,7 @@ export default function AppViewProductViewManageViewStockHistoryModalView() {
   const { stockId } = routeApi.useParams();
   const { stockHistoryPage: page } = routeApi.useSearch();
 
-  const { data: stock } = useSuspenseQuery({
-    queryKey: productVersionShelfStocksQueryKeys.detailById(stockId),
-    queryFn: () => getProductVersionShelfStockById(stockId),
-  });
+  const { data: stock } = useSuspenseQuery(queries.product.versionShelfStocks._ctx.detail(stockId));
 
   const { data, isLoading } = useQuery({
     queryKey: productVersionShelfStockEntryQueryKeys.pageByVersionShelfStockId(stockId, page, size),

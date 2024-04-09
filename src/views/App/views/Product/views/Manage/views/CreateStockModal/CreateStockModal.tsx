@@ -9,7 +9,6 @@ import * as yup from 'yup';
 import CustomSelect from '../../../../../../../../components/CustomSelect/CustomSelect';
 import { createProductVersionShelfStock } from '../../../../../../../../utils/api/productVersionShelfStock';
 import { queries } from '../../../../../../../../utils/constants/queryKeys';
-import { productVersionShelfStocksQueryKeys } from '../../../../../../../../utils/constants/queryKeys/productVersionShelfStock';
 import ProductShelfResponseDto from '../../../../../../../../utils/types/ProductShelfResponseDto';
 import ProductVersionResponseDto from '../../../../../../../../utils/types/ProductVersionResponseDto';
 import styles from './CreateStockModal.module.scss';
@@ -64,7 +63,7 @@ export default function AppViewProductViewManageViewCreateStockModalView() {
         productVersionShelfStockEntryDto: {},
       }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: productVersionShelfStocksQueryKeys.all });
+      queryClient.invalidateQueries({ queryKey: queries.product._def });
       toast.success('Stock ajouté avec succès');
       onClose();
     },

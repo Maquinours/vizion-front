@@ -10,6 +10,7 @@ import {
 import { getProductSpecificationById, getProductSpecificationsPageByProductId } from '../../api/productSpecification';
 import { getProductStockEntriesPageByProductId } from '../../api/productStockEntry';
 import { getProductVersionById, getProductVersions, getProductVersionsByProductId, getProductVersionsPageByProductId } from '../../api/productVersion';
+import { getProductVersionShelfStockById, getProductVersionShelfStocksPageByProductId } from '../../api/productVersionShelfStock';
 
 const products = createQueryKeys('product', {
   detail: (id: string) => ({
@@ -51,6 +52,15 @@ const products = createQueryKeys('product', {
           }),
         },
       },
+      versionShelfStocks: {
+        queryKey: null,
+        contextQueries: {
+          page: ({ page, size }: { page: number; size: number }) => ({
+            queryKey: [page, size],
+            queryFn: () => getProductVersionShelfStocksPageByProductId(id, page, size),
+          }),
+        },
+      },
     },
   }),
   list: {
@@ -87,6 +97,16 @@ const products = createQueryKeys('product', {
       detail: (id: string) => ({
         queryKey: [id],
         queryFn: () => getProductVersionById(id),
+      }),
+    },
+  },
+
+  versionShelfStocks: {
+    queryKey: null,
+    contextQueries: {
+      detail: (id: string) => ({
+        queryKey: [id],
+        queryFn: () => getProductVersionShelfStockById(id),
       }),
     },
   },

@@ -1,8 +1,6 @@
 import { createFileRoute, redirect } from '@tanstack/react-router';
 import { z } from 'zod';
-import { getProductVersionShelfStocksPageByProductId } from '../../../../utils/api/productVersionShelfStock';
 import { queries } from '../../../../utils/constants/queryKeys';
-import { productVersionShelfStocksQueryKeys } from '../../../../utils/constants/queryKeys/productVersionShelfStock';
 import { users } from '../../../../utils/constants/queryKeys/user';
 
 const searchSchema = z.object({
@@ -78,12 +76,9 @@ export const Route = createFileRoute('/app/products/$productId/manage')({
 
     queryClient.prefetchQuery(queries.product.detail(productId)._ctx.versions._ctx.page({ page: versionsPage, size: versionsSize }));
 
-    queryClient.ensureQueryData(queries.product.detail(productId)._ctx.specifications._ctx.page({ page: specificationsPage, size: specificationsSize }));
+    queryClient.prefetchQuery(queries.product.detail(productId)._ctx.specifications._ctx.page({ page: specificationsPage, size: specificationsSize }));
 
-    queryClient.ensureQueryData({
-      queryKey: productVersionShelfStocksQueryKeys.pageByProductId(productId, stocksPage, stocksSize),
-      queryFn: () => getProductVersionShelfStocksPageByProductId(productId, stocksPage, stocksSize),
-    });
+    queryClient.prefetchQuery(queries.product.detail(productId)._ctx.versionShelfStocks._ctx.page({ page: stocksPage, size: stocksSize }));
 
     queryClient.prefetchQuery(
       queries['product-sale'].detail._ctx.byProductIdAndSearch({
@@ -96,6 +91,6 @@ export const Route = createFileRoute('/app/products/$productId/manage')({
       }),
     );
 
-    queryClient.ensureQueryData(queries.product.detail(productId)._ctx.stockEntries._ctx.page({ page: stockEntriesPage, size: stockEntriesSize }));
+    queryClient.prefetchQuery(queries.product.detail(productId)._ctx.stockEntries._ctx.page({ page: stockEntriesPage, size: stockEntriesSize }));
   },
 });
