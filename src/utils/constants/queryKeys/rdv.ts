@@ -1,5 +1,9 @@
-export const rdvQueryKeys = {
-  all: ['rdv'] as const,
-  details: () => [...rdvQueryKeys.all, 'detail'] as const,
-  detailById: (id: string) => [...rdvQueryKeys.details(), { id }] as const,
-};
+import { createQueryKeys } from '@lukemorales/query-key-factory';
+import { getRdvById } from '../../api/rdv';
+
+export const rdvs = createQueryKeys('rdvs', {
+  detail: (id: string) => ({
+    queryKey: [id],
+    queryFn: () => getRdvById(id),
+  }),
+});

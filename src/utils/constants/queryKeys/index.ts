@@ -9,6 +9,7 @@ import { productShelves } from './productShelf';
 import { enterprises } from './enterprise';
 import { profiles } from './profile';
 import { progressiveInfos } from './progressiveInfo';
+import { rdvs } from './rdv';
 
 export const queries = mergeQueryKeys(
   enterprises,
@@ -21,4 +22,5 @@ export const queries = mergeQueryKeys(
   productShelves,
   profiles,
   progressiveInfos,
+  rdvs,
 );

@@ -1,12 +1,11 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { Link, getRouteApi, useNavigate } from '@tanstack/react-router';
-import ReactModal from 'react-modal';
-import { rdvQueryKeys } from '../../../../../../../../utils/constants/queryKeys/rdv';
-import { getRdvById } from '../../../../../../../../utils/api/rdv';
 import moment from 'moment';
-import styles from './DetailsModal.module.scss';
-import { HiPencilAlt } from 'react-icons/hi';
 import { FaTrash } from 'react-icons/fa';
+import { HiPencilAlt } from 'react-icons/hi';
+import ReactModal from 'react-modal';
+import { queries } from '../../../../../../../../utils/constants/queryKeys';
+import styles from './DetailsModal.module.scss';
 
 // TODO: Finish this page to handle drag & drop events
 
@@ -17,10 +16,7 @@ export default function AppViewToolsViewSchedulerViewDetailsModalView() {
 
   const { rdvId } = routeApi.useParams();
 
-  const { data: rdv } = useSuspenseQuery({
-    queryKey: rdvQueryKeys.detailById(rdvId),
-    queryFn: () => getRdvById(rdvId),
-  });
+  const { data: rdv } = useSuspenseQuery(queries.rdvs.detail(rdvId));
 
   const onClose = () => {
     navigate({ from: routeApi.id, search: (old) => old });

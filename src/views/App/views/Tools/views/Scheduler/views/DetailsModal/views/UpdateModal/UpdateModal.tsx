@@ -10,9 +10,8 @@ import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
 import { toast } from 'react-toastify';
 import * as yup from 'yup';
-import { getRdvById, updateRdv } from '../../../../../../../../../../utils/api/rdv';
+import { updateRdv } from '../../../../../../../../../../utils/api/rdv';
 import { queries } from '../../../../../../../../../../utils/constants/queryKeys';
-import { rdvQueryKeys } from '../../../../../../../../../../utils/constants/queryKeys/rdv';
 import CategoryClient from '../../../../../../../../../../utils/enums/CategoryClient';
 import ProfileResponseDto from '../../../../../../../../../../utils/types/ProfileResponseDto';
 import { useAuthentifiedUserQuery } from '../../../../../../../../utils/functions/getAuthentifiedUser';
@@ -85,10 +84,7 @@ export default function AppViewToolsViewSchedulerViewDetailsModalViewUpdateModal
 
   const { data: user } = useAuthentifiedUserQuery();
 
-  const { data: rdv } = useSuspenseQuery({
-    queryKey: rdvQueryKeys.detailById(rdvId),
-    queryFn: () => getRdvById(rdvId),
-  });
+  const { data: rdv } = useSuspenseQuery(queries.rdvs.detail(rdvId));
 
   const { data: memberOptions } = useSuspenseQuery(queries.profiles.list._ctx.byCategory(CategoryClient.VIZEO));
 
@@ -135,7 +131,7 @@ export default function AppViewToolsViewSchedulerViewDetailsModalViewUpdateModal
         endDatetime: endDateTime ?? new Date(),
       }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: rdvQueryKeys.all });
+      queryClient.invalidateQueries({ queryKey: queries.rdvs._def });
       toast.success('Rendez-vous modifié avec succès');
       onClose();
     },
