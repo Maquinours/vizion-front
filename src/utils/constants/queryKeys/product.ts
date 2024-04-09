@@ -7,6 +7,7 @@ import {
   getProductsPage,
   getProductsPageWithSearch,
 } from '../../api/product';
+import { getProductSpecificationById, getProductSpecificationsPageByProductId } from '../../api/productSpecification';
 
 export const products = createQueryKeys('product', {
   detail: {
@@ -15,6 +16,26 @@ export const products = createQueryKeys('product', {
       byId: (id: string) => ({
         queryKey: [id],
         queryFn: () => getProductById(id),
+        contextQueries: {
+          specifications: {
+            queryKey: null,
+            contextQueries: {
+              page: ({ page, size }: { page: number; size: number }) => ({
+                queryKey: [page, size],
+                queryFn: () => getProductSpecificationsPageByProductId(id, page, size),
+              }),
+              detail: {
+                queryKey: null,
+                contextQueries: {
+                  byId: (specificationId: string) => ({
+                    queryKey: [specificationId],
+                    queryFn: () => getProductSpecificationById(id, specificationId),
+                  }),
+                },
+              },
+            },
+          },
+        },
       }),
     },
   },

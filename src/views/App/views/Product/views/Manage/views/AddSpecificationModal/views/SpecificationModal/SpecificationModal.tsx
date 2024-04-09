@@ -8,7 +8,6 @@ import { toast } from 'react-toastify';
 import * as yup from 'yup';
 import { addProductSpecificationToProduct } from '../../../../../../../../../../utils/api/productSpecification';
 import { queries } from '../../../../../../../../../../utils/constants/queryKeys';
-import { productSpecificationQueryKeys } from '../../../../../../../../../../utils/constants/queryKeys/productSpecification';
 import styles from './SpecificationModal.module.scss';
 
 const routeApi = getRouteApi('/app/products/$productId/manage/add-specification/$filterId');
@@ -59,7 +58,6 @@ export default function AppViewProductViewManageViewAddSpecificationModalViewSpe
     mutationFn: ({ value, minValue, maxValue }: yup.InferType<typeof yupSchema>) =>
       addProductSpecificationToProduct(productId, filter.id, value ?? null, minValue ?? null, maxValue ?? null),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: productSpecificationQueryKeys.all });
       queryClient.invalidateQueries({ queryKey: queries.product._def });
       toast.success('La valeur a été ajoutée avec succès.');
       onClose();

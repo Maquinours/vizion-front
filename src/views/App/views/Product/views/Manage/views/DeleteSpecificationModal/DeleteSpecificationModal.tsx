@@ -4,9 +4,8 @@ import React from 'react';
 import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
 import { toast } from 'react-toastify';
-import { deleteProductSpecification, getProductSpecificationById } from '../../../../../../../../utils/api/productSpecification';
+import { deleteProductSpecification } from '../../../../../../../../utils/api/productSpecification';
 import { queries } from '../../../../../../../../utils/constants/queryKeys';
-import { productSpecificationQueryKeys } from '../../../../../../../../utils/constants/queryKeys/productSpecification';
 import styles from './DeleteSpecificationModal.module.scss';
 
 const routeApi = getRouteApi('/app/products/$productId/manage/delete-specification/$specificationId');
@@ -19,10 +18,7 @@ export default function AppViewProductViewManageViewDeleteSpecificationModalView
 
   const { data: product } = useSuspenseQuery(queries.product.detail._ctx.byId(productId));
 
-  const { data: productSpec } = useSuspenseQuery({
-    queryKey: productSpecificationQueryKeys.detailById(productId, specificationId),
-    queryFn: () => getProductSpecificationById(productId, specificationId),
-  });
+  const { data: productSpec } = useSuspenseQuery(queries.product.detail._ctx.byId(productId)._ctx.specifications._ctx.detail._ctx.byId(specificationId));
 
   const onClose = () => {
     navigate({ from: routeApi.id, to: '../..', search: (old) => old });
@@ -31,7 +27,6 @@ export default function AppViewProductViewManageViewDeleteSpecificationModalView
   const { mutate, isPending } = useMutation({
     mutationFn: () => deleteProductSpecification(productId, specificationId),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: productSpecificationQueryKeys.all });
       queryClient.invalidateQueries({ queryKey: queries.product._def });
       toast.success('La spécification a été supprimée avec succès.');
       onClose();

@@ -1,11 +1,9 @@
 import { createFileRoute, redirect } from '@tanstack/react-router';
 import { z } from 'zod';
-import { getProductSpecificationsPageByProductId } from '../../../../utils/api/productSpecification';
 import { getProductStockEntriesPageByProductId } from '../../../../utils/api/productStockEntry';
 import { getProductVersionsPageByProductId } from '../../../../utils/api/productVersion';
 import { getProductVersionShelfStocksPageByProductId } from '../../../../utils/api/productVersionShelfStock';
 import { queries } from '../../../../utils/constants/queryKeys';
-import { productSpecificationQueryKeys } from '../../../../utils/constants/queryKeys/productSpecification';
 import { productStockEntryQueryKeys } from '../../../../utils/constants/queryKeys/productStockEntry';
 import { productVersionQueryKeys } from '../../../../utils/constants/queryKeys/productVersion';
 import { productVersionShelfStocksQueryKeys } from '../../../../utils/constants/queryKeys/productVersionShelfStock';
@@ -87,10 +85,9 @@ export const Route = createFileRoute('/app/products/$productId/manage')({
       queryFn: () => getProductVersionsPageByProductId(productId, versionsPage, versionsSize),
     });
 
-    queryClient.ensureQueryData({
-      queryKey: productSpecificationQueryKeys.pageByProductId(productId, specificationsPage, specificationsSize),
-      queryFn: () => getProductSpecificationsPageByProductId(productId, specificationsPage, specificationsSize),
-    });
+    queryClient.ensureQueryData(
+      queries.product.detail._ctx.byId(productId)._ctx.specifications._ctx.page({ page: specificationsPage, size: specificationsSize }),
+    );
 
     queryClient.ensureQueryData({
       queryKey: productVersionShelfStocksQueryKeys.pageByProductId(productId, stocksPage, stocksSize),
