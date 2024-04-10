@@ -1,0 +1,33 @@
+@import '/src/assets/styles/mixins';
+
+.container {
+  padding: 1rem;
+
+  @include respond-below(sm) {
+    padding: 0;
+  }
+
+  .grid {
+    display: grid;
+    gap: 1rem;
+
+    .card_item {
+      border: 1px solid var(--primary-color);
+      width: 100%;
+      height: 100%;
+      background-color: var(--primary-color);
+      padding: 1rem;
+
+      img {
+        max-width: 100%;
+        height: auto;
+      }
+    }
+
+    grid-template-columns: repeat(2, 1fr);
+
+    @include respond-below(md) {
+      grid-template-columns: repeat(1, 1fr);
+    }
+  }
+}

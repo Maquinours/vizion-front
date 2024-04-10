@@ -15,10 +15,12 @@ import { rmas } from './rma';
 import { tasks } from './task';
 import { taskComments } from './taskComment';
 import { emails } from './email';
+import { departments } from './departments';
 
 export const queries = mergeQueryKeys(
   emails,
   enterprises,
+  departments,
   predefinedMessages,
   predefinedTexts,
   products,
