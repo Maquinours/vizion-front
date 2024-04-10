@@ -1,13 +1,11 @@
-import { Outlet, getRouteApi } from '@tanstack/react-router';
-import AppViewToolsViewEmailsViewSearchSectionComponent from './components/SearchSection/SearchSection';
-import AppViewToolsViewEmailsViewTypeSelectComponent from './components/TypeSelect/TypeSelect';
-import PaginationComponent from '../../../../../../components/Pagination/Pagination';
 import { useQuery } from '@tanstack/react-query';
-import { emailQueryKeys } from '../../../../../../utils/constants/queryKeys/email';
-import MailType from '../../../../../../utils/enums/MailType';
-import { getEmailsPage, getEmailsPageByType, getEmailsPageWithSearch } from '../../../../../../utils/api/emails';
+import { Outlet, getRouteApi } from '@tanstack/react-router';
+import PaginationComponent from '../../../../../../components/Pagination/Pagination';
+import { queries } from '../../../../../../utils/constants/queryKeys';
 import styles from './Emails.module.scss';
+import AppViewToolsViewEmailsViewSearchSectionComponent from './components/SearchSection/SearchSection';
 import AppViewToolsViewEmailsViewTableComponent from './components/Table/Table';
+import AppViewToolsViewEmailsViewTypeSelectComponent from './components/TypeSelect/TypeSelect';
 
 const routeApi = getRouteApi('/app/tools/emails');
 
@@ -16,15 +14,7 @@ const size = 15;
 export default function AppViewToolsViewEmailsView() {
   const { page, spam, search } = routeApi.useSearch();
 
-  const { data, isLoading } = useQuery({
-    queryKey: emailQueryKeys.pageBySpamStateWithSearch(spam ?? false, page, size, search),
-    queryFn: () =>
-      search
-        ? getEmailsPageWithSearch(spam ? [MailType.SPAM] : [MailType.ENVOIE, MailType.RECEPTION], search, page, size)
-        : spam
-          ? getEmailsPageByType(MailType.SPAM, page, size)
-          : getEmailsPage(page, size),
-  });
+  const { data, isLoading } = useQuery(queries.emails.page._ctx.bySpamStateAndSearch(spam ?? false, search, { page, size }));
 
   return (
     <>

@@ -1,8 +1,7 @@
+import { useQuery } from '@tanstack/react-query';
 import { Link, Outlet, getRouteApi } from '@tanstack/react-router';
 import PaginationComponent from '../../../../../../components/Pagination/Pagination';
-import { useQuery } from '@tanstack/react-query';
-import { predefinedMessageQueryKeys } from '../../../../../../utils/constants/queryKeys/predefinedMessage';
-import { getPredefinedMessagesPage } from '../../../../../../utils/api/predefinedMessage';
+import { queries } from '../../../../../../utils/constants/queryKeys';
 import styles from './PredefinedMessages.module.scss';
 import AppViewToolsViewPredefinedMessagesViewTableComponent from './components/Table/Table';
 
@@ -13,10 +12,7 @@ const size = 15;
 export default function AppViewToolsViewPredefinedMessagesView() {
   const { page } = routeApi.useSearch();
 
-  const { data, isLoading } = useQuery({
-    queryKey: predefinedMessageQueryKeys.page(page, size),
-    queryFn: () => getPredefinedMessagesPage(page, size),
-  });
+  const { data, isLoading } = useQuery(queries['predefined-message'].page({ page, size }));
 
   return (
     <>

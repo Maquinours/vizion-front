@@ -1,15 +1,15 @@
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { getRouteApi } from '@tanstack/react-router';
 import { Controller, useForm } from 'react-hook-form';
 import ReactModal from 'react-modal';
+import { PulseLoader } from 'react-spinners';
+import { toast } from 'react-toastify';
 import * as yup from 'yup';
 import Quill from '../../../../../../../../components/Quill/Quill';
-import { PulseLoader } from 'react-spinners';
-import { getRouteApi } from '@tanstack/react-router';
-import styles from './CreateModal.module.scss';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { createPredefinedMessage } from '../../../../../../../../utils/api/predefinedMessage';
-import { predefinedMessageQueryKeys } from '../../../../../../../../utils/constants/queryKeys/predefinedMessage';
-import { toast } from 'react-toastify';
+import { queries } from '../../../../../../../../utils/constants/queryKeys';
+import styles from './CreateModal.module.scss';
 
 const routeApi = getRouteApi('/app/tools/predefined-messages/create');
 
@@ -33,7 +33,7 @@ export default function AppViewToolsViewPredefinedMessagesViewCreateModalView() 
   const { mutate, isPending } = useMutation({
     mutationFn: ({ title, content }: yup.InferType<typeof yupSchema>) => createPredefinedMessage({ title, description: content }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: predefinedMessageQueryKeys.all });
+      queryClient.invalidateQueries({ queryKey: queries['predefined-message']._def });
       toast.success('Message prédéfini ajouté avec succès');
       onClose();
     },

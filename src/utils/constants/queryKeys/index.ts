@@ -14,8 +14,10 @@ import { rdvUserInfos } from './rdvUserInfo';
 import { rmas } from './rma';
 import { tasks } from './task';
 import { taskComments } from './taskComment';
+import { emails } from './email';
 
 export const queries = mergeQueryKeys(
+  emails,
   enterprises,
   predefinedMessages,
   predefinedTexts,

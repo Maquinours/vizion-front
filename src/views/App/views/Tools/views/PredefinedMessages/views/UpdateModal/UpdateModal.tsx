@@ -1,15 +1,15 @@
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
+import { getRouteApi, useNavigate } from '@tanstack/react-router';
 import { Controller, useForm } from 'react-hook-form';
 import ReactModal from 'react-modal';
-import styles from './UpdateModal.module.scss';
-import { getRouteApi } from '@tanstack/react-router';
-import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { predefinedMessageQueryKeys } from '../../../../../../../../utils/constants/queryKeys/predefinedMessage';
-import { getPredefinedMessageById, updatePredefinedMessage } from '../../../../../../../../utils/api/predefinedMessage';
-import * as yup from 'yup';
-import { yupResolver } from '@hookform/resolvers/yup';
-import Quill from '../../../../../../../../components/Quill/Quill';
 import { PulseLoader } from 'react-spinners';
 import { toast } from 'react-toastify';
+import * as yup from 'yup';
+import Quill from '../../../../../../../../components/Quill/Quill';
+import { updatePredefinedMessage } from '../../../../../../../../utils/api/predefinedMessage';
+import { queries } from '../../../../../../../../utils/constants/queryKeys';
+import styles from './UpdateModal.module.scss';
 
 const routeApi = getRouteApi('/app/tools/predefined-messages/update/$predefinedMessageId');
 
@@ -20,14 +20,11 @@ const yupSchema = yup.object().shape({
 
 export default function AppViewToolsViewPredefinedMessagesViewUpdateModalView() {
   const queryClient = useQueryClient();
-  const navigate = routeApi.useNavigate();
+  const navigate = useNavigate();
 
   const { predefinedMessageId } = routeApi.useParams();
 
-  const { data: predefinedMessage } = useSuspenseQuery({
-    queryKey: predefinedMessageQueryKeys.detailById(predefinedMessageId),
-    queryFn: () => getPredefinedMessageById(predefinedMessageId),
-  });
+  const { data: predefinedMessage } = useSuspenseQuery(queries['predefined-message'].detail(predefinedMessageId));
 
   const { register, control, handleSubmit } = useForm({
     resolver: yupResolver(yupSchema),
@@ -38,13 +35,13 @@ export default function AppViewToolsViewPredefinedMessagesViewUpdateModalView() 
   });
 
   const onClose = () => {
-    navigate({ to: '..', search: (old) => old });
+    navigate({ from: routeApi.id, to: '../..', search: (old) => old });
   };
 
   const { mutate, isPending } = useMutation({
     mutationFn: ({ title, content }: yup.InferType<typeof yupSchema>) => updatePredefinedMessage(predefinedMessage.id, { title, description: content }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: predefinedMessageQueryKeys.all });
+      queryClient.invalidateQueries({ queryKey: queries['predefined-message']._def });
       toast.success('Message prédéfini modifié avec succès');
       onClose();
     },

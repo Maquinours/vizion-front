@@ -1,12 +1,12 @@
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import ReactModal from 'react-modal';
-import { deletePredefinedMessage, getPredefinedMessageById } from '../../../../../../../../utils/api/predefinedMessage';
 import React from 'react';
+import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
-import styles from './DeleteModal.module.scss';
-import { predefinedMessageQueryKeys } from '../../../../../../../../utils/constants/queryKeys/predefinedMessage';
 import { toast } from 'react-toastify';
+import { deletePredefinedMessage } from '../../../../../../../../utils/api/predefinedMessage';
+import { queries } from '../../../../../../../../utils/constants/queryKeys';
+import styles from './DeleteModal.module.scss';
 
 const routeApi = getRouteApi('/app/tools/predefined-messages/delete/$predefinedMessageId');
 
@@ -16,10 +16,7 @@ export default function AppViewToolsViewPredefinedMessagesViewDeleteModalView() 
 
   const { predefinedMessageId } = routeApi.useParams();
 
-  const { data: predefinedMessage } = useSuspenseQuery({
-    queryKey: predefinedMessageQueryKeys.detailById(predefinedMessageId),
-    queryFn: () => getPredefinedMessageById(predefinedMessageId),
-  });
+  const { data: predefinedMessage } = useSuspenseQuery(queries['predefined-message'].detail(predefinedMessageId));
 
   const onClose = () => {
     navigate({ from: routeApi.id, to: '../..', search: (old) => old });
@@ -28,7 +25,7 @@ export default function AppViewToolsViewPredefinedMessagesViewDeleteModalView() 
   const { mutate, isPending } = useMutation({
     mutationFn: () => deletePredefinedMessage(predefinedMessageId),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: predefinedMessageQueryKeys.all });
+      queryClient.invalidateQueries({ queryKey: queries['predefined-message']._def });
       toast.success('Message prédéfini supprimé avec succès');
       onClose();
     },
