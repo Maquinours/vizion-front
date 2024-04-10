@@ -1,13 +1,9 @@
 import { createFileRoute, notFound } from '@tanstack/react-router';
-import { getProductVersionById } from '../../../../../utils/api/productVersion';
-import { productVersionQueryKeys } from '../../../../../utils/constants/queryKeys/productVersion';
+import { queries } from '../../../../../utils/constants/queryKeys';
 
 export const Route = createFileRoute('/app/products/$productId/manage/update-version/$versionId')({
   loader: async ({ context: { queryClient }, params: { productId, versionId } }) => {
-    const version = await queryClient.ensureQueryData({
-      queryKey: productVersionQueryKeys.detailById(versionId),
-      queryFn: () => getProductVersionById(versionId),
-    });
+    const version = await queryClient.ensureQueryData(queries.product.versions._ctx.detail(versionId));
     if (!version.product || version.product.id !== productId) throw notFound();
   },
 });

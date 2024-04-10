@@ -1,15 +1,14 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
-import AppViewProductViewInformationsViewInformationsCardComponent from './components/InformationsCard/InformationsCard';
-import { productQueryKeys } from '../../../../../../utils/constants/queryKeys/product';
 import { Outlet, getRouteApi } from '@tanstack/react-router';
-import { getProductById } from '../../../../../../utils/api/product';
-import styles from './Informations.module.scss';
-import AppViewProductViewInformationsViewImageComponent from './components/Image/Image';
-import AppViewProductViewInformationsViewDescriptionComponent from './components/Description/Description';
-import AppViewProductViewInformationsViewLifesheetComponent from './components/Lifesheet/Lifesheet';
+import { queries } from '../../../../../../utils/constants/queryKeys';
 import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthentifiedUser';
-import AppViewProductViewInformationsViewWorkloadsComponent from './components/Workloads/Workloads';
+import styles from './Informations.module.scss';
+import AppViewProductViewInformationsViewDescriptionComponent from './components/Description/Description';
 import AppViewProductViewInformationsViewGedComponent from './components/Ged/Ged';
+import AppViewProductViewInformationsViewImageComponent from './components/Image/Image';
+import AppViewProductViewInformationsViewInformationsCardComponent from './components/InformationsCard/InformationsCard';
+import AppViewProductViewInformationsViewLifesheetComponent from './components/Lifesheet/Lifesheet';
+import AppViewProductViewInformationsViewWorkloadsComponent from './components/Workloads/Workloads';
 
 const routeApi = getRouteApi('/app/products/$productId/informations');
 export default function AppViewProductViewInformationsView() {
@@ -17,7 +16,7 @@ export default function AppViewProductViewInformationsView() {
 
   const { data: user } = useAuthentifiedUserQuery();
 
-  const { data: product } = useSuspenseQuery({ queryKey: productQueryKeys.detailById(productId), queryFn: () => getProductById(productId) });
+  const { data: product } = useSuspenseQuery(queries.product.detail(productId));
 
   return (
     <>

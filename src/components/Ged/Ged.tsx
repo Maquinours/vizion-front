@@ -1,14 +1,13 @@
 import { useQuery } from '@tanstack/react-query';
-import { gedQueryKeys } from '../../utils/constants/queryKeys/ged';
+import { LinkOptions } from '@tanstack/react-router';
+import { useMemo } from 'react';
+import { geds } from '../../utils/constants/queryKeys/ged';
 import FileType from '../../utils/enums/FileType';
-import { getDirectoryByTypeAndIdOnS3 } from '../../utils/api/ged';
+import FileDataTreeResponseDto from '../../utils/types/FileDataTreeResponseDto';
+import CardComponent from '../Card/Card';
 import GedComponentButtonsComponent from './components/Buttons/Buttons';
 import GedComponentTableComponent from './components/Table/Table';
-import CardComponent from '../Card/Card';
 import { GedContext } from './utils/contexts/ged';
-import FileDataTreeResponseDto from '../../utils/types/FileDataTreeResponseDto';
-import { useMemo } from 'react';
-import { LinkOptions } from '@tanstack/react-router';
 
 type GedComponentProps = Readonly<{
   type: FileType;
@@ -29,8 +28,7 @@ export default function GedComponent({
   getDeleteLink,
 }: GedComponentProps) {
   const { data, isLoading, refetch, isRefetching } = useQuery({
-    queryKey: gedQueryKeys.detailByTypeAndId(type, id),
-    queryFn: () => getDirectoryByTypeAndIdOnS3(type, id),
+    ...geds.detail._ctx.byTypeAndId(type, id),
     select: (data) => data.at(0)?.subRows ?? [],
   });
 

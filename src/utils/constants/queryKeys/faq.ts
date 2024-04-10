@@ -1,8 +1,23 @@
-export const faqQueryKeys = {
-  all: ['faq'] as const,
-  pages: () => [...faqQueryKeys.all, 'page'] as const,
-  pageByArchiveStateAndSearch: (archived: boolean, searchText: string | undefined, page: number, size: number) =>
-    [...faqQueryKeys.pages(), { archived, searchText, page, size }] as const,
-  details: () => [...faqQueryKeys.all, 'detail'] as const,
-  detailById: (id: string) => [...faqQueryKeys.details(), { id }] as const,
-};
+import { createQueryKeys } from '@lukemorales/query-key-factory';
+import { getFaqById, getFaqsPageByArchiveState, getFaqsPageByArchiveStateWithSearch } from '../../api/faq';
+
+export const faqs = createQueryKeys('faq', {
+  page: ({ page, size }: { page: number; size: number }) => ({
+    queryKey: [page, size],
+    contextQueries: {
+      byArchiveStateAndSearch: (archived: boolean, searchText: string | undefined) => ({
+        queryKey: [archived, searchText],
+        queryFn: () => (searchText ? getFaqsPageByArchiveStateWithSearch(archived, searchText, page, size) : getFaqsPageByArchiveState(archived, page, size)),
+      }),
+    },
+  }),
+  detail: {
+    queryKey: null,
+    contextQueries: {
+      byId: (id: string) => ({
+        queryKey: [id],
+        queryFn: () => getFaqById(id),
+      }),
+    },
+  },
+});

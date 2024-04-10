@@ -1,8 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { Outlet, getRouteApi, useNavigate } from '@tanstack/react-router';
 import ReactModal from 'react-modal';
-import { searchPaginatedAddressesByEnterpriseId } from '../../../../../../utils/api/address';
-import { addressQueryKeys } from '../../../../../../utils/constants/queryKeys/address';
+import { addresses } from '../../../../../../utils/constants/queryKeys/address';
 import styles from './AddressBookModal.module.scss';
 import AppViewEnterpriseViewAddressBookModalViewHeaderComponent from './components/Header/Header';
 import AppViewEnterpriseViewAddressBookModalViewSearchSectionComponent from './components/SearchSection/SearchSection';
@@ -19,11 +18,7 @@ export default function AppViewEnterpriseViewAddressBookModalView() {
   const { enterpriseId } = Route.useParams();
   const { search, page } = Route.useSearch();
 
-  const searchValue = search ?? '';
-  const { data: addresses, isLoading } = useQuery({
-    queryKey: addressQueryKeys.pageByEnterpriseIdWithSearch(enterpriseId, searchValue, page, size),
-    queryFn: () => searchPaginatedAddressesByEnterpriseId(enterpriseId, searchValue, page, size),
-  });
+  const { data, isLoading } = useQuery(addresses.page({ enterpriseId, search: search ?? '', page, size }));
 
   const onClose = () => {
     navigate({ from: Route.id, to: '..', search: (old) => old });
@@ -36,9 +31,9 @@ export default function AppViewEnterpriseViewAddressBookModalView() {
           <AppViewEnterpriseViewAddressBookModalViewHeaderComponent />
           <div className={styles.modal_body}>
             <AppViewEnterpriseViewAddressBookModalViewSearchSectionComponent />
-            <AppViewEnterpriseViewAddressBookModalViewAddressesComponent isLoading={isLoading} addresses={addresses?.content} />
+            <AppViewEnterpriseViewAddressBookModalViewAddressesComponent isLoading={isLoading} addresses={data?.content} />
           </div>
-          <AppViewEnterpriseViewAddressBookModalViewPaginationComponent addresses={addresses} />
+          <AppViewEnterpriseViewAddressBookModalViewPaginationComponent addresses={data} />
         </div>
       </ReactModal>
       <Outlet />

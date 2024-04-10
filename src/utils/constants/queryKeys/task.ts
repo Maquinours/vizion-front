@@ -1,17 +1,44 @@
+import { createQueryKeys } from '@lukemorales/query-key-factory';
 import TaskState from '../../enums/TaskState';
 import { WorkloadAssociatedItem } from '../../enums/WorkloadAssociatedItem';
 import WorkloadType from '../../enums/WorkloadType';
+import { getPaginatedTasksByStateAndProfileId, getTaskById, getTasksByType, getTasksPageByEnterpriseId, getTasksPageByProductId } from '../../api/task';
 
-export const taskQueryKeys = {
-  all: ['tasks'] as const,
-  details: () => [...taskQueryKeys.all, 'details'] as const,
-  detailById: (id: string) => [...taskQueryKeys.details(), { id }] as const,
-  lists: () => [...taskQueryKeys.all, 'list'] as const,
-  listByType: (type: WorkloadType) => [...taskQueryKeys.lists(), { type }] as const,
-  listByIds: (ids: string[]) => [...taskQueryKeys.lists(), { ids }] as const,
-  pages: () => [...taskQueryKeys.all, 'pages'] as const,
-  pageByStateAndProfileId: (state: TaskState, profileId: string, page: number, size: number) =>
-    [...taskQueryKeys.pages(), { state, profileId, page, size }] as const,
-  pageByAssociatedItemAndId: (associatedItem: WorkloadAssociatedItem, itemId: string, page: number, size: number) =>
-    [...taskQueryKeys.pages(), { associatedItem, itemId, page, size }] as const,
-};
+export const tasks = createQueryKeys('tasks', {
+  detail: (id: string) => ({
+    queryKey: [id],
+    queryFn: () => getTaskById(id),
+  }),
+  list: {
+    queryKey: null,
+    contextQueries: {
+      byType: (type: WorkloadType) => ({
+        queryKey: [type],
+        queryFn: () => getTasksByType(type),
+      }),
+    },
+  },
+  page: {
+    queryKey: null,
+    contextQueries: {
+      byStateAndProfileId: (state: TaskState, profileId: string, { page, size }: { page: number; size: number }) => ({
+        queryKey: [state, profileId, page, size],
+        queryFn: () => getPaginatedTasksByStateAndProfileId(state, profileId, page, size),
+      }),
+      byAssociatedItem: (
+        { associatedItemType, associatedItemId }: { associatedItemType: WorkloadAssociatedItem; associatedItemId: string },
+        { page, size }: { page: number; size: number },
+      ) => ({
+        queryKey: [associatedItemType, associatedItemId, page, size],
+        queryFn: () => {
+          switch (associatedItemType) {
+            case WorkloadAssociatedItem.ENTERPRISE:
+              return getTasksPageByEnterpriseId(associatedItemId, page, size);
+            case WorkloadAssociatedItem.PRODUCT:
+              return getTasksPageByProductId(associatedItemId, page, size);
+          }
+        },
+      }),
+    },
+  },
+});

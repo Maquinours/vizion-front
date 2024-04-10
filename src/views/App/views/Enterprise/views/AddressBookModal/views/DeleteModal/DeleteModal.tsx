@@ -2,9 +2,8 @@ import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-q
 import { getRouteApi, useNavigate } from '@tanstack/react-router';
 import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
-import { addressQueryKeys } from '../../../../../../../../utils/constants/queryKeys/address';
-import { deleteAddress, getAddressById } from '../../../../../../../../utils/api/address';
-import AddressResponseDto from '../../../../../../../../utils/types/AddressResponseDto';
+import { addresses } from '../../../../../../../../utils/constants/queryKeys/address';
+import { deleteAddress } from '../../../../../../../../utils/api/address';
 import { toast } from 'react-toastify';
 import styles from './DeleteModal.module.scss';
 import React from 'react';
@@ -17,10 +16,7 @@ export default function AppViewEnterpriseViewAddressBookModalViewDeleteModalView
 
   const { addressId } = Route.useParams();
 
-  const { data: address } = useSuspenseQuery({
-    queryKey: addressQueryKeys.detailById(addressId),
-    queryFn: () => getAddressById(addressId),
-  });
+  const { data: address } = useSuspenseQuery(addresses.detail({ id: addressId }));
 
   const onClose = () => {
     navigate({ from: Route.id, to: '../..', params: ({ enterpriseId }) => ({ enterpriseId }), search: (old) => old });
@@ -29,11 +25,8 @@ export default function AppViewEnterpriseViewAddressBookModalViewDeleteModalView
   const { mutate, isPending } = useMutation({
     mutationFn: () => deleteAddress(address),
     onMutate: () => ({ address }),
-    onSuccess: (_data, _params, { address }) => {
-      queryClient.getQueriesData<AddressResponseDto>({ queryKey: addressQueryKeys.details() }).forEach(([key, data]) => {
-        if (data?.id === address.id) queryClient.removeQueries({ queryKey: key, exact: true });
-      });
-      queryClient.invalidateQueries({ queryKey: addressQueryKeys.pages() });
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: addresses._def });
       onClose();
       toast.success('Adresse supprimée avec succès');
     },

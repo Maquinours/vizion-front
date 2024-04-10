@@ -1,5 +1,9 @@
-export const businessQueryKeys = {
-  all: ['business'] as const,
-  details: () => [...businessQueryKeys.all, 'detail'] as const,
-  detailById: (id: string) => [...businessQueryKeys.details(), id] as const,
-};
+import { createQueryKeys } from '@lukemorales/query-key-factory';
+import { getBusinessById } from '../../api/business';
+
+export const businesses = createQueryKeys('business', {
+  detail: (id: string) => ({
+    queryKey: [{ id }],
+    queryFn: () => getBusinessById(id),
+  }),
+});

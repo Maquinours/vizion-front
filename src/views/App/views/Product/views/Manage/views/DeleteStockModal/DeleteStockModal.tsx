@@ -2,12 +2,12 @@ import { useNavigate } from '@tanstack/react-router';
 import { getRouteApi } from '@tanstack/react-router';
 import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
-import { productVersionShelfStocksQueryKeys } from '../../../../../../../../utils/constants/queryKeys/productVersionShelfStock';
-import { deleteProductVersionShelfStock, getProductVersionShelfStockById } from '../../../../../../../../utils/api/productVersionShelfStock';
+import { deleteProductVersionShelfStock } from '../../../../../../../../utils/api/productVersionShelfStock';
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import styles from './DeleteStockModal.module.scss';
 import React from 'react';
+import { queries } from '../../../../../../../../utils/constants/queryKeys';
 
 const routeApi = getRouteApi('/app/products/$productId/manage/delete-stock/$stockId');
 
@@ -17,10 +17,7 @@ export default function AppViewProductViewManageViewDeleteStockModalView() {
 
   const { stockId } = routeApi.useParams();
 
-  const { data: stock } = useSuspenseQuery({
-    queryKey: productVersionShelfStocksQueryKeys.detailById(stockId),
-    queryFn: () => getProductVersionShelfStockById(stockId),
-  });
+  const { data: stock } = useSuspenseQuery(queries.product.versionShelfStocks._ctx.detail(stockId));
 
   const onClose = () => {
     navigate({ from: routeApi.id, to: '../..', search: (old) => old });
@@ -29,7 +26,7 @@ export default function AppViewProductViewManageViewDeleteStockModalView() {
   const { mutate, isPending } = useMutation({
     mutationFn: () => deleteProductVersionShelfStock(stock.id),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: productVersionShelfStocksQueryKeys.all });
+      queryClient.invalidateQueries({ queryKey: queries.product._def });
       toast.success('Stock supprimé avec succès');
       onClose();
     },

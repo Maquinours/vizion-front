@@ -1,11 +1,10 @@
 import { useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { profileQueryKeys } from '../../utils/constants/queryKeys/profile';
-import { getProfileById } from '../../utils/api/profile';
-import UpdateContactPasswordModalComponentStepOneComponent from './components/StepOne/StepOne';
 import { useState } from 'react';
+import { queries } from '../../utils/constants/queryKeys';
 import ProfileResponseDto from '../../utils/types/ProfileResponseDto';
-import UpdateContactPasswordModalComponentStepTwoComponent from './components/StepTwo/StepTwo';
+import UpdateContactPasswordModalComponentStepOneComponent from './components/StepOne/StepOne';
 import UpdateContactPasswordModalComponentStepThreeComponent from './components/StepThree/StepThree';
+import UpdateContactPasswordModalComponentStepTwoComponent from './components/StepTwo/StepTwo';
 
 type UpdateContactPasswordModalComponentProps = Readonly<{
   contactId: string;
@@ -16,13 +15,10 @@ export default function UpdateContactPasswordModalComponent({ contactId, onClose
 
   const [step, setStep] = useState<0 | 1 | 2>(0);
 
-  const { data: contact } = useSuspenseQuery({
-    queryKey: profileQueryKeys.detailById(contactId),
-    queryFn: () => getProfileById(contactId),
-  });
+  const { data: contact } = useSuspenseQuery(queries.profiles.detail(contactId));
 
   const onAfterUpdate = (contact: ProfileResponseDto) => {
-    queryClient.setQueryData(profileQueryKeys.detailById(contactId), contact);
+    queryClient.setQueryData(queries.profiles.detail(contactId).queryKey, contact);
     setStep(1);
   };
 

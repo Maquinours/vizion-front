@@ -1,15 +1,15 @@
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
+import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { useForm } from 'react-hook-form';
 import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
-import CustomSelect from '../../../../../../../../components/CustomSelect/CustomSelect';
-import * as yup from 'yup';
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { productVersionShelfStocksQueryKeys } from '../../../../../../../../utils/constants/queryKeys/productVersionShelfStock';
-import { getProductVersionShelfStockById, updateProductVersionShelfStockQuantity } from '../../../../../../../../utils/api/productVersionShelfStock';
-import styles from './UpdateStockModal.module.scss';
 import { toast } from 'react-toastify';
+import * as yup from 'yup';
+import CustomSelect from '../../../../../../../../components/CustomSelect/CustomSelect';
+import { updateProductVersionShelfStockQuantity } from '../../../../../../../../utils/api/productVersionShelfStock';
+import { queries } from '../../../../../../../../utils/constants/queryKeys';
+import styles from './UpdateStockModal.module.scss';
 
 const routeApi = getRouteApi('/app/products/$productId/manage/update-stock/$stockId');
 
@@ -23,10 +23,7 @@ export default function AppViewProductViewManageViewUpdateStockModalView() {
 
   const { stockId } = routeApi.useParams();
 
-  const { data: stock } = useSuspenseQuery({
-    queryKey: productVersionShelfStocksQueryKeys.detailById(stockId),
-    queryFn: () => getProductVersionShelfStockById(stockId),
-  });
+  const { data: stock } = useSuspenseQuery(queries.product.versionShelfStocks._ctx.detail(stockId));
 
   const {
     register,
@@ -46,7 +43,7 @@ export default function AppViewProductViewManageViewUpdateStockModalView() {
   const { mutate, isPending } = useMutation({
     mutationFn: ({ quantity }: yup.InferType<typeof yupSchema>) => updateProductVersionShelfStockQuantity(stockId, quantity),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: productVersionShelfStocksQueryKeys.all });
+      queryClient.invalidateQueries({ queryKey: queries.product._def });
       toast.success('Stock modifié avec succès');
       onClose();
     },

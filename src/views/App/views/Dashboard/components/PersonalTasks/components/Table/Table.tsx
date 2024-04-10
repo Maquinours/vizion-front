@@ -1,24 +1,22 @@
-import { Row, createColumnHelper } from '@tanstack/react-table';
-import classNames from 'classnames';
-import styles from './Table.module.scss';
-import { AiFillTag } from 'react-icons/ai';
-import React, { useCallback, useMemo, useState } from 'react';
+import { VirtualElement } from '@popperjs/core';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import { markTaskAsRead } from './utils/api/tasks';
-import { VirtualElement } from '@popperjs/core';
-import AppViewDashboardViewPersonalTasksComponentPersonalTasksComponentTableComponentContextMenuComponent from './components/ContextMenu/ContextMenu';
-import TaskResponseDto from '../../../../../../../../utils/types/TaskResponseDto';
-import Page from '../../../../../../../../utils/types/Page';
-import { useAuthentifiedUserQuery } from '../../../../../../utils/functions/getAuthentifiedUser';
-import { profileQueryKeys } from '../../../../../../../../utils/constants/queryKeys/profile';
-import { getProfilesByEnterpriseId } from '../../../../../../../../utils/api/profile';
-import { taskQueryKeys } from '../../../../../../../../utils/constants/queryKeys/task';
-import { formatDate, formatDateWithHour, isDateOutdated } from '../../../../../../../../utils/functions/dates';
-import TaskState from '../../../../../../../../utils/enums/TaskState';
-import TableComponent from '../../../../../../../../components/Table/Table';
-import parse from 'html-react-parser';
+import { Row, createColumnHelper } from '@tanstack/react-table';
+import classNames from 'classnames';
 import DOMPurify from 'dompurify';
+import parse from 'html-react-parser';
+import React, { useCallback, useMemo, useState } from 'react';
+import { AiFillTag } from 'react-icons/ai';
+import TableComponent from '../../../../../../../../components/Table/Table';
+import { queries } from '../../../../../../../../utils/constants/queryKeys';
+import TaskState from '../../../../../../../../utils/enums/TaskState';
+import { formatDate, formatDateWithHour, isDateOutdated } from '../../../../../../../../utils/functions/dates';
+import Page from '../../../../../../../../utils/types/Page';
+import TaskResponseDto from '../../../../../../../../utils/types/TaskResponseDto';
+import { useAuthentifiedUserQuery } from '../../../../../../utils/functions/getAuthentifiedUser';
+import styles from './Table.module.scss';
+import AppViewDashboardViewPersonalTasksComponentPersonalTasksComponentTableComponentContextMenuComponent from './components/ContextMenu/ContextMenu';
+import { markTaskAsRead } from './utils/api/tasks';
 
 const Route = getRouteApi('/app/dashboard');
 
@@ -40,14 +38,11 @@ export default function AppViewDashboardViewPersonalTasksComponentTableComponent
 
   const { data: currentUser } = useAuthentifiedUserQuery();
 
-  const { data: members } = useQuery({
-    queryKey: profileQueryKeys.listByEnterpriseId(currentUser.profile.enterprise!.id),
-    queryFn: () => getProfilesByEnterpriseId(currentUser.profile.enterprise!.id),
-  });
+  const { data: members } = useQuery(queries.profiles.list._ctx.byEnterpriseId(currentUser.profile.enterprise!.id));
 
   const onMailTaskClick = useCallback(
     (original: TaskResponseDto) => {
-      queryClient.setQueryData(taskQueryKeys.detailById(original.id), original);
+      queryClient.setQueryData(queries.tasks.detail(original.id).queryKey, original);
       navigate({ from: Route.id, to: './task-email/$taskId', params: { taskId: original.id }, search: (old) => old });
     },
     [queryClient, navigate],
@@ -128,20 +123,22 @@ export default function AppViewDashboardViewPersonalTasksComponentTableComponent
     mutationFn: (task: TaskResponseDto) => markTaskAsRead(task),
     onMutate: (task) => {
       const newTask = { ...task, taskOpened: true };
-      queryClient.setQueriesData<Page<TaskResponseDto>>({ queryKey: taskQueryKeys.pages() }, (old) =>
+      queryClient.setQueriesData<Page<TaskResponseDto>>({ queryKey: queries.tasks.page.queryKey }, (old) =>
         old ? { ...old, content: old?.content.map((t) => (t.id === task.id ? newTask : t)) } : old,
       );
-      queryClient.setQueriesData<Array<TaskResponseDto>>({ queryKey: taskQueryKeys.lists() }, (old) => old?.map((t) => (t.id === task.id ? newTask : t)));
-      queryClient.setQueriesData<TaskResponseDto>({ queryKey: taskQueryKeys.details() }, (old) => (old?.id === task.id ? newTask : old));
+      queryClient.setQueriesData<Array<TaskResponseDto>>({ queryKey: queries.tasks.list.queryKey }, (old) => old?.map((t) => (t.id === task.id ? newTask : t)));
+      queryClient.setQueriesData<TaskResponseDto>({ queryKey: queries.tasks.detail._def }, (old) => (old?.id === task.id ? newTask : old));
     },
     onError: (error, task) => {
-      queryClient.setQueriesData<Page<TaskResponseDto>>({ queryKey: taskQueryKeys.pages() }, (old) =>
+      queryClient.setQueriesData<Page<TaskResponseDto>>({ queryKey: queries.tasks.page.queryKey }, (old) =>
         old ? { ...old, content: old?.content.map((t) => (t.id === task.id ? { ...t, taskOpened: false } : t)) } : old,
       );
-      queryClient.setQueriesData<Array<TaskResponseDto>>({ queryKey: taskQueryKeys.lists() }, (old) =>
+      queryClient.setQueriesData<Array<TaskResponseDto>>({ queryKey: queries.tasks.list.queryKey }, (old) =>
         old?.map((t) => (t.id === task.id ? { ...t, taskOpened: false } : t)),
       );
-      queryClient.setQueriesData<TaskResponseDto>({ queryKey: taskQueryKeys.details() }, (old) => (old?.id === task.id ? { ...old, taskOpened: false } : old));
+      queryClient.setQueriesData<TaskResponseDto>({ queryKey: queries.tasks.detail._def }, (old) =>
+        old?.id === task.id ? { ...old, taskOpened: false } : old,
+      );
 
       console.error(error);
     },

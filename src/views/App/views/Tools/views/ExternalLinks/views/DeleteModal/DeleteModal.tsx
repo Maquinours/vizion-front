@@ -5,8 +5,8 @@ import { PulseLoader } from 'react-spinners';
 import { deleteExternalLink } from '../../../../../../../../utils/api/externalLink';
 import styles from './DeleteModal.module.scss';
 import React from 'react';
-import { externalLinkQueryKeys } from '../../../../../../../../utils/constants/queryKeys/externalLink';
 import { toast } from 'react-toastify';
+import { externalLinks } from '../../../../../../../../utils/constants/queryKeys/externalLink';
 
 const routeApi = getRouteApi('/app/tools/external-links/delete/$externalLinkId');
 
@@ -23,7 +23,7 @@ export default function AppViewToolsViewExternalLinksViewDeleteModalView() {
   const { mutate, isPending } = useMutation({
     mutationFn: () => deleteExternalLink(externalLinkId),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: externalLinkQueryKeys.all });
+      queryClient.invalidateQueries({ queryKey: externalLinks._def });
       toast.success('Le lien externe a été supprimée avec succès');
       onClose();
     },

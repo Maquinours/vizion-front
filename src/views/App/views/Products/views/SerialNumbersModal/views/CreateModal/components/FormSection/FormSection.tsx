@@ -1,18 +1,15 @@
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useQuery } from '@tanstack/react-query';
+import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
+import * as yup from 'yup';
 import CardComponent from '../../../../../../../../../../components/Card/Card';
 import CustomSelect from '../../../../../../../../../../components/CustomSelect/CustomSelect';
-import * as yup from 'yup';
-import styles from './FormSection.module.scss';
-import { yupResolver } from '@hookform/resolvers/yup';
-import ProductShelfResponseDto from '../../../../../../../../../../utils/types/ProductShelfResponseDto';
-import { useQuery } from '@tanstack/react-query';
-import { productVersionQueryKeys } from '../../../../../../../../../../utils/constants/queryKeys/productVersion';
-import { getProductVersions } from '../../../../../../../../../../utils/api/productVersion';
-import { productShelfQueryKeys } from '../../../../../../../../../../utils/constants/queryKeys/productShelf';
-import { getAllProductShelves } from '../../../../../../../../../../utils/api/productShelf';
-import React from 'react';
+import { queries } from '../../../../../../../../../../utils/constants/queryKeys';
 import ProductSerialListRequestDto from '../../../../../../../../../../utils/types/ProductSerialListRequestDto';
+import ProductShelfResponseDto from '../../../../../../../../../../utils/types/ProductShelfResponseDto';
 import ProductVersionResponseDto from '../../../../../../../../../../utils/types/ProductVersionResponseDto';
+import styles from './FormSection.module.scss';
 
 enum DataType {
   LIST = 'LISTE',
@@ -66,15 +63,9 @@ export default function AppViewProductsViewSerialNumbersModalViewCreateModalView
   isPending,
   setRequestData,
 }: AppViewProductsViewSerialNumbersModalViewCreateModalViewFormSectionComponentProps) {
-  const { data: products, isLoading: isLoadingProducts } = useQuery({
-    queryKey: productVersionQueryKeys.listAll(),
-    queryFn: getProductVersions,
-  });
+  const { data: products, isLoading: isLoadingProducts } = useQuery(queries.product.versions._ctx.list);
 
-  const { data: shelves, isLoading: isLoadingShelves } = useQuery({
-    queryKey: productShelfQueryKeys.listAll(),
-    queryFn: getAllProductShelves,
-  });
+  const { data: shelves, isLoading: isLoadingShelves } = useQuery(queries['product-shelves'].list);
 
   const {
     register,

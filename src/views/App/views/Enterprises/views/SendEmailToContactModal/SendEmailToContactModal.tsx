@@ -1,8 +1,7 @@
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { getRouteApi, useNavigate } from '@tanstack/react-router';
 import SendEmailModalComponent from '../../../../../../components/SendEmailModal/SendEmailModal';
-import { useSuspenseQuery } from '@tanstack/react-query';
-import { profileQueryKeys } from '../../../../../../utils/constants/queryKeys/profile';
-import { getProfileById } from '../../../../../../utils/api/profile';
+import { queries } from '../../../../../../utils/constants/queryKeys';
 
 const routeApi = getRouteApi('/app/enterprises/send-email-to-contact/$contactId');
 
@@ -11,10 +10,7 @@ export default function AppViewEnterprisesViewSendEmailToContactModalView() {
 
   const { contactId } = routeApi.useParams();
 
-  const { data: contact } = useSuspenseQuery({
-    queryKey: profileQueryKeys.detailById(contactId),
-    queryFn: () => getProfileById(contactId),
-  });
+  const { data: contact } = useSuspenseQuery(queries.profiles.detail(contactId));
 
   const onClose = () => {
     navigate({ from: routeApi.id, to: '../..', search: (old) => old });

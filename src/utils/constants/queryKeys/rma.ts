@@ -1,5 +1,9 @@
-export const rmaQueryKeys = {
-  all: ['rma'] as const,
-  details: () => [...rmaQueryKeys.all, 'detail'] as const,
-  detailById: (id: string) => [...rmaQueryKeys.details(), { id }] as const,
-};
+import { createQueryKeys } from '@lukemorales/query-key-factory';
+import { getRmaById } from '../../api/rma';
+
+export const rmas = createQueryKeys('rmas', {
+  detail: (id: string) => ({
+    queryKey: [id],
+    queryFn: () => getRmaById(id),
+  }),
+});

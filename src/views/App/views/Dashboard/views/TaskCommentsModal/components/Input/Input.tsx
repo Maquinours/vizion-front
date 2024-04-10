@@ -1,16 +1,16 @@
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { getRouteApi } from '@tanstack/react-router';
 import { useForm } from 'react-hook-form';
 import { AiOutlineSend } from 'react-icons/ai';
-import * as yup from 'yup';
-import { useAuthentifiedUserQuery } from '../../../../../../utils/functions/getAuthentifiedUser';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { createTaskComment } from './utils/api/taskComments';
-import { getRouteApi } from '@tanstack/react-router';
-import TaskCommentResponseDto from '../../../../../../../../utils/types/TaskCommentResponseDto';
-import { taskCommentsQueryKeys } from '../../../../../../../../utils/constants/queryKeys/taskComment';
-import { toast } from 'react-toastify';
-import styles from './Input.module.scss';
 import { PulseLoader } from 'react-spinners';
+import { toast } from 'react-toastify';
+import * as yup from 'yup';
+import { queries } from '../../../../../../../../utils/constants/queryKeys';
+import TaskCommentResponseDto from '../../../../../../../../utils/types/TaskCommentResponseDto';
+import { useAuthentifiedUserQuery } from '../../../../../../utils/functions/getAuthentifiedUser';
+import styles from './Input.module.scss';
+import { createTaskComment } from './utils/api/taskComments';
 
 const Route = getRouteApi('/app/dashboard/task-comments/$taskId');
 
@@ -40,7 +40,9 @@ export default function AppViewDashboardViewTaskCommentsModalViewInputComponent(
         comment: comment,
       }),
     onSuccess: (data) => {
-      queryClient.setQueryData<Array<TaskCommentResponseDto>>(taskCommentsQueryKeys.listByTaskId(taskId), (old) => (old ? [...old, data] : old));
+      queryClient.setQueryData<Array<TaskCommentResponseDto>>(queries['task-comments'].list._ctx.byTaskId(taskId).queryKey, (old) =>
+        old ? [...old, data] : old,
+      );
       toast.success('Commentaire envoyé avec succès');
       onClose();
     },

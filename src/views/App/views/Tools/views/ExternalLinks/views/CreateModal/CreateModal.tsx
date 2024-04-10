@@ -8,7 +8,7 @@ import * as yup from 'yup';
 import styles from './CreateModal.module.scss';
 import Quill from '../../../../../../../../components/Quill/Quill';
 import { createExternalLink } from '../../../../../../../../utils/api/externalLink';
-import { externalLinkQueryKeys } from '../../../../../../../../utils/constants/queryKeys/externalLink';
+import { externalLinks } from '../../../../../../../../utils/constants/queryKeys/externalLink';
 import { toast } from 'react-toastify';
 import FaqAccessLevel from '../../../../../../../../utils/enums/FaqAccessLevel';
 
@@ -125,7 +125,7 @@ export default function AppViewToolsViewExternalLinksViewCreateModalView() {
     mutationFn: ({ title, description, level, url, type, targetType }: yup.InferType<typeof yupSchema>) =>
       createExternalLink({ title, description, accessLevel: level, archived: false, url, type, targetType }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: externalLinkQueryKeys.all });
+      queryClient.invalidateQueries({ queryKey: externalLinks._def });
       toast.success('La solution a été ajoutée avec succès');
       onClose();
     },

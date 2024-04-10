@@ -1,16 +1,16 @@
-import ReactModal from 'react-modal';
-import { useDropzone } from 'react-dropzone';
-import { v4 as uuidv4 } from 'uuid';
-import { useState } from 'react';
-import styles from './ImportGedFilesModal.module.scss';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { uploadFilesOnS3 } from '../../utils/api/ged';
-import FileType from '../../utils/enums/FileType';
-import { MdAdd } from 'react-icons/md';
-import { ClipLoader } from 'react-spinners';
+import { useState } from 'react';
+import { useDropzone } from 'react-dropzone';
 import { FaTrash } from 'react-icons/fa';
-import { gedQueryKeys } from '../../utils/constants/queryKeys/ged';
+import { MdAdd } from 'react-icons/md';
+import ReactModal from 'react-modal';
+import { ClipLoader } from 'react-spinners';
 import { toast } from 'react-toastify';
+import { v4 as uuidv4 } from 'uuid';
+import { uploadFilesOnS3 } from '../../utils/api/ged';
+import { geds } from '../../utils/constants/queryKeys/ged';
+import FileType from '../../utils/enums/FileType';
+import styles from './ImportGedFilesModal.module.scss';
 
 type ImportGedFilesModalComponentProps = Readonly<{
   directoryRelativePath: string;
@@ -39,7 +39,7 @@ export default function ImportGedFilesModalComponent({ directoryRelativePath, id
       ),
     onMutate: () => ({ files }),
     onSuccess: (_data, _params, context) => {
-      queryClient.invalidateQueries({ queryKey: gedQueryKeys.all });
+      queryClient.invalidateQueries({ queryKey: geds.detail._ctx.byTypeAndId(type, id).queryKey });
       onClose();
       if (context.files.length > 1) toast.success('Fichiers importés avec succès');
       else toast.success('Fichier importé avec succès');

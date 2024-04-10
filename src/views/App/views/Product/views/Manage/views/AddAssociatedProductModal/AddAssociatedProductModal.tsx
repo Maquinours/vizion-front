@@ -1,15 +1,15 @@
+import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import ReactModal from 'react-modal';
-import { productQueryKeys } from '../../../../../../../../utils/constants/queryKeys/product';
-import { addAssociatedProduct, getNotAssociatedProducts } from '../../../../../../../../utils/api/product';
 import { getRouteApi, useNavigate } from '@tanstack/react-router';
 import { Controller, useForm } from 'react-hook-form';
-import CustomSelect from '../../../../../../../../components/CustomSelect/CustomSelect';
-import * as yup from 'yup';
-import { yupResolver } from '@hookform/resolvers/yup';
-import ProductResponseDto from '../../../../../../../../utils/types/ProductResponseDto';
+import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
 import { toast } from 'react-toastify';
+import * as yup from 'yup';
+import CustomSelect from '../../../../../../../../components/CustomSelect/CustomSelect';
+import { addAssociatedProduct } from '../../../../../../../../utils/api/product';
+import { queries } from '../../../../../../../../utils/constants/queryKeys';
+import ProductResponseDto from '../../../../../../../../utils/types/ProductResponseDto';
 import styles from './AddAssociatedProductModal.module.scss';
 
 const routeApi = getRouteApi('/app/products/$productId/manage/add-associated-product');
@@ -24,10 +24,7 @@ export default function AppViewProductViewManageViewAddAssociatedProductModalVie
 
   const { productId } = routeApi.useParams();
 
-  const { data: productOptions, isLoading: isLoadingOptions } = useQuery({
-    queryKey: productQueryKeys.listNotAssociatedProducts(productId),
-    queryFn: () => getNotAssociatedProducts(productId),
-  });
+  const { data: productOptions, isLoading: isLoadingOptions } = useQuery(queries.product.list._ctx.byNotAssociatedProductId(productId));
 
   const {
     control,
@@ -44,7 +41,7 @@ export default function AppViewProductViewManageViewAddAssociatedProductModalVie
   const { mutate, isPending } = useMutation({
     mutationFn: ({ associatedProduct }: yup.InferType<typeof yupSchema>) => addAssociatedProduct(productId, associatedProduct.id),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: productQueryKeys.all });
+      queryClient.invalidateQueries({ queryKey: queries.product._def });
       toast.success('Produit associé avec succès');
       onClose();
     },

@@ -1,23 +1,17 @@
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useMutation, useQuery, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
+import { getRouteApi, useNavigate } from '@tanstack/react-router';
 import { Controller, useForm } from 'react-hook-form';
 import ReactModal from 'react-modal';
-import CustomSelect from '../../../../../../../../components/CustomSelect/CustomSelect';
-import { useMutation, useQuery, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { productShelfQueryKeys } from '../../../../../../../../utils/constants/queryKeys/productShelf';
-import { getAllProductShelves } from '../../../../../../../../utils/api/productShelf';
-import { productVersionQueryKeys } from '../../../../../../../../utils/constants/queryKeys/productVersion';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import { getProductVersionsByProductId } from '../../../../../../../../utils/api/productVersion';
 import { PulseLoader } from 'react-spinners';
-import * as yup from 'yup';
-import ProductVersionResponseDto from '../../../../../../../../utils/types/ProductVersionResponseDto';
-import ProductShelfResponseDto from '../../../../../../../../utils/types/ProductShelfResponseDto';
-import { yupResolver } from '@hookform/resolvers/yup';
-import styles from './CreateStockModal.module.scss';
-import { createProductVersionShelfStock } from '../../../../../../../../utils/api/productVersionShelfStock';
-import { productQueryKeys } from '../../../../../../../../utils/constants/queryKeys/product';
-import { getProductById } from '../../../../../../../../utils/api/product';
 import { toast } from 'react-toastify';
-import { productVersionShelfStocksQueryKeys } from '../../../../../../../../utils/constants/queryKeys/productVersionShelfStock';
+import * as yup from 'yup';
+import CustomSelect from '../../../../../../../../components/CustomSelect/CustomSelect';
+import { createProductVersionShelfStock } from '../../../../../../../../utils/api/productVersionShelfStock';
+import { queries } from '../../../../../../../../utils/constants/queryKeys';
+import ProductShelfResponseDto from '../../../../../../../../utils/types/ProductShelfResponseDto';
+import ProductVersionResponseDto from '../../../../../../../../utils/types/ProductVersionResponseDto';
+import styles from './CreateStockModal.module.scss';
 
 const routeApi = getRouteApi('/app/products/$productId/manage/create-stock');
 
@@ -33,20 +27,11 @@ export default function AppViewProductViewManageViewCreateStockModalView() {
 
   const { productId } = routeApi.useParams();
 
-  const { data: product } = useSuspenseQuery({
-    queryKey: productQueryKeys.detailById(productId),
-    queryFn: () => getProductById(productId),
-  });
+  const { data: product } = useSuspenseQuery(queries.product.detail(productId));
 
-  const { data: versions, isLoading: isLoadingVersions } = useQuery({
-    queryKey: productVersionQueryKeys.listByProductId(productId),
-    queryFn: () => getProductVersionsByProductId(productId),
-  });
+  const { data: versions, isLoading: isLoadingVersions } = useQuery(queries.product.detail(productId)._ctx.versions._ctx.list);
 
-  const { data: shelves, isLoading: isLoadingShelves } = useQuery({
-    queryKey: productShelfQueryKeys.listAll(),
-    queryFn: getAllProductShelves,
-  });
+  const { data: shelves, isLoading: isLoadingShelves } = useQuery(queries['product-shelves'].list);
 
   const {
     register,
@@ -78,7 +63,7 @@ export default function AppViewProductViewManageViewCreateStockModalView() {
         productVersionShelfStockEntryDto: {},
       }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: productVersionShelfStocksQueryKeys.all });
+      queryClient.invalidateQueries({ queryKey: queries.product._def });
       toast.success('Stock ajouté avec succès');
       onClose();
     },

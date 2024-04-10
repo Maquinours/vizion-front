@@ -1,13 +1,13 @@
-import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import ReactModal from 'react-modal';
-import { productSpecificationQueryKeys } from '../../../../../../../../utils/constants/queryKeys/productSpecification';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import { getProductSpecificationById, updateProductSpecification } from '../../../../../../../../utils/api/productSpecification';
-import * as yup from 'yup';
-import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { toast } from 'react-toastify';
+import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
+import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { useForm } from 'react-hook-form';
+import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
+import { toast } from 'react-toastify';
+import * as yup from 'yup';
+import { updateProductSpecification } from '../../../../../../../../utils/api/productSpecification';
+import { queries } from '../../../../../../../../utils/constants/queryKeys';
 import styles from './UpdateSpecificationModal.module.scss';
 
 const routeApi = getRouteApi('/app/products/$productId/manage/update-specification/$specificationId');
@@ -40,10 +40,7 @@ export default function AppViewProductViewManageViewUpdateSpecificationModalView
 
   const { productId, specificationId } = routeApi.useParams();
 
-  const { data: productSpec } = useSuspenseQuery({
-    queryKey: productSpecificationQueryKeys.detailById(productId, specificationId),
-    queryFn: () => getProductSpecificationById(productId, specificationId),
-  });
+  const { data: productSpec } = useSuspenseQuery(queries.product.detail(productId)._ctx.specifications._ctx.detail(specificationId));
 
   const {
     register,
@@ -66,7 +63,7 @@ export default function AppViewProductViewManageViewUpdateSpecificationModalView
     mutationFn: ({ value, minValue, maxValue }: yup.InferType<typeof yupSchema>) =>
       updateProductSpecification(productId, specificationId, value ?? null, minValue ?? null, maxValue ?? null),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: productSpecificationQueryKeys.all });
+      queryClient.invalidateQueries({ queryKey: queries.product._def });
       toast.success('Spécification modifiée avec succès');
       onClose();
     },

@@ -1,8 +1,8 @@
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import { getRouteApi, useNavigate } from '@tanstack/react-router';
 import ReactModal from 'react-modal';
-import { externalLinkQueryKeys } from '../../../../../../../../utils/constants/queryKeys/externalLink';
-import { getExternalLinkById, updateExternalLink } from '../../../../../../../../utils/api/externalLink';
+import { externalLinks } from '../../../../../../../../utils/constants/queryKeys/externalLink';
+import { updateExternalLink } from '../../../../../../../../utils/api/externalLink';
 import { PulseLoader } from 'react-spinners';
 import { toast } from 'react-toastify';
 import React from 'react';
@@ -16,10 +16,7 @@ export default function AppViewToolsViewExternalLinksViewArchiveModalView() {
 
   const { externalLinkId } = routeApi.useParams();
 
-  const { data: externalLink } = useSuspenseQuery({
-    queryKey: externalLinkQueryKeys.detailById(externalLinkId),
-    queryFn: () => getExternalLinkById(externalLinkId),
-  });
+  const { data: externalLink } = useSuspenseQuery(externalLinks.detail._ctx.byId(externalLinkId));
 
   const onClose = () => {
     navigate({ to: '../..', search: (old) => old });
@@ -36,7 +33,7 @@ export default function AppViewToolsViewExternalLinksViewArchiveModalView() {
         archived: !externalLink.archived,
       }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: externalLinkQueryKeys.all });
+      queryClient.invalidateQueries({ queryKey: externalLinks._def });
       toast.success('Le lien externe a été archivé avec succès');
       onClose();
     },

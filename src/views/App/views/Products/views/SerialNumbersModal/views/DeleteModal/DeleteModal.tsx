@@ -1,12 +1,12 @@
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import ReactModal from 'react-modal';
-import { productSerialNumberQueryKeys } from '../../../../../../../../utils/constants/queryKeys/productSerialNumber';
-import { deleteProductSerialNumber, getProductSerialNumberById } from '../../../../../../../../utils/api/productSerialNumber';
-import { PulseLoader } from 'react-spinners';
-import styles from './DeleteModal.module.scss';
-import { toast } from 'react-toastify';
 import React from 'react';
+import ReactModal from 'react-modal';
+import { PulseLoader } from 'react-spinners';
+import { toast } from 'react-toastify';
+import { deleteProductSerialNumber } from '../../../../../../../../utils/api/productSerialNumber';
+import { queries } from '../../../../../../../../utils/constants/queryKeys';
+import styles from './DeleteModal.module.scss';
 
 const routeApi = getRouteApi('/app/products/serial-numbers/delete/$serialNumberId');
 
@@ -16,10 +16,7 @@ export default function AppViewProductsViewSerialNumbersModalViewDeleteModalView
 
   const { serialNumberId } = routeApi.useParams();
 
-  const { data: serialNumber } = useSuspenseQuery({
-    queryKey: productSerialNumberQueryKeys.detailById(serialNumberId),
-    queryFn: () => getProductSerialNumberById(serialNumberId),
-  });
+  const { data: serialNumber } = useSuspenseQuery(queries['product-serial-numbers'].detail._ctx.byId(serialNumberId));
 
   const onClose = () => {
     navigate({ from: routeApi.id, to: '../..', search: (old) => old });
@@ -28,7 +25,7 @@ export default function AppViewProductsViewSerialNumbersModalViewDeleteModalView
   const { mutate, isPending } = useMutation({
     mutationFn: () => deleteProductSerialNumber(serialNumber.id),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: productSerialNumberQueryKeys.all });
+      queryClient.invalidateQueries({ queryKey: queries['product-serial-numbers']._def });
       toast.success('Le numero de serie a été supprimé avec succès');
       onClose();
     },

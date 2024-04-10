@@ -1,16 +1,14 @@
+import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { useForm } from 'react-hook-form';
 import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
-import { productVersionQueryKeys } from '../../../../../../../../utils/constants/queryKeys/productVersion';
-import { getProductVersionById, updateProductVersion } from '../../../../../../../../utils/api/productVersion';
-import { productQueryKeys } from '../../../../../../../../utils/constants/queryKeys/product';
-import { getProductById } from '../../../../../../../../utils/api/product';
-import styles from './UpdateVersionModal.module.scss';
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
 import { toast } from 'react-toastify';
+import * as yup from 'yup';
+import { updateProductVersion } from '../../../../../../../../utils/api/productVersion';
+import { queries } from '../../../../../../../../utils/constants/queryKeys';
+import styles from './UpdateVersionModal.module.scss';
 
 const routeApi = getRouteApi('/app/products/$productId/manage/update-version/$versionId');
 
@@ -20,15 +18,9 @@ export default function AppViewProductViewManageViewUpdateVersionModalView() {
 
   const { productId, versionId } = routeApi.useParams();
 
-  const { data: product } = useSuspenseQuery({
-    queryKey: productQueryKeys.detailById(productId),
-    queryFn: () => getProductById(productId),
-  });
+  const { data: product } = useSuspenseQuery(queries.product.detail(productId));
 
-  const { data: version } = useSuspenseQuery({
-    queryKey: productVersionQueryKeys.detailById(versionId),
-    queryFn: () => getProductVersionById(versionId),
-  });
+  const { data: version } = useSuspenseQuery(queries.product.versions._ctx.detail(versionId));
 
   const yupSchema = yup.object().shape({
     reference: yup
@@ -84,8 +76,7 @@ export default function AppViewProductViewManageViewUpdateVersionModalView() {
         virtualQty: version.virtualQty,
       }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: productQueryKeys.all });
-      queryClient.invalidateQueries({ queryKey: productVersionQueryKeys.all });
+      queryClient.invalidateQueries({ queryKey: queries.product._def });
       toast.success('La version a été modifiée avec succès.');
       onClose();
     },

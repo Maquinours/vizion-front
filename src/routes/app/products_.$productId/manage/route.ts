@@ -1,18 +1,7 @@
 import { createFileRoute, redirect } from '@tanstack/react-router';
-import { getAuthentifiedUser } from '../../../../views/App/utils/api/authentifiedUser';
 import { z } from 'zod';
-import { productQueryKeys } from '../../../../utils/constants/queryKeys/product';
-import { getAssociatedProductsPage } from '../../../../utils/api/product';
-import { productVersionQueryKeys } from '../../../../utils/constants/queryKeys/productVersion';
-import { getProductVersionsPageByProductId } from '../../../../utils/api/productVersion';
-import { productSpecificationQueryKeys } from '../../../../utils/constants/queryKeys/productSpecification';
-import { getProductSpecificationsPageByProductId } from '../../../../utils/api/productSpecification';
-import { productVersionShelfStocksQueryKeys } from '../../../../utils/constants/queryKeys/productVersionShelfStock';
-import { getProductVersionShelfStocksPageByProductId } from '../../../../utils/api/productVersionShelfStock';
-import { productSaleQueryKeys } from '../../../../utils/constants/queryKeys/productSale';
-import { getProductSalesByProductId, getProductSalesByProductIdAndSearch } from '../../../../utils/api/productSale';
-import { productStockEntryQueryKeys } from '../../../../utils/constants/queryKeys/productStockEntry';
-import { getProductStockEntriesPageByProductId } from '../../../../utils/api/productStockEntry';
+import { queries } from '../../../../utils/constants/queryKeys';
+import { users } from '../../../../utils/constants/queryKeys/user';
 
 const searchSchema = z.object({
   associatedProductsPage: z.number().min(0).catch(0),
@@ -30,7 +19,7 @@ const searchSchema = z.object({
 export const Route = createFileRoute('/app/products/$productId/manage')({
   validateSearch: searchSchema,
   beforeLoad: async ({ context: { queryClient } }) => {
-    const user = await queryClient.ensureQueryData({ queryKey: ['authentified-user'], queryFn: getAuthentifiedUser });
+    const user = await queryClient.ensureQueryData(users.authentified());
     if (!user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO'))
       throw redirect({ from: Route.id, to: '../informations', search: { lifesheetPage: 0 }, replace: true });
   },
@@ -83,37 +72,25 @@ export const Route = createFileRoute('/app/products/$productId/manage')({
       stockEntriesSize,
     },
   }) => {
-    queryClient.ensureQueryData({
-      queryKey: productQueryKeys.pageByAssociatedProduct(productId, associatedProductsPage, associatedProductsSize),
-      queryFn: () => getAssociatedProductsPage(productId, associatedProductsPage, associatedProductsSize),
-    });
+    queryClient.prefetchQuery(queries.product.page({ page: associatedProductsPage, size: associatedProductsSize })._ctx.byAssociatedProductId(productId));
 
-    queryClient.ensureQueryData({
-      queryKey: productVersionQueryKeys.pageByProductId(productId, versionsPage, versionsSize),
-      queryFn: () => getProductVersionsPageByProductId(productId, versionsPage, versionsSize),
-    });
+    queryClient.prefetchQuery(queries.product.detail(productId)._ctx.versions._ctx.page({ page: versionsPage, size: versionsSize }));
 
-    queryClient.ensureQueryData({
-      queryKey: productSpecificationQueryKeys.pageByProductId(productId, specificationsPage, specificationsSize),
-      queryFn: () => getProductSpecificationsPageByProductId(productId, specificationsPage, specificationsSize),
-    });
+    queryClient.prefetchQuery(queries.product.detail(productId)._ctx.specifications._ctx.page({ page: specificationsPage, size: specificationsSize }));
 
-    queryClient.ensureQueryData({
-      queryKey: productVersionShelfStocksQueryKeys.pageByProductId(productId, stocksPage, stocksSize),
-      queryFn: () => getProductVersionShelfStocksPageByProductId(productId, stocksPage, stocksSize),
-    });
+    queryClient.prefetchQuery(queries.product.detail(productId)._ctx.versionShelfStocks._ctx.page({ page: stocksPage, size: stocksSize }));
 
-    queryClient.ensureQueryData({
-      queryKey: productSaleQueryKeys.detailByProductIdAndSearch(productId, salesContact, salesDates?.at(0), salesDates?.at(1), salesPage, salesSize),
-      queryFn: () =>
-        !!salesContact || !!salesDates
-          ? getProductSalesByProductIdAndSearch(productId, salesContact, salesDates?.at(0), salesDates?.at(1), salesPage, salesSize)
-          : getProductSalesByProductId(productId, salesPage, salesSize),
-    });
+    queryClient.prefetchQuery(
+      queries['product-sale'].detail._ctx.byProductIdAndSearch({
+        productId,
+        contact: salesContact,
+        startDate: salesDates?.at(0),
+        endDate: salesDates?.at(1),
+        page: salesPage,
+        size: salesSize,
+      }),
+    );
 
-    queryClient.ensureQueryData({
-      queryKey: productStockEntryQueryKeys.pageByProductId(productId, stockEntriesPage, stockEntriesSize),
-      queryFn: () => getProductStockEntriesPageByProductId(productId, stockEntriesPage, stockEntriesSize),
-    });
+    queryClient.prefetchQuery(queries.product.detail(productId)._ctx.stockEntries._ctx.page({ page: stockEntriesPage, size: stockEntriesSize }));
   },
 });

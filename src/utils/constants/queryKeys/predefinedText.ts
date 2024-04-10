@@ -1,5 +1,9 @@
-export const predefinedTextQueryKeys = {
-  all: ['predefined-text'] as const,
-  lists: () => [...predefinedTextQueryKeys.all, 'list'] as const,
-  listAll: () => [...predefinedTextQueryKeys.lists(), 'all'] as const,
-};
+import { createQueryKeys } from '@lukemorales/query-key-factory';
+import { getPredefinedTexts } from '../../api/predefinedText';
+
+export const predefinedTexts = createQueryKeys('predefined-text', {
+  list: {
+    queryKey: null,
+    queryFn: getPredefinedTexts,
+  },
+});

@@ -1,9 +1,7 @@
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import enterpriseQueryKeys from '../../../../../../utils/constants/queryKeys/enterprise';
-import { getEnterpriseById } from '../../../../../../utils/api/enterprise';
+import { enterprises } from '../../../../../../utils/constants/queryKeys/enterprise';
 import { deleteEnterprise } from './utils/api/enterprise';
-import EnterpriseResponseDto from '../../../../../../utils/types/EnterpriseResponseDto';
 import { toast } from 'react-toastify';
 import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
@@ -18,10 +16,7 @@ export default function AppViewEnterpriseViewDeleteModalView() {
 
   const { enterpriseId } = Route.useParams();
 
-  const { data: enterprise } = useSuspenseQuery({
-    queryKey: enterpriseQueryKeys.detailById(enterpriseId),
-    queryFn: () => getEnterpriseById(enterpriseId),
-  });
+  const { data: enterprise } = useSuspenseQuery(enterprises.detail(enterpriseId));
 
   const onClose = () => {
     navigate({ from: Route.id, to: '..', params: (old) => old, search: (old) => old });
@@ -30,12 +25,8 @@ export default function AppViewEnterpriseViewDeleteModalView() {
   const { mutate, isPending } = useMutation({
     mutationFn: () => deleteEnterprise(enterprise),
     onMutate: () => ({ enterprise }),
-    onSuccess: (_data, _params, { enterprise }) => {
-      queryClient.getQueriesData<EnterpriseResponseDto>({ queryKey: enterpriseQueryKeys.details() }).forEach(([key, value]) => {
-        if (value?.id === enterprise.id) queryClient.removeQueries({ queryKey: key, exact: true });
-      });
-      queryClient.setQueriesData<Array<EnterpriseResponseDto>>({ queryKey: enterpriseQueryKeys.lists() }, (old) => old?.filter((e) => e.id !== enterprise.id));
-      queryClient.invalidateQueries({ queryKey: enterpriseQueryKeys.pages() });
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: enterprises._def });
       navigate({
         from: Route.id,
         to: '/app/enterprises',

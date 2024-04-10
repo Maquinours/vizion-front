@@ -1,21 +1,19 @@
-import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthentifiedUser';
-import * as yup from 'yup';
-import ProfileResponseDto from '../../../../../../utils/types/ProfileResponseDto';
-import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { profileQueryKeys } from '../../../../../../utils/constants/queryKeys/profile';
-import { getProfilesByCategory } from '../../../../../../utils/api/profile';
-import { attributeTask, getTaskById } from '../../../../../../utils/api/task';
-import { taskQueryKeys } from '../../../../../../utils/constants/queryKeys/task';
+import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { Controller, useForm } from 'react-hook-form';
 import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
-import CustomSelect from '../../../../../../components/CustomSelect/CustomSelect';
 import { toast } from 'react-toastify';
-import styles from './TransferTaskModal.module.scss';
-import WorkloadType from '../../../../../../utils/enums/WorkloadType';
+import * as yup from 'yup';
+import CustomSelect from '../../../../../../components/CustomSelect/CustomSelect';
+import { attributeTask } from '../../../../../../utils/api/task';
+import { queries } from '../../../../../../utils/constants/queryKeys';
 import CategoryClient from '../../../../../../utils/enums/CategoryClient';
+import WorkloadType from '../../../../../../utils/enums/WorkloadType';
+import ProfileResponseDto from '../../../../../../utils/types/ProfileResponseDto';
+import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthentifiedUser';
+import styles from './TransferTaskModal.module.scss';
 
 const Route = getRouteApi('/app/dashboard/transfer-task/$taskId');
 
@@ -37,15 +35,9 @@ export default function AppViewDashboardViewTransferCollectiveTaskModalView() {
     formState: { errors },
   } = useForm({ resolver: yupResolver(yupSchema) });
 
-  const { data: task } = useSuspenseQuery({
-    queryKey: taskQueryKeys.detailById(taskId),
-    queryFn: () => getTaskById(taskId),
-  });
+  const { data: task } = useSuspenseQuery(queries.tasks.detail(taskId));
 
-  const { data: allMembers, isLoading: isLoadingAllMembers } = useSuspenseQuery({
-    queryKey: profileQueryKeys.listByCategory(CategoryClient.VIZEO),
-    queryFn: () => getProfilesByCategory(CategoryClient.VIZEO),
-  });
+  const { data: allMembers, isLoading: isLoadingAllMembers } = useSuspenseQuery(queries.profiles.list._ctx.byCategory(CategoryClient.VIZEO));
 
   const onClose = () => {
     navigate({ from: Route.id, to: '../..', search: (old) => old });
@@ -54,7 +46,7 @@ export default function AppViewDashboardViewTransferCollectiveTaskModalView() {
   const { mutate, isPending } = useMutation({
     mutationFn: ({ profile }: yup.InferType<typeof yupSchema>) => attributeTask(task.id, profile.id, currentUser.profile.id, false),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: taskQueryKeys.lists() });
+      queryClient.invalidateQueries({ queryKey: queries.tasks.list.queryKey });
       onClose();
       toast.success('La charge de travail a été transférée avec succès');
     },

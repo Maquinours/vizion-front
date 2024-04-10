@@ -6,8 +6,7 @@ import RepresentativesTurnoverViewButtonsComponent from './components/Buttons/Bu
 import RepresentativesTurnoverViewRecapSectionComponent from './components/RecapSection/RecapSection';
 import { searchSalesVva } from './utils/api/salesVva';
 import styles from './RepresentativesTurnover.module.scss';
-import enterpriseQueryKeys from '../../../../../../utils/constants/queryKeys/enterprise';
-import { getEnterprisesByCategory } from '../../../../../../utils/api/enterprises';
+import { enterprises } from '../../../../../../utils/constants/queryKeys/enterprise';
 import CategoryClient from '../../../../../../utils/enums/CategoryClient';
 
 const Route = getRouteApi('/app/tools/representatives-turnover');
@@ -15,10 +14,7 @@ const Route = getRouteApi('/app/tools/representatives-turnover');
 export default function AppViewToolsViewRepresentativesTurnoverView() {
   const { representativeId, month, year } = Route.useSearch();
 
-  const { data: representatives } = useSuspenseQuery({
-    queryKey: enterpriseQueryKeys.listByCategory(CategoryClient.REPRESENTANT),
-    queryFn: () => getEnterprisesByCategory(CategoryClient.REPRESENTANT),
-  });
+  const { data: representatives } = useSuspenseQuery(enterprises.list._ctx.byCategory(CategoryClient.REPRESENTANT));
 
   const representative = representatives.find((rep) => rep.id === representativeId);
 

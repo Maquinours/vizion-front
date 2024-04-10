@@ -2,7 +2,7 @@ import * as yup from 'yup';
 import ProfileClient from '../../../../utils/enums/ProfileClient';
 import ProfileResponseDto from '../../../../utils/types/ProfileResponseDto';
 import { toast } from 'react-toastify';
-import enterpriseQueryKeys from '../../../../utils/constants/queryKeys/enterprise';
+import { enterprises } from '../../../../utils/constants/queryKeys/enterprise';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -190,7 +190,7 @@ export default function CreateContactModalComponentStepOneComponent({
         expert: expert === 'yes',
       }),
     onSuccess: (data) => {
-      queryClient.invalidateQueries({ queryKey: enterpriseQueryKeys.all });
+      queryClient.invalidateQueries({ queryKey: enterprises._def });
       toast.success('Contact créé avec succès.');
       onAfterCreation(data);
     },

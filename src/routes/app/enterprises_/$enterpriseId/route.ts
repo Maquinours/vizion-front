@@ -1,19 +1,12 @@
 import { createFileRoute } from '@tanstack/react-router';
-import enterpriseQueryKeys from '../../../../utils/constants/queryKeys/enterprise';
-import { getEnterpriseById } from '../../../../utils/api/enterprise';
 import { z } from 'zod';
-import { allBusinessQueryKeys } from '../../../../utils/constants/queryKeys/allBusiness';
-import { getAllBusinessPageByEnterpriseId } from '../../../../utils/api/allBusiness';
-import { profileQueryKeys } from '../../../../utils/constants/queryKeys/profile';
-import { getProfilesPageByEnterpriseId, getProfilesPageByEnterpriseIdAndSearch } from '../../../../utils/api/profile';
-import { lifesheetQueryKeys } from '../../../../utils/constants/queryKeys/lifesheet';
-import { LifesheetAssociatedItem } from '../../../../utils/enums/LifesheetAssociatedItem';
-import { getLifesheetPageByEnterpriseId } from '../../../../utils/api/lifesheet';
-import { taskQueryKeys } from '../../../../utils/constants/queryKeys/task';
-import { getTasksPageByEnterpriseId } from '../../../../utils/api/task';
-import { gedQueryKeys } from '../../../../utils/constants/queryKeys/ged';
+import { queries } from '../../../../utils/constants/queryKeys';
+import { allBusinesses } from '../../../../utils/constants/queryKeys/allBusiness';
+import { enterprises } from '../../../../utils/constants/queryKeys/enterprise';
+import { geds } from '../../../../utils/constants/queryKeys/ged';
+import { lifesheets } from '../../../../utils/constants/queryKeys/lifesheet';
 import FileType from '../../../../utils/enums/FileType';
-import { getDirectoryByTypeAndIdOnS3 } from '../../../../utils/api/ged';
+import { LifesheetAssociatedItem } from '../../../../utils/enums/LifesheetAssociatedItem';
 import { WorkloadAssociatedItem } from '../../../../utils/enums/WorkloadAssociatedItem';
 
 const searchSchema = z.object({
@@ -38,32 +31,20 @@ export const Route = createFileRoute('/app/enterprises/$enterpriseId')({
     const workloadsSize = 100;
     const workloadsPage = 0;
 
-    queryClient.ensureQueryData({
-      queryKey: enterpriseQueryKeys.detailById(enterpriseId),
-      queryFn: () => getEnterpriseById(enterpriseId),
-    });
-    queryClient.ensureQueryData({
-      queryKey: allBusinessQueryKeys.pageByEnterpriseId(enterpriseId, allBusinessPage, allBusinessSize),
-      queryFn: () => getAllBusinessPageByEnterpriseId(enterpriseId, allBusinessPage, allBusinessSize),
-    });
-    queryClient.ensureQueryData({
-      queryKey: profileQueryKeys.pageByEnterpriseIdAndSearch(enterpriseId, contactsSearch, contactsPage, contactsSize),
-      queryFn: () =>
-        contactsSearch
-          ? getProfilesPageByEnterpriseIdAndSearch(enterpriseId, contactsSearch, contactsPage, 5)
-          : getProfilesPageByEnterpriseId(enterpriseId, contactsPage, 5),
-    });
-    queryClient.ensureQueryData({
-      queryKey: lifesheetQueryKeys.pageByAssociatedItemAndId(LifesheetAssociatedItem.ENTERPRISE, enterpriseId, lifesheetPage, lifesheetSize),
-      queryFn: () => getLifesheetPageByEnterpriseId(enterpriseId, lifesheetPage, lifesheetSize),
-    });
-    queryClient.ensureQueryData({
-      queryKey: taskQueryKeys.pageByAssociatedItemAndId(WorkloadAssociatedItem.ENTERPRISE, enterpriseId, workloadsPage, workloadsSize),
-      queryFn: () => getTasksPageByEnterpriseId(enterpriseId, workloadsPage, workloadsSize),
-    });
-    queryClient.ensureQueryData({
-      queryKey: gedQueryKeys.detailByTypeAndId(FileType.CONTACT, enterpriseId),
-      queryFn: () => getDirectoryByTypeAndIdOnS3(FileType.CONTACT, enterpriseId),
-    });
+    queryClient.ensureQueryData(enterprises.detail(enterpriseId));
+    queryClient.ensureQueryData(allBusinesses.page({ enterpriseId, page: allBusinessPage, size: allBusinessSize }));
+    queryClient.prefetchQuery(queries.profiles.page._ctx.byEnterpriseIdAndSearch(enterpriseId, contactsSearch, { page: contactsPage, size: contactsSize }));
+    queryClient.prefetchQuery(
+      lifesheets
+        .page({ page: lifesheetPage, size: lifesheetSize })
+        ._ctx.byAssociatedItem({ associatedItemType: LifesheetAssociatedItem.ENTERPRISE, associatedItemId: enterpriseId }),
+    );
+    queryClient.prefetchQuery(
+      queries.tasks.page._ctx.byAssociatedItem(
+        { associatedItemType: WorkloadAssociatedItem.ENTERPRISE, associatedItemId: enterpriseId },
+        { page: workloadsPage, size: workloadsSize },
+      ),
+    );
+    queryClient.ensureQueryData(geds.detail._ctx.byTypeAndId(FileType.CONTACT, enterpriseId));
   },
 });

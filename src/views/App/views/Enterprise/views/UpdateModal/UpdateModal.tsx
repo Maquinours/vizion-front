@@ -10,12 +10,9 @@ import { useMutation, useQuery, useQueryClient, useSuspenseQuery } from '@tansta
 import { getRouteApi, useNavigate } from '@tanstack/react-router';
 import { toast } from 'react-toastify';
 import countries from '../../../../../../utils/constants/countries';
-import enterpriseQueryKeys from '../../../../../../utils/constants/queryKeys/enterprise';
-import { getEnterpriseById, updateEnterprise } from '../../../../../../utils/api/enterprise';
-import { departmentQueryKeys } from '../../../../../../utils/constants/queryKeys/department';
-import { getAllDepartments } from '../../../../../../utils/api/department';
-import EnterpriseResponseDto from '../../../../../../utils/types/EnterpriseResponseDto';
-import Page from '../../../../../../utils/types/Page';
+import { enterprises } from '../../../../../../utils/constants/queryKeys/enterprise';
+import { updateEnterprise } from '../../../../../../utils/api/enterprise';
+import { departments } from '../../../../../../utils/constants/queryKeys/department';
 
 const zipCodeRegex = /([A-Z0-9]){5}/;
 const yupSchema = object({
@@ -54,15 +51,9 @@ export default function AppViewEnterpriseViewUpdateModalView() {
 
   const { enterpriseId } = Route.useParams();
 
-  const { data: enterprise } = useSuspenseQuery({
-    queryKey: enterpriseQueryKeys.detailById(enterpriseId),
-    queryFn: () => getEnterpriseById(enterpriseId),
-  });
+  const { data: enterprise } = useSuspenseQuery(enterprises.detail(enterpriseId));
 
-  const { data: departments } = useQuery({
-    queryKey: departmentQueryKeys.listAll(),
-    queryFn: getAllDepartments,
-  });
+  const { data: departmentsList } = useQuery(departments.list);
 
   const {
     register,
@@ -90,7 +81,7 @@ export default function AppViewEnterpriseViewUpdateModalView() {
 
   const { mutate, isPending } = useMutation({
     mutationFn: (data: InferType<typeof yupSchema>) => {
-      const department = departments?.find((item) => item.code === data.zipCode.slice(0, 2) || item.code === data.zipCode.slice(0, 3));
+      const department = departmentsList?.find((item) => item.code === data.zipCode.slice(0, 2) || item.code === data.zipCode.slice(0, 3));
       return updateEnterprise(enterprise, {
         name: data.name,
         sign: data.sign,
@@ -106,19 +97,8 @@ export default function AppViewEnterpriseViewUpdateModalView() {
         phoneNumber: data.phoneNumber,
       });
     },
-    onSuccess: (enterprise) => {
-      queryClient.setQueriesData<EnterpriseResponseDto>({ queryKey: enterpriseQueryKeys.details() }, (old) => (old?.id === enterprise.id ? enterprise : old));
-      queryClient.setQueriesData<Array<EnterpriseResponseDto>>({ queryKey: enterpriseQueryKeys.lists() }, (old) =>
-        old?.map((item) => (item.id === enterprise.id ? enterprise : item)),
-      );
-      queryClient.setQueriesData<Page<EnterpriseResponseDto>>({ queryKey: enterpriseQueryKeys.pages() }, (old) =>
-        old
-          ? {
-              ...old,
-              content: old.content?.map((item) => (item.id === enterprise.id ? enterprise : item)),
-            }
-          : old,
-      );
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: enterprises._def });
       toast.success('Entreprise modifiée avec succès');
       onClose();
     },

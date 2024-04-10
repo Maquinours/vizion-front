@@ -8,12 +8,10 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useEffect } from 'react';
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import enterpriseQueryKeys from '../../../../../../utils/constants/queryKeys/enterprise';
-import { getEnterpriseById, updateEnterprise } from '../../../../../../utils/api/enterprise';
+import { enterprises } from '../../../../../../utils/constants/queryKeys/enterprise';
+import { updateEnterprise } from '../../../../../../utils/api/enterprise';
 import { PulseLoader } from 'react-spinners';
 import styles from './UpdateCategoryModal.module.scss';
-import EnterpriseResponseDto from '../../../../../../utils/types/EnterpriseResponseDto';
-import Page from '../../../../../../utils/types/Page';
 import { toast } from 'react-toastify';
 
 const Route = getRouteApi('/app/enterprises/$enterpriseId/update-category');
@@ -37,10 +35,7 @@ export default function AppViewEnterpriseViewUpdateCategoryModalView() {
 
   const { enterpriseId } = Route.useParams();
 
-  const { data: enterprise } = useSuspenseQuery({
-    queryKey: enterpriseQueryKeys.detailById(enterpriseId),
-    queryFn: () => getEnterpriseById(enterpriseId),
-  });
+  const { data: enterprise } = useSuspenseQuery(enterprises.detail(enterpriseId));
 
   const {
     control,
@@ -71,14 +66,8 @@ export default function AppViewEnterpriseViewUpdateCategoryModalView() {
         email: enterprise.email,
         phoneNumber: enterprise.phoneNumber,
       }),
-    onSuccess: (data) => {
-      queryClient.setQueriesData<EnterpriseResponseDto>({ queryKey: enterpriseQueryKeys.details() }, (old) => (old?.id === data.id ? data : old));
-      queryClient.setQueriesData<Array<EnterpriseResponseDto>>({ queryKey: enterpriseQueryKeys.lists() }, (old) =>
-        old?.map((e) => (e.id === data.id ? data : e)),
-      );
-      queryClient.setQueriesData<Page<EnterpriseResponseDto>>({ queryKey: enterpriseQueryKeys.pages() }, (old) =>
-        old ? { ...old, content: old.content.map((e) => (e.id === data.id ? data : e)) } : old,
-      );
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: enterprises._def });
       toast.success('La catégorie a été modifiée avec succès.');
     },
     onError: (error) => {

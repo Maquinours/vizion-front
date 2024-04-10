@@ -1,14 +1,12 @@
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import ReactModal from 'react-modal';
-import { productSpecificationQueryKeys } from '../../../../../../../../utils/constants/queryKeys/productSpecification';
-import { deleteProductSpecification, getProductSpecificationById } from '../../../../../../../../utils/api/productSpecification';
-import { productQueryKeys } from '../../../../../../../../utils/constants/queryKeys/product';
-import { getProductById } from '../../../../../../../../utils/api/product';
-import { toast } from 'react-toastify';
 import React from 'react';
-import styles from './DeleteSpecificationModal.module.scss';
+import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
+import { toast } from 'react-toastify';
+import { deleteProductSpecification } from '../../../../../../../../utils/api/productSpecification';
+import { queries } from '../../../../../../../../utils/constants/queryKeys';
+import styles from './DeleteSpecificationModal.module.scss';
 
 const routeApi = getRouteApi('/app/products/$productId/manage/delete-specification/$specificationId');
 
@@ -18,15 +16,9 @@ export default function AppViewProductViewManageViewDeleteSpecificationModalView
 
   const { productId, specificationId } = routeApi.useParams();
 
-  const { data: product } = useSuspenseQuery({
-    queryKey: productQueryKeys.detailById(productId),
-    queryFn: () => getProductById(productId),
-  });
+  const { data: product } = useSuspenseQuery(queries.product.detail(productId));
 
-  const { data: productSpec } = useSuspenseQuery({
-    queryKey: productSpecificationQueryKeys.detailById(productId, specificationId),
-    queryFn: () => getProductSpecificationById(productId, specificationId),
-  });
+  const { data: productSpec } = useSuspenseQuery(queries.product.detail(productId)._ctx.specifications._ctx.detail(specificationId));
 
   const onClose = () => {
     navigate({ from: routeApi.id, to: '../..', search: (old) => old });
@@ -35,8 +27,7 @@ export default function AppViewProductViewManageViewDeleteSpecificationModalView
   const { mutate, isPending } = useMutation({
     mutationFn: () => deleteProductSpecification(productId, specificationId),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: productSpecificationQueryKeys.all });
-      queryClient.invalidateQueries({ queryKey: productQueryKeys.all });
+      queryClient.invalidateQueries({ queryKey: queries.product._def });
       toast.success('La spécification a été supprimée avec succès.');
       onClose();
     },

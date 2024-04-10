@@ -1,29 +1,25 @@
-import ReactModal from 'react-modal';
-import * as yup from 'yup';
-import AllBusinessResponseDto from '../../../../../../utils/types/AllBusinessResponseDto';
-import ProductResponseDto from '../../../../../../utils/types/ProductResponseDto';
-import EnterpriseResponseDto from '../../../../../../utils/types/EnterpriseResponseDto';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import { useMutation, useQuery, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { taskQueryKeys } from '../../../../../../utils/constants/queryKeys/task';
-import WorkloadType from '../../../../../../utils/enums/WorkloadType';
-import { getTaskById, updateTask } from '../../../../../../utils/api/task';
-import TaskRequestDto from '../../../../../../utils/types/TaskRequestDto';
-import CategoryBusiness from '../../../../../../utils/enums/CategoryBusiness';
-import Page from '../../../../../../utils/types/Page';
-import TaskResponseDto from '../../../../../../utils/types/TaskResponseDto';
-import { toast } from 'react-toastify';
-import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import styles from './LinkPersonalTaskModal.module.scss';
-import { allBusinessQueryKeys } from '../../../../../../utils/constants/queryKeys/allBusiness';
-import { getAllBusinesses } from '../../../../../../utils/api/allBusiness';
-import { getEnterprises } from '../../../../../../utils/api/enterprise';
-import { getProducts } from '../../../../../../utils/api/product';
-import CustomSelect from '../../../../../../components/CustomSelect/CustomSelect';
+import { useMutation, useQuery, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
+import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { Controller, useForm } from 'react-hook-form';
+import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
-import enterpriseQueryKeys from '../../../../../../utils/constants/queryKeys/enterprise';
-import { productQueryKeys } from '../../../../../../utils/constants/queryKeys/product';
+import { toast } from 'react-toastify';
+import * as yup from 'yup';
+import CustomSelect from '../../../../../../components/CustomSelect/CustomSelect';
+import { updateTask } from '../../../../../../utils/api/task';
+import { queries } from '../../../../../../utils/constants/queryKeys';
+import { allBusinesses } from '../../../../../../utils/constants/queryKeys/allBusiness';
+import { enterprises } from '../../../../../../utils/constants/queryKeys/enterprise';
+import CategoryBusiness from '../../../../../../utils/enums/CategoryBusiness';
+import WorkloadType from '../../../../../../utils/enums/WorkloadType';
+import AllBusinessResponseDto from '../../../../../../utils/types/AllBusinessResponseDto';
+import EnterpriseResponseDto from '../../../../../../utils/types/EnterpriseResponseDto';
+import Page from '../../../../../../utils/types/Page';
+import ProductResponseDto from '../../../../../../utils/types/ProductResponseDto';
+import TaskRequestDto from '../../../../../../utils/types/TaskRequestDto';
+import TaskResponseDto from '../../../../../../utils/types/TaskResponseDto';
+import styles from './LinkPersonalTaskModal.module.scss';
 
 enum LinkType {
   BUSINESS,
@@ -58,14 +54,11 @@ export default function AppViewDashboardViewLinkPersonalTaskModalView() {
 
   const { taskId } = Route.useParams();
 
-  const { data: task } = useSuspenseQuery({
-    queryKey: taskQueryKeys.detailById(taskId),
-    queryFn: () => getTaskById(taskId),
-  });
+  const { data: task } = useSuspenseQuery(queries.tasks.detail(taskId));
 
-  const { data: enterprises, isLoading: isLoadingEnterprises } = useQuery({ queryKey: enterpriseQueryKeys.listAll(), queryFn: getEnterprises });
-  const { data: businesses, isLoading: isLoadingBusiness } = useQuery({ queryKey: allBusinessQueryKeys.listAll(), queryFn: getAllBusinesses });
-  const { data: products, isLoading: isLoadingProducts } = useQuery({ queryKey: productQueryKeys.listAll(), queryFn: getProducts });
+  const { data: enterprisesList, isLoading: isLoadingEnterprises } = useQuery(enterprises.list);
+  const { data: businesses, isLoading: isLoadingBusiness } = useQuery(allBusinesses.list);
+  const { data: products, isLoading: isLoadingProducts } = useQuery(queries.product.list);
 
   const { register, control, watch, handleSubmit } = useForm({
     resolver: yupResolver(yupSchema),
@@ -104,7 +97,7 @@ export default function AppViewDashboardViewLinkPersonalTaskModalView() {
       return updateTask(task.id, task.profileId!, task.state!, content);
     },
     onSuccess: (task) => {
-      queryClient.setQueriesData<Page<TaskResponseDto>>({ queryKey: taskQueryKeys.pages() }, (old) =>
+      queryClient.setQueriesData<Page<TaskResponseDto>>({ queryKey: queries.tasks.page.queryKey }, (old) =>
         old
           ? {
               ...old,
@@ -112,10 +105,10 @@ export default function AppViewDashboardViewLinkPersonalTaskModalView() {
             }
           : old,
       );
-      queryClient.setQueriesData<Array<TaskResponseDto>>({ queryKey: taskQueryKeys.lists() }, (old) =>
+      queryClient.setQueriesData<Array<TaskResponseDto>>({ queryKey: queries.tasks.list.queryKey }, (old) =>
         old ? old.map((t) => (t.id === task.id ? task : t)) : old,
       );
-      queryClient.setQueriesData<TaskResponseDto>({ queryKey: taskQueryKeys.details() }, (old) => (old?.id === task.id ? task : old));
+      queryClient.setQueriesData<TaskResponseDto>({ queryKey: queries.tasks.detail._def }, (old) => (old?.id === task.id ? task : old));
       toast.success('Tâche liée avec succès');
       onClose();
     },
@@ -169,7 +162,7 @@ export default function AppViewDashboardViewLinkPersonalTaskModalView() {
             render={({ field: { value, onChange, onBlur } }) => (
               <CustomSelect
                 placeholder="Sélectionnez une entreprise"
-                options={enterprises}
+                options={enterprisesList}
                 isLoading={isLoadingEnterprises}
                 value={value}
                 onChange={onChange}

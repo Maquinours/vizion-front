@@ -1,10 +1,10 @@
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import { getRouteApi, useNavigate } from '@tanstack/react-router';
 import ReactModal from 'react-modal';
-import { productQueryKeys } from '../../../../../../../../utils/constants/queryKeys/product';
-import { getProductById, removeAssociatedProduct } from '../../../../../../../../utils/api/product';
 import { PulseLoader } from 'react-spinners';
 import { toast } from 'react-toastify';
+import { removeAssociatedProduct } from '../../../../../../../../utils/api/product';
+import { queries } from '../../../../../../../../utils/constants/queryKeys';
 import styles from './RemoveAssociatedProductModal.module.scss';
 
 const routeApi = getRouteApi('/app/products/$productId/manage/remove-associated-product/$associatedProductId');
@@ -15,10 +15,7 @@ export default function AppViewProductViewManageViewRemoveAssociatedProductModal
 
   const { productId, associatedProductId } = routeApi.useParams();
 
-  const { data: associatedProduct } = useSuspenseQuery({
-    queryKey: productQueryKeys.detailById(associatedProductId),
-    queryFn: () => getProductById(associatedProductId),
-  });
+  const { data: associatedProduct } = useSuspenseQuery(queries.product.detail(associatedProductId));
 
   const onClose = () => {
     navigate({ from: routeApi.id, to: '../..', search: (old) => old });
@@ -27,7 +24,7 @@ export default function AppViewProductViewManageViewRemoveAssociatedProductModal
   const { mutate, isPending } = useMutation({
     mutationFn: () => removeAssociatedProduct(productId, associatedProduct.id),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: productQueryKeys.all });
+      queryClient.invalidateQueries({ queryKey: queries.product._def });
       toast.success('Produit associé supprimé avec succès');
       onClose();
     },

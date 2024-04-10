@@ -1,16 +1,16 @@
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { Controller, useForm } from 'react-hook-form';
 import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
-import Quill from '../../../../../../components/Quill/Quill';
-import * as yup from 'yup';
-import { Controller, useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import { createProgressiveInfo } from './utils/api/progressiveInfo';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import ProgressiveInfoResponseDto from '../../../../../../utils/types/ProgressiveInfoResponseDto';
-import { progressiveInfoQueryKeys } from '../../../../../../utils/constants/queryKeys/progressiveInfo';
 import { toast } from 'react-toastify';
+import * as yup from 'yup';
+import Quill from '../../../../../../components/Quill/Quill';
+import { queries } from '../../../../../../utils/constants/queryKeys';
+import ProgressiveInfoResponseDto from '../../../../../../utils/types/ProgressiveInfoResponseDto';
 import styles from './CreateProgressiveInfoModal.module.scss';
+import { createProgressiveInfo } from './utils/api/progressiveInfo';
 
 const Route = getRouteApi('/app/dashboard/create-progressive-info');
 
@@ -37,7 +37,7 @@ export default function AppViewDashboardViewCreateProgressiveInfoModalView() {
   const { mutate, isPending } = useMutation({
     mutationFn: ({ content }: yup.InferType<typeof yupSchema>) => createProgressiveInfo({ content }),
     onSuccess: (progressiveInfo) => {
-      queryClient.setQueriesData<Array<ProgressiveInfoResponseDto>>({ queryKey: progressiveInfoQueryKeys.lists() }, (old) =>
+      queryClient.setQueriesData<Array<ProgressiveInfoResponseDto>>({ queryKey: queries['progressive-infos'].list.queryKey }, (old) =>
         old ? [progressiveInfo, ...old] : old,
       );
       toast.success(`Commentaire du fil de l'eau ajouté`);

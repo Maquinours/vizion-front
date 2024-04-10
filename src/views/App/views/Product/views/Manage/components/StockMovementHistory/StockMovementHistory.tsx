@@ -1,17 +1,16 @@
-import CardComponent from '../../../../../../../../components/Card/Card';
-import styles from './StockMovementHistory.module.scss';
 import { useQuery } from '@tanstack/react-query';
-import { productStockEntryQueryKeys } from '../../../../../../../../utils/constants/queryKeys/productStockEntry';
 import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import { getProductStockEntriesPageByProductId } from '../../../../../../../../utils/api/productStockEntry';
-import React from 'react';
 import { createColumnHelper } from '@tanstack/react-table';
+import React from 'react';
 import AmountFormat from '../../../../../../../../components/AmountFormat/AmountFormat';
-import TableComponent from '../../../../../../../../components/Table/Table';
+import CardComponent from '../../../../../../../../components/Card/Card';
 import PaginationComponent from '../../../../../../../../components/Pagination/Pagination';
 import RefreshButtonComponent from '../../../../../../../../components/RefreshButton/RefreshButton';
-import ProductStockEntryResponseDto from '../../../../../../../../utils/types/ProductStockEntryResponseDto';
+import TableComponent from '../../../../../../../../components/Table/Table';
+import { queries } from '../../../../../../../../utils/constants/queryKeys';
 import { formatDateAndHourWithSlash } from '../../../../../../../../utils/functions/dates';
+import ProductStockEntryResponseDto from '../../../../../../../../utils/types/ProductStockEntryResponseDto';
+import styles from './StockMovementHistory.module.scss';
 
 const routeApi = getRouteApi('/app/products/$productId/manage');
 
@@ -55,10 +54,7 @@ export default function AppViewProductViewManageViewStockMovementHistoryComponen
   const { productId } = routeApi.useParams();
   const { stockEntriesPage: page, stockEntriesSize: size } = routeApi.useSearch();
 
-  const { data, isLoading, refetch, isRefetching } = useQuery({
-    queryKey: productStockEntryQueryKeys.pageByProductId(productId, page, size),
-    queryFn: () => getProductStockEntriesPageByProductId(productId, page, size),
-  });
+  const { data, isLoading, refetch, isRefetching } = useQuery(queries.product.detail(productId)._ctx.stockEntries._ctx.page({ page, size }));
 
   const onSizeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     navigate({

@@ -1,11 +1,11 @@
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import React from 'react';
 import ReactModal from 'react-modal';
-import { faqQueryKeys } from '../../../../../../utils/constants/queryKeys/faq';
-import { deleteFaq, getFaqById } from '../../../../../../utils/api/faq';
 import { PulseLoader } from 'react-spinners';
 import { toast } from 'react-toastify';
-import React from 'react';
+import { deleteFaq } from '../../../../../../utils/api/faq';
+import { faqs } from '../../../../../../utils/constants/queryKeys/faq';
 import styles from './DeleteModal.module.scss';
 
 const routeApi = getRouteApi('/app/faq/delete/$faqId');
@@ -16,10 +16,7 @@ export default function AppViewFaqViewDeleteModalView() {
 
   const { faqId } = routeApi.useParams();
 
-  const { data: faq } = useSuspenseQuery({
-    queryKey: faqQueryKeys.detailById(faqId),
-    queryFn: () => getFaqById(faqId),
-  });
+  const { data: faq } = useSuspenseQuery(faqs.detail._ctx.byId(faqId));
 
   const onClose = () => {
     navigate({ from: routeApi.id, to: '../..', search: (old) => old });
@@ -28,8 +25,8 @@ export default function AppViewFaqViewDeleteModalView() {
   const { mutate, isPending } = useMutation({
     mutationFn: () => deleteFaq(faq.id),
     onSuccess: () => {
-      queryClient.removeQueries({ queryKey: faqQueryKeys.detailById(faqId) });
-      queryClient.invalidateQueries({ queryKey: faqQueryKeys.all });
+      queryClient.removeQueries({ queryKey: faqs.detail._ctx.byId(faqId).queryKey });
+      queryClient.invalidateQueries({ queryKey: faqs._def });
       toast.success('La FAQ a été supprimée avec succès.');
       onClose();
     },

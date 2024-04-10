@@ -1,15 +1,15 @@
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import ReactModal from 'react-modal';
-import * as yup from 'yup';
-import styles from './CreateGedDirectoryModal.module.scss';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { toast } from 'react-toastify';
 import { ClipLoader } from 'react-spinners';
-import { fileFolderValidationRegex } from '../../utils/functions/regex';
-import FileType from '../../utils/enums/FileType';
+import { toast } from 'react-toastify';
+import * as yup from 'yup';
 import { createDirectoryOnS3 } from '../../utils/api/ged';
-import { gedQueryKeys } from '../../utils/constants/queryKeys/ged';
+import { geds } from '../../utils/constants/queryKeys/ged';
+import FileType from '../../utils/enums/FileType';
+import { fileFolderValidationRegex } from '../../utils/functions/regex';
+import styles from './CreateGedDirectoryModal.module.scss';
 
 const yupSchema = yup.object({
   name: yup
@@ -39,7 +39,7 @@ export default function CreateGedDirectoryModalComponent({ id, type, directoryRe
   const { mutate, isPending } = useMutation({
     mutationFn: ({ name }: yup.InferType<typeof yupSchema>) => createDirectoryOnS3(type, id, `${directoryRelativePath}${name}`),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: gedQueryKeys.all });
+      queryClient.invalidateQueries({ queryKey: geds.detail._ctx.byTypeAndId(type, id).queryKey });
       onClose();
       toast.success(`Dossier créé avec succès`);
     },

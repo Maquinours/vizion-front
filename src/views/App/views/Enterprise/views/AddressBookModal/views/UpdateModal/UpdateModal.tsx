@@ -2,13 +2,11 @@ import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-q
 import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
 import * as yup from 'yup';
-import { addressQueryKeys } from '../../../../../../../../utils/constants/queryKeys/address';
-import { getAddressById, updateAddress } from '../../../../../../../../utils/api/address';
+import { addresses } from '../../../../../../../../utils/constants/queryKeys/address';
+import { updateAddress } from '../../../../../../../../utils/api/address';
 import { useForm } from 'react-hook-form';
 import { getRouteApi, useNavigate } from '@tanstack/react-router';
 import { yupResolver } from '@hookform/resolvers/yup';
-import Page from '../../../../../../../../utils/types/Page';
-import AddressResponseDto from '../../../../../../../../utils/types/AddressResponseDto';
 import styles from './UpdateModal.module.scss';
 import { toast } from 'react-toastify';
 
@@ -38,10 +36,7 @@ export default function AppViewEnterpriseViewAddressBookModalViewUpdateModalView
 
   const { addressId } = Route.useParams();
 
-  const { data: address } = useSuspenseQuery({
-    queryKey: addressQueryKeys.detailById(addressId),
-    queryFn: () => getAddressById(addressId),
-  });
+  const { data: address } = useSuspenseQuery(addresses.detail({ id: addressId }));
 
   const {
     register,
@@ -78,11 +73,8 @@ export default function AppViewEnterpriseViewAddressBookModalViewUpdateModalView
         enterpriseId: address.enterpriseId,
         enterpriseName: data.enterpriseName,
       }),
-    onSuccess: (address) => {
-      queryClient.setQueriesData<Page<AddressResponseDto>>({ queryKey: addressQueryKeys.pages() }, (old) =>
-        old ? { ...old, content: old.content.map((a) => (a.id === address.id ? address : a)) } : old,
-      );
-      queryClient.setQueriesData<AddressResponseDto>({ queryKey: addressQueryKeys.details() }, (old) => (old?.id === address.id ? address : old));
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: addresses._def });
       onClose();
       toast.success('Adresse modifiée avec succès');
     },

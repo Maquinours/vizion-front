@@ -1,25 +1,18 @@
-import { Link, LinkProps } from '@tanstack/react-router';
-import CardComponent from '../Card/Card';
 import { useQuery } from '@tanstack/react-query';
-import { lifesheetQueryKeys } from '../../utils/constants/queryKeys/lifesheet';
-import { LifesheetAssociatedItem } from '../../utils/enums/LifesheetAssociatedItem';
-import {
-  getLifesheetPageByAssistanceId,
-  getLifesheetPageByBusinessId,
-  getLifesheetPageByEnterpriseId,
-  getLifesheetPageByProductId,
-  getLifesheetPageByRmaId,
-} from '../../utils/api/lifesheet';
-import styles from './Lifesheet.module.scss';
-import TableComponent from '../Table/Table';
-import PaginationComponent from '../Pagination/Pagination';
+import { Link, LinkProps } from '@tanstack/react-router';
 import { createColumnHelper } from '@tanstack/react-table';
-import LifeSheetResponseDto from '../../utils/types/LifeSheetResponseDto';
-import { formatDateAndHourWithSlash } from '../../utils/functions/dates';
 import classNames from 'classnames';
-import RefreshButtonComponent from '../RefreshButton/RefreshButton';
-import parse from 'html-react-parser';
 import DOMPurify from 'dompurify';
+import parse from 'html-react-parser';
+import { lifesheets } from '../../utils/constants/queryKeys/lifesheet';
+import { LifesheetAssociatedItem } from '../../utils/enums/LifesheetAssociatedItem';
+import { formatDateAndHourWithSlash } from '../../utils/functions/dates';
+import LifeSheetResponseDto from '../../utils/types/LifeSheetResponseDto';
+import CardComponent from '../Card/Card';
+import PaginationComponent from '../Pagination/Pagination';
+import RefreshButtonComponent from '../RefreshButton/RefreshButton';
+import TableComponent from '../Table/Table';
+import styles from './Lifesheet.module.scss';
 
 const size = 5;
 
@@ -48,23 +41,7 @@ type LifesheetComponentProps = Readonly<{
   pageLink: (page: number) => LinkProps;
 }>;
 export default function LifesheetComponent({ associatedItemType, associatedItemId, page, createLink, pageLink }: LifesheetComponentProps) {
-  const { data, isLoading, refetch, isRefetching } = useQuery({
-    queryKey: lifesheetQueryKeys.pageByAssociatedItemAndId(associatedItemType, associatedItemId, page, size),
-    queryFn: () => {
-      switch (associatedItemType) {
-        case LifesheetAssociatedItem.PRODUCT:
-          return getLifesheetPageByProductId(associatedItemId, page, size);
-        case LifesheetAssociatedItem.ENTERPRISE:
-          return getLifesheetPageByEnterpriseId(associatedItemId, page, size);
-        case LifesheetAssociatedItem.RMA:
-          return getLifesheetPageByRmaId(associatedItemId, page, size);
-        case LifesheetAssociatedItem.ASSISTANCE:
-          return getLifesheetPageByAssistanceId(associatedItemId, page, size);
-        case LifesheetAssociatedItem.BUSINESS:
-          return getLifesheetPageByBusinessId(associatedItemId, page, size);
-      }
-    },
-  });
+  const { data, isLoading, refetch, isRefetching } = useQuery(lifesheets.page({ page, size })._ctx.byAssociatedItem({ associatedItemType, associatedItemId }));
 
   return (
     <CardComponent title="Fiche de vie">

@@ -1,12 +1,11 @@
+import { useQuery } from '@tanstack/react-query';
+import { getRouteApi, Link } from '@tanstack/react-router';
 import CardComponent from '../../../../../../../../components/Card/Card';
 import PaginationComponent from '../../../../../../../../components/Pagination/Pagination';
-import { getRouteApi, Link } from '@tanstack/react-router';
-import { useQuery } from '@tanstack/react-query';
-import { productVersionShelfStocksQueryKeys } from '../../../../../../../../utils/constants/queryKeys/productVersionShelfStock';
-import { getProductVersionShelfStocksPageByProductId } from '../../../../../../../../utils/api/productVersionShelfStock';
-import styles from './Stocks.module.scss';
-import AppViewProductViewManageViewStocksComponentTableComponent from './components/Table/Table';
 import RefreshButtonComponent from '../../../../../../../../components/RefreshButton/RefreshButton';
+import { queries } from '../../../../../../../../utils/constants/queryKeys';
+import AppViewProductViewManageViewStocksComponentTableComponent from './components/Table/Table';
+import styles from './Stocks.module.scss';
 
 const routeApi = getRouteApi('/app/products/$productId/manage');
 
@@ -16,10 +15,7 @@ export default function AppViewProductViewManageViewStocksComponent() {
   const { productId } = routeApi.useParams();
   const { stocksPage: page } = routeApi.useSearch();
 
-  const { data, isLoading, refetch, isRefetching } = useQuery({
-    queryKey: productVersionShelfStocksQueryKeys.pageByProductId(productId, page, size),
-    queryFn: () => getProductVersionShelfStocksPageByProductId(productId, page, size),
-  });
+  const { data, isLoading, refetch, isRefetching } = useQuery(queries.product.detail(productId)._ctx.versionShelfStocks._ctx.page({ page, size }));
 
   return (
     <CardComponent title="Stocks">

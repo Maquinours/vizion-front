@@ -5,8 +5,7 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 import YEARS from '../../../../../../../../utils/constants/years';
 import MONTHS from '../../../../../../../../utils/constants/months';
 import CardComponent from '../../../../../../../../components/Card/Card';
-import enterpriseQueryKeys from '../../../../../../../../utils/constants/queryKeys/enterprise';
-import { getEnterprisesByCategory } from '../../../../../../../../utils/api/enterprises';
+import { enterprises } from '../../../../../../../../utils/constants/queryKeys/enterprise';
 import CategoryClient from '../../../../../../../../utils/enums/CategoryClient';
 import { getAvailableMonthsForYear } from '../../../../../../../../utils/functions/moment';
 
@@ -17,10 +16,7 @@ export default function RepresentativesTurnoverViewSearchSectionComponent() {
 
   const { representativeId, year, month } = Route.useSearch();
 
-  const { data: representatives } = useSuspenseQuery({
-    queryKey: enterpriseQueryKeys.listByCategory(CategoryClient.REPRESENTANT),
-    queryFn: () => getEnterprisesByCategory(CategoryClient.REPRESENTANT),
-  });
+  const { data: representatives } = useSuspenseQuery(enterprises.list._ctx.byCategory(CategoryClient.REPRESENTANT));
 
   return (
     <div className={styles.research_container}>

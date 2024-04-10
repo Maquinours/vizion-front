@@ -1,18 +1,18 @@
-import ReactModal from 'react-modal';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import styles from './CreateModal.module.scss';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import FaqAccessLevel from '../../../../../../utils/enums/FaqAccessLevel';
-import * as yup from 'yup';
-import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { createFaq } from '../../../../../../utils/api/faq';
-import { faqQueryKeys } from '../../../../../../utils/constants/queryKeys/faq';
-import Quill from '../../../../../../components/Quill/Quill';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { Controller, useForm } from 'react-hook-form';
+import ReactModal from 'react-modal';
 import { ReactMultiEmail } from 'react-multi-email';
+import 'react-multi-email/dist/style.css';
 import { PulseLoader } from 'react-spinners';
 import { toast } from 'react-toastify';
-import 'react-multi-email/dist/style.css';
+import * as yup from 'yup';
+import Quill from '../../../../../../components/Quill/Quill';
+import { createFaq } from '../../../../../../utils/api/faq';
+import { faqs } from '../../../../../../utils/constants/queryKeys/faq';
+import FaqAccessLevel from '../../../../../../utils/enums/FaqAccessLevel';
+import styles from './CreateModal.module.scss';
 
 const routeApi = getRouteApi('/app/faq/create');
 
@@ -69,7 +69,7 @@ export default function AppViewFaqViewCreateModalView() {
         faqConcernedNames: concerneds,
       }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: faqQueryKeys.all });
+      queryClient.invalidateQueries({ queryKey: faqs._def });
       toast.success('La FAQ a été créée avec succès.');
       onClose();
     },

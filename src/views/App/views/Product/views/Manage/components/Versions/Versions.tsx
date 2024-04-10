@@ -1,12 +1,11 @@
-import CardComponent from '../../../../../../../../components/Card/Card';
 import { useQuery } from '@tanstack/react-query';
-import { productVersionQueryKeys } from '../../../../../../../../utils/constants/queryKeys/productVersion';
 import { Link, getRouteApi } from '@tanstack/react-router';
-import { getProductVersionsPageByProductId } from '../../../../../../../../utils/api/productVersion';
+import CardComponent from '../../../../../../../../components/Card/Card';
 import PaginationComponent from '../../../../../../../../components/Pagination/Pagination';
-import AppViewProductViewManageViewVersionsComponentTableComponent from './components/Table/Table';
-import styles from './Versions.module.scss';
 import RefreshButtonComponent from '../../../../../../../../components/RefreshButton/RefreshButton';
+import { queries } from '../../../../../../../../utils/constants/queryKeys';
+import styles from './Versions.module.scss';
+import AppViewProductViewManageViewVersionsComponentTableComponent from './components/Table/Table';
 
 const routeApi = getRouteApi('/app/products/$productId/manage');
 
@@ -16,10 +15,7 @@ export default function AppViewProductViewManageViewVersionsComponent() {
   const { productId } = routeApi.useParams();
   const { versionsPage: page } = routeApi.useSearch();
 
-  const { data, isLoading, refetch, isRefetching } = useQuery({
-    queryKey: productVersionQueryKeys.pageByProductId(productId, page, size),
-    queryFn: () => getProductVersionsPageByProductId(productId, page, size),
-  });
+  const { data, isLoading, refetch, isRefetching } = useQuery(queries.product.detail(productId)._ctx.versions._ctx.page({ page, size }));
 
   return (
     <CardComponent title="Versions de produit">

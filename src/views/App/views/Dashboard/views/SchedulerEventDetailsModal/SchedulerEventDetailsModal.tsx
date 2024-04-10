@@ -1,10 +1,9 @@
-import ReactModal from 'react-modal';
-import styles from './SchedulerEventDetailsModal.module.scss';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
 import { useSuspenseQuery } from '@tanstack/react-query';
-import { rdvUserInfosQueryKeys } from '../../../../../../utils/constants/queryKeys/rdvUserInfo';
-import { getRdvUserInfosByRdvId } from '../../../../../../utils/api/rdvUserInfo';
+import { getRouteApi, useNavigate } from '@tanstack/react-router';
 import moment from 'moment';
+import ReactModal from 'react-modal';
+import { queries } from '../../../../../../utils/constants/queryKeys';
+import styles from './SchedulerEventDetailsModal.module.scss';
 
 const Route = getRouteApi('/app/dashboard/scheduler-event-details/$eventId');
 
@@ -14,8 +13,7 @@ export default function AppViewDashboardViewSchedulerEventDetailsModalView() {
   const { eventId } = Route.useParams();
 
   const { data: event } = useSuspenseQuery({
-    queryKey: rdvUserInfosQueryKeys.listByRdvId(eventId),
-    queryFn: () => getRdvUserInfosByRdvId(eventId),
+    ...queries['rdv-user-infos'].list._ctx.byRdvId(eventId),
     select: (data) => ({
       rdv: data.at(0)!.rdv!,
       participants: data.map((info) => ({ id: info.attributeToId, firstName: info.attributeToFirstName, lastName: info.attributeToLastName })),

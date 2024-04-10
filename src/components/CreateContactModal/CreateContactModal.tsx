@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import ProfileResponseDto from '../../utils/types/ProfileResponseDto';
 import { useSuspenseQuery } from '@tanstack/react-query';
-import enterpriseQueryKeys from '../../utils/constants/queryKeys/enterprise';
-import { getEnterpriseById } from '../../utils/api/enterprise';
+import { enterprises } from '../../utils/constants/queryKeys/enterprise';
 import CreateContactModalComponentStepOneComponent from './components/StepOne/StepOne';
 import CreateContactModalComponentStepTwoComponent from './components/StepTwo/StepTwo';
 import CreateContactModalComponentStepThreeComponent from './components/StepThree/StepThree';
@@ -16,10 +15,7 @@ export default function CreateContactModalComponent({ onClose, enterpriseId }: C
   const [step, setStep] = useState<0 | 1 | 2>(0);
   const [contact, setContact] = useState<ProfileResponseDto>();
 
-  const { data: enterprise } = useSuspenseQuery({
-    queryKey: enterpriseQueryKeys.detailById(enterpriseId),
-    queryFn: () => getEnterpriseById(enterpriseId),
-  });
+  const { data: enterprise } = useSuspenseQuery(enterprises.detail(enterpriseId));
 
   const onAfterCreation = (contact: ProfileResponseDto) => {
     setContact(contact);

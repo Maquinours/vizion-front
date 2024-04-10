@@ -1,7 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { Link, Outlet, getRouteApi } from '@tanstack/react-router';
-import { externalLinkQueryKeys } from '../../../../../../utils/constants/queryKeys/externalLink';
-import { getExternalLinksPageByArchiveState } from '../../../../../../utils/api/externalLink';
+import { externalLinks } from '../../../../../../utils/constants/queryKeys/externalLink';
 import AppViewToolsViewExternalLinksViewTableComponent from './components/Table/Table';
 import styles from './ExternalLinks.module.scss';
 import PaginationComponent from '../../../../../../components/Pagination/Pagination';
@@ -13,10 +12,7 @@ const size = 15;
 export default function AppViewToolsViewExternalLinksView() {
   const { page, archiveState } = routeApi.useSearch();
 
-  const { data, isLoading } = useQuery({
-    queryKey: externalLinkQueryKeys.pageByArchiveState(archiveState, page, size),
-    queryFn: () => getExternalLinksPageByArchiveState(archiveState, page, size),
-  });
+  const { data, isLoading } = useQuery(externalLinks.page({ page, size })._ctx.byArchiveState(archiveState));
 
   return (
     <>

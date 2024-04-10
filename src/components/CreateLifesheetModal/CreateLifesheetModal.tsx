@@ -1,35 +1,26 @@
-import { useState } from 'react';
-import ReactModal from 'react-modal';
-import styles from './CreateLifesheetModal.module.scss';
-import { RiArrowDropDownLine, RiArrowDropUpLine } from 'react-icons/ri';
-import Quill from '../Quill/Quill';
-import { PulseLoader } from 'react-spinners';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { predefinedTextQueryKeys } from '../../utils/constants/queryKeys/predefinedText';
-import { getPredefinedTexts } from '../../utils/api/predefinedText';
-import { profileQueryKeys } from '../../utils/constants/queryKeys/profile';
-import CategoryClient from '../../utils/enums/CategoryClient';
-import { getProfilesByCategory } from '../../utils/api/profile';
+import classNames from 'classnames';
+import { useState } from 'react';
+import { Controller, useForm } from 'react-hook-form';
 import { MdPerson } from 'react-icons/md';
+import { RiArrowDropDownLine, RiArrowDropUpLine } from 'react-icons/ri';
+import ReactModal from 'react-modal';
+import { PulseLoader } from 'react-spinners';
+import { toast } from 'react-toastify';
 import * as yup from 'yup';
 import { createLifesheet } from '../../utils/api/lifesheet';
-import { useAuthentifiedUserQuery } from '../../views/App/utils/functions/getAuthentifiedUser';
-import ProfileResponseDto from '../../utils/types/ProfileResponseDto';
+import { queries } from '../../utils/constants/queryKeys';
+import { businesses } from '../../utils/constants/queryKeys/business';
+import { enterprises } from '../../utils/constants/queryKeys/enterprise';
+import { lifesheets } from '../../utils/constants/queryKeys/lifesheet';
+import CategoryClient from '../../utils/enums/CategoryClient';
 import { LifesheetAssociatedItem } from '../../utils/enums/LifesheetAssociatedItem';
-import { productQueryKeys } from '../../utils/constants/queryKeys/product';
-import { getProductById } from '../../utils/api/product';
 import LifeSheetRequestDto from '../../utils/types/LifeSheetRequestDto';
-import enterpriseQueryKeys from '../../utils/constants/queryKeys/enterprise';
-import { getEnterpriseById } from '../../utils/api/enterprise';
-import { rmaQueryKeys } from '../../utils/constants/queryKeys/rma';
-import { getRmaById } from '../../utils/api/rma';
-import { businessQueryKeys } from '../../utils/constants/queryKeys/business';
-import { getBusinessById } from '../../utils/api/business';
-import { lifesheetQueryKeys } from '../../utils/constants/queryKeys/lifesheet';
-import { toast } from 'react-toastify';
-import { Controller, useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import classNames from 'classnames';
+import ProfileResponseDto from '../../utils/types/ProfileResponseDto';
+import { useAuthentifiedUserQuery } from '../../views/App/utils/functions/getAuthentifiedUser';
+import Quill from '../Quill/Quill';
+import styles from './CreateLifesheetModal.module.scss';
 
 const yupSchema = yup.object({
   description: yup.string().required('Ce champ est requis'),
@@ -49,15 +40,9 @@ export default function CreateLifesheetModalComponent({ associatedItemType, asso
 
   const { data: currentUser } = useAuthentifiedUserQuery();
 
-  const { data: predefinedTexts } = useQuery({
-    queryKey: predefinedTextQueryKeys.listAll(),
-    queryFn: getPredefinedTexts,
-  });
+  const { data: predefinedTexts } = useQuery(queries['predefined-text'].list);
 
-  const { data: vizeoMembers } = useQuery({
-    queryKey: profileQueryKeys.listByCategory(CategoryClient.VIZEO),
-    queryFn: () => getProfilesByCategory(CategoryClient.VIZEO),
-  });
+  const { data: vizeoMembers } = useQuery(queries.enterprise.list._ctx.byCategory(CategoryClient.VIZEO)._ctx.profiles._ctx.list);
 
   const {
     control,
@@ -79,34 +64,19 @@ export default function CreateLifesheetModalComponent({ associatedItemType, asso
         case LifesheetAssociatedItem.PRODUCT:
           data = {
             productId: associatedItemId,
-            productReference: (
-              await queryClient.ensureQueryData({
-                queryKey: productQueryKeys.detailById(associatedItemId),
-                queryFn: () => getProductById(associatedItemId),
-              })
-            ).reference,
+            productReference: (await queryClient.ensureQueryData(queries.product.detail(associatedItemId))).reference,
           };
           break;
         case LifesheetAssociatedItem.ENTERPRISE:
           data = {
             enterpriseId: associatedItemId,
-            enterpriseName: (
-              await queryClient.ensureQueryData({
-                queryKey: enterpriseQueryKeys.detailById(associatedItemId),
-                queryFn: () => getEnterpriseById(associatedItemId),
-              })
-            ).name,
+            enterpriseName: (await queryClient.ensureQueryData(enterprises.detail(associatedItemId))).name,
           };
           break;
         case LifesheetAssociatedItem.RMA:
           data = {
             rmaId: associatedItemId,
-            rmaNumber: (
-              await queryClient.ensureQueryData({
-                queryKey: rmaQueryKeys.detailById(associatedItemId),
-                queryFn: () => getRmaById(associatedItemId),
-              })
-            ).number,
+            rmaNumber: (await queryClient.ensureQueryData(queries.rmas.detail(associatedItemId))).number,
           };
           break;
         case LifesheetAssociatedItem.ASSISTANCE:
@@ -115,12 +85,7 @@ export default function CreateLifesheetModalComponent({ associatedItemType, asso
         case LifesheetAssociatedItem.BUSINESS:
           data = {
             businessId: associatedItemId,
-            businessNumber: (
-              await queryClient.ensureQueryData({
-                queryKey: businessQueryKeys.detailById(associatedItemId),
-                queryFn: () => getBusinessById(associatedItemId),
-              })
-            ).numBusiness,
+            businessNumber: (await queryClient.ensureQueryData(businesses.detail(associatedItemId))).numBusiness,
           };
           break;
       }
@@ -141,7 +106,7 @@ export default function CreateLifesheetModalComponent({ associatedItemType, asso
       });
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: lifesheetQueryKeys.all });
+      queryClient.invalidateQueries({ queryKey: lifesheets._def });
       toast.success('Commentaire de fiche de vie créée avec succès');
       onClose();
     },

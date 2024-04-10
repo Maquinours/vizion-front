@@ -3,9 +3,8 @@ import { getRouteApi, useNavigate } from '@tanstack/react-router';
 import { Controller, useForm } from 'react-hook-form';
 import ReactModal from 'react-modal';
 import * as yup from 'yup';
-import enterpriseQueryKeys from '../../../../utils/constants/queryKeys/enterprise';
+import { enterprises } from '../../../../utils/constants/queryKeys/enterprise';
 import { useAuthentifiedUserQuery } from '../../utils/functions/getAuthentifiedUser';
-import { getEnterpriseById } from '../../../../utils/api/enterprise';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { createBusiness } from '../../../../utils/api/business';
 import CategoryClient from '../../../../utils/enums/CategoryClient';
@@ -37,10 +36,7 @@ export default function AppViewCreateClientBusinessModalComponent() {
 
   const enterpriseId = currentUser.profile.enterprise!.id;
 
-  const { data: enterprise } = useSuspenseQuery({
-    queryKey: enterpriseQueryKeys.detailById(enterpriseId),
-    queryFn: () => getEnterpriseById(enterpriseId),
-  });
+  const { data: enterprise } = useSuspenseQuery(enterprises.detail(enterpriseId));
 
   const onClose = () => {
     navigate({ from: Route.id, search: (search) => ({ ...search, appModal: undefined }) });

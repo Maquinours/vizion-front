@@ -1,16 +1,14 @@
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import CategoryClient from '../../utils/enums/CategoryClient';
-import BusinessType from '../../utils/enums/BusinessType';
-import { profileQueryKeys } from '../../utils/constants/queryKeys/profile';
-import { getProfileById } from '../../utils/api/profile';
-import { createBusiness } from '../../utils/api/business';
-import { toast } from 'react-toastify';
-import { businessQueryKeys } from '../../utils/constants/queryKeys/business';
 import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
+import { toast } from 'react-toastify';
+import { createBusiness } from '../../utils/api/business';
+import { queries } from '../../utils/constants/queryKeys';
+import { businesses } from '../../utils/constants/queryKeys/business';
+import { enterprises } from '../../utils/constants/queryKeys/enterprise';
+import BusinessType from '../../utils/enums/BusinessType';
+import CategoryClient from '../../utils/enums/CategoryClient';
 import styles from './CreateBusinessModal.module.scss';
-import enterpriseQueryKeys from '../../utils/constants/queryKeys/enterprise';
-import { getEnterpriseById } from '../../utils/api/enterprise';
 
 type CreateBusinessModalComponentProps = Readonly<{
   contactId: string;
@@ -19,15 +17,9 @@ type CreateBusinessModalComponentProps = Readonly<{
 export default function CreateBusinessModalComponent({ contactId, onClose }: CreateBusinessModalComponentProps) {
   const queryClient = useQueryClient();
 
-  const { data: contact } = useSuspenseQuery({
-    queryKey: profileQueryKeys.detailById(contactId),
-    queryFn: () => getProfileById(contactId),
-  });
+  const { data: contact } = useSuspenseQuery(queries.profiles.detail(contactId));
 
-  const { data: enterprise } = useSuspenseQuery({
-    queryKey: enterpriseQueryKeys.detailById(contact.enterprise!.id),
-    queryFn: () => getEnterpriseById(contact.enterprise!.id),
-  });
+  const { data: enterprise } = useSuspenseQuery(enterprises.detail(contact.enterprise!.id));
 
   const { mutate, isPending } = useMutation({
     mutationFn: () =>
@@ -67,7 +59,7 @@ export default function CreateBusinessModalComponent({ contactId, onClose }: Cre
         billAndLock: false,
       }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: businessQueryKeys.all });
+      queryClient.invalidateQueries({ queryKey: businesses._def });
       toast.success('Affaire créée avec succès');
       // TODO: navigate to business
     },

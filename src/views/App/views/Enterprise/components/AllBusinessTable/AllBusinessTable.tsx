@@ -6,8 +6,7 @@ import AllBusinessState from '../../../../../../utils/enums/AllBusinessState';
 import CurrencyFormat from '../../../../../../components/CurrencyFormat/CurrencyFormat';
 import CategoryBusiness from '../../../../../../utils/enums/CategoryBusiness';
 import { formatDateAndHourWithSlash } from '../../../../../../utils/functions/dates';
-import { allBusinessQueryKeys } from '../../../../../../utils/constants/queryKeys/allBusiness';
-import { getAllBusinessPageByEnterpriseId } from '../../../../../../utils/api/allBusiness';
+import { allBusinesses } from '../../../../../../utils/constants/queryKeys/allBusiness';
 import CardComponent from '../../../../../../components/Card/Card';
 import PaginationComponent from '../../../../../../components/Pagination/Pagination';
 import TableComponent from '../../../../../../components/Table/Table';
@@ -101,10 +100,7 @@ export default function AppViewEnterpriseViewAllBusinessTableComponent() {
   const { enterpriseId } = Route.useParams();
   const { allBusinessPage: page } = Route.useSearch();
 
-  const { data, isLoading } = useQuery({
-    queryKey: allBusinessQueryKeys.pageByEnterpriseId(enterpriseId, page, size),
-    queryFn: () => getAllBusinessPageByEnterpriseId(enterpriseId, page, size),
-  });
+  const { data, isLoading } = useQuery(allBusinesses.page({ enterpriseId, page, size }));
 
   //   const onRowClick = (e: React.MouseEvent, row: Row<AllBusinessResponseDto>) => {
   //     if (e.metaKey || e.ctrlKey) window.open(`/app/business/${row.original.businessId}`); // TODO: reimplement this

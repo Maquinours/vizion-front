@@ -1,7 +1,10 @@
-export const allBusinessQueryKeys = {
-  all: ['all-business'] as const,
-  lists: () => [...allBusinessQueryKeys.all, 'list'] as const,
-  listAll: () => [...allBusinessQueryKeys.lists(), 'all'] as const,
-  pages: () => [...allBusinessQueryKeys.all, 'page'] as const,
-  pageByEnterpriseId: (enterpriseId: string, page: number, size: number) => [...allBusinessQueryKeys.pages(), { enterpriseId, page, size }] as const,
-};
+import { createQueryKeys } from '@lukemorales/query-key-factory';
+import { getAllBusinessPageByEnterpriseId, getAllBusinesses } from '../../api/allBusiness';
+
+export const allBusinesses = createQueryKeys('allBusiness', {
+  list: { queryKey: null, queryFn: getAllBusinesses },
+  page: ({ enterpriseId, page, size }: { enterpriseId: string; page: number; size: number }) => ({
+    queryKey: [{ enterpriseId, page, size }],
+    queryFn: () => getAllBusinessPageByEnterpriseId(enterpriseId, page, size),
+  }),
+});

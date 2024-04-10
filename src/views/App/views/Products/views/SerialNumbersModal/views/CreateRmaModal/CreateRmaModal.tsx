@@ -1,13 +1,12 @@
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
+import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import React from 'react';
 import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
-import { productSerialNumberQueryKeys } from '../../../../../../../../utils/constants/queryKeys/productSerialNumber';
-import { getProductSerialNumberById } from '../../../../../../../../utils/api/productSerialNumber';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import { createRmaFromBusiness } from '../../../../../../../../utils/api/rma';
-import CategoryBusiness from '../../../../../../../../utils/enums/CategoryBusiness';
 import { toast } from 'react-toastify';
-import React from 'react';
+import { createRmaFromBusiness } from '../../../../../../../../utils/api/rma';
+import { queries } from '../../../../../../../../utils/constants/queryKeys';
+import CategoryBusiness from '../../../../../../../../utils/enums/CategoryBusiness';
 import styles from './CreateRmaModal.module.scss';
 
 const routeApi = getRouteApi('/app/products/serial-numbers/create-rma/$serialNumberId');
@@ -18,10 +17,7 @@ export default function AppViewProductsViewSerialNumbersModalViewCreateRmaModalV
 
   const { serialNumberId } = routeApi.useParams();
 
-  const { data: serialNumber } = useSuspenseQuery({
-    queryKey: productSerialNumberQueryKeys.detailById(serialNumberId),
-    queryFn: () => getProductSerialNumberById(serialNumberId),
-  });
+  const { data: serialNumber } = useSuspenseQuery(queries['product-serial-numbers'].detail._ctx.byId(serialNumberId));
 
   const onClose = () => {
     navigate({ from: routeApi.id, to: '../..', search: (old) => old });
@@ -30,7 +26,7 @@ export default function AppViewProductsViewSerialNumbersModalViewCreateRmaModalV
   const { mutate, isPending } = useMutation({
     mutationFn: () => createRmaFromBusiness(CategoryBusiness.AFFAIRE, serialNumber.businessNumber!, [serialNumber.serialNumber!]),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: productSerialNumberQueryKeys.all });
+      queryClient.invalidateQueries({ queryKey: queries['product-serial-numbers']._def });
       toast.success('Le RMA a été généré avec succès');
       onClose();
     },

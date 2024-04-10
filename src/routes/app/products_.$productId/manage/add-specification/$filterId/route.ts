@@ -1,9 +1,8 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { productFilterQueryKeys } from '../../../../../../utils/constants/queryKeys/productFilter';
-import { getProductFilterById } from '../../../../../../utils/api/productFilter';
+import { queries } from '../../../../../../utils/constants/queryKeys';
 
 export const Route = createFileRoute('/app/products/$productId/manage/add-specification/$filterId')({
   loader: ({ context: { queryClient }, params: { filterId } }) => {
-    queryClient.ensureQueryData({ queryKey: productFilterQueryKeys.detailById(filterId), queryFn: () => getProductFilterById(filterId) });
+    queryClient.ensureQueryData(queries['product-filter'].detail._ctx.byId(filterId));
   },
 });

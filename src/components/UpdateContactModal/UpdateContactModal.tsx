@@ -1,14 +1,14 @@
-import { useMutation, useQuery, useSuspenseQuery } from '@tanstack/react-query';
-import ReactModal from 'react-modal';
-import * as yup from 'yup';
-import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import styles from './UpdateContactModal.module.scss';
+import { useMutation, useQuery, useSuspenseQuery } from '@tanstack/react-query';
+import { Controller, useForm } from 'react-hook-form';
+import ReactModal from 'react-modal';
 import PhoneInput, { formatPhoneNumber } from 'react-phone-number-input/input';
 import { PropagateLoader } from 'react-spinners';
+import * as yup from 'yup';
+import { getEmailExists, updateProfile } from '../../utils/api/profile';
+import { queries } from '../../utils/constants/queryKeys';
 import ProfileClient from '../../utils/enums/ProfileClient';
-import { profileQueryKeys } from '../../utils/constants/queryKeys/profile';
-import { getEmailExists, getProfileById, updateProfile } from '../../utils/api/profile';
+import styles from './UpdateContactModal.module.scss';
 
 const profileClientOptions = [
   { value: '', text: 'Sélectionnez un profil' },
@@ -58,10 +58,7 @@ type UpdateContactModalComponentProps = Readonly<{
 }>;
 
 export default function UpdateContactModalComponent({ contactId, onClose }: UpdateContactModalComponentProps) {
-  const { data: contact } = useSuspenseQuery({
-    queryKey: profileQueryKeys.detailById(contactId),
-    queryFn: () => getProfileById(contactId),
-  });
+  const { data: contact } = useSuspenseQuery(queries.profiles.detail(contactId));
 
   const {
     register,

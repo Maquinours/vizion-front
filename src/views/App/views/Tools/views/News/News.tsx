@@ -1,9 +1,8 @@
+import { useQuery } from '@tanstack/react-query';
 import { Link, Outlet, getRouteApi } from '@tanstack/react-router';
 import PaginationComponent from '../../../../../../components/Pagination/Pagination';
+import { news } from '../../../../../../utils/constants/queryKeys/news';
 import styles from './News.module.scss';
-import { useQuery } from '@tanstack/react-query';
-import { newsQueryKeys } from '../../../../../../utils/constants/queryKeys/news';
-import { getNewsPage } from '../../../../../../utils/api/news';
 import AppViewToolsViewNewsViewTableComponent from './components/Table/Table';
 
 const routeApi = getRouteApi('/app/tools/news');
@@ -13,10 +12,7 @@ const size = 15;
 export default function AppViewToolsViewNewsView() {
   const { page } = routeApi.useSearch();
 
-  const { data, isLoading } = useQuery({
-    queryKey: newsQueryKeys.page(page, size),
-    queryFn: () => getNewsPage(page, size),
-  });
+  const { data, isLoading } = useQuery(news.page({ page, size }));
 
   return (
     <>

@@ -1,18 +1,16 @@
-import { createColumnHelper } from '@tanstack/react-table';
-import { WorkloadAssociatedItem } from '../../utils/enums/WorkloadAssociatedItem';
-import TaskResponseDto from '../../utils/types/TaskResponseDto';
-import { formatDate } from '../../utils/functions/dates';
-import { LinkProps } from '@tanstack/react-router';
-import { useMemo } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { taskQueryKeys } from '../../utils/constants/queryKeys/task';
-import { getTasksPageByEnterpriseId, getTasksPageByProductId } from '../../utils/api/task';
-import { Link } from '@tanstack/react-router';
+import { Link, LinkProps } from '@tanstack/react-router';
+import { createColumnHelper } from '@tanstack/react-table';
+import DOMPurify from 'dompurify';
+import parse from 'html-react-parser';
+import { useMemo } from 'react';
+import { queries } from '../../utils/constants/queryKeys';
+import { WorkloadAssociatedItem } from '../../utils/enums/WorkloadAssociatedItem';
+import { formatDate } from '../../utils/functions/dates';
+import TaskResponseDto from '../../utils/types/TaskResponseDto';
 import CardComponent from '../Card/Card';
 import TableComponent from '../Table/Table';
 import styles from './Workloads.module.scss';
-import parse from 'html-react-parser';
-import DOMPurify from 'dompurify';
 
 const columnHelper = createColumnHelper<TaskResponseDto>();
 
@@ -25,17 +23,7 @@ type WorkloadsComponentProps = Readonly<{
   emailLink: (data: TaskResponseDto) => LinkProps;
 }>;
 export default function WorkloadsComponent({ associatedItemType, associatedItemId, emailLink }: WorkloadsComponentProps) {
-  const { data, refetch, isRefetching } = useQuery({
-    queryKey: taskQueryKeys.pageByAssociatedItemAndId(associatedItemType, associatedItemId, page, size),
-    queryFn: () => {
-      switch (associatedItemType) {
-        case WorkloadAssociatedItem.ENTERPRISE:
-          return getTasksPageByEnterpriseId(associatedItemId, page, size);
-        case WorkloadAssociatedItem.PRODUCT:
-          return getTasksPageByProductId(associatedItemId, page, size);
-      }
-    },
-  });
+  const { data, refetch, isRefetching } = useQuery(queries.tasks.page._ctx.byAssociatedItem({ associatedItemType, associatedItemId }, { page, size }));
 
   const columns = useMemo(
     () => [

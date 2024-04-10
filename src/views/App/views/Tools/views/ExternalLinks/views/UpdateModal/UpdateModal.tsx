@@ -3,8 +3,8 @@ import ReactModal from 'react-modal';
 import FaqAccessLevel from '../../../../../../../../utils/enums/FaqAccessLevel';
 import * as yup from 'yup';
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { externalLinkQueryKeys } from '../../../../../../../../utils/constants/queryKeys/externalLink';
-import { getExternalLinkById, updateExternalLink } from '../../../../../../../../utils/api/externalLink';
+import { externalLinks } from '../../../../../../../../utils/constants/queryKeys/externalLink';
+import { updateExternalLink } from '../../../../../../../../utils/api/externalLink';
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { PulseLoader } from 'react-spinners';
@@ -107,10 +107,7 @@ export default function AppViewToolsViewExternalLinksViewUpdateModalView() {
 
   const { externalLinkId } = routeApi.useParams();
 
-  const { data: externalLink } = useSuspenseQuery({
-    queryKey: externalLinkQueryKeys.detailById(externalLinkId),
-    queryFn: () => getExternalLinkById(externalLinkId),
-  });
+  const { data: externalLink } = useSuspenseQuery(externalLinks.detail._ctx.byId(externalLinkId));
 
   const {
     register,
@@ -137,7 +134,7 @@ export default function AppViewToolsViewExternalLinksViewUpdateModalView() {
     mutationFn: ({ title, description, level, url, type, targetType }: yup.InferType<typeof yupSchema>) =>
       updateExternalLink(externalLink.id, { title, description, accessLevel: level, archived: externalLink.archived, url, type, targetType }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: externalLinkQueryKeys.all });
+      queryClient.invalidateQueries({ queryKey: externalLinks._def });
       toast.success('Le lien externe a été modifié avec succès');
       onClose();
     },

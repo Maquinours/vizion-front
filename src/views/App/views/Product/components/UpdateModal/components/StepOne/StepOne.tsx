@@ -3,8 +3,7 @@ import CardComponent from '../../../../../../../../components/Card/Card';
 import ProductResponseDto from '../../../../../../../../utils/types/ProductResponseDto';
 import { UpdateProductStepOneSchema } from '../../UpdateModal';
 import { useQuery } from '@tanstack/react-query';
-import enterpriseQueryKeys from '../../../../../../../../utils/constants/queryKeys/enterprise';
-import { getProviderEnterprises } from '../../../../../../../../utils/api/enterprise';
+import { enterprises } from '../../../../../../../../utils/constants/queryKeys/enterprise';
 import styles from './StepOne.module.scss';
 
 const categoryOptions = [
@@ -79,10 +78,7 @@ export default function AppViewProductViewUpdateModalComponentStepOneComponent({
   onReset,
   onSubmit,
 }: AppViewProductViewUpdateModalComponentStepOneComponentProps) {
-  const { data: providers } = useQuery({
-    queryKey: enterpriseQueryKeys.listProviders(),
-    queryFn: getProviderEnterprises,
-  });
+  const { data: providers } = useQuery(enterprises.list._ctx.providers);
 
   return (
     <form className={styles.container} onSubmit={onSubmit} onReset={onReset}>

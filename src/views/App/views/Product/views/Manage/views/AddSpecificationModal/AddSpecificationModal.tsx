@@ -1,13 +1,12 @@
+import { useQuery } from '@tanstack/react-query';
+import { Link, Outlet, getRouteApi, useNavigate } from '@tanstack/react-router';
+import { createColumnHelper } from '@tanstack/react-table';
 import ReactModal from 'react-modal';
 import TableComponent from '../../../../../../../../components/Table/Table';
-import { createColumnHelper } from '@tanstack/react-table';
 import AdvancedProductSpecificationResponseDto from '../../../../../../../../utils/types/AdvancedProductSpecificationResponseDto';
-import { useQuery } from '@tanstack/react-query';
 import styles from './AddSpecificationModal.module.scss';
-import { Link, Outlet, getRouteApi, useNavigate } from '@tanstack/react-router';
 
-import { productFilterQueryKeys } from '../../../../../../../../utils/constants/queryKeys/productFilter';
-import { getAllProductFilters } from '../../../../../../../../utils/api/productFilter';
+import { queries } from '../../../../../../../../utils/constants/queryKeys';
 const routeApi = getRouteApi('/app/products/$productId/manage/add-specification');
 
 const columnHelper = createColumnHelper<AdvancedProductSpecificationResponseDto>();
@@ -41,10 +40,7 @@ const columns = [
 export default function AppViewProductViewManageViewAddSpecificationModalView() {
   const navigate = useNavigate();
 
-  const { data, isLoading } = useQuery({
-    queryKey: productFilterQueryKeys.listAll(),
-    queryFn: getAllProductFilters,
-  });
+  const { data, isLoading } = useQuery(queries['product-filter'].list);
 
   const onClose = () => {
     navigate({ from: routeApi.id, to: '..', search: (old) => old });

@@ -1,7 +1,6 @@
-import { createFileRoute, defer } from '@tanstack/react-router';
+import { createFileRoute } from '@tanstack/react-router';
 import { z } from 'zod';
-import { addressQueryKeys } from '../../../../../utils/constants/queryKeys/address';
-import { searchPaginatedAddressesByEnterpriseId } from '../../../../../utils/api/address';
+import { addresses } from '../../../../../utils/constants/queryKeys/address';
 
 const searchSchema = z.object({
   search: z.string().optional().catch(undefined),
@@ -12,16 +11,10 @@ export const Route = createFileRoute('/app/enterprises/$enterpriseId/address-boo
   loaderDeps: ({ search: { search, page } }) => ({
     search,
     page,
+    size: 9,
   }),
-  loader: ({ context: { queryClient }, params: { enterpriseId }, deps: { search, page } }) => {
-    const size = 9;
-    const searchValue = search ?? '';
-    const dataPromise = queryClient.ensureQueryData({
-      queryKey: addressQueryKeys.pageByEnterpriseIdWithSearch(enterpriseId, searchValue, page, size),
-      queryFn: () => searchPaginatedAddressesByEnterpriseId(enterpriseId, searchValue, page, size),
-    });
-
-    return { data: defer(dataPromise) };
+  loader: ({ context: { queryClient }, params: { enterpriseId }, deps: { search, page, size } }) => {
+    queryClient.ensureQueryData(addresses.page({ enterpriseId, search: search ?? '', page, size }));
   },
   validateSearch: searchSchema,
 });

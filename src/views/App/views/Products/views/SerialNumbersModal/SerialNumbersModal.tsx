@@ -1,12 +1,11 @@
-import ReactModal from 'react-modal';
-import AppViewProductsViewSerialNumbersModalViewSearchSectionComponent from './components/SearchSection/SearchSection';
 import { useQuery } from '@tanstack/react-query';
-import { productSerialNumberQueryKeys } from '../../../../../../utils/constants/queryKeys/productSerialNumber';
 import { Link, Outlet, getRouteApi, useNavigate } from '@tanstack/react-router';
-import { getProductSerialNumbersPage, getProductSerialNumbersPageWithSearch } from '../../../../../../utils/api/productSerialNumber';
-import AppViewProductsViewSerialNumbersModalViewTableComponent from './components/Table/Table';
+import ReactModal from 'react-modal';
 import PaginationComponent from '../../../../../../components/Pagination/Pagination';
+import { queries } from '../../../../../../utils/constants/queryKeys';
 import styles from './SerialNumbersModal.module.scss';
+import AppViewProductsViewSerialNumbersModalViewSearchSectionComponent from './components/SearchSection/SearchSection';
+import AppViewProductsViewSerialNumbersModalViewTableComponent from './components/Table/Table';
 
 const routeApi = getRouteApi('/app/products/serial-numbers');
 
@@ -17,10 +16,7 @@ export default function AppViewProductsViewSerialNumbersModalView() {
 
   const { serialNumbersSearch: search, serialNumbersPage: page } = routeApi.useSearch();
 
-  const { data, isLoading } = useQuery({
-    queryKey: productSerialNumberQueryKeys.pageWithSearch(search, page, 20),
-    queryFn: () => (search ? getProductSerialNumbersPageWithSearch(search, page, size) : getProductSerialNumbersPage(page, size)),
-  });
+  const { data, isLoading } = useQuery(queries['product-serial-numbers'].page({ page, size })._ctx.search(search));
 
   const onClose = () => {
     navigate({ from: routeApi.id, to: '..', search: (old) => ({ ...old, serialNumbersPage: undefined, serialNumbersSearch: undefined }) });

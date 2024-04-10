@@ -1,14 +1,13 @@
+import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import React from 'react';
 import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
-import { deleteProgressiveInfo } from './utils/api/progressiveInfo';
-import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { progressiveInfoQueryKeys } from '../../../../../../utils/constants/queryKeys/progressiveInfo';
-import { getProgressiveInfoById } from '../../../../../../utils/api/progressiveInfo';
 import { toast } from 'react-toastify';
+import { queries } from '../../../../../../utils/constants/queryKeys';
 import ProgressiveInfoResponseDto from '../../../../../../utils/types/ProgressiveInfoResponseDto';
 import styles from './DeleteProgressiveInfoModal.module.scss';
-import React from 'react';
+import { deleteProgressiveInfo } from './utils/api/progressiveInfo';
 
 const Route = getRouteApi('/app/dashboard/delete-progressive-info/$progressiveInfoId');
 
@@ -18,10 +17,7 @@ export default function AppViewDashboardViewDeleteProgressiveInfoModalView() {
 
   const { progressiveInfoId: id } = Route.useParams();
 
-  useSuspenseQuery({
-    queryKey: progressiveInfoQueryKeys.detailById(id),
-    queryFn: () => getProgressiveInfoById(id),
-  });
+  useSuspenseQuery(queries['progressive-infos'].detail(id));
 
   const onClose = () => {
     navigate({ from: Route.id, to: '../..', search: (old) => old });
@@ -31,12 +27,10 @@ export default function AppViewDashboardViewDeleteProgressiveInfoModalView() {
     mutationFn: () => deleteProgressiveInfo(id),
     onMutate: () => ({ id }),
     onSuccess: (_data, _params, context) => {
-      queryClient.setQueriesData<Array<ProgressiveInfoResponseDto>>({ queryKey: progressiveInfoQueryKeys.lists() }, (old) =>
-        old?.filter((item) => item.id !== id),
+      queryClient.setQueriesData<Array<ProgressiveInfoResponseDto>>({ queryKey: queries['progressive-infos'].list.queryKey }, (old) =>
+        old?.filter((item) => item.id !== context.id),
       );
-      queryClient.getQueriesData<ProgressiveInfoResponseDto>({ queryKey: progressiveInfoQueryKeys.details() }).forEach(([key, value]) => {
-        if (value?.id === context.id) queryClient.removeQueries({ queryKey: key, exact: true });
-      });
+      queryClient.removeQueries({ queryKey: queries['progressive-infos'].detail(context.id).queryKey });
       toast.success(`Commentaire du fil de l'eau supprimé`);
       onClose();
     },

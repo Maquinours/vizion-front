@@ -1,12 +1,11 @@
-import CardComponent from '../../../../../../../../components/Card/Card';
 import { useQuery } from '@tanstack/react-query';
-import { productSpecificationQueryKeys } from '../../../../../../../../utils/constants/queryKeys/productSpecification';
 import { getRouteApi, Link } from '@tanstack/react-router';
-import { getProductSpecificationsPageByProductId } from '../../../../../../../../utils/api/productSpecification';
+import CardComponent from '../../../../../../../../components/Card/Card';
 import PaginationComponent from '../../../../../../../../components/Pagination/Pagination';
+import RefreshButtonComponent from '../../../../../../../../components/RefreshButton/RefreshButton';
+import { queries } from '../../../../../../../../utils/constants/queryKeys';
 import AppViewProductViewManageViewSpecificationsComponentTableComponent from './components/Table/Table';
 import styles from './Specifications.module.scss';
-import RefreshButtonComponent from '../../../../../../../../components/RefreshButton/RefreshButton';
 
 const routeApi = getRouteApi('/app/products/$productId/manage');
 
@@ -16,10 +15,7 @@ export default function AppViewProductViewManageViewSpecificationsComponent() {
   const { productId } = routeApi.useParams();
   const { specificationsPage: page } = routeApi.useSearch();
 
-  const { data, isLoading, refetch, isRefetching } = useQuery({
-    queryKey: productSpecificationQueryKeys.pageByProductId(productId, page, size),
-    queryFn: () => getProductSpecificationsPageByProductId(productId, page, size),
-  });
+  const { data, isLoading, refetch, isRefetching } = useQuery(queries.product.detail(productId)._ctx.specifications._ctx.page({ page, size }));
 
   return (
     <CardComponent title="Caractéristiques">

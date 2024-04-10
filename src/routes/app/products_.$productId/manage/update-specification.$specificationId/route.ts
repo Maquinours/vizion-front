@@ -1,12 +1,8 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { productSpecificationQueryKeys } from '../../../../../utils/constants/queryKeys/productSpecification';
-import { getProductSpecificationById } from '../../../../../utils/api/productSpecification';
+import { queries } from '../../../../../utils/constants/queryKeys';
 
 export const Route = createFileRoute('/app/products/$productId/manage/update-specification/$specificationId')({
   loader: ({ context: { queryClient }, params: { productId, specificationId } }) => {
-    queryClient.ensureQueryData({
-      queryKey: productSpecificationQueryKeys.detailById(productId, specificationId),
-      queryFn: () => getProductSpecificationById(productId, specificationId),
-    });
+    queryClient.ensureQueryData(queries.product.detail(productId)._ctx.specifications._ctx.detail(specificationId));
   },
 });

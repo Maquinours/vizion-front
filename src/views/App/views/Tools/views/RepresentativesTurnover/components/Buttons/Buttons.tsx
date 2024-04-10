@@ -3,9 +3,8 @@ import { getExcelTurnoversByRepresentativeMonthAndYear } from './utils/api/excel
 import fileDownload from 'js-file-download';
 import styles from './Buttons.module.scss';
 import { toast } from 'react-toastify';
-import { useSuspenseQuery } from '@tanstack/react-query';
-import enterpriseQueryKeys from '../../../../../../../../utils/constants/queryKeys/enterprise';
-import { getEnterprisesByCategory } from '../../../../../../../../utils/api/enterprises';
+import { enterprises } from '../../../../../../../../utils/constants/queryKeys/enterprise';
+import { useQuery } from '@tanstack/react-query';
 import CategoryClient from '../../../../../../../../utils/enums/CategoryClient';
 
 const Route = getRouteApi('/app/tools/representatives-turnover');
@@ -13,10 +12,10 @@ const Route = getRouteApi('/app/tools/representatives-turnover');
 export default function AppViewToolsViewRepresentativesTurnoverViewButtonsComponent() {
   const { representativeId, year, month } = Route.useSearch();
 
-  const { data: representative } = useSuspenseQuery({
-    queryKey: enterpriseQueryKeys.listByCategory(CategoryClient.REPRESENTANT),
-    queryFn: () => getEnterprisesByCategory(CategoryClient.REPRESENTANT),
-    select: (data) => data.find((rep) => rep.id === representativeId),
+  const { data: representative } = useQuery({
+    ...enterprises.detail(representativeId!),
+    enabled: !!representativeId,
+    select: (data) => (data.category === CategoryClient.REPRESENTANT ? data : undefined),
   });
 
   const onExportExcel = () => {

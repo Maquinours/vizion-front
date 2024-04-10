@@ -1,10 +1,10 @@
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import { getRouteApi, useNavigate } from '@tanstack/react-router';
 import ReactModal from 'react-modal';
-import { rdvQueryKeys } from '../../../../../../../../../../utils/constants/queryKeys/rdv';
-import { deleteRdv, getRdvById } from '../../../../../../../../../../utils/api/rdv';
-import { toast } from 'react-toastify';
 import { PulseLoader } from 'react-spinners';
+import { toast } from 'react-toastify';
+import { deleteRdv } from '../../../../../../../../../../utils/api/rdv';
+import { queries } from '../../../../../../../../../../utils/constants/queryKeys';
 import styles from './DeleteModal.module.scss';
 
 const routeApi = getRouteApi('/app/tools/scheduler/details/$rdvId/delete');
@@ -15,10 +15,7 @@ export default function AppViewToolsViewSchedulerViewDetailsModalViewDeleteModal
 
   const { rdvId } = routeApi.useParams();
 
-  const { data: rdv } = useSuspenseQuery({
-    queryKey: rdvQueryKeys.detailById(rdvId),
-    queryFn: () => getRdvById(rdvId),
-  });
+  const { data: rdv } = useSuspenseQuery(queries.rdvs.detail(rdvId));
 
   const onClose = () => {
     navigate({ from: routeApi.id, to: '..', search: (old) => old });
@@ -27,7 +24,7 @@ export default function AppViewToolsViewSchedulerViewDetailsModalViewDeleteModal
   const { mutate, isPending } = useMutation({
     mutationFn: () => deleteRdv(rdvId),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: rdvQueryKeys.all });
+      queryClient.invalidateQueries({ queryKey: queries.rdvs._def });
       toast.success('Rendez-vous supprimé avec succès');
       onClose();
     },

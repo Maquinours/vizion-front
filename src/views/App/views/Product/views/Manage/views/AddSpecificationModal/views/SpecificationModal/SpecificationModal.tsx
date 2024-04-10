@@ -1,17 +1,14 @@
+import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
+import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { useForm } from 'react-hook-form';
 import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
-import * as yup from 'yup';
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import { productFilterQueryKeys } from '../../../../../../../../../../utils/constants/queryKeys/productFilter';
-import { getProductFilterById } from '../../../../../../../../../../utils/api/productFilter';
-import { productSpecificationQueryKeys } from '../../../../../../../../../../utils/constants/queryKeys/productSpecification';
-import { productQueryKeys } from '../../../../../../../../../../utils/constants/queryKeys/product';
 import { toast } from 'react-toastify';
-import styles from './SpecificationModal.module.scss';
+import * as yup from 'yup';
 import { addProductSpecificationToProduct } from '../../../../../../../../../../utils/api/productSpecification';
+import { queries } from '../../../../../../../../../../utils/constants/queryKeys';
+import styles from './SpecificationModal.module.scss';
 
 const routeApi = getRouteApi('/app/products/$productId/manage/add-specification/$filterId');
 
@@ -43,10 +40,7 @@ export default function AppViewProductViewManageViewAddSpecificationModalViewSpe
 
   const { productId, filterId } = routeApi.useParams();
 
-  const { data: filter } = useSuspenseQuery({
-    queryKey: productFilterQueryKeys.detailById(filterId),
-    queryFn: () => getProductFilterById(filterId),
-  });
+  const { data: filter } = useSuspenseQuery(queries['product-filter'].detail._ctx.byId(filterId));
 
   const {
     register,
@@ -64,8 +58,7 @@ export default function AppViewProductViewManageViewAddSpecificationModalViewSpe
     mutationFn: ({ value, minValue, maxValue }: yup.InferType<typeof yupSchema>) =>
       addProductSpecificationToProduct(productId, filter.id, value ?? null, minValue ?? null, maxValue ?? null),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: productSpecificationQueryKeys.all });
-      queryClient.invalidateQueries({ queryKey: productQueryKeys.all });
+      queryClient.invalidateQueries({ queryKey: queries.product._def });
       toast.success('La valeur a été ajoutée avec succès.');
       onClose();
     },

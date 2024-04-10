@@ -1,7 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { z } from 'zod';
-import { productQueryKeys } from '../../../utils/constants/queryKeys/product';
-import { getProductsPage, getProductsPageWithSearch } from '../../../utils/api/product';
+import { queries } from '../../../utils/constants/queryKeys';
 
 const searchSchema = z.object({
   designation: z.string().optional().catch(undefined),
@@ -13,9 +12,6 @@ export const Route = createFileRoute('/app/products')({
   validateSearch: searchSchema,
   loaderDeps: ({ search: { designation, ref, page } }) => ({ designation, ref, page, size: 20 }),
   loader: ({ context: { queryClient }, deps: { designation, ref, page, size } }) => {
-    queryClient.ensureQueryData({
-      queryKey: productQueryKeys.pageWithSearch(ref, designation, page, size),
-      queryFn: () => (ref || designation ? getProductsPageWithSearch(ref, designation, page, size) : getProductsPage(page, size)),
-    });
+    queryClient.prefetchQuery(queries.product.page({ page, size })._ctx.search({ designation, ref }));
   },
 });
