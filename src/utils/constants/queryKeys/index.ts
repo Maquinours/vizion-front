@@ -16,6 +16,7 @@ import { tasks } from './task';
 import { taskComments } from './taskComment';
 import { emails } from './email';
 import { departments } from './departments';
+import { turnovers } from './turnovers';
 
 export const queries = mergeQueryKeys(
   emails,
@@ -35,4 +36,5 @@ export const queries = mergeQueryKeys(
   rmas,
   tasks,
   taskComments,
+  turnovers,
 );

@@ -30,6 +30,7 @@ import { Route as AppToolsRepresentativesMapRouteImport } from './routes/app/too
 import { Route as AppToolsPredefinedTextsRouteImport } from './routes/app/tools/predefined-texts/route'
 import { Route as AppToolsPredefinedMessagesRouteImport } from './routes/app/tools/predefined-messages/route'
 import { Route as AppToolsNewsRouteImport } from './routes/app/tools/news/route'
+import { Route as AppToolsGlobalTurnoverRouteImport } from './routes/app/tools/global-turnover/route'
 import { Route as AppToolsExternalLinksRouteImport } from './routes/app/tools/external-links/route'
 import { Route as AppToolsEmailsRouteImport } from './routes/app/tools/emails/route'
 import { Route as AppToolsDdnsRouteImport } from './routes/app/tools/ddns/route'
@@ -389,6 +390,16 @@ const AppToolsNewsRouteRoute = AppToolsNewsRouteImport.update({
 } as any).lazy(() =>
   import('./routes/app/tools/news/route.lazy').then((d) => d.Route),
 )
+
+const AppToolsGlobalTurnoverRouteRoute =
+  AppToolsGlobalTurnoverRouteImport.update({
+    path: '/global-turnover',
+    getParentRoute: () => AppToolsRouteRoute,
+  } as any).lazy(() =>
+    import('./routes/app/tools/global-turnover/route.lazy').then(
+      (d) => d.Route,
+    ),
+  )
 
 const AppToolsExternalLinksRouteRoute = AppToolsExternalLinksRouteImport.update(
   {
@@ -1591,6 +1602,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppToolsExternalLinksRouteImport
       parentRoute: typeof AppToolsRouteImport
     }
+    '/app/tools/global-turnover': {
+      preLoaderRoute: typeof AppToolsGlobalTurnoverRouteImport
+      parentRoute: typeof AppToolsRouteImport
+    }
     '/app/tools/news': {
       preLoaderRoute: typeof AppToolsNewsRouteImport
       parentRoute: typeof AppToolsRouteImport
@@ -2124,6 +2139,7 @@ export const routeTree = rootRoute.addChildren([
         AppToolsExternalLinksDeleteExternalLinkIdRouteRoute,
         AppToolsExternalLinksUpdateExternalLinkIdRouteRoute,
       ]),
+      AppToolsGlobalTurnoverRouteRoute,
       AppToolsNewsRouteRoute.addChildren([
         AppToolsNewsCreateRouteLazyRoute,
         AppToolsNewsDeleteNewsIdRouteRoute,
