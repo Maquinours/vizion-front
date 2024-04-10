@@ -13,6 +13,7 @@ import { rdvs } from './rdv';
 import { rdvUserInfos } from './rdvUserInfo';
 import { rmas } from './rma';
 import { tasks } from './task';
+import { taskComments } from './taskComment';
 
 export const queries = mergeQueryKeys(
   enterprises,
@@ -29,4 +30,5 @@ export const queries = mergeQueryKeys(
   rdvUserInfos,
   rmas,
   tasks,
+  taskComments,
 );

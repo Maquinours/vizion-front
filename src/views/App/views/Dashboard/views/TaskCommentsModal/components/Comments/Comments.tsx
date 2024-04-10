@@ -1,11 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
-import { taskCommentsQueryKeys } from '../../../../../../../../utils/constants/queryKeys/taskComment';
 import { getRouteApi } from '@tanstack/react-router';
-import { getTaskCommentsByTaskId } from './utils/api/taskComments';
-import { PulseLoader } from 'react-spinners';
-import styles from './Comments.module.scss';
 import classNames from 'classnames';
+import { PulseLoader } from 'react-spinners';
+import { queries } from '../../../../../../../../utils/constants/queryKeys';
 import { useAuthentifiedUserQuery } from '../../../../../../utils/functions/getAuthentifiedUser';
+import styles from './Comments.module.scss';
 
 const Route = getRouteApi('/app/dashboard/task-comments/$taskId');
 
@@ -15,8 +14,7 @@ export default function AppViewDashboardViewTaskCommentsModalViewCommentsCompone
   const { data: currentUser } = useAuthentifiedUserQuery();
 
   const { data, isLoading } = useQuery({
-    queryKey: taskCommentsQueryKeys.listByTaskId(taskId),
-    queryFn: () => getTaskCommentsByTaskId(taskId),
+    ...queries['task-comments'].list._ctx.byTaskId(taskId),
     select: (comments) => [...comments].reverse(),
   });
 
