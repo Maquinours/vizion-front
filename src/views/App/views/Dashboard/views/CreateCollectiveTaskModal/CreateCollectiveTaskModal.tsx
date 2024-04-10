@@ -1,16 +1,16 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { getRouteApi, useNavigate } from '@tanstack/react-router';
 import { useForm } from 'react-hook-form';
 import ReactModal from 'react-modal';
+import { PulseLoader } from 'react-spinners';
+import { toast } from 'react-toastify';
 import * as yup from 'yup';
 import { createTask } from '../../../../../../utils/api/task';
-import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthentifiedUser';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { queries } from '../../../../../../utils/constants/queryKeys';
 import WorkloadType from '../../../../../../utils/enums/WorkloadType';
-import { PulseLoader } from 'react-spinners';
-import { taskQueryKeys } from '../../../../../../utils/constants/queryKeys/task';
 import TaskResponseDto from '../../../../../../utils/types/TaskResponseDto';
-import { toast } from 'react-toastify';
+import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthentifiedUser';
 import styles from './CreateCollectiveTaskModal.module.scss';
 
 const Route = getRouteApi('/app/dashboard/create-collective-task');
@@ -52,7 +52,7 @@ export default function DashboardComponentCreateCollectiveTaskModalView() {
         enterpriseName: currentUser.profile.enterprise?.name,
       }),
     onSuccess: (data) => {
-      queryClient.setQueryData<Array<TaskResponseDto>>(taskQueryKeys.listByType(WorkloadType.COLLECTIVE), (old) => [...(old ?? []), data]);
+      queryClient.setQueryData<Array<TaskResponseDto>>(queries.tasks.list._ctx.byType(WorkloadType.COLLECTIVE).queryKey, (old) => [...(old ?? []), data]);
       toast.success('Charge de travail collective ajoutée avec succès');
       onClose();
     },

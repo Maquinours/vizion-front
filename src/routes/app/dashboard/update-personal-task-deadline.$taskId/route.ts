@@ -1,11 +1,8 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { taskQueryKeys } from '../../../../utils/constants/queryKeys/task';
-import { getTaskById } from '../../../../utils/api/task';
+import { queries } from '../../../../utils/constants/queryKeys';
 
 export const Route = createFileRoute('/app/dashboard/update-personal-task-deadline/$taskId')({
-  loader: ({ context: { queryClient }, params: { taskId } }) =>
-    queryClient.ensureQueryData({
-      queryKey: taskQueryKeys.detailById(taskId),
-      queryFn: () => getTaskById(taskId),
-    }),
+  loader: async ({ context: { queryClient }, params: { taskId } }) => {
+    await queryClient.ensureQueryData(queries.tasks.detail(taskId));
+  },
 });

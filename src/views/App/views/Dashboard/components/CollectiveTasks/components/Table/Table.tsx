@@ -1,17 +1,17 @@
-import { Row, RowSelectionState, createColumnHelper } from '@tanstack/react-table';
-import TaskResponseDto from '../../../../../../../../utils/types/TaskResponseDto';
-import { formatDateAndHourWithSlash } from '../../../../../../../../utils/functions/dates';
-import styles from './Table.module.scss';
-import TableComponent from '../../../../../../../../components/Table/Table';
-import ContextMenu from './components/ContextMenu/ContextMenu';
 import { VirtualElement } from '@popperjs/core';
+import { useQueryClient } from '@tanstack/react-query';
+import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { Row, RowSelectionState, createColumnHelper } from '@tanstack/react-table';
+import DOMPurify from 'dompurify';
+import parse from 'html-react-parser';
 import React, { useCallback, useMemo, useState } from 'react';
 import IndeterminateCheckboxComponent from '../../../../../../../../components/IndeterminateCheckbox/IndeterminateCheckbox';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import { useQueryClient } from '@tanstack/react-query';
-import { taskQueryKeys } from '../../../../../../../../utils/constants/queryKeys/task';
-import parse from 'html-react-parser';
-import DOMPurify from 'dompurify';
+import TableComponent from '../../../../../../../../components/Table/Table';
+import { queries } from '../../../../../../../../utils/constants/queryKeys';
+import { formatDateAndHourWithSlash } from '../../../../../../../../utils/functions/dates';
+import TaskResponseDto from '../../../../../../../../utils/types/TaskResponseDto';
+import styles from './Table.module.scss';
+import ContextMenu from './components/ContextMenu/ContextMenu';
 
 const Route = getRouteApi('/app/dashboard');
 
@@ -38,7 +38,7 @@ export default function AppViewDashboardViewCollectiveTasksComponentTableCompone
   const onRowContentClick = useCallback(
     (task: TaskResponseDto) => {
       if (task.mailId) {
-        queryClient.setQueryData(taskQueryKeys.detailById(task.id), task);
+        queryClient.setQueryData(queries.tasks.detail(task.id).queryKey, task);
         navigate({ from: Route.id, to: 'task-email/$taskId', params: { taskId: task.id }, search: (old) => old });
       } else if (task.businessId) {
         // TODO: implement redirect to business

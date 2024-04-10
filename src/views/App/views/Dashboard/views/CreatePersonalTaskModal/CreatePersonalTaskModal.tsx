@@ -9,7 +9,6 @@ import * as yup from 'yup';
 import CustomSelect from '../../../../../../components/CustomSelect/CustomSelect';
 import { createTask } from '../../../../../../utils/api/task';
 import { queries } from '../../../../../../utils/constants/queryKeys';
-import { taskQueryKeys } from '../../../../../../utils/constants/queryKeys/task';
 import CategoryClient from '../../../../../../utils/enums/CategoryClient';
 import WorkloadType from '../../../../../../utils/enums/WorkloadType';
 import ProfileResponseDto from '../../../../../../utils/types/ProfileResponseDto';
@@ -62,7 +61,7 @@ export default function AppViewDashboardViewCreatePersonalTaskModalView() {
         enterpriseName: user.profile.enterprise!.name,
       }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: taskQueryKeys.all });
+      queryClient.invalidateQueries({ queryKey: queries.tasks._def });
       toast.success('Charge de travail personnelle créée avec succès');
       onClose();
     },

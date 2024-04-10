@@ -1,15 +1,14 @@
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import ReactModal from 'react-modal';
-import AppViewDashboardViewTaskEmailModalViewInformationsComponent from './components/Informations/Informations';
 import { useSuspenseQuery } from '@tanstack/react-query';
-import { taskQueryKeys } from '../../../../../../utils/constants/queryKeys/task';
+import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import DOMPurify from 'dompurify';
+import parse from 'html-react-parser';
+import ReactModal from 'react-modal';
+import { queries } from '../../../../../../utils/constants/queryKeys';
 import { emails } from '../../../../../../utils/constants/queryKeys/email';
-import { getTaskById } from '../../../../../../utils/api/task';
+import styles from './TaskEmailModal.module.scss';
 import AppViewDashboardViewTaskEmailModalViewAttachmentsComponent from './components/Attachments/Attachments';
 import AppViewDashboardViewTaskEmailModalViewFooterComponent from './components/Footer/Footer';
-import styles from './TaskEmailModal.module.scss';
-import parse from 'html-react-parser';
-import DOMPurify from 'dompurify';
+import AppViewDashboardViewTaskEmailModalViewInformationsComponent from './components/Informations/Informations';
 
 const Route = getRouteApi('/app/dashboard/task-email/$taskId');
 
@@ -18,10 +17,7 @@ export default function AppViewDashboardViewTaskEmailModalView() {
 
   const { taskId } = Route.useParams();
 
-  const { data: task } = useSuspenseQuery({
-    queryKey: taskQueryKeys.detailById(taskId),
-    queryFn: () => getTaskById(taskId),
-  });
+  const { data: task } = useSuspenseQuery(queries.tasks.detail(taskId));
 
   const { data: email } = useSuspenseQuery(emails.detail(task.mailId!));
 

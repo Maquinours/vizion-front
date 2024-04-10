@@ -9,7 +9,6 @@ import React, { useCallback, useMemo, useState } from 'react';
 import { AiFillTag } from 'react-icons/ai';
 import TableComponent from '../../../../../../../../components/Table/Table';
 import { queries } from '../../../../../../../../utils/constants/queryKeys';
-import { taskQueryKeys } from '../../../../../../../../utils/constants/queryKeys/task';
 import TaskState from '../../../../../../../../utils/enums/TaskState';
 import { formatDate, formatDateWithHour, isDateOutdated } from '../../../../../../../../utils/functions/dates';
 import Page from '../../../../../../../../utils/types/Page';
@@ -43,7 +42,7 @@ export default function AppViewDashboardViewOtherPersonalTasksModalViewTableComp
 
   const onMailTaskClick = useCallback(
     (original: TaskResponseDto) => {
-      queryClient.setQueryData(taskQueryKeys.detailById(original.id), original);
+      queryClient.setQueryData(queries.tasks.detail(original.id).queryKey, original);
       navigate({ from: Route.id, to: '../../task-email/$taskId', params: { taskId: original.id }, search: (old) => old });
     },
     [queryClient, navigate],
@@ -124,20 +123,22 @@ export default function AppViewDashboardViewOtherPersonalTasksModalViewTableComp
     mutationFn: (task: TaskResponseDto) => markTaskAsRead(task),
     onMutate: (task) => {
       const newTask = { ...task, taskOpened: true };
-      queryClient.setQueriesData<Page<TaskResponseDto>>({ queryKey: taskQueryKeys.pages() }, (old) =>
+      queryClient.setQueriesData<Page<TaskResponseDto>>({ queryKey: queries.tasks.page.queryKey }, (old) =>
         old ? { ...old, content: old?.content.map((t) => (t.id === task.id ? newTask : t)) } : old,
       );
-      queryClient.setQueriesData<Array<TaskResponseDto>>({ queryKey: taskQueryKeys.lists() }, (old) => old?.map((t) => (t.id === task.id ? newTask : t)));
-      queryClient.setQueriesData<TaskResponseDto>({ queryKey: taskQueryKeys.details() }, (old) => (old?.id === task.id ? newTask : old));
+      queryClient.setQueriesData<Array<TaskResponseDto>>({ queryKey: queries.tasks.list.queryKey }, (old) => old?.map((t) => (t.id === task.id ? newTask : t)));
+      queryClient.setQueriesData<TaskResponseDto>({ queryKey: queries.tasks.detail._def }, (old) => (old?.id === task.id ? newTask : old));
     },
     onError: (error, task) => {
-      queryClient.setQueriesData<Page<TaskResponseDto>>({ queryKey: taskQueryKeys.pages() }, (old) =>
+      queryClient.setQueriesData<Page<TaskResponseDto>>({ queryKey: queries.tasks.page.queryKey }, (old) =>
         old ? { ...old, content: old?.content.map((t) => (t.id === task.id ? { ...t, taskOpened: false } : t)) } : old,
       );
-      queryClient.setQueriesData<Array<TaskResponseDto>>({ queryKey: taskQueryKeys.lists() }, (old) =>
+      queryClient.setQueriesData<Array<TaskResponseDto>>({ queryKey: queries.tasks.list.queryKey }, (old) =>
         old?.map((t) => (t.id === task.id ? { ...t, taskOpened: false } : t)),
       );
-      queryClient.setQueriesData<TaskResponseDto>({ queryKey: taskQueryKeys.details() }, (old) => (old?.id === task.id ? { ...old, taskOpened: false } : old));
+      queryClient.setQueriesData<TaskResponseDto>({ queryKey: queries.tasks.detail._def }, (old) =>
+        old?.id === task.id ? { ...old, taskOpened: false } : old,
+      );
 
       console.error(error);
     },

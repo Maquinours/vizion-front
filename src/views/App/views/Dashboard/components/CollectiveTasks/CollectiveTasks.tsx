@@ -1,16 +1,15 @@
 import { useQuery } from '@tanstack/react-query';
-import { taskQueryKeys } from '../../../../../../utils/constants/queryKeys/task';
-import WorkloadType from '../../../../../../utils/enums/WorkloadType';
-import { getTasksByType } from '../../../../../../utils/api/task';
-import CardComponent from '../../../../../../components/Card/Card';
-import Table from './components/Table/Table';
 import { Link, getRouteApi } from '@tanstack/react-router';
-import { useLocalStorage } from '@uidotdev/usehooks';
-import styles from './CollectiveTasks.module.scss';
-import { useState } from 'react';
 import { RowSelectionState } from '@tanstack/react-table';
+import { useLocalStorage } from '@uidotdev/usehooks';
+import { useState } from 'react';
 import { FaTrash } from 'react-icons/fa';
+import CardComponent from '../../../../../../components/Card/Card';
+import { queries } from '../../../../../../utils/constants/queryKeys';
+import WorkloadType from '../../../../../../utils/enums/WorkloadType';
 import TaskResponseDto from '../../../../../../utils/types/TaskResponseDto';
+import styles from './CollectiveTasks.module.scss';
+import Table from './components/Table/Table';
 
 const Route = getRouteApi('/app/dashboard');
 
@@ -19,10 +18,7 @@ export default function AppViewDashboardViewCollectiveTasksComponent() {
 
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
 
-  const { data, isLoading, refetch, isRefetching } = useQuery({
-    queryKey: taskQueryKeys.listByType(WorkloadType.COLLECTIVE),
-    queryFn: () => getTasksByType(WorkloadType.COLLECTIVE),
-  });
+  const { data, isLoading, refetch, isRefetching } = useQuery(queries.tasks.list._ctx.byType(WorkloadType.COLLECTIVE));
 
   const selectedItems = rowSelection
     ? (Object.keys(rowSelection)

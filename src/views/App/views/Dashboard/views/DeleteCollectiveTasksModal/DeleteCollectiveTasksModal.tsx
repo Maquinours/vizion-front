@@ -1,14 +1,13 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import React from 'react';
 import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
-import { deleteTasks } from './utils/api/collectiveTasks';
-import TaskResponseDto from '../../../../../../utils/types/TaskResponseDto';
-import { taskQueryKeys } from '../../../../../../utils/constants/queryKeys/task';
 import { toast } from 'react-toastify';
+import { queries } from '../../../../../../utils/constants/queryKeys';
+import TaskResponseDto from '../../../../../../utils/types/TaskResponseDto';
 import styles from './DeleteCollectiveTasksModal.module.scss';
-import React from 'react';
-
+import { deleteTasks } from './utils/api/collectiveTasks';
 const Route = getRouteApi('/app/dashboard/delete-collective-tasks');
 
 export default function AppViewDashboardViewDeleteCollectiveTasksModalView() {
@@ -25,10 +24,10 @@ export default function AppViewDashboardViewDeleteCollectiveTasksModalView() {
     mutationFn: () => deleteTasks(tasksId),
     onMutate: () => ({ tasksId }),
     onSuccess: (_data, _params, context) => {
-      queryClient.setQueriesData<Array<TaskResponseDto>>({ queryKey: taskQueryKeys.lists() }, (old) =>
+      queryClient.setQueriesData<Array<TaskResponseDto>>({ queryKey: queries.tasks.list.queryKey }, (old) =>
         old?.filter((task) => !context.tasksId.includes(task.id)),
       );
-      queryClient.getQueriesData<TaskResponseDto>({ queryKey: taskQueryKeys.details() }).forEach(([key, value]) => {
+      queryClient.getQueriesData<TaskResponseDto>({ queryKey: queries.tasks.detail._def }).forEach(([key, value]) => {
         if (value && context.tasksId.includes(value.id)) queryClient.removeQueries({ queryKey: key, exact: true });
       });
       toast.success('Charges de travail collectives supprimées avec succès');

@@ -1,17 +1,16 @@
+import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
+import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { useForm } from 'react-hook-form';
 import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
-import { updateTaskDeadline } from './utils/api/personalTask';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import { taskQueryKeys } from '../../../../../../utils/constants/queryKeys/task';
-import { getTaskById } from '../../../../../../utils/api/task';
-import * as yup from 'yup';
 import { toast } from 'react-toastify';
-import TaskResponseDto from '../../../../../../utils/types/TaskResponseDto';
+import * as yup from 'yup';
+import { queries } from '../../../../../../utils/constants/queryKeys';
 import Page from '../../../../../../utils/types/Page';
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
+import TaskResponseDto from '../../../../../../utils/types/TaskResponseDto';
 import styles from './UpdatePersonalTaskDeadline.module.scss';
+import { updateTaskDeadline } from './utils/api/personalTask';
 
 const yupSchema = yup.object({
   deadline: yup.date().required('La date est requise'),
@@ -25,10 +24,7 @@ export default function AppViewDashboardViewUpdatePersonalTaskDeadline() {
 
   const { taskId } = Route.useParams();
 
-  const { data: task } = useSuspenseQuery({
-    queryKey: taskQueryKeys.detailById(taskId),
-    queryFn: () => getTaskById(taskId),
-  });
+  const { data: task } = useSuspenseQuery(queries.tasks.detail(taskId));
 
   const {
     register,
@@ -49,9 +45,9 @@ export default function AppViewDashboardViewUpdatePersonalTaskDeadline() {
     mutationFn: ({ deadline }: yup.InferType<typeof yupSchema>) => updateTaskDeadline(task.id, deadline),
     onSuccess: (data) => {
       toast.success(`Tâche repoussée avec succès`);
-      queryClient.setQueriesData<TaskResponseDto>({ queryKey: taskQueryKeys.details() }, (old) => (old?.id === data.id ? data : old));
-      queryClient.setQueriesData<Array<TaskResponseDto>>({ queryKey: taskQueryKeys.lists() }, (old) => old?.map((t) => (t.id === data.id ? data : t)));
-      queryClient.setQueriesData<Page<TaskResponseDto>>({ queryKey: taskQueryKeys.pages() }, (old) =>
+      queryClient.setQueriesData<TaskResponseDto>({ queryKey: queries.tasks.detail._def }, (old) => (old?.id === data.id ? data : old));
+      queryClient.setQueriesData<Array<TaskResponseDto>>({ queryKey: queries.tasks.list.queryKey }, (old) => old?.map((t) => (t.id === data.id ? data : t)));
+      queryClient.setQueriesData<Page<TaskResponseDto>>({ queryKey: queries.tasks.page.queryKey }, (old) =>
         old ? { ...old, content: old.content.map((t) => (t.id === data.id ? data : t)) } : old,
       );
       onClose();

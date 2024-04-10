@@ -1,10 +1,8 @@
 import { createFileRoute, defer, redirect } from '@tanstack/react-router';
 import { Views } from 'react-big-calendar';
 import { z } from 'zod';
-import { getPaginatedTasksByStateAndProfileId, getTasksByType } from '../../../utils/api/task';
 import { queries } from '../../../utils/constants/queryKeys';
 import { keycloakEvents } from '../../../utils/constants/queryKeys/keycloakEvent';
-import { taskQueryKeys } from '../../../utils/constants/queryKeys/task';
 import { users } from '../../../utils/constants/queryKeys/user';
 import TaskState from '../../../utils/enums/TaskState';
 import WorkloadType from '../../../utils/enums/WorkloadType';
@@ -28,17 +26,13 @@ export const Route = createFileRoute('/app/dashboard')({
   loaderDeps: ({ search: { personalTaskState, personalTaskPage, personalTaskSize } }) => ({ personalTaskState, personalTaskPage, personalTaskSize }),
   loader: async ({ context: { queryClient }, deps: { personalTaskState, personalTaskPage, personalTaskSize } }) => {
     queryClient.prefetchQuery(keycloakEvents.page({ page: 0, size: 100 }));
-    const collectiveTasksPromise = queryClient.ensureQueryData({
-      queryKey: taskQueryKeys.listByType(WorkloadType.COLLECTIVE),
-      queryFn: () => getTasksByType(WorkloadType.COLLECTIVE),
-    });
+    const collectiveTasksPromise = queryClient.ensureQueryData(queries.tasks.list._ctx.byType(WorkloadType.COLLECTIVE));
     const schedulerPromise = queryClient.ensureQueryData(queries['rdv-user-infos'].list);
     const progressiveInfosPromise = queryClient.ensureQueryData(queries['progressive-infos'].list);
     const user = await queryClient.ensureQueryData(users.authentified());
-    const personalTaskPromise = queryClient.ensureQueryData({
-      queryKey: taskQueryKeys.pageByStateAndProfileId(personalTaskState, user.profile.id, personalTaskPage, personalTaskSize),
-      queryFn: () => getPaginatedTasksByStateAndProfileId(personalTaskState, user.profile.id, personalTaskPage, personalTaskSize),
-    });
+    const personalTaskPromise = queryClient.ensureQueryData(
+      queries.tasks.page._ctx.byStateAndProfileId(personalTaskState, user.profile.id, { page: personalTaskPage, size: personalTaskSize }),
+    );
 
     return {
       collectiveTasks: defer(collectiveTasksPromise),

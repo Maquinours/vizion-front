@@ -1,8 +1,7 @@
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { getRouteApi, useNavigate } from '@tanstack/react-router';
 import EmailModalComponent from '../../../../../../components/EmailModal/EmailModal';
-import { useSuspenseQuery } from '@tanstack/react-query';
-import { taskQueryKeys } from '../../../../../../utils/constants/queryKeys/task';
-import { getTaskById } from '../../../../../../utils/api/task';
+import { queries } from '../../../../../../utils/constants/queryKeys';
 
 const Route = getRouteApi('/app/enterprises/$enterpriseId/task-email/$taskId');
 
@@ -11,10 +10,7 @@ export default function AppViewEnterpriseViewTaskEmailModalView() {
 
   const { taskId } = Route.useParams();
 
-  const { data: task } = useSuspenseQuery({
-    queryKey: taskQueryKeys.detailById(taskId),
-    queryFn: () => getTaskById(taskId),
-  });
+  const { data: task } = useSuspenseQuery(queries.tasks.detail(taskId));
 
   return (
     <EmailModalComponent

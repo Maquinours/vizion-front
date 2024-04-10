@@ -1,13 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
-import { taskQueryKeys } from '../../../../../../utils/constants/queryKeys/task';
-import { getPaginatedTasksByStateAndProfileId } from '../../../../../../utils/api/task';
 import { getRouteApi } from '@tanstack/react-router';
-import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthentifiedUser';
 import { useLocalStorage } from '@uidotdev/usehooks';
 import CardComponent from '../../../../../../components/Card/Card';
+import { queries } from '../../../../../../utils/constants/queryKeys';
+import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthentifiedUser';
 import AppViewDashboardViewPersonalTasksComponentHeaderComponent from './components/Header/Header';
-import AppViewDashboardViewPersonalTasksComponentTableComponent from './components/Table/Table';
 import AppViewDashboardViewPersonalTasksComponentPaginationComponent from './components/Pagination/Pagination';
+import AppViewDashboardViewPersonalTasksComponentTableComponent from './components/Table/Table';
 
 const Route = getRouteApi('/app/dashboard');
 
@@ -18,10 +17,7 @@ export default function AppViewDashboardViewPersonalTasksComponent() {
 
   const { data: user } = useAuthentifiedUserQuery();
 
-  const { data, refetch, isRefetching, isLoading } = useQuery({
-    queryKey: taskQueryKeys.pageByStateAndProfileId(state, user.profile.id, page, size),
-    queryFn: () => getPaginatedTasksByStateAndProfileId(state, user.profile.id, page, size),
-  });
+  const { data, refetch, isRefetching, isLoading } = useQuery(queries.tasks.page._ctx.byStateAndProfileId(state, user.profile.id, { page, size }));
 
   return (
     <CardComponent

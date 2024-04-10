@@ -2,9 +2,7 @@ import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
 import { getRouteApi, useNavigate } from '@tanstack/react-router';
 import ReactModal from 'react-modal';
 import CardComponent from '../../../../../../components/Card/Card';
-import { getPaginatedTasksByStateAndProfileId } from '../../../../../../utils/api/task';
 import { queries } from '../../../../../../utils/constants/queryKeys';
-import { taskQueryKeys } from '../../../../../../utils/constants/queryKeys/task';
 import styles from './OtherPersonalTasksModal.module.scss';
 import AppViewDashboardViewOtherPersonalTasksModalViewHeaderComponent from './components/Header/Header';
 import AppViewDashboardViewOtherPersonalTasksModalViewPaginationComponent from './components/Pagination/Pagination';
@@ -21,10 +19,7 @@ export default function AppViewDashboardViewOtherPersonalTasksModalView() {
 
   const { otherPersonalTaskState: state, otherPersonalTaskSize: size, otherPersonalTaskPage: page } = Route.useSearch();
 
-  const { data, refetch, isRefetching, isLoading } = useQuery({
-    queryKey: taskQueryKeys.pageByStateAndProfileId(state, profileId, page, size),
-    queryFn: () => getPaginatedTasksByStateAndProfileId(state, profileId, page, size),
-  });
+  const { data, refetch, isRefetching, isLoading } = useQuery(queries.tasks.page._ctx.byStateAndProfileId(state, profileId, { page, size }));
 
   const onClose = () => {
     navigate({ from: Route.id, to: '../..', search: (old) => old });

@@ -1,12 +1,11 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import DOMPurify from 'dompurify';
+import parse from 'html-react-parser';
 import ReactModal from 'react-modal';
-import { taskQueryKeys } from '../../../../../../utils/constants/queryKeys/task';
-import { getTaskById } from '../../../../../../utils/api/task';
 import { formatDate } from '../../../../../../utils/functions/dates';
 import styles from './PersonalTaskDetailsModal.module.scss';
-import parse from 'html-react-parser';
-import DOMPurify from 'dompurify';
+import { queries } from '../../../../../../utils/constants/queryKeys';
 
 const Route = getRouteApi('/app/dashboard/personal-task-details/$taskId');
 
@@ -15,10 +14,7 @@ export default function AppViewDashboardViewPersonalTaskDetailsModalView() {
 
   const { taskId } = Route.useParams();
 
-  const { data: task } = useSuspenseQuery({
-    queryKey: taskQueryKeys.detailById(taskId),
-    queryFn: () => getTaskById(taskId),
-  });
+  const { data: task } = useSuspenseQuery(queries.tasks.detail(taskId));
 
   const onClose = () => {
     navigate({ from: Route.id, to: '../..', search: (old) => old });

@@ -1,14 +1,14 @@
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import React from 'react';
 import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
-import styles from './ArchivePersonalTaskModal.module.scss';
-import { getTaskById, updateTask } from '../../../../../../utils/api/task';
-import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthentifiedUser';
-import TaskState from '../../../../../../utils/enums/TaskState';
-import { taskQueryKeys } from '../../../../../../utils/constants/queryKeys/task';
 import { toast } from 'react-toastify';
-import React from 'react';
+import { updateTask } from '../../../../../../utils/api/task';
+import { queries } from '../../../../../../utils/constants/queryKeys';
+import TaskState from '../../../../../../utils/enums/TaskState';
+import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthentifiedUser';
+import styles from './ArchivePersonalTaskModal.module.scss';
 
 const Route = getRouteApi('/app/dashboard/archive-personal-task/$taskId');
 
@@ -20,10 +20,7 @@ export default function AppViewDashboardViewArchivePersonalTaskModalView() {
 
   const { data: user } = useAuthentifiedUserQuery();
 
-  const { data: task } = useSuspenseQuery({
-    queryKey: taskQueryKeys.detailById(taskId),
-    queryFn: () => getTaskById(taskId),
-  });
+  const { data: task } = useSuspenseQuery(queries.tasks.detail(taskId));
 
   const onClose = () => {
     navigate({ from: Route.id, to: '../..', search: (old) => old });
@@ -39,7 +36,7 @@ export default function AppViewDashboardViewArchivePersonalTaskModalView() {
       }),
     onSuccess: () => {
       toast.success(`Tâche personnelle archivée avec succès`);
-      queryClient.invalidateQueries({ queryKey: taskQueryKeys.all });
+      queryClient.invalidateQueries({ queryKey: queries.tasks._def });
       onClose();
     },
     onError: (error) => {

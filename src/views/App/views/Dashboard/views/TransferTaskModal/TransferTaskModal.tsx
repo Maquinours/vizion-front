@@ -7,9 +7,8 @@ import { PulseLoader } from 'react-spinners';
 import { toast } from 'react-toastify';
 import * as yup from 'yup';
 import CustomSelect from '../../../../../../components/CustomSelect/CustomSelect';
-import { attributeTask, getTaskById } from '../../../../../../utils/api/task';
+import { attributeTask } from '../../../../../../utils/api/task';
 import { queries } from '../../../../../../utils/constants/queryKeys';
-import { taskQueryKeys } from '../../../../../../utils/constants/queryKeys/task';
 import CategoryClient from '../../../../../../utils/enums/CategoryClient';
 import WorkloadType from '../../../../../../utils/enums/WorkloadType';
 import ProfileResponseDto from '../../../../../../utils/types/ProfileResponseDto';
@@ -36,10 +35,7 @@ export default function AppViewDashboardViewTransferCollectiveTaskModalView() {
     formState: { errors },
   } = useForm({ resolver: yupResolver(yupSchema) });
 
-  const { data: task } = useSuspenseQuery({
-    queryKey: taskQueryKeys.detailById(taskId),
-    queryFn: () => getTaskById(taskId),
-  });
+  const { data: task } = useSuspenseQuery(queries.tasks.detail(taskId));
 
   const { data: allMembers, isLoading: isLoadingAllMembers } = useSuspenseQuery(queries.profiles.list._ctx.byCategory(CategoryClient.VIZEO));
 
@@ -50,7 +46,7 @@ export default function AppViewDashboardViewTransferCollectiveTaskModalView() {
   const { mutate, isPending } = useMutation({
     mutationFn: ({ profile }: yup.InferType<typeof yupSchema>) => attributeTask(task.id, profile.id, currentUser.profile.id, false),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: taskQueryKeys.lists() });
+      queryClient.invalidateQueries({ queryKey: queries.tasks.list.queryKey });
       onClose();
       toast.success('La charge de travail a été transférée avec succès');
     },

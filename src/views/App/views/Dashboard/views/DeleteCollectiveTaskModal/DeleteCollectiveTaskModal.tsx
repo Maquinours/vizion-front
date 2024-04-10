@@ -1,14 +1,13 @@
+import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
+import { getRouteApi, useNavigate } from '@tanstack/react-router';
 import React from 'react';
 import Modal from 'react-modal';
-import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { toast } from 'react-toastify';
 import { PulseLoader } from 'react-spinners';
-import { taskQueryKeys } from '../../../../../../utils/constants/queryKeys/task';
+import { toast } from 'react-toastify';
+import { queries } from '../../../../../../utils/constants/queryKeys';
 import TaskResponseDto from '../../../../../../utils/types/TaskResponseDto';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import { getTaskById } from '../../../../../../utils/api/task';
-import { deleteTask } from './utils/api/task';
 import styles from './DeleteCollectiveTaskModal.module.scss';
+import { deleteTask } from './utils/api/task';
 
 const Route = getRouteApi('/app/dashboard/delete-collective-task/$taskId');
 
@@ -18,10 +17,7 @@ export default function AppViewDashboardViewDeleteCollectiveTaskModal() {
 
   const { taskId } = Route.useParams();
 
-  const { data: task } = useSuspenseQuery({
-    queryKey: taskQueryKeys.detailById(taskId),
-    queryFn: () => getTaskById(taskId),
-  });
+  const { data: task } = useSuspenseQuery(queries.tasks.detail(taskId));
 
   const onClose = () => {
     navigate({ from: Route.id, to: '../..', search: (old) => old });
@@ -31,8 +27,8 @@ export default function AppViewDashboardViewDeleteCollectiveTaskModal() {
     mutationFn: () => deleteTask(task),
     onMutate: () => ({ task }),
     onSuccess: (_data, _params, context) => {
-      queryClient.setQueriesData<Array<TaskResponseDto>>({ queryKey: taskQueryKeys.lists() }, (old) => old?.filter((t) => t.id !== context.task.id));
-      queryClient.getQueriesData<TaskResponseDto>({ queryKey: taskQueryKeys.detailById(taskId) }).forEach(([key, value]) => {
+      queryClient.setQueriesData<Array<TaskResponseDto>>({ queryKey: queries.tasks.list.queryKey }, (old) => old?.filter((t) => t.id !== context.task.id));
+      queryClient.getQueriesData<TaskResponseDto>({ queryKey: queries.tasks.detail._def }).forEach(([key, value]) => {
         if (value?.id === context.task.id) queryClient.removeQueries({ queryKey: key, exact: true });
       });
       toast.success('Charge de travail collective supprimée avec succès');

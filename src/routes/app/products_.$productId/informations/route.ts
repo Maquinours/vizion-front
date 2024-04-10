@@ -1,9 +1,8 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { z } from 'zod';
-import { getTasksPageByProductId } from '../../../../utils/api/task';
+import { queries } from '../../../../utils/constants/queryKeys';
 import { geds } from '../../../../utils/constants/queryKeys/ged';
 import { lifesheets } from '../../../../utils/constants/queryKeys/lifesheet';
-import { taskQueryKeys } from '../../../../utils/constants/queryKeys/task';
 import { users } from '../../../../utils/constants/queryKeys/user';
 import FileType from '../../../../utils/enums/FileType';
 import { LifesheetAssociatedItem } from '../../../../utils/enums/LifesheetAssociatedItem';
@@ -32,10 +31,12 @@ export const Route = createFileRoute('/app/products/$productId/informations')({
           ._ctx.byAssociatedItem({ associatedItemType: LifesheetAssociatedItem.PRODUCT, associatedItemId: productId }),
       );
 
-      queryClient.ensureQueryData({
-        queryKey: taskQueryKeys.pageByAssociatedItemAndId(WorkloadAssociatedItem.PRODUCT, productId, workloadsPage, workloadsSize),
-        queryFn: () => getTasksPageByProductId(productId, workloadsPage, workloadsSize),
-      });
+      queryClient.prefetchQuery(
+        queries.tasks.page._ctx.byAssociatedItem(
+          { associatedItemType: WorkloadAssociatedItem.PRODUCT, associatedItemId: productId },
+          { page: workloadsPage, size: workloadsSize },
+        ),
+      );
     }
   },
 });

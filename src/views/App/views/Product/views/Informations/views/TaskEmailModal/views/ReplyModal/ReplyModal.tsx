@@ -1,9 +1,8 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import { taskQueryKeys } from '../../../../../../../../../../utils/constants/queryKeys/task';
-import { getTaskById } from '../../../../../../../../../../utils/api/task';
-import { emails } from '../../../../../../../../../../utils/constants/queryKeys/email';
 import SendEmailModalComponent from '../../../../../../../../../../components/SendEmailModal/SendEmailModal';
+import { queries } from '../../../../../../../../../../utils/constants/queryKeys';
+import { emails } from '../../../../../../../../../../utils/constants/queryKeys/email';
 
 const routeApi = getRouteApi('/app/products/$productId/informations/task-email/$taskId/reply');
 
@@ -12,10 +11,7 @@ export default function AppViewProductViewInformationsViewTaskEmailModalViewRepl
 
   const { taskId } = routeApi.useParams();
 
-  const { data: task } = useSuspenseQuery({
-    queryKey: taskQueryKeys.detailById(taskId),
-    queryFn: () => getTaskById(taskId),
-  });
+  const { data: task } = useSuspenseQuery(queries.tasks.detail(taskId));
 
   const { data: email } = useSuspenseQuery(emails.detail(task.mailId!));
 

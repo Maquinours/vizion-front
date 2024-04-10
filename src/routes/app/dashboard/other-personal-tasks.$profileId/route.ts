@@ -1,8 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { z } from 'zod';
-import { getPaginatedTasksByStateAndProfileId } from '../../../../utils/api/task';
 import { queries } from '../../../../utils/constants/queryKeys';
-import { taskQueryKeys } from '../../../../utils/constants/queryKeys/task';
 import TaskState from '../../../../utils/enums/TaskState';
 
 const searchSchema = z.object({
@@ -19,10 +17,7 @@ export const Route = createFileRoute('/app/dashboard/other-personal-tasks/$profi
     size: otherPersonalTaskSize,
   }),
   loader: async ({ context: { queryClient }, params: { profileId }, deps: { state, page, size } }) => {
-    queryClient.prefetchQuery({
-      queryKey: taskQueryKeys.pageByStateAndProfileId(state, profileId, page, size),
-      queryFn: () => getPaginatedTasksByStateAndProfileId(state, profileId, page, size),
-    });
+    queryClient.prefetchQuery(queries.tasks.page._ctx.byStateAndProfileId(state, profileId, { page, size }));
 
     await queryClient.ensureQueryData(queries.profiles.detail(profileId));
   },

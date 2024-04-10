@@ -7,11 +7,10 @@ import { PulseLoader } from 'react-spinners';
 import { toast } from 'react-toastify';
 import * as yup from 'yup';
 import CustomSelect from '../../../../../../components/CustomSelect/CustomSelect';
-import { getTaskById, updateTask } from '../../../../../../utils/api/task';
+import { updateTask } from '../../../../../../utils/api/task';
 import { queries } from '../../../../../../utils/constants/queryKeys';
 import { allBusinesses } from '../../../../../../utils/constants/queryKeys/allBusiness';
 import { enterprises } from '../../../../../../utils/constants/queryKeys/enterprise';
-import { taskQueryKeys } from '../../../../../../utils/constants/queryKeys/task';
 import CategoryBusiness from '../../../../../../utils/enums/CategoryBusiness';
 import WorkloadType from '../../../../../../utils/enums/WorkloadType';
 import AllBusinessResponseDto from '../../../../../../utils/types/AllBusinessResponseDto';
@@ -55,10 +54,7 @@ export default function AppViewDashboardViewLinkPersonalTaskModalView() {
 
   const { taskId } = Route.useParams();
 
-  const { data: task } = useSuspenseQuery({
-    queryKey: taskQueryKeys.detailById(taskId),
-    queryFn: () => getTaskById(taskId),
-  });
+  const { data: task } = useSuspenseQuery(queries.tasks.detail(taskId));
 
   const { data: enterprisesList, isLoading: isLoadingEnterprises } = useQuery(enterprises.list);
   const { data: businesses, isLoading: isLoadingBusiness } = useQuery(allBusinesses.list);
@@ -101,7 +97,7 @@ export default function AppViewDashboardViewLinkPersonalTaskModalView() {
       return updateTask(task.id, task.profileId!, task.state!, content);
     },
     onSuccess: (task) => {
-      queryClient.setQueriesData<Page<TaskResponseDto>>({ queryKey: taskQueryKeys.pages() }, (old) =>
+      queryClient.setQueriesData<Page<TaskResponseDto>>({ queryKey: queries.tasks.page.queryKey }, (old) =>
         old
           ? {
               ...old,
@@ -109,10 +105,10 @@ export default function AppViewDashboardViewLinkPersonalTaskModalView() {
             }
           : old,
       );
-      queryClient.setQueriesData<Array<TaskResponseDto>>({ queryKey: taskQueryKeys.lists() }, (old) =>
+      queryClient.setQueriesData<Array<TaskResponseDto>>({ queryKey: queries.tasks.list.queryKey }, (old) =>
         old ? old.map((t) => (t.id === task.id ? task : t)) : old,
       );
-      queryClient.setQueriesData<TaskResponseDto>({ queryKey: taskQueryKeys.details() }, (old) => (old?.id === task.id ? task : old));
+      queryClient.setQueriesData<TaskResponseDto>({ queryKey: queries.tasks.detail._def }, (old) => (old?.id === task.id ? task : old));
       toast.success('Tâche liée avec succès');
       onClose();
     },

@@ -1,12 +1,10 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { z } from 'zod';
-import { getTasksPageByEnterpriseId } from '../../../../utils/api/task';
 import { queries } from '../../../../utils/constants/queryKeys';
 import { allBusinesses } from '../../../../utils/constants/queryKeys/allBusiness';
 import { enterprises } from '../../../../utils/constants/queryKeys/enterprise';
 import { geds } from '../../../../utils/constants/queryKeys/ged';
 import { lifesheets } from '../../../../utils/constants/queryKeys/lifesheet';
-import { taskQueryKeys } from '../../../../utils/constants/queryKeys/task';
 import FileType from '../../../../utils/enums/FileType';
 import { LifesheetAssociatedItem } from '../../../../utils/enums/LifesheetAssociatedItem';
 import { WorkloadAssociatedItem } from '../../../../utils/enums/WorkloadAssociatedItem';
@@ -41,10 +39,12 @@ export const Route = createFileRoute('/app/enterprises/$enterpriseId')({
         .page({ page: lifesheetPage, size: lifesheetSize })
         ._ctx.byAssociatedItem({ associatedItemType: LifesheetAssociatedItem.ENTERPRISE, associatedItemId: enterpriseId }),
     );
-    queryClient.ensureQueryData({
-      queryKey: taskQueryKeys.pageByAssociatedItemAndId(WorkloadAssociatedItem.ENTERPRISE, enterpriseId, workloadsPage, workloadsSize),
-      queryFn: () => getTasksPageByEnterpriseId(enterpriseId, workloadsPage, workloadsSize),
-    });
+    queryClient.prefetchQuery(
+      queries.tasks.page._ctx.byAssociatedItem(
+        { associatedItemType: WorkloadAssociatedItem.ENTERPRISE, associatedItemId: enterpriseId },
+        { page: workloadsPage, size: workloadsSize },
+      ),
+    );
     queryClient.ensureQueryData(geds.detail._ctx.byTypeAndId(FileType.CONTACT, enterpriseId));
   },
 });
