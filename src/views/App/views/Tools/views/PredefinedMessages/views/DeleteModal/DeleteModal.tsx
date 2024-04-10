@@ -45,7 +45,8 @@ export default function AppViewToolsViewPredefinedMessagesViewDeleteModalView() 
       <div className={styles.modal_container}>
         <div className={styles.modal_title}>
           <h6>
-            Êtes-vous certain.e de vouloir <span style={{ color: 'var(--secondary-color)' }}>supprimer</span> le message prédéfini {predefinedMessage.title} ?
+            Êtes-vous certain.e de vouloir <span style={{ color: 'var(--secondary-color)' }}>supprimer</span> le message prédéfini{' '}
+            <span style={{ color: 'var(--secondary-color)' }}>{predefinedMessage.title}</span> ?
           </h6>
         </div>
 
