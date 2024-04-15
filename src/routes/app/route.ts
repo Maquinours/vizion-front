@@ -56,7 +56,7 @@ export const Route = createFileRoute('/app')({
   loader: async ({ context: { queryClient }, deps: { appModal, businessId, gedItemKey } }) => {
     const userPromise = queryClient.ensureQueryData(users.authentified());
     const promises = [];
-    if (businessId) promises.push(queryClient.ensureQueryData(businesses.detail(businessId)));
+    if (businessId) promises.push(queryClient.ensureQueryData(businesses.detail._ctx.byId(businessId)));
     if (gedItemKey) {
       queryClient.ensureQueryData(geds.detail._ctx.byTypeAndId(FileType.AFFAIRE, businessId!)).then((ged) => {
         if (!findRecursively(ged, 'subRows', (d) => d.key === gedItemKey)) {

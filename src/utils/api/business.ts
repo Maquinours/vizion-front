@@ -20,3 +20,23 @@ export const getBusinessById = async (businessId: string) => {
     })
   ).data;
 };
+
+export const getBusinessByInfos = ({
+  serialNumber,
+  businessNumber,
+  orderNumber,
+}: {
+  serialNumber: string | undefined;
+  businessNumber: string | undefined;
+  orderNumber: string | undefined;
+}) => {
+  return privateInstance<BusinessResponseDto>({
+    method: 'GET',
+    url: `/business/v1/business/find-business-for-credit`,
+    params: {
+      numBusiness: businessNumber,
+      numOrder: orderNumber,
+      numSerie: serialNumber,
+    },
+  }).then((res) => res.data);
+};

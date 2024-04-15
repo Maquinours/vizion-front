@@ -34,6 +34,7 @@ import { Route as AppToolsGlobalTurnoverRouteImport } from './routes/app/tools/g
 import { Route as AppToolsExternalLinksRouteImport } from './routes/app/tools/external-links/route'
 import { Route as AppToolsEmailsRouteImport } from './routes/app/tools/emails/route'
 import { Route as AppToolsDdnsRouteImport } from './routes/app/tools/ddns/route'
+import { Route as AppToolsCreditRouteImport } from './routes/app/tools/credit/route'
 import { Route as AppProductsProductIdRouteImport } from './routes/app/products_.$productId/route'
 import { Route as AppProductsSerialNumbersRouteImport } from './routes/app/products/serial-numbers/route'
 import { Route as AppExternalLinksExternalLinkIdRouteImport } from './routes/app/external-links_.$externalLinkId/route'
@@ -41,6 +42,7 @@ import { Route as AppEnterprisesEnterpriseIdRouteImport } from './routes/app/ent
 import { Route as AppDashboardDeleteCollectiveTasksRouteImport } from './routes/app/dashboard/delete-collective-tasks/route'
 import { Route as AppDashboardCreatePersonalTaskRouteImport } from './routes/app/dashboard/create-personal-task/route'
 import { Route as AppProductsProductIdIndexImport } from './routes/app/products_.$productId/index'
+import { Route as AppToolsCreditDetailsRouteImport } from './routes/app/tools/credit/details/route'
 import { Route as AppProductsProductIdManageRouteImport } from './routes/app/products_.$productId/manage/route'
 import { Route as AppProductsProductIdInformationsRouteImport } from './routes/app/products_.$productId/informations/route'
 import { Route as AppProductsSerialNumbersCreateRouteImport } from './routes/app/products/serial-numbers/create/route'
@@ -155,6 +157,9 @@ const AppToolsEmailsEmailIdRouteLazyImport = createFileRoute(
 )()
 const AppToolsDdnsCreateRouteLazyImport = createFileRoute(
   '/app/tools/ddns/create',
+)()
+const AppToolsCreditShowRouteLazyImport = createFileRoute(
+  '/app/tools/credit/show',
 )()
 const AppEnterprisesEnterpriseIdUpdateAccountabilityRouteLazyImport =
   createFileRoute('/app/enterprises/$enterpriseId/update-accountability')()
@@ -424,6 +429,13 @@ const AppToolsDdnsRouteRoute = AppToolsDdnsRouteImport.update({
   import('./routes/app/tools/ddns/route.lazy').then((d) => d.Route),
 )
 
+const AppToolsCreditRouteRoute = AppToolsCreditRouteImport.update({
+  path: '/credit',
+  getParentRoute: () => AppToolsRouteRoute,
+} as any).lazy(() =>
+  import('./routes/app/tools/credit/route.lazy').then((d) => d.Route),
+)
+
 const AppProductsProductIdRouteRoute = AppProductsProductIdRouteImport.update({
   path: '/products/$productId',
   getParentRoute: () => AppRouteRoute,
@@ -560,6 +572,14 @@ const AppToolsDdnsCreateRouteLazyRoute =
     import('./routes/app/tools/ddns/create/route.lazy').then((d) => d.Route),
   )
 
+const AppToolsCreditShowRouteLazyRoute =
+  AppToolsCreditShowRouteLazyImport.update({
+    path: '/show',
+    getParentRoute: () => AppToolsCreditRouteRoute,
+  } as any).lazy(() =>
+    import('./routes/app/tools/credit/show/route.lazy').then((d) => d.Route),
+  )
+
 const AppEnterprisesEnterpriseIdUpdateAccountabilityRouteLazyRoute =
   AppEnterprisesEnterpriseIdUpdateAccountabilityRouteLazyImport.update({
     path: '/update-accountability',
@@ -609,6 +629,15 @@ const AppEnterprisesEnterpriseIdCreateContactRouteLazyRoute =
       './routes/app/enterprises_/$enterpriseId/create-contact/route.lazy'
     ).then((d) => d.Route),
   )
+
+const AppToolsCreditDetailsRouteRoute = AppToolsCreditDetailsRouteImport.update(
+  {
+    path: '/details',
+    getParentRoute: () => AppToolsCreditRouteRoute,
+  } as any,
+).lazy(() =>
+  import('./routes/app/tools/credit/details/route.lazy').then((d) => d.Route),
+)
 
 const AppProductsProductIdManageRouteRoute =
   AppProductsProductIdManageRouteImport.update({
@@ -1590,6 +1619,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppProductsProductIdRouteImport
       parentRoute: typeof AppRouteImport
     }
+    '/app/tools/credit': {
+      preLoaderRoute: typeof AppToolsCreditRouteImport
+      parentRoute: typeof AppToolsRouteImport
+    }
     '/app/tools/ddns': {
       preLoaderRoute: typeof AppToolsDdnsRouteImport
       parentRoute: typeof AppToolsRouteImport
@@ -1790,6 +1823,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppProductsProductIdManageRouteImport
       parentRoute: typeof AppProductsProductIdRouteImport
     }
+    '/app/tools/credit/details': {
+      preLoaderRoute: typeof AppToolsCreditDetailsRouteImport
+      parentRoute: typeof AppToolsCreditRouteImport
+    }
     '/app/enterprises/$enterpriseId/create-contact': {
       preLoaderRoute: typeof AppEnterprisesEnterpriseIdCreateContactRouteLazyImport
       parentRoute: typeof AppEnterprisesEnterpriseIdRouteImport
@@ -1809,6 +1846,10 @@ declare module '@tanstack/react-router' {
     '/app/enterprises/$enterpriseId/update-accountability': {
       preLoaderRoute: typeof AppEnterprisesEnterpriseIdUpdateAccountabilityRouteLazyImport
       parentRoute: typeof AppEnterprisesEnterpriseIdRouteImport
+    }
+    '/app/tools/credit/show': {
+      preLoaderRoute: typeof AppToolsCreditShowRouteLazyImport
+      parentRoute: typeof AppToolsCreditRouteImport
     }
     '/app/tools/ddns/create': {
       preLoaderRoute: typeof AppToolsDdnsCreateRouteLazyImport
@@ -2124,6 +2165,10 @@ export const routeTree = rootRoute.addChildren([
       ]),
     ]),
     AppToolsRouteRoute.addChildren([
+      AppToolsCreditRouteRoute.addChildren([
+        AppToolsCreditDetailsRouteRoute,
+        AppToolsCreditShowRouteLazyRoute,
+      ]),
       AppToolsDdnsRouteRoute.addChildren([
         AppToolsDdnsCreateRouteLazyRoute,
         AppToolsDdnsDeleteDdnsIdRouteRoute,

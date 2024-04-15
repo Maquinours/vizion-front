@@ -17,8 +17,12 @@ import { taskComments } from './taskComment';
 import { emails } from './email';
 import { departments } from './departments';
 import { turnovers } from './turnovers';
+import { businesses } from './business';
+import { businessBills } from './businessBill';
 
 export const queries = mergeQueryKeys(
+  businesses,
+  businessBills,
   emails,
   enterprises,
   departments,
