@@ -19,6 +19,7 @@ import { departments } from './departments';
 import { turnovers } from './turnovers';
 import { businesses } from './business';
 import { businessBills } from './businessBill';
+import { salesVva } from './salesVva';
 
 export const queries = mergeQueryKeys(
   businesses,
@@ -41,4 +42,5 @@ export const queries = mergeQueryKeys(
   tasks,
   taskComments,
   turnovers,
+  salesVva,
 );

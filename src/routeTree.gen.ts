@@ -24,6 +24,7 @@ import { Route as AppFaqRouteImport } from './routes/app/faq/route'
 import { Route as AppExternalLinksRouteImport } from './routes/app/external-links/route'
 import { Route as AppEnterprisesRouteImport } from './routes/app/enterprises/route'
 import { Route as AppDashboardRouteImport } from './routes/app/dashboard/route'
+import { Route as AppToolsVvaRouteImport } from './routes/app/tools/vva/route'
 import { Route as AppToolsSchedulerRouteImport } from './routes/app/tools/scheduler/route'
 import { Route as AppToolsRepresentativesTurnoverRouteImport } from './routes/app/tools/representatives-turnover/route'
 import { Route as AppToolsRepresentativesMapRouteImport } from './routes/app/tools/representatives-map/route'
@@ -42,6 +43,7 @@ import { Route as AppEnterprisesEnterpriseIdRouteImport } from './routes/app/ent
 import { Route as AppDashboardDeleteCollectiveTasksRouteImport } from './routes/app/dashboard/delete-collective-tasks/route'
 import { Route as AppDashboardCreatePersonalTaskRouteImport } from './routes/app/dashboard/create-personal-task/route'
 import { Route as AppProductsProductIdIndexImport } from './routes/app/products_.$productId/index'
+import { Route as AppToolsVvaCreateRouteImport } from './routes/app/tools/vva/create/route'
 import { Route as AppToolsCreditDetailsRouteImport } from './routes/app/tools/credit/details/route'
 import { Route as AppProductsProductIdManageRouteImport } from './routes/app/products_.$productId/manage/route'
 import { Route as AppProductsProductIdInformationsRouteImport } from './routes/app/products_.$productId/informations/route'
@@ -79,6 +81,7 @@ import { Route as AppDashboardLinkPersonalTaskTaskIdRouteImport } from './routes
 import { Route as AppDashboardDeleteProgressiveInfoProgressiveInfoIdRouteImport } from './routes/app/dashboard/delete-progressive-info.$progressiveInfoId/route'
 import { Route as AppDashboardDeleteCollectiveTaskTaskIdRouteImport } from './routes/app/dashboard/delete-collective-task.$taskId/route'
 import { Route as AppDashboardArchivePersonalTaskTaskIdRouteImport } from './routes/app/dashboard/archive-personal-task.$taskId/route'
+import { Route as AppToolsVvaDeleteVvaIdRouteImport } from './routes/app/tools/vva/delete.$vvaId/route'
 import { Route as AppToolsPredefinedTextsUpdatePredefinedTextIdRouteImport } from './routes/app/tools/predefined-texts/update.$predefinedTextId/route'
 import { Route as AppToolsPredefinedTextsDeletePredefinedTextIdRouteImport } from './routes/app/tools/predefined-texts/delete.$predefinedTextId/route'
 import { Route as AppToolsNewsUpdateNewsIdRouteImport } from './routes/app/tools/news/update.$newsId/route'
@@ -341,6 +344,13 @@ const AppDashboardCreateCollectiveTaskRouteLazyRoute =
       (d) => d.Route,
     ),
   )
+
+const AppToolsVvaRouteRoute = AppToolsVvaRouteImport.update({
+  path: '/vva',
+  getParentRoute: () => AppToolsRouteRoute,
+} as any).lazy(() =>
+  import('./routes/app/tools/vva/route.lazy').then((d) => d.Route),
+)
 
 const AppToolsSchedulerRouteRoute = AppToolsSchedulerRouteImport.update({
   path: '/scheduler',
@@ -629,6 +639,13 @@ const AppEnterprisesEnterpriseIdCreateContactRouteLazyRoute =
       './routes/app/enterprises_/$enterpriseId/create-contact/route.lazy'
     ).then((d) => d.Route),
   )
+
+const AppToolsVvaCreateRouteRoute = AppToolsVvaCreateRouteImport.update({
+  path: '/create',
+  getParentRoute: () => AppToolsVvaRouteRoute,
+} as any).lazy(() =>
+  import('./routes/app/tools/vva/create/route.lazy').then((d) => d.Route),
+)
 
 const AppToolsCreditDetailsRouteRoute = AppToolsCreditDetailsRouteImport.update(
   {
@@ -1087,6 +1104,16 @@ const AppDashboardTaskEmailTaskIdReplyRouteLazyRoute =
     getParentRoute: () => AppDashboardTaskEmailTaskIdRouteRoute,
   } as any).lazy(() =>
     import('./routes/app/dashboard/task-email.$taskId/reply/route.lazy').then(
+      (d) => d.Route,
+    ),
+  )
+
+const AppToolsVvaDeleteVvaIdRouteRoute =
+  AppToolsVvaDeleteVvaIdRouteImport.update({
+    path: '/delete/$vvaId',
+    getParentRoute: () => AppToolsVvaRouteRoute,
+  } as any).lazy(() =>
+    import('./routes/app/tools/vva/delete.$vvaId/route.lazy').then(
       (d) => d.Route,
     ),
   )
@@ -1663,6 +1690,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppToolsSchedulerRouteImport
       parentRoute: typeof AppToolsRouteImport
     }
+    '/app/tools/vva': {
+      preLoaderRoute: typeof AppToolsVvaRouteImport
+      parentRoute: typeof AppToolsRouteImport
+    }
     '/app/dashboard/create-collective-task': {
       preLoaderRoute: typeof AppDashboardCreateCollectiveTaskRouteLazyImport
       parentRoute: typeof AppDashboardRouteImport
@@ -1827,6 +1858,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppToolsCreditDetailsRouteImport
       parentRoute: typeof AppToolsCreditRouteImport
     }
+    '/app/tools/vva/create': {
+      preLoaderRoute: typeof AppToolsVvaCreateRouteImport
+      parentRoute: typeof AppToolsVvaRouteImport
+    }
     '/app/enterprises/$enterpriseId/create-contact': {
       preLoaderRoute: typeof AppEnterprisesEnterpriseIdCreateContactRouteLazyImport
       parentRoute: typeof AppEnterprisesEnterpriseIdRouteImport
@@ -1990,6 +2025,10 @@ declare module '@tanstack/react-router' {
     '/app/tools/predefined-texts/update/$predefinedTextId': {
       preLoaderRoute: typeof AppToolsPredefinedTextsUpdatePredefinedTextIdRouteImport
       parentRoute: typeof AppToolsPredefinedTextsRouteImport
+    }
+    '/app/tools/vva/delete/$vvaId': {
+      preLoaderRoute: typeof AppToolsVvaDeleteVvaIdRouteImport
+      parentRoute: typeof AppToolsVvaRouteImport
     }
     '/app/dashboard/task-email/$taskId/reply': {
       preLoaderRoute: typeof AppDashboardTaskEmailTaskIdReplyRouteLazyImport
@@ -2208,6 +2247,10 @@ export const routeTree = rootRoute.addChildren([
           AppToolsSchedulerDetailsRdvIdDeleteRouteLazyRoute,
           AppToolsSchedulerDetailsRdvIdUpdateRouteLazyRoute,
         ]),
+      ]),
+      AppToolsVvaRouteRoute.addChildren([
+        AppToolsVvaCreateRouteRoute,
+        AppToolsVvaDeleteVvaIdRouteRoute,
       ]),
       AppToolsEmailsSendRouteLazyRoute.addChildren([
         AppToolsEmailsSendPredefinedMessagesRouteRoute,
