@@ -20,6 +20,8 @@ import { turnovers } from './turnovers';
 import { businesses } from './business';
 import { businessBills } from './businessBill';
 import { salesVva } from './salesVva';
+import { formations } from './formations';
+import { formationSubscriptions } from './formationSubscriptions';
 
 export const queries = mergeQueryKeys(
   businesses,
@@ -43,4 +45,6 @@ export const queries = mergeQueryKeys(
   taskComments,
   turnovers,
   salesVva,
+  formations,
+  formationSubscriptions,
 );

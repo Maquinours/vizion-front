@@ -32,6 +32,7 @@ import { Route as AppToolsPredefinedTextsRouteImport } from './routes/app/tools/
 import { Route as AppToolsPredefinedMessagesRouteImport } from './routes/app/tools/predefined-messages/route'
 import { Route as AppToolsNewsRouteImport } from './routes/app/tools/news/route'
 import { Route as AppToolsGlobalTurnoverRouteImport } from './routes/app/tools/global-turnover/route'
+import { Route as AppToolsFormationsRouteImport } from './routes/app/tools/formations/route'
 import { Route as AppToolsExternalLinksRouteImport } from './routes/app/tools/external-links/route'
 import { Route as AppToolsEmailsRouteImport } from './routes/app/tools/emails/route'
 import { Route as AppToolsDdnsRouteImport } from './routes/app/tools/ddns/route'
@@ -86,6 +87,10 @@ import { Route as AppToolsPredefinedTextsUpdatePredefinedTextIdRouteImport } fro
 import { Route as AppToolsPredefinedTextsDeletePredefinedTextIdRouteImport } from './routes/app/tools/predefined-texts/delete.$predefinedTextId/route'
 import { Route as AppToolsNewsUpdateNewsIdRouteImport } from './routes/app/tools/news/update.$newsId/route'
 import { Route as AppToolsNewsDeleteNewsIdRouteImport } from './routes/app/tools/news/delete.$newsId/route'
+import { Route as AppToolsFormationsUpdateFormationIdRouteImport } from './routes/app/tools/formations/update.$formationId/route'
+import { Route as AppToolsFormationsSubscribersFormationDetailIdRouteImport } from './routes/app/tools/formations/subscribers.$formationDetailId/route'
+import { Route as AppToolsFormationsDeleteFormationIdRouteImport } from './routes/app/tools/formations/delete.$formationId/route'
+import { Route as AppToolsFormationsCreateAddDetailRouteImport } from './routes/app/tools/formations/create/add-detail/route'
 import { Route as AppToolsExternalLinksUpdateExternalLinkIdRouteImport } from './routes/app/tools/external-links/update.$externalLinkId/route'
 import { Route as AppToolsExternalLinksDeleteExternalLinkIdRouteImport } from './routes/app/tools/external-links/delete.$externalLinkId/route'
 import { Route as AppToolsExternalLinksArchiveExternalLinkIdRouteImport } from './routes/app/tools/external-links/archive.$externalLinkId/route'
@@ -108,6 +113,7 @@ import { Route as AppEnterprisesEnterpriseIdUpdateContactPasswordContactIdRouteI
 import { Route as AppEnterprisesEnterpriseIdSendEmailToContactContactIdRouteImport } from './routes/app/enterprises_/$enterpriseId/send-email-to-contact.$contactId/route'
 import { Route as AppEnterprisesEnterpriseIdDeleteContactContactIdRouteImport } from './routes/app/enterprises_/$enterpriseId/delete-contact.$contactId/route'
 import { Route as AppEnterprisesEnterpriseIdCreateContactBusinessContactIdRouteImport } from './routes/app/enterprises_/$enterpriseId/create-contact-business.$contactId/route'
+import { Route as AppToolsFormationsUpdateFormationIdAddDetailRouteImport } from './routes/app/tools/formations/update.$formationId/add-detail/route'
 import { Route as AppProductsProductIdManageUpdateVersionVersionIdRouteImport } from './routes/app/products_.$productId/manage/update-version.$versionId/route'
 import { Route as AppProductsProductIdManageUpdateStockStockIdRouteImport } from './routes/app/products_.$productId/manage/update-stock.$stockId/route'
 import { Route as AppProductsProductIdManageUpdateSpecificationSpecificationIdRouteImport } from './routes/app/products_.$productId/manage/update-specification.$specificationId/route'
@@ -120,6 +126,8 @@ import { Route as AppProductsProductIdManageAddSpecificationFilterIdRouteImport 
 import { Route as AppProductsProductIdInformationsTaskEmailTaskIdRouteImport } from './routes/app/products_.$productId/informations/task-email.$taskId/route'
 import { Route as AppEnterprisesEnterpriseIdAddressBookUpdateAddressIdRouteImport } from './routes/app/enterprises_/$enterpriseId/address-book/update.$addressId/route'
 import { Route as AppEnterprisesEnterpriseIdAddressBookDeleteAddressIdRouteImport } from './routes/app/enterprises_/$enterpriseId/address-book/delete.$addressId/route'
+import { Route as AppToolsFormationsSubscribersFormationDetailIdSendEmailSubscriptionIdRouteImport } from './routes/app/tools/formations/subscribers.$formationDetailId/send-email.$subscriptionId/route'
+import { Route as AppToolsFormationsSubscribersFormationDetailIdDeleteSubscriptionIdRouteImport } from './routes/app/tools/formations/subscribers.$formationDetailId/delete.$subscriptionId/route'
 
 // Create Virtual Routes
 
@@ -148,6 +156,9 @@ const AppToolsPredefinedMessagesCreateRouteLazyImport = createFileRoute(
 )()
 const AppToolsNewsCreateRouteLazyImport = createFileRoute(
   '/app/tools/news/create',
+)()
+const AppToolsFormationsCreateRouteLazyImport = createFileRoute(
+  '/app/tools/formations/create',
 )()
 const AppToolsExternalLinksCreateRouteLazyImport = createFileRoute(
   '/app/tools/external-links/create',
@@ -188,6 +199,9 @@ const AppToolsPredefinedMessagesDeletePredefinedMessageIdRouteLazyImport =
   createFileRoute(
     '/app/tools/predefined-messages/delete/$predefinedMessageId',
   )()
+const AppToolsFormationsCreateDetailsRouteLazyImport = createFileRoute(
+  '/app/tools/formations/create/details',
+)()
 const AppToolsEmailsEmailIdReplyRouteLazyImport = createFileRoute(
   '/app/tools/emails/$emailId/reply',
 )()
@@ -215,6 +229,8 @@ const AppToolsSchedulerDetailsRdvIdUpdateRouteLazyImport = createFileRoute(
 const AppToolsSchedulerDetailsRdvIdDeleteRouteLazyImport = createFileRoute(
   '/app/tools/scheduler/details/$rdvId/delete',
 )()
+const AppToolsFormationsUpdateFormationIdDetailsRouteLazyImport =
+  createFileRoute('/app/tools/formations/update/$formationId/details')()
 const AppFaqGedFaqIdRenameItemRelativePathRouteLazyImport = createFileRoute(
   '/app/faq/ged/$faqId/rename/$itemRelativePath',
 )()
@@ -416,6 +432,13 @@ const AppToolsGlobalTurnoverRouteRoute =
     ),
   )
 
+const AppToolsFormationsRouteRoute = AppToolsFormationsRouteImport.update({
+  path: '/formations',
+  getParentRoute: () => AppToolsRouteRoute,
+} as any).lazy(() =>
+  import('./routes/app/tools/formations/route.lazy').then((d) => d.Route),
+)
+
 const AppToolsExternalLinksRouteRoute = AppToolsExternalLinksRouteImport.update(
   {
     path: '/external-links',
@@ -544,6 +567,16 @@ const AppToolsNewsCreateRouteLazyRoute =
     getParentRoute: () => AppToolsNewsRouteRoute,
   } as any).lazy(() =>
     import('./routes/app/tools/news/create/route.lazy').then((d) => d.Route),
+  )
+
+const AppToolsFormationsCreateRouteLazyRoute =
+  AppToolsFormationsCreateRouteLazyImport.update({
+    path: '/create',
+    getParentRoute: () => AppToolsFormationsRouteRoute,
+  } as any).lazy(() =>
+    import('./routes/app/tools/formations/create/route.lazy').then(
+      (d) => d.Route,
+    ),
   )
 
 const AppToolsExternalLinksCreateRouteLazyRoute =
@@ -1034,6 +1067,16 @@ const AppToolsPredefinedMessagesDeletePredefinedMessageIdRouteLazyRoute =
     ).then((d) => d.Route),
   )
 
+const AppToolsFormationsCreateDetailsRouteLazyRoute =
+  AppToolsFormationsCreateDetailsRouteLazyImport.update({
+    path: '/details',
+    getParentRoute: () => AppToolsFormationsCreateRouteLazyRoute,
+  } as any).lazy(() =>
+    import('./routes/app/tools/formations/create/details/route.lazy').then(
+      (d) => d.Route,
+    ),
+  )
+
 const AppToolsEmailsEmailIdReplyRouteLazyRoute =
   AppToolsEmailsEmailIdReplyRouteLazyImport.update({
     path: '/reply',
@@ -1154,6 +1197,46 @@ const AppToolsNewsDeleteNewsIdRouteRoute =
     getParentRoute: () => AppToolsNewsRouteRoute,
   } as any).lazy(() =>
     import('./routes/app/tools/news/delete.$newsId/route.lazy').then(
+      (d) => d.Route,
+    ),
+  )
+
+const AppToolsFormationsUpdateFormationIdRouteRoute =
+  AppToolsFormationsUpdateFormationIdRouteImport.update({
+    path: '/update/$formationId',
+    getParentRoute: () => AppToolsFormationsRouteRoute,
+  } as any).lazy(() =>
+    import('./routes/app/tools/formations/update.$formationId/route.lazy').then(
+      (d) => d.Route,
+    ),
+  )
+
+const AppToolsFormationsSubscribersFormationDetailIdRouteRoute =
+  AppToolsFormationsSubscribersFormationDetailIdRouteImport.update({
+    path: '/subscribers/$formationDetailId',
+    getParentRoute: () => AppToolsFormationsRouteRoute,
+  } as any).lazy(() =>
+    import(
+      './routes/app/tools/formations/subscribers.$formationDetailId/route.lazy'
+    ).then((d) => d.Route),
+  )
+
+const AppToolsFormationsDeleteFormationIdRouteRoute =
+  AppToolsFormationsDeleteFormationIdRouteImport.update({
+    path: '/delete/$formationId',
+    getParentRoute: () => AppToolsFormationsRouteRoute,
+  } as any).lazy(() =>
+    import('./routes/app/tools/formations/delete.$formationId/route.lazy').then(
+      (d) => d.Route,
+    ),
+  )
+
+const AppToolsFormationsCreateAddDetailRouteRoute =
+  AppToolsFormationsCreateAddDetailRouteImport.update({
+    path: '/add-detail',
+    getParentRoute: () => AppToolsFormationsCreateRouteLazyRoute,
+  } as any).lazy(() =>
+    import('./routes/app/tools/formations/create/add-detail/route.lazy').then(
       (d) => d.Route,
     ),
   )
@@ -1398,6 +1481,16 @@ const AppToolsSchedulerDetailsRdvIdDeleteRouteLazyRoute =
     ).then((d) => d.Route),
   )
 
+const AppToolsFormationsUpdateFormationIdDetailsRouteLazyRoute =
+  AppToolsFormationsUpdateFormationIdDetailsRouteLazyImport.update({
+    path: '/details',
+    getParentRoute: () => AppToolsFormationsUpdateFormationIdRouteRoute,
+  } as any).lazy(() =>
+    import(
+      './routes/app/tools/formations/update.$formationId/details/route.lazy'
+    ).then((d) => d.Route),
+  )
+
 const AppFaqGedFaqIdRenameItemRelativePathRouteLazyRoute =
   AppFaqGedFaqIdRenameItemRelativePathRouteLazyImport.update({
     path: '/rename/$itemRelativePath',
@@ -1426,6 +1519,16 @@ const AppEnterprisesEnterpriseIdTaskEmailTaskIdReplyRouteLazyRoute =
   } as any).lazy(() =>
     import(
       './routes/app/enterprises_/$enterpriseId/task-email.$taskId/reply/route.lazy'
+    ).then((d) => d.Route),
+  )
+
+const AppToolsFormationsUpdateFormationIdAddDetailRouteRoute =
+  AppToolsFormationsUpdateFormationIdAddDetailRouteImport.update({
+    path: '/add-detail',
+    getParentRoute: () => AppToolsFormationsUpdateFormationIdRouteRoute,
+  } as any).lazy(() =>
+    import(
+      './routes/app/tools/formations/update.$formationId/add-detail/route.lazy'
     ).then((d) => d.Route),
   )
 
@@ -1566,6 +1669,32 @@ const AppProductsProductIdInformationsTaskEmailTaskIdReplyRouteLazyRoute =
     ).then((d) => d.Route),
   )
 
+const AppToolsFormationsSubscribersFormationDetailIdSendEmailSubscriptionIdRouteRoute =
+  AppToolsFormationsSubscribersFormationDetailIdSendEmailSubscriptionIdRouteImport.update(
+    {
+      path: '/send-email/$subscriptionId',
+      getParentRoute: () =>
+        AppToolsFormationsSubscribersFormationDetailIdRouteRoute,
+    } as any,
+  ).lazy(() =>
+    import(
+      './routes/app/tools/formations/subscribers.$formationDetailId/send-email.$subscriptionId/route.lazy'
+    ).then((d) => d.Route),
+  )
+
+const AppToolsFormationsSubscribersFormationDetailIdDeleteSubscriptionIdRouteRoute =
+  AppToolsFormationsSubscribersFormationDetailIdDeleteSubscriptionIdRouteImport.update(
+    {
+      path: '/delete/$subscriptionId',
+      getParentRoute: () =>
+        AppToolsFormationsSubscribersFormationDetailIdRouteRoute,
+    } as any,
+  ).lazy(() =>
+    import(
+      './routes/app/tools/formations/subscribers.$formationDetailId/delete.$subscriptionId/route.lazy'
+    ).then((d) => d.Route),
+  )
+
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
@@ -1660,6 +1789,10 @@ declare module '@tanstack/react-router' {
     }
     '/app/tools/external-links': {
       preLoaderRoute: typeof AppToolsExternalLinksRouteImport
+      parentRoute: typeof AppToolsRouteImport
+    }
+    '/app/tools/formations': {
+      preLoaderRoute: typeof AppToolsFormationsRouteImport
       parentRoute: typeof AppToolsRouteImport
     }
     '/app/tools/global-turnover': {
@@ -1902,6 +2035,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppToolsExternalLinksCreateRouteLazyImport
       parentRoute: typeof AppToolsExternalLinksRouteImport
     }
+    '/app/tools/formations/create': {
+      preLoaderRoute: typeof AppToolsFormationsCreateRouteLazyImport
+      parentRoute: typeof AppToolsFormationsRouteImport
+    }
     '/app/tools/news/create': {
       preLoaderRoute: typeof AppToolsNewsCreateRouteLazyImport
       parentRoute: typeof AppToolsNewsRouteImport
@@ -2010,6 +2147,22 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppToolsExternalLinksUpdateExternalLinkIdRouteImport
       parentRoute: typeof AppToolsExternalLinksRouteImport
     }
+    '/app/tools/formations/create/add-detail': {
+      preLoaderRoute: typeof AppToolsFormationsCreateAddDetailRouteImport
+      parentRoute: typeof AppToolsFormationsCreateRouteLazyImport
+    }
+    '/app/tools/formations/delete/$formationId': {
+      preLoaderRoute: typeof AppToolsFormationsDeleteFormationIdRouteImport
+      parentRoute: typeof AppToolsFormationsRouteImport
+    }
+    '/app/tools/formations/subscribers/$formationDetailId': {
+      preLoaderRoute: typeof AppToolsFormationsSubscribersFormationDetailIdRouteImport
+      parentRoute: typeof AppToolsFormationsRouteImport
+    }
+    '/app/tools/formations/update/$formationId': {
+      preLoaderRoute: typeof AppToolsFormationsUpdateFormationIdRouteImport
+      parentRoute: typeof AppToolsFormationsRouteImport
+    }
     '/app/tools/news/delete/$newsId': {
       preLoaderRoute: typeof AppToolsNewsDeleteNewsIdRouteImport
       parentRoute: typeof AppToolsNewsRouteImport
@@ -2057,6 +2210,10 @@ declare module '@tanstack/react-router' {
     '/app/tools/emails/$emailId/reply': {
       preLoaderRoute: typeof AppToolsEmailsEmailIdReplyRouteLazyImport
       parentRoute: typeof AppToolsEmailsEmailIdRouteLazyImport
+    }
+    '/app/tools/formations/create/details': {
+      preLoaderRoute: typeof AppToolsFormationsCreateDetailsRouteLazyImport
+      parentRoute: typeof AppToolsFormationsCreateRouteLazyImport
     }
     '/app/tools/predefined-messages/delete/$predefinedMessageId': {
       preLoaderRoute: typeof AppToolsPredefinedMessagesDeletePredefinedMessageIdRouteLazyImport
@@ -2118,6 +2275,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppProductsProductIdManageUpdateVersionVersionIdRouteImport
       parentRoute: typeof AppProductsProductIdManageRouteImport
     }
+    '/app/tools/formations/update/$formationId/add-detail': {
+      preLoaderRoute: typeof AppToolsFormationsUpdateFormationIdAddDetailRouteImport
+      parentRoute: typeof AppToolsFormationsUpdateFormationIdRouteImport
+    }
     '/app/enterprises/$enterpriseId/task-email/$taskId/reply': {
       preLoaderRoute: typeof AppEnterprisesEnterpriseIdTaskEmailTaskIdReplyRouteLazyImport
       parentRoute: typeof AppEnterprisesEnterpriseIdTaskEmailTaskIdRouteLazyImport
@@ -2130,6 +2291,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppFaqGedFaqIdRenameItemRelativePathRouteLazyImport
       parentRoute: typeof AppFaqGedFaqIdRouteImport
     }
+    '/app/tools/formations/update/$formationId/details': {
+      preLoaderRoute: typeof AppToolsFormationsUpdateFormationIdDetailsRouteLazyImport
+      parentRoute: typeof AppToolsFormationsUpdateFormationIdRouteImport
+    }
     '/app/tools/scheduler/details/$rdvId/delete': {
       preLoaderRoute: typeof AppToolsSchedulerDetailsRdvIdDeleteRouteLazyImport
       parentRoute: typeof AppToolsSchedulerDetailsRdvIdRouteLazyImport
@@ -2137,6 +2302,14 @@ declare module '@tanstack/react-router' {
     '/app/tools/scheduler/details/$rdvId/update': {
       preLoaderRoute: typeof AppToolsSchedulerDetailsRdvIdUpdateRouteLazyImport
       parentRoute: typeof AppToolsSchedulerDetailsRdvIdRouteLazyImport
+    }
+    '/app/tools/formations/subscribers/$formationDetailId/delete/$subscriptionId': {
+      preLoaderRoute: typeof AppToolsFormationsSubscribersFormationDetailIdDeleteSubscriptionIdRouteImport
+      parentRoute: typeof AppToolsFormationsSubscribersFormationDetailIdRouteImport
+    }
+    '/app/tools/formations/subscribers/$formationDetailId/send-email/$subscriptionId': {
+      preLoaderRoute: typeof AppToolsFormationsSubscribersFormationDetailIdSendEmailSubscriptionIdRouteImport
+      parentRoute: typeof AppToolsFormationsSubscribersFormationDetailIdRouteImport
     }
     '/app/products/$productId/informations/task-email/$taskId/reply': {
       preLoaderRoute: typeof AppProductsProductIdInformationsTaskEmailTaskIdReplyRouteLazyImport
@@ -2222,6 +2395,21 @@ export const routeTree = rootRoute.addChildren([
         AppToolsExternalLinksArchiveExternalLinkIdRouteRoute,
         AppToolsExternalLinksDeleteExternalLinkIdRouteRoute,
         AppToolsExternalLinksUpdateExternalLinkIdRouteRoute,
+      ]),
+      AppToolsFormationsRouteRoute.addChildren([
+        AppToolsFormationsCreateRouteLazyRoute.addChildren([
+          AppToolsFormationsCreateAddDetailRouteRoute,
+          AppToolsFormationsCreateDetailsRouteLazyRoute,
+        ]),
+        AppToolsFormationsDeleteFormationIdRouteRoute,
+        AppToolsFormationsSubscribersFormationDetailIdRouteRoute.addChildren([
+          AppToolsFormationsSubscribersFormationDetailIdDeleteSubscriptionIdRouteRoute,
+          AppToolsFormationsSubscribersFormationDetailIdSendEmailSubscriptionIdRouteRoute,
+        ]),
+        AppToolsFormationsUpdateFormationIdRouteRoute.addChildren([
+          AppToolsFormationsUpdateFormationIdAddDetailRouteRoute,
+          AppToolsFormationsUpdateFormationIdDetailsRouteLazyRoute,
+        ]),
       ]),
       AppToolsGlobalTurnoverRouteRoute,
       AppToolsNewsRouteRoute.addChildren([
