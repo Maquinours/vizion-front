@@ -4,6 +4,7 @@ import AppViewToolsViewPredefinedTextsViewTableComponent from './components/Tabl
 import { useQuery } from '@tanstack/react-query';
 import { queries } from '../../../../../../utils/constants/queryKeys';
 import PaginationComponent from '../../../../../../components/Pagination/Pagination';
+import _ from 'lodash';
 
 const routeApi = getRouteApi('/app/tools/predefined-texts');
 
@@ -12,7 +13,10 @@ const size = 50;
 export default function AppViewToolsViewPredefinedTextsView() {
   const { page } = routeApi.useSearch();
 
-  const { data, isLoading } = useQuery(queries['predefined-text'].page({ page, size }));
+  const { data, isLoading } = useQuery({
+    ...queries['predefined-text'].page({ page, size }),
+    select: (data) => ({ ...data, content: _.sortBy(data.content, 'orderNum') }),
+  });
 
   return (
     <>
