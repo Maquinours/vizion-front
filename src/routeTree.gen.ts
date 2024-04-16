@@ -28,6 +28,7 @@ import { Route as AppToolsVvaRouteImport } from './routes/app/tools/vva/route'
 import { Route as AppToolsSchedulerRouteImport } from './routes/app/tools/scheduler/route'
 import { Route as AppToolsRepresentativesTurnoverRouteImport } from './routes/app/tools/representatives-turnover/route'
 import { Route as AppToolsRepresentativesMapRouteImport } from './routes/app/tools/representatives-map/route'
+import { Route as AppToolsProductFiltersRouteImport } from './routes/app/tools/product-filters/route'
 import { Route as AppToolsPredefinedTextsRouteImport } from './routes/app/tools/predefined-texts/route'
 import { Route as AppToolsPredefinedMessagesRouteImport } from './routes/app/tools/predefined-messages/route'
 import { Route as AppToolsNewsRouteImport } from './routes/app/tools/news/route'
@@ -83,6 +84,8 @@ import { Route as AppDashboardDeleteProgressiveInfoProgressiveInfoIdRouteImport 
 import { Route as AppDashboardDeleteCollectiveTaskTaskIdRouteImport } from './routes/app/dashboard/delete-collective-task.$taskId/route'
 import { Route as AppDashboardArchivePersonalTaskTaskIdRouteImport } from './routes/app/dashboard/archive-personal-task.$taskId/route'
 import { Route as AppToolsVvaDeleteVvaIdRouteImport } from './routes/app/tools/vva/delete.$vvaId/route'
+import { Route as AppToolsProductFiltersUpdateProductFilterIdRouteImport } from './routes/app/tools/product-filters/update.$productFilterId/route'
+import { Route as AppToolsProductFiltersDeleteProductFilterIdRouteImport } from './routes/app/tools/product-filters/delete.$productFilterId/route'
 import { Route as AppToolsPredefinedTextsUpdatePredefinedTextIdRouteImport } from './routes/app/tools/predefined-texts/update.$predefinedTextId/route'
 import { Route as AppToolsPredefinedTextsDeletePredefinedTextIdRouteImport } from './routes/app/tools/predefined-texts/delete.$predefinedTextId/route'
 import { Route as AppToolsNewsUpdateNewsIdRouteImport } from './routes/app/tools/news/update.$newsId/route'
@@ -147,6 +150,9 @@ const AppDashboardCreateCollectiveTaskRouteLazyImport = createFileRoute(
 )()
 const AppToolsSchedulerCreateRouteLazyImport = createFileRoute(
   '/app/tools/scheduler/create',
+)()
+const AppToolsProductFiltersCreateRouteLazyImport = createFileRoute(
+  '/app/tools/product-filters/create',
 )()
 const AppToolsPredefinedTextsCreateRouteLazyImport = createFileRoute(
   '/app/tools/predefined-texts/create',
@@ -395,6 +401,16 @@ const AppToolsRepresentativesMapRouteRoute =
     ),
   )
 
+const AppToolsProductFiltersRouteRoute =
+  AppToolsProductFiltersRouteImport.update({
+    path: '/product-filters',
+    getParentRoute: () => AppToolsRouteRoute,
+  } as any).lazy(() =>
+    import('./routes/app/tools/product-filters/route.lazy').then(
+      (d) => d.Route,
+    ),
+  )
+
 const AppToolsPredefinedTextsRouteRoute =
   AppToolsPredefinedTextsRouteImport.update({
     path: '/predefined-texts',
@@ -537,6 +553,16 @@ const AppToolsSchedulerCreateRouteLazyRoute =
     getParentRoute: () => AppToolsSchedulerRouteRoute,
   } as any).lazy(() =>
     import('./routes/app/tools/scheduler/create/route.lazy').then(
+      (d) => d.Route,
+    ),
+  )
+
+const AppToolsProductFiltersCreateRouteLazyRoute =
+  AppToolsProductFiltersCreateRouteLazyImport.update({
+    path: '/create',
+    getParentRoute: () => AppToolsProductFiltersRouteRoute,
+  } as any).lazy(() =>
+    import('./routes/app/tools/product-filters/create/route.lazy').then(
       (d) => d.Route,
     ),
   )
@@ -1159,6 +1185,26 @@ const AppToolsVvaDeleteVvaIdRouteRoute =
     import('./routes/app/tools/vva/delete.$vvaId/route.lazy').then(
       (d) => d.Route,
     ),
+  )
+
+const AppToolsProductFiltersUpdateProductFilterIdRouteRoute =
+  AppToolsProductFiltersUpdateProductFilterIdRouteImport.update({
+    path: '/update/$productFilterId',
+    getParentRoute: () => AppToolsProductFiltersRouteRoute,
+  } as any).lazy(() =>
+    import(
+      './routes/app/tools/product-filters/update.$productFilterId/route.lazy'
+    ).then((d) => d.Route),
+  )
+
+const AppToolsProductFiltersDeleteProductFilterIdRouteRoute =
+  AppToolsProductFiltersDeleteProductFilterIdRouteImport.update({
+    path: '/delete/$productFilterId',
+    getParentRoute: () => AppToolsProductFiltersRouteRoute,
+  } as any).lazy(() =>
+    import(
+      './routes/app/tools/product-filters/delete.$productFilterId/route.lazy'
+    ).then((d) => d.Route),
   )
 
 const AppToolsPredefinedTextsUpdatePredefinedTextIdRouteRoute =
@@ -1811,6 +1857,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppToolsPredefinedTextsRouteImport
       parentRoute: typeof AppToolsRouteImport
     }
+    '/app/tools/product-filters': {
+      preLoaderRoute: typeof AppToolsProductFiltersRouteImport
+      parentRoute: typeof AppToolsRouteImport
+    }
     '/app/tools/representatives-map': {
       preLoaderRoute: typeof AppToolsRepresentativesMapRouteImport
       parentRoute: typeof AppToolsRouteImport
@@ -2051,6 +2101,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppToolsPredefinedTextsCreateRouteLazyImport
       parentRoute: typeof AppToolsPredefinedTextsRouteImport
     }
+    '/app/tools/product-filters/create': {
+      preLoaderRoute: typeof AppToolsProductFiltersCreateRouteLazyImport
+      parentRoute: typeof AppToolsProductFiltersRouteImport
+    }
     '/app/tools/scheduler/create': {
       preLoaderRoute: typeof AppToolsSchedulerCreateRouteLazyImport
       parentRoute: typeof AppToolsSchedulerRouteImport
@@ -2178,6 +2232,14 @@ declare module '@tanstack/react-router' {
     '/app/tools/predefined-texts/update/$predefinedTextId': {
       preLoaderRoute: typeof AppToolsPredefinedTextsUpdatePredefinedTextIdRouteImport
       parentRoute: typeof AppToolsPredefinedTextsRouteImport
+    }
+    '/app/tools/product-filters/delete/$productFilterId': {
+      preLoaderRoute: typeof AppToolsProductFiltersDeleteProductFilterIdRouteImport
+      parentRoute: typeof AppToolsProductFiltersRouteImport
+    }
+    '/app/tools/product-filters/update/$productFilterId': {
+      preLoaderRoute: typeof AppToolsProductFiltersUpdateProductFilterIdRouteImport
+      parentRoute: typeof AppToolsProductFiltersRouteImport
     }
     '/app/tools/vva/delete/$vvaId': {
       preLoaderRoute: typeof AppToolsVvaDeleteVvaIdRouteImport
@@ -2426,6 +2488,11 @@ export const routeTree = rootRoute.addChildren([
         AppToolsPredefinedTextsCreateRouteLazyRoute,
         AppToolsPredefinedTextsDeletePredefinedTextIdRouteRoute,
         AppToolsPredefinedTextsUpdatePredefinedTextIdRouteRoute,
+      ]),
+      AppToolsProductFiltersRouteRoute.addChildren([
+        AppToolsProductFiltersCreateRouteLazyRoute,
+        AppToolsProductFiltersDeleteProductFilterIdRouteRoute,
+        AppToolsProductFiltersUpdateProductFilterIdRouteRoute,
       ]),
       AppToolsRepresentativesMapRouteRoute,
       AppToolsRepresentativesTurnoverRouteRoute,
