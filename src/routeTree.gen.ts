@@ -29,6 +29,7 @@ import { Route as AppToolsSchedulerRouteImport } from './routes/app/tools/schedu
 import { Route as AppToolsRepresentativesTurnoverRouteImport } from './routes/app/tools/representatives-turnover/route'
 import { Route as AppToolsRepresentativesMapRouteImport } from './routes/app/tools/representatives-map/route'
 import { Route as AppToolsProductShelvesRouteImport } from './routes/app/tools/product-shelves/route'
+import { Route as AppToolsProductInventoryRouteImport } from './routes/app/tools/product-inventory/route'
 import { Route as AppToolsProductFiltersRouteImport } from './routes/app/tools/product-filters/route'
 import { Route as AppToolsPredefinedTextsRouteImport } from './routes/app/tools/predefined-texts/route'
 import { Route as AppToolsPredefinedMessagesRouteImport } from './routes/app/tools/predefined-messages/route'
@@ -86,6 +87,7 @@ import { Route as AppDashboardDeleteCollectiveTaskTaskIdRouteImport } from './ro
 import { Route as AppDashboardArchivePersonalTaskTaskIdRouteImport } from './routes/app/dashboard/archive-personal-task.$taskId/route'
 import { Route as AppToolsVvaDeleteVvaIdRouteImport } from './routes/app/tools/vva/delete.$vvaId/route'
 import { Route as AppToolsProductShelvesDeleteProductShelfIdRouteImport } from './routes/app/tools/product-shelves/delete.$productShelfId/route'
+import { Route as AppToolsProductInventoryUpdateStockIdRouteImport } from './routes/app/tools/product-inventory/update.$stockId/route'
 import { Route as AppToolsProductFiltersUpdateProductFilterIdRouteImport } from './routes/app/tools/product-filters/update.$productFilterId/route'
 import { Route as AppToolsProductFiltersDeleteProductFilterIdRouteImport } from './routes/app/tools/product-filters/delete.$productFilterId/route'
 import { Route as AppToolsPredefinedTextsUpdatePredefinedTextIdRouteImport } from './routes/app/tools/predefined-texts/update.$predefinedTextId/route'
@@ -156,6 +158,8 @@ const AppToolsSchedulerCreateRouteLazyImport = createFileRoute(
 const AppToolsProductShelvesCreateRouteLazyImport = createFileRoute(
   '/app/tools/product-shelves/create',
 )()
+const AppToolsProductInventoryValidateQuantitiesRouteLazyImport =
+  createFileRoute('/app/tools/product-inventory/validate-quantities')()
 const AppToolsProductFiltersCreateRouteLazyImport = createFileRoute(
   '/app/tools/product-filters/create',
 )()
@@ -416,6 +420,16 @@ const AppToolsProductShelvesRouteRoute =
     ),
   )
 
+const AppToolsProductInventoryRouteRoute =
+  AppToolsProductInventoryRouteImport.update({
+    path: '/product-inventory',
+    getParentRoute: () => AppToolsRouteRoute,
+  } as any).lazy(() =>
+    import('./routes/app/tools/product-inventory/route.lazy').then(
+      (d) => d.Route,
+    ),
+  )
+
 const AppToolsProductFiltersRouteRoute =
   AppToolsProductFiltersRouteImport.update({
     path: '/product-filters',
@@ -580,6 +594,16 @@ const AppToolsProductShelvesCreateRouteLazyRoute =
     import('./routes/app/tools/product-shelves/create/route.lazy').then(
       (d) => d.Route,
     ),
+  )
+
+const AppToolsProductInventoryValidateQuantitiesRouteLazyRoute =
+  AppToolsProductInventoryValidateQuantitiesRouteLazyImport.update({
+    path: '/validate-quantities',
+    getParentRoute: () => AppToolsProductInventoryRouteRoute,
+  } as any).lazy(() =>
+    import(
+      './routes/app/tools/product-inventory/validate-quantities/route.lazy'
+    ).then((d) => d.Route),
   )
 
 const AppToolsProductFiltersCreateRouteLazyRoute =
@@ -1219,6 +1243,16 @@ const AppToolsProductShelvesDeleteProductShelfIdRouteRoute =
   } as any).lazy(() =>
     import(
       './routes/app/tools/product-shelves/delete.$productShelfId/route.lazy'
+    ).then((d) => d.Route),
+  )
+
+const AppToolsProductInventoryUpdateStockIdRouteRoute =
+  AppToolsProductInventoryUpdateStockIdRouteImport.update({
+    path: '/update/$stockId',
+    getParentRoute: () => AppToolsProductInventoryRouteRoute,
+  } as any).lazy(() =>
+    import(
+      './routes/app/tools/product-inventory/update.$stockId/route.lazy'
     ).then((d) => d.Route),
   )
 
@@ -1896,6 +1930,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppToolsProductFiltersRouteImport
       parentRoute: typeof AppToolsRouteImport
     }
+    '/app/tools/product-inventory': {
+      preLoaderRoute: typeof AppToolsProductInventoryRouteImport
+      parentRoute: typeof AppToolsRouteImport
+    }
     '/app/tools/product-shelves': {
       preLoaderRoute: typeof AppToolsProductShelvesRouteImport
       parentRoute: typeof AppToolsRouteImport
@@ -2144,6 +2182,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppToolsProductFiltersCreateRouteLazyImport
       parentRoute: typeof AppToolsProductFiltersRouteImport
     }
+    '/app/tools/product-inventory/validate-quantities': {
+      preLoaderRoute: typeof AppToolsProductInventoryValidateQuantitiesRouteLazyImport
+      parentRoute: typeof AppToolsProductInventoryRouteImport
+    }
     '/app/tools/product-shelves/create': {
       preLoaderRoute: typeof AppToolsProductShelvesCreateRouteLazyImport
       parentRoute: typeof AppToolsProductShelvesRouteImport
@@ -2283,6 +2325,10 @@ declare module '@tanstack/react-router' {
     '/app/tools/product-filters/update/$productFilterId': {
       preLoaderRoute: typeof AppToolsProductFiltersUpdateProductFilterIdRouteImport
       parentRoute: typeof AppToolsProductFiltersRouteImport
+    }
+    '/app/tools/product-inventory/update/$stockId': {
+      preLoaderRoute: typeof AppToolsProductInventoryUpdateStockIdRouteImport
+      parentRoute: typeof AppToolsProductInventoryRouteImport
     }
     '/app/tools/product-shelves/delete/$productShelfId': {
       preLoaderRoute: typeof AppToolsProductShelvesDeleteProductShelfIdRouteImport
@@ -2540,6 +2586,10 @@ export const routeTree = rootRoute.addChildren([
         AppToolsProductFiltersCreateRouteLazyRoute,
         AppToolsProductFiltersDeleteProductFilterIdRouteRoute,
         AppToolsProductFiltersUpdateProductFilterIdRouteRoute,
+      ]),
+      AppToolsProductInventoryRouteRoute.addChildren([
+        AppToolsProductInventoryValidateQuantitiesRouteLazyRoute,
+        AppToolsProductInventoryUpdateStockIdRouteRoute,
       ]),
       AppToolsProductShelvesRouteRoute.addChildren([
         AppToolsProductShelvesCreateRouteLazyRoute,

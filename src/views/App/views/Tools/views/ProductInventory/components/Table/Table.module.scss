@@ -1,0 +1,98 @@
+@import '/src/assets/styles/mixins';
+
+.table_container {
+  width: 100%;
+  margin-top: 1rem;
+
+  table {
+    table-layout: fixed;
+    border-collapse: collapse;
+    width: 100%;
+
+    thead {
+      font-style: normal;
+      font-weight: normal;
+
+      font-size: 14px;
+      line-height: 18px;
+      background-color: var(--primary-color);
+      color: white;
+      box-shadow: 0px 3px 5px #10173526;
+
+      th {
+        height: 40px;
+        text-align: left;
+        padding-left: 1rem;
+        border-right: 1px solid #9fa5b9;
+
+        &:nth-child(1) {
+          border-top-left-radius: 5px;
+        }
+
+        &:nth-last-child(2) {
+          border-right: none;
+        }
+
+        &:nth-last-child(1) {
+          border-top-right-radius: 5px;
+          width: 2%;
+          border-right: none;
+        }
+      }
+    }
+
+    tbody {
+      border-left: 1px solid #31385a;
+      border-bottom: 1px solid #31385a;
+      border-right: 1px solid #31385a;
+
+      tr {
+        background-color: #fbfcfe;
+      }
+
+      tr:hover {
+        background-color: #e5e5e5;
+      }
+
+      tr:nth-child(2n + 1) {
+        background: #f2f3f8 0% 0% no-repeat padding-box;
+        opacity: 1;
+      }
+
+      tr {
+        td {
+          font: normal normal normal 16px/20px 'DIN2014';
+          height: 50px;
+          color: #16204e;
+          padding-left: 1rem;
+          text-align: left;
+
+          &:nth-child(4) {
+            input {
+              background: #fbfcfe 0% 0% no-repeat padding-box;
+              border: 1px solid #31385a;
+              border-radius: 5px;
+              width: 50%;
+              height: 30px;
+              outline: none;
+              padding-left: 5px;
+              font: normal normal normal 12px/15px 'DIN2014';
+              letter-spacing: 0px;
+              color: #16204e;
+            }
+          }
+
+          &:nth-last-child(1) {
+            padding-left: 0px;
+            text-align: center;
+
+            svg {
+              font-size: 20px;
+              color: var(--vizion-light-blue);
+            }
+          }
+        }
+      }
+    }
+  }
+}

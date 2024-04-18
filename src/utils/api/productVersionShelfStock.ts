@@ -44,3 +44,18 @@ export const deleteProductVersionShelfStock = (id: string) => {
     url: `/product-inventory/v1/product-version-shelf-stock/delete/${encodeURIComponent(id)}`,
   }).then((res) => res.data);
 };
+
+export const getProductVersionShelfStocksExcel = () => {
+  return privateInstance<Blob>({
+    method: 'GET',
+    url: `/product-inventory/v1/product-version-shelf-stock/download`,
+    responseType: 'blob',
+  }).then((res) => res.data);
+};
+
+export const getProductVersionShelfStocksPage = ({ page, size }: { page: number; size: number }) => {
+  return privateInstance<Page<ProductVersionShelfStockResponseDto>>({
+    method: 'GET',
+    url: `/product-inventory/v1/product-version-shelf-stock/find-all-paged/${encodeURIComponent(page)}/${encodeURIComponent(size)}`,
+  }).then((res) => res.data);
+};

@@ -22,6 +22,9 @@ import { businessBills } from './businessBill';
 import { salesVva } from './salesVva';
 import { formations } from './formations';
 import { formationSubscriptions } from './formationSubscriptions';
+import { productVersions } from './productVersions';
+import { productVersionShelfStocks } from './productVersionShelfStocks';
+import { productVersionShelfStockEntries } from './productVersionShelfStockEntries';
 
 export const queries = mergeQueryKeys(
   businesses,
@@ -32,6 +35,9 @@ export const queries = mergeQueryKeys(
   predefinedMessages,
   predefinedTexts,
   products,
+  productVersions,
+  productVersionShelfStocks,
+  productVersionShelfStockEntries,
   productFilters,
   productSales,
   productSerialNumbers,
