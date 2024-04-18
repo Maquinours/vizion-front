@@ -1,4 +1,4 @@
-import { createRouter } from '@tanstack/react-router';
+import { ScrollRestoration, createRouter } from '@tanstack/react-router';
 import { routeTree } from './routeTree.gen';
 import Loader from './components/Loader/Loader';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -33,6 +33,7 @@ export const router = createRouter({
     <>
       <ToastContainer position={'bottom-right'} hideProgressBar={true} theme={'colored'} autoClose={3000} />
       <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+      <ScrollRestoration />
     </>
   ),
 });
