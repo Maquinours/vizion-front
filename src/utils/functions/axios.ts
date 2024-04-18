@@ -1,10 +1,10 @@
-import axios from 'axios';
-import { AUTH_BASE_URL, AUTH_CLIENT, AUTH_SECRET, PRIVATE_BASE_URL, PUBLIC_BASE_URL } from '../constants/api';
-import * as qs from 'qs';
-import { getToken, removeToken, setToken } from './token';
-import { format } from 'date-fns';
-import AuthenticationToken from '../types/AuthenticationToken';
 import { redirect } from '@tanstack/react-router';
+import axios from 'axios';
+import { format } from 'date-fns';
+import * as qs from 'qs';
+import { toast } from 'react-toastify';
+import { AUTH_BASE_URL, AUTH_CLIENT, AUTH_SECRET, PRIVATE_BASE_URL, PUBLIC_BASE_URL } from '../constants/api';
+import { getToken, removeToken } from './token';
 
 export const authInstance = axios.create({
   baseURL: AUTH_BASE_URL,
@@ -41,27 +41,10 @@ privateInstance.interceptors.request.use((config) => {
 privateInstance.interceptors.response.use(
   (response) => response,
   async (error) => {
-    const originalRequest = error.config;
-    if (error.response.status === 401 && !originalRequest._retry) {
-      originalRequest._retry = true;
-      authInstance<AuthenticationToken>({
-        method: 'POST',
-        url: 'token',
-        data: {
-          grant_type: 'refresh_token',
-          refresh_token: getToken().refresh_token,
-        },
-      })
-        .then((res) => {
-          if (res.status === 200) {
-            setToken(res.data);
-            return privateInstance(originalRequest);
-          }
-        })
-        .catch(() => {
-          removeToken();
-          redirect({ to: '/auth/login' });
-        });
+    if (error.response && error.response.status === 401) {
+      toast.error('Votre session a expiré, veuillez vous reconnecter.');
+      removeToken();
+      throw redirect({ to: '/auth/login' });
     } else throw error;
   },
 );
