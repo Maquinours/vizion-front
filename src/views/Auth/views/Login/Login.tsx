@@ -10,8 +10,11 @@ import { SyncLoader } from 'react-spinners';
 import { login } from './api/authentication';
 import { isAxiosError } from 'axios';
 import { toast } from 'react-toastify';
-import { Link, useNavigate } from '@tanstack/react-router';
+import { Link, getRouteApi, useNavigate } from '@tanstack/react-router';
 import { setToken } from '../../../../utils/functions/token';
+import { router } from '../../../../router';
+
+const routeApi = getRouteApi('/auth/login');
 
 const yupSchema = object({
   username: string().required("L'identifiant est requis."),
@@ -23,6 +26,8 @@ export default function LoginPage() {
   const navigate = useNavigate();
 
   const [showPassword, setShowPassword] = useState(false);
+
+  const search = routeApi.useSearch();
 
   const {
     register,
@@ -36,7 +41,8 @@ export default function LoginPage() {
     mutationFn: ({ username, password }: InferType<typeof yupSchema>) => login(username, password),
     onSuccess: (data) => {
       setToken(data);
-      navigate({ to: '/app' });
+      if (search.redirect) router.history.push(search.redirect);
+      else navigate({ to: '/app' });
     },
     onError: (error) => {
       if (isAxiosError(error)) {

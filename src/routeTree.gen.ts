@@ -18,6 +18,7 @@ import { Route as AppRouteImport } from './routes/app/route'
 import { Route as IndexImport } from './routes/index'
 import { Route as AuthIndexImport } from './routes/auth/index'
 import { Route as AppIndexImport } from './routes/app/index'
+import { Route as AuthLoginRouteImport } from './routes/auth/login/route'
 import { Route as AppToolsRouteImport } from './routes/app/tools/route'
 import { Route as AppProductsRouteImport } from './routes/app/products/route'
 import { Route as AppFaqRouteImport } from './routes/app/faq/route'
@@ -138,7 +139,6 @@ import { Route as AppToolsFormationsSubscribersFormationDetailIdDeleteSubscripti
 
 // Create Virtual Routes
 
-const AuthLoginRouteLazyImport = createFileRoute('/auth/login')()
 const AuthForgotPasswordRouteLazyImport = createFileRoute(
   '/auth/forgot-password',
 )()
@@ -286,13 +286,6 @@ const AppIndexRoute = AppIndexImport.update({
   getParentRoute: () => AppRouteRoute,
 } as any)
 
-const AuthLoginRouteLazyRoute = AuthLoginRouteLazyImport.update({
-  path: '/login',
-  getParentRoute: () => AuthRouteRoute,
-} as any).lazy(() =>
-  import('./routes/auth/login/route.lazy').then((d) => d.Route),
-)
-
 const AuthForgotPasswordRouteLazyRoute =
   AuthForgotPasswordRouteLazyImport.update({
     path: '/forgot-password',
@@ -300,6 +293,13 @@ const AuthForgotPasswordRouteLazyRoute =
   } as any).lazy(() =>
     import('./routes/auth/forgot-password/route.lazy').then((d) => d.Route),
   )
+
+const AuthLoginRouteRoute = AuthLoginRouteImport.update({
+  path: '/login',
+  getParentRoute: () => AuthRouteRoute,
+} as any).lazy(() =>
+  import('./routes/auth/login/route.lazy').then((d) => d.Route),
+)
 
 const AppToolsRouteRoute = AppToolsRouteImport.update({
   path: '/tools',
@@ -1850,12 +1850,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppToolsRouteImport
       parentRoute: typeof AppRouteImport
     }
-    '/auth/forgot-password': {
-      preLoaderRoute: typeof AuthForgotPasswordRouteLazyImport
+    '/auth/login': {
+      preLoaderRoute: typeof AuthLoginRouteImport
       parentRoute: typeof AuthRouteImport
     }
-    '/auth/login': {
-      preLoaderRoute: typeof AuthLoginRouteLazyImport
+    '/auth/forgot-password': {
+      preLoaderRoute: typeof AuthForgotPasswordRouteLazyImport
       parentRoute: typeof AuthRouteImport
     }
     '/app/': {
@@ -2672,8 +2672,8 @@ export const routeTree = rootRoute.addChildren([
     ]),
   ]),
   AuthRouteRoute.addChildren([
+    AuthLoginRouteRoute,
     AuthForgotPasswordRouteLazyRoute,
-    AuthLoginRouteLazyRoute,
     AuthIndexRoute,
     AuthResetPasswordTokenRouteLazyRoute,
   ]),

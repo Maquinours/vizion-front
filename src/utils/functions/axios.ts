@@ -5,6 +5,7 @@ import * as qs from 'qs';
 import { toast } from 'react-toastify';
 import { AUTH_BASE_URL, AUTH_CLIENT, AUTH_SECRET, PRIVATE_BASE_URL, PUBLIC_BASE_URL } from '../constants/api';
 import { getToken, removeToken } from './token';
+import { router } from '../../router';
 
 export const authInstance = axios.create({
   baseURL: AUTH_BASE_URL,
@@ -44,7 +45,7 @@ privateInstance.interceptors.response.use(
     if (error.response && error.response.status === 401) {
       toast.error('Votre session a expiré, veuillez vous reconnecter.');
       removeToken();
-      throw redirect({ to: '/auth/login' });
+      throw redirect({ to: '/auth/login', search: { redirect: router.state.location.href } });
     } else throw error;
   },
 );

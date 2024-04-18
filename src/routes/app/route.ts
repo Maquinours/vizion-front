@@ -33,11 +33,12 @@ const searchSchema = z.object({
 
 export const Route = createFileRoute('/app')({
   validateSearch: searchSchema,
-  beforeLoad: ({ search }) => {
+  beforeLoad: ({ search, location }) => {
     const token = getToken();
     if (!token)
       throw redirect({
         to: '/auth/login',
+        search: { redirect: location.href },
       });
     if (search.appModal?.startsWith('business-ged') && !search.businessId) {
       toast.error('Aucune affaire sélectionnée');
