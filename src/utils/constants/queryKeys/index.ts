@@ -25,6 +25,8 @@ import { formationSubscriptions } from './formationSubscriptions';
 import { productVersions } from './productVersions';
 import { productVersionShelfStocks } from './productVersionShelfStocks';
 import { productVersionShelfStockEntries } from './productVersionShelfStockEntries';
+import { users } from './user';
+import { technicalSupports } from './technicalSupports';
 
 export const queries = mergeQueryKeys(
   businesses,
@@ -53,4 +55,6 @@ export const queries = mergeQueryKeys(
   salesVva,
   formations,
   formationSubscriptions,
+  users,
+  technicalSupports,
 );

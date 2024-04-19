@@ -40,3 +40,13 @@ export const getBusinessByInfos = ({
     },
   }).then((res) => res.data);
 };
+
+export const archiveBusiness = (businessId: string) => {
+  return privateInstance<BusinessResponseDto>({
+    method: 'POST',
+    url: `/business/v1/business/archive`,
+    params: {
+      businessId,
+    },
+  }).then((res) => res.data);
+};

@@ -86,6 +86,7 @@ import { Route as AppDashboardLinkPersonalTaskTaskIdRouteImport } from './routes
 import { Route as AppDashboardDeleteProgressiveInfoProgressiveInfoIdRouteImport } from './routes/app/dashboard/delete-progressive-info.$progressiveInfoId/route'
 import { Route as AppDashboardDeleteCollectiveTaskTaskIdRouteImport } from './routes/app/dashboard/delete-collective-task.$taskId/route'
 import { Route as AppDashboardArchivePersonalTaskTaskIdRouteImport } from './routes/app/dashboard/archive-personal-task.$taskId/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdRouteImport } from './routes/app/businesses-rma/business.$businessId/route'
 import { Route as AppToolsVvaDeleteVvaIdRouteImport } from './routes/app/tools/vva/delete.$vvaId/route'
 import { Route as AppToolsProductShelvesDeleteProductShelfIdRouteImport } from './routes/app/tools/product-shelves/delete.$productShelfId/route'
 import { Route as AppToolsProductInventoryUpdateStockIdRouteImport } from './routes/app/tools/product-inventory/update.$stockId/route'
@@ -1112,6 +1113,16 @@ const AppDashboardArchivePersonalTaskTaskIdRouteRoute =
     ).then((d) => d.Route),
   )
 
+const AppBusinessesRmaBusinessBusinessIdRouteRoute =
+  AppBusinessesRmaBusinessBusinessIdRouteImport.update({
+    path: '/businesses-rma/business/$businessId',
+    getParentRoute: () => AppRouteRoute,
+  } as any).lazy(() =>
+    import('./routes/app/businesses-rma/business.$businessId/route.lazy').then(
+      (d) => d.Route,
+    ),
+  )
+
 const AppToolsSchedulerDetailsRdvIdRouteLazyRoute =
   AppToolsSchedulerDetailsRdvIdRouteLazyImport.update({
     path: '/details/$rdvId',
@@ -1970,6 +1981,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthResetPasswordTokenRouteLazyImport
       parentRoute: typeof AuthRouteImport
     }
+    '/app/businesses-rma/business/$businessId': {
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdRouteImport
+      parentRoute: typeof AppRouteImport
+    }
     '/app/dashboard/archive-personal-task/$taskId': {
       preLoaderRoute: typeof AppDashboardArchivePersonalTaskTaskIdRouteImport
       parentRoute: typeof AppDashboardRouteImport
@@ -2670,6 +2685,7 @@ export const routeTree = rootRoute.addChildren([
       ]),
       AppProductsProductIdIndexRoute,
     ]),
+    AppBusinessesRmaBusinessBusinessIdRouteRoute,
   ]),
   AuthRouteRoute.addChildren([
     AuthLoginRouteRoute,
