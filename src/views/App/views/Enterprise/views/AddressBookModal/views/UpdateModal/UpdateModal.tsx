@@ -1,14 +1,15 @@
+import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
+import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { useForm } from 'react-hook-form';
 import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
-import * as yup from 'yup';
-import { addresses } from '../../../../../../../../utils/constants/queryKeys/address';
-import { updateAddress } from '../../../../../../../../utils/api/address';
-import { useForm } from 'react-hook-form';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import { yupResolver } from '@hookform/resolvers/yup';
-import styles from './UpdateModal.module.scss';
 import { toast } from 'react-toastify';
+import * as yup from 'yup';
+import { updateAddress } from '../../../../../../../../utils/api/address';
+import { queries } from '../../../../../../../../utils/constants/queryKeys';
+import { addresses } from '../../../../../../../../utils/constants/queryKeys/address';
+import styles from './UpdateModal.module.scss';
 
 const Route = getRouteApi('/app/enterprises/$enterpriseId/address-book/update/$addressId');
 
@@ -36,7 +37,7 @@ export default function AppViewEnterpriseViewAddressBookModalViewUpdateModalView
 
   const { addressId } = Route.useParams();
 
-  const { data: address } = useSuspenseQuery(addresses.detail({ id: addressId }));
+  const { data: address } = useSuspenseQuery(queries.address.detail._ctx.byId(addressId));
 
   const {
     register,

@@ -50,3 +50,27 @@ export const archiveBusiness = (businessId: string) => {
     },
   }).then((res) => res.data);
 };
+
+export const deleteBusiness = (id: string) => {
+  return privateInstance<void>({
+    method: 'DELETE',
+    url: `/business/v1/business/${encodeURIComponent(id)}`,
+  }).then((res) => res.data);
+};
+
+export const updateBusiness = async (id: string, data: BusinessRequestDto) => {
+  return (
+    await privateInstance<BusinessResponseDto>({
+      method: 'PUT',
+      url: `/business/v1/business/${encodeURIComponent(id)}`,
+      data,
+    })
+  ).data;
+};
+
+export const getBusinesses = () => {
+  return privateInstance<Array<BusinessResponseDto>>({
+    method: 'GET',
+    url: `/business/v1/business/list`,
+  }).then((res) => res.data);
+};

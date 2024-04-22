@@ -1,5 +1,5 @@
 import { createQueryKeys } from '@lukemorales/query-key-factory';
-import { getBusinessById, getBusinessByInfos } from '../../api/business';
+import { getBusinessById, getBusinessByInfos, getBusinesses } from '../../api/business';
 
 export const businesses = createQueryKeys('businesses', {
   detail: {
@@ -18,6 +18,15 @@ export const businesses = createQueryKeys('businesses', {
         queryKey: [{ serialNumber, businessNumber, orderNumber }],
         queryFn: () => getBusinessByInfos({ serialNumber, businessNumber, orderNumber }),
       }),
+    },
+  },
+  list: {
+    queryKey: null,
+    contextQueries: {
+      all: {
+        queryKey: null,
+        queryFn: getBusinesses,
+      },
     },
   },
 });

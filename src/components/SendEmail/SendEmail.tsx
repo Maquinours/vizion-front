@@ -128,6 +128,7 @@ export default function SendEmailComponent({
         ownerId: user.profile.id,
         sender: user.userInfo.email,
         files: data.attachments.map(({ file }) => file),
+        author: lifeSheetInfoDto ? `${user.userInfo.firstName} ${user.userInfo.lastName.charAt(0)}.` : undefined,
         ...lifeSheetInfoDto,
       }),
     onSuccess: () => {

@@ -27,9 +27,15 @@ import { productVersionShelfStocks } from './productVersionShelfStocks';
 import { productVersionShelfStockEntries } from './productVersionShelfStockEntries';
 import { users } from './user';
 import { technicalSupports } from './technicalSupports';
+import { addresses } from './address';
+import { allBusinesses } from './allBusiness';
+import { businessQuotations } from './businessQuotations';
+import { geds } from './ged';
+import { lifesheets } from './lifesheet';
 
 export const queries = mergeQueryKeys(
   businesses,
+  businessQuotations,
   businessBills,
   emails,
   enterprises,
@@ -57,4 +63,8 @@ export const queries = mergeQueryKeys(
   formationSubscriptions,
   users,
   technicalSupports,
+  addresses,
+  allBusinesses,
+  geds,
+  lifesheets,
 );

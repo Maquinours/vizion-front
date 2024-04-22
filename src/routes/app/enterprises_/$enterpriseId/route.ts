@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router';
+import { SearchSchemaInput, createFileRoute } from '@tanstack/react-router';
 import { z } from 'zod';
 import { queries } from '../../../../utils/constants/queryKeys';
 import { allBusinesses } from '../../../../utils/constants/queryKeys/allBusiness';
@@ -17,7 +17,8 @@ const searchSchema = z.object({
 });
 
 export const Route = createFileRoute('/app/enterprises/$enterpriseId')({
-  validateSearch: searchSchema,
+  validateSearch: (data: { allBusinessPage?: number; contactsSearch?: string; contactsPage?: number; lifesheetPage?: number } & SearchSchemaInput) =>
+    searchSchema.parse(data),
   loaderDeps: ({ search: { allBusinessPage, contactsSearch, contactsPage, lifesheetPage } }) => ({
     allBusinessPage,
     contactsSearch,

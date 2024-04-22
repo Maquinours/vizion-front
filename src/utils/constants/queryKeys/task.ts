@@ -2,7 +2,14 @@ import { createQueryKeys } from '@lukemorales/query-key-factory';
 import TaskState from '../../enums/TaskState';
 import { WorkloadAssociatedItem } from '../../enums/WorkloadAssociatedItem';
 import WorkloadType from '../../enums/WorkloadType';
-import { getPaginatedTasksByStateAndProfileId, getTaskById, getTasksByType, getTasksPageByEnterpriseId, getTasksPageByProductId } from '../../api/task';
+import {
+  getPaginatedTasksByStateAndProfileId,
+  getTaskById,
+  getTasksByType,
+  getTasksPageByBusinessId,
+  getTasksPageByEnterpriseId,
+  getTasksPageByProductId,
+} from '../../api/task';
 
 export const tasks = createQueryKeys('tasks', {
   detail: (id: string) => ({
@@ -36,6 +43,8 @@ export const tasks = createQueryKeys('tasks', {
               return getTasksPageByEnterpriseId(associatedItemId, page, size);
             case WorkloadAssociatedItem.PRODUCT:
               return getTasksPageByProductId(associatedItemId, page, size);
+            case WorkloadAssociatedItem.BUSINESS:
+              return getTasksPageByBusinessId(associatedItemId, { page, size });
           }
         },
       }),
