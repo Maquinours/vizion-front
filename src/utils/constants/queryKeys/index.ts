@@ -32,10 +32,16 @@ import { allBusinesses } from './allBusiness';
 import { businessQuotations } from './businessQuotations';
 import { geds } from './ged';
 import { lifesheets } from './lifesheet';
+import { commercialNotices } from './commercialNotices';
+import { businessArcs } from './businessArcs';
+import { productStocks } from './productStocks';
+import { businessSubQuotations } from './businessSubQuotations';
+import { businessQuotationDetails } from './businessQuotationDetails';
 
 export const queries = mergeQueryKeys(
   businesses,
   businessQuotations,
+  businessArcs,
   businessBills,
   emails,
   enterprises,
@@ -50,6 +56,7 @@ export const queries = mergeQueryKeys(
   productSales,
   productSerialNumbers,
   productShelves,
+  productStocks,
   profiles,
   progressiveInfos,
   rdvs,
@@ -67,4 +74,7 @@ export const queries = mergeQueryKeys(
   allBusinesses,
   geds,
   lifesheets,
+  commercialNotices,
+  businessSubQuotations,
+  businessQuotationDetails,
 );

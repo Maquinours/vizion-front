@@ -18,3 +18,13 @@ export const updateDepartment = (id: string, data: DepartmentRequestDto) => {
     data,
   }).then((res) => res.data);
 };
+
+export const getDepartmentByCode = (code: string) => {
+  return privateInstance<DepartmentResponseDto>({
+    method: 'GET',
+    url: `/profile/v1/department/code`,
+    params: {
+      code,
+    },
+  }).then((res) => res.data);
+};

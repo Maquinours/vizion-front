@@ -1,5 +1,6 @@
 import { createQueryKeys } from '@lukemorales/query-key-factory';
 import {
+  getAssociatedProducts,
   getAssociatedProductsPage,
   getNotAssociatedProducts,
   getProductById,
@@ -70,6 +71,10 @@ const products = createQueryKeys('product', {
       byNotAssociatedProductId: (notAssociatedProductId: string) => ({
         queryKey: [notAssociatedProductId],
         queryFn: () => getNotAssociatedProducts(notAssociatedProductId),
+      }),
+      byAssociatedProductId: (associatedProductId: string) => ({
+        queryKey: [associatedProductId],
+        queryFn: () => getAssociatedProducts(associatedProductId),
       }),
     },
   },

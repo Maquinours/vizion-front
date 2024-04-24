@@ -8,8 +8,9 @@ type CurrencyFormatProps = Readonly<{
   displayType?: 'text' | 'input';
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
   className?: string;
+  style?: React.CSSProperties;
 }>;
-export default function CurrencyFormat({ value, defaultValue, prefix, displayType = 'text', onChange, className }: CurrencyFormatProps) {
+export default function CurrencyFormat({ value, defaultValue, prefix, displayType = 'text', onChange, className, style }: CurrencyFormatProps) {
   return (
     <NumericFormat
       value={value}
@@ -22,6 +23,7 @@ export default function CurrencyFormat({ value, defaultValue, prefix, displayTyp
       defaultValue={defaultValue}
       prefix={prefix}
       onChange={onChange}
+      style={style}
     />
   );
 }

@@ -1,0 +1,21 @@
+@import '/src/assets/styles/mixins';
+
+.header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+
+  @include respond-below(sm) {
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  button {
+    margin-left: 5px;
+    height: fit-content;
+  }
+
+  .buttons_container {
+    display: flex;
+  }
+}

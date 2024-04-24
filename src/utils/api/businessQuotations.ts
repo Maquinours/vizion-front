@@ -21,3 +21,18 @@ export const importBusinessQuotation = ({ business, otherBusiness }: { business:
     },
   }).then((res) => res.data);
 };
+
+export const getBusinessQuotationByBusinessId = (businessId: string) => {
+  return privateInstance<BusinessQuotationResponseDto>({
+    method: 'GET',
+    url: `/business/v1/business/quotation/business/${encodeURIComponent(businessId)}`,
+  }).then((res) => res.data);
+};
+
+export const updateBusinessQuotation = (id: string, data: BusinessQuotationRequestDto) => {
+  return privateInstance<BusinessQuotationResponseDto>({
+    method: 'PUT',
+    url: `/business/v1/business/quotation/${encodeURIComponent(id)}`,
+    data,
+  }).then((res) => res.data);
+};
