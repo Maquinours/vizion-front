@@ -59,7 +59,7 @@ export default function AppViewBusinessViewSidebarComponent() {
       </div>
       <div className={styles.buttons}>
         {user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && business.state !== BusinessState.ARCHIVE && (
-          <Link search={(old) => ({ ...old, businessModal: 'assistances' })} className="btn btn-primary">
+          <Link disabled={business.state === BusinessState.DEVIS} search={(old) => ({ ...old, businessModal: 'assistances' })} className="btn btn-primary">
             Assistance
           </Link>
         )}

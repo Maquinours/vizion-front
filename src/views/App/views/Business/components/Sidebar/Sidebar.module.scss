@@ -183,6 +183,11 @@
 
     a {
       width: fit-content;
+
+      &[aria-disabled='true'] {
+        cursor: not-allowed;
+        background-color: var(--grey-line);
+      }
     }
   }
 }
