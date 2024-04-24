@@ -30,9 +30,10 @@
         margin-top: 2px;
       }
 
-      grid-template-areas: 'label'
-      'input'
-      'error';
+      grid-template-areas:
+        'label'
+        'input'
+        'error';
 
       grid-template-columns: repeat(1, 1fr);
 
@@ -146,9 +147,10 @@
         margin-top: 2px;
       }
 
-      grid-template-areas: 'label'
-      'input'
-      'error';
+      grid-template-areas:
+        'label'
+        'input'
+        'error';
 
       grid-template-columns: repeat(1, 1fr);
 
