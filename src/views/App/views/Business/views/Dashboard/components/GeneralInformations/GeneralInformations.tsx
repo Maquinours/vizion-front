@@ -11,6 +11,29 @@ import { MdSave } from 'react-icons/md';
 
 const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/dashboard');
 
+const deliveryOptions = [
+  {
+    value: '',
+    text: 'Choisir',
+  },
+  {
+    value: 'A expédier',
+    text: 'A expédier',
+  },
+  {
+    value: 'A disposition',
+    text: 'A disposition',
+  },
+  {
+    value: 'A grouper',
+    text: 'A grouper',
+  },
+  {
+    value: 'Virtuel',
+    text: 'Virtuel',
+  },
+];
+
 type AppViewBusinessViewDashboardViewGeneralInformationsComponentProps = Readonly<{
   register: UseFormRegister<BusinessDashboardFormType>;
   errors: FieldErrors<BusinessDashboardFormType>;
@@ -37,30 +60,50 @@ export default function AppViewBusinessViewDashboardViewGeneralInformationsCompo
   );
 
   return (
-    <div className={styles.business_info_sections}>
-      <div className={styles.form_group}>
-        <label htmlFor="businessName">Nom de l&apos; affaire</label>
-        <div className={styles.form_input_save}>
-          <input {...register('businessName')} id="businessName" placeholder="..." disabled={!isUpdatable} />
-          {isUpdatable && (
-            <button disabled={isSavePending} onClick={onSave}>
-              <MdSave />
-            </button>
-          )}
+    <div className={styles.general_informations}>
+      <div className={styles.business_info_sections}>
+        <div className={styles.form_group}>
+          <label htmlFor="businessName">Nom de l&apos; affaire</label>
+          <div className={styles.form_input_save}>
+            <input {...register('businessName')} id="businessName" placeholder="..." disabled={!isUpdatable} />
+            {isUpdatable && (
+              <button disabled={isSavePending} onClick={onSave}>
+                <MdSave />
+              </button>
+            )}
+          </div>
+          <p className={styles.__errors}>{errors.businessName?.message}</p>
         </div>
-        <p className={styles.__errors}>{errors.businessName?.message}</p>
+        <div className={styles.form_group}>
+          <label htmlFor="businessInstaller">Installateur</label>
+          <div className={styles.form_input_save}>
+            <input id="businessInstaller" {...register('businessInstaller')} placeholder="..." disabled={!isUpdatable} />
+            {isUpdatable && (
+              <button disabled={isSavePending} onClick={onSave}>
+                <MdSave />
+              </button>
+            )}
+          </div>
+          <p className={styles.__errors}>{errors.businessInstaller?.message}</p>
+        </div>
       </div>
-      <div className={styles.form_group}>
-        <label htmlFor="businessInstaller">Installateur</label>
-        <div className={styles.form_input_save}>
-          <input id="businessInstaller" {...register('businessInstaller')} placeholder="..." disabled={!isUpdatable} />
-          {isUpdatable && (
-            <button disabled={isSavePending} onClick={onSave}>
-              <MdSave />
-            </button>
-          )}
+      <div className={styles.delivery_section}>
+        <div className={styles.form_group}>
+          <label htmlFor="businessDeliveryMode">Mode de livraison</label>
+          <div className={styles.form_select_save}>
+            <select id="businessDeliveryMode" {...register('businessDeliveryMode')}>
+              {deliveryOptions.map((itm) => (
+                <option key={itm.value} value={itm.value}>
+                  {itm.text}
+                </option>
+              ))}
+            </select>
+            {(![BusinessState.FACTURE, BusinessState.ARC, BusinessState.BP, BusinessState.BL].includes(business.state!) ||
+              (user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && business.state === 'FACTURE')) &&
+              !business.archived && <MdSave onClick={onSave} />}
+          </div>
+          <p className={styles.__errors}>{errors.businessDeliveryMode?.message}</p>
         </div>
-        <p className={styles.__errors}>{errors.businessInstaller?.message}</p>
       </div>
     </div>
   );
