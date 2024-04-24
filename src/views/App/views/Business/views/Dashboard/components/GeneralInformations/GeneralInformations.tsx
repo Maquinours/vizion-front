@@ -100,7 +100,11 @@ export default function AppViewBusinessViewDashboardViewGeneralInformationsCompo
             </select>
             {(![BusinessState.FACTURE, BusinessState.ARC, BusinessState.BP, BusinessState.BL].includes(business.state!) ||
               (user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && business.state === 'FACTURE')) &&
-              !business.archived && <MdSave onClick={onSave} />}
+              !business.archived && (
+                <button disabled={isSavePending} onClick={onSave}>
+                  <MdSave />
+                </button>
+              )}
           </div>
           <p className={styles.__errors}>{errors.businessDeliveryMode?.message}</p>
         </div>
