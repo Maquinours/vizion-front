@@ -1,7 +1,7 @@
 import { PDFDownloadLink, PDFViewer } from '@react-pdf/renderer';
 import ReactModal from 'react-modal';
 import AppViewBusinessViewQuotationViewPdfModalViewPdfComponent from './components/Pdf/Pdf';
-import { Link, getRouteApi, useNavigate } from '@tanstack/react-router';
+import { Link, Outlet, getRouteApi, useNavigate } from '@tanstack/react-router';
 import styles from './PdfModal.module.scss';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { queries } from '../../../../../../../../utils/constants/queryKeys';
@@ -25,29 +25,14 @@ export default function AppViewBusinessViewQuotationViewPdfModalView() {
   };
 
   return (
-    <ReactModal isOpen={true} onRequestClose={onClose} className={styles.modal} overlayClassName="Overlay">
-      <div className={styles.modal_container}>
-        <div className={styles.modal_title}>
-          <h6>Votre devis :</h6>
-        </div>
-        <div className={styles.modal_pdfviewer}>
-          <PDFViewer>
-            <AppViewBusinessViewQuotationViewPdfModalViewPdfComponent
-              business={business}
-              quotation={quotation}
-              hideAddresses={hideAddresses}
-              hideReferences={hideReferences}
-              hidePrices={hidePrices}
-              hideTotal={hideTotal}
-            />
-          </PDFViewer>
-        </div>
-        <div className={styles.modal_footer}>
-          <button className="btn btn-primary" onClick={onClose}>
-            Modifier
-          </button>
-          <PDFDownloadLink
-            document={
+    <>
+      <ReactModal isOpen={true} onRequestClose={onClose} className={styles.modal} overlayClassName="Overlay">
+        <div className={styles.modal_container}>
+          <div className={styles.modal_title}>
+            <h6>Votre devis :</h6>
+          </div>
+          <div className={styles.modal_pdfviewer}>
+            <PDFViewer>
               <AppViewBusinessViewQuotationViewPdfModalViewPdfComponent
                 business={business}
                 quotation={quotation}
@@ -56,18 +41,36 @@ export default function AppViewBusinessViewQuotationViewPdfModalView() {
                 hidePrices={hidePrices}
                 hideTotal={hideTotal}
               />
-            }
-            fileName={`Devis-` + quotation.number + '.pdf'}
-          >
-            {({ loading }) => <button className="btn btn-secondary">{loading ? 'Chargement...' : 'Télécharger'}</button>}
-          </PDFDownloadLink>
-          {user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && (
-            <Link from={routeApi.id} to="send-by-email" search={(old) => old} replace className="btn btn-secondary">
-              Envoyer par mail
-            </Link>
-          )}
+            </PDFViewer>
+          </div>
+          <div className={styles.modal_footer}>
+            <button className="btn btn-primary" onClick={onClose}>
+              Modifier
+            </button>
+            <PDFDownloadLink
+              document={
+                <AppViewBusinessViewQuotationViewPdfModalViewPdfComponent
+                  business={business}
+                  quotation={quotation}
+                  hideAddresses={hideAddresses}
+                  hideReferences={hideReferences}
+                  hidePrices={hidePrices}
+                  hideTotal={hideTotal}
+                />
+              }
+              fileName={`Devis-` + quotation.number + '.pdf'}
+            >
+              {({ loading }) => <button className="btn btn-secondary">{loading ? 'Chargement...' : 'Télécharger'}</button>}
+            </PDFDownloadLink>
+            {user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && (
+              <Link from={routeApi.id} to="send-by-email" search={(old) => old} replace className="btn btn-secondary">
+                Envoyer par mail
+              </Link>
+            )}
+          </div>
         </div>
-      </div>
-    </ReactModal>
+      </ReactModal>
+      <Outlet />
+    </>
   );
 }
