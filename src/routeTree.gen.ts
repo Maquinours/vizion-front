@@ -148,6 +148,7 @@ import { Route as AppBusinessesRmaBusinessBusinessIdDashboardCreateGedDirectoryR
 import { Route as AppBusinessesRmaBusinessBusinessIdDashboardAddressBookRouteImport } from './routes/app/businesses-rma/business.$businessId/dashboard/address-book/route'
 import { Route as AppToolsFormationsSubscribersFormationDetailIdSendEmailSubscriptionIdRouteImport } from './routes/app/tools/formations/subscribers.$formationDetailId/send-email.$subscriptionId/route'
 import { Route as AppToolsFormationsSubscribersFormationDetailIdDeleteSubscriptionIdRouteImport } from './routes/app/tools/formations/subscribers.$formationDetailId/delete.$subscriptionId/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdQuotationPdfSendByEmailRouteImport } from './routes/app/businesses-rma/business.$businessId/quotation/pdf/send-by-email/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdDashboardTaskEmailTaskIdRouteImport } from './routes/app/businesses-rma/business.$businessId/dashboard/task-email.$taskId/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdDashboardDeleteLinkAssociatedIdRouteImport } from './routes/app/businesses-rma/business.$businessId/dashboard/delete-link.$associatedId/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdDashboardConfirmQuotationImportOtherBusinessIdRouteImport } from './routes/app/businesses-rma/business.$businessId/dashboard/confirm-quotation-import.$otherBusinessId/route'
@@ -307,10 +308,6 @@ const AppBusinessesRmaBusinessBusinessIdQuotationUpdateSubquotationSubquotationI
 const AppBusinessesRmaBusinessBusinessIdQuotationUpdateDetailDetailIdRouteLazyImport =
   createFileRoute(
     '/app/businesses-rma/business/$businessId/quotation/update-detail/$detailId',
-  )()
-const AppBusinessesRmaBusinessBusinessIdQuotationPdfSendByEmailRouteLazyImport =
-  createFileRoute(
-    '/app/businesses-rma/business/$businessId/quotation/pdf/send-by-email',
   )()
 const AppBusinessesRmaBusinessBusinessIdQuotationDeleteSubquotationSubquotationIdRouteLazyImport =
   createFileRoute(
@@ -2121,19 +2118,6 @@ const AppBusinessesRmaBusinessBusinessIdQuotationUpdateDetailDetailIdRouteLazyRo
     ).then((d) => d.Route),
   )
 
-const AppBusinessesRmaBusinessBusinessIdQuotationPdfSendByEmailRouteLazyRoute =
-  AppBusinessesRmaBusinessBusinessIdQuotationPdfSendByEmailRouteLazyImport.update(
-    {
-      path: '/send-by-email',
-      getParentRoute: () =>
-        AppBusinessesRmaBusinessBusinessIdQuotationPdfRouteLazyRoute,
-    } as any,
-  ).lazy(() =>
-    import(
-      './routes/app/businesses-rma/business.$businessId/quotation/pdf/send-by-email/route.lazy'
-    ).then((d) => d.Route),
-  )
-
 const AppBusinessesRmaBusinessBusinessIdQuotationDeleteSubquotationSubquotationIdRouteLazyRoute =
   AppBusinessesRmaBusinessBusinessIdQuotationDeleteSubquotationSubquotationIdRouteLazyImport.update(
     {
@@ -2285,6 +2269,17 @@ const AppToolsFormationsSubscribersFormationDetailIdDeleteSubscriptionIdRouteRou
   ).lazy(() =>
     import(
       './routes/app/tools/formations/subscribers.$formationDetailId/delete.$subscriptionId/route.lazy'
+    ).then((d) => d.Route),
+  )
+
+const AppBusinessesRmaBusinessBusinessIdQuotationPdfSendByEmailRouteRoute =
+  AppBusinessesRmaBusinessBusinessIdQuotationPdfSendByEmailRouteImport.update({
+    path: '/send-by-email',
+    getParentRoute: () =>
+      AppBusinessesRmaBusinessBusinessIdQuotationPdfRouteLazyRoute,
+  } as any).lazy(() =>
+    import(
+      './routes/app/businesses-rma/business.$businessId/quotation/pdf/send-by-email/route.lazy'
     ).then((d) => d.Route),
   )
 
@@ -3105,6 +3100,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardTaskEmailTaskIdRouteImport
       parentRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardRouteImport
     }
+    '/app/businesses-rma/business/$businessId/quotation/pdf/send-by-email': {
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdQuotationPdfSendByEmailRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdQuotationPdfRouteLazyImport
+    }
     '/app/tools/formations/subscribers/$formationDetailId/delete/$subscriptionId': {
       preLoaderRoute: typeof AppToolsFormationsSubscribersFormationDetailIdDeleteSubscriptionIdRouteImport
       parentRoute: typeof AppToolsFormationsSubscribersFormationDetailIdRouteImport
@@ -3152,10 +3151,6 @@ declare module '@tanstack/react-router' {
     '/app/businesses-rma/business/$businessId/quotation/delete-subquotation/$subquotationId': {
       preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdQuotationDeleteSubquotationSubquotationIdRouteLazyImport
       parentRoute: typeof AppBusinessesRmaBusinessBusinessIdQuotationRouteImport
-    }
-    '/app/businesses-rma/business/$businessId/quotation/pdf/send-by-email': {
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdQuotationPdfSendByEmailRouteLazyImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdQuotationPdfRouteLazyImport
     }
     '/app/businesses-rma/business/$businessId/quotation/update-detail/$detailId': {
       preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdQuotationUpdateDetailDetailIdRouteLazyImport
@@ -3360,7 +3355,7 @@ export const routeTree = rootRoute.addChildren([
           ),
           AppBusinessesRmaBusinessBusinessIdQuotationPdfRouteLazyRoute.addChildren(
             [
-              AppBusinessesRmaBusinessBusinessIdQuotationPdfSendByEmailRouteLazyRoute,
+              AppBusinessesRmaBusinessBusinessIdQuotationPdfSendByEmailRouteRoute,
             ],
           ),
           AppBusinessesRmaBusinessBusinessIdQuotationUpdateShippingPriceRouteLazyRoute,
