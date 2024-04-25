@@ -11,8 +11,12 @@ export const Route = createFileRoute('/app/businesses-rma/business/$businessId/a
     const arcPromise = queryClient.ensureQueryData(queries['business-ARCs'].detail._ctx.byBusinessId(businessId));
 
     const business = await businessPromise;
-    const department = await queryClient.ensureQueryData(queries.departments.detail._ctx.byCode(business.deliveryDepartmentCode!));
-    const representative = await queryClient.ensureQueryData(queries.enterprise.detail(department.repEnterprise!.id));
+    const department = await (business.deliveryDepartmentCode
+      ? queryClient.ensureQueryData(queries.departments.detail._ctx.byCode(business.deliveryDepartmentCode))
+      : Promise.resolve(undefined));
+    const representative = await (department?.repEnterprise
+      ? queryClient.ensureQueryData(queries.enterprise.detail(department.repEnterprise!.id))
+      : Promise.resolve(undefined));
     const [stocks, arc] = await Promise.all([stocksPromise, arcPromise]);
     const blob = await pdf(
       <AppViewBusinessViewArcViewPdfModalViewPdfComponent business={business} arc={arc} stocks={stocks} hideReferencesPrices={hideReferencesPrices} />,
