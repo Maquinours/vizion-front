@@ -96,22 +96,22 @@ export default function AppViewBusinessViewQuotationViewTableComponent() {
     <>
       <div className={styles.table_container}>
         <DndContext collisionDetection={closestCenter} modifiers={[restrictToVerticalAxis]} onDragEnd={handleDragEnd} sensors={sensors}>
-          <SortableContext items={dataIds} strategy={verticalListSortingStrategy}>
-            <table>
-              <thead>
-                <tr>
-                  <th>Image</th>
-                  <th>Référence</th>
-                  <th>Désignation</th>
-                  <th>Quantité</th>
-                  <th>Stock ce jour</th>
-                  <th>Prix</th>
-                  <th>Remise</th>
-                  <th>Prix unitaire</th>
-                  <th>Montant</th>
-                </tr>
-              </thead>
-              <tbody>
+          <table>
+            <thead>
+              <tr>
+                <th>Image</th>
+                <th>Référence</th>
+                <th>Désignation</th>
+                <th>Quantité</th>
+                <th>Stock ce jour</th>
+                <th>Prix</th>
+                <th>Remise</th>
+                <th>Prix unitaire</th>
+                <th>Montant</th>
+              </tr>
+            </thead>
+            <tbody>
+              <SortableContext items={dataIds} strategy={verticalListSortingStrategy}>
                 {quotation.subQuotationList?.map((subQuotation) => (
                   <React.Fragment key={subQuotation.id}>
                     {subQuotation.name !== 'Default' && (
@@ -139,9 +139,9 @@ export default function AppViewBusinessViewQuotationViewTableComponent() {
                     )}
                   </React.Fragment>
                 ))}
-              </tbody>
-            </table>
-          </SortableContext>
+              </SortableContext>
+            </tbody>
+          </table>
         </DndContext>
       </div>
       <AppViewBusinessViewQuotationViewTableComponentSubQuotationContextMenuComponent
