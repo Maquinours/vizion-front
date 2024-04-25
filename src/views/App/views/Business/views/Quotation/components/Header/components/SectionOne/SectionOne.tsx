@@ -53,6 +53,7 @@ export default function AppViewBusinessViewQuotationViewHeaderComponentSectionOn
         bom: quotation.bom,
       }),
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: queries.businesses.detail._ctx.byId(business.id).queryKey });
       queryClient.invalidateQueries({ queryKey: queries['business-ARCs']._def });
       toast.success('ARC créé avec succès');
       // TODO: redirect to ARC.
