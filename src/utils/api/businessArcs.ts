@@ -9,3 +9,18 @@ export const createBusinessArc = (data: BusinessArcRequestDto) => {
     data,
   }).then((res) => res.data);
 };
+
+export const getBusinessArcByBusinessId = (businessId: string) => {
+  return privateInstance<BusinessArcResponseDto>({
+    method: 'GET',
+    url: `/business/v1/business/arc/business/${encodeURIComponent(businessId)}`,
+  }).then((res) => res.data);
+};
+
+export const updateBusinessArc = async (id: string, data: BusinessArcRequestDto) => {
+  return privateInstance<BusinessArcResponseDto>({
+    method: 'PUT',
+    url: `/business/v1/business/arc/${encodeURIComponent(id)}`,
+    data,
+  }).then((res) => res.data);
+};

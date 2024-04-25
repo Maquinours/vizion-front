@@ -37,6 +37,7 @@ import { businessArcs } from './businessArcs';
 import { productStocks } from './productStocks';
 import { businessSubQuotations } from './businessSubQuotations';
 import { businessQuotationDetails } from './businessQuotationDetails';
+import { businessArcDetails } from './businessArcDetails';
 
 export const queries = mergeQueryKeys(
   businesses,
@@ -77,4 +78,5 @@ export const queries = mergeQueryKeys(
   commercialNotices,
   businessSubQuotations,
   businessQuotationDetails,
+  businessArcDetails,
 );
