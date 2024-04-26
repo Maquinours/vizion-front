@@ -12,6 +12,7 @@ type BusinessBpResponseDto = {
   numOrder: string;
   bpDetailsList: BusinessBpDetailsResponseDto[]; // TODO: change backend to return this data
   bom: boolean | null;
+  totalWeight: number;
   createdDate: Date | null;
   modifiedDate: Date | null;
   createdBy: string | null;

@@ -15,7 +15,7 @@ type BusinessBpDetailsResponseDto = {
   productDescription: string | null;
   productName: string;
   publicUnitPrice: number | null;
-  virtualQty: number | null;
+  virtualQty: boolean | null;
   comment: string | null;
   numBusiness: string | null;
   unitPrice: number;

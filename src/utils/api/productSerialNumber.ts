@@ -65,3 +65,13 @@ export const getSerialNumberDataByNumberAndCategory = (number: string, category:
     },
   }).then((res) => res.data);
 };
+
+export const getProductSerialNumberByNumber = async (number: string) => {
+  return privateInstance<ProductSerialNumberResponseDto>({
+    method: 'GET',
+    url: `/product-inventory/v1/serial/find/serial-number`,
+    params: {
+      number,
+    },
+  }).then((res) => res.data);
+};
