@@ -124,6 +124,7 @@ import { Route as AppEnterprisesEnterpriseIdDeleteContactContactIdRouteImport } 
 import { Route as AppEnterprisesEnterpriseIdCreateContactBusinessContactIdRouteImport } from './routes/app/enterprises_/$enterpriseId/create-contact-business.$contactId/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdQuotationRouteImport } from './routes/app/businesses-rma/business.$businessId/quotation/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdDashboardRouteImport } from './routes/app/businesses-rma/business.$businessId/dashboard/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdBlRouteImport } from './routes/app/businesses-rma/business.$businessId/bl/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdArcRouteImport } from './routes/app/businesses-rma/business.$businessId/arc/route'
 import { Route as AppToolsFormationsUpdateFormationIdAddDetailRouteImport } from './routes/app/tools/formations/update.$formationId/add-detail/route'
 import { Route as AppProductsProductIdManageUpdateVersionVersionIdRouteImport } from './routes/app/products_.$productId/manage/update-version.$versionId/route'
@@ -146,6 +147,7 @@ import { Route as AppBusinessesRmaBusinessBusinessIdDashboardCreateLinkRouteImpo
 import { Route as AppBusinessesRmaBusinessBusinessIdDashboardCreateLifesheetRouteImport } from './routes/app/businesses-rma/business.$businessId/dashboard/create-lifesheet/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdDashboardCreateGedDirectoryRouteImport } from './routes/app/businesses-rma/business.$businessId/dashboard/create-ged-directory/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdDashboardAddressBookRouteImport } from './routes/app/businesses-rma/business.$businessId/dashboard/address-book/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdBlSendByEmailRouteImport } from './routes/app/businesses-rma/business.$businessId/bl/send-by-email/route'
 import { Route as AppToolsFormationsSubscribersFormationDetailIdSendEmailSubscriptionIdRouteImport } from './routes/app/tools/formations/subscribers.$formationDetailId/send-email.$subscriptionId/route'
 import { Route as AppToolsFormationsSubscribersFormationDetailIdDeleteSubscriptionIdRouteImport } from './routes/app/tools/formations/subscribers.$formationDetailId/delete.$subscriptionId/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdQuotationPdfSendByEmailRouteImport } from './routes/app/businesses-rma/business.$businessId/quotation/pdf/send-by-email/route'
@@ -1745,6 +1747,16 @@ const AppBusinessesRmaBusinessBusinessIdDashboardRouteRoute =
     ).then((d) => d.Route),
   )
 
+const AppBusinessesRmaBusinessBusinessIdBlRouteRoute =
+  AppBusinessesRmaBusinessBusinessIdBlRouteImport.update({
+    path: '/bl',
+    getParentRoute: () => AppBusinessesRmaBusinessBusinessIdRouteRoute,
+  } as any).lazy(() =>
+    import(
+      './routes/app/businesses-rma/business.$businessId/bl/route.lazy'
+    ).then((d) => d.Route),
+  )
+
 const AppBusinessesRmaBusinessBusinessIdArcRouteRoute =
   AppBusinessesRmaBusinessBusinessIdArcRouteImport.update({
     path: '/arc',
@@ -2129,6 +2141,16 @@ const AppBusinessesRmaBusinessBusinessIdDashboardAddressBookRouteRoute =
   } as any).lazy(() =>
     import(
       './routes/app/businesses-rma/business.$businessId/dashboard/address-book/route.lazy'
+    ).then((d) => d.Route),
+  )
+
+const AppBusinessesRmaBusinessBusinessIdBlSendByEmailRouteRoute =
+  AppBusinessesRmaBusinessBusinessIdBlSendByEmailRouteImport.update({
+    path: '/send-by-email',
+    getParentRoute: () => AppBusinessesRmaBusinessBusinessIdBlRouteRoute,
+  } as any).lazy(() =>
+    import(
+      './routes/app/businesses-rma/business.$businessId/bl/send-by-email/route.lazy'
     ).then((d) => d.Route),
   )
 
@@ -2877,6 +2899,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdArcRouteImport
       parentRoute: typeof AppBusinessesRmaBusinessBusinessIdRouteImport
     }
+    '/app/businesses-rma/business/$businessId/bl': {
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdBlRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdRouteImport
+    }
     '/app/businesses-rma/business/$businessId/dashboard': {
       preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardRouteImport
       parentRoute: typeof AppBusinessesRmaBusinessBusinessIdRouteImport
@@ -3072,6 +3098,10 @@ declare module '@tanstack/react-router' {
     '/app/tools/scheduler/details/$rdvId': {
       preLoaderRoute: typeof AppToolsSchedulerDetailsRdvIdRouteLazyImport
       parentRoute: typeof AppToolsSchedulerRouteImport
+    }
+    '/app/businesses-rma/business/$businessId/bl/send-by-email': {
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdBlSendByEmailRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdBlRouteImport
     }
     '/app/businesses-rma/business/$businessId/dashboard/address-book': {
       preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardAddressBookRouteImport
@@ -3476,6 +3506,9 @@ export const routeTree = rootRoute.addChildren([
           AppBusinessesRmaBusinessBusinessIdArcUpdateShippingPriceRouteLazyRoute,
           AppBusinessesRmaBusinessBusinessIdArcDeleteDetailDetailIdRouteLazyRoute,
           AppBusinessesRmaBusinessBusinessIdArcUpdateDetailDetailIdRouteLazyRoute,
+        ]),
+        AppBusinessesRmaBusinessBusinessIdBlRouteRoute.addChildren([
+          AppBusinessesRmaBusinessBusinessIdBlSendByEmailRouteRoute,
         ]),
         AppBusinessesRmaBusinessBusinessIdDashboardRouteRoute.addChildren([
           AppBusinessesRmaBusinessBusinessIdDashboardAddressBookRouteRoute.addChildren(

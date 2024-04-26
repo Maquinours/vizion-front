@@ -9,3 +9,10 @@ export const createBusinessBl = (data: BusinessBlRequestDto) => {
     data,
   }).then((res) => res.data);
 };
+
+export const getBusinessBlsByBusinessId = (businessId: string) => {
+  return privateInstance<Array<BusinessBlResponseDto>>({
+    method: 'GET',
+    url: `/business/v1/business/bl/business/${encodeURIComponent(businessId)}`,
+  }).then((res) => res.data);
+};

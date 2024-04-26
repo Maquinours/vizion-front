@@ -1,0 +1,13 @@
+@import '/src/assets/styles/mixins';
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  @include respond-below(sm) {
+    justify-content: inherit;
+    align-items: inherit;
+  }
+}
