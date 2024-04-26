@@ -24,3 +24,11 @@ export const createBusinessBill = (data: BusinessBillRequestDto) => {
     data,
   }).then((res) => res.data);
 };
+
+export const reloadBusinessBill = (data: BusinessBillRequestDto) => {
+  return privateInstance<BusinessBillResponseDto>({
+    method: 'POST',
+    url: '/business/v1/business/bill/reload',
+    data,
+  }).then((res) => res.data);
+};
