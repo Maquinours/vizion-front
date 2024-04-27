@@ -85,7 +85,7 @@ export default function CreateLifesheetModalComponent({ associatedItemType, asso
         case LifesheetAssociatedItem.BUSINESS:
           data = {
             businessId: associatedItemId,
-            businessNumber: (await queryClient.ensureQueryData(businesses.detail(associatedItemId))).numBusiness,
+            businessNumber: (await queryClient.ensureQueryData(businesses.detail._ctx.byId(associatedItemId))).numBusiness,
           };
           break;
       }

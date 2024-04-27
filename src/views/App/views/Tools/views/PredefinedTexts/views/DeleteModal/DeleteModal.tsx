@@ -7,6 +7,7 @@ import { router } from '../../../../../../../../router';
 import { toast } from 'react-toastify';
 import { PulseLoader } from 'react-spinners';
 import styles from './DeleteModal.module.scss';
+import React from 'react';
 
 const routeApi = getRouteApi('/app/tools/predefined-texts/delete/$predefinedTextId');
 
@@ -36,6 +37,11 @@ export default function AppViewToolsViewPredefinedTextsViewDeleteModalView() {
     },
   });
 
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    mutate();
+  };
+
   return (
     <ReactModal isOpen={true} onRequestClose={onClose} className={styles.delete_contact_modal} overlayClassName="Overlay">
       <div className={styles.modal_container}>
@@ -46,7 +52,7 @@ export default function AppViewToolsViewPredefinedTextsViewDeleteModalView() {
           </h6>
         </div>
 
-        <form onSubmit={() => mutate()}>
+        <form onSubmit={onSubmit}>
           <div className={styles.modal_content}>
             <p>Cette action irréversible va supprimer le document définitivement.</p>
           </div>

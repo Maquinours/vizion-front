@@ -1,0 +1,27 @@
+@import '../FormModal/FormModal.module.scss';
+
+.show_modal {
+  @extend .modal;
+  width: 60%;
+  z-index: 2015;
+
+  .modal_container {
+    .modal_content {
+      margin-bottom: 2rem;
+
+      .voucher_item {
+        display: flex;
+        justify-content: center;
+
+        iframe {
+          width: 95%;
+          height: 70vh;
+
+          @include respond-below(sm) {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+}

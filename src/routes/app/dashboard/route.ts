@@ -10,7 +10,6 @@ import WorkloadType from '../../../utils/enums/WorkloadType';
 const searchSchema = z.object({
   personalTaskState: z.nativeEnum(TaskState).catch(TaskState.CREATED),
   personalTaskPage: z.number().int().min(0).default(0),
-  personalTaskSize: z.number().int().min(10).max(10).catch(10),
   schedulerView: z.enum([Views.DAY, Views.WORK_WEEK]).catch(Views.DAY),
   schedulerDate: z.coerce.date().catch(new Date()),
 });
@@ -23,7 +22,7 @@ export const Route = createFileRoute('/app/dashboard')({
       throw redirect({ to: '..' });
     }
   },
-  loaderDeps: ({ search: { personalTaskState, personalTaskPage, personalTaskSize } }) => ({ personalTaskState, personalTaskPage, personalTaskSize }),
+  loaderDeps: ({ search: { personalTaskState, personalTaskPage } }) => ({ personalTaskState, personalTaskPage, personalTaskSize: 10 }),
   loader: async ({ context: { queryClient }, deps: { personalTaskState, personalTaskPage, personalTaskSize } }) => {
     queryClient.prefetchQuery(keycloakEvents.page({ page: 0, size: 100 }));
     const collectiveTasksPromise = queryClient.ensureQueryData(queries.tasks.list._ctx.byType(WorkloadType.COLLECTIVE));

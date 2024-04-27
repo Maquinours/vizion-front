@@ -1,0 +1,193 @@
+@import '/src/assets/styles/mixins';
+
+.container {
+  height: 100%;
+  position: relative;
+  top: -1rem;
+
+  .wizard {
+    margin-bottom: 2rem;
+
+    @include respond-below(sm) {
+      padding-bottom: 4rem;
+      margin-bottom: 0;
+    }
+
+    .step_progress {
+      display: flex;
+      flex-direction: column;
+
+      @include respond-above(md) {
+        position: relative;
+        padding-left: 45px;
+        list-style: none;
+        z-index: 1;
+
+        &::before {
+          display: inline-block;
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 12px;
+          width: 5px;
+          height: 100%;
+          border-left: 1px solid var(--primary-color);
+        }
+
+        .step {
+          position: relative;
+          top: 0;
+          left: -8px;
+          counter-increment: step;
+          pointer-events: none;
+          text-decoration: inherit;
+
+          &:not(:last-child) {
+            padding-bottom: 20px;
+          }
+
+          &::before {
+            display: inline-block;
+            content: '';
+            position: absolute;
+            left: -30px;
+            height: 100%;
+            width: 10px;
+          }
+
+          &::after {
+            content: counter(step);
+            text-align: center;
+            position: absolute;
+            top: 0;
+            height: 25px;
+            width: 25px;
+            background-color: #16204e;
+            border-radius: 50%;
+            left: -37px;
+            display: inline-block;
+            border: 2px solid var(--primary-color);
+            background-color: #fff;
+            cursor: pointer;
+          }
+
+          &.isClickable {
+            cursor: pointer;
+            pointer-events: initial;
+
+            &::after {
+              color: #fff;
+              border: 1px solid var(--primary-color);
+              background-color: var(--primary-color);
+            }
+          }
+
+          &.isActive {
+            &::after {
+              color: #fff;
+              text-align: center;
+              border: 1px solid var(--secondary-color);
+              background-color: var(--secondary-color);
+            }
+          }
+
+          strong {
+            text-align: left;
+            position: relative;
+            top: 4px;
+            display: block;
+            color: var(--primary-color);
+            font-family: 'DIN2014';
+            font-weight: normal;
+            font-size: 15px;
+            // cursor: pointer;
+          }
+        }
+      }
+
+      @include respond-below(md) {
+        background: none;
+        display: flex;
+        justify-content: space-between;
+        list-style-type: none;
+        padding: 0;
+        width: 100%;
+
+        &::before {
+          background-color: #16204e;
+          content: '';
+          display: block;
+          height: 1.5px;
+          right: 0;
+          position: absolute;
+          top: 11px;
+          width: 100%;
+        }
+
+        .step {
+          border-radius: 50%;
+          background-color: #16204e;
+          border: 2px solid var(--primary-color);
+          background-color: #fff;
+          cursor: pointer;
+          display: inline-block;
+          height: 25px;
+          line-height: 25px;
+          position: relative;
+          text-align: center;
+          width: 25px;
+          counter-increment: step;
+          pointer-events: none;
+
+          &.isClickable {
+            pointer-events: initial;
+            color: #fff;
+            border: 1px solid var(--primary-color);
+            background-color: var(--primary-color);
+          }
+
+          &.isActive {
+            color: #fff;
+            text-align: center;
+            border: 1px solid var(--secondary-color);
+            background-color: var(--secondary-color);
+          }
+
+          strong {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, 50%);
+            color: var(--primary-color);
+            font-family: 'DIN2014';
+            font-weight: bold;
+            font-size: 11px;
+          }
+
+          &::after {
+            content: counter(step);
+          }
+        }
+      }
+    }
+  }
+
+  .buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    @include respond-below(sm) {
+      flex-direction: row;
+    }
+
+    a {
+      width: fit-content;
+
+      &[aria-disabled='true'] {
+        cursor: not-allowed;
+        background-color: var(--grey-line);
+      }
+    }
+  }
+}

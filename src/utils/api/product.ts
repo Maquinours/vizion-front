@@ -96,3 +96,13 @@ export const removeAssociatedProduct = async (productId: string, associatedProdu
     url: `/product/v1/dis-associated-product/${encodeURIComponent(productId)}/${encodeURIComponent(associatedProductId)}`,
   }).then((res) => res.data);
 };
+
+export const getAssociatedProducts = (productId: string) => {
+  return privateInstance<Array<ProductResponseDto>>({
+    method: 'GET',
+    url: `/product/v1/list/associated`,
+    params: {
+      id: productId,
+    },
+  }).then((res) => res.data);
+};

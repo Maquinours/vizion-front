@@ -17,18 +17,52 @@ import { taskComments } from './taskComment';
 import { emails } from './email';
 import { departments } from './departments';
 import { turnovers } from './turnovers';
+import { businesses } from './business';
+import { businessBills } from './businessBill';
+import { salesVva } from './salesVva';
+import { formations } from './formations';
+import { formationSubscriptions } from './formationSubscriptions';
+import { productVersions } from './productVersions';
+import { productVersionShelfStocks } from './productVersionShelfStocks';
+import { productVersionShelfStockEntries } from './productVersionShelfStockEntries';
+import { users } from './user';
+import { technicalSupports } from './technicalSupports';
+import { addresses } from './address';
+import { allBusinesses } from './allBusiness';
+import { businessQuotations } from './businessQuotations';
+import { geds } from './ged';
+import { lifesheets } from './lifesheet';
+import { commercialNotices } from './commercialNotices';
+import { businessArcs } from './businessArcs';
+import { productStocks } from './productStocks';
+import { businessSubQuotations } from './businessSubQuotations';
+import { businessQuotationDetails } from './businessQuotationDetails';
+import { businessArcDetails } from './businessArcDetails';
+import { businessBps } from './businessBps';
+import { productVersionStocks } from './productVersionStocks';
+import { businessBpDetails } from './businessBpDetails';
+import { businessBpSerials } from './businessBpSerials';
+import { businessBls } from './businessBls';
 
 export const queries = mergeQueryKeys(
+  businesses,
+  businessQuotations,
+  businessArcs,
+  businessBills,
   emails,
   enterprises,
   departments,
   predefinedMessages,
   predefinedTexts,
   products,
+  productVersions,
+  productVersionShelfStocks,
+  productVersionShelfStockEntries,
   productFilters,
   productSales,
   productSerialNumbers,
   productShelves,
+  productStocks,
   profiles,
   progressiveInfos,
   rdvs,
@@ -37,4 +71,22 @@ export const queries = mergeQueryKeys(
   tasks,
   taskComments,
   turnovers,
+  salesVva,
+  formations,
+  formationSubscriptions,
+  users,
+  technicalSupports,
+  addresses,
+  allBusinesses,
+  geds,
+  lifesheets,
+  commercialNotices,
+  businessSubQuotations,
+  businessQuotationDetails,
+  businessArcDetails,
+  businessBps,
+  productVersionStocks,
+  businessBpDetails,
+  businessBpSerials,
+  businessBls,
 );

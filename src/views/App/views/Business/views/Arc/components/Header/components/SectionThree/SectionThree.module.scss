@@ -1,0 +1,149 @@
+@import '/src/assets/styles/mixins';
+
+._one {
+  width: 100%;
+  display: flex;
+
+  form {
+    display: grid;
+    grid-template-columns: 60% auto auto;
+    gap: 1rem;
+
+    .form_group {
+      width: 100%;
+      display: grid;
+      // grid-template-columns: 20% 80%;
+      align-self: center;
+      margin-bottom: 0.3rem;
+
+      label {
+        grid-area: label;
+        height: 15px;
+      }
+
+      input,
+      select,
+      datalist,
+      textarea:nth-child(2) {
+        grid-area: input;
+      }
+
+      p:nth-child(3) {
+        grid-area: error;
+        margin-top: 2px;
+      }
+
+      grid-template-areas:
+        'label'
+        'input'
+        'error';
+
+      grid-template-columns: repeat(1, 1fr);
+
+      label {
+        text-align: left;
+        font: normal normal normal 16px/20px 'DIN2014';
+        letter-spacing: 0px;
+        color: var(--primary-light);
+        opacity: 1;
+        width: 100%;
+        margin-bottom: 0.3rem;
+        align-self: center;
+        padding-right: 1rem;
+
+        &.required {
+          span {
+            color: var(--secondary-color);
+          }
+
+          font-family: 'DIN2014';
+        }
+      }
+
+      input {
+        background: var(--grey-color) 0% 0% no-repeat padding-box;
+        border: 1px solid var(--primary-color);
+        border-radius: 5px;
+        padding: 0.5rem 0.5rem;
+        outline: none;
+        height: 30px;
+        width: inherit;
+        max-width: 250px;
+
+        @include respond-below(sm) {
+          width: 100%;
+          max-width: 100%;
+        }
+
+        &::placeholder {
+          text-align: left;
+          font: normal normal normal 11px/14px 'DIN2014';
+          letter-spacing: 0px;
+          color: #9fa5b9;
+          opacity: 1;
+        }
+
+        &:-ms-input-placeholder {
+          text-align: left;
+          font: normal normal normal 11px/14px 'DIN2014';
+          letter-spacing: 0px;
+          color: #9fa5b9;
+          opacity: 1;
+        }
+
+        &::-ms-input-placeholder {
+          text-align: left;
+          font: normal normal normal 11px/14px 'DIN2014';
+          letter-spacing: 0px;
+          color: #9fa5b9;
+          opacity: 1;
+        }
+      }
+
+      p.__errors {
+        text-align: left;
+        font-family: 'DIN2014';
+        font-style: normal;
+        font-weight: normal;
+        font-variant: normal;
+        font-size: 11px;
+        line-height: 10px;
+        letter-spacing: 0px;
+        color: var(--secondary-color);
+        opacity: 1;
+      }
+
+      .form_group_radio {
+        display: flex;
+        justify-content: flex-start;
+        gap: 1rem;
+
+        .form__radio {
+          display: flex;
+          align-items: center;
+          gap: 0 0.2rem;
+
+          input[type='radio'] {
+            width: inherit;
+            height: auto;
+          }
+
+          label {
+            font: normal normal normal 14px/18px 'DIN2014';
+            letter-spacing: 0px;
+            color: #16204e;
+          }
+        }
+      }
+    }
+
+    @include respond-below(sm) {
+      grid-template-columns: repeat(1, 1fr);
+      gap: 0rem;
+    }
+
+    & > div:nth-child(3) {
+      margin-top: 25px;
+    }
+  }
+}

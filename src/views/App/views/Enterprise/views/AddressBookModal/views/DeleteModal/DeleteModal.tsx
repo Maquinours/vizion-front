@@ -7,6 +7,7 @@ import { deleteAddress } from '../../../../../../../../utils/api/address';
 import { toast } from 'react-toastify';
 import styles from './DeleteModal.module.scss';
 import React from 'react';
+import { queries } from '../../../../../../../../utils/constants/queryKeys';
 
 const Route = getRouteApi('/app/enterprises/$enterpriseId/address-book/delete/$addressId');
 
@@ -16,7 +17,7 @@ export default function AppViewEnterpriseViewAddressBookModalViewDeleteModalView
 
   const { addressId } = Route.useParams();
 
-  const { data: address } = useSuspenseQuery(addresses.detail({ id: addressId }));
+  const { data: address } = useSuspenseQuery(queries.address.detail._ctx.byId(addressId));
 
   const onClose = () => {
     navigate({ from: Route.id, to: '../..', params: ({ enterpriseId }) => ({ enterpriseId }), search: (old) => old });

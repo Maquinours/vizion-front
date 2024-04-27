@@ -15,7 +15,7 @@ export default function AppViewProductViewManageViewDeleteVersionModalView() {
 
   const { versionId } = routeApi.useParams();
 
-  const { data: version } = useSuspenseQuery(queries.product.versions._ctx.detail(versionId));
+  const { data: version } = useSuspenseQuery(queries['product-versions'].detail._ctx.byId(versionId));
 
   const onClose = () => {
     navigate({ from: routeApi.id, to: '../..', search: (old) => old });

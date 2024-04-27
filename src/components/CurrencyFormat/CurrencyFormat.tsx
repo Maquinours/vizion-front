@@ -1,21 +1,29 @@
+import React from 'react';
 import { NumericFormat } from 'react-number-format';
 
 type CurrencyFormatProps = Readonly<{
   value: string | number | null | undefined;
   defaultValue?: number;
+  prefix?: string;
+  displayType?: 'text' | 'input';
+  onChange?: React.ChangeEventHandler<HTMLInputElement>;
   className?: string;
+  style?: React.CSSProperties;
 }>;
-export default function CurrencyFormat({ value, defaultValue, className }: CurrencyFormatProps) {
+export default function CurrencyFormat({ value, defaultValue, prefix, displayType = 'text', onChange, className, style }: CurrencyFormatProps) {
   return (
     <NumericFormat
       value={value}
       className={className}
-      displayType="text"
+      displayType={displayType}
       decimalSeparator=","
       thousandSeparator=" "
       suffix=" €"
       decimalScale={2}
       defaultValue={defaultValue}
+      prefix={prefix}
+      onChange={onChange}
+      style={style}
     />
   );
 }

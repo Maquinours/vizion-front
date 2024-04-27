@@ -1,0 +1,185 @@
+@import '/src/assets/styles/mixins';
+
+.table_container {
+  width: 100%;
+  margin-top: 1rem;
+
+  table {
+    table-layout: auto;
+    border-collapse: collapse;
+    width: 100%;
+
+    thead {
+      font-style: normal;
+      font-weight: normal;
+
+      font-size: 15px;
+      line-height: 18px;
+      background-color: var(--primary-color);
+      color: white;
+      box-shadow: 0px 3px 5px #10173526;
+
+      th {
+        height: 40px;
+        text-align: left;
+        padding: 0 0.3rem;
+        border: none;
+        border-left: 0.5px solid #898fa6;
+
+        &:nth-child(1) {
+          width: 5%;
+
+          @include respond-below(sm) {
+            width: 10%;
+          }
+        }
+
+        &:nth-child(2) {
+          width: 15%;
+        }
+
+        &:nth-child(3) {
+          width: 20%;
+        }
+
+        &:nth-child(4) {
+          width: 35%;
+        }
+
+        &:nth-child(5) {
+          width: 15%;
+        }
+
+        &:nth-child(6) {
+          width: 5%;
+          text-align: center;
+        }
+
+        &:nth-last-child(1) {
+          border-top-right-radius: 5px;
+          width: 5%;
+        }
+      }
+    }
+
+    tbody {
+      border-left: 1px solid #31385a;
+      border-bottom: 1px solid #31385a;
+      border-right: 1px solid #31385a;
+
+      tr {
+        background-color: #fbfcfe;
+      }
+
+      tr:hover {
+        background-color: #e5e5e5;
+      }
+
+      tr:nth-child(2n + 1) {
+        background: #f2f3f8 0% 0% no-repeat padding-box;
+        opacity: 1;
+      }
+
+      tr {
+        vertical-align: top;
+        padding: 10px 0;
+
+        td {
+          font: normal normal normal 16px/20px 'DIN2014';
+          color: #16204e;
+          padding: 0.3rem;
+          text-align: left;
+          height: 50px;
+
+          &:nth-child(1) {
+            .sub_component {
+              margin-right: 1rem;
+
+              button {
+                background-color: var(--primary-color);
+                border-radius: 5px;
+                outline: none;
+                border: none;
+                width: 25px;
+                height: 25px;
+                cursor: pointer;
+
+                svg {
+                  color: white;
+                }
+              }
+            }
+          }
+
+          &:nth-child(6) {
+            text-align: center;
+          }
+
+          &:nth-child(4) {
+            div.details_container {
+              display: flex;
+              flex-direction: column;
+
+              .details_content {
+                margin-bottom: 1rem;
+
+                .title {
+                  font-weight: 900;
+                  font-size: 17px;
+                  margin-bottom: 5px;
+                  color: var(--secondary-color);
+                }
+
+                .date {
+                  padding-left: 1rem;
+                  font-size: 16px;
+                }
+
+                .trainer_container {
+                  padding-left: 1.7rem;
+
+                  ul {
+                    list-style: square;
+                    list-style-position: inside;
+
+                    li {
+                      font-size: 15px;
+                    }
+                  }
+                }
+              }
+            }
+
+            .registrants {
+              display: flex;
+              align-items: center;
+              justify-content: flex-start;
+              gap: 1rem;
+              width: fit-content;
+
+              cursor: pointer;
+
+              &:hover {
+                color: var(--secondary-color);
+              }
+            }
+          }
+
+          &:nth-last-child(1) {
+            .action_buttons {
+              display: flex;
+
+              svg {
+                cursor: pointer;
+
+                &:nth-child(2) {
+                  margin-left: 5px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

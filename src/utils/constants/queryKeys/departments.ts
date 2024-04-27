@@ -1,5 +1,5 @@
 import { createQueryKeys } from '@lukemorales/query-key-factory';
-import { getAllDepartments, getDepartmentById, getDepartmentsPage } from '../../api/department';
+import { getAllDepartments, getDepartmentById, getDepartmentsPage, getDepartmentByCode } from '../../api/department';
 
 export const departments = createQueryKeys('departments', {
   list: {
@@ -10,8 +10,17 @@ export const departments = createQueryKeys('departments', {
     queryKey: [page, size],
     queryFn: () => getDepartmentsPage({ page, size }),
   }),
-  detail: (id: string) => ({
-    queryKey: [id],
-    queryFn: () => getDepartmentById(id),
-  }),
+  detail: {
+    queryKey: null,
+    contextQueries: {
+      byId: (id: string) => ({
+        queryKey: [id],
+        queryFn: () => getDepartmentById(id),
+      }),
+      byCode: (code: string) => ({
+        queryKey: [code],
+        queryFn: () => getDepartmentByCode(code),
+      }),
+    },
+  },
 });

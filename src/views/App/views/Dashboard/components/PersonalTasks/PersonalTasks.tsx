@@ -10,10 +10,12 @@ import AppViewDashboardViewPersonalTasksComponentTableComponent from './componen
 
 const Route = getRouteApi('/app/dashboard');
 
+const size = 10;
+
 export default function AppViewDashboardViewPersonalTasksComponent() {
   const [isMinimized, setMinimized] = useLocalStorage('preferences.dashboard.personalTasks.minimized', false);
 
-  const { personalTaskState: state, personalTaskSize: size, personalTaskPage: page } = Route.useSearch();
+  const { personalTaskState: state, personalTaskPage: page } = Route.useSearch();
 
   const { data: user } = useAuthentifiedUserQuery();
 

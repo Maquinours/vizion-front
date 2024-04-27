@@ -8,7 +8,7 @@ import {
   getLifesheetPageByRmaId,
 } from '../../api/lifesheet';
 
-export const lifesheets = createQueryKeys('lifesheet', {
+export const lifesheets = createQueryKeys('lifesheets', {
   page: ({ page, size }: { page: number; size: number }) => ({
     queryKey: [page, size],
     contextQueries: {

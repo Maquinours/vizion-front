@@ -63,7 +63,7 @@ export default function AppViewProductsViewSerialNumbersModalViewCreateModalView
   isPending,
   setRequestData,
 }: AppViewProductsViewSerialNumbersModalViewCreateModalViewFormSectionComponentProps) {
-  const { data: products, isLoading: isLoadingProducts } = useQuery(queries.product.versions._ctx.list);
+  const { data: products, isLoading: isLoadingProducts } = useQuery(queries['product-versions'].list._ctx.all);
 
   const { data: shelves, isLoading: isLoadingShelves } = useQuery(queries['product-shelves'].list);
 

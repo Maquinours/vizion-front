@@ -80,7 +80,7 @@ export default function AppViewCreateBusinessModalComponent() {
       }),
     onSuccess: (business) => {
       toast.success(`Affaire créée avec succès.`);
-      queryClient.setQueryData(businesses.detail(business.id).queryKey, business);
+      queryClient.setQueryData(businesses.detail._ctx.byId(business.id).queryKey, business);
       navigate({ from: Route.id, search: (old) => ({ ...old, appModal: 'business-ged', businessId: business.id }) });
     },
   });

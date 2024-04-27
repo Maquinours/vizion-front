@@ -23,7 +23,7 @@ export default function AppViewProductViewManageViewUpdateStockModalView() {
 
   const { stockId } = routeApi.useParams();
 
-  const { data: stock } = useSuspenseQuery(queries.product.versionShelfStocks._ctx.detail(stockId));
+  const { data: stock } = useSuspenseQuery(queries['product-version-shelf-stocks'].detail._ctx.byId(stockId));
 
   const {
     register,

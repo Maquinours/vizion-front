@@ -98,9 +98,22 @@ export const getTasksPageByEnterpriseId = async (enterpriseId: string, page: num
 
 export const getTasksPageByProductId = (productId: string, page: number, size: number) => {
   return privateInstance<Page<TaskResponseDto>>({
+    method: 'GET',
     url: `/workloads/v1/tasks/all-by-product-paged`,
     params: {
       productId,
+      page,
+      size,
+    },
+  }).then((res) => res.data);
+};
+
+export const getTasksPageByBusinessId = (businessId: string, { page, size }: { page: number; size: number }) => {
+  return privateInstance<Page<TaskResponseDto>>({
+    method: 'GET',
+    url: `/workloads/v1/tasks/all-by-business-paged`,
+    params: {
+      businessId,
       page,
       size,
     },
