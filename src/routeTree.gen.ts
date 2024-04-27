@@ -33,6 +33,7 @@ import { Route as AppToolsNewsRouteImport } from './routes/app/tools/news/route'
 import { Route as AppToolsGlobalTurnoverRouteImport } from './routes/app/tools/global-turnover/route'
 import { Route as AppToolsExternalLinksRouteImport } from './routes/app/tools/external-links/route'
 import { Route as AppToolsEmailsRouteImport } from './routes/app/tools/emails/route'
+import { Route as AppToolsDepartmentsRouteImport } from './routes/app/tools/departments/route'
 import { Route as AppToolsDdnsRouteImport } from './routes/app/tools/ddns/route'
 import { Route as AppProductsProductIdRouteImport } from './routes/app/products_.$productId/route'
 import { Route as AppProductsSerialNumbersRouteImport } from './routes/app/products/serial-numbers/route'
@@ -85,6 +86,8 @@ import { Route as AppToolsExternalLinksUpdateExternalLinkIdRouteImport } from '.
 import { Route as AppToolsExternalLinksDeleteExternalLinkIdRouteImport } from './routes/app/tools/external-links/delete.$externalLinkId/route'
 import { Route as AppToolsExternalLinksArchiveExternalLinkIdRouteImport } from './routes/app/tools/external-links/archive.$externalLinkId/route'
 import { Route as AppToolsEmailsSendPredefinedMessagesRouteImport } from './routes/app/tools/emails_.send/predefined-messages/route'
+import { Route as AppToolsDepartmentsUpdateDepartmentIdRouteImport } from './routes/app/tools/departments/update.$departmentId/route'
+import { Route as AppToolsDepartmentsDeleteDepartmentIdRouteImport } from './routes/app/tools/departments/delete.$departmentId/route'
 import { Route as AppToolsDdnsDeleteDdnsIdRouteImport } from './routes/app/tools/ddns/delete.$ddnsId/route'
 import { Route as AppProductsProductIdManageCreateStockRouteImport } from './routes/app/products_.$productId/manage/create-stock/route'
 import { Route as AppProductsProductIdManageAddSpecificationRouteImport } from './routes/app/products_.$productId/manage/add-specification/route'
@@ -152,6 +155,9 @@ const AppToolsEmailsSendRouteLazyImport = createFileRoute(
 )()
 const AppToolsEmailsEmailIdRouteLazyImport = createFileRoute(
   '/app/tools/emails/$emailId',
+)()
+const AppToolsDepartmentsCreateRouteLazyImport = createFileRoute(
+  '/app/tools/departments/create',
 )()
 const AppToolsDdnsCreateRouteLazyImport = createFileRoute(
   '/app/tools/ddns/create',
@@ -417,6 +423,13 @@ const AppToolsEmailsRouteRoute = AppToolsEmailsRouteImport.update({
   import('./routes/app/tools/emails/route.lazy').then((d) => d.Route),
 )
 
+const AppToolsDepartmentsRouteRoute = AppToolsDepartmentsRouteImport.update({
+  path: '/departments',
+  getParentRoute: () => AppToolsRouteRoute,
+} as any).lazy(() =>
+  import('./routes/app/tools/departments/route.lazy').then((d) => d.Route),
+)
+
 const AppToolsDdnsRouteRoute = AppToolsDdnsRouteImport.update({
   path: '/ddns',
   getParentRoute: () => AppToolsRouteRoute,
@@ -548,6 +561,16 @@ const AppToolsEmailsEmailIdRouteLazyRoute =
     getParentRoute: () => AppToolsEmailsRouteRoute,
   } as any).lazy(() =>
     import('./routes/app/tools/emails/$emailId/route.lazy').then(
+      (d) => d.Route,
+    ),
+  )
+
+const AppToolsDepartmentsCreateRouteLazyRoute =
+  AppToolsDepartmentsCreateRouteLazyImport.update({
+    path: '/create',
+    getParentRoute: () => AppToolsDepartmentsRouteRoute,
+  } as any).lazy(() =>
+    import('./routes/app/tools/departments/create/route.lazy').then(
       (d) => d.Route,
     ),
   )
@@ -1142,6 +1165,26 @@ const AppToolsEmailsSendPredefinedMessagesRouteRoute =
     ).then((d) => d.Route),
   )
 
+const AppToolsDepartmentsUpdateDepartmentIdRouteRoute =
+  AppToolsDepartmentsUpdateDepartmentIdRouteImport.update({
+    path: '/update/$departmentId',
+    getParentRoute: () => AppToolsDepartmentsRouteRoute,
+  } as any).lazy(() =>
+    import(
+      './routes/app/tools/departments/update.$departmentId/route.lazy'
+    ).then((d) => d.Route),
+  )
+
+const AppToolsDepartmentsDeleteDepartmentIdRouteRoute =
+  AppToolsDepartmentsDeleteDepartmentIdRouteImport.update({
+    path: '/delete/$departmentId',
+    getParentRoute: () => AppToolsDepartmentsRouteRoute,
+  } as any).lazy(() =>
+    import(
+      './routes/app/tools/departments/delete.$departmentId/route.lazy'
+    ).then((d) => d.Route),
+  )
+
 const AppToolsDdnsDeleteDdnsIdRouteRoute =
   AppToolsDdnsDeleteDdnsIdRouteImport.update({
     path: '/delete/$ddnsId',
@@ -1594,6 +1637,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppToolsDdnsRouteImport
       parentRoute: typeof AppToolsRouteImport
     }
+    '/app/tools/departments': {
+      preLoaderRoute: typeof AppToolsDepartmentsRouteImport
+      parentRoute: typeof AppToolsRouteImport
+    }
     '/app/tools/emails': {
       preLoaderRoute: typeof AppToolsEmailsRouteImport
       parentRoute: typeof AppToolsRouteImport
@@ -1814,6 +1861,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppToolsDdnsCreateRouteLazyImport
       parentRoute: typeof AppToolsDdnsRouteImport
     }
+    '/app/tools/departments/create': {
+      preLoaderRoute: typeof AppToolsDepartmentsCreateRouteLazyImport
+      parentRoute: typeof AppToolsDepartmentsRouteImport
+    }
     '/app/tools/emails/$emailId': {
       preLoaderRoute: typeof AppToolsEmailsEmailIdRouteLazyImport
       parentRoute: typeof AppToolsEmailsRouteImport
@@ -1917,6 +1968,14 @@ declare module '@tanstack/react-router' {
     '/app/tools/ddns/delete/$ddnsId': {
       preLoaderRoute: typeof AppToolsDdnsDeleteDdnsIdRouteImport
       parentRoute: typeof AppToolsDdnsRouteImport
+    }
+    '/app/tools/departments/delete/$departmentId': {
+      preLoaderRoute: typeof AppToolsDepartmentsDeleteDepartmentIdRouteImport
+      parentRoute: typeof AppToolsDepartmentsRouteImport
+    }
+    '/app/tools/departments/update/$departmentId': {
+      preLoaderRoute: typeof AppToolsDepartmentsUpdateDepartmentIdRouteImport
+      parentRoute: typeof AppToolsDepartmentsRouteImport
     }
     '/app/tools/emails/send/predefined-messages': {
       preLoaderRoute: typeof AppToolsEmailsSendPredefinedMessagesRouteImport
@@ -2127,6 +2186,11 @@ export const routeTree = rootRoute.addChildren([
       AppToolsDdnsRouteRoute.addChildren([
         AppToolsDdnsCreateRouteLazyRoute,
         AppToolsDdnsDeleteDdnsIdRouteRoute,
+      ]),
+      AppToolsDepartmentsRouteRoute.addChildren([
+        AppToolsDepartmentsCreateRouteLazyRoute,
+        AppToolsDepartmentsDeleteDepartmentIdRouteRoute,
+        AppToolsDepartmentsUpdateDepartmentIdRouteRoute,
       ]),
       AppToolsEmailsRouteRoute.addChildren([
         AppToolsEmailsEmailIdRouteLazyRoute.addChildren([
