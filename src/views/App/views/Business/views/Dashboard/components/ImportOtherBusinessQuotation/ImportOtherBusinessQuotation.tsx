@@ -21,7 +21,7 @@ export default function AppViewBusinessViewDashboardViewImportOtherBusinessQuota
 
   const { data: business } = useSuspenseQuery(queries.businesses.detail._ctx.byId(businessId));
 
-  const { data: availableBusinesses } = useQuery({
+  const { data: availableBusinesses, isLoading: isLoadingAvailableBusinesses } = useQuery({
     ...queries.businesses.list._ctx.all,
     select: (data) =>
       data.filter(
@@ -51,17 +51,10 @@ export default function AppViewBusinessViewDashboardViewImportOtherBusinessQuota
               value={value}
               placeholder="Sélectionnez une affaire"
               options={availableBusinesses}
+              isLoading={isLoadingAvailableBusinesses}
               getOptionLabel={(option) => `${option.numBusiness}${option.title ? `/ ${option.title}` : ''}`}
               getOptionValue={(option) => option.id}
               onChange={onChange}
-              theme={(theme) => ({
-                ...theme,
-                borderRadius: 0,
-                colors: {
-                  ...theme.colors,
-                  primary: '#31385A',
-                },
-              })}
             />
           )}
           name="fromBusiness"
