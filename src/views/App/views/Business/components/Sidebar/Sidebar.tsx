@@ -1,30 +1,37 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
+import { Link, ToPathOption, getRouteApi } from '@tanstack/react-router';
+import { queries } from '../../../../../../utils/constants/queryKeys';
+import BusinessState from '../../../../../../utils/enums/BusinessState';
 import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthentifiedUser';
 import styles from './Sidebar.module.scss';
-import { queries } from '../../../../../../utils/constants/queryKeys';
-import { Link, getRouteApi } from '@tanstack/react-router';
-import classNames from 'classnames';
-import BusinessState from '../../../../../../utils/enums/BusinessState';
 
-const stepsData = [
+const stepsData: Array<{
+  label: string;
+  link: ToPathOption;
+  clickableStates: Array<BusinessState>;
+}> = [
   {
     label: 'Tableau de bord',
-    link: 'dashboard',
+    link: '/app/businesses-rma/business/$businessId/dashboard',
     clickableStates: [BusinessState.CREATED, BusinessState.DEVIS, BusinessState.ARC, BusinessState.BP, BusinessState.BL, BusinessState.FACTURE],
   },
   {
     label: 'Devis',
-    link: 'quotation',
+    link: '/app/businesses-rma/business/$businessId/quotation',
     clickableStates: [BusinessState.DEVIS, BusinessState.ARC, BusinessState.BP, BusinessState.BL, BusinessState.FACTURE],
   },
   {
     label: 'Accusé de réception de commande',
-    link: 'arc',
+    link: '/app/businesses-rma/business/$businessId/arc',
     clickableStates: [BusinessState.ARC, BusinessState.BP, BusinessState.BL, BusinessState.FACTURE],
   },
-  { label: 'Bon de préparation', link: 'bp', clickableStates: [BusinessState.BP, BusinessState.BL, BusinessState.FACTURE] },
-  { label: 'Bon de livraison', link: 'bl', clickableStates: [BusinessState.BL, BusinessState.FACTURE] },
-  { label: 'Facture', link: 'bill', clickableStates: [BusinessState.FACTURE] },
+  {
+    label: 'Bon de préparation',
+    link: '/app/businesses-rma/business/$businessId/bp',
+    clickableStates: [BusinessState.BP, BusinessState.BL, BusinessState.FACTURE],
+  },
+  { label: 'Bon de livraison', link: '/app/businesses-rma/business/$businessId/bl', clickableStates: [BusinessState.BL, BusinessState.FACTURE] },
+  { label: 'Facture', link: '/app/businesses-rma/business/$businessId/bill', clickableStates: [BusinessState.FACTURE] },
 ];
 
 const routeApi = getRouteApi('/app/businesses-rma/business/$businessId');
@@ -42,14 +49,10 @@ export default function AppViewBusinessViewSidebarComponent() {
         <div className={styles.step_progress}>
           {stepsData.map((stepData) => (
             <Link
-              key={stepData.link}
-              from={routeApi.id}
+              key={'test'}
               to={stepData.link}
-              params={(old) => old}
-              search={(old) => old}
-              className={classNames(styles.step, {
-                [styles.isClickable]: business.state && stepData.clickableStates.includes(business.state),
-              })}
+              disabled={!stepData.clickableStates.includes(business.state!)}
+              className={styles.step}
               activeProps={{ className: styles.isActive }}
             >
               <strong>{stepData.label}</strong>

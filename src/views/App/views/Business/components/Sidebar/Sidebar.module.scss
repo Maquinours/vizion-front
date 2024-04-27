@@ -39,7 +39,6 @@
           top: 0;
           left: -8px;
           counter-increment: step;
-          pointer-events: none;
           text-decoration: inherit;
 
           &:not(:last-child) {
@@ -68,18 +67,12 @@
             display: inline-block;
             border: 2px solid var(--primary-color);
             background-color: #fff;
-            cursor: pointer;
           }
 
-          &.isClickable {
-            cursor: pointer;
-            pointer-events: initial;
-
-            &::after {
-              color: #fff;
-              border: 1px solid var(--primary-color);
-              background-color: var(--primary-color);
-            }
+          &:not([aria-disabled='true'])::after {
+            color: #fff;
+            border: 1px solid var(--primary-color);
+            background-color: var(--primary-color);
           }
 
           &.isActive {
