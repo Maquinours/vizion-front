@@ -1,6 +1,6 @@
 import ReactModal from 'react-modal';
 import styles from './AddressBookModal.module.scss';
-import { Link, getRouteApi, useNavigate } from '@tanstack/react-router';
+import { Link, Outlet, getRouteApi, useNavigate } from '@tanstack/react-router';
 import { BsArrowLeft } from 'react-icons/bs';
 import { IoMdAddCircleOutline } from 'react-icons/io';
 import * as yup from 'yup';
@@ -68,42 +68,31 @@ export default function AppViewBusinessViewDashboardViewAddressBookModalView() {
   }, [searchText]);
 
   return (
-    <ReactModal isOpen={true} onRequestClose={onClose} className={styles.address_book_modal} overlayClassName="Overlay">
-      <div className={styles.modal_content}>
-        <div className={styles.modal_header}>
-          <button onClick={onClose}>
-            <BsArrowLeft width="16" height="16" color="#FFF" />
-          </button>
-          <div className={styles.modal_title}>{"Carnet d'adresse"}</div>
-          <Link from={routeApi.id} to="create" search={(old) => old} replace>
-            <IoMdAddCircleOutline width="16" height="16" />
-          </Link>
-        </div>
+    <>
+      <ReactModal isOpen={true} onRequestClose={onClose} className={styles.address_book_modal} overlayClassName="Overlay">
+        <div className={styles.modal_content}>
+          <div className={styles.modal_header}>
+            <button onClick={onClose}>
+              <BsArrowLeft width="16" height="16" color="#FFF" />
+            </button>
+            <div className={styles.modal_title}>{"Carnet d'adresse"}</div>
+            <Link from={routeApi.id} to="create" search={(old) => old} replace>
+              <IoMdAddCircleOutline width="16" height="16" />
+            </Link>
+          </div>
 
-        <div className={styles.modal_body}>
-          <div className={styles.research_container}>
-            <form onSubmit={handleSubmit(onSearch)} onReset={onReset}>
-              <input type="string" {...register('searchText')} id="searchValue" placeholder="Entrer le texte..." />
-              <button type="reset" className="btn btn-primary">
-                RAZ
-              </button>
-              <button type="submit" className="btn btn-secondary">
-                Rechercher
-              </button>
-            </form>
-          </div>
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              width: '100%',
-              height: '100%',
-            }}
-          >
-            <PulseLoader color="#31385A" loading={isLoading} className="" size={10} speedMultiplier={0.5} />
-          </div>
-          {data?.content.length === 0 && (
+          <div className={styles.modal_body}>
+            <div className={styles.research_container}>
+              <form onSubmit={handleSubmit(onSearch)} onReset={onReset}>
+                <input type="string" {...register('searchText')} id="searchValue" placeholder="Entrer le texte..." />
+                <button type="reset" className="btn btn-primary">
+                  RAZ
+                </button>
+                <button type="submit" className="btn btn-secondary">
+                  Rechercher
+                </button>
+              </form>
+            </div>
             <div
               style={{
                 display: 'flex',
@@ -113,28 +102,42 @@ export default function AppViewBusinessViewDashboardViewAddressBookModalView() {
                 height: '100%',
               }}
             >
-              Aucune adresse enregistrée
+              <PulseLoader color="#31385A" loading={isLoading} className="" size={10} speedMultiplier={0.5} />
             </div>
-          )}
-          {data && data.content.length > 0 && (
-            <>
-              <div className={styles.address_container}>
-                {data.content.map((address, index) => (
-                  <AppViewBusinessViewDashboardViewAddressBookModalViewAddressComponent
-                    key={address.id}
-                    address={address}
-                    index={index}
-                    onSelectAddress={onSelectAddress}
-                  />
-                ))}
+            {data?.content.length === 0 && (
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  width: '100%',
+                  height: '100%',
+                }}
+              >
+                Aucune adresse enregistrée
               </div>
-              <div className={styles.pagination}>
-                <PaginationComponent page={page} totalPages={data?.totalPages} pageLink={(page) => ({ search: (old) => ({ ...old, page }) })} />
-              </div>
-            </>
-          )}
+            )}
+            {data && data.content.length > 0 && (
+              <>
+                <div className={styles.address_container}>
+                  {data.content.map((address, index) => (
+                    <AppViewBusinessViewDashboardViewAddressBookModalViewAddressComponent
+                      key={address.id}
+                      address={address}
+                      index={index}
+                      onSelectAddress={onSelectAddress}
+                    />
+                  ))}
+                </div>
+                <div className={styles.pagination}>
+                  <PaginationComponent page={page} totalPages={data?.totalPages} pageLink={(page) => ({ search: (old) => ({ ...old, page }) })} />
+                </div>
+              </>
+            )}
+          </div>
         </div>
-      </div>
-    </ReactModal>
+      </ReactModal>
+      <Outlet />
+    </>
   );
 }
