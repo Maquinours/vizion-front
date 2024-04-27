@@ -7,7 +7,7 @@ export const Route = createFileRoute('/app/tools/departments/update/$departmentI
   loaderDeps: ({ search: { page } }) => ({ page, size: 15 }),
   loader: async ({ context: { queryClient }, params: { departmentId }, deps: { page, size } }) => {
     await queryClient.ensureQueryData({
-      ...queries.departments.detail(departmentId),
+      ...queries.departments.detail._ctx.byId(departmentId),
       initialData: () =>
         queryClient
           .getQueryData<Page<DepartmentResponseDto>>(queries.departments.page({ page, size }).queryKey)

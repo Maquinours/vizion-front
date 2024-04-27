@@ -16,7 +16,7 @@ export default function AppViewToolsViewDepartmentsViewDeleteModalView() {
 
   const { departmentId } = routeApi.useParams();
 
-  const { data: department } = useSuspenseQuery(queries.departments.detail(departmentId));
+  const { data: department } = useSuspenseQuery(queries.departments.detail._ctx.byId(departmentId));
 
   const onClose = () => {
     navigate({ to: '../..', search: (old) => old, replace: true });

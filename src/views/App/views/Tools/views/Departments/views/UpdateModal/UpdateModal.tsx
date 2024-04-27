@@ -23,7 +23,7 @@ export default function AppViewToolsViewDepartmentsViewUpdateModalView() {
 
   const { departmentId } = routeApi.useParams();
 
-  const { data: department } = useSuspenseQuery(queries.departments.detail(departmentId));
+  const { data: department } = useSuspenseQuery(queries.departments.detail._ctx.byId(departmentId));
 
   const {
     register,
