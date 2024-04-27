@@ -43,6 +43,16 @@ export default function AppViewBusinessViewDashboardViewUpdateBillingAddressModa
     formState: { errors },
   } = useForm({
     resolver: yupResolver(yupSchema),
+    defaultValues: {
+      billingCompany: business.billingCompany ?? undefined,
+      billingName: business.billingName,
+      billingAddressOne: business.billingAddressOne ?? undefined,
+      billingAddressTwo: business.billingAddressTwo,
+      billingZipCode: business.billingZipCode ?? undefined,
+      billingCity: business.billingCity ?? undefined,
+      billingPhoneNumber: business.billingPhoneNumber,
+      billingEmail: business.billingEmail,
+    },
   });
 
   const onClose = () => {
