@@ -31,6 +31,11 @@ export default function AppViewBusinessViewDashboardViewUpdateResponsibleModalVi
     handleSubmit,
   } = useForm({
     resolver: yupResolver(yupSchema),
+    defaultValues: {
+      name: business.profileName ?? undefined,
+      phoneNumber: business.profilePhone,
+      email: business.profileEmail,
+    },
   });
 
   const onClose = () => {
