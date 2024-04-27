@@ -49,7 +49,7 @@ export default function AppViewBusinessViewSidebarComponent() {
         <div className={styles.step_progress}>
           {stepsData.map((stepData) => (
             <Link
-              key={'test'}
+              key={stepData.link}
               to={stepData.link}
               disabled={!stepData.clickableStates.includes(business.state!)}
               className={styles.step}

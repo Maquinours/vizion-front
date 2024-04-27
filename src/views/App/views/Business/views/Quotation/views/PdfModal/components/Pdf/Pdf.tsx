@@ -5,6 +5,7 @@ import Logo from '../../../../../../../../../../assets/images/logo-vizeo-fond-bl
 import BusinessResponseDto from '../../../../../../../../../../utils/types/BusinessResponseDto';
 import BusinessQuotationResponseDto from '../../../../../../../../../../utils/types/BusinessQuotationResponseDto';
 import { formatDateWithSlash } from '../../../../../../../../../../utils/functions/dates';
+import React from 'react';
 
 Font.register({
   family: 'Din',
@@ -512,7 +513,7 @@ export default function AppViewBusinessViewQuotationViewPdfModalViewPdfComponent
 
             <View style={pageStyles.tableBodyContainer}>
               {quotation.subQuotationList!.map((subQuotation) => (
-                <>
+                <React.Fragment key={subQuotation.id}>
                   {subQuotation.name !== 'Default' && (
                     <View wrap={false} style={pageStyles.subQuoteNameContainer}>
                       <Text wrap={false} style={pageStyles.subQuoteName}>
@@ -538,7 +539,7 @@ export default function AppViewBusinessViewQuotationViewPdfModalViewPdfComponent
                       </Text>
                     </View>
                   )}
-                </>
+                </React.Fragment>
               ))}
             </View>
           </View>
