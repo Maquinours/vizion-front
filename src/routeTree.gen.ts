@@ -88,6 +88,7 @@ import { Route as AppDashboardDeleteProgressiveInfoProgressiveInfoIdRouteImport 
 import { Route as AppDashboardDeleteCollectiveTaskTaskIdRouteImport } from './routes/app/dashboard/delete-collective-task.$taskId/route'
 import { Route as AppDashboardArchivePersonalTaskTaskIdRouteImport } from './routes/app/dashboard/archive-personal-task.$taskId/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdRouteImport } from './routes/app/businesses-rma/business.$businessId/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdIndexImport } from './routes/app/businesses-rma/business.$businessId/index'
 import { Route as AppToolsVvaDeleteVvaIdRouteImport } from './routes/app/tools/vva/delete.$vvaId/route'
 import { Route as AppToolsProductShelvesDeleteProductShelfIdRouteImport } from './routes/app/tools/product-shelves/delete.$productShelfId/route'
 import { Route as AppToolsProductInventoryUpdateStockIdRouteImport } from './routes/app/tools/product-inventory/update.$stockId/route'
@@ -1281,6 +1282,12 @@ const AppBusinessesRmaBusinessBusinessIdRouteRoute =
       (d) => d.Route,
     ),
   )
+
+const AppBusinessesRmaBusinessBusinessIdIndexRoute =
+  AppBusinessesRmaBusinessBusinessIdIndexImport.update({
+    path: '/',
+    getParentRoute: () => AppBusinessesRmaBusinessBusinessIdRouteRoute,
+  } as any)
 
 const AppToolsSchedulerDetailsRdvIdRouteLazyRoute =
   AppToolsSchedulerDetailsRdvIdRouteLazyImport.update({
@@ -3209,6 +3216,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppToolsSchedulerDetailsRdvIdRouteLazyImport
       parentRoute: typeof AppToolsSchedulerRouteImport
     }
+    '/app/businesses-rma/business/$businessId/': {
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdIndexImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdRouteImport
+    }
     '/app/businesses-rma/business/$businessId/bill/credits': {
       preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdBillCreditsRouteImport
       parentRoute: typeof AppBusinessesRmaBusinessBusinessIdBillRouteLazyImport
@@ -3694,6 +3705,7 @@ export const routeTree = rootRoute.addChildren([
           AppBusinessesRmaBusinessBusinessIdBpDeleteSerialSerialIdRouteLazyRoute,
           AppBusinessesRmaBusinessBusinessIdBpUpdateDetailDetailIdRouteLazyRoute,
         ]),
+        AppBusinessesRmaBusinessBusinessIdIndexRoute,
       ]),
     ]),
     AppIndexRoute,
