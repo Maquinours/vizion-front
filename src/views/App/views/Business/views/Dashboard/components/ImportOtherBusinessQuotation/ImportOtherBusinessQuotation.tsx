@@ -77,7 +77,7 @@ export default function AppViewBusinessViewDashboardViewImportOtherBusinessQuota
           disabled={
             !business.state || [BusinessState.ARC, BusinessState.BP, BusinessState.BL, BusinessState.FACTURE, BusinessState.ARCHIVE].includes(business.state)
           }
-          onClick={() => handleSubmit(onSubmit)}
+          onClick={handleSubmit(onSubmit)}
         >
           Valider
         </button>
