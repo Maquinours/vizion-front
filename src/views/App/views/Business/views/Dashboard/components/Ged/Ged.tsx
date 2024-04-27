@@ -12,27 +12,23 @@ export default function AppViewBusinessViewDashboardViewGedComponent() {
       type={FileType.AFFAIRE}
       id={businessId}
       getCreateDirectoryLink={(data) => ({
-        from: routeApi.id,
-        to: 'app/enterprises/$enterpriseId/create-ged-directory',
+        to: '/app/businesses-rma/business/$businessId/dashboard/create-ged-directory',
         search: (old) => ({ ...old, relativePath: data?.relativePath ?? '' }),
         replace: true,
       })}
       getImportFilesLink={(data) => ({
-        from: routeApi.id,
-        to: 'app/enterprises/$enterpriseId/import-ged-files',
+        to: '/app/businesses-rma/business/$businessId/dashboard/import-ged-files',
         search: (old) => ({ ...old, relativePath: data?.relativePath ?? '' }),
         replace: true,
       })}
       getRenameLink={(data) => ({
-        from: routeApi.id,
-        to: 'app/enterprises/$enterpriseId/rename-ged-object/$objectRelativePath',
+        to: '/app/businesses-rma/business/$businessId/dashboard/rename-ged-object/$objectRelativePath',
         params: { objectRelativePath: data.relativePath },
         search: (old) => old,
         replace: true,
       })}
       getDeleteLink={(data) => ({
-        from: routeApi.id,
-        to: 'app/enterprises/$enterpriseId/delete-ged-object/$objectRelativePath',
+        to: '/app/businesses-rma/business/$businessId/dashboard/delete-ged-object/$objectRelativePath',
         params: { objectRelativePath: data.relativePath },
         search: (old) => old,
         replace: true,
