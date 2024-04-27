@@ -3,7 +3,7 @@ import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-q
 import { Link, Outlet, getRouteApi } from '@tanstack/react-router';
 import classNames from 'classnames';
 import { useForm } from 'react-hook-form';
-import { FaTrash } from 'react-icons/fa';
+import { FaArrowRight, FaTrash } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import * as yup from 'yup';
 import WorkloadsComponent from '../../../../../../components/Workloads/Workloads';
@@ -25,6 +25,7 @@ import AppViewBusinessViewDashboardViewQuotationButtonComponent from './componen
 import AppViewBusinessViewDashboardViewResponsibleComponent from './components/Responsible/Responsible';
 import { BusinessDashboardContext } from './utils/contexts/context';
 import { useMemo } from 'react';
+import AppViewBusinessViewDashboardViewTransferDataButtonComponent from './components/TransferDataButton/TransferDataButton';
 
 const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/dashboard');
 
@@ -229,6 +230,7 @@ export default function AppViewBusinessViewDashboardView() {
               </div>
               <div>
                 <AppViewBusinessViewDashboardViewBillingAddressComponent />
+                <AppViewBusinessViewDashboardViewTransferDataButtonComponent setValue={setValue} />
                 <AppViewBusinessViewDashboardViewDeliveryAddressComponent register={register} errors={errors} />
               </div>
               <div>

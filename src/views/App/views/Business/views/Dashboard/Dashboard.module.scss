@@ -235,7 +235,7 @@
         & > div:nth-child(3) {
           grid-area: item3;
           display: grid;
-          grid-template-columns: repeat(2, 1fr);
+          grid-template-columns: 1fr 0px 1fr;
           gap: 10px;
 
           @include respond-below(sm) {
