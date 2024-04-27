@@ -8,10 +8,7 @@
 
   .buttons_container {
     padding: 0.3rem;
-
-    button:nth-child(2) {
-      margin-left: 0.3rem;
-    }
+    display: flex;
   }
 
   .table_container {
