@@ -82,7 +82,7 @@ export default function AppViewDashboardViewTaskEmailModalViewAttachmentsCompone
 
         {watch('copy') && watch('files').length > 0 && (
           <div style={{ marginBottom: '1rem', textAlign: 'right' }}>
-            <button className="btn btn-secondary" onClick={() => handleSubmit((data) => mutate(data))}>
+            <button className="btn btn-secondary" onClick={handleSubmit((data) => mutate(data))}>
               Envoyer dans la GED
             </button>
           </div>
