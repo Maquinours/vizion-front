@@ -9,4 +9,7 @@ export const Route = createFileRoute('/app/external-links')({
 
     queryClient.ensureQueryData(externalLinks.page({ page, size })._ctx.byArchiveState(archived));
   },
+  staticData: {
+    title: 'Liens externes',
+  },
 });

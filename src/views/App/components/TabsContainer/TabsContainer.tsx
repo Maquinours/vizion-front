@@ -1,9 +1,10 @@
+import { useQueryClient } from '@tanstack/react-query';
+import { Link, LinkProps, useMatches } from '@tanstack/react-router';
 import { useLocalStorage } from '@uidotdev/usehooks';
-import styles from './TabsContainer.module.scss';
-import { Link, LinkProps, useRouterState } from '@tanstack/react-router';
-import { MdClose } from 'react-icons/md';
 import { useEffect } from 'react';
-import { possibleTabs } from '../../../../utils/constants/possibleTabs';
+import { MdClose } from 'react-icons/md';
+import { queries } from '../../../../utils/constants/queryKeys';
+import styles from './TabsContainer.module.scss';
 
 type Tab = {
   id: string;
@@ -12,8 +13,9 @@ type Tab = {
 };
 
 export default function AppViewTabsContainerComponent() {
+  const queryClient = useQueryClient();
   const [tabs, setTabs] = useLocalStorage<Tab[]>('tabs', []);
-  const { matches } = useRouterState();
+  const matches = useMatches();
 
   const onCloseTab = (tab: Tab) => {
     setTabs((tabs) => tabs.filter((t) => t.id !== tab.id));
@@ -21,20 +23,39 @@ export default function AppViewTabsContainerComponent() {
 
   useEffect(() => {
     (async () => {
-      const tab = possibleTabs.find((tab) => matches.find((match) => match.routeId === tab.id));
-      if (tab) {
-        const currentPage = matches.at(-1)!;
-        const newTab = {
-          id: tab.id,
-          name: tab.name,
-          route: { to: currentPage.routeId, params: currentPage.params, search: currentPage.search } as LinkProps,
-        };
-        setTabs((tabs) => {
-          const tabIndex = tabs.findIndex((t) => t.id === newTab.id);
-          if (tabIndex !== -1) tabs[tabIndex] = newTab;
-          else tabs.push(newTab);
-          return [...tabs];
-        });
+      for (const match of [...matches].reverse()) {
+        const title = await (async () => {
+          switch (match.routeId) {
+            case '/app/enterprises/$enterpriseId':
+              return (await queryClient.ensureQueryData(queries.enterprise.detail((match.params as { enterpriseId: string }).enterpriseId))).name;
+            case '/app/products/$productId':
+              return (
+                (await queryClient.ensureQueryData(queries.product.detail((match.params as { productId: string }).productId))).reference ?? 'Produit inconnu'
+              );
+            case '/app/businesses-rma/business/$businessId':
+              return (
+                (await queryClient.ensureQueryData(queries.businesses.detail._ctx.byId((match.params as { businessId: string }).businessId))).title ??
+                'Affaire inconnue'
+              );
+            case '/app/external-links/$externalLinkId':
+              return (await queryClient.ensureQueryData(queries['external-link'].detail._ctx.byId((match.params as { externalLinkId: string }).externalLinkId)))
+                .title;
+            default:
+              return match.staticData.title;
+          }
+        })();
+        if (title) {
+          const route = matches.at(-1)!;
+          const tab = { id: match.routeId, name: title, route: { to: route.routeId, params: route.params, search: route.search } };
+          setTabs((tabs) => {
+            const newTabs = [...tabs];
+            const tabIndex = newTabs.findIndex((t) => t.id === tab.id);
+            if (tabIndex !== -1) newTabs[tabIndex] = tab;
+            else newTabs.push(tab);
+            return newTabs;
+          });
+          return;
+        }
       }
     })();
   }, [matches]);

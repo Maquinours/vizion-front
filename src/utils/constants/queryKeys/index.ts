@@ -43,6 +43,7 @@ import { productVersionStocks } from './productVersionStocks';
 import { businessBpDetails } from './businessBpDetails';
 import { businessBpSerials } from './businessBpSerials';
 import { businessBls } from './businessBls';
+import { externalLinks } from './externalLink';
 
 export const queries = mergeQueryKeys(
   businesses,
@@ -89,4 +90,5 @@ export const queries = mergeQueryKeys(
   businessBpDetails,
   businessBpSerials,
   businessBls,
+  externalLinks,
 );

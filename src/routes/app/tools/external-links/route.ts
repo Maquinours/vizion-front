@@ -17,4 +17,7 @@ export const Route = createFileRoute('/app/tools/external-links')({
   loader: ({ context: { queryClient }, deps: { page, size, archiveState } }) => {
     queryClient.ensureQueryData(externalLinks.page({ page, size })._ctx.byArchiveState(archiveState));
   },
+  staticData: {
+    title: 'Liens externes',
+  },
 });

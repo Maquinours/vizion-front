@@ -12,4 +12,7 @@ export const Route = createFileRoute('/app/tools/formations')({
   loader: ({ context: { queryClient }, deps: { page, size } }) => {
     queryClient.prefetchQuery(queries.formations.page({ page, size }));
   },
+  staticData: {
+    title: 'Formations',
+  },
 });

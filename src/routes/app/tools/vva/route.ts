@@ -12,4 +12,7 @@ export const Route = createFileRoute('/app/tools/vva')({
   loader: ({ context: { queryClient }, deps: { page, size } }) => {
     queryClient.prefetchQuery(queries['sales-vva'].page({ page, size }));
   },
+  staticData: {
+    title: 'VVA',
+  },
 });

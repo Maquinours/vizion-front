@@ -12,4 +12,7 @@ export const Route = createFileRoute('/app/tools/news')({
   loader: async ({ context: { queryClient }, deps: { page, size } }) => {
     queryClient.prefetchQuery(news.page({ page, size }));
   },
+  staticData: {
+    title: 'Actualités',
+  },
 });

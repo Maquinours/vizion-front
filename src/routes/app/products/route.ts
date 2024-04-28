@@ -14,4 +14,7 @@ export const Route = createFileRoute('/app/products')({
   loader: ({ context: { queryClient }, deps: { designation, ref, page, size } }) => {
     queryClient.prefetchQuery(queries.product.page({ page, size })._ctx.search({ designation, ref }));
   },
+  staticData: {
+    title: 'Produits',
+  },
 });

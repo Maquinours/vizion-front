@@ -32,4 +32,7 @@ export const Route = createFileRoute('/app/tools/representatives-turnover')({
         search: { ...search, representativeId: undefined },
       });
   },
+  staticData: {
+    title: 'CA des représentants',
+  },
 });

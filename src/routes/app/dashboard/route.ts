@@ -41,4 +41,7 @@ export const Route = createFileRoute('/app/dashboard')({
     };
   },
   validateSearch: searchSchema,
+  staticData: {
+    title: 'Tableau de bord',
+  },
 });

@@ -15,4 +15,7 @@ export const Route = createFileRoute('/app/tools/credit')({
     if (!!serialNumber || !!businessNumber || !!orderNumber)
       queryClient.prefetchQuery(queries.businesses.detail._ctx.byInfos({ serialNumber, businessNumber, orderNumber }));
   },
+  staticData: {
+    title: 'Avoir',
+  },
 });

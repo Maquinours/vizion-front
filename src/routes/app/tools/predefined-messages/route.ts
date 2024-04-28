@@ -7,4 +7,7 @@ const searchSchema = z.object({
 
 export const Route = createFileRoute('/app/tools/predefined-messages')({
   validateSearch: searchSchema,
+  staticData: {
+    title: 'Messages prédéfinis',
+  },
 });

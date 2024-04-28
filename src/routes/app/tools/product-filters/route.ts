@@ -12,4 +12,7 @@ export const Route = createFileRoute('/app/tools/product-filters')({
   loader: ({ context: { queryClient }, deps: { page, size } }) => {
     queryClient.prefetchQuery(queries['product-filter'].page._ctx.all({ page, size }));
   },
+  staticData: {
+    title: 'Filtres',
+  },
 });

@@ -9,4 +9,7 @@ const searchSchema = z.object({
 
 export const Route = createFileRoute('/app/tools/product-inventory')({
   validateSearch: searchSchema,
+  staticData: {
+    title: 'Inventaire',
+  },
 });

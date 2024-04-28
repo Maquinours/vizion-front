@@ -14,4 +14,7 @@ export const Route = createFileRoute('/app/tools/global-turnover')({
   loader: ({ context: { queryClient }, deps: { year } }) => {
     queryClient.prefetchQuery(queries.turnovers.detail(year));
   },
+  staticData: {
+    title: 'CA global',
+  },
 });

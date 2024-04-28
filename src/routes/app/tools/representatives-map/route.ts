@@ -7,4 +7,7 @@ export const Route = createFileRoute('/app/tools/representatives-map')({
     queryClient.prefetchQuery(queries.departments.list);
     queryClient.prefetchQuery(queries.enterprise.list._ctx.byCategory(CategoryClient.REPRESENTANT));
   },
+  staticData: {
+    title: 'Représentants',
+  },
 });

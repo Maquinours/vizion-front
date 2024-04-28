@@ -12,4 +12,7 @@ export const Route = createFileRoute('/app/tools/departments')({
   loader: ({ context: { queryClient }, deps: { page, size } }) => {
     queryClient.prefetchQuery(queries.departments.page({ page, size }));
   },
+  staticData: {
+    title: 'Départements',
+  },
 });

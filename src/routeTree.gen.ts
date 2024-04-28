@@ -50,6 +50,7 @@ import { Route as AppDashboardDeleteCollectiveTasksRouteImport } from './routes/
 import { Route as AppDashboardCreatePersonalTaskRouteImport } from './routes/app/dashboard/create-personal-task/route'
 import { Route as AppProductsProductIdIndexImport } from './routes/app/products_.$productId/index'
 import { Route as AppToolsVvaCreateRouteImport } from './routes/app/tools/vva/create/route'
+import { Route as AppToolsEmailsSendRouteImport } from './routes/app/tools/emails_.send/route'
 import { Route as AppToolsCreditDetailsRouteImport } from './routes/app/tools/credit/details/route'
 import { Route as AppProductsProductIdManageRouteImport } from './routes/app/products_.$productId/manage/route'
 import { Route as AppProductsProductIdInformationsRouteImport } from './routes/app/products_.$productId/informations/route'
@@ -206,9 +207,6 @@ const AppToolsFormationsCreateRouteLazyImport = createFileRoute(
 )()
 const AppToolsExternalLinksCreateRouteLazyImport = createFileRoute(
   '/app/tools/external-links/create',
-)()
-const AppToolsEmailsSendRouteLazyImport = createFileRoute(
-  '/app/tools/emails/send',
 )()
 const AppToolsEmailsEmailIdRouteLazyImport = createFileRoute(
   '/app/tools/emails/$emailId',
@@ -815,14 +813,6 @@ const AppToolsExternalLinksCreateRouteLazyRoute =
     ),
   )
 
-const AppToolsEmailsSendRouteLazyRoute =
-  AppToolsEmailsSendRouteLazyImport.update({
-    path: '/emails/send',
-    getParentRoute: () => AppToolsRouteRoute,
-  } as any).lazy(() =>
-    import('./routes/app/tools/emails_.send/route.lazy').then((d) => d.Route),
-  )
-
 const AppToolsEmailsEmailIdRouteLazyRoute =
   AppToolsEmailsEmailIdRouteLazyImport.update({
     path: '/$emailId',
@@ -914,6 +904,13 @@ const AppToolsVvaCreateRouteRoute = AppToolsVvaCreateRouteImport.update({
   getParentRoute: () => AppToolsVvaRouteRoute,
 } as any).lazy(() =>
   import('./routes/app/tools/vva/create/route.lazy').then((d) => d.Route),
+)
+
+const AppToolsEmailsSendRouteRoute = AppToolsEmailsSendRouteImport.update({
+  path: '/emails/send',
+  getParentRoute: () => AppToolsRouteRoute,
+} as any).lazy(() =>
+  import('./routes/app/tools/emails_.send/route.lazy').then((d) => d.Route),
 )
 
 const AppToolsCreditDetailsRouteRoute = AppToolsCreditDetailsRouteImport.update(
@@ -1586,7 +1583,7 @@ const AppToolsExternalLinksArchiveExternalLinkIdRouteRoute =
 const AppToolsEmailsSendPredefinedMessagesRouteRoute =
   AppToolsEmailsSendPredefinedMessagesRouteImport.update({
     path: '/predefined-messages',
-    getParentRoute: () => AppToolsEmailsSendRouteLazyRoute,
+    getParentRoute: () => AppToolsEmailsSendRouteRoute,
   } as any).lazy(() =>
     import(
       './routes/app/tools/emails_.send/predefined-messages/route.lazy'
@@ -2916,6 +2913,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppToolsCreditDetailsRouteImport
       parentRoute: typeof AppToolsCreditRouteImport
     }
+    '/app/tools/emails/send': {
+      preLoaderRoute: typeof AppToolsEmailsSendRouteImport
+      parentRoute: typeof AppToolsRouteImport
+    }
     '/app/tools/vva/create': {
       preLoaderRoute: typeof AppToolsVvaCreateRouteImport
       parentRoute: typeof AppToolsVvaRouteImport
@@ -2955,10 +2956,6 @@ declare module '@tanstack/react-router' {
     '/app/tools/emails/$emailId': {
       preLoaderRoute: typeof AppToolsEmailsEmailIdRouteLazyImport
       parentRoute: typeof AppToolsEmailsRouteImport
-    }
-    '/app/tools/emails/send': {
-      preLoaderRoute: typeof AppToolsEmailsSendRouteLazyImport
-      parentRoute: typeof AppToolsRouteImport
     }
     '/app/tools/external-links/create': {
       preLoaderRoute: typeof AppToolsExternalLinksCreateRouteLazyImport
@@ -3098,7 +3095,7 @@ declare module '@tanstack/react-router' {
     }
     '/app/tools/emails/send/predefined-messages': {
       preLoaderRoute: typeof AppToolsEmailsSendPredefinedMessagesRouteImport
-      parentRoute: typeof AppToolsEmailsSendRouteLazyImport
+      parentRoute: typeof AppToolsEmailsSendRouteImport
     }
     '/app/tools/external-links/archive/$externalLinkId': {
       preLoaderRoute: typeof AppToolsExternalLinksArchiveExternalLinkIdRouteImport
@@ -3631,7 +3628,7 @@ export const routeTree = rootRoute.addChildren([
         AppToolsVvaCreateRouteRoute,
         AppToolsVvaDeleteVvaIdRouteRoute,
       ]),
-      AppToolsEmailsSendRouteLazyRoute.addChildren([
+      AppToolsEmailsSendRouteRoute.addChildren([
         AppToolsEmailsSendPredefinedMessagesRouteRoute,
       ]),
     ]),
