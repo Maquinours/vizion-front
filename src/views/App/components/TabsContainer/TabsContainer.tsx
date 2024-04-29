@@ -1,10 +1,11 @@
 import { useQueryClient } from '@tanstack/react-query';
-import { Link, LinkProps, useMatches } from '@tanstack/react-router';
+import { Link, LinkProps, useMatchRoute, useMatches, useNavigate } from '@tanstack/react-router';
 import { useLocalStorage } from '@uidotdev/usehooks';
 import { useEffect } from 'react';
 import { MdClose } from 'react-icons/md';
 import { queries } from '../../../../utils/constants/queryKeys';
 import styles from './TabsContainer.module.scss';
+import classNames from 'classnames';
 
 type Tab = {
   id: string;
@@ -13,12 +14,17 @@ type Tab = {
 };
 
 export default function AppViewTabsContainerComponent() {
+  const navigate = useNavigate();
   const queryClient = useQueryClient();
   const [tabs, setTabs] = useLocalStorage<Tab[]>('tabs', []);
   const matches = useMatches();
+  const matchRoute = useMatchRoute();
 
-  const onCloseTab = (tab: Tab) => {
-    setTabs((tabs) => tabs.filter((t) => t.id !== tab.id));
+  const onCloseTab = (tab: Tab, index: number) => {
+    setTabs((tabs) => {
+      if (matchRoute({ to: tab.route.to })) navigate(tabs.at(Math.max(index - 1, 0))?.route ?? { to: '/app' });
+      return tabs.filter((t) => t.id !== tab.id);
+    });
   };
 
   useEffect(() => {
@@ -63,13 +69,19 @@ export default function AppViewTabsContainerComponent() {
   return (
     <div className={styles.container}>
       <div className={styles.tabs}>
-        {tabs.map((tab) => (
-          <Link {...tab.route} key={tab.id} className={styles.tab} activeProps={{ className: styles.active }} activeOptions={{ exact: true }}>
-            <span>{tab.name}</span>
-            <button onClick={() => onCloseTab(tab)}>
+        {tabs.map((tab, index) => (
+          <div
+            className={classNames(styles.tab, {
+              [styles.active]: matchRoute({ to: tab.route.to }),
+            })}
+          >
+            <Link {...tab.route} key={tab.id}>
+              {tab.name}
+            </Link>
+            <button onClick={() => onCloseTab(tab, index)}>
               <MdClose />
             </button>
-          </Link>
+          </div>
         ))}
       </div>
     </div>
