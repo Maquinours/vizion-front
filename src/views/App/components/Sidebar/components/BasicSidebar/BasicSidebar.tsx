@@ -38,6 +38,15 @@ export default function SidebarComponentBasicSidebarComponent() {
         allowedRoles: ['ROLE_MEMBRE_VIZEO'],
       },
       {
+        icon: MdBusinessCenter,
+        label: 'Affaires',
+        route: {
+          to: '/app/businesses-rma',
+          search: {},
+          params: {},
+        },
+      },
+      {
         icon: MdGroup,
         label: 'Mon entreprise',
         route: {

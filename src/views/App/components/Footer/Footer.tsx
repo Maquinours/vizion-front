@@ -3,7 +3,7 @@ import styles from './Footer.module.scss';
 import classNames from 'classnames';
 import React, { useMemo } from 'react';
 import { useAuthentifiedUserQuery } from '../../utils/functions/getAuthentifiedUser';
-import { MdGroup, MdGroups, MdSell, MdQuestionAnswer } from 'react-icons/md';
+import { MdGroup, MdGroups, MdSell, MdQuestionAnswer, MdBusinessCenter } from 'react-icons/md';
 import { IconType } from 'react-icons/lib';
 
 const Route = getRouteApi('/app');
@@ -22,6 +22,15 @@ export default function AppViewFooterComponent() {
 
   const MENUS: Array<MenuItem> = useMemo(
     () => [
+      {
+        icon: MdBusinessCenter,
+        label: 'Affaires',
+        route: {
+          to: '/app/businesses-rma',
+          search: {},
+          params: {},
+        },
+      },
       {
         icon: MdGroup,
         label: 'Mon entreprise',
