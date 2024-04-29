@@ -68,4 +68,7 @@ export const Route = createFileRoute('/app/businesses-rma')({
       ),
     );
   },
+  staticData: {
+    title: 'Tableau des affaires',
+  },
 });
