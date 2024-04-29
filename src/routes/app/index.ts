@@ -1,6 +1,4 @@
 import { createFileRoute, redirect } from '@tanstack/react-router';
-import TaskState from '../../utils/enums/TaskState';
-import { Views } from 'react-big-calendar';
 import { users } from '../../utils/constants/queryKeys/user';
 
 export const Route = createFileRoute('/app/')({
@@ -9,15 +7,8 @@ export const Route = createFileRoute('/app/')({
     if (user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO'))
       throw redirect({
         from: Route.id,
-        to: './dashboard',
-        search: (old) => ({
-          ...old,
-          personalTaskState: TaskState.CREATED,
-          personalTaskPage: 0,
-          personalTaskSize: 10,
-          schedulerView: Views.DAY,
-          schedulerDate: new Date(),
-        }),
+        to: 'dashboard',
+        search: (old) => old,
         replace: true,
       });
   },

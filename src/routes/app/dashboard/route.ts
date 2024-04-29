@@ -1,4 +1,4 @@
-import { createFileRoute, defer, redirect } from '@tanstack/react-router';
+import { SearchSchemaInput, createFileRoute, redirect } from '@tanstack/react-router';
 import { Views } from 'react-big-calendar';
 import { z } from 'zod';
 import { queries } from '../../../utils/constants/queryKeys';
@@ -15,6 +15,9 @@ const searchSchema = z.object({
 });
 
 export const Route = createFileRoute('/app/dashboard')({
+  validateSearch: (
+    data: { personalTaskState?: TaskState; personalTaskPage?: number; schedulerView?: 'day' | 'work_week'; schedulerDate?: Date } & SearchSchemaInput,
+  ) => searchSchema.parse(data),
   beforeLoad: async ({ context: { queryClient } }) => {
     const user = await queryClient.ensureQueryData(users.authentified());
     if (!user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO')) {
@@ -25,22 +28,14 @@ export const Route = createFileRoute('/app/dashboard')({
   loaderDeps: ({ search: { personalTaskState, personalTaskPage } }) => ({ personalTaskState, personalTaskPage, personalTaskSize: 10 }),
   loader: async ({ context: { queryClient }, deps: { personalTaskState, personalTaskPage, personalTaskSize } }) => {
     queryClient.prefetchQuery(keycloakEvents.page({ page: 0, size: 100 }));
-    const collectiveTasksPromise = queryClient.ensureQueryData(queries.tasks.list._ctx.byType(WorkloadType.COLLECTIVE));
-    const schedulerPromise = queryClient.ensureQueryData(queries['rdv-user-infos'].list);
-    const progressiveInfosPromise = queryClient.ensureQueryData(queries['progressive-infos'].list);
+    queryClient.prefetchQuery(queries.tasks.list._ctx.byType(WorkloadType.COLLECTIVE));
+    queryClient.prefetchQuery(queries['rdv-user-infos'].list);
+    queryClient.prefetchQuery(queries['progressive-infos'].list);
     const user = await queryClient.ensureQueryData(users.authentified());
-    const personalTaskPromise = queryClient.ensureQueryData(
+    queryClient.prefetchQuery(
       queries.tasks.page._ctx.byStateAndProfileId(personalTaskState, user.profile.id, { page: personalTaskPage, size: personalTaskSize }),
     );
-
-    return {
-      collectiveTasks: defer(collectiveTasksPromise),
-      scheduler: await schedulerPromise,
-      progressiveInfos: defer(progressiveInfosPromise),
-      personalTask: defer(personalTaskPromise),
-    };
   },
-  validateSearch: searchSchema,
   staticData: {
     title: 'Tableau de bord',
   },
