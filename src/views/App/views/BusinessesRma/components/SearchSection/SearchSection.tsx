@@ -130,6 +130,7 @@ export default function AppViewBusinessesRmaViewSearchSectionComponent() {
     resolver: yupResolver(yupSchema),
     defaultValues: {
       dates: [null, null],
+      excludeds: [],
     },
   });
 
