@@ -35,3 +35,28 @@ export const getSaleVvaById = (id: string) => {
     url: `/business/v1/business/sales-and-vva/${encodeURIComponent(id)}`,
   }).then((res) => res.data);
 };
+
+export const getSalesVvaByDepartmentCodesYearAndMonth = ({ repCodes, year, month }: { repCodes?: Array<string> | null; year: number; month: number }) => {
+  return privateInstance<Array<SalesVvaResponseDto>>({
+    method: 'GET',
+    url: `/business/v1/business/sales-and-vva/sales`,
+    params: {
+      repCodes,
+      year,
+      month,
+    },
+  }).then((res) => res.data);
+};
+
+export const getSalesVvaExcelByDepartmentCodesYearAndMonth = ({ repCodes, year, month }: { repCodes: Array<string>; year: number; month: number }) => {
+  return privateInstance<Blob>({
+    method: 'GET',
+    url: `/business/v1/business/sales-and-vva/download-representative`,
+    params: {
+      repCodes,
+      year,
+      month,
+    },
+    responseType: 'blob',
+  }).then((res) => res.data);
+};

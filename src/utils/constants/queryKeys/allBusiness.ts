@@ -5,8 +5,11 @@ import {
   getAllBusinesses,
   getAllBusinessesAssociated,
   getAllBusinessesNotAssociated,
+  searchAllBusiness,
 } from '../../api/allBusiness';
 import CategoryBusiness from '../../enums/CategoryBusiness';
+import AllBusinessState from '../../enums/AllBusinessState';
+import CategoryClient from '../../enums/CategoryClient';
 
 export const allBusinesses = createQueryKeys('all-businesses', {
   list: {
@@ -23,10 +26,38 @@ export const allBusinesses = createQueryKeys('all-businesses', {
       }),
     },
   },
-  page: ({ enterpriseId, page, size }: { enterpriseId: string; page: number; size: number }) => ({
-    queryKey: [{ enterpriseId, page, size }],
-    queryFn: () => getAllBusinessPageByEnterpriseId(enterpriseId, page, size),
-  }),
+  page: {
+    queryKey: null,
+    contextQueries: {
+      byEnterpriseId: ({ enterpriseId, page, size }: { enterpriseId: string; page: number; size: number }) => ({
+        queryKey: [{ enterpriseId, page, size }],
+        queryFn: () => getAllBusinessPageByEnterpriseId(enterpriseId, page, size),
+      }),
+      search: (
+        searchData: {
+          startDate?: Date | null;
+          endDate?: Date | null;
+          numBusiness?: string | null;
+          minAmount?: number | null;
+          maxAmount?: number | null;
+          numOrder?: string | null;
+          zipCode?: string | null;
+          title?: string | null;
+          contact?: string | null;
+          deliverPhoneNumber?: string | null;
+          enterpriseName?: string | null;
+          representativeId?: string | null;
+          installerName?: string | null;
+          state?: AllBusinessState | null;
+          excludedList?: Array<CategoryClient> | null;
+        },
+        pageData: { page: number; size: number },
+      ) => ({
+        queryKey: [searchData, pageData],
+        queryFn: () => searchAllBusiness(searchData, pageData),
+      }),
+    },
+  },
   detail: {
     queryKey: null,
     contextQueries: {

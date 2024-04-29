@@ -9,8 +9,9 @@ type CurrencyFormatProps = Readonly<{
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
   className?: string;
   style?: React.CSSProperties;
+  allowNegative?: boolean;
 }>;
-export default function CurrencyFormat({ value, defaultValue, prefix, displayType = 'text', onChange, className, style }: CurrencyFormatProps) {
+export default function CurrencyFormat({ value, defaultValue, prefix, displayType = 'text', onChange, className, style, allowNegative }: CurrencyFormatProps) {
   return (
     <NumericFormat
       value={value}
@@ -24,6 +25,7 @@ export default function CurrencyFormat({ value, defaultValue, prefix, displayTyp
       prefix={prefix}
       onChange={onChange}
       style={style}
+      allowNegative={allowNegative}
     />
   );
 }

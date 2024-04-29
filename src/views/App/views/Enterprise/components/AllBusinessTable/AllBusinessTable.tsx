@@ -100,7 +100,7 @@ export default function AppViewEnterpriseViewAllBusinessTableComponent() {
   const { enterpriseId } = Route.useParams();
   const { allBusinessPage: page } = Route.useSearch();
 
-  const { data, isLoading } = useQuery(allBusinesses.page({ enterpriseId, page, size }));
+  const { data, isLoading } = useQuery(allBusinesses.page._ctx.byEnterpriseId({ enterpriseId, page, size }));
 
   //   const onRowClick = (e: React.MouseEvent, row: Row<AllBusinessResponseDto>) => {
   //     if (e.metaKey || e.ctrlKey) window.open(`/app/business/${row.original.businessId}`); // TODO: reimplement this

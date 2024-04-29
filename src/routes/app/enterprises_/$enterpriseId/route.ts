@@ -33,7 +33,7 @@ export const Route = createFileRoute('/app/enterprises/$enterpriseId')({
     const workloadsPage = 0;
 
     queryClient.ensureQueryData(enterprises.detail(enterpriseId));
-    queryClient.ensureQueryData(allBusinesses.page({ enterpriseId, page: allBusinessPage, size: allBusinessSize }));
+    queryClient.ensureQueryData(allBusinesses.page._ctx.byEnterpriseId({ enterpriseId, page: allBusinessPage, size: allBusinessSize }));
     queryClient.prefetchQuery(queries.profiles.page._ctx.byEnterpriseIdAndSearch(enterpriseId, contactsSearch, { page: contactsPage, size: contactsSize }));
     queryClient.prefetchQuery(
       lifesheets

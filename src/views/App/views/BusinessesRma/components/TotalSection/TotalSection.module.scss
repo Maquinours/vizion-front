@@ -1,0 +1,36 @@
+.total_container {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1rem;
+
+  ._content {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+
+    div:nth-child(1) {
+      font: normal normal bold 15px/19px 'DIN2014';
+      letter-spacing: 0px;
+      color: #16204e;
+    }
+
+    div:nth-child(2) {
+      width: 105px;
+      height: 29px;
+      background: #f2f3f8 0% 0% no-repeat padding-box;
+      border: 0.5px solid #16204e;
+      border-radius: 5px;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+
+      span {
+        font: normal normal normal 16px/20px 'DIN2014';
+        color: #16204e;
+        text-align: right;
+        padding-right: 5px;
+      }
+    }
+  }
+}
