@@ -64,7 +64,7 @@ export default function AppViewTabsContainerComponent() {
     <div className={styles.container}>
       <div className={styles.tabs}>
         {tabs.map((tab) => (
-          <Link {...tab.route} key={tab.id} className={styles.tab} activeProps={{ className: styles.active }} activeOptions={{ includeSearch: false }}>
+          <Link {...tab.route} key={tab.id} className={styles.tab} activeProps={{ className: styles.active }} activeOptions={{ exact: true }}>
             <span>{tab.name}</span>
             <button onClick={() => onCloseTab(tab)}>
               <MdClose />
