@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router';
+import { SearchSchemaInput, createFileRoute } from '@tanstack/react-router';
 import { z } from 'zod';
 import { queries } from '../../../../utils/constants/queryKeys';
 import { geds } from '../../../../utils/constants/queryKeys/ged';
@@ -13,7 +13,7 @@ const searchSchema = z.object({
 });
 
 export const Route = createFileRoute('/app/products/$productId/informations')({
-  validateSearch: searchSchema,
+  validateSearch: (data: { lifesheetPage?: number } & SearchSchemaInput) => searchSchema.parse(data),
   loaderDeps: ({ search: { lifesheetPage } }) => ({
     lifesheetPage,
     lifesheetSize: 5,

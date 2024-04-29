@@ -1,4 +1,4 @@
-import { createFileRoute, redirect } from '@tanstack/react-router';
+import { SearchSchemaInput, createFileRoute, redirect } from '@tanstack/react-router';
 import { z } from 'zod';
 import { queries } from '../../../../utils/constants/queryKeys';
 import { users } from '../../../../utils/constants/queryKeys/user';
@@ -11,13 +11,26 @@ const searchSchema = z.object({
   salesPage: z.number().min(0).catch(0),
   salesSize: z.union([z.literal(5), z.literal(20), z.literal(50), z.literal(100), z.literal(250), z.literal(500), z.literal(1000)]).catch(100),
   salesContact: z.string().optional(),
-  salesDates: z.array(z.coerce.date()).min(2).max(2).optional().catch(undefined),
+  salesDates: z.array(z.coerce.date()).length(2).optional().catch(undefined),
   stockEntriesPage: z.number().min(0).catch(0),
   stockEntriesSize: z.union([z.literal(5), z.literal(10), z.literal(15), z.literal(20), z.literal(25), z.literal(30), z.literal(50), z.literal(100)]).catch(5),
 });
 
 export const Route = createFileRoute('/app/products/$productId/manage')({
-  validateSearch: searchSchema,
+  validateSearch: (
+    data: {
+      associatedProductsPage?: number;
+      versionsPage?: number;
+      specificationsPage?: number;
+      stocksPage?: number;
+      salesPage?: number;
+      salesSize?: number;
+      salesContact?: string;
+      salesDates?: Array<Date>;
+      stockEntriesPage?: number;
+      stockEntriesSize?: number;
+    } & SearchSchemaInput,
+  ) => searchSchema.parse(data),
   beforeLoad: async ({ context: { queryClient } }) => {
     const user = await queryClient.ensureQueryData(users.authentified());
     if (!user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO'))
