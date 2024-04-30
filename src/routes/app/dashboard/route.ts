@@ -25,17 +25,17 @@ export const Route = createFileRoute('/app/dashboard')({
       throw redirect({ to: '..' });
     }
   },
-  loaderDeps: ({ search: { personalTaskState, personalTaskPage } }) => ({ personalTaskState, personalTaskPage, personalTaskSize: 10 }),
-  loader: async ({ context: { queryClient }, deps: { personalTaskState, personalTaskPage, personalTaskSize } }) => {
-    queryClient.prefetchQuery(keycloakEvents.page({ page: 0, size: 100 }));
-    queryClient.prefetchQuery(queries.tasks.list._ctx.byType(WorkloadType.COLLECTIVE));
-    queryClient.prefetchQuery(queries['rdv-user-infos'].list);
-    queryClient.prefetchQuery(queries['progressive-infos'].list);
-    const user = await queryClient.ensureQueryData(users.authentified());
-    queryClient.prefetchQuery(
-      queries.tasks.page._ctx.byStateAndProfileId(personalTaskState, user.profile.id, { page: personalTaskPage, size: personalTaskSize }),
-    );
-  },
+  // loaderDeps: ({ search: { personalTaskState, personalTaskPage } }) => ({ personalTaskState, personalTaskPage, personalTaskSize: 10 }),
+  // loader: async ({ context: { queryClient }, deps: { personalTaskState, personalTaskPage, personalTaskSize } }) => {
+  //   queryClient.prefetchQuery(keycloakEvents.page({ page: 0, size: 100 }));
+  //   queryClient.prefetchQuery(queries.tasks.list._ctx.byType(WorkloadType.COLLECTIVE));
+  //   queryClient.prefetchQuery(queries['rdv-user-infos'].list);
+  //   queryClient.prefetchQuery(queries['progressive-infos'].list);
+  //   const user = await queryClient.ensureQueryData(users.authentified());
+  //   queryClient.prefetchQuery(
+  //     queries.tasks.page._ctx.byStateAndProfileId(personalTaskState, user.profile.id, { page: personalTaskPage, size: personalTaskSize }),
+  //   );
+  // },
   staticData: {
     title: 'Tableau de bord',
   },
