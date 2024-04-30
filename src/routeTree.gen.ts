@@ -36,6 +36,7 @@ import { Route as AppToolsProductFiltersRouteImport } from './routes/app/tools/p
 import { Route as AppToolsPredefinedTextsRouteImport } from './routes/app/tools/predefined-texts/route'
 import { Route as AppToolsPredefinedMessagesRouteImport } from './routes/app/tools/predefined-messages/route'
 import { Route as AppToolsNewsRouteImport } from './routes/app/tools/news/route'
+import { Route as AppToolsMenuRouteImport } from './routes/app/tools/menu/route'
 import { Route as AppToolsGlobalTurnoverRouteImport } from './routes/app/tools/global-turnover/route'
 import { Route as AppToolsFormationsRouteImport } from './routes/app/tools/formations/route'
 import { Route as AppToolsExternalLinksRouteImport } from './routes/app/tools/external-links/route'
@@ -608,6 +609,13 @@ const AppToolsNewsRouteRoute = AppToolsNewsRouteImport.update({
   getParentRoute: () => AppToolsRouteRoute,
 } as any).lazy(() =>
   import('./routes/app/tools/news/route.lazy').then((d) => d.Route),
+)
+
+const AppToolsMenuRouteRoute = AppToolsMenuRouteImport.update({
+  path: '/menu',
+  getParentRoute: () => AppToolsRouteRoute,
+} as any).lazy(() =>
+  import('./routes/app/tools/menu/route.lazy').then((d) => d.Route),
 )
 
 const AppToolsGlobalTurnoverRouteRoute =
@@ -2720,6 +2728,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppToolsGlobalTurnoverRouteImport
       parentRoute: typeof AppToolsRouteImport
     }
+    '/app/tools/menu': {
+      preLoaderRoute: typeof AppToolsMenuRouteImport
+      parentRoute: typeof AppToolsRouteImport
+    }
     '/app/tools/news': {
       preLoaderRoute: typeof AppToolsNewsRouteImport
       parentRoute: typeof AppToolsRouteImport
@@ -3605,6 +3617,7 @@ export const routeTree = rootRoute.addChildren([
         ]),
       ]),
       AppToolsGlobalTurnoverRouteRoute,
+      AppToolsMenuRouteRoute,
       AppToolsNewsRouteRoute.addChildren([
         AppToolsNewsCreateRouteLazyRoute,
         AppToolsNewsDeleteNewsIdRouteRoute,
