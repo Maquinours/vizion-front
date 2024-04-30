@@ -6,12 +6,13 @@ import { queries } from '../../../../../../../../../../utils/constants/queryKeys
 import BusinessState from '../../../../../../../../../../utils/enums/BusinessState';
 import BusinessBpDetailsRequestDto from '../../../../../../../../../../utils/types/BusinessBpDetailsRequestDto';
 import styles from './SectionOne.module.scss';
+import { useNavigate } from '@tanstack/react-router';
 
 const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/arc');
 
 export default function AppViewBusinessViewArcViewHeaderComponentSectionOneComponent() {
   const queryClient = useQueryClient();
-  // const navigate = useNavigate({ from: routeApi.id });
+  const navigate = useNavigate({ from: routeApi.id });
 
   const { businessId } = routeApi.useParams();
 
@@ -88,10 +89,12 @@ export default function AppViewBusinessViewArcViewHeaderComponentSectionOneCompo
         bom: arc.bom,
       });
     },
-    onSuccess: () => {
-      //set query data
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: queries.businesses._def });
+      queryClient.invalidateQueries({ queryKey: queries['all-businesses']._def });
+      queryClient.setQueryData(queries['business-bps'].detail._ctx.byBusinessId(business.id).queryKey, data);
       toast.success('Le BP a été créé avec succès');
-      // navigate to BP
+      navigate({ to: '../bp' });
     },
     onError: (error) => {
       if (error.message === 'No details found') toast.warning("Veuillez ajouter des détails à l'ARC avant de passer en BP");
@@ -103,14 +106,9 @@ export default function AppViewBusinessViewArcViewHeaderComponentSectionOneCompo
   });
 
   const onBpButtonClick = async () => {
-    if (business.state !== BusinessState.ARC) {
-      // TODO: redirect to BP
-    }
-    if (arc.numOrder) {
-      toast.warning("Veuillez sauvegarder l'ARC avec un numéro de commande avant de passer en BP");
-      return;
-    }
-    mutate();
+    if (business.state !== BusinessState.ARC) navigate({ to: '../bp' });
+    else if (arc.numOrder) toast.warning("Veuillez sauvegarder l'ARC avec un numéro de commande avant de passer en BP");
+    else mutate();
   };
 
   return (

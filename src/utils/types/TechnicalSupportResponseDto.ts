@@ -6,11 +6,11 @@ type TechnicalSupportResponseDto = {
   businessNumber: string | null;
   businessId: string | null;
   businessTitle: string | null;
-  predefinedTime: Date | null; // TODO: Check if this is a Date or a string
-  cumulativeTime: Date | null;
-  noBilledTime: Date;
-  createdDate: Date;
-  modifiedDate: Date | null;
+  predefinedTime: string | null;
+  cumulativeTime: string | null;
+  noBilledTime: string;
+  createdDate: string;
+  modifiedDate: string | null;
   createdBy: string | null;
   modifiedBy: string | null;
 };

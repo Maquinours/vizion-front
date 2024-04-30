@@ -1,4 +1,4 @@
-import { Link, getRouteApi } from '@tanstack/react-router';
+import { Link, getRouteApi, useNavigate } from '@tanstack/react-router';
 import { useAuthentifiedUserQuery } from '../../../../../../../../utils/functions/getAuthentifiedUser';
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import { queries } from '../../../../../../../../../../utils/constants/queryKeys';
@@ -11,7 +11,9 @@ import { toast } from 'react-toastify';
 const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/quotation');
 
 export default function AppViewBusinessViewQuotationViewHeaderComponentSectionOneComponent() {
+  const navigate = useNavigate({ from: routeApi.id });
   const queryClient = useQueryClient();
+
   const { businessId } = routeApi.useParams();
 
   const { data: user } = useAuthentifiedUserQuery();
@@ -52,11 +54,11 @@ export default function AppViewBusinessViewQuotationViewHeaderComponentSectionOn
         totalAmountHT: quotation.totalAmountHT,
         bom: quotation.bom,
       }),
-    onSuccess: () => {
+    onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: queries.businesses.detail._ctx.byId(business.id).queryKey });
-      queryClient.invalidateQueries({ queryKey: queries['business-ARCs']._def });
+      queryClient.setQueryData(queries['business-ARCs'].detail._ctx.byBusinessId(business.id).queryKey, data);
       toast.success('ARC créé avec succès');
-      // TODO: redirect to ARC.
+      navigate({ to: '../arc' });
     },
     onError: (error) => {
       console.error(error);
@@ -66,7 +68,8 @@ export default function AppViewBusinessViewQuotationViewHeaderComponentSectionOn
 
   const onArcButtonClick = () => {
     if (business.state !== BusinessState.DEVIS) {
-      // TODO: redirect to ARC.
+      navigate({ to: '../arc' });
+      return;
     }
 
     const detailsList = quotation.subQuotationList?.map((quote) => quote.quotationDetails ?? []) ?? [];

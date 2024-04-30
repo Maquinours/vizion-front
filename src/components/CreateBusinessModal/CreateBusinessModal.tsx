@@ -9,6 +9,7 @@ import { enterprises } from '../../utils/constants/queryKeys/enterprise';
 import BusinessType from '../../utils/enums/BusinessType';
 import CategoryClient from '../../utils/enums/CategoryClient';
 import styles from './CreateBusinessModal.module.scss';
+import { useNavigate } from '@tanstack/react-router';
 
 type CreateBusinessModalComponentProps = Readonly<{
   contactId: string;
@@ -16,6 +17,7 @@ type CreateBusinessModalComponentProps = Readonly<{
 }>;
 export default function CreateBusinessModalComponent({ contactId, onClose }: CreateBusinessModalComponentProps) {
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
 
   const { data: contact } = useSuspenseQuery(queries.profiles.detail(contactId));
 
@@ -58,10 +60,12 @@ export default function CreateBusinessModalComponent({ contactId, onClose }: Cre
         deliveryMode: 'A expédier',
         billAndLock: false,
       }),
-    onSuccess: () => {
+    onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: businesses._def });
+      queryClient.invalidateQueries({ queryKey: queries['all-businesses']._def });
+      queryClient.setQueryData(queries.businesses.detail._ctx.byId(data.id).queryKey, data);
       toast.success('Affaire créée avec succès');
-      // TODO: navigate to business
+      navigate({ to: '/app/businesses-rma/business/$businessId', params: { businessId: data.id } });
     },
     onError: (error) => {
       console.error(error);
