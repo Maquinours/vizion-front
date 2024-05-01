@@ -1,9 +1,8 @@
 import { useQueryClient } from '@tanstack/react-query';
 import { Link, LinkProps, useMatchRoute, useMatches, useNavigate } from '@tanstack/react-router';
 import { useLocalStorage } from '@uidotdev/usehooks';
-import classNames from 'classnames';
 import _ from 'lodash';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { MdClose } from 'react-icons/md';
 import { queries } from '../../../../utils/constants/queryKeys';
 import styles from './TabsContainer.module.scss';
@@ -88,7 +87,10 @@ export default function AppViewTabsContainerComponent() {
   const matches = useMatches();
   const matchRoute = useMatchRoute();
 
-  const onCloseTab = (tab: Tab, index: number) => {
+  const onCloseTab = (e: React.MouseEvent, tab: Tab, index: number) => {
+    e.preventDefault();
+    e.stopPropagation();
+    e.nativeEvent.stopImmediatePropagation();
     setTabs((tabs) => {
       if (matchRoute({ to: tab.route.to })) navigate(tabs.at(Math.max(index - 1, 0))?.route ?? { to: '/app' });
       const newTabs = [...tabs];
@@ -140,21 +142,20 @@ export default function AppViewTabsContainerComponent() {
     <div className={styles.container}>
       <div className={styles.tabs}>
         {tabs.map((tab, index) => (
-          <div
+          <Link
+            {...tab.route}
             key={index}
-            className={classNames(styles.tab, {
-              [styles.active]: matchRoute({ to: tab.route.to, params: tab.route.params }),
-            })}
+            className={styles.tab}
+            activeOptions={{ exact: true, includeSearch: false }}
+            activeProps={{ className: styles.active }}
           >
-            <Link {...tab.route} key={index}>
-              {tab.name}
-            </Link>
+            <span>{tab.name}</span>
             {(tab.closable === undefined || tab.closable) && (
-              <button onClick={() => onCloseTab(tab, index)}>
+              <button onClick={(e) => onCloseTab(e, tab, index)}>
                 <MdClose />
               </button>
             )}
-          </div>
+          </Link>
         ))}
       </div>
     </div>

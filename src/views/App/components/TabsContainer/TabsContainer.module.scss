@@ -49,12 +49,12 @@
         background-color: var(--white-color);
       }
 
-      a {
-        display: flex;
-        align-items: center;
+      span {
         height: 100%;
         width: 100%;
         padding: 0 2rem 0rem 0.5rem;
+        display: flex;
+        align-items: center;
       }
 
       svg {
