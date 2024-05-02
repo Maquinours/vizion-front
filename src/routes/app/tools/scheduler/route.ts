@@ -9,4 +9,7 @@ const searchSchema = z.object({
 
 export const Route = createFileRoute('/app/tools/scheduler')({
   validateSearch: searchSchema,
+  staticData: {
+    title: 'Agenda',
+  },
 });

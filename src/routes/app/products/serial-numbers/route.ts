@@ -1,4 +1,4 @@
-import { createFileRoute, redirect } from '@tanstack/react-router';
+import { SearchSchemaInput, createFileRoute, redirect } from '@tanstack/react-router';
 import { z } from 'zod';
 import { queries } from '../../../../utils/constants/queryKeys';
 import { users } from '../../../../utils/constants/queryKeys/user';
@@ -9,7 +9,7 @@ const searchSchema = z.object({
 });
 
 export const Route = createFileRoute('/app/products/serial-numbers')({
-  validateSearch: searchSchema,
+  validateSearch: (data: { serialNumbersSearch?: string; serialNumbersPage?: number } & SearchSchemaInput) => searchSchema.parse(data),
   loaderDeps: ({ search: { serialNumbersPage: page, serialNumbersSearch: search } }) => ({ page, size: 20, search }),
   loader: async ({ context: { queryClient }, deps: { page, size, search } }) => {
     const user = await queryClient.ensureQueryData(users.authentified());

@@ -25,3 +25,16 @@ export const isDateOutdated = (date: MomentInput) => {
   nowDate.setHours(0, 0, 0, 0);
   return moment(date).isBefore(nowDate);
 };
+
+export const yearsList = () => {
+  const d = new Date('2015');
+  const first = d.getFullYear();
+
+  const s = new Date();
+  const second = s.getFullYear();
+
+  const arr = [];
+
+  for (let i = first; i <= second; i++) arr.push(i);
+  return arr;
+};

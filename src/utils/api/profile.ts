@@ -136,3 +136,13 @@ export const createProfiles = async (data: Array<ProfileRequestDto>) => {
 export const updateUserCredentials = async (data: UpdateSiteIdentifierOrPasswordRequestDto) => {
   return (await privateInstance<ProfileResponseDto>({ method: 'PUT', url: `profile/v1/update-identifier-or-password`, data })).data;
 };
+
+export const getProfilesByIds = (ids: Array<string>) => {
+  return privateInstance<Array<ProfileResponseDto>>({
+    method: 'GET',
+    url: `profile/v1/users-id`,
+    params: {
+      ids,
+    },
+  }).then((res) => res.data);
+};

@@ -1,4 +1,4 @@
-import { MdBusinessCenter, MdGroups, MdGroup, MdSell, MdQuestionAnswer, MdLeakAdd } from 'react-icons/md';
+import { MdBusinessCenter, MdGroups, MdGroup, MdSell, MdQuestionAnswer, MdLeakAdd, MdBuild } from 'react-icons/md';
 import styles from './BasicSidebar.module.scss';
 import { Link, LinkProps } from '@tanstack/react-router';
 import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthentifiedUser';
@@ -36,6 +36,15 @@ export default function SidebarComponentBasicSidebarComponent() {
           params: {},
         },
         allowedRoles: ['ROLE_MEMBRE_VIZEO'],
+      },
+      {
+        icon: MdBusinessCenter,
+        label: 'Affaires',
+        route: {
+          to: '/app/businesses-rma',
+          search: {},
+          params: {},
+        },
       },
       {
         icon: MdGroup,
@@ -83,6 +92,14 @@ export default function SidebarComponentBasicSidebarComponent() {
           search: {},
           params: {},
         },
+      },
+      {
+        icon: MdBuild,
+        label: 'Outils',
+        route: {
+          to: '/app/tools/menu',
+        },
+        allowedRoles: ['ROLE_MEMBRE_VIZEO'],
       },
     ],
     [authentifiedUser.profile.enterprise],

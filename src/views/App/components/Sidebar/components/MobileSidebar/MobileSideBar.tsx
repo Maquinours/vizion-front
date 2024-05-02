@@ -1,12 +1,10 @@
-import { MdBusinessCenter, MdPerson } from 'react-icons/md';
-import styles from './MobileSidebar.module.scss';
 import { Link, LinkProps } from '@tanstack/react-router';
-import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthentifiedUser';
-import { IconType } from 'react-icons/lib';
 import React from 'react';
 import { IoMdHome } from 'react-icons/io';
-import TaskState from '../../../../../../utils/enums/TaskState';
-import { Views } from 'react-big-calendar';
+import { IconType } from 'react-icons/lib';
+import { MdBusinessCenter, MdPerson } from 'react-icons/md';
+import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthentifiedUser';
+import styles from './MobileSidebar.module.scss';
 
 type MenuItem = {
   icon: IconType;
@@ -21,15 +19,6 @@ const MENUS: MenuItem[] = [
     label: 'Tableau de bord',
     route: {
       to: '/app/dashboard',
-      search: (old) => ({
-        ...old,
-        personalTaskState: TaskState.CREATED,
-        personalTaskPage: 0,
-        personalTaskSize: 10,
-        schedulerView: Views.DAY,
-        schedulerDate: new Date(),
-      }),
-      params: {},
     },
     allowedRoles: ['ROLE_MEMBRE_VIZEO'],
   },

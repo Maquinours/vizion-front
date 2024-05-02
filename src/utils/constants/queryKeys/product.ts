@@ -1,5 +1,6 @@
 import { createQueryKeys } from '@lukemorales/query-key-factory';
 import {
+  getAssociatedProducts,
   getAssociatedProductsPage,
   getNotAssociatedProducts,
   getProductById,
@@ -9,9 +10,8 @@ import {
 } from '../../api/product';
 import { getProductSpecificationById, getProductSpecificationsPageByProductId } from '../../api/productSpecification';
 import { getProductStockEntriesPageByProductId } from '../../api/productStockEntry';
-import { getProductVersionById, getProductVersions, getProductVersionsByProductId, getProductVersionsPageByProductId } from '../../api/productVersion';
-import { getProductVersionShelfStockById, getProductVersionShelfStocksPageByProductId } from '../../api/productVersionShelfStock';
-import { getProductVersionShelfStockEntriesPageByProductShelfStock } from '../../api/productVersionShelfStockEntry';
+import { getProductVersionsByProductId, getProductVersionsPageByProductId } from '../../api/productVersion';
+import { getProductVersionShelfStocksPageByProductId } from '../../api/productVersionShelfStock';
 
 const products = createQueryKeys('product', {
   detail: (id: string) => ({
@@ -72,6 +72,10 @@ const products = createQueryKeys('product', {
         queryKey: [notAssociatedProductId],
         queryFn: () => getNotAssociatedProducts(notAssociatedProductId),
       }),
+      byAssociatedProductId: (associatedProductId: string) => ({
+        queryKey: [associatedProductId],
+        queryFn: () => getAssociatedProducts(associatedProductId),
+      }),
     },
   },
   page: ({ page, size }: { page: number; size: number }) => ({
@@ -87,38 +91,6 @@ const products = createQueryKeys('product', {
       }),
     },
   }),
-
-  versions: {
-    queryKey: null,
-    contextQueries: {
-      list: {
-        queryKey: null,
-        queryFn: getProductVersions,
-      },
-      detail: (id: string) => ({
-        queryKey: [id],
-        queryFn: () => getProductVersionById(id),
-      }),
-    },
-  },
-
-  versionShelfStocks: {
-    queryKey: null,
-    contextQueries: {
-      detail: (id: string) => ({
-        queryKey: [id],
-        queryFn: () => getProductVersionShelfStockById(id),
-        contextQueries: {
-          entries: {
-            queryKey: null,
-            contextQueries: {
-              page: ({ page, size }) => ({ queryKey: [page, size], queryFn: () => getProductVersionShelfStockEntriesPageByProductShelfStock(id, page, size) }),
-            },
-          },
-        },
-      }),
-    },
-  },
 });
 
 export default products;

@@ -1,0 +1,75 @@
+@import '/src/assets/styles/mixins';
+
+.pnf_container {
+  height: 100vh;
+  position: relative;
+
+  .pnf_content {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    height: 250px;
+    width: 100%;
+    max-width: 750px;
+    text-align: center;
+
+    .pnf_content_error {
+      position: relative;
+      margin: 0 auto 20px;
+      z-index: -1;
+      text-align: center;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+
+      img {
+        width: auto;
+        height: 125px;
+        opacity: 1;
+      }
+
+      h1 {
+        font-family: 'DIN2014', sans-serif;
+        font-size: 200px;
+        font-weight: lighter;
+        margin: 0;
+        color: #16204e;
+        text-transform: uppercase;
+
+        @media screen and (max-width: 425px) {
+          font-size: 100px;
+        }
+      }
+
+      h2 {
+        font-family: 'DIN2014', sans-serif;
+        font-size: 25px;
+        font-weight: normal;
+        text-transform: uppercase;
+        color: #f24c52;
+        padding: 10px 5px;
+        margin: auto;
+        display: inline-block;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+
+        @media screen and (max-width: 425px) {
+          position: relative;
+        }
+      }
+    }
+
+    a {
+      text-decoration: none;
+      background-color: var(--secondary-color);
+      padding: 0.5rem;
+      color: white;
+      font-weight: bolder;
+      font-family: 'DIN2014', sans-serif;
+      border-radius: 5px;
+    }
+  }
+}

@@ -2,7 +2,7 @@ import { createQueryKeys } from '@lukemorales/query-key-factory';
 import FileType from '../../enums/FileType';
 import { getDirectoryByTypeAndIdOnS3 } from '../../api/ged';
 
-export const geds = createQueryKeys('ged', {
+export const geds = createQueryKeys('geds', {
   detail: {
     queryKey: null,
     contextQueries: {

@@ -1,7 +1,9 @@
-import ReactSelect, { Props } from 'react-select';
+import ReactSelect, { GroupBase, Props } from 'react-select';
 
-type CustomSelectProps<T> = Readonly<Props<T>>;
-export default function CustomSelect<T>({ ...props }: CustomSelectProps<T>) {
+type CustomSelectProps<Option, IsMulti extends boolean = false, Group extends GroupBase<Option> = GroupBase<Option>> = Readonly<Props<Option, IsMulti, Group>>;
+export default function CustomSelect<Option, IsMulti extends boolean = false, Group extends GroupBase<Option> = GroupBase<Option>>(
+  props: CustomSelectProps<Option, IsMulti, Group>,
+) {
   return (
     <ReactSelect
       {...props}

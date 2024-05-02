@@ -34,9 +34,9 @@ export default function AppViewProductViewManageViewStockHistoryModalView() {
   const { stockId } = routeApi.useParams();
   const { stockHistoryPage: page } = routeApi.useSearch();
 
-  const { data: stock } = useSuspenseQuery(queries.product.versionShelfStocks._ctx.detail(stockId));
+  const { data: stock } = useSuspenseQuery(queries['product-version-shelf-stocks'].detail._ctx.byId(stockId));
 
-  const { data, isLoading } = useQuery(queries.product.versionShelfStocks._ctx.detail(stockId)._ctx.entries._ctx.page({ page, size }));
+  const { data, isLoading } = useQuery(queries['product-version-shelf-stock-entries'].page._ctx.byProductShelfStockId(stockId, { page, size }));
 
   const onClose = () => {
     navigate({ from: routeApi.id, to: '../..', search: (old) => ({ ...old, stockHistoryPage: undefined }) });

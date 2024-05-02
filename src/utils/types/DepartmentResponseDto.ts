@@ -6,11 +6,11 @@ type DepartmentResponseDto = {
   id: string;
   name: string;
   code: string;
-  repEnterprise?: DepartmentEnterpriseResponseDto;
+  repEnterprise: DepartmentEnterpriseResponseDto | null;
   createdDate: Date;
-  modifiedDate?: Date;
-  createdBy?: string;
-  modifiedBy?: string;
+  modifiedDate: Date | null;
+  createdBy: string | null;
+  modifiedBy: string | null;
 };
 
 export default DepartmentResponseDto;

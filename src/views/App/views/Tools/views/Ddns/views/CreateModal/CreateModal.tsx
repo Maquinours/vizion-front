@@ -77,7 +77,7 @@ export default function AppViewToolsViewDdnsViewCreateModalView() {
           const serialNumber = await queryClient.ensureQueryData(queries['product-serial-numbers'].data._ctx.byCategoryAndNumber('NVR', productSerialNumber!));
           if (!serialNumber.serialNumber || !serialNumber.category || !serialNumber.vizeo || !serialNumber.serialNumber.businessId) return result;
           result.serialNumber = serialNumber.serialNumber!;
-          const business = await queryClient.ensureQueryData(businesses.detail(serialNumber.serialNumber!.businessId!));
+          const business = await queryClient.ensureQueryData(businesses.detail._ctx.byId(serialNumber.serialNumber!.businessId!));
           result.business = business;
           return result;
         } catch (error) {

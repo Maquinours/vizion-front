@@ -1,10 +1,70 @@
 import { createQueryKeys } from '@lukemorales/query-key-factory';
-import { getAllBusinessPageByEnterpriseId, getAllBusinesses } from '../../api/allBusiness';
+import {
+  getAllBusinessById,
+  getAllBusinessPageByEnterpriseId,
+  getAllBusinesses,
+  getAllBusinessesAssociated,
+  getAllBusinessesNotAssociated,
+  searchAllBusiness,
+} from '../../api/allBusiness';
+import CategoryBusiness from '../../enums/CategoryBusiness';
+import AllBusinessState from '../../enums/AllBusinessState';
+import CategoryClient from '../../enums/CategoryClient';
 
-export const allBusinesses = createQueryKeys('allBusiness', {
-  list: { queryKey: null, queryFn: getAllBusinesses },
-  page: ({ enterpriseId, page, size }: { enterpriseId: string; page: number; size: number }) => ({
-    queryKey: [{ enterpriseId, page, size }],
-    queryFn: () => getAllBusinessPageByEnterpriseId(enterpriseId, page, size),
-  }),
+export const allBusinesses = createQueryKeys('all-businesses', {
+  list: {
+    queryKey: null,
+    queryFn: getAllBusinesses,
+    contextQueries: {
+      notAssociated: ({ category, number }: { category: CategoryBusiness; number: string }) => ({
+        queryKey: [category, number],
+        queryFn: () => getAllBusinessesNotAssociated({ category, number }),
+      }),
+      associated: ({ category, number }: { category: CategoryBusiness; number: string }) => ({
+        queryKey: [category, number],
+        queryFn: () => getAllBusinessesAssociated({ category, number }),
+      }),
+    },
+  },
+  page: {
+    queryKey: null,
+    contextQueries: {
+      byEnterpriseId: ({ enterpriseId, page, size }: { enterpriseId: string; page: number; size: number }) => ({
+        queryKey: [{ enterpriseId, page, size }],
+        queryFn: () => getAllBusinessPageByEnterpriseId(enterpriseId, page, size),
+      }),
+      search: (
+        searchData: {
+          startDate?: Date | null;
+          endDate?: Date | null;
+          numBusiness?: string | null;
+          minAmount?: number | null;
+          maxAmount?: number | null;
+          numOrder?: string | null;
+          zipCode?: string | null;
+          title?: string | null;
+          contact?: string | null;
+          deliverPhoneNumber?: string | null;
+          enterpriseName?: string | null;
+          representativeId?: string | null;
+          installerName?: string | null;
+          state?: AllBusinessState | null;
+          excludedList?: Array<CategoryClient> | null;
+        },
+        pageData: { page: number; size: number },
+      ) => ({
+        queryKey: [searchData, pageData],
+        queryFn: () => searchAllBusiness(searchData, pageData),
+      }),
+    },
+  },
+  detail: {
+    queryKey: null,
+    contextQueries: {
+      byId: (id: string) => ({
+        queryKey: [id],
+        queryFn: () => getAllBusinessById(id),
+      }),
+    },
+  },
 });

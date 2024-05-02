@@ -15,7 +15,7 @@ const Route = getRouteApi('/app');
 export default function AppViewBusinessGedModalComponentFooterComponent() {
   const { businessId } = Route.useSearch();
 
-  const { data: business } = useSuspenseQuery(businesses.detail(businessId!));
+  const { data: business } = useSuspenseQuery(businesses.detail._ctx.byId(businessId!));
 
   const { data: canSendTask } = useQuery({
     ...geds.detail._ctx.byTypeAndId(FileType.AFFAIRE, businessId!),

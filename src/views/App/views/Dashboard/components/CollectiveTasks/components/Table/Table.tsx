@@ -36,6 +36,7 @@ export default function AppViewDashboardViewCollectiveTasksComponentTableCompone
   const [contextMenuAnchorElement, setContextMenuAnchorElement] = useState<VirtualElement | undefined>(undefined);
 
   const onRowContentClick = useCallback(
+    // TODO: remove this function and use link instead
     (task: TaskResponseDto) => {
       if (task.mailId) {
         queryClient.setQueryData(queries.tasks.detail(task.id).queryKey, task);

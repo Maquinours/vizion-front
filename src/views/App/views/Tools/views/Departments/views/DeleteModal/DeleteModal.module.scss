@@ -1,0 +1,138 @@
+@import '/src/assets/styles/mixins';
+
+.modal {
+  position: absolute;
+  margin: auto;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 0;
+  width: 25%;
+  height: auto;
+  background: #fbfcfe 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 5px #10173526;
+  border-radius: 5px;
+  opacity: 1;
+  z-index: 2005;
+
+  .modal_container {
+    padding: 2rem;
+
+    .modal_title {
+      text-align: center;
+
+      h6 {
+        font: normal normal bold 16px/20px 'DIN2014';
+        color: var(--primary-light);
+      }
+    }
+
+    .form_group {
+      margin: 0.5rem 0;
+      display: grid;
+
+      label {
+        grid-area: label;
+        justify-self: center;
+      }
+      input:nth-child(2) {
+        grid-area: input;
+      }
+      p:nth-child(3) {
+        grid-area: error;
+        margin-top: 2px;
+      }
+
+      grid-template-areas:
+        'label'
+        'input'
+        'error';
+
+      grid-template-columns: auto;
+      grid-row-gap: 0.5rem;
+
+      label {
+        text-align: left;
+        font: normal normal normal 12px/15px 'DIN2014';
+        letter-spacing: 0px;
+        color: var(--primary-light-color);
+        opacity: 1;
+        width: 100%;
+        margin: 0 auto;
+        align-self: center;
+        padding-right: 1rem;
+
+        @include respond-below(sm) {
+          text-align: left;
+        }
+
+        &.required {
+          span {
+            color: var(--secondary-color);
+          }
+          font-family: 'DIN2014';
+        }
+      }
+
+      input,
+      textarea {
+        background: var(--grey-color) 0% 0% no-repeat padding-box;
+        border: 1px solid var(--primary-color);
+        border-radius: 5px;
+        padding: 0.5rem 0.5rem;
+        outline: none;
+        height: 30px;
+        width: inherit;
+        &::placeholder {
+          text-align: left;
+          font: normal normal normal 11px/14px 'DIN2014';
+          letter-spacing: 0px;
+          color: #9fa5b9;
+          opacity: 1;
+        }
+        &:-ms-input-placeholder {
+          text-align: left;
+          font: normal normal normal 11px/14px 'DIN2014';
+          letter-spacing: 0px;
+          color: #9fa5b9;
+          opacity: 1;
+        }
+        &::-ms-input-placeholder {
+          text-align: left;
+          font: normal normal normal 11px/14px 'DIN2014';
+          letter-spacing: 0px;
+          color: #9fa5b9;
+          opacity: 1;
+        }
+      }
+
+      textarea {
+        resize: none;
+        width: inherit;
+        height: inherit;
+      }
+
+      p.__errors {
+        text-align: left;
+        font-family: 'DIN2014';
+        font-style: normal;
+        font-weight: normal;
+        font-variant: normal;
+        font-size: 11px;
+        line-height: 10px;
+        letter-spacing: 0px;
+        color: var(--secondary-color);
+        opacity: 1;
+      }
+    }
+    .modal_buttons {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      button {
+        padding: 0.5rem 2rem;
+      }
+    }
+  }
+}

@@ -20,7 +20,7 @@ export default function AppViewProductViewManageViewUpdateVersionModalView() {
 
   const { data: product } = useSuspenseQuery(queries.product.detail(productId));
 
-  const { data: version } = useSuspenseQuery(queries.product.versions._ctx.detail(versionId));
+  const { data: version } = useSuspenseQuery(queries['product-versions'].detail._ctx.byId(versionId));
 
   const yupSchema = yup.object().shape({
     reference: yup

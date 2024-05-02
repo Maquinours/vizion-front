@@ -1,6 +1,7 @@
 import { createQueryKeys } from '@lukemorales/query-key-factory';
 import {
   getProductSerialNumberById,
+  getProductSerialNumberByNumber,
   getProductSerialNumbersPage,
   getProductSerialNumbersPageWithSearch,
   getSerialNumberDataByNumberAndCategory,
@@ -22,6 +23,10 @@ export const productSerialNumbers = createQueryKeys('product-serial-numbers', {
       byId: (id: string) => ({
         queryKey: [id],
         queryFn: () => getProductSerialNumberById(id),
+      }),
+      byNumber: (number: string) => ({
+        queryKey: [number],
+        queryFn: () => getProductSerialNumberByNumber(number),
       }),
     },
   },

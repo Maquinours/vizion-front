@@ -9,4 +9,7 @@ const searchSchema = z.object({
 
 export const Route = createFileRoute('/app/tools/emails')({
   validateSearch: searchSchema,
+  staticData: {
+    title: 'Emails',
+  },
 });

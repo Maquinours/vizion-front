@@ -23,7 +23,7 @@ export default function AppViewProductViewManageViewUpdateStockModalView() {
 
   const { stockId } = routeApi.useParams();
 
-  const { data: stock } = useSuspenseQuery(queries.product.versionShelfStocks._ctx.detail(stockId));
+  const { data: stock } = useSuspenseQuery(queries['product-version-shelf-stocks'].detail._ctx.byId(stockId));
 
   const {
     register,
@@ -83,7 +83,7 @@ export default function AppViewProductViewManageViewUpdateStockModalView() {
             </label>
             <div className={styles.react_select_custom}>
               <CustomSelect
-                options={[stock.productVersionShelf]}
+                options={stock.productVersionShelf ? [stock.productVersionShelf] : []}
                 getOptionLabel={(opt) => opt?.number ?? ''}
                 getOptionValue={(opt) => opt?.id ?? ''}
                 value={stock.productVersionShelf}

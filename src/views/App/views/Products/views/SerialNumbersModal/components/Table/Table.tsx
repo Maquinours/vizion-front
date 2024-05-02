@@ -24,11 +24,23 @@ const columns = [
   }),
   columnHelper.display({
     header: 'Affaire',
-    cell: ({ row: { original } }) => original.businessNumber, // TODO: Link to business
+    cell: ({ row: { original } }) =>
+      !!original.businessNumber &&
+      !!original.businessId && (
+        <Link to="/app/businesses-rma/business/$businessId" params={{ businessId: original.businessId }}>
+          {original.businessNumber}
+        </Link>
+      ),
   }),
   columnHelper.display({
     header: 'Avec Fournisseur',
-    cell: ({ row: { original } }) => original.providerBusinessNumber, // TODO: Link to business
+    cell: ({ row: { original } }) =>
+      !!original.providerBusinessNumber &&
+      !!original.providerBusinessId && (
+        <Link to="/app/businesses-rma/business/$businessId" params={{ businessId: original.providerBusinessId }}>
+          {original.providerBusinessNumber}
+        </Link>
+      ),
   }),
   columnHelper.display({
     id: 'actions',

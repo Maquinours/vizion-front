@@ -14,8 +14,6 @@ import RefreshButtonComponent from '../RefreshButton/RefreshButton';
 import TableComponent from '../Table/Table';
 import styles from './Lifesheet.module.scss';
 
-const size = 5;
-
 const columnHelper = createColumnHelper<LifeSheetResponseDto>();
 const columns = [
   columnHelper.display({
@@ -37,10 +35,11 @@ type LifesheetComponentProps = Readonly<{
   associatedItemType: LifesheetAssociatedItem;
   associatedItemId: string;
   page: number;
+  size?: number;
   createLink: LinkProps;
-  pageLink: (page: number) => LinkProps;
+  pageLink?: (page: number) => LinkProps;
 }>;
-export default function LifesheetComponent({ associatedItemType, associatedItemId, page, createLink, pageLink }: LifesheetComponentProps) {
+export default function LifesheetComponent({ associatedItemType, associatedItemId, page, size = 5, createLink, pageLink }: LifesheetComponentProps) {
   const { data, isLoading, refetch, isRefetching } = useQuery(lifesheets.page({ page, size })._ctx.byAssociatedItem({ associatedItemType, associatedItemId }));
 
   return (
@@ -53,7 +52,7 @@ export default function LifesheetComponent({ associatedItemType, associatedItemI
 
         <div className={styles.table_container}>
           <TableComponent columns={columns} data={data?.content} isLoading={isLoading} rowId={'id'} />
-          <PaginationComponent page={page} totalPages={data?.totalPages} pageLink={pageLink} />
+          {pageLink && <PaginationComponent page={page} totalPages={data?.totalPages} pageLink={pageLink} />}
         </div>
       </div>
     </CardComponent>

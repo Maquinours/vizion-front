@@ -14,4 +14,7 @@ export const Route = createFileRoute('/app/faq')({
   loader: ({ context: { queryClient }, deps: { search, page, size, archived } }) => {
     queryClient.ensureQueryData(faqs.page({ page, size })._ctx.byArchiveStateAndSearch(archived, search));
   },
+  staticData: {
+    title: 'FAQ',
+  },
 });

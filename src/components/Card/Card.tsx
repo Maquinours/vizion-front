@@ -1,12 +1,12 @@
+import { Link, LinkProps } from '@tanstack/react-router';
+import classNames from 'classnames';
 import React, { ReactNode } from 'react';
-import styles from './Card.module.scss';
-import { IoMdAddCircleOutline } from 'react-icons/io';
 import { AiOutlineReload } from 'react-icons/ai';
 import { FiMaximize2 } from 'react-icons/fi';
-import { VscChromeMinimize } from 'react-icons/vsc';
-import classNames from 'classnames';
-import { Link, LinkProps } from '@tanstack/react-router';
 import { HiPencilAlt } from 'react-icons/hi';
+import { IoMdAddCircleOutline } from 'react-icons/io';
+import { VscChromeMinimize } from 'react-icons/vsc';
+import styles from './Card.module.scss';
 
 type CardComponentProps = Readonly<{
   title: string;

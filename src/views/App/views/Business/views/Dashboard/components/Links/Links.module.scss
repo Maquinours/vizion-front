@@ -1,0 +1,183 @@
+@import '/src/assets/styles/mixins';
+
+.container {
+  min-height: 60vh;
+  min-width: 200px;
+  height: auto;
+  width: 100%;
+
+  .buttons_container {
+    padding: 0.3rem;
+    display: flex;
+  }
+
+  .table_container {
+    width: 100%;
+
+    table {
+      width: 100%;
+      opacity: 1;
+      border-collapse: collapse;
+      table-layout: fixed;
+
+      thead {
+        tr {
+          th {
+            height: 40px;
+            text-align: left;
+            font: normal normal bolder 14px/15px 'DIN2014';
+            border: 1px solid #9fa5b9;
+            letter-spacing: 0px;
+            color: var(--primary-color);
+            opacity: 1;
+            padding: 0.2rem 0.5rem;
+
+            @include respond-below(sm) {
+              padding: 0.5rem;
+            }
+          }
+        }
+      }
+
+      tbody {
+        tr {
+          background-color: #fff;
+          border-bottom: 1px solid #9fa5b9;
+          height: 35px;
+          // padding: 0.2rem 0.5rem;
+
+          &:hover {
+            background-color: #e5e5e5;
+            cursor: pointer;
+          }
+
+          &:nth-child(2n + 1) {
+            background: #f2f3f8 0% 0% no-repeat padding-box;
+            opacity: 1;
+          }
+
+          td {
+            padding-left: 0.7rem;
+            text-align: left;
+            font: normal normal normal 13px/16px 'DIN2014';
+            letter-spacing: 0px;
+            color: #16204e;
+            opacity: 1;
+            word-wrap: break-word;
+
+            .row {
+              display: flex;
+              justify-content: space-between;
+              width: 100%;
+
+              .tooltip {
+                position: relative;
+                width: auto;
+
+                svg {
+                  position: relative;
+                  color: var(--secondary-color);
+                  align-self: center;
+                  cursor: pointer;
+                }
+
+                .content {
+                  display: none;
+                  position: absolute;
+                  width: auto;
+                  height: auto;
+                  font-size: 16px;
+                  font-weight: normal;
+                  color: #fff;
+                  border-radius: 6px;
+                  padding: 5px;
+                  z-index: 2;
+                  top: -9px;
+                  right: 20px;
+                  background: #ffffff 0% 0% no-repeat padding-box;
+                  border: 1px solid #31385a;
+                  border-radius: 5px;
+
+                  ul {
+                    width: 100%;
+                    height: 100%;
+                    overflow: auto;
+
+                    li {
+                      display: flex;
+                      align-items: center;
+                      // margin-bottom: 0.5rem;
+                      padding: 0.2rem 0.2rem;
+                      cursor: pointer;
+
+                      span.more {
+                        margin-right: 4px;
+                      }
+
+                      span.text {
+                        font: normal normal normal 12px/15px 'DIN2014';
+                        letter-spacing: 0px;
+                        color: #16204e;
+                      }
+
+                      &:hover {
+                        background-color: #16204e1d;
+                      }
+                    }
+
+                    &::-webkit-scrollbar {
+                      width: 3px;
+                    }
+
+                    /* Track */
+                    &::-webkit-scrollbar-track {
+                      background: var(--gray-line);
+                      border-radius: 5px;
+                    }
+
+                    /* Handle */
+                    &::-webkit-scrollbar-thumb {
+                      background: var(--primary-color);
+                    }
+
+                    /* Handle on hover */
+                    &::-webkit-scrollbar-thumb:hover {
+                      background: var(--grey-light);
+                    }
+                  }
+                }
+
+                .content::after {
+                  content: '';
+                  position: absolute;
+                  top: 10px;
+                  right: -11px;
+                  z-index: 5;
+                  width: 0;
+                  height: 0;
+                  border-top: 5px solid transparent;
+                  border-left: 10px solid var(--primary-color);
+                  border-bottom: 5px solid transparent;
+                }
+
+                &:hover {
+                  .content {
+                    display: initial;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+
+      @include respond-below(md) {
+        table-layout: auto;
+      }
+    }
+
+    @include respond-below(md) {
+      overflow-x: auto;
+    }
+  }
+}

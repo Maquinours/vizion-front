@@ -1,0 +1,19 @@
+@import '/src/assets/styles/mixins';
+
+.buttons_container {
+  text-align: end;
+
+  @include respond-below(sm) {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+
+    button {
+      padding: 0.2rem 0.5rem;
+    }
+  }
+
+  & > button {
+    margin-left: 5px;
+  }
+}

@@ -4,6 +4,7 @@ import {
   getProfileById,
   getProfilesByCategory,
   getProfilesByEnterpriseId,
+  getProfilesByIds,
   getProfilesPageByEnterpriseId,
   getProfilesPageByEnterpriseIdAndSearch,
 } from '../../api/profile';
@@ -23,6 +24,10 @@ export const profiles = createQueryKeys('profiles', {
       byCategory: (category: CategoryClient) => ({
         queryKey: [category],
         queryFn: () => getProfilesByCategory(category),
+      }),
+      byIds: (ids: Array<string>) => ({
+        queryKey: [ids],
+        queryFn: () => getProfilesByIds(ids),
       }),
     },
   },

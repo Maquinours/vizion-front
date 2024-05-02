@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { z } from 'zod';
-import { addresses } from '../../../../../utils/constants/queryKeys/address';
+import { queries } from '../../../../../utils/constants/queryKeys';
 
 const searchSchema = z.object({
   search: z.string().optional().catch(undefined),
@@ -14,7 +14,7 @@ export const Route = createFileRoute('/app/enterprises/$enterpriseId/address-boo
     size: 9,
   }),
   loader: ({ context: { queryClient }, params: { enterpriseId }, deps: { search, page, size } }) => {
-    queryClient.ensureQueryData(addresses.page({ enterpriseId, search: search ?? '', page, size }));
+    queryClient.ensureQueryData(queries.address.page._ctx.searchByEnterpriseId({ enterpriseId, searchText: search }, { page, size }));
   },
   validateSearch: searchSchema,
 });

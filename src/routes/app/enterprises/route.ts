@@ -37,4 +37,7 @@ export const Route = createFileRoute('/app/enterprises')({
     queryClient.ensureQueryData(enterprises.list._ctx.byCategory(CategoryClient.REPRESENTANT));
   },
   validateSearch: searchSchema,
+  staticData: {
+    title: 'Entreprises',
+  },
 });

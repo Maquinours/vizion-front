@@ -12,4 +12,7 @@ export const Route = createFileRoute('/app/tools/predefined-texts')({
   loader: ({ context: { queryClient }, deps: { page, size } }) => {
     queryClient.prefetchQuery(queries['predefined-text'].page({ page, size }));
   },
+  staticData: {
+    title: 'Textes prédéfinis',
+  },
 });

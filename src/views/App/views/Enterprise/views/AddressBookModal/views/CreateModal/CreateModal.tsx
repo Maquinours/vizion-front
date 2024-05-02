@@ -1,14 +1,14 @@
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { useForm } from 'react-hook-form';
 import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
-import * as yup from 'yup';
-import { addresses } from '../../../../../../../../utils/constants/queryKeys/address';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
 import { toast } from 'react-toastify';
-import styles from './CreateModal.module.scss';
+import * as yup from 'yup';
 import { createAddress } from '../../../../../../../../utils/api/address';
+import { queries } from '../../../../../../../../utils/constants/queryKeys';
+import styles from './CreateModal.module.scss';
 
 const Route = getRouteApi('/app/enterprises/$enterpriseId/address-book/create');
 
@@ -62,7 +62,7 @@ export default function AppViewEnterpriseViewAddressBookModalViewCreateModalView
         enterpriseName: data.enterpriseName,
       }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: addresses._def });
+      queryClient.invalidateQueries({ queryKey: queries.address._def });
       onClose();
       toast.success('Adresse ajoutée avec succès');
     },

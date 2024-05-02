@@ -1,18 +1,18 @@
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useMutation, useQuery, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
+import { getRouteApi, useNavigate } from '@tanstack/react-router';
 import { Controller, useForm } from 'react-hook-form';
 import ReactModal from 'react-modal';
 import PhoneInputWithCountrySelect from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
-import { InferType, object, string } from 'yup';
-import styles from './UpdateModal.module.scss';
 import { PropagateLoader } from 'react-spinners';
-import { useMutation, useQuery, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
 import { toast } from 'react-toastify';
-import countries from '../../../../../../utils/constants/countries';
-import { enterprises } from '../../../../../../utils/constants/queryKeys/enterprise';
+import { InferType, object, string } from 'yup';
 import { updateEnterprise } from '../../../../../../utils/api/enterprise';
-import { departments } from '../../../../../../utils/constants/queryKeys/department';
+import countries from '../../../../../../utils/constants/countries';
+import { queries } from '../../../../../../utils/constants/queryKeys';
+import { enterprises } from '../../../../../../utils/constants/queryKeys/enterprise';
+import styles from './UpdateModal.module.scss';
 
 const zipCodeRegex = /([A-Z0-9]){5}/;
 const yupSchema = object({
@@ -53,7 +53,7 @@ export default function AppViewEnterpriseViewUpdateModalView() {
 
   const { data: enterprise } = useSuspenseQuery(enterprises.detail(enterpriseId));
 
-  const { data: departmentsList } = useQuery(departments.list);
+  const { data: departmentsList } = useQuery(queries.departments.list);
 
   const {
     register,

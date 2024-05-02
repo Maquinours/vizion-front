@@ -12,8 +12,7 @@ export default function AppViewProductViewTabsComponent() {
       <div className={styles.tabs_buttons_container}>
         <Link
           from={routeApi.id}
-          to={'./informations'}
-          search={{ lifesheetPage: 0 }}
+          to={'/app/products/$productId/informations'}
           className="btn"
           activeProps={{ className: 'btn-primary' }}
           inactiveProps={{ className: 'btn-primary-light' }}
@@ -22,17 +21,7 @@ export default function AppViewProductViewTabsComponent() {
         </Link>
         <Link
           from={routeApi.id}
-          to={'./manage'}
-          search={{
-            associatedProductsPage: 0,
-            versionsPage: 0,
-            specificationsPage: 0,
-            stocksPage: 0,
-            salesPage: 0,
-            salesSize: 100,
-            stockEntriesPage: 0,
-            stockEntriesSize: 5,
-          }}
+          to={'/app/products/$productId/manage'}
           className="btn"
           activeProps={{ className: 'btn-primary' }}
           inactiveProps={{ className: 'btn-primary-light' }}

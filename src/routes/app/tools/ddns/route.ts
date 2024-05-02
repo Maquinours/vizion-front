@@ -17,4 +17,7 @@ export const Route = createFileRoute('/app/tools/ddns')({
   loader: ({ context: { queryClient }, deps: { email, domain, serial, ref, date, page, size } }) => {
     queryClient.prefetchQuery(ddns.page({ email, domain, serial, ref, date, page, size }));
   },
+  staticData: {
+    title: 'DDNS',
+  },
 });

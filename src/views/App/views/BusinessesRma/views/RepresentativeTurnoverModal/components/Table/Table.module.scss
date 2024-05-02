@@ -1,0 +1,145 @@
+@import '/src/assets/styles/mixins';
+
+.table_container {
+  width: 100%;
+
+  table {
+    width: 100%;
+
+    tbody {
+      border-left: 1px solid #31385a;
+      border-right: 1px solid #31385a;
+      border-bottom: 1px solid #31385a;
+      height: 50vh;
+      max-height: 80vh;
+      overflow-y: auto;
+      display: block;
+      border-bottom-left-radius: 5px;
+      border-bottom-right-radius: 5px;
+
+      &::-webkit-scrollbar {
+        width: 3px;
+        height: 3px;
+      }
+
+      /* Track */
+      &::-webkit-scrollbar-track {
+        background: var(--white-color);
+      }
+
+      /* Handle */
+      &::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        background: var(--primary-color);
+      }
+
+      /* Handle on hover */
+      &::-webkit-scrollbar-thumb:hover {
+        background: var(--primary-color);
+      }
+
+      tr {
+        background-color: #fbfcfe;
+      }
+
+      tr:hover {
+        background-color: #e5e5e5;
+      }
+
+      tr:nth-child(2n + 1) {
+        background: #f2f3f8 0% 0% no-repeat padding-box;
+        opacity: 1;
+      }
+
+      tr {
+        td {
+          font: normal normal normal 14px/18px 'DIN2014';
+          color: #16204e;
+          text-align: left;
+          padding: 10px 0 10px 0.5rem;
+          height: 45px;
+
+          &:nth-child(1) {
+            width: 20%;
+
+            input {
+              width: 80%;
+            }
+          }
+
+          &:nth-child(2) {
+            width: 30%;
+          }
+
+          &:nth-child(3) {
+            width: 30%;
+          }
+
+          &:nth-child(4) {
+            width: 10%;
+          }
+
+          &:nth-child(5) {
+            width: 10%;
+          }
+        }
+      }
+    }
+  }
+
+  table thead,
+  table tbody tr {
+    table-layout: fixed;
+    border-collapse: collapse;
+    display: table;
+    width: 100%;
+  }
+
+  table thead {
+    font-style: normal;
+    font-weight: normal;
+
+    font-size: 14px;
+    line-height: 18px;
+    color: white;
+    box-shadow: 0px 3px 5px #10173526;
+    background-color: var(--primary-color);
+
+    @include respond-below(md) {
+      font-size: 12px;
+      line-height: 15px;
+    }
+
+    th {
+      height: 35px;
+      text-align: left;
+      border-right: 0.5px solid #898fa6;
+      padding-left: 0.5rem;
+
+      &:nth-child(1) {
+        border-top-left-radius: 5px;
+        width: 20%;
+      }
+
+      &:nth-child(2) {
+        width: 30%;
+      }
+
+      &:nth-child(3) {
+        width: 30%;
+      }
+
+      &:nth-child(4) {
+        width: 10%;
+      }
+
+      &:nth-child(5) {
+        width: 10%;
+      }
+    }
+  }
+
+  @include respond-below(md) {
+    overflow-x: auto;
+  }
+}

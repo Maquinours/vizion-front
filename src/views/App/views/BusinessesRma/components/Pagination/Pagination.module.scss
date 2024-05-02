@@ -1,0 +1,15 @@
+.pagination_container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  select {
+    height: fit-content;
+    padding: 5px;
+
+    &:focus {
+      outline: none;
+    }
+  }
+}
