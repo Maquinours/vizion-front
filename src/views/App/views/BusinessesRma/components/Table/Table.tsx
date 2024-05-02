@@ -1,7 +1,7 @@
 import { createColumnHelper } from '@tanstack/react-table';
 import { useMemo } from 'react';
 import AllBusinessResponseDto from '../../../../../../utils/types/AllBusinessResponseDto';
-import { getRouteApi } from '@tanstack/react-router';
+import { Link, getRouteApi } from '@tanstack/react-router';
 import AllBusinessState from '../../../../../../utils/enums/AllBusinessState';
 import { formatDateAndHourWithSlash } from '../../../../../../utils/functions/dates';
 import CategoryBusiness from '../../../../../../utils/enums/CategoryBusiness';
@@ -79,11 +79,17 @@ export default function AppViewBusinessesRmaViewTableComponent({ data, isLoading
       columnHelper.display({
         header: "Nr d'affaire",
         cell: ({ row: { original } }) => (
-          <p className={styles.business_number} style={{ color: 'var(--secondary-color)' }}>
+          <Link
+            to="/app/businesses-rma/business/$businessId"
+            params={{ businessId: original.businessId }}
+            disabled={original.category !== CategoryBusiness.AFFAIRE}
+            className={styles.business_number}
+            style={{ color: 'var(--secondary-color)' }}
+          >
             <span>{original.number}</span>
             <span>{original.businessBillNumber}</span>
             {original.creditNotes?.map((num, idx) => <span key={idx}>Avoir : {num.number}</span>)}
-          </p>
+          </Link>
         ),
       }),
       columnHelper.display({
@@ -99,18 +105,18 @@ export default function AppViewBusinessesRmaViewTableComponent({ data, isLoading
         cell: ({ row: { original } }) => (
           <ul className={styles.associated_list}>
             {original?.associatedBusinessRMA?.map((item) => {
-              // const name = `${item.number} ${item.title && item.title !== item.number ? `(${item.title})` : ''}`;
+              const name = `${item.number} ${item.title && item.title !== item.number ? `(${item.title})` : ''}`;
               return (
                 <li key={item.businessId}>
-                  {/* <a // TODO: reimplement this
-                    href={
-                      item.category === 'AFFAIRE' && isClient
-                        ? '#'
-                        : `/app/${item.category === 'AFFAIRE' ? 'business/get-business' : 'rma/get-rma'}/${item.businessId}`
+                  <Link
+                    to="/app/businesses-rma/business/$businessId"
+                    params={{ businessId: item.businessId }}
+                    disabled={
+                      (item.category === CategoryBusiness.AFFAIRE && user.userInfo.roles.includes('ROLE_CLIENT')) || item.category === CategoryBusiness.RMA // TODO: implement for RMAs
                     }
                   >
                     {name}
-                  </a> */}
+                  </Link>
                 </li>
               );
             })}

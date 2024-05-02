@@ -1,18 +1,17 @@
-import ReactDatePicker from 'react-datepicker';
-import styles from './SearchSection.module.scss';
-import * as yup from 'yup';
-import AllBusinessState from '../../../../../../utils/enums/AllBusinessState';
-import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthentifiedUser';
 import { useQuery } from '@tanstack/react-query';
-import { queries } from '../../../../../../utils/constants/queryKeys';
-import CategoryClient from '../../../../../../utils/enums/CategoryClient';
-import CustomSelect from '../../../../../../components/CustomSelect/CustomSelect';
-import EnterpriseResponseDto from '../../../../../../utils/types/EnterpriseResponseDto';
-import { useEffect, useMemo } from 'react';
-import PhoneInput from 'react-phone-number-input/input';
 import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { useEffect, useMemo } from 'react';
+import ReactDatePicker from 'react-datepicker';
+import { Controller, useForm } from 'react-hook-form';
+import PhoneInput from 'react-phone-number-input/input';
+import * as yup from 'yup';
+import CustomSelect from '../../../../../../components/CustomSelect/CustomSelect';
+import { queries } from '../../../../../../utils/constants/queryKeys';
+import AllBusinessState from '../../../../../../utils/enums/AllBusinessState';
+import CategoryClient from '../../../../../../utils/enums/CategoryClient';
+import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthentifiedUser';
+import styles from './SearchSection.module.scss';
 
 const routeApi = getRouteApi('/app/businesses-rma');
 
@@ -23,7 +22,7 @@ const yupSchema = yup.object().shape({
   contact: yup.string(),
   deliverPhoneNumber: yup.string(),
   zipCode: yup.string(),
-  representative: yup.mixed<EnterpriseResponseDto>(),
+  representative: yup.string(),
   installer: yup.string(),
   enterpriseName: yup.string(),
   state: yup.mixed<AllBusinessState>().oneOf(Object.values(AllBusinessState)),
@@ -35,6 +34,10 @@ const yupSchema = yup.object().shape({
 });
 
 const STATE_OPTIONS = [
+  {
+    label: 'Tous les états',
+    value: '',
+  },
   {
     label: 'Créée',
     value: AllBusinessState.CREATED,
@@ -162,7 +165,7 @@ export default function AppViewBusinessesRmaViewSearchSectionComponent() {
         contact,
         deliverPhoneNumber,
         zipCode,
-        representative: representative?.id,
+        representative: representative,
         installer,
         enterpriseName,
         state,
@@ -200,10 +203,7 @@ export default function AppViewBusinessesRmaViewSearchSectionComponent() {
     setValue('contact', contact);
     setValue('deliverPhoneNumber', deliverPhoneNumber);
     setValue('zipCode', zipCode);
-    setValue(
-      'representative',
-      representatives?.find((rep) => rep.id === representative),
-    );
+    setValue('representative', representatives?.find((rep) => rep.id === representative)?.id);
     setValue('installer', installer);
     setValue('enterpriseName', enterpriseName);
     setValue('state', state);
@@ -212,12 +212,8 @@ export default function AppViewBusinessesRmaViewSearchSectionComponent() {
   }, [dates]);
 
   useEffect(() => {
-    if (representatives)
-      setValue(
-        'representative',
-        representatives.find((rep) => rep.id === representative),
-      );
-  }, [!isLoadingRepresentatives]);
+    if (representatives) setValue('representative', representatives.find((rep) => rep.id === representative)?.id);
+  }, [isLoadingRepresentatives]);
 
   return (
     <div className={styles.filters_container}>
@@ -256,20 +252,20 @@ export default function AppViewBusinessesRmaViewSearchSectionComponent() {
           <input placeholder="Numéro de commande" id="businessNumOrder" {...register('numOrder')} />
           <input placeholder="Code Postal de livraison" id="zipCode" {...register('zipCode')} />
           {user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && (
-            <Controller
-              control={control}
-              name="representative"
-              render={({ field: { value, onChange } }) => (
-                <CustomSelect
-                  options={representatives}
-                  isLoading={isLoadingRepresentatives}
-                  getOptionLabel={(opt) => opt.name}
-                  getOptionValue={(opt) => opt.id}
-                  value={value}
-                  onChange={onChange}
-                />
+            <select id="representative" {...register('representative')}>
+              {isLoadingRepresentatives ? (
+                <option value="">Chargement...</option>
+              ) : (
+                <>
+                  <option value="">Choisir un représentant</option>
+                  {representatives?.map((representative) => (
+                    <option key={representative.id} value={representative.id}>
+                      {representative.name}
+                    </option>
+                  ))}
+                </>
               )}
-            />
+            </select>
           )}
           <select id="state" {...register('state')} defaultValue="">
             {stateOptions.map((item) => (
