@@ -6,7 +6,8 @@ services:
     build:
       context: .
       dockerfile: ./Dockerfile
-    volumes: -./api:/usr/src/app/api
+    volumes: 
+      -./api:/usr/src/app/api
       -/usr/src/app/api/node_modules
     ports:
       - 3001:3001
