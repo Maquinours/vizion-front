@@ -6,9 +6,7 @@ services:
     build:
       context: .
       dockerfile: ./Dockerfile
-    volumes:
-      type: bind
-      source: ./
-      target: /srv/app
+    volumes: -./api:/usr/src/app/api
+      -/usr/src/app/api/node_modules
     ports:
       - 3001:3001
