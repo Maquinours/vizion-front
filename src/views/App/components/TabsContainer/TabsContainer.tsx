@@ -1,13 +1,13 @@
 import { useQueryClient } from '@tanstack/react-query';
 import { Link, LinkProps, useMatchRoute, useMatches, useNavigate } from '@tanstack/react-router';
 import { useLocalStorage } from '@uidotdev/usehooks';
-import _ from 'lodash';
 import React, { useEffect } from 'react';
 import { MdClose } from 'react-icons/md';
 import { queries } from '../../../../utils/constants/queryKeys';
 import styles from './TabsContainer.module.scss';
 
 type Tab = {
+  id: string;
   name: string;
   route: LinkProps;
   closable?: boolean;
@@ -124,10 +124,10 @@ export default function AppViewTabsContainerComponent() {
         })();
         if (title) {
           const route = matches.at(-1)!;
-          const tab = { name: title, route: { to: route.routeId, params: route.params, search: route.search } };
+          const tab = { id: match.routeId, name: title, route: { to: route.routeId, params: route.params, search: route.search } };
           setTabs((tabs) => {
             const newTabs = [...tabs];
-            const tabIndex = newTabs.findIndex((t) => _.isEqual({ to: t.route.to, params: t.route.params }, { to: tab.route.to, params: tab.route.params }));
+            const tabIndex = newTabs.findIndex((t) => tab.id === t.id);
             if (tabIndex !== -1) newTabs[tabIndex] = tab;
             else newTabs.push(tab);
             return newTabs;
