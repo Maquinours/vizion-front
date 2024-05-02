@@ -1,11 +1,11 @@
 import { SearchSchemaInput, createFileRoute, redirect } from '@tanstack/react-router';
 import { Views } from 'react-big-calendar';
 import { z } from 'zod';
-import { queries } from '../../../utils/constants/queryKeys';
-import { keycloakEvents } from '../../../utils/constants/queryKeys/keycloakEvent';
+// import { queries } from '../../../utils/constants/queryKeys';
+// import { keycloakEvents } from '../../../utils/constants/queryKeys/keycloakEvent';
 import { users } from '../../../utils/constants/queryKeys/user';
 import TaskState from '../../../utils/enums/TaskState';
-import WorkloadType from '../../../utils/enums/WorkloadType';
+// import WorkloadType from '../../../utils/enums/WorkloadType';
 
 const searchSchema = z.object({
   personalTaskState: z.nativeEnum(TaskState).catch(TaskState.CREATED),
