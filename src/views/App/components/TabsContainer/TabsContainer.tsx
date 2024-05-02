@@ -111,10 +111,8 @@ export default function AppViewTabsContainerComponent() {
                 (await queryClient.ensureQueryData(queries.product.detail((match.params as { productId: string }).productId))).reference ?? 'Produit inconnu'
               );
             case '/app/businesses-rma/business/$businessId':
-              return (
-                (await queryClient.ensureQueryData(queries.businesses.detail._ctx.byId((match.params as { businessId: string }).businessId))).title ??
-                'Affaire inconnue'
-              );
+              const business = await queryClient.ensureQueryData(queries.businesses.detail._ctx.byId((match.params as { businessId: string }).businessId));
+              return `Affaire (${business.numBusiness})`;
             case '/app/external-links/$externalLinkId':
               return (await queryClient.ensureQueryData(queries['external-link'].detail._ctx.byId((match.params as { externalLinkId: string }).externalLinkId)))
                 .title;
