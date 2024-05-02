@@ -13,7 +13,10 @@ export default defineConfig({
     //   project: 'javascript-react',
     // }),
   ],
-
+  preview: {
+    port: 3001,
+    strictPort: true,
+  },
   build: {
     // sourcemap: true,
     rollupOptions: {
