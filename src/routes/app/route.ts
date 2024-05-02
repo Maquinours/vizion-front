@@ -1,12 +1,12 @@
 import { createFileRoute, redirect } from '@tanstack/react-router';
 import { toast } from 'react-toastify';
 import { z } from 'zod';
-import { businesses } from '../../utils/constants/queryKeys/business';
-import { enterprises } from '../../utils/constants/queryKeys/enterprise';
-import { geds } from '../../utils/constants/queryKeys/ged';
-import { users } from '../../utils/constants/queryKeys/user';
-import FileType from '../../utils/enums/FileType';
-import { findRecursively } from '../../utils/functions/arrays';
+// import { businesses } from '../../utils/constants/queryKeys/business';
+// import { enterprises } from '../../utils/constants/queryKeys/enterprise';
+// import { geds } from '../../utils/constants/queryKeys/ged';
+// import { users } from '../../utils/constants/queryKeys/user';
+// import FileType from '../../utils/enums/FileType';
+// import { findRecursively } from '../../utils/functions/arrays';
 import { getToken } from '../../utils/functions/token';
 
 const searchSchema = z.object({
@@ -54,33 +54,33 @@ export const Route = createFileRoute('/app')({
       });
   },
   loaderDeps: ({ search: { appModal, businessId, gedItemKey } }) => ({ appModal, businessId, gedItemKey }),
-  loader: async ({ context: { queryClient }, deps: { appModal, businessId, gedItemKey } }) => {
-    const userPromise = queryClient.ensureQueryData(users.authentified());
-    const promises = [];
-    if (businessId) promises.push(queryClient.ensureQueryData(businesses.detail._ctx.byId(businessId)));
-    if (gedItemKey) {
-      queryClient.ensureQueryData(geds.detail._ctx.byTypeAndId(FileType.AFFAIRE, businessId!)).then((ged) => {
-        if (!findRecursively(ged, 'subRows', (d) => d.key === gedItemKey)) {
-          // ged element does not exists
-          throw redirect({
-            from: Route.id,
-            search: (old) => ({ ...old, appModal: 'business-ged', gedItemKey: undefined }),
-          });
-        }
-      });
-    }
-    if (appModal === 'create-client-business') {
-      const currentUser = await userPromise;
-      if (!currentUser.userInfo.roles.some((role) => ['ROLE_DISTRIBUTEUR', 'ROLE_CLIENT'].includes(role)))
-        throw redirect({
-          from: Route.id,
-          search: (old) => ({ ...old, appModal: undefined, businessId: undefined, gedItemKey: undefined }),
-        });
-    }
-    if (appModal === 'create-business' || appModal === 'create-client-business') {
-      const currentUser = await userPromise;
-      promises.push(queryClient.ensureQueryData(enterprises.detail(currentUser.profile.enterprise!.id)));
-    }
-    await Promise.all(promises);
-  },
+  // loader: async ({ context: { queryClient }, deps: { appModal, businessId, gedItemKey } }) => {
+  //   const userPromise = queryClient.ensureQueryData(users.authentified());
+  //   const promises = [];
+  //   if (businessId) promises.push(queryClient.ensureQueryData(businesses.detail._ctx.byId(businessId)));
+  //   if (gedItemKey) {
+  //     queryClient.ensureQueryData(geds.detail._ctx.byTypeAndId(FileType.AFFAIRE, businessId!)).then((ged) => {
+  //       if (!findRecursively(ged, 'subRows', (d) => d.key === gedItemKey)) {
+  //         // ged element does not exists
+  //         throw redirect({
+  //           from: Route.id,
+  //           search: (old) => ({ ...old, appModal: 'business-ged', gedItemKey: undefined }),
+  //         });
+  //       }
+  //     });
+  //   }
+  //   if (appModal === 'create-client-business') {
+  //     const currentUser = await userPromise;
+  //     if (!currentUser.userInfo.roles.some((role) => ['ROLE_DISTRIBUTEUR', 'ROLE_CLIENT'].includes(role)))
+  //       throw redirect({
+  //         from: Route.id,
+  //         search: (old) => ({ ...old, appModal: undefined, businessId: undefined, gedItemKey: undefined }),
+  //       });
+  //   }
+  //   if (appModal === 'create-business' || appModal === 'create-client-business') {
+  //     const currentUser = await userPromise;
+  //     promises.push(queryClient.ensureQueryData(enterprises.detail(currentUser.profile.enterprise!.id)));
+  //   }
+  //   await Promise.all(promises);
+  // },
 });
