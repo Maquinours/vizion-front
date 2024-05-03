@@ -79,3 +79,11 @@ export const getProviderEnterprises = async () => {
     })
   ).data;
 };
+
+export const createEnterprise = (data: EnterpriseRequestDto) => {
+  return privateInstance<EnterpriseResponseDto>({
+    method: 'POST',
+    url: 'profile/v1/contact//store-enterprise-profile',
+    data,
+  }).then((res) => res.data);
+};

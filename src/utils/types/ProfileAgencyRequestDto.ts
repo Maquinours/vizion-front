@@ -1,16 +1,16 @@
 type ProfileAgencyRequestDto = {
   lastName: string;
-  firstName?: string;
+  firstName?: string | null;
   civility: string;
-  email?: string;
-  password?: string;
-  phoneNumber?: string;
-  standardPhoneNumber?: string;
-  landlinePhoneNumber?: string;
-  job?: string;
+  email?: string | null;
+  password?: string | null;
+  phoneNumber?: string | null;
+  standardPhoneNumber?: string | null;
+  landlinePhoneNumber?: string | null;
+  job?: string | null;
   profileClient: string;
   categoryClient: string;
-  siteIdentifier?: string;
+  siteIdentifier?: string | null;
   expert: boolean;
 };
 

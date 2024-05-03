@@ -53,6 +53,7 @@ import { Route as AppDashboardCreatePersonalTaskRouteImport } from './routes/app
 import { Route as AppBusinessesRmaRepresentativeTurnoverRouteImport } from './routes/app/businesses-rma/representative-turnover/route'
 import { Route as AppProductsProductIdIndexImport } from './routes/app/products_.$productId/index'
 import { Route as AppToolsVvaCreateRouteImport } from './routes/app/tools/vva/create/route'
+import { Route as AppToolsMenuCreateEnterpriseRouteImport } from './routes/app/tools/menu/create-enterprise/route'
 import { Route as AppToolsEmailsSendRouteImport } from './routes/app/tools/emails_.send/route'
 import { Route as AppToolsCreditDetailsRouteImport } from './routes/app/tools/credit/details/route'
 import { Route as AppProductsProductIdManageRouteImport } from './routes/app/products_.$productId/manage/route'
@@ -246,6 +247,12 @@ const AppToolsPredefinedMessagesDeletePredefinedMessageIdRouteLazyImport =
   createFileRoute(
     '/app/tools/predefined-messages/delete/$predefinedMessageId',
   )()
+const AppToolsMenuCreateEnterpriseContactsRouteLazyImport = createFileRoute(
+  '/app/tools/menu/create-enterprise/contacts',
+)()
+const AppToolsMenuCreateEnterpriseAddContactRouteLazyImport = createFileRoute(
+  '/app/tools/menu/create-enterprise/add-contact',
+)()
 const AppToolsFormationsCreateDetailsRouteLazyImport = createFileRoute(
   '/app/tools/formations/create/details',
 )()
@@ -925,6 +932,16 @@ const AppToolsVvaCreateRouteRoute = AppToolsVvaCreateRouteImport.update({
   import('./routes/app/tools/vva/create/route.lazy').then((d) => d.Route),
 )
 
+const AppToolsMenuCreateEnterpriseRouteRoute =
+  AppToolsMenuCreateEnterpriseRouteImport.update({
+    path: '/create-enterprise',
+    getParentRoute: () => AppToolsMenuRouteRoute,
+  } as any).lazy(() =>
+    import('./routes/app/tools/menu/create-enterprise/route.lazy').then(
+      (d) => d.Route,
+    ),
+  )
+
 const AppToolsEmailsSendRouteRoute = AppToolsEmailsSendRouteImport.update({
   path: '/emails/send',
   getParentRoute: () => AppToolsRouteRoute,
@@ -1332,6 +1349,26 @@ const AppToolsPredefinedMessagesDeletePredefinedMessageIdRouteLazyRoute =
   } as any).lazy(() =>
     import(
       './routes/app/tools/predefined-messages/delete.$predefinedMessageId/route.lazy'
+    ).then((d) => d.Route),
+  )
+
+const AppToolsMenuCreateEnterpriseContactsRouteLazyRoute =
+  AppToolsMenuCreateEnterpriseContactsRouteLazyImport.update({
+    path: '/contacts',
+    getParentRoute: () => AppToolsMenuCreateEnterpriseRouteRoute,
+  } as any).lazy(() =>
+    import(
+      './routes/app/tools/menu/create-enterprise/contacts/route.lazy'
+    ).then((d) => d.Route),
+  )
+
+const AppToolsMenuCreateEnterpriseAddContactRouteLazyRoute =
+  AppToolsMenuCreateEnterpriseAddContactRouteLazyImport.update({
+    path: '/add-contact',
+    getParentRoute: () => AppToolsMenuCreateEnterpriseRouteRoute,
+  } as any).lazy(() =>
+    import(
+      './routes/app/tools/menu/create-enterprise/add-contact/route.lazy'
     ).then((d) => d.Route),
   )
 
@@ -2944,6 +2981,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppToolsEmailsSendRouteImport
       parentRoute: typeof AppToolsRouteImport
     }
+    '/app/tools/menu/create-enterprise': {
+      preLoaderRoute: typeof AppToolsMenuCreateEnterpriseRouteImport
+      parentRoute: typeof AppToolsMenuRouteImport
+    }
     '/app/tools/vva/create': {
       preLoaderRoute: typeof AppToolsVvaCreateRouteImport
       parentRoute: typeof AppToolsVvaRouteImport
@@ -3227,6 +3268,14 @@ declare module '@tanstack/react-router' {
     '/app/tools/formations/create/details': {
       preLoaderRoute: typeof AppToolsFormationsCreateDetailsRouteLazyImport
       parentRoute: typeof AppToolsFormationsCreateRouteLazyImport
+    }
+    '/app/tools/menu/create-enterprise/add-contact': {
+      preLoaderRoute: typeof AppToolsMenuCreateEnterpriseAddContactRouteLazyImport
+      parentRoute: typeof AppToolsMenuCreateEnterpriseRouteImport
+    }
+    '/app/tools/menu/create-enterprise/contacts': {
+      preLoaderRoute: typeof AppToolsMenuCreateEnterpriseContactsRouteLazyImport
+      parentRoute: typeof AppToolsMenuCreateEnterpriseRouteImport
     }
     '/app/tools/predefined-messages/delete/$predefinedMessageId': {
       preLoaderRoute: typeof AppToolsPredefinedMessagesDeletePredefinedMessageIdRouteLazyImport
@@ -3617,7 +3666,12 @@ export const routeTree = rootRoute.addChildren([
         ]),
       ]),
       AppToolsGlobalTurnoverRouteRoute,
-      AppToolsMenuRouteRoute,
+      AppToolsMenuRouteRoute.addChildren([
+        AppToolsMenuCreateEnterpriseRouteRoute.addChildren([
+          AppToolsMenuCreateEnterpriseAddContactRouteLazyRoute,
+          AppToolsMenuCreateEnterpriseContactsRouteLazyRoute,
+        ]),
+      ]),
       AppToolsNewsRouteRoute.addChildren([
         AppToolsNewsCreateRouteLazyRoute,
         AppToolsNewsDeleteNewsIdRouteRoute,

@@ -1,4 +1,4 @@
-import { createFileRoute, redirect } from '@tanstack/react-router';
+import { SearchSchemaInput, createFileRoute, redirect } from '@tanstack/react-router';
 import { z } from 'zod';
 import CategoryClient from '../../../utils/enums/CategoryClient';
 import { enterprises } from '../../../utils/constants/queryKeys/enterprise';
@@ -36,7 +36,18 @@ export const Route = createFileRoute('/app/enterprises')({
     queryClient.ensureQueryData(enterprises.page({ enterprise, contact, zipCode, city, phoneNumber, category, representativeId, page, size }));
     queryClient.ensureQueryData(enterprises.list._ctx.byCategory(CategoryClient.REPRESENTANT));
   },
-  validateSearch: searchSchema,
+  validateSearch: (
+    data: {
+      enterprise?: string;
+      contact?: string;
+      zipCode?: string;
+      city?: string;
+      phoneNumber?: string;
+      category?: CategoryClient;
+      representativeId?: string;
+      page?: number;
+    } & SearchSchemaInput,
+  ) => searchSchema.parse(data),
   staticData: {
     title: 'Entreprises',
   },

@@ -1,4 +1,4 @@
-import { Link } from '@tanstack/react-router';
+import { Link, Outlet } from '@tanstack/react-router';
 import React from 'react';
 import { BsPersonWorkspace } from 'react-icons/bs';
 import { FaCalendarAlt, FaEuroSign, FaFileImport, FaFilter } from 'react-icons/fa';
@@ -93,7 +93,7 @@ const menus: Array<{
       {
         icon: IoMdAddCircleOutline,
         label: 'Ajouter une entreprise',
-        link: '/app/tools/enterprise/new-enterprise',
+        link: '/app/tools/menu/create-enterprise',
       },
       {
         icon: FaEuroSign,
@@ -136,26 +136,29 @@ const menus: Array<{
 
 export default function AppViewToolsMenuView() {
   return (
-    <div className={styles.container}>
-      <div className={styles.menu}>
-        <h2>Menu Outils</h2>
+    <>
+      <div className={styles.container}>
+        <div className={styles.menu}>
+          <h2>Menu Outils</h2>
 
-        <div className={styles.menu_container}>
-          <div className={styles.menu_buttons}>
-            {menus.map((menu) => (
-              <div key={menu.label} className={styles.menu_section}>
-                <div className={styles.section_title}>{menu.label}</div>
-                {menu.tools.map((tool) => (
-                  <Link key={tool.label} to={tool.link} className={styles.menu}>
-                    {React.createElement(tool.icon, { className: styles.icon })}
-                    <span className={styles.title}>{tool.label}</span>
-                  </Link>
-                ))}
-              </div>
-            ))}
+          <div className={styles.menu_container}>
+            <div className={styles.menu_buttons}>
+              {menus.map((menu) => (
+                <div key={menu.label} className={styles.menu_section}>
+                  <div className={styles.section_title}>{menu.label}</div>
+                  {menu.tools.map((tool) => (
+                    <Link key={tool.label} to={tool.link} className={styles.menu}>
+                      {React.createElement(tool.icon, { className: styles.icon })}
+                      <span className={styles.title}>{tool.label}</span>
+                    </Link>
+                  ))}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
-    </div>
+      <Outlet />
+    </>
   );
 }

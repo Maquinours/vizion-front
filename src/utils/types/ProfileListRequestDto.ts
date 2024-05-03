@@ -1,8 +1,8 @@
 import ProfileAgencyRequestDto from './ProfileAgencyRequestDto';
 
 type ProfileListRequestDto = {
-  enterpriseId: string;
-  profileAgencyDtoList: ProfileAgencyRequestDto[];
+  enterpriseId?: string | null;
+  profileAgencyDtoList?: ProfileAgencyRequestDto[] | null;
 };
 
 export default ProfileListRequestDto;
