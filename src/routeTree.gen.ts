@@ -53,6 +53,7 @@ import { Route as AppDashboardCreatePersonalTaskRouteImport } from './routes/app
 import { Route as AppBusinessesRmaRepresentativeTurnoverRouteImport } from './routes/app/businesses-rma/representative-turnover/route'
 import { Route as AppProductsProductIdIndexImport } from './routes/app/products_.$productId/index'
 import { Route as AppToolsVvaCreateRouteImport } from './routes/app/tools/vva/create/route'
+import { Route as AppToolsMenuCreateProductRouteImport } from './routes/app/tools/menu/create-product/route'
 import { Route as AppToolsMenuCreateEnterpriseRouteImport } from './routes/app/tools/menu/create-enterprise/route'
 import { Route as AppToolsEmailsSendRouteImport } from './routes/app/tools/emails_.send/route'
 import { Route as AppToolsCreditDetailsRouteImport } from './routes/app/tools/credit/details/route'
@@ -931,6 +932,16 @@ const AppToolsVvaCreateRouteRoute = AppToolsVvaCreateRouteImport.update({
 } as any).lazy(() =>
   import('./routes/app/tools/vva/create/route.lazy').then((d) => d.Route),
 )
+
+const AppToolsMenuCreateProductRouteRoute =
+  AppToolsMenuCreateProductRouteImport.update({
+    path: '/create-product',
+    getParentRoute: () => AppToolsMenuRouteRoute,
+  } as any).lazy(() =>
+    import('./routes/app/tools/menu/create-product/route.lazy').then(
+      (d) => d.Route,
+    ),
+  )
 
 const AppToolsMenuCreateEnterpriseRouteRoute =
   AppToolsMenuCreateEnterpriseRouteImport.update({
@@ -2985,6 +2996,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppToolsMenuCreateEnterpriseRouteImport
       parentRoute: typeof AppToolsMenuRouteImport
     }
+    '/app/tools/menu/create-product': {
+      preLoaderRoute: typeof AppToolsMenuCreateProductRouteImport
+      parentRoute: typeof AppToolsMenuRouteImport
+    }
     '/app/tools/vva/create': {
       preLoaderRoute: typeof AppToolsVvaCreateRouteImport
       parentRoute: typeof AppToolsVvaRouteImport
@@ -3671,6 +3686,7 @@ export const routeTree = rootRoute.addChildren([
           AppToolsMenuCreateEnterpriseAddContactRouteLazyRoute,
           AppToolsMenuCreateEnterpriseContactsRouteLazyRoute,
         ]),
+        AppToolsMenuCreateProductRouteRoute,
       ]),
       AppToolsNewsRouteRoute.addChildren([
         AppToolsNewsCreateRouteLazyRoute,

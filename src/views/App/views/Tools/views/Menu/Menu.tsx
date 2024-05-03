@@ -123,7 +123,7 @@ const menus: Array<{
       {
         icon: IoMdAddCircleOutline,
         label: 'Ajouter un produit',
-        link: '#',
+        link: '/app/tools/menu/create-product',
       },
       {
         icon: MdOutlineInventory,

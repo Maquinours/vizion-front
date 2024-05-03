@@ -106,3 +106,11 @@ export const getAssociatedProducts = (productId: string) => {
     },
   }).then((res) => res.data);
 };
+
+export const createProduct = (data: ProductRequestDto) => {
+  return privateInstance<ProductResponseDto>({
+    method: 'POST',
+    url: '/product/v1/add',
+    data,
+  }).then((res) => res.data);
+};
