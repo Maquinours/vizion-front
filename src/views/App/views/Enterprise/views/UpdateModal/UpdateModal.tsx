@@ -122,73 +122,49 @@ export default function AppViewEnterpriseViewUpdateModalView() {
                   <span>* </span>
                   {"Nom de l'entreprise :"}
                 </label>
-                <input {...register('name')} placeholder="Nom de l'entreprise" name="company_name" id="company_name" />
+                <input {...register('name')} placeholder="Nom de l'entreprise" id="company_name" />
                 <p className={styles.__errors}>{errors.name?.message}</p>
               </div>
               <div className={styles.form__group}>
                 <label className="label" htmlFor="company_signboard">
                   Enseigne
                 </label>
-                <input {...register('sign')} placeholder="Enseigne" name="company_signboard" id="company_signboard" autoCorrect="true" autoComplete="off" />
+                <input {...register('sign')} placeholder="Enseigne" id="company_signboard" autoCorrect="true" autoComplete="off" />
                 <p className={styles.__errors}>{errors.sign?.message}</p>
               </div>
               <div className={styles.form__group}>
                 <label className={styles.required} htmlFor="company_address_one">
                   <span className="required">* </span>Adresse 1 :
                 </label>
-                <input
-                  {...register('addressOne')}
-                  type="text"
-                  placeholder="Adresse 1"
-                  name="company_address_one"
-                  id="company_address_one"
-                  autoCorrect="true"
-                  autoComplete="off"
-                />
+                <input {...register('addressOne')} type="text" placeholder="Adresse 1" id="company_address_one" autoCorrect="true" autoComplete="off" />
                 <p className={styles.__errors}>{errors.addressOne?.message}</p>
               </div>
               <div className={styles.form__group}>
                 <label className="label" htmlFor="company_address_two">
                   Adresse 2 :
                 </label>
-                <input
-                  {...register('addressTwo')}
-                  type="text"
-                  placeholder="Adresse 2"
-                  name="company_address_two"
-                  id="company_address_two"
-                  autoCorrect="true"
-                  autoComplete="off"
-                />
+                <input {...register('addressTwo')} type="text" placeholder="Adresse 2" id="company_address_two" autoCorrect="true" autoComplete="off" />
                 <p className={styles.__errors}>{errors.addressTwo?.message}</p>
               </div>
               <div className={styles.form__group}>
                 <label className={styles.required} htmlFor="company_city">
                   <span>* </span>Ville :
                 </label>
-                <input {...register('city')} type="text" placeholder="Ville" name="company_city" id="company_city" autoCorrect="true" autoComplete="off" />
+                <input {...register('city')} type="text" placeholder="Ville" id="company_city" autoCorrect="true" autoComplete="off" />
                 <p className={styles.__errors}>{errors.city?.message}</p>
               </div>
               <div className={styles.form__group}>
                 <label className={styles.required} htmlFor="company_zip_code">
                   <span>* </span>Code Postal :
                 </label>
-                <input
-                  {...register('zipCode')}
-                  type="text"
-                  placeholder="Code Postal"
-                  name="company_zip_code"
-                  id="company_zip_code"
-                  autoCorrect="true"
-                  autoComplete="off"
-                />
+                <input {...register('zipCode')} type="text" placeholder="Code Postal" id="company_zip_code" autoCorrect="true" autoComplete="off" />
                 <p className={styles.__errors}>{errors.zipCode?.message}</p>
               </div>
               <div className={styles.form__group}>
                 <label className="label" htmlFor="company_email">
                   Email :
                 </label>
-                <input {...register('email')} type="email" placeholder="Mail" name="company_email" id="company_email" autoCorrect="true" autoComplete="off" />
+                <input {...register('email')} type="email" placeholder="Mail" id="company_email" autoCorrect="true" autoComplete="off" />
                 <p className={styles.__errors}>{errors.email?.message}</p>
               </div>
               <div className={styles.form__group}>
