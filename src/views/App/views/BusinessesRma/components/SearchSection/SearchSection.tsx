@@ -12,6 +12,7 @@ import AllBusinessState from '../../../../../../utils/enums/AllBusinessState';
 import CategoryClient from '../../../../../../utils/enums/CategoryClient';
 import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthentifiedUser';
 import styles from './SearchSection.module.scss';
+import 'react-datepicker/dist/react-datepicker.css';
 
 const routeApi = getRouteApi('/app/businesses-rma');
 
