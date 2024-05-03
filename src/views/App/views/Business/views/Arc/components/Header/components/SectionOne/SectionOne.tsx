@@ -107,7 +107,7 @@ export default function AppViewBusinessViewArcViewHeaderComponentSectionOneCompo
 
   const onBpButtonClick = async () => {
     if (business.state !== BusinessState.ARC) navigate({ to: '../bp' });
-    else if (arc.numOrder) toast.warning("Veuillez sauvegarder l'ARC avec un numéro de commande avant de passer en BP");
+    else if (!arc.numOrder) toast.warning("Veuillez sauvegarder l'ARC avec un numéro de commande avant de passer en BP");
     else mutate();
   };
 
