@@ -37,6 +37,7 @@ import { Route as AppToolsPredefinedTextsRouteImport } from './routes/app/tools/
 import { Route as AppToolsPredefinedMessagesRouteImport } from './routes/app/tools/predefined-messages/route'
 import { Route as AppToolsNewsRouteImport } from './routes/app/tools/news/route'
 import { Route as AppToolsMenuRouteImport } from './routes/app/tools/menu/route'
+import { Route as AppToolsMailsRouteImport } from './routes/app/tools/mails/route'
 import { Route as AppToolsGlobalTurnoverRouteImport } from './routes/app/tools/global-turnover/route'
 import { Route as AppToolsFormationsRouteImport } from './routes/app/tools/formations/route'
 import { Route as AppToolsExternalLinksRouteImport } from './routes/app/tools/external-links/route'
@@ -104,6 +105,9 @@ import { Route as AppToolsPredefinedTextsUpdatePredefinedTextIdRouteImport } fro
 import { Route as AppToolsPredefinedTextsDeletePredefinedTextIdRouteImport } from './routes/app/tools/predefined-texts/delete.$predefinedTextId/route'
 import { Route as AppToolsNewsUpdateNewsIdRouteImport } from './routes/app/tools/news/update.$newsId/route'
 import { Route as AppToolsNewsDeleteNewsIdRouteImport } from './routes/app/tools/news/delete.$newsId/route'
+import { Route as AppToolsMailsUpdateMailIdRouteImport } from './routes/app/tools/mails/update.$mailId/route'
+import { Route as AppToolsMailsShowMailIdRouteImport } from './routes/app/tools/mails/show.$mailId/route'
+import { Route as AppToolsMailsDeleteMailIdRouteImport } from './routes/app/tools/mails/delete.$mailId/route'
 import { Route as AppToolsFormationsUpdateFormationIdRouteImport } from './routes/app/tools/formations/update.$formationId/route'
 import { Route as AppToolsFormationsSubscribersFormationDetailIdRouteImport } from './routes/app/tools/formations/subscribers.$formationDetailId/route'
 import { Route as AppToolsFormationsDeleteFormationIdRouteImport } from './routes/app/tools/formations/delete.$formationId/route'
@@ -205,6 +209,9 @@ const AppToolsPredefinedMessagesCreateRouteLazyImport = createFileRoute(
 )()
 const AppToolsNewsCreateRouteLazyImport = createFileRoute(
   '/app/tools/news/create',
+)()
+const AppToolsMailsCreateRouteLazyImport = createFileRoute(
+  '/app/tools/mails/create',
 )()
 const AppToolsFormationsCreateRouteLazyImport = createFileRoute(
   '/app/tools/formations/create',
@@ -626,6 +633,13 @@ const AppToolsMenuRouteRoute = AppToolsMenuRouteImport.update({
   import('./routes/app/tools/menu/route.lazy').then((d) => d.Route),
 )
 
+const AppToolsMailsRouteRoute = AppToolsMailsRouteImport.update({
+  path: '/mails',
+  getParentRoute: () => AppToolsRouteRoute,
+} as any).lazy(() =>
+  import('./routes/app/tools/mails/route.lazy').then((d) => d.Route),
+)
+
 const AppToolsGlobalTurnoverRouteRoute =
   AppToolsGlobalTurnoverRouteImport.update({
     path: '/global-turnover',
@@ -818,6 +832,14 @@ const AppToolsNewsCreateRouteLazyRoute =
     getParentRoute: () => AppToolsNewsRouteRoute,
   } as any).lazy(() =>
     import('./routes/app/tools/news/create/route.lazy').then((d) => d.Route),
+  )
+
+const AppToolsMailsCreateRouteLazyRoute =
+  AppToolsMailsCreateRouteLazyImport.update({
+    path: '/create',
+    getParentRoute: () => AppToolsMailsRouteRoute,
+  } as any).lazy(() =>
+    import('./routes/app/tools/mails/create/route.lazy').then((d) => d.Route),
   )
 
 const AppToolsFormationsCreateRouteLazyRoute =
@@ -1573,6 +1595,36 @@ const AppToolsNewsDeleteNewsIdRouteRoute =
     getParentRoute: () => AppToolsNewsRouteRoute,
   } as any).lazy(() =>
     import('./routes/app/tools/news/delete.$newsId/route.lazy').then(
+      (d) => d.Route,
+    ),
+  )
+
+const AppToolsMailsUpdateMailIdRouteRoute =
+  AppToolsMailsUpdateMailIdRouteImport.update({
+    path: '/update/$mailId',
+    getParentRoute: () => AppToolsMailsRouteRoute,
+  } as any).lazy(() =>
+    import('./routes/app/tools/mails/update.$mailId/route.lazy').then(
+      (d) => d.Route,
+    ),
+  )
+
+const AppToolsMailsShowMailIdRouteRoute =
+  AppToolsMailsShowMailIdRouteImport.update({
+    path: '/show/$mailId',
+    getParentRoute: () => AppToolsMailsRouteRoute,
+  } as any).lazy(() =>
+    import('./routes/app/tools/mails/show.$mailId/route.lazy').then(
+      (d) => d.Route,
+    ),
+  )
+
+const AppToolsMailsDeleteMailIdRouteRoute =
+  AppToolsMailsDeleteMailIdRouteImport.update({
+    path: '/delete/$mailId',
+    getParentRoute: () => AppToolsMailsRouteRoute,
+  } as any).lazy(() =>
+    import('./routes/app/tools/mails/delete.$mailId/route.lazy').then(
       (d) => d.Route,
     ),
   )
@@ -2776,6 +2828,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppToolsGlobalTurnoverRouteImport
       parentRoute: typeof AppToolsRouteImport
     }
+    '/app/tools/mails': {
+      preLoaderRoute: typeof AppToolsMailsRouteImport
+      parentRoute: typeof AppToolsRouteImport
+    }
     '/app/tools/menu': {
       preLoaderRoute: typeof AppToolsMenuRouteImport
       parentRoute: typeof AppToolsRouteImport
@@ -3048,6 +3104,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppToolsFormationsCreateRouteLazyImport
       parentRoute: typeof AppToolsFormationsRouteImport
     }
+    '/app/tools/mails/create': {
+      preLoaderRoute: typeof AppToolsMailsCreateRouteLazyImport
+      parentRoute: typeof AppToolsMailsRouteImport
+    }
     '/app/tools/news/create': {
       preLoaderRoute: typeof AppToolsNewsCreateRouteLazyImport
       parentRoute: typeof AppToolsNewsRouteImport
@@ -3207,6 +3267,18 @@ declare module '@tanstack/react-router' {
     '/app/tools/formations/update/$formationId': {
       preLoaderRoute: typeof AppToolsFormationsUpdateFormationIdRouteImport
       parentRoute: typeof AppToolsFormationsRouteImport
+    }
+    '/app/tools/mails/delete/$mailId': {
+      preLoaderRoute: typeof AppToolsMailsDeleteMailIdRouteImport
+      parentRoute: typeof AppToolsMailsRouteImport
+    }
+    '/app/tools/mails/show/$mailId': {
+      preLoaderRoute: typeof AppToolsMailsShowMailIdRouteImport
+      parentRoute: typeof AppToolsMailsRouteImport
+    }
+    '/app/tools/mails/update/$mailId': {
+      preLoaderRoute: typeof AppToolsMailsUpdateMailIdRouteImport
+      parentRoute: typeof AppToolsMailsRouteImport
     }
     '/app/tools/news/delete/$newsId': {
       preLoaderRoute: typeof AppToolsNewsDeleteNewsIdRouteImport
@@ -3681,6 +3753,12 @@ export const routeTree = rootRoute.addChildren([
         ]),
       ]),
       AppToolsGlobalTurnoverRouteRoute,
+      AppToolsMailsRouteRoute.addChildren([
+        AppToolsMailsCreateRouteLazyRoute,
+        AppToolsMailsDeleteMailIdRouteRoute,
+        AppToolsMailsShowMailIdRouteRoute,
+        AppToolsMailsUpdateMailIdRouteRoute,
+      ]),
       AppToolsMenuRouteRoute.addChildren([
         AppToolsMenuCreateEnterpriseRouteRoute.addChildren([
           AppToolsMenuCreateEnterpriseAddContactRouteLazyRoute,
