@@ -11,6 +11,8 @@ import { updateBusinessArcDetail } from '../../../../../../../../utils/api/busin
 import { queries } from '../../../../../../../../utils/constants/queryKeys';
 import ProductResponseDto from '../../../../../../../../utils/types/ProductResponseDto';
 import styles from './UpdateDetailModal.module.scss';
+import { useEffect } from 'react';
+import { format } from 'date-fns';
 
 const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/arc/update-detail/$detailId');
 
@@ -48,6 +50,7 @@ export default function AppViewBusinessViewArcViewUpdateDetailModalView() {
     register,
     control,
     formState: { errors },
+    setValue,
     handleSubmit,
   } = useForm({
     resolver: yupResolver(yupSchema),
@@ -75,7 +78,7 @@ export default function AppViewBusinessViewArcViewUpdateDetailModalView() {
         productId: data.product.id,
         publicUnitPrice: detail!.publicUnitPrice,
         stock: data.availability === 'yes',
-        availableDate: data.availability ? null : data.availabilityDate,
+        availableDate: data.availability === 'yes' ? null : data.availabilityDate,
         bom: detail!.bom,
         reduction,
         unitPrice: data.price,
@@ -99,6 +102,19 @@ export default function AppViewBusinessViewArcViewUpdateDetailModalView() {
       toast.error('Une erreur est survenue lors de la mise à jour du détail');
     },
   });
+
+  useEffect(() => {
+    setValue('designation', detail.productDesignation);
+    setValue('quantity', detail.quantity);
+    setValue('price', detail.unitPrice);
+    setValue('availability', detail.stock ? 'yes' : 'no');
+    setValue('availabilityDate', detail.availableDate ? format(new Date(detail.availableDate), 'yyyy-MM-dd') : null);
+  }, [detail.id]);
+
+  useEffect(() => {
+    const product = products?.find((p) => p.reference === detail.productReference);
+    if (product) setValue('product', product);
+  }, [isLoadingProducts]);
 
   return (
     <ReactModal isOpen={true} onRequestClose={onClose} className={styles.modal} overlayClassName="Overlay">
