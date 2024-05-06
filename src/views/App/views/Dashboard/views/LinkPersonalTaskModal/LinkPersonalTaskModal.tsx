@@ -22,9 +22,9 @@ import TaskResponseDto from '../../../../../../utils/types/TaskResponseDto';
 import styles from './LinkPersonalTaskModal.module.scss';
 
 enum LinkType {
-  BUSINESS,
-  PRODUCT,
-  ENTERPRISE,
+  BUSINESS = 'BUSINESS',
+  PRODUCT = 'PRODUCT',
+  ENTERPRISE = 'ENTERPRISE',
 }
 
 const Route = getRouteApi('/app/dashboard/link-personal-task/$taskId');
