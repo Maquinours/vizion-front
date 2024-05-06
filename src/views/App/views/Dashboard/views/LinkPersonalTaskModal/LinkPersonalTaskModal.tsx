@@ -20,6 +20,7 @@ import ProductResponseDto from '../../../../../../utils/types/ProductResponseDto
 import TaskRequestDto from '../../../../../../utils/types/TaskRequestDto';
 import TaskResponseDto from '../../../../../../utils/types/TaskResponseDto';
 import styles from './LinkPersonalTaskModal.module.scss';
+import { useMemo } from 'react';
 
 enum LinkType {
   BUSINESS = 'BUSINESS',
@@ -60,7 +61,7 @@ export default function AppViewDashboardViewLinkPersonalTaskModalView() {
   const { data: businesses, isLoading: isLoadingBusiness } = useQuery(allBusinesses.list);
   const { data: products, isLoading: isLoadingProducts } = useQuery(queries.product.list);
 
-  const { register, control, watch, handleSubmit } = useForm({
+  const { register, control, getValues, watch, handleSubmit } = useForm({
     resolver: yupResolver(yupSchema),
   });
 
@@ -118,61 +119,64 @@ export default function AppViewDashboardViewLinkPersonalTaskModalView() {
     },
   });
 
-  const select = (() => {
-    switch (watch('type')) {
-      case LinkType.BUSINESS:
-        return (
-          <Controller
-            name="business"
-            control={control}
-            render={({ field: { value, onChange, onBlur } }) => (
-              <CustomSelect
-                placeholder="Sélectionnez une affaire"
-                options={businesses}
-                isLoading={isLoadingBusiness}
-                value={value}
-                onChange={onChange}
-                onBlur={onBlur}
-              />
-            )}
-          />
-        );
-      case LinkType.PRODUCT:
-        return (
-          <Controller
-            name="product"
-            control={control}
-            render={({ field: { value, onChange, onBlur } }) => (
-              <CustomSelect
-                placeholder="Sélectionnez un produit"
-                options={products}
-                isLoading={isLoadingProducts}
-                value={value}
-                onChange={onChange}
-                onBlur={onBlur}
-              />
-            )}
-          />
-        );
-      case LinkType.ENTERPRISE:
-        return (
-          <Controller
-            name="enterprise"
-            control={control}
-            render={({ field: { value, onChange, onBlur } }) => (
-              <CustomSelect
-                placeholder="Sélectionnez une entreprise"
-                options={enterprisesList}
-                isLoading={isLoadingEnterprises}
-                value={value}
-                onChange={onChange}
-                onBlur={onBlur}
-              />
-            )}
-          />
-        );
-    }
-  })();
+  const select = useMemo(() => {
+    const type = getValues('type');
+    return (
+      <>
+        <Controller
+          name="business"
+          control={control}
+          render={({ field: { value, onChange, onBlur } }) => (
+            <CustomSelect
+              placeholder="Sélectionnez une affaire"
+              options={businesses}
+              getOptionLabel={(opt) => `${opt.number}${!!opt.title ? ` / ${opt.title}` : ''}`}
+              getOptionValue={(opt) => opt.id}
+              isLoading={isLoadingBusiness}
+              value={value}
+              onChange={onChange}
+              onBlur={onBlur}
+              styles={{ container: (baseStyles) => ({ ...baseStyles, display: type !== LinkType.BUSINESS ? 'none' : baseStyles.display }) }}
+            />
+          )}
+        />
+        <Controller
+          name="product"
+          control={control}
+          render={({ field: { value, onChange, onBlur } }) => (
+            <CustomSelect
+              placeholder="Sélectionnez un produit"
+              options={products}
+              getOptionLabel={(opt) => opt.reference ?? ''}
+              getOptionValue={(opt) => opt.id}
+              isLoading={isLoadingProducts}
+              value={value}
+              onChange={onChange}
+              onBlur={onBlur}
+              styles={{ container: (baseStyles) => ({ ...baseStyles, display: type !== LinkType.PRODUCT ? 'none' : baseStyles.display }) }}
+            />
+          )}
+        />
+        <Controller
+          name="enterprise"
+          control={control}
+          render={({ field: { value, onChange, onBlur } }) => (
+            <CustomSelect
+              placeholder="Sélectionnez une entreprise"
+              options={enterprisesList}
+              getOptionLabel={(opt) => opt.name}
+              getOptionValue={(opt) => opt.id}
+              isLoading={isLoadingEnterprises}
+              value={value}
+              onChange={onChange}
+              onBlur={onBlur}
+              styles={{ container: (baseStyles) => ({ ...baseStyles, display: type !== LinkType.ENTERPRISE ? 'none' : baseStyles.display }) }}
+            />
+          )}
+        />
+      </>
+    );
+  }, [watch('type')]);
 
   return (
     <ReactModal isOpen={true} onRequestClose={onClose} className={styles.modal_link} overlayClassName="Overlay">
