@@ -2,6 +2,7 @@ import AllBusinessState from '../enums/AllBusinessState';
 import CategoryBusiness from '../enums/CategoryBusiness';
 import CategoryClient from '../enums/CategoryClient';
 import { privateInstance } from '../functions/axios';
+import AllBusinessQInfoRequestDto from '../types/AllBusinessQInfoRequestDto';
 import AllBusinessResponseDto from '../types/AllBusinessResponseDto';
 import Page from '../types/Page';
 
@@ -100,6 +101,7 @@ export const searchAllBusiness = (
     installerName,
     state,
     excludedList,
+    qInfos,
   }: {
     startDate?: Date | null;
     endDate?: Date | null;
@@ -116,6 +118,7 @@ export const searchAllBusiness = (
     installerName?: string | null;
     state?: AllBusinessState | null;
     excludedList?: Array<CategoryClient> | null;
+    qInfos?: Array<AllBusinessQInfoRequestDto> | null;
   },
   { page, size }: { page: number; size: number },
 ) => {
@@ -139,5 +142,6 @@ export const searchAllBusiness = (
       state,
       excludedList,
     },
+    data: qInfos,
   }).then((res) => res.data);
 };

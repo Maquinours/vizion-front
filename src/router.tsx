@@ -4,6 +4,7 @@ import { ReactNode } from 'react';
 import 'react-toastify/dist/ReactToastify.css';
 import Loader from './components/Loader/Loader';
 import { routeTree } from './routeTree.gen';
+import AllBusinessQInfoRequestDto from './utils/types/AllBusinessQInfoRequestDto';
 
 const queryClient = new QueryClient();
 
@@ -13,6 +14,9 @@ declare module '@tanstack/react-router' {
   }
   interface StaticDataRouteOption {
     title?: string;
+  }
+  interface HistoryState {
+    qInfos?: Array<AllBusinessQInfoRequestDto>; // used to handle all business search by products
   }
 }
 

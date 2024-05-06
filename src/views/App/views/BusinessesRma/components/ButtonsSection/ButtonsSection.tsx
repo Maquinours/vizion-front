@@ -9,13 +9,13 @@ export default function AppViewBusinessesRmaViewButtonsSectionComponent() {
   return (
     <div className={styles.buttons_container}>
       {user.userInfo.roles.includes('ROLE_REPRESENTANT') && (
-        <Link from={routeApi.id} to="representative-turnover" search={(old) => old} className="btn btn-primary">
+        <Link from={routeApi.id} to="representative-turnover" search={(old) => old} replace className="btn btn-primary">
           {"Mon chiffre d'affaires"}
         </Link>
       )}
-      {/* <button className="btn btn-primary" onClick={() => openSeachByProductModal()}> // TODO: reimplement this
-        Rechercher une affaire par produit
-      </button> */}
+      <Link from={routeApi.id} to="search-by-products" search={(old) => old} replace className="btn btn-primary">
+        Rechercher par produit(s)
+      </Link>
     </div>
   );
 }

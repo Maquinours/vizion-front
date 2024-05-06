@@ -190,6 +190,9 @@ const AppDashboardCreateProgressiveInfoRouteLazyImport = createFileRoute(
 const AppDashboardCreateCollectiveTaskRouteLazyImport = createFileRoute(
   '/app/dashboard/create-collective-task',
 )()
+const AppBusinessesRmaSearchByProductsRouteLazyImport = createFileRoute(
+  '/app/businesses-rma/search-by-products',
+)()
 const AppToolsSchedulerCreateRouteLazyImport = createFileRoute(
   '/app/tools/scheduler/create',
 )()
@@ -531,6 +534,16 @@ const AppDashboardCreateCollectiveTaskRouteLazyRoute =
     getParentRoute: () => AppDashboardRouteRoute,
   } as any).lazy(() =>
     import('./routes/app/dashboard/create-collective-task/route.lazy').then(
+      (d) => d.Route,
+    ),
+  )
+
+const AppBusinessesRmaSearchByProductsRouteLazyRoute =
+  AppBusinessesRmaSearchByProductsRouteLazyImport.update({
+    path: '/search-by-products',
+    getParentRoute: () => AppBusinessesRmaRouteRoute,
+  } as any).lazy(() =>
+    import('./routes/app/businesses-rma/search-by-products/route.lazy').then(
       (d) => d.Route,
     ),
   )
@@ -2876,6 +2889,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppToolsVvaRouteImport
       parentRoute: typeof AppToolsRouteImport
     }
+    '/app/businesses-rma/search-by-products': {
+      preLoaderRoute: typeof AppBusinessesRmaSearchByProductsRouteLazyImport
+      parentRoute: typeof AppBusinessesRmaRouteImport
+    }
     '/app/dashboard/create-collective-task': {
       preLoaderRoute: typeof AppDashboardCreateCollectiveTaskRouteLazyImport
       parentRoute: typeof AppDashboardRouteImport
@@ -3658,6 +3675,7 @@ export const routeTree = rootRoute.addChildren([
   AppRouteRoute.addChildren([
     AppBusinessesRmaRouteRoute.addChildren([
       AppBusinessesRmaRepresentativeTurnoverRouteRoute,
+      AppBusinessesRmaSearchByProductsRouteLazyRoute,
     ]),
     AppDashboardRouteRoute.addChildren([
       AppDashboardCreatePersonalTaskRouteRoute,
