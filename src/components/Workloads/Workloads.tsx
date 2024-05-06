@@ -29,7 +29,9 @@ export default function WorkloadsComponent({ associatedItemType, associatedItemI
     () => [
       columnHelper.display({
         header: 'Date',
-        cell: ({ row: { original } }) => (original.deadline ? formatDate(original.deadline) : formatDate(original.modifiedDate)),
+        cell: ({ row: { original } }) => (
+          <Link {...emailLink(original)}>{original.deadline ? formatDate(original.deadline) : formatDate(original.modifiedDate)}</Link>
+        ),
       }),
       columnHelper.display({
         header: 'Description',

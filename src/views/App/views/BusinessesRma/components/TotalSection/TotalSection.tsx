@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 import AllBusinessResponseDto from '../../../../../../utils/types/AllBusinessResponseDto';
 import styles from './TotalSection.module.scss';
 import CategoryBusiness from '../../../../../../utils/enums/CategoryBusiness';
+import CurrencyFormat from '../../../../../../components/CurrencyFormat/CurrencyFormat';
 
 type AppViewBusinessesRmaViewTotalSectionComponent = Readonly<{
   data: Array<AllBusinessResponseDto> | undefined;
@@ -25,7 +26,7 @@ export default function AppViewBusinessesRmaViewTotalSectionComponent({ data }: 
       <div className={styles._content}>
         <div>TOTAL de la sélection{hasCreditNotes ? ' (dont avoirs)' : ''} :</div>
         <div>
-          <span>{totalAmount} €</span>
+          <CurrencyFormat value={totalAmount} />
         </div>
       </div>
     </div>
