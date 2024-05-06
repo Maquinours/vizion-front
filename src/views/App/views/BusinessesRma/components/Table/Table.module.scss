@@ -107,6 +107,11 @@
             text-align: center;
           }
 
+          a {
+            display: flex;
+            flex-direction: column;
+          }
+
           .associated_list {
             li {
               text-align: center;
