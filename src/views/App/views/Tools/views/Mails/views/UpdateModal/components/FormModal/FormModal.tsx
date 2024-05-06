@@ -57,7 +57,7 @@ export default function AppViewToolsViewMailsViewUpdateModalViewFormModalCompone
       city: mail.city ?? undefined,
       zipCode: mail.zipCode,
       object: mail.subject ?? undefined,
-      sections: Object.values(mail.content),
+      sections: Object.values(mail.content).map((content) => ({ content: typeof content === 'string' ? content : '' })),
     },
   });
 
