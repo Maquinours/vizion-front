@@ -45,10 +45,7 @@ export default function AppViewDashboardViewCreatePersonalTaskModalView() {
     navigate({ from: Route.id, to: '..', search: (old) => old });
   };
 
-  const { data: members, isLoading: isLoadingMembers } = useQuery({
-    ...queries.profiles.list._ctx.byCategory(CategoryClient.VIZEO),
-    select: (data) => data.filter((item) => item.id !== user.profile.id),
-  });
+  const { data: members, isLoading: isLoadingMembers } = useQuery(queries.profiles.list._ctx.byCategory(CategoryClient.VIZEO));
 
   const { mutate, isPending } = useMutation({
     mutationFn: ({ content, profile, deadline }: yup.InferType<typeof yupSchema>) =>
