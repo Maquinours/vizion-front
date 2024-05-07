@@ -54,6 +54,7 @@ import { Route as AppDashboardCreatePersonalTaskRouteImport } from './routes/app
 import { Route as AppBusinessesRmaRepresentativeTurnoverRouteImport } from './routes/app/businesses-rma/representative-turnover/route'
 import { Route as AppProductsProductIdIndexImport } from './routes/app/products_.$productId/index'
 import { Route as AppToolsVvaCreateRouteImport } from './routes/app/tools/vva/create/route'
+import { Route as AppToolsSchedulerCreateRouteImport } from './routes/app/tools/scheduler/create/route'
 import { Route as AppToolsMenuCreateProductRouteImport } from './routes/app/tools/menu/create-product/route'
 import { Route as AppToolsMenuCreateEnterpriseRouteImport } from './routes/app/tools/menu/create-enterprise/route'
 import { Route as AppToolsEmailsSendRouteImport } from './routes/app/tools/emails_.send/route'
@@ -140,6 +141,7 @@ import { Route as AppBusinessesRmaBusinessBusinessIdQuotationRouteImport } from 
 import { Route as AppBusinessesRmaBusinessBusinessIdDashboardRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdBlRouteImport } from './routes/app/businesses-rma_/business.$businessId/bl/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdArcRouteImport } from './routes/app/businesses-rma_/business.$businessId/arc/route'
+import { Route as AppToolsSchedulerDetailsRdvIdUpdateRouteImport } from './routes/app/tools/scheduler/details.$rdvId/update/route'
 import { Route as AppToolsFormationsUpdateFormationIdAddDetailRouteImport } from './routes/app/tools/formations/update.$formationId/add-detail/route'
 import { Route as AppProductsProductIdManageUpdateVersionVersionIdRouteImport } from './routes/app/products_.$productId/manage/update-version.$versionId/route'
 import { Route as AppProductsProductIdManageUpdateStockStockIdRouteImport } from './routes/app/products_.$productId/manage/update-stock.$stockId/route'
@@ -192,9 +194,6 @@ const AppDashboardCreateCollectiveTaskRouteLazyImport = createFileRoute(
 )()
 const AppBusinessesRmaSearchByProductsRouteLazyImport = createFileRoute(
   '/app/businesses-rma/search-by-products',
-)()
-const AppToolsSchedulerCreateRouteLazyImport = createFileRoute(
-  '/app/tools/scheduler/create',
 )()
 const AppToolsProductShelvesCreateRouteLazyImport = createFileRoute(
   '/app/tools/product-shelves/create',
@@ -293,9 +292,6 @@ const AppBusinessesRmaBusinessBusinessIdBpRouteLazyImport = createFileRoute(
 )()
 const AppBusinessesRmaBusinessBusinessIdBillRouteLazyImport = createFileRoute(
   '/app/businesses-rma/business/$businessId/bill',
-)()
-const AppToolsSchedulerDetailsRdvIdUpdateRouteLazyImport = createFileRoute(
-  '/app/tools/scheduler/details/$rdvId/update',
 )()
 const AppToolsSchedulerDetailsRdvIdDeleteRouteLazyImport = createFileRoute(
   '/app/tools/scheduler/details/$rdvId/delete',
@@ -779,16 +775,6 @@ const AppProductsProductIdIndexRoute = AppProductsProductIdIndexImport.update({
   getParentRoute: () => AppProductsProductIdRouteRoute,
 } as any)
 
-const AppToolsSchedulerCreateRouteLazyRoute =
-  AppToolsSchedulerCreateRouteLazyImport.update({
-    path: '/create',
-    getParentRoute: () => AppToolsSchedulerRouteRoute,
-  } as any).lazy(() =>
-    import('./routes/app/tools/scheduler/create/route.lazy').then(
-      (d) => d.Route,
-    ),
-  )
-
 const AppToolsProductShelvesCreateRouteLazyRoute =
   AppToolsProductShelvesCreateRouteLazyImport.update({
     path: '/create',
@@ -967,6 +953,16 @@ const AppToolsVvaCreateRouteRoute = AppToolsVvaCreateRouteImport.update({
 } as any).lazy(() =>
   import('./routes/app/tools/vva/create/route.lazy').then((d) => d.Route),
 )
+
+const AppToolsSchedulerCreateRouteRoute =
+  AppToolsSchedulerCreateRouteImport.update({
+    path: '/create',
+    getParentRoute: () => AppToolsSchedulerRouteRoute,
+  } as any).lazy(() =>
+    import('./routes/app/tools/scheduler/create/route.lazy').then(
+      (d) => d.Route,
+    ),
+  )
 
 const AppToolsMenuCreateProductRouteRoute =
   AppToolsMenuCreateProductRouteImport.update({
@@ -1962,16 +1958,6 @@ const AppBusinessesRmaBusinessBusinessIdArcRouteRoute =
     ).then((d) => d.Route),
   )
 
-const AppToolsSchedulerDetailsRdvIdUpdateRouteLazyRoute =
-  AppToolsSchedulerDetailsRdvIdUpdateRouteLazyImport.update({
-    path: '/update',
-    getParentRoute: () => AppToolsSchedulerDetailsRdvIdRouteLazyRoute,
-  } as any).lazy(() =>
-    import(
-      './routes/app/tools/scheduler/details.$rdvId/update/route.lazy'
-    ).then((d) => d.Route),
-  )
-
 const AppToolsSchedulerDetailsRdvIdDeleteRouteLazyRoute =
   AppToolsSchedulerDetailsRdvIdDeleteRouteLazyImport.update({
     path: '/delete',
@@ -2108,6 +2094,16 @@ const AppBusinessesRmaBusinessBusinessIdArcPdfRouteLazyRoute =
   } as any).lazy(() =>
     import(
       './routes/app/businesses-rma_/business.$businessId/arc/pdf/route.lazy'
+    ).then((d) => d.Route),
+  )
+
+const AppToolsSchedulerDetailsRdvIdUpdateRouteRoute =
+  AppToolsSchedulerDetailsRdvIdUpdateRouteImport.update({
+    path: '/update',
+    getParentRoute: () => AppToolsSchedulerDetailsRdvIdRouteLazyRoute,
+  } as any).lazy(() =>
+    import(
+      './routes/app/tools/scheduler/details.$rdvId/update/route.lazy'
     ).then((d) => d.Route),
   )
 
@@ -3073,6 +3069,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppToolsMenuCreateProductRouteImport
       parentRoute: typeof AppToolsMenuRouteImport
     }
+    '/app/tools/scheduler/create': {
+      preLoaderRoute: typeof AppToolsSchedulerCreateRouteImport
+      parentRoute: typeof AppToolsSchedulerRouteImport
+    }
     '/app/tools/vva/create': {
       preLoaderRoute: typeof AppToolsVvaCreateRouteImport
       parentRoute: typeof AppToolsVvaRouteImport
@@ -3148,10 +3148,6 @@ declare module '@tanstack/react-router' {
     '/app/tools/product-shelves/create': {
       preLoaderRoute: typeof AppToolsProductShelvesCreateRouteLazyImport
       parentRoute: typeof AppToolsProductShelvesRouteImport
-    }
-    '/app/tools/scheduler/create': {
-      preLoaderRoute: typeof AppToolsSchedulerCreateRouteLazyImport
-      parentRoute: typeof AppToolsSchedulerRouteImport
     }
     '/app/products/$productId/': {
       preLoaderRoute: typeof AppProductsProductIdIndexImport
@@ -3493,6 +3489,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppToolsFormationsUpdateFormationIdAddDetailRouteImport
       parentRoute: typeof AppToolsFormationsUpdateFormationIdRouteImport
     }
+    '/app/tools/scheduler/details/$rdvId/update': {
+      preLoaderRoute: typeof AppToolsSchedulerDetailsRdvIdUpdateRouteImport
+      parentRoute: typeof AppToolsSchedulerDetailsRdvIdRouteLazyImport
+    }
     '/app/businesses-rma/business/$businessId/arc/pdf': {
       preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdArcPdfRouteLazyImport
       parentRoute: typeof AppBusinessesRmaBusinessBusinessIdArcRouteImport
@@ -3543,10 +3543,6 @@ declare module '@tanstack/react-router' {
     }
     '/app/tools/scheduler/details/$rdvId/delete': {
       preLoaderRoute: typeof AppToolsSchedulerDetailsRdvIdDeleteRouteLazyImport
-      parentRoute: typeof AppToolsSchedulerDetailsRdvIdRouteLazyImport
-    }
-    '/app/tools/scheduler/details/$rdvId/update': {
-      preLoaderRoute: typeof AppToolsSchedulerDetailsRdvIdUpdateRouteLazyImport
       parentRoute: typeof AppToolsSchedulerDetailsRdvIdRouteLazyImport
     }
     '/app/businesses-rma/business/$businessId/arc/pdf/send-by-email': {
@@ -3815,10 +3811,10 @@ export const routeTree = rootRoute.addChildren([
       AppToolsRepresentativesMapRouteRoute,
       AppToolsRepresentativesTurnoverRouteRoute,
       AppToolsSchedulerRouteRoute.addChildren([
-        AppToolsSchedulerCreateRouteLazyRoute,
+        AppToolsSchedulerCreateRouteRoute,
         AppToolsSchedulerDetailsRdvIdRouteLazyRoute.addChildren([
+          AppToolsSchedulerDetailsRdvIdUpdateRouteRoute,
           AppToolsSchedulerDetailsRdvIdDeleteRouteLazyRoute,
-          AppToolsSchedulerDetailsRdvIdUpdateRouteLazyRoute,
         ]),
       ]),
       AppToolsVvaRouteRoute.addChildren([

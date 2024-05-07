@@ -23,7 +23,15 @@ export const getRdvById = (id: string) => {
 };
 
 export const updateRdv = (id: string, data: RdvRequestDto) => {
-  return privateInstance<RdvResponseDto>({ method: 'PUT', url: `rdv/v1/update/${encodeURIComponent(id)}`, data }).then((res) => res.data);
+  return privateInstance<RdvResponseDto>({
+    method: 'PUT',
+    url: `rdv/v1/update/${encodeURIComponent(id)}`,
+    data: {
+      ...data,
+      startDateTime: format(data.startDateTime, 'yyyy-MM-dd HH:mm:ss'),
+      endDatetime: format(data.endDatetime, 'yyyy-MM-dd HH:mm:ss'),
+    },
+  }).then((res) => res.data);
 };
 
 export const deleteRdv = (id: string) => {
