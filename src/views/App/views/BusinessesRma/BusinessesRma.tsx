@@ -11,8 +11,23 @@ import AppViewBusinessesRmaViewButtonsSectionComponent from './components/Button
 const routeApi = getRouteApi('/app/businesses-rma');
 
 export default function AppViewBusinessesRmaView() {
-  const { number, numOrder, name, contact, deliverPhoneNumber, zipCode, representative, installer, enterpriseName, state, dates, excludeds, page, size } =
-    routeApi.useSearch();
+  const {
+    number,
+    numOrder,
+    name,
+    contact,
+    deliverPhoneNumber,
+    zipCode,
+    representative,
+    installer,
+    amounts,
+    enterpriseName,
+    state,
+    dates,
+    excludeds,
+    page,
+    size,
+  } = routeApi.useSearch();
 
   const {
     location: {
@@ -31,6 +46,8 @@ export default function AppViewBusinessesRmaView() {
         zipCode,
         representativeId: representative,
         installerName: installer,
+        minAmount: amounts?.at(0),
+        maxAmount: amounts?.at(1),
         enterpriseName,
         state,
         startDate: dates.at(0),

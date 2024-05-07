@@ -13,6 +13,7 @@ const searchSchema = z.object({
   zipCode: z.string().optional().catch(undefined),
   representative: z.string().uuid().optional().catch(undefined),
   installer: z.string().optional().catch(undefined),
+  amounts: z.array(z.number().int()).length(2).optional().catch(undefined),
   enterpriseName: z.string().optional().catch(undefined),
   state: z.nativeEnum(AllBusinessState).optional().catch(undefined),
   dates: z.array(z.coerce.date().nullable()).length(2).catch([null, null]),
@@ -32,6 +33,7 @@ export const Route = createFileRoute('/app/businesses-rma')({
       zipCode?: string;
       representative?: string;
       installer?: string;
+      amounts?: Array<number>;
       enterpriseName?: string;
       state?: AllBusinessState;
       dates?: Array<Date | null>;
