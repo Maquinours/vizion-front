@@ -17,7 +17,7 @@ import { useEffect } from 'react';
 const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/bp/update-detail/$detailId');
 
 const yupSchema = yup.object().shape({
-  quantity: yup.number().min(0, 'Min 0').typeError('Format invalide').required('Le champs est requis'),
+  quantity: yup.number().typeError('Format invalide').integer('La quantité doit être un nombre entier').required('Le champs est requis'),
   colis: yup.string().typeError('Format invalide').nullable(),
   comment: yup.string().nullable(),
   productVersion: yup.mixed<ProductVersionResponseDto>().required('Champs requis'),
