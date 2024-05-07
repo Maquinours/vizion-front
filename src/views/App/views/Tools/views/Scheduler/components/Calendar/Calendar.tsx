@@ -182,7 +182,7 @@ export default function AppViewToolsViewSchedulerViewCalendarComponent({
       onEventResize={onEventResize}
       onEventDrop={onEventDrop}
       onSelectSlot={onSelectSlot}
-      style={{ minHeight: '700px' }}
+      style={{ height: '700px' }}
       selectable
       popup
     />
