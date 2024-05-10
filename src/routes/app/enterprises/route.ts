@@ -33,8 +33,8 @@ export const Route = createFileRoute('/app/enterprises')({
   }),
   loader: ({ context: { queryClient }, deps: { enterprise, contact, zipCode, city, phoneNumber, category, representativeId, page } }) => {
     const size = 20;
-    queryClient.ensureQueryData(enterprises.page({ enterprise, contact, zipCode, city, phoneNumber, category, representativeId, page, size }));
-    queryClient.ensureQueryData(enterprises.list._ctx.byCategory(CategoryClient.REPRESENTANT));
+    queryClient.prefetchQuery(enterprises.page({ enterprise, contact, zipCode, city, phoneNumber, category, representativeId, page, size }));
+    queryClient.prefetchQuery(enterprises.list._ctx.byCategory(CategoryClient.REPRESENTANT));
   },
   validateSearch: (
     data: {

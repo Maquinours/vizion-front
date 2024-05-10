@@ -25,15 +25,15 @@ export const Route = createFileRoute('/app/enterprises/$enterpriseId')({
     contactsPage,
     lifesheetPage,
   }),
-  loader: ({ context: { queryClient }, params: { enterpriseId }, deps: { allBusinessPage, contactsSearch, contactsPage, lifesheetPage } }) => {
+  loader: async ({ context: { queryClient }, params: { enterpriseId }, deps: { allBusinessPage, contactsSearch, contactsPage, lifesheetPage } }) => {
     const allBusinessSize = 15;
     const contactsSize = 5;
     const lifesheetSize = 5;
     const workloadsSize = 100;
     const workloadsPage = 0;
 
-    queryClient.ensureQueryData(enterprises.detail(enterpriseId));
-    queryClient.ensureQueryData(allBusinesses.page._ctx.byEnterpriseId({ enterpriseId, page: allBusinessPage, size: allBusinessSize }));
+    const enterprisePromise = queryClient.ensureQueryData(enterprises.detail(enterpriseId));
+    queryClient.prefetchQuery(allBusinesses.page._ctx.byEnterpriseId({ enterpriseId, page: allBusinessPage, size: allBusinessSize }));
     queryClient.prefetchQuery(queries.profiles.page._ctx.byEnterpriseIdAndSearch(enterpriseId, contactsSearch, { page: contactsPage, size: contactsSize }));
     queryClient.prefetchQuery(
       lifesheets
@@ -46,6 +46,8 @@ export const Route = createFileRoute('/app/enterprises/$enterpriseId')({
         { page: workloadsPage, size: workloadsSize },
       ),
     );
-    queryClient.ensureQueryData(geds.detail._ctx.byTypeAndId(FileType.CONTACT, enterpriseId));
+    queryClient.prefetchQuery(geds.detail._ctx.byTypeAndId(FileType.CONTACT, enterpriseId));
+
+    await enterprisePromise;
   },
 });
