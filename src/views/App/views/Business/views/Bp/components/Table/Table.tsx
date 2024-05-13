@@ -134,15 +134,7 @@ export default function AppViewBusinessViewBpViewTableComponent() {
                               target="_blank"
                               rel="noreferrer"
                               title={version.title}
-                              style={{
-                                backgroundColor: 'rgb(242, 76, 82)',
-                                color: 'rgb(255 255 255)',
-                                fontSize: 10,
-                                marginLeft: 5,
-                                marginRight: 5,
-                                borderRadius: '0.375rem',
-                                padding: 3.5,
-                              }}
+                              className="bg-[#f24c52] text-white text-xs mx-1 rounded-md p-1"
                             >
                               {version.name}
                             </a>
