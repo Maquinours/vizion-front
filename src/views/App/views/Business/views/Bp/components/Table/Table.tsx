@@ -152,7 +152,7 @@ export default function AppViewBusinessViewBpViewTableComponent() {
                               title="Accéder à l'enregistreur"
                               rel="noreferrer"
                             >
-                              <BiLinkExternal width={13} height={16} />
+                              <BiLinkExternal style={{ textDecoration: 'revert', color: 'revert' }} width={13} height={16} />
                             </a>
                           </>
                         )}
