@@ -190,6 +190,9 @@ export default function AppViewBusinessViewBpViewTableComponent() {
           getRowCanExpand={() => user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO')}
           renderSubComponent={AppViewBusinessViewBpViewTableComponentSubRowComponent}
           onRowContextMenu={onRowContextMenu}
+          getRowClassName={(row) =>
+            row.quantity === row.quantityPrep ? styles.success : (row.quantity ?? 0) > (row.quantityPrep ?? 0) ? styles.warning : styles.danger
+          }
         />
       </div>
       <AppViewBusinessViewBpViewTableComponentDetailContextMenuComponent
