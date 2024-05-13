@@ -2,7 +2,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { getRouteApi, useNavigate } from '@tanstack/react-router';
 import classNames from 'classnames';
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { MdPerson } from 'react-icons/md';
 import ReactModal from 'react-modal';
@@ -15,6 +15,8 @@ import CategoryClient from '../../../../../../../../utils/enums/CategoryClient';
 import ProfileResponseDto from '../../../../../../../../utils/types/ProfileResponseDto';
 import { useAuthentifiedUserQuery } from '../../../../../../utils/functions/getAuthentifiedUser';
 import styles from './CreateModal.module.scss';
+import ReactDatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 const routeApi = getRouteApi('/app/tools/scheduler/create');
 
@@ -65,13 +67,14 @@ const yupSchema = yup.object().shape({
   description: yup.string().required('Champs requis'),
   place: yup.string().required('Champs requis'),
   fullTime: yup.boolean().required('Champs requis'),
-  startDateTime: yup.date().required('Champs requis'),
-  endDateTime: yup
-    .date()
-    .nullable()
+  dates: yup
+    .array()
+    .of(yup.date().required('Champs requis'))
+    .required()
     .when('fullTime', {
       is: true,
-      then: () => yup.date().required('Champs requis'),
+      then: (schema) => schema.min(1, 'Champs requis'),
+      otherwise: (schema) => schema.length(2, 'Champs requis'),
     }),
 });
 
@@ -79,13 +82,17 @@ export default function AppViewToolsViewSchedulerViewCreateModalView() {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
 
+  const { dates, participant } = routeApi.useSearch();
+
   const { data: user } = useAuthentifiedUserQuery();
 
-  const { data: memberOptions } = useQuery(queries.profiles.list._ctx.byCategory(CategoryClient.VIZEO));
+  const { data: memberOptions, isLoading: isLoadingMemberOptions } = useQuery(queries.profiles.list._ctx.byCategory(CategoryClient.VIZEO));
 
   const {
     register,
     control,
+    setValue,
+    getValues,
     watch,
     formState: { errors },
     handleSubmit,
@@ -93,10 +100,11 @@ export default function AppViewToolsViewSchedulerViewCreateModalView() {
     resolver: yupResolver(yupSchema),
     defaultValues: {
       participants: [],
+      dates: [],
     },
   });
 
-  const fullTime = watch('fullTime');
+  const fullTime = useMemo(() => getValues('fullTime'), [watch('fullTime')]);
 
   const places = useMemo(
     () => PLACES.filter((place) => place.allowedRoles === undefined || user.userInfo.roles.some((role) => place.allowedRoles.includes(role))),
@@ -104,11 +112,11 @@ export default function AppViewToolsViewSchedulerViewCreateModalView() {
   );
 
   const onClose = () => {
-    navigate({ from: routeApi.id, to: '..', search: (old) => old });
+    navigate({ from: routeApi.id, to: '..', search: (old) => ({ ...old, dates: undefined, participant: undefined }) });
   };
 
   const { mutate, isPending } = useMutation({
-    mutationFn: ({ title, description, place, fullTime, participants, startDateTime, endDateTime }: yup.InferType<typeof yupSchema>) =>
+    mutationFn: ({ title, description, place, fullTime, participants, dates }: yup.InferType<typeof yupSchema>) =>
       createRdv({
         title,
         description,
@@ -119,8 +127,8 @@ export default function AppViewToolsViewSchedulerViewCreateModalView() {
           attributeToLastName: participant.lastName ?? '',
           attributeToFirstName: participant.firstName ?? '',
         })),
-        startDateTime,
-        endDatetime: endDateTime ?? new Date(),
+        startDateTime: dates.at(0)!,
+        endDatetime: dates.at(1) ?? new Date(),
       }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queries['rdv-user-infos']._def });
@@ -132,6 +140,17 @@ export default function AppViewToolsViewSchedulerViewCreateModalView() {
       toast.error('Une erreur est survenue lors de la création du rendez-vous');
     },
   });
+
+  useEffect(() => {
+    if (dates) setValue('dates', dates);
+  }, []);
+
+  useEffect(() => {
+    if (!!participant && !!memberOptions) {
+      const member = memberOptions.find((item) => item.id === participant);
+      if (member) setValue('participants', [member]);
+    }
+  }, [isLoadingMemberOptions]);
 
   return (
     <ReactModal isOpen={true} onRequestClose={onClose} className={styles.modal} overlayClassName="Overlay">
@@ -172,38 +191,65 @@ export default function AppViewToolsViewSchedulerViewCreateModalView() {
                 />
                 <div className={styles.member_error}>{errors.participants && <p className={styles.__errors}>{errors.participants.message}</p>}</div>
               </div>
-              <div className={styles.form_custom_group}>
-                <label htmlFor="startDateTime">{fullTime ? 'Date et heure' : 'Date et heure de début'} :</label>
-                <div className={styles.inputs_containers}>
-                  <div>
-                    <input
-                      type="datetime-local"
-                      // min={new Date().toISOString().slice(0, -8)}
-                      // defaultValue={new Date().toISOString().slice(0, -8)}
-                      id="startDateTime"
-                      {...register('startDateTime')}
-                    />
-                    {errors.startDateTime && <p className={styles.__errors}>{errors.startDateTime.message}</p>}
-                  </div>
-                </div>
-              </div>
-              {!fullTime && (
-                <div className={styles.form_custom_group}>
-                  <label htmlFor="endDateTime">Date et heure de fin :</label>
-                  <div className={styles.inputs_containers}>
-                    <div>
-                      <input
-                        type="datetime-local"
-                        // min={new Date().toISOString().slice(0, -8)}
-                        // defaultValue={new Date().toISOString().slice(0, -8)}
-                        id="endDateTime"
-                        {...register('endDateTime')}
-                      />
-                      {errors.endDateTime && <p className={styles.__errors}>{errors.endDateTime.message}</p>}
-                    </div>
-                  </div>
-                </div>
-              )}
+              <Controller
+                control={control}
+                name="dates"
+                render={({ field: { value, onChange } }) => {
+                  const startDate = value.at(0);
+                  const endDate = value.at(1);
+
+                  return (
+                    <>
+                      <div className={styles.form_custom_group}>
+                        <label htmlFor="startDateTime">{fullTime ? 'Date' : 'Date et heure de début'} :</label>
+                        <div className={styles.inputs_containers}>
+                          <div>
+                            <ReactDatePicker
+                              id="startDateTime"
+                              selected={startDate}
+                              selectsStart
+                              showTimeSelect={!fullTime}
+                              timeFormat="HH:mm"
+                              onChange={(date) => onChange([date, endDate])}
+                              startDate={startDate}
+                              endDate={endDate}
+                              locale="fr"
+                              dateFormat={fullTime ? 'dd/MM/yyyy' : 'dd/MM/yyyy HH:mm'}
+                              isClearable={true}
+                            />
+                            {errors.dates?.at && <p className={styles.__errors}>{errors.dates.at(0)?.message?.toString()}</p>}
+                          </div>
+                        </div>
+                      </div>
+                      {!fullTime && (
+                        <div className={styles.form_custom_group}>
+                          <label htmlFor="endDateTime">Date et heure de fin :</label>
+                          <div className={styles.inputs_containers}>
+                            <div>
+                              <ReactDatePicker
+                                id="endDateTime"
+                                selected={endDate}
+                                selectsEnd
+                                showTimeSelect
+                                timeFormat="HH:mm"
+                                onChange={(date) => onChange([startDate, date])}
+                                startDate={startDate}
+                                endDate={endDate}
+                                minDate={startDate}
+                                filterTime={(time) => !startDate || time > startDate}
+                                locale="fr"
+                                dateFormat="dd/MM/yyyy HH:mm"
+                                isClearable={true}
+                              />
+                              {errors.dates?.at && <p className={styles.__errors}>{errors.dates.at(1)?.message?.toString()}</p>}
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                    </>
+                  );
+                }}
+              />
               <div className={styles.form_group}>
                 <label htmlFor="fullTime">Journée complète :</label>
                 <div>

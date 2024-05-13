@@ -14,7 +14,7 @@ export const Route = createFileRoute('/app/enterprises/$enterpriseId/address-boo
     size: 9,
   }),
   loader: ({ context: { queryClient }, params: { enterpriseId }, deps: { search, page, size } }) => {
-    queryClient.ensureQueryData(queries.address.page._ctx.searchByEnterpriseId({ enterpriseId, searchText: search }, { page, size }));
+    queryClient.prefetchQuery(queries.address.page._ctx.searchByEnterpriseId({ enterpriseId, searchText: search }, { page, size }));
   },
   validateSearch: searchSchema,
 });

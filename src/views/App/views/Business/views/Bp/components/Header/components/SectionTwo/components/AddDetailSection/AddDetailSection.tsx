@@ -15,7 +15,7 @@ const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/bp');
 
 const yupSchema = yup.object({
   product: yup.mixed<ProductResponseDto>().required('Produit requis'),
-  quantity: yup.number().integer('La quantité doit être un nombre entier').typeError('Invalide').min(1, 'Min 1').required('Quantité requise'),
+  quantity: yup.number().integer('La quantité doit être un nombre entier').typeError('Invalide').required('Quantité requise'),
 });
 
 export default function AppViewBusinessViewBpViewHeaderComponentSectionTwoComponentAddDetailSectionComponent() {

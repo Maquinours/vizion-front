@@ -5,10 +5,14 @@ import ReactModal from 'react-modal';
 import moment from 'moment';
 import 'moment/dist/locale/fr';
 import * as Sentry from '@sentry/react';
+import { fr } from 'date-fns/locale/fr';
+import { registerLocale } from 'react-datepicker';
 
 moment.locale('fr');
 
 ReactModal.setAppElement('#app');
+
+registerLocale('fr', fr);
 
 Sentry.init({
   dsn: 'https://ee81b77d4c591be8a8d86f2a7b1dbc00@o4507100733964288.ingest.de.sentry.io/4507100746350672',

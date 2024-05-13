@@ -1,7 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useQuery } from '@tanstack/react-query';
 import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import ReactDatePicker from 'react-datepicker';
 import { Controller, useForm } from 'react-hook-form';
 import PhoneInput from 'react-phone-number-input/input';
@@ -13,6 +13,10 @@ import CategoryClient from '../../../../../../utils/enums/CategoryClient';
 import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthentifiedUser';
 import styles from './SearchSection.module.scss';
 import 'react-datepicker/dist/react-datepicker.css';
+import { Range, getTrackBackground } from 'react-range';
+import { RiArrowDropDownLine, RiArrowDropUpLine } from 'react-icons/ri';
+import CurrencyFormat from '../../../../../../components/CurrencyFormat/CurrencyFormat';
+import { ClickAwayListener } from '@mui/material';
 
 const routeApi = getRouteApi('/app/businesses-rma');
 
@@ -25,6 +29,7 @@ const yupSchema = yup.object().shape({
   zipCode: yup.string(),
   representative: yup.string(),
   installer: yup.string(),
+  amounts: yup.array().of(yup.number().required()).length(2).required(),
   enterpriseName: yup.string(),
   state: yup.mixed<AllBusinessState>().oneOf(Object.values(AllBusinessState)),
   dates: yup.array().of(yup.date().required().nullable()).min(2).max(2).required(),
@@ -121,7 +126,10 @@ const CATEGORY_OPTIONS = [
 export default function AppViewBusinessesRmaViewSearchSectionComponent() {
   const navigate = useNavigate({ from: routeApi.id });
 
-  const { numOrder, name, contact, deliverPhoneNumber, zipCode, representative, installer, enterpriseName, state, dates, excludeds } = routeApi.useSearch();
+  const { numOrder, name, contact, deliverPhoneNumber, zipCode, representative, installer, amounts, enterpriseName, state, dates, excludeds } =
+    routeApi.useSearch();
+
+  const [showAmounts, setShowAmounts] = useState(false);
 
   const { data: user } = useAuthentifiedUserQuery();
 
@@ -130,10 +138,11 @@ export default function AppViewBusinessesRmaViewSearchSectionComponent() {
     enabled: user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO'),
   });
 
-  const { register, control, setValue, handleSubmit } = useForm({
+  const { register, control, setValue, resetField, handleSubmit } = useForm({
     resolver: yupResolver(yupSchema),
     defaultValues: {
       dates: [null, null],
+      amounts: [0, 80_000],
       excludeds: [],
     },
   });
@@ -152,6 +161,7 @@ export default function AppViewBusinessesRmaViewSearchSectionComponent() {
     zipCode,
     representative,
     installer,
+    amounts,
     enterpriseName,
     state,
     dates,
@@ -166,7 +176,8 @@ export default function AppViewBusinessesRmaViewSearchSectionComponent() {
         contact,
         deliverPhoneNumber,
         zipCode,
-        representative: representative,
+        representative,
+        amounts,
         installer,
         enterpriseName,
         state,
@@ -189,6 +200,7 @@ export default function AppViewBusinessesRmaViewSearchSectionComponent() {
         zipCode: undefined,
         representative: undefined,
         installer: undefined,
+        amounts: undefined,
         enterpriseName: undefined,
         state: undefined,
         dates: undefined,
@@ -204,17 +216,18 @@ export default function AppViewBusinessesRmaViewSearchSectionComponent() {
     setValue('contact', contact);
     setValue('deliverPhoneNumber', deliverPhoneNumber);
     setValue('zipCode', zipCode);
-    setValue('representative', representatives?.find((rep) => rep.id === representative)?.id);
     setValue('installer', installer);
     setValue('enterpriseName', enterpriseName);
     setValue('state', state);
     setValue('dates', dates);
     setValue('excludeds', excludeds);
-  }, [dates]);
+    if (!!amounts) setValue('amounts', amounts);
+    else resetField('amounts');
+  }, [numOrder, name, contact, deliverPhoneNumber, zipCode, installer, enterpriseName, state, dates, excludeds, amounts]);
 
   useEffect(() => {
     if (representatives) setValue('representative', representatives.find((rep) => rep.id === representative)?.id);
-  }, [isLoadingRepresentatives]);
+  }, [isLoadingRepresentatives, representative]);
 
   return (
     <div className={styles.filters_container}>
@@ -250,6 +263,121 @@ export default function AppViewBusinessesRmaViewSearchSectionComponent() {
           <input placeholder="Nom de l'affaire" id="businessName" {...register('name')} />
           <input placeholder="Nom du contact" id="businessContact" {...register('contact')} />
           <input placeholder="Installateur" id="installer" {...register('installer')} />
+          <Controller
+            control={control}
+            name="amounts"
+            render={({ field: { value, onChange } }) => {
+              const minAmount = value[0];
+              const maxAmount = value[1];
+
+              const minPossible = 0;
+              const maxPossible = 80_000;
+
+              return (
+                <ClickAwayListener onClickAway={() => setShowAmounts(false)}>
+                  <div className={styles.amount_range}>
+                    <button className="btn" type="button" onClick={() => setShowAmounts(!showAmounts)}>
+                      <span>
+                        <CurrencyFormat value={minAmount} />
+                        {' - '}
+                        <CurrencyFormat value={maxAmount} />
+                      </span>
+                      <span>{showAmounts ? <RiArrowDropUpLine size="25" /> : <RiArrowDropDownLine size="25" />}</span>
+                    </button>
+
+                    {showAmounts && (
+                      <div className={styles.range_container}>
+                        <div className={styles.range_inputs}>
+                          <input
+                            name="minAmount"
+                            id="minAmount"
+                            value={minAmount}
+                            onChange={(e) => onChange([Number(e.target.value), maxAmount])}
+                            min={0}
+                            max={maxAmount}
+                            step={500}
+                            type="number"
+                          />
+                          <input
+                            name="maxAmount"
+                            id="maxAmount"
+                            value={maxAmount}
+                            onChange={(e) => onChange([minAmount, Number(e.target.value)])}
+                            min={minAmount}
+                            max={maxPossible}
+                            step={500}
+                            type="number"
+                          />
+                        </div>
+                        <div className={styles.range_slider}>
+                          <Range
+                            step={100}
+                            min={0}
+                            max={maxPossible}
+                            values={value}
+                            onChange={(values) => onChange(values)}
+                            renderTrack={({ props, children }) => (
+                              <div
+                                onMouseDown={props.onMouseDown}
+                                onTouchStart={props.onTouchStart}
+                                style={{
+                                  ...props.style,
+                                  height: '36px',
+                                  display: 'flex',
+                                  width: '100%',
+                                }}
+                              >
+                                <div
+                                  ref={props.ref}
+                                  style={{
+                                    height: '5px',
+                                    width: '100%',
+                                    borderRadius: '4px',
+                                    background: getTrackBackground({
+                                      colors: ['#ccc', '#31385A', '#ccc'],
+                                      values: value,
+                                      min: minPossible,
+                                      max: maxPossible,
+                                    }),
+                                    alignSelf: 'center',
+                                  }}
+                                >
+                                  {children}
+                                </div>
+                              </div>
+                            )}
+                            renderThumb={({ props }) => (
+                              <div
+                                {...props}
+                                style={{
+                                  ...props.style,
+                                  height: '12px',
+                                  width: '12px',
+                                  backgroundColor: '#31385A',
+                                  display: 'flex',
+                                  justifyContent: 'center',
+                                  alignItems: 'center',
+                                  borderRadius: '50%',
+                                }}
+                              />
+                            )}
+                          />
+                        </div>
+                        <div className={styles.buttons_container}>
+                          <button type="button" className="btn btn-primary" onClick={() => resetField('amounts')}>
+                            RAZ
+                          </button>
+                          <button type="button" className="btn btn-secondary" onClick={() => setShowAmounts(false)}>
+                            Valider
+                          </button>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </ClickAwayListener>
+              );
+            }}
+          />
           <input placeholder="Numéro de commande" id="businessNumOrder" {...register('numOrder')} />
           <input placeholder="Code Postal de livraison" id="zipCode" {...register('zipCode')} />
           {user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && (

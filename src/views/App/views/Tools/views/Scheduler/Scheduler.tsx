@@ -2,13 +2,13 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 import { Link, Outlet, getRouteApi, useNavigate } from '@tanstack/react-router';
 import { View, Views } from 'react-big-calendar';
 import RefreshButtonComponent from '../../../../../../components/RefreshButton/RefreshButton';
-import SchedulerCalendarComponent from '../../../../../../components/SchedulerCalendar/SchedulerCalendar';
 import { queries } from '../../../../../../utils/constants/queryKeys';
 import styles from './Scheduler.module.scss';
+import AppViewToolsViewSchedulerViewCalendarComponent from './components/Calendar/Calendar';
 
 const routeApi = getRouteApi('/app/tools/scheduler');
 
-const views = [Views.DAY, Views.WORK_WEEK, Views.MONTH, Views.WORK_WEEK, Views.AGENDA];
+const views = [Views.DAY, Views.WORK_WEEK, Views.MONTH, Views.AGENDA];
 
 export default function AppViewToolsViewSchedulerView() {
   const navigate = useNavigate();
@@ -26,7 +26,7 @@ export default function AppViewToolsViewSchedulerView() {
           </Link>
           <RefreshButtonComponent onRefresh={refetch} isRefreshing={isRefetching} className="btn btn-primary" />
         </div>
-        <SchedulerCalendarComponent
+        <AppViewToolsViewSchedulerViewCalendarComponent
           events={data}
           views={views}
           view={view}
@@ -38,7 +38,6 @@ export default function AppViewToolsViewSchedulerView() {
             })
           }
           onDateChange={(date) => navigate({ from: routeApi.id, search: (old) => ({ ...old, date }) })}
-          onEventClick={(event) => navigate({ from: routeApi.id, to: './details/$rdvId', params: { rdvId: event.id }, search: (old) => old })}
         />
       </div>
       <Outlet />

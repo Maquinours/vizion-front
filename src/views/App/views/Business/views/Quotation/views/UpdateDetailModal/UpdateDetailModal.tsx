@@ -10,6 +10,7 @@ import { updateBusinessQuotationDetail } from '../../../../../../../../utils/api
 import { queries } from '../../../../../../../../utils/constants/queryKeys';
 import { toast } from 'react-toastify';
 import { PulseLoader } from 'react-spinners';
+import { useEffect } from 'react';
 
 const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/quotation/update-detail/$detailId');
 
@@ -38,6 +39,7 @@ export default function AppViewBusinessViewQuotationViewUpdateDetailModalView() 
   const {
     register,
     formState: { errors },
+    setValue,
     handleSubmit,
   } = useForm({
     resolver: yupResolver(yupSchema),
@@ -85,6 +87,14 @@ export default function AppViewBusinessViewQuotationViewUpdateDetailModalView() 
       toast.error('Une erreur est survenue lors de la modification du détail du devis');
     },
   });
+
+  useEffect(() => {
+    setValue('designation', detail.productDesignation);
+    setValue('quantity', detail.quantity ?? 0);
+    setValue('unitPrice', detail.unitPrice ?? 0);
+    setValue('discount', detail.reduction ? detail.reduction : 0);
+    setValue('publicPrice', detail.publicUnitPrice);
+  }, [detail.id]);
 
   return (
     <ReactModal isOpen={true} onRequestClose={onClose} className={styles.modal} overlayClassName="Overlay">

@@ -16,6 +16,6 @@ export const Route = createFileRoute('/app/products/serial-numbers')({
     if (!user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && !user.profile.expert)
       throw redirect({ from: Route.id, to: '..', search: (old) => ({ ...old, serialNumberSearch: undefined, serialNumbersPage: undefined }) });
 
-    queryClient.ensureQueryData(queries['product-serial-numbers'].page({ page, size })._ctx.search(search));
+    queryClient.prefetchQuery(queries['product-serial-numbers'].page({ page, size })._ctx.search(search));
   },
 });

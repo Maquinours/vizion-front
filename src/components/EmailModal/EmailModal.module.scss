@@ -95,6 +95,8 @@
         width: 100%;
         max-width: 100%;
         word-break: break-word;
+        max-height: 50vh;
+        overflow-y: auto;
 
         div {
           table {

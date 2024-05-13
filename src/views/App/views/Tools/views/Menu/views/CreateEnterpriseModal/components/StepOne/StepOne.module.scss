@@ -1,179 +1,180 @@
 @import '/src/assets/styles/mixins';
 
 .forms_container {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 
-    .card_container {
-        padding: 1rem 0.5rem;
+  .card_container {
+    padding: 1rem 0.5rem;
 
-        .form_group {
-            width: 100%;
-            display: grid;
-            // grid-template-columns: 20% 80%;
-            align-self: center;
-            margin-bottom: 1rem;
+    .form_group {
+      width: 100%;
+      display: grid;
+      // grid-template-columns: 20% 80%;
+      align-self: center;
+      margin-bottom: 1rem;
 
-            label {
-                grid-area: label;
-                justify-self: center;
-            }
+      label {
+        grid-area: label;
+        justify-self: center;
+      }
 
-            input,
-            select,
-            div:nth-child(2) {
-                grid-area: input;
-            }
+      input,
+      select,
+      div:nth-child(2) {
+        grid-area: input;
+      }
 
-            p:nth-child(3) {
-                grid-area: error;
-                margin-top: 2px;
-            }
+      p:nth-child(3) {
+        grid-area: error;
+        margin-top: 2px;
+      }
 
-            grid-template-areas: 'label input input input'
-            'label error error error';
+      grid-template-areas:
+        'label input input input'
+        'label error error error';
 
-            grid-template-columns: 25% 75%;
+      grid-template-columns: 25% 75%;
 
-            @include respond-below(sm) {
-                grid-template-areas:
-                    'label label label label'
-                    'input input input input'
-                    'error error error error';
-                grid-row-gap: 0.5rem;
-                grid-template-columns: auto;
-            }
+      @include respond-below(sm) {
+        grid-template-areas:
+          'label label label label'
+          'input input input input'
+          'error error error error';
+        grid-row-gap: 0.5rem;
+        grid-template-columns: auto;
+      }
 
-            label {
-                text-align: right;
-                font: normal normal normal 12px/15px 'DIN2014';
-                letter-spacing: 0px;
-                color: var(--primary-light-color);
-                opacity: 1;
-                width: 100%;
-                margin: 0 auto;
-                align-self: center;
-                padding-right: 1rem;
-
-                @include respond-below(sm) {
-                    text-align: left;
-                }
-
-                &.required {
-                    span {
-                        color: var(--secondary-color);
-                    }
-
-                    font-family: 'DIN2014';
-                }
-            }
-
-            input {
-                background: var(--grey-color) 0% 0% no-repeat padding-box;
-                border: 1px solid var(--primary-color);
-                border-radius: 5px;
-                padding: 0.5rem 0.5rem;
-                outline: none;
-                height: 30px;
-                width: inherit;
-
-                &::placeholder {
-                    text-align: left;
-                    font: normal normal normal 11px/14px 'DIN2014';
-                    letter-spacing: 0px;
-                    color: #9fa5b9;
-                    opacity: 1;
-                }
-
-                /* Internet Explorer 10-11 */
-                &:-ms-input-placeholder {
-                    text-align: left;
-                    font: normal normal normal 11px/14px 'DIN2014';
-                    letter-spacing: 0px;
-                    color: #9fa5b9;
-                    opacity: 1;
-                }
-
-                /* Microsoft Edge */
-                &::-ms-input-placeholder {
-                    text-align: left;
-                    font: normal normal normal 11px/14px 'DIN2014';
-                    letter-spacing: 0px;
-                    color: #9fa5b9;
-                    opacity: 1;
-                }
-            }
-
-            select {
-                background: var(--grey-color) 0% 0% no-repeat padding-box;
-                border: 1px solid var(--primary-color);
-                border-radius: 5px;
-                padding: 0.5rem 0.5rem;
-                outline: none;
-                height: 32px;
-                width: inherit;
-                box-shadow: 0px 3px 2px #10173526;
-                text-align: left;
-                font: normal normal normal 12px/15px 'DIN2014';
-                letter-spacing: 0px;
-                color: var(--primary-light-color);
-                opacity: 1;
-
-                option {
-                    padding: 1rem 0.5rem;
-                }
-
-                option:checked {
-                    color: var(--secondary-color);
-                }
-            }
-
-            .react-tel-input {
-                input {
-                    padding-left: 3rem;
-                }
-
-                .flag-dropdown {
-                    border: 1px solid var(--primary-color);
-                }
-            }
-
-            p.errors {
-                text-align: left;
-                font-family: 'DIN2014';
-                font-style: normal;
-                font-weight: normal;
-                font-variant: normal;
-                font-size: 11px;
-                line-height: 10px;
-                letter-spacing: 0px;
-                color: var(--secondary-color);
-                opacity: 1;
-            }
-        }
-    }
-
-    .loader {
-        display: flex;
-        justify-content: center;
-    }
-
-    .alert_section {
-        p {
-            text-align: left;
-            font: normal normal bold 12px/15px 'DIN2014';
-            letter-spacing: 0px;
-            color: var(--secondary-color);
-            margin-top: 1rem;
-            opacity: 1;
-        }
-    }
-
-    .step_buttons {
+      label {
+        text-align: right;
+        font: normal normal normal 12px/15px 'DIN2014';
+        letter-spacing: 0px;
+        color: var(--primary-light-color);
+        opacity: 1;
         width: 100%;
-        display: flex;
-        justify-content: flex-end;
-        margin-top: 1rem;
-        gap: 0.5rem;
+        margin: 0 auto;
+        align-self: center;
+        padding-right: 1rem;
+
+        @include respond-below(sm) {
+          text-align: left;
+        }
+
+        &.required {
+          span {
+            color: var(--secondary-color);
+          }
+
+          font-family: 'DIN2014';
+        }
+      }
+
+      input {
+        background: var(--grey-color) 0% 0% no-repeat padding-box;
+        border: 1px solid var(--primary-color);
+        border-radius: 5px;
+        padding: 0.5rem 0.5rem;
+        outline: none;
+        height: 30px;
+        width: inherit;
+
+        &::placeholder {
+          text-align: left;
+          font: normal normal normal 11px/14px 'DIN2014';
+          letter-spacing: 0px;
+          color: #9fa5b9;
+          opacity: 1;
+        }
+
+        /* Internet Explorer 10-11 */
+        &:-ms-input-placeholder {
+          text-align: left;
+          font: normal normal normal 11px/14px 'DIN2014';
+          letter-spacing: 0px;
+          color: #9fa5b9;
+          opacity: 1;
+        }
+
+        /* Microsoft Edge */
+        &::-ms-input-placeholder {
+          text-align: left;
+          font: normal normal normal 11px/14px 'DIN2014';
+          letter-spacing: 0px;
+          color: #9fa5b9;
+          opacity: 1;
+        }
+      }
+
+      select {
+        background: var(--grey-color) 0% 0% no-repeat padding-box;
+        border: 1px solid var(--primary-color);
+        border-radius: 5px;
+        padding: 0.5rem 0.5rem;
+        outline: none;
+        height: 32px;
+        width: inherit;
+        box-shadow: 0px 3px 2px #10173526;
+        text-align: left;
+        font: normal normal normal 12px/15px 'DIN2014';
+        letter-spacing: 0px;
+        color: var(--primary-light-color);
+        opacity: 1;
+
+        option {
+          padding: 1rem 0.5rem;
+        }
+
+        option:checked {
+          color: var(--secondary-color);
+        }
+      }
+
+      .react-tel-input {
+        input {
+          padding-left: 3rem;
+        }
+
+        .flag-dropdown {
+          border: 1px solid var(--primary-color);
+        }
+      }
+
+      p.errors {
+        text-align: left;
+        font-family: 'DIN2014';
+        font-style: normal;
+        font-weight: normal;
+        font-variant: normal;
+        font-size: 11px;
+        line-height: 10px;
+        letter-spacing: 0px;
+        color: var(--secondary-color);
+        opacity: 1;
+      }
     }
+  }
+
+  .loader {
+    display: flex;
+    justify-content: center;
+  }
+
+  .alert_section {
+    p {
+      text-align: left;
+      font: normal normal bold 12px/15px 'DIN2014';
+      letter-spacing: 0px;
+      color: var(--secondary-color);
+      margin-top: 1rem;
+      opacity: 1;
+    }
+  }
+
+  .step_buttons {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1rem;
+    gap: 0.5rem;
+  }
 }

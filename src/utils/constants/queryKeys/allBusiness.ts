@@ -10,6 +10,7 @@ import {
 import CategoryBusiness from '../../enums/CategoryBusiness';
 import AllBusinessState from '../../enums/AllBusinessState';
 import CategoryClient from '../../enums/CategoryClient';
+import AllBusinessQInfoRequestDto from '../../types/AllBusinessQInfoRequestDto';
 
 export const allBusinesses = createQueryKeys('all-businesses', {
   list: {
@@ -50,6 +51,7 @@ export const allBusinesses = createQueryKeys('all-businesses', {
           installerName?: string | null;
           state?: AllBusinessState | null;
           excludedList?: Array<CategoryClient> | null;
+          qInfos?: Array<AllBusinessQInfoRequestDto> | null;
         },
         pageData: { page: number; size: number },
       ) => ({

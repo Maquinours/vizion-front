@@ -1,3 +1,4 @@
+import { format } from 'date-fns';
 import { privateInstance } from '../functions/axios';
 import RdvRequestDto from '../types/RdvRequestDto';
 import RdvResponseDto from '../types/RdvResponseDto';
@@ -6,7 +7,11 @@ export const createRdv = (data: RdvRequestDto) => {
   return privateInstance<RdvResponseDto>({
     method: 'POST',
     url: `rdv/v1/add`,
-    data,
+    data: {
+      ...data,
+      startDateTime: format(data.startDateTime, 'yyyy-MM-dd HH:mm:ss'),
+      endDatetime: format(data.endDatetime, 'yyyy-MM-dd HH:mm:ss'),
+    },
   }).then((res) => res.data);
 };
 
@@ -18,7 +23,15 @@ export const getRdvById = (id: string) => {
 };
 
 export const updateRdv = (id: string, data: RdvRequestDto) => {
-  return privateInstance<RdvResponseDto>({ method: 'PUT', url: `rdv/v1/update/${encodeURIComponent(id)}`, data }).then((res) => res.data);
+  return privateInstance<RdvResponseDto>({
+    method: 'PUT',
+    url: `rdv/v1/update/${encodeURIComponent(id)}`,
+    data: {
+      ...data,
+      startDateTime: format(data.startDateTime, 'yyyy-MM-dd HH:mm:ss'),
+      endDatetime: format(data.endDatetime, 'yyyy-MM-dd HH:mm:ss'),
+    },
+  }).then((res) => res.data);
 };
 
 export const deleteRdv = (id: string) => {

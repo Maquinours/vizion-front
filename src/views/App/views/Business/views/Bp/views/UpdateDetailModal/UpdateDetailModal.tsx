@@ -12,11 +12,12 @@ import { updateBusinessBpDetail } from '../../../../../../../../utils/api/busine
 import BusinessBpResponseDto from '../../../../../../../../utils/types/BusinessBpResponseDto';
 import { toast } from 'react-toastify';
 import { PulseLoader } from 'react-spinners';
+import { useEffect } from 'react';
 
 const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/bp/update-detail/$detailId');
 
 const yupSchema = yup.object().shape({
-  quantity: yup.number().min(0, 'Min 0').typeError('Format invalide').required('Le champs est requis'),
+  quantity: yup.number().typeError('Format invalide').integer('La quantité doit être un nombre entier').required('Le champs est requis'),
   colis: yup.string().typeError('Format invalide').nullable(),
   comment: yup.string().nullable(),
   productVersion: yup.mixed<ProductVersionResponseDto>().required('Champs requis'),
@@ -36,6 +37,7 @@ export default function AppViewBusinessViewBpViewUpdateDetailModalView() {
     register,
     control,
     formState: { errors },
+    setValue,
     handleSubmit,
   } = useForm({
     resolver: yupResolver(yupSchema),
@@ -86,6 +88,17 @@ export default function AppViewBusinessViewBpViewUpdateDetailModalView() {
       toast.error('Une erreur est survenue lors de la modification du détail');
     },
   });
+
+  useEffect(() => {
+    setValue('colis', detail.packageNumber);
+    setValue('quantity', detail.quantityPrep ?? 0);
+    setValue('comment', detail.comment);
+  }, [detail.id]);
+
+  useEffect(() => {
+    const productVersion = productVersions?.find((v) => v.reference === detail.productVersionReference);
+    if (productVersion) setValue('productVersion', productVersion);
+  }, [isLoadingProductVersions]);
 
   return (
     <ReactModal isOpen={true} onRequestClose={onClose} className={styles.modal} overlayClassName="Overlay">

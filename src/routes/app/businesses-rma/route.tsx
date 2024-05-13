@@ -13,6 +13,7 @@ const searchSchema = z.object({
   zipCode: z.string().optional().catch(undefined),
   representative: z.string().uuid().optional().catch(undefined),
   installer: z.string().optional().catch(undefined),
+  amounts: z.array(z.number().int()).length(2).optional().catch(undefined),
   enterpriseName: z.string().optional().catch(undefined),
   state: z.nativeEnum(AllBusinessState).optional().catch(undefined),
   dates: z.array(z.coerce.date().nullable()).length(2).catch([null, null]),
@@ -32,6 +33,7 @@ export const Route = createFileRoute('/app/businesses-rma')({
       zipCode?: string;
       representative?: string;
       installer?: string;
+      amounts?: Array<number>;
       enterpriseName?: string;
       state?: AllBusinessState;
       dates?: Array<Date | null>;
@@ -41,11 +43,59 @@ export const Route = createFileRoute('/app/businesses-rma')({
     } & SearchSchemaInput,
   ) => searchSchema.parse(data),
   loaderDeps: ({
-    search: { number, numOrder, name, contact, deliverPhoneNumber, zipCode, representative, installer, enterpriseName, state, dates, excludeds, page, size },
-  }) => ({ number, numOrder, name, contact, deliverPhoneNumber, zipCode, representative, installer, enterpriseName, state, dates, excludeds, page, size }),
+    search: {
+      number,
+      numOrder,
+      name,
+      contact,
+      deliverPhoneNumber,
+      zipCode,
+      representative,
+      amounts,
+      installer,
+      enterpriseName,
+      state,
+      dates,
+      excludeds,
+      page,
+      size,
+    },
+  }) => ({
+    number,
+    numOrder,
+    name,
+    contact,
+    deliverPhoneNumber,
+    zipCode,
+    representative,
+    amounts,
+    installer,
+    enterpriseName,
+    state,
+    dates,
+    excludeds,
+    page,
+    size,
+  }),
   loader: ({
     context: { queryClient },
-    deps: { number, numOrder, name, contact, deliverPhoneNumber, zipCode, representative, installer, enterpriseName, state, dates, excludeds, page, size },
+    deps: {
+      number,
+      numOrder,
+      name,
+      contact,
+      deliverPhoneNumber,
+      zipCode,
+      representative,
+      installer,
+      amounts,
+      enterpriseName,
+      state,
+      dates,
+      excludeds,
+      page,
+      size,
+    },
   }) => {
     queryClient.prefetchQuery(
       queries['all-businesses'].page._ctx.search(
@@ -58,6 +108,8 @@ export const Route = createFileRoute('/app/businesses-rma')({
           zipCode,
           representativeId: representative,
           installerName: installer,
+          minAmount: amounts?.at(0),
+          maxAmount: amounts?.at(1),
           enterpriseName,
           state,
           startDate: dates.at(0),
