@@ -1,5 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
 import { getRouteApi, useNavigate } from '@tanstack/react-router';
 import { createColumnHelper } from '@tanstack/react-table';
 import { fr } from 'date-fns/locale/fr';
@@ -46,8 +46,17 @@ export default function AppViewProductViewManageViewSalesHistoryComponent() {
     resolver: yupResolver(yupSchema),
   });
 
+  const { data: product } = useSuspenseQuery(queries.product.detail(productId));
+
   const { data, isLoading } = useQuery(
-    queries['product-sale'].detail._ctx.byProductIdAndSearch({ productId, contact, startDate: dates?.at(0), endDate: dates?.at(1), page, size }),
+    queries['product-sale'].detail._ctx.byProductRefAndSearch({
+      productRef: product.reference!,
+      contact,
+      startDate: dates?.at(0),
+      endDate: dates?.at(1),
+      page,
+      size,
+    }),
   );
 
   const onSearch = ({ dates, enterpriseName }: yup.InferType<typeof yupSchema>) => {

@@ -1,30 +1,30 @@
 import { createQueryKeys } from '@lukemorales/query-key-factory';
-import { getProductSalesByProductId, getProductSalesByProductIdAndSearch } from '../../api/productSale';
+import { getProductSalesByProductRef, getProductSalesByProductRefAndSearch } from '../../api/productSale';
 
 export const productSales = createQueryKeys('product-sale', {
   detail: {
     queryKey: null,
     contextQueries: {
-      byProductIdAndSearch: ({
-        productId,
+      byProductRefAndSearch: ({
+        productRef,
         contact,
         startDate,
         endDate,
         page,
         size,
       }: {
-        productId: string;
+        productRef: string;
         contact: string | undefined;
         startDate: Date | undefined;
         endDate: Date | undefined;
         page: number;
         size: number;
       }) => ({
-        queryKey: [productId, contact, startDate, endDate, page, size],
+        queryKey: [productRef, contact, startDate, endDate, page, size],
         queryFn: () =>
           !!contact || !!startDate || !!endDate
-            ? getProductSalesByProductIdAndSearch(productId, contact, startDate, endDate, page, size)
-            : getProductSalesByProductId(productId, page, size),
+            ? getProductSalesByProductRefAndSearch(productRef, contact, startDate, endDate, page, size)
+            : getProductSalesByProductRef(productRef, page, size),
       }),
     },
   },
