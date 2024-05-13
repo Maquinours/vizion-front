@@ -58,6 +58,11 @@ export default function AppViewToolsViewFormationsViewSubscribersModalView() {
           <div className={styles.modal_title}>
             <h6>Liste des participants</h6>
           </div>
+          <div className={styles.buttons}>
+            <Link from={routeApi.id} to="create" search={(old) => old} className="btn btn-primary">
+              Ajouter un participant
+            </Link>
+          </div>
           <div className={styles.table_container}>
             <TableComponent columns={columns} data={data} isLoading={isLoading} />
           </div>

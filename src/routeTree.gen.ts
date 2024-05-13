@@ -298,6 +298,10 @@ const AppToolsSchedulerDetailsRdvIdDeleteRouteLazyImport = createFileRoute(
 )()
 const AppToolsFormationsUpdateFormationIdDetailsRouteLazyImport =
   createFileRoute('/app/tools/formations/update/$formationId/details')()
+const AppToolsFormationsSubscribersFormationDetailIdCreateRouteLazyImport =
+  createFileRoute(
+    '/app/tools/formations/subscribers/$formationDetailId/create',
+  )()
 const AppFaqGedFaqIdRenameItemRelativePathRouteLazyImport = createFileRoute(
   '/app/faq/ged/$faqId/rename/$itemRelativePath',
 )()
@@ -1978,6 +1982,17 @@ const AppToolsFormationsUpdateFormationIdDetailsRouteLazyRoute =
     ).then((d) => d.Route),
   )
 
+const AppToolsFormationsSubscribersFormationDetailIdCreateRouteLazyRoute =
+  AppToolsFormationsSubscribersFormationDetailIdCreateRouteLazyImport.update({
+    path: '/create',
+    getParentRoute: () =>
+      AppToolsFormationsSubscribersFormationDetailIdRouteRoute,
+  } as any).lazy(() =>
+    import(
+      './routes/app/tools/formations/subscribers.$formationDetailId/create/route.lazy'
+    ).then((d) => d.Route),
+  )
+
 const AppFaqGedFaqIdRenameItemRelativePathRouteLazyRoute =
   AppFaqGedFaqIdRenameItemRelativePathRouteLazyImport.update({
     path: '/rename/$itemRelativePath',
@@ -3537,6 +3552,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppFaqGedFaqIdRenameItemRelativePathRouteLazyImport
       parentRoute: typeof AppFaqGedFaqIdRouteImport
     }
+    '/app/tools/formations/subscribers/$formationDetailId/create': {
+      preLoaderRoute: typeof AppToolsFormationsSubscribersFormationDetailIdCreateRouteLazyImport
+      parentRoute: typeof AppToolsFormationsSubscribersFormationDetailIdRouteImport
+    }
     '/app/tools/formations/update/$formationId/details': {
       preLoaderRoute: typeof AppToolsFormationsUpdateFormationIdDetailsRouteLazyImport
       parentRoute: typeof AppToolsFormationsUpdateFormationIdRouteImport
@@ -3758,6 +3777,7 @@ export const routeTree = rootRoute.addChildren([
         ]),
         AppToolsFormationsDeleteFormationIdRouteRoute,
         AppToolsFormationsSubscribersFormationDetailIdRouteRoute.addChildren([
+          AppToolsFormationsSubscribersFormationDetailIdCreateRouteLazyRoute,
           AppToolsFormationsSubscribersFormationDetailIdDeleteSubscriptionIdRouteRoute,
           AppToolsFormationsSubscribersFormationDetailIdSendEmailSubscriptionIdRouteRoute,
         ]),
