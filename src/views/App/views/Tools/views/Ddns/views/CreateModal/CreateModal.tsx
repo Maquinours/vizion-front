@@ -130,8 +130,6 @@ export default function AppViewToolsViewDdnsViewCreateModalView() {
     else toast.success('DDNS disponible');
   }, [isDomainExistsFetching]);
 
-  console.log(isSerialNumberFetching, isDomainExistsFetching, isPending);
-
   return (
     <ReactModal isOpen={true} onRequestClose={onClose} className={styles.modal} overlayClassName="Overlay">
       <div className={styles.container}>

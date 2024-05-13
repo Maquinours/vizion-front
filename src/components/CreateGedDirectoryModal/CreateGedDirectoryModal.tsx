@@ -30,7 +30,6 @@ export default function CreateGedDirectoryModalComponent({ id, type, directoryRe
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(yupSchema),
@@ -48,8 +47,6 @@ export default function CreateGedDirectoryModalComponent({ id, type, directoryRe
       toast.error(`Une erreur est survenue lors de la création du dossier`);
     },
   });
-
-  console.log(watch('name'));
 
   return (
     <ReactModal isOpen={true} onRequestClose={onClose} className={styles.directory_modal} overlayClassName="Overlay">

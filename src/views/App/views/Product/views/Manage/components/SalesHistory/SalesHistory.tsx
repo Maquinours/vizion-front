@@ -60,7 +60,6 @@ export default function AppViewProductViewManageViewSalesHistoryComponent() {
   );
 
   const onSearch = ({ dates, enterpriseName }: yup.InferType<typeof yupSchema>) => {
-    console.log(dates);
     navigate({ from: routeApi.id, search: (old) => ({ ...old, salesPage: 0, salesContact: enterpriseName, salesDates: dates }) });
   };
 
