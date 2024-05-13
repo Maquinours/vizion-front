@@ -25,8 +25,12 @@ export default function AppViewToolsViewProductInventoryViewSearchSectionCompone
   const { data: productVersions, isLoading: isLoadingProductVersions } = useQuery(queries['product-versions'].list._ctx.all);
   const { data: productShelves, isLoading: isLoadingProductShelves } = useQuery(queries['product-shelves'].list);
 
-  const { control, setValue, handleSubmit } = useForm({
+  const { control, setValue, handleSubmit, resetField } = useForm({
     resolver: yupResolver(yupSchema),
+    defaultValues: {
+      shelf: null,
+      version: null,
+    },
   });
 
   const onSearch = ({ shelf, version }: yup.InferType<typeof yupSchema>) => {
@@ -39,11 +43,15 @@ export default function AppViewToolsViewProductInventoryViewSearchSectionCompone
   };
 
   useEffect(() => {
-    setValue('shelf', productShelves?.find((shelf) => shelf.id === shelfId) ?? undefined);
+    const productShelf = productShelves?.find((shelf) => shelf.id === shelfId);
+    if (productShelf) setValue('shelf', productShelf);
+    else resetField('shelf');
   }, [shelfId, isLoadingProductShelves]);
 
   useEffect(() => {
-    setValue('version', productVersions?.find((version) => version.id === versionId) ?? undefined);
+    const productVersion = productVersions?.find((version) => version.id === versionId);
+    if (productVersion) setValue('version', productVersion);
+    else resetField('version');
   }, [versionId, isLoadingProductVersions]);
 
   return (
@@ -60,6 +68,7 @@ export default function AppViewToolsViewProductInventoryViewSearchSectionCompone
             value={value}
             onChange={onChange}
             isLoading={isLoadingProductVersions}
+            isClearable
           />
         )}
       />
@@ -75,6 +84,7 @@ export default function AppViewToolsViewProductInventoryViewSearchSectionCompone
             value={value}
             onChange={onChange}
             isLoading={isLoadingProductShelves}
+            isClearable
           />
         )}
       />
