@@ -19,7 +19,11 @@ export default function AppViewToolsViewRepresentativesTurnoverView() {
   const representative = representatives.find((rep) => rep.id === representativeId);
 
   const { data, isLoading } = useQuery({
-    ...queries['sales-vva'].list._ctx.byDepartmentCodesYearAndMonth({ departmentCodes: representative?.departments?.map((dep) => dep.code) ?? [], year, month }),
+    ...queries['sales-vva'].list._ctx.byDepartmentCodesYearAndMonth({
+      departmentCodes: representative?.departments?.map((dep) => dep.code) ?? [],
+      year,
+      month,
+    }),
     enabled: !!representative,
   });
 
