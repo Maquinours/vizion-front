@@ -134,7 +134,7 @@ export default function AppViewBusinessViewBpViewTableComponent() {
                               target="_blank"
                               rel="noreferrer"
                               title={version.title}
-                              className="bg-[#f24c52] text-white text-xs mx-1 rounded-md p-1"
+                              className="mx-1 rounded-md bg-[#f24c52] p-1 text-xs text-white"
                             >
                               {version.name}
                             </a>
