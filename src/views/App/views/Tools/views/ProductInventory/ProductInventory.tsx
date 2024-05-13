@@ -17,9 +17,11 @@ const routeApi = getRouteApi('/app/tools/product-inventory');
 export default function AppViewToolsViewProductInventoryView() {
   const { page } = routeApi.useSearch();
 
+  const { versionId: productVersionId, shelfId } = routeApi.useSearch();
+
   const [data, setData] = useState<{ stock: ProductVersionShelfStockResponseDto; comptedStock: number }[]>([]);
 
-  const { data: stocks, isLoading } = useQuery(queries['product-version-shelf-stocks'].page._ctx.all({ page, size }));
+  const { data: stocks, isLoading } = useQuery(queries['product-version-shelf-stocks'].page._ctx.all({ productVersionId, shelfId }, { page, size }));
 
   const setCountedNumber = (index: number, value: number) => {
     const newData = [...data];
