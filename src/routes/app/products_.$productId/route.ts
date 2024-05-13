@@ -2,6 +2,9 @@ import { createFileRoute } from '@tanstack/react-router';
 import { z } from 'zod';
 import { queries } from '../../../utils/constants/queryKeys';
 import { enterprises } from '../../../utils/constants/queryKeys/enterprise';
+import { QueryKey } from '@tanstack/react-query';
+import Page from '../../../utils/types/Page';
+import ProductResponseDto from '../../../utils/types/ProductResponseDto';
 
 const searchSchema = z.object({
   productModal: z.enum(['update', 'delete']).optional().catch(undefined),
@@ -11,9 +14,24 @@ export const Route = createFileRoute('/app/products/$productId')({
   validateSearch: searchSchema,
   loaderDeps: ({ search: { productModal } }) => ({ productModal }),
   loader: async ({ context: { queryClient }, params: { productId }, deps: { productModal } }) => {
-    queryClient.ensureQueryData(queries.product.detail(productId));
+    let initialDataKey: QueryKey | undefined = undefined;
+    const productPromise = queryClient.ensureQueryData({
+      ...queries.product.detail(productId),
+      initialData: () => {
+        for (const [key, value] of queryClient.getQueriesData<Page<ProductResponseDto>>({ queryKey: queries.product._def })) {
+          const item = value?.content.find((item) => item.id === productId);
+          if (item) {
+            initialDataKey = key;
+            return item;
+          }
+        }
+      },
+      initialDataUpdatedAt: () => (initialDataKey ? queryClient.getQueryState(initialDataKey)?.dataUpdatedAt : undefined),
+    });
+
     if (productModal === 'update') {
-      queryClient.ensureQueryData(enterprises.list._ctx.providers);
+      await queryClient.ensureQueryData(enterprises.list._ctx.providers);
     }
+    await productPromise;
   },
 });
