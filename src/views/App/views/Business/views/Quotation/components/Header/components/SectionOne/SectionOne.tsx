@@ -100,7 +100,7 @@ export default function AppViewBusinessViewQuotationViewHeaderComponentSectionOn
           (user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && business.state === BusinessState.FACTURE && (
             <SaveQuotationButton business={business} quotation={quotation} handleSubmit={handleSubmit} /> // TODO: reimplement this
           ))} */}
-        {user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && (
+        {user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && !business.archived && (
           <button className="btn btn-secondary" disabled={isCreateArcPending} onClick={() => onArcButtonClick()}>
             {isCreateArcPending ? "Création de l'ARC..." : 'Passer en ARC'}
           </button>

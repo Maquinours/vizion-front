@@ -20,6 +20,7 @@ export default function AppViewBusinessViewQuotationViewHeaderComponentSectionTw
 
   const { businessId } = routeApi.useParams();
 
+  const { data: business } = useSuspenseQuery(queries.businesses.detail._ctx.byId(businessId));
   const { data: quotation } = useSuspenseQuery(queries['business-quotations'].detail._ctx.byBusinessId(businessId));
 
   const {
@@ -61,10 +62,12 @@ export default function AppViewBusinessViewQuotationViewHeaderComponentSectionTw
           <div className={styles.form_group}>
             <label htmlFor="documentName">Nom du document</label>
             <div>
-              <input id="documentName" placeholder="Devis" {...register('documentName')} />
-              <button disabled={isPending} type="submit">
-                <MdSave />
-              </button>
+              <input id="documentName" readOnly={!!business.archived} placeholder="Devis" {...register('documentName')} />
+              {!business.archived && (
+                <button disabled={isPending} type="submit">
+                  <MdSave />
+                </button>
+              )}
             </div>
             <p className={styles.__errors}>{errors.documentName?.message}</p>
           </div>
