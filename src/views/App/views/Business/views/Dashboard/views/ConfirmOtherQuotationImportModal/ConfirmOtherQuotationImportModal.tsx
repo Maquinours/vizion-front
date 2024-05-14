@@ -31,7 +31,7 @@ export default function AppViewBusinessViewDashboardViewConfirmOtherQuotationImp
       onClose();
     },
     onError: (error) => {
-      console.log(error);
+      console.error(error);
       toast.error("Une erreur est survenue lors de l'importation du devis");
     },
   });

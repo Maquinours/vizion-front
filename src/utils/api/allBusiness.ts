@@ -123,7 +123,7 @@ export const searchAllBusiness = (
   { page, size }: { page: number; size: number },
 ) => {
   return privateInstance<Page<AllBusinessResponseDto>>({
-    method: 'GET',
+    method: 'POST',
     url: `/all-business/v1/all-business-and-rma/fuzzy-search/page/${encodeURIComponent(page)}/${encodeURIComponent(size)}`,
     params: {
       startDate,

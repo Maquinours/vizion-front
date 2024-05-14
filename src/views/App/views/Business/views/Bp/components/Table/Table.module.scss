@@ -100,17 +100,17 @@
           opacity: 1;
         }
 
-        :global td.success {
+        &.success {
           position: relative;
           color: #5dc896;
         }
 
-        :global td.warning {
+        &.warning {
           position: relative;
           color: #f08c62;
         }
 
-        :global td.danger {
+        &.danger {
           color: #e26868;
         }
 

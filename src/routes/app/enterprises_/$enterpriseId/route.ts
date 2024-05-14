@@ -8,6 +8,9 @@ import { lifesheets } from '../../../../utils/constants/queryKeys/lifesheet';
 import FileType from '../../../../utils/enums/FileType';
 import { LifesheetAssociatedItem } from '../../../../utils/enums/LifesheetAssociatedItem';
 import { WorkloadAssociatedItem } from '../../../../utils/enums/WorkloadAssociatedItem';
+import Page from '../../../../utils/types/Page';
+import EnterpriseResponseDto from '../../../../utils/types/EnterpriseResponseDto';
+import { QueryKey } from '@tanstack/react-query';
 
 const searchSchema = z.object({
   allBusinessPage: z.number().int().min(0).catch(0),
@@ -32,7 +35,21 @@ export const Route = createFileRoute('/app/enterprises/$enterpriseId')({
     const workloadsSize = 100;
     const workloadsPage = 0;
 
-    const enterprisePromise = queryClient.ensureQueryData(enterprises.detail(enterpriseId));
+    let initialDataKey: QueryKey | undefined = undefined;
+    const enterprisePromise = queryClient.ensureQueryData({
+      ...enterprises.detail(enterpriseId),
+      initialData: () => {
+        for (const [key, value] of queryClient.getQueriesData<Page<EnterpriseResponseDto>>({ queryKey: enterprises.page._def })) {
+          const item = value?.content.find((item) => item.id === enterpriseId);
+          if (item) {
+            initialDataKey = key;
+            return value;
+          }
+        }
+      },
+      initialDataUpdatedAt: () => (initialDataKey ? queryClient.getQueryState(initialDataKey)?.dataUpdatedAt : undefined),
+    });
+
     queryClient.prefetchQuery(allBusinesses.page._ctx.byEnterpriseId({ enterpriseId, page: allBusinessPage, size: allBusinessSize }));
     queryClient.prefetchQuery(queries.profiles.page._ctx.byEnterpriseIdAndSearch(enterpriseId, contactsSearch, { page: contactsPage, size: contactsSize }));
     queryClient.prefetchQuery(

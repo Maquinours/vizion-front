@@ -134,15 +134,7 @@ export default function AppViewBusinessViewBpViewTableComponent() {
                               target="_blank"
                               rel="noreferrer"
                               title={version.title}
-                              style={{
-                                backgroundColor: 'rgb(242, 76, 82)',
-                                color: 'rgb(255 255 255)',
-                                fontSize: 10,
-                                marginLeft: 5,
-                                marginRight: 5,
-                                borderRadius: '0.375rem',
-                                padding: 3.5,
-                              }}
+                              className="mx-1 rounded-md bg-[#f24c52] p-1 text-xs text-white"
                             >
                               {version.name}
                             </a>
@@ -151,6 +143,7 @@ export default function AppViewBusinessViewBpViewTableComponent() {
                               target="_blank"
                               title="Accéder à l'enregistreur"
                               rel="noreferrer"
+                              style={{ textDecoration: 'revert', color: 'revert' }}
                             >
                               <BiLinkExternal width={13} height={16} />
                             </a>
@@ -190,6 +183,9 @@ export default function AppViewBusinessViewBpViewTableComponent() {
           getRowCanExpand={() => user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO')}
           renderSubComponent={AppViewBusinessViewBpViewTableComponentSubRowComponent}
           onRowContextMenu={onRowContextMenu}
+          getRowClassName={(row) =>
+            row.quantity === row.quantityPrep ? styles.success : (row.quantity ?? 0) > (row.quantityPrep ?? 0) ? styles.warning : styles.danger
+          }
         />
       </div>
       <AppViewBusinessViewBpViewTableComponentDetailContextMenuComponent

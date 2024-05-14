@@ -85,6 +85,19 @@ export const Route = createFileRoute('/app/products/$productId/manage')({
       stockEntriesSize,
     },
   }) => {
+    queryClient.ensureQueryData(queries.product.detail(productId)).then((product) => {
+      queryClient.prefetchQuery(
+        queries['product-sale'].detail._ctx.byProductRefAndSearch({
+          productRef: product.reference!,
+          contact: salesContact,
+          startDate: salesDates?.at(0),
+          endDate: salesDates?.at(1),
+          page: salesPage,
+          size: salesSize,
+        }),
+      );
+    });
+
     queryClient.prefetchQuery(queries.product.page({ page: associatedProductsPage, size: associatedProductsSize })._ctx.byAssociatedProductId(productId));
 
     queryClient.prefetchQuery(queries.product.detail(productId)._ctx.versions._ctx.page({ page: versionsPage, size: versionsSize }));
@@ -92,17 +105,6 @@ export const Route = createFileRoute('/app/products/$productId/manage')({
     queryClient.prefetchQuery(queries.product.detail(productId)._ctx.specifications._ctx.page({ page: specificationsPage, size: specificationsSize }));
 
     queryClient.prefetchQuery(queries.product.detail(productId)._ctx.versionShelfStocks._ctx.page({ page: stocksPage, size: stocksSize }));
-
-    queryClient.prefetchQuery(
-      queries['product-sale'].detail._ctx.byProductIdAndSearch({
-        productId,
-        contact: salesContact,
-        startDate: salesDates?.at(0),
-        endDate: salesDates?.at(1),
-        page: salesPage,
-        size: salesSize,
-      }),
-    );
 
     queryClient.prefetchQuery(queries.product.detail(productId)._ctx.stockEntries._ctx.page({ page: stockEntriesPage, size: stockEntriesSize }));
   },

@@ -1,13 +1,13 @@
 import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
 import { getRouteApi } from '@tanstack/react-router';
-import RepresentativesTurnoverViewSearchSectionComponent from './components/SearchSection/SearchSection';
-import RepresentativesTurnoverViewTableComponent from './components/Table/Table';
-import RepresentativesTurnoverViewButtonsComponent from './components/Buttons/Buttons';
-import RepresentativesTurnoverViewRecapSectionComponent from './components/RecapSection/RecapSection';
-import { searchSalesVva } from './utils/api/salesVva';
-import styles from './RepresentativesTurnover.module.scss';
+import { queries } from '../../../../../../utils/constants/queryKeys';
 import { enterprises } from '../../../../../../utils/constants/queryKeys/enterprise';
 import CategoryClient from '../../../../../../utils/enums/CategoryClient';
+import styles from './RepresentativesTurnover.module.scss';
+import RepresentativesTurnoverViewButtonsComponent from './components/Buttons/Buttons';
+import RepresentativesTurnoverViewRecapSectionComponent from './components/RecapSection/RecapSection';
+import RepresentativesTurnoverViewSearchSectionComponent from './components/SearchSection/SearchSection';
+import RepresentativesTurnoverViewTableComponent from './components/Table/Table';
 
 const Route = getRouteApi('/app/tools/representatives-turnover');
 
@@ -19,8 +19,11 @@ export default function AppViewToolsViewRepresentativesTurnoverView() {
   const representative = representatives.find((rep) => rep.id === representativeId);
 
   const { data, isLoading } = useQuery({
-    queryKey: ['sales-vva', { representative, year, month }],
-    queryFn: () => (representative!.departments?.length === 0 ? [] : searchSalesVva(representative!, year, month)),
+    ...queries['sales-vva'].list._ctx.byDepartmentCodesYearAndMonth({
+      departmentCodes: representative?.departments?.map((dep) => dep.code) ?? [],
+      year,
+      month,
+    }),
     enabled: !!representative,
   });
 

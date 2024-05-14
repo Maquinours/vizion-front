@@ -1,20 +1,20 @@
 import { privateInstance } from '../functions/axios';
 import BpProductInfoResResponseDto from '../types/BpProductInfoResResponseDto';
 
-export const getProductSalesByProductId = (productId: string, page: number, size: number) => {
+export const getProductSalesByProductRef = (productRef: string, page: number, size: number) => {
   return privateInstance<BpProductInfoResResponseDto>({
     method: 'GET',
     url: `/business/v1/business/product-sell-history`,
     params: {
-      productId,
+      productRef,
       page,
       size,
     },
   }).then((res) => res.data);
 };
 
-export const getProductSalesByProductIdAndSearch = (
-  productId: string,
+export const getProductSalesByProductRefAndSearch = (
+  productRef: string,
   contact: string | undefined,
   startDate: Date | undefined,
   endDate: Date | undefined,
@@ -25,7 +25,7 @@ export const getProductSalesByProductIdAndSearch = (
     method: 'GET',
     url: `/business/v1/business/product-sell-history-between-and-enterprise`,
     params: {
-      productId,
+      productRef,
       startDate,
       endDate,
       contact,

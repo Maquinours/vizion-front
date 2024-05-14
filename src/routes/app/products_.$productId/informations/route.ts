@@ -20,23 +20,24 @@ export const Route = createFileRoute('/app/products/$productId/informations')({
     workloadsPage: 0,
     workloadsSize: 100,
   }),
-  loader: async ({ context: { queryClient }, params: { productId }, deps: { lifesheetPage, lifesheetSize, workloadsPage, workloadsSize } }) => {
-    const user = await queryClient.ensureQueryData(users.authentified());
-    if (!user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO')) {
-      queryClient.prefetchQuery(geds.detail._ctx.byTypeAndId(FileType.PRODUIT, productId));
+  loader: ({ context: { queryClient }, params: { productId }, deps: { lifesheetPage, lifesheetSize, workloadsPage, workloadsSize } }) => {
+    queryClient.ensureQueryData(users.authentified()).then((user) => {
+      if (user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO')) {
+        queryClient.prefetchQuery(geds.detail._ctx.byTypeAndId(FileType.PRODUIT, productId));
 
-      queryClient.prefetchQuery(
-        lifesheets
-          .page({ page: lifesheetPage, size: lifesheetSize })
-          ._ctx.byAssociatedItem({ associatedItemType: LifesheetAssociatedItem.PRODUCT, associatedItemId: productId }),
-      );
+        queryClient.prefetchQuery(
+          lifesheets
+            .page({ page: lifesheetPage, size: lifesheetSize })
+            ._ctx.byAssociatedItem({ associatedItemType: LifesheetAssociatedItem.PRODUCT, associatedItemId: productId }),
+        );
 
-      queryClient.prefetchQuery(
-        queries.tasks.page._ctx.byAssociatedItem(
-          { associatedItemType: WorkloadAssociatedItem.PRODUCT, associatedItemId: productId },
-          { page: workloadsPage, size: workloadsSize },
-        ),
-      );
-    }
+        queryClient.prefetchQuery(
+          queries.tasks.page._ctx.byAssociatedItem(
+            { associatedItemType: WorkloadAssociatedItem.PRODUCT, associatedItemId: productId },
+            { page: workloadsPage, size: workloadsSize },
+          ),
+        );
+      }
+    });
   },
 });

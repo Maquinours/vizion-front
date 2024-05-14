@@ -111,7 +111,7 @@ export default function CreateLifesheetModalComponent({ associatedItemType, asso
       onClose();
     },
     onError: (error) => {
-      console.log(error);
+      console.error(error);
       toast.error('Une erreur est survenue lors de la création du commentaire de la fiche de vie');
     },
   });

@@ -14,9 +14,12 @@ export const productVersionShelfStocks = createQueryKeys('product-version-shelf-
   page: {
     queryKey: null,
     contextQueries: {
-      all: ({ page, size }: { page: number; size: number }) => ({
-        queryKey: [page, size],
-        queryFn: () => getProductVersionShelfStocksPage({ page, size }),
+      all: ({ productVersionId, shelfId }: { productVersionId?: string; shelfId?: string }, { page, size }: { page: number; size: number }) => ({
+        queryKey: [
+          { productVersionId, shelfId },
+          { page, size },
+        ],
+        queryFn: () => getProductVersionShelfStocksPage({ productVersionId, shelfId }, { page, size }),
       }),
     },
   },

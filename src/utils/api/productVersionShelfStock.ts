@@ -53,9 +53,16 @@ export const getProductVersionShelfStocksExcel = () => {
   }).then((res) => res.data);
 };
 
-export const getProductVersionShelfStocksPage = ({ page, size }: { page: number; size: number }) => {
+export const getProductVersionShelfStocksPage = (
+  { productVersionId, shelfId }: { productVersionId?: string; shelfId?: string },
+  { page, size }: { page: number; size: number },
+) => {
   return privateInstance<Page<ProductVersionShelfStockResponseDto>>({
     method: 'GET',
-    url: `/product-inventory/v1/product-version-shelf-stock/find-all-paged/${encodeURIComponent(page)}/${encodeURIComponent(size)}`,
+    url: `/product-inventory/v1/product-version-shelf-stock/page/${encodeURIComponent(page)}/${encodeURIComponent(size)}`,
+    params: {
+      productVersionId,
+      shelfId,
+    },
   }).then((res) => res.data);
 };

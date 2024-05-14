@@ -19,7 +19,10 @@ export default function AppViewBusinessViewBillViewSendByEmailModalView() {
       defaultSubject={`Facture ${bill.number}`}
       defaultContent="Bonjour, <br /> <br />Ci-joint, votre facture."
       defaultAttachments={[file]}
-      defaultRecipient={[enterprise.accountability?.accountingEmail ?? 'rg@vizeo.eu', '43.vizeoo@ged.ma-comptabilite.com']}
+      defaultRecipient={[
+        (business.enterpriseName === 'DIVERS CLIENTS' ? business.billingEmail : enterprise.accountability?.accountingEmail) ?? 'rg@vizeo.eu',
+        '43.vizeoo@ged.ma-comptabilite.com',
+      ]}
       lifeSheetInfoDto={{
         businessNumber: business.numBusiness,
         enterpriseName: business.enterpriseName,
