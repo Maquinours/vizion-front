@@ -4,6 +4,7 @@ import { queries } from '../../../../../../utils/constants/queryKeys';
 import BusinessState from '../../../../../../utils/enums/BusinessState';
 import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthentifiedUser';
 import styles from './Sidebar.module.scss';
+import { useMemo } from 'react';
 
 const stepsData: Array<{
   label: string;
@@ -43,6 +44,8 @@ export default function AppViewBusinessViewSidebarComponent() {
 
   const { data: business } = useSuspenseQuery(queries.businesses.detail._ctx.byId(businessId));
 
+  const state = useMemo(() => business.oldState ?? business.state, [business.oldState, business.state]);
+
   return (
     <div className={styles.container}>
       <div className={styles.wizard}>
@@ -51,7 +54,7 @@ export default function AppViewBusinessViewSidebarComponent() {
             <Link
               key={stepData.link}
               to={stepData.link}
-              disabled={!stepData.clickableStates.includes(business.state!)}
+              disabled={!state || !stepData.clickableStates.includes(state)}
               className={styles.step}
               activeProps={{ className: styles.isActive }}
             >
