@@ -222,7 +222,12 @@ export default function AppViewBusinessViewDashboardView() {
                   <WorkloadsComponent
                     associatedItemType={WorkloadAssociatedItem.BUSINESS}
                     associatedItemId={business.id}
-                    emailLink={(task) => ({ from: routeApi.id, to: 'task-email/$taskId', params: { taskId: task.id }, search: (old) => old })}
+                    emailLink={(task) => ({
+                      from: routeApi.id,
+                      to: '/app/businesses-rma/business/$businessId/dashboard/task-email/$taskId',
+                      params: { taskId: task.id },
+                      search: (old) => old,
+                    })}
                   />
                 )}
 

@@ -122,7 +122,7 @@ export default function AppViewTabsContainerComponent() {
         })();
         if (title) {
           const route = matches.at(-1)!;
-          const tab = { id: match.routeId, name: title, route: { to: route.routeId, params: route.params, search: route.search } };
+          const tab = { id: match.routeId, name: title, route: { to: route.routeId, params: route.params, search: route.search } as LinkProps };
           setTabs((tabs) => {
             const newTabs = [...tabs];
             const tabIndex = newTabs.findIndex((t) => tab.id === t.id);

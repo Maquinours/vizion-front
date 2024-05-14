@@ -14,7 +14,7 @@ export default function AppViewBusinessViewDashboardViewLifesheetComponent() {
         associatedItemId={businessId}
         page={0}
         size={100}
-        createLink={{ from: routeApi.id, to: 'create-lifesheet', search: (old) => old }}
+        createLink={{ from: routeApi.id, to: '/app/businesses-rma/business/$businessId/dashboard/create-lifesheet', search: (old) => old }}
       />
     </div>
   );
