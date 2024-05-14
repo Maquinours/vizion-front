@@ -10,6 +10,7 @@ import WorkloadType from '../../../../../../utils/enums/WorkloadType';
 import TaskResponseDto from '../../../../../../utils/types/TaskResponseDto';
 import styles from './CollectiveTasks.module.scss';
 import Table from './components/Table/Table';
+import { useSubscription } from 'react-stomp-hooks';
 
 const Route = getRouteApi('/app/dashboard');
 
@@ -25,6 +26,8 @@ export default function AppViewDashboardViewCollectiveTasksComponent() {
         .map((id) => data?.find((d) => d.id === id))
         .filter((data) => data !== undefined) as Array<TaskResponseDto>)
     : [];
+
+  useSubscription('/topic/tasks-all', () => refetch());
 
   return (
     <CardComponent

@@ -4,11 +4,14 @@ import CardComponent from '../../../../../../components/Card/Card';
 import { queries } from '../../../../../../utils/constants/queryKeys';
 import styles from './ProgressiveInfos.module.scss';
 import AppViewDashboardViewProgressiveInfosComponentTableComponent from './components/Table/Table';
+import { useSubscription } from 'react-stomp-hooks';
 
 export default function AppViewDashboardViewProgressiveInfosComponent() {
   const [isMinimized, setMinimized] = useLocalStorage<boolean>('preferences.dashboard.progressiveInfos.minimized', false);
 
   const { data, isLoading, refetch, isRefetching } = useQuery(queries['progressive-infos'].list);
+
+  useSubscription('/topic/progressive-info', () => refetch());
 
   return (
     <CardComponent

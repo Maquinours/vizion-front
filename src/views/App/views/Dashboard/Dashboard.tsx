@@ -6,6 +6,8 @@ import AppViewDashboardViewLatestConnectionsComponent from './components/LatestC
 import AppViewDashboardViewPersonalTasksComponent from './components/PersonalTasks/PersonalTasks';
 import AppViewDashboardViewSchedulerComponent from './components/Scheduler/Scheduler';
 import Masonry from 'react-masonry-css';
+import { StompSessionProvider } from 'react-stomp-hooks';
+import { WEBSOCKET_URL } from '../../../../utils/constants/api';
 
 const breakpointColumnsObj = {
   default: 3,
@@ -17,14 +19,16 @@ const breakpointColumnsObj = {
 export default function AppViewDashboardView() {
   return (
     <>
-      <Masonry breakpointCols={breakpointColumnsObj} className={styles.container} columnClassName={styles.column}>
-        <AppViewDashboardViewCollectiveTasksComponent />
-        <AppViewDashboardViewPersonalTasksComponent />
-        <AppViewDashboardViewProgressiveInfosComponent />
-        <AppViewDashboardViewLatestConnectionsComponent />
-        <></>
-        <AppViewDashboardViewSchedulerComponent />
-      </Masonry>
+      <StompSessionProvider url={WEBSOCKET_URL}>
+        <Masonry breakpointCols={breakpointColumnsObj} className={styles.container} columnClassName={styles.column}>
+          <AppViewDashboardViewCollectiveTasksComponent />
+          <AppViewDashboardViewPersonalTasksComponent />
+          <AppViewDashboardViewProgressiveInfosComponent />
+          <AppViewDashboardViewLatestConnectionsComponent />
+          <></>
+          <AppViewDashboardViewSchedulerComponent />
+        </Masonry>
+      </StompSessionProvider>
       <Outlet />
     </>
   );

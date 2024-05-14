@@ -7,6 +7,7 @@ import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthent
 import AppViewDashboardViewPersonalTasksComponentHeaderComponent from './components/Header/Header';
 import AppViewDashboardViewPersonalTasksComponentPaginationComponent from './components/Pagination/Pagination';
 import AppViewDashboardViewPersonalTasksComponentTableComponent from './components/Table/Table';
+import { useSubscription } from 'react-stomp-hooks';
 
 const Route = getRouteApi('/app/dashboard');
 
@@ -20,6 +21,8 @@ export default function AppViewDashboardViewPersonalTasksComponent() {
   const { data: user } = useAuthentifiedUserQuery();
 
   const { data, refetch, isRefetching, isLoading } = useQuery(queries.tasks.page._ctx.byStateAndProfileId(state, user.profile.id, { page, size }));
+
+  useSubscription([`/topic/tasks-sender/${user.profile.id}`, `/topic/tasks/${user.profile.id}`], () => refetch());
 
   return (
     <CardComponent
