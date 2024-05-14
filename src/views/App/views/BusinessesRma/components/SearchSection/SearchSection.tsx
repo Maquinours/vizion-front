@@ -172,18 +172,18 @@ export default function AppViewBusinessesRmaViewSearchSectionComponent() {
       navigate({
         search: (old) => ({
           ...old,
-          number,
-          numOrder,
-          name,
-          contact,
-          deliverPhoneNumber,
-          zipCode,
-          representative,
+          number: number || undefined,
+          numOrder: numOrder || undefined,
+          name: name || undefined,
+          contact: contact || undefined,
+          deliverPhoneNumber: deliverPhoneNumber || undefined,
+          zipCode: zipCode || undefined,
+          representative: representative || undefined,
           amounts,
-          installer,
-          enterpriseName,
-          state,
-          dates,
+          installer: installer || undefined,
+          enterpriseName: enterpriseName || undefined,
+          state: state || undefined,
+          dates: dates.every((date) => !!date) ? (dates as Array<Date>) : undefined,
           excludeds,
           page: 0,
         }),
@@ -223,7 +223,8 @@ export default function AppViewBusinessesRmaViewSearchSectionComponent() {
     setValue('installer', installer);
     setValue('enterpriseName', enterpriseName);
     setValue('state', state);
-    setValue('dates', dates);
+    if (!!dates) setValue('dates', dates);
+    else resetField('dates');
     setValue('excludeds', excludeds);
     if (!!amounts) setValue('amounts', amounts);
     else resetField('amounts');
