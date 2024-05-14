@@ -13,7 +13,7 @@ export const createBusinessArcDetail = (data: BusinessArcDetailsRequestDto) => {
 
 export const getBusinessArcDetailById = (id: string) => {
   return privateInstance<BusinessArcDetailsResponseDto>({
-    method: 'POST',
+    method: 'GET',
     url: `/business/v1/business/arc/details/${encodeURIComponent(id)}`,
   }).then((res) => res.data);
 };
