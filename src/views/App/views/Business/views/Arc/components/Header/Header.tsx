@@ -16,9 +16,9 @@ export default function AppViewBusinessViewArcViewHeaderComponent() {
 
   return (
     <>
-      {user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && !business.archived && <AppViewBusinessViewArcViewHeaderComponentSectionOneComponent />}
+      {user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && <AppViewBusinessViewArcViewHeaderComponentSectionOneComponent />}
       <AppViewBusinessViewArcViewHeaderComponentSectionTwoComponent />
-      <AppViewBusinessViewArcViewHeaderComponentSectionThreeComponent />
+      {!business.archived && <AppViewBusinessViewArcViewHeaderComponentSectionThreeComponent />}
     </>
   );
 }

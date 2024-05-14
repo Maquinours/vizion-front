@@ -120,9 +120,11 @@ export default function AppViewBusinessViewArcViewHeaderComponentSectionOneCompo
         <Link from={routeApi.id} to="pdf" search={(old) => old} className="btn btn-primary-light">
           Editer
         </Link>
-        <button disabled={isPending} className="btn btn-secondary" onClick={() => onBpButtonClick()}>
-          {isPending ? 'Création du BP...' : 'Passer en BP'}
-        </button>
+        {!business.archived && (
+          <button disabled={isPending} className="btn btn-secondary" onClick={() => onBpButtonClick()}>
+            {isPending ? 'Création du BP...' : 'Passer en BP'}
+          </button>
+        )}
       </div>
     </div>
   );

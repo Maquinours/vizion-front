@@ -39,6 +39,7 @@ export default function AppViewBusinessViewArcViewHeaderComponentSectionTwoCompo
   const { businessId } = routeApi.useParams();
   const { hideReferencesPrices } = routeApi.useSearch();
 
+  const { data: business } = useSuspenseQuery(queries.businesses.detail._ctx.byId(businessId));
   const { data: arc } = useSuspenseQuery(queries['business-ARCs'].detail._ctx.byBusinessId(businessId));
 
   const {
@@ -92,21 +93,21 @@ export default function AppViewBusinessViewArcViewHeaderComponentSectionTwoCompo
           <div className={styles.form_group}>
             <label htmlFor="documentName">Nom du document</label>
             <div className={styles.form_input_save}>
-              <input id="documentName" placeholder="ARC" {...register('documentName')} />
+              <input id="documentName" readOnly={!!business.archived} placeholder="ARC" {...register('documentName')} />
             </div>
             <p className={styles.__errors}>{errors.documentName?.message}</p>
           </div>
           <div className={styles.form_group}>
             <label htmlFor="orderNumber">Numéro de commande</label>
             <div className={styles.form_input_save}>
-              <input id="orderNumber" placeholder="Numéro de commande" {...register('orderNumber')} />
+              <input id="orderNumber" readOnly={!!business.archived} placeholder="Numéro de commande" {...register('orderNumber')} />
             </div>
             <p className={styles.__errors}>{errors.orderNumber?.message}</p>
           </div>
           <div className={styles.form_group}>
             <label htmlFor="clientTotalAmountHT">Montant HT (+ fdp)</label>
             <div className={styles.form_input_save}>
-              <input id="clientTotalAmountHT" placeholder="Montant HT (+ frais de port)" {...register('clientTotalAmountHT')} />
+              <input id="clientTotalAmountHT" readOnly={!!business.archived} placeholder="Montant HT (+ frais de port)" {...register('clientTotalAmountHT')} />
             </div>
             <p className={styles.__errors}>{errors.clientTotalAmountHT?.message}</p>
           </div>
@@ -128,9 +129,11 @@ export default function AppViewBusinessViewArcViewHeaderComponentSectionTwoCompo
                             </div> */}
         </div>
         <div className={styles.actions_container}>
-          <button type="submit" disabled={isPending} className="btn btn-secondary">
-            {isPending ? 'Sauvegarde en cours...' : 'Sauvegarder'}
-          </button>
+          {!business.archived && (
+            <button type="submit" disabled={isPending} className="btn btn-secondary">
+              {isPending ? 'Sauvegarde en cours...' : 'Sauvegarder'}
+            </button>
+          )}
           <Link from={routeApi.id} search={(prev) => ({ ...prev, hideReferencesPrices: !hideReferencesPrices })} replace className="btn btn-primary-light">
             {hideReferencesPrices ? 'Afficher' : 'Masquer'} les références et prix
           </Link>
