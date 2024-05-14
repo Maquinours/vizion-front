@@ -11,5 +11,12 @@ export const Route = createFileRoute('/app/')({
         search: (old) => old,
         replace: true,
       });
+    else
+      throw redirect({
+        from: Route.id,
+        to: 'businesses-rma',
+        search: (old) => old,
+        replace: true,
+      });
   },
 });
