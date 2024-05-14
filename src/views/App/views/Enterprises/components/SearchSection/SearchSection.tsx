@@ -9,6 +9,7 @@ import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthent
 import { useEffect, useMemo } from 'react';
 import PhoneInput from 'react-phone-number-input/input';
 import { Link, getRouteApi } from '@tanstack/react-router';
+import { E164Number } from 'libphonenumber-js';
 
 const Route = getRouteApi('/app/enterprises');
 
@@ -108,7 +109,14 @@ export default function AppViewEnterprisesViewSearchSectionComponent() {
             name="phoneNumber"
             control={control}
             render={({ field: { value, onChange, onBlur } }) => (
-              <PhoneInput value={value} onChange={onChange} onBlur={onBlur} id="phoneNumber" country="FR" placeholder="Numéro de téléphone" />
+              <PhoneInput
+                value={value ? (value as E164Number) : undefined}
+                onChange={onChange}
+                onBlur={onBlur}
+                id="phoneNumber"
+                country="FR"
+                placeholder="Numéro de téléphone"
+              />
             )}
           />
           <select id="category" {...register('category')} defaultValue="">

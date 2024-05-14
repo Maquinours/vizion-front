@@ -6,6 +6,7 @@ import CategoryClient from '../../../../../../../../../../utils/enums/CategoryCl
 import countries from '../../../../../../../../../../utils/constants/countries';
 import PhoneInput from 'react-phone-number-input/input';
 import styles from './StepOne.module.scss';
+import { E164Number } from 'libphonenumber-js';
 
 const zipCodeRegex = /([A-Z0-9]{5})$/;
 
@@ -226,7 +227,7 @@ export default function AppViewToolsViewMenuViewCreateEnterpriseModalViewStepOne
                   name="phoneNumber"
                   control={control}
                   render={({ field: { value, onChange } }) => (
-                    <PhoneInput value={value ?? undefined} onChange={onChange} id="company_phone_number" country="FR" placeholder="" />
+                    <PhoneInput value={value ? (value as E164Number) : undefined} onChange={onChange} id="company_phone_number" country="FR" placeholder="" />
                   )}
                 />
                 <p className={styles.errors}>{errors.phoneNumber?.message}</p>

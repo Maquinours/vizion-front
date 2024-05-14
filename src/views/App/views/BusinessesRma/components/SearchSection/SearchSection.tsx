@@ -17,6 +17,7 @@ import { Range, getTrackBackground } from 'react-range';
 import { RiArrowDropDownLine, RiArrowDropUpLine } from 'react-icons/ri';
 import CurrencyFormat from '../../../../../../components/CurrencyFormat/CurrencyFormat';
 import { ClickAwayListener } from '@mui/material';
+import { E164Number } from 'libphonenumber-js';
 
 const routeApi = getRouteApi('/app/businesses-rma');
 
@@ -407,7 +408,13 @@ export default function AppViewBusinessesRmaViewSearchSectionComponent() {
             name="deliverPhoneNumber"
             control={control}
             render={({ field: { value, onChange } }) => (
-              <PhoneInput value={value} onChange={onChange} id="businessDeliverPhoneNumber" country="FR" placeholder="Numéro de téléphone du client" />
+              <PhoneInput
+                value={value ? (value as E164Number) : undefined}
+                onChange={onChange}
+                id="businessDeliverPhoneNumber"
+                country="FR"
+                placeholder="Numéro de téléphone du client"
+              />
             )}
           />
         </div>

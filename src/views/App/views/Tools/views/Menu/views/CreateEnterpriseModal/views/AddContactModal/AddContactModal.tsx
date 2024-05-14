@@ -15,6 +15,7 @@ import { checkPassword, generatePassword } from '../../../../../../../../../../u
 import styles from './AddContactModal.module.scss';
 import { getRouteApi, useNavigate } from '@tanstack/react-router';
 import { CreateEnterpriseContext } from '../../utils/contexts/context';
+import { E164Number } from 'libphonenumber-js';
 
 const routeApi = getRouteApi('/app/tools/menu/create-enterprise/add-contact');
 
@@ -229,7 +230,13 @@ export default function AppViewToolsViewMenuViewCreateEnterpriseModalViewAddCont
                     name="phoneNumber"
                     control={control}
                     render={({ field: { value, onChange } }) => (
-                      <PhoneInput value={value ?? undefined} onChange={onChange} id="first_phoneNumber" country="FR" placeholder="Fixe" />
+                      <PhoneInput
+                        value={value ? (value as E164Number) : undefined}
+                        onChange={onChange}
+                        id="first_phoneNumber"
+                        country="FR"
+                        placeholder="Fixe"
+                      />
                     )}
                   />
                   <p className={styles.__errors}>{errors.phoneNumber?.message}</p>
@@ -243,7 +250,13 @@ export default function AppViewToolsViewMenuViewCreateEnterpriseModalViewAddCont
                     control={control}
                     name="standardPhoneNumber"
                     render={({ field: { value, onChange } }) => (
-                      <PhoneInput value={value ?? undefined} onChange={onChange} id="third_phoneNumber" country="FR" placeholder="Portable" />
+                      <PhoneInput
+                        value={value ? (value as E164Number) : undefined}
+                        onChange={onChange}
+                        id="third_phoneNumber"
+                        country="FR"
+                        placeholder="Portable"
+                      />
                     )}
                   />
                   <p className={styles.__errors}>{errors.standardPhoneNumber?.message}</p>

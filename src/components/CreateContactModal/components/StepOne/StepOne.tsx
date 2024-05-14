@@ -18,6 +18,7 @@ import { MdCheckCircleOutline, MdOutlineCancel } from 'react-icons/md';
 import { PropagateLoader } from 'react-spinners';
 import ReactModal from 'react-modal';
 import styles from './StepOne.module.scss';
+import { E164Number } from 'libphonenumber-js';
 
 const profileClientOptions = [
   { value: '', text: 'Sélectionnez un profil' },
@@ -180,8 +181,8 @@ export default function CreateContactModalComponentStepOneComponent({
         civility,
         email,
         password,
-        phoneNumber: phoneNumber ? formatPhoneNumber(phoneNumber) : phoneNumber,
-        standardPhoneNumber: standardPhoneNumber ? formatPhoneNumber(standardPhoneNumber) : standardPhoneNumber,
+        phoneNumber: phoneNumber ? formatPhoneNumber(phoneNumber as E164Number) : phoneNumber,
+        standardPhoneNumber: standardPhoneNumber ? formatPhoneNumber(standardPhoneNumber as E164Number) : standardPhoneNumber,
         landlinePhoneNumber,
         job,
         profileClient: profileClient,
@@ -260,7 +261,14 @@ export default function CreateContactModalComponentStepOneComponent({
                     name="phoneNumber"
                     control={control}
                     render={({ field: { value, onChange, onBlur } }) => (
-                      <PhoneInput value={value ?? undefined} onChange={onChange} onBlur={onBlur} id="phoneNumber" country="FR" placeholder="Fixe" />
+                      <PhoneInput
+                        value={value ? (value as E164Number) : undefined}
+                        onChange={onChange}
+                        onBlur={onBlur}
+                        id="phoneNumber"
+                        country="FR"
+                        placeholder="Fixe"
+                      />
                     )}
                   />
                   <p className={styles.__errors}>{errors.phoneNumber?.message}</p>
@@ -274,7 +282,14 @@ export default function CreateContactModalComponentStepOneComponent({
                     name="standardPhoneNumber"
                     control={control}
                     render={({ field: { value, onChange, onBlur } }) => (
-                      <PhoneInput value={value ?? undefined} onChange={onChange} onBlur={onBlur} id="standardPhoneNumber" country="FR" placeholder="Portable" />
+                      <PhoneInput
+                        value={value ? (value as E164Number) : undefined}
+                        onChange={onChange}
+                        onBlur={onBlur}
+                        id="standardPhoneNumber"
+                        country="FR"
+                        placeholder="Portable"
+                      />
                     )}
                   />
                   <p className={styles.__errors}>{errors.standardPhoneNumber?.message}</p>

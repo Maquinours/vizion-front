@@ -13,6 +13,7 @@ import countries from '../../../../../../utils/constants/countries';
 import { queries } from '../../../../../../utils/constants/queryKeys';
 import { enterprises } from '../../../../../../utils/constants/queryKeys/enterprise';
 import styles from './UpdateModal.module.scss';
+import { E164Number } from 'libphonenumber-js';
 
 const zipCodeRegex = /([A-Z0-9]){5}/;
 const yupSchema = object({
@@ -189,7 +190,7 @@ export default function AppViewEnterpriseViewUpdateModalView() {
                   control={control}
                   render={({ field: { value, onChange, onBlur } }) => (
                     <PhoneInputWithCountrySelect
-                      value={value ?? undefined}
+                      value={value ? (value as E164Number) : undefined}
                       onChange={onChange}
                       onBlur={onBlur}
                       id="company_phone_number"

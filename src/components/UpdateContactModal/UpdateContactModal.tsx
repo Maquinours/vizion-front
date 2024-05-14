@@ -9,6 +9,7 @@ import { getEmailExists, updateProfile } from '../../utils/api/profile';
 import { queries } from '../../utils/constants/queryKeys';
 import ProfileClient from '../../utils/enums/ProfileClient';
 import styles from './UpdateContactModal.module.scss';
+import { E164Number } from 'libphonenumber-js';
 
 const profileClientOptions = [
   { value: '', text: 'Sélectionnez un profil' },
@@ -110,8 +111,8 @@ export default function UpdateContactModalComponent({ contactId, onClose }: Upda
         lastName,
         firstName,
         civility,
-        phoneNumber: phoneNumber ? formatPhoneNumber(phoneNumber) : phoneNumber,
-        standardPhoneNumber: standardPhoneNumber ? formatPhoneNumber(standardPhoneNumber) : standardPhoneNumber,
+        phoneNumber: phoneNumber ? formatPhoneNumber(phoneNumber as E164Number) : phoneNumber,
+        standardPhoneNumber: standardPhoneNumber ? formatPhoneNumber(standardPhoneNumber as E164Number) : standardPhoneNumber,
         landlinePhoneNumber: landlinePhoneNumber,
         job: job,
         profileClient,
@@ -181,7 +182,7 @@ export default function UpdateContactModalComponent({ contactId, onClose }: Upda
                     control={control}
                     name="phoneNumber"
                     render={({ field: { value, onChange, onBlur } }) => (
-                      <PhoneInput country="FR" placeholder="Fixe" value={value ?? undefined} onChange={onChange} onBlur={onBlur} />
+                      <PhoneInput country="FR" placeholder="Fixe" value={value ? (value as E164Number) : undefined} onChange={onChange} onBlur={onBlur} />
                     )}
                   />
                   <p className={styles.__errors}>{errors.phoneNumber?.message}</p>
@@ -195,7 +196,7 @@ export default function UpdateContactModalComponent({ contactId, onClose }: Upda
                     control={control}
                     name="standardPhoneNumber"
                     render={({ field: { value, onChange, onBlur } }) => (
-                      <PhoneInput country="FR" placeholder="Portable" value={value ?? undefined} onChange={onChange} onBlur={onBlur} />
+                      <PhoneInput country="FR" placeholder="Portable" value={value ? (value as E164Number) : undefined} onChange={onChange} onBlur={onBlur} />
                     )}
                   />
                   <p className={styles.__errors}>{errors.standardPhoneNumber?.message}</p>

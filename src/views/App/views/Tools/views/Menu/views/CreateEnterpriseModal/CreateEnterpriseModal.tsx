@@ -11,6 +11,7 @@ import { Outlet, useNavigate } from '@tanstack/react-router';
 import { CreateEnterpriseContext } from './utils/contexts/context';
 import ReactModal from 'react-modal';
 import styles from './CreateEnterpriseModal.module.scss';
+import { E164Number } from 'libphonenumber-js';
 
 export default function AppViewToolsViewMenuViewCreateEnterpriseModalView() {
   const queryClient = useQueryClient();
@@ -54,7 +55,7 @@ export default function AppViewToolsViewMenuViewCreateEnterpriseModalView() {
         departmentCode: department?.code,
         country: stepOneData!.country,
         email: stepOneData!.email === '' ? null : stepOneData!.email,
-        phoneNumber: stepOneData!.phoneNumber ? formatPhoneNumber(stepOneData!.phoneNumber) : null,
+        phoneNumber: stepOneData!.phoneNumber ? formatPhoneNumber(stepOneData!.phoneNumber as E164Number) : null,
         infoSup: {
           representativeId: data.representative,
           enterpriseRelationShips: data.relations.map((relation) => ({ fullName: relation ?? '' })).filter((relation) => !!relation.fullName),
