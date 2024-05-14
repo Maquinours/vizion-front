@@ -1,7 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useQuery } from '@tanstack/react-query';
 import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import ReactDatePicker from 'react-datepicker';
 import { Controller, useForm } from 'react-hook-form';
 import PhoneInput from 'react-phone-number-input/input';
@@ -153,43 +153,46 @@ export default function AppViewBusinessesRmaViewSearchSectionComponent() {
     [STATE_OPTIONS, user],
   );
 
-  const onSubmit = ({
-    number,
-    numOrder,
-    name,
-    contact,
-    deliverPhoneNumber,
-    zipCode,
-    representative,
-    installer,
-    amounts,
-    enterpriseName,
-    state,
-    dates,
-    excludeds,
-  }: yup.InferType<typeof yupSchema>) => {
-    navigate({
-      search: (old) => ({
-        ...old,
-        number,
-        numOrder,
-        name,
-        contact,
-        deliverPhoneNumber,
-        zipCode,
-        representative,
-        amounts,
-        installer,
-        enterpriseName,
-        state,
-        dates,
-        excludeds,
-        page: 0,
-      }),
-    });
-  };
+  const onSubmit = useCallback(
+    ({
+      number,
+      numOrder,
+      name,
+      contact,
+      deliverPhoneNumber,
+      zipCode,
+      representative,
+      installer,
+      amounts,
+      enterpriseName,
+      state,
+      dates,
+      excludeds,
+    }: yup.InferType<typeof yupSchema>) => {
+      navigate({
+        search: (old) => ({
+          ...old,
+          number,
+          numOrder,
+          name,
+          contact,
+          deliverPhoneNumber,
+          zipCode,
+          representative,
+          amounts,
+          installer,
+          enterpriseName,
+          state,
+          dates,
+          excludeds,
+          page: 0,
+        }),
+      });
+    },
+    [navigate],
+  );
 
-  const onReset = () => {
+  const onReset = useCallback(() => {
     navigate({
       search: (old) => ({
         ...old,
@@ -209,7 +212,7 @@ export default function AppViewBusinessesRmaViewSearchSectionComponent() {
         page: 0,
       }),
     });
-  };
+  }, [navigate]);
 
   useEffect(() => {
     setValue('numOrder', numOrder);
