@@ -1,16 +1,18 @@
 import { useQueryClient } from '@tanstack/react-query';
-import { Link, LinkProps, useMatchRoute, useMatches, useNavigate } from '@tanstack/react-router';
+import { Link, ToOptions, ToPathOption, useMatchRoute, useMatches, useNavigate } from '@tanstack/react-router';
 import { useLocalStorage } from '@uidotdev/usehooks';
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 import { MdClose } from 'react-icons/md';
 import { queries } from '../../../../utils/constants/queryKeys';
 import styles from './TabsContainer.module.scss';
+import { TabsContext } from './utils/contexts/context';
 
 type Tab = {
   id: string;
   name: string;
-  route: LinkProps;
+  route: ToOptions;
   closable?: boolean;
+  closeRoute?: ToOptions;
 };
 
 // const INITIAL_TABS = [
@@ -80,24 +82,47 @@ type Tab = {
 //   },
 // ];
 
-export default function AppViewTabsContainerComponent() {
+type AppViewTabsContainerComponentProps = Readonly<{
+  children: React.ReactNode;
+}>;
+export default function AppViewTabsContainerComponent({ children }: AppViewTabsContainerComponentProps) {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const [tabs, setTabs] = useLocalStorage<Tab[]>('tabs', []);
   const matches = useMatches();
   const matchRoute = useMatchRoute();
 
-  const onCloseTab = (e: React.MouseEvent, tab: Tab, index: number) => {
-    e.preventDefault();
-    e.stopPropagation();
-    e.nativeEvent.stopImmediatePropagation();
-    setTabs((tabs) => {
-      if (matchRoute({ to: tab.route.to })) navigate(tabs.at(Math.max(index - 1, 0))?.route ?? { to: '/app' });
-      const newTabs = [...tabs];
-      newTabs.splice(index, 1);
-      return newTabs;
-    });
-  };
+  const removeTab = useCallback(
+    (tabId?: string) => {
+      setTabs((tabs) => {
+        const tabIndex = tabId ? tabs.findIndex((tab) => tab.id === tabId) : tabs.findIndex((tab) => matchRoute({ to: tab.route.to }));
+        if (tabIndex !== -1) {
+          const tab = tabs[tabIndex];
+          if (matchRoute({ to: tab.route.to })) navigate(tabs.at(Math.max(tabIndex - 1, 0))?.route ?? { to: '/app' });
+
+          const newTabs = [...tabs];
+          newTabs.splice(tabIndex, 1);
+          return newTabs;
+        }
+        return tabs; // if we can't remove, then we return the initial array
+      });
+    },
+    [matchRoute, navigate, setTabs],
+  );
+
+  const onCloseTab = useCallback(
+    (e: React.MouseEvent, tab: Tab) => {
+      e.preventDefault();
+      e.stopPropagation();
+      e.nativeEvent.stopImmediatePropagation();
+      console.log(tab.closeRoute);
+      if (tab.closeRoute) navigate(tab.closeRoute);
+      else removeTab(tab.id);
+    },
+    [removeTab],
+  );
+
+  const contextValue = useMemo(() => ({ removeTab }), [removeTab]);
 
   useEffect(() => {
     (async () => {
@@ -122,7 +147,13 @@ export default function AppViewTabsContainerComponent() {
         })();
         if (title) {
           const route = matches.at(-1)!;
-          const tab = { id: match.routeId, name: title, route: { to: route.routeId, params: route.params, search: route.search } as LinkProps };
+          const tabRoute = { to: route.routeId as ToPathOption, params: route.params, search: route.search };
+          const tab: Tab = {
+            id: match.pathname,
+            name: title,
+            route: tabRoute,
+            closeRoute: match.staticData.closeTabRoute ? (match.staticData.closeTabRoute(tabRoute) as ToOptions) : undefined,
+          };
           setTabs((tabs) => {
             const newTabs = [...tabs];
             const tabIndex = newTabs.findIndex((t) => tab.id === t.id);
@@ -137,25 +168,28 @@ export default function AppViewTabsContainerComponent() {
   }, [matches]);
 
   return (
-    <div className={styles.container}>
-      <div className={styles.tabs}>
-        {tabs.map((tab, index) => (
-          <Link
-            {...tab.route}
-            key={index}
-            className={styles.tab}
-            activeOptions={{ exact: true, includeSearch: false }}
-            activeProps={{ className: styles.active }}
-          >
-            <span>{tab.name}</span>
-            {(tab.closable === undefined || tab.closable) && (
-              <button onClick={(e) => onCloseTab(e, tab, index)}>
-                <MdClose />
-              </button>
-            )}
-          </Link>
-        ))}
+    <TabsContext.Provider value={contextValue}>
+      <div className={styles.container}>
+        <div className={styles.tabs}>
+          {tabs.map((tab, index) => (
+            <Link
+              {...tab.route}
+              key={index}
+              className={styles.tab}
+              activeOptions={{ exact: true, includeSearch: false }}
+              activeProps={{ className: styles.active }}
+            >
+              <span>{tab.name}</span>
+              {(tab.closable === undefined || tab.closable) && (
+                <button onClick={(e) => onCloseTab(e, tab)}>
+                  <MdClose />
+                </button>
+              )}
+            </Link>
+          ))}
+        </div>
       </div>
-    </div>
+      {children}
+    </TabsContext.Provider>
   );
 }

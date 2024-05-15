@@ -14,6 +14,11 @@ declare module '@tanstack/react-router' {
   }
   interface StaticDataRouteOption {
     title?: string;
+    closeTabRoute?: (prev: { to: string; params: { [key: string]: any }; search: { [key: string]: any } }) => {
+      to: string;
+      params: { [key: string]: any };
+      search: { [key: string]: any };
+    };
   }
   interface HistoryState {
     qInfos?: Array<AllBusinessQInfoRequestDto>; // used to handle all business search by products

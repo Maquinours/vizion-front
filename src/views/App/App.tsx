@@ -31,10 +31,11 @@ export default function AppLayout() {
         <AppViewTopbarComponent />
         <main className={classNames(styles.content, { [styles.mobile_menu_opened]: mobileSidebar })}>
           <div className={styles.wrapper}>
-            <AppViewTabsContainerComponent />
-            <div className={styles.outlet_container}>
-              <Outlet />
-            </div>
+            <AppViewTabsContainerComponent>
+              <div className={styles.outlet_container}>
+                <Outlet />
+              </div>
+            </AppViewTabsContainerComponent>
           </div>
         </main>
         <AppViewSidebarComponent />
