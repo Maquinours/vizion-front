@@ -3,7 +3,6 @@ import { Link, ToOptions, ToPathOption, useMatchRoute, useMatches, useNavigate }
 import { useLocalStorage } from '@uidotdev/usehooks';
 import React, { useCallback, useEffect, useMemo } from 'react';
 import { MdClose } from 'react-icons/md';
-import { queries } from '../../../../utils/constants/queryKeys';
 import styles from './TabsContainer.module.scss';
 import { TabsContext } from './utils/contexts/context';
 
@@ -115,7 +114,6 @@ export default function AppViewTabsContainerComponent({ children }: AppViewTabsC
       e.preventDefault();
       e.stopPropagation();
       e.nativeEvent.stopImmediatePropagation();
-      console.log(tab.closeRoute);
       if (tab.closeRoute) navigate(tab.closeRoute);
       else removeTab(tab.id);
     },
@@ -127,24 +125,7 @@ export default function AppViewTabsContainerComponent({ children }: AppViewTabsC
   useEffect(() => {
     (async () => {
       for (const match of [...matches].reverse()) {
-        const title = await (async () => {
-          switch (match.routeId) {
-            case '/app/enterprises/$enterpriseId':
-              return (await queryClient.ensureQueryData(queries.enterprise.detail((match.params as { enterpriseId: string }).enterpriseId))).name;
-            case '/app/products/$productId':
-              return (
-                (await queryClient.ensureQueryData(queries.product.detail((match.params as { productId: string }).productId))).reference ?? 'Produit inconnu'
-              );
-            case '/app/businesses-rma/business/$businessId':
-              const business = await queryClient.ensureQueryData(queries.businesses.detail._ctx.byId((match.params as { businessId: string }).businessId));
-              return `Affaire (${business.numBusiness})`;
-            case '/app/external-links/$externalLinkId':
-              return (await queryClient.ensureQueryData(queries['external-link'].detail._ctx.byId((match.params as { externalLinkId: string }).externalLinkId)))
-                .title;
-            default:
-              return match.staticData.title;
-          }
-        })();
+        const title = match.staticData.title ?? (match.staticData.getTitle ? await match.staticData.getTitle(queryClient, match) : undefined);
         if (title) {
           const route = matches.at(-1)!;
           const tabRoute = { to: route.routeId as ToPathOption, params: route.params, search: route.search };

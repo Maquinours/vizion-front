@@ -1,5 +1,5 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { createRouter } from '@tanstack/react-router';
+import { createRouter, AnyRouteMatch } from '@tanstack/react-router';
 import { ReactNode } from 'react';
 import 'react-toastify/dist/ReactToastify.css';
 import Loader from './components/Loader/Loader';
@@ -14,6 +14,7 @@ declare module '@tanstack/react-router' {
   }
   interface StaticDataRouteOption {
     title?: string;
+    getTitle?: (queryClient: QueryClient, match: AnyRouteMatch) => Promise<string>;
     closeTabRoute?: (prev: { to: string; params: { [key: string]: any }; search: { [key: string]: any } }) => {
       to: string;
       params: { [key: string]: any };

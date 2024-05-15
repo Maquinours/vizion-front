@@ -67,4 +67,8 @@ export const Route = createFileRoute('/app/enterprises/$enterpriseId')({
 
     await enterprisePromise;
   },
+  staticData: {
+    getTitle: (queryClient, match) =>
+      queryClient.ensureQueryData(queries.enterprise.detail((match.params as { enterpriseId: string }).enterpriseId)).then((enterprise) => enterprise.name),
+  },
 });
