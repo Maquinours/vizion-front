@@ -169,6 +169,7 @@ export default function CreateLifesheetModalComponent({ associatedItemType, asso
 
                   return (
                     <button
+                      type="button"
                       key={itm.id}
                       className={classNames(styles.member_card, {
                         [styles.isSelected]: isSelected,
@@ -210,7 +211,9 @@ export default function CreateLifesheetModalComponent({ associatedItemType, asso
               <button className="btn btn-primary" onClick={() => onClose()}>
                 Annuler
               </button>
-              <button className="btn btn-secondary">Valider</button>
+              <button type="submit" className="btn btn-secondary">
+                Valider
+              </button>
             </div>
           </form>
         </div>
