@@ -63,7 +63,7 @@ export default function AppViewDashboardViewPersonalTasksComponentTableComponent
           let item;
           if (original.mailId)
             item = (
-              <Link from={Route.id} to="task-email/$taskId" params={{ taskId: original.id }} search={(old) => old}>
+              <Link from={Route.id} to="task-email/$taskId" params={{ taskId: original.id }} search={(old) => old} className={styles.link}>
                 {parse(DOMPurify.sanitize(original.content ?? ''))}
                 <p className="text-secondary">A : {original.receiver?.to?.toString().split(';').join(' ')}</p>
                 <p>
@@ -97,12 +97,26 @@ export default function AppViewDashboardViewPersonalTasksComponentTableComponent
       }),
       columnHelper.display({
         header: 'Objet',
-        cell: () => {
-          // TODO: reimplement following links
-          //   if (original.businessId) return <Link to={`/app/business/get-business/${original.businessId}`}>{original.businessNum}</Link>;
-          //   if (original.rmaId) return <Link to={`/app/rma/get-rma/${original.rmaId}`}>{original.rmaNum}</Link>;
-          //   if (original.enterpriseId) return <Link to={`/app/enterprises/get-enterprise/${original.enterpriseId}`}>{original.enterpriseName}</Link>;
-          //   if (original.productId) return <Link to={`/app/products/get-product/${original.productId}`}>{original.reference}</Link>;
+        cell: ({ row: { original } }) => {
+          if (original.businessId)
+            return (
+              <Link to="/app/businesses-rma/business/$businessId" params={{ businessId: original.businessId }}>
+                {original.businessNum}
+              </Link>
+            );
+          //   if (original.rmaId) return <Link to={`/app/rma/get-rma/${original.rmaId}`}>{original.rmaNum}</Link>; // TODO: reimplement this link
+          if (original.enterpriseId)
+            return (
+              <Link to="/app/enterprises/$enterpriseId" params={{ enterpriseId: original.enterpriseId }}>
+                {original.enterpriseName}
+              </Link>
+            );
+          if (original.productId)
+            return (
+              <Link to="/app/products/$productId" params={{ productId: original.productId }}>
+                {original.reference}
+              </Link>
+            );
           return 'Non relié';
         },
       }),

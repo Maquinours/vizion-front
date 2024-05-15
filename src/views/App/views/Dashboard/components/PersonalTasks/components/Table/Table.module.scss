@@ -185,9 +185,15 @@
           }
 
           .content {
-            a {
+            a.link {
               display: flex;
               flex-direction: column;
+            }
+
+            .tag {
+              font-size: 12px;
+              text-align: right;
+              margin-top: 3px;
             }
           }
         }
