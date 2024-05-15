@@ -4,6 +4,7 @@ import AppViewBusinessViewSidebarComponent from './components/Sidebar/Sidebar';
 import AppViewBusinessViewArchiveModalComponent from './components/ArchiveModal/ArchiveModal';
 import AppViewBusinessViewAssistancesModalComponent from './components/AssistancesModal/AssistancesModal';
 import AppViewBusinessViewCreateAssistanceModalComponent from './components/CreateAssistanceModal/CreateAssistanceModal';
+import AppViewBusinessViewBeforeCloseModalComponent from './components/BeforeCloseModal/BeforeCloseModal';
 
 export default function AppViewBusinessView() {
   return (
@@ -21,6 +22,7 @@ export default function AppViewBusinessView() {
       <AppViewBusinessViewArchiveModalComponent />
       <AppViewBusinessViewAssistancesModalComponent />
       <AppViewBusinessViewCreateAssistanceModalComponent />
+      <AppViewBusinessViewBeforeCloseModalComponent />
     </>
   );
 }

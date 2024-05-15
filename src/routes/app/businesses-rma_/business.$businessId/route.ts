@@ -5,7 +5,7 @@ import BusinessState from '../../../../utils/enums/BusinessState';
 import CategoryBusiness from '../../../../utils/enums/CategoryBusiness';
 
 const searchSchema = z.object({
-  businessModal: z.enum(['archive', 'assistances', 'create-assistance']).optional().catch(undefined),
+  businessModal: z.enum(['archive', 'assistances', 'create-assistance', 'before-close']).optional().catch(undefined),
 });
 
 export const Route = createFileRoute('/app/businesses-rma/business/$businessId')({
@@ -31,5 +31,8 @@ export const Route = createFileRoute('/app/businesses-rma/business/$businessId')
       );
       if (assistances.length === 0) throw redirect({ search: (old) => ({ ...old, businessModal: 'create-assistance' }) });
     }
+  },
+  staticData: {
+    closeTabRoute: (prev) => ({ to: prev.to, params: prev.params, search: { ...prev.search, businessModal: 'before-close' } }),
   },
 });
