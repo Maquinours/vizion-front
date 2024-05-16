@@ -1,17 +1,16 @@
-import { createColumnHelper } from '@tanstack/react-table';
 import { useQuery } from '@tanstack/react-query';
 import { getRouteApi } from '@tanstack/react-router';
-import styles from './AllBusinessTable.module.scss';
-import AllBusinessState from '../../../../../../utils/enums/AllBusinessState';
+import { createColumnHelper } from '@tanstack/react-table';
+import CardComponent from '../../../../../../components/Card/Card';
 import CurrencyFormat from '../../../../../../components/CurrencyFormat/CurrencyFormat';
+import PaginationComponent from '../../../../../../components/Pagination/Pagination';
+import RowLinkTableComponent from '../../../../../../components/RowLinkTable/RowLinkTable';
+import { allBusinesses } from '../../../../../../utils/constants/queryKeys/allBusiness';
+import AllBusinessState from '../../../../../../utils/enums/AllBusinessState';
 import CategoryBusiness from '../../../../../../utils/enums/CategoryBusiness';
 import { formatDateAndHourWithSlash } from '../../../../../../utils/functions/dates';
-import { allBusinesses } from '../../../../../../utils/constants/queryKeys/allBusiness';
-import CardComponent from '../../../../../../components/Card/Card';
-import PaginationComponent from '../../../../../../components/Pagination/Pagination';
-import TableComponent from '../../../../../../components/Table/Table';
 import AllBusinessResponseDto from '../../../../../../utils/types/AllBusinessResponseDto';
-import { Link } from '@tanstack/react-router';
+import styles from './AllBusinessTable.module.scss';
 
 const size = 15;
 
@@ -68,16 +67,7 @@ const columnHelper = createColumnHelper<AllBusinessResponseDto>();
 const columns = [
   columnHelper.display({
     header: "N° de l'affaire",
-    cell: ({ row: { original } }) => {
-      const children = original.number;
-      if (original.category === CategoryBusiness.AFFAIRE)
-        return (
-          <Link to="/app/businesses-rma/business/$businessId" params={{ businessId: original.businessId }}>
-            {children}
-          </Link>
-        );
-      else return children; // TODO: add link to RMA
-    },
+    cell: ({ row: { original } }) => original.number,
   }),
   columnHelper.display({
     header: "Nom de l'affaire",
@@ -122,7 +112,23 @@ export default function AppViewEnterpriseViewAllBusinessTableComponent() {
       <CardComponent title="Affaires en cours">
         <div className={styles.card_container}>
           <div className={styles.table_container}>
-            <TableComponent<AllBusinessResponseDto> columns={columns} isLoading={isLoading} data={data?.content ?? []} rowId="id" />
+            <RowLinkTableComponent<AllBusinessResponseDto>
+              columns={columns}
+              isLoading={isLoading}
+              data={data?.content}
+              getRowLink={(row) => ({
+                to: '/app/businesses-rma/business/$businessId', // TODO: handle RMA
+                params: { businessId: row.businessId },
+                disabled: row.category !== CategoryBusiness.AFFAIRE,
+              })}
+              tableClassName={styles.table}
+              headerClassName={styles.thead}
+              headerRowClassName={styles.tr}
+              headerCellClassName={styles.th}
+              bodyClassName={styles.tbody}
+              getBodyRowClassName={() => styles.tr}
+              bodyCellClassName={styles.td}
+            />
           </div>
           <div className={styles.pagination}>
             <PaginationComponent
