@@ -1,14 +1,14 @@
+import { Link, getRouteApi } from '@tanstack/react-router';
 import { createColumnHelper } from '@tanstack/react-table';
 import { useMemo } from 'react';
-import AllBusinessResponseDto from '../../../../../../utils/types/AllBusinessResponseDto';
-import { Link, getRouteApi } from '@tanstack/react-router';
-import AllBusinessState from '../../../../../../utils/enums/AllBusinessState';
-import { formatDateAndHourWithSlash } from '../../../../../../utils/functions/dates';
-import CategoryBusiness from '../../../../../../utils/enums/CategoryBusiness';
 import CurrencyFormat from '../../../../../../components/CurrencyFormat/CurrencyFormat';
+import RowLinkTableComponent from '../../../../../../components/RowLinkTable/RowLinkTable';
+import AllBusinessState from '../../../../../../utils/enums/AllBusinessState';
+import CategoryBusiness from '../../../../../../utils/enums/CategoryBusiness';
+import { formatDateAndHourWithSlash } from '../../../../../../utils/functions/dates';
+import AllBusinessResponseDto from '../../../../../../utils/types/AllBusinessResponseDto';
 import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthentifiedUser';
 import styles from './Table.module.scss';
-import TableComponent from '../../../../../../components/Table/Table';
 
 const routeApi = getRouteApi('/app/businesses-rma');
 
@@ -79,17 +79,11 @@ export default function AppViewBusinessesRmaViewTableComponent({ data, isLoading
       columnHelper.display({
         header: "Nr d'affaire",
         cell: ({ row: { original } }) => (
-          <Link
-            to="/app/businesses-rma/business/$businessId"
-            params={{ businessId: original.businessId }}
-            disabled={original.category !== CategoryBusiness.AFFAIRE}
-            className={styles.business_number}
-            style={{ color: 'var(--secondary-color)' }}
-          >
+          <div style={{ color: 'var(--secondary-color)' }}>
             <span>{original.number}</span>
             <span>{original.businessBillNumber}</span>
             {original.creditNotes?.map((num, idx) => <span key={idx}>Avoir : {num.number}</span>)}
-          </Link>
+          </div>
         ),
       }),
       columnHelper.display({
@@ -183,7 +177,23 @@ export default function AppViewBusinessesRmaViewTableComponent({ data, isLoading
 
   return (
     <div className={styles.table_container}>
-      <TableComponent columns={columns} data={data} isLoading={isLoading} />
+      <RowLinkTableComponent
+        columns={columns}
+        data={data}
+        isLoading={isLoading}
+        tableClassName={styles.table}
+        headerClassName={styles.thead}
+        headerRowClassName={styles.tr}
+        headerCellClassName={styles.th}
+        bodyClassName={styles.tbody}
+        getBodyRowClassName={() => styles.tr}
+        bodyCellClassName={styles.td}
+        getRowLink={(row) => ({
+          to: '/app/businesses-rma/business/$businessId', // TODO: handle RMA
+          params: { businessId: row.businessId },
+          disabled: row.category !== CategoryBusiness.AFFAIRE,
+        })}
+      />
     </div>
   );
 }

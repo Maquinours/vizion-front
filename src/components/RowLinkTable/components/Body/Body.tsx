@@ -37,10 +37,9 @@ export default function RowLinkTableComponentBodyComponent<T>({
         </div>
       ) : (
         getRowModel().rows.map((row) => (
-          <Link
+          <div
             key={row.id}
-            {...getRowLink(row.original)}
-            className={classNames('grid', getRowClassName ? getRowClassName(row.original) : undefined)}
+            className={classNames('relative grid', getRowClassName ? getRowClassName(row.original) : undefined)}
             style={{ gridTemplateColumns: `repeat(${columns.length}, minmax(0, 1fr))` }}
           >
             {row.getVisibleCells().map((cell) => (
@@ -48,7 +47,11 @@ export default function RowLinkTableComponentBodyComponent<T>({
                 {flexRender(cell.column.columnDef.cell, cell.getContext())}
               </div>
             ))}
-          </Link>
+            {
+              // We use link there to make the whole row clickable & to be able to use another link in the cell
+            }
+            <Link {...getRowLink(row.original)} className="absolute inset-0"></Link>
+          </div>
         ))
       )}
     </div>
