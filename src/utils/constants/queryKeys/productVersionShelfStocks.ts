@@ -1,5 +1,9 @@
 import { createQueryKeys } from '@lukemorales/query-key-factory';
-import { getProductVersionShelfStockById, getProductVersionShelfStocksPage } from '../../api/productVersionShelfStock';
+import {
+  getProductVersionShelfStockById,
+  getProductVersionShelfStocksPage,
+  getProductVersionShelfStocksPageByProductReference,
+} from '../../api/productVersionShelfStock';
 
 export const productVersionShelfStocks = createQueryKeys('product-version-shelf-stocks', {
   detail: {
@@ -20,6 +24,10 @@ export const productVersionShelfStocks = createQueryKeys('product-version-shelf-
           { page, size },
         ],
         queryFn: () => getProductVersionShelfStocksPage({ productVersionId, shelfId }, { page, size }),
+      }),
+      byProductReference: (reference: string, { page, size }: { page: number; size: number }) => ({
+        queryKey: [{ reference, page, size }],
+        queryFn: () => getProductVersionShelfStocksPageByProductReference(reference, { page, size }),
       }),
     },
   },

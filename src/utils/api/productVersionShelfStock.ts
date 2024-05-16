@@ -66,3 +66,13 @@ export const getProductVersionShelfStocksPage = (
     },
   }).then((res) => res.data);
 };
+
+export const getProductVersionShelfStocksPageByProductReference = (ref: string, { page, size }: { page: number; size: number }) => {
+  return privateInstance<Page<ProductVersionShelfStockResponseDto>>({
+    method: 'GET',
+    url: `/product-inventory/v1/product-version-shelf-stock/find-all-by-reference/page/${encodeURIComponent(page)}/${encodeURIComponent(size)}`,
+    params: {
+      ref,
+    },
+  }).then((res) => res.data);
+};
