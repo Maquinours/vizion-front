@@ -11,6 +11,7 @@ import CardComponent from '../../../../../../components/Card/Card';
 import PaginationComponent from '../../../../../../components/Pagination/Pagination';
 import TableComponent from '../../../../../../components/Table/Table';
 import AllBusinessResponseDto from '../../../../../../utils/types/AllBusinessResponseDto';
+import { Link } from '@tanstack/react-router';
 
 const size = 15;
 
@@ -67,7 +68,16 @@ const columnHelper = createColumnHelper<AllBusinessResponseDto>();
 const columns = [
   columnHelper.display({
     header: "N° de l'affaire",
-    cell: ({ row: { original } }) => original.number,
+    cell: ({ row: { original } }) => {
+      const children = original.number;
+      if (original.category === CategoryBusiness.AFFAIRE)
+        return (
+          <Link to="/app/businesses-rma/business/$businessId" params={{ businessId: original.businessId }}>
+            {children}
+          </Link>
+        );
+      else return children; // TODO: add link to RMA
+    },
   }),
   columnHelper.display({
     header: "Nom de l'affaire",
