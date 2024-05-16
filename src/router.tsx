@@ -15,7 +15,7 @@ declare module '@tanstack/react-router' {
   interface StaticDataRouteOption {
     title?: string;
     getTitle?: (queryClient: QueryClient, match: AnyRouteMatch) => Promise<string>;
-    closeTabRoute?: (prev: { to: string; params: { [key: string]: any }; search: { [key: string]: any } }) => {
+    getCloseTabRoute?: (prev: { to: string; params: { [key: string]: any }; search: { [key: string]: any } }) => {
       to: string;
       params: { [key: string]: any };
       search: { [key: string]: any };

@@ -1,5 +1,5 @@
 import { createQueryKeys } from '@lukemorales/query-key-factory';
-import { getExternalLinkById, getExternalLinksPageByArchiveState } from '../../api/externalLink';
+import { getExternalLinkById, getExternalLinksByArchiveState, getExternalLinksPageByArchiveState } from '../../api/externalLink';
 
 export const externalLinks = createQueryKeys('external-link', {
   page: ({ page, size }: { page: number; size: number }) => ({
@@ -12,6 +12,15 @@ export const externalLinks = createQueryKeys('external-link', {
     queryKey: null,
     contextQueries: {
       byId: (id: string) => ({ queryKey: [id], queryFn: () => getExternalLinkById(id) }),
+    },
+  },
+  list: {
+    queryKey: null,
+    contextQueries: {
+      byArchiveState: (archived: boolean) => ({
+        queryKey: [{ archived }],
+        queryFn: () => getExternalLinksByArchiveState(archived),
+      }),
     },
   },
 });

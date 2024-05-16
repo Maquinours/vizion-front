@@ -37,6 +37,6 @@ export const Route = createFileRoute('/app/businesses-rma/business/$businessId')
       queryClient
         .ensureQueryData(queries.businesses.detail._ctx.byId((match.params as { businessId: string }).businessId))
         .then((business) => `Affaire (${business.numBusiness})`),
-    closeTabRoute: (prev) => ({ to: prev.to, params: prev.params, search: { ...prev.search, businessModal: 'before-close' } }),
+    getCloseTabRoute: (prev) => ({ to: prev.to, params: prev.params, search: { ...prev.search, businessModal: 'before-close' } }),
   },
 });

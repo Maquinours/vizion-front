@@ -40,3 +40,13 @@ export const deleteExternalLink = (id: string) => {
     url: `product/v1/tools/delete/${encodeURIComponent(id)}`,
   }).then((res) => res.data);
 };
+
+export const getExternalLinksByArchiveState = (archived: boolean) => {
+  return privateInstance<Array<ExternalLinkResponseDto>>({
+    method: 'GET',
+    url: `product/v1/tools/list/archive-state`,
+    params: {
+      archived,
+    },
+  }).then((res) => res.data);
+};
