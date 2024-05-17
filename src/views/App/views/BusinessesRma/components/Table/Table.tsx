@@ -1,15 +1,14 @@
-import { Link, getRouteApi } from '@tanstack/react-router';
-import { createColumnHelper } from '@tanstack/react-table';
-import { useMemo } from 'react';
-import CurrencyFormat from '../../../../../../components/CurrencyFormat/CurrencyFormat';
-import RowLinkTableComponent from '../../../../../../components/RowLinkTable/RowLinkTable';
-import AllBusinessState from '../../../../../../utils/enums/AllBusinessState';
-import CategoryBusiness from '../../../../../../utils/enums/CategoryBusiness';
-import { formatDateAndHourWithSlash } from '../../../../../../utils/functions/dates';
+import { Row, createColumnHelper } from '@tanstack/react-table';
+import React, { useCallback, useMemo } from 'react';
 import AllBusinessResponseDto from '../../../../../../utils/types/AllBusinessResponseDto';
+import { Link, getRouteApi, useNavigate } from '@tanstack/react-router';
+import AllBusinessState from '../../../../../../utils/enums/AllBusinessState';
+import { formatDateAndHourWithSlash } from '../../../../../../utils/functions/dates';
+import CategoryBusiness from '../../../../../../utils/enums/CategoryBusiness';
+import CurrencyFormat from '../../../../../../components/CurrencyFormat/CurrencyFormat';
 import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthentifiedUser';
 import styles from './Table.module.scss';
-import classNames from 'classnames';
+import TableComponent from '../../../../../../components/Table/Table';
 
 const routeApi = getRouteApi('/app/businesses-rma');
 
@@ -67,6 +66,8 @@ type AppViewBusinessesRmaViewTableComponent = Readonly<{
   isLoading: boolean;
 }>;
 export default function AppViewBusinessesRmaViewTableComponent({ data, isLoading }: AppViewBusinessesRmaViewTableComponent) {
+  const navigate = useNavigate();
+
   const { state } = routeApi.useSearch();
 
   const { data: user } = useAuthentifiedUserQuery();
@@ -80,11 +81,18 @@ export default function AppViewBusinessesRmaViewTableComponent({ data, isLoading
       columnHelper.display({
         header: "Nr d'affaire",
         cell: ({ row: { original } }) => (
-          <div className="flex flex-col" style={{ color: 'var(--secondary-color)' }}>
+          <Link
+            to="/app/businesses-rma/business/$businessId"
+            params={{ businessId: original.businessId }}
+            disabled={original.category !== CategoryBusiness.AFFAIRE}
+            className={styles.business_number}
+            style={{ color: 'var(--secondary-color)' }}
+            preload={false} // optimization
+          >
             <span>{original.number}</span>
             <span>{original.businessBillNumber}</span>
             {original.creditNotes?.map((num, idx) => <span key={idx}>Avoir : {num.number}</span>)}
-          </div>
+          </Link>
         ),
       }),
       columnHelper.display({
@@ -176,24 +184,17 @@ export default function AppViewBusinessesRmaViewTableComponent({ data, isLoading
     [state, user],
   );
 
+  const onRowClick = useCallback(
+    (e: React.MouseEvent, row: Row<AllBusinessResponseDto>) => {
+      if (e.metaKey || e.ctrlKey) window.open(`${window.location.origin}/app/businesses-rma/business/${row.original.businessId}`, '_blank');
+      else navigate({ to: '/app/businesses-rma/business/$businessId', params: { businessId: row.original.businessId } });
+    },
+    [navigate],
+  );
+
   return (
-    <RowLinkTableComponent
-      columns={columns}
-      data={data}
-      isLoading={isLoading}
-      containerClassName={styles.table_container}
-      tableClassName={styles.table}
-      headerClassName={styles.thead}
-      headerRowClassName={styles.tr}
-      headerCellClassName={styles.th}
-      bodyClassName={styles.tbody}
-      getBodyRowClassName={(row) => classNames(styles.tr, { [styles.even]: row.index % 2 === 0 })}
-      bodyCellClassName={styles.td}
-      getRowLink={(row) => ({
-        to: '/app/businesses-rma/business/$businessId', // TODO: handle RMA
-        params: { businessId: row.original.businessId },
-        disabled: row.original.category !== CategoryBusiness.AFFAIRE,
-      })}
-    />
+    <div className={styles.table_container}>
+      <TableComponent columns={columns} data={data} isLoading={isLoading} onRowClick={onRowClick} />
+    </div>
   );
 }
