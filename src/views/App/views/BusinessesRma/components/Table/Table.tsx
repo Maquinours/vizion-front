@@ -186,6 +186,7 @@ export default function AppViewBusinessesRmaViewTableComponent({ data, isLoading
 
   const onRowClick = useCallback(
     (e: React.MouseEvent, row: Row<AllBusinessResponseDto>) => {
+      if (row.original.category !== CategoryBusiness.AFFAIRE) return; // TODO: add link to RMA
       if (e.metaKey || e.ctrlKey) window.open(`${window.location.origin}/app/businesses-rma/business/${row.original.businessId}`, '_blank');
       else navigate({ to: '/app/businesses-rma/business/$businessId', params: { businessId: row.original.businessId } });
     },
