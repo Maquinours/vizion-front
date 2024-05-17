@@ -142,7 +142,9 @@ import { Route as AppEnterprisesEnterpriseIdDeleteContactContactIdRouteImport } 
 import { Route as AppEnterprisesEnterpriseIdCreateContactBusinessContactIdRouteImport } from './routes/app/enterprises_.$enterpriseId/create-contact-business.$contactId/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdQuotationRouteImport } from './routes/app/businesses-rma_/business.$businessId/quotation/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdDashboardRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdBpRouteImport } from './routes/app/businesses-rma_/business.$businessId/bp/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdBlRouteImport } from './routes/app/businesses-rma_/business.$businessId/bl/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdBillRouteImport } from './routes/app/businesses-rma_/business.$businessId/bill/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdArcRouteImport } from './routes/app/businesses-rma_/business.$businessId/arc/route'
 import { Route as AppToolsSchedulerDetailsRdvIdUpdateRouteImport } from './routes/app/tools/scheduler/details.$rdvId/update/route'
 import { Route as AppToolsFormationsUpdateFormationIdAddDetailRouteImport } from './routes/app/tools/formations/update.$formationId/add-detail/route'
@@ -292,12 +294,6 @@ const AppEnterprisesEnterpriseIdAddressBookCreateRouteLazyImport =
   createFileRoute('/app/enterprises/$enterpriseId/address-book/create')()
 const AppDashboardTaskEmailTaskIdReplyRouteLazyImport = createFileRoute(
   '/app/dashboard/task-email/$taskId/reply',
-)()
-const AppBusinessesRmaBusinessBusinessIdBpRouteLazyImport = createFileRoute(
-  '/app/businesses-rma/business/$businessId/bp',
-)()
-const AppBusinessesRmaBusinessBusinessIdBillRouteLazyImport = createFileRoute(
-  '/app/businesses-rma/business/$businessId/bill',
 )()
 const AppToolsSchedulerDetailsRdvIdDeleteRouteLazyImport = createFileRoute(
   '/app/tools/scheduler/details/$rdvId/delete',
@@ -1431,26 +1427,6 @@ const AppDashboardTaskEmailTaskIdReplyRouteLazyRoute =
     ),
   )
 
-const AppBusinessesRmaBusinessBusinessIdBpRouteLazyRoute =
-  AppBusinessesRmaBusinessBusinessIdBpRouteLazyImport.update({
-    path: '/bp',
-    getParentRoute: () => AppBusinessesRmaBusinessBusinessIdRouteRoute,
-  } as any).lazy(() =>
-    import(
-      './routes/app/businesses-rma_/business.$businessId/bp/route.lazy'
-    ).then((d) => d.Route),
-  )
-
-const AppBusinessesRmaBusinessBusinessIdBillRouteLazyRoute =
-  AppBusinessesRmaBusinessBusinessIdBillRouteLazyImport.update({
-    path: '/bill',
-    getParentRoute: () => AppBusinessesRmaBusinessBusinessIdRouteRoute,
-  } as any).lazy(() =>
-    import(
-      './routes/app/businesses-rma_/business.$businessId/bill/route.lazy'
-    ).then((d) => d.Route),
-  )
-
 const AppToolsVvaDeleteVvaIdRouteRoute =
   AppToolsVvaDeleteVvaIdRouteImport.update({
     path: '/delete/$vvaId',
@@ -1891,6 +1867,16 @@ const AppBusinessesRmaBusinessBusinessIdDashboardRouteRoute =
     ).then((d) => d.Route),
   )
 
+const AppBusinessesRmaBusinessBusinessIdBpRouteRoute =
+  AppBusinessesRmaBusinessBusinessIdBpRouteImport.update({
+    path: '/bp',
+    getParentRoute: () => AppBusinessesRmaBusinessBusinessIdRouteRoute,
+  } as any).lazy(() =>
+    import(
+      './routes/app/businesses-rma_/business.$businessId/bp/route.lazy'
+    ).then((d) => d.Route),
+  )
+
 const AppBusinessesRmaBusinessBusinessIdBlRouteRoute =
   AppBusinessesRmaBusinessBusinessIdBlRouteImport.update({
     path: '/bl',
@@ -1898,6 +1884,16 @@ const AppBusinessesRmaBusinessBusinessIdBlRouteRoute =
   } as any).lazy(() =>
     import(
       './routes/app/businesses-rma_/business.$businessId/bl/route.lazy'
+    ).then((d) => d.Route),
+  )
+
+const AppBusinessesRmaBusinessBusinessIdBillRouteRoute =
+  AppBusinessesRmaBusinessBusinessIdBillRouteImport.update({
+    path: '/bill',
+    getParentRoute: () => AppBusinessesRmaBusinessBusinessIdRouteRoute,
+  } as any).lazy(() =>
+    import(
+      './routes/app/businesses-rma_/business.$businessId/bill/route.lazy'
     ).then((d) => d.Route),
   )
 
@@ -2032,7 +2028,7 @@ const AppBusinessesRmaBusinessBusinessIdDashboardDeleteRouteLazyRoute =
 const AppBusinessesRmaBusinessBusinessIdBpTravelVoucherRouteLazyRoute =
   AppBusinessesRmaBusinessBusinessIdBpTravelVoucherRouteLazyImport.update({
     path: '/travel-voucher',
-    getParentRoute: () => AppBusinessesRmaBusinessBusinessIdBpRouteLazyRoute,
+    getParentRoute: () => AppBusinessesRmaBusinessBusinessIdBpRouteRoute,
   } as any).lazy(() =>
     import(
       './routes/app/businesses-rma_/business.$businessId/bp/travel-voucher/route.lazy'
@@ -2312,7 +2308,7 @@ const AppBusinessesRmaBusinessBusinessIdBlSendByEmailRouteRoute =
 const AppBusinessesRmaBusinessBusinessIdBillSendByEmailRouteRoute =
   AppBusinessesRmaBusinessBusinessIdBillSendByEmailRouteImport.update({
     path: '/send-by-email',
-    getParentRoute: () => AppBusinessesRmaBusinessBusinessIdBillRouteLazyRoute,
+    getParentRoute: () => AppBusinessesRmaBusinessBusinessIdBillRouteRoute,
   } as any).lazy(() =>
     import(
       './routes/app/businesses-rma_/business.$businessId/bill/send-by-email/route.lazy'
@@ -2322,7 +2318,7 @@ const AppBusinessesRmaBusinessBusinessIdBillSendByEmailRouteRoute =
 const AppBusinessesRmaBusinessBusinessIdBillCreditsRouteRoute =
   AppBusinessesRmaBusinessBusinessIdBillCreditsRouteImport.update({
     path: '/credits',
-    getParentRoute: () => AppBusinessesRmaBusinessBusinessIdBillRouteLazyRoute,
+    getParentRoute: () => AppBusinessesRmaBusinessBusinessIdBillRouteRoute,
   } as any).lazy(() =>
     import(
       './routes/app/businesses-rma_/business.$businessId/bill/credits/route.lazy'
@@ -2546,7 +2542,7 @@ const AppBusinessesRmaBusinessBusinessIdDashboardConfirmQuotationImportOtherBusi
 const AppBusinessesRmaBusinessBusinessIdBpUpdateDetailDetailIdRouteRoute =
   AppBusinessesRmaBusinessBusinessIdBpUpdateDetailDetailIdRouteImport.update({
     path: '/update-detail/$detailId',
-    getParentRoute: () => AppBusinessesRmaBusinessBusinessIdBpRouteLazyRoute,
+    getParentRoute: () => AppBusinessesRmaBusinessBusinessIdBpRouteRoute,
   } as any).lazy(() =>
     import(
       './routes/app/businesses-rma_/business.$businessId/bp/update-detail.$detailId/route.lazy'
@@ -2556,7 +2552,7 @@ const AppBusinessesRmaBusinessBusinessIdBpUpdateDetailDetailIdRouteRoute =
 const AppBusinessesRmaBusinessBusinessIdBpDeleteSerialSerialIdRouteRoute =
   AppBusinessesRmaBusinessBusinessIdBpDeleteSerialSerialIdRouteImport.update({
     path: '/delete-serial/$serialId',
-    getParentRoute: () => AppBusinessesRmaBusinessBusinessIdBpRouteLazyRoute,
+    getParentRoute: () => AppBusinessesRmaBusinessBusinessIdBpRouteRoute,
   } as any).lazy(() =>
     import(
       './routes/app/businesses-rma_/business.$businessId/bp/delete-serial.$serialId/route.lazy'
@@ -2566,7 +2562,7 @@ const AppBusinessesRmaBusinessBusinessIdBpDeleteSerialSerialIdRouteRoute =
 const AppBusinessesRmaBusinessBusinessIdBpDeleteDetailDetailIdRouteRoute =
   AppBusinessesRmaBusinessBusinessIdBpDeleteDetailDetailIdRouteImport.update({
     path: '/delete-detail/$detailId',
-    getParentRoute: () => AppBusinessesRmaBusinessBusinessIdBpRouteLazyRoute,
+    getParentRoute: () => AppBusinessesRmaBusinessBusinessIdBpRouteRoute,
   } as any).lazy(() =>
     import(
       './routes/app/businesses-rma_/business.$businessId/bp/delete-detail.$detailId/route.lazy'
@@ -2577,7 +2573,7 @@ const AppBusinessesRmaBusinessBusinessIdBpCreateSerialRmaSerialIdRouteRoute =
   AppBusinessesRmaBusinessBusinessIdBpCreateSerialRmaSerialIdRouteImport.update(
     {
       path: '/create-serial-rma/$serialId',
-      getParentRoute: () => AppBusinessesRmaBusinessBusinessIdBpRouteLazyRoute,
+      getParentRoute: () => AppBusinessesRmaBusinessBusinessIdBpRouteRoute,
     } as any,
   ).lazy(() =>
     import(
@@ -2589,7 +2585,7 @@ const AppBusinessesRmaBusinessBusinessIdBpCreateDetailRmaDetailIdRouteRoute =
   AppBusinessesRmaBusinessBusinessIdBpCreateDetailRmaDetailIdRouteImport.update(
     {
       path: '/create-detail-rma/$detailId',
-      getParentRoute: () => AppBusinessesRmaBusinessBusinessIdBpRouteLazyRoute,
+      getParentRoute: () => AppBusinessesRmaBusinessBusinessIdBpRouteRoute,
     } as any,
   ).lazy(() =>
     import(
@@ -2600,7 +2596,7 @@ const AppBusinessesRmaBusinessBusinessIdBpCreateDetailRmaDetailIdRouteRoute =
 const AppBusinessesRmaBusinessBusinessIdBpAddSerialDetailIdRouteRoute =
   AppBusinessesRmaBusinessBusinessIdBpAddSerialDetailIdRouteImport.update({
     path: '/add-serial/$detailId',
-    getParentRoute: () => AppBusinessesRmaBusinessBusinessIdBpRouteLazyRoute,
+    getParentRoute: () => AppBusinessesRmaBusinessBusinessIdBpRouteRoute,
   } as any).lazy(() =>
     import(
       './routes/app/businesses-rma_/business.$businessId/bp/add-serial.$detailId/route.lazy'
@@ -3435,11 +3431,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdArcRouteImport
       parentRoute: typeof AppBusinessesRmaBusinessBusinessIdRouteImport
     }
+    '/app/businesses-rma/business/$businessId/bill': {
+      id: '/app/businesses-rma/business/$businessId/bill'
+      path: '/bill'
+      fullPath: '/app/businesses-rma/business/$businessId/bill'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdBillRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdRouteImport
+    }
     '/app/businesses-rma/business/$businessId/bl': {
       id: '/app/businesses-rma/business/$businessId/bl'
       path: '/bl'
       fullPath: '/app/businesses-rma/business/$businessId/bl'
       preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdBlRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdRouteImport
+    }
+    '/app/businesses-rma/business/$businessId/bp': {
+      id: '/app/businesses-rma/business/$businessId/bp'
+      path: '/bp'
+      fullPath: '/app/businesses-rma/business/$businessId/bp'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdBpRouteImport
       parentRoute: typeof AppBusinessesRmaBusinessBusinessIdRouteImport
     }
     '/app/businesses-rma/business/$businessId/dashboard': {
@@ -3750,20 +3760,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppToolsVvaDeleteVvaIdRouteImport
       parentRoute: typeof AppToolsVvaRouteImport
     }
-    '/app/businesses-rma/business/$businessId/bill': {
-      id: '/app/businesses-rma/business/$businessId/bill'
-      path: '/bill'
-      fullPath: '/app/businesses-rma/business/$businessId/bill'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdBillRouteLazyImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdRouteImport
-    }
-    '/app/businesses-rma/business/$businessId/bp': {
-      id: '/app/businesses-rma/business/$businessId/bp'
-      path: '/bp'
-      fullPath: '/app/businesses-rma/business/$businessId/bp'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdBpRouteLazyImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdRouteImport
-    }
     '/app/dashboard/task-email/$taskId/reply': {
       id: '/app/dashboard/task-email/$taskId/reply'
       path: '/reply'
@@ -3853,14 +3849,14 @@ declare module '@tanstack/react-router' {
       path: '/credits'
       fullPath: '/app/businesses-rma/business/$businessId/bill/credits'
       preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdBillCreditsRouteImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdBillRouteLazyImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdBillRouteImport
     }
     '/app/businesses-rma/business/$businessId/bill/send-by-email': {
       id: '/app/businesses-rma/business/$businessId/bill/send-by-email'
       path: '/send-by-email'
       fullPath: '/app/businesses-rma/business/$businessId/bill/send-by-email'
       preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdBillSendByEmailRouteImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdBillRouteLazyImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdBillRouteImport
     }
     '/app/businesses-rma/business/$businessId/bl/send-by-email': {
       id: '/app/businesses-rma/business/$businessId/bl/send-by-email'
@@ -4042,7 +4038,7 @@ declare module '@tanstack/react-router' {
       path: '/travel-voucher'
       fullPath: '/app/businesses-rma/business/$businessId/bp/travel-voucher'
       preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdBpTravelVoucherRouteLazyImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdBpRouteLazyImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdBpRouteImport
     }
     '/app/businesses-rma/business/$businessId/dashboard/delete': {
       id: '/app/businesses-rma/business/$businessId/dashboard/delete'
@@ -4154,42 +4150,42 @@ declare module '@tanstack/react-router' {
       path: '/add-serial/$detailId'
       fullPath: '/app/businesses-rma/business/$businessId/bp/add-serial/$detailId'
       preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdBpAddSerialDetailIdRouteImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdBpRouteLazyImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdBpRouteImport
     }
     '/app/businesses-rma/business/$businessId/bp/create-detail-rma/$detailId': {
       id: '/app/businesses-rma/business/$businessId/bp/create-detail-rma/$detailId'
       path: '/create-detail-rma/$detailId'
       fullPath: '/app/businesses-rma/business/$businessId/bp/create-detail-rma/$detailId'
       preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdBpCreateDetailRmaDetailIdRouteImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdBpRouteLazyImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdBpRouteImport
     }
     '/app/businesses-rma/business/$businessId/bp/create-serial-rma/$serialId': {
       id: '/app/businesses-rma/business/$businessId/bp/create-serial-rma/$serialId'
       path: '/create-serial-rma/$serialId'
       fullPath: '/app/businesses-rma/business/$businessId/bp/create-serial-rma/$serialId'
       preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdBpCreateSerialRmaSerialIdRouteImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdBpRouteLazyImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdBpRouteImport
     }
     '/app/businesses-rma/business/$businessId/bp/delete-detail/$detailId': {
       id: '/app/businesses-rma/business/$businessId/bp/delete-detail/$detailId'
       path: '/delete-detail/$detailId'
       fullPath: '/app/businesses-rma/business/$businessId/bp/delete-detail/$detailId'
       preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdBpDeleteDetailDetailIdRouteImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdBpRouteLazyImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdBpRouteImport
     }
     '/app/businesses-rma/business/$businessId/bp/delete-serial/$serialId': {
       id: '/app/businesses-rma/business/$businessId/bp/delete-serial/$serialId'
       path: '/delete-serial/$serialId'
       fullPath: '/app/businesses-rma/business/$businessId/bp/delete-serial/$serialId'
       preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdBpDeleteSerialSerialIdRouteImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdBpRouteLazyImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdBpRouteImport
     }
     '/app/businesses-rma/business/$businessId/bp/update-detail/$detailId': {
       id: '/app/businesses-rma/business/$businessId/bp/update-detail/$detailId'
       path: '/update-detail/$detailId'
       fullPath: '/app/businesses-rma/business/$businessId/bp/update-detail/$detailId'
       preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdBpUpdateDetailDetailIdRouteImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdBpRouteLazyImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdBpRouteImport
     }
     '/app/businesses-rma/business/$businessId/dashboard/confirm-quotation-import/$otherBusinessId': {
       id: '/app/businesses-rma/business/$businessId/dashboard/confirm-quotation-import/$otherBusinessId'
@@ -4584,9 +4580,29 @@ export const routeTree = rootRoute.addChildren({
             AppBusinessesRmaBusinessBusinessIdArcDeleteDetailDetailIdRouteRoute,
             AppBusinessesRmaBusinessBusinessIdArcUpdateDetailDetailIdRouteRoute,
           }),
+        AppBusinessesRmaBusinessBusinessIdBillRouteRoute:
+          AppBusinessesRmaBusinessBusinessIdBillRouteRoute.addChildren({
+            AppBusinessesRmaBusinessBusinessIdBillCreditsRouteRoute:
+              AppBusinessesRmaBusinessBusinessIdBillCreditsRouteRoute.addChildren(
+                {
+                  AppBusinessesRmaBusinessBusinessIdBillCreditsSendByEmailRouteRoute,
+                },
+              ),
+            AppBusinessesRmaBusinessBusinessIdBillSendByEmailRouteRoute,
+          }),
         AppBusinessesRmaBusinessBusinessIdBlRouteRoute:
           AppBusinessesRmaBusinessBusinessIdBlRouteRoute.addChildren({
             AppBusinessesRmaBusinessBusinessIdBlSendByEmailRouteRoute,
+          }),
+        AppBusinessesRmaBusinessBusinessIdBpRouteRoute:
+          AppBusinessesRmaBusinessBusinessIdBpRouteRoute.addChildren({
+            AppBusinessesRmaBusinessBusinessIdBpTravelVoucherRouteLazyRoute,
+            AppBusinessesRmaBusinessBusinessIdBpAddSerialDetailIdRouteRoute,
+            AppBusinessesRmaBusinessBusinessIdBpCreateDetailRmaDetailIdRouteRoute,
+            AppBusinessesRmaBusinessBusinessIdBpCreateSerialRmaSerialIdRouteRoute,
+            AppBusinessesRmaBusinessBusinessIdBpDeleteDetailDetailIdRouteRoute,
+            AppBusinessesRmaBusinessBusinessIdBpDeleteSerialSerialIdRouteRoute,
+            AppBusinessesRmaBusinessBusinessIdBpUpdateDetailDetailIdRouteRoute,
           }),
         AppBusinessesRmaBusinessBusinessIdDashboardRouteRoute:
           AppBusinessesRmaBusinessBusinessIdDashboardRouteRoute.addChildren({
@@ -4634,26 +4650,6 @@ export const routeTree = rootRoute.addChildren({
             AppBusinessesRmaBusinessBusinessIdQuotationDeleteSubquotationSubquotationIdRouteRoute,
             AppBusinessesRmaBusinessBusinessIdQuotationUpdateDetailDetailIdRouteRoute,
             AppBusinessesRmaBusinessBusinessIdQuotationUpdateSubquotationSubquotationIdRouteRoute,
-          }),
-        AppBusinessesRmaBusinessBusinessIdBillRouteLazyRoute:
-          AppBusinessesRmaBusinessBusinessIdBillRouteLazyRoute.addChildren({
-            AppBusinessesRmaBusinessBusinessIdBillCreditsRouteRoute:
-              AppBusinessesRmaBusinessBusinessIdBillCreditsRouteRoute.addChildren(
-                {
-                  AppBusinessesRmaBusinessBusinessIdBillCreditsSendByEmailRouteRoute,
-                },
-              ),
-            AppBusinessesRmaBusinessBusinessIdBillSendByEmailRouteRoute,
-          }),
-        AppBusinessesRmaBusinessBusinessIdBpRouteLazyRoute:
-          AppBusinessesRmaBusinessBusinessIdBpRouteLazyRoute.addChildren({
-            AppBusinessesRmaBusinessBusinessIdBpTravelVoucherRouteLazyRoute,
-            AppBusinessesRmaBusinessBusinessIdBpAddSerialDetailIdRouteRoute,
-            AppBusinessesRmaBusinessBusinessIdBpCreateDetailRmaDetailIdRouteRoute,
-            AppBusinessesRmaBusinessBusinessIdBpCreateSerialRmaSerialIdRouteRoute,
-            AppBusinessesRmaBusinessBusinessIdBpDeleteDetailDetailIdRouteRoute,
-            AppBusinessesRmaBusinessBusinessIdBpDeleteSerialSerialIdRouteRoute,
-            AppBusinessesRmaBusinessBusinessIdBpUpdateDetailDetailIdRouteRoute,
           }),
         AppBusinessesRmaBusinessBusinessIdIndexRoute,
       }),
