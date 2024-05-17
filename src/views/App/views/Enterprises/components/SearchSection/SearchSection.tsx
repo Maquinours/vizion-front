@@ -1,15 +1,15 @@
-import * as yup from 'yup';
-import CategoryClient from '../../../../../../utils/enums/CategoryClient';
-import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import styles from './SearchSection.module.scss';
 import { useQuery } from '@tanstack/react-query';
-import { enterprises } from '../../../../../../utils/constants/queryKeys/enterprise';
-import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthentifiedUser';
-import { useEffect, useMemo } from 'react';
-import PhoneInput from 'react-phone-number-input/input';
-import { Link, getRouteApi } from '@tanstack/react-router';
+import { getRouteApi, useNavigate } from '@tanstack/react-router';
 import { E164Number } from 'libphonenumber-js';
+import React, { useCallback, useEffect, useMemo } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import PhoneInput from 'react-phone-number-input/input';
+import * as yup from 'yup';
+import { enterprises } from '../../../../../../utils/constants/queryKeys/enterprise';
+import CategoryClient from '../../../../../../utils/enums/CategoryClient';
+import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthentifiedUser';
+import styles from './SearchSection.module.scss';
 
 const Route = getRouteApi('/app/enterprises');
 
@@ -68,9 +68,11 @@ const yupSchema = yup.object({
 });
 
 export default function AppViewEnterprisesViewSearchSectionComponent() {
+  const navigate = useNavigate({ from: Route.id });
+
   const { enterprise, contact, zipCode, city, phoneNumber, category, representativeId } = Route.useSearch();
 
-  const { register, control, watch, setValue } = useForm({
+  const { register, control, setValue, handleSubmit } = useForm({
     resolver: yupResolver(yupSchema),
   });
 
@@ -81,6 +83,47 @@ export default function AppViewEnterprisesViewSearchSectionComponent() {
   const availableCategoryOptions = useMemo(
     () => categoryOptions.filter((item) => !item.allowedRoles || item.allowedRoles.some((role) => user.userInfo.roles.includes(role))),
     [user.userInfo.roles],
+  );
+
+  const onSubmit = useCallback(
+    ({ enterprise, contact, zipCode, city, phoneNumber, category, representativeId }: yup.InferType<typeof yupSchema>) => {
+      navigate({
+        search: (old) => ({
+          ...old,
+          enterprise,
+          contact,
+          zipCode,
+          city,
+          phoneNumber,
+          category,
+          representativeId,
+          page: undefined,
+          size: undefined,
+        }),
+      });
+    },
+    [navigate],
+  );
+
+  const onReset = useCallback(
+    (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      navigate({
+        search: (old) => ({
+          ...old,
+          enterprise: undefined,
+          contact: undefined,
+          zipCode: undefined,
+          city: undefined,
+          phoneNumber: undefined,
+          category: undefined,
+          representativeId: undefined,
+          page: undefined,
+          size: undefined,
+        }),
+      });
+    },
+    [navigate],
   );
 
   useEffect(() => {
@@ -100,7 +143,7 @@ export default function AppViewEnterprisesViewSearchSectionComponent() {
       </div>
 
       <div className={styles.inputs}>
-        <form>
+        <form onSubmit={handleSubmit(onSubmit)} onReset={onReset}>
           <input placeholder="Entreprise/Enseigne" id="enterprise" {...register('enterprise')} />
           <input placeholder="Contact/Agence" id="contact" {...register('contact')} />
           <input placeholder="Code postal" id="zipCode" {...register('zipCode')} />
@@ -136,42 +179,12 @@ export default function AppViewEnterprisesViewSearchSectionComponent() {
               ))}
             </select>
           )}
-          <Link
-            from={Route.id}
-            search={(old) => ({
-              ...old,
-              enterprise: watch('enterprise') || undefined,
-              contact: watch('contact') || undefined,
-              zipCode: watch('zipCode') || undefined,
-              city: watch('city') || undefined,
-              phoneNumber: watch('phoneNumber') || undefined,
-              category: watch('category') || undefined,
-              representativeId: watch('representativeId') || undefined,
-              page: 0,
-              size: 20,
-            })}
-            className="btn btn-secondary"
-          >
+          <button type="submit" className="btn btn-secondary">
             Rechercher
-          </Link>
-          <Link
-            from={Route.id}
-            search={(old) => ({
-              ...old,
-              enterprise: undefined,
-              contact: undefined,
-              zipCode: undefined,
-              city: undefined,
-              phoneNumber: undefined,
-              category: undefined,
-              representativeId: undefined,
-              page: 0,
-              size: 20,
-            })}
-            className="btn btn-primary"
-          >
+          </button>
+          <button type="reset" className="btn btn-primary">
             Réinitialiser
-          </Link>
+          </button>
         </form>
       </div>
     </div>
