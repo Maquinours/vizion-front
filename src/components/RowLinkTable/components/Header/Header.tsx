@@ -19,7 +19,11 @@ export default function RowLinkTableComponentHeaderComponent<T>({
   return (
     <div className={className}>
       {getHeaderGroups().map((headerGroup) => (
-        <div key={headerGroup.id} className={classNames('grid', rowClassName)} style={{ gridTemplateColumns: `repeat(${columns.length}, minmax(0, 1fr))` }}>
+        <div
+          key={headerGroup.id}
+          className={classNames('sticky top-0 grid', rowClassName)}
+          style={{ gridTemplateColumns: `repeat(${columns.length}, minmax(0, 1fr))` }}
+        >
           {headerGroup.headers.map((header) => (
             // Apply the header cell props
             <div key={header.id} className={cellClassName}>

@@ -11,6 +11,7 @@ import CategoryBusiness from '../../../../../../utils/enums/CategoryBusiness';
 import { formatDateAndHourWithSlash } from '../../../../../../utils/functions/dates';
 import AllBusinessResponseDto from '../../../../../../utils/types/AllBusinessResponseDto';
 import styles from './AllBusinessTable.module.scss';
+import classNames from 'classnames';
 
 const size = 15;
 
@@ -118,15 +119,16 @@ export default function AppViewEnterpriseViewAllBusinessTableComponent() {
               data={data?.content}
               getRowLink={(row) => ({
                 to: '/app/businesses-rma/business/$businessId', // TODO: handle RMA
-                params: { businessId: row.businessId },
-                disabled: row.category !== CategoryBusiness.AFFAIRE,
+                params: { businessId: row.original.businessId },
+                disabled: row.original.category !== CategoryBusiness.AFFAIRE,
+                preload: false,
               })}
               tableClassName={styles.table}
               headerClassName={styles.thead}
               headerRowClassName={styles.tr}
               headerCellClassName={styles.th}
               bodyClassName={styles.tbody}
-              getBodyRowClassName={() => styles.tr}
+              getBodyRowClassName={(row) => classNames(styles.tr, { [styles.even]: row.index % 2 === 0 })}
               bodyCellClassName={styles.td}
             />
           </div>

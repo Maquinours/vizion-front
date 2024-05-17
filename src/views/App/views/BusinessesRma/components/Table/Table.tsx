@@ -9,6 +9,7 @@ import { formatDateAndHourWithSlash } from '../../../../../../utils/functions/da
 import AllBusinessResponseDto from '../../../../../../utils/types/AllBusinessResponseDto';
 import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthentifiedUser';
 import styles from './Table.module.scss';
+import classNames from 'classnames';
 
 const routeApi = getRouteApi('/app/businesses-rma');
 
@@ -79,7 +80,7 @@ export default function AppViewBusinessesRmaViewTableComponent({ data, isLoading
       columnHelper.display({
         header: "Nr d'affaire",
         cell: ({ row: { original } }) => (
-          <div style={{ color: 'var(--secondary-color)' }}>
+          <div className="flex flex-col" style={{ color: 'var(--secondary-color)' }}>
             <span>{original.number}</span>
             <span>{original.businessBillNumber}</span>
             {original.creditNotes?.map((num, idx) => <span key={idx}>Avoir : {num.number}</span>)}
@@ -176,24 +177,23 @@ export default function AppViewBusinessesRmaViewTableComponent({ data, isLoading
   );
 
   return (
-    <div className={styles.table_container}>
-      <RowLinkTableComponent
-        columns={columns}
-        data={data}
-        isLoading={isLoading}
-        tableClassName={styles.table}
-        headerClassName={styles.thead}
-        headerRowClassName={styles.tr}
-        headerCellClassName={styles.th}
-        bodyClassName={styles.tbody}
-        getBodyRowClassName={() => styles.tr}
-        bodyCellClassName={styles.td}
-        getRowLink={(row) => ({
-          to: '/app/businesses-rma/business/$businessId', // TODO: handle RMA
-          params: { businessId: row.businessId },
-          disabled: row.category !== CategoryBusiness.AFFAIRE,
-        })}
-      />
-    </div>
+    <RowLinkTableComponent
+      columns={columns}
+      data={data}
+      isLoading={isLoading}
+      containerClassName={styles.table_container}
+      tableClassName={styles.table}
+      headerClassName={styles.thead}
+      headerRowClassName={styles.tr}
+      headerCellClassName={styles.th}
+      bodyClassName={styles.tbody}
+      getBodyRowClassName={(row) => classNames(styles.tr, { [styles.even]: row.index % 2 === 0 })}
+      bodyCellClassName={styles.td}
+      getRowLink={(row) => ({
+        to: '/app/businesses-rma/business/$businessId', // TODO: handle RMA
+        params: { businessId: row.original.businessId },
+        disabled: row.original.category !== CategoryBusiness.AFFAIRE,
+      })}
+    />
   );
 }

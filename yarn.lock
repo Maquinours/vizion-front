@@ -1349,6 +1349,13 @@
   dependencies:
     "@tanstack/table-core" "8.17.3"
 
+"@tanstack/react-virtual@^3.5.0":
+  version "3.5.0"
+  resolved "https://registry.yarnpkg.com/@tanstack/react-virtual/-/react-virtual-3.5.0.tgz#873b5b77cf78af563a4a11e6251ed51ee8868132"
+  integrity sha512-rtvo7KwuIvqK9zb0VZ5IL7fiJAEnG+0EiFZz8FUOs+2mhGqdGmjKIaT1XU7Zq0eFqL0jonLlhbayJI/J2SA/Bw==
+  dependencies:
+    "@tanstack/virtual-core" "3.5.0"
+
 "@tanstack/router-devtools@^1.32.5":
   version "1.32.12"
   resolved "https://registry.yarnpkg.com/@tanstack/router-devtools/-/router-devtools-1.32.12.tgz#4f78491c77cee02d14aa2dce515151c88dd08ec4"
@@ -1398,6 +1405,11 @@
   version "8.17.3"
   resolved "https://registry.yarnpkg.com/@tanstack/table-core/-/table-core-8.17.3.tgz#d7a9830abb29cd369b52b2a7159dc0360af646fd"
   integrity sha512-mPBodDGVL+fl6d90wUREepHa/7lhsghg2A3vFpakEhrhtbIlgNAZiMr7ccTgak5qbHqF14Fwy+W1yFWQt+WmYQ==
+
+"@tanstack/virtual-core@3.5.0":
+  version "3.5.0"
+  resolved "https://registry.yarnpkg.com/@tanstack/virtual-core/-/virtual-core-3.5.0.tgz#108208d0f1d75271300bc5560cf9a85a1fa01e89"
+  integrity sha512-KnPRCkQTyqhanNC0K63GBG3wA8I+D1fQuVnAvcBF8f13akOKeQp1gSbu6f77zCxhEk727iV5oQnbHLYzHrECLg==
 
 "@types/babel__core@^7.20.5":
   version "7.20.5"

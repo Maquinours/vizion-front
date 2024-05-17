@@ -43,7 +43,7 @@
           .tr {
             background-color: #fff;
 
-            &:nth-child(2n + 1) {
+            &.even {
               background: #f2f3f8 0% 0% no-repeat padding-box;
               opacity: 1;
             }
