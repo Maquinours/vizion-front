@@ -4,6 +4,8 @@
   margin-top: 1rem;
   width: auto;
   border-bottom: 1px solid #31385a;
+  max-height: 600px;
+  overflow-y: auto;
 
   table {
     width: 100%;
