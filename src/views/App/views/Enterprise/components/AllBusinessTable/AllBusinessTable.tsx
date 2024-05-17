@@ -1,17 +1,17 @@
+import { Row, createColumnHelper } from '@tanstack/react-table';
 import { useQuery } from '@tanstack/react-query';
-import { getRouteApi } from '@tanstack/react-router';
-import { createColumnHelper } from '@tanstack/react-table';
-import CardComponent from '../../../../../../components/Card/Card';
-import CurrencyFormat from '../../../../../../components/CurrencyFormat/CurrencyFormat';
-import PaginationComponent from '../../../../../../components/Pagination/Pagination';
-import RowLinkTableComponent from '../../../../../../components/RowLinkTable/RowLinkTable';
-import { allBusinesses } from '../../../../../../utils/constants/queryKeys/allBusiness';
+import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import styles from './AllBusinessTable.module.scss';
 import AllBusinessState from '../../../../../../utils/enums/AllBusinessState';
+import CurrencyFormat from '../../../../../../components/CurrencyFormat/CurrencyFormat';
 import CategoryBusiness from '../../../../../../utils/enums/CategoryBusiness';
 import { formatDateAndHourWithSlash } from '../../../../../../utils/functions/dates';
+import { allBusinesses } from '../../../../../../utils/constants/queryKeys/allBusiness';
+import CardComponent from '../../../../../../components/Card/Card';
+import PaginationComponent from '../../../../../../components/Pagination/Pagination';
+import TableComponent from '../../../../../../components/Table/Table';
 import AllBusinessResponseDto from '../../../../../../utils/types/AllBusinessResponseDto';
-import styles from './AllBusinessTable.module.scss';
-import classNames from 'classnames';
+import { Link } from '@tanstack/react-router';
 
 const size = 15;
 
@@ -68,7 +68,16 @@ const columnHelper = createColumnHelper<AllBusinessResponseDto>();
 const columns = [
   columnHelper.display({
     header: "N° de l'affaire",
-    cell: ({ row: { original } }) => original.number,
+    cell: ({ row: { original } }) => {
+      const children = original.number;
+      if (original.category === CategoryBusiness.AFFAIRE)
+        return (
+          <Link to="/app/businesses-rma/business/$businessId" params={{ businessId: original.businessId }} preload={false}>
+            {children}
+          </Link>
+        );
+      else return children; // TODO: add link to RMA
+    },
   }),
   columnHelper.display({
     header: "Nom de l'affaire",
@@ -98,39 +107,25 @@ const columns = [
 ];
 
 export default function AppViewEnterpriseViewAllBusinessTableComponent() {
+  const navigate = useNavigate();
+
   const { enterpriseId } = Route.useParams();
   const { allBusinessPage: page } = Route.useSearch();
 
   const { data, isLoading } = useQuery(allBusinesses.page._ctx.byEnterpriseId({ enterpriseId, page, size }));
 
-  //   const onRowClick = (e: React.MouseEvent, row: Row<AllBusinessResponseDto>) => {
-  //     if (e.metaKey || e.ctrlKey) window.open(`/app/business/${row.original.businessId}`); // TODO: reimplement this
-  //     else navigate({ to: '/app/business/$businessId', params: { businessId: row.original.businessId } });
-  //   };
+  const onRowClick = (e: React.MouseEvent, row: Row<AllBusinessResponseDto>) => {
+    if (row.original.category !== CategoryBusiness.AFFAIRE) return; // TODO: add link to RMA
+    if (e.metaKey || e.ctrlKey) window.open(`${window.location.origin}/app/businesses-rma/business/${row.original.businessId}`, '_blank');
+    else navigate({ to: '/app/businesses-rma/business/$businessId', params: { businessId: row.original.businessId } });
+  };
 
   return (
     <div className={styles.container}>
       <CardComponent title="Affaires en cours">
         <div className={styles.card_container}>
           <div className={styles.table_container}>
-            <RowLinkTableComponent<AllBusinessResponseDto>
-              columns={columns}
-              isLoading={isLoading}
-              data={data?.content}
-              getRowLink={(row) => ({
-                to: '/app/businesses-rma/business/$businessId', // TODO: handle RMA
-                params: { businessId: row.original.businessId },
-                disabled: row.original.category !== CategoryBusiness.AFFAIRE,
-                preload: false,
-              })}
-              tableClassName={styles.table}
-              headerClassName={styles.thead}
-              headerRowClassName={styles.tr}
-              headerCellClassName={styles.th}
-              bodyClassName={styles.tbody}
-              getBodyRowClassName={(row) => classNames(styles.tr, { [styles.even]: row.index % 2 === 0 })}
-              bodyCellClassName={styles.td}
-            />
+            <TableComponent columns={columns} isLoading={isLoading} data={data?.content ?? []} rowId="id" onRowClick={onRowClick} />
           </div>
           <div className={styles.pagination}>
             <PaginationComponent
