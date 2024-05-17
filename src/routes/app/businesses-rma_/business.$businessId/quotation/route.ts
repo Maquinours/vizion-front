@@ -1,5 +1,6 @@
 import { SearchSchemaInput, createFileRoute } from '@tanstack/react-router';
 import { z } from 'zod';
+import { queries } from '../../../../../utils/constants/queryKeys';
 
 const searchSchema = z.object({
   hideTotal: z.boolean().catch(false),
@@ -11,4 +12,7 @@ const searchSchema = z.object({
 export const Route = createFileRoute('/app/businesses-rma/business/$businessId/quotation')({
   validateSearch: (data: { hideTotal?: boolean; hideReferences?: boolean; hidePrices?: boolean; hideAddresses?: boolean } & SearchSchemaInput) =>
     searchSchema.parse(data),
+  loader: async ({ context: { queryClient }, params: { businessId } }) => {
+    await queryClient.ensureQueryData(queries['business-quotations'].detail._ctx.byBusinessId(businessId));
+  },
 });
