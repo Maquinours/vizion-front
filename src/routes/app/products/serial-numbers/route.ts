@@ -2,6 +2,7 @@ import { SearchSchemaInput, createFileRoute, redirect } from '@tanstack/react-ro
 import { z } from 'zod';
 import { queries } from '../../../../utils/constants/queryKeys';
 import { users } from '../../../../utils/constants/queryKeys/user';
+import LoaderModal from '../../../../components/LoaderModal/LoaderModal';
 
 const searchSchema = z.object({
   serialNumbersSearch: z.string().optional().catch(undefined),
@@ -18,4 +19,5 @@ export const Route = createFileRoute('/app/products/serial-numbers')({
 
     queryClient.prefetchQuery(queries['product-serial-numbers'].page({ page, size })._ctx.search(search));
   },
+  pendingComponent: LoaderModal,
 });
