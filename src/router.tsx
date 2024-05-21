@@ -30,6 +30,5 @@ export const router = createRouter({
   routeTree,
   context: { queryClient },
   defaultPendingComponent: Loader,
-  defaultPreload: 'intent',
   Wrap: ({ children }: { children: ReactNode }) => <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>,
 });

@@ -34,25 +34,25 @@ export default function AppViewDashboardViewCollectiveTasksComponentTableCompone
               {task && (
                 <MenuList>
                   <MenuItem>
-                    <Link from={Route.id} to="take-collective-task/$taskId" params={{ taskId: task.id }} search={(old) => old} preload="intent" replace>
+                    <Link from={Route.id} to="take-collective-task/$taskId" params={{ taskId: task.id }} search={(old) => old} replace>
                       <IoIosCheckmarkCircleOutline className={styles.icon} />
                       <span className={styles.text}>Je prends en charge</span>
                     </Link>
                   </MenuItem>
                   <MenuItem>
-                    <Link from={Route.id} to="transfer-task/$taskId" params={{ taskId: task.id }} search={(old) => old} preload="intent" replace>
+                    <Link from={Route.id} to="transfer-task/$taskId" params={{ taskId: task.id }} search={(old) => old} replace>
                       <IoMdArrowForward className={styles.icon} />
                       <span className={styles.text}>Transférer</span>
                     </Link>
                   </MenuItem>
                   <MenuItem>
-                    <Link from={Route.id} to="task-comments/$taskId" params={{ taskId: task.id }} search={(old) => old} preload="intent" replace>
+                    <Link from={Route.id} to="task-comments/$taskId" params={{ taskId: task.id }} search={(old) => old} replace>
                       <MdOutlineComment className={styles.icon} />
                       <span className={styles.text}>Commentaires</span>
                     </Link>
                   </MenuItem>
                   <MenuItem>
-                    <Link from={Route.id} to="delete-collective-task/$taskId" params={{ taskId: task.id }} search={(old) => old} preload="intent" replace>
+                    <Link from={Route.id} to="delete-collective-task/$taskId" params={{ taskId: task.id }} search={(old) => old} replace>
                       <FaTrash className={styles.icon} />
                       <span className={styles.text}>Supprimer</span>
                     </Link>

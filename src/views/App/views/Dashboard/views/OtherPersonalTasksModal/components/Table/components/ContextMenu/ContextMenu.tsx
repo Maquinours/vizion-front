@@ -35,14 +35,14 @@ export default function AppViewDashboardViewOtherPersonalTasksModalViewTableComp
                 <MenuList>
                   {currentUser.userInfo.roles.includes('ROLE_DIRECTION_VIZEO') && !task.businessId && !task.enterpriseId && !task.productId && !task.rmaId && (
                     <MenuItem>
-                      <Link from={Route.id} to="../../link-personal-task/$taskId" params={{ taskId: task.id }} search={(old) => old} preload="intent">
+                      <Link from={Route.id} to="../../link-personal-task/$taskId" params={{ taskId: task.id }} search={(old) => old}>
                         <BsLink45Deg className={styles.icon} /> <span className={styles.text}>Relier à</span>
                       </Link>
                     </MenuItem>
                   )}
                   {currentUser.userInfo.roles.includes('ROLE_DIRECTION_VIZEO') && task.state !== TaskState.ARCHIVED && (
                     <MenuItem>
-                      <Link from={Route.id} to="../../archive-personal-task/$taskId" params={{ taskId: task.id }} search={(old) => old} preload="intent">
+                      <Link from={Route.id} to="../../archive-personal-task/$taskId" params={{ taskId: task.id }} search={(old) => old}>
                         <BsFillCircleFill className={styles.icon} color="#5DC896" />
                         <span className={styles.text}>Archiver</span>
                       </Link>
@@ -50,13 +50,7 @@ export default function AppViewDashboardViewOtherPersonalTasksModalViewTableComp
                   )}
                   {currentUser.userInfo.roles.includes('ROLE_DIRECTION_VIZEO') && [(TaskState.CLOSED, TaskState.CREATED)].includes(task.state!) && (
                     <MenuItem>
-                      <Link
-                        from={Route.id}
-                        to="../../update-personal-task-deadline/$taskId"
-                        params={{ taskId: task.id }}
-                        search={(old) => old}
-                        preload="intent"
-                      >
+                      <Link from={Route.id} to="../../update-personal-task-deadline/$taskId" params={{ taskId: task.id }} search={(old) => old}>
                         <MdSchedule className={styles.icon} />
                         <span className={styles.text}>Repousser</span>
                       </Link>
@@ -64,7 +58,7 @@ export default function AppViewDashboardViewOtherPersonalTasksModalViewTableComp
                   )}
                   {currentUser.userInfo.roles.includes('ROLE_DIRECTION_VIZEO') && task.state === TaskState.CREATED && (
                     <MenuItem>
-                      <Link from={Route.id} to="../../transfer-task/$taskId" params={{ taskId: task.id }} search={(old) => old} preload="intent">
+                      <Link from={Route.id} to="../../transfer-task/$taskId" params={{ taskId: task.id }} search={(old) => old}>
                         <IoMdArrowForward className={styles.icon} />
                         <span className={styles.text}>Transférer à</span>
                       </Link>
@@ -72,20 +66,20 @@ export default function AppViewDashboardViewOtherPersonalTasksModalViewTableComp
                   )}
                   {currentUser.userInfo.roles.includes('ROLE_DIRECTION_VIZEO') && task.state === TaskState.CREATED && (
                     <MenuItem>
-                      <Link from={Route.id} to="../../validate-personal-task/$taskId" params={{ taskId: task.id }} search={(old) => old} preload="intent">
+                      <Link from={Route.id} to="../../validate-personal-task/$taskId" params={{ taskId: task.id }} search={(old) => old}>
                         <BsFillCircleFill className={styles.icon} color="#31385A" />
                         <span className={styles.text}>En attente</span>
                       </Link>
                     </MenuItem>
                   )}
                   <MenuItem>
-                    <Link from={Route.id} to="../../personal-task-details/$taskId" params={{ taskId: task.id }} search={(old) => old} preload="intent">
+                    <Link from={Route.id} to="../../personal-task-details/$taskId" params={{ taskId: task.id }} search={(old) => old}>
                       <BsEyeFill className={styles.icon} />
                       <span className={styles.text}>Ouvrir</span>
                     </Link>
                   </MenuItem>
                   <MenuItem>
-                    <Link from={Route.id} to="../../task-comments/$taskId" params={{ taskId: task.id }} search={(old) => old} preload="intent">
+                    <Link from={Route.id} to="../../task-comments/$taskId" params={{ taskId: task.id }} search={(old) => old}>
                       <MdOutlineComment className={styles.icon} />
                       <span className={styles.text}>Commentaires</span>
                     </Link>

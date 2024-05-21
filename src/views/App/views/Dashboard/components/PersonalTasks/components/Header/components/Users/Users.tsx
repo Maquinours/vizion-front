@@ -25,7 +25,6 @@ export default function AppViewDashboardViewPersonalTasksComponentHeaderComponen
             to="./other-personal-tasks/$profileId"
             search={(old) => ({ ...old, otherPersonalTaskState: TaskState.CREATED, otherPersonalTaskSize: 10, otherPersonalTaskPage: 0 })}
             params={{ profileId: member.id }}
-            preload="intent"
             replace
             className={styles.tag_tooltip}
           >

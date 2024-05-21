@@ -37,7 +37,6 @@ export default function AppViewDashboardViewProgressiveInfosComponentTableCompon
                     to="./update-progressive-info/$progressiveInfoId"
                     params={(old) => ({ ...old, progressiveInfoId: progressiveInfo!.id })}
                     search={(old) => old}
-                    preload="intent"
                     replace
                   >
                     <MdModeEdit className={styles.icon} />
@@ -50,7 +49,6 @@ export default function AppViewDashboardViewProgressiveInfosComponentTableCompon
                     to="./delete-progressive-info/$progressiveInfoId"
                     params={(old) => ({ ...old, progressiveInfoId: progressiveInfo!.id })}
                     search={(old) => old}
-                    preload="intent"
                     replace
                   >
                     <FaTrash className={styles.icon} />
