@@ -47,6 +47,7 @@ import { Route as AppToolsDdnsRouteImport } from './routes/app/tools/ddns/route'
 import { Route as AppToolsCreditRouteImport } from './routes/app/tools/credit/route'
 import { Route as AppProductsProductIdRouteImport } from './routes/app/products_.$productId/route'
 import { Route as AppProductsSerialNumbersRouteImport } from './routes/app/products/serial-numbers/route'
+import { Route as AppFaqCreateRouteImport } from './routes/app/faq/create/route'
 import { Route as AppExternalLinksExternalLinkIdRouteImport } from './routes/app/external-links_.$externalLinkId/route'
 import { Route as AppEnterprisesEnterpriseIdRouteImport } from './routes/app/enterprises_.$enterpriseId/route'
 import { Route as AppDashboardDeleteCollectiveTasksRouteImport } from './routes/app/dashboard/delete-collective-tasks/route'
@@ -171,6 +172,8 @@ import { Route as AppProductsProductIdManageDeleteStockStockIdRouteImport } from
 import { Route as AppProductsProductIdManageDeleteSpecificationSpecificationIdRouteImport } from './routes/app/products_.$productId/manage/delete-specification.$specificationId/route'
 import { Route as AppProductsProductIdManageAddSpecificationFilterIdRouteImport } from './routes/app/products_.$productId/manage/add-specification/$filterId/route'
 import { Route as AppProductsProductIdInformationsTaskEmailTaskIdRouteImport } from './routes/app/products_.$productId/informations/task-email.$taskId/route'
+import { Route as AppFaqGedFaqIdRenameItemRelativePathRouteImport } from './routes/app/faq/ged.$faqId/rename.$itemRelativePath/route'
+import { Route as AppFaqGedFaqIdDeleteItemRelativePathRouteImport } from './routes/app/faq/ged.$faqId/delete.$itemRelativePath/route'
 import { Route as AppEnterprisesEnterpriseIdTaskEmailTaskIdReplyRouteImport } from './routes/app/enterprises_.$enterpriseId/task-email.$taskId/reply/route'
 import { Route as AppEnterprisesEnterpriseIdAddressBookUpdateAddressIdRouteImport } from './routes/app/enterprises_.$enterpriseId/address-book/update.$addressId/route'
 import { Route as AppEnterprisesEnterpriseIdAddressBookDeleteAddressIdRouteImport } from './routes/app/enterprises_.$enterpriseId/address-book/delete.$addressId/route'
@@ -230,7 +233,6 @@ const AuthForgotPasswordRouteLazyImport = createFileRoute(
 const AuthResetPasswordTokenRouteLazyImport = createFileRoute(
   '/auth/reset-password/$token',
 )()
-const AppFaqCreateRouteLazyImport = createFileRoute('/app/faq/create')()
 const AppToolsProductShelvesCreateRouteLazyImport = createFileRoute(
   '/app/tools/product-shelves/create',
 )()
@@ -293,12 +295,6 @@ const AppToolsFormationsSubscribersFormationDetailIdCreateRouteLazyImport =
   createFileRoute(
     '/app/tools/formations/subscribers/$formationDetailId/create',
   )()
-const AppFaqGedFaqIdRenameItemRelativePathRouteLazyImport = createFileRoute(
-  '/app/faq/ged/$faqId/rename/$itemRelativePath',
-)()
-const AppFaqGedFaqIdDeleteItemRelativePathRouteLazyImport = createFileRoute(
-  '/app/faq/ged/$faqId/delete/$itemRelativePath',
-)()
 const AppProductsProductIdInformationsTaskEmailTaskIdReplyRouteLazyImport =
   createFileRoute(
     '/app/products/$productId/informations/task-email/$taskId/reply',
@@ -400,13 +396,6 @@ const AuthResetPasswordTokenRouteLazyRoute =
       (d) => d.Route,
     ),
   )
-
-const AppFaqCreateRouteLazyRoute = AppFaqCreateRouteLazyImport.update({
-  path: '/create',
-  getParentRoute: () => AppFaqRouteRoute,
-} as any).lazy(() =>
-  import('./routes/app/faq/create/route.lazy').then((d) => d.Route),
-)
 
 const AppToolsVvaRouteRoute = AppToolsVvaRouteImport.update({
   path: '/vva',
@@ -583,6 +572,13 @@ const AppProductsSerialNumbersRouteRoute =
       (d) => d.Route,
     ),
   )
+
+const AppFaqCreateRouteRoute = AppFaqCreateRouteImport.update({
+  path: '/create',
+  getParentRoute: () => AppFaqRouteRoute,
+} as any).lazy(() =>
+  import('./routes/app/faq/create/route.lazy').then((d) => d.Route),
+)
 
 const AppExternalLinksExternalLinkIdRouteRoute =
   AppExternalLinksExternalLinkIdRouteImport.update({
@@ -1882,26 +1878,6 @@ const AppToolsFormationsSubscribersFormationDetailIdCreateRouteLazyRoute =
     ).then((d) => d.Route),
   )
 
-const AppFaqGedFaqIdRenameItemRelativePathRouteLazyRoute =
-  AppFaqGedFaqIdRenameItemRelativePathRouteLazyImport.update({
-    path: '/rename/$itemRelativePath',
-    getParentRoute: () => AppFaqGedFaqIdRouteRoute,
-  } as any).lazy(() =>
-    import(
-      './routes/app/faq/ged.$faqId/rename.$itemRelativePath/route.lazy'
-    ).then((d) => d.Route),
-  )
-
-const AppFaqGedFaqIdDeleteItemRelativePathRouteLazyRoute =
-  AppFaqGedFaqIdDeleteItemRelativePathRouteLazyImport.update({
-    path: '/delete/$itemRelativePath',
-    getParentRoute: () => AppFaqGedFaqIdRouteRoute,
-  } as any).lazy(() =>
-    import(
-      './routes/app/faq/ged.$faqId/delete.$itemRelativePath/route.lazy'
-    ).then((d) => d.Route),
-  )
-
 const AppToolsSchedulerDetailsRdvIdUpdateRouteRoute =
   AppToolsSchedulerDetailsRdvIdUpdateRouteImport.update({
     path: '/update',
@@ -2025,6 +2001,26 @@ const AppProductsProductIdInformationsTaskEmailTaskIdRouteRoute =
   } as any).lazy(() =>
     import(
       './routes/app/products_.$productId/informations/task-email.$taskId/route.lazy'
+    ).then((d) => d.Route),
+  )
+
+const AppFaqGedFaqIdRenameItemRelativePathRouteRoute =
+  AppFaqGedFaqIdRenameItemRelativePathRouteImport.update({
+    path: '/rename/$itemRelativePath',
+    getParentRoute: () => AppFaqGedFaqIdRouteRoute,
+  } as any).lazy(() =>
+    import(
+      './routes/app/faq/ged.$faqId/rename.$itemRelativePath/route.lazy'
+    ).then((d) => d.Route),
+  )
+
+const AppFaqGedFaqIdDeleteItemRelativePathRouteRoute =
+  AppFaqGedFaqIdDeleteItemRelativePathRouteImport.update({
+    path: '/delete/$itemRelativePath',
+    getParentRoute: () => AppFaqGedFaqIdRouteRoute,
+  } as any).lazy(() =>
+    import(
+      './routes/app/faq/ged.$faqId/delete.$itemRelativePath/route.lazy'
     ).then((d) => d.Route),
   )
 
@@ -2769,6 +2765,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppExternalLinksExternalLinkIdRouteImport
       parentRoute: typeof AppRouteImport
     }
+    '/app/faq/create': {
+      id: '/app/faq/create'
+      path: '/create'
+      fullPath: '/app/faq/create'
+      preLoaderRoute: typeof AppFaqCreateRouteImport
+      parentRoute: typeof AppFaqRouteImport
+    }
     '/app/products/serial-numbers': {
       id: '/app/products/serial-numbers'
       path: '/serial-numbers'
@@ -2915,13 +2918,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/app/tools/vva'
       preLoaderRoute: typeof AppToolsVvaRouteImport
       parentRoute: typeof AppToolsRouteImport
-    }
-    '/app/faq/create': {
-      id: '/app/faq/create'
-      path: '/create'
-      fullPath: '/app/faq/create'
-      preLoaderRoute: typeof AppFaqCreateRouteLazyImport
-      parentRoute: typeof AppFaqRouteImport
     }
     '/auth/reset-password/$token': {
       id: '/auth/reset-password/$token'
@@ -3938,6 +3934,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppEnterprisesEnterpriseIdTaskEmailTaskIdReplyRouteImport
       parentRoute: typeof AppEnterprisesEnterpriseIdTaskEmailTaskIdRouteImport
     }
+    '/app/faq/ged/$faqId/delete/$itemRelativePath': {
+      id: '/app/faq/ged/$faqId/delete/$itemRelativePath'
+      path: '/delete/$itemRelativePath'
+      fullPath: '/app/faq/ged/$faqId/delete/$itemRelativePath'
+      preLoaderRoute: typeof AppFaqGedFaqIdDeleteItemRelativePathRouteImport
+      parentRoute: typeof AppFaqGedFaqIdRouteImport
+    }
+    '/app/faq/ged/$faqId/rename/$itemRelativePath': {
+      id: '/app/faq/ged/$faqId/rename/$itemRelativePath'
+      path: '/rename/$itemRelativePath'
+      fullPath: '/app/faq/ged/$faqId/rename/$itemRelativePath'
+      preLoaderRoute: typeof AppFaqGedFaqIdRenameItemRelativePathRouteImport
+      parentRoute: typeof AppFaqGedFaqIdRouteImport
+    }
     '/app/products/$productId/informations/task-email/$taskId': {
       id: '/app/products/$productId/informations/task-email/$taskId'
       path: '/task-email/$taskId'
@@ -4021,20 +4031,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/app/tools/scheduler/details/$rdvId/update'
       preLoaderRoute: typeof AppToolsSchedulerDetailsRdvIdUpdateRouteImport
       parentRoute: typeof AppToolsSchedulerDetailsRdvIdRouteLazyImport
-    }
-    '/app/faq/ged/$faqId/delete/$itemRelativePath': {
-      id: '/app/faq/ged/$faqId/delete/$itemRelativePath'
-      path: '/delete/$itemRelativePath'
-      fullPath: '/app/faq/ged/$faqId/delete/$itemRelativePath'
-      preLoaderRoute: typeof AppFaqGedFaqIdDeleteItemRelativePathRouteLazyImport
-      parentRoute: typeof AppFaqGedFaqIdRouteImport
-    }
-    '/app/faq/ged/$faqId/rename/$itemRelativePath': {
-      id: '/app/faq/ged/$faqId/rename/$itemRelativePath'
-      path: '/rename/$itemRelativePath'
-      fullPath: '/app/faq/ged/$faqId/rename/$itemRelativePath'
-      preLoaderRoute: typeof AppFaqGedFaqIdRenameItemRelativePathRouteLazyImport
-      parentRoute: typeof AppFaqGedFaqIdRouteImport
     }
     '/app/tools/formations/subscribers/$formationDetailId/create': {
       id: '/app/tools/formations/subscribers/$formationDetailId/create'
@@ -4307,14 +4303,14 @@ export const routeTree = rootRoute.addChildren({
     }),
     AppExternalLinksRouteRoute,
     AppFaqRouteRoute: AppFaqRouteRoute.addChildren({
-      AppFaqCreateRouteLazyRoute,
+      AppFaqCreateRouteRoute,
       AppFaqArchiveFaqIdRouteRoute,
       AppFaqDeleteFaqIdRouteRoute,
       AppFaqGedFaqIdRouteRoute: AppFaqGedFaqIdRouteRoute.addChildren({
         AppFaqGedFaqIdCreateDirectoryRouteRoute,
         AppFaqGedFaqIdImportFilesRouteRoute,
-        AppFaqGedFaqIdDeleteItemRelativePathRouteLazyRoute,
-        AppFaqGedFaqIdRenameItemRelativePathRouteLazyRoute,
+        AppFaqGedFaqIdDeleteItemRelativePathRouteRoute,
+        AppFaqGedFaqIdRenameItemRelativePathRouteRoute,
       }),
       AppFaqSendByEmailFaqIdRouteRoute,
       AppFaqUpdateFaqIdRouteRoute,

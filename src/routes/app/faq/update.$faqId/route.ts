@@ -3,6 +3,7 @@ import { faqs } from '../../../../utils/constants/queryKeys/faq';
 import { QueryKey } from '@tanstack/react-query';
 import Page from '../../../../utils/types/Page';
 import FaqResponseDto from '../../../../utils/types/FaqResponseDto';
+import LoaderModal from '../../../../components/LoaderModal/LoaderModal';
 
 export const Route = createFileRoute('/app/faq/update/$faqId')({
   loader: async ({ context: { queryClient }, params: { faqId } }) => {
@@ -21,4 +22,5 @@ export const Route = createFileRoute('/app/faq/update/$faqId')({
       initialDataUpdatedAt: () => (initialDataKey ? queryClient.getQueryState(initialDataKey)?.dataUpdatedAt : undefined),
     });
   },
+  pendingComponent: LoaderModal,
 });
