@@ -1,6 +1,7 @@
 import { createFileRoute, notFound } from '@tanstack/react-router';
 import { z } from 'zod';
 import { queries } from '../../../../../utils/constants/queryKeys';
+import LoaderModal from '../../../../../components/LoaderModal/LoaderModal';
 
 const searchSchema = z.object({
   stockHistoryPage: z.number().min(0).catch(0),
@@ -15,4 +16,5 @@ export const Route = createFileRoute('/app/products/$productId/manage/stock-hist
     const stock = await queryClient.ensureQueryData(queries['product-version-shelf-stocks'].detail._ctx.byId(stockId));
     if (stock.productId !== productId) throw notFound();
   },
+  pendingComponent: LoaderModal,
 });

@@ -132,6 +132,7 @@ import { Route as AppToolsEmailsSendPredefinedMessagesRouteImport } from './rout
 import { Route as AppToolsDepartmentsUpdateDepartmentIdRouteImport } from './routes/app/tools/departments/update.$departmentId/route'
 import { Route as AppToolsDepartmentsDeleteDepartmentIdRouteImport } from './routes/app/tools/departments/delete.$departmentId/route'
 import { Route as AppToolsDdnsDeleteDdnsIdRouteImport } from './routes/app/tools/ddns/delete.$ddnsId/route'
+import { Route as AppProductsProductIdManageCreateVersionRouteImport } from './routes/app/products_.$productId/manage/create-version/route'
 import { Route as AppProductsProductIdManageCreateStockRouteImport } from './routes/app/products_.$productId/manage/create-stock/route'
 import { Route as AppProductsProductIdManageAddSpecificationRouteImport } from './routes/app/products_.$productId/manage/add-specification/route'
 import { Route as AppProductsProductIdManageAddAssociatedProductRouteImport } from './routes/app/products_.$productId/manage/add-associated-product/route'
@@ -198,6 +199,7 @@ import { Route as AppBusinessesRmaBusinessBusinessIdArcUpdateShippingPriceRouteI
 import { Route as AppBusinessesRmaBusinessBusinessIdArcPdfRouteImport } from './routes/app/businesses-rma_/business.$businessId/arc/pdf/route'
 import { Route as AppToolsFormationsSubscribersFormationDetailIdSendEmailSubscriptionIdRouteImport } from './routes/app/tools/formations/subscribers.$formationDetailId/send-email.$subscriptionId/route'
 import { Route as AppToolsFormationsSubscribersFormationDetailIdDeleteSubscriptionIdRouteImport } from './routes/app/tools/formations/subscribers.$formationDetailId/delete.$subscriptionId/route'
+import { Route as AppProductsProductIdInformationsTaskEmailTaskIdReplyRouteImport } from './routes/app/products_.$productId/informations/task-email.$taskId/reply/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdQuotationUpdateSubquotationSubquotationIdRouteImport } from './routes/app/businesses-rma_/business.$businessId/quotation/update-subquotation.$subquotationId/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdQuotationUpdateDetailDetailIdRouteImport } from './routes/app/businesses-rma_/business.$businessId/quotation/update-detail.$detailId/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdQuotationPdfSendByEmailRouteImport } from './routes/app/businesses-rma_/business.$businessId/quotation/pdf/send-by-email/route'
@@ -283,9 +285,6 @@ const AppToolsFormationsCreateDetailsRouteLazyImport = createFileRoute(
 const AppToolsEmailsEmailIdReplyRouteLazyImport = createFileRoute(
   '/app/tools/emails/$emailId/reply',
 )()
-const AppProductsProductIdManageCreateVersionRouteLazyImport = createFileRoute(
-  '/app/products/$productId/manage/create-version',
-)()
 const AppToolsSchedulerDetailsRdvIdDeleteRouteLazyImport = createFileRoute(
   '/app/tools/scheduler/details/$rdvId/delete',
 )()
@@ -294,10 +293,6 @@ const AppToolsFormationsUpdateFormationIdDetailsRouteLazyImport =
 const AppToolsFormationsSubscribersFormationDetailIdCreateRouteLazyImport =
   createFileRoute(
     '/app/tools/formations/subscribers/$formationDetailId/create',
-  )()
-const AppProductsProductIdInformationsTaskEmailTaskIdReplyRouteLazyImport =
-  createFileRoute(
-    '/app/products/$productId/informations/task-email/$taskId/reply',
   )()
 
 // Create/Update Routes
@@ -1303,16 +1298,6 @@ const AppToolsEmailsEmailIdReplyRouteLazyRoute =
     ),
   )
 
-const AppProductsProductIdManageCreateVersionRouteLazyRoute =
-  AppProductsProductIdManageCreateVersionRouteLazyImport.update({
-    path: '/create-version',
-    getParentRoute: () => AppProductsProductIdManageRouteRoute,
-  } as any).lazy(() =>
-    import(
-      './routes/app/products_.$productId/manage/create-version/route.lazy'
-    ).then((d) => d.Route),
-  )
-
 const AppToolsVvaDeleteVvaIdRouteRoute =
   AppToolsVvaDeleteVvaIdRouteImport.update({
     path: '/delete/$vvaId',
@@ -1561,6 +1546,16 @@ const AppToolsDdnsDeleteDdnsIdRouteRoute =
     import('./routes/app/tools/ddns/delete.$ddnsId/route.lazy').then(
       (d) => d.Route,
     ),
+  )
+
+const AppProductsProductIdManageCreateVersionRouteRoute =
+  AppProductsProductIdManageCreateVersionRouteImport.update({
+    path: '/create-version',
+    getParentRoute: () => AppProductsProductIdManageRouteRoute,
+  } as any).lazy(() =>
+    import(
+      './routes/app/products_.$productId/manage/create-version/route.lazy'
+    ).then((d) => d.Route),
   )
 
 const AppProductsProductIdManageCreateStockRouteRoute =
@@ -2262,17 +2257,6 @@ const AppBusinessesRmaBusinessBusinessIdArcPdfRouteRoute =
     ).then((d) => d.Route),
   )
 
-const AppProductsProductIdInformationsTaskEmailTaskIdReplyRouteLazyRoute =
-  AppProductsProductIdInformationsTaskEmailTaskIdReplyRouteLazyImport.update({
-    path: '/reply',
-    getParentRoute: () =>
-      AppProductsProductIdInformationsTaskEmailTaskIdRouteRoute,
-  } as any).lazy(() =>
-    import(
-      './routes/app/products_.$productId/informations/task-email.$taskId/reply/route.lazy'
-    ).then((d) => d.Route),
-  )
-
 const AppToolsFormationsSubscribersFormationDetailIdSendEmailSubscriptionIdRouteRoute =
   AppToolsFormationsSubscribersFormationDetailIdSendEmailSubscriptionIdRouteImport.update(
     {
@@ -2296,6 +2280,17 @@ const AppToolsFormationsSubscribersFormationDetailIdDeleteSubscriptionIdRouteRou
   ).lazy(() =>
     import(
       './routes/app/tools/formations/subscribers.$formationDetailId/delete.$subscriptionId/route.lazy'
+    ).then((d) => d.Route),
+  )
+
+const AppProductsProductIdInformationsTaskEmailTaskIdReplyRouteRoute =
+  AppProductsProductIdInformationsTaskEmailTaskIdReplyRouteImport.update({
+    path: '/reply',
+    getParentRoute: () =>
+      AppProductsProductIdInformationsTaskEmailTaskIdRouteRoute,
+  } as any).lazy(() =>
+    import(
+      './routes/app/products_.$productId/informations/task-email.$taskId/reply/route.lazy'
     ).then((d) => d.Route),
   )
 
@@ -3556,6 +3551,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppProductsProductIdManageCreateStockRouteImport
       parentRoute: typeof AppProductsProductIdManageRouteImport
     }
+    '/app/products/$productId/manage/create-version': {
+      id: '/app/products/$productId/manage/create-version'
+      path: '/create-version'
+      fullPath: '/app/products/$productId/manage/create-version'
+      preLoaderRoute: typeof AppProductsProductIdManageCreateVersionRouteImport
+      parentRoute: typeof AppProductsProductIdManageRouteImport
+    }
     '/app/tools/ddns/delete/$ddnsId': {
       id: '/app/tools/ddns/delete/$ddnsId'
       path: '/delete/$ddnsId'
@@ -3730,13 +3732,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/app/tools/vva/delete/$vvaId'
       preLoaderRoute: typeof AppToolsVvaDeleteVvaIdRouteImport
       parentRoute: typeof AppToolsVvaRouteImport
-    }
-    '/app/products/$productId/manage/create-version': {
-      id: '/app/products/$productId/manage/create-version'
-      path: '/create-version'
-      fullPath: '/app/products/$productId/manage/create-version'
-      preLoaderRoute: typeof AppProductsProductIdManageCreateVersionRouteLazyImport
-      parentRoute: typeof AppProductsProductIdManageRouteImport
     }
     '/app/tools/emails/$emailId/reply': {
       id: '/app/tools/emails/$emailId/reply'
@@ -4221,6 +4216,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdQuotationUpdateSubquotationSubquotationIdRouteImport
       parentRoute: typeof AppBusinessesRmaBusinessBusinessIdQuotationRouteImport
     }
+    '/app/products/$productId/informations/task-email/$taskId/reply': {
+      id: '/app/products/$productId/informations/task-email/$taskId/reply'
+      path: '/reply'
+      fullPath: '/app/products/$productId/informations/task-email/$taskId/reply'
+      preLoaderRoute: typeof AppProductsProductIdInformationsTaskEmailTaskIdReplyRouteImport
+      parentRoute: typeof AppProductsProductIdInformationsTaskEmailTaskIdRouteImport
+    }
     '/app/tools/formations/subscribers/$formationDetailId/delete/$subscriptionId': {
       id: '/app/tools/formations/subscribers/$formationDetailId/delete/$subscriptionId'
       path: '/delete/$subscriptionId'
@@ -4234,13 +4236,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/app/tools/formations/subscribers/$formationDetailId/send-email/$subscriptionId'
       preLoaderRoute: typeof AppToolsFormationsSubscribersFormationDetailIdSendEmailSubscriptionIdRouteImport
       parentRoute: typeof AppToolsFormationsSubscribersFormationDetailIdRouteImport
-    }
-    '/app/products/$productId/informations/task-email/$taskId/reply': {
-      id: '/app/products/$productId/informations/task-email/$taskId/reply'
-      path: '/reply'
-      fullPath: '/app/products/$productId/informations/task-email/$taskId/reply'
-      preLoaderRoute: typeof AppProductsProductIdInformationsTaskEmailTaskIdReplyRouteLazyImport
-      parentRoute: typeof AppProductsProductIdInformationsTaskEmailTaskIdRouteImport
     }
     '/app/businesses-rma/business/$businessId/dashboard/address-book/delete/$addressId': {
       id: '/app/businesses-rma/business/$businessId/dashboard/address-book/delete/$addressId'
@@ -4478,7 +4473,7 @@ export const routeTree = rootRoute.addChildren({
           AppProductsProductIdInformationsTaskEmailTaskIdRouteRoute:
             AppProductsProductIdInformationsTaskEmailTaskIdRouteRoute.addChildren(
               {
-                AppProductsProductIdInformationsTaskEmailTaskIdReplyRouteLazyRoute,
+                AppProductsProductIdInformationsTaskEmailTaskIdReplyRouteRoute,
               },
             ),
         }),
@@ -4490,7 +4485,7 @@ export const routeTree = rootRoute.addChildren({
               AppProductsProductIdManageAddSpecificationFilterIdRouteRoute,
             }),
           AppProductsProductIdManageCreateStockRouteRoute,
-          AppProductsProductIdManageCreateVersionRouteLazyRoute,
+          AppProductsProductIdManageCreateVersionRouteRoute,
           AppProductsProductIdManageDeleteSpecificationSpecificationIdRouteRoute,
           AppProductsProductIdManageDeleteStockStockIdRouteRoute,
           AppProductsProductIdManageDeleteVersionVersionIdRouteRoute,
