@@ -53,6 +53,7 @@ import { Route as AppDashboardDeleteCollectiveTasksRouteImport } from './routes/
 import { Route as AppDashboardCreateProgressiveInfoRouteImport } from './routes/app/dashboard/create-progressive-info/route'
 import { Route as AppDashboardCreatePersonalTaskRouteImport } from './routes/app/dashboard/create-personal-task/route'
 import { Route as AppDashboardCreateCollectiveTaskRouteImport } from './routes/app/dashboard/create-collective-task/route'
+import { Route as AppBusinessesRmaSearchByProductsRouteImport } from './routes/app/businesses-rma/search-by-products/route'
 import { Route as AppBusinessesRmaRepresentativeTurnoverRouteImport } from './routes/app/businesses-rma/representative-turnover/route'
 import { Route as AppProductsProductIdIndexImport } from './routes/app/products_.$productId/index'
 import { Route as AppToolsVvaCreateRouteImport } from './routes/app/tools/vva/create/route'
@@ -208,9 +209,6 @@ const AuthResetPasswordTokenRouteLazyImport = createFileRoute(
   '/auth/reset-password/$token',
 )()
 const AppFaqCreateRouteLazyImport = createFileRoute('/app/faq/create')()
-const AppBusinessesRmaSearchByProductsRouteLazyImport = createFileRoute(
-  '/app/businesses-rma/search-by-products',
-)()
 const AppToolsProductShelvesCreateRouteLazyImport = createFileRoute(
   '/app/tools/product-shelves/create',
 )()
@@ -458,16 +456,6 @@ const AppFaqCreateRouteLazyRoute = AppFaqCreateRouteLazyImport.update({
   import('./routes/app/faq/create/route.lazy').then((d) => d.Route),
 )
 
-const AppBusinessesRmaSearchByProductsRouteLazyRoute =
-  AppBusinessesRmaSearchByProductsRouteLazyImport.update({
-    path: '/search-by-products',
-    getParentRoute: () => AppBusinessesRmaRouteRoute,
-  } as any).lazy(() =>
-    import('./routes/app/businesses-rma/search-by-products/route.lazy').then(
-      (d) => d.Route,
-    ),
-  )
-
 const AppToolsVvaRouteRoute = AppToolsVvaRouteImport.update({
   path: '/vva',
   getParentRoute: () => AppToolsRouteRoute,
@@ -700,6 +688,16 @@ const AppDashboardCreateCollectiveTaskRouteRoute =
     getParentRoute: () => AppDashboardRouteRoute,
   } as any).lazy(() =>
     import('./routes/app/dashboard/create-collective-task/route.lazy').then(
+      (d) => d.Route,
+    ),
+  )
+
+const AppBusinessesRmaSearchByProductsRouteRoute =
+  AppBusinessesRmaSearchByProductsRouteImport.update({
+    path: '/search-by-products',
+    getParentRoute: () => AppBusinessesRmaRouteRoute,
+  } as any).lazy(() =>
+    import('./routes/app/businesses-rma/search-by-products/route.lazy').then(
       (d) => d.Route,
     ),
   )
@@ -2774,6 +2772,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppBusinessesRmaRepresentativeTurnoverRouteImport
       parentRoute: typeof AppBusinessesRmaRouteImport
     }
+    '/app/businesses-rma/search-by-products': {
+      id: '/app/businesses-rma/search-by-products'
+      path: '/search-by-products'
+      fullPath: '/app/businesses-rma/search-by-products'
+      preLoaderRoute: typeof AppBusinessesRmaSearchByProductsRouteImport
+      parentRoute: typeof AppBusinessesRmaRouteImport
+    }
     '/app/dashboard/create-collective-task': {
       id: '/app/dashboard/create-collective-task'
       path: '/create-collective-task'
@@ -2962,13 +2967,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/app/tools/vva'
       preLoaderRoute: typeof AppToolsVvaRouteImport
       parentRoute: typeof AppToolsRouteImport
-    }
-    '/app/businesses-rma/search-by-products': {
-      id: '/app/businesses-rma/search-by-products'
-      path: '/search-by-products'
-      fullPath: '/app/businesses-rma/search-by-products'
-      preLoaderRoute: typeof AppBusinessesRmaSearchByProductsRouteLazyImport
-      parentRoute: typeof AppBusinessesRmaRouteImport
     }
     '/app/faq/create': {
       id: '/app/faq/create'
@@ -4324,7 +4322,7 @@ export const routeTree = rootRoute.addChildren({
   AppRouteRoute: AppRouteRoute.addChildren({
     AppBusinessesRmaRouteRoute: AppBusinessesRmaRouteRoute.addChildren({
       AppBusinessesRmaRepresentativeTurnoverRouteRoute,
-      AppBusinessesRmaSearchByProductsRouteLazyRoute,
+      AppBusinessesRmaSearchByProductsRouteRoute,
     }),
     AppDashboardRouteRoute: AppDashboardRouteRoute.addChildren({
       AppDashboardCreateCollectiveTaskRouteRoute,
