@@ -1,6 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { queries } from '../../../../../../utils/constants/queryKeys';
 import BusinessArcResponseDto from '../../../../../../utils/types/BusinessArcResponseDto';
+import LoaderModal from '../../../../../../components/LoaderModal/LoaderModal';
 
 export const Route = createFileRoute('/app/businesses-rma/business/$businessId/arc/delete-detail/$detailId')({
   loader: async ({ context: { queryClient }, params: { businessId, detailId } }) => {
@@ -13,4 +14,5 @@ export const Route = createFileRoute('/app/businesses-rma/business/$businessId/a
       initialDataUpdatedAt: queryClient.getQueryState(queries['business-ARCs'].detail._ctx.byBusinessId(businessId).queryKey)?.dataUpdatedAt,
     });
   },
+  pendingComponent: LoaderModal,
 });

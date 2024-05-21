@@ -2,6 +2,7 @@ import { createFileRoute } from '@tanstack/react-router';
 import { queries } from '../../../../../../utils/constants/queryKeys';
 import AllBusinessResponseDto from '../../../../../../utils/types/AllBusinessResponseDto';
 import { QueryKey } from '@tanstack/react-query';
+import LoaderModal from '../../../../../../components/LoaderModal/LoaderModal';
 
 export const Route = createFileRoute('/app/businesses-rma/business/$businessId/dashboard/delete-link/$associatedId')({
   loader: async ({ context: { queryClient }, params: { associatedId } }) => {
@@ -21,4 +22,5 @@ export const Route = createFileRoute('/app/businesses-rma/business/$businessId/d
       initialDataUpdatedAt: initialDataKey ? queryClient.getQueryState(initialDataKey)?.dataUpdatedAt : undefined,
     });
   },
+  pendingComponent: LoaderModal,
 });

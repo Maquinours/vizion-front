@@ -3,6 +3,7 @@ import { queries } from '../../../../../../../utils/constants/queryKeys';
 import { QueryKey } from '@tanstack/react-query';
 import Page from '../../../../../../../utils/types/Page';
 import AddressResponseDto from '../../../../../../../utils/types/AddressResponseDto';
+import LoaderModal from '../../../../../../../components/LoaderModal/LoaderModal';
 
 export const Route = createFileRoute('/app/businesses-rma/business/$businessId/dashboard/address-book/delete/$addressId')({
   loader: async ({ context: { queryClient }, params: { addressId } }) => {
@@ -21,4 +22,5 @@ export const Route = createFileRoute('/app/businesses-rma/business/$businessId/d
       initialDataUpdatedAt: initialDataKey ? queryClient.getQueryState(initialDataKey)?.dataUpdatedAt : undefined,
     });
   },
+  pendingComponent: LoaderModal,
 });

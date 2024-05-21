@@ -1,6 +1,7 @@
 import { createFileRoute, redirect } from '@tanstack/react-router';
 import { queries } from '../../../../../../utils/constants/queryKeys';
 import BusinessResponseDto from '../../../../../../utils/types/BusinessResponseDto';
+import LoaderModal from '../../../../../../components/LoaderModal/LoaderModal';
 
 export const Route = createFileRoute('/app/businesses-rma/business/$businessId/dashboard/confirm-quotation-import/$otherBusinessId')({
   beforeLoad: async ({ context: { queryClient } }) => {
@@ -15,4 +16,5 @@ export const Route = createFileRoute('/app/businesses-rma/business/$businessId/d
       initialDataUpdatedAt: () => queryClient.getQueryState(queries.businesses.list._ctx.all.queryKey)?.dataUpdatedAt,
     });
   },
+  pendingComponent: LoaderModal,
 });

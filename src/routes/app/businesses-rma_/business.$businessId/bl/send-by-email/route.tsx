@@ -2,6 +2,7 @@ import { createFileRoute, redirect } from '@tanstack/react-router';
 import { queries } from '../../../../../../utils/constants/queryKeys';
 import { pdf } from '@react-pdf/renderer';
 import AppViewBusinessViewBlViewBodyComponentPdfComponent from '../../../../../../views/App/views/Business/views/Bl/components/Body/components/Pdf/Pdf';
+import LoaderModal from '../../../../../../components/LoaderModal/LoaderModal';
 
 export const Route = createFileRoute('/app/businesses-rma/business/$businessId/bl/send-by-email')({
   loaderDeps: ({ search: { page } }) => ({ page }),
@@ -17,4 +18,5 @@ export const Route = createFileRoute('/app/businesses-rma/business/$businessId/b
     });
     return { business, bl, file };
   },
+  pendingComponent: LoaderModal,
 });
