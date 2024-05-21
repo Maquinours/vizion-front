@@ -60,7 +60,6 @@ export default function SidebarComponentMobileSidebarComponent() {
                 activeProps={{
                   className: styles.active,
                 }}
-                preload="intent"
                 className={styles.item}
               >
                 {React.createElement(menu.icon, { className: styles.icon })}

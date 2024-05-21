@@ -27,7 +27,6 @@ export default function AppViewDashboardViewOtherPersonalTasksModalViewHeaderCom
             search={(old) => old}
             params={{ profileId: member.id }}
             className={classNames(styles.tag_tooltip, { [styles.selected]: member.id === profileId })}
-            preload="intent"
             replace
           >
             {member.firstName?.charAt(0).toUpperCase()}

@@ -119,7 +119,6 @@ export default function SidebarComponentBasicSidebarComponent() {
               key={menu.label}
               activeOptions={{ exact: false, includeSearch: false }}
               {...menu.route}
-              preload="intent"
               activeProps={{
                 className: styles.active,
               }}

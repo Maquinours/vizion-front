@@ -98,7 +98,6 @@ export default function AppViewFooterComponent() {
                 activeOptions={{ exact: false, includeSearch: false }}
                 activeProps={{ className: styles.active }}
                 className={styles.item}
-                preload="intent"
               >
                 {React.createElement(item.icon)}
                 <span className={styles.label}>{item.label}</span>

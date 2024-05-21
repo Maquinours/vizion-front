@@ -32,14 +32,7 @@ export default function AppViewDashboardViewOtherPersonalTasksModalViewHeaderCom
     <div className={styles.top_container}>
       <div className={styles.state_container}>
         {STATES.map((item) => (
-          <Link
-            key={item.value}
-            from={Route.id}
-            search={(old) => ({ ...old, otherPersonalTaskState: item.value })}
-            preload="intent"
-            replace
-            className={styles.tag_tooltip}
-          >
+          <Link key={item.value} from={Route.id} search={(old) => ({ ...old, otherPersonalTaskState: item.value })} replace className={styles.tag_tooltip}>
             <BsFillCircleFill color={item.color} className={classNames(styles.icon, { [styles.isActive]: item.value === state })} />
             <div className={styles.tag_content}>{item.label}</div>
           </Link>
