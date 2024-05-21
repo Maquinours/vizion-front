@@ -3,6 +3,7 @@ import { queries } from '../../../../utils/constants/queryKeys';
 import { QueryKey } from '@tanstack/react-query';
 import Page from '../../../../utils/types/Page';
 import TaskResponseDto from '../../../../utils/types/TaskResponseDto';
+import LoaderModal from '../../../../components/LoaderModal/LoaderModal';
 
 export const Route = createFileRoute('/app/dashboard/link-personal-task/$taskId')({
   loader: async ({ context: { queryClient }, params: { taskId } }) => {
@@ -21,4 +22,5 @@ export const Route = createFileRoute('/app/dashboard/link-personal-task/$taskId'
       initialDataUpdatedAt: () => (initialDataKey ? queryClient.getQueryState(initialDataKey)?.dataUpdatedAt : undefined),
     });
   },
+  pendingComponent: LoaderModal,
 });

@@ -4,6 +4,7 @@ import CategoryClient from '../../../../utils/enums/CategoryClient';
 import { QueryKey } from '@tanstack/react-query';
 import Page from '../../../../utils/types/Page';
 import TaskResponseDto from '../../../../utils/types/TaskResponseDto';
+import LoaderModal from '../../../../components/LoaderModal/LoaderModal';
 
 export const Route = createFileRoute('/app/dashboard/transfer-task/$taskId')({
   loader: async ({ context: { queryClient }, params: { taskId } }) => {
@@ -32,4 +33,5 @@ export const Route = createFileRoute('/app/dashboard/transfer-task/$taskId')({
       queryClient.ensureQueryData(queries.enterprise.list._ctx.byCategory(CategoryClient.VIZEO)._ctx.profiles._ctx.list),
     ]);
   },
+  pendingComponent: LoaderModal,
 });

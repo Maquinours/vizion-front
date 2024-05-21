@@ -2,6 +2,7 @@ import { createFileRoute } from '@tanstack/react-router';
 import { z } from 'zod';
 import { queries } from '../../../../utils/constants/queryKeys';
 import TaskState from '../../../../utils/enums/TaskState';
+import LoaderModal from '../../../../components/LoaderModal/LoaderModal';
 
 const searchSchema = z.object({
   otherPersonalTaskState: z.nativeEnum(TaskState).catch(TaskState.CREATED),
@@ -21,4 +22,5 @@ export const Route = createFileRoute('/app/dashboard/other-personal-tasks/$profi
 
     await queryClient.ensureQueryData(queries.profiles.detail(profileId));
   },
+  pendingComponent: LoaderModal,
 });

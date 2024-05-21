@@ -50,7 +50,9 @@ import { Route as AppProductsSerialNumbersRouteImport } from './routes/app/produ
 import { Route as AppExternalLinksExternalLinkIdRouteImport } from './routes/app/external-links_.$externalLinkId/route'
 import { Route as AppEnterprisesEnterpriseIdRouteImport } from './routes/app/enterprises_.$enterpriseId/route'
 import { Route as AppDashboardDeleteCollectiveTasksRouteImport } from './routes/app/dashboard/delete-collective-tasks/route'
+import { Route as AppDashboardCreateProgressiveInfoRouteImport } from './routes/app/dashboard/create-progressive-info/route'
 import { Route as AppDashboardCreatePersonalTaskRouteImport } from './routes/app/dashboard/create-personal-task/route'
+import { Route as AppDashboardCreateCollectiveTaskRouteImport } from './routes/app/dashboard/create-collective-task/route'
 import { Route as AppBusinessesRmaRepresentativeTurnoverRouteImport } from './routes/app/businesses-rma/representative-turnover/route'
 import { Route as AppProductsProductIdIndexImport } from './routes/app/products_.$productId/index'
 import { Route as AppToolsVvaCreateRouteImport } from './routes/app/tools/vva/create/route'
@@ -140,6 +142,7 @@ import { Route as AppEnterprisesEnterpriseIdUpdateContactPasswordContactIdRouteI
 import { Route as AppEnterprisesEnterpriseIdSendEmailToContactContactIdRouteImport } from './routes/app/enterprises_.$enterpriseId/send-email-to-contact.$contactId/route'
 import { Route as AppEnterprisesEnterpriseIdDeleteContactContactIdRouteImport } from './routes/app/enterprises_.$enterpriseId/delete-contact.$contactId/route'
 import { Route as AppEnterprisesEnterpriseIdCreateContactBusinessContactIdRouteImport } from './routes/app/enterprises_.$enterpriseId/create-contact-business.$contactId/route'
+import { Route as AppDashboardTaskEmailTaskIdReplyRouteImport } from './routes/app/dashboard/task-email.$taskId/reply/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdQuotationRouteImport } from './routes/app/businesses-rma_/business.$businessId/quotation/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdDashboardRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdBpRouteImport } from './routes/app/businesses-rma_/business.$businessId/bp/route'
@@ -205,12 +208,6 @@ const AuthResetPasswordTokenRouteLazyImport = createFileRoute(
   '/auth/reset-password/$token',
 )()
 const AppFaqCreateRouteLazyImport = createFileRoute('/app/faq/create')()
-const AppDashboardCreateProgressiveInfoRouteLazyImport = createFileRoute(
-  '/app/dashboard/create-progressive-info',
-)()
-const AppDashboardCreateCollectiveTaskRouteLazyImport = createFileRoute(
-  '/app/dashboard/create-collective-task',
-)()
 const AppBusinessesRmaSearchByProductsRouteLazyImport = createFileRoute(
   '/app/businesses-rma/search-by-products',
 )()
@@ -292,9 +289,6 @@ const AppEnterprisesEnterpriseIdDeleteGedObjectObjectRelativePathRouteLazyImport
   )()
 const AppEnterprisesEnterpriseIdAddressBookCreateRouteLazyImport =
   createFileRoute('/app/enterprises/$enterpriseId/address-book/create')()
-const AppDashboardTaskEmailTaskIdReplyRouteLazyImport = createFileRoute(
-  '/app/dashboard/task-email/$taskId/reply',
-)()
 const AppToolsSchedulerDetailsRdvIdDeleteRouteLazyImport = createFileRoute(
   '/app/tools/scheduler/details/$rdvId/delete',
 )()
@@ -463,26 +457,6 @@ const AppFaqCreateRouteLazyRoute = AppFaqCreateRouteLazyImport.update({
 } as any).lazy(() =>
   import('./routes/app/faq/create/route.lazy').then((d) => d.Route),
 )
-
-const AppDashboardCreateProgressiveInfoRouteLazyRoute =
-  AppDashboardCreateProgressiveInfoRouteLazyImport.update({
-    path: '/create-progressive-info',
-    getParentRoute: () => AppDashboardRouteRoute,
-  } as any).lazy(() =>
-    import('./routes/app/dashboard/create-progressive-info/route.lazy').then(
-      (d) => d.Route,
-    ),
-  )
-
-const AppDashboardCreateCollectiveTaskRouteLazyRoute =
-  AppDashboardCreateCollectiveTaskRouteLazyImport.update({
-    path: '/create-collective-task',
-    getParentRoute: () => AppDashboardRouteRoute,
-  } as any).lazy(() =>
-    import('./routes/app/dashboard/create-collective-task/route.lazy').then(
-      (d) => d.Route,
-    ),
-  )
 
 const AppBusinessesRmaSearchByProductsRouteLazyRoute =
   AppBusinessesRmaSearchByProductsRouteLazyImport.update({
@@ -700,12 +674,32 @@ const AppDashboardDeleteCollectiveTasksRouteRoute =
     ),
   )
 
+const AppDashboardCreateProgressiveInfoRouteRoute =
+  AppDashboardCreateProgressiveInfoRouteImport.update({
+    path: '/create-progressive-info',
+    getParentRoute: () => AppDashboardRouteRoute,
+  } as any).lazy(() =>
+    import('./routes/app/dashboard/create-progressive-info/route.lazy').then(
+      (d) => d.Route,
+    ),
+  )
+
 const AppDashboardCreatePersonalTaskRouteRoute =
   AppDashboardCreatePersonalTaskRouteImport.update({
     path: '/create-personal-task',
     getParentRoute: () => AppDashboardRouteRoute,
   } as any).lazy(() =>
     import('./routes/app/dashboard/create-personal-task/route.lazy').then(
+      (d) => d.Route,
+    ),
+  )
+
+const AppDashboardCreateCollectiveTaskRouteRoute =
+  AppDashboardCreateCollectiveTaskRouteImport.update({
+    path: '/create-collective-task',
+    getParentRoute: () => AppDashboardRouteRoute,
+  } as any).lazy(() =>
+    import('./routes/app/dashboard/create-collective-task/route.lazy').then(
       (d) => d.Route,
     ),
   )
@@ -1417,16 +1411,6 @@ const AppEnterprisesEnterpriseIdAddressBookCreateRouteLazyRoute =
     ).then((d) => d.Route),
   )
 
-const AppDashboardTaskEmailTaskIdReplyRouteLazyRoute =
-  AppDashboardTaskEmailTaskIdReplyRouteLazyImport.update({
-    path: '/reply',
-    getParentRoute: () => AppDashboardTaskEmailTaskIdRouteRoute,
-  } as any).lazy(() =>
-    import('./routes/app/dashboard/task-email.$taskId/reply/route.lazy').then(
-      (d) => d.Route,
-    ),
-  )
-
 const AppToolsVvaDeleteVvaIdRouteRoute =
   AppToolsVvaDeleteVvaIdRouteImport.update({
     path: '/delete/$vvaId',
@@ -1845,6 +1829,16 @@ const AppEnterprisesEnterpriseIdCreateContactBusinessContactIdRouteRoute =
     import(
       './routes/app/enterprises_.$enterpriseId/create-contact-business.$contactId/route.lazy'
     ).then((d) => d.Route),
+  )
+
+const AppDashboardTaskEmailTaskIdReplyRouteRoute =
+  AppDashboardTaskEmailTaskIdReplyRouteImport.update({
+    path: '/reply',
+    getParentRoute: () => AppDashboardTaskEmailTaskIdRouteRoute,
+  } as any).lazy(() =>
+    import('./routes/app/dashboard/task-email.$taskId/reply/route.lazy').then(
+      (d) => d.Route,
+    ),
   )
 
 const AppBusinessesRmaBusinessBusinessIdQuotationRouteRoute =
@@ -2780,11 +2774,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppBusinessesRmaRepresentativeTurnoverRouteImport
       parentRoute: typeof AppBusinessesRmaRouteImport
     }
+    '/app/dashboard/create-collective-task': {
+      id: '/app/dashboard/create-collective-task'
+      path: '/create-collective-task'
+      fullPath: '/app/dashboard/create-collective-task'
+      preLoaderRoute: typeof AppDashboardCreateCollectiveTaskRouteImport
+      parentRoute: typeof AppDashboardRouteImport
+    }
     '/app/dashboard/create-personal-task': {
       id: '/app/dashboard/create-personal-task'
       path: '/create-personal-task'
       fullPath: '/app/dashboard/create-personal-task'
       preLoaderRoute: typeof AppDashboardCreatePersonalTaskRouteImport
+      parentRoute: typeof AppDashboardRouteImport
+    }
+    '/app/dashboard/create-progressive-info': {
+      id: '/app/dashboard/create-progressive-info'
+      path: '/create-progressive-info'
+      fullPath: '/app/dashboard/create-progressive-info'
+      preLoaderRoute: typeof AppDashboardCreateProgressiveInfoRouteImport
       parentRoute: typeof AppDashboardRouteImport
     }
     '/app/dashboard/delete-collective-tasks': {
@@ -2961,20 +2969,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/app/businesses-rma/search-by-products'
       preLoaderRoute: typeof AppBusinessesRmaSearchByProductsRouteLazyImport
       parentRoute: typeof AppBusinessesRmaRouteImport
-    }
-    '/app/dashboard/create-collective-task': {
-      id: '/app/dashboard/create-collective-task'
-      path: '/create-collective-task'
-      fullPath: '/app/dashboard/create-collective-task'
-      preLoaderRoute: typeof AppDashboardCreateCollectiveTaskRouteLazyImport
-      parentRoute: typeof AppDashboardRouteImport
-    }
-    '/app/dashboard/create-progressive-info': {
-      id: '/app/dashboard/create-progressive-info'
-      path: '/create-progressive-info'
-      fullPath: '/app/dashboard/create-progressive-info'
-      preLoaderRoute: typeof AppDashboardCreateProgressiveInfoRouteLazyImport
-      parentRoute: typeof AppDashboardRouteImport
     }
     '/app/faq/create': {
       id: '/app/faq/create'
@@ -3466,6 +3460,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdQuotationRouteImport
       parentRoute: typeof AppBusinessesRmaBusinessBusinessIdRouteImport
     }
+    '/app/dashboard/task-email/$taskId/reply': {
+      id: '/app/dashboard/task-email/$taskId/reply'
+      path: '/reply'
+      fullPath: '/app/dashboard/task-email/$taskId/reply'
+      preLoaderRoute: typeof AppDashboardTaskEmailTaskIdReplyRouteImport
+      parentRoute: typeof AppDashboardTaskEmailTaskIdRouteImport
+    }
     '/app/enterprises/$enterpriseId/create-contact-business/$contactId': {
       id: '/app/enterprises/$enterpriseId/create-contact-business/$contactId'
       path: '/create-contact-business/$contactId'
@@ -3759,13 +3760,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/app/tools/vva/delete/$vvaId'
       preLoaderRoute: typeof AppToolsVvaDeleteVvaIdRouteImport
       parentRoute: typeof AppToolsVvaRouteImport
-    }
-    '/app/dashboard/task-email/$taskId/reply': {
-      id: '/app/dashboard/task-email/$taskId/reply'
-      path: '/reply'
-      fullPath: '/app/dashboard/task-email/$taskId/reply'
-      preLoaderRoute: typeof AppDashboardTaskEmailTaskIdReplyRouteLazyImport
-      parentRoute: typeof AppDashboardTaskEmailTaskIdRouteImport
     }
     '/app/enterprises/$enterpriseId/address-book/create': {
       id: '/app/enterprises/$enterpriseId/address-book/create'
@@ -4333,10 +4327,10 @@ export const routeTree = rootRoute.addChildren({
       AppBusinessesRmaSearchByProductsRouteLazyRoute,
     }),
     AppDashboardRouteRoute: AppDashboardRouteRoute.addChildren({
+      AppDashboardCreateCollectiveTaskRouteRoute,
       AppDashboardCreatePersonalTaskRouteRoute,
+      AppDashboardCreateProgressiveInfoRouteRoute,
       AppDashboardDeleteCollectiveTasksRouteRoute,
-      AppDashboardCreateCollectiveTaskRouteLazyRoute,
-      AppDashboardCreateProgressiveInfoRouteLazyRoute,
       AppDashboardArchivePersonalTaskTaskIdRouteRoute,
       AppDashboardDeleteCollectiveTaskTaskIdRouteRoute,
       AppDashboardDeleteProgressiveInfoProgressiveInfoIdRouteRoute,
@@ -4348,7 +4342,7 @@ export const routeTree = rootRoute.addChildren({
       AppDashboardTaskCommentsTaskIdRouteRoute,
       AppDashboardTaskEmailTaskIdRouteRoute:
         AppDashboardTaskEmailTaskIdRouteRoute.addChildren({
-          AppDashboardTaskEmailTaskIdReplyRouteLazyRoute,
+          AppDashboardTaskEmailTaskIdReplyRouteRoute,
         }),
       AppDashboardTransferTaskTaskIdRouteRoute,
       AppDashboardUpdatePersonalTaskDeadlineTaskIdRouteRoute,

@@ -3,9 +3,9 @@ import { RingLoader } from 'react-spinners';
 import styles from './LoaderModal.module.scss';
 
 type LoaderProps = {
-  isLoading: boolean;
+  isLoading?: boolean;
 };
-export default function LoaderModal({ isLoading }: LoaderProps) {
+export default function LoaderModal({ isLoading = true }: LoaderProps) {
   return (
     <Modal isOpen={isLoading} className={styles.modal} shouldCloseOnOverlayClick={!isLoading} shouldCloseOnEsc={!isLoading} overlayClassName="Overlay">
       <div className={styles.container}>
