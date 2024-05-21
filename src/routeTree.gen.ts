@@ -151,6 +151,7 @@ import { Route as AppEnterprisesEnterpriseIdRenameGedObjectObjectRelativePathRou
 import { Route as AppEnterprisesEnterpriseIdDeleteGedObjectObjectRelativePathRouteImport } from './routes/app/enterprises_.$enterpriseId/delete-ged-object.$objectRelativePath/route'
 import { Route as AppEnterprisesEnterpriseIdDeleteContactContactIdRouteImport } from './routes/app/enterprises_.$enterpriseId/delete-contact.$contactId/route'
 import { Route as AppEnterprisesEnterpriseIdCreateContactBusinessContactIdRouteImport } from './routes/app/enterprises_.$enterpriseId/create-contact-business.$contactId/route'
+import { Route as AppEnterprisesEnterpriseIdAddressBookCreateRouteImport } from './routes/app/enterprises_.$enterpriseId/address-book/create/route'
 import { Route as AppDashboardTaskEmailTaskIdReplyRouteImport } from './routes/app/dashboard/task-email.$taskId/reply/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdQuotationRouteImport } from './routes/app/businesses-rma_/business.$businessId/quotation/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdDashboardRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/route'
@@ -283,8 +284,6 @@ const AppToolsEmailsEmailIdReplyRouteLazyImport = createFileRoute(
 const AppProductsProductIdManageCreateVersionRouteLazyImport = createFileRoute(
   '/app/products/$productId/manage/create-version',
 )()
-const AppEnterprisesEnterpriseIdAddressBookCreateRouteLazyImport =
-  createFileRoute('/app/enterprises/$enterpriseId/address-book/create')()
 const AppToolsSchedulerDetailsRdvIdDeleteRouteLazyImport = createFileRoute(
   '/app/tools/scheduler/details/$rdvId/delete',
 )()
@@ -1318,16 +1317,6 @@ const AppProductsProductIdManageCreateVersionRouteLazyRoute =
     ).then((d) => d.Route),
   )
 
-const AppEnterprisesEnterpriseIdAddressBookCreateRouteLazyRoute =
-  AppEnterprisesEnterpriseIdAddressBookCreateRouteLazyImport.update({
-    path: '/create',
-    getParentRoute: () => AppEnterprisesEnterpriseIdAddressBookRouteRoute,
-  } as any).lazy(() =>
-    import(
-      './routes/app/enterprises_.$enterpriseId/address-book/create/route.lazy'
-    ).then((d) => d.Route),
-  )
-
 const AppToolsVvaDeleteVvaIdRouteRoute =
   AppToolsVvaDeleteVvaIdRouteImport.update({
     path: '/delete/$vvaId',
@@ -1779,6 +1768,16 @@ const AppEnterprisesEnterpriseIdCreateContactBusinessContactIdRouteRoute =
   } as any).lazy(() =>
     import(
       './routes/app/enterprises_.$enterpriseId/create-contact-business.$contactId/route.lazy'
+    ).then((d) => d.Route),
+  )
+
+const AppEnterprisesEnterpriseIdAddressBookCreateRouteRoute =
+  AppEnterprisesEnterpriseIdAddressBookCreateRouteImport.update({
+    path: '/create',
+    getParentRoute: () => AppEnterprisesEnterpriseIdAddressBookRouteRoute,
+  } as any).lazy(() =>
+    import(
+      './routes/app/enterprises_.$enterpriseId/address-book/create/route.lazy'
     ).then((d) => d.Route),
   )
 
@@ -3414,6 +3413,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppDashboardTaskEmailTaskIdReplyRouteImport
       parentRoute: typeof AppDashboardTaskEmailTaskIdRouteImport
     }
+    '/app/enterprises/$enterpriseId/address-book/create': {
+      id: '/app/enterprises/$enterpriseId/address-book/create'
+      path: '/create'
+      fullPath: '/app/enterprises/$enterpriseId/address-book/create'
+      preLoaderRoute: typeof AppEnterprisesEnterpriseIdAddressBookCreateRouteImport
+      parentRoute: typeof AppEnterprisesEnterpriseIdAddressBookRouteImport
+    }
     '/app/enterprises/$enterpriseId/create-contact-business/$contactId': {
       id: '/app/enterprises/$enterpriseId/create-contact-business/$contactId'
       path: '/create-contact-business/$contactId'
@@ -3728,13 +3734,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/app/tools/vva/delete/$vvaId'
       preLoaderRoute: typeof AppToolsVvaDeleteVvaIdRouteImport
       parentRoute: typeof AppToolsVvaRouteImport
-    }
-    '/app/enterprises/$enterpriseId/address-book/create': {
-      id: '/app/enterprises/$enterpriseId/address-book/create'
-      path: '/create'
-      fullPath: '/app/enterprises/$enterpriseId/address-book/create'
-      preLoaderRoute: typeof AppEnterprisesEnterpriseIdAddressBookCreateRouteLazyImport
-      parentRoute: typeof AppEnterprisesEnterpriseIdAddressBookRouteImport
     }
     '/app/products/$productId/manage/create-version': {
       id: '/app/products/$productId/manage/create-version'
@@ -4445,7 +4444,7 @@ export const routeTree = rootRoute.addChildren({
       AppEnterprisesEnterpriseIdRouteRoute.addChildren({
         AppEnterprisesEnterpriseIdAddressBookRouteRoute:
           AppEnterprisesEnterpriseIdAddressBookRouteRoute.addChildren({
-            AppEnterprisesEnterpriseIdAddressBookCreateRouteLazyRoute,
+            AppEnterprisesEnterpriseIdAddressBookCreateRouteRoute,
             AppEnterprisesEnterpriseIdAddressBookDeleteAddressIdRouteRoute,
             AppEnterprisesEnterpriseIdAddressBookUpdateAddressIdRouteRoute,
           }),
