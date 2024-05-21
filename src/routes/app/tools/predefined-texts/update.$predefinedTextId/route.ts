@@ -3,6 +3,7 @@ import { queries } from '../../../../../utils/constants/queryKeys';
 import PredefinedTextResponseDto from '../../../../../utils/types/PredefinedTextResponseDto';
 import { QueryKey } from '@tanstack/react-query';
 import Page from '../../../../../utils/types/Page';
+import LoaderModal from '../../../../../components/LoaderModal/LoaderModal';
 
 export const Route = createFileRoute('/app/tools/predefined-texts/update/$predefinedTextId')({
   loader: async ({ context: { queryClient }, params: { predefinedTextId } }) => {
@@ -22,4 +23,5 @@ export const Route = createFileRoute('/app/tools/predefined-texts/update/$predef
       initialDataUpdatedAt: () => (initialDataKey ? queryClient.getQueryState(initialDataKey)?.dataUpdatedAt : undefined),
     });
   },
+  pendingComponent: LoaderModal,
 });

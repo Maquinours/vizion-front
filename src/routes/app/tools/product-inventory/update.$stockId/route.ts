@@ -3,6 +3,7 @@ import { queries } from '../../../../../utils/constants/queryKeys';
 import Page from '../../../../../utils/types/Page';
 import ProductVersionShelfStockResponseDto from '../../../../../utils/types/ProductVersionShelfStockResponseDto';
 import { QueryKey } from '@tanstack/react-query';
+import LoaderModal from '../../../../../components/LoaderModal/LoaderModal';
 
 export const Route = createFileRoute('/app/tools/product-inventory/update/$stockId')({
   loader: async ({ context: { queryClient }, params: { stockId } }) => {
@@ -23,4 +24,5 @@ export const Route = createFileRoute('/app/tools/product-inventory/update/$stock
       initialDataUpdatedAt: () => (initialDataKey ? queryClient.getQueryState(initialDataKey)?.dataUpdatedAt : undefined),
     });
   },
+  pendingComponent: LoaderModal,
 });

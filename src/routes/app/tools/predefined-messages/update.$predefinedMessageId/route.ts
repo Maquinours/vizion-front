@@ -3,6 +3,7 @@ import { createFileRoute } from '@tanstack/react-router';
 import Page from '../../../../../utils/types/Page';
 import { queries } from '../../../../../utils/constants/queryKeys';
 import PredefinedMessageResponseDto from '../../../../../utils/types/PredefinedMessageResponseDto';
+import LoaderModal from '../../../../../components/LoaderModal/LoaderModal';
 
 export const Route = createFileRoute('/app/tools/predefined-messages/update/$predefinedMessageId')({
   loader: async ({ context: { queryClient }, params: { predefinedMessageId } }) => {
@@ -23,4 +24,5 @@ export const Route = createFileRoute('/app/tools/predefined-messages/update/$pre
       initialDataUpdatedAt: () => (initialDataKey ? queryClient.getQueryState(initialDataKey)?.dataUpdatedAt : undefined),
     });
   },
+  pendingComponent: LoaderModal,
 });

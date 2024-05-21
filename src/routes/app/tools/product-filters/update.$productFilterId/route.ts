@@ -3,6 +3,7 @@ import { queries } from '../../../../../utils/constants/queryKeys';
 import Page from '../../../../../utils/types/Page';
 import AdvancedProductSpecificationResponseDto from '../../../../../utils/types/AdvancedProductSpecificationResponseDto';
 import { QueryKey } from '@tanstack/react-query';
+import LoaderModal from '../../../../../components/LoaderModal/LoaderModal';
 
 export const Route = createFileRoute('/app/tools/product-filters/update/$productFilterId')({
   loader: async ({ context: { queryClient }, params: { productFilterId } }) => {
@@ -23,4 +24,5 @@ export const Route = createFileRoute('/app/tools/product-filters/update/$product
       initialDataUpdatedAt: initialDataKey ? queryClient.getQueryState(initialDataKey)?.dataUpdatedAt : undefined,
     });
   },
+  pendingComponent: LoaderModal,
 });

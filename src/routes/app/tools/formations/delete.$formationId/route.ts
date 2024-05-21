@@ -3,6 +3,7 @@ import { queries } from '../../../../../utils/constants/queryKeys';
 import FormationResponseDto from '../../../../../utils/types/FormationResponseDto';
 import Page from '../../../../../utils/types/Page';
 import { QueryKey } from '@tanstack/react-query';
+import LoaderModal from '../../../../../components/LoaderModal/LoaderModal';
 
 export const Route = createFileRoute('/app/tools/formations/delete/$formationId')({
   loader: async ({ context: { queryClient }, params: { formationId } }) => {
@@ -22,4 +23,5 @@ export const Route = createFileRoute('/app/tools/formations/delete/$formationId'
       initialDataUpdatedAt: () => (initialDataKey ? queryClient.getQueryState(initialDataKey)?.dataUpdatedAt : undefined),
     });
   },
+  pendingComponent: LoaderModal,
 });

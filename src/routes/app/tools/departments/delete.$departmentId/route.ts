@@ -2,6 +2,7 @@ import { createFileRoute } from '@tanstack/react-router';
 import { queries } from '../../../../../utils/constants/queryKeys';
 import Page from '../../../../../utils/types/Page';
 import DepartmentResponseDto from '../../../../../utils/types/DepartmentResponseDto';
+import LoaderModal from '../../../../../components/LoaderModal/LoaderModal';
 
 export const Route = createFileRoute('/app/tools/departments/delete/$departmentId')({
   loaderDeps: ({ search: { page } }) => ({ page, size: 15 }),
@@ -15,4 +16,5 @@ export const Route = createFileRoute('/app/tools/departments/delete/$departmentI
       initialDataUpdatedAt: () => queryClient.getQueryState(queries.departments.page({ page, size }).queryKey)?.dataUpdatedAt,
     });
   },
+  pendingComponent: LoaderModal,
 });

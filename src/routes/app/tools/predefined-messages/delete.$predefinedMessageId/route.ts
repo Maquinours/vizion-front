@@ -3,6 +3,7 @@ import { queries } from '../../../../../utils/constants/queryKeys';
 import { QueryKey } from '@tanstack/react-query';
 import Page from '../../../../../utils/types/Page';
 import PredefinedMessageResponseDto from '../../../../../utils/types/PredefinedMessageResponseDto';
+import LoaderModal from '../../../../../components/LoaderModal/LoaderModal';
 
 export const Route = createFileRoute('/app/tools/predefined-messages/delete/$predefinedMessageId')({
   loader: async ({ context: { queryClient }, params: { predefinedMessageId } }) => {
@@ -23,4 +24,5 @@ export const Route = createFileRoute('/app/tools/predefined-messages/delete/$pre
       initialDataUpdatedAt: () => (initialDataKey ? queryClient.getQueryState(initialDataKey)?.dataUpdatedAt : undefined),
     });
   },
+  pendingComponent: LoaderModal,
 });

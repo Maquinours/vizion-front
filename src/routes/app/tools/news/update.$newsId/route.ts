@@ -3,6 +3,7 @@ import { createFileRoute } from '@tanstack/react-router';
 import { news } from '../../../../../utils/constants/queryKeys/news';
 import NewsResponseDto from '../../../../../utils/types/NewsResponseDto';
 import Page from '../../../../../utils/types/Page';
+import LoaderModal from '../../../../../components/LoaderModal/LoaderModal';
 
 export const Route = createFileRoute('/app/tools/news/update/$newsId')({
   loader: async ({ context: { queryClient }, params: { newsId } }) => {
@@ -21,4 +22,5 @@ export const Route = createFileRoute('/app/tools/news/update/$newsId')({
       initialDataUpdatedAt: () => (initialDataKey ? queryClient.getQueryState(initialDataKey)?.dataUpdatedAt : undefined),
     });
   },
+  pendingComponent: LoaderModal,
 });

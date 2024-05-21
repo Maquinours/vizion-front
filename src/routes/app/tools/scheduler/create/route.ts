@@ -1,5 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { z } from 'zod';
+import LoaderModal from '../../../../../components/LoaderModal/LoaderModal';
 
 const searchSchema = z.object({
   dates: z.array(z.coerce.date()).length(2).optional().catch(undefined),
@@ -8,4 +9,5 @@ const searchSchema = z.object({
 
 export const Route = createFileRoute('/app/tools/scheduler/create')({
   validateSearch: searchSchema,
+  pendingComponent: LoaderModal,
 });

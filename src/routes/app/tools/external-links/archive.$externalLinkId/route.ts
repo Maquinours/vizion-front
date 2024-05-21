@@ -3,6 +3,7 @@ import { externalLinks } from '../../../../../utils/constants/queryKeys/external
 import Page from '../../../../../utils/types/Page';
 import ExternalLinkResponseDto from '../../../../../utils/types/ExternalLinkResponseDto';
 import { QueryKey } from '@tanstack/react-query';
+import LoaderModal from '../../../../../components/LoaderModal/LoaderModal';
 
 export const Route = createFileRoute('/app/tools/external-links/archive/$externalLinkId')({
   loader: async ({ context: { queryClient }, params: { externalLinkId } }) => {
@@ -22,4 +23,5 @@ export const Route = createFileRoute('/app/tools/external-links/archive/$externa
       initialDataUpdatedAt: () => (initialDataKey ? queryClient.getQueryState(initialDataKey)?.dataUpdatedAt : undefined),
     });
   },
+  pendingComponent: LoaderModal,
 });
