@@ -1,6 +1,7 @@
 import { createFileRoute, redirect } from '@tanstack/react-router';
 import { enterprises } from '../../../../utils/constants/queryKeys/enterprise';
 import { users } from '../../../../utils/constants/queryKeys/user';
+import LoaderModal from '../../../../components/LoaderModal/LoaderModal';
 
 export const Route = createFileRoute('/app/enterprises/create-contact/$enterpriseId')({
   beforeLoad: async ({ context: { queryClient } }) => {
@@ -10,4 +11,5 @@ export const Route = createFileRoute('/app/enterprises/create-contact/$enterpris
   loader: async ({ context: { queryClient }, params: { enterpriseId } }) => {
     queryClient.ensureQueryData(enterprises.detail(enterpriseId));
   },
+  pendingComponent: LoaderModal,
 });

@@ -1,6 +1,7 @@
 import { createFileRoute, redirect } from '@tanstack/react-router';
 import { queries } from '../../../../utils/constants/queryKeys';
 import { users } from '../../../../utils/constants/queryKeys/user';
+import LoaderModal from '../../../../components/LoaderModal/LoaderModal';
 
 export const Route = createFileRoute('/app/enterprises/send-email-to-contact/$contactId')({
   beforeLoad: async ({ context: { queryClient } }) => {
@@ -11,4 +12,5 @@ export const Route = createFileRoute('/app/enterprises/send-email-to-contact/$co
     const contact = await queryClient.ensureQueryData(queries.profiles.detail(contactId));
     if (!contact.email) throw redirect({ from: Route.id, to: '../..', search: (old) => old });
   },
+  pendingComponent: LoaderModal,
 });
