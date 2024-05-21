@@ -1,10 +1,29 @@
 import { createFileRoute, notFound } from '@tanstack/react-router';
 import { queries } from '../../../../../utils/constants/queryKeys';
 import LoaderModal from '../../../../../components/LoaderModal/LoaderModal';
+import { QueryKey } from '@tanstack/react-query';
+import Page from '../../../../../utils/types/Page';
+import ProductVersionResponseDto from '../../../../../utils/types/ProductVersionResponseDto';
 
 export const Route = createFileRoute('/app/products/$productId/manage/delete-version/$versionId')({
   loader: async ({ context: { queryClient }, params: { productId, versionId } }) => {
-    const version = await queryClient.ensureQueryData(queries['product-versions'].detail._ctx.byId(versionId));
+    let initialDataKey: QueryKey | undefined = undefined;
+
+    const version = await queryClient.ensureQueryData({
+      ...queries['product-versions'].detail._ctx.byId(versionId),
+      initialData: () => {
+        for (const [key, value] of queryClient.getQueriesData<Page<ProductVersionResponseDto>>({
+          queryKey: queries.product.detail(productId)._ctx.versions._ctx.page._def,
+        })) {
+          const item = value?.content.find((item) => item.id === versionId);
+          if (item) {
+            initialDataKey = key;
+            return item;
+          }
+        }
+      },
+      initialDataUpdatedAt: () => (initialDataKey ? queryClient.getQueryState(initialDataKey)?.dataUpdatedAt : undefined),
+    });
     if (!version.product || version.product.id !== productId) throw notFound();
   },
   pendingComponent: LoaderModal,
