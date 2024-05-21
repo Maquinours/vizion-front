@@ -73,9 +73,14 @@ import { Route as AppFaqDeleteFaqIdRouteImport } from './routes/app/faq/delete.$
 import { Route as AppFaqArchiveFaqIdRouteImport } from './routes/app/faq/archive.$faqId/route'
 import { Route as AppEnterprisesEnterpriseIdUpdateRepresentativeRouteImport } from './routes/app/enterprises_.$enterpriseId/update-representative/route'
 import { Route as AppEnterprisesEnterpriseIdUpdateCategoryRouteImport } from './routes/app/enterprises_.$enterpriseId/update-category/route'
+import { Route as AppEnterprisesEnterpriseIdUpdateAccountabilityRouteImport } from './routes/app/enterprises_.$enterpriseId/update-accountability/route'
 import { Route as AppEnterprisesEnterpriseIdUpdateRouteImport } from './routes/app/enterprises_.$enterpriseId/update/route'
 import { Route as AppEnterprisesEnterpriseIdImportGedFilesRouteImport } from './routes/app/enterprises_.$enterpriseId/import-ged-files/route'
+import { Route as AppEnterprisesEnterpriseIdImportContactsRouteImport } from './routes/app/enterprises_.$enterpriseId/import-contacts/route'
+import { Route as AppEnterprisesEnterpriseIdDeleteRouteImport } from './routes/app/enterprises_.$enterpriseId/delete/route'
+import { Route as AppEnterprisesEnterpriseIdCreateLifesheetCommentRouteImport } from './routes/app/enterprises_.$enterpriseId/create-lifesheet-comment/route'
 import { Route as AppEnterprisesEnterpriseIdCreateGedDirectoryRouteImport } from './routes/app/enterprises_.$enterpriseId/create-ged-directory/route'
+import { Route as AppEnterprisesEnterpriseIdCreateContactRouteImport } from './routes/app/enterprises_.$enterpriseId/create-contact/route'
 import { Route as AppEnterprisesEnterpriseIdAddressBookRouteImport } from './routes/app/enterprises_.$enterpriseId/address-book/route'
 import { Route as AppEnterprisesUpdateContactContactIdRouteImport } from './routes/app/enterprises/update-contact.$contactId/route'
 import { Route as AppEnterprisesUpdateContactPasswordContactIdRouteImport } from './routes/app/enterprises/update-contact-password.$contactId/route'
@@ -140,7 +145,10 @@ import { Route as AppFaqGedFaqIdImportFilesRouteImport } from './routes/app/faq/
 import { Route as AppFaqGedFaqIdCreateDirectoryRouteImport } from './routes/app/faq/ged.$faqId/create-directory/route'
 import { Route as AppEnterprisesEnterpriseIdUpdateContactContactIdRouteImport } from './routes/app/enterprises_.$enterpriseId/update-contact.$contactId/route'
 import { Route as AppEnterprisesEnterpriseIdUpdateContactPasswordContactIdRouteImport } from './routes/app/enterprises_.$enterpriseId/update-contact-password.$contactId/route'
+import { Route as AppEnterprisesEnterpriseIdTaskEmailTaskIdRouteImport } from './routes/app/enterprises_.$enterpriseId/task-email.$taskId/route'
 import { Route as AppEnterprisesEnterpriseIdSendEmailToContactContactIdRouteImport } from './routes/app/enterprises_.$enterpriseId/send-email-to-contact.$contactId/route'
+import { Route as AppEnterprisesEnterpriseIdRenameGedObjectObjectRelativePathRouteImport } from './routes/app/enterprises_.$enterpriseId/rename-ged-object.$objectRelativePath/route'
+import { Route as AppEnterprisesEnterpriseIdDeleteGedObjectObjectRelativePathRouteImport } from './routes/app/enterprises_.$enterpriseId/delete-ged-object.$objectRelativePath/route'
 import { Route as AppEnterprisesEnterpriseIdDeleteContactContactIdRouteImport } from './routes/app/enterprises_.$enterpriseId/delete-contact.$contactId/route'
 import { Route as AppEnterprisesEnterpriseIdCreateContactBusinessContactIdRouteImport } from './routes/app/enterprises_.$enterpriseId/create-contact-business.$contactId/route'
 import { Route as AppDashboardTaskEmailTaskIdReplyRouteImport } from './routes/app/dashboard/task-email.$taskId/reply/route'
@@ -162,6 +170,7 @@ import { Route as AppProductsProductIdManageDeleteStockStockIdRouteImport } from
 import { Route as AppProductsProductIdManageDeleteSpecificationSpecificationIdRouteImport } from './routes/app/products_.$productId/manage/delete-specification.$specificationId/route'
 import { Route as AppProductsProductIdManageAddSpecificationFilterIdRouteImport } from './routes/app/products_.$productId/manage/add-specification/$filterId/route'
 import { Route as AppProductsProductIdInformationsTaskEmailTaskIdRouteImport } from './routes/app/products_.$productId/informations/task-email.$taskId/route'
+import { Route as AppEnterprisesEnterpriseIdTaskEmailTaskIdReplyRouteImport } from './routes/app/enterprises_.$enterpriseId/task-email.$taskId/reply/route'
 import { Route as AppEnterprisesEnterpriseIdAddressBookUpdateAddressIdRouteImport } from './routes/app/enterprises_.$enterpriseId/address-book/update.$addressId/route'
 import { Route as AppEnterprisesEnterpriseIdAddressBookDeleteAddressIdRouteImport } from './routes/app/enterprises_.$enterpriseId/address-book/delete.$addressId/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdQuotationUpdateShippingPriceRouteImport } from './routes/app/businesses-rma_/business.$businessId/quotation/update-shipping-price/route'
@@ -256,19 +265,6 @@ const AppToolsDdnsCreateRouteLazyImport = createFileRoute(
 const AppToolsCreditShowRouteLazyImport = createFileRoute(
   '/app/tools/credit/show',
 )()
-const AppEnterprisesEnterpriseIdUpdateAccountabilityRouteLazyImport =
-  createFileRoute('/app/enterprises/$enterpriseId/update-accountability')()
-const AppEnterprisesEnterpriseIdImportContactsRouteLazyImport = createFileRoute(
-  '/app/enterprises/$enterpriseId/import-contacts',
-)()
-const AppEnterprisesEnterpriseIdDeleteRouteLazyImport = createFileRoute(
-  '/app/enterprises/$enterpriseId/delete',
-)()
-const AppEnterprisesEnterpriseIdCreateLifesheetCommentRouteLazyImport =
-  createFileRoute('/app/enterprises/$enterpriseId/create-lifesheet-comment')()
-const AppEnterprisesEnterpriseIdCreateContactRouteLazyImport = createFileRoute(
-  '/app/enterprises/$enterpriseId/create-contact',
-)()
 const AppToolsSchedulerDetailsRdvIdRouteLazyImport = createFileRoute(
   '/app/tools/scheduler/details/$rdvId',
 )()
@@ -287,16 +283,6 @@ const AppToolsEmailsEmailIdReplyRouteLazyImport = createFileRoute(
 const AppProductsProductIdManageCreateVersionRouteLazyImport = createFileRoute(
   '/app/products/$productId/manage/create-version',
 )()
-const AppEnterprisesEnterpriseIdTaskEmailTaskIdRouteLazyImport =
-  createFileRoute('/app/enterprises/$enterpriseId/task-email/$taskId')()
-const AppEnterprisesEnterpriseIdRenameGedObjectObjectRelativePathRouteLazyImport =
-  createFileRoute(
-    '/app/enterprises/$enterpriseId/rename-ged-object/$objectRelativePath',
-  )()
-const AppEnterprisesEnterpriseIdDeleteGedObjectObjectRelativePathRouteLazyImport =
-  createFileRoute(
-    '/app/enterprises/$enterpriseId/delete-ged-object/$objectRelativePath',
-  )()
 const AppEnterprisesEnterpriseIdAddressBookCreateRouteLazyImport =
   createFileRoute('/app/enterprises/$enterpriseId/address-book/create')()
 const AppToolsSchedulerDetailsRdvIdDeleteRouteLazyImport = createFileRoute(
@@ -314,8 +300,6 @@ const AppFaqGedFaqIdRenameItemRelativePathRouteLazyImport = createFileRoute(
 const AppFaqGedFaqIdDeleteItemRelativePathRouteLazyImport = createFileRoute(
   '/app/faq/ged/$faqId/delete/$itemRelativePath',
 )()
-const AppEnterprisesEnterpriseIdTaskEmailTaskIdReplyRouteLazyImport =
-  createFileRoute('/app/enterprises/$enterpriseId/task-email/$taskId/reply')()
 const AppProductsProductIdInformationsTaskEmailTaskIdReplyRouteLazyImport =
   createFileRoute(
     '/app/products/$productId/informations/task-email/$taskId/reply',
@@ -798,56 +782,6 @@ const AppToolsCreditShowRouteLazyRoute =
     import('./routes/app/tools/credit/show/route.lazy').then((d) => d.Route),
   )
 
-const AppEnterprisesEnterpriseIdUpdateAccountabilityRouteLazyRoute =
-  AppEnterprisesEnterpriseIdUpdateAccountabilityRouteLazyImport.update({
-    path: '/update-accountability',
-    getParentRoute: () => AppEnterprisesEnterpriseIdRouteRoute,
-  } as any).lazy(() =>
-    import(
-      './routes/app/enterprises_.$enterpriseId/update-accountability/route.lazy'
-    ).then((d) => d.Route),
-  )
-
-const AppEnterprisesEnterpriseIdImportContactsRouteLazyRoute =
-  AppEnterprisesEnterpriseIdImportContactsRouteLazyImport.update({
-    path: '/import-contacts',
-    getParentRoute: () => AppEnterprisesEnterpriseIdRouteRoute,
-  } as any).lazy(() =>
-    import(
-      './routes/app/enterprises_.$enterpriseId/import-contacts/route.lazy'
-    ).then((d) => d.Route),
-  )
-
-const AppEnterprisesEnterpriseIdDeleteRouteLazyRoute =
-  AppEnterprisesEnterpriseIdDeleteRouteLazyImport.update({
-    path: '/delete',
-    getParentRoute: () => AppEnterprisesEnterpriseIdRouteRoute,
-  } as any).lazy(() =>
-    import('./routes/app/enterprises_.$enterpriseId/delete/route.lazy').then(
-      (d) => d.Route,
-    ),
-  )
-
-const AppEnterprisesEnterpriseIdCreateLifesheetCommentRouteLazyRoute =
-  AppEnterprisesEnterpriseIdCreateLifesheetCommentRouteLazyImport.update({
-    path: '/create-lifesheet-comment',
-    getParentRoute: () => AppEnterprisesEnterpriseIdRouteRoute,
-  } as any).lazy(() =>
-    import(
-      './routes/app/enterprises_.$enterpriseId/create-lifesheet-comment/route.lazy'
-    ).then((d) => d.Route),
-  )
-
-const AppEnterprisesEnterpriseIdCreateContactRouteLazyRoute =
-  AppEnterprisesEnterpriseIdCreateContactRouteLazyImport.update({
-    path: '/create-contact',
-    getParentRoute: () => AppEnterprisesEnterpriseIdRouteRoute,
-  } as any).lazy(() =>
-    import(
-      './routes/app/enterprises_.$enterpriseId/create-contact/route.lazy'
-    ).then((d) => d.Route),
-  )
-
 const AppToolsVvaCreateRouteRoute = AppToolsVvaCreateRouteImport.update({
   path: '/create',
   getParentRoute: () => AppToolsVvaRouteRoute,
@@ -998,6 +932,16 @@ const AppEnterprisesEnterpriseIdUpdateCategoryRouteRoute =
     ).then((d) => d.Route),
   )
 
+const AppEnterprisesEnterpriseIdUpdateAccountabilityRouteRoute =
+  AppEnterprisesEnterpriseIdUpdateAccountabilityRouteImport.update({
+    path: '/update-accountability',
+    getParentRoute: () => AppEnterprisesEnterpriseIdRouteRoute,
+  } as any).lazy(() =>
+    import(
+      './routes/app/enterprises_.$enterpriseId/update-accountability/route.lazy'
+    ).then((d) => d.Route),
+  )
+
 const AppEnterprisesEnterpriseIdUpdateRouteRoute =
   AppEnterprisesEnterpriseIdUpdateRouteImport.update({
     path: '/update',
@@ -1018,6 +962,36 @@ const AppEnterprisesEnterpriseIdImportGedFilesRouteRoute =
     ).then((d) => d.Route),
   )
 
+const AppEnterprisesEnterpriseIdImportContactsRouteRoute =
+  AppEnterprisesEnterpriseIdImportContactsRouteImport.update({
+    path: '/import-contacts',
+    getParentRoute: () => AppEnterprisesEnterpriseIdRouteRoute,
+  } as any).lazy(() =>
+    import(
+      './routes/app/enterprises_.$enterpriseId/import-contacts/route.lazy'
+    ).then((d) => d.Route),
+  )
+
+const AppEnterprisesEnterpriseIdDeleteRouteRoute =
+  AppEnterprisesEnterpriseIdDeleteRouteImport.update({
+    path: '/delete',
+    getParentRoute: () => AppEnterprisesEnterpriseIdRouteRoute,
+  } as any).lazy(() =>
+    import('./routes/app/enterprises_.$enterpriseId/delete/route.lazy').then(
+      (d) => d.Route,
+    ),
+  )
+
+const AppEnterprisesEnterpriseIdCreateLifesheetCommentRouteRoute =
+  AppEnterprisesEnterpriseIdCreateLifesheetCommentRouteImport.update({
+    path: '/create-lifesheet-comment',
+    getParentRoute: () => AppEnterprisesEnterpriseIdRouteRoute,
+  } as any).lazy(() =>
+    import(
+      './routes/app/enterprises_.$enterpriseId/create-lifesheet-comment/route.lazy'
+    ).then((d) => d.Route),
+  )
+
 const AppEnterprisesEnterpriseIdCreateGedDirectoryRouteRoute =
   AppEnterprisesEnterpriseIdCreateGedDirectoryRouteImport.update({
     path: '/create-ged-directory',
@@ -1025,6 +999,16 @@ const AppEnterprisesEnterpriseIdCreateGedDirectoryRouteRoute =
   } as any).lazy(() =>
     import(
       './routes/app/enterprises_.$enterpriseId/create-ged-directory/route.lazy'
+    ).then((d) => d.Route),
+  )
+
+const AppEnterprisesEnterpriseIdCreateContactRouteRoute =
+  AppEnterprisesEnterpriseIdCreateContactRouteImport.update({
+    path: '/create-contact',
+    getParentRoute: () => AppEnterprisesEnterpriseIdRouteRoute,
+  } as any).lazy(() =>
+    import(
+      './routes/app/enterprises_.$enterpriseId/create-contact/route.lazy'
     ).then((d) => d.Route),
   )
 
@@ -1331,40 +1315,6 @@ const AppProductsProductIdManageCreateVersionRouteLazyRoute =
   } as any).lazy(() =>
     import(
       './routes/app/products_.$productId/manage/create-version/route.lazy'
-    ).then((d) => d.Route),
-  )
-
-const AppEnterprisesEnterpriseIdTaskEmailTaskIdRouteLazyRoute =
-  AppEnterprisesEnterpriseIdTaskEmailTaskIdRouteLazyImport.update({
-    path: '/task-email/$taskId',
-    getParentRoute: () => AppEnterprisesEnterpriseIdRouteRoute,
-  } as any).lazy(() =>
-    import(
-      './routes/app/enterprises_.$enterpriseId/task-email.$taskId/route.lazy'
-    ).then((d) => d.Route),
-  )
-
-const AppEnterprisesEnterpriseIdRenameGedObjectObjectRelativePathRouteLazyRoute =
-  AppEnterprisesEnterpriseIdRenameGedObjectObjectRelativePathRouteLazyImport.update(
-    {
-      path: '/rename-ged-object/$objectRelativePath',
-      getParentRoute: () => AppEnterprisesEnterpriseIdRouteRoute,
-    } as any,
-  ).lazy(() =>
-    import(
-      './routes/app/enterprises_.$enterpriseId/rename-ged-object.$objectRelativePath/route.lazy'
-    ).then((d) => d.Route),
-  )
-
-const AppEnterprisesEnterpriseIdDeleteGedObjectObjectRelativePathRouteLazyRoute =
-  AppEnterprisesEnterpriseIdDeleteGedObjectObjectRelativePathRouteLazyImport.update(
-    {
-      path: '/delete-ged-object/$objectRelativePath',
-      getParentRoute: () => AppEnterprisesEnterpriseIdRouteRoute,
-    } as any,
-  ).lazy(() =>
-    import(
-      './routes/app/enterprises_.$enterpriseId/delete-ged-object.$objectRelativePath/route.lazy'
     ).then((d) => d.Route),
   )
 
@@ -1768,6 +1718,16 @@ const AppEnterprisesEnterpriseIdUpdateContactPasswordContactIdRouteRoute =
     ).then((d) => d.Route),
   )
 
+const AppEnterprisesEnterpriseIdTaskEmailTaskIdRouteRoute =
+  AppEnterprisesEnterpriseIdTaskEmailTaskIdRouteImport.update({
+    path: '/task-email/$taskId',
+    getParentRoute: () => AppEnterprisesEnterpriseIdRouteRoute,
+  } as any).lazy(() =>
+    import(
+      './routes/app/enterprises_.$enterpriseId/task-email.$taskId/route.lazy'
+    ).then((d) => d.Route),
+  )
+
 const AppEnterprisesEnterpriseIdSendEmailToContactContactIdRouteRoute =
   AppEnterprisesEnterpriseIdSendEmailToContactContactIdRouteImport.update({
     path: '/send-email-to-contact/$contactId',
@@ -1775,6 +1735,30 @@ const AppEnterprisesEnterpriseIdSendEmailToContactContactIdRouteRoute =
   } as any).lazy(() =>
     import(
       './routes/app/enterprises_.$enterpriseId/send-email-to-contact.$contactId/route.lazy'
+    ).then((d) => d.Route),
+  )
+
+const AppEnterprisesEnterpriseIdRenameGedObjectObjectRelativePathRouteRoute =
+  AppEnterprisesEnterpriseIdRenameGedObjectObjectRelativePathRouteImport.update(
+    {
+      path: '/rename-ged-object/$objectRelativePath',
+      getParentRoute: () => AppEnterprisesEnterpriseIdRouteRoute,
+    } as any,
+  ).lazy(() =>
+    import(
+      './routes/app/enterprises_.$enterpriseId/rename-ged-object.$objectRelativePath/route.lazy'
+    ).then((d) => d.Route),
+  )
+
+const AppEnterprisesEnterpriseIdDeleteGedObjectObjectRelativePathRouteRoute =
+  AppEnterprisesEnterpriseIdDeleteGedObjectObjectRelativePathRouteImport.update(
+    {
+      path: '/delete-ged-object/$objectRelativePath',
+      getParentRoute: () => AppEnterprisesEnterpriseIdRouteRoute,
+    } as any,
+  ).lazy(() =>
+    import(
+      './routes/app/enterprises_.$enterpriseId/delete-ged-object.$objectRelativePath/route.lazy'
     ).then((d) => d.Route),
   )
 
@@ -1919,17 +1903,6 @@ const AppFaqGedFaqIdDeleteItemRelativePathRouteLazyRoute =
     ).then((d) => d.Route),
   )
 
-const AppEnterprisesEnterpriseIdTaskEmailTaskIdReplyRouteLazyRoute =
-  AppEnterprisesEnterpriseIdTaskEmailTaskIdReplyRouteLazyImport.update({
-    path: '/reply',
-    getParentRoute: () =>
-      AppEnterprisesEnterpriseIdTaskEmailTaskIdRouteLazyRoute,
-  } as any).lazy(() =>
-    import(
-      './routes/app/enterprises_.$enterpriseId/task-email.$taskId/reply/route.lazy'
-    ).then((d) => d.Route),
-  )
-
 const AppToolsSchedulerDetailsRdvIdUpdateRouteRoute =
   AppToolsSchedulerDetailsRdvIdUpdateRouteImport.update({
     path: '/update',
@@ -2053,6 +2026,16 @@ const AppProductsProductIdInformationsTaskEmailTaskIdRouteRoute =
   } as any).lazy(() =>
     import(
       './routes/app/products_.$productId/informations/task-email.$taskId/route.lazy'
+    ).then((d) => d.Route),
+  )
+
+const AppEnterprisesEnterpriseIdTaskEmailTaskIdReplyRouteRoute =
+  AppEnterprisesEnterpriseIdTaskEmailTaskIdReplyRouteImport.update({
+    path: '/reply',
+    getParentRoute: () => AppEnterprisesEnterpriseIdTaskEmailTaskIdRouteRoute,
+  } as any).lazy(() =>
+    import(
+      './routes/app/enterprises_.$enterpriseId/task-email.$taskId/reply/route.lazy'
     ).then((d) => d.Route),
   )
 
@@ -3116,11 +3099,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppEnterprisesEnterpriseIdAddressBookRouteImport
       parentRoute: typeof AppEnterprisesEnterpriseIdRouteImport
     }
+    '/app/enterprises/$enterpriseId/create-contact': {
+      id: '/app/enterprises/$enterpriseId/create-contact'
+      path: '/create-contact'
+      fullPath: '/app/enterprises/$enterpriseId/create-contact'
+      preLoaderRoute: typeof AppEnterprisesEnterpriseIdCreateContactRouteImport
+      parentRoute: typeof AppEnterprisesEnterpriseIdRouteImport
+    }
     '/app/enterprises/$enterpriseId/create-ged-directory': {
       id: '/app/enterprises/$enterpriseId/create-ged-directory'
       path: '/create-ged-directory'
       fullPath: '/app/enterprises/$enterpriseId/create-ged-directory'
       preLoaderRoute: typeof AppEnterprisesEnterpriseIdCreateGedDirectoryRouteImport
+      parentRoute: typeof AppEnterprisesEnterpriseIdRouteImport
+    }
+    '/app/enterprises/$enterpriseId/create-lifesheet-comment': {
+      id: '/app/enterprises/$enterpriseId/create-lifesheet-comment'
+      path: '/create-lifesheet-comment'
+      fullPath: '/app/enterprises/$enterpriseId/create-lifesheet-comment'
+      preLoaderRoute: typeof AppEnterprisesEnterpriseIdCreateLifesheetCommentRouteImport
+      parentRoute: typeof AppEnterprisesEnterpriseIdRouteImport
+    }
+    '/app/enterprises/$enterpriseId/delete': {
+      id: '/app/enterprises/$enterpriseId/delete'
+      path: '/delete'
+      fullPath: '/app/enterprises/$enterpriseId/delete'
+      preLoaderRoute: typeof AppEnterprisesEnterpriseIdDeleteRouteImport
+      parentRoute: typeof AppEnterprisesEnterpriseIdRouteImport
+    }
+    '/app/enterprises/$enterpriseId/import-contacts': {
+      id: '/app/enterprises/$enterpriseId/import-contacts'
+      path: '/import-contacts'
+      fullPath: '/app/enterprises/$enterpriseId/import-contacts'
+      preLoaderRoute: typeof AppEnterprisesEnterpriseIdImportContactsRouteImport
       parentRoute: typeof AppEnterprisesEnterpriseIdRouteImport
     }
     '/app/enterprises/$enterpriseId/import-ged-files': {
@@ -3135,6 +3146,13 @@ declare module '@tanstack/react-router' {
       path: '/update'
       fullPath: '/app/enterprises/$enterpriseId/update'
       preLoaderRoute: typeof AppEnterprisesEnterpriseIdUpdateRouteImport
+      parentRoute: typeof AppEnterprisesEnterpriseIdRouteImport
+    }
+    '/app/enterprises/$enterpriseId/update-accountability': {
+      id: '/app/enterprises/$enterpriseId/update-accountability'
+      path: '/update-accountability'
+      fullPath: '/app/enterprises/$enterpriseId/update-accountability'
+      preLoaderRoute: typeof AppEnterprisesEnterpriseIdUpdateAccountabilityRouteImport
       parentRoute: typeof AppEnterprisesEnterpriseIdRouteImport
     }
     '/app/enterprises/$enterpriseId/update-category': {
@@ -3255,41 +3273,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/app/tools/vva/create'
       preLoaderRoute: typeof AppToolsVvaCreateRouteImport
       parentRoute: typeof AppToolsVvaRouteImport
-    }
-    '/app/enterprises/$enterpriseId/create-contact': {
-      id: '/app/enterprises/$enterpriseId/create-contact'
-      path: '/create-contact'
-      fullPath: '/app/enterprises/$enterpriseId/create-contact'
-      preLoaderRoute: typeof AppEnterprisesEnterpriseIdCreateContactRouteLazyImport
-      parentRoute: typeof AppEnterprisesEnterpriseIdRouteImport
-    }
-    '/app/enterprises/$enterpriseId/create-lifesheet-comment': {
-      id: '/app/enterprises/$enterpriseId/create-lifesheet-comment'
-      path: '/create-lifesheet-comment'
-      fullPath: '/app/enterprises/$enterpriseId/create-lifesheet-comment'
-      preLoaderRoute: typeof AppEnterprisesEnterpriseIdCreateLifesheetCommentRouteLazyImport
-      parentRoute: typeof AppEnterprisesEnterpriseIdRouteImport
-    }
-    '/app/enterprises/$enterpriseId/delete': {
-      id: '/app/enterprises/$enterpriseId/delete'
-      path: '/delete'
-      fullPath: '/app/enterprises/$enterpriseId/delete'
-      preLoaderRoute: typeof AppEnterprisesEnterpriseIdDeleteRouteLazyImport
-      parentRoute: typeof AppEnterprisesEnterpriseIdRouteImport
-    }
-    '/app/enterprises/$enterpriseId/import-contacts': {
-      id: '/app/enterprises/$enterpriseId/import-contacts'
-      path: '/import-contacts'
-      fullPath: '/app/enterprises/$enterpriseId/import-contacts'
-      preLoaderRoute: typeof AppEnterprisesEnterpriseIdImportContactsRouteLazyImport
-      parentRoute: typeof AppEnterprisesEnterpriseIdRouteImport
-    }
-    '/app/enterprises/$enterpriseId/update-accountability': {
-      id: '/app/enterprises/$enterpriseId/update-accountability'
-      path: '/update-accountability'
-      fullPath: '/app/enterprises/$enterpriseId/update-accountability'
-      preLoaderRoute: typeof AppEnterprisesEnterpriseIdUpdateAccountabilityRouteLazyImport
-      parentRoute: typeof AppEnterprisesEnterpriseIdRouteImport
     }
     '/app/tools/credit/show': {
       id: '/app/tools/credit/show'
@@ -3445,11 +3428,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppEnterprisesEnterpriseIdDeleteContactContactIdRouteImport
       parentRoute: typeof AppEnterprisesEnterpriseIdRouteImport
     }
+    '/app/enterprises/$enterpriseId/delete-ged-object/$objectRelativePath': {
+      id: '/app/enterprises/$enterpriseId/delete-ged-object/$objectRelativePath'
+      path: '/delete-ged-object/$objectRelativePath'
+      fullPath: '/app/enterprises/$enterpriseId/delete-ged-object/$objectRelativePath'
+      preLoaderRoute: typeof AppEnterprisesEnterpriseIdDeleteGedObjectObjectRelativePathRouteImport
+      parentRoute: typeof AppEnterprisesEnterpriseIdRouteImport
+    }
+    '/app/enterprises/$enterpriseId/rename-ged-object/$objectRelativePath': {
+      id: '/app/enterprises/$enterpriseId/rename-ged-object/$objectRelativePath'
+      path: '/rename-ged-object/$objectRelativePath'
+      fullPath: '/app/enterprises/$enterpriseId/rename-ged-object/$objectRelativePath'
+      preLoaderRoute: typeof AppEnterprisesEnterpriseIdRenameGedObjectObjectRelativePathRouteImport
+      parentRoute: typeof AppEnterprisesEnterpriseIdRouteImport
+    }
     '/app/enterprises/$enterpriseId/send-email-to-contact/$contactId': {
       id: '/app/enterprises/$enterpriseId/send-email-to-contact/$contactId'
       path: '/send-email-to-contact/$contactId'
       fullPath: '/app/enterprises/$enterpriseId/send-email-to-contact/$contactId'
       preLoaderRoute: typeof AppEnterprisesEnterpriseIdSendEmailToContactContactIdRouteImport
+      parentRoute: typeof AppEnterprisesEnterpriseIdRouteImport
+    }
+    '/app/enterprises/$enterpriseId/task-email/$taskId': {
+      id: '/app/enterprises/$enterpriseId/task-email/$taskId'
+      path: '/task-email/$taskId'
+      fullPath: '/app/enterprises/$enterpriseId/task-email/$taskId'
+      preLoaderRoute: typeof AppEnterprisesEnterpriseIdTaskEmailTaskIdRouteImport
       parentRoute: typeof AppEnterprisesEnterpriseIdRouteImport
     }
     '/app/enterprises/$enterpriseId/update-contact-password/$contactId': {
@@ -3732,27 +3736,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppEnterprisesEnterpriseIdAddressBookCreateRouteLazyImport
       parentRoute: typeof AppEnterprisesEnterpriseIdAddressBookRouteImport
     }
-    '/app/enterprises/$enterpriseId/delete-ged-object/$objectRelativePath': {
-      id: '/app/enterprises/$enterpriseId/delete-ged-object/$objectRelativePath'
-      path: '/delete-ged-object/$objectRelativePath'
-      fullPath: '/app/enterprises/$enterpriseId/delete-ged-object/$objectRelativePath'
-      preLoaderRoute: typeof AppEnterprisesEnterpriseIdDeleteGedObjectObjectRelativePathRouteLazyImport
-      parentRoute: typeof AppEnterprisesEnterpriseIdRouteImport
-    }
-    '/app/enterprises/$enterpriseId/rename-ged-object/$objectRelativePath': {
-      id: '/app/enterprises/$enterpriseId/rename-ged-object/$objectRelativePath'
-      path: '/rename-ged-object/$objectRelativePath'
-      fullPath: '/app/enterprises/$enterpriseId/rename-ged-object/$objectRelativePath'
-      preLoaderRoute: typeof AppEnterprisesEnterpriseIdRenameGedObjectObjectRelativePathRouteLazyImport
-      parentRoute: typeof AppEnterprisesEnterpriseIdRouteImport
-    }
-    '/app/enterprises/$enterpriseId/task-email/$taskId': {
-      id: '/app/enterprises/$enterpriseId/task-email/$taskId'
-      path: '/task-email/$taskId'
-      fullPath: '/app/enterprises/$enterpriseId/task-email/$taskId'
-      preLoaderRoute: typeof AppEnterprisesEnterpriseIdTaskEmailTaskIdRouteLazyImport
-      parentRoute: typeof AppEnterprisesEnterpriseIdRouteImport
-    }
     '/app/products/$productId/manage/create-version': {
       id: '/app/products/$productId/manage/create-version'
       path: '/create-version'
@@ -3949,6 +3932,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppEnterprisesEnterpriseIdAddressBookUpdateAddressIdRouteImport
       parentRoute: typeof AppEnterprisesEnterpriseIdAddressBookRouteImport
     }
+    '/app/enterprises/$enterpriseId/task-email/$taskId/reply': {
+      id: '/app/enterprises/$enterpriseId/task-email/$taskId/reply'
+      path: '/reply'
+      fullPath: '/app/enterprises/$enterpriseId/task-email/$taskId/reply'
+      preLoaderRoute: typeof AppEnterprisesEnterpriseIdTaskEmailTaskIdReplyRouteImport
+      parentRoute: typeof AppEnterprisesEnterpriseIdTaskEmailTaskIdRouteImport
+    }
     '/app/products/$productId/informations/task-email/$taskId': {
       id: '/app/products/$productId/informations/task-email/$taskId'
       path: '/task-email/$taskId'
@@ -4032,13 +4022,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/app/tools/scheduler/details/$rdvId/update'
       preLoaderRoute: typeof AppToolsSchedulerDetailsRdvIdUpdateRouteImport
       parentRoute: typeof AppToolsSchedulerDetailsRdvIdRouteLazyImport
-    }
-    '/app/enterprises/$enterpriseId/task-email/$taskId/reply': {
-      id: '/app/enterprises/$enterpriseId/task-email/$taskId/reply'
-      path: '/reply'
-      fullPath: '/app/enterprises/$enterpriseId/task-email/$taskId/reply'
-      preLoaderRoute: typeof AppEnterprisesEnterpriseIdTaskEmailTaskIdReplyRouteLazyImport
-      parentRoute: typeof AppEnterprisesEnterpriseIdTaskEmailTaskIdRouteLazyImport
     }
     '/app/faq/ged/$faqId/delete/$itemRelativePath': {
       id: '/app/faq/ged/$faqId/delete/$itemRelativePath'
@@ -4466,27 +4449,27 @@ export const routeTree = rootRoute.addChildren({
             AppEnterprisesEnterpriseIdAddressBookDeleteAddressIdRouteRoute,
             AppEnterprisesEnterpriseIdAddressBookUpdateAddressIdRouteRoute,
           }),
+        AppEnterprisesEnterpriseIdCreateContactRouteRoute,
         AppEnterprisesEnterpriseIdCreateGedDirectoryRouteRoute,
+        AppEnterprisesEnterpriseIdCreateLifesheetCommentRouteRoute,
+        AppEnterprisesEnterpriseIdDeleteRouteRoute,
+        AppEnterprisesEnterpriseIdImportContactsRouteRoute,
         AppEnterprisesEnterpriseIdImportGedFilesRouteRoute,
         AppEnterprisesEnterpriseIdUpdateRouteRoute,
+        AppEnterprisesEnterpriseIdUpdateAccountabilityRouteRoute,
         AppEnterprisesEnterpriseIdUpdateCategoryRouteRoute,
         AppEnterprisesEnterpriseIdUpdateRepresentativeRouteRoute,
-        AppEnterprisesEnterpriseIdCreateContactRouteLazyRoute,
-        AppEnterprisesEnterpriseIdCreateLifesheetCommentRouteLazyRoute,
-        AppEnterprisesEnterpriseIdDeleteRouteLazyRoute,
-        AppEnterprisesEnterpriseIdImportContactsRouteLazyRoute,
-        AppEnterprisesEnterpriseIdUpdateAccountabilityRouteLazyRoute,
         AppEnterprisesEnterpriseIdCreateContactBusinessContactIdRouteRoute,
         AppEnterprisesEnterpriseIdDeleteContactContactIdRouteRoute,
+        AppEnterprisesEnterpriseIdDeleteGedObjectObjectRelativePathRouteRoute,
+        AppEnterprisesEnterpriseIdRenameGedObjectObjectRelativePathRouteRoute,
         AppEnterprisesEnterpriseIdSendEmailToContactContactIdRouteRoute,
+        AppEnterprisesEnterpriseIdTaskEmailTaskIdRouteRoute:
+          AppEnterprisesEnterpriseIdTaskEmailTaskIdRouteRoute.addChildren({
+            AppEnterprisesEnterpriseIdTaskEmailTaskIdReplyRouteRoute,
+          }),
         AppEnterprisesEnterpriseIdUpdateContactPasswordContactIdRouteRoute,
         AppEnterprisesEnterpriseIdUpdateContactContactIdRouteRoute,
-        AppEnterprisesEnterpriseIdDeleteGedObjectObjectRelativePathRouteLazyRoute,
-        AppEnterprisesEnterpriseIdRenameGedObjectObjectRelativePathRouteLazyRoute,
-        AppEnterprisesEnterpriseIdTaskEmailTaskIdRouteLazyRoute:
-          AppEnterprisesEnterpriseIdTaskEmailTaskIdRouteLazyRoute.addChildren({
-            AppEnterprisesEnterpriseIdTaskEmailTaskIdReplyRouteLazyRoute,
-          }),
       }),
     AppExternalLinksExternalLinkIdRouteRoute,
     AppProductsProductIdRouteRoute: AppProductsProductIdRouteRoute.addChildren({

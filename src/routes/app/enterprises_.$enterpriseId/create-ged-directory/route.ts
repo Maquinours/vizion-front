@@ -1,5 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { z } from 'zod';
+import LoaderModal from '../../../../components/LoaderModal/LoaderModal';
 
 const searchSchema = z.object({
   gedObjectRelativePath: z
@@ -10,4 +11,5 @@ const searchSchema = z.object({
 
 export const Route = createFileRoute('/app/enterprises/$enterpriseId/create-ged-directory')({
   validateSearch: searchSchema,
+  pendingComponent: LoaderModal,
 });

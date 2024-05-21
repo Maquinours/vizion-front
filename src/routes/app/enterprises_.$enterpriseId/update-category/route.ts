@@ -1,6 +1,7 @@
 import { createFileRoute, redirect } from '@tanstack/react-router';
 import { enterprises } from '../../../../utils/constants/queryKeys/enterprise';
 import CategoryClient from '../../../../utils/enums/CategoryClient';
+import LoaderModal from '../../../../components/LoaderModal/LoaderModal';
 
 export const Route = createFileRoute('/app/enterprises/$enterpriseId/update-category')({
   beforeLoad: async ({ context: { queryClient }, params: { enterpriseId } }) => {
@@ -10,4 +11,5 @@ export const Route = createFileRoute('/app/enterprises/$enterpriseId/update-cate
       throw redirect({ from: Route.id, to: '..', search: (old) => old });
     }
   },
+  pendingComponent: LoaderModal,
 });

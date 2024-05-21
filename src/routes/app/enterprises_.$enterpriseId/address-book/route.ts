@@ -1,6 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { z } from 'zod';
 import { queries } from '../../../../utils/constants/queryKeys';
+import LoaderModal from '../../../../components/LoaderModal/LoaderModal';
 
 const searchSchema = z.object({
   search: z.string().optional().catch(undefined),
@@ -17,4 +18,5 @@ export const Route = createFileRoute('/app/enterprises/$enterpriseId/address-boo
     queryClient.prefetchQuery(queries.address.page._ctx.searchByEnterpriseId({ enterpriseId, searchText: search }, { page, size }));
   },
   validateSearch: searchSchema,
+  pendingComponent: LoaderModal,
 });
