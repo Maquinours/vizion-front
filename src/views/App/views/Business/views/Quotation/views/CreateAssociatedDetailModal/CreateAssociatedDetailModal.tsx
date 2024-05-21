@@ -96,18 +96,21 @@ export default function AppViewBusinessViewQuotationViewCreateAssociatedDetailMo
         <div className={styles.modal_content}>
           <form onSubmit={handleSubmit((data) => mutate(data))} onReset={onClose}>
             <div className={styles.form_group}>
-              <p>Référence de l&apos;accessoire</p>
+              <label htmlFor="product">Référence de l&apos;accessoire</label>
               <Controller
                 control={control}
                 name="product"
                 render={({ field: { value, onChange } }) => (
                   <CustomSelect
+                    id="product"
                     value={value}
                     onChange={onChange}
                     options={products}
                     isLoading={isLoadingProducts}
                     getOptionLabel={(option) => option.reference ?? ''}
                     getOptionValue={(option) => option.id}
+                    placeholder="Sélectionnez un accessoire"
+                    noOptionsMessage={() => 'Aucun accessoire trouvé'}
                   />
                 )}
               />
