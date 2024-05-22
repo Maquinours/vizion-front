@@ -66,7 +66,7 @@ export default function AppViewBusinessViewBpViewDeleteSerialModalView() {
             <span style={{ color: 'var(--secondary-color)', fontWeight: 'bold' }}>{serialNumber.numSerie}</span> ?
           </h6>
         </div>
-        <form onSubmit={onSubmit}>
+        <form onSubmit={onSubmit} onReset={onClose}>
           <div className={styles.modal_content}>
             <p>Cette action irréversible va supprimer le numéro de série définitivement.</p>
           </div>
@@ -76,7 +76,7 @@ export default function AppViewBusinessViewBpViewDeleteSerialModalView() {
           </div>
 
           <div className={styles.modal_buttons}>
-            <button className="btn btn-primary-light" onClick={() => onClose()}>
+            <button type="reset" className="btn btn-primary-light">
               Annuler
             </button>
             <button type="submit" className="btn btn-secondary">

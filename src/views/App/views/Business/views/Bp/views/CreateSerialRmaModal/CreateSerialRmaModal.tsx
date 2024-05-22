@@ -57,13 +57,13 @@ export default function AppViewBusinessViewBpViewCreateSerialRmaModalView() {
             <span style={{ color: 'var(--secondary-color)', fontWeight: 'bold' }}> {serialNumber.numSerie} </span> ?
           </h6>
         </div>
-        <form onSubmit={onSubmit}>
+        <form onSubmit={onSubmit} onReset={onClose}>
           <div className={styles.modal_loader}>
             <PulseLoader color="#31385A" loading={isPending} className="" size={10} speedMultiplier={0.5} />
           </div>
 
           <div className={styles.modal_buttons}>
-            <button className="btn btn-primary-light" onClick={() => onClose()}>
+            <button type="reset" className="btn btn-primary-light">
               Annuler
             </button>
             <button type="submit" className="btn btn-secondary">

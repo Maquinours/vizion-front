@@ -66,8 +66,8 @@ export default function AppViewBusinessViewBpViewCreateDetailRmaModalView() {
         <div className={styles.modal_title}>
           <h6>Création du RMA</h6>
         </div>
-        <div className={styles.modal_content}>
-          <form onSubmit={handleSubmit((data) => mutate(data))} onReset={() => onClose()}>
+        <form onSubmit={handleSubmit((data) => mutate(data))} onReset={onClose}>
+          <div className={styles.modal_content}>
             <div className={styles.form_group}>
               <label htmlFor="serialNumbers">Sélection</label>
               <div className={styles.react_select_custom}>
@@ -98,21 +98,19 @@ export default function AppViewBusinessViewBpViewCreateDetailRmaModalView() {
                 />
               </div>
             </div>
-
-            <div className={styles.modal_loader}>
-              <PulseLoader color="#31385A" loading={isPending} className="" size={10} speedMultiplier={0.5} />
-            </div>
-
-            <div className={styles.modal_buttons}>
-              <button className="btn btn-primary-light" type="reset">
-                Annuler
-              </button>
-              <button type="submit" className="btn btn-secondary">
-                Générer
-              </button>
-            </div>
-          </form>
-        </div>
+          </div>
+          <div className={styles.modal_loader}>
+            <PulseLoader color="#31385A" loading={isPending} className="" size={10} speedMultiplier={0.5} />
+          </div>
+          <div className={styles.modal_buttons}>
+            <button type="reset" className="btn btn-primary-light">
+              Annuler
+            </button>
+            <button type="submit" className="btn btn-secondary">
+              Générer
+            </button>
+          </div>
+        </form>
       </div>
     </ReactModal>
   );

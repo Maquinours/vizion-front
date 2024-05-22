@@ -94,8 +94,8 @@ export default function AppViewBusinessViewBpViewAddSerialModalView() {
         <div className={styles.modal_title}>
           <h6>Ajouter un numéro de série externe</h6>
         </div>
-        <div className={styles.modal_content}>
-          <form onSubmit={handleSubmit((data) => mutate(data))} onReset={() => onClose()}>
+        <form onSubmit={handleSubmit((data) => mutate(data))} onReset={onClose}>
+          <div className={styles.modal_content}>
             <div className={styles.form_group}>
               <label htmlFor="productVersion">Version du produit</label>
               <Controller
@@ -120,20 +120,20 @@ export default function AppViewBusinessViewBpViewAddSerialModalView() {
               <input id="serialNumber" {...register('serialNumber')} />
               <p className={styles.__errors}>{errors.serialNumber?.message}</p>
             </div>
-            <div className={styles.modal_loader}>
-              <PulseLoader color="#31385A" loading={isPending} className="" size={10} speedMultiplier={0.5} />
-            </div>
+          </div>
+          <div className={styles.modal_loader}>
+            <PulseLoader color="#31385A" loading={isPending} className="" size={10} speedMultiplier={0.5} />
+          </div>
 
-            <div className={styles.modal_buttons}>
-              <button className="btn btn-primary-light" type="reset">
-                Annuler
-              </button>
-              <button type="submit" className="btn btn-secondary">
-                Ajouter
-              </button>
-            </div>
-          </form>
-        </div>
+          <div className={styles.modal_buttons}>
+            <button type="reset" className="btn btn-primary-light">
+              Annuler
+            </button>
+            <button type="submit" className="btn btn-secondary">
+              Ajouter
+            </button>
+          </div>
+        </form>
       </div>
     </ReactModal>
   );
