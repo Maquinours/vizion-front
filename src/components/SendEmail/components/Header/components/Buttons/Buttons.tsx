@@ -3,15 +3,15 @@ import styles from './Buttons.module.scss';
 export default function SendEmailComponentHeaderComponentButtonsComponent() {
   return (
     <div className={styles.button_container}>
-      <button
+      {/* <button // TODO: reimplement this
         className="btn btn-primary-light"
         onClick={(e) => {
           e.preventDefault();
-          // saveToStore(); // TODO: implement saveToStore
+          // saveToStore();
         }}
       >
         Sauvegarder
-      </button>
+      </button> */}
       <button className="btn btn-primary" type="reset">
         RAZ
       </button>
