@@ -19,7 +19,7 @@ export default function AppViewToolsViewDdnsView() {
     <>
       <div className={styles.container}>
         <div className={styles.button_container}>
-          <Link from={routeApi.id} to="./create" search={(old) => old} className="btn btn-secondary">
+          <Link from={routeApi.id} to="./create" search={(old) => old} replace className="btn btn-secondary">
             Ajouter DDNS
           </Link>
         </div>
@@ -31,7 +31,7 @@ export default function AppViewToolsViewDdnsView() {
             <PaginationComponent
               page={page}
               totalPages={data?.totalPages}
-              pageLink={(page) => ({ from: routeApi.id, search: (old) => ({ ...old, page }), params: (old) => old })}
+              pageLink={(page) => ({ from: routeApi.id, search: (old) => ({ ...old, page }), params: (old) => old, replace: true })}
             />
           </div>
         </div>

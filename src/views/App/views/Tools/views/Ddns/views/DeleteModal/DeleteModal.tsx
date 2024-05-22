@@ -19,7 +19,7 @@ export default function AppViewToolsViewDdnsViewDeleteModalView() {
   const { data } = useSuspenseQuery(ddns.detail(ddnsId));
 
   const onClose = () => {
-    navigate({ to: '../..', search: (old) => old });
+    navigate({ to: '../..', search: (old) => old, replace: true });
   };
 
   const { mutate, isPending } = useMutation({
