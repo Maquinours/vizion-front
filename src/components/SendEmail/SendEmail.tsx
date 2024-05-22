@@ -10,7 +10,7 @@ import LoaderModal from '../LoaderModal/LoaderModal';
 import { useMutation } from '@tanstack/react-query';
 import { sendEmail } from './utils/api/email';
 import { SendEmailFormContext } from './utils/contexts/sendEmail';
-import { useMemo } from 'react';
+import React, { useMemo } from 'react';
 import MailResponseDto from '../../utils/types/MailResponseDto';
 import { formatDateWithHour } from '../../utils/functions/dates';
 import { toast } from 'react-toastify';
@@ -117,6 +117,11 @@ export default function SendEmailComponent({
     },
   });
 
+  const onReset = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    reset();
+  };
+
   const { mutate, isPending } = useMutation({
     mutationFn: (data: SendEmailFormSchema) =>
       sendEmail({
@@ -158,7 +163,7 @@ export default function SendEmailComponent({
           </div>
         </div>
         <div className={styles.mailbox_container}>
-          <form onSubmit={handleSubmit((data) => mutate(data))} onReset={() => reset()}>
+          <form onSubmit={handleSubmit((data) => mutate(data))} onReset={onReset}>
             <SendEmailComponentHeaderComponent />
             <SendEmailComponentBodyComponent />
           </form>
