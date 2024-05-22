@@ -29,11 +29,7 @@ export default function AppViewBusinessesRmaView() {
     size,
   } = routeApi.useSearch();
 
-  const {
-    location: {
-      state: { qInfos },
-    },
-  } = useRouterState();
+  const qInfos = useRouterState({ select: (state) => state.location.state.qInfos });
 
   const { data, isLoading } = useQuery(
     queries['all-businesses'].page._ctx.search(
