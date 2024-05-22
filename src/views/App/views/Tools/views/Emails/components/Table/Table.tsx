@@ -37,10 +37,11 @@ const columns = [
         to="$emailId"
         params={{ emailId: original.id }}
         search={(old) => old}
+        replace
+        resetScroll={false}
         onClick={(e) => {
           e.stopPropagation();
         }}
-        resetScroll={false}
       >
         {original.subject}
       </Link>
@@ -76,7 +77,7 @@ export default function AppViewToolsViewEmailsViewTableComponent({ isLoading, da
   const onRowClick = useCallback(
     (e: React.MouseEvent, row: Row<MailResponseDto>) => {
       if (e.metaKey || e.ctrlKey) window.open(`${window.location.origin}/app/tools/emails/${row.original.id}`, '_blank');
-      else navigate({ from: routeApi.id, to: '$emailId', params: { emailId: row.original.id }, search: (old) => old, resetScroll: false });
+      else navigate({ from: routeApi.id, to: '$emailId', params: { emailId: row.original.id }, search: (old) => old, replace: true, resetScroll: false });
     },
     [navigate],
   );

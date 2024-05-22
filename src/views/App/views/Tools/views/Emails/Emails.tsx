@@ -28,7 +28,7 @@ export default function AppViewToolsViewEmailsView() {
           <PaginationComponent
             page={page}
             totalPages={data?.totalPages}
-            pageLink={(page) => ({ from: routeApi.id, to: routeApi.id, search: (old) => ({ ...old, page }) })}
+            pageLink={(page) => ({ from: routeApi.id, to: routeApi.id, search: (old) => ({ ...old, page }), replace: true })}
           />
         </div>
       </div>
