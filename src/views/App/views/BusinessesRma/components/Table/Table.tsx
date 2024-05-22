@@ -87,7 +87,6 @@ export default function AppViewBusinessesRmaViewTableComponent({ data, isLoading
             disabled={original.category !== CategoryBusiness.AFFAIRE}
             className={styles.business_number}
             style={{ color: 'var(--secondary-color)' }}
-            preload={false} // optimization
           >
             <span>{original.number}</span>
             <span>{original.businessBillNumber}</span>

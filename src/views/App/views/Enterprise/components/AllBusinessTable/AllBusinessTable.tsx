@@ -72,7 +72,7 @@ const columns = [
       const children = original.number;
       if (original.category === CategoryBusiness.AFFAIRE)
         return (
-          <Link to="/app/businesses-rma/business/$businessId" params={{ businessId: original.businessId }} preload={false}>
+          <Link to="/app/businesses-rma/business/$businessId" params={{ businessId: original.businessId }}>
             {children}
           </Link>
         );

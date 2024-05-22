@@ -23,7 +23,6 @@ const columns = [
           to="/app/businesses-rma/business/$businessId"
           params={{ businessId: original.businessId }}
           disabled={original.category !== CategoryBusiness.AFFAIRE} // TODO: add link to RMA
-          preload={false}
           onClick={(e) => {
             e.stopPropagation();
           }}
@@ -41,7 +40,6 @@ const columns = [
         to="delete-link/$associatedId"
         params={{ associatedId: original.id }}
         search={(old) => old}
-        preload={false}
         onClick={(e) => {
           e.stopPropagation();
         }}
