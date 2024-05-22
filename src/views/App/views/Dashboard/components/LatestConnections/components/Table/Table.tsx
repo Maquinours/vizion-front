@@ -5,37 +5,41 @@ import { formatDateAndHourWithSlash } from '../../../../../../../../utils/functi
 import { KEYCLOACK_STATES } from '../../utils/constants/states';
 import { BsFillCircleFill } from 'react-icons/bs';
 import styles from './Table.module.scss';
+import countries from '../../../../../../../../utils/constants/countries.json';
 
 const columnHelper = createColumnHelper<KeycloakEventDetailsResponseDto>();
 const columns = [
   columnHelper.display({
     header: 'Date',
-    cell: ({ row: { original } }) => <div>{formatDateAndHourWithSlash(original.createdDate)}</div>,
+    cell: ({ row: { original } }) => formatDateAndHourWithSlash(original.createdDate),
   }),
   columnHelper.display({
     header: 'Information',
     cell: ({ row: { original } }) => {
       const state = KEYCLOACK_STATES.find((state) => state.value === original.type);
       return (
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-          }}
-        >
-          <p>
-            {state?.label} de {original?.fullName ? original?.fullName : original?.username}
-          </p>
-          <p>
-            <BsFillCircleFill color={state?.color} height={20} width={20} />
-          </p>
+        <div className="flex h-full items-center justify-between">
+          <span>
+            {state?.label ?? 'Événement inconnu'} de {original.fullName || original.username || 'inconnu'}
+          </span>
+          {!!state && <BsFillCircleFill color={state.color} height={20} width={20} />}
         </div>
       );
     },
   }),
-  columnHelper.display({ header: 'Addresse IP', cell: ({ row: { original } }) => <div>{original.ipAddress}</div> }),
-  columnHelper.display({ header: 'Pays', cell: ({ row: { original } }) => original.country ?? '' }),
+  columnHelper.display({ header: 'Adresse IP', cell: ({ row: { original } }) => original.ipAddress }),
+  columnHelper.display({
+    header: 'Pays',
+    cell: ({ row: { original } }) => {
+      const countryData = countries.find((country) => country.name === original.country);
+      return (
+        <div className="flex items-center justify-center gap-x-1">
+          <span>{original.country || 'Pays inconnu'}</span>
+          {!!countryData && <img src={countryData.flag} alt={`Drapeau de ${original.country}`} height={25} width={25} />}
+        </div>
+      );
+    },
+  }),
 ];
 
 type AppViewDashboardViewLatestConnectionsComponentTableComponentProps = Readonly<{
