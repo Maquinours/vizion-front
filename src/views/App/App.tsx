@@ -9,13 +9,14 @@ import AppViewBusinessGedModalComponent from './components/BusinessGedModal/Busi
 import AppViewCreateBusinessModalComponent from './components/CreateBusinessModal/CreateBusinessModal';
 import AppViewCreateClientBusinessModalComponent from './components/CreateClientBusinessModal/CreateClientBusinessModal';
 import AppViewLoadingProgressBarComponent from './components/LoadingProgressBar/LoadingProgressBar';
+import { useMemo } from 'react';
 
 const Route = getRouteApi('/app');
 
 export default function AppLayout() {
   const { mobileSidebar, appModal: modalId } = Route.useSearch();
 
-  const modal = (() => {
+  const modal = useMemo(() => {
     switch (modalId) {
       case 'create-business':
         return <AppViewCreateBusinessModalComponent />;
@@ -24,7 +25,7 @@ export default function AppLayout() {
       default:
         if (modalId?.startsWith('business-ged')) return <AppViewBusinessGedModalComponent />;
     }
-  })();
+  }, [modalId]);
 
   return (
     <>
