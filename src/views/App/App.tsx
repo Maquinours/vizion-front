@@ -8,6 +8,7 @@ import AppViewFooterComponent from './components/Footer/Footer';
 import AppViewBusinessGedModalComponent from './components/BusinessGedModal/BusinessGedModal';
 import AppViewCreateBusinessModalComponent from './components/CreateBusinessModal/CreateBusinessModal';
 import AppViewCreateClientBusinessModalComponent from './components/CreateClientBusinessModal/CreateClientBusinessModal';
+import AppViewLoadingProgressBarComponent from './components/LoadingProgressBar/LoadingProgressBar';
 
 const Route = getRouteApi('/app');
 
@@ -27,6 +28,7 @@ export default function AppLayout() {
 
   return (
     <>
+      <AppViewLoadingProgressBarComponent />
       <div className={styles.container}>
         <AppViewTopbarComponent />
         <main className={classNames(styles.content, { [styles.mobile_menu_opened]: mobileSidebar })}>
