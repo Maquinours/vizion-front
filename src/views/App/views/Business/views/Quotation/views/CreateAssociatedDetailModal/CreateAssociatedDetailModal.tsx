@@ -93,8 +93,8 @@ export default function AppViewBusinessViewQuotationViewCreateAssociatedDetailMo
         <div className={styles.modal_title}>
           <h6>Ajouter un accessoire</h6>
         </div>
-        <div className={styles.modal_content}>
-          <form onSubmit={handleSubmit((data) => mutate(data))} onReset={onClose}>
+        <form onSubmit={handleSubmit((data) => mutate(data))} onReset={onClose}>
+          <div className={styles.modal_content}>
             <div className={styles.form_group}>
               <label htmlFor="product">Référence de l&apos;accessoire</label>
               <Controller
@@ -121,17 +121,21 @@ export default function AppViewBusinessViewQuotationViewCreateAssociatedDetailMo
               <input id="productQuantity" {...register('quantity')} type="number" />
               <p className={styles.__errors}>{errors.quantity?.message}</p>
             </div>
-          </form>
-        </div>
+          </div>
 
-        <div className={styles.modal_loader}>
-          <PulseLoader color="#31385A" loading={isPending} className="" size={10} speedMultiplier={0.5} />
-        </div>
+          <div className={styles.modal_loader}>
+            <PulseLoader color="#31385A" loading={isPending} className="" size={10} speedMultiplier={0.5} />
+          </div>
 
-        <div className={styles.modal_buttons}>
-          <button className="btn btn-primary-light">Annuler</button>
-          <button className="btn btn-secondary">Ajouter</button>
-        </div>
+          <div className={styles.modal_buttons}>
+            <button type="reset" className="btn btn-primary-light">
+              Annuler
+            </button>
+            <button type="submit" className="btn btn-secondary">
+              Ajouter
+            </button>
+          </div>
+        </form>
       </div>
     </ReactModal>
   );

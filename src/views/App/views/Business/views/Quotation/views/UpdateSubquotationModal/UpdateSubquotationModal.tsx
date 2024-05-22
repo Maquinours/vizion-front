@@ -71,7 +71,7 @@ export default function AppViewBusinessViewQuotationViewUpdateSubquotationModalV
             </div>
 
             <div className={styles.modal_buttons}>
-              <button className="btn btn-primary-light" type="reset">
+              <button type="reset" className="btn btn-primary-light">
                 Annuler
               </button>
               <button type="submit" className="btn btn-secondary">

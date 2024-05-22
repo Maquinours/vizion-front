@@ -102,8 +102,8 @@ export default function AppViewBusinessViewQuotationViewUpdateDetailModalView() 
         <div className={styles.modal_title}>
           <h6>Modifier le produit {detail.productReference}</h6>
         </div>
-        <div className={styles.modal_content}>
-          <form onSubmit={handleSubmit((data) => mutate(data))} onReset={onClose}>
+        <form onSubmit={handleSubmit((data) => mutate(data))} onReset={onClose}>
+          <div className={styles.modal_content}>
             {user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && (
               <>
                 <div className={styles.form_group}>
@@ -133,21 +133,21 @@ export default function AppViewBusinessViewQuotationViewUpdateDetailModalView() 
               <input id="productQuantity" {...register('quantity')} type="number" autoComplete="on" />
               <p className={styles.__errors}>{errors.quantity?.message}</p>
             </div>
-          </form>
-        </div>
+          </div>
 
-        <div className={styles.modal_loader}>
-          <PulseLoader color="#31385A" loading={isPending} className="" size={10} speedMultiplier={0.5} />
-        </div>
+          <div className={styles.modal_loader}>
+            <PulseLoader color="#31385A" loading={isPending} className="" size={10} speedMultiplier={0.5} />
+          </div>
 
-        <div className={styles.modal_buttons}>
-          <button type="reset" className="btn btn-primary-light">
-            Annuler
-          </button>
-          <button type="submit" className="btn btn-secondary">
-            Modifier
-          </button>
-        </div>
+          <div className={styles.modal_buttons}>
+            <button type="reset" className="btn btn-primary-light">
+              Annuler
+            </button>
+            <button type="submit" className="btn btn-secondary">
+              Modifier
+            </button>
+          </div>
+        </form>
       </div>
     </ReactModal>
   );
