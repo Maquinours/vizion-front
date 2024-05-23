@@ -93,7 +93,7 @@ export default function AppViewBusinessViewQuotationViewHeaderComponentSectionOn
         {/* <Link to={`/app/businesses/business-study/${business.id}`} className="btn btn-secondary"> // TODO: reimplement this
           Accès à l&apos;étude
         </Link> */}
-        <Link from={routeApi.id} to="commercial-notice" search={(old) => old} replace className="btn btn-primary">
+        <Link from={routeApi.id} to="commercial-notice" search={(old) => old} replace resetScroll={false} className="btn btn-primary">
           Générer les notices commerciales
         </Link>
         {/* {![BusinessState.FACTURE, BusinessState.ARC, BusinessState.BP, BusinessState.BL].includes(business.state!) ||

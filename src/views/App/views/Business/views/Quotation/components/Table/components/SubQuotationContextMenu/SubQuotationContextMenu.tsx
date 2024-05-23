@@ -34,19 +34,40 @@ export default function AppViewBusinessViewQuotationViewTableComponentSubQuotati
               {item && (
                 <MenuList>
                   <MenuItem>
-                    <Link from={routeApi.id} to="create-detail/$subquotationId" params={{ subquotationId: item.id }} search={(old) => old} replace>
+                    <Link
+                      from={routeApi.id}
+                      to="create-detail/$subquotationId"
+                      params={{ subquotationId: item.id }}
+                      search={(old) => old}
+                      replace
+                      resetScroll={false}
+                    >
                       <IoMdAddCircleOutline width={16} height={16} color={'#16204E'} className={styles.icon} />
                       <span className={styles.text}>Ajouter un produit</span>
                     </Link>
                   </MenuItem>
                   <MenuItem>
-                    <Link from={routeApi.id} to="update-subquotation/$subquotationId" params={{ subquotationId: item.id }} search={(old) => old} replace>
+                    <Link
+                      from={routeApi.id}
+                      to="update-subquotation/$subquotationId"
+                      params={{ subquotationId: item.id }}
+                      search={(old) => old}
+                      replace
+                      resetScroll={false}
+                    >
                       <HiPencilAlt width={16} height={16} color={'#16204E'} className={styles.icon} />
                       <span className={styles.text}>Modifier</span>
                     </Link>
                   </MenuItem>
                   <MenuItem>
-                    <Link from={routeApi.id} to="delete-subquotation/$subquotationId" params={{ subquotationId: item.id }} search={(old) => old} replace>
+                    <Link
+                      from={routeApi.id}
+                      to="delete-subquotation/$subquotationId"
+                      params={{ subquotationId: item.id }}
+                      search={(old) => old}
+                      replace
+                      resetScroll={false}
+                    >
                       <FaTrash width={16} height={16} color={'#16204E'} className={styles.icon} />
                       <span className={styles.text}>Supprimer</span>
                     </Link>

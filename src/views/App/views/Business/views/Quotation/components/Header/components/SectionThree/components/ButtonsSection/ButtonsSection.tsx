@@ -129,16 +129,28 @@ export default function AppViewBusinessViewQuotationViewHeaderComponentSectionTh
     <div className={styles.actions_container}>
       {!user.userInfo.roles.includes('ROLE_CLIENT') && (
         <>
-          <Link from={routeApi.id} search={(prev) => ({ ...prev, hideTotal: !hideTotal })} className="btn btn-primary-light" replace>
+          <Link from={routeApi.id} search={(prev) => ({ ...prev, hideTotal: !hideTotal })} className="btn btn-primary-light" replace resetScroll={false}>
             {hideTotal ? 'Afficher' : 'Masquer'} total
           </Link>
-          <Link from={routeApi.id} search={(prev) => ({ ...prev, hideReferences: !hideReferences })} className="btn btn-primary-light" replace>
+          <Link
+            from={routeApi.id}
+            search={(prev) => ({ ...prev, hideReferences: !hideReferences })}
+            className="btn btn-primary-light"
+            replace
+            resetScroll={false}
+          >
             {hideReferences ? 'Afficher' : 'Masquer'} les références
           </Link>
-          <Link from={routeApi.id} search={(prev) => ({ ...prev, hidePrices: !hidePrices })} className="btn btn-primary-light" replace>
+          <Link from={routeApi.id} search={(prev) => ({ ...prev, hidePrices: !hidePrices })} className="btn btn-primary-light" replace resetScroll={false}>
             {hidePrices ? 'Afficher' : 'Masquer'} les prix
           </Link>
-          <Link from={routeApi.id} search={(prev) => ({ ...prev, hideAddresses: !hideAddresses })} className="btn btn-primary-light" replace>
+          <Link
+            from={routeApi.id}
+            search={(prev) => ({ ...prev, hideAddresses: !hideAddresses })}
+            className="btn btn-primary-light"
+            replace
+            resetScroll={false}
+          >
             {hideAddresses ? 'Afficher' : 'Masquer'} {"l'adresse"}
           </Link>
         </>
