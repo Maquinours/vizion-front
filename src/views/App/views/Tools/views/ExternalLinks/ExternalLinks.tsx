@@ -20,10 +20,16 @@ export default function AppViewToolsViewExternalLinksView() {
         <div className={styles.content}>
           <div className={styles.header}>
             <div>
-              <Link from={routeApi.id} to="./create" search={(old) => old} className="btn btn-secondary">
+              <Link from={routeApi.id} to="./create" search={(old) => old} replace className="btn btn-secondary">
                 Ajouter
               </Link>
-              <Link from={routeApi.id} search={(old) => ({ ...old, archiveState: !archiveState })} className="btn btn-secondary" style={{ marginLeft: '3px' }}>
+              <Link
+                from={routeApi.id}
+                search={(old) => ({ ...old, archiveState: !archiveState })}
+                replace
+                className="btn btn-secondary"
+                style={{ marginLeft: '3px' }}
+              >
                 {archiveState ? 'Voir non archivés' : 'Voir archivés'}
               </Link>
             </div>
@@ -33,7 +39,7 @@ export default function AppViewToolsViewExternalLinksView() {
             <PaginationComponent
               page={page}
               totalPages={data?.totalPages}
-              pageLink={(page) => ({ from: routeApi.id, search: (old) => ({ ...old, page }) })}
+              pageLink={(page) => ({ from: routeApi.id, search: (old) => ({ ...old, page }), replace: true })}
             />
           </div>
         </div>
