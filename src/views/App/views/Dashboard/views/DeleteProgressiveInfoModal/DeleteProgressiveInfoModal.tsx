@@ -20,7 +20,7 @@ export default function AppViewDashboardViewDeleteProgressiveInfoModalView() {
   useSuspenseQuery(queries['progressive-infos'].detail(id));
 
   const onClose = () => {
-    navigate({ from: Route.id, to: '../..', search: (old) => old, replace: true });
+    navigate({ from: Route.id, to: '../..', search: (old) => old, replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({

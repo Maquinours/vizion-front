@@ -38,6 +38,7 @@ export default function AppViewDashboardViewProgressiveInfosComponentTableCompon
                     params={(old) => ({ ...old, progressiveInfoId: progressiveInfo!.id })}
                     search={(old) => old}
                     replace
+                    resetScroll={false}
                   >
                     <MdModeEdit className={styles.icon} />
                     <span className={styles.text}>Modifier</span>
@@ -50,6 +51,7 @@ export default function AppViewDashboardViewProgressiveInfosComponentTableCompon
                     params={(old) => ({ ...old, progressiveInfoId: progressiveInfo!.id })}
                     search={(old) => old}
                     replace
+                    resetScroll={false}
                   >
                     <FaTrash className={styles.icon} />
                     <span className={styles.text}>Supprimer</span>

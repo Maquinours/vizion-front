@@ -41,7 +41,13 @@ export default function AppViewDashboardViewCollectiveTasksComponent() {
       <div className={styles.container}>
         {selectedItems.length > 0 && (
           <div className={styles.header_container}>
-            <Link from={Route.id} to={'./delete-collective-tasks'} search={(old) => ({ ...old, tasksId: selectedItems.map(({ id }) => id) })} replace>
+            <Link
+              from={Route.id}
+              to={'./delete-collective-tasks'}
+              search={(old) => ({ ...old, tasksId: selectedItems.map(({ id }) => id) })}
+              replace
+              resetScroll={false}
+            >
               <FaTrash width={18} height={18} color="#16204E" />
             </Link>
           </div>

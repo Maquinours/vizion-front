@@ -23,7 +23,7 @@ export default function AppViewDashboardViewArchivePersonalTaskModalView() {
   const { data: task } = useSuspenseQuery(queries.tasks.detail(taskId));
 
   const onClose = () => {
-    navigate({ from: Route.id, to: '../..', search: (old) => old, replace: true });
+    navigate({ from: Route.id, to: '../..', search: (old) => old, replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({
