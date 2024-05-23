@@ -32,7 +32,7 @@ export default function AppViewDashboardViewCollectiveTasksComponent() {
   return (
     <CardComponent
       title="Charges de travail collectives"
-      addLink={{ to: '/app/dashboard/create-collective-task', search: (old) => old }}
+      addLink={{ to: '/app/dashboard/create-collective-task', search: (old) => old, replace: true }}
       onReload={() => refetch()}
       isReloading={isRefetching}
       isMinimized={isMinimized}

@@ -25,7 +25,7 @@ export default function AppViewDashboardViewTaskEmailModalView() {
     <>
       <ReactModal
         isOpen={true}
-        onRequestClose={() => navigate({ from: Route.id, to: '../..', search: (old) => old })}
+        onRequestClose={() => navigate({ from: Route.id, to: '../..', search: (old) => old, replace: true })}
         className={styles.mail_modal}
         overlayClassName="Overlay"
       >

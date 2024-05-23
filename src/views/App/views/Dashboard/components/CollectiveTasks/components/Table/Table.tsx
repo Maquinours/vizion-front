@@ -35,7 +35,7 @@ const columns = [
       <div className={styles.more_content}>
         <div className={styles.content}>
           {original.mailId ? (
-            <Link from={Route.id} to="task-email/$taskId" params={{ taskId: original.id }} search={(old) => old} className={styles.mail_content}>
+            <Link from={Route.id} to="task-email/$taskId" params={{ taskId: original.id }} search={(old) => old} replace className={styles.mail_content}>
               <div>{parse(DOMPurify.sanitize(original.content ?? ''))}</div>
               <p>
                 À : {original.receiver?.to?.toString()?.split(';').join(' ')} {original.receiver?.cc?.toString()}

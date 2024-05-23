@@ -10,7 +10,7 @@ export default function AppViewDashboardViewTaskCommentsModalView() {
   const navigate = useNavigate();
 
   const onClose = () => {
-    navigate({ from: Route.id, to: '../..', search: (old) => old });
+    navigate({ from: Route.id, to: '../..', search: (old) => old, replace: true });
   };
 
   return (
