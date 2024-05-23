@@ -18,7 +18,7 @@ export default function AppViewToolsViewSchedulerViewDetailsModalViewDeleteModal
   const { data: rdv } = useSuspenseQuery(queries.rdvs.detail(rdvId));
 
   const onClose = () => {
-    navigate({ from: routeApi.id, to: '..', search: (old) => old, replace: true });
+    navigate({ from: routeApi.id, to: '..', search: (old) => old, replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({

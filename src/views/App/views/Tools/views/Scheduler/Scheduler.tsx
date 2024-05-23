@@ -37,9 +37,10 @@ export default function AppViewToolsViewSchedulerView() {
               from: routeApi.id,
               search: (old) => ({ ...old, view }),
               replace: true,
+              resetScroll: false,
             });
           }}
-          onDateChange={(date) => navigate({ from: routeApi.id, search: (old) => ({ ...old, date }), replace: true })}
+          onDateChange={(date) => navigate({ from: routeApi.id, search: (old) => ({ ...old, date }), replace: true, resetScroll: false })}
         />
       </div>
       <Outlet />
