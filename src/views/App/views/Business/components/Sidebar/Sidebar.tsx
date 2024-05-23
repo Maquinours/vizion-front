@@ -57,6 +57,7 @@ export default function AppViewBusinessViewSidebarComponent() {
               disabled={!state || !stepData.clickableStates.includes(state)}
               className={styles.step}
               activeProps={{ className: styles.isActive }}
+              replace
             >
               <strong>{stepData.label}</strong>
             </Link>
@@ -65,12 +66,12 @@ export default function AppViewBusinessViewSidebarComponent() {
       </div>
       <div className={styles.buttons}>
         {user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && business.state !== BusinessState.ARCHIVE && (
-          <Link disabled={business.state === BusinessState.DEVIS} search={(old) => ({ ...old, businessModal: 'assistances' })} className="btn btn-primary">
+          <Link disabled={business.state === BusinessState.DEVIS} search={(old) => ({ ...old, businessModal: 'assistances' })} replace className="btn btn-primary">
             Assistance
           </Link>
         )}
         {user.userInfo.roles.includes('ROLE_DIRECTION_VIZEO') && business.state !== BusinessState.ARCHIVE && (
-          <Link search={(old) => ({ ...old, businessModal: 'archive' })} className="btn btn-primary">
+          <Link search={(old) => ({ ...old, businessModal: 'archive' })} replace className="btn btn-primary">
             Archiver
           </Link>
         )}
