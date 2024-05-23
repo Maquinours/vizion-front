@@ -24,11 +24,11 @@ export default function AppViewEnterprisesView() {
           page={page}
           totalPages={data?.totalPages}
           pageLink={(page) => ({
+            from: Route.id,
             search: (old) => ({
               ...old,
               page,
             }),
-            params: {},
           })}
         />
       </div>
