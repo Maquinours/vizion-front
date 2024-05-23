@@ -33,7 +33,7 @@ export default function AppViewToolsViewExternalLinksView() {
             <PaginationComponent
               page={page}
               totalPages={data?.totalPages}
-              pageLink={(page) => ({ from: routeApi.id, search: (old) => ({ ...old, page }), params: {} })}
+              pageLink={(page) => ({ from: routeApi.id, search: (old) => ({ ...old, page }) })}
             />
           </div>
         </div>
