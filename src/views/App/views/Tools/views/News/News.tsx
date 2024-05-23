@@ -24,11 +24,7 @@ export default function AppViewToolsViewNewsView() {
             </Link>
           </div>
           <AppViewToolsViewNewsViewTableComponent data={data?.content} isLoading={isLoading} />
-          <PaginationComponent
-            page={page}
-            totalPages={data?.totalPages}
-            pageLink={(page) => ({ from: routeApi.id, search: (old) => ({ ...old, page }), params: {} })}
-          />
+          <PaginationComponent page={page} totalPages={data?.totalPages} pageLink={(page) => ({ from: routeApi.id, search: (old) => ({ ...old, page }) })} />
         </div>
       </div>
       <Outlet />
