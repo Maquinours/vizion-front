@@ -29,7 +29,9 @@ export default function RepresentativesTurnoverViewSearchSectionComponent() {
                 id="representative"
                 value={representatives?.find((rep) => rep.id === representativeId)}
                 options={representatives}
-                onChange={(opt) => navigate({ from: Route.id, search: (old) => ({ ...old, representativeId: opt?.id }), replace: true })}
+                onChange={(opt) => {
+                  navigate({ from: Route.id, search: (old) => ({ ...old, representativeId: opt?.id }), replace: true, resetScroll: false });
+                }}
                 placeholder="Sélectionnez un représentant"
                 getOptionLabel={(opt) => opt.name}
                 getOptionValue={(opt) => opt.id}
@@ -49,7 +51,7 @@ export default function RepresentativesTurnoverViewSearchSectionComponent() {
                 id="year"
                 value={{ label: year, value: year }}
                 options={YEARS.map((year) => ({ label: year, value: year }))}
-                onChange={(opt) =>
+                onChange={(opt) => {
                   navigate({
                     from: Route.id,
                     search: (old) => ({
@@ -58,8 +60,9 @@ export default function RepresentativesTurnoverViewSearchSectionComponent() {
                       month: getAvailableMonthsForYear(opt!.value).length >= old.month ? old.month : getAvailableMonthsForYear(opt!.value).length,
                     }),
                     replace: true,
-                  })
-                }
+                    resetScroll: false,
+                  });
+                }}
                 placeholder="Sélectionnez une année"
                 theme={(theme) => ({
                   ...theme,
@@ -77,7 +80,9 @@ export default function RepresentativesTurnoverViewSearchSectionComponent() {
                 id="month"
                 value={{ label: MONTHS.at(month - 1), value: month }}
                 options={getAvailableMonthsForYear(year).map((month, index) => ({ label: month, value: index + 1 }))}
-                onChange={(opt) => navigate({ from: Route.id, search: (old) => ({ ...old, month: opt?.value ?? old.month }), replace: true })}
+                onChange={(opt) => {
+                  navigate({ from: Route.id, search: (old) => ({ ...old, month: opt?.value ?? old.month }), replace: true, resetScroll: false });
+                }}
                 placeholder="Sélectionnez un mois"
                 theme={(theme) => ({
                   ...theme,
