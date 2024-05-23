@@ -118,7 +118,7 @@ export default function AppViewToolsViewExternalLinksViewCreateModalView() {
   });
 
   const onClose = () => {
-    navigate({ from: routeApi.id, to: '..', search: (old) => old, replace: true });
+    navigate({ from: routeApi.id, to: '..', search: (old) => old, replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({

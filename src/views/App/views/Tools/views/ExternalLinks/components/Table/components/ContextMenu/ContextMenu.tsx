@@ -34,19 +34,40 @@ export default function AppViewToolsViewExternalLinksViewTableComponentContextMe
               {externalLink && (
                 <MenuList>
                   <MenuItem>
-                    <Link from={routeApi.id} to="./update/$externalLinkId" params={{ externalLinkId: externalLink.id }} replace search={(old) => old}>
+                    <Link
+                      from={routeApi.id}
+                      to="./update/$externalLinkId"
+                      params={{ externalLinkId: externalLink.id }}
+                      replace
+                      resetScroll={false}
+                      search={(old) => old}
+                    >
                       <HiPencilAlt className={styles.icon} />
                       <span className={styles.text}>Modifier</span>
                     </Link>
                   </MenuItem>
                   <MenuItem>
-                    <Link from={routeApi.id} to="./archive/$externalLinkId" params={{ externalLinkId: externalLink.id }} replace search={(old) => old}>
+                    <Link
+                      from={routeApi.id}
+                      to="./archive/$externalLinkId"
+                      params={{ externalLinkId: externalLink.id }}
+                      replace
+                      resetScroll={false}
+                      search={(old) => old}
+                    >
                       <FaFileImport className={styles.icon} />
                       <span className={styles.text}>{externalLink.archived ? 'Désarchiver' : 'Archiver'}</span>
                     </Link>
                   </MenuItem>
                   <MenuItem>
-                    <Link from={routeApi.id} to="./delete/$externalLinkId" params={{ externalLinkId: externalLink.id }} replace search={(old) => old}>
+                    <Link
+                      from={routeApi.id}
+                      to="./delete/$externalLinkId"
+                      params={{ externalLinkId: externalLink.id }}
+                      replace
+                      resetScroll={false}
+                      search={(old) => old}
+                    >
                       <FaTrash className={styles.icon} />
                       <span className={styles.text}>Supprimer</span>
                     </Link>
