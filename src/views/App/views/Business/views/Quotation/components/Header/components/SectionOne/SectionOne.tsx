@@ -58,7 +58,7 @@ export default function AppViewBusinessViewQuotationViewHeaderComponentSectionOn
       queryClient.invalidateQueries({ queryKey: queries.businesses.detail._ctx.byId(business.id).queryKey });
       queryClient.setQueryData(queries['business-ARCs'].detail._ctx.byBusinessId(business.id).queryKey, data);
       toast.success('ARC créé avec succès');
-      navigate({ to: '../arc' });
+      navigate({ to: '../arc', replace: true });
     },
     onError: (error) => {
       console.error(error);
@@ -68,7 +68,7 @@ export default function AppViewBusinessViewQuotationViewHeaderComponentSectionOn
 
   const onArcButtonClick = () => {
     if (business.state !== BusinessState.DEVIS) {
-      navigate({ to: '../arc' });
+      navigate({ to: '../arc', replace: true });
       return;
     }
 
