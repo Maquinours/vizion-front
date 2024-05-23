@@ -183,6 +183,7 @@ export default function AppViewToolsViewMenuViewCreateEnterpriseModalViewStepTwo
             to="contacts"
             search={(old) => old}
             replace
+            resetScroll={false}
             style={{
               cursor: 'pointer',
               textDecoration: 'underline',
@@ -200,7 +201,7 @@ export default function AppViewToolsViewMenuViewCreateEnterpriseModalViewStepTwo
           <button className="btn btn-primary" onClick={() => goToPreviousStep()}>
             Précédent
           </button>
-          <Link from={routeApi.id} to="add-contact" search={(old) => old} replace className="btn btn-secondary">
+          <Link from={routeApi.id} to="add-contact" search={(old) => old} replace resetScroll={false} className="btn btn-secondary">
             Ajouter un contact
           </Link>
           <button className="btn btn-secondary" type="submit" onClick={handleSubmit(onSubmit)}>
