@@ -15,6 +15,7 @@ export default function AppViewBusinessGedModalComponent() {
         navigate({
           search: (old) => ({ ...old, appModal: undefined, businessId: undefined, gedItemKey: undefined }),
           params: (old) => old,
+          replace: true,
         })
       }
       className={styles.modal}
