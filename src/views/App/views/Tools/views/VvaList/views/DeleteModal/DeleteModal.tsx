@@ -17,7 +17,7 @@ export default function AppViewToolsViewVvaListViewDeleteModalView() {
   const { vvaId } = routeApi.useParams();
 
   const onClose = () => {
-    navigate({ to: '../..', search: (old) => old, replace: true });
+    navigate({ to: '../..', search: (old) => old, replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({
