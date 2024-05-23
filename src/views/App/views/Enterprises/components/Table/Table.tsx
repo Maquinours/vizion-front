@@ -12,7 +12,7 @@ const columns = [
   columnHelper.display({
     header: 'Entreprise',
     cell: ({ row: { original } }) => (
-      <Link from={Route.id} to="./$enterpriseId" params={{ enterpriseId: original.id }} search={{ allBusinessPage: 0, contactsPage: 0, lifesheetPage: 0 }}>
+      <Link from={Route.id} to="$enterpriseId" params={{ enterpriseId: original.id }}>
         {original.name}
       </Link>
     ),
