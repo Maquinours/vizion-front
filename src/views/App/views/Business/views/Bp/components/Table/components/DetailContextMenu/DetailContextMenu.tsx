@@ -41,26 +41,26 @@ export default function AppViewBusinessViewBpViewTableComponentDetailContextMenu
               {item && (
                 <MenuList>
                   <MenuItem>
-                    <Link from={routeApi.id} to="update-detail/$detailId" params={{ detailId: item.id }} search={(old) => old}>
+                    <Link from={routeApi.id} to="update-detail/$detailId" params={{ detailId: item.id }} search={(old) => old} replace>
                       <HiPencilAlt width={16} height={16} color={'#16204E'} className={styles.icon} />
                       <span className={styles.text}>Modifier le produit</span>
                     </Link>
                   </MenuItem>
                   <MenuItem>
-                    <Link from={routeApi.id} to="add-serial/$detailId" params={{ detailId: item.id }} search={(old) => old}>
+                    <Link from={routeApi.id} to="add-serial/$detailId" params={{ detailId: item.id }} search={(old) => old} replace>
                       <HiPencilAlt width={16} height={16} color={'#16204E'} className={styles.icon} />
                       <span className={styles.text}>Entrer numéro de série</span>
                     </Link>
                   </MenuItem>
                   <MenuItem>
-                    <Link from={routeApi.id} to="delete-detail/$detailId" params={{ detailId: item.id }} search={(old) => old}>
+                    <Link from={routeApi.id} to="delete-detail/$detailId" params={{ detailId: item.id }} search={(old) => old} replace>
                       <FaTrash width={16} height={16} color={'#16204E'} className={styles.icon} />
                       <span className={styles.text}>Supprimer le produit</span>
                     </Link>
                   </MenuItem>
                   {business.state === BusinessState.FACTURE && (
                     <MenuItem>
-                      <Link from={routeApi.id} to="create-detail-rma/$detailId" params={{ detailId: item.id }} search={(old) => old}>
+                      <Link from={routeApi.id} to="create-detail-rma/$detailId" params={{ detailId: item.id }} search={(old) => old} replace>
                         <MdBusinessCenter width={16} height={16} color={'#16204E'} className={styles.icon} />
                         <span className={styles.text}>Créér un RMA</span>
                       </Link>
