@@ -21,6 +21,7 @@ export default function AppViewEnterpriseViewImportGedFilesModalView() {
           to: '..',
           search: (old) => ({ ...old, gedObjectRelativePath: undefined }),
           replace: true,
+          resetScroll: false,
         })
       }
     />

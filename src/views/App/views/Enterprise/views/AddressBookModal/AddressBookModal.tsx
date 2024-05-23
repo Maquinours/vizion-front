@@ -21,7 +21,7 @@ export default function AppViewEnterpriseViewAddressBookModalView() {
   const { data, isLoading } = useQuery(queries.address.page._ctx.searchByEnterpriseId({ enterpriseId, searchText: search }, { page, size }));
 
   const onClose = () => {
-    navigate({ from: Route.id, to: '..', search: (old) => old, replace: true });
+    navigate({ from: Route.id, to: '..', search: (old) => old, replace: true, resetScroll: false });
   };
 
   return (

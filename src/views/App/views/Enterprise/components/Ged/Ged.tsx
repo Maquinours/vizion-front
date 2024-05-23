@@ -17,6 +17,7 @@ export default function AppViewEnterpriseViewGedComponent() {
         search: (old) => ({ ...old, gedObjectRelativePath: data?.relativePath ?? '' }),
         params: (old) => old,
         replace: true,
+        resetScroll: false,
       })}
       getImportFilesLink={(data) => ({
         from: routeApi.id,
@@ -27,6 +28,7 @@ export default function AppViewEnterpriseViewGedComponent() {
         }),
         params: (old) => old,
         replace: true,
+        resetScroll: false,
       })}
       getDeleteLink={(data) => ({
         from: routeApi.id,
@@ -37,6 +39,7 @@ export default function AppViewEnterpriseViewGedComponent() {
           objectRelativePath: encodeURIComponent(data.relativePath),
         }),
         replace: true,
+        resetScroll: false,
       })}
       getRenameLink={(data) => ({
         from: routeApi.id,
@@ -44,6 +47,7 @@ export default function AppViewEnterpriseViewGedComponent() {
         search: (old) => old,
         params: (old) => ({ ...old, objectRelativePath: encodeURIComponent(data.relativePath) }),
         replace: true,
+        resetScroll: false,
       })}
     />
   );

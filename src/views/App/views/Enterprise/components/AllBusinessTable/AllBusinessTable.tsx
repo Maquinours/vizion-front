@@ -131,7 +131,7 @@ export default function AppViewEnterpriseViewAllBusinessTableComponent() {
             <PaginationComponent
               page={page}
               totalPages={data?.totalPages}
-              pageLink={(page) => ({ from: Route.id, search: (old) => ({ ...old, allBusinessPage: page }), replace: true })}
+              pageLink={(page) => ({ from: Route.id, search: (old) => ({ ...old, allBusinessPage: page }), replace: true, resetScroll: false })}
             />
           </div>
         </div>

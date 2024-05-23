@@ -20,6 +20,7 @@ export default function AppViewEnterpriseViewDeleteGedObjectModalView() {
           to: '../..',
           search: (old) => old,
           replace: true,
+          resetScroll: false,
         })
       }
     />

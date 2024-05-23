@@ -16,7 +16,7 @@ export default function AppViewEnterpriseViewImportContactsModalView() {
   const [profiles, setProfiles] = useState<Array<ProfileRequestDto>>([]);
 
   const onClose = () => {
-    navigate({ from: Route.id, to: '..', search: (old) => old, replace: true });
+    navigate({ from: Route.id, to: '..', search: (old) => old, replace: true, resetScroll: false });
   };
 
   return (

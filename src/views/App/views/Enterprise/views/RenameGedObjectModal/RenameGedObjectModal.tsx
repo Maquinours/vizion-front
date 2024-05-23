@@ -20,6 +20,7 @@ export default function AppViewEnterpriseViewRenameGedObjectModalView() {
           to: '../..',
           search: (old) => old,
           replace: true,
+          resetScroll: false
         })
       }
     />

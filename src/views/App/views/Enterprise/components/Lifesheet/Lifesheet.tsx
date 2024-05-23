@@ -13,8 +13,15 @@ export default function AppViewEnterpriseViewLifesheetComponent() {
       associatedItemType={LifesheetAssociatedItem.ENTERPRISE}
       associatedItemId={enterpriseId}
       page={page}
-      pageLink={(page) => ({ from: Route.id, search: (old) => ({ ...old, lifesheetPage: page }), params: (old) => old, replace: true })}
-      createLink={{ from: Route.id, to: '/app/enterprises/$enterpriseId/create-lifesheet-comment', search: (old) => old, params: (old) => old, replace: true }}
+      pageLink={(page) => ({ from: Route.id, search: (old) => ({ ...old, lifesheetPage: page }), params: (old) => old, replace: true, resetScroll: false })}
+      createLink={{
+        from: Route.id,
+        to: '/app/enterprises/$enterpriseId/create-lifesheet-comment',
+        search: (old) => old,
+        params: (old) => old,
+        replace: true,
+        resetScroll: false,
+      }}
     />
   );
 }

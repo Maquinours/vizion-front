@@ -30,6 +30,7 @@ export default function AppViewEnterpriseViewDeleteModalView() {
       navigate({
         to: '/app/enterprises',
         replace: true,
+        resetScroll: false,
       });
       toast.success('Entreprise supprimée avec succès');
     },

@@ -20,7 +20,7 @@ export default function AppViewEnterpriseViewAddressBookModalViewDeleteModalView
   const { data: address } = useSuspenseQuery(queries.address.detail._ctx.byId(addressId));
 
   const onClose = () => {
-    navigate({ from: Route.id, to: '../..', search: (old) => old, replace: true });
+    navigate({ from: Route.id, to: '../..', search: (old) => old, replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({
