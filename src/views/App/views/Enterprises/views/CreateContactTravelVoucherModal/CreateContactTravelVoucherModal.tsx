@@ -11,7 +11,7 @@ export default function AppViewEnterprisesViewCreateContactTravelVoucherModalVie
   const [files, setFiles] = useState<Array<File>>();
 
   const onClose = () => {
-    navigate({ from: routeApi.id, to: '../..', search: (old) => old, replace: true });
+    navigate({ from: routeApi.id, to: '../..', search: (old) => old, replace: true, resetScroll: false });
   };
   return (
     <>

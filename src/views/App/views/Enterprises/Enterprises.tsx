@@ -30,6 +30,7 @@ export default function AppViewEnterprisesView() {
               page,
             }),
             replace: true,
+            resetScroll: false,
           })}
         />
       </div>
