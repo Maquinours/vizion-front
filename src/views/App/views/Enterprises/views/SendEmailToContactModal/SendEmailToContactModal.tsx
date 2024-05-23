@@ -16,5 +16,5 @@ export default function AppViewEnterprisesViewSendEmailToContactModalView() {
     navigate({ from: routeApi.id, to: '../..', search: (old) => old });
   };
 
-  return <SendEmailModalComponent isOpen={true} defaultRecipient={[contact.email!]} onClose={onClose} onEmailSent={onClose} />;
+  return <SendEmailModalComponent isOpen={true} defaultRecipient={[contact.email!]} onClose={onClose} />;
 }
