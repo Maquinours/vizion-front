@@ -29,7 +29,7 @@ export default function RepresentativesTurnoverViewSearchSectionComponent() {
                 id="representative"
                 value={representatives?.find((rep) => rep.id === representativeId)}
                 options={representatives}
-                onChange={(opt) => navigate({ from: Route.id, search: (old) => ({ ...old, representativeId: opt?.id }) })}
+                onChange={(opt) => navigate({ from: Route.id, search: (old) => ({ ...old, representativeId: opt?.id }), replace: true })}
                 placeholder="Sélectionnez un représentant"
                 getOptionLabel={(opt) => opt.name}
                 getOptionValue={(opt) => opt.id}
@@ -57,6 +57,7 @@ export default function RepresentativesTurnoverViewSearchSectionComponent() {
                       year: opt!.value ?? old.year,
                       month: getAvailableMonthsForYear(opt!.value).length >= old.month ? old.month : getAvailableMonthsForYear(opt!.value).length,
                     }),
+                    replace: true,
                   })
                 }
                 placeholder="Sélectionnez une année"
@@ -76,7 +77,7 @@ export default function RepresentativesTurnoverViewSearchSectionComponent() {
                 id="month"
                 value={{ label: MONTHS.at(month - 1), value: month }}
                 options={getAvailableMonthsForYear(year).map((month, index) => ({ label: month, value: index + 1 }))}
-                onChange={(opt) => navigate({ from: Route.id, search: (old) => ({ ...old, month: opt?.value ?? old.month }) })}
+                onChange={(opt) => navigate({ from: Route.id, search: (old) => ({ ...old, month: opt?.value ?? old.month }), replace: true })}
                 placeholder="Sélectionnez un mois"
                 theme={(theme) => ({
                   ...theme,
