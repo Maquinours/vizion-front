@@ -19,7 +19,7 @@ export default function AppViewBusinessViewArcViewPdfModalView() {
   const { data: stocks } = useSuspenseQuery(queries['product-stocks'].list._ctx.all);
 
   const onClose = () => {
-    navigate({ to: '..', search: (old) => old, replace: true, });
+    navigate({ to: '..', search: (old) => old, replace: true, resetScroll: false });
   };
 
   return (
@@ -46,7 +46,7 @@ export default function AppViewBusinessViewArcViewPdfModalView() {
             >
               {({ loading }) => <button className="btn btn-secondary">{loading ? 'Chargement...' : 'Télécharger'}</button>}
             </PDFDownloadLink>
-            <Link from={routeApi.id} to="send-by-email" search={(old) => old} replace className="btn btn-secondary">
+            <Link from={routeApi.id} to="send-by-email" search={(old) => old} replace resetScroll={false} className="btn btn-secondary">
               Envoyer par mail
             </Link>
           </div>
