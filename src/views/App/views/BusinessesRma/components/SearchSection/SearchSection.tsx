@@ -188,6 +188,7 @@ export default function AppViewBusinessesRmaViewSearchSectionComponent() {
           page: 0,
         }),
         replace: true,
+        resetScroll: false,
       });
     },
     [navigate],
@@ -213,6 +214,7 @@ export default function AppViewBusinessesRmaViewSearchSectionComponent() {
         page: 0,
       }),
       replace: true,
+      resetScroll: false,
     });
   }, [navigate]);
 
