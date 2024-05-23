@@ -236,6 +236,7 @@ export default function AppViewBusinessViewDashboardView() {
                       params: { taskId: task.id },
                       search: (old) => old,
                       replace: true,
+                      resetScroll: false,
                     })}
                   />
                 )}
