@@ -13,7 +13,7 @@ export default function AppViewEnterpriseViewCreateLifesheetCommentModalView() {
     <CreateLifesheetModalComponent
       associatedItemType={LifesheetAssociatedItem.ENTERPRISE}
       associatedItemId={enterpriseId}
-      onClose={() => navigate({ from: Route.id, to: '..', search: (old) => old, params: (old) => old })}
+      onClose={() => navigate({ from: Route.id, to: '..', search: (old) => old })}
     />
   );
 }
