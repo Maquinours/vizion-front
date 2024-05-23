@@ -19,7 +19,7 @@ const columns = [
   columnHelper.display({
     header: 'Email',
     cell: ({ row: { original } }) => (
-      <Link from={routeApi.id} to="send-email/$subscriptionId" params={{ subscriptionId: original.id }} search={(old) => old}>
+      <Link from={routeApi.id} to="send-email/$subscriptionId" params={{ subscriptionId: original.id }} search={(old) => old} replace>
         {original.email}
       </Link>
     ),
@@ -32,7 +32,7 @@ const columns = [
     id: 'actions',
     cell: ({ row: { original } }) => (
       <div className={styles.action_buttons}>
-        <Link from={routeApi.id} to="delete/$subscriptionId" params={{ subscriptionId: original.id }} search={(old) => old}>
+        <Link from={routeApi.id} to="delete/$subscriptionId" params={{ subscriptionId: original.id }} search={(old) => old} replace>
           <FaTrash width="25" height="25" color="#F24C52" />
         </Link>
       </div>
@@ -59,7 +59,7 @@ export default function AppViewToolsViewFormationsViewSubscribersModalView() {
             <h6>Liste des participants</h6>
           </div>
           <div className={styles.buttons}>
-            <Link from={routeApi.id} to="create" search={(old) => old} className="btn btn-primary">
+            <Link from={routeApi.id} to="create" search={(old) => old} replace className="btn btn-primary">
               Ajouter un participant
             </Link>
           </div>
