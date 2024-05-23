@@ -24,7 +24,7 @@ export default function AppViewToolsViewFormationsView() {
             </Link>
           </div>
           <AppViewToolsViewFormationsViewTableComponent data={data?.content} isLoading={isLoading} />
-          <PaginationComponent page={page} totalPages={data?.totalPages} pageLink={(page) => ({ search: (old) => ({ ...old, page }), replace: true })} />
+          <PaginationComponent page={page} totalPages={data?.totalPages} pageLink={(page) => ({ search: (old) => ({ ...old, page }), replace: true, resetScroll: false })} />
         </div>
       </div>
       <Outlet />

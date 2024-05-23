@@ -13,7 +13,7 @@ export default function AppViewToolsViewFormationsViewSubscribersModalViewSendEm
   const { data: subscription } = useSuspenseQuery(queries['formation-subscriptions'].detail._ctx.byId(subscriptionId));
 
   const onClose = () => {
-    navigate({ to: '../..', search: (old) => old, replace: true });
+    navigate({ to: '../..', search: (old) => old, replace: true, resetScroll: false });
   };
 
   return <SendEmailModalComponent isOpen={true} onClose={onClose} defaultRecipient={[subscription.email!]} />;

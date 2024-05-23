@@ -48,7 +48,7 @@ export default function AppViewToolsViewFormationsViewUpdateModalViewAddDetailMo
   });
 
   const onClose = () => {
-    navigate({ to: '..', search: (old) => old, replace: true });
+    navigate({ to: '..', search: (old) => old, replace: true, resetScroll: false });
   };
 
   const onSubmit = (data: yup.InferType<typeof yupSchema>) => {
