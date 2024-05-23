@@ -27,7 +27,7 @@ export default function AppViewToolsViewProductInventoryViewButtonsComponent({ r
       <button className="btn btn-primary-light" onClick={() => resetData()}>
         Annuler
       </button>
-      <Link from={routeApi.id} to="validate-quantities" search={(old) => old} replace className="btn btn-primary">
+      <Link from={routeApi.id} to="validate-quantities" search={(old) => old} replace resetScroll={false} className="btn btn-primary">
         Valider les quantités comptées
       </Link>
       <button disabled={isExcelExportPending} className="btn btn-secondary" onClick={() => excelExport()}>

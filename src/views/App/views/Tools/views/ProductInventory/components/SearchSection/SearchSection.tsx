@@ -34,12 +34,12 @@ export default function AppViewToolsViewProductInventoryViewSearchSectionCompone
   });
 
   const onSearch = ({ shelf, version }: yup.InferType<typeof yupSchema>) => {
-    navigate({ search: (old) => ({ ...old, shelfId: shelf?.id, versionId: version?.id, page: 0 }), replace: true });
+    navigate({ search: (old) => ({ ...old, shelfId: shelf?.id, versionId: version?.id, page: 0 }), replace: true, resetScroll: false });
   };
 
   const onReset = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    navigate({ search: (old) => ({ ...old, shelfId: undefined, versionId: undefined, page: 0 }), replace: true });
+    navigate({ search: (old) => ({ ...old, shelfId: undefined, versionId: undefined, page: 0 }), replace: true, resetScroll: false });
   };
 
   useEffect(() => {

@@ -48,7 +48,11 @@ export default function AppViewToolsViewProductInventoryView() {
         </div>
         <AppViewToolsViewProductInventoryViewTableComponent data={data} isLoading={isLoading} setComptedNumber={setCountedNumber} />
         <div className={styles.pagination}>
-          <PaginationComponent page={page} totalPages={stocks?.totalPages} pageLink={(page) => ({ search: (old) => ({ ...old, page }), replace: true })} />
+          <PaginationComponent
+            page={page}
+            totalPages={stocks?.totalPages}
+            pageLink={(page) => ({ search: (old) => ({ ...old, page }), replace: true, resetScroll: false })}
+          />
         </div>
       </div>
       <ProductInventoryContext.Provider value={contextValue}>

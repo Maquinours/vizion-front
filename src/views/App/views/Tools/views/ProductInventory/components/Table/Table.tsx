@@ -48,7 +48,7 @@ export default function AppViewToolsViewProductInventoryViewTableComponent({
       columnHelper.display({
         id: 'actions',
         cell: ({ row: { original } }) => (
-          <Link from={routeApi.id} to="update/$stockId" params={{ stockId: original.stock.id }} search={(old) => old} replace>
+          <Link from={routeApi.id} to="update/$stockId" params={{ stockId: original.stock.id }} search={(old) => old} replace resetScroll={false}>
             <HiPencilAlt />
           </Link>
         ),
