@@ -29,7 +29,7 @@ export default function AppViewBusinessViewBillViewCreditsModalView() {
   const credit = useMemo(() => credits.at(page), [credits, page]);
 
   const onClose = () => {
-    navigate({ to: '..', search: (old) => ({ ...old, page: undefined }), replace: true });
+    navigate({ to: '..', search: (old) => ({ ...old, page: undefined }), replace: true, resetScroll: false });
   };
 
   return (
@@ -56,7 +56,7 @@ export default function AppViewBusinessViewBillViewCreditsModalView() {
                   {({ loading }) => <button className="btn btn-secondary">{loading ? 'Chargement...' : 'Télécharger'}</button>}
                 </PDFDownloadLink>
                 {user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && (
-                  <Link from={routeApi.id} to="send-by-email" search={(old) => old} replace className="btn btn-secondary">
+                  <Link from={routeApi.id} to="send-by-email" search={(old) => old} replace resetScroll={false} className="btn btn-secondary">
                     Envoyer par mail
                   </Link>
                 )}

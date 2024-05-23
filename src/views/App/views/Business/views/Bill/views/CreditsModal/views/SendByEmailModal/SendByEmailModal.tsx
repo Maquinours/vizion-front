@@ -9,7 +9,7 @@ export default function AppViewBusinessViewBillViewCreditsModalViewSendByEmailMo
   const { enterprise, credit, file } = routeApi.useLoaderData();
 
   const onClose = () => {
-    navigate({ to: '..', search: (old) => old, replace: true });
+    navigate({ to: '..', search: (old) => old, replace: true, resetScroll: false });
   };
 
   return (
