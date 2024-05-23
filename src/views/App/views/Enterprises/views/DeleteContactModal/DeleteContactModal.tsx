@@ -8,5 +8,7 @@ export default function AppViewEnterprisesViewDeleteContactModal() {
 
   const { contactId } = routeApi.useParams();
 
-  return <DeleteContactModalComponent contactId={contactId} onClose={() => navigate({ from: routeApi.id, to: '../..', search: (old) => old })} />;
+  return (
+    <DeleteContactModalComponent contactId={contactId} onClose={() => navigate({ from: routeApi.id, to: '../..', search: (old) => old, replace: true })} />
+  );
 }

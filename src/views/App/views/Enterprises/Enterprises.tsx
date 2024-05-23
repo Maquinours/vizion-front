@@ -29,6 +29,7 @@ export default function AppViewEnterprisesView() {
               ...old,
               page,
             }),
+            replace: true,
           })}
         />
       </div>

@@ -100,6 +100,7 @@ export default function AppViewEnterprisesViewSearchSectionComponent() {
           page: undefined,
           size: undefined,
         }),
+        replace: true,
       });
     },
     [navigate],
@@ -121,6 +122,7 @@ export default function AppViewEnterprisesViewSearchSectionComponent() {
           page: undefined,
           size: undefined,
         }),
+        replace: true,
       });
     },
     [navigate],
