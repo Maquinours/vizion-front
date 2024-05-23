@@ -134,7 +134,13 @@ export default function AppViewBusinessViewArcViewHeaderComponentSectionTwoCompo
               {isPending ? 'Sauvegarde en cours...' : 'Sauvegarder'}
             </button>
           )}
-          <Link from={routeApi.id} search={(prev) => ({ ...prev, hideReferencesPrices: !hideReferencesPrices })} replace className="btn btn-primary-light">
+          <Link
+            from={routeApi.id}
+            search={(prev) => ({ ...prev, hideReferencesPrices: !hideReferencesPrices })}
+            replace
+            resetScroll={false}
+            className="btn btn-primary-light"
+          >
             {hideReferencesPrices ? 'Afficher' : 'Masquer'} les références et prix
           </Link>
         </div>
