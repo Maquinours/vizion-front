@@ -25,7 +25,7 @@ export default function AppViewFaqView() {
             <AppViewFaqViewButtonsComponent />
           </div>
           <AppViewFaqViewTableComponent data={data?.content} isLoading={isLoading} />
-          <PaginationComponent page={page} totalPages={data?.totalPages} pageLink={(page) => ({ search: (old) => ({ ...old, page }) })} />
+          <PaginationComponent page={page} totalPages={data?.totalPages} pageLink={(page) => ({ search: (old) => ({ ...old, page }), replace: true })} />
         </div>
       </div>
       <Outlet />

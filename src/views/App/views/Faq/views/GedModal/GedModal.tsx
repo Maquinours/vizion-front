@@ -26,21 +26,25 @@ export default function AppViewFaqViewGedModalView() {
             to: '/app/faq/ged/$faqId/create-directory',
             search: (old) => ({ ...old, relativePath: item?.relativePath }),
             params: (old) => old,
+            replace: true,
           })}
           getImportFilesLink={(item) => ({
             to: '/app/faq/ged/$faqId/import-files',
             search: (old) => ({ ...old, relativePath: item?.relativePath }),
             params: (old) => old,
+            replace: true,
           })}
           getRenameLink={(item) => ({
             to: '/app/faq/ged/$faqId/rename/$itemRelativePath',
             search: (old) => old,
             params: (old) => ({ ...old, itemRelativePath: item.relativePath }),
+            replace: true,
           })}
           getDeleteLink={(item) => ({
             to: '/app/faq/ged/$faqId/delete/$itemRelativePath',
             search: (old) => old,
             params: (old) => ({ ...old, itemRelativePath: item.relativePath }),
+            replace: true,
           })}
         />
       </ReactModal>

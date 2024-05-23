@@ -56,7 +56,7 @@ export default function AppViewFaqViewCreateModalView() {
   });
 
   const onClose = () => {
-    navigate({ from: routeApi.id, to: '..', search: (old) => old });
+    navigate({ from: routeApi.id, to: '..', search: (old) => old, replace: true });
   };
 
   const { mutate, isPending } = useMutation({
