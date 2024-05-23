@@ -146,10 +146,10 @@ export default function AppViewToolsViewFormationsViewUpdateModalView() {
           <div className={styles.news_container}>
             <div className={styles.content}>
               <div className={styles.details_buttons}>
-                <Link from={routeApi.id} to="add-detail" search={(old) => old} className="btn btn-primary">
+                <Link from={routeApi.id} to="add-detail" search={(old) => old} replace className="btn btn-primary">
                   Ajouter un détail
                 </Link>
-                <Link from={routeApi.id} to="details" search={(old) => old} className="btn btn-secondary">
+                <Link from={routeApi.id} to="details" search={(old) => old} replace className="btn btn-secondary">
                   Voir les détails
                 </Link>
               </div>
