@@ -37,7 +37,7 @@ export default function AppViewBusinessViewDashboardViewImportOtherBusinessQuota
   });
 
   const onSubmit = ({ fromBusiness }: yup.InferType<typeof yupSchema>) => {
-    navigate({ to: 'confirm-quotation-import/$otherBusinessId', params: { otherBusinessId: fromBusiness.id }, search: (old) => old });
+    navigate({ to: 'confirm-quotation-import/$otherBusinessId', params: { otherBusinessId: fromBusiness.id }, search: (old) => old, replace: true });
   };
 
   return (

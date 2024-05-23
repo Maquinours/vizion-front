@@ -19,7 +19,7 @@ export default function AppViewBusinessViewDashboardViewResponsibleComponent() {
         title="Chargé d'affaire"
         editLink={
           !business.archived && user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO')
-            ? { from: routeApi.id, to: '/app/businesses-rma/business/$businessId/dashboard/update-responsible', search: (old) => old }
+            ? { from: routeApi.id, to: '/app/businesses-rma/business/$businessId/dashboard/update-responsible', search: (old) => old, replace: true }
             : undefined
         }
       >

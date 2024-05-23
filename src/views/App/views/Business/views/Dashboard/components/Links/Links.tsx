@@ -40,6 +40,7 @@ const columns = [
         to="delete-link/$associatedId"
         params={{ associatedId: original.id }}
         search={(old) => old}
+        replace
         onClick={(e) => {
           e.stopPropagation();
         }}
@@ -75,7 +76,7 @@ export default function AppViewBusinessViewDashboardViewLinksComponent() {
       <div className={styles.container}>
         <div className={styles.buttons_container}>
           {user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && !business.archived && (
-            <Link from={routeApi.id} to="create-link" search={(old) => old} className="btn btn-primary">
+            <Link from={routeApi.id} to="create-link" search={(old) => old} replace className="btn btn-primary">
               Ajouter
             </Link>
           )}

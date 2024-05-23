@@ -44,11 +44,11 @@ export default function AppViewBusinessViewDashboardViewAddressBookModalView() {
   };
 
   const onSearch = ({ searchText }: yup.InferType<typeof yupSchema>) => {
-    navigate({ search: (old) => ({ ...old, searchText, page: 0 }) });
+    navigate({ search: (old) => ({ ...old, searchText, page: 0 }), replace: true });
   };
 
   const onReset = () => {
-    navigate({ search: (old) => ({ ...old, searchText: undefined, page: 0 }) });
+    navigate({ search: (old) => ({ ...old, searchText: undefined, page: 0 }), replace: true });
   };
 
   const onSelectAddress = (address: AddressResponseDto) => {
@@ -130,7 +130,7 @@ export default function AppViewBusinessViewDashboardViewAddressBookModalView() {
                   ))}
                 </div>
                 <div className={styles.pagination}>
-                  <PaginationComponent page={page} totalPages={data?.totalPages} pageLink={(page) => ({ search: (old) => ({ ...old, page }) })} />
+                  <PaginationComponent page={page} totalPages={data?.totalPages} pageLink={(page) => ({ search: (old) => ({ ...old, page }), replace: true })} />
                 </div>
               </>
             )}

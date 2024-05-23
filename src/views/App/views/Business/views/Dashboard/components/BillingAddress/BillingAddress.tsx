@@ -26,7 +26,7 @@ export default function AppViewBusinessViewDashboardViewBillingAddressComponent(
         <div className={styles.details_container}>
           <div className={styles.details}>
             <div className={styles.title}>Société</div>
-            <Link to="/app/enterprises/$enterpriseId" params={{ enterpriseId: business.enterpriseId }} className={styles.content}>
+            <Link to="/app/enterprises/$enterpriseId" params={{ enterpriseId: business.enterpriseId }} replace className={styles.content}>
               {business.billingCompany ?? business.enterpriseName}
             </Link>
           </div>
