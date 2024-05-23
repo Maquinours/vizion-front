@@ -16,7 +16,7 @@ export default function AppViewFaqViewGedModalViewImportFilesModalView() {
       type={FileType.FAQ}
       id={faqId}
       directoryRelativePath={relativePath ?? ''}
-      onClose={() => navigate({ from: routeApi.id, to: '..', search: (old) => old, replace: true })}
+      onClose={() => navigate({ from: routeApi.id, to: '..', search: (old) => old, replace: true, resetScroll: false })}
     />
   );
 }

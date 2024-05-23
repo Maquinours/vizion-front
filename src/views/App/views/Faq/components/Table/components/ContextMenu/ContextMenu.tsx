@@ -38,33 +38,68 @@ export default function AppViewFaqViewTableComponentContextMenuComponent({
                 <MenuList>
                   {user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && [
                     <MenuItem key={0}>
-                      <Link from={routeApi.id} to="./update/$faqId" params={(old) => ({ ...old, faqId: faq.id })} search={(old) => old} replace>
+                      <Link
+                        from={routeApi.id}
+                        to="./update/$faqId"
+                        params={(old) => ({ ...old, faqId: faq.id })}
+                        search={(old) => old}
+                        replace
+                        resetScroll={false}
+                      >
                         <HiPencilAlt className={styles.icon} width={16} height={16} color="#16204E" />
                         <span className={styles.text}>Modifier</span>
                       </Link>
                     </MenuItem>,
                     <MenuItem key={1}>
-                      <Link from={routeApi.id} to="./ged/$faqId" params={(old) => ({ ...old, faqId: faq.id })} search={(old) => old} replace>
+                      <Link
+                        from={routeApi.id}
+                        to="./ged/$faqId"
+                        params={(old) => ({ ...old, faqId: faq.id })}
+                        search={(old) => old}
+                        replace
+                        resetScroll={false}
+                      >
                         <FaFile className={styles.icon} width={16} height={16} color="#16204E" />
                         <span className={styles.text}>Accéder à la GED</span>
                       </Link>
                     </MenuItem>,
                   ]}
                   <MenuItem>
-                    <Link from={routeApi.id} to="./send-by-email/$faqId" params={(old) => ({ ...old, faqId: faq.id })} search={(old) => old} replace>
+                    <Link
+                      from={routeApi.id}
+                      to="./send-by-email/$faqId"
+                      params={(old) => ({ ...old, faqId: faq.id })}
+                      search={(old) => old}
+                      replace
+                      resetScroll={false}
+                    >
                       <MdMailOutline className={styles.icon} width={16} height={16} color="#16204E" />
                       <span className={styles.text}>Envoyer par mail</span>
                     </Link>
                   </MenuItem>
                   {user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && [
                     <MenuItem key={0}>
-                      <Link from={routeApi.id} to="./archive/$faqId" params={(old) => ({ ...old, faqId: faq.id })} search={(old) => old} replace>
+                      <Link
+                        from={routeApi.id}
+                        to="./archive/$faqId"
+                        params={(old) => ({ ...old, faqId: faq.id })}
+                        search={(old) => old}
+                        replace
+                        resetScroll={false}
+                      >
                         <FaArchive className={styles.icon} width={16} height={16} color="#16204E" />
                         <span className={styles.text}>{faq.archived ? 'Désarchiver' : 'Archiver'}</span>
                       </Link>
                     </MenuItem>,
                     <MenuItem key={1}>
-                      <Link from={routeApi.id} to="./delete/$faqId" params={(old) => ({ ...old, faqId: faq.id })} search={(old) => old} replace>
+                      <Link
+                        from={routeApi.id}
+                        to="./delete/$faqId"
+                        params={(old) => ({ ...old, faqId: faq.id })}
+                        search={(old) => old}
+                        replace
+                        resetScroll={false}
+                      >
                         <FaTrash className={styles.icon} width={16} height={16} color="#16204E" />
                         <span className={styles.text}>Supprimer</span>
                       </Link>

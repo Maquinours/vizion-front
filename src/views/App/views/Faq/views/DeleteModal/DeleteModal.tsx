@@ -19,7 +19,7 @@ export default function AppViewFaqViewDeleteModalView() {
   const { data: faq } = useSuspenseQuery(faqs.detail._ctx.byId(faqId));
 
   const onClose = () => {
-    navigate({ from: routeApi.id, to: '../..', search: (old) => old, replace: true });
+    navigate({ from: routeApi.id, to: '../..', search: (old) => old, replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({

@@ -14,7 +14,7 @@ export default function AppViewFaqViewSendByEmailModalView() {
   return (
     <SendEmailModalComponent
       isOpen={true}
-      onClose={() => navigate({ from: routeApi.id, to: '../..', search: (old) => old, replace: true })}
+      onClose={() => navigate({ from: routeApi.id, to: '../..', search: (old) => old, replace: true, resetScroll: false })}
       defaultContent={faq.description}
     />
   );
