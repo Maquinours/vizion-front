@@ -17,7 +17,7 @@ export default function AppViewDashboardViewPersonalTasksComponentPaginationComp
       <PaginationComponent
         page={page}
         totalPages={data?.totalPages}
-        pageLink={(page) => ({ from: Route.id, to: Route.id, search: (old) => ({ ...old, personalTaskPage: page }), params: {} })}
+        pageLink={(page) => ({ from: Route.id, to: Route.id, search: (old) => ({ ...old, personalTaskPage: page }) })}
       />
     </div>
   );
