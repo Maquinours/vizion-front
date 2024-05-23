@@ -49,7 +49,7 @@ export default function AppViewToolsViewProductShelvesView() {
 
           <div className={styles.table_container}>
             <TableComponent columns={columns} data={data?.content} isLoading={isLoading} />
-            <PaginationComponent page={page} totalPages={data?.totalPages} pageLink={(page) => ({ search: (old) => ({ ...old, page }) })} />
+            <PaginationComponent page={page} totalPages={data?.totalPages} pageLink={(page) => ({ from: routeApi.id, search: (old) => ({ ...old, page }), replace: true })} />
           </div>
         </div>
       </div>
