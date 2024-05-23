@@ -39,7 +39,7 @@ export default function AppViewBusinessViewDashboardViewUpdateRepresentativeModa
   });
 
   const onClose = () => {
-    navigate({ to: '..', search: (old) => old, replace: true });
+    navigate({ to: '..', search: (old) => old, replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({
@@ -57,7 +57,7 @@ export default function AppViewBusinessViewDashboardViewUpdateRepresentativeModa
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queries.businesses._def });
       toast.success('Le représentant a bien été modifié');
-      navigate({ to: '/app/businesses-rma', search: (old) => old });
+      onClose();
     },
     onError: (error) => {
       console.error(error);

@@ -18,7 +18,7 @@ export default function AppViewBusinessViewDashboardViewDeleteModalView() {
   const { data: business } = useSuspenseQuery(queries.businesses.detail._ctx.byId(businessId));
 
   const onClose = () => {
-    navigate({ to: '..', search: (old) => old, replace: true });
+    navigate({ to: '..', search: (old) => old, replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({

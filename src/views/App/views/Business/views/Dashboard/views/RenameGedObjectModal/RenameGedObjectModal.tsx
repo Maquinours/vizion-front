@@ -14,6 +14,7 @@ export default function AppViewBusinessViewDashboardViewRenameGedObjectModalView
       to: '../..',
       search: (old) => old,
       replace: true,
+      resetScroll: false,
     });
   };
   return <RenameGedObjectModalComponent type={FileType.AFFAIRE} id={businessId} objectRelativePath={objectRelativePath} onClose={onClose} />;

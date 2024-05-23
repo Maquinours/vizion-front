@@ -15,23 +15,27 @@ export default function AppViewBusinessViewDashboardViewGedComponent() {
         to: '/app/businesses-rma/business/$businessId/dashboard/create-ged-directory',
         search: (old) => ({ ...old, relativePath: data?.relativePath ?? '' }),
         replace: true,
+        resetScroll: false,
       })}
       getImportFilesLink={(data) => ({
         to: '/app/businesses-rma/business/$businessId/dashboard/import-ged-files',
         search: (old) => ({ ...old, relativePath: data?.relativePath ?? '' }),
         replace: true,
+        resetScroll: false,
       })}
       getRenameLink={(data) => ({
         to: '/app/businesses-rma/business/$businessId/dashboard/rename-ged-object/$objectRelativePath',
         params: { objectRelativePath: data.relativePath },
         search: (old) => old,
         replace: true,
+        resetScroll: false,
       })}
       getDeleteLink={(data) => ({
         to: '/app/businesses-rma/business/$businessId/dashboard/delete-ged-object/$objectRelativePath',
         params: { objectRelativePath: data.relativePath },
         search: (old) => old,
         replace: true,
+        resetScroll: false,
       })}
     />
   );

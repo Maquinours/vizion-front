@@ -11,7 +11,7 @@ export default function AppViewBusinessViewDashboardViewImportGedFilesModalView(
   const { relativePath } = routeApi.useSearch();
 
   const onClose = () => {
-    navigate({ to: '..', search: (old) => old, replace: true });
+    navigate({ to: '..', search: (old) => old, replace: true, resetScroll: false });
   };
 
   return <ImportGedFilesModalComponent type={FileType.AFFAIRE} id={businessId} directoryRelativePath={relativePath} onClose={onClose} />;

@@ -153,7 +153,7 @@ export default function AppViewBusinessViewDashboardView() {
       <div className={styles.container}>
         <div className={styles.headers_buttons}>
           {(business.state === BusinessState.DEVIS || business.state === BusinessState.CREATED) && !business.archived && (
-            <Link from={routeApi.id} to="delete" search={(old) => old} replace className="btn btn-secondary">
+            <Link from={routeApi.id} to="delete" search={(old) => old} replace resetScroll={false} className="btn btn-secondary">
               <FaTrash color="#FFF" width={14} height={14} />
               Supprimer cette affaire
             </Link>
@@ -165,7 +165,7 @@ export default function AppViewBusinessViewDashboardView() {
           {!business.archived && (
             <div className={styles.right_buttons}>
               {user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && (
-                <Link from={routeApi.id} to="send-email" search={(old) => old} replace className="btn btn-primary">
+                <Link from={routeApi.id} to="send-email" search={(old) => old} replace resetScroll={false} className="btn btn-primary">
                   Envoyer un mail
                 </Link>
               )}
@@ -208,11 +208,19 @@ export default function AppViewBusinessViewDashboardView() {
                 </div>
                 <div>
                   {user.userInfo.roles.includes('ROLE_DIRECTION_VIZEO') && (
-                    <Link from={routeApi.id} to="update-representative" search={(old) => old} className="btn btn-primary" replace style={{ marginRight: '10px' }}>
+                    <Link
+                      from={routeApi.id}
+                      to="update-representative"
+                      search={(old) => old}
+                      replace
+                      resetScroll={false}
+                      className="btn btn-primary"
+                      style={{ marginRight: '10px' }}
+                    >
                       Modifier le représentant
                     </Link>
                   )}
-                  <Link from={routeApi.id} to="address-book" search={(old) => old} replace className="btn btn-primary">
+                  <Link from={routeApi.id} to="address-book" search={(old) => old} replace resetScroll={false} className="btn btn-primary">
                     Carnet d&apos;adresse
                   </Link>
                 </div>

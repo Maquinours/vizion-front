@@ -76,7 +76,7 @@ export default function AppViewBusinessViewDashboardViewAddressBookModalView() {
               <BsArrowLeft width="16" height="16" color="#FFF" />
             </button>
             <div className={styles.modal_title}>{"Carnet d'adresse"}</div>
-            <Link from={routeApi.id} to="create" search={(old) => old} replace>
+            <Link from={routeApi.id} to="create" search={(old) => old} replace resetScroll={false}>
               <IoMdAddCircleOutline width="16" height="16" color="#FFF" />
             </Link>
           </div>
@@ -130,7 +130,11 @@ export default function AppViewBusinessViewDashboardViewAddressBookModalView() {
                   ))}
                 </div>
                 <div className={styles.pagination}>
-                  <PaginationComponent page={page} totalPages={data?.totalPages} pageLink={(page) => ({ search: (old) => ({ ...old, page }), replace: true })} />
+                  <PaginationComponent
+                    page={page}
+                    totalPages={data?.totalPages}
+                    pageLink={(page) => ({ search: (old) => ({ ...old, page }), replace: true, resetScroll: false })}
+                  />
                 </div>
               </>
             )}
