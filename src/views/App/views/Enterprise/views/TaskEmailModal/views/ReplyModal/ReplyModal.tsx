@@ -17,7 +17,7 @@ export default function AppViewEnterpriseViewTaskEmailModalViewReplyModalView() 
   const { data: email } = useSuspenseQuery(emails.detail(task.mailId!));
 
   return (
-    <ReactModal isOpen={true} onRequestClose={() => navigate({ from: Route.id, to: '..', search: (old) => old })} overlayClassName="Overlay">
+    <ReactModal isOpen={true} onRequestClose={() => navigate({ from: Route.id, to: '..', search: (old) => old, replace: true })} overlayClassName="Overlay">
       <SendEmailComponent emailToReply={email} />
     </ReactModal>
   );

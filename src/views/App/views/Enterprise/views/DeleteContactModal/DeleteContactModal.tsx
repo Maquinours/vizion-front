@@ -8,5 +8,5 @@ export default function AppViewEnterpriseViewDeleteContactModalView() {
 
   const { contactId } = Route.useParams();
 
-  return <DeleteContactModalComponent contactId={contactId} onClose={() => navigate({ from: Route.id, to: '../..', search: (old) => old })} />;
+  return <DeleteContactModalComponent contactId={contactId} onClose={() => navigate({ from: Route.id, to: '../..', search: (old) => old, replace: true })} />;
 }

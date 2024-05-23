@@ -15,8 +15,8 @@ export default function AppViewEnterpriseViewTaskEmailModalView() {
   return (
     <EmailModalComponent
       emailId={task.mailId!}
-      onClose={() => navigate({ from: Route.id, to: '../..', search: (old) => old })}
-      replyLink={{ from: Route.id, to: '/app/enterprises/$enterpriseId/task-email/$taskId/reply', search: (old) => old, params: (old) => old }}
+      onClose={() => navigate({ from: Route.id, to: '../..', search: (old) => old, replace: true })}
+      replyLink={{ from: Route.id, to: '/app/enterprises/$enterpriseId/task-email/$taskId/reply', search: (old) => old, params: (old) => old, replace: true }}
     />
   );
 }

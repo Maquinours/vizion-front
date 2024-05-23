@@ -19,6 +19,7 @@ export default function AppViewEnterpriseViewDeleteGedObjectModalView() {
           from: routeApi.id,
           to: '../..',
           search: (old) => old,
+          replace: true,
         })
       }
     />

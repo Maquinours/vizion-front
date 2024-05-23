@@ -45,7 +45,7 @@ export default function AppViewEnterpriseViewAddressBookModalViewCreateModalView
   });
 
   const onClose = () => {
-    navigate({ from: Route.id, to: '..', search: (old) => old });
+    navigate({ from: Route.id, to: '..', search: (old) => old, replace: true });
   };
 
   const { mutate, isPending } = useMutation({

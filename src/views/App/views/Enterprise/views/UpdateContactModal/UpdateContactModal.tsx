@@ -8,5 +8,5 @@ export default function AppViewEnterpriseViewUpdateContactModalView() {
 
   const { contactId } = Route.useParams();
 
-  return <UpdateContactModalComponent contactId={contactId} onClose={() => navigate({ from: Route.id, to: '../..', search: (old) => old })} />;
+  return <UpdateContactModalComponent contactId={contactId} onClose={() => navigate({ from: Route.id, to: '../..', search: (old) => old, replace: true })} />;
 }

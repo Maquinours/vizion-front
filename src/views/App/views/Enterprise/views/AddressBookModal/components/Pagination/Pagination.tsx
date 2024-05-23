@@ -16,7 +16,11 @@ export default function AppViewEnterpriseViewAddressBookModalViewPaginationCompo
 
   return (
     <div className={styles.pagination}>
-      <PaginationComponent page={page} totalPages={addresses?.totalPages} pageLink={(page) => ({ from: Route.id, search: (old) => ({ ...old, page }) })} />
+      <PaginationComponent
+        page={page}
+        totalPages={addresses?.totalPages}
+        pageLink={(page) => ({ from: Route.id, search: (old) => ({ ...old, page }), replace: true })}
+      />
     </div>
   );
 }

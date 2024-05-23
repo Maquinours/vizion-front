@@ -16,6 +16,7 @@ export default function AppViewEnterpriseViewGedComponent() {
         to: '/app/enterprises/$enterpriseId/create-ged-directory',
         search: (old) => ({ ...old, gedObjectRelativePath: data?.relativePath ?? '' }),
         params: (old) => old,
+        replace: true,
       })}
       getImportFilesLink={(data) => ({
         from: routeApi.id,
@@ -25,6 +26,7 @@ export default function AppViewEnterpriseViewGedComponent() {
           gedObjectRelativePath: data?.relativePath ?? '',
         }),
         params: (old) => old,
+        replace: true,
       })}
       getDeleteLink={(data) => ({
         from: routeApi.id,
@@ -34,12 +36,14 @@ export default function AppViewEnterpriseViewGedComponent() {
           ...old,
           objectRelativePath: encodeURIComponent(data.relativePath),
         }),
+        replace: true,
       })}
       getRenameLink={(data) => ({
         from: routeApi.id,
         to: '/app/enterprises/$enterpriseId/rename-ged-object/$objectRelativePath',
         search: (old) => old,
         params: (old) => ({ ...old, objectRelativePath: encodeURIComponent(data.relativePath) }),
+        replace: true,
       })}
     />
   );

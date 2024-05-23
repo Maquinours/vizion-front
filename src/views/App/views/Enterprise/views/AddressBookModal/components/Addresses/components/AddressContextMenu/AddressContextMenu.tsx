@@ -34,7 +34,7 @@ export default function AppViewEnterpriseViewAddressBookModalViewAddressesCompon
               {address && (
                 <MenuList autoFocusItem={isOpen}>
                   <MenuItem>
-                    <Link from={Route.id} to="update/$addressId" params={(old) => ({ ...old, addressId: address.id })} search={(old) => old}>
+                    <Link from={Route.id} to="update/$addressId" params={(old) => ({ ...old, addressId: address.id })} search={(old) => old} replace>
                       <span className={styles.icon}>
                         <MdModeEdit width={13} height={13} color={'#16204E'} />
                       </span>
@@ -42,7 +42,7 @@ export default function AppViewEnterpriseViewAddressBookModalViewAddressesCompon
                     </Link>
                   </MenuItem>
                   <MenuItem>
-                    <Link from={Route.id} to="delete/$addressId" params={(old) => ({ ...old, addressId: address.id })} search={(old) => old}>
+                    <Link from={Route.id} to="delete/$addressId" params={(old) => ({ ...old, addressId: address.id })} search={(old) => old} replace>
                       <span className={styles.icon}>
                         <FaTrash width={13} height={13} color={'#16204E'} />
                       </span>

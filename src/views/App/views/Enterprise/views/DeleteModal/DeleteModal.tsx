@@ -19,7 +19,7 @@ export default function AppViewEnterpriseViewDeleteModalView() {
   const { data: enterprise } = useSuspenseQuery(enterprises.detail(enterpriseId));
 
   const onClose = () => {
-    navigate({ from: Route.id, to: '..', search: (old) => old });
+    navigate({ from: Route.id, to: '..', search: (old) => old, replace: true });
   };
 
   const { mutate, isPending } = useMutation({

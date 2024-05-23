@@ -23,7 +23,7 @@ export default function AppViewEnterpriseViewCategoryComponent({ enterprise }: A
 
         {![CategoryClient.VIZEO, CategoryClient.FOURNISSEUR, CategoryClient.REPRESENTANT].includes(enterprise.category) && (
           <div className={styles.submit_button}>
-            <Link from={Route.id} to="./update-category" search={(old) => old} className="btn btn-primary">
+            <Link from={Route.id} to="./update-category" search={(old) => old} replace className="btn btn-primary">
               Modifier
             </Link>
           </div>

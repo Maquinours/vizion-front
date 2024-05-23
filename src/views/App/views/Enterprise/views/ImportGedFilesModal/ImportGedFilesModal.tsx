@@ -20,6 +20,7 @@ export default function AppViewEnterpriseViewImportGedFilesModalView() {
           from: routeApi.id,
           to: '..',
           search: (old) => ({ ...old, gedObjectRelativePath: undefined }),
+          replace: true,
         })
       }
     />

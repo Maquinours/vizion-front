@@ -20,6 +20,7 @@ export default function AppRouteAppEnterpriseViewCreateGedDirectoryModalView() {
           from: routeApi.id,
           to: '..',
           search: (old) => ({ ...old, gedObjectRelativePath: undefined }),
+          replace: true,
         })
       }
     />
