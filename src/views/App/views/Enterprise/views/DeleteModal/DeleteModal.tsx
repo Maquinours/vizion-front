@@ -28,9 +28,7 @@ export default function AppViewEnterpriseViewDeleteModalView() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: enterprises._def });
       navigate({
-        from: Route.id,
         to: '/app/enterprises',
-        search: { mobileSidebar: undefined, appModal: undefined, businessId: undefined, gedItemKey: undefined, page: 0 },
       });
       toast.success('Entreprise supprimée avec succès');
     },
