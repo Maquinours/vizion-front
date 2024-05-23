@@ -26,11 +26,7 @@ export default function AppViewToolsViewPredefinedMessagesView() {
 
           <div className={styles.table_container}>
             <AppViewToolsViewPredefinedMessagesViewTableComponent data={data?.content} isLoading={isLoading} />
-            <PaginationComponent
-              page={page}
-              totalPages={data?.totalPages}
-              pageLink={(page) => ({ from: routeApi.id, search: (old) => ({ ...old, page }), params: {} })}
-            />
+            <PaginationComponent page={page} totalPages={data?.totalPages} pageLink={(page) => ({ from: routeApi.id, search: (old) => ({ ...old, page }) })} />
           </div>
         </div>
       </div>
