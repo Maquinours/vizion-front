@@ -18,7 +18,7 @@ export default function AppViewEnterpriseViewDeleteGedObjectModalView() {
         navigate({
           from: routeApi.id,
           to: '../..',
-          search: (old) => ({ ...old, objectRelativePath: undefined }),
+          search: (old) => old,
         })
       }
     />

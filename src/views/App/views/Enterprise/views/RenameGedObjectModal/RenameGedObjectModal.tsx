@@ -18,7 +18,7 @@ export default function AppViewEnterpriseViewRenameGedObjectModalView() {
         navigate({
           from: routeApi.id,
           to: '../..',
-          search: ({ allBusinessPage, contactsSearch, contactsPage, lifesheetPage }) => ({ allBusinessPage, contactsSearch, contactsPage, lifesheetPage }),
+          search: (old) => old,
         })
       }
     />
