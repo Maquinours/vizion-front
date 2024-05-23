@@ -21,7 +21,7 @@ export default function AppViewToolsViewSchedulerView() {
     <>
       <div className={styles.container}>
         <div className={styles.header}>
-          <Link from={routeApi.id} to="./create" search={(old) => old} className="btn btn-secondary">
+          <Link from={routeApi.id} to="./create" search={(old) => old} replace className="btn btn-secondary">
             Ajouter un RDV
           </Link>
           <RefreshButtonComponent onRefresh={refetch} isRefreshing={isRefetching} className="btn btn-primary" />
@@ -36,9 +36,10 @@ export default function AppViewToolsViewSchedulerView() {
             navigate({
               from: routeApi.id,
               search: (old) => ({ ...old, view }),
+              replace: true,
             });
           }}
-          onDateChange={(date) => navigate({ from: routeApi.id, search: (old) => ({ ...old, date }) })}
+          onDateChange={(date) => navigate({ from: routeApi.id, search: (old) => ({ ...old, date }), replace: true })}
         />
       </div>
       <Outlet />

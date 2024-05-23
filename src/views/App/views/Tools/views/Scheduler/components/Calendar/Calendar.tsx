@@ -109,7 +109,7 @@ export default function AppViewToolsViewSchedulerViewCalendarComponent({
   const { data: resources } = useSuspenseQuery(queries.profiles.list._ctx.byCategory(CategoryClient.VIZEO));
 
   const onSelectEvent = (event: RdvUserInfoResponseDto) => {
-    if (!!event.rdv) navigate({ to: 'details/$rdvId', params: { rdvId: event.rdv.id }, search: (old) => old });
+    if (!!event.rdv) navigate({ to: 'details/$rdvId', params: { rdvId: event.rdv.id }, search: (old) => old, replace: true });
   };
 
   const onEventDrop = ({

@@ -112,7 +112,7 @@ export default function AppViewToolsViewSchedulerViewCreateModalView() {
   );
 
   const onClose = () => {
-    navigate({ from: routeApi.id, to: '..', search: (old) => ({ ...old, dates: undefined, participant: undefined }) });
+    navigate({ from: routeApi.id, to: '..', search: (old) => ({ ...old, dates: undefined, participant: undefined }), replace: true });
   };
 
   const { mutate, isPending } = useMutation({
