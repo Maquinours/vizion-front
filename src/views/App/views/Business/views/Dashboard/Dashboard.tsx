@@ -235,6 +235,7 @@ export default function AppViewBusinessViewDashboardView() {
                       to: '/app/businesses-rma/business/$businessId/dashboard/task-email/$taskId',
                       params: { taskId: task.id },
                       search: (old) => old,
+                      replace: true,
                     })}
                   />
                 )}
