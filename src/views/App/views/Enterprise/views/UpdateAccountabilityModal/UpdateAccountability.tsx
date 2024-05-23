@@ -64,7 +64,7 @@ export default function AppViewEnterpriseViewUpdateAccountabilityModalView() {
   });
 
   const onClose = () => {
-    navigate({ from: Route.id, to: '..', params: { enterpriseId: enterprise.id }, search: (old) => old });
+    navigate({ from: Route.id, to: '..', search: (old) => old });
   };
 
   const { mutate, isPending } = useMutation({
