@@ -1,14 +1,16 @@
-import { useMutation, useSuspenseQuery } from '@tanstack/react-query';
+import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import { Link, getRouteApi, useNavigate } from '@tanstack/react-router';
 import { isAxiosError } from 'axios';
 import { toast } from 'react-toastify';
 import { createBusinessBl } from '../../../../../../../../utils/api/businessBls';
 import { queries } from '../../../../../../../../utils/constants/queryKeys';
 import styles from './Footer.module.scss';
+import BusinessState from '../../../../../../../../utils/enums/BusinessState';
 
 const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/bp');
 
 export default function AppViewBusinessViewBpViewFooterComponent() {
+  const queryClient = useQueryClient();
   const navigate = useNavigate({ from: routeApi.id });
 
   const { businessId } = routeApi.useParams();
@@ -67,8 +69,10 @@ export default function AppViewBusinessViewBpViewFooterComponent() {
         })),
       });
     },
-    onSuccess: () => {
-      // set query data and redirect
+    onSuccess: (bl) => {
+      queryClient.setQueryData(queries['business-bls'].list._ctx.byBusinessId(businessId).queryKey, [bl]);
+      toast.success('Bon de livraison créé avec succès');
+      navigate({ to: '../bl', replace: true });
     },
     onError: (error) => {
       if (!isAxiosError(error) && error.message === 'NO PRODUCT') toast.warning('Aucun produit preparé');
@@ -80,9 +84,10 @@ export default function AppViewBusinessViewBpViewFooterComponent() {
   });
 
   const onBlButtonClick = () => {
+    if (business.state !== BusinessState.BP) navigate({ to: '../bl', replace: true });
     if (!business.deliveryMode) {
       toast.warning('Veuillez renseigner le mode de livraison');
-      navigate({ to: '../dashboard' });
+      navigate({ to: '../dashboard', replace: true });
     } else {
       mutate();
     }
@@ -98,7 +103,7 @@ export default function AppViewBusinessViewBpViewFooterComponent() {
               Editer BT
             </Link>
           )}
-          <button className="btn btn-secondary" onClick={() => onBlButtonClick()}>
+          <button disabled={isPending} className="btn btn-secondary" onClick={() => onBlButtonClick()}>
             {isPending ? 'Edition du BL...' : 'Editer BL'}
           </button>
         </div>
