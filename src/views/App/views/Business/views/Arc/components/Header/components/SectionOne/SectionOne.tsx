@@ -117,7 +117,7 @@ export default function AppViewBusinessViewArcViewHeaderComponentSectionOneCompo
         <span>{business.enterpriseName}</span> / <span>{business.title}</span>
       </div>
       <div>
-        <Link from={routeApi.id} to="pdf" search={(old) => old} className="btn btn-primary-light">
+        <Link from={routeApi.id} to="pdf" search={(old) => old} replace className="btn btn-primary-light">
           Editer
         </Link>
         {!business.archived && (
