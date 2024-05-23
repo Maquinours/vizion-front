@@ -32,8 +32,6 @@ export default function SidebarComponentBasicSidebarComponent() {
         label: 'Tableau de bord',
         route: {
           to: '/app/dashboard',
-          search: {},
-          params: {},
         },
         allowedRoles: ['ROLE_MEMBRE_VIZEO'],
       },
@@ -42,8 +40,6 @@ export default function SidebarComponentBasicSidebarComponent() {
         label: 'Affaires',
         route: {
           to: '/app/businesses-rma',
-          search: {},
-          params: {},
         },
       },
       {
@@ -51,7 +47,6 @@ export default function SidebarComponentBasicSidebarComponent() {
         label: 'Mon entreprise',
         route: {
           to: '/app/enterprises/$enterpriseId',
-          search: {},
           params: { entepriseId: authentifiedUser.profile.enterprise!.id },
         },
         allowedRoles: ['ROLE_CLIENT'],
@@ -61,8 +56,6 @@ export default function SidebarComponentBasicSidebarComponent() {
         label: 'Produits',
         route: {
           to: '/app/products',
-          search: {},
-          params: {},
         },
       },
       {
@@ -70,8 +63,6 @@ export default function SidebarComponentBasicSidebarComponent() {
         label: 'Entreprises',
         route: {
           to: '/app/enterprises',
-          search: {},
-          params: {},
         },
         allowedRoles: ['ROLE_MEMBRE_VIZEO', 'ROLE_REPRESENTANT', 'ROLE_DISTRIBUTEUR'],
       },
@@ -80,8 +71,6 @@ export default function SidebarComponentBasicSidebarComponent() {
         label: 'FAQ',
         route: {
           to: '/app/faq',
-          search: {},
-          params: {},
         },
       },
       {
@@ -89,8 +78,6 @@ export default function SidebarComponentBasicSidebarComponent() {
         label: 'Liens externes',
         route: {
           to: '/app/external-links',
-          search: {},
-          params: {},
         },
       },
       {
