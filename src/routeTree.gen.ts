@@ -26,6 +26,7 @@ import { Route as AppExternalLinksRouteImport } from './routes/app/external-link
 import { Route as AppEnterprisesRouteImport } from './routes/app/enterprises/route'
 import { Route as AppDashboardRouteImport } from './routes/app/dashboard/route'
 import { Route as AppBusinessesRmaRouteImport } from './routes/app/businesses-rma/route'
+import { Route as AppToolsIndexImport } from './routes/app/tools/index'
 import { Route as AppToolsVvaRouteImport } from './routes/app/tools/vva/route'
 import { Route as AppToolsSchedulerRouteImport } from './routes/app/tools/scheduler/route'
 import { Route as AppToolsRepresentativesTurnoverRouteImport } from './routes/app/tools/representatives-turnover/route'
@@ -342,6 +343,11 @@ const AppBusinessesRmaRouteRoute = AppBusinessesRmaRouteImport.update({
 } as any).lazy(() =>
   import('./routes/app/businesses-rma/route.lazy').then((d) => d.Route),
 )
+
+const AppToolsIndexRoute = AppToolsIndexImport.update({
+  path: '/',
+  getParentRoute: () => AppToolsRouteRoute,
+} as any)
 
 const AuthResetPasswordTokenRouteLazyRoute =
   AuthResetPasswordTokenRouteLazyImport.update({
@@ -2878,6 +2884,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthResetPasswordTokenRouteLazyImport
       parentRoute: typeof AuthRouteImport
     }
+    '/app/tools/': {
+      id: '/app/tools/'
+      path: '/'
+      fullPath: '/app/tools/'
+      preLoaderRoute: typeof AppToolsIndexImport
+      parentRoute: typeof AppToolsRouteImport
+    }
     '/app/businesses-rma/business/$businessId': {
       id: '/app/businesses-rma/business/$businessId'
       path: '/businesses-rma/business/$businessId'
@@ -4383,6 +4396,7 @@ export const routeTree = rootRoute.addChildren({
         AppToolsVvaCreateRouteRoute,
         AppToolsVvaDeleteVvaIdRouteRoute,
       }),
+      AppToolsIndexRoute,
       AppToolsEmailsSendRouteRoute: AppToolsEmailsSendRouteRoute.addChildren({
         AppToolsEmailsSendPredefinedMessagesRouteRoute,
       }),
