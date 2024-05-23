@@ -27,8 +27,6 @@ export default function AppViewFooterComponent() {
         label: 'Affaires',
         route: {
           to: '/app/businesses-rma',
-          search: {},
-          params: {},
         },
       },
       {
@@ -36,7 +34,6 @@ export default function AppViewFooterComponent() {
         label: 'Mon entreprise',
         route: {
           to: '/app/enterprises/$enterpriseId',
-          search: {},
           params: { entepriseId: authentifiedUser.profile.enterprise!.id },
         },
         allowedRoles: ['ROLE_CLIENT'],
@@ -46,8 +43,6 @@ export default function AppViewFooterComponent() {
         label: 'Produits',
         route: {
           to: '/app/products',
-          search: {},
-          params: {},
         },
       },
       {
@@ -55,8 +50,6 @@ export default function AppViewFooterComponent() {
         label: 'Entreprises',
         route: {
           to: '/app/enterprises',
-          search: {},
-          params: {},
         },
         allowedRoles: ['ROLE_MEMBRE_VIZEO', 'ROLE_REPRESENTANT', 'ROLE_DISTRIBUTEUR'],
       },
@@ -65,8 +58,6 @@ export default function AppViewFooterComponent() {
         label: 'FAQ',
         route: {
           to: '/app/faq',
-          search: {},
-          params: {},
         },
       },
       {
