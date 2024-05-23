@@ -19,12 +19,16 @@ export default function AppViewToolsViewNewsView() {
       <div className={styles.container}>
         <div className={styles.content}>
           <div className={styles.buttons_container}>
-            <Link from={routeApi.id} to="./create" search={(old) => old} className="btn btn-secondary">
+            <Link from={routeApi.id} to="./create" search={(old) => old} replace className="btn btn-secondary">
               Ajouter
             </Link>
           </div>
           <AppViewToolsViewNewsViewTableComponent data={data?.content} isLoading={isLoading} />
-          <PaginationComponent page={page} totalPages={data?.totalPages} pageLink={(page) => ({ from: routeApi.id, search: (old) => ({ ...old, page }) })} />
+          <PaginationComponent
+            page={page}
+            totalPages={data?.totalPages}
+            pageLink={(page) => ({ from: routeApi.id, search: (old) => ({ ...old, page }), replace: true })}
+          />
         </div>
       </div>
       <Outlet />

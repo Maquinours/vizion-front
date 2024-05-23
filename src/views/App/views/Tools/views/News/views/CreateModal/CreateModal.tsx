@@ -51,7 +51,7 @@ export default function AppViewToolsViewNewsViewCreateModalView() {
   });
 
   const onClose = () => {
-    navigate({ to: '..', search: (old) => old });
+    navigate({ to: '..', search: (old) => old, replace: true });
   };
 
   const { mutate, isPending } = useMutation({
