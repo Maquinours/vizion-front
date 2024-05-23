@@ -30,6 +30,7 @@ const MENUS: MenuItem[] = [
       search: (old) => ({ ...old, appModal: 'create-business', businessId: undefined, gedItemKey: undefined }),
       activeOptions: { exact: true, includeSearch: true },
       replace: true,
+      resetScroll: false,
     },
   },
 ];

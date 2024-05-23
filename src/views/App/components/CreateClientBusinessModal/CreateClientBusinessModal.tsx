@@ -39,7 +39,7 @@ export default function AppViewCreateClientBusinessModalComponent() {
   const { data: enterprise } = useSuspenseQuery(enterprises.detail(enterpriseId));
 
   const onClose = () => {
-    navigate({ from: Route.id, search: (search) => ({ ...search, appModal: undefined }), replace: true });
+    navigate({ from: Route.id, search: (search) => ({ ...search, appModal: undefined }), replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({

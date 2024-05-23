@@ -22,6 +22,7 @@ const MENUS: Array<MenuItem> = [
       params: (old) => old,
       search: (old) => ({ ...old, appModal: 'create-client-business', businessId: undefined, gedItemKey: undefined }),
       replace: true,
+      resetScroll: false,
     },
     allowedRoles: ['ROLE_DISTRIBUTEUR', 'ROLE_CLIENT'],
   },

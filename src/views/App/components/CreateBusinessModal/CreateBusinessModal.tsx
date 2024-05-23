@@ -37,7 +37,7 @@ export default function AppViewCreateBusinessModalComponent() {
   });
 
   const onClose = () => {
-    navigate({ from: Route.id, search: (search) => ({ ...search, appModal: undefined }), replace: true });
+    navigate({ from: Route.id, search: (search) => ({ ...search, appModal: undefined }), replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({
