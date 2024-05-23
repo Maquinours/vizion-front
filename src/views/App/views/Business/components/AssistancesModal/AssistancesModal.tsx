@@ -20,7 +20,7 @@ export default function AppViewBusinessViewAssistancesModalComponent() {
   );
 
   const onClose = () => {
-    navigate({ search: { businessModal: undefined }, replace: true });
+    navigate({ search: { businessModal: undefined }, replace: true, resetScroll: false });
   };
 
   return (

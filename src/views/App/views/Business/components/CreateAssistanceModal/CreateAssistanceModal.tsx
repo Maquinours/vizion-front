@@ -19,7 +19,7 @@ export default function AppViewBusinessViewCreateAssistanceModalComponent() {
   const { data: business } = useSuspenseQuery(queries.businesses.detail._ctx.byId(businessId));
 
   const onClose = () => {
-    navigate({ search: { businessModal: undefined }, replace: true });
+    navigate({ search: { businessModal: undefined }, replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({

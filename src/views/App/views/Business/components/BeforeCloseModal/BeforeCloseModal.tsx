@@ -15,7 +15,7 @@ export default function AppViewBusinessViewBeforeCloseModalComponent() {
   const { businessModal } = routeApi.useSearch();
 
   const onClose = () => {
-    navigate({ search: (old) => ({ ...old, businessModal: undefined }), replace: true });
+    navigate({ search: (old) => ({ ...old, businessModal: undefined }), replace: true, resetScroll: false });
   };
 
   const onCreated = () => {
