@@ -19,7 +19,7 @@ export default function AppViewToolsViewProductFiltersViewDeleteModalView() {
   const { data: productFilter } = useSuspenseQuery(queries['product-filter'].detail._ctx.byId(productFilterId));
 
   const onClose = () => {
-    navigate({ to: '../..', search: (old) => old, replace: true });
+    navigate({ to: '../..', search: (old) => old, replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({
