@@ -17,7 +17,7 @@ export default function AppViewToolsViewSchedulerViewDetailsModalView() {
   const { data: rdv } = useSuspenseQuery(queries.rdvs.detail(rdvId));
 
   const onClose = () => {
-    navigate({ to: '../..', search: (old) => old });
+    navigate({ to: '../..', search: (old) => old, replace: true });
   };
 
   return (
