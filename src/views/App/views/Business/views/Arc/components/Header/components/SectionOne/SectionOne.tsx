@@ -94,7 +94,7 @@ export default function AppViewBusinessViewArcViewHeaderComponentSectionOneCompo
       queryClient.invalidateQueries({ queryKey: queries['all-businesses']._def });
       queryClient.setQueryData(queries['business-bps'].detail._ctx.byBusinessId(business.id).queryKey, data);
       toast.success('Le BP a été créé avec succès');
-      navigate({ to: '../bp' });
+      navigate({ to: '../bp', replace: true });
     },
     onError: (error) => {
       if (error.message === 'No details found') toast.warning("Veuillez ajouter des détails à l'ARC avant de passer en BP");
