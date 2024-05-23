@@ -26,10 +26,10 @@ const columns = [
     header: 'Actions',
     cell: ({ row: { original } }) => (
       <div>
-        <Link from={routeApi.id} to="update/$predefinedTextId" params={{ predefinedTextId: original.id }} search={(old) => old}>
+        <Link from={routeApi.id} to="update/$predefinedTextId" params={{ predefinedTextId: original.id }} search={(old) => old} replace>
           <BiEdit size={25} color="#31385A" />
         </Link>
-        <Link from={routeApi.id} to="delete/$predefinedTextId" params={{ predefinedTextId: original.id }} search={(old) => old}>
+        <Link from={routeApi.id} to="delete/$predefinedTextId" params={{ predefinedTextId: original.id }} search={(old) => old} replace>
           <FaTrash size={25} color="#F24C52" />
         </Link>
       </div>
