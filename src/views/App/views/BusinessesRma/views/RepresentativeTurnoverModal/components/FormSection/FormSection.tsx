@@ -36,11 +36,11 @@ export default function AppViewBusinessesRmaViewRepresentativeTurnoverModalViewF
   });
 
   const onSubmit = ({ year, month }: yup.InferType<typeof yupSchema>) => {
-    navigate({ search: (old) => ({ ...old, year, month }), replace: true });
+    navigate({ search: (old) => ({ ...old, year, month }), replace: true, resetScroll: false });
   };
 
   const onReset = () => {
-    navigate({ search: (old) => ({ ...old, year: undefined, month: undefined }), replace: true });
+    navigate({ search: (old) => ({ ...old, year: undefined, month: undefined }), replace: true, resetScroll: false });
   };
 
   const { mutate: excelExport, isPending: isExcelExporting } = useMutation({
