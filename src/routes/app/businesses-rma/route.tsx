@@ -96,6 +96,9 @@ export const Route = createFileRoute('/app/businesses-rma')({
       page,
       size,
     },
+    location: {
+      state: { qInfos },
+    },
   }) => {
     queryClient.prefetchQuery(
       queries['all-businesses'].page._ctx.search(
@@ -115,6 +118,7 @@ export const Route = createFileRoute('/app/businesses-rma')({
           startDate: dates?.at(0),
           endDate: dates?.at(1),
           excludedList: excludeds,
+          qInfos,
         },
         { page, size },
       ),
