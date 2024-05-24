@@ -25,6 +25,7 @@ export default function AppViewBusinessesRmaView() {
     state,
     dates,
     excludeds,
+    fuzzy,
     page,
     size,
   } = routeApi.useSearch();
@@ -49,6 +50,7 @@ export default function AppViewBusinessesRmaView() {
         startDate: dates?.at(0),
         endDate: dates?.at(1),
         excludedList: excludeds,
+        fuzzy,
         qInfos,
       },
       { page, size },

@@ -38,6 +38,7 @@ const yupSchema = yup.object().shape({
     .array()
     .of(yup.mixed<CategoryClient>().oneOf(Object.values(CategoryClient)).required())
     .required(),
+  fuzzy: yup.boolean().required(),
 });
 
 const STATE_OPTIONS = [
@@ -127,7 +128,7 @@ const CATEGORY_OPTIONS = [
 export default function AppViewBusinessesRmaViewSearchSectionComponent() {
   const navigate = useNavigate({ from: routeApi.id });
 
-  const { numOrder, name, contact, deliverPhoneNumber, zipCode, representative, installer, amounts, enterpriseName, state, dates, excludeds } =
+  const { numOrder, name, contact, deliverPhoneNumber, zipCode, representative, installer, amounts, enterpriseName, state, dates, excludeds, fuzzy } =
     routeApi.useSearch();
 
   const [showAmounts, setShowAmounts] = useState(false);
@@ -168,6 +169,7 @@ export default function AppViewBusinessesRmaViewSearchSectionComponent() {
       state,
       dates,
       excludeds,
+      fuzzy,
     }: yup.InferType<typeof yupSchema>) => {
       navigate({
         search: (old) => ({
@@ -185,6 +187,7 @@ export default function AppViewBusinessesRmaViewSearchSectionComponent() {
           state: state || undefined,
           dates: dates.every((date) => !!date) ? (dates as Array<Date>) : undefined,
           excludeds,
+          fuzzy,
           page: 0,
         }),
         state: (prev) => prev,
@@ -212,7 +215,8 @@ export default function AppViewBusinessesRmaViewSearchSectionComponent() {
         state: undefined,
         dates: undefined,
         excludeds: undefined,
-        page: 0,
+        fuzzy: undefined,
+        page: undefined,
       }),
       replace: true,
       resetScroll: false,
@@ -233,7 +237,8 @@ export default function AppViewBusinessesRmaViewSearchSectionComponent() {
     setValue('excludeds', excludeds);
     if (!!amounts) setValue('amounts', amounts);
     else resetField('amounts');
-  }, [numOrder, name, contact, deliverPhoneNumber, zipCode, installer, enterpriseName, state, dates, excludeds, amounts]);
+    setValue('fuzzy', fuzzy);
+  }, [numOrder, name, contact, deliverPhoneNumber, zipCode, installer, enterpriseName, state, dates, excludeds, amounts, fuzzy]);
 
   useEffect(() => {
     if (representatives) setValue('representative', representatives.find((rep) => rep.id === representative)?.id);
@@ -428,36 +433,44 @@ export default function AppViewBusinessesRmaViewSearchSectionComponent() {
           />
         </div>
         <div className={styles.search_buttons}>
-          {user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && (
-            <div className={styles.react_select}>
-              <Controller
-                control={control}
-                name="excludeds"
-                render={({ field: { onChange, value } }) => (
-                  <CustomSelect
-                    placeholder="Catégories à exclure"
-                    options={CATEGORY_OPTIONS}
-                    isMulti
-                    value={CATEGORY_OPTIONS.filter((opt) => value.some((val) => val === opt.value))}
-                    onChange={(e) => onChange(e.map((opt) => opt.value))}
-                    styles={{
-                      control: (styles) => ({
-                        ...styles,
-                        backgroundColor: '#f2f3f8',
-                        border: 1,
-                        color: 'black',
-                        minWidth: 300,
-                        '::placeholder': {
-                          ...styles['::placeholder'],
-                          color: 'red',
-                        },
-                      }),
-                    }}
-                  />
-                )}
-              />
+          <div className="flex items-center gap-3">
+            {user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && (
+              <div className={styles.react_select}>
+                <Controller
+                  control={control}
+                  name="excludeds"
+                  render={({ field: { onChange, value } }) => (
+                    <CustomSelect
+                      placeholder="Catégories à exclure"
+                      options={CATEGORY_OPTIONS}
+                      isMulti
+                      value={CATEGORY_OPTIONS.filter((opt) => value.some((val) => val === opt.value))}
+                      onChange={(e) => onChange(e.map((opt) => opt.value))}
+                      styles={{
+                        control: (styles) => ({
+                          ...styles,
+                          backgroundColor: '#f2f3f8',
+                          border: 1,
+                          color: 'black',
+                          minWidth: 300,
+                          '::placeholder': {
+                            ...styles['::placeholder'],
+                            color: 'red',
+                          },
+                        }),
+                      }}
+                    />
+                  )}
+                />
+              </div>
+            )}
+            <div className="flex gap-1">
+              <label htmlFor="fuzzy" className="font-['DIN2014'] text-sm">
+                Recherche floue
+              </label>
+              <input type="checkbox" id="fuzzy" {...register('fuzzy')} />
             </div>
-          )}
+          </div>
           <div>
             <button className="btn btn-primary-light" type="reset">
               RAZ

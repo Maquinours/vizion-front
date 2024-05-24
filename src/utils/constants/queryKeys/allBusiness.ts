@@ -52,6 +52,7 @@ export const allBusinesses = createQueryKeys('all-businesses', {
           state?: AllBusinessState | null;
           excludedList?: Array<CategoryClient> | null;
           qInfos?: Array<AllBusinessQInfoRequestDto> | null;
+          fuzzy: boolean;
         },
         pageData: { page: number; size: number },
       ) => ({
