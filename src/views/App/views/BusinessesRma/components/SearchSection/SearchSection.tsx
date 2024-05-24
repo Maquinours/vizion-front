@@ -187,6 +187,7 @@ export default function AppViewBusinessesRmaViewSearchSectionComponent() {
           excludeds,
           page: 0,
         }),
+        state: (prev) => prev,
         replace: true,
         resetScroll: false,
       });

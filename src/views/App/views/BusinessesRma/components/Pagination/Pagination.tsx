@@ -20,7 +20,12 @@ export default function AppViewBusinessesRmaViewPaginationComponent({ totalPages
       <select
         defaultValue={size}
         onChange={(e) =>
-          navigate({ search: (old) => ({ ...old, size: Number(e.target.value) as 20 | 30 | 40 | 50 | 100 | 150 | 200 }), replace: true, resetScroll: false })
+          navigate({
+            search: (old) => ({ ...old, size: Number(e.target.value) as 20 | 30 | 40 | 50 | 100 | 150 | 200 }),
+            state: (prev) => prev,
+            replace: true,
+            resetScroll: false,
+          })
         }
       >
         {sizeOptions.map((element, i) => (
