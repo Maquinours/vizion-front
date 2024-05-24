@@ -9,7 +9,5 @@ type AppViewProductsViewPaginationComponentProps = Readonly<{
 export default function AppViewProductsViewPaginationComponent({ totalPages }: AppViewProductsViewPaginationComponentProps) {
   const { page } = routeApi.useSearch();
 
-  return (
-    <PaginationComponent page={page} totalPages={totalPages} pageLink={(page) => ({ from: routeApi.id, search: (old) => ({ ...old, page }), params: {} })} />
-  );
+  return <PaginationComponent page={page} totalPages={totalPages} pageLink={(page) => ({ from: routeApi.id, search: (old) => ({ ...old, page }) })} />;
 }
