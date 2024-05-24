@@ -1,7 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useQuery } from '@tanstack/react-query';
 import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import ReactDatePicker from 'react-datepicker';
 import { Controller, useForm } from 'react-hook-form';
 import PhoneInput from 'react-phone-number-input/input';
@@ -198,30 +198,34 @@ export default function AppViewBusinessesRmaViewSearchSectionComponent() {
     [navigate],
   );
 
-  const onReset = useCallback(() => {
-    navigate({
-      search: (old) => ({
-        ...old,
-        number: undefined,
-        numOrder: undefined,
-        name: undefined,
-        contact: undefined,
-        deliverPhoneNumber: undefined,
-        zipCode: undefined,
-        representative: undefined,
-        installer: undefined,
-        amounts: undefined,
-        enterpriseName: undefined,
-        state: undefined,
-        dates: undefined,
-        excludeds: undefined,
-        fuzzy: undefined,
-        page: undefined,
-      }),
-      replace: true,
-      resetScroll: false,
-    });
-  }, [navigate]);
+  const onReset = useCallback(
+    (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      navigate({
+        search: (old) => ({
+          ...old,
+          number: undefined,
+          numOrder: undefined,
+          name: undefined,
+          contact: undefined,
+          deliverPhoneNumber: undefined,
+          zipCode: undefined,
+          representative: undefined,
+          installer: undefined,
+          amounts: undefined,
+          enterpriseName: undefined,
+          state: undefined,
+          dates: undefined,
+          excludeds: undefined,
+          fuzzy: undefined,
+          page: undefined,
+        }),
+        replace: true,
+        resetScroll: false,
+      });
+    },
+    [navigate],
+  );
 
   useEffect(() => {
     setValue('numOrder', numOrder);
@@ -249,7 +253,7 @@ export default function AppViewBusinessesRmaViewSearchSectionComponent() {
       <div className={styles._title}>
         <h5>Filtres</h5>
       </div>
-      <form onSubmit={handleSubmit(onSubmit)} onReset={() => onReset()}>
+      <form onSubmit={handleSubmit(onSubmit)} onReset={onReset}>
         <div className={styles.inputs_container}>
           <Controller
             control={control}
