@@ -116,7 +116,7 @@ const pageStyles = StyleSheet.create({
   },
   sectionThree: {
     display: 'flex',
-    flexDirection: 'row',
+    flexDirection: 'column',
     justifyContent: 'flex-start',
     width: '100%',
     paddingLeft: 10,

@@ -4,10 +4,12 @@ import styles from './ShowModal.module.scss';
 import { PDFViewer } from '@react-pdf/renderer';
 import AppViewToolsViewMailsViewUpdateModalViewPdfModalComponentPdfComponent from './components/Pdf/Pdf';
 import { UpdateMailFormType } from '../FormModal/FormModal';
+import MailPaperResponseDto from '../../../../../../../../../../utils/types/MailPaperResponseDto';
 
 type AppViewToolsViewMailsViewUpdateModalViewShowModalComponentProps = Readonly<{
   show: boolean;
-  mail: UpdateMailFormType | undefined;
+  mail: MailPaperResponseDto;
+  data: UpdateMailFormType | undefined;
   onClose: () => void;
   onSubmit: () => void;
   isPending: boolean;
@@ -15,6 +17,7 @@ type AppViewToolsViewMailsViewUpdateModalViewShowModalComponentProps = Readonly<
 export default function AppViewToolsViewMailsViewUpdateModalViewShowModalComponent({
   show,
   mail,
+  data,
   onClose,
   onSubmit,
   isPending,
@@ -23,14 +26,14 @@ export default function AppViewToolsViewMailsViewUpdateModalViewShowModalCompone
 
   return (
     <ReactModal isOpen={show} onRequestClose={onClose} className={styles.modal} overlayClassName="Overlay">
-      {show && !!mail && (
+      {show && !!data && (
         <div className={styles.modal_container}>
           <div className={styles.modal_title}>
             <h6>Votre courrier :</h6>
           </div>
           <div className={styles.modal_pdfviewer}>
             <PDFViewer showToolbar={false}>
-              <AppViewToolsViewMailsViewUpdateModalViewPdfModalComponentPdfComponent mail={mail} user={user} />
+              <AppViewToolsViewMailsViewUpdateModalViewPdfModalComponentPdfComponent mail={mail} data={data} user={user} />
             </PDFViewer>
           </div>
           <div className={styles.modal_footer}>

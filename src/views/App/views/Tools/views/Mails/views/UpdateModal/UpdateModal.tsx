@@ -68,7 +68,8 @@ export default function AppViewToolsViewMailsViewUpdateModalView() {
       <AppViewToolsViewMailsViewUpdateModalViewFormModalComponent show={step === 0} onClose={onClose} onSubmit={onFormSubmit} mail={mail} />
       <AppViewToolsViewMailsViewUpdateModalViewShowModalComponent
         show={step === 1}
-        mail={mailData}
+        mail={mail}
+        data={mailData}
         onClose={() => setStep(0)}
         onSubmit={() => mutate()}
         isPending={isPending}
