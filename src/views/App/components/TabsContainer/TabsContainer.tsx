@@ -72,7 +72,7 @@ const INITIAL_TABS: Array<InitialTab> = [
     route: {
       to: '/app/businesses-rma',
     },
-    allowedRoles: ['ROLE_MEMBRE_VIZEO'],
+    allowedRoles: ['ROLE_CLIENT', 'ROLE_DISTRIBUTEUR_VIZEO', 'ROLE_REPRESENTANT_VIZEO'],
   },
 ];
 
