@@ -21,12 +21,12 @@ export default function AppViewProductsViewSerialNumbersModalViewSearchSectionCo
   });
 
   const onSearch = ({ searchValue }: yup.InferType<typeof yupSchema>) => {
-    navigate({ from: routeApi.id, search: (old) => ({ ...old, serialNumbersSearch: searchValue, serialNumbersPage: 0 }) });
+    navigate({ from: routeApi.id, search: (old) => ({ ...old, serialNumbersSearch: searchValue || undefined, serialNumbersPage: undefined }) });
   };
 
   const onReset = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    navigate({ from: routeApi.id, search: (old) => ({ ...old, serialNumbersSearch: undefined, serialNumbersPage: 0 }) });
+    navigate({ from: routeApi.id, search: (old) => ({ ...old, serialNumbersSearch: undefined, serialNumbersPage: undefined }) });
   };
 
   useEffect(() => {
@@ -38,7 +38,7 @@ export default function AppViewProductsViewSerialNumbersModalViewSearchSectionCo
       <form onSubmit={handleSubmit(onSearch)} onReset={onReset}>
         <div className={styles.form_group}>
           <label htmlFor="searchValue">Nr de série ou Référence</label>
-          <input {...register('searchValue')} name="searchValue" id="searchValue" />
+          <input {...register('searchValue')} id="searchValue" />
         </div>
         <div className={styles.search_button}>
           <button className="btn btn-primary" type="submit">
