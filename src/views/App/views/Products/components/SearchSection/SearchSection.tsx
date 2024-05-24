@@ -26,12 +26,13 @@ export default function AppViewProductsViewSearchSectionComponent() {
       from: routeApi.id,
       search: (old) => ({ ...old, ref: ref || undefined, designation: designation || undefined, page: undefined }),
       replace: true,
+      resetScroll: false,
     });
   };
 
   const onReset = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    navigate({ from: routeApi.id, search: (old) => ({ ...old, ref: undefined, designation: undefined, page: undefined }), replace: true });
+    navigate({ from: routeApi.id, search: (old) => ({ ...old, ref: undefined, designation: undefined, page: undefined }), replace: true, resetScroll: false });
   };
 
   useEffect(() => {
