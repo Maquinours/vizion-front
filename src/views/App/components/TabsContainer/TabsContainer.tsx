@@ -1,14 +1,13 @@
 import { QueryClient, useQueryClient } from '@tanstack/react-query';
-import { Link, ToOptions, ToPathOption, useMatchRoute, useMatches, useNavigate } from '@tanstack/react-router';
+import { Link, ToOptions, ToPathOption, useMatchRoute, useNavigate, useRouterState } from '@tanstack/react-router';
 import { useLocalStorage } from '@uidotdev/usehooks';
 import React, { useCallback, useEffect, useMemo } from 'react';
 import { MdClose } from 'react-icons/md';
 import styles from './TabsContainer.module.scss';
 import { TabsContext } from './utils/contexts/context';
-// import { queries } from '../../../../utils/constants/queryKeys';
-import { useAuthentifiedUserQuery } from '../../utils/functions/getAuthentifiedUser';
-import { queries } from '../../../../utils/constants/queryKeys';
 import _ from 'lodash';
+import { queries } from '../../../../utils/constants/queryKeys';
+import { useAuthentifiedUserQuery } from '../../utils/functions/getAuthentifiedUser';
 
 type Tab = {
   id: string;
@@ -84,7 +83,7 @@ export default function AppViewTabsContainerComponent({ children }: AppViewTabsC
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const [tabs, setTabs] = useLocalStorage<Tab[]>('tabs', []);
-  const matches = useMatches();
+  const { matches, resolvedLocation } = useRouterState({ select: (state) => ({ matches: state.matches, resolvedLocation: state.resolvedLocation }) });
   const matchRoute = useMatchRoute();
 
   const { data: user } = useAuthentifiedUserQuery();
@@ -144,12 +143,16 @@ export default function AppViewTabsContainerComponent({ children }: AppViewTabsC
         )
       ).filter((tab) => !!tab) as Array<Tab>;
       setTabs((tabs) => {
+        initialTabs.forEach((tab, index, arr) => {
+          const existingTab = tabs.find((t) => t.id === tab.id);
+          if (existingTab) arr[index] = { ...tab, route: existingTab.route };
+        });
         const newTabs = tabs.filter((tab) => !tab.initial);
         newTabs.forEach((tab, index) => {
           const initialIndex = initialTabs.findIndex((t) => t.id === tab.id);
           if (initialIndex !== -1) initialTabs[index] = tab;
         });
-        return _.uniqBy([...initialTabs, ...newTabs], 'id');
+        return _.uniqBy([...initialTabs, ...newTabs].reverse(), 'id').reverse();
       });
     })();
   }, [user.userInfo.roles]);
@@ -160,7 +163,7 @@ export default function AppViewTabsContainerComponent({ children }: AppViewTabsC
         const title = match.staticData.title ?? (match.staticData.getTitle ? await match.staticData.getTitle(queryClient, match) : undefined);
         if (title) {
           const route = matches.at(-1)!;
-          const tabRoute = { to: route.routeId as ToPathOption, params: route.params, search: route.search };
+          const tabRoute = { to: route.routeId as ToPathOption, params: route.params, search: route.search, state: resolvedLocation.state };
           const tab: Tab = {
             id: match.pathname,
             name: title,
@@ -180,7 +183,7 @@ export default function AppViewTabsContainerComponent({ children }: AppViewTabsC
         }
       }
     })();
-  }, [matches]);
+  }, [resolvedLocation]);
 
   return (
     <TabsContext.Provider value={contextValue}>
