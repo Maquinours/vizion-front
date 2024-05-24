@@ -140,12 +140,13 @@ export default function AppViewBusinessesRmaViewSearchSectionComponent() {
     enabled: user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO'),
   });
 
-  const { register, control, setValue, resetField, handleSubmit } = useForm({
+  const { register, control, setValue, resetField, reset, handleSubmit } = useForm({
     resolver: yupResolver(yupSchema),
     defaultValues: {
       dates: [null, null],
       amounts: [0, 80_000],
-      excludeds: [],
+      excludeds: [CategoryClient.FOURNISSEUR],
+      fuzzy: true,
     },
   });
 
@@ -201,6 +202,7 @@ export default function AppViewBusinessesRmaViewSearchSectionComponent() {
   const onReset = useCallback(
     (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
+      reset();
       navigate({
         search: (old) => ({
           ...old,
@@ -224,7 +226,7 @@ export default function AppViewBusinessesRmaViewSearchSectionComponent() {
         resetScroll: false,
       });
     },
-    [navigate],
+    [reset, navigate],
   );
 
   useEffect(() => {

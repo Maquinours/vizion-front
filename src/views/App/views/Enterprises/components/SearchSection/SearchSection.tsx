@@ -73,8 +73,11 @@ export default function AppViewEnterprisesViewSearchSectionComponent() {
 
   const { enterprise, contact, zipCode, city, phoneNumber, category, representativeId, fuzzy } = Route.useSearch();
 
-  const { register, control, setValue, handleSubmit } = useForm({
+  const { register, control, setValue, reset, handleSubmit } = useForm({
     resolver: yupResolver(yupSchema),
+    defaultValues: {
+      fuzzy: true,
+    },
   });
 
   const { data: user } = useAuthentifiedUserQuery();
@@ -112,6 +115,7 @@ export default function AppViewEnterprisesViewSearchSectionComponent() {
   const onReset = useCallback(
     (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
+      reset();
       navigate({
         search: (old) => ({
           ...old,
@@ -130,7 +134,7 @@ export default function AppViewEnterprisesViewSearchSectionComponent() {
         resetScroll: false,
       });
     },
-    [navigate],
+    [reset, navigate],
   );
 
   useEffect(() => {
