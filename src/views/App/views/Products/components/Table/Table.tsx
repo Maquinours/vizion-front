@@ -21,7 +21,7 @@ const columns = [
   columnHelper.display({
     header: 'Référence',
     cell: ({ row: { original } }) => (
-      <Link from={routeApi.id} to="./$productId/informations" params={{ productId: original.id }} search={{ lifesheetPage: 0 }}>
+      <Link from={routeApi.id} to="$productId/informations" params={{ productId: original.id }}>
         {original.reference}
       </Link>
     ),
