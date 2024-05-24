@@ -21,12 +21,12 @@ export default function AppViewProductsViewSerialNumbersModalViewSearchSectionCo
   });
 
   const onSearch = ({ searchValue }: yup.InferType<typeof yupSchema>) => {
-    navigate({ from: routeApi.id, search: (old) => ({ ...old, serialNumbersSearch: searchValue || undefined, serialNumbersPage: undefined }) });
+    navigate({ from: routeApi.id, search: (old) => ({ ...old, serialNumbersSearch: searchValue || undefined, serialNumbersPage: undefined }), replace: true });
   };
 
   const onReset = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    navigate({ from: routeApi.id, search: (old) => ({ ...old, serialNumbersSearch: undefined, serialNumbersPage: undefined }) });
+    navigate({ from: routeApi.id, search: (old) => ({ ...old, serialNumbersSearch: undefined, serialNumbersPage: undefined }), replace: true });
   };
 
   useEffect(() => {

@@ -22,12 +22,16 @@ export default function AppViewProductsViewSearchSectionComponent() {
   });
 
   const onSubmit = ({ ref, designation }: yup.InferType<typeof yupSchema>) => {
-    navigate({ from: routeApi.id, search: (old) => ({ ...old, ref: ref || undefined, designation: designation || undefined, page: undefined }) });
+    navigate({
+      from: routeApi.id,
+      search: (old) => ({ ...old, ref: ref || undefined, designation: designation || undefined, page: undefined }),
+      replace: true,
+    });
   };
 
   const onReset = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    navigate({ from: routeApi.id, search: (old) => ({ ...old, ref: undefined, designation: undefined, page: undefined }) });
+    navigate({ from: routeApi.id, search: (old) => ({ ...old, ref: undefined, designation: undefined, page: undefined }), replace: true });
   };
 
   useEffect(() => {

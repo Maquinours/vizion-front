@@ -19,7 +19,7 @@ export default function AppViewProductsViewSerialNumbersModalView() {
   const { data, isLoading } = useQuery(queries['product-serial-numbers'].page({ page, size })._ctx.search(search));
 
   const onClose = () => {
-    navigate({ from: routeApi.id, to: '..', search: (old) => ({ ...old, serialNumbersPage: undefined, serialNumbersSearch: undefined }) });
+    navigate({ from: routeApi.id, to: '..', search: (old) => ({ ...old, serialNumbersPage: undefined, serialNumbersSearch: undefined }), replace: true });
   };
 
   return (
@@ -30,7 +30,7 @@ export default function AppViewProductsViewSerialNumbersModalView() {
             <div className={styles.buttons_container}>
               <AppViewProductsViewSerialNumbersModalViewSearchSectionComponent />
               <div className={styles.add_button}>
-                <Link from={routeApi.id} to="./create" search={(old) => old} className="btn btn-secondary">
+                <Link from={routeApi.id} to="create" search={(old) => old} replace className="btn btn-secondary">
                   Ajouter
                 </Link>
               </div>
