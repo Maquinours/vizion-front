@@ -65,12 +65,13 @@ const yupSchema = yup.object({
   phoneNumber: yup.string(),
   category: yup.mixed<CategoryClient>(),
   representativeId: yup.string(),
+  fuzzy: yup.boolean().required(),
 });
 
 export default function AppViewEnterprisesViewSearchSectionComponent() {
   const navigate = useNavigate({ from: Route.id });
 
-  const { enterprise, contact, zipCode, city, phoneNumber, category, representativeId } = Route.useSearch();
+  const { enterprise, contact, zipCode, city, phoneNumber, category, representativeId, fuzzy } = Route.useSearch();
 
   const { register, control, setValue, handleSubmit } = useForm({
     resolver: yupResolver(yupSchema),
@@ -86,7 +87,7 @@ export default function AppViewEnterprisesViewSearchSectionComponent() {
   );
 
   const onSubmit = useCallback(
-    ({ enterprise, contact, zipCode, city, phoneNumber, category, representativeId }: yup.InferType<typeof yupSchema>) => {
+    ({ enterprise, contact, zipCode, city, phoneNumber, category, representativeId, fuzzy }: yup.InferType<typeof yupSchema>) => {
       navigate({
         search: (old) => ({
           ...old,
@@ -97,6 +98,7 @@ export default function AppViewEnterprisesViewSearchSectionComponent() {
           phoneNumber: phoneNumber || undefined,
           category: category || undefined,
           representativeId: representativeId || undefined,
+          fuzzy,
           page: undefined,
           size: undefined,
         }),
@@ -120,6 +122,7 @@ export default function AppViewEnterprisesViewSearchSectionComponent() {
           phoneNumber: undefined,
           category: undefined,
           representativeId: undefined,
+          fuzzy: undefined,
           page: undefined,
           size: undefined,
         }),
@@ -138,7 +141,8 @@ export default function AppViewEnterprisesViewSearchSectionComponent() {
     setValue('phoneNumber', phoneNumber);
     setValue('category', category);
     setValue('representativeId', representativeId);
-  }, [setValue, enterprise, contact, zipCode, city, phoneNumber, category, representativeId]);
+    setValue('fuzzy', fuzzy);
+  }, [setValue, enterprise, contact, zipCode, city, phoneNumber, category, representativeId, fuzzy]);
 
   return (
     <div className={styles.container}>
@@ -148,10 +152,10 @@ export default function AppViewEnterprisesViewSearchSectionComponent() {
 
       <div className={styles.inputs}>
         <form onSubmit={handleSubmit(onSubmit)} onReset={onReset}>
-          <input placeholder="Entreprise/Enseigne" id="enterprise" {...register('enterprise')} />
-          <input placeholder="Contact/Agence" id="contact" {...register('contact')} />
-          <input placeholder="Code postal" id="zipCode" {...register('zipCode')} />
-          <input placeholder="Ville" id="city" {...register('city')} />
+          <input type="text" placeholder="Entreprise/Enseigne" id="enterprise" {...register('enterprise')} />
+          <input type="text" placeholder="Contact/Agence" id="contact" {...register('contact')} />
+          <input type="text" placeholder="Code postal" id="zipCode" {...register('zipCode')} />
+          <input type="text" placeholder="Ville" id="city" {...register('city')} />
           <Controller
             name="phoneNumber"
             control={control}
@@ -183,6 +187,12 @@ export default function AppViewEnterprisesViewSearchSectionComponent() {
               ))}
             </select>
           )}
+          <div className="flex items-center gap-1">
+            <label htmlFor="fuzzy" className="font-['DIN2014'] text-base text-[color:var(--primary-color)]">
+              Recherche floue
+            </label>
+            <input type="checkbox" id="fuzzy" {...register('fuzzy')} />
+          </div>
           <button type="submit" className="btn btn-secondary">
             Rechercher
           </button>
