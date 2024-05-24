@@ -465,7 +465,7 @@ export default function AppViewBusinessesRmaViewSearchSectionComponent() {
               </div>
             )}
             <div className="flex gap-1">
-              <label htmlFor="fuzzy" className="font-['DIN2014'] text-sm">
+              <label htmlFor="fuzzy" className="font-['DIN2014'] text-base text-[color:var(--primary-color)]">
                 Recherche floue
               </label>
               <input type="checkbox" id="fuzzy" {...register('fuzzy')} />
