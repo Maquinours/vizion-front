@@ -21,6 +21,7 @@ export default function CurrencyFormat({ value, defaultValue, prefix, displayTyp
       thousandSeparator=" "
       suffix=" €"
       decimalScale={2}
+      fixedDecimalScale
       defaultValue={defaultValue}
       prefix={prefix}
       onChange={onChange}

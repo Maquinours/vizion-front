@@ -1,5 +1,6 @@
 import { createFileRoute, redirect } from '@tanstack/react-router';
 import { queries } from '../../../../../../utils/constants/queryKeys';
+import LoaderModal from '../../../../../../components/LoaderModal/LoaderModal';
 
 export const Route = createFileRoute('/app/businesses-rma/business/$businessId/dashboard/update-billing-address')({
   beforeLoad: async ({ context: { queryClient }, params: { businessId } }) => {
@@ -10,4 +11,5 @@ export const Route = createFileRoute('/app/businesses-rma/business/$businessId/d
     if (!user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') || business.archived)
       throw redirect({ from: Route.id, to: '..', search: (old) => old, replace: true });
   },
+  pendingComponent: LoaderModal,
 });

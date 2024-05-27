@@ -121,6 +121,7 @@ export default function AppViewToolsViewSchedulerViewDetailsModalViewUpdateModal
       to: '..',
       search: (old) => ({ ...old, dates: undefined, isAllDay: undefined, oldParticipant: undefined, newParticipant: undefined }),
       replace: true,
+      resetScroll: false,
     });
   };
 

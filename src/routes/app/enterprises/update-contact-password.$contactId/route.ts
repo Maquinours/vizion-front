@@ -2,6 +2,7 @@ import { createFileRoute, redirect } from '@tanstack/react-router';
 import { queries } from '../../../../utils/constants/queryKeys';
 import { users } from '../../../../utils/constants/queryKeys/user';
 import CategoryClient from '../../../../utils/enums/CategoryClient';
+import LoaderModal from '../../../../components/LoaderModal/LoaderModal';
 
 export const Route = createFileRoute('/app/enterprises/update-contact-password/$contactId')({
   loader: async ({ context: { queryClient }, params: { contactId } }) => {
@@ -19,4 +20,5 @@ export const Route = createFileRoute('/app/enterprises/update-contact-password/$
     )
       throw redirect({ from: Route.id, to: '../..', search: (old) => old });
   },
+  pendingComponent: LoaderModal,
 });

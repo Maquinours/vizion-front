@@ -3,6 +3,7 @@ import { ddns } from '../../../../../utils/constants/queryKeys/ddns';
 import { QueryKey } from '@tanstack/react-query';
 import Page from '../../../../../utils/types/Page';
 import DnsEntryResponseDto from '../../../../../utils/types/DnsEntryResponseDto';
+import LoaderModal from '../../../../../components/LoaderModal/LoaderModal';
 
 export const Route = createFileRoute('/app/tools/ddns/delete/$ddnsId')({
   loader: async ({ context: { queryClient }, params: { ddnsId } }) => {
@@ -22,4 +23,5 @@ export const Route = createFileRoute('/app/tools/ddns/delete/$ddnsId')({
       initialDataUpdatedAt: () => (initialDataKey ? queryClient.getQueryState(initialDataKey)?.dataUpdatedAt : undefined),
     });
   },
+  pendingComponent: LoaderModal,
 });

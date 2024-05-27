@@ -29,11 +29,21 @@ const yupSchema = yup.object({
 });
 
 type CreateLifesheetModalComponentProps = Readonly<{
+  isOpen?: boolean;
   associatedItemType: LifesheetAssociatedItem;
   associatedItemId: string;
   onClose: () => void;
+  subtitle?: string;
+  onCreated?: () => void;
 }>;
-export default function CreateLifesheetModalComponent({ associatedItemType, associatedItemId, onClose }: CreateLifesheetModalComponentProps) {
+export default function CreateLifesheetModalComponent({
+  isOpen = true,
+  associatedItemType,
+  associatedItemId,
+  onClose,
+  subtitle,
+  onCreated,
+}: CreateLifesheetModalComponentProps) {
   const queryClient = useQueryClient();
 
   const [showPredefinedTexts, setShowPredefinedTexts] = useState(false);
@@ -108,7 +118,8 @@ export default function CreateLifesheetModalComponent({ associatedItemType, asso
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: lifesheets._def });
       toast.success('Commentaire de fiche de vie créée avec succès');
-      onClose();
+      if (onCreated) onCreated();
+      else onClose();
     },
     onError: (error) => {
       console.error(error);
@@ -117,14 +128,14 @@ export default function CreateLifesheetModalComponent({ associatedItemType, asso
   });
 
   return (
-    <ReactModal isOpen={true} onRequestClose={onClose} className={styles.modal} overlayClassName="Overlay">
+    <ReactModal isOpen={isOpen} onRequestClose={onClose} className={styles.modal} overlayClassName="Overlay">
       <div className={styles.modal_container}>
         <div className={styles.title_container}>
           <p>Fiche de vie</p>
         </div>
         <div className={styles.content}>
           <div className={styles.title}>
-            <p>Ajouter un commentaire dans la fiche de vie </p>
+            <p>{subtitle ?? 'Ajouter un commentaire dans la fiche de vie'}</p>
           </div>
           <div className={styles.button_container_container}>
             <div
@@ -148,7 +159,7 @@ export default function CreateLifesheetModalComponent({ associatedItemType, asso
             </div>
           </div>
 
-          <form onSubmit={handleSubmit((data) => mutate(data))}>
+          <form onSubmit={handleSubmit((data) => mutate(data))} onReset={() => onClose()}>
             <div className={styles.editor}>
               <Controller
                 control={control}
@@ -169,6 +180,7 @@ export default function CreateLifesheetModalComponent({ associatedItemType, asso
 
                   return (
                     <button
+                      type="button"
                       key={itm.id}
                       className={classNames(styles.member_card, {
                         [styles.isSelected]: isSelected,
@@ -207,10 +219,12 @@ export default function CreateLifesheetModalComponent({ associatedItemType, asso
             </div>
 
             <div className={styles.footer_buttons}>
-              <button className="btn btn-primary" onClick={() => onClose()}>
+              <button type="reset" className="btn btn-primary">
                 Annuler
               </button>
-              <button className="btn btn-secondary">Valider</button>
+              <button type="submit" className="btn btn-secondary">
+                Valider
+              </button>
             </div>
           </form>
         </div>

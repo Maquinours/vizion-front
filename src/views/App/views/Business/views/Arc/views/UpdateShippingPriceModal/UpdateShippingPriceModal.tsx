@@ -43,7 +43,7 @@ export default function AppViewBusinessViewArcViewUpdateShippingPriceModalView()
   });
 
   const onClose = () => {
-    navigate({ to: '../..', search: (old) => old, replace: true });
+    navigate({ to: '..', search: (old) => old, replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({
@@ -78,28 +78,28 @@ export default function AppViewBusinessViewArcViewUpdateShippingPriceModalView()
         <div className={styles.modal_title}>
           <h6>Frais de port</h6>
         </div>
-        <div className={styles.modal_content}>
-          <form>
+        <form onSubmit={handleSubmit((data) => mutate(data))} onReset={onClose}>
+          <div className={styles.modal_content}>
             <div className={styles.form_group}>
               <label htmlFor="shippingServicePrice">Frais de port</label>
               <input id="shippingServicePrice" type="number" {...register('shippingServicePrice')} />
               <p className={styles.__errors}>{errors.shippingServicePrice?.message}</p>
             </div>
-          </form>
-        </div>
+          </div>
 
-        <div className={styles.modal_loader}>
-          <PulseLoader color="#31385A" loading={isPending} className="" size={10} speedMultiplier={0.5} />
-        </div>
+          <div className={styles.modal_loader}>
+            <PulseLoader color="#31385A" loading={isPending} className="" size={10} speedMultiplier={0.5} />
+          </div>
 
-        <div className={styles.modal_buttons}>
-          <button className="btn btn-primary-light" onClick={onClose}>
-            Annuler
-          </button>
-          <button onClick={handleSubmit((data) => mutate(data))} disabled={isPending} className="btn btn-secondary">
-            Ajouter
-          </button>
-        </div>
+          <div className={styles.modal_buttons}>
+            <button type="reset" className="btn btn-primary-light">
+              Annuler
+            </button>
+            <button type="submit" disabled={isPending} className="btn btn-secondary">
+              Ajouter
+            </button>
+          </div>
+        </form>
       </div>
     </ReactModal>
   );

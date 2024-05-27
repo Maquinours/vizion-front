@@ -9,7 +9,7 @@ export default function AppViewEnterpriseViewUpdateContactPasswordView() {
   const { contactId } = Route.useParams();
 
   const onClose = () => {
-    navigate({ from: Route.id, to: '../..', search: (old) => old });
+    navigate({ from: Route.id, to: '../..', search: (old) => old, replace: true, resetScroll: false });
   };
 
   return <UpdateContactPasswordModalComponent contactId={contactId} onClose={onClose} />;

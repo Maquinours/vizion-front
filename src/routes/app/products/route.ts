@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router';
+import { SearchSchemaInput, createFileRoute } from '@tanstack/react-router';
 import { z } from 'zod';
 import { queries } from '../../../utils/constants/queryKeys';
 
@@ -9,7 +9,7 @@ const searchSchema = z.object({
 });
 
 export const Route = createFileRoute('/app/products')({
-  validateSearch: searchSchema,
+  validateSearch: (data: { designation?: string; ref?: string; page?: number } & SearchSchemaInput) => searchSchema.parse(data),
   loaderDeps: ({ search: { designation, ref, page } }) => ({ designation, ref, page, size: 20 }),
   loader: ({ context: { queryClient }, deps: { designation, ref, page, size } }) => {
     queryClient.prefetchQuery(queries.product.page({ page, size })._ctx.search({ designation, ref }));

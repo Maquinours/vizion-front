@@ -52,7 +52,7 @@ export default function AppViewToolsViewProductInventoryViewUpdateModalView() {
   });
 
   const onClose = () => {
-    navigate({ to: '../..', search: (old) => old, replace: true });
+    navigate({ to: '../..', search: (old) => old, replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({

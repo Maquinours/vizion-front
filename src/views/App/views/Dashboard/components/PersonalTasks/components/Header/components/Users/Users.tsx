@@ -26,6 +26,7 @@ export default function AppViewDashboardViewPersonalTasksComponentHeaderComponen
             search={(old) => ({ ...old, otherPersonalTaskState: TaskState.CREATED, otherPersonalTaskSize: 10, otherPersonalTaskPage: 0 })}
             params={{ profileId: member.id }}
             replace
+            resetScroll={false}
             className={styles.tag_tooltip}
           >
             {member.firstName?.charAt(0).toUpperCase()}

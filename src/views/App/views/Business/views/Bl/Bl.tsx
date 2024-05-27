@@ -20,7 +20,11 @@ export default function AppViewBusinessViewBlView() {
         <AppViewBusinessViewBlViewHeaderComponent />
         <AppViewBusinessViewBlViewBodyComponent />
         <div>
-          <PaginationComponent page={page} totalPages={bls.length} pageLink={(page) => ({ search: (old) => ({ ...old, page }) })} />
+          <PaginationComponent
+            page={page}
+            totalPages={bls.length}
+            pageLink={(page) => ({ from: routeApi.id, search: (old) => ({ ...old, page }), replace: true, resetScroll: false })}
+          />
         </div>
       </div>
       <Outlet />

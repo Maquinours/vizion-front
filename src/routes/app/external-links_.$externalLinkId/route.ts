@@ -3,6 +3,7 @@ import { externalLinks } from '../../../utils/constants/queryKeys/externalLink';
 import Page from '../../../utils/types/Page';
 import ExternalLinkResponseDto from '../../../utils/types/ExternalLinkResponseDto';
 import { QueryKey } from '@tanstack/react-query';
+import { queries } from '../../../utils/constants/queryKeys';
 
 export const Route = createFileRoute('/app/external-links/$externalLinkId')({
   loader: async ({ context: { queryClient }, params: { externalLinkId } }) => {
@@ -20,5 +21,11 @@ export const Route = createFileRoute('/app/external-links/$externalLinkId')({
       },
       initialDataUpdatedAt: () => (initialDataKey ? queryClient.getQueryState(initialDataKey)?.dataUpdatedAt : undefined),
     });
+  },
+  staticData: {
+    getTitle: (queryClient, match) =>
+      queryClient
+        .ensureQueryData(queries['external-link'].detail._ctx.byId((match.params as { externalLinkId: string }).externalLinkId))
+        .then((externalLink) => externalLink.title),
   },
 });

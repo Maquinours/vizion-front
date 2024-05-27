@@ -1,5 +1,5 @@
-import { useMutation, useSuspenseQuery } from '@tanstack/react-query';
-import { getRouteApi } from '@tanstack/react-router';
+import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
+import { getRouteApi, useNavigate } from '@tanstack/react-router';
 import { queries } from '../../../../../../../../utils/constants/queryKeys';
 import BusinessState from '../../../../../../../../utils/enums/BusinessState';
 import { createBusinessBill } from '../../../../../../../../utils/api/businessBill';
@@ -9,6 +9,9 @@ import styles from './Header.module.scss';
 const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/bl');
 
 export default function AppViewBusinessViewBlViewHeaderComponent() {
+  const queryClient = useQueryClient();
+  const navigate = useNavigate({ from: routeApi.id });
+
   const { businessId } = routeApi.useParams();
 
   const { data: business } = useSuspenseQuery(queries.businesses.detail._ctx.byId(businessId));
@@ -20,9 +23,10 @@ export default function AppViewBusinessViewBlViewHeaderComponent() {
         numOrder: business.numOrder,
         businessId: business.id,
       }),
-    onSuccess: () => {
+    onSuccess: (bill) => {
+      queryClient.setQueryData(queries['business-bills'].list._ctx.byBusinessId(business.id).queryKey, bill);
       toast.success('Facture créée avec succès');
-      // set query data and navigate to bill
+      navigate({ to: '../bill', replace: true });
     },
     onError: (error) => {
       console.error(error);
@@ -36,7 +40,7 @@ export default function AppViewBusinessViewBlViewHeaderComponent() {
         <span>{business.enterpriseName}</span> / <span>{business.title}</span>
       </div>
       {!business.archived && business.state === BusinessState.BL && (
-        <button className="btn btn-secondary" onClick={() => createBill()}>
+        <button disabled={isCreatingBill} className="btn btn-secondary" onClick={() => createBill()}>
           {isCreatingBill ? 'Edition de la facture...' : 'Editer Facture'}
         </button>
       )}

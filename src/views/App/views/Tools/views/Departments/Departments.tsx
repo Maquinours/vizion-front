@@ -21,10 +21,10 @@ const columns = [
     header: 'Actions',
     cell: ({ row: { original } }) => (
       <div className={styles.action_buttons}>
-        <Link from={routeApi.id} to="update/$departmentId" params={{ departmentId: original.id }} search={(old) => old}>
+        <Link from={routeApi.id} to="update/$departmentId" params={{ departmentId: original.id }} search={(old) => old} replace resetScroll={false}>
           <HiPencilAlt width="18" height="18" color="#31385A" />
         </Link>
-        <Link from={routeApi.id} to="delete/$departmentId" params={{ departmentId: original.id }} search={(old) => old}>
+        <Link from={routeApi.id} to="delete/$departmentId" params={{ departmentId: original.id }} search={(old) => old} replace resetScroll={false}>
           <FaTrash width="18" height="18" color="#F24C52" />
         </Link>
       </div>
@@ -42,7 +42,7 @@ export default function AppViewToolsViewDepartmentsView() {
       <div className={styles.container}>
         <div className={styles.content}>
           <div className={styles.buttons_container}>
-            <Link from={routeApi.id} to="create" search={(old) => old} className="btn btn-secondary">
+            <Link from={routeApi.id} to="create" search={(old) => old} replace resetScroll={false} className="btn btn-secondary">
               Ajouter
             </Link>
           </div>
@@ -51,7 +51,11 @@ export default function AppViewToolsViewDepartmentsView() {
             <TableComponent columns={columns} data={data?.content} isLoading={isLoading} />
           </div>
           <div className={styles.pagination}>
-            <PaginationComponent page={page} totalPages={data?.totalPages} pageLink={(page) => ({ search: (old) => ({ ...old, page }) })} />
+            <PaginationComponent
+              page={page}
+              totalPages={data?.totalPages}
+              pageLink={(page) => ({ search: (old) => ({ ...old, page }), replace: true, resetScroll: false })}
+            />
           </div>
         </div>
       </div>

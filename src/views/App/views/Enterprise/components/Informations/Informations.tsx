@@ -20,7 +20,7 @@ export default function AppViewEnterpriseViewInformationsComponent({ enterprise 
         currentUser.userInfo.roles.some(
           (role) => ['ROLE_MEMBRE_VIZEO', 'ROLE_REPRESENTANT'].includes(role) && !currentUser.userInfo.roles.includes('ROLE_STAGIAIRE_VIZEO'),
         )
-          ? { to: '/app/enterprises/$enterpriseId/update', params: { enterpriseId: enterprise.id }, search: (old) => old }
+          ? { to: '/app/enterprises/$enterpriseId/update', params: { enterpriseId: enterprise.id }, search: (old) => old, replace: true }
           : undefined
       }
     >
@@ -54,7 +54,7 @@ export default function AppViewEnterpriseViewInformationsComponent({ enterprise 
             {currentUser.userInfo.roles.some(
               (role) => ['ROLE_MEMBRE_VIZEO', 'ROLE_REPRESENTANT'].includes(role) && !currentUser.userInfo.roles.includes('ROLE_STAGIAIRE_VIZEO'),
             ) && (
-              <Link from={Route.id} to="./update-accountability" params={{ enterpriseId: enterprise.id }} search={(old) => old}>
+              <Link from={Route.id} to="./update-accountability" params={{ enterpriseId: enterprise.id }} search={(old) => old} replace resetScroll={false}>
                 <HiPencilAlt className={styles.icon} />
               </Link>
             )}

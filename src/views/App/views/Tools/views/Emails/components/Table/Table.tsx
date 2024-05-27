@@ -1,10 +1,11 @@
-import { createColumnHelper } from '@tanstack/react-table';
+import { Row, createColumnHelper } from '@tanstack/react-table';
 import MailResponseDto from '../../../../../../../../utils/types/MailResponseDto';
 import { formatDateAndHourWithSlash } from '../../../../../../../../utils/functions/dates';
 import { PUBLIC_BASE_URL } from '../../../../../../../../utils/constants/api';
 import TableComponent from '../../../../../../../../components/Table/Table';
 import styles from './Table.module.scss';
-import { Link, getRouteApi } from '@tanstack/react-router';
+import { Link, getRouteApi, useNavigate } from '@tanstack/react-router';
+import { useCallback } from 'react';
 
 const routeApi = getRouteApi('/app/tools/emails');
 
@@ -31,7 +32,17 @@ const columns = [
   columnHelper.display({
     header: 'Objet',
     cell: ({ row: { original } }) => (
-      <Link from={routeApi.id} to="./$emailId" params={{ emailId: original.id }} search={(old) => old}>
+      <Link
+        from={routeApi.id}
+        to="$emailId"
+        params={{ emailId: original.id }}
+        search={(old) => old}
+        replace
+        resetScroll={false}
+        onClick={(e) => {
+          e.stopPropagation();
+        }}
+      >
         {original.subject}
       </Link>
     ),
@@ -40,24 +51,40 @@ const columns = [
     header: 'Pièces jointes',
     cell: ({ row: { original } }) =>
       original.pjList.length > 0 && (
-        <ul>
+        <div className="flex flex-col gap-y-1">
           {original.pjList.map((item) => (
-            <li key={item.id} style={{ marginBottom: '5px', cursor: 'pointer' }}>
-              <a href={`${PUBLIC_BASE_URL}mail/v1/download-file/${item.name}?ref=${original.id}`} target="_blank" rel="noopener noreferrer">
-                {item.name}
-              </a>
-            </li>
+            <a
+              href={`${PUBLIC_BASE_URL}mail/v1/download-file/${item.name}?ref=${original.id}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-600 underline visited:text-purple-600 hover:text-blue-800"
+              onClick={(e) => {
+                e.stopPropagation();
+              }}
+            >
+              {item.name}
+            </a>
           ))}
-        </ul>
+        </div>
       ),
   }),
 ];
 
 type AppViewToolsViewEmailsViewTableComponentProps = Readonly<{ isLoading: boolean; data: Array<MailResponseDto> | undefined }>;
 export default function AppViewToolsViewEmailsViewTableComponent({ isLoading, data }: AppViewToolsViewEmailsViewTableComponentProps) {
+  const navigate = useNavigate({ from: routeApi.id });
+
+  const onRowClick = useCallback(
+    (e: React.MouseEvent, row: Row<MailResponseDto>) => {
+      if (e.metaKey || e.ctrlKey) window.open(`${window.location.origin}/app/tools/emails/${row.original.id}`, '_blank');
+      else navigate({ from: routeApi.id, to: '$emailId', params: { emailId: row.original.id }, search: (old) => old, replace: true, resetScroll: false });
+    },
+    [navigate],
+  );
+
   return (
     <div className={styles.table_container}>
-      <TableComponent columns={columns} data={data} isLoading={isLoading} />
+      <TableComponent columns={columns} data={data} isLoading={isLoading} onRowClick={onRowClick} />
     </div>
   );
 }

@@ -23,7 +23,7 @@ export default function AppViewBusinessesRmaViewRepresentativeTurnoverModalView(
   );
 
   const onClose = () => {
-    navigate({ to: '..', search: (old) => ({ ...old, year: undefined, month: undefined }) });
+    navigate({ to: '..', search: (old) => ({ ...old, year: undefined, month: undefined }), state: (prev) => prev, replace: true, resetScroll: false });
   };
 
   return (

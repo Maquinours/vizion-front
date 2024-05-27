@@ -3,6 +3,7 @@ import { queries } from '../../../../../../utils/constants/queryKeys';
 import BillType from '../../../../../../utils/enums/BillType';
 import { pdf } from '@react-pdf/renderer';
 import AppViewBusinessViewBillViewPdfComponent from '../../../../../../views/App/views/Business/views/Bill/components/Pdf/Pdf';
+import LoaderModal from '../../../../../../components/LoaderModal/LoaderModal';
 
 export const Route = createFileRoute('/app/businesses-rma/business/$businessId/bill/send-by-email')({
   loader: async ({ context: { queryClient }, params: { businessId } }) => {
@@ -24,4 +25,5 @@ export const Route = createFileRoute('/app/businesses-rma/business/$businessId/b
 
     return { business, bill, file, enterprise };
   },
+  pendingComponent: LoaderModal,
 });

@@ -5,85 +5,78 @@ import React, { useMemo } from 'react';
 import { useAuthentifiedUserQuery } from '../../utils/functions/getAuthentifiedUser';
 import { MdGroup, MdGroups, MdSell, MdQuestionAnswer, MdBusinessCenter, MdBuild } from 'react-icons/md';
 import { IconType } from 'react-icons/lib';
+import ProfileInfoResponseDto from '../../../../utils/types/ProfileInfoResponseDto';
 
 const Route = getRouteApi('/app');
 
 type MenuItem = {
   icon: IconType;
   label: string;
-  route: LinkProps;
+  route: LinkProps | ((authentifiedUser: ProfileInfoResponseDto) => LinkProps);
   allowedRoles?: string[];
 };
+
+const MENUS: Array<MenuItem> = [
+  {
+    icon: MdBusinessCenter,
+    label: 'Affaires',
+    route: {
+      to: '/app/businesses-rma',
+    },
+  },
+  {
+    icon: MdGroup,
+    label: 'Mon entreprise',
+    route: (authentifiedUser) => ({
+      to: '/app/enterprises/$enterpriseId',
+      params: { enterpriseId: authentifiedUser.profile.enterprise!.id },
+    }),
+    allowedRoles: ['ROLE_CLIENT'],
+  },
+  {
+    icon: MdSell,
+    label: 'Produits',
+    route: {
+      to: '/app/products',
+    },
+  },
+  {
+    icon: MdGroups,
+    label: 'Entreprises',
+    route: {
+      to: '/app/enterprises',
+    },
+    allowedRoles: ['ROLE_MEMBRE_VIZEO', 'ROLE_REPRESENTANT', 'ROLE_DISTRIBUTEUR'],
+  },
+  {
+    icon: MdQuestionAnswer,
+    label: 'FAQ',
+    route: {
+      to: '/app/faq',
+    },
+  },
+  {
+    icon: MdBuild,
+    label: 'Outils',
+    route: {
+      to: '/app/tools/menu',
+    },
+    allowedRoles: ['ROLE_MEMBRE_VIZEO'],
+  },
+];
 
 export default function AppViewFooterComponent() {
   const { mobileSidebar } = Route.useSearch();
 
   const { data: authentifiedUser } = useAuthentifiedUserQuery();
 
-  const MENUS: Array<MenuItem> = useMemo(
-    () => [
-      {
-        icon: MdBusinessCenter,
-        label: 'Affaires',
-        route: {
-          to: '/app/businesses-rma',
-          search: {},
-          params: {},
-        },
-      },
-      {
-        icon: MdGroup,
-        label: 'Mon entreprise',
-        route: {
-          to: '/app/enterprises/$enterpriseId',
-          search: {},
-          params: { entepriseId: authentifiedUser.profile.enterprise!.id },
-        },
-        allowedRoles: ['ROLE_CLIENT'],
-      },
-      {
-        icon: MdSell,
-        label: 'Produits',
-        route: {
-          to: '/app/products',
-          search: {},
-          params: {},
-        },
-      },
-      {
-        icon: MdGroups,
-        label: 'Entreprises',
-        route: {
-          to: '/app/enterprises',
-          search: {},
-          params: {},
-        },
-        allowedRoles: ['ROLE_MEMBRE_VIZEO', 'ROLE_REPRESENTANT', 'ROLE_DISTRIBUTEUR'],
-      },
-      {
-        icon: MdQuestionAnswer,
-        label: 'FAQ',
-        route: {
-          to: '/app/faq',
-          search: {},
-          params: {},
-        },
-      },
-      {
-        icon: MdBuild,
-        label: 'Outils',
-        route: {
-          to: '/app/tools/menu',
-        },
-        allowedRoles: ['ROLE_MEMBRE_VIZEO'],
-      },
-    ],
-    [authentifiedUser.profile.enterprise],
-  );
-
   const menus = useMemo(
-    () => MENUS.filter((menu) => !menu.allowedRoles || menu.allowedRoles.some((role) => authentifiedUser.userInfo.roles.includes(role))),
-    [MENUS, authentifiedUser.userInfo.roles],
+    () =>
+      MENUS.filter((menu) => !menu.allowedRoles || menu.allowedRoles.some((role) => authentifiedUser.userInfo.roles.includes(role))).map((menu) => ({
+        ...menu,
+        route: typeof menu.route === 'function' ? menu.route(authentifiedUser) : menu.route,
+      })),
+    [MENUS, authentifiedUser],
   );
 
   return (

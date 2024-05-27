@@ -1,161 +1,213 @@
-import { useQueryClient } from '@tanstack/react-query';
-import { Link, LinkProps, useMatchRoute, useMatches, useNavigate } from '@tanstack/react-router';
+import { QueryClient, useQueryClient } from '@tanstack/react-query';
+import { Link, ToOptions, ToPathOption, useMatchRoute, useNavigate, useRouterState } from '@tanstack/react-router';
 import { useLocalStorage } from '@uidotdev/usehooks';
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 import { MdClose } from 'react-icons/md';
-import { queries } from '../../../../utils/constants/queryKeys';
 import styles from './TabsContainer.module.scss';
+import { TabsContext } from './utils/contexts/context';
+import _ from 'lodash';
+import { queries } from '../../../../utils/constants/queryKeys';
+import { useAuthentifiedUserQuery } from '../../utils/functions/getAuthentifiedUser';
 
 type Tab = {
   id: string;
   name: string;
-  route: LinkProps;
+  route: ToOptions;
   closable?: boolean;
+  closeRoute?: ToOptions;
+  initial?: boolean;
 };
 
-// const INITIAL_TABS = [
-//   {
-//     name: 'Tableau de bord',
-//     route: {
-//       to: '/app/dashboard',
-//     },
-//     allowedRoles: ['ROLE_MEMBRE_VIZEO'],
-//     closable: false,
-//   },
-//   {
-//     name: 'Agenda',
-//     route: {
-//       to: '/app/tools/scheduler',
-//     },
-//     allowedRoles: ['ROLE_MEMBRE_VIZEO'],
-//     closable: false,
-//   },
-//   {
-//     name: 'Mails',
-//     route: {
-//       to: '/app/tools/emails',
-//     },
-//     allowedRoles: ['ROLE_MEMBRE_VIZEO'],
-//     closable: false,
-//   },
-//   {
-//     name: 'bd.vizeo.eu',
-//     route: {
-//       to: '/app/external-links/$externalLinkId',
-//       params: {
-//         externalLinkId: '39f7ca22-7986-4438-93c9-fbe88d7fc7ea',
-//       },
-//     },
-//     closable: false,
-//   },
-//   {
-//     name: 'Chat Vizeo',
-//     route: {
-//       to: '/app/external-links/$externalLinkId',
-//       params: {
-//         externalLinkId: '6c5c8543-1d10-4d9d-a962-30a5335a9bb5',
-//       },
-//     },
-//     allowedRoles: ['ROLE_MEMBRE_VIZEO'],
-//     closable: false,
-//   },
-//   {
-//     name: 'État des mails',
-//     route: {
-//       to: '/app/external-links/$externalLinkId',
-//       params: {
-//         externalLinkId: '8c067418-6514-454c-8462-841204eeaaaf',
-//       },
-//     },
-//     allowedRoles: ['ROLE_MEMBRE_VIZEO'],
-//     closable: false,
-//   },
-//   {
-//     name: 'Tableau des affaires',
-//     route: {
-//       to: '/app/businesses-rma',
-//     },
-//     allowedRoles: ['ROLE_MEMBRE_VIZEO'],
-//     closable: false,
-//   },
-// ];
+type InitialTab = {
+  name: string;
+  route?: ToOptions;
+  getRoute?: (queryClient: QueryClient) => Promise<ToOptions>;
+  allowedRoles?: Array<string>;
+};
 
-export default function AppViewTabsContainerComponent() {
+const getExternalLinkInitialTab = (name: string, allowedRoles?: Array<string>): InitialTab => {
+  return {
+    name,
+    getRoute: async (queryClient: QueryClient): Promise<ToOptions> => {
+      const externalLink = (await queryClient.ensureQueryData(queries['external-link'].list._ctx.byArchiveState(false))).find(({ title }) => title === name);
+      if (!externalLink) throw Error(`Impossible de trouver le lien externe ${name}`);
+      return {
+        to: '/app/external-links/$externalLinkId',
+        params: {
+          externalLinkId: externalLink.id,
+        },
+      };
+    },
+    allowedRoles,
+  };
+};
+
+const INITIAL_TABS: Array<InitialTab> = [
+  {
+    name: 'Tableau de bord',
+    route: {
+      to: '/app/dashboard',
+    },
+    allowedRoles: ['ROLE_MEMBRE_VIZEO'],
+  },
+  {
+    name: 'Agenda',
+    route: {
+      to: '/app/tools/scheduler',
+    },
+    allowedRoles: ['ROLE_MEMBRE_VIZEO'],
+  },
+  {
+    name: 'Emails',
+    route: {
+      to: '/app/tools/emails',
+    },
+    allowedRoles: ['ROLE_MEMBRE_VIZEO'],
+  },
+  getExternalLinkInitialTab('bd.vizeo.eu'),
+  getExternalLinkInitialTab('Chat Vizeo', ['ROLE_MEMBRE_VIZEO']),
+  getExternalLinkInitialTab('État des mails envoyés', ['ROLE_MEMBRE_VIZEO']),
+  {
+    name: 'Tableau des affaires',
+    route: {
+      to: '/app/businesses-rma',
+    },
+    allowedRoles: ['ROLE_CLIENT', 'ROLE_DISTRIBUTEUR_VIZEO', 'ROLE_REPRESENTANT_VIZEO'],
+  },
+];
+
+type AppViewTabsContainerComponentProps = Readonly<{
+  children: React.ReactNode;
+}>;
+export default function AppViewTabsContainerComponent({ children }: AppViewTabsContainerComponentProps) {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const [tabs, setTabs] = useLocalStorage<Tab[]>('tabs', []);
-  const matches = useMatches();
+  const { matches, resolvedLocation } = useRouterState({ select: (state) => ({ matches: state.matches, resolvedLocation: state.resolvedLocation }) });
   const matchRoute = useMatchRoute();
 
-  const onCloseTab = (e: React.MouseEvent, tab: Tab, index: number) => {
-    e.preventDefault();
-    e.stopPropagation();
-    e.nativeEvent.stopImmediatePropagation();
-    setTabs((tabs) => {
-      if (matchRoute({ to: tab.route.to })) navigate(tabs.at(Math.max(index - 1, 0))?.route ?? { to: '/app' });
-      const newTabs = [...tabs];
-      newTabs.splice(index, 1);
-      return newTabs;
-    });
-  };
+  const { data: user } = useAuthentifiedUserQuery();
+
+  const removeTab = useCallback(
+    (tabId?: string) => {
+      setTabs((tabs) => {
+        const tabIndex = tabId ? tabs.findIndex((tab) => tab.id === tabId) : tabs.findIndex((tab) => matchRoute({ to: tab.route.to }));
+        if (tabIndex !== -1) {
+          const tab = tabs[tabIndex];
+          if (matchRoute({ to: tab.route.to })) navigate(tabs.at(Math.max(tabIndex - 1, 0))?.route ?? { to: '/app' });
+
+          const newTabs = [...tabs];
+          newTabs.splice(tabIndex, 1);
+          return newTabs;
+        }
+        return tabs; // if we can't remove, then we return the initial array
+      });
+    },
+    [matchRoute, navigate, setTabs],
+  );
+
+  const onCloseTab = useCallback(
+    (e: React.MouseEvent, tab: Tab) => {
+      e.preventDefault();
+      e.stopPropagation();
+      e.nativeEvent.stopImmediatePropagation();
+      if (tab.closeRoute) navigate(tab.closeRoute);
+      else removeTab(tab.id);
+    },
+    [removeTab],
+  );
+
+  const contextValue = useMemo(() => ({ removeTab }), [removeTab]);
+
+  useEffect(() => {
+    (async () => {
+      const initialTabs = (
+        await Promise.all(
+          INITIAL_TABS.filter((tab) => !tab.allowedRoles || tab.allowedRoles.some((role) => user.userInfo.roles.includes(role))).map(async (tab) => {
+            try {
+              const route = tab.route ? tab.route : tab.getRoute ? await tab.getRoute(queryClient) : undefined;
+              if (!route) throw new Error('Unable to retrieve tab route');
+              let id: string = route.to!;
+              if (typeof route.params === 'object') for (const [key, value] of Object.entries(route.params)) id = id.replace(`$${key}`, value);
+              return {
+                id,
+                name: tab.name,
+                route,
+                initial: true,
+                closable: false,
+              };
+            } catch (err) {
+              console.error(err);
+            }
+          }),
+        )
+      ).filter((tab) => !!tab) as Array<Tab>;
+      setTabs((tabs) => {
+        initialTabs.forEach((tab, index, arr) => {
+          const existingTab = tabs.find((t) => t.id === tab.id);
+          if (existingTab) arr[index] = { ...tab, route: existingTab.route };
+        });
+        const newTabs = tabs.filter((tab) => !tab.initial);
+        newTabs.forEach((tab, index) => {
+          const initialIndex = initialTabs.findIndex((t) => t.id === tab.id);
+          if (initialIndex !== -1) initialTabs[index] = tab;
+        });
+        return _.uniqBy([...initialTabs, ...newTabs].reverse(), 'id').reverse();
+      });
+    })();
+  }, [user.userInfo.roles]);
 
   useEffect(() => {
     (async () => {
       for (const match of [...matches].reverse()) {
-        const title = await (async () => {
-          switch (match.routeId) {
-            case '/app/enterprises/$enterpriseId':
-              return (await queryClient.ensureQueryData(queries.enterprise.detail((match.params as { enterpriseId: string }).enterpriseId))).name;
-            case '/app/products/$productId':
-              return (
-                (await queryClient.ensureQueryData(queries.product.detail((match.params as { productId: string }).productId))).reference ?? 'Produit inconnu'
-              );
-            case '/app/businesses-rma/business/$businessId':
-              const business = await queryClient.ensureQueryData(queries.businesses.detail._ctx.byId((match.params as { businessId: string }).businessId));
-              return `Affaire (${business.numBusiness})`;
-            case '/app/external-links/$externalLinkId':
-              return (await queryClient.ensureQueryData(queries['external-link'].detail._ctx.byId((match.params as { externalLinkId: string }).externalLinkId)))
-                .title;
-            default:
-              return match.staticData.title;
-          }
-        })();
+        const title = match.staticData.title ?? (match.staticData.getTitle ? await match.staticData.getTitle(queryClient, match) : undefined);
         if (title) {
           const route = matches.at(-1)!;
-          const tab = { id: match.routeId, name: title, route: { to: route.routeId, params: route.params, search: route.search } as LinkProps };
+          const tabRoute = { to: route.routeId as ToPathOption, params: route.params, search: route.search, state: resolvedLocation.state };
+          const tab: Tab = {
+            id: match.pathname,
+            name: title,
+            route: tabRoute,
+            closeRoute: match.staticData.getCloseTabRoute ? (match.staticData.getCloseTabRoute(tabRoute) as ToOptions) : undefined,
+          };
           setTabs((tabs) => {
             const newTabs = [...tabs];
             const tabIndex = newTabs.findIndex((t) => tab.id === t.id);
-            if (tabIndex !== -1) newTabs[tabIndex] = tab;
-            else newTabs.push(tab);
+            if (tabIndex !== -1) {
+              const oldTab = newTabs[tabIndex];
+              newTabs[tabIndex] = { ...oldTab, ...tab };
+            } else newTabs.push(tab);
             return newTabs;
           });
           return;
         }
       }
     })();
-  }, [matches]);
+  }, [resolvedLocation]);
 
   return (
-    <div className={styles.container}>
-      <div className={styles.tabs}>
-        {tabs.map((tab, index) => (
-          <Link
-            {...tab.route}
-            key={index}
-            className={styles.tab}
-            activeOptions={{ exact: true, includeSearch: false }}
-            activeProps={{ className: styles.active }}
-          >
-            <span>{tab.name}</span>
-            {(tab.closable === undefined || tab.closable) && (
-              <button onClick={(e) => onCloseTab(e, tab, index)}>
-                <MdClose />
-              </button>
-            )}
-          </Link>
-        ))}
+    <TabsContext.Provider value={contextValue}>
+      <div className={styles.container}>
+        <div className={styles.tabs}>
+          {tabs.map((tab, index) => (
+            <Link
+              {...tab.route}
+              key={index}
+              className={styles.tab}
+              activeOptions={{ exact: true, includeSearch: false }}
+              activeProps={{ className: styles.active }}
+            >
+              <span>{tab.name}</span>
+              {(tab.closable === undefined || tab.closable) && (
+                <button onClick={(e) => onCloseTab(e, tab)}>
+                  <MdClose />
+                </button>
+              )}
+            </Link>
+          ))}
+        </div>
       </div>
-    </div>
+      {children}
+    </TabsContext.Provider>
   );
 }

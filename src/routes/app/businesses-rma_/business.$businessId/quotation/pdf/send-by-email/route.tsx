@@ -2,6 +2,7 @@ import { createFileRoute } from '@tanstack/react-router';
 import { queries } from '../../../../../../../utils/constants/queryKeys';
 import AppViewBusinessViewQuotationViewPdfModalViewPdfComponent from '../../../../../../../views/App/views/Business/views/Quotation/views/PdfModal/components/Pdf/Pdf';
 import { pdf } from '@react-pdf/renderer';
+import LoaderModal from '../../../../../../../components/LoaderModal/LoaderModal';
 
 export const Route = createFileRoute('/app/businesses-rma/business/$businessId/quotation/pdf/send-by-email')({
   loaderDeps: ({ search: { hideAddresses, hideReferences, hidePrices, hideTotal } }) => ({ hideAddresses, hideReferences, hidePrices, hideTotal }),
@@ -42,4 +43,5 @@ export const Route = createFileRoute('/app/businesses-rma/business/$businessId/q
     });
     return { business, quotation, representative, commercialNoticeFile, quotationPdfFile };
   },
+  pendingComponent: LoaderModal,
 });

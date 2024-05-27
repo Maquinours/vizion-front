@@ -1,10 +1,10 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Link, getRouteApi } from '@tanstack/react-router';
+import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { AiOutlineSearch } from 'react-icons/ai';
 import * as yup from 'yup';
 import styles from './SearchSection.module.scss';
-import { useEffect } from 'react';
 
 const Route = getRouteApi('/app/enterprises/$enterpriseId');
 
@@ -13,13 +13,17 @@ const yupSchema = yup.object({
 });
 
 export default function AppViewEnterpriseViewContactsComponentSearchSectionComponent() {
+  const navigate = useNavigate();
+
   const { contactsSearch } = Route.useSearch();
 
-  const { register, watch, setValue } = useForm({
+  const { register, setValue, handleSubmit } = useForm({
     resolver: yupResolver(yupSchema),
   });
 
-  const search = watch('search');
+  const onSubmit = ({ search }: yup.InferType<typeof yupSchema>) => {
+    navigate({ from: Route.id, search: (old) => ({ ...old, contactsSearch: search || undefined, page: 0 }), replace: true, resetScroll: false });
+  };
 
   useEffect(() => {
     setValue('search', contactsSearch);
@@ -27,10 +31,12 @@ export default function AppViewEnterpriseViewContactsComponentSearchSectionCompo
 
   return (
     <div className={styles.container}>
-      <input type="text" {...register('search')} />
-      <Link from={Route.id} search={(old) => ({ ...old, contactsSearch: search || undefined })} className="btn btn-primary">
-        <AiOutlineSearch />
-      </Link>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <input type="text" {...register('search')} />
+        <button type="submit" className="btn btn-primary">
+          <AiOutlineSearch />
+        </button>
+      </form>
     </div>
   );
 }

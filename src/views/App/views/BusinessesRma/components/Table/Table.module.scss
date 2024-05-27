@@ -5,6 +5,8 @@
   width: 100%;
   margin-top: 1rem;
   padding-bottom: 0.1rem;
+  max-height: 600px;
+  overflow-y: auto;
 
   table {
     width: 100%;
@@ -62,11 +64,12 @@
         background-color: #fff;
         height: 70px;
         // padding: 0.2rem 0.5rem;
+        cursor: pointer;
 
         &:hover {
           background-color: #e5e5e5;
 
-          td * {
+          td {
             // &:hover {
             color: var(--primary-color);
             transform: scale(0.98);

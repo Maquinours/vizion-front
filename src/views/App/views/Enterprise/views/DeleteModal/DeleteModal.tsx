@@ -19,7 +19,7 @@ export default function AppViewEnterpriseViewDeleteModalView() {
   const { data: enterprise } = useSuspenseQuery(enterprises.detail(enterpriseId));
 
   const onClose = () => {
-    navigate({ from: Route.id, to: '..', params: (old) => old, search: (old) => old });
+    navigate({ from: Route.id, to: '..', search: (old) => old, replace: true });
   };
 
   const { mutate, isPending } = useMutation({
@@ -28,9 +28,9 @@ export default function AppViewEnterpriseViewDeleteModalView() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: enterprises._def });
       navigate({
-        from: Route.id,
         to: '/app/enterprises',
-        search: { mobileSidebar: undefined, appModal: undefined, businessId: undefined, gedItemKey: undefined, page: 0 },
+        replace: true,
+        resetScroll: false,
       });
       toast.success('Entreprise supprimée avec succès');
     },

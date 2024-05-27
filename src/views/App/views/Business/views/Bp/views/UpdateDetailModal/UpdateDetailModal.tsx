@@ -44,7 +44,7 @@ export default function AppViewBusinessViewBpViewUpdateDetailModalView() {
   });
 
   const onClose = () => {
-    navigate({ to: '../..', search: (old) => old, replace: true });
+    navigate({ to: '../..', search: (old) => old, replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({
@@ -106,8 +106,8 @@ export default function AppViewBusinessViewBpViewUpdateDetailModalView() {
         <div className={styles.modal_title}>
           <h6>Modifier le produit {detail.productReference}</h6>
         </div>
-        <div className={styles.modal_content}>
-          <form onSubmit={handleSubmit((data) => mutate(data))} onReset={() => onClose()}>
+        <form onSubmit={handleSubmit((data) => mutate(data))} onReset={onClose}>
+          <div className={styles.modal_content}>
             <div className={styles.form_group}>
               <label htmlFor="productVersion">Version du produit</label>
               <Controller
@@ -153,20 +153,20 @@ export default function AppViewBusinessViewBpViewUpdateDetailModalView() {
               <input id="comment" {...register('comment')} type="text" autoComplete="on" />
               <p className={styles.__errors}>{errors.comment?.message}</p>
             </div>
-            <div className={styles.modal_loader}>
-              <PulseLoader color="#31385A" loading={isPending} className="" size={10} speedMultiplier={0.5} />
-            </div>
+          </div>
+          <div className={styles.modal_loader}>
+            <PulseLoader color="#31385A" loading={isPending} className="" size={10} speedMultiplier={0.5} />
+          </div>
 
-            <div className={styles.modal_buttons}>
-              <button className="btn btn-primary-light" type="reset">
-                Annuler
-              </button>
-              <button type="submit" className="btn btn-secondary">
-                Modifier
-              </button>
-            </div>
-          </form>
-        </div>
+          <div className={styles.modal_buttons}>
+            <button className="btn btn-primary-light" type="reset">
+              Annuler
+            </button>
+            <button type="submit" className="btn btn-secondary">
+              Modifier
+            </button>
+          </div>
+        </form>
       </div>
     </ReactModal>
   );

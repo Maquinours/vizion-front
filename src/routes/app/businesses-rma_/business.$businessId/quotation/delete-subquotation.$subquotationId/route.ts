@@ -1,6 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { queries } from '../../../../../../utils/constants/queryKeys';
 import BusinessQuotationResponseDto from '../../../../../../utils/types/BusinessQuotationResponseDto';
+import LoaderModal from '../../../../../../components/LoaderModal/LoaderModal';
 
 export const Route = createFileRoute('/app/businesses-rma/business/$businessId/quotation/delete-subquotation/$subquotationId')({
   loader: async ({ context: { queryClient }, params: { businessId, subquotationId } }) => {
@@ -13,4 +14,5 @@ export const Route = createFileRoute('/app/businesses-rma/business/$businessId/q
       initialDataUpdatedAt: () => queryClient.getQueryState(queries['business-quotations'].detail._ctx.byBusinessId(businessId).queryKey)?.dataUpdatedAt,
     });
   },
+  pendingComponent: LoaderModal,
 });

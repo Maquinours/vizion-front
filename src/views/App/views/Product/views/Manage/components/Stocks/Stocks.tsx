@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
 import { getRouteApi, Link } from '@tanstack/react-router';
 import CardComponent from '../../../../../../../../components/Card/Card';
 import PaginationComponent from '../../../../../../../../components/Pagination/Pagination';
@@ -15,7 +15,10 @@ export default function AppViewProductViewManageViewStocksComponent() {
   const { productId } = routeApi.useParams();
   const { stocksPage: page } = routeApi.useSearch();
 
-  const { data, isLoading, refetch, isRefetching } = useQuery(queries.product.detail(productId)._ctx.versionShelfStocks._ctx.page({ page, size }));
+  const { data: product } = useSuspenseQuery(queries.product.detail(productId));
+  const { data, isLoading, refetch, isRefetching } = useQuery(
+    queries['product-version-shelf-stocks'].page._ctx.byProductReference(product.reference!, { page, size }),
+  );
 
   return (
     <CardComponent title="Stocks">

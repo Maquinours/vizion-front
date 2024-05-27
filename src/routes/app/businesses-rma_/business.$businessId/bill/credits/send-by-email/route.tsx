@@ -3,6 +3,7 @@ import { queries } from '../../../../../../../utils/constants/queryKeys';
 import BillType from '../../../../../../../utils/enums/BillType';
 import { pdf } from '@react-pdf/renderer';
 import AppViewBusinessViewBillViewCreditsModalViewPdfComponent from '../../../../../../../views/App/views/Business/views/Bill/views/CreditsModal/components/Pdf/Pdf';
+import LoaderModal from '../../../../../../../components/LoaderModal/LoaderModal';
 
 export const Route = createFileRoute('/app/businesses-rma/business/$businessId/bill/credits/send-by-email')({
   loaderDeps: ({ search: { page } }) => ({ page }),
@@ -22,4 +23,5 @@ export const Route = createFileRoute('/app/businesses-rma/business/$businessId/b
     });
     return { enterprise, credit, file };
   },
+  pendingComponent: LoaderModal,
 });

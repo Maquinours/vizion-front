@@ -94,7 +94,7 @@ export default function AppViewBusinessViewArcViewHeaderComponentSectionOneCompo
       queryClient.invalidateQueries({ queryKey: queries['all-businesses']._def });
       queryClient.setQueryData(queries['business-bps'].detail._ctx.byBusinessId(business.id).queryKey, data);
       toast.success('Le BP a été créé avec succès');
-      navigate({ to: '../bp' });
+      navigate({ to: '../bp', replace: true });
     },
     onError: (error) => {
       if (error.message === 'No details found') toast.warning("Veuillez ajouter des détails à l'ARC avant de passer en BP");
@@ -106,7 +106,7 @@ export default function AppViewBusinessViewArcViewHeaderComponentSectionOneCompo
   });
 
   const onBpButtonClick = async () => {
-    if (business.state !== BusinessState.ARC) navigate({ to: '../bp' });
+    if (business.state !== BusinessState.ARC) navigate({ to: '../bp', replace: true });
     else if (!arc.numOrder) toast.warning("Veuillez sauvegarder l'ARC avec un numéro de commande avant de passer en BP");
     else mutate();
   };
@@ -117,7 +117,7 @@ export default function AppViewBusinessViewArcViewHeaderComponentSectionOneCompo
         <span>{business.enterpriseName}</span> / <span>{business.title}</span>
       </div>
       <div>
-        <Link from={routeApi.id} to="pdf" search={(old) => old} className="btn btn-primary-light">
+        <Link from={routeApi.id} to="pdf" search={(old) => old} replace resetScroll={false} className="btn btn-primary-light">
           Editer
         </Link>
         {!business.archived && (

@@ -34,4 +34,10 @@ export const Route = createFileRoute('/app/products/$productId')({
     }
     await productPromise;
   },
+  staticData: {
+    getTitle: (queryClient, match) =>
+      queryClient
+        .ensureQueryData(queries.product.detail((match.params as { productId: string }).productId))
+        .then((product) => product.reference ?? 'Produit inconnu'),
+  },
 });

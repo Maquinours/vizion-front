@@ -12,30 +12,11 @@ const searchSchema = z.object({
   phoneNumber: z.string().optional().catch(undefined),
   category: z.nativeEnum(CategoryClient).optional().catch(undefined),
   representativeId: z.string().uuid().optional().catch(undefined),
+  fuzzy: z.boolean().catch(true),
   page: z.number().int().min(0).catch(0),
 });
 
 export const Route = createFileRoute('/app/enterprises')({
-  beforeLoad: async ({ context: { queryClient } }) => {
-    const user = await queryClient.ensureQueryData(users.authentified());
-
-    if (!user.userInfo.roles.some((role) => ['ROLE_MEMBRE_VIZEO', 'ROLE_REPRESENTANT', 'ROLE_DISTRIBUTEUR'].includes(role))) throw redirect({ to: '/app' });
-  },
-  loaderDeps: ({ search: { enterprise, contact, zipCode, city, phoneNumber, category, representativeId, page } }) => ({
-    enterprise,
-    contact,
-    zipCode,
-    city,
-    phoneNumber,
-    category,
-    representativeId,
-    page,
-  }),
-  loader: ({ context: { queryClient }, deps: { enterprise, contact, zipCode, city, phoneNumber, category, representativeId, page } }) => {
-    const size = 20;
-    queryClient.prefetchQuery(enterprises.page({ enterprise, contact, zipCode, city, phoneNumber, category, representativeId, page, size }));
-    queryClient.prefetchQuery(enterprises.list._ctx.byCategory(CategoryClient.REPRESENTANT));
-  },
   validateSearch: (
     data: {
       enterprise?: string;
@@ -45,9 +26,31 @@ export const Route = createFileRoute('/app/enterprises')({
       phoneNumber?: string;
       category?: CategoryClient;
       representativeId?: string;
+      fuzzy?: boolean;
       page?: number;
     } & SearchSchemaInput,
   ) => searchSchema.parse(data),
+  beforeLoad: async ({ context: { queryClient } }) => {
+    const user = await queryClient.ensureQueryData(users.authentified());
+
+    if (!user.userInfo.roles.some((role) => ['ROLE_MEMBRE_VIZEO', 'ROLE_REPRESENTANT', 'ROLE_DISTRIBUTEUR'].includes(role))) throw redirect({ to: '/app' });
+  },
+  loaderDeps: ({ search: { enterprise, contact, zipCode, city, phoneNumber, category, representativeId, fuzzy, page } }) => ({
+    enterprise,
+    contact,
+    zipCode,
+    city,
+    phoneNumber,
+    category,
+    representativeId,
+    fuzzy,
+    page,
+  }),
+  loader: ({ context: { queryClient }, deps: { enterprise, contact, zipCode, city, phoneNumber, category, representativeId, fuzzy, page } }) => {
+    const size = 20;
+    queryClient.prefetchQuery(enterprises.page({ enterprise, contact, zipCode, city, phoneNumber, category, representativeId, fuzzy, page, size }));
+    queryClient.prefetchQuery(enterprises.list._ctx.byCategory(CategoryClient.REPRESENTANT));
+  },
   staticData: {
     title: 'Entreprises',
   },

@@ -30,6 +30,7 @@ type SearchPaginatedEnterprisesParams = {
   phoneNumber?: string;
   representativeId?: string;
   category?: CategoryClient;
+  fuzzy: boolean;
   page: number;
   size: number;
 };
@@ -41,13 +42,14 @@ export const searchPaginatedEnterprises = async ({
   phoneNumber,
   representativeId,
   category,
+  fuzzy,
   page,
   size,
 }: SearchPaginatedEnterprisesParams) => {
   return (
     await privateInstance<Page<EnterpriseResponseDto>>({
       method: 'GET',
-      url: `profile/v1/contact/fuzzy-search-page/${encodeURIComponent(page)}/${encodeURIComponent(size)}`,
+      url: `profile/v1/contact/search/page/${encodeURIComponent(page)}/${encodeURIComponent(size)}`,
       params: {
         enterprise,
         contact,
@@ -56,6 +58,7 @@ export const searchPaginatedEnterprises = async ({
         phoneNumber,
         representativeId,
         category,
+        fuzzy,
       },
     })
   ).data;

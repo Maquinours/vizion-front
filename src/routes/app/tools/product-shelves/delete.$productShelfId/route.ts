@@ -3,6 +3,7 @@ import { queries } from '../../../../../utils/constants/queryKeys';
 import Page from '../../../../../utils/types/Page';
 import ProductShelfResponseDto from '../../../../../utils/types/ProductShelfResponseDto';
 import { QueryKey } from '@tanstack/react-query';
+import LoaderModal from '../../../../../components/LoaderModal/LoaderModal';
 
 export const Route = createFileRoute('/app/tools/product-shelves/delete/$productShelfId')({
   loader: async ({ context: { queryClient }, params: { productShelfId } }) => {
@@ -22,4 +23,5 @@ export const Route = createFileRoute('/app/tools/product-shelves/delete/$product
       initialDataUpdatedAt: initialDataKey ? queryClient.getQueryState(initialDataKey)?.dataUpdatedAt : undefined,
     });
   },
+  pendingComponent: LoaderModal,
 });

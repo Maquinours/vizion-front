@@ -1,6 +1,6 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { Link, Outlet, getRouteApi, useNavigate } from '@tanstack/react-router';
-import { View, Views } from 'react-big-calendar';
+import { Views } from 'react-big-calendar';
 import RefreshButtonComponent from '../../../../../../components/RefreshButton/RefreshButton';
 import { queries } from '../../../../../../utils/constants/queryKeys';
 import styles from './Scheduler.module.scss';
@@ -21,7 +21,7 @@ export default function AppViewToolsViewSchedulerView() {
     <>
       <div className={styles.container}>
         <div className={styles.header}>
-          <Link from={routeApi.id} to="./create" search={(old) => old} className="btn btn-secondary">
+          <Link from={routeApi.id} to="./create" search={(old) => old} replace className="btn btn-secondary">
             Ajouter un RDV
           </Link>
           <RefreshButtonComponent onRefresh={refetch} isRefreshing={isRefetching} className="btn btn-primary" />
@@ -31,13 +31,16 @@ export default function AppViewToolsViewSchedulerView() {
           views={views}
           view={view}
           date={date}
-          onViewChange={(view) =>
+          onViewChange={(view) => {
+            if (view === Views.WEEK) return;
             navigate({
               from: routeApi.id,
-              search: (old) => ({ ...old, view: view as Exclude<View, 'week'> }),
-            })
-          }
-          onDateChange={(date) => navigate({ from: routeApi.id, search: (old) => ({ ...old, date }) })}
+              search: (old) => ({ ...old, view }),
+              replace: true,
+              resetScroll: false,
+            });
+          }}
+          onDateChange={(date) => navigate({ from: routeApi.id, search: (old) => ({ ...old, date }), replace: true, resetScroll: false })}
         />
       </div>
       <Outlet />

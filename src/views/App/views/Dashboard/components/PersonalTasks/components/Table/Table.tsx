@@ -1,11 +1,11 @@
 import { VirtualElement } from '@popperjs/core';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { Link, getRouteApi } from '@tanstack/react-router';
 import { Row, createColumnHelper } from '@tanstack/react-table';
 import classNames from 'classnames';
 import DOMPurify from 'dompurify';
 import parse from 'html-react-parser';
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { AiFillTag } from 'react-icons/ai';
 import TableComponent from '../../../../../../../../components/Table/Table';
 import { queries } from '../../../../../../../../utils/constants/queryKeys';
@@ -31,7 +31,6 @@ export default function AppViewDashboardViewPersonalTasksComponentTableComponent
   isLoading,
 }: AppViewDashboardViewPersonalTasksComponentTableComponentProps) {
   const queryClient = useQueryClient();
-  const navigate = useNavigate();
 
   const [task, setTask] = useState<TaskResponseDto>();
   const [contextMenuAnchor, setContextMenuAnchor] = useState<VirtualElement>();
@@ -39,14 +38,6 @@ export default function AppViewDashboardViewPersonalTasksComponentTableComponent
   const { data: currentUser } = useAuthentifiedUserQuery();
 
   const { data: members } = useQuery(queries.profiles.list._ctx.byEnterpriseId(currentUser.profile.enterprise!.id));
-
-  const onMailTaskClick = useCallback(
-    (original: TaskResponseDto) => {
-      queryClient.setQueryData(queries.tasks.detail(original.id).queryKey, original);
-      navigate({ from: Route.id, to: './task-email/$taskId', params: { taskId: original.id }, search: (old) => old });
-    },
-    [queryClient, navigate],
-  );
 
   const columns = useMemo(
     () => [
@@ -72,7 +63,15 @@ export default function AppViewDashboardViewPersonalTasksComponentTableComponent
           let item;
           if (original.mailId)
             item = (
-              <button onClick={() => onMailTaskClick(original)}>
+              <Link
+                from={Route.id}
+                to="task-email/$taskId"
+                params={{ taskId: original.id }}
+                search={(old) => old}
+                replace={true}
+                resetScroll={false}
+                className={styles.link}
+              >
                 {parse(DOMPurify.sanitize(original.content ?? ''))}
                 <p className="text-secondary">A : {original.receiver?.to?.toString().split(';').join(' ')}</p>
                 <p>
@@ -81,7 +80,7 @@ export default function AppViewDashboardViewPersonalTasksComponentTableComponent
                     {original.name}
                   </a>
                 </p>
-              </button>
+              </Link>
             );
           else {
             const sender = members?.find((member) => member.id === original.senderId);
@@ -101,22 +100,36 @@ export default function AppViewDashboardViewPersonalTasksComponentTableComponent
               </>
             );
           }
-          return <div className={styles.content_tooltip}>{item}</div>;
+          return <div className={styles.content}>{item}</div>;
         },
       }),
       columnHelper.display({
         header: 'Objet',
-        cell: () => {
-          // TODO: reimplement following links
-          //   if (original.businessId) return <Link to={`/app/business/get-business/${original.businessId}`}>{original.businessNum}</Link>;
-          //   if (original.rmaId) return <Link to={`/app/rma/get-rma/${original.rmaId}`}>{original.rmaNum}</Link>;
-          //   if (original.enterpriseId) return <Link to={`/app/enterprises/get-enterprise/${original.enterpriseId}`}>{original.enterpriseName}</Link>;
-          //   if (original.productId) return <Link to={`/app/products/get-product/${original.productId}`}>{original.reference}</Link>;
+        cell: ({ row: { original } }) => {
+          if (original.businessId)
+            return (
+              <Link to="/app/businesses-rma/business/$businessId" params={{ businessId: original.businessId }}>
+                {original.businessNum}
+              </Link>
+            );
+          //   if (original.rmaId) return <Link to={`/app/rma/get-rma/${original.rmaId}`}>{original.rmaNum}</Link>; // TODO: reimplement this link
+          if (original.enterpriseId)
+            return (
+              <Link to="/app/enterprises/$enterpriseId" params={{ enterpriseId: original.enterpriseId }}>
+                {original.enterpriseName}
+              </Link>
+            );
+          if (original.productId)
+            return (
+              <Link to="/app/products/$productId" params={{ productId: original.productId }}>
+                {original.reference}
+              </Link>
+            );
           return 'Non relié';
         },
       }),
     ],
-    [currentUser.profile.id, members, onMailTaskClick],
+    [currentUser.profile.id, members],
   );
 
   const { mutate: readTaskMutate } = useMutation({

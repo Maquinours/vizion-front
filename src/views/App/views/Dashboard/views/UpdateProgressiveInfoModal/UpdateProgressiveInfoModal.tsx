@@ -38,7 +38,7 @@ export default function AppViewDashboardViewUpdateProgressiveInfoModalView() {
   });
 
   const onClose = () => {
-    navigate({ from: Route.id, to: '../..', search: (old) => old });
+    navigate({ from: Route.id, to: '../..', search: (old) => old, replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({

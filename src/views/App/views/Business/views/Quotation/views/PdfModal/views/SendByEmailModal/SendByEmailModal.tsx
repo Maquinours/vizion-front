@@ -9,7 +9,7 @@ export default function AppViewBusinessViewQuotationViewPdfModalViewSendByEmailM
   const { business, quotation, representative, commercialNoticeFile, quotationPdfFile } = routeApi.useLoaderData();
 
   const onClose = () => {
-    navigate({ to: '..', search: (old) => old, replace: true });
+    navigate({ to: '..', search: (old) => old, replace: true, resetScroll: false });
   };
 
   return (

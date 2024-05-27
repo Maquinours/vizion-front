@@ -78,6 +78,7 @@
 
     &.disabled {
       pointer-events: none;
+      color: var(--grey-line);
 
       .arrow::before {
         border-right: 0.12em solid rgba(0, 0, 0, 0.43);

@@ -1,8 +1,8 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useQuery } from '@tanstack/react-query';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { useSuspenseQuery } from '@tanstack/react-query';
+import { getRouteApi, useNavigate, useRouterState } from '@tanstack/react-router';
 import { createColumnHelper } from '@tanstack/react-table';
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { IoMdClose } from 'react-icons/io';
 import ReactModal from 'react-modal';
@@ -50,7 +50,9 @@ const rowsYupSchema = yup.object().shape({
 export default function AppViewBusinessesRmaViewSearchByProductsModalView() {
   const navigate = useNavigate({ from: routeApi.id });
 
-  const { data: products, isLoading: isLoadingProducts } = useQuery(queries.product.list);
+  const qInfos = useRouterState({ select: (state) => state.location.state.qInfos });
+
+  const { data: products } = useSuspenseQuery(queries.product.list);
 
   const {
     control: addControl,
@@ -63,6 +65,7 @@ export default function AppViewBusinessesRmaViewSearchByProductsModalView() {
   const {
     register: rowsRegister,
     control: rowsControl,
+    setValue: rowsSetValue,
     handleSubmit: handleRowsSubmit,
   } = useForm({
     resolver: yupResolver(rowsYupSchema),
@@ -131,12 +134,30 @@ export default function AppViewBusinessesRmaViewSearchByProductsModalView() {
         })),
       },
       replace: true,
+      resetScroll: false,
     });
   };
 
   const onClose = () => {
-    navigate({ to: '..', search: (old) => old, replace: true });
+    navigate({ to: '..', search: (old) => old, state: (old) => old, replace: true, resetScroll: false });
   };
+
+  useEffect(() => {
+    if (qInfos)
+      rowsSetValue(
+        'rows',
+        qInfos
+          .map((qInfo) => {
+            const type = qInfo.min === qInfo.max ? DataType.EQUAL : qInfo.min === 1 ? DataType.INFERIOR : DataType.SUPERIOR;
+            return {
+              product: products.find((product) => product.reference === qInfo.ref),
+              type,
+              quantity: type === DataType.INFERIOR ? qInfo.max : qInfo.min,
+            };
+          })
+          .filter((qInfo) => !!qInfo.product) as Array<{ product: ProductResponseDto; type: DataType; quantity: number }>,
+      );
+  }, []);
 
   return (
     <ReactModal isOpen={true} onRequestClose={onClose} overlayClassName="Overlay" className={styles.modal}>
@@ -154,13 +175,12 @@ export default function AppViewBusinessesRmaViewSearchByProductsModalView() {
                     name="product"
                     render={({ field: { onChange, value } }) => (
                       <CustomSelect
-                        value={value}
+                        value={value ?? null}
                         placeholder="Produit"
                         options={products}
                         getOptionLabel={(opt) => opt.reference ?? ''}
                         getOptionValue={(opt) => opt.id}
                         onChange={onChange}
-                        isLoading={isLoadingProducts}
                       />
                     )}
                   />

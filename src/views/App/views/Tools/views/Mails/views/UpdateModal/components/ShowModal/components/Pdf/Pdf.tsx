@@ -1,11 +1,12 @@
 import { Document, Font, Image, Page, StyleSheet, Text, View } from '@react-pdf/renderer';
-import FontDinRegular from '../../../../../../../../../../../../assets/fonts/DIN2014/DIN2014-Regular.ttf';
-import FontDinBold from '../../../../../../../../../../../../assets/fonts/DIN2014/DIN2014-Bold.ttf';
-import Logo from '../../../../../../../../../../../../assets/images/logo-vizeo-fond-blanc-baseline.png';
-import { UpdateMailFormType } from '../../../FormModal/FormModal';
-import ProfileInfoResponseDto from '../../../../../../../../../../../../utils/types/ProfileInfoResponseDto';
 import { format } from 'date-fns';
 import { fr } from 'date-fns/locale/fr';
+import FontDinBold from '../../../../../../../../../../../../assets/fonts/DIN2014/DIN2014-Bold.ttf';
+import FontDinRegular from '../../../../../../../../../../../../assets/fonts/DIN2014/DIN2014-Regular.ttf';
+import Logo from '../../../../../../../../../../../../assets/images/logo-vizeo-fond-blanc-baseline.png';
+import MailPaperResponseDto from '../../../../../../../../../../../../utils/types/MailPaperResponseDto';
+import ProfileInfoResponseDto from '../../../../../../../../../../../../utils/types/ProfileInfoResponseDto';
+import { UpdateMailFormType } from '../../../FormModal/FormModal';
 
 Font.register({
   family: 'Din',
@@ -117,7 +118,7 @@ const pageStyles = StyleSheet.create({
   },
   sectionThree: {
     display: 'flex',
-    flexDirection: 'row',
+    flexDirection: 'column',
     justifyContent: 'flex-start',
     width: '100%',
     paddingLeft: 10,
@@ -180,11 +181,13 @@ const pageStyles = StyleSheet.create({
 });
 
 type AppViewToolsViewMailsViewUpdateModalViewPdfModalComponentPdfComponentProps = Readonly<{
-  mail: UpdateMailFormType;
+  mail: MailPaperResponseDto;
+  data: UpdateMailFormType;
   user: ProfileInfoResponseDto;
 }>;
 export default function AppViewToolsViewMailsViewUpdateModalViewPdfModalComponentPdfComponent({
   mail,
+  data,
   user,
 }: AppViewToolsViewMailsViewUpdateModalViewPdfModalComponentPdfComponentProps) {
   return (
@@ -203,20 +206,21 @@ export default function AppViewToolsViewMailsViewUpdateModalViewPdfModalComponen
               <Text style={pageStyles.rc}>N°RC: 44494781600062</Text>
             </View>
             <View style={pageStyles.gridTwo}>
-              <Text style={pageStyles.contact}>{mail.enterprise.name}</Text>
+              <Text style={pageStyles.contact}>{data.enterprise.name}</Text>
               <Text style={pageStyles.contact}>
-                {mail.contact.firstName} {mail.contact.lastName}
+                {data.contact.firstName} {data.contact.lastName}
               </Text>
-              <Text style={pageStyles.address}>{mail.addressOne}</Text>
-              <Text style={pageStyles.address}>{mail.addressTwo}</Text>
+              <Text style={pageStyles.address}>{data.addressOne}</Text>
+              <Text style={pageStyles.address}>{data.addressTwo}</Text>
               <Text style={pageStyles.address}>
-                {mail.zipCode} {mail.city}
+                {data.zipCode} {data.city}
               </Text>
             </View>
           </View>
 
           <View style={pageStyles.sectionThree}>
-            <Text>Objet: {mail.object}</Text>
+            <Text>Objet: {data.object}</Text>
+            <Text>Référence: {mail.reference}</Text>
           </View>
 
           <View style={pageStyles.date}>
@@ -224,7 +228,7 @@ export default function AppViewToolsViewMailsViewUpdateModalViewPdfModalComponen
           </View>
 
           <View style={pageStyles.sectionFour}>
-            {mail.sections.map((item, index) => (
+            {data.sections.map((item, index) => (
               <Text wrap={false} key={index} style={pageStyles.sectionFourBody}>
                 {item.content}
               </Text>

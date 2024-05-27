@@ -20,7 +20,7 @@ export default function AppViewBusinessViewArcViewDeleteDetailModalView() {
   const { data: detail } = useSuspenseQuery(queries['business-arc-details'].detail._ctx.byId(detailId));
 
   const onClose = () => {
-    navigate({ to: '../..', search: (old) => old, replace: true });
+    navigate({ to: '../..', search: (old) => old, replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({

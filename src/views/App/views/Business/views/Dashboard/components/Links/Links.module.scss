@@ -22,6 +22,10 @@
 
       thead {
         tr {
+          :nth-child(2) {
+            width: 10%;
+          }
+
           th {
             height: 40px;
             text-align: left;
@@ -64,6 +68,10 @@
             color: #16204e;
             opacity: 1;
             word-wrap: break-word;
+
+            &:nth-child(2) {
+              text-align: center;
+            }
 
             .row {
               display: flex;

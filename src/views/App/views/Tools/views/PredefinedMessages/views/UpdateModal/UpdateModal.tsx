@@ -35,7 +35,7 @@ export default function AppViewToolsViewPredefinedMessagesViewUpdateModalView() 
   });
 
   const onClose = () => {
-    navigate({ from: routeApi.id, to: '../..', search: (old) => old });
+    navigate({ from: routeApi.id, to: '../..', search: (old) => old, replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({

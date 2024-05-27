@@ -102,10 +102,10 @@ const columns = [
     id: 'actions',
     cell: ({ row: { original } }) => (
       <div className={styles.action_buttons}>
-        <Link from={routeApi.id} to="update/$formationId" params={{ formationId: original.id }} search={(old) => old} replace>
+        <Link from={routeApi.id} to="update/$formationId" params={{ formationId: original.id }} search={(old) => old} replace resetScroll={false}>
           <BiEdit size={25} color="#31385A" />
         </Link>
-        <Link from={routeApi.id} to="delete/$formationId" params={{ formationId: original.id }} search={(old) => old} replace>
+        <Link from={routeApi.id} to="delete/$formationId" params={{ formationId: original.id }} search={(old) => old} replace resetScroll={false}>
           <FaTrash width="25" height="25" color="#F24C52" />
         </Link>
       </div>

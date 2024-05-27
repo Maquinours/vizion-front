@@ -23,7 +23,14 @@ export default function AppViewBusinessGedModalComponentBodyComponent() {
           type={FileType.AFFAIRE}
           id={businessId!}
           directoryRelativePath={gedObjectRelativePath}
-          onClose={() => navigate({ search: (old) => ({ ...old, appModal: 'business-ged', gedItemKey: undefined }), params: (old) => old })}
+          onClose={() =>
+            navigate({
+              search: (old) => ({ ...old, appModal: 'business-ged', gedItemKey: undefined }),
+              params: (old) => old,
+              replace: true,
+              resetScroll: false,
+            })
+          }
         />
       );
     if (modalId === 'business-ged-import-files')
@@ -32,7 +39,14 @@ export default function AppViewBusinessGedModalComponentBodyComponent() {
           type={FileType.AFFAIRE}
           id={businessId!}
           directoryRelativePath={gedObjectRelativePath}
-          onClose={() => navigate({ search: (old) => ({ ...old, appModal: 'business-ged', gedItemKey: undefined }), params: (old) => old })}
+          onClose={() =>
+            navigate({
+              search: (old) => ({ ...old, appModal: 'business-ged', gedItemKey: undefined }),
+              params: (old) => old,
+              replace: true,
+              resetScroll: false,
+            })
+          }
         />
       );
     if (modalId === 'business-ged-rename')
@@ -41,7 +55,14 @@ export default function AppViewBusinessGedModalComponentBodyComponent() {
           type={FileType.AFFAIRE}
           id={businessId!}
           objectRelativePath={gedObjectRelativePath}
-          onClose={() => navigate({ search: (old) => ({ ...old, appModal: 'business-ged', gedItemKey: undefined }), params: (old) => old })}
+          onClose={() =>
+            navigate({
+              search: (old) => ({ ...old, appModal: 'business-ged', gedItemKey: undefined }),
+              params: (old) => old,
+              replace: true,
+              resetScroll: false,
+            })
+          }
         />
       );
     if (modalId === 'business-ged-delete')
@@ -50,7 +71,14 @@ export default function AppViewBusinessGedModalComponentBodyComponent() {
           type={FileType.AFFAIRE}
           id={businessId!}
           objectRelativePath={gedObjectRelativePath}
-          onClose={() => navigate({ search: (old) => ({ ...old, appModal: 'business-ged', gedItemKey: undefined }), params: (old) => old })}
+          onClose={() =>
+            navigate({
+              search: (old) => ({ ...old, appModal: 'business-ged', gedItemKey: undefined }),
+              params: (old) => old,
+              replace: true,
+              resetScroll: false,
+            })
+          }
         />
       );
   })();
@@ -65,18 +93,26 @@ export default function AppViewBusinessGedModalComponentBodyComponent() {
           getCreateDirectoryLink={(data) => ({
             search: (old) => ({ ...old, appModal: 'business-ged-create-dir', gedItemKey: data?.relativePath ?? '' }),
             params: (old) => old,
+            replace: true,
+            resetScroll: false,
           })}
           getImportFilesLink={(data) => ({
             search: (old) => ({ ...old, appModal: 'business-ged-import-files', gedItemKey: data?.relativePath ?? '' }),
             params: (old) => old,
+            replace: true,
+            resetScroll: false,
           })}
           getRenameLink={(data) => ({
             search: (old) => ({ ...old, appModal: 'business-ged-rename', gedItemKey: data.relativePath }),
             params: (old) => old,
+            replace: true,
+            resetScroll: false,
           })}
           getDeleteLink={(data) => ({
             search: (old) => ({ ...old, appModal: 'business-ged-delete', gedItemKey: data.relativePath }),
             params: (old) => old,
+            replace: true,
+            resetScroll: false,
           })}
         />
       </div>

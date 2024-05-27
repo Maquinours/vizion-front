@@ -4,6 +4,7 @@ import { emails } from '../../../../utils/constants/queryKeys/email';
 import { QueryKey } from '@tanstack/react-query';
 import TaskResponseDto from '../../../../utils/types/TaskResponseDto';
 import Page from '../../../../utils/types/Page';
+import LoaderModal from '../../../../components/LoaderModal/LoaderModal';
 
 export const Route = createFileRoute('/app/dashboard/task-email/$taskId')({
   loader: async ({ context: { queryClient }, params: { taskId } }) => {
@@ -33,4 +34,5 @@ export const Route = createFileRoute('/app/dashboard/task-email/$taskId')({
 
     await queryClient.ensureQueryData(emails.detail(emailId));
   },
+  pendingComponent: LoaderModal,
 });

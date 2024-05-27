@@ -1,5 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useMutation, useQuery, useSuspenseQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import { Controller, useForm } from 'react-hook-form';
 import ReactModal from 'react-modal';
 import PhoneInput, { formatPhoneNumber } from 'react-phone-number-input/input';
@@ -10,6 +10,7 @@ import { queries } from '../../utils/constants/queryKeys';
 import ProfileClient from '../../utils/enums/ProfileClient';
 import styles from './UpdateContactModal.module.scss';
 import { E164Number } from 'libphonenumber-js';
+import { toast } from 'react-toastify';
 
 const profileClientOptions = [
   { value: '', text: 'Sélectionnez un profil' },
@@ -59,6 +60,8 @@ type UpdateContactModalComponentProps = Readonly<{
 }>;
 
 export default function UpdateContactModalComponent({ contactId, onClose }: UpdateContactModalComponentProps) {
+  const queryClient = useQueryClient();
+
   const { data: contact } = useSuspenseQuery(queries.profiles.detail(contactId));
 
   const {
@@ -120,6 +123,16 @@ export default function UpdateContactModalComponent({ contactId, onClose }: Upda
         expert: expert === 'yes',
         email,
       }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: queries.enterprise._def });
+      queryClient.invalidateQueries({ queryKey: queries.profiles._def });
+      toast.success('Contact modifié avec succès');
+      onClose();
+    },
+    onError: (error) => {
+      console.error(error);
+      toast.error('Une erreur est survenue lors de la modification du contact');
+    },
   });
 
   return (

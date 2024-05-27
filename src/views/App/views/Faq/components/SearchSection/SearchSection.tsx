@@ -21,12 +21,12 @@ export default function AppViewFaqViewSearchSectionComponent() {
   });
 
   const onSubmit = ({ searchText }: yup.InferType<typeof yupSchema>) => {
-    navigate({ from: routeApi.id, search: (old) => ({ ...old, search: searchText, page: 0 }) });
+    navigate({ from: routeApi.id, search: (old) => ({ ...old, search: searchText, page: 0 }), replace: true, resetScroll: false });
   };
 
   const onReset = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    navigate({ from: routeApi.id, search: (old) => ({ ...old, search: undefined, page: 0 }) });
+    navigate({ from: routeApi.id, search: (old) => ({ ...old, search: undefined, page: 0 }), replace: true, resetScroll: false });
   };
 
   useEffect(() => {

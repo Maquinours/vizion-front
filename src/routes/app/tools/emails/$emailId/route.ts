@@ -3,6 +3,7 @@ import { queries } from '../../../../../utils/constants/queryKeys';
 import { QueryKey } from '@tanstack/react-query';
 import Page from '../../../../../utils/types/Page';
 import MailResponseDto from '../../../../../utils/types/MailResponseDto';
+import LoaderModal from '../../../../../components/LoaderModal/LoaderModal';
 
 export const Route = createFileRoute('/app/tools/emails/$emailId')({
   loader: async ({ context: { queryClient }, params: { emailId } }) => {
@@ -23,4 +24,5 @@ export const Route = createFileRoute('/app/tools/emails/$emailId')({
       initialDataUpdatedAt: () => (initialDataKey ? queryClient.getQueryState(initialDataKey)?.dataUpdatedAt : undefined),
     });
   },
+  pendingComponent: LoaderModal,
 });

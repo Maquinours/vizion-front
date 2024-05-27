@@ -65,6 +65,8 @@ export default function AppViewBusinessViewBpViewTableComponent() {
 
   const onSerialNumberContextMenu = useCallback(
     (e: React.MouseEvent, serialNumber: BusinessBpSerialResponseDto) => {
+      e.preventDefault();
+      e.stopPropagation();
       setSerial(serialNumber);
       setSerialContextMenuAnchor(getAnchor(e));
     },
@@ -169,6 +171,7 @@ export default function AppViewBusinessViewBpViewTableComponent() {
   );
 
   const onRowContextMenu = (e: React.MouseEvent, row: Row<BusinessBpDetailsResponseDto>) => {
+    e.preventDefault();
     setDetail(row.original);
     setDetailContextMenuAnchor(getAnchor(e));
   };

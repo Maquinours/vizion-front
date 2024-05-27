@@ -1,7 +1,9 @@
 @import '/src/assets/styles/mixins';
 
 .buttons_container {
-  text-align: end;
+  display: flex;
+  justify-content: end;
+  gap: 1rem;
 
   @include respond-below(sm) {
     display: flex;

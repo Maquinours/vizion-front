@@ -47,12 +47,12 @@ const columns = [
     cell: ({ row: { original } }) => (
       <div style={{ display: 'flex' }}>
         {!original.businessId && !original.businessNumber && (
-          <Link from={routeApi.id} to="./delete/$serialNumberId" params={(old) => ({ ...old, serialNumberId: original.id })} search={(old) => old}>
+          <Link from={routeApi.id} to="delete/$serialNumberId" params={{ serialNumberId: original.id }} search={(old) => old} replace resetScroll={false}>
             <IoMdTrash size={20} />
           </Link>
         )}
         {original.businessNumber?.startsWith('VZO ') && (
-          <Link from={routeApi.id} to="./create-rma/$serialNumberId" params={(old) => ({ ...old, serialNumberId: original.id })} search={(old) => old}>
+          <Link from={routeApi.id} to="create-rma/$serialNumberId" params={{ serialNumberId: original.id }} search={(old) => old} replace resetScroll={false}>
             <MdBusinessCenter size={20} />
           </Link>
         )}

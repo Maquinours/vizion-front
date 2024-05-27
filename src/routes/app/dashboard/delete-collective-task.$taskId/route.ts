@@ -2,6 +2,7 @@ import { createFileRoute } from '@tanstack/react-router';
 import { queries } from '../../../../utils/constants/queryKeys';
 import WorkloadType from '../../../../utils/enums/WorkloadType';
 import TaskResponseDto from '../../../../utils/types/TaskResponseDto';
+import LoaderModal from '../../../../components/LoaderModal/LoaderModal';
 
 export const Route = createFileRoute('/app/dashboard/delete-collective-task/$taskId')({
   loader: async ({ context: { queryClient }, params: { taskId } }) => {
@@ -18,4 +19,5 @@ export const Route = createFileRoute('/app/dashboard/delete-collective-task/$tas
       initialDataUpdatedAt: () => queryClient.getQueryState(queries.tasks.list._ctx.byType(WorkloadType.COLLECTIVE).queryKey)?.dataUpdatedAt,
     });
   },
+  pendingComponent: LoaderModal,
 });

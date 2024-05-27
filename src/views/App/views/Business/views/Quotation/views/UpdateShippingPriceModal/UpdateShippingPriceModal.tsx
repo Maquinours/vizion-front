@@ -39,7 +39,7 @@ export default function AppViewBusinessViewQuotationViewUpdateShippingPriceModal
   });
 
   const onClose = () => {
-    navigate({ to: '..', search: (old) => old, replace: true });
+    navigate({ to: '..', search: (old) => old, replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({
@@ -73,28 +73,28 @@ export default function AppViewBusinessViewQuotationViewUpdateShippingPriceModal
         <div className={styles.modal_title}>
           <h6>Frais de port</h6>
         </div>
-        <div className={styles.modal_content}>
-          <form>
+        <form>
+          <div className={styles.modal_content}>
             <div className={styles.form_group}>
               <label htmlFor="shippingServicePrice">Frais de port</label>
               <input id="shippingServicePrice" type="number" {...register('shippingServicePrice')} />
               <p className={styles.__errors}>{errors.shippingServicePrice?.message}</p>
             </div>
-          </form>
-        </div>
+          </div>
 
-        <div className={styles.modal_loader}>
-          <PulseLoader color="#31385A" loading={isPending} className="" size={10} speedMultiplier={0.5} />
-        </div>
+          <div className={styles.modal_loader}>
+            <PulseLoader color="#31385A" loading={isPending} className="" size={10} speedMultiplier={0.5} />
+          </div>
 
-        <div className={styles.modal_buttons}>
-          <button className="btn btn-primary-light" onClick={onClose}>
-            Annuler
-          </button>
-          <button className="btn btn-secondary" onClick={handleSubmit((data) => mutate(data))}>
-            Sauvegarder
-          </button>
-        </div>
+          <div className={styles.modal_buttons}>
+            <button type="reset" className="btn btn-primary-light" onClick={onClose}>
+              Annuler
+            </button>
+            <button type="submit" className="btn btn-secondary" onClick={handleSubmit((data) => mutate(data))}>
+              Sauvegarder
+            </button>
+          </div>
+        </form>
       </div>
     </ReactModal>
   );

@@ -18,7 +18,7 @@ export default function AppViewBusinessViewDashboardViewDeleteModalView() {
   const { data: business } = useSuspenseQuery(queries.businesses.detail._ctx.byId(businessId));
 
   const onClose = () => {
-    navigate({ to: '..', search: (old) => old, replace: true });
+    navigate({ to: '..', search: (old) => old, replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({
@@ -26,7 +26,7 @@ export default function AppViewBusinessViewDashboardViewDeleteModalView() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queries.businesses._def });
       toast.success("L'affaire a bien été supprimée");
-      navigate({ to: '/app/businesses-rma', search: (old) => old });
+      navigate({ to: '/app/businesses-rma', search: (old) => old, replace: true });
     },
     onError: (error) => {
       console.error(error);

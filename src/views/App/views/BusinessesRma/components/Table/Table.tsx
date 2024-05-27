@@ -1,7 +1,7 @@
-import { createColumnHelper } from '@tanstack/react-table';
-import { useMemo } from 'react';
+import { Row, createColumnHelper } from '@tanstack/react-table';
+import React, { useCallback, useMemo } from 'react';
 import AllBusinessResponseDto from '../../../../../../utils/types/AllBusinessResponseDto';
-import { Link, getRouteApi } from '@tanstack/react-router';
+import { Link, getRouteApi, useNavigate } from '@tanstack/react-router';
 import AllBusinessState from '../../../../../../utils/enums/AllBusinessState';
 import { formatDateAndHourWithSlash } from '../../../../../../utils/functions/dates';
 import CategoryBusiness from '../../../../../../utils/enums/CategoryBusiness';
@@ -66,6 +66,8 @@ type AppViewBusinessesRmaViewTableComponent = Readonly<{
   isLoading: boolean;
 }>;
 export default function AppViewBusinessesRmaViewTableComponent({ data, isLoading }: AppViewBusinessesRmaViewTableComponent) {
+  const navigate = useNavigate();
+
   const { state } = routeApi.useSearch();
 
   const { data: user } = useAuthentifiedUserQuery();
@@ -181,9 +183,18 @@ export default function AppViewBusinessesRmaViewTableComponent({ data, isLoading
     [state, user],
   );
 
+  const onRowClick = useCallback(
+    (e: React.MouseEvent, row: Row<AllBusinessResponseDto>) => {
+      if (row.original.category !== CategoryBusiness.AFFAIRE) return; // TODO: add link to RMA
+      if (e.metaKey || e.ctrlKey) window.open(`${window.location.origin}/app/businesses-rma/business/${row.original.businessId}`, '_blank');
+      else navigate({ to: '/app/businesses-rma/business/$businessId', params: { businessId: row.original.businessId } });
+    },
+    [navigate],
+  );
+
   return (
     <div className={styles.table_container}>
-      <TableComponent columns={columns} data={data} isLoading={isLoading} />
+      <TableComponent columns={columns} data={data} isLoading={isLoading} onRowClick={onRowClick} />
     </div>
   );
 }

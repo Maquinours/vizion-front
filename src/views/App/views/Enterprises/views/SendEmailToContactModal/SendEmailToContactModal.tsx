@@ -13,8 +13,8 @@ export default function AppViewEnterprisesViewSendEmailToContactModalView() {
   const { data: contact } = useSuspenseQuery(queries.profiles.detail(contactId));
 
   const onClose = () => {
-    navigate({ from: routeApi.id, to: '../..', search: (old) => old });
+    navigate({ from: routeApi.id, to: '../..', search: (old) => old, replace: true, resetScroll: false });
   };
 
-  return <SendEmailModalComponent isOpen={true} defaultRecipient={[contact.email!]} onClose={onClose} onEmailSent={onClose} />;
+  return <SendEmailModalComponent isOpen={true} defaultRecipient={[contact.email!]} onClose={onClose} />;
 }

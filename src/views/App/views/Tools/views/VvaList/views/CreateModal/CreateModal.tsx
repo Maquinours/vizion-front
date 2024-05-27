@@ -110,7 +110,7 @@ export default function AppViewToolsViewVvaListViewCreateModalView() {
   const totalAmount = useMemo(() => watch('lines').reduce((acc, el) => acc + el.amount, 0), [watch('lines')]);
 
   const onClose = () => {
-    navigate({ to: '..', search: (old) => old });
+    navigate({ to: '..', search: (old) => old, replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({

@@ -36,7 +36,7 @@ export default function AppViewBusinessViewQuotationViewUpdateSubquotationModalV
   });
 
   const onClose = () => {
-    navigate({ to: '../..', search: (old) => old, replace: true });
+    navigate({ to: '../..', search: (old) => old, replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({
@@ -71,7 +71,7 @@ export default function AppViewBusinessViewQuotationViewUpdateSubquotationModalV
             </div>
 
             <div className={styles.modal_buttons}>
-              <button className="btn btn-primary-light" type="reset">
+              <button type="reset" className="btn btn-primary-light">
                 Annuler
               </button>
               <button type="submit" className="btn btn-secondary">

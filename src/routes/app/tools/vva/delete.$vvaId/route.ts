@@ -3,6 +3,7 @@ import { queries } from '../../../../../utils/constants/queryKeys';
 import SalesVvaResponseDto from '../../../../../utils/types/SalesVvaResponseDto';
 import Page from '../../../../../utils/types/Page';
 import { QueryKey } from '@tanstack/react-query';
+import LoaderModal from '../../../../../components/LoaderModal/LoaderModal';
 
 export const Route = createFileRoute('/app/tools/vva/delete/$vvaId')({
   loader: async ({ context: { queryClient }, params: { vvaId } }) => {
@@ -21,4 +22,5 @@ export const Route = createFileRoute('/app/tools/vva/delete/$vvaId')({
       initialDataUpdatedAt: () => (initialDataKey ? queryClient.getQueryState(initialDataKey)?.dataUpdatedAt : undefined),
     });
   },
+  pendingComponent: LoaderModal,
 });

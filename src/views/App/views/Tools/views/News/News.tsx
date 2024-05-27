@@ -19,7 +19,7 @@ export default function AppViewToolsViewNewsView() {
       <div className={styles.container}>
         <div className={styles.content}>
           <div className={styles.buttons_container}>
-            <Link from={routeApi.id} to="./create" search={(old) => old} className="btn btn-secondary">
+            <Link from={routeApi.id} to="./create" search={(old) => old} replace resetScroll={false} className="btn btn-secondary">
               Ajouter
             </Link>
           </div>
@@ -27,7 +27,7 @@ export default function AppViewToolsViewNewsView() {
           <PaginationComponent
             page={page}
             totalPages={data?.totalPages}
-            pageLink={(page) => ({ from: routeApi.id, search: (old) => ({ ...old, page }), params: {} })}
+            pageLink={(page) => ({ from: routeApi.id, search: (old) => ({ ...old, page }), replace: true, resetScroll: false })}
           />
         </div>
       </div>

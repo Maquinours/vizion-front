@@ -30,7 +30,7 @@ export default function AppViewBusinessViewQuotationViewCommercialNoticeModalVie
   const getFilePluginInstance = getFilePlugin({ fileNameGenerator: () => `Notice_Commerciale_${business.numBusiness.replace(/\s|-/g, '_')}.pdf` });
 
   const onClose = () => {
-    navigate({ to: '..', search: (old) => old, replace: true });
+    navigate({ to: '..', search: (old) => old, replace: true, resetScroll: false });
   };
 
   return (
@@ -56,7 +56,7 @@ export default function AppViewBusinessViewQuotationViewCommercialNoticeModalVie
                 </button>
               )}
             </getFilePluginInstance.Download>
-            <Link from={routeApi.id} to="send-by-email" search={(old) => old} className="btn btn-secondary ml-2">
+            <Link from={routeApi.id} to="send-by-email" search={(old) => old} replace resetScroll={false} className="btn btn-secondary ml-2">
               Envoyer par mail
             </Link>
           </div>

@@ -24,7 +24,7 @@ export default function AppViewEnterpriseViewHeaderComponentInformationsComponen
           <span>
             {enterprise.infoSup?.representative?.name ?? 'Aucun représentant'}{' '}
             {currentUser.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && (
-              <Link from={Route.id} to="./update-representative" search={(old) => old}>
+              <Link from={Route.id} to="./update-representative" search={(old) => old} replace resetScroll={false}>
                 <HiPencilAlt />
               </Link>
             )}

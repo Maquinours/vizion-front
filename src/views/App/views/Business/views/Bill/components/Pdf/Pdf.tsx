@@ -364,7 +364,6 @@ type AppViewBusinessViewBillViewPdfComponentProps = Readonly<{
 }>;
 export default function AppViewBusinessViewBillViewPdfComponent({ business, bill }: AppViewBusinessViewBillViewPdfComponentProps) {
   const ecoTax = bill.billDetails.reduce((acc, item) => acc + (item.taxDEEE ?? 0), 0);
-  const vat = (ecoTax + bill.shippingServicePrice + (bill.totalAmountHT ?? 0)) * 0.2;
 
   return (
     <Document title={bill.number} author="VIZEO" creator="VIZEO" producer="VIZEO" keywords="facture,invoice,bill">
@@ -478,7 +477,7 @@ export default function AppViewBusinessViewBillViewPdfComponent({ business, bill
                 </View>
                 <View style={pageStyles.recapTableContent}>
                   <Text style={pageStyles.recapTableContentText}>Total TVA (Taux de TVA 20.0%) :</Text>
-                  <Text style={pageStyles.recapTableContentValue}>{amountFormatter(vat)}</Text>
+                  <Text style={pageStyles.recapTableContentValue}>{amountFormatter(bill.vat)}</Text>
                 </View>
                 <View style={pageStyles.recapTableTotal}>
                   <Text style={pageStyles.recapTableTotalText}>Total TTC :</Text>

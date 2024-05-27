@@ -1,7 +1,6 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import ReactModal from 'react-modal';
-import SendEmailComponent from '../../../../../../../../components/SendEmail/SendEmail';
+import SendEmailModalComponent from '../../../../../../../../components/SendEmailModal/SendEmailModal';
 import { queries } from '../../../../../../../../utils/constants/queryKeys';
 import { emails } from '../../../../../../../../utils/constants/queryKeys/email';
 
@@ -17,8 +16,10 @@ export default function AppViewEnterpriseViewTaskEmailModalViewReplyModalView() 
   const { data: email } = useSuspenseQuery(emails.detail(task.mailId!));
 
   return (
-    <ReactModal isOpen={true} onRequestClose={() => navigate({ from: Route.id, to: '..', search: (old) => old })} overlayClassName="Overlay">
-      <SendEmailComponent emailToReply={email} />
-    </ReactModal>
+    <SendEmailModalComponent
+      isOpen
+      onClose={() => navigate({ from: Route.id, to: '..', search: (old) => old, replace: true, resetScroll: false })}
+      emailToReply={email}
+    />
   );
 }

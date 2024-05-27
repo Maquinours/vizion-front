@@ -10,6 +10,10 @@ export default function AppViewProductsViewPaginationComponent({ totalPages }: A
   const { page } = routeApi.useSearch();
 
   return (
-    <PaginationComponent page={page} totalPages={totalPages} pageLink={(page) => ({ from: routeApi.id, search: (old) => ({ ...old, page }), params: {} })} />
+    <PaginationComponent
+      page={page}
+      totalPages={totalPages}
+      pageLink={(page) => ({ from: routeApi.id, search: (old) => ({ ...old, page }), replace: true, resetScroll: false })}
+    />
   );
 }

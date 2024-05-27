@@ -18,6 +18,7 @@ const searchSchema = z.object({
   state: z.nativeEnum(AllBusinessState).optional().catch(undefined),
   dates: z.array(z.coerce.date()).length(2).optional().catch(undefined),
   excludeds: z.array(z.nativeEnum(CategoryClient)).catch([CategoryClient.FOURNISSEUR]),
+  fuzzy: z.boolean().catch(true),
   page: z.number().catch(0),
   size: z.union([z.literal(20), z.literal(30), z.literal(40), z.literal(50), z.literal(100), z.literal(150), z.literal(200)]).catch(50),
 });
@@ -38,6 +39,7 @@ export const Route = createFileRoute('/app/businesses-rma')({
       state?: AllBusinessState;
       dates?: Array<Date>;
       excludeds?: Array<CategoryClient>;
+      fuzzy?: boolean;
       page?: number;
       size?: 20 | 30 | 40 | 50 | 100 | 150 | 200;
     } & SearchSchemaInput,
@@ -57,6 +59,7 @@ export const Route = createFileRoute('/app/businesses-rma')({
       state,
       dates,
       excludeds,
+      fuzzy,
       page,
       size,
     },
@@ -74,6 +77,7 @@ export const Route = createFileRoute('/app/businesses-rma')({
     state,
     dates,
     excludeds,
+    fuzzy,
     page,
     size,
   }),
@@ -93,8 +97,12 @@ export const Route = createFileRoute('/app/businesses-rma')({
       state,
       dates,
       excludeds,
+      fuzzy,
       page,
       size,
+    },
+    location: {
+      state: { qInfos },
     },
   }) => {
     queryClient.prefetchQuery(
@@ -115,6 +123,8 @@ export const Route = createFileRoute('/app/businesses-rma')({
           startDate: dates?.at(0),
           endDate: dates?.at(1),
           excludedList: excludeds,
+          fuzzy,
+          qInfos,
         },
         { page, size },
       ),

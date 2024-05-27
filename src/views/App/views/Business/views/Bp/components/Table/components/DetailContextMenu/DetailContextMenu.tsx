@@ -35,32 +35,39 @@ export default function AppViewBusinessViewBpViewTableComponentDetailContextMenu
   return (
     <Popper open={isOpen} anchorEl={anchorElement} transition placement="bottom-start">
       {({ TransitionProps }) => (
-        <ClickAwayListener onClickAway={onClose}>
+        <ClickAwayListener mouseEvent="onMouseUp" onClickAway={onClose}>
           <Fade {...TransitionProps}>
             <Paper className={styles.menu_container}>
               {item && (
                 <MenuList>
                   <MenuItem>
-                    <Link from={routeApi.id} to="update-detail/$detailId" params={{ detailId: item.id }} search={(old) => old}>
+                    <Link from={routeApi.id} to="update-detail/$detailId" params={{ detailId: item.id }} search={(old) => old} replace resetScroll={false}>
                       <HiPencilAlt width={16} height={16} color={'#16204E'} className={styles.icon} />
                       <span className={styles.text}>Modifier le produit</span>
                     </Link>
                   </MenuItem>
                   <MenuItem>
-                    <Link from={routeApi.id} to="add-serial/$detailId" params={{ detailId: item.id }} search={(old) => old}>
+                    <Link from={routeApi.id} to="add-serial/$detailId" params={{ detailId: item.id }} search={(old) => old} replace resetScroll={false}>
                       <HiPencilAlt width={16} height={16} color={'#16204E'} className={styles.icon} />
                       <span className={styles.text}>Entrer numéro de série</span>
                     </Link>
                   </MenuItem>
                   <MenuItem>
-                    <Link from={routeApi.id} to="delete-detail/$detailId" params={{ detailId: item.id }} search={(old) => old}>
+                    <Link from={routeApi.id} to="delete-detail/$detailId" params={{ detailId: item.id }} search={(old) => old} replace resetScroll={false}>
                       <FaTrash width={16} height={16} color={'#16204E'} className={styles.icon} />
                       <span className={styles.text}>Supprimer le produit</span>
                     </Link>
                   </MenuItem>
                   {business.state === BusinessState.FACTURE && (
                     <MenuItem>
-                      <Link from={routeApi.id} to="create-detail-rma/$detailId" params={{ detailId: item.id }} search={(old) => old}>
+                      <Link
+                        from={routeApi.id}
+                        to="create-detail-rma/$detailId"
+                        params={{ detailId: item.id }}
+                        search={(old) => old}
+                        replace
+                        resetScroll={false}
+                      >
                         <MdBusinessCenter width={16} height={16} color={'#16204E'} className={styles.icon} />
                         <span className={styles.text}>Créér un RMA</span>
                       </Link>

@@ -34,19 +34,26 @@ export default function AppViewBusinessViewQuotationViewTableComponentQuotationD
               {item && (
                 <MenuList>
                   <MenuItem>
-                    <Link from={routeApi.id} to="create-associated-detail/$detailId" params={{ detailId: item.id }} search={(old) => old}>
+                    <Link
+                      from={routeApi.id}
+                      to="create-associated-detail/$detailId"
+                      params={{ detailId: item.id }}
+                      search={(old) => old}
+                      replace
+                      resetScroll={false}
+                    >
                       <IoMdAddCircleOutline width={16} height={16} color={'#16204E'} className={styles.icon} />
                       <span className={styles.text}>Produits associés</span>
                     </Link>
                   </MenuItem>
                   <MenuItem>
-                    <Link from={routeApi.id} to="update-detail/$detailId" params={{ detailId: item.id }} search={(old) => old}>
+                    <Link from={routeApi.id} to="update-detail/$detailId" params={{ detailId: item.id }} search={(old) => old} replace resetScroll={false}>
                       <HiPencilAlt width={16} height={16} color={'#16204E'} className={styles.icon} />
                       <span className={styles.text}>Modifier</span>
                     </Link>
                   </MenuItem>
                   <MenuItem>
-                    <Link from={routeApi.id} to="delete-detail/$detailId" params={{ detailId: item.id }} search={(old) => old}>
+                    <Link from={routeApi.id} to="delete-detail/$detailId" params={{ detailId: item.id }} search={(old) => old} replace resetScroll={false}>
                       <FaTrash width={16} height={16} color={'#16204E'} className={styles.icon} />
                       <span className={styles.text}>Supprimer</span>
                     </Link>

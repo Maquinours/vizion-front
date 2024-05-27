@@ -17,17 +17,23 @@ export default function AppViewProductsViewSearchSectionComponent() {
 
   const { ref, designation } = routeApi.useSearch();
 
-  const { register, setValue, handleSubmit } = useForm({
+  const { register, setValue, handleSubmit, reset } = useForm({
     resolver: yupResolver(yupSchema),
   });
 
   const onSubmit = ({ ref, designation }: yup.InferType<typeof yupSchema>) => {
-    navigate({ from: routeApi.id, search: { ref, designation, page: 0 } });
+    navigate({
+      from: routeApi.id,
+      search: (old) => ({ ...old, ref: ref || undefined, designation: designation || undefined, page: undefined }),
+      replace: true,
+      resetScroll: false,
+    });
   };
 
   const onReset = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    navigate({ from: routeApi.id, search: { page: 0 } });
+    reset();
+    navigate({ from: routeApi.id, search: (old) => ({ ...old, ref: undefined, designation: undefined, page: undefined }), replace: true, resetScroll: false });
   };
 
   useEffect(() => {

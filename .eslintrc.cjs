@@ -8,10 +8,11 @@ module.exports = {
     'plugin:react/recommended',
     'plugin:react/jsx-runtime',
     'plugin:jsx-a11y/recommended',
+    'plugin:@tanstack/eslint-plugin-query/recommended',
   ],
   ignorePatterns: ['dist'],
   parser: '@typescript-eslint/parser',
-  plugins: ['@typescript-eslint', 'react', 'jsx-a11y'],
+  plugins: ['@typescript-eslint', 'react', 'jsx-a11y', '@tanstack/query'],
   settings: {
     react: { version: 'detect' },
   },

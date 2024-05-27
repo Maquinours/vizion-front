@@ -1,15 +1,15 @@
-import * as yup from 'yup';
-import CategoryClient from '../../../../../../utils/enums/CategoryClient';
-import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import styles from './SearchSection.module.scss';
 import { useQuery } from '@tanstack/react-query';
-import { enterprises } from '../../../../../../utils/constants/queryKeys/enterprise';
-import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthentifiedUser';
-import { useEffect, useMemo } from 'react';
-import PhoneInput from 'react-phone-number-input/input';
-import { Link, getRouteApi } from '@tanstack/react-router';
+import { getRouteApi, useNavigate } from '@tanstack/react-router';
 import { E164Number } from 'libphonenumber-js';
+import React, { useCallback, useEffect, useMemo } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import PhoneInput from 'react-phone-number-input/input';
+import * as yup from 'yup';
+import { enterprises } from '../../../../../../utils/constants/queryKeys/enterprise';
+import CategoryClient from '../../../../../../utils/enums/CategoryClient';
+import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthentifiedUser';
+import styles from './SearchSection.module.scss';
 
 const Route = getRouteApi('/app/enterprises');
 
@@ -65,13 +65,19 @@ const yupSchema = yup.object({
   phoneNumber: yup.string(),
   category: yup.mixed<CategoryClient>(),
   representativeId: yup.string(),
+  fuzzy: yup.boolean().required(),
 });
 
 export default function AppViewEnterprisesViewSearchSectionComponent() {
-  const { enterprise, contact, zipCode, city, phoneNumber, category, representativeId } = Route.useSearch();
+  const navigate = useNavigate({ from: Route.id });
 
-  const { register, control, watch, setValue } = useForm({
+  const { enterprise, contact, zipCode, city, phoneNumber, category, representativeId, fuzzy } = Route.useSearch();
+
+  const { register, control, setValue, reset, handleSubmit } = useForm({
     resolver: yupResolver(yupSchema),
+    defaultValues: {
+      fuzzy: true,
+    },
   });
 
   const { data: user } = useAuthentifiedUserQuery();
@@ -83,6 +89,54 @@ export default function AppViewEnterprisesViewSearchSectionComponent() {
     [user.userInfo.roles],
   );
 
+  const onSubmit = useCallback(
+    ({ enterprise, contact, zipCode, city, phoneNumber, category, representativeId, fuzzy }: yup.InferType<typeof yupSchema>) => {
+      navigate({
+        search: (old) => ({
+          ...old,
+          enterprise: enterprise || undefined,
+          contact: contact || undefined,
+          zipCode: zipCode || undefined,
+          city: city || undefined,
+          phoneNumber: phoneNumber || undefined,
+          category: category || undefined,
+          representativeId: representativeId || undefined,
+          fuzzy,
+          page: undefined,
+          size: undefined,
+        }),
+        replace: true,
+        resetScroll: false,
+      });
+    },
+    [navigate],
+  );
+
+  const onReset = useCallback(
+    (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      reset();
+      navigate({
+        search: (old) => ({
+          ...old,
+          enterprise: undefined,
+          contact: undefined,
+          zipCode: undefined,
+          city: undefined,
+          phoneNumber: undefined,
+          category: undefined,
+          representativeId: undefined,
+          fuzzy: undefined,
+          page: undefined,
+          size: undefined,
+        }),
+        replace: true,
+        resetScroll: false,
+      });
+    },
+    [reset, navigate],
+  );
+
   useEffect(() => {
     setValue('enterprise', enterprise);
     setValue('contact', contact);
@@ -91,7 +145,8 @@ export default function AppViewEnterprisesViewSearchSectionComponent() {
     setValue('phoneNumber', phoneNumber);
     setValue('category', category);
     setValue('representativeId', representativeId);
-  }, [setValue, enterprise, contact, zipCode, city, phoneNumber, category, representativeId]);
+    setValue('fuzzy', fuzzy);
+  }, [setValue, enterprise, contact, zipCode, city, phoneNumber, category, representativeId, fuzzy]);
 
   return (
     <div className={styles.container}>
@@ -100,11 +155,11 @@ export default function AppViewEnterprisesViewSearchSectionComponent() {
       </div>
 
       <div className={styles.inputs}>
-        <form>
-          <input placeholder="Entreprise/Enseigne" id="enterprise" {...register('enterprise')} />
-          <input placeholder="Contact/Agence" id="contact" {...register('contact')} />
-          <input placeholder="Code postal" id="zipCode" {...register('zipCode')} />
-          <input placeholder="Ville" id="city" {...register('city')} />
+        <form onSubmit={handleSubmit(onSubmit)} onReset={onReset}>
+          <input type="text" placeholder="Entreprise/Enseigne" id="enterprise" {...register('enterprise')} />
+          <input type="text" placeholder="Contact/Agence" id="contact" {...register('contact')} />
+          <input type="text" placeholder="Code postal" id="zipCode" {...register('zipCode')} />
+          <input type="text" placeholder="Ville" id="city" {...register('city')} />
           <Controller
             name="phoneNumber"
             control={control}
@@ -136,42 +191,18 @@ export default function AppViewEnterprisesViewSearchSectionComponent() {
               ))}
             </select>
           )}
-          <Link
-            from={Route.id}
-            search={(old) => ({
-              ...old,
-              enterprise: watch('enterprise') || undefined,
-              contact: watch('contact') || undefined,
-              zipCode: watch('zipCode') || undefined,
-              city: watch('city') || undefined,
-              phoneNumber: watch('phoneNumber') || undefined,
-              category: watch('category') || undefined,
-              representativeId: watch('representativeId') || undefined,
-              page: 0,
-              size: 20,
-            })}
-            className="btn btn-secondary"
-          >
+          <div className="flex items-center gap-1">
+            <label htmlFor="fuzzy" className="font-['DIN2014'] text-base text-[color:var(--primary-color)]">
+              Recherche floue
+            </label>
+            <input type="checkbox" id="fuzzy" {...register('fuzzy')} />
+          </div>
+          <button type="submit" className="btn btn-secondary">
             Rechercher
-          </Link>
-          <Link
-            from={Route.id}
-            search={(old) => ({
-              ...old,
-              enterprise: undefined,
-              contact: undefined,
-              zipCode: undefined,
-              city: undefined,
-              phoneNumber: undefined,
-              category: undefined,
-              representativeId: undefined,
-              page: 0,
-              size: 20,
-            })}
-            className="btn btn-primary"
-          >
+          </button>
+          <button type="reset" className="btn btn-primary">
             Réinitialiser
-          </Link>
+          </button>
         </form>
       </div>
     </div>

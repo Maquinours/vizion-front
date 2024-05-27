@@ -70,7 +70,7 @@ export default function AppViewToolsViewFormationsViewCreateModalView() {
   );
 
   const onClose = () => {
-    navigate({ to: '..', search: (old) => old, replace: true });
+    navigate({ to: '..', search: (old) => old, replace: true, resetScroll: false });
   };
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
@@ -124,10 +124,10 @@ export default function AppViewToolsViewFormationsViewCreateModalView() {
           <div className={styles.news_container}>
             <div className={styles.content}>
               <div className={styles.details_buttons}>
-                <Link from={routeApi.id} to="add-detail" search={(old) => old} className="btn btn-primary">
+                <Link from={routeApi.id} to="add-detail" search={(old) => old} replace resetScroll={false} className="btn btn-primary">
                   Ajouter un détail
                 </Link>
-                <Link from={routeApi.id} to="details" search={(old) => old} className="btn btn-secondary">
+                <Link from={routeApi.id} to="details" search={(old) => old} replace resetScroll={false} className="btn btn-secondary">
                   Voir les détails
                 </Link>
               </div>

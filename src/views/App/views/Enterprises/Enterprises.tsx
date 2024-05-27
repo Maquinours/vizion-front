@@ -11,9 +11,9 @@ const Route = getRouteApi('/app/enterprises');
 const size = 20;
 
 export default function AppViewEnterprisesView() {
-  const { enterprise, contact, zipCode, city, phoneNumber, category, representativeId, page } = Route.useSearch();
+  const { enterprise, contact, zipCode, city, phoneNumber, category, representativeId, fuzzy, page } = Route.useSearch();
 
-  const { data, isLoading } = useQuery(enterprises.page({ enterprise, contact, zipCode, city, phoneNumber, category, representativeId, page, size }));
+  const { data, isLoading } = useQuery(enterprises.page({ enterprise, contact, zipCode, city, phoneNumber, category, representativeId, fuzzy, page, size }));
 
   return (
     <>
@@ -24,11 +24,13 @@ export default function AppViewEnterprisesView() {
           page={page}
           totalPages={data?.totalPages}
           pageLink={(page) => ({
+            from: Route.id,
             search: (old) => ({
               ...old,
               page,
             }),
-            params: {},
+            replace: true,
+            resetScroll: false,
           })}
         />
       </div>

@@ -102,6 +102,7 @@ export const searchAllBusiness = (
     state,
     excludedList,
     qInfos,
+    fuzzy,
   }: {
     startDate?: Date | null;
     endDate?: Date | null;
@@ -119,12 +120,13 @@ export const searchAllBusiness = (
     state?: AllBusinessState | null;
     excludedList?: Array<CategoryClient> | null;
     qInfos?: Array<AllBusinessQInfoRequestDto> | null;
+    fuzzy: boolean;
   },
   { page, size }: { page: number; size: number },
 ) => {
   return privateInstance<Page<AllBusinessResponseDto>>({
     method: 'POST',
-    url: `/all-business/v1/all-business-and-rma/fuzzy-search/page/${encodeURIComponent(page)}/${encodeURIComponent(size)}`,
+    url: `/all-business/v1/all-business-and-rma/search/page/${encodeURIComponent(page)}/${encodeURIComponent(size)}`,
     params: {
       startDate,
       endDate,
@@ -141,6 +143,7 @@ export const searchAllBusiness = (
       installerName,
       state,
       excludedList,
+      fuzzy,
     },
     data: qInfos,
   }).then((res) => res.data);

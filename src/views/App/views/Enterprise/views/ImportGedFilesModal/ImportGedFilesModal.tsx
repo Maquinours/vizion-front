@@ -19,7 +19,9 @@ export default function AppViewEnterpriseViewImportGedFilesModalView() {
         navigate({
           from: routeApi.id,
           to: '..',
-          search: ({ allBusinessPage, contactsSearch, contactsPage, lifesheetPage }) => ({ allBusinessPage, contactsSearch, contactsPage, lifesheetPage }),
+          search: (old) => ({ ...old, gedObjectRelativePath: undefined }),
+          replace: true,
+          resetScroll: false,
         })
       }
     />

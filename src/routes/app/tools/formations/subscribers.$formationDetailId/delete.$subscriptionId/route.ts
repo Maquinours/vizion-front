@@ -2,6 +2,7 @@ import { createFileRoute } from '@tanstack/react-router';
 import { queries } from '../../../../../../utils/constants/queryKeys';
 import { QueryKey } from '@tanstack/react-query';
 import FormationSubscriptionResponseDto from '../../../../../../utils/types/FormationSubscriptionResponseDto';
+import LoaderModal from '../../../../../../components/LoaderModal/LoaderModal';
 
 export const Route = createFileRoute('/app/tools/formations/subscribers/$formationDetailId/delete/$subscriptionId')({
   loader: async ({ context: { queryClient }, params: { subscriptionId } }) => {
@@ -22,4 +23,5 @@ export const Route = createFileRoute('/app/tools/formations/subscribers/$formati
       initialDataUpdatedAt: () => (initialDataKey ? queryClient.getQueryState(initialDataKey)?.dataUpdatedAt : undefined),
     });
   },
+  pendingComponent: LoaderModal,
 });

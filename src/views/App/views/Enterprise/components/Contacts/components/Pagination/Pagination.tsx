@@ -15,7 +15,7 @@ export default function AppViewEnterpriseViewContactsComponentPaginationComponen
     <PaginationComponent
       page={page}
       totalPages={data?.totalPages}
-      pageLink={(page) => ({ from: Route.id, search: (old) => ({ ...old, contactsPage: page }), params: (old) => old })}
+      pageLink={(page) => ({ from: Route.id, search: (old) => ({ ...old, contactsPage: page }), replace: true, resetScroll: false })}
     />
   );
 }

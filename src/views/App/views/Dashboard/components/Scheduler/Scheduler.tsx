@@ -31,14 +31,14 @@ export default function AppViewDashboardViewSchedulerComponent() {
   const onViewChange = useCallback(
     (view: View) => {
       if (view !== Views.DAY && view !== Views.WORK_WEEK) return;
-      navigate({ from: Route.id, search: (old) => ({ ...old, schedulerView: view }) });
+      navigate({ from: Route.id, search: (old) => ({ ...old, schedulerView: view }), replace: true, resetScroll: false });
     },
     [navigate],
   );
 
   const onDateChange = useCallback(
     (date: Date) => {
-      navigate({ from: Route.id, search: (old) => ({ ...old, schedulerDate: date }) });
+      navigate({ from: Route.id, search: (old) => ({ ...old, schedulerDate: date }), replace: true, resetScroll: false });
     },
     [navigate],
   );
@@ -49,7 +49,14 @@ export default function AppViewDashboardViewSchedulerComponent() {
         queries['rdv-user-infos'].list._ctx.byRdvId(event.rdv!.id).queryKey,
         data.filter((info) => info.rdv!.id === event.rdv!.id),
       );
-      navigate({ from: Route.id, to: './scheduler-event-details/$eventId', params: { eventId: event.rdv!.id }, search: (old) => old });
+      navigate({
+        from: Route.id,
+        to: './scheduler-event-details/$eventId',
+        params: { eventId: event.rdv!.id },
+        search: (old) => old,
+        replace: true,
+        resetScroll: false,
+      });
     },
     [data, navigate, queryClient],
   );

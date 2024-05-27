@@ -96,6 +96,10 @@ export const Route = createFileRoute('/app/products/$productId/manage')({
           size: salesSize,
         }),
       );
+
+      queryClient.prefetchQuery(
+        queries['product-version-shelf-stocks'].page._ctx.byProductReference(product.reference!, { page: stocksPage, size: stocksSize }),
+      );
     });
 
     queryClient.prefetchQuery(queries.product.page({ page: associatedProductsPage, size: associatedProductsSize })._ctx.byAssociatedProductId(productId));
@@ -103,8 +107,6 @@ export const Route = createFileRoute('/app/products/$productId/manage')({
     queryClient.prefetchQuery(queries.product.detail(productId)._ctx.versions._ctx.page({ page: versionsPage, size: versionsSize }));
 
     queryClient.prefetchQuery(queries.product.detail(productId)._ctx.specifications._ctx.page({ page: specificationsPage, size: specificationsSize }));
-
-    queryClient.prefetchQuery(queries.product.detail(productId)._ctx.versionShelfStocks._ctx.page({ page: stocksPage, size: stocksSize }));
 
     queryClient.prefetchQuery(queries.product.detail(productId)._ctx.stockEntries._ctx.page({ page: stockEntriesPage, size: stockEntriesSize }));
   },

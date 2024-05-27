@@ -29,7 +29,7 @@ export default function AppViewBusinessViewDashboardViewQuotationButtonComponent
       queryClient.invalidateQueries({ queryKey: queries['all-businesses']._def });
       queryClient.setQueryData(queries['business-quotations'].detail._ctx.byBusinessId(business.id).queryKey, data);
       toast.success('Devis créé avec succès');
-      navigate({ to: '../quotation' });
+      navigate({ to: '../quotation', replace: true });
     },
     onError: (error) => {
       console.error(error);
@@ -39,7 +39,7 @@ export default function AppViewBusinessViewDashboardViewQuotationButtonComponent
 
   const onClick = () => {
     if (business.state === BusinessState.CREATED) mutate();
-    else navigate({ to: '../quotation' });
+    else navigate({ to: '../quotation', replace: true });
   };
 
   return (

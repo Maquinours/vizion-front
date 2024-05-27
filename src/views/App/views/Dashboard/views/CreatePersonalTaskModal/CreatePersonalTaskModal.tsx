@@ -42,7 +42,7 @@ export default function AppViewDashboardViewCreatePersonalTaskModalView() {
   });
 
   const onClose = () => {
-    navigate({ from: Route.id, to: '..', search: (old) => old });
+    navigate({ from: Route.id, to: '..', search: (old) => old, replace: true, resetScroll: false });
   };
 
   const { data: members, isLoading: isLoadingMembers } = useQuery(queries.profiles.list._ctx.byCategory(CategoryClient.VIZEO));

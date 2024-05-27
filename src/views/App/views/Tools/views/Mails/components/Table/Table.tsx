@@ -31,10 +31,10 @@ const columns = [
     id: 'actions',
     cell: ({ row: { original } }) => (
       <div>
-        <Link from={route} to="update/$mailId" params={{ mailId: original.id }} search={(old) => old} replace>
+        <Link from={route} to="update/$mailId" params={{ mailId: original.id }} search={(old) => old} replace resetScroll={false}>
           <HiPencilAlt width={18} height={18} color="#16204E" />
         </Link>
-        <Link from={route} to="delete/$mailId" params={{ mailId: original.id }} search={(old) => old} replace style={{ marginLeft: '5px' }}>
+        <Link from={route} to="delete/$mailId" params={{ mailId: original.id }} search={(old) => old} replace resetScroll={false} style={{ marginLeft: '5px' }}>
           <FaTrash width={18} height={18} color="#F24C52" />
         </Link>
       </div>

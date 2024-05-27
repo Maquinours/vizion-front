@@ -14,11 +14,11 @@ export default function AppViewEnterpriseViewContactsComponentButtonsComponent({
   return (
     <div className={styles.buttons}>
       {user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && (
-        <Link from={Route.id} to="./import-contacts" search={(old) => old} className="btn btn-primary">
+        <Link from={Route.id} to="./import-contacts" search={(old) => old} replace resetScroll={false} className="btn btn-primary">
           Importer des contacts
         </Link>
       )}
-      <Link from={Route.id} to="./create-contact" search={(old) => old} className="btn btn-primary">
+      <Link from={Route.id} to="./create-contact" search={(old) => old} replace resetScroll={false} className="btn btn-primary">
         Ajouter un contact
       </Link>
 

@@ -109,7 +109,7 @@ export default function AppViewToolsViewSchedulerViewCalendarComponent({
   const { data: resources } = useSuspenseQuery(queries.profiles.list._ctx.byCategory(CategoryClient.VIZEO));
 
   const onSelectEvent = (event: RdvUserInfoResponseDto) => {
-    if (!!event.rdv) navigate({ to: 'details/$rdvId', params: { rdvId: event.rdv.id }, search: (old) => old });
+    if (!!event.rdv) navigate({ to: 'details/$rdvId', params: { rdvId: event.rdv.id }, search: (old) => old, replace: true, resetScroll: false });
   };
 
   const onEventDrop = ({
@@ -137,11 +137,13 @@ export default function AppViewToolsViewSchedulerViewCalendarComponent({
           isAllDay: isAllDay ?? false,
         }),
         replace: true,
+        resetScroll: false,
       });
   };
 
   const onSelectSlot = ({ start, end, resourceId }: { start: Date; end: Date; resourceId?: string | number }) => {
-    if (typeof resourceId === 'string') navigate({ to: 'create', search: (old) => ({ ...old, dates: [start, end], participant: resourceId }), replace: true });
+    if (typeof resourceId === 'string')
+      navigate({ to: 'create', search: (old) => ({ ...old, dates: [start, end], participant: resourceId }), replace: true, resetScroll: false });
   };
 
   const onEventResize = ({ event, start, end }: { event: RdvUserInfoResponseDto; start: Date | string; end: Date | string }) => {
@@ -151,6 +153,7 @@ export default function AppViewToolsViewSchedulerViewCalendarComponent({
         params: { rdvId: event.rdv.id },
         search: (old) => ({ ...old, dates: [start, end] }),
         replace: true,
+        resetScroll: false,
       });
   };
 

@@ -24,7 +24,7 @@ export default function AppViewToolsMenuViewCreateProductModalView() {
   };
 
   const onClose = () => {
-    navigate({ to: '..', search: (old) => old });
+    navigate({ to: '..', search: (old) => old, replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({
