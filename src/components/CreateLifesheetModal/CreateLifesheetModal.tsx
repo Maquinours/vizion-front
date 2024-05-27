@@ -64,6 +64,7 @@ export default function CreateLifesheetModalComponent({
     resolver: yupResolver(yupSchema),
     defaultValues: {
       receivers: [],
+      description: '',
     },
   });
 
