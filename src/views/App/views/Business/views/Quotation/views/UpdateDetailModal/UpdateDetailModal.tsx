@@ -52,7 +52,7 @@ export default function AppViewBusinessViewQuotationViewUpdateDetailModalView() 
   const { mutate, isPending } = useMutation({
     mutationFn: (data: yup.InferType<typeof yupSchema>) => {
       const totalPrice = data.unitPrice * data.quantity;
-      const totalAmountHT = quotation.totalAmountHT! - detail.totalPrice + totalPrice;
+      const totalAmountHT = (quotation.totalAmountHT ?? 0) - (detail.totalPrice ?? 0) + totalPrice;
       const shippingServicePrice = totalAmountHT < 1200 ? quotation.shippingServicePrice : 0;
 
       return updateBusinessQuotationDetail(detail.id, {
