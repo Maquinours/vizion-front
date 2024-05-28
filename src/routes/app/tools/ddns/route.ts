@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router';
+import { SearchSchemaInput, createFileRoute } from '@tanstack/react-router';
 import { z } from 'zod';
 import { ddns } from '../../../../utils/constants/queryKeys/ddns';
 
@@ -12,7 +12,8 @@ const searchSchema = z.object({
 });
 
 export const Route = createFileRoute('/app/tools/ddns')({
-  validateSearch: searchSchema,
+  validateSearch: (data: { email?: string; domain?: string; serial?: string; ref?: string; date?: Date; page?: number } & SearchSchemaInput) =>
+    searchSchema.parse(data),
   loaderDeps: ({ search: { email, domain, serial, ref, date, page } }) => ({ email, domain, serial, ref, date, page, size: 15 }),
   loader: ({ context: { queryClient }, deps: { email, domain, serial, ref, date, page, size } }) => {
     queryClient.prefetchQuery(ddns.page({ email, domain, serial, ref, date, page, size }));

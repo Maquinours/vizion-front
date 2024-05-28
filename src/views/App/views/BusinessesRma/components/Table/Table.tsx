@@ -116,6 +116,10 @@ export default function AppViewBusinessesRmaViewTableComponent({ data, isLoading
                     disabled={
                       (item.category === CategoryBusiness.AFFAIRE && user.userInfo.roles.includes('ROLE_CLIENT')) || item.category === CategoryBusiness.RMA // TODO: implement for RMAs
                     }
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      e.nativeEvent.stopImmediatePropagation();
+                    }}
                   >
                     {name}
                   </Link>
@@ -162,16 +166,21 @@ export default function AppViewBusinessesRmaViewTableComponent({ data, isLoading
         header: 'Assistance',
         cell: ({ row: { original } }) => (
           <ul className={styles.support_listing}>
-            {original.supports?.map((item) => {
-              // const isClickable = user.userInfo?.roles?.includes('ROLE_MEMBRE_VIZEO');
-              return (
-                <li key={item.id}>
-                  {/* <Link to={`/app/business/assistance/${item.id}`} className={!isClickable ? styles.disabled_link : null}> // TODO: reimplement this
-                    {item.name ? item.name : 'Sans nom'}
-                  </Link> */}
-                </li>
-              );
-            })}
+            {original.supports?.map((item) => (
+              <li key={item.id}>
+                <Link
+                  disabled={!user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO')}
+                  to="/app/businesses-rma/business/$businessId/assistance/$assistanceId"
+                  params={{ businessId: original.businessId, assistanceId: item.id }}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    e.nativeEvent.stopImmediatePropagation();
+                  }}
+                >
+                  {item.name || 'Sans nom'}
+                </Link>
+              </li>
+            ))}
           </ul>
         ),
       }),

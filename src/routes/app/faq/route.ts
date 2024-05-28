@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router';
+import { SearchSchemaInput, createFileRoute } from '@tanstack/react-router';
 import { z } from 'zod';
 import { faqs } from '../../../utils/constants/queryKeys/faq';
 
@@ -9,7 +9,7 @@ const searchSchema = z.object({
 });
 
 export const Route = createFileRoute('/app/faq')({
-  validateSearch: searchSchema,
+  validateSearch: (data: { search?: string; page?: number; archived?: boolean } & SearchSchemaInput) => searchSchema.parse(data),
   loaderDeps: ({ search: { search, page, archived } }) => ({ search, page, size: 15, archived }),
   loader: ({ context: { queryClient }, deps: { search, page, size, archived } }) => {
     queryClient.ensureQueryData(faqs.page({ page, size })._ctx.byArchiveStateAndSearch(archived, search));

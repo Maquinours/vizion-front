@@ -17,10 +17,11 @@ type CardComponentProps = Readonly<{
   onReload?: () => void;
   isReloading?: boolean;
   children: ReactNode;
+  className?: string;
 }>;
-export default function CardComponent({ title, isMinimized, setMinimized, addLink, editLink, onReload, isReloading, children }: CardComponentProps) {
+export default function CardComponent({ title, isMinimized, setMinimized, addLink, editLink, onReload, isReloading, children, className }: CardComponentProps) {
   return (
-    <div className={styles.card}>
+    <div className={classNames(styles.card, className)}>
       <div className={styles.header}>
         <div className={styles.title}>{title}</div>
         <div className={styles.actions}>

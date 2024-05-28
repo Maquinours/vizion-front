@@ -145,10 +145,6 @@
                 &:hover {
                   color: var(--secondary-color);
                 }
-
-                &.disabled_link {
-                  pointer-events: none;
-                }
               }
             }
           }

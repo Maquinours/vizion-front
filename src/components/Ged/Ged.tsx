@@ -17,6 +17,7 @@ type GedComponentProps = Readonly<{
   getImportFilesLink: (data?: FileDataTreeResponseDto) => LinkOptions;
   getRenameLink: (data: FileDataTreeResponseDto) => LinkOptions;
   getDeleteLink: (data: FileDataTreeResponseDto) => LinkOptions;
+  className?: string;
 }>;
 export default function GedComponent({
   type,
@@ -26,6 +27,7 @@ export default function GedComponent({
   getImportFilesLink,
   getRenameLink,
   getDeleteLink,
+  className,
 }: GedComponentProps) {
   const { data, isLoading, refetch, isRefetching } = useQuery({
     ...geds.detail._ctx.byTypeAndId(type, id),
@@ -38,7 +40,7 @@ export default function GedComponent({
   );
 
   return (
-    <CardComponent title="Gestion électronique de documents">
+    <CardComponent title="Gestion électronique de documents" className={className}>
       <div>
         <GedContext.Provider value={gedContextValue}>
           <GedComponentButtonsComponent refetch={refetch} isRefetching={isRefetching} />

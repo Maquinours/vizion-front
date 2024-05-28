@@ -16,7 +16,7 @@ export default function AppViewBusinessViewArcViewPdfModalViewSendByEmailModalVi
     <SendEmailModalComponent
       isOpen={true}
       onClose={onClose}
-      defaultRecipient={[business.profileEmail ?? '']}
+      defaultRecipient={[business.profileEmail ?? business.deliverEmail ?? '']}
       defaultCc={representative?.profiles.filter((profile) => profile.civility === 'Service').map((service) => service.email!)}
       defaultSubject={`Arc ${arc.number}`}
       defaultAttachments={[file]}

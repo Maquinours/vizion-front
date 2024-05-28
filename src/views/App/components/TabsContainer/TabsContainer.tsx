@@ -1,15 +1,18 @@
+import { DndContext, DragEndEvent, KeyboardSensor, MouseSensor, PointerSensor, TouchSensor, useSensor, useSensors } from '@dnd-kit/core';
+import { restrictToHorizontalAxis } from '@dnd-kit/modifiers';
+import { SortableContext, arrayMove, horizontalListSortingStrategy } from '@dnd-kit/sortable';
 import { QueryClient, useQueryClient } from '@tanstack/react-query';
-import { Link, ToOptions, ToPathOption, useMatchRoute, useNavigate, useRouterState } from '@tanstack/react-router';
+import { ToOptions, ToPathOption, useMatchRoute, useNavigate, useRouterState } from '@tanstack/react-router';
 import { useLocalStorage } from '@uidotdev/usehooks';
-import React, { useCallback, useEffect, useMemo } from 'react';
-import { MdClose } from 'react-icons/md';
-import styles from './TabsContainer.module.scss';
-import { TabsContext } from './utils/contexts/context';
 import _ from 'lodash';
+import React, { useCallback, useEffect, useMemo } from 'react';
 import { queries } from '../../../../utils/constants/queryKeys';
 import { useAuthentifiedUserQuery } from '../../utils/functions/getAuthentifiedUser';
+import styles from './TabsContainer.module.scss';
+import AppViewTabsContainerComponentTabComponent from './components/Tab/Tab';
+import { TabsContext } from './utils/contexts/context';
 
-type Tab = {
+export type Tab = {
   id: string;
   name: string;
   route: ToOptions;
@@ -88,6 +91,17 @@ export default function AppViewTabsContainerComponent({ children }: AppViewTabsC
 
   const { data: user } = useAuthentifiedUserQuery();
 
+  const sensors = useSensors(
+    useSensor(MouseSensor, {}),
+    useSensor(TouchSensor, {}),
+    useSensor(KeyboardSensor, {}),
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 8,
+      },
+    }),
+  );
+
   const removeTab = useCallback(
     (tabId?: string) => {
       setTabs((tabs) => {
@@ -115,6 +129,21 @@ export default function AppViewTabsContainerComponent({ children }: AppViewTabsC
       else removeTab(tab.id);
     },
     [removeTab],
+  );
+
+  const handleDragEnd = useCallback(
+    (event: DragEndEvent) => {
+      const { active, over } = event;
+      if (!!over && active.id !== over.id) {
+        setTabs((items) => {
+          const oldIndex = items.findIndex(({ id }) => id === active.id);
+          const newIndex = items.findIndex(({ id }) => id === over.id);
+
+          return arrayMove(items, oldIndex, newIndex);
+        });
+      }
+    },
+    [setTabs],
   );
 
   const contextValue = useMemo(() => ({ removeTab }), [removeTab]);
@@ -189,22 +218,13 @@ export default function AppViewTabsContainerComponent({ children }: AppViewTabsC
     <TabsContext.Provider value={contextValue}>
       <div className={styles.container}>
         <div className={styles.tabs}>
-          {tabs.map((tab, index) => (
-            <Link
-              {...tab.route}
-              key={index}
-              className={styles.tab}
-              activeOptions={{ exact: true, includeSearch: false }}
-              activeProps={{ className: styles.active }}
-            >
-              <span>{tab.name}</span>
-              {(tab.closable === undefined || tab.closable) && (
-                <button onClick={(e) => onCloseTab(e, tab)}>
-                  <MdClose />
-                </button>
-              )}
-            </Link>
-          ))}
+          <DndContext modifiers={[restrictToHorizontalAxis]} onDragEnd={handleDragEnd} sensors={sensors}>
+            <SortableContext items={tabs.map(({ id }) => id)} strategy={horizontalListSortingStrategy}>
+              {tabs.map((tab) => (
+                <AppViewTabsContainerComponentTabComponent key={tab.id} tab={tab} onCloseTab={onCloseTab} />
+              ))}
+            </SortableContext>
+          </DndContext>
         </div>
       </div>
       {children}

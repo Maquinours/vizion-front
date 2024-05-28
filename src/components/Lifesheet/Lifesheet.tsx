@@ -38,12 +38,13 @@ type LifesheetComponentProps = Readonly<{
   size?: number;
   createLink: LinkProps;
   pageLink?: (page: number) => LinkProps;
+  className?: string;
 }>;
-export default function LifesheetComponent({ associatedItemType, associatedItemId, page, size = 5, createLink, pageLink }: LifesheetComponentProps) {
+export default function LifesheetComponent({ associatedItemType, associatedItemId, page, size = 5, createLink, pageLink, className }: LifesheetComponentProps) {
   const { data, isLoading, refetch, isRefetching } = useQuery(lifesheets.page({ page, size })._ctx.byAssociatedItem({ associatedItemType, associatedItemId }));
 
   return (
-    <CardComponent title="Fiche de vie">
+    <CardComponent title="Fiche de vie" className={className}>
       <div className={styles.container}>
         <Link {...createLink} className={classNames('btn btn-primary', styles.link)}>
           Ajouter un commentaire

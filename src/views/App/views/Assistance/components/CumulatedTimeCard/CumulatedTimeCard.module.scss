@@ -1,0 +1,24 @@
+.card {
+  grid-row: 2 / 4;
+  grid-column: 4 / 7;
+  height: 100%;
+
+  .container {
+    padding: 1em 0;
+
+    .text {
+      text-align: center;
+      font-weight: bold;
+      font-size: 200%;
+      color: var(--primary-color);
+    }
+
+    .buttons_container {
+      text-align: center;
+    }
+
+    .button {
+      margin-left: 10px;
+    }
+  }
+}

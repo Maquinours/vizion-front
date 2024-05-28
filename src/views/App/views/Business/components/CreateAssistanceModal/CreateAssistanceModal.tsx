@@ -33,10 +33,11 @@ export default function AppViewBusinessViewCreateAssistanceModalComponent() {
         cumulatedTime: '00:00:00',
         noBilledTime: '00:00:00',
       }),
-    onSuccess: () => {
+    onSuccess: (technicalSupport) => {
       queryClient.invalidateQueries({ queryKey: queries['technical-supports']._def });
+      queryClient.setQueryData(queries['technical-supports'].detail._ctx.byId(technicalSupport.id).queryKey, technicalSupport);
       toast.success("L'assistance a été créée avec succès.");
-      // TODO: redirect to assistance page
+      navigate({ to: '/app/businesses-rma/business/$businessId/assistance/$assistanceId', params: { assistanceId: technicalSupport.id } });
     },
     onError: (error) => {
       console.error(error);
@@ -64,7 +65,7 @@ export default function AppViewBusinessViewCreateAssistanceModalComponent() {
         </div>
         <form onSubmit={onSubmit} onReset={onClose}>
           <div className={styles.modal_content}>
-            <p>Voulez vous créér une nouvelle assistance pour cette affaire ?</p>
+            <p>Voulez-vous créér une nouvelle assistance pour cette affaire ?</p>
           </div>
 
           <div className={styles.modal_loader}>
