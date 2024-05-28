@@ -7,7 +7,7 @@ type TechnicalSupportResponseDto = {
   businessId: string | null;
   businessTitle: string | null;
   predefinedTime: string | null;
-  cumulativeTime: string | null;
+  cumulatedTime: string | null;
   noBilledTime: string;
   createdDate: string;
   modifiedDate: string | null;

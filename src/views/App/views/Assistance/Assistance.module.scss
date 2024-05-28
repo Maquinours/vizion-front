@@ -1,0 +1,32 @@
+.container {
+  padding: 0;
+  width: 100%;
+
+  .content_grid {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 1rem;
+
+    .first_grid {
+      display: grid;
+      gap: 1rem;
+      grid-template-rows: 1rem;
+      flex: 1;
+    }
+
+    .second_grid {
+      display: grid;
+      gap: 1rem;
+      grid-template-rows: 1rem;
+      flex: 1;
+
+      .blank {
+        grid-row: 4/13;
+        grid-column: 1/3;
+      }
+    }
+  }
+}

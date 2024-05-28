@@ -1,0 +1,9 @@
+.card {
+  height: 450px;
+  grid-row: 6;
+  grid-column: 1 / 5;
+
+  & > div:nth-child(2) {
+    height: auto;
+  }
+}

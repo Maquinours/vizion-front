@@ -21,3 +21,25 @@ export const createTechnicalSupport = (data: TechnicalSupportRequestDto) => {
     data,
   }).then((res) => res.data);
 };
+
+export const getTechnicalSupportById = (id: string) => {
+  return privateInstance<TechnicalSupportResponseDto>({
+    method: 'GET',
+    url: `/all-business/v1/technical-assistance/${encodeURIComponent(id)}`,
+  }).then((res) => res.data);
+};
+
+export const deleteTechnicalSupport = (id: string) => {
+  return privateInstance<void>({
+    method: 'DELETE',
+    url: `/all-business/v1/technical-assistance/${encodeURIComponent(id)}`,
+  }).then((res) => res.data);
+};
+
+export const updateTechnicalSupport = (id: string, data: TechnicalSupportRequestDto) => {
+  return privateInstance<TechnicalSupportResponseDto>({
+    method: 'PUT',
+    url: `/all-business/v1/technical-assistance/${encodeURIComponent(id)}`,
+    data,
+  }).then((res) => res.data);
+};

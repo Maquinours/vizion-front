@@ -34,7 +34,9 @@ export default function AppViewBusinessViewAssistancesModalComponent() {
             <ul>
               {data?.map((el) => (
                 <li key={el.id}>
-                  {/* <Link to={`/app/business/assistance/${el.id}`}>{el.name ?? `Assistance ${el.businessTitle}/${el.businessNumber}`}</Link> TODO: add link to assistance page */}
+                  <Link to="/app/businesses-rma/business/$businessId/assistance/$assistanceId" params={{ businessId, assistanceId: el.id }}>
+                    {el.name || `Assistance ${el.businessTitle}/${el.businessNumber}`}
+                  </Link>
                 </li>
               ))}
             </ul>

@@ -1,0 +1,12 @@
+.buttons_container {
+  grid-row: 1;
+  grid-column: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  a {
+    align-self: end;
+    width: auto;
+  }
+}

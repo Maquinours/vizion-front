@@ -51,7 +51,7 @@ export const getLifesheetPageByAssistanceId = async (assistanceId: string, page:
       method: 'GET',
       url: `/life-sheet/v1/hist/all-by-technical-assistance-paged`,
       params: {
-        technicalSupportId: assistanceId,
+        assistanceId,
         page,
         size,
       },
