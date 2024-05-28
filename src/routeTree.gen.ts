@@ -4832,3 +4832,1364 @@ export const routeTree = rootRoute.addChildren({
 })
 
 /* prettier-ignore-end */
+
+/* ROUTE_MANIFEST_START
+{
+  "routes": {
+    "__root__": {
+      "filePath": "__root.ts",
+      "children": [
+        "/",
+        "/app",
+        "/auth"
+      ]
+    },
+    "/": {
+      "filePath": "index.ts"
+    },
+    "/app": {
+      "filePath": "app/route.ts",
+      "children": [
+        "/app/businesses-rma",
+        "/app/dashboard",
+        "/app/enterprises",
+        "/app/external-links",
+        "/app/faq",
+        "/app/products",
+        "/app/tools",
+        "/app/",
+        "/app/enterprises/$enterpriseId",
+        "/app/external-links/$externalLinkId",
+        "/app/products/$productId",
+        "/app/businesses-rma/business/$businessId",
+        "/app/businesses-rma/business/$businessId/assistance/$assistanceId"
+      ]
+    },
+    "/auth": {
+      "filePath": "auth/route.ts",
+      "children": [
+        "/auth/login",
+        "/auth/forgot-password",
+        "/auth/",
+        "/auth/reset-password/$token"
+      ]
+    },
+    "/app/businesses-rma": {
+      "filePath": "app/businesses-rma/route.tsx",
+      "parent": "/app",
+      "children": [
+        "/app/businesses-rma/representative-turnover",
+        "/app/businesses-rma/search-by-products"
+      ]
+    },
+    "/app/dashboard": {
+      "filePath": "app/dashboard/route.ts",
+      "parent": "/app",
+      "children": [
+        "/app/dashboard/create-collective-task",
+        "/app/dashboard/create-personal-task",
+        "/app/dashboard/create-progressive-info",
+        "/app/dashboard/delete-collective-tasks",
+        "/app/dashboard/archive-personal-task/$taskId",
+        "/app/dashboard/delete-collective-task/$taskId",
+        "/app/dashboard/delete-progressive-info/$progressiveInfoId",
+        "/app/dashboard/link-personal-task/$taskId",
+        "/app/dashboard/other-personal-tasks/$profileId",
+        "/app/dashboard/personal-task-details/$taskId",
+        "/app/dashboard/scheduler-event-details/$eventId",
+        "/app/dashboard/take-collective-task/$taskId",
+        "/app/dashboard/task-comments/$taskId",
+        "/app/dashboard/task-email/$taskId",
+        "/app/dashboard/transfer-task/$taskId",
+        "/app/dashboard/update-personal-task-deadline/$taskId",
+        "/app/dashboard/update-progressive-info/$progressiveInfoId",
+        "/app/dashboard/validate-personal-task/$taskId"
+      ]
+    },
+    "/app/enterprises": {
+      "filePath": "app/enterprises/route.ts",
+      "parent": "/app",
+      "children": [
+        "/app/enterprises/create-contact-business/$contactId",
+        "/app/enterprises/create-contact-travel-voucher/$contactId",
+        "/app/enterprises/create-contact/$enterpriseId",
+        "/app/enterprises/create-enterprise-rma/$enterpriseId",
+        "/app/enterprises/delete-contact/$contactId",
+        "/app/enterprises/send-email-to-contact/$contactId",
+        "/app/enterprises/update-contact-password/$contactId",
+        "/app/enterprises/update-contact/$contactId"
+      ]
+    },
+    "/app/external-links": {
+      "filePath": "app/external-links/route.ts",
+      "parent": "/app"
+    },
+    "/app/faq": {
+      "filePath": "app/faq/route.ts",
+      "parent": "/app",
+      "children": [
+        "/app/faq/create",
+        "/app/faq/archive/$faqId",
+        "/app/faq/delete/$faqId",
+        "/app/faq/ged/$faqId",
+        "/app/faq/send-by-email/$faqId",
+        "/app/faq/update/$faqId"
+      ]
+    },
+    "/app/products": {
+      "filePath": "app/products/route.ts",
+      "parent": "/app",
+      "children": [
+        "/app/products/serial-numbers"
+      ]
+    },
+    "/app/tools": {
+      "filePath": "app/tools/route.ts",
+      "parent": "/app",
+      "children": [
+        "/app/tools/credit",
+        "/app/tools/ddns",
+        "/app/tools/departments",
+        "/app/tools/emails",
+        "/app/tools/external-links",
+        "/app/tools/formations",
+        "/app/tools/global-turnover",
+        "/app/tools/mails",
+        "/app/tools/menu",
+        "/app/tools/news",
+        "/app/tools/predefined-messages",
+        "/app/tools/predefined-texts",
+        "/app/tools/product-filters",
+        "/app/tools/product-inventory",
+        "/app/tools/product-shelves",
+        "/app/tools/representatives-map",
+        "/app/tools/representatives-turnover",
+        "/app/tools/scheduler",
+        "/app/tools/vva",
+        "/app/tools/",
+        "/app/tools/emails/send"
+      ]
+    },
+    "/auth/login": {
+      "filePath": "auth/login/route.ts",
+      "parent": "/auth"
+    },
+    "/auth/forgot-password": {
+      "filePath": "auth/forgot-password/route.lazy.ts",
+      "parent": "/auth"
+    },
+    "/app/": {
+      "filePath": "app/index.ts",
+      "parent": "/app"
+    },
+    "/auth/": {
+      "filePath": "auth/index.ts",
+      "parent": "/auth"
+    },
+    "/app/businesses-rma/representative-turnover": {
+      "filePath": "app/businesses-rma/representative-turnover/route.tsx",
+      "parent": "/app/businesses-rma"
+    },
+    "/app/businesses-rma/search-by-products": {
+      "filePath": "app/businesses-rma/search-by-products/route.ts",
+      "parent": "/app/businesses-rma"
+    },
+    "/app/dashboard/create-collective-task": {
+      "filePath": "app/dashboard/create-collective-task/route.ts",
+      "parent": "/app/dashboard"
+    },
+    "/app/dashboard/create-personal-task": {
+      "filePath": "app/dashboard/create-personal-task/route.ts",
+      "parent": "/app/dashboard"
+    },
+    "/app/dashboard/create-progressive-info": {
+      "filePath": "app/dashboard/create-progressive-info/route.ts",
+      "parent": "/app/dashboard"
+    },
+    "/app/dashboard/delete-collective-tasks": {
+      "filePath": "app/dashboard/delete-collective-tasks/route.ts",
+      "parent": "/app/dashboard"
+    },
+    "/app/enterprises/$enterpriseId": {
+      "filePath": "app/enterprises_.$enterpriseId/route.ts",
+      "parent": "/app",
+      "children": [
+        "/app/enterprises/$enterpriseId/address-book",
+        "/app/enterprises/$enterpriseId/create-contact",
+        "/app/enterprises/$enterpriseId/create-ged-directory",
+        "/app/enterprises/$enterpriseId/create-lifesheet-comment",
+        "/app/enterprises/$enterpriseId/delete",
+        "/app/enterprises/$enterpriseId/import-contacts",
+        "/app/enterprises/$enterpriseId/import-ged-files",
+        "/app/enterprises/$enterpriseId/update",
+        "/app/enterprises/$enterpriseId/update-accountability",
+        "/app/enterprises/$enterpriseId/update-category",
+        "/app/enterprises/$enterpriseId/update-representative",
+        "/app/enterprises/$enterpriseId/create-contact-business/$contactId",
+        "/app/enterprises/$enterpriseId/delete-contact/$contactId",
+        "/app/enterprises/$enterpriseId/delete-ged-object/$objectRelativePath",
+        "/app/enterprises/$enterpriseId/rename-ged-object/$objectRelativePath",
+        "/app/enterprises/$enterpriseId/send-email-to-contact/$contactId",
+        "/app/enterprises/$enterpriseId/task-email/$taskId",
+        "/app/enterprises/$enterpriseId/update-contact-password/$contactId",
+        "/app/enterprises/$enterpriseId/update-contact/$contactId"
+      ]
+    },
+    "/app/external-links/$externalLinkId": {
+      "filePath": "app/external-links_.$externalLinkId/route.ts",
+      "parent": "/app"
+    },
+    "/app/faq/create": {
+      "filePath": "app/faq/create/route.ts",
+      "parent": "/app/faq"
+    },
+    "/app/products/serial-numbers": {
+      "filePath": "app/products/serial-numbers/route.ts",
+      "parent": "/app/products",
+      "children": [
+        "/app/products/serial-numbers/create",
+        "/app/products/serial-numbers/create-rma/$serialNumberId",
+        "/app/products/serial-numbers/delete/$serialNumberId"
+      ]
+    },
+    "/app/products/$productId": {
+      "filePath": "app/products_.$productId/route.ts",
+      "parent": "/app",
+      "children": [
+        "/app/products/$productId/informations",
+        "/app/products/$productId/manage",
+        "/app/products/$productId/"
+      ]
+    },
+    "/app/tools/credit": {
+      "filePath": "app/tools/credit/route.ts",
+      "parent": "/app/tools",
+      "children": [
+        "/app/tools/credit/details",
+        "/app/tools/credit/show"
+      ]
+    },
+    "/app/tools/ddns": {
+      "filePath": "app/tools/ddns/route.ts",
+      "parent": "/app/tools",
+      "children": [
+        "/app/tools/ddns/create",
+        "/app/tools/ddns/delete/$ddnsId"
+      ]
+    },
+    "/app/tools/departments": {
+      "filePath": "app/tools/departments/route.ts",
+      "parent": "/app/tools",
+      "children": [
+        "/app/tools/departments/create",
+        "/app/tools/departments/delete/$departmentId",
+        "/app/tools/departments/update/$departmentId"
+      ]
+    },
+    "/app/tools/emails": {
+      "filePath": "app/tools/emails/route.ts",
+      "parent": "/app/tools",
+      "children": [
+        "/app/tools/emails/$emailId"
+      ]
+    },
+    "/app/tools/external-links": {
+      "filePath": "app/tools/external-links/route.ts",
+      "parent": "/app/tools",
+      "children": [
+        "/app/tools/external-links/create",
+        "/app/tools/external-links/archive/$externalLinkId",
+        "/app/tools/external-links/delete/$externalLinkId",
+        "/app/tools/external-links/update/$externalLinkId"
+      ]
+    },
+    "/app/tools/formations": {
+      "filePath": "app/tools/formations/route.ts",
+      "parent": "/app/tools",
+      "children": [
+        "/app/tools/formations/create",
+        "/app/tools/formations/delete/$formationId",
+        "/app/tools/formations/subscribers/$formationDetailId",
+        "/app/tools/formations/update/$formationId"
+      ]
+    },
+    "/app/tools/global-turnover": {
+      "filePath": "app/tools/global-turnover/route.ts",
+      "parent": "/app/tools"
+    },
+    "/app/tools/mails": {
+      "filePath": "app/tools/mails/route.ts",
+      "parent": "/app/tools",
+      "children": [
+        "/app/tools/mails/create",
+        "/app/tools/mails/delete/$mailId",
+        "/app/tools/mails/show/$mailId",
+        "/app/tools/mails/update/$mailId"
+      ]
+    },
+    "/app/tools/menu": {
+      "filePath": "app/tools/menu/route.ts",
+      "parent": "/app/tools",
+      "children": [
+        "/app/tools/menu/create-enterprise",
+        "/app/tools/menu/create-product"
+      ]
+    },
+    "/app/tools/news": {
+      "filePath": "app/tools/news/route.ts",
+      "parent": "/app/tools",
+      "children": [
+        "/app/tools/news/create",
+        "/app/tools/news/delete/$newsId",
+        "/app/tools/news/update/$newsId"
+      ]
+    },
+    "/app/tools/predefined-messages": {
+      "filePath": "app/tools/predefined-messages/route.ts",
+      "parent": "/app/tools",
+      "children": [
+        "/app/tools/predefined-messages/create",
+        "/app/tools/predefined-messages/delete/$predefinedMessageId",
+        "/app/tools/predefined-messages/update/$predefinedMessageId"
+      ]
+    },
+    "/app/tools/predefined-texts": {
+      "filePath": "app/tools/predefined-texts/route.ts",
+      "parent": "/app/tools",
+      "children": [
+        "/app/tools/predefined-texts/create",
+        "/app/tools/predefined-texts/delete/$predefinedTextId",
+        "/app/tools/predefined-texts/update/$predefinedTextId"
+      ]
+    },
+    "/app/tools/product-filters": {
+      "filePath": "app/tools/product-filters/route.ts",
+      "parent": "/app/tools",
+      "children": [
+        "/app/tools/product-filters/create",
+        "/app/tools/product-filters/delete/$productFilterId",
+        "/app/tools/product-filters/update/$productFilterId"
+      ]
+    },
+    "/app/tools/product-inventory": {
+      "filePath": "app/tools/product-inventory/route.ts",
+      "parent": "/app/tools",
+      "children": [
+        "/app/tools/product-inventory/validate-quantities",
+        "/app/tools/product-inventory/update/$stockId"
+      ]
+    },
+    "/app/tools/product-shelves": {
+      "filePath": "app/tools/product-shelves/route.ts",
+      "parent": "/app/tools",
+      "children": [
+        "/app/tools/product-shelves/create",
+        "/app/tools/product-shelves/delete/$productShelfId"
+      ]
+    },
+    "/app/tools/representatives-map": {
+      "filePath": "app/tools/representatives-map/route.ts",
+      "parent": "/app/tools"
+    },
+    "/app/tools/representatives-turnover": {
+      "filePath": "app/tools/representatives-turnover/route.ts",
+      "parent": "/app/tools"
+    },
+    "/app/tools/scheduler": {
+      "filePath": "app/tools/scheduler/route.ts",
+      "parent": "/app/tools",
+      "children": [
+        "/app/tools/scheduler/create",
+        "/app/tools/scheduler/details/$rdvId"
+      ]
+    },
+    "/app/tools/vva": {
+      "filePath": "app/tools/vva/route.ts",
+      "parent": "/app/tools",
+      "children": [
+        "/app/tools/vva/create",
+        "/app/tools/vva/delete/$vvaId"
+      ]
+    },
+    "/auth/reset-password/$token": {
+      "filePath": "auth/reset-password.$token/route.lazy.ts",
+      "parent": "/auth"
+    },
+    "/app/tools/": {
+      "filePath": "app/tools/index.ts",
+      "parent": "/app/tools"
+    },
+    "/app/businesses-rma/business/$businessId": {
+      "filePath": "app/businesses-rma_/business.$businessId/route.ts",
+      "parent": "/app",
+      "children": [
+        "/app/businesses-rma/business/$businessId/arc",
+        "/app/businesses-rma/business/$businessId/bill",
+        "/app/businesses-rma/business/$businessId/bl",
+        "/app/businesses-rma/business/$businessId/bp",
+        "/app/businesses-rma/business/$businessId/dashboard",
+        "/app/businesses-rma/business/$businessId/quotation",
+        "/app/businesses-rma/business/$businessId/"
+      ]
+    },
+    "/app/dashboard/archive-personal-task/$taskId": {
+      "filePath": "app/dashboard/archive-personal-task.$taskId/route.ts",
+      "parent": "/app/dashboard"
+    },
+    "/app/dashboard/delete-collective-task/$taskId": {
+      "filePath": "app/dashboard/delete-collective-task.$taskId/route.ts",
+      "parent": "/app/dashboard"
+    },
+    "/app/dashboard/delete-progressive-info/$progressiveInfoId": {
+      "filePath": "app/dashboard/delete-progressive-info.$progressiveInfoId/route.ts",
+      "parent": "/app/dashboard"
+    },
+    "/app/dashboard/link-personal-task/$taskId": {
+      "filePath": "app/dashboard/link-personal-task.$taskId/route.ts",
+      "parent": "/app/dashboard"
+    },
+    "/app/dashboard/other-personal-tasks/$profileId": {
+      "filePath": "app/dashboard/other-personal-tasks.$profileId/route.ts",
+      "parent": "/app/dashboard"
+    },
+    "/app/dashboard/personal-task-details/$taskId": {
+      "filePath": "app/dashboard/personal-task-details.$taskId/route.ts",
+      "parent": "/app/dashboard"
+    },
+    "/app/dashboard/scheduler-event-details/$eventId": {
+      "filePath": "app/dashboard/scheduler-event-details.$eventId/route.ts",
+      "parent": "/app/dashboard"
+    },
+    "/app/dashboard/take-collective-task/$taskId": {
+      "filePath": "app/dashboard/take-collective-task.$taskId/route.ts",
+      "parent": "/app/dashboard"
+    },
+    "/app/dashboard/task-comments/$taskId": {
+      "filePath": "app/dashboard/task-comments.$taskId/route.ts",
+      "parent": "/app/dashboard"
+    },
+    "/app/dashboard/task-email/$taskId": {
+      "filePath": "app/dashboard/task-email.$taskId/route.ts",
+      "parent": "/app/dashboard",
+      "children": [
+        "/app/dashboard/task-email/$taskId/reply"
+      ]
+    },
+    "/app/dashboard/transfer-task/$taskId": {
+      "filePath": "app/dashboard/transfer-task.$taskId/route.ts",
+      "parent": "/app/dashboard"
+    },
+    "/app/dashboard/update-personal-task-deadline/$taskId": {
+      "filePath": "app/dashboard/update-personal-task-deadline.$taskId/route.ts",
+      "parent": "/app/dashboard"
+    },
+    "/app/dashboard/update-progressive-info/$progressiveInfoId": {
+      "filePath": "app/dashboard/update-progressive-info.$progressiveInfoId/route.ts",
+      "parent": "/app/dashboard"
+    },
+    "/app/dashboard/validate-personal-task/$taskId": {
+      "filePath": "app/dashboard/validate-personal-task.$taskId/route.ts",
+      "parent": "/app/dashboard"
+    },
+    "/app/enterprises/create-contact-business/$contactId": {
+      "filePath": "app/enterprises/create-contact-business.$contactId/route.ts",
+      "parent": "/app/enterprises"
+    },
+    "/app/enterprises/create-contact-travel-voucher/$contactId": {
+      "filePath": "app/enterprises/create-contact-travel-voucher.$contactId/route.ts",
+      "parent": "/app/enterprises"
+    },
+    "/app/enterprises/create-contact/$enterpriseId": {
+      "filePath": "app/enterprises/create-contact.$enterpriseId/route.ts",
+      "parent": "/app/enterprises"
+    },
+    "/app/enterprises/create-enterprise-rma/$enterpriseId": {
+      "filePath": "app/enterprises/create-enterprise-rma.$enterpriseId/route.ts",
+      "parent": "/app/enterprises"
+    },
+    "/app/enterprises/delete-contact/$contactId": {
+      "filePath": "app/enterprises/delete-contact.$contactId/route.ts",
+      "parent": "/app/enterprises"
+    },
+    "/app/enterprises/send-email-to-contact/$contactId": {
+      "filePath": "app/enterprises/send-email-to-contact.$contactId/route.ts",
+      "parent": "/app/enterprises"
+    },
+    "/app/enterprises/update-contact-password/$contactId": {
+      "filePath": "app/enterprises/update-contact-password.$contactId/route.ts",
+      "parent": "/app/enterprises"
+    },
+    "/app/enterprises/update-contact/$contactId": {
+      "filePath": "app/enterprises/update-contact.$contactId/route.ts",
+      "parent": "/app/enterprises"
+    },
+    "/app/enterprises/$enterpriseId/address-book": {
+      "filePath": "app/enterprises_.$enterpriseId/address-book/route.ts",
+      "parent": "/app/enterprises/$enterpriseId",
+      "children": [
+        "/app/enterprises/$enterpriseId/address-book/create",
+        "/app/enterprises/$enterpriseId/address-book/delete/$addressId",
+        "/app/enterprises/$enterpriseId/address-book/update/$addressId"
+      ]
+    },
+    "/app/enterprises/$enterpriseId/create-contact": {
+      "filePath": "app/enterprises_.$enterpriseId/create-contact/route.ts",
+      "parent": "/app/enterprises/$enterpriseId"
+    },
+    "/app/enterprises/$enterpriseId/create-ged-directory": {
+      "filePath": "app/enterprises_.$enterpriseId/create-ged-directory/route.ts",
+      "parent": "/app/enterprises/$enterpriseId"
+    },
+    "/app/enterprises/$enterpriseId/create-lifesheet-comment": {
+      "filePath": "app/enterprises_.$enterpriseId/create-lifesheet-comment/route.ts",
+      "parent": "/app/enterprises/$enterpriseId"
+    },
+    "/app/enterprises/$enterpriseId/delete": {
+      "filePath": "app/enterprises_.$enterpriseId/delete/route.ts",
+      "parent": "/app/enterprises/$enterpriseId"
+    },
+    "/app/enterprises/$enterpriseId/import-contacts": {
+      "filePath": "app/enterprises_.$enterpriseId/import-contacts/route.ts",
+      "parent": "/app/enterprises/$enterpriseId"
+    },
+    "/app/enterprises/$enterpriseId/import-ged-files": {
+      "filePath": "app/enterprises_.$enterpriseId/import-ged-files/route.ts",
+      "parent": "/app/enterprises/$enterpriseId"
+    },
+    "/app/enterprises/$enterpriseId/update": {
+      "filePath": "app/enterprises_.$enterpriseId/update/route.ts",
+      "parent": "/app/enterprises/$enterpriseId"
+    },
+    "/app/enterprises/$enterpriseId/update-accountability": {
+      "filePath": "app/enterprises_.$enterpriseId/update-accountability/route.ts",
+      "parent": "/app/enterprises/$enterpriseId"
+    },
+    "/app/enterprises/$enterpriseId/update-category": {
+      "filePath": "app/enterprises_.$enterpriseId/update-category/route.ts",
+      "parent": "/app/enterprises/$enterpriseId"
+    },
+    "/app/enterprises/$enterpriseId/update-representative": {
+      "filePath": "app/enterprises_.$enterpriseId/update-representative/route.ts",
+      "parent": "/app/enterprises/$enterpriseId"
+    },
+    "/app/faq/archive/$faqId": {
+      "filePath": "app/faq/archive.$faqId/route.ts",
+      "parent": "/app/faq"
+    },
+    "/app/faq/delete/$faqId": {
+      "filePath": "app/faq/delete.$faqId/route.ts",
+      "parent": "/app/faq"
+    },
+    "/app/faq/ged/$faqId": {
+      "filePath": "app/faq/ged.$faqId/route.ts",
+      "parent": "/app/faq",
+      "children": [
+        "/app/faq/ged/$faqId/create-directory",
+        "/app/faq/ged/$faqId/import-files",
+        "/app/faq/ged/$faqId/delete/$itemRelativePath",
+        "/app/faq/ged/$faqId/rename/$itemRelativePath"
+      ]
+    },
+    "/app/faq/send-by-email/$faqId": {
+      "filePath": "app/faq/send-by-email.$faqId/route.ts",
+      "parent": "/app/faq"
+    },
+    "/app/faq/update/$faqId": {
+      "filePath": "app/faq/update.$faqId/route.ts",
+      "parent": "/app/faq"
+    },
+    "/app/products/serial-numbers/create": {
+      "filePath": "app/products/serial-numbers/create/route.ts",
+      "parent": "/app/products/serial-numbers"
+    },
+    "/app/products/$productId/informations": {
+      "filePath": "app/products_.$productId/informations/route.ts",
+      "parent": "/app/products/$productId",
+      "children": [
+        "/app/products/$productId/informations/create-ged-directory",
+        "/app/products/$productId/informations/create-lifesheet-comment",
+        "/app/products/$productId/informations/delete-ged-object",
+        "/app/products/$productId/informations/import-ged-files",
+        "/app/products/$productId/informations/rename-ged-object",
+        "/app/products/$productId/informations/task-email/$taskId"
+      ]
+    },
+    "/app/products/$productId/manage": {
+      "filePath": "app/products_.$productId/manage/route.ts",
+      "parent": "/app/products/$productId",
+      "children": [
+        "/app/products/$productId/manage/add-associated-product",
+        "/app/products/$productId/manage/add-specification",
+        "/app/products/$productId/manage/create-stock",
+        "/app/products/$productId/manage/create-version",
+        "/app/products/$productId/manage/delete-specification/$specificationId",
+        "/app/products/$productId/manage/delete-stock/$stockId",
+        "/app/products/$productId/manage/delete-version/$versionId",
+        "/app/products/$productId/manage/remove-associated-product/$associatedProductId",
+        "/app/products/$productId/manage/stock-history/$stockId",
+        "/app/products/$productId/manage/update-specification/$specificationId",
+        "/app/products/$productId/manage/update-stock/$stockId",
+        "/app/products/$productId/manage/update-version/$versionId"
+      ]
+    },
+    "/app/tools/credit/details": {
+      "filePath": "app/tools/credit/details/route.ts",
+      "parent": "/app/tools/credit"
+    },
+    "/app/tools/credit/show": {
+      "filePath": "app/tools/credit/show/route.ts",
+      "parent": "/app/tools/credit"
+    },
+    "/app/tools/ddns/create": {
+      "filePath": "app/tools/ddns/create/route.ts",
+      "parent": "/app/tools/ddns"
+    },
+    "/app/tools/departments/create": {
+      "filePath": "app/tools/departments/create/route.ts",
+      "parent": "/app/tools/departments"
+    },
+    "/app/tools/emails/$emailId": {
+      "filePath": "app/tools/emails/$emailId/route.ts",
+      "parent": "/app/tools/emails",
+      "children": [
+        "/app/tools/emails/$emailId/reply"
+      ]
+    },
+    "/app/tools/emails/send": {
+      "filePath": "app/tools/emails_.send/route.ts",
+      "parent": "/app/tools",
+      "children": [
+        "/app/tools/emails/send/predefined-messages"
+      ]
+    },
+    "/app/tools/external-links/create": {
+      "filePath": "app/tools/external-links/create/route.ts",
+      "parent": "/app/tools/external-links"
+    },
+    "/app/tools/formations/create": {
+      "filePath": "app/tools/formations/create/route.ts",
+      "parent": "/app/tools/formations",
+      "children": [
+        "/app/tools/formations/create/add-detail",
+        "/app/tools/formations/create/details"
+      ]
+    },
+    "/app/tools/mails/create": {
+      "filePath": "app/tools/mails/create/route.ts",
+      "parent": "/app/tools/mails"
+    },
+    "/app/tools/menu/create-enterprise": {
+      "filePath": "app/tools/menu/create-enterprise/route.ts",
+      "parent": "/app/tools/menu",
+      "children": [
+        "/app/tools/menu/create-enterprise/add-contact",
+        "/app/tools/menu/create-enterprise/contacts"
+      ]
+    },
+    "/app/tools/menu/create-product": {
+      "filePath": "app/tools/menu/create-product/route.ts",
+      "parent": "/app/tools/menu"
+    },
+    "/app/tools/news/create": {
+      "filePath": "app/tools/news/create/route.ts",
+      "parent": "/app/tools/news"
+    },
+    "/app/tools/predefined-messages/create": {
+      "filePath": "app/tools/predefined-messages/create/route.ts",
+      "parent": "/app/tools/predefined-messages"
+    },
+    "/app/tools/predefined-texts/create": {
+      "filePath": "app/tools/predefined-texts/create/route.ts",
+      "parent": "/app/tools/predefined-texts"
+    },
+    "/app/tools/product-filters/create": {
+      "filePath": "app/tools/product-filters/create/route.ts",
+      "parent": "/app/tools/product-filters"
+    },
+    "/app/tools/product-inventory/validate-quantities": {
+      "filePath": "app/tools/product-inventory/validate-quantities/route.ts",
+      "parent": "/app/tools/product-inventory"
+    },
+    "/app/tools/product-shelves/create": {
+      "filePath": "app/tools/product-shelves/create/route.ts",
+      "parent": "/app/tools/product-shelves"
+    },
+    "/app/tools/scheduler/create": {
+      "filePath": "app/tools/scheduler/create/route.ts",
+      "parent": "/app/tools/scheduler"
+    },
+    "/app/tools/vva/create": {
+      "filePath": "app/tools/vva/create/route.ts",
+      "parent": "/app/tools/vva"
+    },
+    "/app/products/$productId/": {
+      "filePath": "app/products_.$productId/index.ts",
+      "parent": "/app/products/$productId"
+    },
+    "/app/businesses-rma/business/$businessId/arc": {
+      "filePath": "app/businesses-rma_/business.$businessId/arc/route.ts",
+      "parent": "/app/businesses-rma/business/$businessId",
+      "children": [
+        "/app/businesses-rma/business/$businessId/arc/pdf",
+        "/app/businesses-rma/business/$businessId/arc/update-shipping-price",
+        "/app/businesses-rma/business/$businessId/arc/delete-detail/$detailId",
+        "/app/businesses-rma/business/$businessId/arc/update-detail/$detailId"
+      ]
+    },
+    "/app/businesses-rma/business/$businessId/bill": {
+      "filePath": "app/businesses-rma_/business.$businessId/bill/route.ts",
+      "parent": "/app/businesses-rma/business/$businessId",
+      "children": [
+        "/app/businesses-rma/business/$businessId/bill/credits",
+        "/app/businesses-rma/business/$businessId/bill/send-by-email"
+      ]
+    },
+    "/app/businesses-rma/business/$businessId/bl": {
+      "filePath": "app/businesses-rma_/business.$businessId/bl/route.ts",
+      "parent": "/app/businesses-rma/business/$businessId",
+      "children": [
+        "/app/businesses-rma/business/$businessId/bl/send-by-email"
+      ]
+    },
+    "/app/businesses-rma/business/$businessId/bp": {
+      "filePath": "app/businesses-rma_/business.$businessId/bp/route.ts",
+      "parent": "/app/businesses-rma/business/$businessId",
+      "children": [
+        "/app/businesses-rma/business/$businessId/bp/travel-voucher",
+        "/app/businesses-rma/business/$businessId/bp/add-serial/$detailId",
+        "/app/businesses-rma/business/$businessId/bp/create-detail-rma/$detailId",
+        "/app/businesses-rma/business/$businessId/bp/create-serial-rma/$serialId",
+        "/app/businesses-rma/business/$businessId/bp/delete-detail/$detailId",
+        "/app/businesses-rma/business/$businessId/bp/delete-serial/$serialId",
+        "/app/businesses-rma/business/$businessId/bp/update-detail/$detailId"
+      ]
+    },
+    "/app/businesses-rma/business/$businessId/dashboard": {
+      "filePath": "app/businesses-rma_/business.$businessId/dashboard/route.ts",
+      "parent": "/app/businesses-rma/business/$businessId",
+      "children": [
+        "/app/businesses-rma/business/$businessId/dashboard/address-book",
+        "/app/businesses-rma/business/$businessId/dashboard/create-ged-directory",
+        "/app/businesses-rma/business/$businessId/dashboard/create-lifesheet",
+        "/app/businesses-rma/business/$businessId/dashboard/create-link",
+        "/app/businesses-rma/business/$businessId/dashboard/delete",
+        "/app/businesses-rma/business/$businessId/dashboard/import-ged-files",
+        "/app/businesses-rma/business/$businessId/dashboard/send-email",
+        "/app/businesses-rma/business/$businessId/dashboard/update-billing-address",
+        "/app/businesses-rma/business/$businessId/dashboard/update-representative",
+        "/app/businesses-rma/business/$businessId/dashboard/update-responsible",
+        "/app/businesses-rma/business/$businessId/dashboard/confirm-quotation-import/$otherBusinessId",
+        "/app/businesses-rma/business/$businessId/dashboard/delete-ged-object/$objectRelativePath",
+        "/app/businesses-rma/business/$businessId/dashboard/delete-link/$associatedId",
+        "/app/businesses-rma/business/$businessId/dashboard/rename-ged-object/$objectRelativePath",
+        "/app/businesses-rma/business/$businessId/dashboard/task-email/$taskId"
+      ]
+    },
+    "/app/businesses-rma/business/$businessId/quotation": {
+      "filePath": "app/businesses-rma_/business.$businessId/quotation/route.ts",
+      "parent": "/app/businesses-rma/business/$businessId",
+      "children": [
+        "/app/businesses-rma/business/$businessId/quotation/commercial-notice",
+        "/app/businesses-rma/business/$businessId/quotation/pdf",
+        "/app/businesses-rma/business/$businessId/quotation/update-shipping-price",
+        "/app/businesses-rma/business/$businessId/quotation/create-associated-detail/$detailId",
+        "/app/businesses-rma/business/$businessId/quotation/create-detail/$subquotationId",
+        "/app/businesses-rma/business/$businessId/quotation/delete-detail/$detailId",
+        "/app/businesses-rma/business/$businessId/quotation/delete-subquotation/$subquotationId",
+        "/app/businesses-rma/business/$businessId/quotation/update-detail/$detailId",
+        "/app/businesses-rma/business/$businessId/quotation/update-subquotation/$subquotationId"
+      ]
+    },
+    "/app/dashboard/task-email/$taskId/reply": {
+      "filePath": "app/dashboard/task-email.$taskId/reply/route.ts",
+      "parent": "/app/dashboard/task-email/$taskId"
+    },
+    "/app/enterprises/$enterpriseId/address-book/create": {
+      "filePath": "app/enterprises_.$enterpriseId/address-book/create/route.ts",
+      "parent": "/app/enterprises/$enterpriseId/address-book"
+    },
+    "/app/enterprises/$enterpriseId/create-contact-business/$contactId": {
+      "filePath": "app/enterprises_.$enterpriseId/create-contact-business.$contactId/route.ts",
+      "parent": "/app/enterprises/$enterpriseId"
+    },
+    "/app/enterprises/$enterpriseId/delete-contact/$contactId": {
+      "filePath": "app/enterprises_.$enterpriseId/delete-contact.$contactId/route.ts",
+      "parent": "/app/enterprises/$enterpriseId"
+    },
+    "/app/enterprises/$enterpriseId/delete-ged-object/$objectRelativePath": {
+      "filePath": "app/enterprises_.$enterpriseId/delete-ged-object.$objectRelativePath/route.ts",
+      "parent": "/app/enterprises/$enterpriseId"
+    },
+    "/app/enterprises/$enterpriseId/rename-ged-object/$objectRelativePath": {
+      "filePath": "app/enterprises_.$enterpriseId/rename-ged-object.$objectRelativePath/route.ts",
+      "parent": "/app/enterprises/$enterpriseId"
+    },
+    "/app/enterprises/$enterpriseId/send-email-to-contact/$contactId": {
+      "filePath": "app/enterprises_.$enterpriseId/send-email-to-contact.$contactId/route.ts",
+      "parent": "/app/enterprises/$enterpriseId"
+    },
+    "/app/enterprises/$enterpriseId/task-email/$taskId": {
+      "filePath": "app/enterprises_.$enterpriseId/task-email.$taskId/route.ts",
+      "parent": "/app/enterprises/$enterpriseId",
+      "children": [
+        "/app/enterprises/$enterpriseId/task-email/$taskId/reply"
+      ]
+    },
+    "/app/enterprises/$enterpriseId/update-contact-password/$contactId": {
+      "filePath": "app/enterprises_.$enterpriseId/update-contact-password.$contactId/route.ts",
+      "parent": "/app/enterprises/$enterpriseId"
+    },
+    "/app/enterprises/$enterpriseId/update-contact/$contactId": {
+      "filePath": "app/enterprises_.$enterpriseId/update-contact.$contactId/route.ts",
+      "parent": "/app/enterprises/$enterpriseId"
+    },
+    "/app/faq/ged/$faqId/create-directory": {
+      "filePath": "app/faq/ged.$faqId/create-directory/route.ts",
+      "parent": "/app/faq/ged/$faqId"
+    },
+    "/app/faq/ged/$faqId/import-files": {
+      "filePath": "app/faq/ged.$faqId/import-files/route.ts",
+      "parent": "/app/faq/ged/$faqId"
+    },
+    "/app/products/serial-numbers/create-rma/$serialNumberId": {
+      "filePath": "app/products/serial-numbers/create-rma.$serialNumberId/route.ts",
+      "parent": "/app/products/serial-numbers"
+    },
+    "/app/products/serial-numbers/delete/$serialNumberId": {
+      "filePath": "app/products/serial-numbers/delete.$serialNumberId/route.ts",
+      "parent": "/app/products/serial-numbers"
+    },
+    "/app/products/$productId/informations/create-ged-directory": {
+      "filePath": "app/products_.$productId/informations/create-ged-directory/route.ts",
+      "parent": "/app/products/$productId/informations"
+    },
+    "/app/products/$productId/informations/create-lifesheet-comment": {
+      "filePath": "app/products_.$productId/informations/create-lifesheet-comment/route.ts",
+      "parent": "/app/products/$productId/informations"
+    },
+    "/app/products/$productId/informations/delete-ged-object": {
+      "filePath": "app/products_.$productId/informations/delete-ged-object/route.ts",
+      "parent": "/app/products/$productId/informations"
+    },
+    "/app/products/$productId/informations/import-ged-files": {
+      "filePath": "app/products_.$productId/informations/import-ged-files/route.ts",
+      "parent": "/app/products/$productId/informations"
+    },
+    "/app/products/$productId/informations/rename-ged-object": {
+      "filePath": "app/products_.$productId/informations/rename-ged-object/route.ts",
+      "parent": "/app/products/$productId/informations"
+    },
+    "/app/products/$productId/manage/add-associated-product": {
+      "filePath": "app/products_.$productId/manage/add-associated-product/route.ts",
+      "parent": "/app/products/$productId/manage"
+    },
+    "/app/products/$productId/manage/add-specification": {
+      "filePath": "app/products_.$productId/manage/add-specification/route.ts",
+      "parent": "/app/products/$productId/manage",
+      "children": [
+        "/app/products/$productId/manage/add-specification/$filterId"
+      ]
+    },
+    "/app/products/$productId/manage/create-stock": {
+      "filePath": "app/products_.$productId/manage/create-stock/route.ts",
+      "parent": "/app/products/$productId/manage"
+    },
+    "/app/products/$productId/manage/create-version": {
+      "filePath": "app/products_.$productId/manage/create-version/route.ts",
+      "parent": "/app/products/$productId/manage"
+    },
+    "/app/tools/ddns/delete/$ddnsId": {
+      "filePath": "app/tools/ddns/delete.$ddnsId/route.ts",
+      "parent": "/app/tools/ddns"
+    },
+    "/app/tools/departments/delete/$departmentId": {
+      "filePath": "app/tools/departments/delete.$departmentId/route.ts",
+      "parent": "/app/tools/departments"
+    },
+    "/app/tools/departments/update/$departmentId": {
+      "filePath": "app/tools/departments/update.$departmentId/route.ts",
+      "parent": "/app/tools/departments"
+    },
+    "/app/tools/emails/$emailId/reply": {
+      "filePath": "app/tools/emails/$emailId/reply/route.ts",
+      "parent": "/app/tools/emails/$emailId"
+    },
+    "/app/tools/emails/send/predefined-messages": {
+      "filePath": "app/tools/emails_.send/predefined-messages/route.ts",
+      "parent": "/app/tools/emails/send"
+    },
+    "/app/tools/external-links/archive/$externalLinkId": {
+      "filePath": "app/tools/external-links/archive.$externalLinkId/route.ts",
+      "parent": "/app/tools/external-links"
+    },
+    "/app/tools/external-links/delete/$externalLinkId": {
+      "filePath": "app/tools/external-links/delete.$externalLinkId/route.ts",
+      "parent": "/app/tools/external-links"
+    },
+    "/app/tools/external-links/update/$externalLinkId": {
+      "filePath": "app/tools/external-links/update.$externalLinkId/route.ts",
+      "parent": "/app/tools/external-links"
+    },
+    "/app/tools/formations/create/add-detail": {
+      "filePath": "app/tools/formations/create/add-detail/route.ts",
+      "parent": "/app/tools/formations/create"
+    },
+    "/app/tools/formations/create/details": {
+      "filePath": "app/tools/formations/create/details/route.ts",
+      "parent": "/app/tools/formations/create"
+    },
+    "/app/tools/formations/delete/$formationId": {
+      "filePath": "app/tools/formations/delete.$formationId/route.ts",
+      "parent": "/app/tools/formations"
+    },
+    "/app/tools/formations/subscribers/$formationDetailId": {
+      "filePath": "app/tools/formations/subscribers.$formationDetailId/route.ts",
+      "parent": "/app/tools/formations",
+      "children": [
+        "/app/tools/formations/subscribers/$formationDetailId/create",
+        "/app/tools/formations/subscribers/$formationDetailId/delete/$subscriptionId",
+        "/app/tools/formations/subscribers/$formationDetailId/send-email/$subscriptionId"
+      ]
+    },
+    "/app/tools/formations/update/$formationId": {
+      "filePath": "app/tools/formations/update.$formationId/route.ts",
+      "parent": "/app/tools/formations",
+      "children": [
+        "/app/tools/formations/update/$formationId/add-detail",
+        "/app/tools/formations/update/$formationId/details"
+      ]
+    },
+    "/app/tools/mails/delete/$mailId": {
+      "filePath": "app/tools/mails/delete.$mailId/route.ts",
+      "parent": "/app/tools/mails"
+    },
+    "/app/tools/mails/show/$mailId": {
+      "filePath": "app/tools/mails/show.$mailId/route.ts",
+      "parent": "/app/tools/mails"
+    },
+    "/app/tools/mails/update/$mailId": {
+      "filePath": "app/tools/mails/update.$mailId/route.ts",
+      "parent": "/app/tools/mails"
+    },
+    "/app/tools/menu/create-enterprise/add-contact": {
+      "filePath": "app/tools/menu/create-enterprise/add-contact/route.ts",
+      "parent": "/app/tools/menu/create-enterprise"
+    },
+    "/app/tools/menu/create-enterprise/contacts": {
+      "filePath": "app/tools/menu/create-enterprise/contacts/route.ts",
+      "parent": "/app/tools/menu/create-enterprise"
+    },
+    "/app/tools/news/delete/$newsId": {
+      "filePath": "app/tools/news/delete.$newsId/route.ts",
+      "parent": "/app/tools/news"
+    },
+    "/app/tools/news/update/$newsId": {
+      "filePath": "app/tools/news/update.$newsId/route.ts",
+      "parent": "/app/tools/news"
+    },
+    "/app/tools/predefined-messages/delete/$predefinedMessageId": {
+      "filePath": "app/tools/predefined-messages/delete.$predefinedMessageId/route.ts",
+      "parent": "/app/tools/predefined-messages"
+    },
+    "/app/tools/predefined-messages/update/$predefinedMessageId": {
+      "filePath": "app/tools/predefined-messages/update.$predefinedMessageId/route.ts",
+      "parent": "/app/tools/predefined-messages"
+    },
+    "/app/tools/predefined-texts/delete/$predefinedTextId": {
+      "filePath": "app/tools/predefined-texts/delete.$predefinedTextId/route.ts",
+      "parent": "/app/tools/predefined-texts"
+    },
+    "/app/tools/predefined-texts/update/$predefinedTextId": {
+      "filePath": "app/tools/predefined-texts/update.$predefinedTextId/route.ts",
+      "parent": "/app/tools/predefined-texts"
+    },
+    "/app/tools/product-filters/delete/$productFilterId": {
+      "filePath": "app/tools/product-filters/delete.$productFilterId/route.ts",
+      "parent": "/app/tools/product-filters"
+    },
+    "/app/tools/product-filters/update/$productFilterId": {
+      "filePath": "app/tools/product-filters/update.$productFilterId/route.ts",
+      "parent": "/app/tools/product-filters"
+    },
+    "/app/tools/product-inventory/update/$stockId": {
+      "filePath": "app/tools/product-inventory/update.$stockId/route.ts",
+      "parent": "/app/tools/product-inventory"
+    },
+    "/app/tools/product-shelves/delete/$productShelfId": {
+      "filePath": "app/tools/product-shelves/delete.$productShelfId/route.ts",
+      "parent": "/app/tools/product-shelves"
+    },
+    "/app/tools/scheduler/details/$rdvId": {
+      "filePath": "app/tools/scheduler/details.$rdvId/route.ts",
+      "parent": "/app/tools/scheduler",
+      "children": [
+        "/app/tools/scheduler/details/$rdvId/delete",
+        "/app/tools/scheduler/details/$rdvId/update"
+      ]
+    },
+    "/app/tools/vva/delete/$vvaId": {
+      "filePath": "app/tools/vva/delete.$vvaId/route.ts",
+      "parent": "/app/tools/vva"
+    },
+    "/app/businesses-rma/business/$businessId/": {
+      "filePath": "app/businesses-rma_/business.$businessId/index.ts",
+      "parent": "/app/businesses-rma/business/$businessId"
+    },
+    "/app/businesses-rma/business/$businessId/arc/pdf": {
+      "filePath": "app/businesses-rma_/business.$businessId/arc/pdf/route.ts",
+      "parent": "/app/businesses-rma/business/$businessId/arc",
+      "children": [
+        "/app/businesses-rma/business/$businessId/arc/pdf/send-by-email"
+      ]
+    },
+    "/app/businesses-rma/business/$businessId/arc/update-shipping-price": {
+      "filePath": "app/businesses-rma_/business.$businessId/arc/update-shipping-price/route.ts",
+      "parent": "/app/businesses-rma/business/$businessId/arc"
+    },
+    "/app/businesses-rma/business/$businessId/bill/credits": {
+      "filePath": "app/businesses-rma_/business.$businessId/bill/credits/route.ts",
+      "parent": "/app/businesses-rma/business/$businessId/bill",
+      "children": [
+        "/app/businesses-rma/business/$businessId/bill/credits/send-by-email"
+      ]
+    },
+    "/app/businesses-rma/business/$businessId/bill/send-by-email": {
+      "filePath": "app/businesses-rma_/business.$businessId/bill/send-by-email/route.tsx",
+      "parent": "/app/businesses-rma/business/$businessId/bill"
+    },
+    "/app/businesses-rma/business/$businessId/bl/send-by-email": {
+      "filePath": "app/businesses-rma_/business.$businessId/bl/send-by-email/route.tsx",
+      "parent": "/app/businesses-rma/business/$businessId/bl"
+    },
+    "/app/businesses-rma/business/$businessId/bp/travel-voucher": {
+      "filePath": "app/businesses-rma_/business.$businessId/bp/travel-voucher/route.ts",
+      "parent": "/app/businesses-rma/business/$businessId/bp"
+    },
+    "/app/businesses-rma/business/$businessId/dashboard/address-book": {
+      "filePath": "app/businesses-rma_/business.$businessId/dashboard/address-book/route.ts",
+      "parent": "/app/businesses-rma/business/$businessId/dashboard",
+      "children": [
+        "/app/businesses-rma/business/$businessId/dashboard/address-book/create",
+        "/app/businesses-rma/business/$businessId/dashboard/address-book/delete/$addressId",
+        "/app/businesses-rma/business/$businessId/dashboard/address-book/update/$addressId"
+      ]
+    },
+    "/app/businesses-rma/business/$businessId/dashboard/create-ged-directory": {
+      "filePath": "app/businesses-rma_/business.$businessId/dashboard/create-ged-directory/route.ts",
+      "parent": "/app/businesses-rma/business/$businessId/dashboard"
+    },
+    "/app/businesses-rma/business/$businessId/dashboard/create-lifesheet": {
+      "filePath": "app/businesses-rma_/business.$businessId/dashboard/create-lifesheet/route.ts",
+      "parent": "/app/businesses-rma/business/$businessId/dashboard"
+    },
+    "/app/businesses-rma/business/$businessId/dashboard/create-link": {
+      "filePath": "app/businesses-rma_/business.$businessId/dashboard/create-link/route.ts",
+      "parent": "/app/businesses-rma/business/$businessId/dashboard"
+    },
+    "/app/businesses-rma/business/$businessId/dashboard/delete": {
+      "filePath": "app/businesses-rma_/business.$businessId/dashboard/delete/route.ts",
+      "parent": "/app/businesses-rma/business/$businessId/dashboard"
+    },
+    "/app/businesses-rma/business/$businessId/dashboard/import-ged-files": {
+      "filePath": "app/businesses-rma_/business.$businessId/dashboard/import-ged-files/route.ts",
+      "parent": "/app/businesses-rma/business/$businessId/dashboard"
+    },
+    "/app/businesses-rma/business/$businessId/dashboard/send-email": {
+      "filePath": "app/businesses-rma_/business.$businessId/dashboard/send-email/route.ts",
+      "parent": "/app/businesses-rma/business/$businessId/dashboard"
+    },
+    "/app/businesses-rma/business/$businessId/dashboard/update-billing-address": {
+      "filePath": "app/businesses-rma_/business.$businessId/dashboard/update-billing-address/route.ts",
+      "parent": "/app/businesses-rma/business/$businessId/dashboard"
+    },
+    "/app/businesses-rma/business/$businessId/dashboard/update-representative": {
+      "filePath": "app/businesses-rma_/business.$businessId/dashboard/update-representative/route.ts",
+      "parent": "/app/businesses-rma/business/$businessId/dashboard"
+    },
+    "/app/businesses-rma/business/$businessId/dashboard/update-responsible": {
+      "filePath": "app/businesses-rma_/business.$businessId/dashboard/update-responsible/route.ts",
+      "parent": "/app/businesses-rma/business/$businessId/dashboard"
+    },
+    "/app/businesses-rma/business/$businessId/quotation/commercial-notice": {
+      "filePath": "app/businesses-rma_/business.$businessId/quotation/commercial-notice/route.ts",
+      "parent": "/app/businesses-rma/business/$businessId/quotation",
+      "children": [
+        "/app/businesses-rma/business/$businessId/quotation/commercial-notice/send-by-email"
+      ]
+    },
+    "/app/businesses-rma/business/$businessId/quotation/pdf": {
+      "filePath": "app/businesses-rma_/business.$businessId/quotation/pdf/route.ts",
+      "parent": "/app/businesses-rma/business/$businessId/quotation",
+      "children": [
+        "/app/businesses-rma/business/$businessId/quotation/pdf/send-by-email"
+      ]
+    },
+    "/app/businesses-rma/business/$businessId/quotation/update-shipping-price": {
+      "filePath": "app/businesses-rma_/business.$businessId/quotation/update-shipping-price/route.ts",
+      "parent": "/app/businesses-rma/business/$businessId/quotation"
+    },
+    "/app/businesses-rma/business/$businessId/assistance/$assistanceId": {
+      "filePath": "app/businesses-rma_/business.$businessId_.assistance.$assistanceId/route.ts",
+      "parent": "/app",
+      "children": [
+        "/app/businesses-rma/business/$businessId/assistance/$assistanceId/create-ged-directory",
+        "/app/businesses-rma/business/$businessId/assistance/$assistanceId/create-lifesheet",
+        "/app/businesses-rma/business/$businessId/assistance/$assistanceId/delete",
+        "/app/businesses-rma/business/$businessId/assistance/$assistanceId/edit-cumulated-time",
+        "/app/businesses-rma/business/$businessId/assistance/$assistanceId/edit-no-billed-time",
+        "/app/businesses-rma/business/$businessId/assistance/$assistanceId/edit-subtitle",
+        "/app/businesses-rma/business/$businessId/assistance/$assistanceId/import-ged-files",
+        "/app/businesses-rma/business/$businessId/assistance/$assistanceId/pdf",
+        "/app/businesses-rma/business/$businessId/assistance/$assistanceId/delete-ged-object/$objectRelativePath",
+        "/app/businesses-rma/business/$businessId/assistance/$assistanceId/rename-ged-object/$objectRelativePath"
+      ]
+    },
+    "/app/enterprises/$enterpriseId/address-book/delete/$addressId": {
+      "filePath": "app/enterprises_.$enterpriseId/address-book/delete.$addressId/route.ts",
+      "parent": "/app/enterprises/$enterpriseId/address-book"
+    },
+    "/app/enterprises/$enterpriseId/address-book/update/$addressId": {
+      "filePath": "app/enterprises_.$enterpriseId/address-book/update.$addressId/route.ts",
+      "parent": "/app/enterprises/$enterpriseId/address-book"
+    },
+    "/app/enterprises/$enterpriseId/task-email/$taskId/reply": {
+      "filePath": "app/enterprises_.$enterpriseId/task-email.$taskId/reply/route.ts",
+      "parent": "/app/enterprises/$enterpriseId/task-email/$taskId"
+    },
+    "/app/faq/ged/$faqId/delete/$itemRelativePath": {
+      "filePath": "app/faq/ged.$faqId/delete.$itemRelativePath/route.ts",
+      "parent": "/app/faq/ged/$faqId"
+    },
+    "/app/faq/ged/$faqId/rename/$itemRelativePath": {
+      "filePath": "app/faq/ged.$faqId/rename.$itemRelativePath/route.ts",
+      "parent": "/app/faq/ged/$faqId"
+    },
+    "/app/products/$productId/informations/task-email/$taskId": {
+      "filePath": "app/products_.$productId/informations/task-email.$taskId/route.ts",
+      "parent": "/app/products/$productId/informations",
+      "children": [
+        "/app/products/$productId/informations/task-email/$taskId/reply"
+      ]
+    },
+    "/app/products/$productId/manage/add-specification/$filterId": {
+      "filePath": "app/products_.$productId/manage/add-specification/$filterId/route.ts",
+      "parent": "/app/products/$productId/manage/add-specification"
+    },
+    "/app/products/$productId/manage/delete-specification/$specificationId": {
+      "filePath": "app/products_.$productId/manage/delete-specification.$specificationId/route.ts",
+      "parent": "/app/products/$productId/manage"
+    },
+    "/app/products/$productId/manage/delete-stock/$stockId": {
+      "filePath": "app/products_.$productId/manage/delete-stock.$stockId/route.ts",
+      "parent": "/app/products/$productId/manage"
+    },
+    "/app/products/$productId/manage/delete-version/$versionId": {
+      "filePath": "app/products_.$productId/manage/delete-version.$versionId/route.ts",
+      "parent": "/app/products/$productId/manage"
+    },
+    "/app/products/$productId/manage/remove-associated-product/$associatedProductId": {
+      "filePath": "app/products_.$productId/manage/remove-associated-product.$associatedProductId/route.ts",
+      "parent": "/app/products/$productId/manage"
+    },
+    "/app/products/$productId/manage/stock-history/$stockId": {
+      "filePath": "app/products_.$productId/manage/stock-history.$stockId/route.ts",
+      "parent": "/app/products/$productId/manage"
+    },
+    "/app/products/$productId/manage/update-specification/$specificationId": {
+      "filePath": "app/products_.$productId/manage/update-specification.$specificationId/route.ts",
+      "parent": "/app/products/$productId/manage"
+    },
+    "/app/products/$productId/manage/update-stock/$stockId": {
+      "filePath": "app/products_.$productId/manage/update-stock.$stockId/route.ts",
+      "parent": "/app/products/$productId/manage"
+    },
+    "/app/products/$productId/manage/update-version/$versionId": {
+      "filePath": "app/products_.$productId/manage/update-version.$versionId/route.ts",
+      "parent": "/app/products/$productId/manage"
+    },
+    "/app/tools/formations/subscribers/$formationDetailId/create": {
+      "filePath": "app/tools/formations/subscribers.$formationDetailId/create/route.ts",
+      "parent": "/app/tools/formations/subscribers/$formationDetailId"
+    },
+    "/app/tools/formations/update/$formationId/add-detail": {
+      "filePath": "app/tools/formations/update.$formationId/add-detail/route.ts",
+      "parent": "/app/tools/formations/update/$formationId"
+    },
+    "/app/tools/formations/update/$formationId/details": {
+      "filePath": "app/tools/formations/update.$formationId/details/route.ts",
+      "parent": "/app/tools/formations/update/$formationId"
+    },
+    "/app/tools/scheduler/details/$rdvId/delete": {
+      "filePath": "app/tools/scheduler/details.$rdvId/delete/route.ts",
+      "parent": "/app/tools/scheduler/details/$rdvId"
+    },
+    "/app/tools/scheduler/details/$rdvId/update": {
+      "filePath": "app/tools/scheduler/details.$rdvId/update/route.ts",
+      "parent": "/app/tools/scheduler/details/$rdvId"
+    },
+    "/app/businesses-rma/business/$businessId/arc/delete-detail/$detailId": {
+      "filePath": "app/businesses-rma_/business.$businessId/arc/delete-detail.$detailId/route.ts",
+      "parent": "/app/businesses-rma/business/$businessId/arc"
+    },
+    "/app/businesses-rma/business/$businessId/arc/pdf/send-by-email": {
+      "filePath": "app/businesses-rma_/business.$businessId/arc/pdf/send-by-email/route.tsx",
+      "parent": "/app/businesses-rma/business/$businessId/arc/pdf"
+    },
+    "/app/businesses-rma/business/$businessId/arc/update-detail/$detailId": {
+      "filePath": "app/businesses-rma_/business.$businessId/arc/update-detail.$detailId/route.ts",
+      "parent": "/app/businesses-rma/business/$businessId/arc"
+    },
+    "/app/businesses-rma/business/$businessId/bill/credits/send-by-email": {
+      "filePath": "app/businesses-rma_/business.$businessId/bill/credits/send-by-email/route.tsx",
+      "parent": "/app/businesses-rma/business/$businessId/bill/credits"
+    },
+    "/app/businesses-rma/business/$businessId/bp/add-serial/$detailId": {
+      "filePath": "app/businesses-rma_/business.$businessId/bp/add-serial.$detailId/route.ts",
+      "parent": "/app/businesses-rma/business/$businessId/bp"
+    },
+    "/app/businesses-rma/business/$businessId/bp/create-detail-rma/$detailId": {
+      "filePath": "app/businesses-rma_/business.$businessId/bp/create-detail-rma.$detailId/route.ts",
+      "parent": "/app/businesses-rma/business/$businessId/bp"
+    },
+    "/app/businesses-rma/business/$businessId/bp/create-serial-rma/$serialId": {
+      "filePath": "app/businesses-rma_/business.$businessId/bp/create-serial-rma.$serialId/route.ts",
+      "parent": "/app/businesses-rma/business/$businessId/bp"
+    },
+    "/app/businesses-rma/business/$businessId/bp/delete-detail/$detailId": {
+      "filePath": "app/businesses-rma_/business.$businessId/bp/delete-detail.$detailId/route.ts",
+      "parent": "/app/businesses-rma/business/$businessId/bp"
+    },
+    "/app/businesses-rma/business/$businessId/bp/delete-serial/$serialId": {
+      "filePath": "app/businesses-rma_/business.$businessId/bp/delete-serial.$serialId/route.ts",
+      "parent": "/app/businesses-rma/business/$businessId/bp"
+    },
+    "/app/businesses-rma/business/$businessId/bp/update-detail/$detailId": {
+      "filePath": "app/businesses-rma_/business.$businessId/bp/update-detail.$detailId/route.ts",
+      "parent": "/app/businesses-rma/business/$businessId/bp"
+    },
+    "/app/businesses-rma/business/$businessId/dashboard/address-book/create": {
+      "filePath": "app/businesses-rma_/business.$businessId/dashboard/address-book/create/route.ts",
+      "parent": "/app/businesses-rma/business/$businessId/dashboard/address-book"
+    },
+    "/app/businesses-rma/business/$businessId/dashboard/confirm-quotation-import/$otherBusinessId": {
+      "filePath": "app/businesses-rma_/business.$businessId/dashboard/confirm-quotation-import.$otherBusinessId/route.ts",
+      "parent": "/app/businesses-rma/business/$businessId/dashboard"
+    },
+    "/app/businesses-rma/business/$businessId/dashboard/delete-ged-object/$objectRelativePath": {
+      "filePath": "app/businesses-rma_/business.$businessId/dashboard/delete-ged-object.$objectRelativePath/route.ts",
+      "parent": "/app/businesses-rma/business/$businessId/dashboard"
+    },
+    "/app/businesses-rma/business/$businessId/dashboard/delete-link/$associatedId": {
+      "filePath": "app/businesses-rma_/business.$businessId/dashboard/delete-link.$associatedId/route.ts",
+      "parent": "/app/businesses-rma/business/$businessId/dashboard"
+    },
+    "/app/businesses-rma/business/$businessId/dashboard/rename-ged-object/$objectRelativePath": {
+      "filePath": "app/businesses-rma_/business.$businessId/dashboard/rename-ged-object.$objectRelativePath/route.ts",
+      "parent": "/app/businesses-rma/business/$businessId/dashboard"
+    },
+    "/app/businesses-rma/business/$businessId/dashboard/task-email/$taskId": {
+      "filePath": "app/businesses-rma_/business.$businessId/dashboard/task-email.$taskId/route.ts",
+      "parent": "/app/businesses-rma/business/$businessId/dashboard"
+    },
+    "/app/businesses-rma/business/$businessId/quotation/commercial-notice/send-by-email": {
+      "filePath": "app/businesses-rma_/business.$businessId/quotation/commercial-notice/send-by-email/route.ts",
+      "parent": "/app/businesses-rma/business/$businessId/quotation/commercial-notice"
+    },
+    "/app/businesses-rma/business/$businessId/quotation/create-associated-detail/$detailId": {
+      "filePath": "app/businesses-rma_/business.$businessId/quotation/create-associated-detail.$detailId/route.ts",
+      "parent": "/app/businesses-rma/business/$businessId/quotation"
+    },
+    "/app/businesses-rma/business/$businessId/quotation/create-detail/$subquotationId": {
+      "filePath": "app/businesses-rma_/business.$businessId/quotation/create-detail.$subquotationId/route.ts",
+      "parent": "/app/businesses-rma/business/$businessId/quotation"
+    },
+    "/app/businesses-rma/business/$businessId/quotation/delete-detail/$detailId": {
+      "filePath": "app/businesses-rma_/business.$businessId/quotation/delete-detail.$detailId/route.ts",
+      "parent": "/app/businesses-rma/business/$businessId/quotation"
+    },
+    "/app/businesses-rma/business/$businessId/quotation/delete-subquotation/$subquotationId": {
+      "filePath": "app/businesses-rma_/business.$businessId/quotation/delete-subquotation.$subquotationId/route.ts",
+      "parent": "/app/businesses-rma/business/$businessId/quotation"
+    },
+    "/app/businesses-rma/business/$businessId/quotation/pdf/send-by-email": {
+      "filePath": "app/businesses-rma_/business.$businessId/quotation/pdf/send-by-email/route.tsx",
+      "parent": "/app/businesses-rma/business/$businessId/quotation/pdf"
+    },
+    "/app/businesses-rma/business/$businessId/quotation/update-detail/$detailId": {
+      "filePath": "app/businesses-rma_/business.$businessId/quotation/update-detail.$detailId/route.ts",
+      "parent": "/app/businesses-rma/business/$businessId/quotation"
+    },
+    "/app/businesses-rma/business/$businessId/quotation/update-subquotation/$subquotationId": {
+      "filePath": "app/businesses-rma_/business.$businessId/quotation/update-subquotation.$subquotationId/route.ts",
+      "parent": "/app/businesses-rma/business/$businessId/quotation"
+    },
+    "/app/businesses-rma/business/$businessId/assistance/$assistanceId/create-ged-directory": {
+      "filePath": "app/businesses-rma_/business.$businessId_.assistance.$assistanceId/create-ged-directory/route.ts",
+      "parent": "/app/businesses-rma/business/$businessId/assistance/$assistanceId"
+    },
+    "/app/businesses-rma/business/$businessId/assistance/$assistanceId/create-lifesheet": {
+      "filePath": "app/businesses-rma_/business.$businessId_.assistance.$assistanceId/create-lifesheet/route.ts",
+      "parent": "/app/businesses-rma/business/$businessId/assistance/$assistanceId"
+    },
+    "/app/businesses-rma/business/$businessId/assistance/$assistanceId/delete": {
+      "filePath": "app/businesses-rma_/business.$businessId_.assistance.$assistanceId/delete/route.ts",
+      "parent": "/app/businesses-rma/business/$businessId/assistance/$assistanceId"
+    },
+    "/app/businesses-rma/business/$businessId/assistance/$assistanceId/edit-cumulated-time": {
+      "filePath": "app/businesses-rma_/business.$businessId_.assistance.$assistanceId/edit-cumulated-time/route.ts",
+      "parent": "/app/businesses-rma/business/$businessId/assistance/$assistanceId"
+    },
+    "/app/businesses-rma/business/$businessId/assistance/$assistanceId/edit-no-billed-time": {
+      "filePath": "app/businesses-rma_/business.$businessId_.assistance.$assistanceId/edit-no-billed-time/route.ts",
+      "parent": "/app/businesses-rma/business/$businessId/assistance/$assistanceId"
+    },
+    "/app/businesses-rma/business/$businessId/assistance/$assistanceId/edit-subtitle": {
+      "filePath": "app/businesses-rma_/business.$businessId_.assistance.$assistanceId/edit-subtitle/route.ts",
+      "parent": "/app/businesses-rma/business/$businessId/assistance/$assistanceId"
+    },
+    "/app/businesses-rma/business/$businessId/assistance/$assistanceId/import-ged-files": {
+      "filePath": "app/businesses-rma_/business.$businessId_.assistance.$assistanceId/import-ged-files/route.ts",
+      "parent": "/app/businesses-rma/business/$businessId/assistance/$assistanceId"
+    },
+    "/app/businesses-rma/business/$businessId/assistance/$assistanceId/pdf": {
+      "filePath": "app/businesses-rma_/business.$businessId_.assistance.$assistanceId/pdf/route.ts",
+      "parent": "/app/businesses-rma/business/$businessId/assistance/$assistanceId",
+      "children": [
+        "/app/businesses-rma/business/$businessId/assistance/$assistanceId/pdf/send-by-email"
+      ]
+    },
+    "/app/products/$productId/informations/task-email/$taskId/reply": {
+      "filePath": "app/products_.$productId/informations/task-email.$taskId/reply/route.ts",
+      "parent": "/app/products/$productId/informations/task-email/$taskId"
+    },
+    "/app/tools/formations/subscribers/$formationDetailId/delete/$subscriptionId": {
+      "filePath": "app/tools/formations/subscribers.$formationDetailId/delete.$subscriptionId/route.ts",
+      "parent": "/app/tools/formations/subscribers/$formationDetailId"
+    },
+    "/app/tools/formations/subscribers/$formationDetailId/send-email/$subscriptionId": {
+      "filePath": "app/tools/formations/subscribers.$formationDetailId/send-email.$subscriptionId/route.ts",
+      "parent": "/app/tools/formations/subscribers/$formationDetailId"
+    },
+    "/app/businesses-rma/business/$businessId/dashboard/address-book/delete/$addressId": {
+      "filePath": "app/businesses-rma_/business.$businessId/dashboard/address-book/delete.$addressId/route.ts",
+      "parent": "/app/businesses-rma/business/$businessId/dashboard/address-book"
+    },
+    "/app/businesses-rma/business/$businessId/dashboard/address-book/update/$addressId": {
+      "filePath": "app/businesses-rma_/business.$businessId/dashboard/address-book/update.$addressId/route.ts",
+      "parent": "/app/businesses-rma/business/$businessId/dashboard/address-book"
+    },
+    "/app/businesses-rma/business/$businessId/assistance/$assistanceId/delete-ged-object/$objectRelativePath": {
+      "filePath": "app/businesses-rma_/business.$businessId_.assistance.$assistanceId/delete-ged-object.$objectRelativePath/route.ts",
+      "parent": "/app/businesses-rma/business/$businessId/assistance/$assistanceId"
+    },
+    "/app/businesses-rma/business/$businessId/assistance/$assistanceId/pdf/send-by-email": {
+      "filePath": "app/businesses-rma_/business.$businessId_.assistance.$assistanceId/pdf/send-by-email/route.tsx",
+      "parent": "/app/businesses-rma/business/$businessId/assistance/$assistanceId/pdf"
+    },
+    "/app/businesses-rma/business/$businessId/assistance/$assistanceId/rename-ged-object/$objectRelativePath": {
+      "filePath": "app/businesses-rma_/business.$businessId_.assistance.$assistanceId/rename-ged-object.$objectRelativePath/route.ts",
+      "parent": "/app/businesses-rma/business/$businessId/assistance/$assistanceId"
+    }
+  }
+}
+ROUTE_MANIFEST_END */
