@@ -60,7 +60,13 @@ export default function PaginationComponent({ page, totalPages = 0, pageLink, on
           }
 
           return (
-            <li className={classNames(styles.item, { [styles.selected]: selected, [styles.disabled]: disabled })} key={index}>
+            <li
+              className={classNames(styles.item, {
+                [styles.selected]: selected,
+                [styles.disabled]: disabled || type === 'start-ellipsis' || type === 'end-ellipsis',
+              })}
+              key={index}
+            >
               {children}
             </li>
           );
