@@ -25,7 +25,8 @@ const yupSchema = yup.object({
       name: 'equalOrDifferentByOne',
       skipAbsent: false,
       test(value) {
-        const absoluteDiffValue = Math.abs(value - (yup.ref('totalAmountHT') as unknown as number));
+        const { totalAmountHT } = this.parent as { totalAmountHT: number };
+        const absoluteDiffValue = Math.abs(value - totalAmountHT);
         if (absoluteDiffValue < 0 || absoluteDiffValue > 1)
           return this.createError({ message: `Le montant total HT du client diffère de celui de l'ARC, Diff: ${absoluteDiffValue} €` });
         return true;

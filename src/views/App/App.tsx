@@ -10,6 +10,7 @@ import AppViewCreateBusinessModalComponent from './components/CreateBusinessModa
 import AppViewCreateClientBusinessModalComponent from './components/CreateClientBusinessModal/CreateClientBusinessModal';
 import AppViewLoadingProgressBarComponent from './components/LoadingProgressBar/LoadingProgressBar';
 import { useMemo } from 'react';
+import AppViewChatWebsocketComponent from './components/ChatWebsocket/ChatWebsocket';
 
 const Route = getRouteApi('/app');
 
@@ -30,6 +31,7 @@ export default function AppLayout() {
   return (
     <>
       <AppViewLoadingProgressBarComponent />
+      <AppViewChatWebsocketComponent />
       <div className={styles.container}>
         <AppViewTopbarComponent />
         <main className={classNames(styles.content, { [styles.mobile_menu_opened]: mobileSidebar })}>
@@ -45,7 +47,6 @@ export default function AppLayout() {
         <AppViewFooterComponent />
       </div>
       {modal}
-      {/* <ChatWebsocketSystem currentUser={currentUser} addTab={addTab} /> // TODO: Reimplement this */}
     </>
   );
 }

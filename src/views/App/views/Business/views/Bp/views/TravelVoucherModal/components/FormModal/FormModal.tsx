@@ -15,8 +15,6 @@ const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/bp/travel
 const yupSchema = yup.object().shape({
   businessName: yup.string().required('Champs requis.'),
   businessInstaller: yup.string().nullable(),
-  businessExport: yup.string().required(),
-  businessBlockBill: yup.string().required(),
   businessDeliveryMode: yup.string().nullable(),
   receiverName: yup.string().required('Champs requis').max(40, 'Max 40 caratères'),
   receiverCompanyName: yup.string().required('Champs requis').max(40, 'Max 40 caratères'),
@@ -49,6 +47,20 @@ export default function AppViewBusinessViewBpViewTravelVoucherModalViewFormModal
     handleSubmit,
   } = useForm({
     resolver: yupResolver(yupSchema),
+    defaultValues: {
+      businessName: business.title ?? '',
+      businessInstaller: business.installerProfileName ?? '',
+      businessDeliveryMode: business.deliveryMode ?? '',
+      receiverCompanyName: business.deliverAddressCompany ?? '',
+      receiverName: business.deliverAddressName || 'Réception',
+      receiverAddressTwo: business.deliverAddressTwo,
+      receiverAddressOne: business.deliverAddressOne ?? '',
+      receiverZipCode: business.deliverAddressZipCode ?? '',
+      receiverCity: business.deliverAddressCity ?? '',
+      receiverPhoneNumber: business.deliverPhoneNumber,
+      receiverEmail: business.deliverEmail ?? '',
+      nbreColis: 0,
+    },
   });
 
   const onClose = () => {

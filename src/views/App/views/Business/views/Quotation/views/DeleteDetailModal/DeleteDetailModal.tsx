@@ -33,7 +33,7 @@ export default function AppViewBusinessViewQuotationViewDeleteDetailModalView() 
         subQuoteId: quotation.subQuotationList!.find((sub) => sub.quotationDetails?.some((d) => d.id === detail.id))!.id,
         totalAmountHT,
         shippingServicePrice,
-        totalAmount: (totalAmountHT + shippingServicePrice) * 0.2,
+        totalAmount: (totalAmountHT + shippingServicePrice) * 1.2,
       });
     },
     onSuccess: () => {

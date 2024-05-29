@@ -44,8 +44,10 @@ export default function AppViewBusinessViewQuotationViewUpdateShippingPriceModal
 
   const { mutate, isPending } = useMutation({
     mutationFn: ({ shippingServicePrice }: yup.InferType<typeof yupSchema>) => {
-      const vat = ((quotation.totalAmountHT ?? 0) + shippingServicePrice) * 0.2;
-      const totalAmount = (quotation.totalAmountHT ?? 0) + shippingServicePrice + vat;
+      const totalAmountHT = quotation.totalAmountHT ?? 0;
+      const total = totalAmountHT + shippingServicePrice;
+      const vat = total * 0.2;
+      const totalAmount = total + vat;
       return updateBusinessQuotation(quotation.id, {
         businessId: businessId,
         number: quotation.number,
@@ -53,7 +55,7 @@ export default function AppViewBusinessViewQuotationViewUpdateShippingPriceModal
         shippingServicePrice,
         vat,
         totalAmount,
-        totalAmountHT: quotation.totalAmountHT ?? 0,
+        totalAmountHT,
       });
     },
     onSuccess: () => {

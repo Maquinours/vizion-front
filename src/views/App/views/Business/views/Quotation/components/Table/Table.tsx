@@ -41,6 +41,7 @@ export default function AppViewBusinessViewQuotationViewTableComponent() {
   const { businessId } = routeApi.useParams();
   const { hideTotal } = routeApi.useSearch();
 
+  const { data: business } = useSuspenseQuery(queries.businesses.detail._ctx.byId(businessId));
   const { data: quotation } = useSuspenseQuery(queries['business-quotations'].detail._ctx.byBusinessId(businessId));
 
   const [subquotationContextMenuAnchor, setSubquotationContextMenuAnchor] = useState<VirtualElement>();
@@ -79,6 +80,7 @@ export default function AppViewBusinessViewQuotationViewTableComponent() {
   };
 
   const onSubQuotationRowContextMenu = (e: React.MouseEvent, subQuotation: BusinessSubQuotationResponseDto) => {
+    if (business.archived) return;
     e.preventDefault();
     setSubquotation(subQuotation);
     setQuotationDetailContextMenuAnchor(undefined);
@@ -86,6 +88,7 @@ export default function AppViewBusinessViewQuotationViewTableComponent() {
   };
 
   const onQuotationDetailRowContextMenu = (e: React.MouseEvent, detail: BusinessQuotationDetailsResponseDto) => {
+    if (business.archived) return;
     e.preventDefault();
     setQuotationDetail(detail);
     setSubquotationContextMenuAnchor(undefined);
@@ -112,8 +115,15 @@ export default function AppViewBusinessViewQuotationViewTableComponent() {
             </thead>
             <tbody>
               <SortableContext items={dataIds} strategy={verticalListSortingStrategy}>
-                {quotation.subQuotationList?.map((subQuotation) => (
+                {quotation.subQuotationList?.map((subQuotation, _index, arr) => (
                   <React.Fragment key={subQuotation.id}>
+                    {subQuotation.name === 'Default' && (!subQuotation.quotationDetails || subQuotation.quotationDetails.length === 0) && arr.length === 1 && (
+                      <tr>
+                        <td colSpan={9}>
+                          <div className={styles.no_data}>Aucun détail disponible.</div>
+                        </td>
+                      </tr>
+                    )}
                     {subQuotation.name !== 'Default' && (
                       <AppViewBusinessViewQuotationViewTableComponentSubQuotationRowComponent
                         subQuotation={subQuotation}

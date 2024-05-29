@@ -40,10 +40,10 @@ export default function AppViewBusinessViewBpViewFooterComponent() {
         deliverMode: business.deliveryMode,
         numberOfPackage: 1,
         weight: 0,
-        addressLineOne: business.deliverAddressOne,
+        addressLineOne: business.deliverAddressOne ?? '',
         addressLineTwo: business.deliverAddressTwo,
         fullName: business.deliverAddressName ?? '',
-        zipCode: business.deliverAddressZipCode,
+        zipCode: business.deliverAddressZipCode ?? '',
         email: business.deliverEmail,
         phoneNumber: business.deliverPhoneNumber,
         enterpriseId: business.enterpriseId,
@@ -85,12 +85,10 @@ export default function AppViewBusinessViewBpViewFooterComponent() {
 
   const onBlButtonClick = () => {
     if (business.state !== BusinessState.BP) navigate({ to: '../bl', replace: true });
-    if (!business.deliveryMode) {
+    else if (!business.deliveryMode) {
       toast.warning('Veuillez renseigner le mode de livraison');
       navigate({ to: '../dashboard', replace: true });
-    } else {
-      mutate();
-    }
+    } else mutate();
   };
 
   return (

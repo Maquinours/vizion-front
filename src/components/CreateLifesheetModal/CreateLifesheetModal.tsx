@@ -50,7 +50,7 @@ export default function CreateLifesheetModalComponent({
 
   const { data: currentUser } = useAuthentifiedUserQuery();
 
-  const { data: predefinedTexts } = useQuery(queries['predefined-text'].list);
+  const { data: predefinedTexts } = useQuery({ ...queries['predefined-text'].list, select: (data) => [...data].sort((a, b) => a.orderNum - b.orderNum) });
 
   const { data: vizeoMembers } = useQuery(queries.enterprise.list._ctx.byCategory(CategoryClient.VIZEO)._ctx.profiles._ctx.list);
 
