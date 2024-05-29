@@ -1,10 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
 import { useNavigate } from '@tanstack/react-router';
 import { toast } from 'react-toastify';
-import useWebSocket from 'react-use-websocket';
+import useWebSocket, { ReadyState } from 'react-use-websocket';
 import { CHAT_WEBSOCKET_URL } from '../../../../utils/constants/api';
 import { queries } from '../../../../utils/constants/queryKeys';
 import { useAuthentifiedUserQuery } from '../../utils/functions/getAuthentifiedUser';
+import { useEffect, useState } from 'react';
 
 type MessageData = {
   function: 'new-message' | 'message-sent';
@@ -35,6 +36,7 @@ export default function AppViewChatWebsocketComponent() {
   const navigate = useNavigate();
 
   const { data: authentifiedUser } = useAuthentifiedUserQuery();
+  const [pingInterval, setPingInterval] = useState<NodeJS.Timeout>();
 
   const { data: chatLink } = useQuery({
     ...queries['external-link'].list._ctx.byArchiveState(false),
@@ -42,7 +44,7 @@ export default function AppViewChatWebsocketComponent() {
     enabled: authentifiedUser.userInfo.roles.includes('ROLE_VIZEO'),
   });
 
-  useWebSocket(
+  const { sendMessage, readyState } = useWebSocket(
     CHAT_WEBSOCKET_URL,
     {
       onOpen: () => {
@@ -50,6 +52,10 @@ export default function AppViewChatWebsocketComponent() {
       },
       onClose: () => {
         console.log('Chat websocket closed');
+        if (pingInterval) {
+          clearInterval(pingInterval);
+          setPingInterval(undefined);
+        }
       },
       onError: (error) => {
         console.log('Chat websocket error', error);
@@ -89,6 +95,16 @@ export default function AppViewChatWebsocketComponent() {
     },
     authentifiedUser.userInfo.roles.includes('ROLE_VIZEO'),
   );
+
+  useEffect(() => {
+    if (readyState === ReadyState.OPEN) {
+      setPingInterval(
+        setInterval(() => {
+          sendMessage('ping');
+        }, 30000),
+      );
+    }
+  }, [readyState]);
 
   return null;
 }
