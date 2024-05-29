@@ -74,7 +74,7 @@ export default function AppViewBusinessViewQuotationViewHeaderComponentSectionOn
 
     const detailsList = quotation.subQuotationList?.map((quote) => quote.quotationDetails ?? []) ?? [];
     if (!detailsList.some((details) => details.length > 0)) {
-      toast.warning('Veuillez ajouter un produit le devis.');
+      toast.warning('Veuillez ajouter un produit dans le devis.');
       return;
     }
     // if (quotation.totalAmount !== totalAmountTTC || Number(currentBusinessQuote?.totalAmountHT) !== Number(totalAmountHT)) { // TODO: reimplement this

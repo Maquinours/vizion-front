@@ -23,6 +23,7 @@ const yupSchema = yup.object({
   detailProduct: yup
     .mixed<ProductResponseDto>()
     .nullable()
+    .defined()
     .when('dataType', {
       is: DataType.DETAIL,
       then: () => yup.mixed<ProductResponseDto>().required('Champs requis !!'),
@@ -55,12 +56,14 @@ export default function AppViewBusinessViewQuotationViewHeaderComponentSectionTh
     control,
     formState: { errors },
     watch,
+    reset,
     handleSubmit,
   } = useForm({
     resolver: yupResolver(yupSchema),
     defaultValues: {
       dataType: DataType.DETAIL,
       detailQuantity: 1,
+      detailProduct: null,
     },
   });
 
@@ -112,6 +115,7 @@ export default function AppViewBusinessViewQuotationViewHeaderComponentSectionTh
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queries['business-quotations']._def });
+      reset();
       toast.success('Ligne ajoutée au devis avec succès');
     },
     onError: (error) => {

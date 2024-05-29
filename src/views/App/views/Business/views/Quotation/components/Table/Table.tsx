@@ -117,7 +117,7 @@ export default function AppViewBusinessViewQuotationViewTableComponent() {
               <SortableContext items={dataIds} strategy={verticalListSortingStrategy}>
                 {quotation.subQuotationList?.map((subQuotation, _index, arr) => (
                   <React.Fragment key={subQuotation.id}>
-                    {subQuotation.name === 'Default' && (!subQuotation.quotationDetails || subQuotation.quotationDetails.length === 0) && arr.length === 0 && (
+                    {subQuotation.name === 'Default' && (!subQuotation.quotationDetails || subQuotation.quotationDetails.length === 0) && arr.length === 1 && (
                       <tr>
                         <td colSpan={9}>
                           <div className={styles.no_data}>Aucun détail disponible.</div>
