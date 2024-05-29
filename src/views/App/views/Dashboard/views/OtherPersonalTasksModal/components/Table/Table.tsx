@@ -1,6 +1,6 @@
 import { VirtualElement } from '@popperjs/core';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { Link, getRouteApi, useNavigate } from '@tanstack/react-router';
 import { Row, createColumnHelper } from '@tanstack/react-table';
 import classNames from 'classnames';
 import DOMPurify from 'dompurify';
@@ -106,12 +106,26 @@ export default function AppViewDashboardViewOtherPersonalTasksModalViewTableComp
       }),
       columnHelper.display({
         header: 'Objet',
-        cell: () => {
-          // TODO: reimplement following links
-          //   if (original.businessId) return <Link to={`/app/business/get-business/${original.businessId}`}>{original.businessNum}</Link>;
-          //   if (original.rmaId) return <Link to={`/app/rma/get-rma/${original.rmaId}`}>{original.rmaNum}</Link>;
-          //   if (original.enterpriseId) return <Link to={`/app/enterprises/get-enterprise/${original.enterpriseId}`}>{original.enterpriseName}</Link>;
-          //   if (original.productId) return <Link to={`/app/products/get-product/${original.productId}`}>{original.reference}</Link>;
+        cell: ({ row: { original } }) => {
+          if (original.businessId)
+            return (
+              <Link to="/app/businesses-rma/business/$businessId" params={{ businessId: original.businessId }}>
+                {original.businessNum}
+              </Link>
+            );
+          // if (original.rmaId) return <Link to={`/app/rma/get-rma/${original.rmaId}`}>{original.rmaNum}</Link>; //TODO: handle RMA
+          if (original.enterpriseId)
+            return (
+              <Link to="/app/enterprises/$enterpriseId" params={{ enterpriseId: original.enterpriseId }}>
+                {original.enterpriseName}
+              </Link>
+            );
+          if (original.productId)
+            return (
+              <Link to="/app/products/$productId" params={{ productId: original.productId }}>
+                {original.reference}
+              </Link>
+            );
           return 'Non relié';
         },
       }),
