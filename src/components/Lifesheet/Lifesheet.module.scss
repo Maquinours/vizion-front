@@ -66,11 +66,16 @@
           opacity: 1;
 
           &:nth-child(1) {
-            width: 15%;
+            width: 10%;
           }
 
           &:nth-child(2) {
             width: 20%;
+          }
+
+          &:nth-child(3) {
+            width: 70%;
+            word-wrap: break-word;
           }
 
           @include respond-below(md) {
