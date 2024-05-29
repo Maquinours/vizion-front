@@ -73,6 +73,8 @@ export default function AppViewBusinessViewQuotationViewHeaderComponentSectionTh
           const unitPrice = detailProduct!.publicPrice ? detailProduct!.publicPrice * (1 - (business.reduction ?? 0) / 100) : 0;
           const totalPrice = detailQuantity! * unitPrice;
           const totalAmountHT = (quotation!.totalAmountHT ?? 0) + totalPrice;
+          const shippingServicePrice = totalAmountHT < 1200 ? quotation!.shippingServicePrice : 0;
+
           let lastElement = quotation!.subQuotationList?.at(-1);
           if (!lastElement)
             lastElement = await createBusinessSubQuotation({
@@ -99,8 +101,8 @@ export default function AppViewBusinessViewQuotationViewHeaderComponentSectionTh
             totalPrice,
             taxDEEE: 0,
             totalAmountHT,
-            totalAmount: (quotation!.totalAmount ?? 0) + totalPrice * 0.2,
-            shippingServicePrice: totalAmountHT < 1200 ? quotation!.shippingServicePrice : 0,
+            totalAmount: (totalAmountHT + shippingServicePrice) * 1.2,
+            shippingServicePrice,
           });
         }
         case DataType.SUBQUOTATION: {

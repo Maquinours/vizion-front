@@ -72,7 +72,7 @@ export default function AppViewBusinessViewQuotationViewUpdateDetailModalView() 
         totalPrice,
         taxDEEE: 0,
         totalAmountHT,
-        totalAmount: (totalAmountHT + shippingServicePrice) * 0.2,
+        totalAmount: (totalAmountHT + shippingServicePrice) * 1.2,
         shippingServicePrice,
         virtualQty: detail.virtualQty,
       });
