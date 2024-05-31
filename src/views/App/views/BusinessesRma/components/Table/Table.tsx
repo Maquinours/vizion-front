@@ -106,26 +106,35 @@ export default function AppViewBusinessesRmaViewTableComponent({ data, isLoading
         header: 'Liaisons',
         cell: ({ row: { original } }) => (
           <ul className={styles.associated_list}>
-            {original?.associatedBusinessRMA?.map((item) => {
-              const name = `${item.number} ${item.title && item.title !== item.number ? `(${item.title})` : ''}`;
-              return (
-                <li key={item.businessId}>
+            {original?.associatedBusinessRMA?.map((item) => (
+              <li key={item.businessId}>
+                {item.category === CategoryBusiness.AFFAIRE ? (
                   <Link
                     to="/app/businesses-rma/business/$businessId"
                     params={{ businessId: item.businessId }}
-                    disabled={
-                      (item.category === CategoryBusiness.AFFAIRE && user.userInfo.roles.includes('ROLE_CLIENT')) || item.category === CategoryBusiness.RMA // TODO: implement for RMAs
-                    }
                     onClick={(e) => {
                       e.stopPropagation();
                       e.nativeEvent.stopImmediatePropagation();
                     }}
                   >
-                    {name}
+                    {item.number} {item.title !== item.number ? `(${item.title})` : ''}
                   </Link>
-                </li>
-              );
-            })}
+                ) : (
+                  item.category === CategoryBusiness.RMA && (
+                    <Link
+                      to="/app/businesses-rma/rma/$rmaId"
+                      params={{ rmaId: item.businessId }}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        e.nativeEvent.stopImmediatePropagation();
+                      }}
+                    >
+                      {item.number}
+                    </Link>
+                  )
+                )}
+              </li>
+            ))}
           </ul>
         ),
       }),
@@ -194,9 +203,13 @@ export default function AppViewBusinessesRmaViewTableComponent({ data, isLoading
 
   const onRowClick = useCallback(
     (e: React.MouseEvent, row: Row<AllBusinessResponseDto>) => {
-      if (row.original.category !== CategoryBusiness.AFFAIRE) return; // TODO: add link to RMA
-      if (e.metaKey || e.ctrlKey) window.open(`${window.location.origin}/app/businesses-rma/business/${row.original.businessId}`, '_blank');
-      else navigate({ to: '/app/businesses-rma/business/$businessId', params: { businessId: row.original.businessId } });
+      if (row.original.category === CategoryBusiness.AFFAIRE) {
+        if (e.metaKey || e.ctrlKey) window.open(`${window.location.origin}/app/businesses-rma/business/${row.original.businessId}`, '_blank');
+        else navigate({ to: '/app/businesses-rma/business/$businessId', params: { businessId: row.original.businessId } });
+      } else if (row.original.category === CategoryBusiness.RMA) {
+        if (e.metaKey || e.ctrlKey) window.open(`${window.location.origin}/app/businesses-rma/rma/${row.original.businessId}`, '_blank');
+        else navigate({ to: '/app/businesses-rma/rma/$rmaId', params: { rmaId: row.original.businessId } });
+      }
     },
     [navigate],
   );

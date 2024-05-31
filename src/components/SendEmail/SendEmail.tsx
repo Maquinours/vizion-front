@@ -64,17 +64,17 @@ export type SendEmailComponentProps = Readonly<{
   defaultContent?: string;
   defaultAttachments?: Array<File>;
   lifeSheetInfoDto?: {
-    author?: string;
-    businessId?: string;
-    businessNumber?: string;
-    businessName?: string;
-    rmaId?: string;
-    rmaNumber?: string;
-    enterpriseId?: string;
-    enterpriseName?: string;
-    productId?: string;
-    productReference?: string;
-    technicalAssistanceId?: string;
+    author?: string | null;
+    businessId?: string | null;
+    businessNumber?: string | null;
+    businessName?: string | null;
+    rmaId?: string | null;
+    rmaNumber?: string | null;
+    enterpriseId?: string | null;
+    enterpriseName?: string | null;
+    productId?: string | null;
+    productReference?: string | null;
+    technicalAssistanceId?: string | null;
   };
   predefinedMessagesModalLink?: LinkProps;
   emailToReply?: MailResponseDto;

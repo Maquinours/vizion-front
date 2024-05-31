@@ -19,16 +19,31 @@ const columns = [
     header: "Nom de l'affaire",
     cell: ({ row: { original } }) => (
       <div className={styles.row}>
-        <Link
-          to="/app/businesses-rma/business/$businessId"
-          params={{ businessId: original.businessId }}
-          disabled={original.category !== CategoryBusiness.AFFAIRE} // TODO: add link to RMA
-          onClick={(e) => {
-            e.stopPropagation();
-          }}
-        >
-          {original.category === CategoryBusiness.AFFAIRE ? `${original.title ?? ''} ${original.number}` : original.number}
-        </Link>
+        {original.category === CategoryBusiness.AFFAIRE ? (
+          <Link
+            to="/app/businesses-rma/business/$businessId"
+            params={{ businessId: original.businessId }}
+            onClick={(e) => {
+              e.stopPropagation();
+              e.nativeEvent.stopImmediatePropagation();
+            }}
+          >
+            {original.title ?? ''} {original.number}
+          </Link>
+        ) : (
+          original.category === CategoryBusiness.RMA && (
+            <Link
+              to="/app/businesses-rma/rma/$rmaId"
+              params={{ rmaId: original.businessId }}
+              onClick={(e) => {
+                e.stopPropagation();
+                e.nativeEvent.stopImmediatePropagation();
+              }}
+            >
+              {original.number}
+            </Link>
+          )
+        )}
       </div>
     ),
   }),

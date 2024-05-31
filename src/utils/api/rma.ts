@@ -33,3 +33,18 @@ export const createRmaFromBusiness = async (category: CategoryBusiness, number: 
     },
   }).then((res) => res.data);
 };
+
+export const archiveRma = async (id: string) => {
+  return privateInstance<AssistanceResponseDto>({
+    method: 'POST',
+    url: `/rma/v1/assistance/archive/${encodeURIComponent(id)}`,
+  }).then((res) => res.data);
+};
+
+export const updateRma = (id: string, data: AssistanceRequestDto) => {
+  return privateInstance<AssistanceResponseDto>({
+    method: 'PUT',
+    url: `/rma/v1/assistance/${encodeURIComponent(id)}`,
+    data,
+  }).then((res) => res.data);
+};

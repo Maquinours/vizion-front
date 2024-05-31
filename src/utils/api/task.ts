@@ -119,3 +119,15 @@ export const getTasksPageByBusinessId = (businessId: string, { page, size }: { p
     },
   }).then((res) => res.data);
 };
+
+export const getTasksPageByRmaId = (rmaId: string, { page, size }: { page: number; size: number }) => {
+  return privateInstance<Page<TaskResponseDto>>({
+    method: 'GET',
+    url: `/workloads/v1/tasks/all-by-rma-paged`,
+    params: {
+      rmaId,
+      page,
+      size,
+    },
+  }).then((res) => res.data);
+};
