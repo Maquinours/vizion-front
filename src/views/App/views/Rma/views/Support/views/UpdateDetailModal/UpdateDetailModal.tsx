@@ -118,7 +118,7 @@ export default function AppViewRmaViewSupportViewUpdateDetailModalView() {
               <p className={styles.__errors}>{errors.productSerialNumber?.message}</p>
             </div>
             <div className={styles.search_button}>
-              <button className="btn btn-primary" onClick={() => fetchProductBySerialNumber()}>
+              <button type="button" className="btn btn-primary" onClick={() => fetchProductBySerialNumber()}>
                 Rechercher
               </button>
             </div>

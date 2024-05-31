@@ -25,7 +25,7 @@ const STEPS_DATA: Array<{
   },
   {
     label: 'Analyse/Réparation/Expédition',
-    link: '/app/businesses-rma/rma/$rmaId/analysis',
+    link: '/app/businesses-rma/rma/$rmaId/delivery',
     clickableStates: [AssistanceState.ANALYSE_REPARATION_EXPEDITION, AssistanceState.ARCHIVE],
   },
 ];

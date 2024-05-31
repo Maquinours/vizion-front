@@ -1,24 +1,24 @@
 import { ClickAwayListener, Fade, MenuItem, MenuList, Paper, Popper } from '@mui/material';
 import { VirtualElement } from '@popperjs/core';
-import React from 'react';
-import AssistanceSupportDetailResponseDto from '../../../../../../../../../../utils/types/AssistanceSupportDetailResponseDto';
 import { Link } from '@tanstack/react-router';
-import { HiPencilAlt } from 'react-icons/hi';
-import styles from './ContextMenu.module.scss';
+import React from 'react';
 import { FaTrash } from 'react-icons/fa';
+import { HiPencilAlt } from 'react-icons/hi';
+import AssistanceReceptionDetailResponseDto from '../../../../../../../../../utils/types/AssistanceReceptionDetailResponseDto';
+import styles from './ContextMenu.module.scss';
 
-const routeId = '/app/businesses-rma/rma/$rmaId/support';
+const routeId = '/app/businesses-rma/rma/$rmaId/reception';
 
-type AppViewRmaViewSupportViewTableComponentContextMenuComponentProps = Readonly<{
+type AppViewRmaViewReceptionViewTableComponentContextMenuComponentProps = Readonly<{
   anchorElement: VirtualElement | undefined;
   setAnchorElement: React.Dispatch<React.SetStateAction<VirtualElement | undefined>>;
-  item: AssistanceSupportDetailResponseDto | undefined;
+  item: AssistanceReceptionDetailResponseDto | undefined;
 }>;
-export default function AppViewRmaViewSupportViewTableComponentContextMenuComponent({
+export default function AppViewRmaViewReceptionViewTableComponentContextMenuComponent({
   anchorElement,
   setAnchorElement,
   item,
-}: AppViewRmaViewSupportViewTableComponentContextMenuComponentProps) {
+}: AppViewRmaViewReceptionViewTableComponentContextMenuComponentProps) {
   const isOpen = !!anchorElement;
 
   const onClose = () => {

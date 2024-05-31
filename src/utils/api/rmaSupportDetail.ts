@@ -20,7 +20,7 @@ export const updateRmaSupportDetail = (id: string, data: AssistanceSupportDetail
 
 export const getRmaSupportDetailById = (id: string) => {
   return privateInstance<AssistanceSupportDetailResponseDto>({
-    method: 'PUT',
+    method: 'GET',
     url: `/rma/v1/assistance-support-detail/${encodeURIComponent(id)}`,
   }).then((res) => res.data);
 };
