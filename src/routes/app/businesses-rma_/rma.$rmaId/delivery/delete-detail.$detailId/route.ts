@@ -1,5 +1,6 @@
 import { createFileRoute, notFound } from '@tanstack/react-router';
 import { queries } from '../../../../../../utils/constants/queryKeys';
+import LoaderModal from '../../../../../../components/LoaderModal/LoaderModal';
 
 export const Route = createFileRoute('/app/businesses-rma/rma/$rmaId/delivery/delete-detail/$detailId')({
   loader: async ({ context: { queryClient }, params: { rmaId, detailId } }) => {
@@ -8,4 +9,5 @@ export const Route = createFileRoute('/app/businesses-rma/rma/$rmaId/delivery/de
     if (!detail) throw notFound();
     return { detail };
   },
+  pendingComponent: LoaderModal,
 });
