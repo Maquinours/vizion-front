@@ -203,6 +203,7 @@ import { Route as AppEnterprisesEnterpriseIdAddressBookUpdateAddressIdRouteImpor
 import { Route as AppEnterprisesEnterpriseIdAddressBookDeleteAddressIdRouteImport } from './routes/app/enterprises_.$enterpriseId/address-book/delete.$addressId/route'
 import { Route as AppBusinessesRmaRmaRmaIdSupportImportGedFilesRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/support/import-ged-files/route'
 import { Route as AppBusinessesRmaRmaRmaIdSupportCreateGedDirectoryRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/support/create-ged-directory/route'
+import { Route as AppBusinessesRmaRmaRmaIdDeliveryTravelVoucherRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/delivery/travel-voucher/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdRouteImport } from './routes/app/businesses-rma_/business.$businessId_.assistance.$assistanceId/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdQuotationUpdateShippingPriceRouteImport } from './routes/app/businesses-rma_/business.$businessId/quotation/update-shipping-price/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdQuotationPdfRouteImport } from './routes/app/businesses-rma_/business.$businessId/quotation/pdf/route'
@@ -228,6 +229,8 @@ import { Route as AppToolsFormationsSubscribersFormationDetailIdDeleteSubscripti
 import { Route as AppProductsProductIdInformationsTaskEmailTaskIdReplyRouteImport } from './routes/app/products_.$productId/informations/task-email.$taskId/reply/route'
 import { Route as AppBusinessesRmaRmaRmaIdSupportPdfSendByEmailRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/support/pdf/send-by-email/route'
 import { Route as AppBusinessesRmaRmaRmaIdReceptionPdfSendByEmailRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/reception/pdf/send-by-email/route'
+import { Route as AppBusinessesRmaRmaRmaIdDeliveryPdfSendByEmailRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/delivery/pdf/send-by-email/route'
+import { Route as AppBusinessesRmaRmaRmaIdDeliveryDeleteDetailDetailIdRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/delivery/delete-detail.$detailId/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdPdfRouteImport } from './routes/app/businesses-rma_/business.$businessId_.assistance.$assistanceId/pdf/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdImportGedFilesRouteImport } from './routes/app/businesses-rma_/business.$businessId_.assistance.$assistanceId/import-ged-files/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdEditSubtitleRouteImport } from './routes/app/businesses-rma_/business.$businessId_.assistance.$assistanceId/edit-subtitle/route'
@@ -293,6 +296,11 @@ const AppBusinessesRmaRmaRmaIdReceptionPdfRouteLazyImport = createFileRoute(
 )()
 const AppBusinessesRmaRmaRmaIdReceptionCreateDetailRouteLazyImport =
   createFileRoute('/app/businesses-rma/rma/$rmaId/reception/create-detail')()
+const AppBusinessesRmaRmaRmaIdDeliveryPdfRouteLazyImport = createFileRoute(
+  '/app/businesses-rma/rma/$rmaId/delivery/pdf',
+)()
+const AppBusinessesRmaRmaRmaIdDeliveryCreateDetailRouteLazyImport =
+  createFileRoute('/app/businesses-rma/rma/$rmaId/delivery/create-detail')()
 const AppBusinessesRmaRmaRmaIdSupportUpdateDetailDetailIdRouteLazyImport =
   createFileRoute(
     '/app/businesses-rma/rma/$rmaId/support/update-detail/$detailId',
@@ -319,9 +327,17 @@ const AppBusinessesRmaRmaRmaIdReceptionDeleteDetailDetailIdRouteLazyImport =
   createFileRoute(
     '/app/businesses-rma/rma/$rmaId/reception/delete-detail/$detailId',
   )()
+const AppBusinessesRmaRmaRmaIdDeliveryUpdateDetailDetailIdRouteLazyImport =
+  createFileRoute(
+    '/app/businesses-rma/rma/$rmaId/delivery/update-detail/$detailId',
+  )()
 const AppBusinessesRmaRmaRmaIdReceptionPdfSendByEmailPredefinedMessagesRouteLazyImport =
   createFileRoute(
     '/app/businesses-rma/rma/$rmaId/reception/pdf/send-by-email/predefined-messages',
+  )()
+const AppBusinessesRmaRmaRmaIdDeliveryPdfSendByEmailPredefinedMessagesRouteLazyImport =
+  createFileRoute(
+    '/app/businesses-rma/rma/$rmaId/delivery/pdf/send-by-email/predefined-messages',
   )()
 
 // Create/Update Routes
@@ -1962,6 +1978,26 @@ const AppBusinessesRmaRmaRmaIdReceptionCreateDetailRouteLazyRoute =
     ).then((d) => d.Route),
   )
 
+const AppBusinessesRmaRmaRmaIdDeliveryPdfRouteLazyRoute =
+  AppBusinessesRmaRmaRmaIdDeliveryPdfRouteLazyImport.update({
+    path: '/pdf',
+    getParentRoute: () => AppBusinessesRmaRmaRmaIdDeliveryRouteLazyRoute,
+  } as any).lazy(() =>
+    import(
+      './routes/app/businesses-rma_/rma.$rmaId/delivery/pdf/route.lazy'
+    ).then((d) => d.Route),
+  )
+
+const AppBusinessesRmaRmaRmaIdDeliveryCreateDetailRouteLazyRoute =
+  AppBusinessesRmaRmaRmaIdDeliveryCreateDetailRouteLazyImport.update({
+    path: '/create-detail',
+    getParentRoute: () => AppBusinessesRmaRmaRmaIdDeliveryRouteLazyRoute,
+  } as any).lazy(() =>
+    import(
+      './routes/app/businesses-rma_/rma.$rmaId/delivery/create-detail/route.lazy'
+    ).then((d) => d.Route),
+  )
+
 const AppToolsSchedulerDetailsRdvIdUpdateRouteRoute =
   AppToolsSchedulerDetailsRdvIdUpdateRouteImport.update({
     path: '/update',
@@ -2186,6 +2222,16 @@ const AppBusinessesRmaRmaRmaIdSupportCreateGedDirectoryRouteRoute =
   } as any).lazy(() =>
     import(
       './routes/app/businesses-rma_/rma.$rmaId/support/create-ged-directory/route.lazy'
+    ).then((d) => d.Route),
+  )
+
+const AppBusinessesRmaRmaRmaIdDeliveryTravelVoucherRouteRoute =
+  AppBusinessesRmaRmaRmaIdDeliveryTravelVoucherRouteImport.update({
+    path: '/travel-voucher',
+    getParentRoute: () => AppBusinessesRmaRmaRmaIdDeliveryRouteLazyRoute,
+  } as any).lazy(() =>
+    import(
+      './routes/app/businesses-rma_/rma.$rmaId/delivery/travel-voucher/route.lazy'
     ).then((d) => d.Route),
   )
 
@@ -2481,6 +2527,16 @@ const AppBusinessesRmaRmaRmaIdReceptionDeleteDetailDetailIdRouteLazyRoute =
     ).then((d) => d.Route),
   )
 
+const AppBusinessesRmaRmaRmaIdDeliveryUpdateDetailDetailIdRouteLazyRoute =
+  AppBusinessesRmaRmaRmaIdDeliveryUpdateDetailDetailIdRouteLazyImport.update({
+    path: '/update-detail/$detailId',
+    getParentRoute: () => AppBusinessesRmaRmaRmaIdDeliveryRouteLazyRoute,
+  } as any).lazy(() =>
+    import(
+      './routes/app/businesses-rma_/rma.$rmaId/delivery/update-detail.$detailId/route.lazy'
+    ).then((d) => d.Route),
+  )
+
 const AppToolsFormationsSubscribersFormationDetailIdSendEmailSubscriptionIdRouteRoute =
   AppToolsFormationsSubscribersFormationDetailIdSendEmailSubscriptionIdRouteImport.update(
     {
@@ -2535,6 +2591,26 @@ const AppBusinessesRmaRmaRmaIdReceptionPdfSendByEmailRouteRoute =
   } as any).lazy(() =>
     import(
       './routes/app/businesses-rma_/rma.$rmaId/reception/pdf/send-by-email/route.lazy'
+    ).then((d) => d.Route),
+  )
+
+const AppBusinessesRmaRmaRmaIdDeliveryPdfSendByEmailRouteRoute =
+  AppBusinessesRmaRmaRmaIdDeliveryPdfSendByEmailRouteImport.update({
+    path: '/send-by-email',
+    getParentRoute: () => AppBusinessesRmaRmaRmaIdDeliveryPdfRouteLazyRoute,
+  } as any).lazy(() =>
+    import(
+      './routes/app/businesses-rma_/rma.$rmaId/delivery/pdf/send-by-email/route.lazy'
+    ).then((d) => d.Route),
+  )
+
+const AppBusinessesRmaRmaRmaIdDeliveryDeleteDetailDetailIdRouteRoute =
+  AppBusinessesRmaRmaRmaIdDeliveryDeleteDetailDetailIdRouteImport.update({
+    path: '/delete-detail/$detailId',
+    getParentRoute: () => AppBusinessesRmaRmaRmaIdDeliveryRouteLazyRoute,
+  } as any).lazy(() =>
+    import(
+      './routes/app/businesses-rma_/rma.$rmaId/delivery/delete-detail.$detailId/route.lazy'
     ).then((d) => d.Route),
   )
 
@@ -2934,6 +3010,19 @@ const AppBusinessesRmaRmaRmaIdReceptionPdfSendByEmailPredefinedMessagesRouteLazy
   ).lazy(() =>
     import(
       './routes/app/businesses-rma_/rma.$rmaId/reception/pdf/send-by-email/predefined-messages/route.lazy'
+    ).then((d) => d.Route),
+  )
+
+const AppBusinessesRmaRmaRmaIdDeliveryPdfSendByEmailPredefinedMessagesRouteLazyRoute =
+  AppBusinessesRmaRmaRmaIdDeliveryPdfSendByEmailPredefinedMessagesRouteLazyImport.update(
+    {
+      path: '/predefined-messages',
+      getParentRoute: () =>
+        AppBusinessesRmaRmaRmaIdDeliveryPdfSendByEmailRouteRoute,
+    } as any,
+  ).lazy(() =>
+    import(
+      './routes/app/businesses-rma_/rma.$rmaId/delivery/pdf/send-by-email/predefined-messages/route.lazy'
     ).then((d) => d.Route),
   )
 
@@ -4361,6 +4450,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdRouteImport
       parentRoute: typeof AppRouteImport
     }
+    '/app/businesses-rma/rma/$rmaId/delivery/travel-voucher': {
+      id: '/app/businesses-rma/rma/$rmaId/delivery/travel-voucher'
+      path: '/travel-voucher'
+      fullPath: '/app/businesses-rma/rma/$rmaId/delivery/travel-voucher'
+      preLoaderRoute: typeof AppBusinessesRmaRmaRmaIdDeliveryTravelVoucherRouteImport
+      parentRoute: typeof AppBusinessesRmaRmaRmaIdDeliveryRouteLazyImport
+    }
     '/app/businesses-rma/rma/$rmaId/support/create-ged-directory': {
       id: '/app/businesses-rma/rma/$rmaId/support/create-ged-directory'
       path: '/create-ged-directory'
@@ -4514,6 +4610,20 @@ declare module '@tanstack/react-router' {
       fullPath: '/app/tools/scheduler/details/$rdvId/update'
       preLoaderRoute: typeof AppToolsSchedulerDetailsRdvIdUpdateRouteImport
       parentRoute: typeof AppToolsSchedulerDetailsRdvIdRouteImport
+    }
+    '/app/businesses-rma/rma/$rmaId/delivery/create-detail': {
+      id: '/app/businesses-rma/rma/$rmaId/delivery/create-detail'
+      path: '/create-detail'
+      fullPath: '/app/businesses-rma/rma/$rmaId/delivery/create-detail'
+      preLoaderRoute: typeof AppBusinessesRmaRmaRmaIdDeliveryCreateDetailRouteLazyImport
+      parentRoute: typeof AppBusinessesRmaRmaRmaIdDeliveryRouteLazyImport
+    }
+    '/app/businesses-rma/rma/$rmaId/delivery/pdf': {
+      id: '/app/businesses-rma/rma/$rmaId/delivery/pdf'
+      path: '/pdf'
+      fullPath: '/app/businesses-rma/rma/$rmaId/delivery/pdf'
+      preLoaderRoute: typeof AppBusinessesRmaRmaRmaIdDeliveryPdfRouteLazyImport
+      parentRoute: typeof AppBusinessesRmaRmaRmaIdDeliveryRouteLazyImport
     }
     '/app/businesses-rma/rma/$rmaId/reception/create-detail': {
       id: '/app/businesses-rma/rma/$rmaId/reception/create-detail'
@@ -4774,6 +4884,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdPdfRouteImport
       parentRoute: typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdRouteImport
     }
+    '/app/businesses-rma/rma/$rmaId/delivery/delete-detail/$detailId': {
+      id: '/app/businesses-rma/rma/$rmaId/delivery/delete-detail/$detailId'
+      path: '/delete-detail/$detailId'
+      fullPath: '/app/businesses-rma/rma/$rmaId/delivery/delete-detail/$detailId'
+      preLoaderRoute: typeof AppBusinessesRmaRmaRmaIdDeliveryDeleteDetailDetailIdRouteImport
+      parentRoute: typeof AppBusinessesRmaRmaRmaIdDeliveryRouteLazyImport
+    }
+    '/app/businesses-rma/rma/$rmaId/delivery/pdf/send-by-email': {
+      id: '/app/businesses-rma/rma/$rmaId/delivery/pdf/send-by-email'
+      path: '/send-by-email'
+      fullPath: '/app/businesses-rma/rma/$rmaId/delivery/pdf/send-by-email'
+      preLoaderRoute: typeof AppBusinessesRmaRmaRmaIdDeliveryPdfSendByEmailRouteImport
+      parentRoute: typeof AppBusinessesRmaRmaRmaIdDeliveryPdfRouteLazyImport
+    }
     '/app/businesses-rma/rma/$rmaId/reception/pdf/send-by-email': {
       id: '/app/businesses-rma/rma/$rmaId/reception/pdf/send-by-email'
       path: '/send-by-email'
@@ -4808,6 +4932,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/app/tools/formations/subscribers/$formationDetailId/send-email/$subscriptionId'
       preLoaderRoute: typeof AppToolsFormationsSubscribersFormationDetailIdSendEmailSubscriptionIdRouteImport
       parentRoute: typeof AppToolsFormationsSubscribersFormationDetailIdRouteImport
+    }
+    '/app/businesses-rma/rma/$rmaId/delivery/update-detail/$detailId': {
+      id: '/app/businesses-rma/rma/$rmaId/delivery/update-detail/$detailId'
+      path: '/update-detail/$detailId'
+      fullPath: '/app/businesses-rma/rma/$rmaId/delivery/update-detail/$detailId'
+      preLoaderRoute: typeof AppBusinessesRmaRmaRmaIdDeliveryUpdateDetailDetailIdRouteLazyImport
+      parentRoute: typeof AppBusinessesRmaRmaRmaIdDeliveryRouteLazyImport
     }
     '/app/businesses-rma/rma/$rmaId/reception/delete-detail/$detailId': {
       id: '/app/businesses-rma/rma/$rmaId/reception/delete-detail/$detailId'
@@ -4899,6 +5030,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/app/businesses-rma/rma/$rmaId/support/task-email/$taskId/reply'
       preLoaderRoute: typeof AppBusinessesRmaRmaRmaIdSupportTaskEmailTaskIdReplyRouteImport
       parentRoute: typeof AppBusinessesRmaRmaRmaIdSupportTaskEmailTaskIdRouteLazyImport
+    }
+    '/app/businesses-rma/rma/$rmaId/delivery/pdf/send-by-email/predefined-messages': {
+      id: '/app/businesses-rma/rma/$rmaId/delivery/pdf/send-by-email/predefined-messages'
+      path: '/predefined-messages'
+      fullPath: '/app/businesses-rma/rma/$rmaId/delivery/pdf/send-by-email/predefined-messages'
+      preLoaderRoute: typeof AppBusinessesRmaRmaRmaIdDeliveryPdfSendByEmailPredefinedMessagesRouteLazyImport
+      parentRoute: typeof AppBusinessesRmaRmaRmaIdDeliveryPdfSendByEmailRouteImport
     }
     '/app/businesses-rma/rma/$rmaId/reception/pdf/send-by-email/predefined-messages': {
       id: '/app/businesses-rma/rma/$rmaId/reception/pdf/send-by-email/predefined-messages'
@@ -5262,7 +5400,22 @@ export const routeTree = rootRoute.addChildren({
               ),
             AppBusinessesRmaRmaRmaIdSupportUpdateDetailDetailIdRouteLazyRoute,
           }),
-        AppBusinessesRmaRmaRmaIdDeliveryRouteLazyRoute,
+        AppBusinessesRmaRmaRmaIdDeliveryRouteLazyRoute:
+          AppBusinessesRmaRmaRmaIdDeliveryRouteLazyRoute.addChildren({
+            AppBusinessesRmaRmaRmaIdDeliveryTravelVoucherRouteRoute,
+            AppBusinessesRmaRmaRmaIdDeliveryCreateDetailRouteLazyRoute,
+            AppBusinessesRmaRmaRmaIdDeliveryPdfRouteLazyRoute:
+              AppBusinessesRmaRmaRmaIdDeliveryPdfRouteLazyRoute.addChildren({
+                AppBusinessesRmaRmaRmaIdDeliveryPdfSendByEmailRouteRoute:
+                  AppBusinessesRmaRmaRmaIdDeliveryPdfSendByEmailRouteRoute.addChildren(
+                    {
+                      AppBusinessesRmaRmaRmaIdDeliveryPdfSendByEmailPredefinedMessagesRouteLazyRoute,
+                    },
+                  ),
+              }),
+            AppBusinessesRmaRmaRmaIdDeliveryDeleteDetailDetailIdRouteRoute,
+            AppBusinessesRmaRmaRmaIdDeliveryUpdateDetailDetailIdRouteLazyRoute,
+          }),
         AppBusinessesRmaRmaRmaIdReceptionRouteLazyRoute:
           AppBusinessesRmaRmaRmaIdReceptionRouteLazyRoute.addChildren({
             AppBusinessesRmaRmaRmaIdReceptionCreateDetailRouteLazyRoute,
@@ -6336,7 +6489,14 @@ export const routeTree = rootRoute.addChildren({
     },
     "/app/businesses-rma/rma/$rmaId/delivery": {
       "filePath": "app/businesses-rma_/rma.$rmaId/delivery/route.lazy.ts",
-      "parent": "/app/businesses-rma/rma/$rmaId"
+      "parent": "/app/businesses-rma/rma/$rmaId",
+      "children": [
+        "/app/businesses-rma/rma/$rmaId/delivery/travel-voucher",
+        "/app/businesses-rma/rma/$rmaId/delivery/create-detail",
+        "/app/businesses-rma/rma/$rmaId/delivery/pdf",
+        "/app/businesses-rma/rma/$rmaId/delivery/delete-detail/$detailId",
+        "/app/businesses-rma/rma/$rmaId/delivery/update-detail/$detailId"
+      ]
     },
     "/app/businesses-rma/rma/$rmaId/reception": {
       "filePath": "app/businesses-rma_/rma.$rmaId/reception/route.lazy.ts",
@@ -6461,6 +6621,10 @@ export const routeTree = rootRoute.addChildren({
         "/app/businesses-rma/business/$businessId/assistance/$assistanceId/rename-ged-object/$objectRelativePath"
       ]
     },
+    "/app/businesses-rma/rma/$rmaId/delivery/travel-voucher": {
+      "filePath": "app/businesses-rma_/rma.$rmaId/delivery/travel-voucher/route.ts",
+      "parent": "/app/businesses-rma/rma/$rmaId/delivery"
+    },
     "/app/businesses-rma/rma/$rmaId/support/create-ged-directory": {
       "filePath": "app/businesses-rma_/rma.$rmaId/support/create-ged-directory/route.ts",
       "parent": "/app/businesses-rma/rma/$rmaId/support"
@@ -6551,6 +6715,17 @@ export const routeTree = rootRoute.addChildren({
     "/app/tools/scheduler/details/$rdvId/update": {
       "filePath": "app/tools/scheduler/details.$rdvId/update/route.ts",
       "parent": "/app/tools/scheduler/details/$rdvId"
+    },
+    "/app/businesses-rma/rma/$rmaId/delivery/create-detail": {
+      "filePath": "app/businesses-rma_/rma.$rmaId/delivery/create-detail/route.lazy.ts",
+      "parent": "/app/businesses-rma/rma/$rmaId/delivery"
+    },
+    "/app/businesses-rma/rma/$rmaId/delivery/pdf": {
+      "filePath": "app/businesses-rma_/rma.$rmaId/delivery/pdf/route.lazy.ts",
+      "parent": "/app/businesses-rma/rma/$rmaId/delivery",
+      "children": [
+        "/app/businesses-rma/rma/$rmaId/delivery/pdf/send-by-email"
+      ]
     },
     "/app/businesses-rma/rma/$rmaId/reception/create-detail": {
       "filePath": "app/businesses-rma_/rma.$rmaId/reception/create-detail/route.lazy.ts",
@@ -6709,6 +6884,17 @@ export const routeTree = rootRoute.addChildren({
         "/app/businesses-rma/business/$businessId/assistance/$assistanceId/pdf/send-by-email"
       ]
     },
+    "/app/businesses-rma/rma/$rmaId/delivery/delete-detail/$detailId": {
+      "filePath": "app/businesses-rma_/rma.$rmaId/delivery/delete-detail.$detailId/route.ts",
+      "parent": "/app/businesses-rma/rma/$rmaId/delivery"
+    },
+    "/app/businesses-rma/rma/$rmaId/delivery/pdf/send-by-email": {
+      "filePath": "app/businesses-rma_/rma.$rmaId/delivery/pdf/send-by-email/route.tsx",
+      "parent": "/app/businesses-rma/rma/$rmaId/delivery/pdf",
+      "children": [
+        "/app/businesses-rma/rma/$rmaId/delivery/pdf/send-by-email/predefined-messages"
+      ]
+    },
     "/app/businesses-rma/rma/$rmaId/reception/pdf/send-by-email": {
       "filePath": "app/businesses-rma_/rma.$rmaId/reception/pdf/send-by-email/route.tsx",
       "parent": "/app/businesses-rma/rma/$rmaId/reception/pdf",
@@ -6731,6 +6917,10 @@ export const routeTree = rootRoute.addChildren({
     "/app/tools/formations/subscribers/$formationDetailId/send-email/$subscriptionId": {
       "filePath": "app/tools/formations/subscribers.$formationDetailId/send-email.$subscriptionId/route.ts",
       "parent": "/app/tools/formations/subscribers/$formationDetailId"
+    },
+    "/app/businesses-rma/rma/$rmaId/delivery/update-detail/$detailId": {
+      "filePath": "app/businesses-rma_/rma.$rmaId/delivery/update-detail.$detailId/route.lazy.ts",
+      "parent": "/app/businesses-rma/rma/$rmaId/delivery"
     },
     "/app/businesses-rma/rma/$rmaId/reception/delete-detail/$detailId": {
       "filePath": "app/businesses-rma_/rma.$rmaId/reception/delete-detail.$detailId/route.lazy.ts",
@@ -6786,6 +6976,10 @@ export const routeTree = rootRoute.addChildren({
     "/app/businesses-rma/rma/$rmaId/support/task-email/$taskId/reply": {
       "filePath": "app/businesses-rma_/rma.$rmaId/support/task-email.$taskId/reply/route.ts",
       "parent": "/app/businesses-rma/rma/$rmaId/support/task-email/$taskId"
+    },
+    "/app/businesses-rma/rma/$rmaId/delivery/pdf/send-by-email/predefined-messages": {
+      "filePath": "app/businesses-rma_/rma.$rmaId/delivery/pdf/send-by-email/predefined-messages/route.lazy.tsx",
+      "parent": "/app/businesses-rma/rma/$rmaId/delivery/pdf/send-by-email"
     },
     "/app/businesses-rma/rma/$rmaId/reception/pdf/send-by-email/predefined-messages": {
       "filePath": "app/businesses-rma_/rma.$rmaId/reception/pdf/send-by-email/predefined-messages/route.lazy.tsx",
