@@ -46,8 +46,8 @@ export default function AppViewRmaViewArchiveModalComponent() {
       onRequestClose={onClose}
       className={styles.modal}
       overlayClassName="Overlay"
-      shouldCloseOnOverlayClick={!process}
-      shouldCloseOnEsc={!process}
+      shouldCloseOnOverlayClick={!isPending}
+      shouldCloseOnEsc={!isPending}
     >
       <div className={styles.modal_container}>
         <div className={styles.modal_title}>
@@ -58,7 +58,7 @@ export default function AppViewRmaViewArchiveModalComponent() {
             <div>
               <p>
                 {"Vous êtes sur le point d'archiver cette assistance"} (
-                <span style={{ color: 'var(--secondary-color)', fontWeight: 'bolder' }}> {rma.number}</span>)
+                <span style={{ color: 'var(--secondary-color)', fontWeight: 'bolder' }}>{rma.number}</span>)
               </p>
               <p>Voulez-vous continuer ?</p>
             </div>
