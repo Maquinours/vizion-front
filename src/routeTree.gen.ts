@@ -120,6 +120,7 @@ import { Route as AppDashboardDeleteCollectiveTaskTaskIdRouteImport } from './ro
 import { Route as AppDashboardArchivePersonalTaskTaskIdRouteImport } from './routes/app/dashboard/archive-personal-task.$taskId/route'
 import { Route as AppBusinessesRmaRmaRmaIdRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdRouteImport } from './routes/app/businesses-rma_/business.$businessId/route'
+import { Route as AppBusinessesRmaRmaRmaIdIndexImport } from './routes/app/businesses-rma_/rma.$rmaId/index'
 import { Route as AppBusinessesRmaBusinessBusinessIdIndexImport } from './routes/app/businesses-rma_/business.$businessId/index'
 import { Route as AppToolsVvaDeleteVvaIdRouteImport } from './routes/app/tools/vva/delete.$vvaId/route'
 import { Route as AppToolsSchedulerDetailsRdvIdRouteImport } from './routes/app/tools/scheduler/details.$rdvId/route'
@@ -1297,6 +1298,12 @@ const AppBusinessesRmaBusinessBusinessIdRouteRoute =
       (d) => d.Route,
     ),
   )
+
+const AppBusinessesRmaRmaRmaIdIndexRoute =
+  AppBusinessesRmaRmaRmaIdIndexImport.update({
+    path: '/',
+    getParentRoute: () => AppBusinessesRmaRmaRmaIdRouteRoute,
+  } as any)
 
 const AppBusinessesRmaBusinessBusinessIdIndexRoute =
   AppBusinessesRmaBusinessBusinessIdIndexImport.update({
@@ -4310,6 +4317,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdIndexImport
       parentRoute: typeof AppBusinessesRmaBusinessBusinessIdRouteImport
     }
+    '/app/businesses-rma/rma/$rmaId/': {
+      id: '/app/businesses-rma/rma/$rmaId/'
+      path: '/'
+      fullPath: '/app/businesses-rma/rma/$rmaId/'
+      preLoaderRoute: typeof AppBusinessesRmaRmaRmaIdIndexImport
+      parentRoute: typeof AppBusinessesRmaRmaRmaIdRouteImport
+    }
     '/app/businesses-rma/business/$businessId/arc/pdf': {
       id: '/app/businesses-rma/business/$businessId/arc/pdf'
       path: '/pdf'
@@ -5431,6 +5445,7 @@ export const routeTree = rootRoute.addChildren({
             AppBusinessesRmaRmaRmaIdReceptionDeleteDetailDetailIdRouteLazyRoute,
             AppBusinessesRmaRmaRmaIdReceptionUpdateDetailDetailIdRouteLazyRoute,
           }),
+        AppBusinessesRmaRmaRmaIdIndexRoute,
       }),
     AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdRouteRoute:
       AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdRouteRoute.addChildren(
@@ -5869,7 +5884,8 @@ export const routeTree = rootRoute.addChildren({
       "children": [
         "/app/businesses-rma/rma/$rmaId/support",
         "/app/businesses-rma/rma/$rmaId/delivery",
-        "/app/businesses-rma/rma/$rmaId/reception"
+        "/app/businesses-rma/rma/$rmaId/reception",
+        "/app/businesses-rma/rma/$rmaId/"
       ]
     },
     "/app/dashboard/archive-personal-task/$taskId": {
@@ -6511,6 +6527,10 @@ export const routeTree = rootRoute.addChildren({
     "/app/businesses-rma/business/$businessId/": {
       "filePath": "app/businesses-rma_/business.$businessId/index.ts",
       "parent": "/app/businesses-rma/business/$businessId"
+    },
+    "/app/businesses-rma/rma/$rmaId/": {
+      "filePath": "app/businesses-rma_/rma.$rmaId/index.ts",
+      "parent": "/app/businesses-rma/rma/$rmaId"
     },
     "/app/businesses-rma/business/$businessId/arc/pdf": {
       "filePath": "app/businesses-rma_/business.$businessId/arc/pdf/route.ts",
