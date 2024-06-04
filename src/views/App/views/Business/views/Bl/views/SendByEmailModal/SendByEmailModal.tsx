@@ -16,7 +16,7 @@ export default function AppViewBusinessViewBlViewSendByEmailModalView() {
     <SendEmailModalComponent
       isOpen={true}
       onClose={onClose}
-      defaultRecipient={[business.profileEmail ?? '']}
+      defaultRecipient={business.profileEmail ? [business.profileEmail] : undefined}
       defaultSubject={bl.number}
       defaultAttachments={[file]}
       lifeSheetInfoDto={{
