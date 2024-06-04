@@ -18,7 +18,7 @@ export default function AppViewBusinessesRmaViewPaginationComponent({ totalPages
       <div />
       <PaginationComponent page={page} totalPages={totalPages} pageLink={(page) => ({ from: routeApi.id, search: (old) => ({ ...old, page }) })} />
       <select
-        defaultValue={size}
+        value={size}
         onChange={(e) =>
           navigate({
             search: (old) => ({ ...old, size: Number(e.target.value) as 20 | 30 | 40 | 50 | 100 | 150 | 200 }),

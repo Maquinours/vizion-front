@@ -190,6 +190,7 @@ export default function AppViewBusinessesRmaViewSearchSectionComponent() {
           excludeds,
           fuzzy,
           page: 0,
+          size: state === AllBusinessState.FACTURE ? 200 : old.size,
         }),
         state: (prev) => prev,
         replace: true,
@@ -221,6 +222,7 @@ export default function AppViewBusinessesRmaViewSearchSectionComponent() {
           excludeds: undefined,
           fuzzy: undefined,
           page: undefined,
+          size: undefined,
         }),
         replace: true,
         resetScroll: false,
@@ -417,7 +419,7 @@ export default function AppViewBusinessesRmaViewSearchSectionComponent() {
               )}
             </select>
           )}
-          <select id="state" {...register('state')} defaultValue="">
+          <select id="state" {...register('state', { setValueAs: (val) => val || undefined })} defaultValue="">
             {stateOptions.map((item) => (
               <option key={item.value} value={item.value}>
                 {item.label}
