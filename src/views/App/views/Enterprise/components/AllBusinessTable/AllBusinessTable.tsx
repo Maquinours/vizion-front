@@ -115,9 +115,13 @@ export default function AppViewEnterpriseViewAllBusinessTableComponent() {
   const { data, isLoading } = useQuery(allBusinesses.page._ctx.byEnterpriseId({ enterpriseId, page, size }));
 
   const onRowClick = (e: React.MouseEvent, row: Row<AllBusinessResponseDto>) => {
-    if (row.original.category !== CategoryBusiness.AFFAIRE) return; // TODO: add link to RMA
-    if (e.metaKey || e.ctrlKey) window.open(`${window.location.origin}/app/businesses-rma/business/${row.original.businessId}`, '_blank');
-    else navigate({ to: '/app/businesses-rma/business/$businessId', params: { businessId: row.original.businessId } });
+    if (row.original.category === CategoryBusiness.AFFAIRE) {
+      if (e.metaKey || e.ctrlKey) window.open(`${window.location.origin}/app/businesses-rma/business/${row.original.businessId}`, '_blank');
+      else navigate({ to: '/app/businesses-rma/business/$businessId', params: { businessId: row.original.businessId } });
+    } else if (row.original.category === CategoryBusiness.RMA) {
+      if (e.metaKey || e.ctrlKey) window.open(`${window.location.origin}/app/businesses-rma/rma/${row.original.businessId}`, '_blank');
+      else navigate({ to: '/app/businesses-rma/rma/$rmaId', params: { rmaId: row.original.businessId } });
+    }
   };
 
   return (

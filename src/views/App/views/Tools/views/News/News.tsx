@@ -7,7 +7,7 @@ import AppViewToolsViewNewsViewTableComponent from './components/Table/Table';
 
 const routeApi = getRouteApi('/app/tools/news');
 
-const size = 15;
+const size = 30;
 
 export default function AppViewToolsViewNewsView() {
   const { page } = routeApi.useSearch();

@@ -9,6 +9,7 @@ import {
   getTasksPageByBusinessId,
   getTasksPageByEnterpriseId,
   getTasksPageByProductId,
+  getTasksPageByRmaId,
 } from '../../api/task';
 
 export const tasks = createQueryKeys('tasks', {
@@ -45,6 +46,8 @@ export const tasks = createQueryKeys('tasks', {
               return getTasksPageByProductId(associatedItemId, page, size);
             case WorkloadAssociatedItem.BUSINESS:
               return getTasksPageByBusinessId(associatedItemId, { page, size });
+            case WorkloadAssociatedItem.RMA:
+              return getTasksPageByRmaId(associatedItemId, { page, size });
           }
         },
       }),

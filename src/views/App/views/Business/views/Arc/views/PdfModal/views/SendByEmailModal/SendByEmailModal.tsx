@@ -12,11 +12,19 @@ export default function AppViewBusinessViewArcViewPdfModalViewSendByEmailModalVi
     navigate({ to: '..', search: (old) => old, replace: true, resetScroll: false });
   };
 
+  const recipient = business.profileEmail ?? business.deliverEmail ?? undefined;
+
   return (
     <SendEmailModalComponent
       isOpen={true}
       onClose={onClose}
-      defaultRecipient={[business.profileEmail ?? business.deliverEmail ?? '']}
+      predefinedMessagesModalLink={{
+        to: '/app/businesses-rma/business/$businessId/arc/pdf/send-by-email/predefined-messages',
+        search: true,
+        replace: true,
+        resetScroll: false,
+      }}
+      defaultRecipient={recipient ? [recipient] : undefined}
       defaultCc={representative?.profiles.filter((profile) => profile.civility === 'Service').map((service) => service.email!)}
       defaultSubject={`Arc ${arc.number}`}
       defaultAttachments={[file]}

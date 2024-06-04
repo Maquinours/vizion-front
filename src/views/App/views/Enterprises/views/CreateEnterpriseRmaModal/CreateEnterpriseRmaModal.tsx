@@ -40,7 +40,7 @@ export default function CreateEnterpriseRmaModal() {
     onSuccess: (data) => {
       toast.success('RMA créé avec succès');
       queryClient.setQueryData(queries.rmas.detail(data.id).queryKey, data);
-      // TODO: navigate to the created RMA
+      navigate({ to: '/app/businesses-rma/rma/$rmaId', params: { rmaId: data.id } });
     },
     onError: (error) => {
       console.error(error);

@@ -20,8 +20,14 @@ export default function AppViewBusinessViewDashboardViewSendEmailModalView() {
     <SendEmailModalComponent
       isOpen={true}
       onClose={onClose}
+      predefinedMessagesModalLink={{
+        to: '/app/businesses-rma/business/$businessId/dashboard/send-email/predefined-messages',
+        search: true,
+        replace: true,
+        resetScroll: false,
+      }}
       defaultSubject={`${business.numBusiness} - ${business.title}`}
-      defaultRecipient={[business.profileEmail!]}
+      defaultRecipient={business.profileEmail ? [business.profileEmail] : undefined}
       lifeSheetInfoDto={{
         businessNumber: business.numBusiness,
         enterpriseName: business.enterpriseName,

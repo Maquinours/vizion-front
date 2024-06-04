@@ -16,8 +16,14 @@ export default function AppViewBusinessViewQuotationViewPdfModalViewSendByEmailM
     <SendEmailModalComponent
       isOpen={true}
       onClose={onClose}
+      predefinedMessagesModalLink={{
+        to: '/app/businesses-rma/business/$businessId/quotation/pdf/send-by-email/predefined-messages',
+        search: true,
+        replace: true,
+        resetScroll: false,
+      }}
       defaultAttachments={[quotationPdfFile, commercialNoticeFile]}
-      defaultRecipient={[business.profileEmail!]}
+      defaultRecipient={business.profileEmail ? [business.profileEmail] : undefined}
       defaultCc={representative?.profiles.filter((profile) => profile.civility === 'Service').map((service) => service.email!)}
       defaultSubject={`Devis ${quotation.number} ${business.title ?? ''}`}
       defaultContent={`Bonjour <br /><p>Suite à votre demande, ci-joint le devis ainsi que les documents avec :</p> <br /><ul><li>Offre de prix HT</li><li>Dossier technique</li><li>Notices commerciales</li></ul><br /><br />`}
