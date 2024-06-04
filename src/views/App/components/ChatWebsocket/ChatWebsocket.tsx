@@ -77,6 +77,7 @@ export default function AppViewChatWebsocketComponent() {
             toast.info(toastMessage, {
               style: {
                 whiteSpace: 'pre-line',
+                cursor: chatLink ? 'pointer' : 'default',
               },
               autoClose: false,
               onClick: chatLink
