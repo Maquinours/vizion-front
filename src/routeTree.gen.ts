@@ -266,6 +266,7 @@ import { Route as AppBusinessesRmaBusinessBusinessIdQuotationCreateDetailSubquot
 import { Route as AppBusinessesRmaBusinessBusinessIdQuotationCreateAssociatedDetailDetailIdRouteImport } from './routes/app/businesses-rma_/business.$businessId/quotation/create-associated-detail.$detailId/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdQuotationCommercialNoticeSendByEmailRouteImport } from './routes/app/businesses-rma_/business.$businessId/quotation/commercial-notice/send-by-email/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdDashboardTaskEmailTaskIdRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/task-email.$taskId/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdDashboardSendEmailPredefinedMessagesRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/send-email/predefined-messages/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdDashboardRenameGedObjectObjectRelativePathRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/rename-ged-object.$objectRelativePath/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdDashboardDeleteLinkAssociatedIdRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/delete-link.$associatedId/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdDashboardDeleteGedObjectObjectRelativePathRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/delete-ged-object.$objectRelativePath/route'
@@ -277,6 +278,8 @@ import { Route as AppBusinessesRmaBusinessBusinessIdBpDeleteDetailDetailIdRouteI
 import { Route as AppBusinessesRmaBusinessBusinessIdBpCreateSerialRmaSerialIdRouteImport } from './routes/app/businesses-rma_/business.$businessId/bp/create-serial-rma.$serialId/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdBpCreateDetailRmaDetailIdRouteImport } from './routes/app/businesses-rma_/business.$businessId/bp/create-detail-rma.$detailId/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdBpAddSerialDetailIdRouteImport } from './routes/app/businesses-rma_/business.$businessId/bp/add-serial.$detailId/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdBlSendByEmailPredefinedMessagesRouteImport } from './routes/app/businesses-rma_/business.$businessId/bl/send-by-email/predefined-messages/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdBillSendByEmailPredefinedMessagesRouteImport } from './routes/app/businesses-rma_/business.$businessId/bill/send-by-email/predefined-messages/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdBillCreditsSendByEmailRouteImport } from './routes/app/businesses-rma_/business.$businessId/bill/credits/send-by-email/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdArcUpdateDetailDetailIdRouteImport } from './routes/app/businesses-rma_/business.$businessId/arc/update-detail.$detailId/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdArcPdfSendByEmailRouteImport } from './routes/app/businesses-rma_/business.$businessId/arc/pdf/send-by-email/route'
@@ -287,8 +290,10 @@ import { Route as AppBusinessesRmaRmaRmaIdDeliveryPdfSendByEmailPredefinedMessag
 import { Route as AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdRenameGedObjectObjectRelativePathRouteImport } from './routes/app/businesses-rma_/business.$businessId_.assistance.$assistanceId/rename-ged-object.$objectRelativePath/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdPdfSendByEmailRouteImport } from './routes/app/businesses-rma_/business.$businessId_.assistance.$assistanceId/pdf/send-by-email/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdDeleteGedObjectObjectRelativePathRouteImport } from './routes/app/businesses-rma_/business.$businessId_.assistance.$assistanceId/delete-ged-object.$objectRelativePath/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdQuotationPdfSendByEmailPredefinedMessagesRouteImport } from './routes/app/businesses-rma_/business.$businessId/quotation/pdf/send-by-email/predefined-messages/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdDashboardAddressBookUpdateAddressIdRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/address-book/update.$addressId/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdDashboardAddressBookDeleteAddressIdRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/address-book/delete.$addressId/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdArcPdfSendByEmailPredefinedMessagesRouteImport } from './routes/app/businesses-rma_/business.$businessId/arc/pdf/send-by-email/predefined-messages/route'
 
 // Create Virtual Routes
 
@@ -2793,6 +2798,19 @@ const AppBusinessesRmaBusinessBusinessIdDashboardTaskEmailTaskIdRouteRoute =
     ).then((d) => d.Route),
   )
 
+const AppBusinessesRmaBusinessBusinessIdDashboardSendEmailPredefinedMessagesRouteRoute =
+  AppBusinessesRmaBusinessBusinessIdDashboardSendEmailPredefinedMessagesRouteImport.update(
+    {
+      path: '/predefined-messages',
+      getParentRoute: () =>
+        AppBusinessesRmaBusinessBusinessIdDashboardSendEmailRouteRoute,
+    } as any,
+  ).lazy(() =>
+    import(
+      './routes/app/businesses-rma_/business.$businessId/dashboard/send-email/predefined-messages/route.lazy'
+    ).then((d) => d.Route),
+  )
+
 const AppBusinessesRmaBusinessBusinessIdDashboardRenameGedObjectObjectRelativePathRouteRoute =
   AppBusinessesRmaBusinessBusinessIdDashboardRenameGedObjectObjectRelativePathRouteImport.update(
     {
@@ -2922,6 +2940,32 @@ const AppBusinessesRmaBusinessBusinessIdBpAddSerialDetailIdRouteRoute =
     ).then((d) => d.Route),
   )
 
+const AppBusinessesRmaBusinessBusinessIdBlSendByEmailPredefinedMessagesRouteRoute =
+  AppBusinessesRmaBusinessBusinessIdBlSendByEmailPredefinedMessagesRouteImport.update(
+    {
+      path: '/predefined-messages',
+      getParentRoute: () =>
+        AppBusinessesRmaBusinessBusinessIdBlSendByEmailRouteRoute,
+    } as any,
+  ).lazy(() =>
+    import(
+      './routes/app/businesses-rma_/business.$businessId/bl/send-by-email/predefined-messages/route.lazy'
+    ).then((d) => d.Route),
+  )
+
+const AppBusinessesRmaBusinessBusinessIdBillSendByEmailPredefinedMessagesRouteRoute =
+  AppBusinessesRmaBusinessBusinessIdBillSendByEmailPredefinedMessagesRouteImport.update(
+    {
+      path: '/predefined-messages',
+      getParentRoute: () =>
+        AppBusinessesRmaBusinessBusinessIdBillSendByEmailRouteRoute,
+    } as any,
+  ).lazy(() =>
+    import(
+      './routes/app/businesses-rma_/business.$businessId/bill/send-by-email/predefined-messages/route.lazy'
+    ).then((d) => d.Route),
+  )
+
 const AppBusinessesRmaBusinessBusinessIdBillCreditsSendByEmailRouteRoute =
   AppBusinessesRmaBusinessBusinessIdBillCreditsSendByEmailRouteImport.update({
     path: '/send-by-email',
@@ -3039,6 +3083,19 @@ const AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdDeleteGedObjectObj
     ).then((d) => d.Route),
   )
 
+const AppBusinessesRmaBusinessBusinessIdQuotationPdfSendByEmailPredefinedMessagesRouteRoute =
+  AppBusinessesRmaBusinessBusinessIdQuotationPdfSendByEmailPredefinedMessagesRouteImport.update(
+    {
+      path: '/predefined-messages',
+      getParentRoute: () =>
+        AppBusinessesRmaBusinessBusinessIdQuotationPdfSendByEmailRouteRoute,
+    } as any,
+  ).lazy(() =>
+    import(
+      './routes/app/businesses-rma_/business.$businessId/quotation/pdf/send-by-email/predefined-messages/route.lazy'
+    ).then((d) => d.Route),
+  )
+
 const AppBusinessesRmaBusinessBusinessIdDashboardAddressBookUpdateAddressIdRouteRoute =
   AppBusinessesRmaBusinessBusinessIdDashboardAddressBookUpdateAddressIdRouteImport.update(
     {
@@ -3062,6 +3119,19 @@ const AppBusinessesRmaBusinessBusinessIdDashboardAddressBookDeleteAddressIdRoute
   ).lazy(() =>
     import(
       './routes/app/businesses-rma_/business.$businessId/dashboard/address-book/delete.$addressId/route.lazy'
+    ).then((d) => d.Route),
+  )
+
+const AppBusinessesRmaBusinessBusinessIdArcPdfSendByEmailPredefinedMessagesRouteRoute =
+  AppBusinessesRmaBusinessBusinessIdArcPdfSendByEmailPredefinedMessagesRouteImport.update(
+    {
+      path: '/predefined-messages',
+      getParentRoute: () =>
+        AppBusinessesRmaBusinessBusinessIdArcPdfSendByEmailRouteRoute,
+    } as any,
+  ).lazy(() =>
+    import(
+      './routes/app/businesses-rma_/business.$businessId/arc/pdf/send-by-email/predefined-messages/route.lazy'
     ).then((d) => d.Route),
   )
 
@@ -4658,6 +4728,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdBillCreditsSendByEmailRouteImport
       parentRoute: typeof AppBusinessesRmaBusinessBusinessIdBillCreditsRouteImport
     }
+    '/app/businesses-rma/business/$businessId/bill/send-by-email/predefined-messages': {
+      id: '/app/businesses-rma/business/$businessId/bill/send-by-email/predefined-messages'
+      path: '/predefined-messages'
+      fullPath: '/app/businesses-rma/business/$businessId/bill/send-by-email/predefined-messages'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdBillSendByEmailPredefinedMessagesRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdBillSendByEmailRouteImport
+    }
+    '/app/businesses-rma/business/$businessId/bl/send-by-email/predefined-messages': {
+      id: '/app/businesses-rma/business/$businessId/bl/send-by-email/predefined-messages'
+      path: '/predefined-messages'
+      fullPath: '/app/businesses-rma/business/$businessId/bl/send-by-email/predefined-messages'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdBlSendByEmailPredefinedMessagesRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdBlSendByEmailRouteImport
+    }
     '/app/businesses-rma/business/$businessId/bp/add-serial/$detailId': {
       id: '/app/businesses-rma/business/$businessId/bp/add-serial/$detailId'
       path: '/add-serial/$detailId'
@@ -4734,6 +4818,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/app/businesses-rma/business/$businessId/dashboard/rename-ged-object/$objectRelativePath'
       preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardRenameGedObjectObjectRelativePathRouteImport
       parentRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardRouteImport
+    }
+    '/app/businesses-rma/business/$businessId/dashboard/send-email/predefined-messages': {
+      id: '/app/businesses-rma/business/$businessId/dashboard/send-email/predefined-messages'
+      path: '/predefined-messages'
+      fullPath: '/app/businesses-rma/business/$businessId/dashboard/send-email/predefined-messages'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardSendEmailPredefinedMessagesRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardSendEmailRouteImport
     }
     '/app/businesses-rma/business/$businessId/dashboard/task-email/$taskId': {
       id: '/app/businesses-rma/business/$businessId/dashboard/task-email/$taskId'
@@ -4959,6 +5050,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppToolsFormationsSubscribersFormationDetailIdSendEmailSubscriptionIdRouteImport
       parentRoute: typeof AppToolsFormationsSubscribersFormationDetailIdRouteImport
     }
+    '/app/businesses-rma/business/$businessId/arc/pdf/send-by-email/predefined-messages': {
+      id: '/app/businesses-rma/business/$businessId/arc/pdf/send-by-email/predefined-messages'
+      path: '/predefined-messages'
+      fullPath: '/app/businesses-rma/business/$businessId/arc/pdf/send-by-email/predefined-messages'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdArcPdfSendByEmailPredefinedMessagesRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdArcPdfSendByEmailRouteImport
+    }
     '/app/businesses-rma/business/$businessId/dashboard/address-book/delete/$addressId': {
       id: '/app/businesses-rma/business/$businessId/dashboard/address-book/delete/$addressId'
       path: '/delete/$addressId'
@@ -4972,6 +5070,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/app/businesses-rma/business/$businessId/dashboard/address-book/update/$addressId'
       preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardAddressBookUpdateAddressIdRouteImport
       parentRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardAddressBookRouteImport
+    }
+    '/app/businesses-rma/business/$businessId/quotation/pdf/send-by-email/predefined-messages': {
+      id: '/app/businesses-rma/business/$businessId/quotation/pdf/send-by-email/predefined-messages'
+      path: '/predefined-messages'
+      fullPath: '/app/businesses-rma/business/$businessId/quotation/pdf/send-by-email/predefined-messages'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdQuotationPdfSendByEmailPredefinedMessagesRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdQuotationPdfSendByEmailRouteImport
     }
     '/app/businesses-rma/business/$businessId/assistance/$assistanceId/delete-ged-object/$objectRelativePath': {
       id: '/app/businesses-rma/business/$businessId/assistance/$assistanceId/delete-ged-object/$objectRelativePath'
@@ -5268,7 +5373,12 @@ export const routeTree = rootRoute.addChildren({
           AppBusinessesRmaBusinessBusinessIdArcRouteRoute.addChildren({
             AppBusinessesRmaBusinessBusinessIdArcPdfRouteRoute:
               AppBusinessesRmaBusinessBusinessIdArcPdfRouteRoute.addChildren({
-                AppBusinessesRmaBusinessBusinessIdArcPdfSendByEmailRouteRoute,
+                AppBusinessesRmaBusinessBusinessIdArcPdfSendByEmailRouteRoute:
+                  AppBusinessesRmaBusinessBusinessIdArcPdfSendByEmailRouteRoute.addChildren(
+                    {
+                      AppBusinessesRmaBusinessBusinessIdArcPdfSendByEmailPredefinedMessagesRouteRoute,
+                    },
+                  ),
               }),
             AppBusinessesRmaBusinessBusinessIdArcUpdateShippingPriceRouteRoute,
             AppBusinessesRmaBusinessBusinessIdArcDeleteDetailDetailIdRouteRoute,
@@ -5282,11 +5392,21 @@ export const routeTree = rootRoute.addChildren({
                   AppBusinessesRmaBusinessBusinessIdBillCreditsSendByEmailRouteRoute,
                 },
               ),
-            AppBusinessesRmaBusinessBusinessIdBillSendByEmailRouteRoute,
+            AppBusinessesRmaBusinessBusinessIdBillSendByEmailRouteRoute:
+              AppBusinessesRmaBusinessBusinessIdBillSendByEmailRouteRoute.addChildren(
+                {
+                  AppBusinessesRmaBusinessBusinessIdBillSendByEmailPredefinedMessagesRouteRoute,
+                },
+              ),
           }),
         AppBusinessesRmaBusinessBusinessIdBlRouteRoute:
           AppBusinessesRmaBusinessBusinessIdBlRouteRoute.addChildren({
-            AppBusinessesRmaBusinessBusinessIdBlSendByEmailRouteRoute,
+            AppBusinessesRmaBusinessBusinessIdBlSendByEmailRouteRoute:
+              AppBusinessesRmaBusinessBusinessIdBlSendByEmailRouteRoute.addChildren(
+                {
+                  AppBusinessesRmaBusinessBusinessIdBlSendByEmailPredefinedMessagesRouteRoute,
+                },
+              ),
           }),
         AppBusinessesRmaBusinessBusinessIdBpRouteRoute:
           AppBusinessesRmaBusinessBusinessIdBpRouteRoute.addChildren({
@@ -5313,7 +5433,12 @@ export const routeTree = rootRoute.addChildren({
             AppBusinessesRmaBusinessBusinessIdDashboardCreateLinkRouteRoute,
             AppBusinessesRmaBusinessBusinessIdDashboardDeleteRouteRoute,
             AppBusinessesRmaBusinessBusinessIdDashboardImportGedFilesRouteRoute,
-            AppBusinessesRmaBusinessBusinessIdDashboardSendEmailRouteRoute,
+            AppBusinessesRmaBusinessBusinessIdDashboardSendEmailRouteRoute:
+              AppBusinessesRmaBusinessBusinessIdDashboardSendEmailRouteRoute.addChildren(
+                {
+                  AppBusinessesRmaBusinessBusinessIdDashboardSendEmailPredefinedMessagesRouteRoute,
+                },
+              ),
             AppBusinessesRmaBusinessBusinessIdDashboardUpdateBillingAddressRouteRoute,
             AppBusinessesRmaBusinessBusinessIdDashboardUpdateRepresentativeRouteRoute,
             AppBusinessesRmaBusinessBusinessIdDashboardUpdateResponsibleRouteRoute,
@@ -5334,7 +5459,12 @@ export const routeTree = rootRoute.addChildren({
             AppBusinessesRmaBusinessBusinessIdQuotationPdfRouteRoute:
               AppBusinessesRmaBusinessBusinessIdQuotationPdfRouteRoute.addChildren(
                 {
-                  AppBusinessesRmaBusinessBusinessIdQuotationPdfSendByEmailRouteRoute,
+                  AppBusinessesRmaBusinessBusinessIdQuotationPdfSendByEmailRouteRoute:
+                    AppBusinessesRmaBusinessBusinessIdQuotationPdfSendByEmailRouteRoute.addChildren(
+                      {
+                        AppBusinessesRmaBusinessBusinessIdQuotationPdfSendByEmailPredefinedMessagesRouteRoute,
+                      },
+                    ),
                 },
               ),
             AppBusinessesRmaBusinessBusinessIdQuotationUpdateShippingPriceRouteRoute,
@@ -6508,11 +6638,17 @@ export const routeTree = rootRoute.addChildren({
     },
     "/app/businesses-rma/business/$businessId/bill/send-by-email": {
       "filePath": "app/businesses-rma_/business.$businessId/bill/send-by-email/route.tsx",
-      "parent": "/app/businesses-rma/business/$businessId/bill"
+      "parent": "/app/businesses-rma/business/$businessId/bill",
+      "children": [
+        "/app/businesses-rma/business/$businessId/bill/send-by-email/predefined-messages"
+      ]
     },
     "/app/businesses-rma/business/$businessId/bl/send-by-email": {
       "filePath": "app/businesses-rma_/business.$businessId/bl/send-by-email/route.tsx",
-      "parent": "/app/businesses-rma/business/$businessId/bl"
+      "parent": "/app/businesses-rma/business/$businessId/bl",
+      "children": [
+        "/app/businesses-rma/business/$businessId/bl/send-by-email/predefined-messages"
+      ]
     },
     "/app/businesses-rma/business/$businessId/bp/travel-voucher": {
       "filePath": "app/businesses-rma_/business.$businessId/bp/travel-voucher/route.ts",
@@ -6549,7 +6685,10 @@ export const routeTree = rootRoute.addChildren({
     },
     "/app/businesses-rma/business/$businessId/dashboard/send-email": {
       "filePath": "app/businesses-rma_/business.$businessId/dashboard/send-email/route.ts",
-      "parent": "/app/businesses-rma/business/$businessId/dashboard"
+      "parent": "/app/businesses-rma/business/$businessId/dashboard",
+      "children": [
+        "/app/businesses-rma/business/$businessId/dashboard/send-email/predefined-messages"
+      ]
     },
     "/app/businesses-rma/business/$businessId/dashboard/update-billing-address": {
       "filePath": "app/businesses-rma_/business.$businessId/dashboard/update-billing-address/route.ts",
@@ -6735,7 +6874,10 @@ export const routeTree = rootRoute.addChildren({
     },
     "/app/businesses-rma/business/$businessId/arc/pdf/send-by-email": {
       "filePath": "app/businesses-rma_/business.$businessId/arc/pdf/send-by-email/route.tsx",
-      "parent": "/app/businesses-rma/business/$businessId/arc/pdf"
+      "parent": "/app/businesses-rma/business/$businessId/arc/pdf",
+      "children": [
+        "/app/businesses-rma/business/$businessId/arc/pdf/send-by-email/predefined-messages"
+      ]
     },
     "/app/businesses-rma/business/$businessId/arc/update-detail/$detailId": {
       "filePath": "app/businesses-rma_/business.$businessId/arc/update-detail.$detailId/route.ts",
@@ -6744,6 +6886,14 @@ export const routeTree = rootRoute.addChildren({
     "/app/businesses-rma/business/$businessId/bill/credits/send-by-email": {
       "filePath": "app/businesses-rma_/business.$businessId/bill/credits/send-by-email/route.tsx",
       "parent": "/app/businesses-rma/business/$businessId/bill/credits"
+    },
+    "/app/businesses-rma/business/$businessId/bill/send-by-email/predefined-messages": {
+      "filePath": "app/businesses-rma_/business.$businessId/bill/send-by-email/predefined-messages/route.ts",
+      "parent": "/app/businesses-rma/business/$businessId/bill/send-by-email"
+    },
+    "/app/businesses-rma/business/$businessId/bl/send-by-email/predefined-messages": {
+      "filePath": "app/businesses-rma_/business.$businessId/bl/send-by-email/predefined-messages/route.ts",
+      "parent": "/app/businesses-rma/business/$businessId/bl/send-by-email"
     },
     "/app/businesses-rma/business/$businessId/bp/add-serial/$detailId": {
       "filePath": "app/businesses-rma_/business.$businessId/bp/add-serial.$detailId/route.ts",
@@ -6789,6 +6939,10 @@ export const routeTree = rootRoute.addChildren({
       "filePath": "app/businesses-rma_/business.$businessId/dashboard/rename-ged-object.$objectRelativePath/route.ts",
       "parent": "/app/businesses-rma/business/$businessId/dashboard"
     },
+    "/app/businesses-rma/business/$businessId/dashboard/send-email/predefined-messages": {
+      "filePath": "app/businesses-rma_/business.$businessId/dashboard/send-email/predefined-messages/route.ts",
+      "parent": "/app/businesses-rma/business/$businessId/dashboard/send-email"
+    },
     "/app/businesses-rma/business/$businessId/dashboard/task-email/$taskId": {
       "filePath": "app/businesses-rma_/business.$businessId/dashboard/task-email.$taskId/route.ts",
       "parent": "/app/businesses-rma/business/$businessId/dashboard"
@@ -6815,7 +6969,10 @@ export const routeTree = rootRoute.addChildren({
     },
     "/app/businesses-rma/business/$businessId/quotation/pdf/send-by-email": {
       "filePath": "app/businesses-rma_/business.$businessId/quotation/pdf/send-by-email/route.tsx",
-      "parent": "/app/businesses-rma/business/$businessId/quotation/pdf"
+      "parent": "/app/businesses-rma/business/$businessId/quotation/pdf",
+      "children": [
+        "/app/businesses-rma/business/$businessId/quotation/pdf/send-by-email/predefined-messages"
+      ]
     },
     "/app/businesses-rma/business/$businessId/quotation/update-detail/$detailId": {
       "filePath": "app/businesses-rma_/business.$businessId/quotation/update-detail.$detailId/route.ts",
@@ -6929,6 +7086,10 @@ export const routeTree = rootRoute.addChildren({
       "filePath": "app/tools/formations/subscribers.$formationDetailId/send-email.$subscriptionId/route.ts",
       "parent": "/app/tools/formations/subscribers/$formationDetailId"
     },
+    "/app/businesses-rma/business/$businessId/arc/pdf/send-by-email/predefined-messages": {
+      "filePath": "app/businesses-rma_/business.$businessId/arc/pdf/send-by-email/predefined-messages/route.ts",
+      "parent": "/app/businesses-rma/business/$businessId/arc/pdf/send-by-email"
+    },
     "/app/businesses-rma/business/$businessId/dashboard/address-book/delete/$addressId": {
       "filePath": "app/businesses-rma_/business.$businessId/dashboard/address-book/delete.$addressId/route.ts",
       "parent": "/app/businesses-rma/business/$businessId/dashboard/address-book"
@@ -6936,6 +7097,10 @@ export const routeTree = rootRoute.addChildren({
     "/app/businesses-rma/business/$businessId/dashboard/address-book/update/$addressId": {
       "filePath": "app/businesses-rma_/business.$businessId/dashboard/address-book/update.$addressId/route.ts",
       "parent": "/app/businesses-rma/business/$businessId/dashboard/address-book"
+    },
+    "/app/businesses-rma/business/$businessId/quotation/pdf/send-by-email/predefined-messages": {
+      "filePath": "app/businesses-rma_/business.$businessId/quotation/pdf/send-by-email/predefined-messages/route.ts",
+      "parent": "/app/businesses-rma/business/$businessId/quotation/pdf/send-by-email"
     },
     "/app/businesses-rma/business/$businessId/assistance/$assistanceId/delete-ged-object/$objectRelativePath": {
       "filePath": "app/businesses-rma_/business.$businessId_.assistance.$assistanceId/delete-ged-object.$objectRelativePath/route.ts",

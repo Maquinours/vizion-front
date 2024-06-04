@@ -16,6 +16,12 @@ export default function AppViewBusinessViewBlViewSendByEmailModalView() {
     <SendEmailModalComponent
       isOpen={true}
       onClose={onClose}
+      predefinedMessagesModalLink={{
+        to: '/app/businesses-rma/business/$businessId/bl/send-by-email/predefined-messages',
+        search: true,
+        replace: true,
+        resetScroll: false,
+      }}
       defaultRecipient={business.profileEmail ? [business.profileEmail] : undefined}
       defaultSubject={bl.number}
       defaultAttachments={[file]}
