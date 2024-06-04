@@ -40,7 +40,7 @@ const columns = [
       return files.length > 0 ? (
         <ul>
           {files.map((item, index) => (
-            <li key={item.name} style={{ marginBottom: '5px', cursor: 'pointer' }}>
+            <li key={item.name}>
               <a href={`${FILE_READ_STORAGE_BASE_URL}/${item.name}`} target="_blank" rel="noreferrer">
                 Fichier {index + 1}
               </a>

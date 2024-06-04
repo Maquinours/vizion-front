@@ -8,7 +8,7 @@ const searchSchema = z.object({
 
 export const Route = createFileRoute('/app/tools/news')({
   validateSearch: searchSchema,
-  loaderDeps: ({ search: { page } }) => ({ page, size: 15 }),
+  loaderDeps: ({ search: { page } }) => ({ page, size: 30 }),
   loader: async ({ context: { queryClient }, deps: { page, size } }) => {
     queryClient.prefetchQuery(news.page({ page, size }));
   },
