@@ -1,8 +1,7 @@
 import AdvancedProductSpecificationProductResponseDto from './AdvancedProductSpecificationProductResponseDto';
 import ProductBomDetailsResponseDto from './ProductBomDetailsResponseDto';
+import ProductProductResponseDto from './ProductProductResponseDto';
 import ProductVersionResponseDto from './ProductVersionResponseDto';
-
-type ProductProductResponseDto = Omit<ProductResponseDto, 'productCategory' | 'associatedProduct' | 'productVersions' | 'specifications'>;
 
 type ProductProductBomDetailsResponseDto = Omit<ProductBomDetailsResponseDto, 'productBOM'>;
 
