@@ -40,6 +40,7 @@ export default function LoginPage() {
   const { mutate, isPending } = useMutation({
     mutationFn: ({ username, password }: InferType<typeof yupSchema>) => login(username, password),
     onSuccess: (data) => {
+      window.localStorage.removeItem('tabs'); // we reset tabs when user logs in
       setToken(data);
       if (search.redirect) router.history.push(search.redirect);
       else navigate({ to: '/app' });
