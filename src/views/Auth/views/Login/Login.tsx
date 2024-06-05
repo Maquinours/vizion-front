@@ -46,12 +46,10 @@ export default function LoginPage() {
       else navigate({ to: '/app' });
     },
     onError: (error) => {
-      if (isAxiosError(error)) {
-        if (error.response?.data.error === 'invalid_grant') toast.error('Identifiant ou mot de passe incorrect.');
-        else {
-          console.error(error);
-          toast.error("Une erreur est survenue lors de l'authentification.");
-        }
+      if (isAxiosError(error) && error.response?.data.error === 'invalid_grant') toast.error('Identifiant ou mot de passe incorrect.');
+      else {
+        console.error(error);
+        toast.error("Une erreur est survenue lors de l'authentification.");
       }
     },
   });
