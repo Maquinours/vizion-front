@@ -15,6 +15,7 @@ import MailResponseDto from '../../utils/types/MailResponseDto';
 import { formatDateWithHour } from '../../utils/functions/dates';
 import { toast } from 'react-toastify';
 import { LinkProps, Outlet, Link } from '@tanstack/react-router';
+import { isAxiosError } from 'axios';
 
 const yupSchema = yup.object({
   recipient: yup
@@ -143,8 +144,11 @@ export default function SendEmailComponent({
       }
     },
     onError: (error) => {
-      console.error(error);
-      toast.error("Une erreur est survenue lors de l'envoi de l'email.");
+      if (isAxiosError(error) && error.response?.status === 413) toast.error('La taille des fichiers joints est trop grande.');
+      else {
+        console.error(error);
+        toast.error("Une erreur est survenue lors de l'envoi de l'email.");
+      }
     },
   });
 
