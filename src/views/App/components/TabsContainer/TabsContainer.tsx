@@ -86,7 +86,6 @@ export default function AppViewTabsContainerComponent({ children }: AppViewTabsC
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const [tabs, setTabs] = useLocalStorage<Tab[]>('tabs', []);
-  console.log('tabs', tabs);
   const { matches, resolvedLocation } = useRouterState({ select: (state) => ({ matches: state.matches, resolvedLocation: state.resolvedLocation }) });
   const matchRoute = useMatchRoute();
 

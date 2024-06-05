@@ -54,8 +54,6 @@ export default function AppViewAssistanceViewCumulatedTimeCardComponent({ assist
     if (runningTimer) {
       const { start, value } = JSON.parse(runningTimer) as { start: number; value: number };
       const duration = moment.duration(Date.now() - start, 'milliseconds').add(value, 'seconds');
-      console.log(Date.now() - start, value);
-      console.log(Math.floor(duration.as('seconds')));
       setValue('cumulatedTime', Math.floor(duration.as('seconds')));
       startTimer();
     } else setValue('cumulatedTime', assistance.cumulatedTime ? moment.duration(assistance.cumulatedTime).as('seconds') : 0);
