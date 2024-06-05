@@ -7,7 +7,10 @@ export const salesVva = createQueryKeys('sales-vva', {
     contextQueries: {
       byDepartmentCodesYearAndMonth: ({ departmentCodes, year, month }: { departmentCodes?: Array<string> | null; year: number; month: number }) => ({
         queryKey: [{ departmentCodes, year, month }],
-        queryFn: () => getSalesVvaByDepartmentCodesYearAndMonth({ repCodes: departmentCodes, year, month }),
+        queryFn: () =>
+          !!departmentCodes && departmentCodes.length > 0
+            ? getSalesVvaByDepartmentCodesYearAndMonth({ repCodes: departmentCodes, year, month })
+            : Promise.resolve([]),
       }),
     },
   },
