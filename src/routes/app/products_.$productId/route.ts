@@ -18,7 +18,7 @@ export const Route = createFileRoute('/app/products/$productId')({
     const productPromise = queryClient.ensureQueryData({
       ...queries.product.detail(productId),
       initialData: () => {
-        for (const [key, value] of queryClient.getQueriesData<Page<ProductResponseDto>>({ queryKey: queries.product._def })) {
+        for (const [key, value] of queryClient.getQueriesData<Page<ProductResponseDto>>({ queryKey: queries.product.page._def })) {
           const item = value?.content.find((item) => item.id === productId);
           if (item) {
             initialDataKey = key;
