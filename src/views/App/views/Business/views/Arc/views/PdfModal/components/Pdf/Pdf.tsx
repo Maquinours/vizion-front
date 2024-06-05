@@ -517,7 +517,7 @@ export default function AppViewBusinessViewArcViewPdfModalViewPdfComponent({
               <View style={pageStyles.recapTableBody}>
                 <Text style={pageStyles.recapTableBodyText}>TVA</Text>
                 <Text style={pageStyles.recapTableBodyValue}>20%</Text>
-                <Text style={pageStyles.recapTableBodyValue}>{arc.vat} €</Text>
+                <Text style={pageStyles.recapTableBodyValue}>{(((arc.totalAmountHT ?? 0) + arc.shippingServicePrice) * 0.2).toFixed(2)} €</Text>
               </View>
               <View style={pageStyles.recapTableFooter}>
                 <Text style={pageStyles.recapTableFooterText}>Total TTC</Text>
