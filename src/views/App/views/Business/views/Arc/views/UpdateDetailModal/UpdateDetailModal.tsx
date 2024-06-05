@@ -42,6 +42,7 @@ export default function AppViewBusinessViewArcViewUpdateDetailModalView() {
 
   const { businessId, detailId } = routeApi.useParams();
 
+  const { data: business } = useSuspenseQuery(queries.businesses.detail._ctx.byId(businessId));
   const { data: arc } = useSuspenseQuery(queries['business-ARCs'].detail._ctx.byBusinessId(businessId));
   const { data: detail } = useSuspenseQuery(queries['business-arc-details'].detail._ctx.byId(detailId));
   const { data: products, isLoading: isLoadingProducts } = useQuery(queries.product.list);
@@ -58,6 +59,11 @@ export default function AppViewBusinessViewArcViewUpdateDetailModalView() {
 
   const onClose = () => {
     navigate({ to: '../..', search: (old) => old, replace: true, resetScroll: false });
+  };
+
+  const onChangeProduct = (product: ProductResponseDto | null) => {
+    setValue('designation', product?.shortDescription ?? '');
+    setValue('price', (product?.publicPrice ?? 0) * (1 - (business.reduction ?? 0) / 100));
   };
 
   const { mutate, isPending } = useMutation({
@@ -137,7 +143,10 @@ export default function AppViewBusinessViewArcViewUpdateDetailModalView() {
                     getOptionLabel={(opt) => opt.reference ?? ''}
                     getOptionValue={(opt) => opt.id}
                     value={value}
-                    onChange={onChange}
+                    onChange={(newValue, actionMeta) => {
+                      onChange(newValue, actionMeta);
+                      onChangeProduct(newValue);
+                    }}
                   />
                 )}
               />
