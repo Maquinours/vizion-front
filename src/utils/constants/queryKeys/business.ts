@@ -6,15 +6,7 @@ export const businesses = createQueryKeys('businesses', {
     queryKey: null,
     contextQueries: {
       byId: (id: string) => ({ queryKey: [{ id }], queryFn: () => getBusinessById(id) }),
-      byInfos: ({
-        serialNumber,
-        businessNumber,
-        orderNumber,
-      }: {
-        serialNumber: string | undefined;
-        businessNumber: string | undefined;
-        orderNumber: string | undefined;
-      }) => ({
+      byInfos: ({ serialNumber, businessNumber, orderNumber }: { serialNumber?: string; businessNumber?: string; orderNumber?: string }) => ({
         queryKey: [{ serialNumber, businessNumber, orderNumber }],
         queryFn: () => getBusinessByInfos({ serialNumber, businessNumber, orderNumber }),
       }),

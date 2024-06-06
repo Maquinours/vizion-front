@@ -9,12 +9,11 @@ import { useEffect } from 'react';
 const routeApi = getRouteApi('/app/tools/credit');
 
 const yupSchema = yup.object({
-  serialNumber: yup.string().when(['businessNumber', 'orderNumber'], {
-    is: (businessNumber: string | undefined, orderNumber: string | undefined) => !businessNumber && !orderNumber,
+  serialNumber: yup.string().when(['businessNumber'], {
+    is: (businessNumber: string | undefined) => !businessNumber,
     then: () => yup.string().required('Au moins un champ requis'),
   }),
   businessNumber: yup.string(),
-  orderNumber: yup.string(),
 });
 
 type AppViewToolsViewCreditsViewSearchSectionComponentProps = Readonly<{
@@ -23,7 +22,7 @@ type AppViewToolsViewCreditsViewSearchSectionComponentProps = Readonly<{
 export default function AppViewToolsViewCreditsViewSearchSectionComponent({ isLoading }: AppViewToolsViewCreditsViewSearchSectionComponentProps) {
   const navigate = useNavigate({ from: routeApi.id });
 
-  const { serialNumber, businessNumber, orderNumber } = routeApi.useSearch();
+  const { serialNumber, businessNumber } = routeApi.useSearch();
 
   const {
     register,
@@ -34,19 +33,26 @@ export default function AppViewToolsViewCreditsViewSearchSectionComponent({ isLo
     resolver: yupResolver(yupSchema),
   });
 
-  const onSubmit = ({ serialNumber, businessNumber, orderNumber }: yup.InferType<typeof yupSchema>) => {
-    navigate({ search: (old) => ({ ...old, serialNumber, businessNumber, orderNumber }) });
+  const onSubmit = ({ serialNumber, businessNumber }: yup.InferType<typeof yupSchema>) => {
+    navigate({
+      search: (old) => ({
+        ...old,
+        serialNumber: serialNumber || undefined,
+        businessNumber: !!businessNumber ? (businessNumber.startsWith('VZO ') ? businessNumber : `VZO ${businessNumber}`) : undefined,
+      }),
+      replace: true,
+      resetScroll: false,
+    });
   };
 
   const onReset = () => {
-    navigate({ search: (old) => ({ ...old, serialNumber: undefined, businessNumber: undefined, orderNumber: undefined }) });
+    navigate({ search: (old) => ({ ...old, serialNumber: undefined, businessNumber: undefined }), replace: true, resetScroll: false });
   };
 
   useEffect(() => {
     setValue('serialNumber', serialNumber);
     setValue('businessNumber', businessNumber);
-    setValue('orderNumber', orderNumber);
-  }, [serialNumber, businessNumber, orderNumber]);
+  }, [serialNumber, businessNumber]);
 
   return (
     <div className={styles.research_container}>
@@ -60,11 +66,6 @@ export default function AppViewToolsViewCreditsViewSearchSectionComponent({ isLo
           <label htmlFor="numBusiness">{"Numéro d'affaire :"}</label>
           <input id="numBusiness" {...register('businessNumber')} />
           <p className={styles._errors}>{errors.businessNumber?.message}</p>
-        </div>
-        <div className={styles.form_group}>
-          <label htmlFor="numOrder">Numéro de commande :</label>
-          <input id="numOrder" {...register('orderNumber')} />
-          <p className={styles._errors}>{errors.orderNumber?.message}</p>
         </div>
 
         <div className={styles.form_loader}>

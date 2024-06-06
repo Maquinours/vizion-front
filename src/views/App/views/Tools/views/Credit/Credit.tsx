@@ -1,20 +1,23 @@
-import { useQuery } from '@tanstack/react-query';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { Link, Outlet, getRouteApi, useNavigate } from '@tanstack/react-router';
+import { isAxiosError } from 'axios';
 import { useEffect, useMemo, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
 import { v4 as uuidv4 } from 'uuid';
+import * as yup from 'yup';
 import { queries } from '../../../../../../utils/constants/queryKeys';
 import BillType from '../../../../../../utils/enums/BillType';
 import BusinessBillDetailsResponseDto from '../../../../../../utils/types/BusinessBillDetailsResponseDto';
+import BusinessBillResponseDto from '../../../../../../utils/types/BusinessBillResponseDto';
+import BusinessResponseDto from '../../../../../../utils/types/BusinessResponseDto';
+import EnterpriseResponseDto from '../../../../../../utils/types/EnterpriseResponseDto';
+import ProfileResponseDto from '../../../../../../utils/types/ProfileResponseDto';
 import styles from './Credit.module.scss';
 import AppViewToolsViewCreditViewSearchSectionComponent from './components/SearchSection/SearchSections';
 import AppViewToolsViewCreditViewTableComponent from './components/Table/Table';
-import * as yup from 'yup';
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import EnterpriseResponseDto from '../../../../../../utils/types/EnterpriseResponseDto';
-import ProfileResponseDto from '../../../../../../utils/types/ProfileResponseDto';
 import { CreditContext } from './utils/contexts/context';
-import BusinessState from '../../../../../../utils/enums/BusinessState';
 
 export type BusinessCreditRow = { detail: Partial<BusinessBillDetailsResponseDto>; quantity: number; price: number };
 export type BusinessCreditDetails = {
@@ -40,26 +43,52 @@ const yupSchema = yup.object().shape({
 });
 
 export default function AppViewToolsViewCreditView() {
+  const queryClient = useQueryClient();
   const navigate = useNavigate({ from: routeApi.id });
 
-  const { serialNumber, businessNumber, orderNumber } = routeApi.useSearch();
+  const { serialNumber, businessNumber } = routeApi.useSearch();
+
+  const [business, setBusiness] = useState<BusinessResponseDto>();
+  const [bill, setBill] = useState<BusinessBillResponseDto>();
+  const [enterprise, setEnterprise] = useState<EnterpriseResponseDto>();
 
   const [items, setItems] = useState<Array<BusinessCreditRow>>([]);
   const [details, setDetails] = useState<BusinessCreditDetails>();
 
-  const { data: business, isLoading: isLoadingBusiness } = useQuery({
-    ...queries.businesses.detail._ctx.byInfos({ serialNumber, businessNumber, orderNumber }),
-    enabled: !!serialNumber || !!businessNumber || !!orderNumber,
-  });
-
-  const { data: bill, isLoading: isLoadingBills } = useQuery({
-    ...queries['business-bills'].list._ctx.byBusinessId(business?.id ?? ''),
-    enabled: business?.state === BusinessState.FACTURE,
-    select: (data) => data.find((bill) => bill.type === BillType.FACTURE),
-  });
-  const { data: enterprise, isLoading: isLoadingEnterprise } = useQuery({
-    ...queries.enterprise.detail(business?.enterpriseId ?? ''),
-    enabled: !!business,
+  const { mutate: search, isPending: isSearching } = useMutation({
+    mutationFn: async () => {
+      const business = await queryClient.ensureQueryData(queries.businesses.detail._ctx.byInfos({ serialNumber, businessNumber }));
+      const billPromise = queryClient
+        .ensureQueryData(queries['business-bills'].list._ctx.byBusinessId(business.id))
+        .then((data) => data.find((bill) => bill.type === BillType.FACTURE));
+      const enterprisePromise = queryClient.ensureQueryData(queries.enterprise.detail(business.enterpriseId));
+      return {
+        business,
+        bill: await billPromise,
+        enterprise: await enterprisePromise,
+      };
+    },
+    onMutate: () => {
+      setBusiness(undefined);
+      setBill(undefined);
+      setEnterprise(undefined);
+      setItems([]);
+    },
+    onSuccess: (data) => {
+      if (!!data.bill) {
+        setBusiness(data.business);
+        setBill(data.bill);
+        setEnterprise(data.enterprise);
+        setItems(data.bill.billDetails.map((detail) => ({ detail, quantity: 0, price: 0 })));
+      } else toast.error("Aucune facture n'a été trouvée pour cette affaire");
+    },
+    onError: (error) => {
+      if (isAxiosError(error) && error.response?.status === 404) toast.error('Aucune affaire correspondante');
+      else {
+        console.error(error);
+        toast.error("Une erreur est survenue lors de la recherche de l'affaire");
+      }
+    },
   });
 
   const { register, watch, getValues } = useForm({
@@ -100,19 +129,19 @@ export default function AppViewToolsViewCreditView() {
   };
 
   const onReset = () => {
-    navigate({ search: (old) => ({ ...old, serialNumber: undefined, businessNumber: undefined, orderNumber: undefined }) });
+    navigate({ search: (old) => ({ ...old, serialNumber: undefined, businessNumber: undefined }), replace: true, resetScroll: false });
   };
 
   useEffect(() => {
-    setItems(bill?.billDetails.map((detail) => ({ detail, quantity: 0, price: 0 })) ?? []);
-  }, [bill, setItems]);
+    search();
+  }, [serialNumber, businessNumber]);
 
   return (
     <>
       <div className={styles.container}>
         <div className={styles.content}>
           <div className={styles.first_grid}>
-            <AppViewToolsViewCreditViewSearchSectionComponent isLoading={isLoadingBusiness || isLoadingBills || isLoadingEnterprise} />
+            <AppViewToolsViewCreditViewSearchSectionComponent isLoading={isSearching} />
             <div className={styles.header_buttons}>
               <button className="btn btn-primary" onClick={() => addLine()}>
                 Ajouter une ligne
