@@ -404,7 +404,7 @@ export default function AppViewBusinessesRmaViewSearchSectionComponent() {
           <input placeholder="Numéro de commande" id="businessNumOrder" {...register('numOrder')} />
           <input placeholder="Code Postal de livraison" id="zipCode" {...register('zipCode')} />
           {user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && (
-            <select id="representative" {...register('representative')}>
+            <select id="representative" {...register('representative', { onChange: handleSubmit(onSubmit) })}>
               {isLoadingRepresentatives ? (
                 <option value="">Chargement...</option>
               ) : (
@@ -419,7 +419,7 @@ export default function AppViewBusinessesRmaViewSearchSectionComponent() {
               )}
             </select>
           )}
-          <select id="state" {...register('state', { setValueAs: (val) => val || undefined })} defaultValue="">
+          <select id="state" {...register('state', { setValueAs: (val) => val || undefined, onChange: handleSubmit(onSubmit) })} defaultValue="">
             {stateOptions.map((item) => (
               <option key={item.value} value={item.value}>
                 {item.label}
@@ -453,7 +453,10 @@ export default function AppViewBusinessesRmaViewSearchSectionComponent() {
                       options={CATEGORY_OPTIONS}
                       isMulti
                       value={CATEGORY_OPTIONS.filter((opt) => value.some((val) => val === opt.value))}
-                      onChange={(e) => onChange(e.map((opt) => opt.value))}
+                      onChange={(e) => {
+                        onChange(e.map((opt) => opt.value));
+                        handleSubmit(onSubmit)();
+                      }}
                       styles={{
                         control: (styles) => ({
                           ...styles,
@@ -472,12 +475,26 @@ export default function AppViewBusinessesRmaViewSearchSectionComponent() {
                 />
               </div>
             )}
-            <div className="flex gap-1">
-              <label htmlFor="fuzzy" className="font-['DIN2014'] text-base text-[color:var(--primary-color)]">
-                Recherche floue
-              </label>
-              <input type="checkbox" id="fuzzy" {...register('fuzzy')} />
-            </div>
+            <Controller
+              control={control}
+              name="fuzzy"
+              render={({ field: { value, onChange } }) => (
+                <div className="flex gap-1">
+                  <label htmlFor="fuzzy" className="font-['DIN2014'] text-base text-[color:var(--primary-color)]">
+                    Recherche floue
+                  </label>
+                  <input
+                    type="checkbox"
+                    id="fuzzy"
+                    checked={value}
+                    onChange={(e) => {
+                      onChange(e);
+                      handleSubmit(onSubmit)();
+                    }}
+                  />
+                </div>
+              )}
+            />
           </div>
           <div>
             <button className="btn btn-primary-light" type="reset">
