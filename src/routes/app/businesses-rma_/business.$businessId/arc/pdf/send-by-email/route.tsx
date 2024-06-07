@@ -3,6 +3,7 @@ import { queries } from '../../../../../../../utils/constants/queryKeys';
 import { pdf } from '@react-pdf/renderer';
 import AppViewBusinessViewArcViewPdfModalViewPdfComponent from '../../../../../../../views/App/views/Business/views/Arc/views/PdfModal/components/Pdf/Pdf';
 import LoaderModal from '../../../../../../../components/LoaderModal/LoaderModal';
+import { formatFileName } from '../../../../../../../utils/functions/files';
 
 export const Route = createFileRoute('/app/businesses-rma/business/$businessId/arc/pdf/send-by-email')({
   loaderDeps: ({ search: { hideReferencesPrices } }) => ({ hideReferencesPrices }),
@@ -22,7 +23,7 @@ export const Route = createFileRoute('/app/businesses-rma/business/$businessId/a
     const blob = await pdf(
       <AppViewBusinessViewArcViewPdfModalViewPdfComponent business={business} arc={arc} stocks={stocks} hideReferencesPrices={hideReferencesPrices} />,
     ).toBlob();
-    const file = new File([blob], `ARC-${arc.number}.pdf`.replace(/\s|-/g, '_'), {
+    const file = new File([blob], formatFileName(`ARC-${arc.number}.pdf`), {
       type: blob.type,
     });
 

@@ -5,6 +5,7 @@ import { Link, getRouteApi, useNavigate } from '@tanstack/react-router';
 import ReactModal from 'react-modal';
 import { queries } from '../../../../../../../../utils/constants/queryKeys';
 import styles from './CommercialNoticeModal.module.scss';
+import { formatFileName } from '../../../../../../../../utils/functions/files';
 
 const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/quotation/commercial-notice');
 
@@ -27,7 +28,7 @@ export default function AppViewBusinessViewQuotationViewCommercialNoticeModalVie
     staleTime: Infinity,
   });
 
-  const getFilePluginInstance = getFilePlugin({ fileNameGenerator: () => `Notice_Commerciale_${business.numBusiness.replace(/\s|-/g, '_')}.pdf` });
+  const getFilePluginInstance = getFilePlugin({ fileNameGenerator: () => formatFileName(`Notice_Commerciale_${business.numBusiness}.pdf`) });
 
   const onClose = () => {
     navigate({ to: '..', search: (old) => old, replace: true, resetScroll: false });
