@@ -1,5 +1,5 @@
-import ShipmentRequestDto from "./ShipmentRequestDto";
+import ShipmentRequestDto from './ShipmentRequestDto';
 
-type BusinessBpShipmentRequestDto = Omit<ShipmentRequestDto, 'businessNumber' | 'note'>
+type BusinessBpShipmentRequestDto = Omit<ShipmentRequestDto, 'businessNumber' | 'note'>;
 
 export default BusinessBpShipmentRequestDto;
