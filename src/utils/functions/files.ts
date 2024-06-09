@@ -30,3 +30,7 @@ export const excelFileToObject = async (file: File) => {
 
   return data;
 };
+
+export const formatFileName = (fileName: string) => {
+  return fileName.replace(/[\/\\?%*:|"<> ]/g, '_');
+};

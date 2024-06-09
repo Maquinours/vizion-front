@@ -3,6 +3,7 @@ import { queries } from '../../../../../../utils/constants/queryKeys';
 import { pdf } from '@react-pdf/renderer';
 import AppViewBusinessViewBlViewBodyComponentPdfComponent from '../../../../../../views/App/views/Business/views/Bl/components/Body/components/Pdf/Pdf';
 import LoaderModal from '../../../../../../components/LoaderModal/LoaderModal';
+import { formatFileName } from '../../../../../../utils/functions/files';
 
 export const Route = createFileRoute('/app/businesses-rma/business/$businessId/bl/send-by-email')({
   loaderDeps: ({ search: { page } }) => ({ page }),
@@ -13,7 +14,7 @@ export const Route = createFileRoute('/app/businesses-rma/business/$businessId/b
     if (!bl) throw redirect({ from: Route.id, to: '..', search: (old) => ({ ...old, page: 0 }), replace: true });
     const business = await businessPromise;
     const blob = await pdf(<AppViewBusinessViewBlViewBodyComponentPdfComponent business={business} bl={bl} />).toBlob();
-    const file = new File([blob], `${bl.number}.pdf`.replace(/\s|-/g, '_'), {
+    const file = new File([blob], formatFileName(`${bl.number}.pdf`), {
       type: blob.type,
     });
     return { business, bl, file };

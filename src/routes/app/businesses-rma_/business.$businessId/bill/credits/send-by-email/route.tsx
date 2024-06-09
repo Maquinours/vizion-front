@@ -4,6 +4,7 @@ import BillType from '../../../../../../../utils/enums/BillType';
 import { pdf } from '@react-pdf/renderer';
 import AppViewBusinessViewBillViewCreditsModalViewPdfComponent from '../../../../../../../views/App/views/Business/views/Bill/views/CreditsModal/components/Pdf/Pdf';
 import LoaderModal from '../../../../../../../components/LoaderModal/LoaderModal';
+import { formatFileName } from '../../../../../../../utils/functions/files';
 
 export const Route = createFileRoute('/app/businesses-rma/business/$businessId/bill/credits/send-by-email')({
   loaderDeps: ({ search: { page } }) => ({ page }),
@@ -18,7 +19,7 @@ export const Route = createFileRoute('/app/businesses-rma/business/$businessId/b
     if (!credit) throw redirect({ from: Route.id, to: '..', search: (old) => ({ ...old, page: 0 }), replace: true });
 
     const blob = await pdf(<AppViewBusinessViewBillViewCreditsModalViewPdfComponent credit={credit} business={business} enterprise={enterprise} />).toBlob();
-    const file = new File([blob], `Avoir-${credit.number}.pdf`.replace(/\s|-/g, '_'), {
+    const file = new File([blob], formatFileName(`Avoir-${credit.number}.pdf`), {
       type: blob.type,
     });
     return { enterprise, credit, file };

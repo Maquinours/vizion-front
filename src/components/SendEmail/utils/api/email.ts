@@ -23,7 +23,8 @@ export const sendEmail = async (mail: MailRequestDto) => {
   for (const bcc of mail.bcc) formData.append('bcc', bcc);
   for (const to of mail.to) formData.append('to', to);
   for (const file of mail.files) formData.append('files', file);
-  formData.append('typeText', 'text/html;charset=iso-8859-1');
+
+  formData.set('typeText', 'text/html;charset=iso-8859-1');
 
   return privateInstance({
     method: 'POST',

@@ -13,6 +13,7 @@ import { queries } from '../../../../../../../../utils/constants/queryKeys';
 import fileDownload from 'js-file-download';
 import { toast } from 'react-toastify';
 import { useAuthentifiedUserQuery } from '../../../../../../utils/functions/getAuthentifiedUser';
+import { formatFileName } from '../../../../../../../../utils/functions/files';
 
 const routeApi = getRouteApi('/app/businesses-rma/representative-turnover');
 
@@ -46,9 +47,11 @@ export default function AppViewBusinessesRmaViewRepresentativeTurnoverModalViewF
   const { mutate: excelExport, isPending: isExcelExporting } = useMutation({
     mutationFn: () => getSalesVvaExcelByDepartmentCodesYearAndMonth({ repCodes: enterprise.departments?.map((d) => d.code) ?? [], year, month }),
     onSuccess: (data) => {
-      const fileName = `Chiffre_Affaire_${month.toLocaleString('fr-FR', {
-        minimumIntegerDigits: 2,
-      })}_${year}_${user.profile.enterprise!.name.replace(/\s|-/g, '_')}.xls`;
+      const fileName = formatFileName(
+        `Chiffre_Affaire_${month.toLocaleString('fr-FR', {
+          minimumIntegerDigits: 2,
+        })}_${year}_${user.profile.enterprise!.name}.xls`,
+      );
       fileDownload(data, fileName);
     },
     onError: (error) => {

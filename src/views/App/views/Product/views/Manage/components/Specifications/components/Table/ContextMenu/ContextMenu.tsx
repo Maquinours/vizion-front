@@ -36,9 +36,11 @@ export default function AppViewProductViewManageViewSpecificationsComponentTable
                   <MenuItem>
                     <Link
                       from={routeApi.id}
-                      to="./update-specification/$specificationId"
-                      params={(old) => ({ ...old, specificationId: productSpecification.specification!.id })}
-                      search={(old) => old}
+                      to="update-specification/$specificationId"
+                      params={{ specificationId: productSpecification.specification!.id }}
+                      search
+                      replace
+                      resetScroll={false}
                     >
                       <HiPencilAlt className={styles.icon} width={16} height={16} color="#16204E" />
                       <span className={styles.text}>Modifier la spécification</span>
@@ -47,9 +49,11 @@ export default function AppViewProductViewManageViewSpecificationsComponentTable
                   <MenuItem>
                     <Link
                       from={routeApi.id}
-                      to="./delete-specification/$specificationId"
-                      params={(old) => ({ ...old, specificationId: productSpecification.specification!.id })}
-                      search={(old) => old}
+                      to="delete-specification/$specificationId"
+                      params={{ specificationId: productSpecification.specification!.id }}
+                      search
+                      replace
+                      resetScroll={false}
                     >
                       <FaTrash className={styles.icon} width={16} height={16} color="#16204E" />
                       <span className={styles.text}>Supprimer la spécification</span>
