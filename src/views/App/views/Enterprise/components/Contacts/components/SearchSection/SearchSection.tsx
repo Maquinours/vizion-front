@@ -4,7 +4,6 @@ import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { AiOutlineSearch } from 'react-icons/ai';
 import * as yup from 'yup';
-import styles from './SearchSection.module.scss';
 
 const Route = getRouteApi('/app/enterprises/$enterpriseId');
 
@@ -30,9 +29,9 @@ export default function AppViewEnterpriseViewContactsComponentSearchSectionCompo
   }, [contactsSearch, setValue]);
 
   return (
-    <div className={styles.container}>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <input type="text" {...register('search')} />
+    <div>
+      <form onSubmit={handleSubmit(onSubmit)} className="flex gap-x-1">
+        <input type="text" {...register('search')} className="border-[1px] border-solid border-black" />
         <button type="submit" className="btn btn-primary">
           <AiOutlineSearch />
         </button>
