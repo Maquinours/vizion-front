@@ -85,8 +85,8 @@ export default function AppViewDashboardViewLinkPersonalTaskModalView() {
       switch (data.type) {
         case LinkType.BUSINESS:
           if (data.business!.category === CategoryBusiness.AFFAIRE)
-            content = { ...content, businessId: data.business!.id, businessNum: data.business!.number, businessName: data.business!.title };
-          else if (data.business!.category === CategoryBusiness.RMA) content = { ...content, rmaId: data.business!.id, rmaNum: data.business!.number };
+            content = { ...content, businessId: data.business!.businessId, businessNum: data.business!.number, businessName: data.business!.title };
+          else if (data.business!.category === CategoryBusiness.RMA) content = { ...content, rmaId: data.business!.businessId, rmaNum: data.business!.number };
           break;
         case LinkType.PRODUCT:
           content = { ...content, productId: data.product!.id, reference: data.product!.reference };
