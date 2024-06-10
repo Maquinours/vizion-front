@@ -60,6 +60,8 @@ export default function AppViewProductViewManageViewStockMovementHistoryComponen
     navigate({
       from: routeApi.id,
       search: (old) => ({ ...old, stockEntriesPage: 0, stockEntriesSize: Number(e.target.value) as 10 | 100 | 5 | 20 | 50 | 15 | 25 | 30 }),
+      replace: true,
+      resetScroll: false,
     });
   };
 
@@ -85,7 +87,7 @@ export default function AppViewProductViewManageViewStockMovementHistoryComponen
             <PaginationComponent
               page={page}
               totalPages={data?.totalPages}
-              pageLink={(page) => ({ from: routeApi.id, search: (old) => ({ ...old, stockEntriesPage: page }), params: (old) => old })}
+              pageLink={(page) => ({ from: routeApi.id, search: (old) => ({ ...old, stockEntriesPage: page }), replace: true, resetScroll: false })}
             />
           </div>
         </div>

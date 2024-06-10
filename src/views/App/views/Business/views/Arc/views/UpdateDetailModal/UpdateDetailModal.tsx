@@ -13,6 +13,8 @@ import ProductResponseDto from '../../../../../../../../utils/types/ProductRespo
 import styles from './UpdateDetailModal.module.scss';
 import { useEffect } from 'react';
 import { format } from 'date-fns';
+import AmountFormat from '../../../../../../../../components/AmountFormat/AmountFormat';
+import CurrencyFormat from '../../../../../../../../components/CurrencyFormat/CurrencyFormat';
 
 const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/arc/update-detail/$detailId');
 
@@ -159,7 +161,11 @@ export default function AppViewBusinessViewArcViewUpdateDetailModalView() {
             </div>
             <div className={styles.form_group}>
               <label htmlFor="productPrice">Prix tarifaire (€)</label>
-              <input id="productPrice" {...register('price')} type="number" autoComplete="on" />
+              <Controller
+                control={control}
+                name="price"
+                render={({ field: { value, onChange } }) => <CurrencyFormat value={value} onValueChange={(v) => onChange(v.value)} displayType="input" />}
+              />
               <p className={styles.__errors}>{errors.price?.message}</p>
             </div>
             <div className={styles.form_group}>
@@ -168,13 +174,11 @@ export default function AppViewBusinessViewArcViewUpdateDetailModalView() {
                 {[
                   { label: 'Oui', value: 'yes' },
                   { label: 'Non', value: 'no' },
-                ].map((item) => {
-                  return (
-                    <option key={item.value} value={item.value}>
-                      {item.label}
-                    </option>
-                  );
-                })}
+                ].map((item) => (
+                  <option key={item.value} value={item.value}>
+                    {item.label}
+                  </option>
+                ))}
               </select>
               <p className={styles.__errors}>{errors.availability?.message}</p>
             </div>
@@ -185,7 +189,14 @@ export default function AppViewBusinessViewArcViewUpdateDetailModalView() {
             </div>
             <div className={styles.form_group}>
               <label htmlFor="productQuantity">Quantité</label>
-              <input id="productQuantity" {...register('quantity')} type="number" autoComplete="on" min={1} />
+              <Controller
+                control={control}
+                name="quantity"
+                render={({ field: { value, onChange } }) => (
+                  <AmountFormat id="productQuantity" value={value} onChange={onChange} displayType="input" decimalScale={0} />
+                )}
+              />
+
               <p className={styles.__errors}>{errors.quantity?.message}</p>
             </div>
           </div>

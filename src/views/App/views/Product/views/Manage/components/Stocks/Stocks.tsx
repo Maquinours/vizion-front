@@ -36,7 +36,7 @@ export default function AppViewProductViewManageViewStocksComponent() {
             <PaginationComponent
               page={page}
               totalPages={data?.totalPages}
-              pageLink={(page) => ({ from: routeApi.id, search: (old) => ({ ...old, stocksPage: page }), params: (old) => old })}
+              pageLink={(page) => ({ from: routeApi.id, search: (old) => ({ ...old, stocksPage: page }), replace: true, resetScroll: false })}
             />
           </div>
         </div>

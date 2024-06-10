@@ -107,6 +107,8 @@ export default function AppViewCreateClientBusinessModalComponent() {
             <div className={styles.form_custom_group}>
               <label htmlFor="Contact">Contact</label>
               <Controller
+                name="contact"
+                control={control}
                 render={({ field: { onChange, value } }) => (
                   <CustomSelect
                     options={enterprise.profiles}
@@ -117,8 +119,6 @@ export default function AppViewCreateClientBusinessModalComponent() {
                     onChange={onChange}
                   />
                 )}
-                name="contact"
-                control={control}
               />
               <p>{errors.contact?.message}</p>
             </div>

@@ -55,6 +55,7 @@ export default function CreateLifesheetModalComponent({
   const { data: vizeoMembers } = useQuery(queries.enterprise.list._ctx.byCategory(CategoryClient.VIZEO)._ctx.profiles._ctx.list);
 
   const {
+    register,
     control,
     setValue,
     watch,
@@ -203,7 +204,7 @@ export default function CreateLifesheetModalComponent({
             <div className={styles.choose_date}>
               <div className={styles.form_group}>
                 <label htmlFor="lifeSheetDeadline">{"Date d'échéance :"}</label>
-                <input name="lifeSheetDeadline" id="lifeSheetDeadline" type="date" />
+                <input {...register('deadline')} id="lifeSheetDeadline" type="date" />
                 <p className={styles.__errors}></p>
               </div>
             </div>

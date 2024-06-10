@@ -35,7 +35,7 @@ export default function AppViewProductViewManageViewAddAssociatedProductModalVie
   });
 
   const onClose = () => {
-    navigate({ from: routeApi.id, to: '..', search: (old) => old });
+    navigate({ from: routeApi.id, to: '..', search: true, replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({
@@ -65,6 +65,8 @@ export default function AppViewProductViewManageViewAddAssociatedProductModalVie
             </label>
             <div className={styles.react_select_custom}>
               <Controller
+                name="associatedProduct"
+                control={control}
                 render={({ field: { onChange, value } }) => (
                   <CustomSelect
                     options={productOptions}
@@ -76,8 +78,6 @@ export default function AppViewProductViewManageViewAddAssociatedProductModalVie
                     onChange={onChange}
                   />
                 )}
-                name="associatedProduct"
-                control={control}
               />
             </div>
             <p className="__errors">{errors.associatedProduct?.message}</p>

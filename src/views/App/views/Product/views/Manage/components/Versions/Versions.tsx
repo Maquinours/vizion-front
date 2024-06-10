@@ -36,7 +36,6 @@ export default function AppViewProductViewManageViewVersionsComponent() {
               pageLink={(page) => ({
                 from: routeApi.id,
                 search: (old) => ({ ...old, versionsPage: page }),
-                params: (old) => old,
                 replace: true,
                 resetScroll: false,
               })}

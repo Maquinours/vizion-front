@@ -69,28 +69,28 @@ export default function AppViewToolsViewFormationsViewUpdateModalViewAddDetailMo
               <label className={styles.label} htmlFor="title">
                 Titre
               </label>
-              <input type="text" {...register('title')} name="title" id="title" />
+              <input type="text" {...register('title')} id="title" />
               <p className={styles.__errors}>{errors.title?.message}</p>
             </div>
             <div className={styles.form_group}>
               <label className={styles.label} htmlFor="formationDate">
                 Date de formation
               </label>
-              <input type="date" {...register('formationDate')} name="formationDate" id="formationDate" min={new Date().toISOString().split('T')[0]} />
+              <input type="date" {...register('formationDate')} id="formationDate" min={new Date().toISOString().split('T')[0]} />
               <p className={styles.__errors}>{errors.formationDate?.message}</p>
             </div>
             <div className={styles.form_group}>
               <label className={styles.label} htmlFor="startTime">
                 Heure de début
               </label>
-              <input type="time" {...register('startTime')} name="startTime" id="startTime" />
+              <input type="time" {...register('startTime')} id="startTime" />
               <p className={styles.__errors}>{errors.startTime?.message}</p>
             </div>
             <div className={styles.form_group}>
               <label className={styles.label} htmlFor="endTime">
                 Heure de fin
               </label>
-              <input type="time" {...register('endTime')} name="endTime" id="endTime" />
+              <input type="time" {...register('endTime')} id="endTime" />
               <p className={styles.__errors}>{errors.endTime?.message}</p>
             </div>
             <div className={styles.form_group}>
@@ -98,6 +98,8 @@ export default function AppViewToolsViewFormationsViewUpdateModalViewAddDetailMo
                 Formateur(s)
               </label>
               <Controller
+                control={control}
+                name="trainers"
                 render={({ field: { value, onChange } }) => (
                   <CustomSelect
                     options={vizeoMembers}
@@ -110,8 +112,6 @@ export default function AppViewToolsViewFormationsViewUpdateModalViewAddDetailMo
                     isMulti
                   />
                 )}
-                name="trainers"
-                control={control}
               />
               <p className={styles.__errors}>{errors.trainers?.message}</p>
             </div>

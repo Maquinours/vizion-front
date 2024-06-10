@@ -9,6 +9,7 @@ import { updateAddress } from '../../../../../../../../../../utils/api/address';
 import { queries } from '../../../../../../../../../../utils/constants/queryKeys';
 import { toast } from 'react-toastify';
 import { PulseLoader } from 'react-spinners';
+import { useEffect } from 'react';
 
 const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/dashboard/address-book/update/$addressId');
 
@@ -40,6 +41,7 @@ export default function AppViewBusinessViewDashboardViewAddressBookModalViewUpda
   const {
     register,
     formState: { errors },
+    setValue,
     handleSubmit,
   } = useForm({
     resolver: yupResolver(yupSchema),
@@ -72,6 +74,17 @@ export default function AppViewBusinessViewDashboardViewAddressBookModalViewUpda
       toast.error("Une erreur est survenue lors de la modification de l'adresse");
     },
   });
+
+  useEffect(() => {
+    setValue('receiverCompanyName', address.enterpriseName);
+    setValue('receiverName', address.fullName);
+    setValue('receiverAddressOne', address.addressLineOne);
+    setValue('receiverAddressTwo', address.addressLineTwo);
+    setValue('receiverZipCode', address.zipCode);
+    setValue('receiverCity', address.city);
+    setValue('receiverEmail', address.email);
+    setValue('receiverPhoneNumber', address.phoneNumber);
+  }, [address.id]);
 
   return (
     <ReactModal isOpen={true} onRequestClose={onClose} className={styles.new_address_book_modal} overlayClassName="Overlay">

@@ -10,6 +10,7 @@ import { updateAddress } from '../../../../../../../../utils/api/address';
 import { queries } from '../../../../../../../../utils/constants/queryKeys';
 import { addresses } from '../../../../../../../../utils/constants/queryKeys/address';
 import styles from './UpdateModal.module.scss';
+import { useEffect } from 'react';
 
 const Route = getRouteApi('/app/enterprises/$enterpriseId/address-book/update/$addressId');
 
@@ -42,19 +43,10 @@ export default function AppViewEnterpriseViewAddressBookModalViewUpdateModalView
   const {
     register,
     formState: { errors },
+    setValue,
     handleSubmit,
   } = useForm({
     resolver: yupResolver(yupSchema),
-    defaultValues: {
-      enterpriseName: address.enterpriseName,
-      fullName: address.fullName ?? undefined,
-      addressOne: address.addressLineOne,
-      addressTwo: address.addressLineTwo,
-      zipCode: address.zipCode,
-      city: address.city,
-      email: address.email ?? undefined,
-      phoneNumber: address.phoneNumber,
-    },
   });
 
   const onClose = () => {
@@ -84,6 +76,17 @@ export default function AppViewEnterpriseViewAddressBookModalViewUpdateModalView
       toast.error("Une erreur est survenue lors de la modification de l'adresse");
     },
   });
+
+  useEffect(() => {
+    setValue('enterpriseName', address.enterpriseName);
+    setValue('fullName', address.fullName ?? '');
+    setValue('addressOne', address.addressLineOne);
+    setValue('addressTwo', address.addressLineTwo);
+    setValue('zipCode', address.zipCode);
+    setValue('city', address.city);
+    setValue('email', address.email ?? '');
+    setValue('phoneNumber', address.phoneNumber);
+  }, [address.id]);
 
   return (
     <ReactModal isOpen={true} onRequestClose={onClose} className={styles.modal} overlayClassName="Overlay">

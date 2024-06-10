@@ -19,6 +19,7 @@ import { AssistanceContext } from './utils/contexts/context';
 import { updateTechnicalSupport } from '../../../../utils/api/technicalSupports';
 import moment from 'moment';
 import { toast } from 'react-toastify';
+import AppViewAssistanceViewBeforeCloseModalView from './components/BeforeCloseModal/BeforeCloseModal';
 
 const amountFormatter = (value: number) => {
   return value.toLocaleString('fr-FR', {
@@ -41,8 +42,14 @@ export default function AppViewAssistanceView() {
   const queryClient = useQueryClient();
 
   const { assistanceId } = routeApi.useParams();
+  const { assistanceModal } = routeApi.useSearch();
 
   const { data: assistance } = useSuspenseQuery(queries['technical-supports'].detail._ctx.byId(assistanceId));
+
+  const modal = useMemo(() => {
+    if (assistanceModal === 'before-close') return <AppViewAssistanceViewBeforeCloseModalView />;
+    return null;
+  }, [assistanceModal]);
 
   const { register, control, getValues, setValue, resetField, watch } = useForm({
     resolver: yupResolver(yupSchema),
@@ -106,6 +113,7 @@ export default function AppViewAssistanceView() {
         </div>
       </div>
       <Outlet />
+      {modal}
     </AssistanceContext.Provider>
   );
 }

@@ -39,7 +39,7 @@ export default function AppViewProductViewManageViewStockHistoryModalView() {
   const { data, isLoading } = useQuery(queries['product-version-shelf-stock-entries'].page._ctx.byProductShelfStockId(stockId, { page, size }));
 
   const onClose = () => {
-    navigate({ from: routeApi.id, to: '../..', search: (old) => ({ ...old, stockHistoryPage: undefined }) });
+    navigate({ from: routeApi.id, to: '../..', search: (old) => ({ ...old, stockHistoryPage: undefined }), replace: true, resetScroll: false });
   };
 
   return (

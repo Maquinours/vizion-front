@@ -92,7 +92,7 @@ const yupSchema = yup.object().shape({
           .required('Champs requis')
           .oneOf([yup.ref('pass')], 'Mots de passe non identiques.'),
     }),
-  profileClient: yup.mixed<ProfileClient>().typeError('Format invalide').required('Requis'),
+  profileClient: yup.mixed<ProfileClient>().oneOf(Object.values(ProfileClient), 'Champs requis').required('Champs requis'),
 });
 
 type CreateContactModalComponentStepOneComponentProps = Readonly<{
@@ -240,14 +240,14 @@ export default function CreateContactModalComponentStepOneComponent({
                 <label className={styles.label} htmlFor="name">
                   Nom :
                 </label>
-                <input type="text" placeholder="Dupont" {...register('lastName')} name="lastName" id="lastName" autoCorrect="off" autoComplete="off" />
+                <input type="text" placeholder="Dupont" {...register('lastName')} id="lastName" autoCorrect="off" autoComplete="off" />
                 <p className={styles.__errors}>{errors.lastName?.message}</p>
               </div>
               <div className={styles.form__group}>
                 <label className={styles.label} htmlFor="firstName">
                   Prénom :
                 </label>
-                <input type="text" placeholder="Etienne" {...register('firstName')} name="firstName" id="firstName" autoCorrect="off" autoComplete="off" />
+                <input type="text" placeholder="Etienne" {...register('firstName')} id="firstName" autoCorrect="off" autoComplete="off" />
                 <p className={styles.__errors}>{errors.firstName?.message}</p>
               </div>
             </div>
@@ -437,7 +437,6 @@ export default function CreateContactModalComponentStepOneComponent({
                   placeholder="********"
                   type={showConfirmPassword ? 'text' : 'password'}
                   {...register('confirmPassword')}
-                  name="confirm"
                   id="confirm"
                   autoCorrect="true"
                 />

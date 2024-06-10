@@ -12,7 +12,7 @@ export default function AppViewProductViewInformationsViewCreateLifesheetComment
     <CreateLifesheetModalComponent
       associatedItemType={LifesheetAssociatedItem.PRODUCT}
       associatedItemId={productId}
-      onClose={() => navigate({ from: routeApi.id, to: '..', search: (old) => old, params: (old) => old })}
+      onClose={() => navigate({ from: routeApi.id, to: '..', search: true, replace: true, resetScroll: false })}
     />
   );
 }

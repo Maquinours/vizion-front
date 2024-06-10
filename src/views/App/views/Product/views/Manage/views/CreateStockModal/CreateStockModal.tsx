@@ -43,7 +43,7 @@ export default function AppViewProductViewManageViewCreateStockModalView() {
   });
 
   const onClose = () => {
-    navigate({ from: routeApi.id, to: '..', search: (old) => old });
+    navigate({ from: routeApi.id, to: '..', search: true, replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({
@@ -87,6 +87,8 @@ export default function AppViewProductViewManageViewCreateStockModalView() {
             </label>
             <div className={styles.react_select_custom}>
               <Controller
+                control={control}
+                name="version"
                 render={({ field: { onChange, value } }) => (
                   <CustomSelect
                     options={versions}
@@ -98,8 +100,6 @@ export default function AppViewProductViewManageViewCreateStockModalView() {
                     onChange={onChange}
                   />
                 )}
-                name="version"
-                control={control}
               />
             </div>
             <p className={styles.__errors}>{errors.version?.message}</p>
@@ -110,6 +110,8 @@ export default function AppViewProductViewManageViewCreateStockModalView() {
             </label>
             <div className={styles.react_select_custom}>
               <Controller
+                control={control}
+                name="shelf"
                 render={({ field: { onChange, value } }) => (
                   <CustomSelect
                     options={shelves}
@@ -121,8 +123,6 @@ export default function AppViewProductViewManageViewCreateStockModalView() {
                     onChange={onChange}
                   />
                 )}
-                name="shelf"
-                control={control}
               />
             </div>
             <p className={styles.__errors}>{errors.shelf?.message}</p>

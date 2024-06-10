@@ -100,7 +100,7 @@ export default function AppViewFaqViewCreateModalView() {
                   <label className={styles.label} htmlFor="title">
                     Titre
                   </label>
-                  <input type="text" {...register('title')} name="title" id="title" />
+                  <input type="text" {...register('title')} id="title" />
                   <p className={styles.__errors}>{errors.title?.message}</p>
                 </div>
                 <div className={styles.form_group}>

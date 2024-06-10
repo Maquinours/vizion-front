@@ -33,7 +33,7 @@ export default function AppViewProductViewManageViewSpecificationsComponent() {
             <PaginationComponent
               page={page}
               totalPages={data?.totalPages}
-              pageLink={(page) => ({ from: routeApi.id, search: (old) => ({ ...old, specificationsPage: page }), params: (old) => old })}
+              pageLink={(page) => ({ from: routeApi.id, search: (old) => ({ ...old, specificationsPage: page }), replace: true, resetScroll: false })}
             />
           </div>
         </div>

@@ -127,6 +127,8 @@ export default function AppViewToolsViewProductInventoryViewUpdateModalView() {
             </label>
             <div className={styles.react_select_custom}>
               <Controller
+                control={control}
+                name="productShelf"
                 render={({ field: { onChange, value } }) => (
                   <CustomSelect
                     options={productShelves}
@@ -138,8 +140,6 @@ export default function AppViewToolsViewProductInventoryViewUpdateModalView() {
                     onChange={onChange}
                   />
                 )}
-                name="productShelf"
-                control={control}
               />
             </div>
             <p className={styles.__errors}>{errors.productShelf?.message}</p>
@@ -150,6 +150,8 @@ export default function AppViewToolsViewProductInventoryViewUpdateModalView() {
             </label>
             <div className={styles.react_select_custom}>
               <Controller
+                control={control}
+                name="productVersion"
                 render={({ field: { onChange, value } }) => (
                   <CustomSelect
                     options={productVersions}
@@ -161,8 +163,6 @@ export default function AppViewToolsViewProductInventoryViewUpdateModalView() {
                     onChange={onChange}
                   />
                 )}
-                name="productVersion"
-                control={control}
               />
             </div>
             <p className={styles.__errors}>{errors.productVersion?.message}</p>

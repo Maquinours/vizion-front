@@ -83,6 +83,8 @@ export default function AppViewToolsViewCreditViewDetailsModalView() {
               <label htmlFor="billingCompany">Entreprise</label>
               <div className={styles.react_select_custom}>
                 <Controller
+                  control={control}
+                  name="billingCompany"
                   render={({ field: { onChange, value } }) => (
                     <CustomSelect
                       options={enterprises}
@@ -94,8 +96,6 @@ export default function AppViewToolsViewCreditViewDetailsModalView() {
                       onChange={onChange}
                     />
                   )}
-                  name="billingCompany"
-                  control={control}
                 />
               </div>
               <p className={styles._errors}>{errors.billingCompany?.message}</p>

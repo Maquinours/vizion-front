@@ -74,14 +74,7 @@ export default function LoginPage() {
                 <span>
                   <MdLock />
                 </span>
-                <input
-                  {...register('password')}
-                  id="password"
-                  className={styles.input}
-                  name="password"
-                  placeholder="Mot de passe"
-                  type={showPassword ? 'text' : 'password'}
-                />
+                <input {...register('password')} id="password" className={styles.input} placeholder="Mot de passe" type={showPassword ? 'text' : 'password'} />
                 <p className={styles.__errors}>{errors.password?.message}</p>
                 {!showPassword ? <FaEye onClick={() => setShowPassword(!showPassword)} /> : <FaEyeSlash onClick={() => setShowPassword(!showPassword)} />}
               </div>

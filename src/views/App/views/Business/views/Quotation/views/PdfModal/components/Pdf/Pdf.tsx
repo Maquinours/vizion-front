@@ -244,9 +244,13 @@ const pageStyles = StyleSheet.create({
     paddingLeft: 10,
   },
   total: {
+    textAlign: 'right',
     color: '#485176',
     fontSize: 13,
     fontWeight: 'bold',
+    borderTop: '1px solid #485176',
+    paddingTop: 5,
+    marginTop: 20,
   },
   totalNameBody: {
     textAlign: 'right',

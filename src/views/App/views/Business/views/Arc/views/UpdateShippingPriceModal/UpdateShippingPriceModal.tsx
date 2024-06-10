@@ -2,7 +2,7 @@ import { getRouteApi, useNavigate } from '@tanstack/react-router';
 import ReactModal from 'react-modal';
 import * as yup from 'yup';
 import styles from './UpdateShippingPriceModal.module.scss';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import { updateBusinessArc } from '../../../../../../../../utils/api/businessArcs';
@@ -10,6 +10,8 @@ import { queries } from '../../../../../../../../utils/constants/queryKeys';
 import BusinessArcResponseDto from '../../../../../../../../utils/types/BusinessArcResponseDto';
 import { toast } from 'react-toastify';
 import { PulseLoader } from 'react-spinners';
+import CurrencyFormat from '../../../../../../../../components/CurrencyFormat/CurrencyFormat';
+import { useEffect } from 'react';
 
 const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/arc/update-shipping-price');
 
@@ -32,14 +34,12 @@ export default function AppViewBusinessViewArcViewUpdateShippingPriceModalView()
   const { data: arc } = useSuspenseQuery(queries['business-ARCs'].detail._ctx.byBusinessId(businessId));
 
   const {
-    register,
+    control,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(yupSchema),
-    defaultValues: {
-      shippingServicePrice: arc.shippingServicePrice,
-    },
   });
 
   const onClose = () => {
@@ -72,6 +72,10 @@ export default function AppViewBusinessViewArcViewUpdateShippingPriceModalView()
     },
   });
 
+  useEffect(() => {
+    setValue('shippingServicePrice', arc.shippingServicePrice);
+  }, [arc.id]);
+
   return (
     <ReactModal isOpen={true} onRequestClose={onClose} className={styles.modal} overlayClassName="Overlay" shouldCloseOnOverlayClick={!isPending}>
       <div className={styles.modal_container}>
@@ -82,7 +86,14 @@ export default function AppViewBusinessViewArcViewUpdateShippingPriceModalView()
           <div className={styles.modal_content}>
             <div className={styles.form_group}>
               <label htmlFor="shippingServicePrice">Frais de port</label>
-              <input id="shippingServicePrice" type="number" {...register('shippingServicePrice')} />
+              <Controller
+                control={control}
+                name="shippingServicePrice"
+                render={({ field: { value, onChange } }) => (
+                  <CurrencyFormat value={value} onValueChange={(v) => onChange(v.value)} id="shippingServicePrice" displayType="input" />
+                )}
+              />
+
               <p className={styles.__errors}>{errors.shippingServicePrice?.message}</p>
             </div>
           </div>

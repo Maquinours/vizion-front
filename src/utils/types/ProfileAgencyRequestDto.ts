@@ -1,3 +1,6 @@
+import CategoryClient from '../enums/CategoryClient';
+import ProfileClient from '../enums/ProfileClient';
+
 type ProfileAgencyRequestDto = {
   lastName: string;
   firstName?: string | null;
@@ -8,8 +11,8 @@ type ProfileAgencyRequestDto = {
   standardPhoneNumber?: string | null;
   landlinePhoneNumber?: string | null;
   job?: string | null;
-  profileClient: string;
-  categoryClient: string;
+  profileClient: ProfileClient;
+  categoryClient: CategoryClient;
   siteIdentifier?: string | null;
   expert: boolean;
 };

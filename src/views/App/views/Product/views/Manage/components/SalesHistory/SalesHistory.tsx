@@ -60,16 +60,31 @@ export default function AppViewProductViewManageViewSalesHistoryComponent() {
   );
 
   const onSearch = ({ dates, enterpriseName }: yup.InferType<typeof yupSchema>) => {
-    navigate({ from: routeApi.id, search: (old) => ({ ...old, salesPage: 0, salesContact: enterpriseName, salesDates: dates }) });
+    navigate({
+      from: routeApi.id,
+      search: (old) => ({ ...old, salesPage: 0, salesContact: enterpriseName, salesDates: dates }),
+      replace: true,
+      resetScroll: false,
+    });
   };
 
   const onReset = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    navigate({ from: routeApi.id, search: (old) => ({ ...old, salesPage: 0, salesContact: undefined, salesDates: undefined }) });
+    navigate({
+      from: routeApi.id,
+      search: (old) => ({ ...old, salesPage: 0, salesContact: undefined, salesDates: undefined }),
+      replace: true,
+      resetScroll: false,
+    });
   };
 
   const onSizeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    navigate({ from: routeApi.id, search: (old) => ({ ...old, salesPage: 0, salesSize: Number(e.target.value) as 100 | 5 | 20 | 50 | 250 | 500 | 1000 }) });
+    navigate({
+      from: routeApi.id,
+      search: (old) => ({ ...old, salesPage: 0, salesSize: Number(e.target.value) as 100 | 5 | 20 | 50 | 250 | 500 | 1000 }),
+      replace: true,
+      resetScroll: false,
+    });
   };
 
   useEffect(() => {
@@ -142,7 +157,7 @@ export default function AppViewProductViewManageViewSalesHistoryComponent() {
             <PaginationComponent
               page={page}
               totalPages={data?.data?.totalPages ?? 0}
-              pageLink={(page) => ({ from: routeApi.id, search: (old) => ({ ...old, salesPage: page }), params: (old) => old })}
+              pageLink={(page) => ({ from: routeApi.id, search: (old) => ({ ...old, salesPage: page }), replace: true, resetScroll: false })}
             />
           </div>
         </div>

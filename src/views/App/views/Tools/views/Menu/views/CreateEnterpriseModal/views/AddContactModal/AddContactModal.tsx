@@ -87,7 +87,7 @@ const yupSchema = yup.object().shape({
           .required('Champs requis')
           .oneOf([yup.ref('password')], 'Mots de passe non identiques.'),
     }),
-  profileClient: yup.string().typeError('Format invalide').required('Requis'),
+  profileClient: yup.mixed<ProfileClient>().oneOf(Object.values(ProfileClient), 'Champs requis').required('Champs requis'),
 });
 
 export default function AppViewToolsViewMenuViewCreateEnterpriseModalViewAddContactModalView() {
@@ -227,8 +227,8 @@ export default function AppViewToolsViewMenuViewCreateEnterpriseModalViewAddCont
               <div className={styles.form__input_groups}>
                 <div className={styles.form__input_group}>
                   <Controller
-                    name="phoneNumber"
                     control={control}
+                    name="phoneNumber"
                     render={({ field: { value, onChange } }) => (
                       <PhoneInput
                         value={value ? (value as E164Number) : undefined}
@@ -411,7 +411,6 @@ export default function AppViewToolsViewMenuViewCreateEnterpriseModalViewAddCont
                   placeholder="********"
                   type={showConfirmPassword ? 'text' : 'password'}
                   {...register('confirmPassword')}
-                  name="confirm"
                   id="confirm"
                   autoCorrect="true"
                   autoComplete="no"
