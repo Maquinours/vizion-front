@@ -87,7 +87,7 @@ const yupSchema = yup.object().shape({
           .required('Champs requis')
           .oneOf([yup.ref('password')], 'Mots de passe non identiques.'),
     }),
-  profileClient: yup.string().typeError('Format invalide').required('Requis'),
+  profileClient: yup.mixed<ProfileClient>().oneOf(Object.values(ProfileClient), 'Champs requis').required('Champs requis'),
 });
 
 export default function AppViewToolsViewMenuViewCreateEnterpriseModalViewAddContactModalView() {

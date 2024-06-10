@@ -92,7 +92,7 @@ const yupSchema = yup.object().shape({
           .required('Champs requis')
           .oneOf([yup.ref('pass')], 'Mots de passe non identiques.'),
     }),
-  profileClient: yup.mixed<ProfileClient>().typeError('Format invalide').required('Requis'),
+  profileClient: yup.mixed<ProfileClient>().oneOf(Object.values(ProfileClient), 'Champs requis').required('Champs requis'),
 });
 
 type CreateContactModalComponentStepOneComponentProps = Readonly<{
