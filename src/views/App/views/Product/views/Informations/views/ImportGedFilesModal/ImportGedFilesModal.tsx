@@ -15,7 +15,9 @@ export default function AppViewProductViewInformationsViewImportGedFilesModalVie
       type={FileType.PRODUIT}
       id={productId}
       directoryRelativePath={gedObjectRelativePath}
-      onClose={() => navigate({ from: routeApi.id, to: '..', search: (old) => ({ lifesheetPage: old.lifesheetPage }) })}
+      onClose={() =>
+        navigate({ from: routeApi.id, to: '..', search: (old) => ({ ...old, gedObjectRelativePath: undefined }), replace: true, resetScroll: false })
+      }
     />
   );
 }

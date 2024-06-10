@@ -11,7 +11,13 @@ export default function AppViewProductViewInformationsViewWorkloadsComponent() {
     <WorkloadsComponent
       associatedItemType={WorkloadAssociatedItem.PRODUCT}
       associatedItemId={productId}
-      emailLink={(data) => ({ to: '/app/products/$productId/informations/task-email/$taskId', params: { taskId: data.id }, search: (old) => old })}
+      emailLink={(data) => ({
+        to: '/app/products/$productId/informations/task-email/$taskId',
+        params: { taskId: data.id },
+        search: (old) => old,
+        replace: true,
+        resetScroll: false,
+      })}
     />
   );
 }

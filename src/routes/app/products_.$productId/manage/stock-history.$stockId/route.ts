@@ -1,4 +1,4 @@
-import { createFileRoute, notFound } from '@tanstack/react-router';
+import { SearchSchemaInput, createFileRoute, notFound } from '@tanstack/react-router';
 import { z } from 'zod';
 import { queries } from '../../../../../utils/constants/queryKeys';
 import LoaderModal from '../../../../../components/LoaderModal/LoaderModal';
@@ -11,7 +11,7 @@ const searchSchema = z.object({
 });
 
 export const Route = createFileRoute('/app/products/$productId/manage/stock-history/$stockId')({
-  validateSearch: searchSchema,
+  validateSearch: (data: { stockHistoryPage?: number } & SearchSchemaInput) => searchSchema.parse(data),
   loaderDeps: ({ search: { stockHistoryPage } }) => ({ page: stockHistoryPage, size: 5 }),
   loader: async ({ context: { queryClient }, params: { stockId, productId }, deps: { page, size } }) => {
     queryClient.prefetchQuery(queries['product-version-shelf-stock-entries'].page._ctx.byProductShelfStockId(stockId, { page, size }));

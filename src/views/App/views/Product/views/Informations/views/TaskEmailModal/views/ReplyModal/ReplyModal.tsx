@@ -15,5 +15,11 @@ export default function AppViewProductViewInformationsViewTaskEmailModalViewRepl
 
   const { data: email } = useSuspenseQuery(emails.detail(task.mailId!));
 
-  return <SendEmailModalComponent isOpen={true} onClose={() => navigate({ from: routeApi.id, to: '..', search: (old) => old })} emailToReply={email} />;
+  return (
+    <SendEmailModalComponent
+      isOpen={true}
+      onClose={() => navigate({ from: routeApi.id, to: '..', search: true, replace: true, resetScroll: false })}
+      emailToReply={email}
+    />
+  );
 }
