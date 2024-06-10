@@ -3,6 +3,7 @@ import styles from './Rma.module.scss';
 import AppViewRmaViewSidebarComponent from './components/Sidebar/Sidebar';
 import { useMemo } from 'react';
 import AppViewRmaViewArchiveModalComponent from './components/ArchiveModal/ArchiveModal';
+import AppViewRmaViewBeforeCloseModalView from './components/BeforeCloseModal/BeforeCloseModal';
 
 const routeApi = getRouteApi('/app/businesses-rma/rma/$rmaId');
 
@@ -13,6 +14,8 @@ export default function AppViewRmaView() {
     switch (rmaModal) {
       case 'archive':
         return <AppViewRmaViewArchiveModalComponent />;
+      case 'before-close':
+        return <AppViewRmaViewBeforeCloseModalView />;
       default:
         return null;
     }
