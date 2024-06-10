@@ -2,7 +2,7 @@ import ReactModal from 'react-modal';
 import styles from './UpdateShippingPriceModal.module.scss';
 import * as yup from 'yup';
 import { getRouteApi } from '@tanstack/react-router';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigate } from '@tanstack/react-router';
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
@@ -10,6 +10,8 @@ import { updateBusinessQuotation } from '../../../../../../../../utils/api/busin
 import { queries } from '../../../../../../../../utils/constants/queryKeys';
 import { toast } from 'react-toastify';
 import { PulseLoader } from 'react-spinners';
+import CurrencyFormat from '../../../../../../../../components/CurrencyFormat/CurrencyFormat';
+import { useEffect } from 'react';
 
 const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/quotation/update-shipping-price');
 
@@ -31,8 +33,9 @@ export default function AppViewBusinessViewQuotationViewUpdateShippingPriceModal
   const { data: quotation } = useSuspenseQuery(queries['business-quotations'].detail._ctx.byBusinessId(businessId));
 
   const {
-    register,
+    control,
     formState: { errors },
+    setValue,
     handleSubmit,
   } = useForm({
     resolver: yupResolver(yupSchema),
@@ -69,6 +72,10 @@ export default function AppViewBusinessViewQuotationViewUpdateShippingPriceModal
     },
   });
 
+  useEffect(() => {
+    setValue('shippingServicePrice', quotation.shippingServicePrice);
+  }, [quotation.id]);
+
   return (
     <ReactModal isOpen={true} onRequestClose={onClose} className={styles.modal} overlayClassName="Overlay" shouldCloseOnOverlayClick={!isPending}>
       <div className={styles.modal_container}>
@@ -79,7 +86,11 @@ export default function AppViewBusinessViewQuotationViewUpdateShippingPriceModal
           <div className={styles.modal_content}>
             <div className={styles.form_group}>
               <label htmlFor="shippingServicePrice">Frais de port</label>
-              <input id="shippingServicePrice" type="number" {...register('shippingServicePrice')} />
+              <Controller
+                control={control}
+                name="shippingServicePrice"
+                render={({ field: { value, onChange } }) => <CurrencyFormat value={value} onValueChange={(v) => onChange(v.value)} displayType="input" />}
+              />
               <p className={styles.__errors}>{errors.shippingServicePrice?.message}</p>
             </div>
           </div>

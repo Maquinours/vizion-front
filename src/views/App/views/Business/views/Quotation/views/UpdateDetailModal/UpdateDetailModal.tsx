@@ -201,7 +201,7 @@ export default function AppViewBusinessViewQuotationViewUpdateDetailModalView() 
                 control={control}
                 name="quantity"
                 render={({ field: { value, onChange } }) => (
-                  <AmountFormat value={value} onValueChange={(v) => onChange(v.value)} id="productQuantity" displayType="input" decimalScale={0} min={1} />
+                  <AmountFormat value={value} onValueChange={(v) => onChange(v.value)} id="productQuantity" displayType="input" decimalScale={0} />
                 )}
               />
               <p className={styles.__errors}>{errors.quantity?.message}</p>
