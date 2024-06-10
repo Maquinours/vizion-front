@@ -65,6 +65,8 @@ export default function AppViewProductViewManageViewAddAssociatedProductModalVie
             </label>
             <div className={styles.react_select_custom}>
               <Controller
+                name="associatedProduct"
+                control={control}
                 render={({ field: { onChange, value } }) => (
                   <CustomSelect
                     options={productOptions}
@@ -76,8 +78,6 @@ export default function AppViewProductViewManageViewAddAssociatedProductModalVie
                     onChange={onChange}
                   />
                 )}
-                name="associatedProduct"
-                control={control}
               />
             </div>
             <p className="__errors">{errors.associatedProduct?.message}</p>

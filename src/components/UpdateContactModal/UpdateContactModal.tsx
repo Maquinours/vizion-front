@@ -174,14 +174,14 @@ export default function UpdateContactModalComponent({ contactId, onClose }: Upda
                 <label className={styles.label} htmlFor="name">
                   Nom :
                 </label>
-                <input type="text" {...register('lastName')} name="lastName" id="lastName" autoCorrect="off" autoComplete="off" />
+                <input type="text" {...register('lastName')} id="lastName" autoCorrect="off" autoComplete="off" />
                 <p className={styles.__errors}>{errors.lastName?.message}</p>
               </div>
               <div className={styles.form__group}>
                 <label className={styles.label} htmlFor="firstName">
                   Prénom :
                 </label>
-                <input type="text" {...register('firstName')} name="firstName" id="firstName" autoCorrect="off" autoComplete="off" />
+                <input type="text" {...register('firstName')} id="firstName" autoCorrect="off" autoComplete="off" />
                 <p className={styles.__errors}>{errors.firstName?.message}</p>
               </div>
             </div>

@@ -181,7 +181,7 @@ export default function AppViewToolsViewExternalLinksViewCreateModalView() {
                     <label className={styles.label} htmlFor="targetType">
                       Target
                     </label>
-                    <select {...register('targetType')} name="targetType" id="targetType">
+                    <select {...register('targetType')} id="targetType">
                       {[
                         { label: 'VIZION', value: 'INTERN' },
                         { label: 'ORIGINE', value: 'EXTERN' },
@@ -197,7 +197,7 @@ export default function AppViewToolsViewExternalLinksViewCreateModalView() {
                     <label className={styles.label} htmlFor="url">
                       URL
                     </label>
-                    <input type="text" {...register('url')} name="url" id="url" />
+                    <input type="text" {...register('url')} id="url" />
                     <p className={styles.__errors}>{errors.url?.message}</p>
                   </div>
                   <div className={styles.form_group}>

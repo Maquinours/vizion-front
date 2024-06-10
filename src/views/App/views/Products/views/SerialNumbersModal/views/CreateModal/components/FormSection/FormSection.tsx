@@ -149,6 +149,8 @@ export default function AppViewProductsViewSerialNumbersModalViewCreateModalView
               </label>
               <div className={styles.react_select_custom}>
                 <Controller
+                  control={control}
+                  name="productVersion"
                   render={({ field: { onChange, value } }) => (
                     <CustomSelect
                       options={products}
@@ -160,8 +162,6 @@ export default function AppViewProductsViewSerialNumbersModalViewCreateModalView
                       onChange={onChange}
                     />
                   )}
-                  name="productVersion"
-                  control={control}
                 />
               </div>
               <p className={styles.__errors}>{errors.productVersion?.message}</p>
@@ -173,6 +173,8 @@ export default function AppViewProductsViewSerialNumbersModalViewCreateModalView
                 </label>
                 <div className={styles.react_select_custom}>
                   <Controller
+                    control={control}
+                    name="shelf"
                     render={({ field: { onChange, value } }) => (
                       <CustomSelect
                         options={shelves}
@@ -184,8 +186,6 @@ export default function AppViewProductsViewSerialNumbersModalViewCreateModalView
                         onChange={onChange}
                       />
                     )}
-                    name="shelf"
-                    control={control}
                   />
                 </div>
                 <p className={styles.__errors}>{errors.shelf?.message}</p>

@@ -150,14 +150,14 @@ export default function AppViewToolsViewDdnsViewCreateModalView() {
             <label className={styles.label} htmlFor="productSerialNumber">
               Numéro de série :
             </label>
-            <input type="text" {...register('productSerialNumber')} name="productSerialNumber" id="productSerialNumber" />
+            <input type="text" {...register('productSerialNumber')} id="productSerialNumber" />
             <p className={styles.__errors}>{errors.productSerialNumber?.message}</p>
           </div>
           <div className={styles.form_group}>
             <label className={styles.label} htmlFor="productReference">
               Référence :
             </label>
-            <input type="text" {...register('productReference')} name="productReference" id="productReference" readOnly />
+            <input type="text" {...register('productReference')} id="productReference" readOnly />
             <p className={styles.__errors}>{errors.productReference?.message}</p>
           </div>
 

@@ -32,10 +32,10 @@ export default function AppViewToolsViewGlobalTurnoverViewInputsSectionComponent
     <div className={styles.research_container}>
       <CardComponent title="CA global des représentants">
         <div className={styles.research_content}>
-          <form>
+          <div className={styles.form}>
             <div className={styles.form_group}>
               <label htmlFor="year">Année :</label>
-              <select name="year" id="year" value={year} onChange={(e) => navigate({ search: (old) => ({ ...old, year: Number(e.target.value) }) })}>
+              <select id="year" value={year} onChange={(e) => navigate({ search: (old) => ({ ...old, year: Number(e.target.value) }) })}>
                 {years.map((item, key) => (
                   <option key={key} value={item}>
                     {item}
@@ -48,7 +48,7 @@ export default function AppViewToolsViewGlobalTurnoverViewInputsSectionComponent
                 {isPending ? 'Export en cours...' : 'Export sous excel'}
               </button>
             </div>
-          </form>
+          </div>
         </div>
       </CardComponent>
     </div>

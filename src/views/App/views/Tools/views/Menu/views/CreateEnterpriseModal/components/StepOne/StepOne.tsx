@@ -224,8 +224,8 @@ export default function AppViewToolsViewMenuViewCreateEnterpriseModalViewStepOne
                   Téléphone :
                 </label>
                 <Controller
-                  name="phoneNumber"
                   control={control}
+                  name="phoneNumber"
                   render={({ field: { value, onChange } }) => (
                     <PhoneInput value={value ? (value as E164Number) : undefined} onChange={onChange} id="company_phone_number" country="FR" placeholder="" />
                   )}

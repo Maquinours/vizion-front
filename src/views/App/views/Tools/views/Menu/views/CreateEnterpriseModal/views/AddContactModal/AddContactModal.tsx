@@ -227,8 +227,8 @@ export default function AppViewToolsViewMenuViewCreateEnterpriseModalViewAddCont
               <div className={styles.form__input_groups}>
                 <div className={styles.form__input_group}>
                   <Controller
-                    name="phoneNumber"
                     control={control}
+                    name="phoneNumber"
                     render={({ field: { value, onChange } }) => (
                       <PhoneInput
                         value={value ? (value as E164Number) : undefined}
@@ -411,7 +411,6 @@ export default function AppViewToolsViewMenuViewCreateEnterpriseModalViewAddCont
                   placeholder="********"
                   type={showConfirmPassword ? 'text' : 'password'}
                   {...register('confirmPassword')}
-                  name="confirm"
                   id="confirm"
                   autoCorrect="true"
                   autoComplete="no"
