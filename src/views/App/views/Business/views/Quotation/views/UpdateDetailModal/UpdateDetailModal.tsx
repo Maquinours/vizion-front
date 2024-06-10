@@ -40,6 +40,8 @@ export default function AppViewBusinessViewQuotationViewUpdateDetailModalView() 
     register,
     formState: { errors },
     setValue,
+    watch,
+    getValues,
     handleSubmit,
   } = useForm({
     resolver: yupResolver(yupSchema),
@@ -89,6 +91,20 @@ export default function AppViewBusinessViewQuotationViewUpdateDetailModalView() 
   });
 
   useEffect(() => {
+    const publicPrice = getValues('publicPrice') || 0;
+    const discount = getValues('discount') || 0;
+    const unitPrice = publicPrice - (publicPrice * discount) / 100;
+    setValue('unitPrice', unitPrice);
+  }, [watch('publicPrice'), watch('discount')]);
+
+  useEffect(() => {
+    const publicPrice = getValues('publicPrice') || 0;
+    const unitPrice = getValues('unitPrice') || 0;
+    const discount = ((publicPrice - unitPrice) / publicPrice) * 100;
+    setValue('discount', discount);
+  }, [watch('unitPrice')]);
+
+  useEffect(() => {
     setValue('designation', detail.productDesignation);
     setValue('quantity', detail.quantity ?? 0);
     setValue('unitPrice', detail.unitPrice ?? 0);
@@ -113,7 +129,7 @@ export default function AppViewBusinessViewQuotationViewUpdateDetailModalView() 
                 </div>
                 <div className={styles.form_group}>
                   <label htmlFor="productPublicPrice">Prix public (€)</label>
-                  <input id="productPublicPrice" {...register('publicPrice')} type="number" />
+                  <input id="productPublicPrice" {...register('publicPrice', { valueAsNumber: true })} type="number" />
                   <p className={styles.__errors}>{errors.publicPrice?.message}</p>
                 </div>
                 <div className={styles.form_group}>
