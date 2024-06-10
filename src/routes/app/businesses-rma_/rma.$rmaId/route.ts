@@ -11,4 +11,8 @@ export const Route = createFileRoute('/app/businesses-rma/rma/$rmaId')({
   loader: async ({ context: { queryClient }, params: { rmaId } }) => {
     await queryClient.ensureQueryData(queries.rmas.detail(rmaId));
   },
+  staticData: {
+    getTitle: (queryClient, match) =>
+      queryClient.ensureQueryData(queries.rmas.detail((match.params as { rmaId: string }).rmaId)).then((rma) => `RMA (${rma.number})`),
+  },
 });
