@@ -4,13 +4,15 @@ import styles from './UpdateDetailModal.module.scss';
 import { useAuthentifiedUserQuery } from '../../../../../../utils/functions/getAuthentifiedUser';
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import * as yup from 'yup';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { updateBusinessQuotationDetail } from '../../../../../../../../utils/api/businessQuotationDetails';
 import { queries } from '../../../../../../../../utils/constants/queryKeys';
 import { toast } from 'react-toastify';
 import { PulseLoader } from 'react-spinners';
 import { useEffect } from 'react';
+import CurrencyFormat from '../../../../../../../../components/CurrencyFormat/CurrencyFormat';
+import AmountFormat from '../../../../../../../../components/AmountFormat/AmountFormat';
 
 const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/quotation/update-detail/$detailId');
 
@@ -38,9 +40,9 @@ export default function AppViewBusinessViewQuotationViewUpdateDetailModalView() 
 
   const {
     register,
+    control,
     formState: { errors },
     setValue,
-    watch,
     getValues,
     handleSubmit,
   } = useForm({
@@ -90,19 +92,19 @@ export default function AppViewBusinessViewQuotationViewUpdateDetailModalView() 
     },
   });
 
-  useEffect(() => {
+  const onPublicPriceDiscountChange = () => {
     const publicPrice = getValues('publicPrice') || 0;
     const discount = getValues('discount') || 0;
     const unitPrice = publicPrice - (publicPrice * discount) / 100;
     setValue('unitPrice', unitPrice);
-  }, [watch('publicPrice'), watch('discount')]);
+  };
 
-  useEffect(() => {
+  const onUnitPriceChange = () => {
     const publicPrice = getValues('publicPrice') || 0;
     const unitPrice = getValues('unitPrice') || 0;
     const discount = ((publicPrice - unitPrice) / publicPrice) * 100;
     setValue('discount', discount);
-  }, [watch('unitPrice')]);
+  };
 
   useEffect(() => {
     setValue('designation', detail.productDesignation);
@@ -129,24 +131,79 @@ export default function AppViewBusinessViewQuotationViewUpdateDetailModalView() 
                 </div>
                 <div className={styles.form_group}>
                   <label htmlFor="productPublicPrice">Prix public (€)</label>
-                  <input id="productPublicPrice" {...register('publicPrice', { valueAsNumber: true })} type="number" />
+                  <Controller
+                    control={control}
+                    name="publicPrice"
+                    render={({ field: { value, onChange } }) => (
+                      <CurrencyFormat
+                        value={value}
+                        onValueChange={(v, infos) => {
+                          onChange(v.value);
+                          if (infos.source === 'event') onPublicPriceDiscountChange();
+                        }}
+                        id="productPublicPrice"
+                        displayType="input"
+                      />
+                    )}
+                  />
                   <p className={styles.__errors}>{errors.publicPrice?.message}</p>
                 </div>
                 <div className={styles.form_group}>
                   <label htmlFor="productDiscount">Remise (%)</label>
-                  <input id="productDiscount" max={100} {...register('discount')} type="number" />
+                  <Controller
+                    control={control}
+                    name="discount"
+                    render={({ field: { value, onChange } }) => {
+                      const MAX_VALUE = 100;
+                      return (
+                        <AmountFormat
+                          value={value}
+                          onValueChange={(v, infos) => {
+                            onChange(v.value);
+                            if (infos.source === 'event') onPublicPriceDiscountChange();
+                          }}
+                          id="productDiscount"
+                          displayType="input"
+                          decimalScale={0}
+                          suffix="%"
+                          isAllowed={({ floatValue }) => !floatValue || floatValue <= MAX_VALUE}
+                          max={MAX_VALUE}
+                        />
+                      );
+                    }}
+                  />
                   <p className={styles.__errors}>{errors.discount?.message}</p>
                 </div>
                 <div className={styles.form_group}>
                   <label htmlFor="productPrice">Prix unitaire (€)</label>
-                  <input id="productPrice" {...register('unitPrice')} type="number" />
+                  <Controller
+                    control={control}
+                    name="unitPrice"
+                    render={({ field: { value, onChange } }) => (
+                      <CurrencyFormat
+                        value={value}
+                        onValueChange={(v, infos) => {
+                          onChange(v.value);
+                          if (infos.source === 'event') onUnitPriceChange();
+                        }}
+                        id="productPrice"
+                        displayType="input"
+                      />
+                    )}
+                  />
                   <p className={styles.__errors}>{errors.unitPrice?.message}</p>
                 </div>
               </>
             )}
             <div className={styles.form_group}>
               <label htmlFor="productQuantity">Quantité</label>
-              <input id="productQuantity" {...register('quantity')} type="number" autoComplete="on" />
+              <Controller
+                control={control}
+                name="quantity"
+                render={({ field: { value, onChange } }) => (
+                  <AmountFormat value={value} onValueChange={(v) => onChange(v.value)} id="productQuantity" displayType="input" decimalScale={0} min={1} />
+                )}
+              />
               <p className={styles.__errors}>{errors.quantity?.message}</p>
             </div>
           </div>
