@@ -2,7 +2,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useQuery, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import { Controller, useForm } from 'react-hook-form';
 import ReactModal from 'react-modal';
-import PhoneInput, { formatPhoneNumber } from 'react-phone-number-input/input';
+import PhoneInput, { formatPhoneNumber, parsePhoneNumber } from 'react-phone-number-input/input';
 import { PropagateLoader } from 'react-spinners';
 import * as yup from 'yup';
 import { getEmailExists, updateProfile } from '../../utils/api/profile';
@@ -11,6 +11,8 @@ import ProfileClient from '../../utils/enums/ProfileClient';
 import styles from './UpdateContactModal.module.scss';
 import { E164Number } from 'libphonenumber-js';
 import { toast } from 'react-toastify';
+import { useEffect } from 'react';
+import 'react-phone-number-input/style.css';
 
 const profileClientOptions = [
   { value: '', text: 'Sélectionnez un profil' },
@@ -67,23 +69,24 @@ export default function UpdateContactModalComponent({ contactId, onClose }: Upda
   const {
     register,
     control,
+    setValue,
+    resetField,
     watch,
     formState: { errors },
     handleSubmit,
   } = useForm({
     resolver: yupResolver(yupSchema),
     defaultValues: {
-      civility:
-        contact.civility && ['Monsieur', 'Madame', 'Service'].includes(contact.civility) ? (contact.civility as 'Monsieur' | 'Madame' | 'Service') : undefined,
-      firstName: contact.firstName,
-      lastName: contact.lastName ?? '',
-      phoneNumber: contact.phoneNumber,
-      landlinePhoneNumber: contact.landlinePhoneNumber,
-      standardPhoneNumber: contact.standardPhoneNumber,
-      email: contact.email,
-      job: contact.job,
-      expert: contact.expert ? 'yes' : 'no',
-      profileClient: contact.profileClient ?? undefined,
+      civility: 'Monsieur',
+      lastName: '',
+      firstName: '',
+      phoneNumber: '',
+      landlinePhoneNumber: '',
+      standardPhoneNumber: '',
+      email: '',
+      job: '',
+      expert: 'no',
+      profileClient: undefined,
     },
   });
 
@@ -134,6 +137,22 @@ export default function UpdateContactModalComponent({ contactId, onClose }: Upda
       toast.error('Une erreur est survenue lors de la modification du contact');
     },
   });
+
+  useEffect(() => {
+    const civility = contact.civility === 'Monsieur' || contact.civility === 'Madame' || contact.civility === 'Service' ? contact.civility : undefined;
+    if (!!civility) setValue('civility', civility);
+    else resetField('civility');
+    setValue('firstName', contact.firstName);
+    setValue('lastName', contact.lastName ?? '');
+    setValue('phoneNumber', contact.phoneNumber ? parsePhoneNumber(contact.phoneNumber, { defaultCountry: 'FR' })?.number : undefined);
+    setValue('landlinePhoneNumber', contact.landlinePhoneNumber);
+    setValue('standardPhoneNumber', contact.standardPhoneNumber ? parsePhoneNumber(contact.standardPhoneNumber, { defaultCountry: 'FR' })?.number : undefined);
+    setValue('email', contact.email);
+    setValue('job', contact.job);
+    setValue('expert', !!contact.expert ? 'yes' : 'no');
+    if (!!contact.profileClient) setValue('profileClient', contact.profileClient);
+    else resetField('profileClient');
+  }, [contact.id]);
 
   return (
     <ReactModal isOpen={true} onRequestClose={onClose} className="Modal" overlayClassName="Overlay">
@@ -195,7 +214,7 @@ export default function UpdateContactModalComponent({ contactId, onClose }: Upda
                     control={control}
                     name="phoneNumber"
                     render={({ field: { value, onChange, onBlur } }) => (
-                      <PhoneInput country="FR" placeholder="Fixe" value={value ? (value as E164Number) : undefined} onChange={onChange} onBlur={onBlur} />
+                      <PhoneInput country="FR" international={false} placeholder="Fixe" value={value ?? undefined} onChange={onChange} onBlur={onBlur} />
                     )}
                   />
                   <p className={styles.__errors}>{errors.phoneNumber?.message}</p>
@@ -209,7 +228,7 @@ export default function UpdateContactModalComponent({ contactId, onClose }: Upda
                     control={control}
                     name="standardPhoneNumber"
                     render={({ field: { value, onChange, onBlur } }) => (
-                      <PhoneInput country="FR" placeholder="Portable" value={value ? (value as E164Number) : undefined} onChange={onChange} onBlur={onBlur} />
+                      <PhoneInput country="FR" international={false} placeholder="Portable" value={value ?? undefined} onChange={onChange} onBlur={onBlur} />
                     )}
                   />
                   <p className={styles.__errors}>{errors.standardPhoneNumber?.message}</p>
