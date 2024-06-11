@@ -58,7 +58,6 @@ export const attributeTask = async (id: string, profileId: string, senderId: str
 };
 
 export const getTaskById = async (id: string) => {
-  // TODO: create API endpoint
   return (
     await privateInstance<TaskResponseDto>({
       method: 'GET',
