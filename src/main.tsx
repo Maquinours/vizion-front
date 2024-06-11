@@ -7,6 +7,7 @@ import 'moment/dist/locale/fr';
 import * as Sentry from '@sentry/react';
 import { fr } from 'date-fns/locale/fr';
 import { registerLocale } from 'react-datepicker';
+import { router } from './router.tsx';
 
 moment.locale('fr');
 
@@ -16,7 +17,7 @@ registerLocale('fr', fr);
 
 Sentry.init({
   dsn: 'https://ee81b77d4c591be8a8d86f2a7b1dbc00@o4507100733964288.ingest.de.sentry.io/4507100746350672',
-  integrations: [Sentry.browserTracingIntegration(), Sentry.replayIntegration()],
+  integrations: [Sentry.browserTracingIntegration(), Sentry.replayIntegration(), Sentry.tanstackRouterBrowserTracingIntegration(router)],
   // Performance Monitoring
   tracesSampleRate: 1.0, //  Capture 100% of the transactions
   // Set 'tracePropagationTargets' to control for which URLs distributed tracing should be enabled
