@@ -46,7 +46,7 @@ const MENUS: Array<MenuItem> = [
     label: 'Mon entreprise',
     route: (authentifiedUser) => ({
       to: '/app/enterprises/$enterpriseId',
-      params: { entepriseId: authentifiedUser.profile.enterprise!.id },
+      params: { enterpriseId: authentifiedUser.profile.enterprise!.id },
     }),
     allowedRoles: ['ROLE_CLIENT'],
   },
