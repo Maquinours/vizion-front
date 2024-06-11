@@ -191,7 +191,19 @@ export default function AppViewDashboardViewPersonalTasksComponentTableComponent
   return (
     <>
       <div className={styles.table_container}>
-        <TableComponent columns={columns} data={data?.content} isLoading={isLoading} onRowClick={onRowClick} onRowContextMenu={onRowContextMenu} rowId={'id'} />
+        <TableComponent
+          columns={columns}
+          data={data?.content}
+          isLoading={isLoading}
+          onRowClick={onRowClick}
+          onRowContextMenu={onRowContextMenu}
+          rowId={'id'}
+          getRowClassName={(row) =>
+            classNames({
+              [styles.not_read]: !row.taskOpened,
+            })
+          }
+        />
       </div>
       <AppViewDashboardViewPersonalTasksComponentPersonalTasksComponentTableComponentContextMenuComponent
         anchor={contextMenuAnchor}
