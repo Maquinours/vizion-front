@@ -22,7 +22,7 @@ export const Route = createFileRoute('/app/businesses-rma/business/$businessId/b
     const file = new File([blob], formatFileName(`Avoir-${credit.number}.pdf`), {
       type: blob.type,
     });
-    return { enterprise, credit, file };
+    return { enterprise, credit, file, business };
   },
   pendingComponent: LoaderModal,
 });
