@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 import { deleteProductSpecification } from '../../../../../../../../utils/api/productSpecification';
 import { queries } from '../../../../../../../../utils/constants/queryKeys';
 import styles from './DeleteSpecificationModal.module.scss';
+import { productSpecificationsQueryKeys } from '../../../../../../../../utils/constants/queryKeys/productSpecifications';
 
 const routeApi = getRouteApi('/app/products/$productId/manage/delete-specification/$specificationId');
 
@@ -18,7 +19,7 @@ export default function AppViewProductViewManageViewDeleteSpecificationModalView
 
   const { data: product } = useSuspenseQuery(queries.product.detail(productId));
 
-  const { data: productSpec } = useSuspenseQuery(queries.product.detail(productId)._ctx.specifications._ctx.detail(specificationId));
+  const { data: productSpec } = useSuspenseQuery(productSpecificationsQueryKeys.detail._ctx.byId({ productId, specificationId }));
 
   const onClose = () => {
     navigate({ from: routeApi.id, to: '../..', search: true, replace: true, resetScroll: false });

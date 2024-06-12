@@ -9,6 +9,7 @@ import * as yup from 'yup';
 import { updateProductSpecification } from '../../../../../../../../utils/api/productSpecification';
 import { queries } from '../../../../../../../../utils/constants/queryKeys';
 import styles from './UpdateSpecificationModal.module.scss';
+import { productSpecificationsQueryKeys } from '../../../../../../../../utils/constants/queryKeys/productSpecifications';
 
 const routeApi = getRouteApi('/app/products/$productId/manage/update-specification/$specificationId');
 
@@ -40,7 +41,7 @@ export default function AppViewProductViewManageViewUpdateSpecificationModalView
 
   const { productId, specificationId } = routeApi.useParams();
 
-  const { data: productSpec } = useSuspenseQuery(queries.product.detail(productId)._ctx.specifications._ctx.detail(specificationId));
+  const { data: productSpec } = useSuspenseQuery(productSpecificationsQueryKeys.detail._ctx.byId({ productId, specificationId }));
 
   const {
     register,

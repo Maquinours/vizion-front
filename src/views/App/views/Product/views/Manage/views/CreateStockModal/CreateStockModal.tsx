@@ -29,7 +29,7 @@ export default function AppViewProductViewManageViewCreateStockModalView() {
 
   const { data: product } = useSuspenseQuery(queries.product.detail(productId));
 
-  const { data: versions, isLoading: isLoadingVersions } = useQuery(queries.product.detail(productId)._ctx.versions._ctx.list);
+  const { data: versions, isLoading: isLoadingVersions } = useQuery(queries['product-versions'].list._ctx.byProductId(productId));
 
   const { data: shelves, isLoading: isLoadingShelves } = useQuery(queries['product-shelves'].list);
 

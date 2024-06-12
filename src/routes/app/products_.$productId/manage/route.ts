@@ -2,6 +2,8 @@ import { SearchSchemaInput, createFileRoute, redirect } from '@tanstack/react-ro
 import { z } from 'zod';
 import { queries } from '../../../../utils/constants/queryKeys';
 import { users } from '../../../../utils/constants/queryKeys/user';
+import { productSpecificationsQueryKeys } from '../../../../utils/constants/queryKeys/productSpecifications';
+import { productStockEntriesQueryKeys } from '../../../../utils/constants/queryKeys/productStockEntries';
 
 const searchSchema = z.object({
   associatedProductsPage: z.number().min(0).catch(0),
@@ -104,10 +106,10 @@ export const Route = createFileRoute('/app/products/$productId/manage')({
 
     queryClient.prefetchQuery(queries.product.page({ page: associatedProductsPage, size: associatedProductsSize })._ctx.byAssociatedProductId(productId));
 
-    queryClient.prefetchQuery(queries.product.detail(productId)._ctx.versions._ctx.page({ page: versionsPage, size: versionsSize }));
+    queryClient.prefetchQuery(queries['product-versions'].page._ctx.byProductId(productId, { page: versionsPage, size: versionsSize }));
 
-    queryClient.prefetchQuery(queries.product.detail(productId)._ctx.specifications._ctx.page({ page: specificationsPage, size: specificationsSize }));
+    queryClient.prefetchQuery(productSpecificationsQueryKeys.page._ctx.byProductId(productId, { page: specificationsPage, size: specificationsSize }));
 
-    queryClient.prefetchQuery(queries.product.detail(productId)._ctx.stockEntries._ctx.page({ page: stockEntriesPage, size: stockEntriesSize }));
+    queryClient.prefetchQuery(productStockEntriesQueryKeys.page._ctx.byProductId(productId, { page: stockEntriesPage, size: stockEntriesSize }));
   },
 });

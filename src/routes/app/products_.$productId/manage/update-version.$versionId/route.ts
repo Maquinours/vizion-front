@@ -12,7 +12,7 @@ export const Route = createFileRoute('/app/products/$productId/manage/update-ver
       ...queries['product-versions'].detail._ctx.byId(versionId),
       initialData: () => {
         for (const [key, value] of queryClient.getQueriesData<Page<ProductVersionResponseDto>>({
-          queryKey: queries.product.detail(productId)._ctx.versions._ctx.page._def,
+          queryKey: queries['product-versions'].page.queryKey,
         })) {
           const item = value?.content.find((item) => item.id === versionId);
           if (item) {

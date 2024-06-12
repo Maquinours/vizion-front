@@ -15,7 +15,7 @@ export default function AppViewProductViewManageViewVersionsComponent() {
   const { productId } = routeApi.useParams();
   const { versionsPage: page } = routeApi.useSearch();
 
-  const { data, isLoading, refetch, isRefetching } = useQuery(queries.product.detail(productId)._ctx.versions._ctx.page({ page, size }));
+  const { data, isLoading, refetch, isRefetching } = useQuery(queries['product-versions'].page._ctx.byProductId(productId, { page, size }));
 
   return (
     <CardComponent title="Versions de produit">
