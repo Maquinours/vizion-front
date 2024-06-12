@@ -75,7 +75,7 @@ export default function AppViewProductViewManageViewCreateVersionModalView() {
         vizeo: true,
       }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: queries.product._def });
+      queryClient.invalidateQueries({ queryKey: queries['product-versions']._def });
       toast.success('Version ajoutée avec succès');
       onClose();
     },

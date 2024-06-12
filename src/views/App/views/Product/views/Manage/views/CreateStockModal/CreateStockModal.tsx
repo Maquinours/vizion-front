@@ -63,7 +63,7 @@ export default function AppViewProductViewManageViewCreateStockModalView() {
         productVersionShelfStockEntryDto: {},
       }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: queries.product._def });
+      queryClient.invalidateQueries({ queryKey: queries['product-version-shelf-stocks']._def });
       toast.success('Stock ajouté avec succès');
       onClose();
     },

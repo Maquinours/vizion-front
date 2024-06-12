@@ -28,7 +28,7 @@ export default function AppViewProductViewManageViewDeleteSpecificationModalView
   const { mutate, isPending } = useMutation({
     mutationFn: () => deleteProductSpecification(productId, specificationId),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: queries.product._def });
+      queryClient.invalidateQueries({ queryKey: productSpecificationsQueryKeys._def });
       toast.success('La spécification a été supprimée avec succès.');
       onClose();
     },

@@ -63,7 +63,7 @@ export default function AppViewProductViewManageViewUpdateStockModalView() {
         },
       }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: queries.product._def });
+      queryClient.invalidateQueries({ queryKey: queries['product-version-shelf-stocks']._def });
       toast.success('Stock modifié avec succès');
       onClose();
     },
