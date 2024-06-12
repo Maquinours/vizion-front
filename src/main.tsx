@@ -24,6 +24,23 @@ Sentry.init({
     Sentry.feedbackIntegration({
       // Additional SDK configuration goes in here, for example:
       colorScheme: 'system',
+      showBranding: false,
+      triggerLabel: 'Signaler un bug',
+      formTitle: 'Signaler un bug',
+      nameLabel: 'Nom',
+      namePlaceholder: 'Entrez votre nom',
+      emailLabel: 'Adresse email',
+      emailPlaceholder: 'Entrez votre addresse email',
+      messageLabel: 'Description du bug',
+      isRequiredLabel: '(requis)',
+      messagePlaceholder: 'Entrez une description du bug rencontré.',
+      addScreenshotButtonLabel: "Ajouter une capture d'écran",
+      removeScreenshotButtonLabel: "Supprimer la capture d'écran",
+      submitButtonLabel: 'Envoyer le signalement',
+      cancelButtonLabel: 'Annuler',
+      successMessageText: 'Votre signalement a bien été envoyé. Merci pour votre aide !',
+      showName: false,
+      showEmail: false,
     }),
   ],
   // Performance Monitoring
