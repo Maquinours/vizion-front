@@ -1,21 +1,25 @@
-import AppViewTabsContainerComponent from './components/TabsContainer/TabsContainer';
-import AppViewTopbarComponent from './components/Topbar/Topbar';
-import styles from './App.module.scss';
+import * as Sentry from '@sentry/react';
 import { Outlet, getRouteApi } from '@tanstack/react-router';
 import classNames from 'classnames';
-import AppViewSidebarComponent from './components/Sidebar/Sidebar';
-import AppViewFooterComponent from './components/Footer/Footer';
+import { useEffect, useMemo } from 'react';
+import styles from './App.module.scss';
 import AppViewBusinessGedModalComponent from './components/BusinessGedModal/BusinessGedModal';
+import AppViewChatWebsocketComponent from './components/ChatWebsocket/ChatWebsocket';
 import AppViewCreateBusinessModalComponent from './components/CreateBusinessModal/CreateBusinessModal';
 import AppViewCreateClientBusinessModalComponent from './components/CreateClientBusinessModal/CreateClientBusinessModal';
+import AppViewFooterComponent from './components/Footer/Footer';
 import AppViewLoadingProgressBarComponent from './components/LoadingProgressBar/LoadingProgressBar';
-import { useMemo } from 'react';
-import AppViewChatWebsocketComponent from './components/ChatWebsocket/ChatWebsocket';
+import AppViewSidebarComponent from './components/Sidebar/Sidebar';
+import AppViewTabsContainerComponent from './components/TabsContainer/TabsContainer';
+import AppViewTopbarComponent from './components/Topbar/Topbar';
+import { useAuthentifiedUserQuery } from './utils/functions/getAuthentifiedUser';
 
 const Route = getRouteApi('/app');
 
 export default function AppLayout() {
   const { mobileSidebar, appModal: modalId } = Route.useSearch();
+
+  const { data: authentifiedUser } = useAuthentifiedUserQuery();
 
   const modal = useMemo(() => {
     switch (modalId) {
@@ -27,6 +31,22 @@ export default function AppLayout() {
         if (modalId?.startsWith('business-ged')) return <AppViewBusinessGedModalComponent />;
     }
   }, [modalId]);
+
+  useEffect(() => {
+    Sentry.setUser({
+      id: authentifiedUser.profile.id,
+      firstName: authentifiedUser.profile.firstName,
+      lastName: authentifiedUser.profile.lastName,
+      username: authentifiedUser.userInfo.username,
+      email: authentifiedUser.profile.email ?? undefined,
+    });
+  }, [
+    authentifiedUser.profile.id,
+    authentifiedUser.profile.firstName,
+    authentifiedUser.profile.lastName,
+    authentifiedUser.userInfo.username,
+    authentifiedUser.profile.email,
+  ]);
 
   return (
     <>
