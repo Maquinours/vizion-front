@@ -11,7 +11,7 @@ export default defineConfig({
     TanStackRouterVite(),
     sentryVitePlugin({
       org: 'vizeo',
-      project: 'javascript-react',
+      project: 'vizion-front',
     }),
   ],
   preview: {
