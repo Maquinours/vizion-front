@@ -56,7 +56,7 @@ export default function AppViewDashboardViewTaskEmailModalViewAttachmentsCompone
           })}
         >
           {image}
-          <h6>{attachment.name}</h6>
+          <p>{attachment.name}</p>
         </button>
       );
     else
@@ -68,7 +68,7 @@ export default function AppViewDashboardViewTaskEmailModalViewAttachmentsCompone
           className={styles.file}
         >
           {image}
-          <h6>{attachment.name}</h6>
+          <p>{attachment.name}</p>
         </a>
       );
   }
