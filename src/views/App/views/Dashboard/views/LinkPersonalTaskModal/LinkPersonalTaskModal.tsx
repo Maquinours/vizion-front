@@ -58,7 +58,7 @@ export default function AppViewDashboardViewLinkPersonalTaskModalView() {
   const { data: task } = useSuspenseQuery(queries.tasks.detail(taskId));
 
   const { data: enterprisesList, isLoading: isLoadingEnterprises } = useQuery(enterprises.list);
-  const { data: businesses, isLoading: isLoadingBusiness } = useQuery(allBusinesses.list);
+  const { data: businesses, isLoading: isLoadingBusinesses } = useQuery(allBusinesses.list);
   const { data: products, isLoading: isLoadingProducts } = useQuery(queries.product.list);
 
   const { register, control, getValues, watch, handleSubmit } = useForm({
@@ -132,7 +132,7 @@ export default function AppViewDashboardViewLinkPersonalTaskModalView() {
               options={businesses}
               getOptionLabel={(opt) => `${opt.number}${!!opt.title ? ` / ${opt.title}` : ''}`}
               getOptionValue={(opt) => opt.id}
-              isLoading={isLoadingBusiness}
+              isLoading={isLoadingBusinesses}
               value={value}
               onChange={onChange}
               onBlur={onBlur}
@@ -176,7 +176,7 @@ export default function AppViewDashboardViewLinkPersonalTaskModalView() {
         />
       </>
     );
-  }, [watch('type')]);
+  }, [watch('type'), businesses, products, isLoadingBusinesses, enterprisesList, isLoadingProducts, isLoadingEnterprises]);
 
   return (
     <ReactModal isOpen={true} onRequestClose={onClose} className={styles.modal_link} overlayClassName="Overlay">
