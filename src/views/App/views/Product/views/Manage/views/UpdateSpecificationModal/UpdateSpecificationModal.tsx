@@ -7,7 +7,7 @@ import { PulseLoader } from 'react-spinners';
 import { toast } from 'react-toastify';
 import * as yup from 'yup';
 import { updateProductSpecification } from '../../../../../../../../utils/api/productSpecification';
-import { queries } from '../../../../../../../../utils/constants/queryKeys';
+import { productSpecificationsQueryKeys } from '../../../../../../../../utils/constants/queryKeys/productSpecifications';
 import styles from './UpdateSpecificationModal.module.scss';
 
 const routeApi = getRouteApi('/app/products/$productId/manage/update-specification/$specificationId');
@@ -40,7 +40,7 @@ export default function AppViewProductViewManageViewUpdateSpecificationModalView
 
   const { productId, specificationId } = routeApi.useParams();
 
-  const { data: productSpec } = useSuspenseQuery(queries.product.detail(productId)._ctx.specifications._ctx.detail(specificationId));
+  const { data: productSpec } = useSuspenseQuery(productSpecificationsQueryKeys.detail._ctx.byId({ productId, specificationId }));
 
   const {
     register,
@@ -63,7 +63,7 @@ export default function AppViewProductViewManageViewUpdateSpecificationModalView
     mutationFn: ({ value, minValue, maxValue }: yup.InferType<typeof yupSchema>) =>
       updateProductSpecification(productId, specificationId, value ?? null, minValue ?? null, maxValue ?? null),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: queries.product._def });
+      queryClient.invalidateQueries({ queryKey: productSpecificationsQueryKeys._def });
       toast.success('Spécification modifiée avec succès');
       onClose();
     },

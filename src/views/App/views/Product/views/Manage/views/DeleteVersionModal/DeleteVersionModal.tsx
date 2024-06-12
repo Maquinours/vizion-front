@@ -24,7 +24,7 @@ export default function AppViewProductViewManageViewDeleteVersionModalView() {
   const { mutate, isPending } = useMutation({
     mutationFn: () => deleteProductVersion(versionId),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: queries.product._def });
+      queryClient.invalidateQueries({ queryKey: queries['product-versions']._def });
       toast.success('La version a été supprimée avec succès.');
       onClose();
     },

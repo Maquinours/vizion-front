@@ -7,7 +7,7 @@ import { PulseLoader } from 'react-spinners';
 import { toast } from 'react-toastify';
 import * as yup from 'yup';
 import CustomSelect from '../../../../../../../../components/CustomSelect/CustomSelect';
-import { updateProductVersionShelfStockQuantity } from '../../../../../../../../utils/api/productVersionShelfStock';
+import { createProductShelf } from '../../../../../../../../utils/api/productShelf';
 import { queries } from '../../../../../../../../utils/constants/queryKeys';
 import styles from './UpdateStockModal.module.scss';
 
@@ -41,9 +41,29 @@ export default function AppViewProductViewManageViewUpdateStockModalView() {
   };
 
   const { mutate, isPending } = useMutation({
-    mutationFn: ({ quantity }: yup.InferType<typeof yupSchema>) => updateProductVersionShelfStockQuantity(stockId, quantity),
+    mutationFn: ({ quantity }: yup.InferType<typeof yupSchema>) =>
+      // We use this endpoint to update quantity
+      createProductShelf({
+        number: stock.productVersionShelf?.number,
+        updateNumber: stock.productVersionShelf?.number,
+        note: stock.productVersionShelf?.note,
+        productVersionShelfStockDto: {
+          productVersionId: stock.productVersionId,
+          productVersionShelfId: stock.productVersionShelf?.id,
+          productId: stock.productId,
+          providerId: stock.providerId,
+          providerName: stock.providerName,
+          reference: stock.reference,
+          versionReference: stock.versionReference,
+          shortDescription: stock.shortDescription,
+          category: stock.category,
+          publicPrice: stock.publicPrice,
+          currentStock: quantity,
+          productVersionShelfStockEntryDto: {},
+        },
+      }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: queries.product._def });
+      queryClient.invalidateQueries({ queryKey: queries['product-version-shelf-stocks']._def });
       toast.success('Stock modifié avec succès');
       onClose();
     },

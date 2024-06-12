@@ -141,7 +141,7 @@ export default function AppViewFaqViewCreateModalView() {
                           getLabel={(value, index, removeItem) => (
                             <div data-tag key={index}>
                               <div data-tag-item>{value}</div>
-                              <button data-tag-handle onClick={() => removeItem(index)}>
+                              <button type="button" data-tag-handle onClick={() => removeItem(index)}>
                                 ×
                               </button>
                             </div>

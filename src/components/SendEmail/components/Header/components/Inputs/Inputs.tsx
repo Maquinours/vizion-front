@@ -8,7 +8,7 @@ import { SendEmailFormContext } from '../../../../utils/contexts/sendEmail';
 const getEmailLabel = (email: string, index: number, removeEmail: (index: number, isDisabled?: boolean) => void) => (
   <div data-tag key={index}>
     <div data-tag-item>{email}</div>
-    <button data-tag-handle onClick={() => removeEmail(index)}>
+    <button type="button" data-tag-handle onClick={() => removeEmail(index)}>
       ×
     </button>
   </div>

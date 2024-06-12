@@ -120,28 +120,28 @@
     }
 
     tbody {
-      .isNotRead {
-        @keyframes clignoter {
-          0% {
-            background-color: transparent;
+      tr {
+        &.not_read {
+          @keyframes clignoter {
+            0% {
+              background-color: transparent;
+            }
+
+            50% {
+              background-color: #f9dcde;
+            }
+
+            100% {
+              background-color: transparent;
+            }
           }
 
-          50% {
-            background-color: #f9dcde;
-          }
-
-          100% {
-            background-color: transparent;
-          }
+          animation-duration: 2s;
+          animation-name: clignoter;
+          animation-iteration-count: infinite;
+          transition: none;
         }
 
-        animation-duration: 2s;
-        animation-name: clignoter;
-        animation-iteration-count: infinite;
-        transition: none;
-      }
-
-      tr {
         td {
           font:
             normal normal normal 14px/18px 'DIN2014',

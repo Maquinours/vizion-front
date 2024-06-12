@@ -1,4 +1,4 @@
-import { UseFormSetValue, UseFormWatch } from 'react-hook-form';
+import { UseFormGetValues, UseFormSetValue, UseFormWatch } from 'react-hook-form';
 import PdfFileImage from '../../../../../../../../../../assets/images/pdf_file.webp';
 import UnknownFileImage from '../../../../../../../../../../assets/images/unknown_file.webp';
 import { PUBLIC_BASE_URL } from '../../../../../../../../../../utils/constants/api';
@@ -7,23 +7,29 @@ import MailAttachmentResponseDto from '../../../../../../../../../../utils/types
 import MailResponseDto from '../../../../../../../../../../utils/types/MailResponseDto';
 import { TaskEmailCopyYupSchema } from '../../Attachments';
 import styles from './Attachment.module.scss';
+import classNames from 'classnames';
+import { useMemo } from 'react';
 
 type AppViewDashboardViewTaskEmailModalViewAttachmentsComponentAttachmentComponentProps = Readonly<{
   email: MailResponseDto;
   attachment: MailAttachmentResponseDto;
+  getValues: UseFormGetValues<TaskEmailCopyYupSchema>;
   watch: UseFormWatch<TaskEmailCopyYupSchema>;
   setValue: UseFormSetValue<TaskEmailCopyYupSchema>;
 }>;
 export default function AppViewDashboardViewTaskEmailModalViewAttachmentsComponentAttachmentComponent({
   email,
   attachment,
+  getValues,
   watch,
   setValue,
 }: AppViewDashboardViewTaskEmailModalViewAttachmentsComponentAttachmentComponentProps) {
-  const isSelected = watch('files').find((file) => file.id === attachment.id);
+  const copy = useMemo(() => getValues('copy'), [watch('copy')]);
+  const isSelected = useMemo(() => getValues('files').find((file) => file.id === attachment.id), [watch('files')]);
 
   const selectFile = () => {
-    setValue('files', isSelected ? watch('files').filter((file) => file.id !== attachment.id) : [...watch('files'), attachment]);
+    const files = getValues('files');
+    setValue('files', isSelected ? files.filter((file) => file.id !== attachment.id) : [...files, attachment]);
   };
 
   if (attachment.name) {
@@ -41,16 +47,29 @@ export default function AppViewDashboardViewTaskEmailModalViewAttachmentsCompone
       return <img src={UnknownFileImage} width={75} height={75} />;
     })();
 
-    return watch('copy') ? (
-      <button onClick={selectFile} className={styles.file}>
-        {image}
-        <h6>{attachment.name}</h6>
-      </button>
-    ) : (
-      <a href={`${PUBLIC_BASE_URL}mail/v1/download-file/${attachment.name}?ref=${email.id}`} target="_blank" rel="noopener noreferrer" className={styles.file}>
-        {image}
-        <h6>{attachment.name}</h6>
-      </a>
-    );
+    if (!!copy)
+      return (
+        <button
+          onClick={selectFile}
+          className={classNames(styles.file, {
+            [styles.is_selected]: isSelected,
+          })}
+        >
+          {image}
+          <p>{attachment.name}</p>
+        </button>
+      );
+    else
+      return (
+        <a
+          href={`${PUBLIC_BASE_URL}mail/v1/download-file/${attachment.name}?ref=${email.id}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={styles.file}
+        >
+          {image}
+          <p>{attachment.name}</p>
+        </a>
+      );
   }
 }

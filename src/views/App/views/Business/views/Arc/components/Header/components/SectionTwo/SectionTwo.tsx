@@ -1,4 +1,4 @@
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import styles from './SectionTwo.module.scss';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -9,6 +9,7 @@ import BusinessArcResponseDto from '../../../../../../../../../../utils/types/Bu
 import { updateBusinessArc } from '../../../../../../../../../../utils/api/businessArcs';
 import { toast } from 'react-toastify';
 import { useEffect } from 'react';
+import CurrencyFormat from '../../../../../../../../../../components/CurrencyFormat/CurrencyFormat';
 
 const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/arc');
 
@@ -45,6 +46,7 @@ export default function AppViewBusinessViewArcViewHeaderComponentSectionTwoCompo
 
   const {
     register,
+    control,
     formState: { errors },
     setValue,
     handleSubmit,
@@ -84,8 +86,8 @@ export default function AppViewBusinessViewArcViewHeaderComponentSectionTwoCompo
   });
 
   useEffect(() => {
-    setValue('totalAmountHT', arc.totalAmountHT ?? 0);
-  }, [arc.totalAmountHT]);
+    setValue('totalAmountHT', (arc.totalAmountHT ?? 0) + arc.shippingServicePrice);
+  }, [arc.totalAmountHT, arc.shippingServicePrice]);
 
   return (
     <div className={styles._two}>
@@ -106,9 +108,22 @@ export default function AppViewBusinessViewArcViewHeaderComponentSectionTwoCompo
             <p className={styles.__errors}>{errors.orderNumber?.message}</p>
           </div>
           <div className={styles.form_group}>
-            <label htmlFor="clientTotalAmountHT">Montant HT (+ fdp)</label>
+            <label htmlFor="clientTotalAmountHT">Montant HT (+ fdp) pour contrôle</label>
             <div className={styles.form_input_save}>
-              <input id="clientTotalAmountHT" readOnly={!!business.archived} placeholder="Montant HT (+ frais de port)" {...register('clientTotalAmountHT')} />
+              <Controller
+                control={control}
+                name="clientTotalAmountHT"
+                render={({ field: { value, onChange } }) => (
+                  <CurrencyFormat
+                    id="clientTotalAmountHT"
+                    readOnly={!!business.archived}
+                    placeholder="Montant HT (+ frais de port)"
+                    displayType="input"
+                    value={value}
+                    onValueChange={(v) => onChange(v.value)}
+                  />
+                )}
+              />
             </div>
             <p className={styles.__errors}>{errors.clientTotalAmountHT?.message}</p>
           </div>

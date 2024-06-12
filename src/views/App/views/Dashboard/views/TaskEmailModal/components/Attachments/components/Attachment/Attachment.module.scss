@@ -5,4 +5,12 @@
   &.is_selected {
     border: 2px solid var(--secondary-color);
   }
+
+  img {
+    display: initial;
+  }
+
+  p {
+    font: normal normal bold 12px/14px 'DIN2014';
+  }
 }

@@ -26,7 +26,7 @@ export default function AppViewProductViewManageViewDeleteStockModalView() {
   const { mutate, isPending } = useMutation({
     mutationFn: () => deleteProductVersionShelfStock(stock.id),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: queries.product._def });
+      queryClient.invalidateQueries({ queryKey: queries['product-version-shelf-stocks']._def });
       toast.success('Stock supprimé avec succès');
       onClose();
     },

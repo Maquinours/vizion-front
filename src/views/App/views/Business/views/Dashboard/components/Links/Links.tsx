@@ -9,7 +9,7 @@ import AllBusinessResponseDto from '../../../../../../../../utils/types/AllBusin
 import { Row, createColumnHelper } from '@tanstack/react-table';
 import { FaTrash } from 'react-icons/fa';
 import TableComponent from '../../../../../../../../components/Table/Table';
-import { useCallback } from 'react';
+import React, { useCallback } from 'react';
 
 const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/dashboard');
 
@@ -17,9 +17,10 @@ const columnHelper = createColumnHelper<AllBusinessResponseDto>();
 const columns = [
   columnHelper.display({
     header: "Nom de l'affaire",
-    cell: ({ row: { original } }) => (
-      <div className={styles.row}>
-        {original.category === CategoryBusiness.AFFAIRE ? (
+    cell: ({ row: { original } }) => {
+      let children: JSX.Element | undefined = undefined;
+      if (original.category === CategoryBusiness.AFFAIRE)
+        children = (
           <Link
             to="/app/businesses-rma/business/$businessId"
             params={{ businessId: original.businessId }}
@@ -30,22 +31,23 @@ const columns = [
           >
             {original.title ?? ''} {original.number}
           </Link>
-        ) : (
-          original.category === CategoryBusiness.RMA && (
-            <Link
-              to="/app/businesses-rma/rma/$rmaId"
-              params={{ rmaId: original.businessId }}
-              onClick={(e) => {
-                e.stopPropagation();
-                e.nativeEvent.stopImmediatePropagation();
-              }}
-            >
-              {original.number}
-            </Link>
-          )
-        )}
-      </div>
-    ),
+        );
+      else if (original.category === CategoryBusiness.RMA)
+        children = (
+          <Link
+            to="/app/businesses-rma/rma/$rmaId"
+            params={{ rmaId: original.businessId }}
+            onClick={(e) => {
+              e.stopPropagation();
+              e.nativeEvent.stopImmediatePropagation();
+            }}
+          >
+            {original.number}
+          </Link>
+        );
+
+      return <div className={styles.row}>{children}</div>;
+    },
   }),
   columnHelper.display({
     id: 'actions',
@@ -59,6 +61,7 @@ const columns = [
         resetScroll={false}
         onClick={(e) => {
           e.stopPropagation();
+          e.nativeEvent.stopImmediatePropagation();
         }}
       >
         <FaTrash width={16} height={16} color={'#16204E'} />
@@ -80,9 +83,13 @@ export default function AppViewBusinessViewDashboardViewLinksComponent() {
 
   const onRowClick = useCallback(
     (e: React.MouseEvent, row: Row<AllBusinessResponseDto>) => {
-      if (row.original.category !== CategoryBusiness.AFFAIRE) return; // TODO: add link to RMA
-      if (e.metaKey || e.ctrlKey) window.open(`${window.location.origin}/app/businesses-rma/business/${row.original.businessId}`, '_blank');
-      else navigate({ to: '/app/businesses-rma/business/$businessId', params: { businessId: row.original.businessId } });
+      if (row.original.category === CategoryBusiness.AFFAIRE) {
+        if (e.metaKey || e.ctrlKey) window.open(`${window.location.origin}/app/businesses-rma/business/${row.original.businessId}`, '_blank');
+        else navigate({ to: '/app/businesses-rma/business/$businessId', params: { businessId: row.original.businessId } });
+      } else if (row.original.category === CategoryBusiness.RMA) {
+        if (e.metaKey || e.ctrlKey) window.open(`${window.location.origin}/app/businesses-rma/rma/${row.original.businessId}`, '_blank');
+        else navigate({ to: '/app/businesses-rma/rma/$rmaId', params: { rmaId: row.original.businessId } });
+      }
     },
     [navigate],
   );
