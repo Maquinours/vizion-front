@@ -72,11 +72,31 @@ const columns = [
       const children = original.number;
       if (original.category === CategoryBusiness.AFFAIRE)
         return (
-          <Link to="/app/businesses-rma/business/$businessId" params={{ businessId: original.businessId }}>
+          <Link
+            to="/app/businesses-rma/business/$businessId"
+            params={{ businessId: original.businessId }}
+            onClick={(e) => {
+              e.stopPropagation();
+              e.nativeEvent.stopImmediatePropagation();
+            }}
+          >
             {children}
           </Link>
         );
-      else return children; // TODO: add link to RMA
+      else if (original.category === CategoryBusiness.RMA)
+        return (
+          <Link
+            to="/app/businesses-rma/rma/$rmaId"
+            params={{ rmaId: original.businessId }}
+            onClick={(e) => {
+              e.stopPropagation();
+              e.nativeEvent.stopImmediatePropagation();
+            }}
+          >
+            {children}
+          </Link>
+        );
+      else return children;
     },
   }),
   columnHelper.display({
