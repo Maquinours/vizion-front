@@ -46,7 +46,7 @@ export default function AppViewEnterpriseViewImportContactsModalViewStepOneCompo
             email: row.Mail,
             password: null,
             phoneNumber: row.Telephone,
-            standardPhoneNumber: null,
+            standardPhoneNumber: row.Portable,
             landlinePhoneNumber: row.AGENCE,
             job: row.Fonction,
             profileClient: ProfileClient[row.Profil as keyof typeof ProfileClient],
