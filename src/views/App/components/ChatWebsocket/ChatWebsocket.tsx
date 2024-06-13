@@ -41,7 +41,7 @@ export default function AppViewChatWebsocketComponent() {
   const { data: chatLink } = useQuery({
     ...queries['external-link'].list._ctx.byArchiveState(false),
     select: (data) => data.find((d) => d.title === 'Chat Vizeo'),
-    enabled: authentifiedUser.userInfo.roles.includes('ROLE_VIZEO'),
+    enabled: authentifiedUser.userInfo.roles.includes('ROLE_MEMBRE_VIZEO'),
   });
 
   const { sendMessage, readyState } = useWebSocket(
@@ -94,7 +94,7 @@ export default function AppViewChatWebsocketComponent() {
         }
       },
     },
-    authentifiedUser.userInfo.roles.includes('ROLE_VIZEO'),
+    authentifiedUser.userInfo.roles.includes('ROLE_MEMBRE_VIZEO'),
   );
 
   useEffect(() => {

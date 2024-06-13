@@ -10,10 +10,11 @@ import { enterprises } from '../../../../../../utils/constants/queryKeys/enterpr
 import CategoryClient from '../../../../../../utils/enums/CategoryClient';
 import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthentifiedUser';
 import styles from './SearchSection.module.scss';
+import { UserRole } from '../../../../../../utils/types/ProfileInfoResponseDto';
 
 const Route = getRouteApi('/app/enterprises');
 
-const categoryOptions = [
+const categoryOptions: Array<{ label: string; value: CategoryClient | ''; allowedRoles?: Array<UserRole> }> = [
   {
     label: 'Toutes les catégories',
     value: '',

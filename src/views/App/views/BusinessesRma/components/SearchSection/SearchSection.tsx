@@ -18,6 +18,7 @@ import { RiArrowDropDownLine, RiArrowDropUpLine } from 'react-icons/ri';
 import CurrencyFormat from '../../../../../../components/CurrencyFormat/CurrencyFormat';
 import { ClickAwayListener } from '@mui/material';
 import { E164Number } from 'libphonenumber-js';
+import { UserRole } from '../../../../../../utils/types/ProfileInfoResponseDto';
 
 const routeApi = getRouteApi('/app/businesses-rma');
 
@@ -41,7 +42,7 @@ const yupSchema = yup.object().shape({
   fuzzy: yup.boolean().required(),
 });
 
-const STATE_OPTIONS = [
+const STATE_OPTIONS: Array<{ label: string; value: AllBusinessState | ''; allowedRoles?: Array<UserRole> }> = [
   {
     label: 'Tous les états',
     value: '',
@@ -73,7 +74,7 @@ const STATE_OPTIONS = [
   {
     label: 'Archivée',
     value: AllBusinessState.ARCHIVE,
-    allowedRoles: ['ROLE_VIZEO', 'ROLE_DIRECTION_VIZEO', 'ROLE_STAGIAIRE_VIZEO', 'ROLE_REPRESENTANT_VIZEO'],
+    allowedRoles: ['ROLE_MEMBRE_VIZEO', 'ROLE_DIRECTION_VIZEO', 'ROLE_STAGIAIRE_VIZEO', 'ROLE_REPRESENTANT'],
   },
   {
     label: 'RMA Prise en charge',

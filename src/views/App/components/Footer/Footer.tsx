@@ -5,7 +5,7 @@ import React, { useMemo } from 'react';
 import { useAuthentifiedUserQuery } from '../../utils/functions/getAuthentifiedUser';
 import { MdGroup, MdGroups, MdSell, MdQuestionAnswer, MdBusinessCenter, MdBuild } from 'react-icons/md';
 import { IconType } from 'react-icons/lib';
-import ProfileInfoResponseDto from '../../../../utils/types/ProfileInfoResponseDto';
+import ProfileInfoResponseDto, { UserRole } from '../../../../utils/types/ProfileInfoResponseDto';
 
 const Route = getRouteApi('/app');
 
@@ -13,7 +13,7 @@ type MenuItem = {
   icon: IconType;
   label: string;
   route: LinkProps | ((authentifiedUser: ProfileInfoResponseDto) => LinkProps);
-  allowedRoles?: string[];
+  allowedRoles?: Array<UserRole>;
 };
 
 const MENUS: Array<MenuItem> = [
