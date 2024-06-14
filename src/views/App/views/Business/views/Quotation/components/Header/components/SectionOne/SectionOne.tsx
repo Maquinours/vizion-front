@@ -21,8 +21,10 @@ export default function AppViewBusinessViewQuotationViewHeaderComponentSectionOn
   const { data: quotation } = useSuspenseQuery(queries['business-quotations'].detail._ctx.byBusinessId(businessId));
 
   const { mutate: createArc, isPending: isCreateArcPending } = useMutation({
-    mutationFn: () =>
-      createBusinessArc({
+    mutationFn: async () => {
+      const stocks = await queryClient.ensureQueryData(queries['product-stocks'].list._ctx.all);
+
+      return createBusinessArc({
         number: quotation.number,
         documentName: `ARC`,
         shippingServicePrice: quotation.shippingServicePrice,
@@ -46,6 +48,7 @@ export default function AppViewBusinessViewQuotationViewHeaderComponentSectionOn
               taxDEEE: detail.taxDEEE,
               virtualQty: detail.virtualQty,
               bom: detail.bom,
+              stock: detail.virtualQty || detail.bom || (stocks?.find((stock) => stock.reference === detail.productReference)?.currentStock ?? 0) > 0,
             })) ?? []),
           ],
           [],
@@ -53,7 +56,8 @@ export default function AppViewBusinessViewQuotationViewHeaderComponentSectionOn
         totalAmount: quotation.totalAmount,
         totalAmountHT: quotation.totalAmountHT,
         bom: quotation.bom,
-      }),
+      });
+    },
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: queries.businesses.detail._ctx.byId(business.id).queryKey });
       queryClient.setQueryData(queries['business-ARCs'].detail._ctx.byBusinessId(business.id).queryKey, data);

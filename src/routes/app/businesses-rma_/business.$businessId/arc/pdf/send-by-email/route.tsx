@@ -9,7 +9,6 @@ export const Route = createFileRoute('/app/businesses-rma/business/$businessId/a
   loaderDeps: ({ search: { hideReferencesPrices } }) => ({ hideReferencesPrices }),
   loader: async ({ context: { queryClient }, params: { businessId }, deps: { hideReferencesPrices } }) => {
     const businessPromise = queryClient.ensureQueryData(queries.businesses.detail._ctx.byId(businessId));
-    const stocksPromise = queryClient.ensureQueryData(queries['product-stocks'].list._ctx.all);
     const arcPromise = queryClient.ensureQueryData(queries['business-ARCs'].detail._ctx.byBusinessId(businessId));
 
     const business = await businessPromise;
@@ -19,9 +18,9 @@ export const Route = createFileRoute('/app/businesses-rma/business/$businessId/a
     const representative = await (department?.repEnterprise
       ? queryClient.ensureQueryData(queries.enterprise.detail(department.repEnterprise!.id))
       : Promise.resolve(undefined));
-    const [stocks, arc] = await Promise.all([stocksPromise, arcPromise]);
+    const arc = await arcPromise;
     const blob = await pdf(
-      <AppViewBusinessViewArcViewPdfModalViewPdfComponent business={business} arc={arc} stocks={stocks} hideReferencesPrices={hideReferencesPrices} />,
+      <AppViewBusinessViewArcViewPdfModalViewPdfComponent business={business} arc={arc} hideReferencesPrices={hideReferencesPrices} />,
     ).toBlob();
     const file = new File([blob], formatFileName(`ARC-${arc.number}.pdf`), {
       type: blob.type,

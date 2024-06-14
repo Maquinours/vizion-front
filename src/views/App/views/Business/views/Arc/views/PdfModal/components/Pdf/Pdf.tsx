@@ -1,11 +1,10 @@
 import { Document, Font, Image, Page, StyleSheet, Text, View } from '@react-pdf/renderer';
-import FontDinRegular from '../../../../../../../../../../assets/fonts/DIN2014/DIN2014-Regular.ttf';
 import FontDinBold from '../../../../../../../../../../assets/fonts/DIN2014/DIN2014-Bold.ttf';
+import FontDinRegular from '../../../../../../../../../../assets/fonts/DIN2014/DIN2014-Regular.ttf';
 import Logo from '../../../../../../../../../../assets/images/logo-vizeo-fond-blanc-baseline.png';
 import { formatDateWithSlash } from '../../../../../../../../../../utils/functions/dates';
-import BusinessResponseDto from '../../../../../../../../../../utils/types/BusinessResponseDto';
 import BusinessArcResponseDto from '../../../../../../../../../../utils/types/BusinessArcResponseDto';
-import ProductStockResponseDto from '../../../../../../../../../../utils/types/ProductStockResponseDto';
+import BusinessResponseDto from '../../../../../../../../../../utils/types/BusinessResponseDto';
 
 Font.register({
   family: 'Din',
@@ -388,13 +387,11 @@ const pageStyles = StyleSheet.create({
 type AppViewBusinessViewArcViewPdfModalViewPdfComponent = Readonly<{
   business: BusinessResponseDto;
   arc: BusinessArcResponseDto;
-  stocks: Array<ProductStockResponseDto> | undefined;
   hideReferencesPrices: boolean;
 }>;
 export default function AppViewBusinessViewArcViewPdfModalViewPdfComponent({
   business,
   arc,
-  stocks,
   hideReferencesPrices,
 }: AppViewBusinessViewArcViewPdfModalViewPdfComponent) {
   return (
@@ -481,25 +478,22 @@ export default function AppViewBusinessViewArcViewPdfModalViewPdfComponent({
             </View>
 
             <View style={pageStyles.tableBodyContainer}>
-              {arc.arcDetailsList?.map((item) => {
-                const stock = stocks?.find((stock) => stock.reference === item.productReference);
-                return (
-                  <View key={item.id} style={pageStyles.tableBody} wrap={false}>
-                    <Text style={pageStyles.tableBodyQuantity}>{item.quantity}</Text>
-                    <Text style={pageStyles.tableBodyReference}>{hideReferencesPrices ? '' : `${item.productReference}`}</Text>
-                    <Text style={pageStyles.tableBodyDescription}>{item.productDesignation}</Text>
-                    <Text style={pageStyles.tableBodyPrice}>{hideReferencesPrices ? '' : `${item.unitPrice} €`}</Text>
-                    <Text style={pageStyles.tableBodyTotal}>{hideReferencesPrices ? '' : `${item.totalPrice} €`}</Text>
-                    <Text style={pageStyles.tableBodyDispo}>
-                      {((stock?.currentStock ?? 0) > 0 && stock!.currentStock! > item.quantity) || item.stock || item.bom || item.virtualQty ? (
-                        <Text style={pageStyles.tableBodyDispoOk}>Oui</Text>
-                      ) : (
-                        <Text style={pageStyles.tableBodyDispoNotOk}>{item.availableDate ? formatDateWithSlash(new Date(item.availableDate)) : 'Non'}</Text>
-                      )}
-                    </Text>
-                  </View>
-                );
-              })}
+              {arc.arcDetailsList?.map((item) => (
+                <View key={item.id} style={pageStyles.tableBody} wrap={false}>
+                  <Text style={pageStyles.tableBodyQuantity}>{item.quantity}</Text>
+                  <Text style={pageStyles.tableBodyReference}>{hideReferencesPrices ? '' : `${item.productReference}`}</Text>
+                  <Text style={pageStyles.tableBodyDescription}>{item.productDesignation}</Text>
+                  <Text style={pageStyles.tableBodyPrice}>{hideReferencesPrices ? '' : `${item.unitPrice} €`}</Text>
+                  <Text style={pageStyles.tableBodyTotal}>{hideReferencesPrices ? '' : `${item.totalPrice} €`}</Text>
+                  <Text style={pageStyles.tableBodyDispo}>
+                    {item.stock ? (
+                      <Text style={pageStyles.tableBodyDispoOk}>Oui</Text>
+                    ) : (
+                      <Text style={pageStyles.tableBodyDispoNotOk}>{item.availableDate ? formatDateWithSlash(new Date(item.availableDate)) : 'Non'}</Text>
+                    )}
+                  </Text>
+                </View>
+              ))}
             </View>
           </View>
 

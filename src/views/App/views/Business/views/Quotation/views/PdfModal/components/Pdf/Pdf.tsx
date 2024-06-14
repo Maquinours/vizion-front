@@ -5,7 +5,7 @@ import Logo from '../../../../../../../../../../assets/images/logo-vizeo-fond-bl
 import BusinessResponseDto from '../../../../../../../../../../utils/types/BusinessResponseDto';
 import BusinessQuotationResponseDto from '../../../../../../../../../../utils/types/BusinessQuotationResponseDto';
 import { formatDateWithSlash } from '../../../../../../../../../../utils/functions/dates';
-import React from 'react';
+import React, { useMemo } from 'react';
 
 Font.register({
   family: 'Din',
@@ -432,6 +432,11 @@ export default function AppViewBusinessViewQuotationViewPdfModalViewPdfComponent
   hidePrices,
   hideTotal,
 }: AppViewBusinessViewQuotationViewPdfModalViewPdfComponentProps) {
+  const subQuotations = useMemo(
+    () => quotation.subQuotationList?.sort((a, b) => parseInt(a.orderNum ?? '', 10) - parseInt(b.orderNum ?? '', 10)),
+    [quotation.subQuotationList],
+  );
+
   return (
     <Document title={quotation.number} author="VIZEO" creator="VIZEO" producer="VIZEO">
       <Page size="A4" style={pageStyles.page}>
@@ -516,7 +521,7 @@ export default function AppViewBusinessViewQuotationViewPdfModalViewPdfComponent
             </View>
 
             <View style={pageStyles.tableBodyContainer}>
-              {quotation.subQuotationList!.map((subQuotation) => (
+              {subQuotations!.map((subQuotation) => (
                 <React.Fragment key={subQuotation.id}>
                   {subQuotation.name !== 'Default' && (
                     <View wrap={false} style={pageStyles.subQuoteNameContainer}>

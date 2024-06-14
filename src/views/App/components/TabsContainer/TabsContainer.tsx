@@ -11,6 +11,7 @@ import { useAuthentifiedUserQuery } from '../../utils/functions/getAuthentifiedU
 import styles from './TabsContainer.module.scss';
 import AppViewTabsContainerComponentTabComponent from './components/Tab/Tab';
 import { TabsContext } from './utils/contexts/context';
+import { UserRole } from '../../../../utils/types/ProfileInfoResponseDto';
 
 export type Tab = {
   id: string;
@@ -25,10 +26,10 @@ type InitialTab = {
   name: string;
   route?: ToOptions;
   getRoute?: (queryClient: QueryClient) => Promise<ToOptions>;
-  allowedRoles?: Array<string>;
+  allowedRoles?: Array<UserRole>;
 };
 
-const getExternalLinkInitialTab = (name: string, allowedRoles?: Array<string>): InitialTab => {
+const getExternalLinkInitialTab = (name: string, allowedRoles?: Array<UserRole>): InitialTab => {
   return {
     name,
     getRoute: async (queryClient: QueryClient): Promise<ToOptions> => {
@@ -75,7 +76,7 @@ const INITIAL_TABS: Array<InitialTab> = [
     route: {
       to: '/app/businesses-rma',
     },
-    allowedRoles: ['ROLE_CLIENT', 'ROLE_DISTRIBUTEUR_VIZEO', 'ROLE_REPRESENTANT_VIZEO'],
+    allowedRoles: ['ROLE_CLIENT', 'ROLE_DISTRIBUTEUR', 'ROLE_REPRESENTANT'],
   },
 ];
 

@@ -104,7 +104,7 @@ export default function ImportGedFilesModalComponent({ directoryRelativePath, id
               </div>
 
               <div className={styles.form_buttons}>
-                <button className="btn btn-primary-light" onClick={() => setFiles([])}>
+                <button className="btn btn-primary-light" onClick={() => onClose()}>
                   Annuler
                 </button>
                 <button disabled={files.length === 0} className="btn btn-secondary" onClick={() => mutate()}>

@@ -42,11 +42,11 @@ export default function AppViewEnterpriseViewImportContactsModalViewStepOneCompo
           data.map((row) => ({
             lastName: row.Nom ?? '',
             firstName: row.Prenom,
-            civility: row.Civilité === 'M.' ? 'Monsieur' : row.Civilité === 'F' ? 'Madame' : 'Service',
+            civility: row.Civilité === 'M' ? 'Monsieur' : row.Civilité === 'F' ? 'Madame' : 'Service',
             email: row.Mail,
             password: null,
             phoneNumber: row.Telephone,
-            standardPhoneNumber: null,
+            standardPhoneNumber: row.Portable,
             landlinePhoneNumber: row.AGENCE,
             job: row.Fonction,
             profileClient: ProfileClient[row.Profil as keyof typeof ProfileClient],

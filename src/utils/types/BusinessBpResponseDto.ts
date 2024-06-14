@@ -10,7 +10,7 @@ type BusinessBpResponseDto = {
   totalAmount: number | null;
   totalAmountHt: number | null;
   numOrder: string;
-  bpDetailsList: BusinessBpDetailsResponseDto[]; // TODO: change backend to return this data
+  bpDetailsList: BusinessBpDetailsResponseDto[];
   bom: boolean | null;
   totalWeight: number;
   createdDate: Date | null;
