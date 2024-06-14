@@ -58,9 +58,9 @@ export default function AppViewBusinessViewQuotationViewTableComponent() {
     onMutate: ({ id, orderNum }) => {
       queryClient.setQueryData<BusinessQuotationResponseDto>(queries['business-quotations'].detail._ctx.byBusinessId(businessId).queryKey, (old) => {
         if (!old || !old.subQuotationList) return old;
-        const oldIndex = dataIds.indexOf(id);
+        const oldIndex = old.subQuotationList.findIndex((subQuotation) => subQuotation.id === id);
         const newIndex = orderNum;
-        const newSubList = arrayMove(old.subQuotationList!, oldIndex, newIndex);
+        const newSubList = arrayMove(old.subQuotationList!, oldIndex, newIndex).map((subQuotation, index) => ({ ...subQuotation, orderNum: index.toString() }));
         return { ...old, subQuotationList: newSubList };
       });
     },
