@@ -16,7 +16,6 @@ export default function AppViewBusinessViewArcViewPdfModalView() {
 
   const { data: business } = useSuspenseQuery(queries.businesses.detail._ctx.byId(businessId));
   const { data: arc } = useSuspenseQuery(queries['business-ARCs'].detail._ctx.byBusinessId(businessId));
-  const { data: stocks } = useSuspenseQuery(queries['product-stocks'].list._ctx.all);
 
   const onClose = () => {
     navigate({ to: '..', search: (old) => old, replace: true, resetScroll: false });
@@ -31,7 +30,7 @@ export default function AppViewBusinessViewArcViewPdfModalView() {
           </div>
           <div className={styles.modal_pdfviewer}>
             <PDFViewer>
-              <AppViewBusinessViewArcViewPdfModalViewPdfComponent business={business} arc={arc} stocks={stocks} hideReferencesPrices={hideReferencesPrices} />
+              <AppViewBusinessViewArcViewPdfModalViewPdfComponent business={business} arc={arc} hideReferencesPrices={hideReferencesPrices} />
             </PDFViewer>
           </div>
           <div className={styles.modal_footer}>
@@ -39,9 +38,7 @@ export default function AppViewBusinessViewArcViewPdfModalView() {
               Modifier
             </button>
             <PDFDownloadLink
-              document={
-                <AppViewBusinessViewArcViewPdfModalViewPdfComponent business={business} arc={arc} stocks={stocks} hideReferencesPrices={hideReferencesPrices} />
-              }
+              document={<AppViewBusinessViewArcViewPdfModalViewPdfComponent business={business} arc={arc} hideReferencesPrices={hideReferencesPrices} />}
               fileName={`ARC-` + arc.number + '.pdf'}
             >
               {({ loading }) => <button className="btn btn-secondary">{loading ? 'Chargement...' : 'Télécharger'}</button>}
