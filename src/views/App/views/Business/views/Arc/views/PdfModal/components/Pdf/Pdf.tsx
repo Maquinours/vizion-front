@@ -351,6 +351,12 @@ const pageStyles = StyleSheet.create({
     fontSize: 13,
     fontWeight: 'bold',
   },
+  delay: {
+    marginTop: 40,
+    fontSize: 10,
+    color: '#16204E',
+    textAlign: 'left',
+  },
   pageTextOne: {
     fontSize: 8,
     position: 'absolute',
@@ -520,6 +526,7 @@ export default function AppViewBusinessViewArcViewPdfModalViewPdfComponent({
             </View>
           </View>
         </View>
+        <Text style={pageStyles.delay}>Si dispo : préparation et expédition pour 24/48h</Text>
         <Text fixed style={pageStyles.pageTextOne}>
           La T.V.A sur les prestations {"n'est"} déductible que sur le montant effectivement payé. Conformément à {"l'article"} L. 441-6 du code decommerce, des
           pénalités de retard sont due à defaut de réglement le jour suivant la date de paiement qui figure sur la facture. Le taux {"d'intérêt"} de ces
