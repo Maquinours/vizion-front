@@ -138,38 +138,6 @@ export default function AppViewDashboardViewOtherPersonalTasksModalViewTableComp
     [currentUser.profile.id, members, onMailTaskClick],
   );
 
-  const { mutate: readTaskMutate } = useMutation({
-    mutationFn: (task: TaskResponseDto) => markTaskAsRead(task),
-    onMutate: (task) => {
-      const newTask = { ...task, taskOpened: true };
-      queryClient.setQueriesData<Page<TaskResponseDto>>({ queryKey: queries.tasks.page.queryKey }, (old) =>
-        old ? { ...old, content: old?.content.map((t) => (t.id === task.id ? newTask : t)) } : old,
-      );
-      queryClient.setQueriesData<Array<TaskResponseDto>>({ queryKey: queries.tasks.list.queryKey }, (old) => old?.map((t) => (t.id === task.id ? newTask : t)));
-      queryClient.setQueriesData<TaskResponseDto>({ queryKey: queries.tasks.detail._def }, (old) => (old?.id === task.id ? newTask : old));
-    },
-    onError: (error, task) => {
-      queryClient.setQueriesData<Page<TaskResponseDto>>({ queryKey: queries.tasks.page.queryKey }, (old) =>
-        old ? { ...old, content: old?.content.map((t) => (t.id === task.id ? { ...t, taskOpened: false } : t)) } : old,
-      );
-      queryClient.setQueriesData<Array<TaskResponseDto>>({ queryKey: queries.tasks.list.queryKey }, (old) =>
-        old?.map((t) => (t.id === task.id ? { ...t, taskOpened: false } : t)),
-      );
-      queryClient.setQueriesData<TaskResponseDto>({ queryKey: queries.tasks.detail._def }, (old) =>
-        old?.id === task.id ? { ...old, taskOpened: false } : old,
-      );
-
-      console.error(error);
-    },
-  });
-
-  const onRowClick = (e: React.MouseEvent, row: Row<TaskResponseDto>) => {
-    if (!row.original.taskOpened) {
-      e.preventDefault();
-      readTaskMutate(row.original);
-    }
-  };
-
   const onRowContextMenu = (e: React.MouseEvent, row: Row<TaskResponseDto>) => {
     e.preventDefault();
     setTask(row.original);
@@ -192,7 +160,7 @@ export default function AppViewDashboardViewOtherPersonalTasksModalViewTableComp
   return (
     <>
       <div className={styles.table_container}>
-        <TableComponent columns={columns} data={data?.content} isLoading={isLoading} onRowClick={onRowClick} onRowContextMenu={onRowContextMenu} rowId={'id'} />
+        <TableComponent columns={columns} data={data?.content} isLoading={isLoading} onRowContextMenu={onRowContextMenu} rowId={'id'} />
       </div>
       <AppViewDashboardViewPersonalTasksComponentPersonalTasksComponentTableComponentContextMenuComponent
         anchor={contextMenuAnchor}
