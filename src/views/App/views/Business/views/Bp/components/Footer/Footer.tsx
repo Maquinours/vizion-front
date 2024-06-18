@@ -75,7 +75,7 @@ export default function AppViewBusinessViewBpViewFooterComponent() {
       navigate({ to: '../bl', replace: true });
     },
     onError: (error) => {
-      if (!isAxiosError(error) && error.message === 'NO PRODUCT') toast.warning('Aucun produit preparé');
+      if (!isAxiosError(error) && error.message === 'NO PRODUCT') toast.warning('Aucun produit préparé');
       else {
         console.error(error);
         toast.error('Une erreur est survenue lors de la création du bon de livraison');
