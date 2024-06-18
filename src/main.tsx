@@ -23,6 +23,7 @@ Sentry.init({
       maskAllText: false,
       blockAllMedia: false,
     }),
+    Sentry.replayCanvasIntegration(),
     Sentry.tanstackRouterBrowserTracingIntegration(router),
     Sentry.feedbackIntegration({
       // Additional SDK configuration goes in here, for example:
