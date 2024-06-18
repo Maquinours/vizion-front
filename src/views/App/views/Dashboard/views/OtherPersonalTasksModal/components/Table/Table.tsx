@@ -1,5 +1,5 @@
 import { VirtualElement } from '@popperjs/core';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { Link, getRouteApi, useNavigate } from '@tanstack/react-router';
 import { Row, createColumnHelper } from '@tanstack/react-table';
 import classNames from 'classnames';
@@ -16,7 +16,6 @@ import TaskResponseDto from '../../../../../../../../utils/types/TaskResponseDto
 import { useAuthentifiedUserQuery } from '../../../../../../utils/functions/getAuthentifiedUser';
 import styles from './Table.module.scss';
 import AppViewDashboardViewPersonalTasksComponentPersonalTasksComponentTableComponentContextMenuComponent from './components/ContextMenu/ContextMenu';
-import { markTaskAsRead } from './utils/api/tasks';
 
 const Route = getRouteApi('/app/dashboard/other-personal-tasks/$profileId');
 
@@ -30,7 +29,6 @@ export default function AppViewDashboardViewOtherPersonalTasksModalViewTableComp
   data,
   isLoading,
 }: AppViewDashboardViewOtherPersonalTasksModalViewTableComponentProps) {
-  const queryClient = useQueryClient();
   const navigate = useNavigate();
 
   const [task, setTask] = useState<TaskResponseDto>();
@@ -42,10 +40,9 @@ export default function AppViewDashboardViewOtherPersonalTasksModalViewTableComp
 
   const onMailTaskClick = useCallback(
     (original: TaskResponseDto) => {
-      queryClient.setQueryData(queries.tasks.detail(original.id).queryKey, original);
       navigate({ from: Route.id, to: '../../task-email/$taskId', params: { taskId: original.id }, search: (old) => old });
     },
-    [queryClient, navigate],
+    [navigate],
   );
 
   const columns = useMemo(
