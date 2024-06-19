@@ -10,7 +10,10 @@ type AppViewTabsContainerComponentTabComponentProps = Readonly<{
   onCloseTab: (e: React.MouseEvent, tab: Tab) => void;
 }>;
 export default function AppViewTabsContainerComponentTabComponent({ tab, onCloseTab }: AppViewTabsContainerComponentTabComponentProps) {
-  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id: tab.id, disabled: tab.initial });
+  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
+    id: tab.id,
+    disabled: { draggable: tab.initial, droppable: tab.initial },
+  });
 
   const style: React.CSSProperties = {
     transform: CSS.Translate.toString(transform),
