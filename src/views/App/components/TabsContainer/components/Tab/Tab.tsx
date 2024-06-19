@@ -8,8 +8,9 @@ import React from 'react';
 type AppViewTabsContainerComponentTabComponentProps = Readonly<{
   tab: Tab;
   onCloseTab: (e: React.MouseEvent, tab: Tab) => void;
+  onContextMenu: (e: React.MouseEvent, tab: Tab) => void;
 }>;
-export default function AppViewTabsContainerComponentTabComponent({ tab, onCloseTab }: AppViewTabsContainerComponentTabComponentProps) {
+export default function AppViewTabsContainerComponentTabComponent({ tab, onCloseTab, onContextMenu }: AppViewTabsContainerComponentTabComponentProps) {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
     id: tab.id,
     disabled: { draggable: tab.initial, droppable: tab.initial },
@@ -23,7 +24,7 @@ export default function AppViewTabsContainerComponentTabComponent({ tab, onClose
   };
 
   return (
-    <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
+    <div ref={setNodeRef} style={style} {...attributes} {...listeners} onContextMenu={(e) => onContextMenu(e, tab)}>
       <Link
         {...tab.route}
         disabled={isDragging}
