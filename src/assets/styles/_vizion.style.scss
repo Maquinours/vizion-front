@@ -1434,3 +1434,7 @@ button {
   font: normal normal normal 14px/18px $primary-font-family;
   cursor: pointer;
 }
+
+#sentry-feedback {
+  --inset: auto auto 0 0;
+}
