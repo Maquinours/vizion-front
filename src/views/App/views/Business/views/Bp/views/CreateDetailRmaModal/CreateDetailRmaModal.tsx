@@ -42,10 +42,9 @@ export default function AppViewBusinessViewBpViewCreateDetailRmaModalView() {
         business.numBusiness,
         serialNumbers.map((s) => s.numSerie),
       ),
-    onSuccess: () => {
-      // set query data
+    onSuccess: (rma) => {
       toast.success('Le RMA a été généré avec succès');
-      onClose();
+      navigate({ from: routeApi.id, to: '/app/businesses-rma/rma/$rmaId', params: { rmaId: rma.id } });
     },
     onError: (error) => {
       console.error(error);
@@ -78,6 +77,8 @@ export default function AppViewBusinessViewBpViewCreateDetailRmaModalView() {
                     <CustomSelect
                       placeholder="Choisir le(s) numéro(s) de série"
                       options={detail.bpSerialList ?? []}
+                      getOptionLabel={(opt) => opt.numSerie}
+                      getOptionValue={(opt) => opt.id}
                       isMulti
                       value={value}
                       onChange={onChange}

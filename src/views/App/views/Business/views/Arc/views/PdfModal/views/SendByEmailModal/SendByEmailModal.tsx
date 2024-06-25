@@ -1,5 +1,6 @@
 import { getRouteApi, useNavigate } from '@tanstack/react-router';
 import SendEmailModalComponent from '../../../../../../../../../../components/SendEmailModal/SendEmailModal';
+import ProfileResponseDto from '../../../../../../../../../../utils/types/ProfileResponseDto';
 
 const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/arc/pdf/send-by-email');
 
@@ -25,7 +26,11 @@ export default function AppViewBusinessViewArcViewPdfModalViewSendByEmailModalVi
         resetScroll: false,
       }}
       defaultRecipient={recipient ? [recipient] : undefined}
-      defaultCc={representative?.profiles.filter((profile) => profile.civility === 'Service').map((service) => service.email!)}
+      defaultCc={representative?.profiles
+        .filter(
+          (profile): profile is ProfileResponseDto & { email: NonNullable<ProfileResponseDto['email']> } => profile.civility === 'Service' && !!profile.email,
+        )
+        .map((service) => service.email)}
       defaultSubject={`Arc ${arc.number}`}
       defaultAttachments={[file]}
       lifeSheetInfoDto={{

@@ -25,10 +25,10 @@ export default function AppViewProductsViewSerialNumbersModalViewCreateRmaModalV
 
   const { mutate, isPending } = useMutation({
     mutationFn: () => createRmaFromBusiness(CategoryBusiness.AFFAIRE, serialNumber.businessNumber!, [serialNumber.serialNumber!]),
-    onSuccess: () => {
+    onSuccess: (rma) => {
       queryClient.invalidateQueries({ queryKey: queries['product-serial-numbers']._def });
       toast.success('Le RMA a été généré avec succès');
-      onClose();
+      navigate({ to: '/app/businesses-rma/rma/$rmaId', params: { rmaId: rma.id } });
     },
     onError: (error) => {
       console.error(error);
