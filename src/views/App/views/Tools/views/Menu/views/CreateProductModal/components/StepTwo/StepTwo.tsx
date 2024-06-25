@@ -60,6 +60,7 @@ export default function AppViewToolsViewMenuViewCreateProductModalViewStepTwoCom
     register,
     watch,
     getValues,
+    setValue,
     formState: { errors },
     handleSubmit,
   } = useForm({
@@ -70,6 +71,16 @@ export default function AppViewToolsViewMenuViewCreateProductModalViewStepTwoCom
     if (getValues('assistanceHour') === 'More') setShowMoreHours(true);
     else setShowMoreHours(false);
   }, [watch('assistanceHour')]);
+
+  useEffect(() => {
+    const costPrice = getValues('costPrice');
+    const shippingService = getValues('shippingService');
+    const tax = getValues('tax');
+    const price = getValues('price');
+
+    const margin = Math.round((1 - (costPrice + (shippingService ?? 0) + (tax ?? 0)) / price) * 100);
+    setValue('margin', margin);
+  }, [watch('costPrice'), watch('shippingService'), watch('tax'), watch('price')]);
 
   if (show)
     return (
