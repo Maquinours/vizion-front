@@ -1,80 +1,10 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { Handle, HandleProps, NodeProps, Position } from 'reactflow';
 
 const HANDLES: Array<{ type: string; handles: Array<HandleProps & React.HTMLAttributes<HTMLDivElement>> }> = [
   {
-    type: 'enregistreur-16',
+    type: 'HD516PAP',
     handles: [
-      {
-        id: '15',
-        type: 'source',
-        position: Position.Top,
-        style: {
-          width: '6px',
-          height: '6px',
-          left: '116px',
-        },
-      },
-      {
-        id: '13',
-        type: 'source',
-        position: Position.Top,
-        style: {
-          width: '6px',
-          height: '6px',
-          left: '102px',
-        },
-      },
-      {
-        id: '11',
-        type: 'source',
-        position: Position.Top,
-        style: {
-          width: '6px',
-          height: '6px',
-          left: '89px',
-        },
-      },
-      {
-        id: '9',
-        type: 'source',
-        position: Position.Top,
-        style: {
-          width: '6px',
-          height: '6px',
-          left: '77px',
-        },
-      },
-      {
-        id: '7',
-        type: 'source',
-        position: Position.Top,
-        style: {
-          width: '6px',
-          height: '6px',
-          left: '62px',
-        },
-      },
-      {
-        id: '5',
-        type: 'source',
-        position: Position.Top,
-        style: {
-          width: '6px',
-          height: '6px',
-          left: '49px',
-        },
-      },
-      {
-        id: '3',
-        type: 'source',
-        position: Position.Top,
-        style: {
-          width: '6px',
-          height: '6px',
-          left: '36px',
-        },
-      },
       {
         id: '1',
         type: 'source',
@@ -82,18 +12,7 @@ const HANDLES: Array<{ type: string; handles: Array<HandleProps & React.HTMLAttr
         style: {
           width: '6px',
           height: '6px',
-          left: '25px',
-        },
-      },
-      {
-        id: 'tv',
-        type: 'source',
-        position: Position.Top,
-        style: {
-          width: '6px',
-          height: '6px',
-          left: '179px',
-          backgroundColor: 'blue',
+          left: '8%',
         },
       },
       {
@@ -103,7 +22,17 @@ const HANDLES: Array<{ type: string; handles: Array<HandleProps & React.HTMLAttr
         style: {
           width: '6px',
           height: '6px',
-          left: '24px',
+          left: '8%',
+        },
+      },
+      {
+        id: '3',
+        type: 'source',
+        position: Position.Top,
+        style: {
+          width: '6px',
+          height: '6px',
+          left: '12%',
         },
       },
       {
@@ -113,7 +42,17 @@ const HANDLES: Array<{ type: string; handles: Array<HandleProps & React.HTMLAttr
         style: {
           width: '6px',
           height: '6px',
-          left: '38px',
+          left: '12.5%',
+        },
+      },
+      {
+        id: '5',
+        type: 'source',
+        position: Position.Top,
+        style: {
+          width: '6px',
+          height: '6px',
+          left: '16.5%',
         },
       },
       {
@@ -123,7 +62,17 @@ const HANDLES: Array<{ type: string; handles: Array<HandleProps & React.HTMLAttr
         style: {
           width: '6px',
           height: '6px',
-          left: '50px',
+          left: '16.5%',
+        },
+      },
+      {
+        id: '7',
+        type: 'source',
+        position: Position.Top,
+        style: {
+          width: '6px',
+          height: '6px',
+          left: '21%',
         },
       },
       {
@@ -133,7 +82,17 @@ const HANDLES: Array<{ type: string; handles: Array<HandleProps & React.HTMLAttr
         style: {
           width: '6px',
           height: '6px',
-          left: '62px',
+          left: '21%',
+        },
+      },
+      {
+        id: '9',
+        type: 'source',
+        position: Position.Top,
+        style: {
+          width: '6px',
+          height: '6px',
+          left: '25.5%',
         },
       },
       {
@@ -143,7 +102,17 @@ const HANDLES: Array<{ type: string; handles: Array<HandleProps & React.HTMLAttr
         style: {
           width: '6px',
           height: '6px',
-          left: '77px',
+          left: '25.5%',
+        },
+      },
+      {
+        id: '11',
+        type: 'source',
+        position: Position.Top,
+        style: {
+          width: '6px',
+          height: '6px',
+          left: '29.5%',
         },
       },
       {
@@ -153,7 +122,17 @@ const HANDLES: Array<{ type: string; handles: Array<HandleProps & React.HTMLAttr
         style: {
           width: '6px',
           height: '6px',
-          left: '89px',
+          left: '29.5%',
+        },
+      },
+      {
+        id: '13',
+        type: 'source',
+        position: Position.Top,
+        style: {
+          width: '6px',
+          height: '6px',
+          left: '34.5%',
         },
       },
       {
@@ -163,7 +142,17 @@ const HANDLES: Array<{ type: string; handles: Array<HandleProps & React.HTMLAttr
         style: {
           width: '6px',
           height: '6px',
-          left: '102px',
+          left: '34.5%',
+        },
+      },
+      {
+        id: '15',
+        type: 'source',
+        position: Position.Top,
+        style: {
+          width: '6px',
+          height: '6px',
+          left: '38.5%',
         },
       },
       {
@@ -173,7 +162,18 @@ const HANDLES: Array<{ type: string; handles: Array<HandleProps & React.HTMLAttr
         style: {
           width: '6px',
           height: '6px',
-          left: '116px',
+          left: '38.5%',
+        },
+      },
+      {
+        id: 'tv',
+        type: 'source',
+        position: Position.Top,
+        style: {
+          width: '6px',
+          height: '6px',
+          left: '59.5%',
+          backgroundColor: 'blue',
         },
       },
       {
@@ -183,13 +183,13 @@ const HANDLES: Array<{ type: string; handles: Array<HandleProps & React.HTMLAttr
         style: {
           width: '6px',
           height: '6px',
-          left: '134px',
+          left: '45%',
         },
       },
     ],
   },
   {
-    type: 'enregistreur-8',
+    type: 'HD508PAP',
     handles: [
       {
         id: '1',
@@ -295,7 +295,7 @@ const HANDLES: Array<{ type: string; handles: Array<HandleProps & React.HTMLAttr
     ],
   },
   {
-    type: 'enregistreur-4',
+    type: 'HD504PAP',
     handles: [
       {
         id: '1',
@@ -363,23 +363,17 @@ const HANDLES: Array<{ type: string; handles: Array<HandleProps & React.HTMLAttr
   },
 ];
 
-export default function AppViewStudyViewAutomaticViewFlowComponentNvrNodeComponent({ type }: NodeProps) {
-  const image = useMemo(() => {
-    switch (type) {
-      case 'enregistreur-16':
-        return 'https://bd.vizeo.eu/6-Photos/HD516PAP/PLUG_HD516PAP.png';
-      case 'enregistreur-4':
-        return 'https://bd.vizeo.eu/6-Photos/HD504PAP/PLUG_HD504PAP.png';
-      case 'enregistreur-8':
-        return 'https://bd.vizeo.eu/6-Photos/HD508PAP/PLUG_HD508PAP.png';
-    }
-  }, [type]);
-
-  const handles = HANDLES.find((h) => h.type === type)?.handles ?? [];
+export type AppViewStudyViewAutomaticViewFlowComponentNvrNodeComponentData = Readonly<{
+  reference: 'HD516PAP' | 'HD504PAP' | 'HD508PAP';
+}>;
+export default function AppViewStudyViewAutomaticViewFlowComponentNvrNodeComponent({
+  data,
+}: NodeProps<AppViewStudyViewAutomaticViewFlowComponentNvrNodeComponentData>) {
+  const handles = HANDLES.find((h) => h.type === data.reference)?.handles ?? [];
 
   return (
     <>
-      <img style={{ width: '300px' }} src={image} />
+      <img src={`https://bd.vizeo.eu/6-Photos/${data.reference}/PLUG_${data.reference}.png`} className="w-48" />
       {handles.map((handle) => (
         <Handle key={handle.id} {...handle} />
       ))}
