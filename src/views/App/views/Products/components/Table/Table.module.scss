@@ -51,11 +51,12 @@
 
           &:nth-last-child(2) {
             border-right: none;
-            border-top-right-radius: 5px;
           }
 
           &:nth-last-child(1) {
             width: 1.1rem;
+            border-right: none;
+            border-top-right-radius: 5px;
           }
 
           @include respond-below(sm) {
