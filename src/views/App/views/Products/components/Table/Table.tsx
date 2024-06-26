@@ -42,6 +42,9 @@ const columns = [
     header: 'Stock',
     cell: ({ row: { original } }) => (original.virtualQty ? '-' : <AmountFormat value={original.qty} />),
   }),
+  columnHelper.display({
+    id: 'scrollbar_compensator',
+  }),
 ];
 
 type AppViewProductsViewTableComponentProps = Readonly<{
