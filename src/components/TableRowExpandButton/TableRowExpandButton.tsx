@@ -9,9 +9,15 @@ type TableRowExpandButtonComponentProps<T> = Readonly<{
 export default function TableRowExpandButtonComponent<T>({ row }: TableRowExpandButtonComponentProps<T>) {
   if (row.getCanExpand())
     return (
-      <button className={classNames('btn btn-primary', styles.button)} onClick={row.getToggleExpandedHandler()}>
+      <button
+        className={classNames('btn btn-primary', styles.button)}
+        onClick={(e) => {
+          e.stopPropagation();
+          e.nativeEvent.stopImmediatePropagation();
+          row.getToggleExpandedHandler()();
+        }}
+      >
         {row.getIsExpanded() ? <RiArrowDropUpLine size="25" /> : <RiArrowDropDownLine size="25" />}
       </button>
     );
-  return <></>;
 }
