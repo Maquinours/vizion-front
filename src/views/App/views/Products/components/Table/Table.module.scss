@@ -83,6 +83,11 @@
 
         &:hover {
           background-color: #e5e5e5;
+
+          td {
+            transform: scale(0.95);
+            font-weight: 900;
+          }
         }
 
         &:nth-child(2n + 1) {
