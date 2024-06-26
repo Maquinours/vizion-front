@@ -1,10 +1,12 @@
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import CardComponent from '../../../../../../../../../../components/Card/Card';
 import styles from './StepTwo.module.scss';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { PulseLoader } from 'react-spinners';
 import { useEffect, useState } from 'react';
+import CurrencyFormat from '../../../../../../../../../../components/CurrencyFormat/CurrencyFormat';
+import AmountFormat from '../../../../../../../../../../components/AmountFormat/AmountFormat';
 
 const assistanceHours = [
   {
@@ -58,9 +60,11 @@ export default function AppViewToolsViewMenuViewCreateProductModalViewStepTwoCom
 
   const {
     register,
+    control,
     watch,
     getValues,
     setValue,
+    resetField,
     formState: { errors },
     handleSubmit,
   } = useForm({
@@ -73,13 +77,14 @@ export default function AppViewToolsViewMenuViewCreateProductModalViewStepTwoCom
   }, [watch('assistanceHour')]);
 
   useEffect(() => {
-    const costPrice = getValues('costPrice');
-    const shippingService = getValues('shippingService');
-    const tax = getValues('tax');
-    const price = getValues('price');
+    const costPrice = Number(getValues('costPrice')) || 0;
+    const shippingService = Number(getValues('shippingService')) || 0;
+    const tax = Number(getValues('tax')) || 0;
+    const price = Number(getValues('price')) || 0;
 
-    const margin = Math.round((1 - (costPrice + (shippingService ?? 0) + (tax ?? 0)) / price) * 100);
-    setValue('margin', margin);
+    const margin = Math.round((1 - (costPrice + shippingService + tax) / price) * 100);
+    if (!isNaN(margin) && isFinite(margin)) setValue('margin', margin);
+    else resetField('margin');
   }, [watch('costPrice'), watch('shippingService'), watch('tax'), watch('price')]);
 
   if (show)
@@ -90,41 +95,100 @@ export default function AppViewToolsViewMenuViewCreateProductModalViewStepTwoCom
             <form>
               <div className={styles.form_group}>
                 <label htmlFor="productPurchasePrice">Tarif achat en $ :</label>
-                <input id="productPurchasePrice" placeholder="0.00 $" type="number" {...register('purchasePrice')} />
+                <Controller
+                  control={control}
+                  name="purchasePrice"
+                  render={({ field: { value, onChange } }) => (
+                    <CurrencyFormat
+                      id="productPurchasePrice"
+                      placeholder="0.00 $"
+                      displayType="input"
+                      currency="$"
+                      value={value}
+                      onValueChange={(v) => onChange(v.value)}
+                    />
+                  )}
+                />
                 <p className={styles.errors}>{errors.purchasePrice?.message}</p>
               </div>
               <div className={styles.form_group}>
                 <label htmlFor="productCostPrice" className={styles.required}>
                   <span>*</span>Prix revient en € :
                 </label>
-                <input id="productCostPrice" placeholder="0.00 €" type="number" {...register('costPrice')} />
+                <Controller
+                  control={control}
+                  name="costPrice"
+                  render={({ field: { value, onChange } }) => (
+                    <CurrencyFormat id="productCostPrice" placeholder="0.00 €" displayType="input" value={value} onValueChange={(v) => onChange(v.value)} />
+                  )}
+                />
                 <p className={styles.errors}>{errors.costPrice?.message}</p>
               </div>
               <div className={styles.form_group}>
                 <label htmlFor="productMargin">Marge :</label>
-                <input id="productMargin" placeholder="0.00" type="number" {...register('margin')} readOnly />
+                <Controller
+                  control={control}
+                  name="margin"
+                  render={({ field: { value, onChange } }) => (
+                    <AmountFormat
+                      id="productMargin"
+                      suffix="%"
+                      allowNegative
+                      placeholder="0.00 %"
+                      displayType="input"
+                      decimalScale={2}
+                      value={value}
+                      onValueChange={(v) => onChange(v.value)}
+                      readOnly
+                    />
+                  )}
+                />
                 <p className={styles.errors}>{errors.margin?.message}</p>
               </div>
               <div className={styles.form_group}>
                 <label htmlFor="productPortOrService">Port / Service :</label>
-                <input id="productPortOrService" placeholder="0.00" type="number" {...register('shippingService')} />
+                <Controller
+                  control={control}
+                  name="shippingService"
+                  render={({ field: { value, onChange } }) => (
+                    <CurrencyFormat id="productPortOrService" placeholder="0.00 €" displayType="input" value={value} onValueChange={(v) => onChange(v.value)} />
+                  )}
+                />
                 <p className={styles.errors}>{errors.shippingService?.message}</p>
               </div>
               <div className={styles.form_group}>
                 <label htmlFor="productTax">Taxe / Douane :</label>
-                <input id="productTax" placeholder="0.00" type="number" {...register('tax')} />
+                <Controller
+                  control={control}
+                  name="tax"
+                  render={({ field: { value, onChange } }) => (
+                    <CurrencyFormat id="productTax" placeholder="0.00 €" displayType="input" value={value} onValueChange={(v) => onChange(v.value)} />
+                  )}
+                />
                 <p className={styles.errors}>{errors.tax?.message}</p>
               </div>
               <div className={styles.form_group}>
                 <label htmlFor="productPrice" className={styles.required}>
                   <span>*</span>Prix public :
                 </label>
-                <input id="productPrice" placeholder="0.00" type="number" {...register('price')} />
+                <Controller
+                  control={control}
+                  name="price"
+                  render={({ field: { value, onChange } }) => (
+                    <CurrencyFormat id="productPrice" placeholder="0.00 €" displayType="input" value={value} onValueChange={(v) => onChange(v.value)} />
+                  )}
+                />
                 <p className={styles.errors}>{errors.price?.message}</p>
               </div>
               <div className={styles.form_group}>
                 <label htmlFor="productEcoTax">Ecotaxe DEEE :</label>
-                <input id="productEcoTax" placeholder="0.00" type="number" {...register('ecoTax')} />
+                <Controller
+                  control={control}
+                  name="ecoTax"
+                  render={({ field: { value, onChange } }) => (
+                    <CurrencyFormat id="productEcoTax" placeholder="0.00 €" displayType="input" value={value} onValueChange={(v) => onChange(v.value)} />
+                  )}
+                />
                 <p className={styles.errors}>{errors.ecoTax?.message}</p>
               </div>
               <div className={styles.form_group}>
@@ -141,7 +205,20 @@ export default function AppViewToolsViewMenuViewCreateProductModalViewStepTwoCom
               {showMoreHours && (
                 <div className={styles.form_group}>
                   <label htmlFor="productAssistanceHourMore">{"Heures d'assistance"} :</label>
-                  <input id="productAssistanceHourMore" placeholder="0.00" type="number" {...register('assistanceHourMore')} />
+                  <Controller
+                    control={control}
+                    name="assistanceHourMore"
+                    render={({ field: { value, onChange } }) => (
+                      <AmountFormat
+                        id="productAssistanceHourMore"
+                        placeholder="10"
+                        displayType="input"
+                        decimalScale={0}
+                        value={value}
+                        onValueChange={(v) => onChange(v.value)}
+                      />
+                    )}
+                  />
                   <p className={styles.errors}>{errors.assistanceHourMore?.message}</p>
                 </div>
               )}
