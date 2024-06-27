@@ -6,7 +6,7 @@ import _ from 'lodash';
 import { useEffect, useMemo, useState } from 'react';
 import ReactModal from 'react-modal';
 import { toast } from 'react-toastify';
-import { Node, ReactFlowState, getNodesBounds, getViewportForBounds, useReactFlow, useStore } from 'reactflow';
+import { Node, ReactFlowState, useStore } from 'reactflow';
 import LoaderModal from '../../../../../../../../../../../../components/LoaderModal/LoaderModal';
 import { queries } from '../../../../../../../../../../../../utils/constants/queryKeys';
 import ProductResponseDto from '../../../../../../../../../../../../utils/types/ProductResponseDto';
@@ -53,8 +53,6 @@ type AppViewStudyViewAutomaticViewFooterComponentStepTwoComponentPdfModalCompone
 export default function AppViewStudyViewAutomaticViewFooterComponentStepTwoComponentPdfModalComponent({
   onClose,
 }: AppViewStudyViewAutomaticViewFooterComponentStepTwoComponentPdfModalComponentProps) {
-  const { getNodes } = useReactFlow();
-
   const { businessId } = routeApi.useParams();
 
   const { data: business } = useSuspenseQuery(queries.businesses.detail._ctx.byId(businessId));
@@ -69,29 +67,18 @@ export default function AppViewStudyViewAutomaticViewFooterComponentStepTwoCompo
   const [synopticImage, setSynopticImage] = useState<Blob>();
 
   const { mutate, isPending } = useMutation({
-    mutationFn: async () => {
-      const imageWidth = 1096;
-      const imageHeight = 768;
-
-      const nodesBounds = getNodesBounds(getNodes());
-      const viewport = getViewportForBounds(nodesBounds, imageWidth, imageHeight, 0.5, 2);
-
-      return await toBlob(document.querySelector('.react-flow__viewport') as HTMLElement, {
-        width: imageWidth,
-        height: imageHeight,
-        style: {
-          width: `${imageWidth}px`,
-          height: `${imageHeight}px`,
-          transform: `translate(${viewport.x}px, ${viewport.y}px) scale(${viewport.zoom})`,
-        },
-      });
-    },
+    mutationFn: () =>
+      toBlob(document.querySelector('.react-flow') as HTMLElement, {
+        filter: (node) => !node.classList?.contains('react-flow__controls'), // We don't want to take the controls into account
+        width: 1096,
+        height: 768,
+      }),
     onSuccess: (data) => {
       setSynopticImage(data!);
     },
     onError: (error) => {
       console.error(error);
-      toast.error("Une erreur est survenue lors de l'image du synoptique");
+      toast.error("Une erreur est survenue lors de la génération de l'image du synoptique");
       onClose();
     },
   });
