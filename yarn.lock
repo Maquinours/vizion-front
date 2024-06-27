@@ -4693,10 +4693,10 @@ react-big-calendar@^1.11.1:
     react-overlays "^5.2.1"
     uncontrollable "^7.2.1"
 
-react-datepicker@^6.6.0:
-  version "6.9.0"
-  resolved "https://registry.yarnpkg.com/react-datepicker/-/react-datepicker-6.9.0.tgz#0ad234dad81d567ae64cad79697bbad69c95490b"
-  integrity sha512-QTxuzeem7BUfVFWv+g5WuvzT0c5BPo+XTCNbMTZKSZQLU+cMMwSUHwspaxuIcDlwNcOH0tiJ+bh1fJ2yxOGYWA==
+react-datepicker@^7.2.0:
+  version "7.2.0"
+  resolved "https://registry.yarnpkg.com/react-datepicker/-/react-datepicker-7.2.0.tgz#2d430caebb5c8b0fb988286d004aa2676ace665f"
+  integrity sha512-Hhs1Fk6/ZqpGGg9QX/JjzvgEJoSFKYCAvRVdBbjxvOjflsXutFprAl/E0ZOm1J+/b/jQqU03WMTTNLcw5nXcuw==
   dependencies:
     "@floating-ui/react" "^0.26.2"
     clsx "^2.1.0"
