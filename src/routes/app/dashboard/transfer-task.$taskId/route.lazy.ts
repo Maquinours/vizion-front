@@ -1,6 +1,6 @@
-import { createFileRoute } from '@tanstack/react-router';
+import { createLazyFileRoute } from '@tanstack/react-router';
 import AppViewDashboardViewTransferTaskModalView from '../../../../views/App/views/Dashboard/views/TransferTaskModal/TransferTaskModal';
 
-export const Route = createFileRoute('/app/dashboard/transfer-task/$taskId')({
+export const Route = createLazyFileRoute('/app/dashboard/transfer-task/$taskId')({
   component: AppViewDashboardViewTransferTaskModalView,
 });
