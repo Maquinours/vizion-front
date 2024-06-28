@@ -34,7 +34,7 @@ const yupSchema = yup.object().shape({
   amounts: yup.array().of(yup.number().required()).length(2).required(),
   enterpriseName: yup.string(),
   state: yup.mixed<AllBusinessState>().oneOf(Object.values(AllBusinessState)),
-  dates: yup.array().of(yup.date().required()).min(2).max(2).required(),
+  dates: yup.array().of(yup.date()).min(2).max(2).required(),
   excludeds: yup
     .array()
     .of(yup.mixed<CategoryClient>().oneOf(Object.values(CategoryClient)).required())
