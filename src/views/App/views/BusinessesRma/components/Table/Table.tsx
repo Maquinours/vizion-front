@@ -194,8 +194,11 @@ export default function AppViewBusinessesRmaViewTableComponent({ data, isLoading
         ),
       }),
       columnHelper.display({
-        header: 'Etat',
+        header: 'État',
         cell: ({ row: { original } }) => STATES.find((state) => original.state === state.value)?.label,
+      }),
+      columnHelper.display({
+        id: 'scrollbar_compensator',
       }),
     ],
     [state, user],

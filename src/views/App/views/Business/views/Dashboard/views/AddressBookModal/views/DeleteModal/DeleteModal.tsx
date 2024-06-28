@@ -27,7 +27,7 @@ export default function AppViewBusinessViewDashboardViewAddressBookModalViewDele
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queries.address._def });
       toast.success("L'adresse a bien été supprimée");
-      navigate({ to: '/app/businesses-rma', search: (old) => old });
+      onClose();
     },
     onError: (error) => {
       console.error(error);

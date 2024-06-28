@@ -42,7 +42,13 @@ export default function AppViewEnterprisesViewTableComponentContactsCellComponen
           <li>
             <div>
               <span>{original.profiles.length} contacts</span>
-              <button onClick={() => setIsOpen(true)}>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  e.nativeEvent.stopImmediatePropagation();
+                  setIsOpen(true);
+                }}
+              >
                 <IoMdArrowDropright />
               </button>
             </div>
@@ -53,7 +59,13 @@ export default function AppViewEnterprisesViewTableComponentContactsCellComponen
               <span>{contact.landlinePhoneNumber}</span>
               <span>
                 {contact.standardPhoneNumber ? (
-                  <a href={`tel:${contact.standardPhoneNumber}`}>
+                  <a
+                    href={`tel:${contact.standardPhoneNumber}`}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      e.nativeEvent.stopImmediatePropagation();
+                    }}
+                  >
                     {contact.firstName} {contact.lastName}
                   </a>
                 ) : (
@@ -62,7 +74,13 @@ export default function AppViewEnterprisesViewTableComponentContactsCellComponen
                   </>
                 )}
                 {index === 0 && arr.length > 1 && (
-                  <button onClick={() => setIsOpen(false)}>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      e.nativeEvent.stopImmediatePropagation();
+                      setIsOpen(false);
+                    }}
+                  >
                     <IoMdArrowDropdown />
                   </button>
                 )}

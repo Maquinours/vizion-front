@@ -34,6 +34,9 @@ const columns = [
     header: 'Niveau',
     cell: ({ row }) => row.original.accessLevel,
   }),
+  columnHelper.display({
+    id: 'scrollbar_compensator',
+  }),
 ];
 
 type AppViewFaqViewTableComponentProps = Readonly<{

@@ -26,7 +26,7 @@ export default function AppViewBusinessViewDashboardViewDeleteModalView() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queries.businesses._def });
       toast.success("L'affaire a bien été supprimée");
-      navigate({ to: '/app/businesses-rma', search: (old) => old, replace: true });
+      navigate({ to: '/app/businesses-rma', replace: true });
     },
     onError: (error) => {
       console.error(error);

@@ -1,6 +1,7 @@
 .sub_row {
   height: auto;
   background: #b4cafcab 0% 0% no-repeat padding-box !important;
+  cursor: default !important;
 
   .sub_row_title {
     text-align: left;
@@ -8,10 +9,11 @@
     letter-spacing: 0px;
     color: #16204e;
     opacity: 1;
+    padding: 1rem;
   }
 }
 
 .sub_row_content {
-  min-height: 150px;
   background: #b4cafcab !important;
+  cursor: default !important;
 }

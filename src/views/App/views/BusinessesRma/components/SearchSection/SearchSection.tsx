@@ -34,7 +34,7 @@ const yupSchema = yup.object().shape({
   amounts: yup.array().of(yup.number().required()).length(2).required(),
   enterpriseName: yup.string(),
   state: yup.mixed<AllBusinessState>().oneOf(Object.values(AllBusinessState)),
-  dates: yup.array().of(yup.date().required().nullable()).min(2).max(2).required(),
+  dates: yup.array().of(yup.date().required()).min(2).max(2).required(),
   excludeds: yup
     .array()
     .of(yup.mixed<CategoryClient>().oneOf(Object.values(CategoryClient)).required())
@@ -144,7 +144,7 @@ export default function AppViewBusinessesRmaViewSearchSectionComponent() {
   const { register, control, setValue, resetField, reset, handleSubmit } = useForm({
     resolver: yupResolver(yupSchema),
     defaultValues: {
-      dates: [null, null],
+      dates: [undefined, undefined],
       amounts: [0, 80_000],
       excludeds: [CategoryClient.FOURNISSEUR],
       fuzzy: true,
@@ -267,8 +267,8 @@ export default function AppViewBusinessesRmaViewSearchSectionComponent() {
               <ReactDatePicker
                 selectsRange={true}
                 onChange={onChange}
-                startDate={value.at(0)}
-                endDate={value.at(1)}
+                startDate={value[0]}
+                endDate={value[1]}
                 allowSameDay
                 withPortal
                 closeOnScroll={true}
