@@ -63,7 +63,16 @@ export default function AppViewEnterprisesViewTableComponentContactsCellComponen
   };
 
   return (
-    <Popper open={isOpen} anchorEl={anchorElement} transition placement="bottom-start">
+    <Popper
+      open={isOpen}
+      anchorEl={anchorElement}
+      transition
+      placement="bottom-start"
+      onClick={(e) => {
+        e.stopPropagation();
+        e.nativeEvent.stopImmediatePropagation();
+      }}
+    >
       {({ TransitionProps }) => (
         <ClickAwayListener onClickAway={onClose}>
           <Fade {...TransitionProps}>
