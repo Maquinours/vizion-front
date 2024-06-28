@@ -64,7 +64,7 @@ export default function AppViewEnterpriseViewImportContactsModalViewStepOneCompo
   return (
     <div className={styles.modal_container}>
       <div className={styles.modal_title}>
-        <h6>Import de contact</h6>
+        <h6>Import de contacts</h6>
       </div>
 
       <div className={styles.modal_content}>
