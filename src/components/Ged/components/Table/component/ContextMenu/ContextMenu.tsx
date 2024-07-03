@@ -62,7 +62,7 @@ export default function GedComponentTableComponentContextMenuComponent({
                   <MenuItem>
                     <Link {...getRenameLink(selectedItem)}>
                       <MdModeEdit className={styles.icon} />
-                      <span className={styles.text}>Renommer le {selectedItem?.dir ? 'fichier' : 'dossier'}</span>
+                      <span className={styles.text}>Renommer le {selectedItem?.dir ? 'dossier' : 'fichier'}</span>
                     </Link>
                   </MenuItem>
                   {isVizeoMember && (
