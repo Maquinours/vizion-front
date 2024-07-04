@@ -70,7 +70,14 @@ export default function AppViewEnterprisesViewTableComponentContactContextMenu({
               {contact && (
                 <MenuList>
                   <MenuItem>
-                    <Link from={routeApi.id} to="create-contact-business/$contactId" params={{ contactId: contact.id }} search={(old) => old} replace>
+                    <Link
+                      from={routeApi.id}
+                      to="create-contact-business/$contactId"
+                      params={{ contactId: contact.id }}
+                      search={(old) => old}
+                      replace
+                      resetScroll={false}
+                    >
                       <MdWork className={styles.icon} />
                       <span className={styles.text}>Créer une affaire</span>
                     </Link>
@@ -83,6 +90,7 @@ export default function AppViewEnterprisesViewTableComponentContactContextMenu({
                         params={{ enterpriseId: contact.enterprise!.id }}
                         search={(old) => old}
                         replace
+                        resetScroll={false}
                       >
                         <MdWork className={styles.icon} />
                         <span className={styles.text}>Créer un RMA</span>
@@ -91,7 +99,14 @@ export default function AppViewEnterprisesViewTableComponentContactContextMenu({
                   )}
                   {user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && [
                     <MenuItem key={0}>
-                      <Link from={routeApi.id} to="create-contact-travel-voucher/$contactId" params={{ contactId: contact.id }} search={(old) => old} replace>
+                      <Link
+                        from={routeApi.id}
+                        to="create-contact-travel-voucher/$contactId"
+                        params={{ contactId: contact.id }}
+                        search={(old) => old}
+                        replace
+                        resetScroll={false}
+                      >
                         <FaFile className={styles.icon} />
                         <span className={styles.text}>Créer un bon de transport</span>
                       </Link>
@@ -103,6 +118,7 @@ export default function AppViewEnterprisesViewTableComponentContactContextMenu({
                         params={{ enterpriseId: contact.enterprise!.id }}
                         search={(old) => old}
                         replace
+                        resetScroll={false}
                       >
                         <IoMdAddCircleOutline className={styles.icon} />
                         <span className={styles.text}>Ajouter un nouveau contact</span>
@@ -110,7 +126,14 @@ export default function AppViewEnterprisesViewTableComponentContactContextMenu({
                     </MenuItem>,
                     contact.email && (
                       <MenuItem key={2}>
-                        <Link from={routeApi.id} to="send-email-to-contact/$contactId" params={{ contactId: contact.id }} search={(old) => old} replace>
+                        <Link
+                          from={routeApi.id}
+                          to="send-email-to-contact/$contactId"
+                          params={{ contactId: contact.id }}
+                          search={(old) => old}
+                          replace
+                          resetScroll={false}
+                        >
                           <MdMailOutline className={styles.icon} />
                           <span className={styles.text}>Envoyer un mail</span>
                         </Link>
@@ -118,7 +141,14 @@ export default function AppViewEnterprisesViewTableComponentContactContextMenu({
                     ),
                   ]}
                   <MenuItem>
-                    <Link from={routeApi.id} to="update-contact/$contactId" params={{ contactId: contact.id }} search={(old) => old} replace>
+                    <Link
+                      from={routeApi.id}
+                      to="update-contact/$contactId"
+                      params={{ contactId: contact.id }}
+                      search={(old) => old}
+                      replace
+                      resetScroll={false}
+                    >
                       <HiPencilAlt className={styles.icon} />
                       <span className={styles.text}>Modifier ce contact</span>
                     </Link>
@@ -127,7 +157,14 @@ export default function AppViewEnterprisesViewTableComponentContactContextMenu({
                     (user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') &&
                       (contact.categoryClient !== CategoryClient.VIZEO || user.profile.id === contact.id))) && (
                     <MenuItem>
-                      <Link from={routeApi.id} to="update-contact-password/$contactId" params={{ contactId: contact.id }} search={(old) => old} replace>
+                      <Link
+                        from={routeApi.id}
+                        to="update-contact-password/$contactId"
+                        params={{ contactId: contact.id }}
+                        search={(old) => old}
+                        replace
+                        resetScroll={false}
+                      >
                         <MdPassword className={styles.icon} />
                         <span className={styles.text}>Modifier le mot de passe</span>
                       </Link>
@@ -151,7 +188,14 @@ export default function AppViewEnterprisesViewTableComponentContactContextMenu({
                   ]}
                   {user.profile.id !== contact.id && (
                     <MenuItem>
-                      <Link from={routeApi.id} to="delete-contact/$contactId" params={{ contactId: contact.id }} search={(old) => old} replace>
+                      <Link
+                        from={routeApi.id}
+                        to="delete-contact/$contactId"
+                        params={{ contactId: contact.id }}
+                        search={(old) => old}
+                        replace
+                        resetScroll={false}
+                      >
                         <FaTrash className={styles.icon} />
                         <span className={styles.text}>Supprimer ce contact</span>
                       </Link>
