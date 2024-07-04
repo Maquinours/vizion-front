@@ -307,6 +307,8 @@ const AuthForgotPasswordRouteLazyImport = createFileRoute(
 const AuthResetPasswordTokenRouteLazyImport = createFileRoute(
   '/auth/reset-password/$token',
 )()
+const AppBusinessesRmaBusinessBusinessIdStudyExpertRouteLazyImport =
+  createFileRoute('/app/businesses-rma/business/$businessId/study/expert')()
 const AppBusinessesRmaBusinessBusinessIdStudyAutomaticRouteLazyImport =
   createFileRoute('/app/businesses-rma/business/$businessId/study/automatic')()
 
@@ -1901,6 +1903,16 @@ const AppBusinessesRmaBusinessBusinessIdArcRouteRoute =
   } as any).lazy(() =>
     import(
       './routes/app/businesses-rma_/business.$businessId/arc/route.lazy'
+    ).then((d) => d.Route),
+  )
+
+const AppBusinessesRmaBusinessBusinessIdStudyExpertRouteLazyRoute =
+  AppBusinessesRmaBusinessBusinessIdStudyExpertRouteLazyImport.update({
+    path: '/businesses-rma/business/$businessId/study/expert',
+    getParentRoute: () => AppRouteRoute,
+  } as any).lazy(() =>
+    import(
+      './routes/app/businesses-rma_/business.$businessId_/study/expert/route.lazy'
     ).then((d) => d.Route),
   )
 
@@ -4771,6 +4783,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdStudyAutomaticRouteLazyImport
       parentRoute: typeof AppRouteImport
     }
+    '/app/businesses-rma/business/$businessId/study/expert': {
+      id: '/app/businesses-rma/business/$businessId/study/expert'
+      path: '/businesses-rma/business/$businessId/study/expert'
+      fullPath: '/app/businesses-rma/business/$businessId/study/expert'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdStudyExpertRouteLazyImport
+      parentRoute: typeof AppRouteImport
+    }
     '/app/businesses-rma/business/$businessId/arc/delete-detail/$detailId': {
       id: '/app/businesses-rma/business/$businessId/arc/delete-detail/$detailId'
       path: '/delete-detail/$detailId'
@@ -5673,6 +5692,7 @@ export const routeTree = rootRoute.addChildren({
         },
       ),
     AppBusinessesRmaBusinessBusinessIdStudyAutomaticRouteLazyRoute,
+    AppBusinessesRmaBusinessBusinessIdStudyExpertRouteLazyRoute,
   }),
   AuthRouteRoute: AuthRouteRoute.addChildren({
     AuthLoginRouteRoute,
@@ -5715,7 +5735,8 @@ export const routeTree = rootRoute.addChildren({
         "/app/businesses-rma/business/$businessId",
         "/app/businesses-rma/rma/$rmaId",
         "/app/businesses-rma/business/$businessId/assistance/$assistanceId",
-        "/app/businesses-rma/business/$businessId/study/automatic"
+        "/app/businesses-rma/business/$businessId/study/automatic",
+        "/app/businesses-rma/business/$businessId/study/expert"
       ]
     },
     "/auth": {
@@ -6991,6 +7012,10 @@ export const routeTree = rootRoute.addChildren({
     },
     "/app/businesses-rma/business/$businessId/study/automatic": {
       "filePath": "app/businesses-rma_/business.$businessId_/study/automatic/route.lazy.ts",
+      "parent": "/app"
+    },
+    "/app/businesses-rma/business/$businessId/study/expert": {
+      "filePath": "app/businesses-rma_/business.$businessId_/study/expert/route.lazy.ts",
       "parent": "/app"
     },
     "/app/businesses-rma/business/$businessId/arc/delete-detail/$detailId": {
