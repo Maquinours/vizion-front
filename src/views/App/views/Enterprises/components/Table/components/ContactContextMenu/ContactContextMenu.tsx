@@ -1,32 +1,29 @@
 import { ClickAwayListener, Fade, MenuItem, MenuList, Paper, Popper } from '@mui/material';
-import { Link, getRouteApi } from '@tanstack/react-router';
-import ProfileResponseDto from '../../../../../../../../../../utils/types/ProfileResponseDto';
+import ProfileResponseDto from '../../../../../../../../utils/types/ProfileResponseDto';
 import { VirtualElement } from '@popperjs/core';
+import { Link, getRouteApi } from '@tanstack/react-router';
+import { useAuthentifiedUserQuery } from '../../../../../../utils/functions/getAuthentifiedUser';
 import { MdMailOutline, MdPassword, MdWork } from 'react-icons/md';
+import styles from './ContactContextMenu.module.scss';
 import { FaCopy, FaFile, FaTrash } from 'react-icons/fa';
-import { useAuthentifiedUserQuery } from '../../../../../../../../utils/functions/getAuthentifiedUser';
 import { IoMdAddCircleOutline } from 'react-icons/io';
-import CategoryClient from '../../../../../../../../../../utils/enums/CategoryClient';
-import { toast } from 'react-toastify';
-import React from 'react';
-import styles from './ContextMenu.module.scss';
 import { HiPencilAlt } from 'react-icons/hi';
+import CategoryClient from '../../../../../../../../utils/enums/CategoryClient';
+import { toast } from 'react-toastify';
 
 const routeApi = getRouteApi('/app/enterprises');
 
-type AppViewEnterprisesViewTableComponentContactsCellComponentContextMenuComponentProps = Readonly<{
+type AppViewEnterprisesViewTableComponentContactContextMenuProps = Readonly<{
   contact: ProfileResponseDto | undefined;
   anchorElement: VirtualElement | undefined;
   setAnchorElement: React.Dispatch<React.SetStateAction<VirtualElement | undefined>>;
 }>;
-export default function AppViewEnterprisesViewTableComponentContactsCellComponentContextMenuComponent({
+export default function AppViewEnterprisesViewTableComponentContactContextMenu({
   contact,
   anchorElement,
   setAnchorElement,
-}: AppViewEnterprisesViewTableComponentContactsCellComponentContextMenuComponentProps) {
+}: AppViewEnterprisesViewTableComponentContactContextMenuProps) {
   const { data: user } = useAuthentifiedUserQuery();
-
-  const isOpen = !!anchorElement;
 
   const onClose = () => {
     setAnchorElement(undefined);
@@ -61,6 +58,8 @@ export default function AppViewEnterprisesViewTableComponentContactsCellComponen
       toast.success('Adresse copiée avec succès');
     }
   };
+
+  const isOpen = !!anchorElement;
 
   return (
     <Popper open={isOpen} anchorEl={anchorElement} transition placement="bottom-start">
