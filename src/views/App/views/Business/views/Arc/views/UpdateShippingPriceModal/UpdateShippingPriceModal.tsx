@@ -47,19 +47,24 @@ export default function AppViewBusinessViewArcViewUpdateShippingPriceModalView()
   };
 
   const { mutate, isPending } = useMutation({
-    mutationFn: ({ shippingServicePrice }: yup.InferType<typeof yupSchema>) =>
-      updateBusinessArc(arc.id, {
+    mutationFn: ({ shippingServicePrice }: yup.InferType<typeof yupSchema>) => {
+      const totalAmountHT = arc.totalAmountHT ?? 0;
+      const vat = totalAmountHT + shippingServicePrice * 0.2;
+      const totalAmount = totalAmountHT + shippingServicePrice + vat;
+
+      return updateBusinessArc(arc.id, {
         number: arc.number,
         documentName: arc.documentName,
         shippingServicePrice,
-        vat: arc.vat,
+        vat,
         numOrder: arc.numOrder,
-        totalAmount: arc.totalAmount,
-        totalAmountHT: arc.totalAmountHT,
+        totalAmount,
+        totalAmountHT,
         businessId: business.id,
         amountHtConfirmed: arc.amountHtConfirmed,
         shippingPriceConfirmed: arc.shippingPriceConfirmed,
-      }),
+      });
+    },
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: queries['business-ARCs']._def });
       queryClient.setQueryData<BusinessArcResponseDto>(queries['business-ARCs'].detail._ctx.byBusinessId(businessId).queryKey, data);
