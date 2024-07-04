@@ -25,6 +25,7 @@ export default function AppViewBusinessViewBlViewHeaderComponent() {
       }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queries['business-bills']._def });
+      queryClient.invalidateQueries({ queryKey: queries['businesses']._def });
       toast.success('Facture créée avec succès');
       navigate({ to: '../bill', replace: true });
     },
