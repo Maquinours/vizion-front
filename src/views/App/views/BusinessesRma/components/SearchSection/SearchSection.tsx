@@ -129,7 +129,7 @@ const CATEGORY_OPTIONS = [
 export default function AppViewBusinessesRmaViewSearchSectionComponent() {
   const navigate = useNavigate({ from: routeApi.id });
 
-  const { numOrder, name, contact, deliverPhoneNumber, zipCode, representative, installer, amounts, enterpriseName, state, dates, excludeds, fuzzy } =
+  const { number, numOrder, name, contact, deliverPhoneNumber, zipCode, representative, installer, amounts, enterpriseName, state, dates, excludeds, fuzzy } =
     routeApi.useSearch();
 
   const [showAmounts, setShowAmounts] = useState(false);
@@ -233,6 +233,7 @@ export default function AppViewBusinessesRmaViewSearchSectionComponent() {
   );
 
   useEffect(() => {
+    setValue('number', number);
     setValue('numOrder', numOrder);
     setValue('name', name);
     setValue('contact', contact);
@@ -247,7 +248,7 @@ export default function AppViewBusinessesRmaViewSearchSectionComponent() {
     if (!!amounts) setValue('amounts', amounts);
     else resetField('amounts');
     setValue('fuzzy', fuzzy);
-  }, [numOrder, name, contact, deliverPhoneNumber, zipCode, installer, enterpriseName, state, dates, excludeds, amounts, fuzzy]);
+  }, [number, numOrder, name, contact, deliverPhoneNumber, zipCode, installer, enterpriseName, state, dates, excludeds, amounts, fuzzy]);
 
   useEffect(() => {
     if (representatives) setValue('representative', representatives.find((rep) => rep.id === representative)?.id);
