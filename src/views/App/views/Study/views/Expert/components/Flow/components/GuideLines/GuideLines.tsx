@@ -5,7 +5,9 @@ import { ReactFlowState, useStore, useViewport } from 'reactflow';
 const colors = ['black', 'red', 'green', 'blue', 'yellow', 'purple', 'pink', 'orange', 'cyan', 'magenta', 'gray', 'white'];
 
 const getReactFlowData = (state: ReactFlowState) => {
-  const nodes = Array.from(state.nodeInternals.values()).filter((node) => (node.dragging || node.resizing) && !!node.height && !!node.width);
+  const nodes = Array.from(state.nodeInternals.values()).filter(
+    (node) => (node.dragging || node.resizing) && !!node.type && !['lines'].includes(node.type) && !!node.height && !!node.width,
+  );
   const reactFlowSize = { width: state.width, height: state.height };
   return { nodes, reactFlowSize };
 };

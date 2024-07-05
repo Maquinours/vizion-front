@@ -15,6 +15,8 @@ import AppViewStudyViewExpertViewFlowComponentRectangleTracingComponent from './
 import { v4 as uuidv4 } from 'uuid';
 
 import 'reactflow/dist/style.css';
+import AppViewStudyViewExpertViewFlowComponentLinesTracingComponent from './components/LinesTracing/LinesTracing';
+import AppViewStudyViewExpertViewFlowComponentLinesNodeComponent, { ExpertStudyLinesNodeData } from './components/LinesNode/LinesNode';
 
 const nodeTypes = {
   synopticCamera: AppViewStudyViewExpertViewFlowComponentSynopticCameraNodeComponent,
@@ -24,6 +26,7 @@ const nodeTypes = {
   image: AppViewStudyViewExpertViewFlowComponentImageNodeComponent,
   text: AppViewStudyViewExpertViewFlowComponentTextNodeComponent,
   rectangle: AppViewStudyViewExpertViewFlowComponentRectangleNodeComponent,
+  lines: AppViewStudyViewExpertViewFlowComponentLinesNodeComponent,
 };
 
 const selector = (state: RFState) => ({
@@ -41,6 +44,19 @@ export default function AppViewStudyViewExpertViewFlowComponent() {
 
   const onPaneClick = (event: React.MouseEvent<Element, MouseEvent>) => {
     switch (paneClickFunction?.type) {
+      case ExpertStudyPaneClickFunctionType.LINES: {
+        const { x, y } = { x: event.clientX, y: event.clientY };
+        const position = screenToFlowPosition({ x, y });
+        if (!paneClickFunction.data)
+          setPaneClickFunction({ type: ExpertStudyPaneClickFunctionType.LINES, data: { positions: [position], cursorPosition: position } });
+        else {
+          setPaneClickFunction({
+            type: ExpertStudyPaneClickFunctionType.LINES,
+            data: { positions: [...paneClickFunction.data.positions, position], cursorPosition: position },
+          });
+        }
+        break;
+      }
       case ExpertStudyPaneClickFunctionType.TEXT: {
         const { x, y } = { x: event.clientX, y: event.clientY };
         const position = screenToFlowPosition({ x, y });
@@ -80,13 +96,53 @@ export default function AppViewStudyViewExpertViewFlowComponent() {
   };
 
   const onPaneMouseMove = (event: React.MouseEvent<Element, MouseEvent>) => {
-    if (paneClickFunction?.type === ExpertStudyPaneClickFunctionType.RECTANGLE && paneClickFunction.data) {
-      const { x, y } = { x: event.clientX, y: event.clientY };
-      const position = screenToFlowPosition({ x, y });
-      setPaneClickFunction({
-        type: ExpertStudyPaneClickFunctionType.RECTANGLE,
-        data: { initialPosition: paneClickFunction.data.initialPosition, cursorPosition: position },
-      });
+    switch (paneClickFunction?.type) {
+      case ExpertStudyPaneClickFunctionType.LINES: {
+        if (paneClickFunction.data) {
+          const { x, y } = { x: event.clientX, y: event.clientY };
+          const position = screenToFlowPosition({ x, y });
+          setPaneClickFunction({
+            type: ExpertStudyPaneClickFunctionType.LINES,
+            data: { positions: [...paneClickFunction.data.positions], cursorPosition: position },
+          });
+        }
+        break;
+      }
+      case ExpertStudyPaneClickFunctionType.RECTANGLE: {
+        if (paneClickFunction.data) {
+          const { x, y } = { x: event.clientX, y: event.clientY };
+          const position = screenToFlowPosition({ x, y });
+          setPaneClickFunction({
+            type: ExpertStudyPaneClickFunctionType.RECTANGLE,
+            data: { initialPosition: paneClickFunction.data.initialPosition, cursorPosition: position },
+          });
+        }
+        break;
+      }
+    }
+  };
+
+  const onPaneContextMenu = (event: React.MouseEvent<Element, MouseEvent>) => {
+    if (paneClickFunction?.type === ExpertStudyPaneClickFunctionType.LINES && paneClickFunction.data) {
+      event.preventDefault();
+      const positions = paneClickFunction.data.positions;
+      if (positions.length !== 0) {
+        const minPosition = { x: Math.min(...positions.map((position) => position.x)), y: Math.min(...positions.map((position) => position.y)) };
+        const node: Node<ExpertStudyLinesNodeData, 'lines'> = {
+          id: uuidv4(),
+          type: 'lines',
+          position: { x: minPosition.x - 2, y: minPosition.y - 2 },
+          data: {
+            positions: positions.map((position) => ({ x: position.x - minPosition.x + 2, y: position.y - minPosition.y + 2 })),
+          },
+          style: {
+            pointerEvents: 'none',
+          },
+        };
+        addNodes([node]);
+      }
+      setPaneClickFunction(undefined);
+      return;
     }
   };
 
@@ -110,12 +166,14 @@ export default function AppViewStudyViewExpertViewFlowComponent() {
       connectionMode={ConnectionMode.Loose}
       onPaneClick={onPaneClick}
       onPaneMouseMove={onPaneMouseMove}
+      onPaneContextMenu={onPaneContextMenu}
       title={title}
       nodesDraggable={!paneClickFunction}
       elementsSelectable={!paneClickFunction}
     >
       <AppViewStudyViewExpertViewFlowComponentGuideLinesComponent />
       {paneClickFunction?.type === ExpertStudyPaneClickFunctionType.RECTANGLE && <AppViewStudyViewExpertViewFlowComponentRectangleTracingComponent />}
+      {paneClickFunction?.type === ExpertStudyPaneClickFunctionType.LINES && <AppViewStudyViewExpertViewFlowComponentLinesTracingComponent />}
     </ReactFlow>
   );
 }

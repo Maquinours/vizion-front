@@ -29,6 +29,7 @@ export type ExpertStudyModal =
 export enum ExpertStudyPaneClickFunctionType {
   TEXT,
   RECTANGLE,
+  LINES,
 }
 
 export type ExpertStudyPaneClickFunction =
@@ -43,6 +44,13 @@ export type ExpertStudyPaneClickFunction =
       type: ExpertStudyPaneClickFunctionType.RECTANGLE;
       data?: {
         initialPosition: XYPosition;
+        cursorPosition: XYPosition;
+      };
+    }
+  | {
+      type: ExpertStudyPaneClickFunctionType.LINES;
+      data?: {
+        positions: Array<XYPosition>;
         cursorPosition: XYPosition;
       };
     };

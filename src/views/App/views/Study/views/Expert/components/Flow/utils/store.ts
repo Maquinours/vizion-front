@@ -25,14 +25,7 @@ export type RFState = {
 
 // this is our useStore hook that we can use in our components to get parts of the store and call actions
 const useStore = create<RFState>((set, get) => ({
-  nodes: [
-    {
-      id: 'rectangle',
-      type: 'rectangle',
-      position: { x: 0, y: 0 },
-      data: { size: { width: 100, height: 100 } },
-    },
-  ],
+  nodes: [],
   edges: [],
   onNodesChange: (changes: NodeChange[]) => {
     set({

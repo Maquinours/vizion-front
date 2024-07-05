@@ -1,4 +1,4 @@
-import { HandleType, Position } from "reactflow";
+import { HandleType, Position } from 'reactflow';
 
 export const handlesData: Array<{
   productReference: string;
