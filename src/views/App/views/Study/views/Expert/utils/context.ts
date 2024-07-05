@@ -28,15 +28,24 @@ export type ExpertStudyModal =
 
 export enum ExpertStudyPaneClickFunctionType {
   TEXT,
+  RECTANGLE,
 }
 
-export type ExpertStudyPaneClickFunction = {
-  type: ExpertStudyPaneClickFunctionType;
-  data?: {
-    position?: { x: number; y: number };
-    nodeId?: string;
-  };
-};
+export type ExpertStudyPaneClickFunction =
+  | {
+      type: ExpertStudyPaneClickFunctionType.TEXT;
+      data?: {
+        position?: XYPosition;
+        nodeId?: string;
+      };
+    }
+  | {
+      type: ExpertStudyPaneClickFunctionType.RECTANGLE;
+      data?: {
+        initialPosition: XYPosition;
+        cursorPosition: XYPosition;
+      };
+    };
 
 type ExpertStudyContextType = {
   modal: ExpertStudyModal | undefined;

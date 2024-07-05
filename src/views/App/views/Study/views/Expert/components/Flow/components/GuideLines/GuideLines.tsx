@@ -16,7 +16,7 @@ export default function AppViewStudyViewExpertViewFlowComponentGuideLinesCompone
 
   if (nodes.length === 0) return null;
   return (
-    <svg id="guide-line" className="pointer-events-none absolute left-0 top-0 h-full w-full">
+    <svg className="pointer-events-none absolute left-0 top-0 h-full w-full">
       {nodes.map((node, index) => {
         const nodePosition = { x: x + node.position.x * zoom, y: y + node.position.y * zoom };
         const nodeSize = { width: node.width! * zoom, height: node.height! * zoom };

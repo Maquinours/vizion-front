@@ -117,10 +117,10 @@ export default function AppViewStudyViewExpertViewFlowComponentImageNodeComponen
               type="source"
               position={handle.position}
               id={handle.id}
+              isConnectable={isConnectable}
               style={{
                 width: handle.position === Position.Top || handle.position === Position.Bottom ? '90%' : '10%',
                 height: handle.position === Position.Top || handle.position === Position.Bottom ? '10%' : '90%',
-                zIndex: isConnectable ? 0 : -1,
                 bottom: 0,
                 background: 'transparent',
                 border: 0,
