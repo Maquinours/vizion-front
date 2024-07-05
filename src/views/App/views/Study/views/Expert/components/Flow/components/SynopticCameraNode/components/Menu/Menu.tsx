@@ -51,7 +51,6 @@ export default function AppViewStudyViewExpertViewFlowComponentSynopticCameraNod
   };
 
   const onOptionIncrementQuantity = (option: Option) => {
-    console.log('increment', option);
     setNodes((nds) => {
       const node: Node<AppViewStudyViewExpertViewFlowComponentSynopticCameraNodeComponentData> | undefined = nds.find((node) => node.id === nodeId);
       if (!node) return nds;

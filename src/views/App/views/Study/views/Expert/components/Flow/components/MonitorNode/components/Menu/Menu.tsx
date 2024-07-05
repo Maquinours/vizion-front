@@ -50,7 +50,6 @@ export default function AppViewStudyViewExpertViewFlowComponentMonitorNodeCompon
   };
 
   const onOptionIncrementQuantity = (option: Option) => {
-    console.log('increment', option);
     setNodes((nds) => {
       const node: Node<AppViewStudyViewExpertViewFlowComponentMonitorNodeComponentData> | undefined = nds.find((node) => node.id === nodeId);
       if (!node) return nds;
