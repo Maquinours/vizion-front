@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import ExpertStudyContext, { ExpertStudyPaneClickFunctionType } from '../../../../utils/context';
 import { ReactFlowState, useStore, useViewport } from 'reactflow';
+import _ from 'lodash';
 
 const getReactFlowSize = (state: ReactFlowState) => {
   return { width: state.width, height: state.height };
@@ -8,7 +9,7 @@ const getReactFlowSize = (state: ReactFlowState) => {
 
 export default function AppViewStudyViewExpertViewFlowComponentRectangleTracingComponent() {
   const { x, y, zoom } = useViewport();
-  const reactFlowSize = useStore(getReactFlowSize);
+  const reactFlowSize = useStore(getReactFlowSize, (a, b) => _.isEqual(a, b));
   const { paneClickFunction } = useContext(ExpertStudyContext)!;
 
   if (paneClickFunction?.type !== ExpertStudyPaneClickFunctionType.RECTANGLE || !paneClickFunction.data) return;
