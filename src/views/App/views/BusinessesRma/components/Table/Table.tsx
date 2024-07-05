@@ -1,14 +1,15 @@
+import { Link, getRouteApi, useNavigate } from '@tanstack/react-router';
 import { Row, createColumnHelper } from '@tanstack/react-table';
 import React, { useCallback, useMemo } from 'react';
-import AllBusinessResponseDto from '../../../../../../utils/types/AllBusinessResponseDto';
-import { Link, getRouteApi, useNavigate } from '@tanstack/react-router';
-import AllBusinessState from '../../../../../../utils/enums/AllBusinessState';
-import { formatDateAndHourWithSlash } from '../../../../../../utils/functions/dates';
-import CategoryBusiness from '../../../../../../utils/enums/CategoryBusiness';
 import CurrencyFormat from '../../../../../../components/CurrencyFormat/CurrencyFormat';
+import TableComponent from '../../../../../../components/Table/Table';
+import AllBusinessState from '../../../../../../utils/enums/AllBusinessState';
+import CategoryBusiness from '../../../../../../utils/enums/CategoryBusiness';
+import { formatDateAndHourWithSlash } from '../../../../../../utils/functions/dates';
+import AllBusinessResponseDto from '../../../../../../utils/types/AllBusinessResponseDto';
 import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthentifiedUser';
 import styles from './Table.module.scss';
-import TableComponent from '../../../../../../components/Table/Table';
+import AppViewBusinessesRmaViewTableComponentRowTooltipComponent from './components/RowTooltip/RowTooltip';
 
 const routeApi = getRouteApi('/app/businesses-rma');
 
@@ -71,6 +72,8 @@ export default function AppViewBusinessesRmaViewTableComponent({ data, isLoading
   const { state } = routeApi.useSearch();
 
   const { data: user } = useAuthentifiedUserQuery();
+
+  // const [tooltipItem, setTooltipItem] = useState<AllBusinessResponseDto>();
 
   const columns = useMemo(
     () => [
@@ -204,6 +207,9 @@ export default function AppViewBusinessesRmaViewTableComponent({ data, isLoading
     [state, user],
   );
 
+  const getRowClassName = useCallback(() => 'allbusiness-row', []);
+  const getRowId = useCallback((row: AllBusinessResponseDto) => row.id, []);
+
   const onRowClick = useCallback(
     (e: React.MouseEvent, row: Row<AllBusinessResponseDto>) => {
       if (row.original.category === CategoryBusiness.AFFAIRE) {
@@ -218,8 +224,12 @@ export default function AppViewBusinessesRmaViewTableComponent({ data, isLoading
   );
 
   return (
-    <div className={styles.table_container}>
-      <TableComponent columns={columns} data={data} isLoading={isLoading} onRowClick={onRowClick} />
-    </div>
+    <>
+      <div className={styles.table_container}>
+        <TableComponent columns={columns} data={data} isLoading={isLoading} onRowClick={onRowClick} getRowClassName={getRowClassName} getRowId={getRowId} />
+      </div>
+      {!!data && <AppViewBusinessesRmaViewTableComponentRowTooltipComponent items={data} />}
+      {/* {!!tooltipItem && <AppViewBusinessesRmaViewTableComponentRowTooltipComponent item={tooltipItem} />} */}
+    </>
   );
 }
