@@ -2,7 +2,7 @@ import { AiOutlineClose, AiTwotoneSetting } from 'react-icons/ai';
 import ProductResponseDto from '../../../../../../../../../../../../utils/types/ProductResponseDto';
 import { AppViewStudyViewExpertViewFlowComponentSynopticCameraNodeComponentData } from '../../SynopticCameraNode';
 import React from 'react';
-import { Node, useReactFlow } from 'reactflow';
+import { Node, NodeToolbar, Position, useReactFlow } from 'reactflow';
 import ProductProductResponseDto from '../../../../../../../../../../../../utils/types/ProductProductResponseDto';
 
 type Option = {
@@ -63,7 +63,7 @@ export default function AppViewStudyViewExpertViewFlowComponentSynopticCameraNod
   };
 
   return (
-    <div className="nodrag absolute top-full z-50 my-1 h-fit w-[25rem] cursor-default rounded-md border-2 border-[#1a192b] bg-slate-50 px-2">
+    <NodeToolbar position={Position.Bottom} align="center" className="nopan rounded-md border-2 border-[#1a192b] bg-slate-50 px-2">
       <div className="text-center">
         <div className="flex items-center justify-between border-b-2 border-b-[#1a192b] p-2">
           <AiTwotoneSetting className="fill-[#1a192b]" />
@@ -81,31 +81,33 @@ export default function AppViewStudyViewExpertViewFlowComponentSynopticCameraNod
             className="nokey rounded-md border border-[#1a192b] p-2"
           />
         </div>
-        <div className="border-t-2 border-t-[#1a192b] px-2 pb-2">
-          <p>Accessoires</p>
-          <div>
-            {options?.map((option) => (
-              <div key={option.product.id} className="flex items-center justify-center space-x-4">
-                <p className="w-20">{option.product.reference}</p>
-                <img src={`https://bd.vizeo.eu/6-Photos/${option.product.reference}/${option.product.reference}.png`} className="h-12 w-12" />
-                <div className="flex items-center justify-center space-x-2">
-                  <button
-                    type="button"
-                    disabled={option.quantity === 0}
-                    onClick={() => onOptionDecrementQuantity(option)}
-                    className="bg-[#16204e] px-2 text-white"
-                  >
-                    -
-                  </button>
-                  <span>{option.quantity}</span>
-                  <button type="button" onClick={() => onOptionIncrementQuantity(option)} className="bg-[#16204e] px-2 text-white">
-                    +
-                  </button>
+        {!!options && options.length > 0 && (
+          <div className="border-t-2 border-t-[#1a192b] px-2 pb-2">
+            <p>Accessoires</p>
+            <div>
+              {options?.map((option) => (
+                <div key={option.product.id} className="flex items-center justify-center space-x-4">
+                  <p className="w-20">{option.product.reference}</p>
+                  <img src={`https://bd.vizeo.eu/6-Photos/${option.product.reference}/${option.product.reference}.png`} className="h-12 w-12" />
+                  <div className="flex items-center justify-center space-x-2">
+                    <button
+                      type="button"
+                      disabled={option.quantity === 0}
+                      onClick={() => onOptionDecrementQuantity(option)}
+                      className="bg-[#16204e] px-2 text-white"
+                    >
+                      -
+                    </button>
+                    <span>{option.quantity}</span>
+                    <button type="button" onClick={() => onOptionIncrementQuantity(option)} className="bg-[#16204e] px-2 text-white">
+                      +
+                    </button>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
+        )}
       </div>
       <div className="flex gap-x-1 border-t-2 border-t-[#1a192b] px-2 pb-2">
         <label>Opacité :</label>
@@ -120,6 +122,6 @@ export default function AppViewStudyViewExpertViewFlowComponentSynopticCameraNod
         />
         <p>{data.opacity}%</p>
       </div>
-    </div>
+    </NodeToolbar>
   );
 }

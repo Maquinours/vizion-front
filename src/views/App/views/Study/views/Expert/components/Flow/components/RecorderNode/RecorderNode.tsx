@@ -98,16 +98,15 @@ export default function AppViewStudyViewExpertViewFlowComponentRecorderNodeCompo
                 height={data.size.height}
               />
             </div>
-
-            {showMenu && (
-              <AppViewStudyViewExpertViewFlowComponentRecorderNodeComponentMenuComponent
-                nodeId={id}
-                product={product}
-                data={data}
-                onClose={() => setShowMenu(false)}
-              />
-            )}
           </div>
+          {showMenu && (
+            <AppViewStudyViewExpertViewFlowComponentRecorderNodeComponentMenuComponent
+              nodeId={id}
+              product={product}
+              data={data}
+              onClose={() => setShowMenu(false)}
+            />
+          )}
         </div>
       </ClickAwayListener>
     </>

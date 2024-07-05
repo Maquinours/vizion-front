@@ -105,16 +105,15 @@ export default function AppViewStudyViewExpertViewFlowComponentMonitorNodeCompon
               height={data.size.height}
               style={{ opacity: data.opacity / 100 }}
             />
-
-            {showMenu && (
-              <AppViewStudyViewExpertViewFlowComponentMonitorNodeComponentMenuComponent
-                product={product}
-                data={data}
-                nodeId={id}
-                onClose={() => setShowMenu(false)}
-              />
-            )}
           </div>
+          {showMenu && (
+            <AppViewStudyViewExpertViewFlowComponentMonitorNodeComponentMenuComponent
+              product={product}
+              data={data}
+              nodeId={id}
+              onClose={() => setShowMenu(false)}
+            />
+          )}
         </div>
       </ClickAwayListener>
     </>

@@ -1,7 +1,18 @@
 import { ClickAwayListener } from '@mui/material';
 import { useRef, useState } from 'react';
 import { AiOutlineClose, AiTwotoneSetting } from 'react-icons/ai';
-import { Handle, NodeProps, NodeResizer, Position, ReactFlowState, ResizeDragEvent, ResizeParamsWithDirection, useReactFlow, useStore } from 'reactflow';
+import {
+  Handle,
+  NodeProps,
+  NodeResizer,
+  NodeToolbar,
+  Position,
+  ReactFlowState,
+  ResizeDragEvent,
+  ResizeParamsWithDirection,
+  useReactFlow,
+  useStore,
+} from 'reactflow';
 
 const handlesData = [
   {
@@ -97,57 +108,53 @@ export default function AppViewStudyViewExpertViewFlowComponentImageNodeComponen
 
   return (
     <ClickAwayListener mouseEvent={showMenu ? 'onPointerDown' : false} onClickAway={() => setShowMenu(false)}>
-      <div style={{ transform: `rotate(${data.rotation}deg)` }}>
-        <NodeResizer onResize={onResize} isVisible={selected} keepAspectRatio handleStyle={{ width: 10, height: 10, borderRadius: '100%' }} />
-        {handles.map((handle) => (
-          <Handle
-            key={handle.id}
-            type="source"
-            position={handle.position}
-            id={handle.id}
-            style={{
-              width: handle.position === Position.Top || handle.position === Position.Bottom ? '90%' : '10%',
-              height: handle.position === Position.Top || handle.position === Position.Bottom ? '10%' : '90%',
-              zIndex: isConnectable ? 0 : -1,
-              bottom: 0,
-              background: 'transparent',
-              border: 0,
-            }}
-          />
-        ))}
-        <div ref={nodeRef} className="flex justify-center">
-          <img
-            title={title}
-            src={data.image}
-            width={data.size.width}
-            height={data.size.height}
-            style={{ opacity: opacity / 100 }}
-            onMouseDown={onMouseDown}
-            onContextMenu={onContextMenu}
-          />
-          {showMenu && (
-            <div
-              style={{ transform: `rotate(${-data.rotation}deg)` }}
-              className="nodrag absolute top-full z-50 mt-1 h-fit w-[25rem] cursor-default rounded-md border-2 border-[#1a192b] bg-slate-50 px-2"
-            >
-              <div className="flex items-center justify-between p-2">
-                <div className="flex items-center justify-center space-x-2">
-                  <AiTwotoneSetting className="fill-[#1a192b]" />
-                  <h3 className="text-sm font-bold text-[#1a192b]">Paramétrage de votre image</h3>
-                </div>
-                <AiOutlineClose className="fill-[#1a192b]" onClick={() => setShowMenu(false)} />
-              </div>
-              <div>
-                <div className="flex gap-x-1 border-t-2 border-t-[#1a192b] px-2 pb-2">
-                  <label>Opacité :</label>
-                  <input type={'range'} min={10} max={100} value={opacity} onChange={onOpacityChange} className="flex-auto" />
-                  <p>{opacity}%</p>
-                </div>
-              </div>
-            </div>
-          )}
+      <div>
+        <div style={{ transform: `rotate(${data.rotation}deg)` }}>
+          <NodeResizer onResize={onResize} isVisible={selected} keepAspectRatio handleStyle={{ width: 10, height: 10, borderRadius: '100%' }} />
+          {handles.map((handle) => (
+            <Handle
+              key={handle.id}
+              type="source"
+              position={handle.position}
+              id={handle.id}
+              style={{
+                width: handle.position === Position.Top || handle.position === Position.Bottom ? '90%' : '10%',
+                height: handle.position === Position.Top || handle.position === Position.Bottom ? '10%' : '90%',
+                zIndex: isConnectable ? 0 : -1,
+                bottom: 0,
+                background: 'transparent',
+                border: 0,
+              }}
+            />
+          ))}
+          <div ref={nodeRef} className="flex justify-center">
+            <img
+              title={title}
+              src={data.image}
+              width={data.size.width}
+              height={data.size.height}
+              style={{ opacity: opacity / 100 }}
+              onMouseDown={onMouseDown}
+              onContextMenu={onContextMenu}
+            />
+          </div>
         </div>
-        {/* <ObjectNodeRotationPlugin nodeRef={nodeRef} nodeId={id} /> */}
+        <NodeToolbar isVisible={showMenu} position={Position.Bottom} align="center" className="nopan rounded-md border-2 border-[#1a192b] bg-slate-50 px-2">
+          <div className="flex items-center justify-between p-2">
+            <div className="flex items-center justify-center space-x-2">
+              <AiTwotoneSetting className="fill-[#1a192b]" />
+              <h3 className="text-sm font-bold text-[#1a192b]">Paramétrage de votre image</h3>
+            </div>
+            <AiOutlineClose className="fill-[#1a192b]" onClick={() => setShowMenu(false)} />
+          </div>
+          <div>
+            <div className="flex gap-x-1 border-t-2 border-t-[#1a192b] px-2 pb-2">
+              <label>Opacité :</label>
+              <input type={'range'} min={10} max={100} value={opacity} onChange={onOpacityChange} className="flex-auto" />
+              <p>{opacity}%</p>
+            </div>
+          </div>
+        </NodeToolbar>
       </div>
     </ClickAwayListener>
   );

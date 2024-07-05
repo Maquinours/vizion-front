@@ -1,6 +1,6 @@
 import { useQueryClient } from '@tanstack/react-query';
 import { AiOutlineClose, AiTwotoneSetting } from 'react-icons/ai';
-import { Node, useReactFlow } from 'reactflow';
+import { Node, NodeToolbar, Position, useReactFlow } from 'reactflow';
 import { queries } from '../../../../../../../../../../../../utils/constants/queryKeys';
 import ProductProductResponseDto from '../../../../../../../../../../../../utils/types/ProductProductResponseDto';
 import ProductResponseDto from '../../../../../../../../../../../../utils/types/ProductResponseDto';
@@ -104,7 +104,7 @@ export default function AppViewStudyViewExpertViewFlowComponentRecorderNodeCompo
   const totalHddQuantity = options?.filter((opt) => opt.product.reference?.startsWith('DD')).reduce((acc, opt) => acc + opt.quantity, 0) ?? 0;
 
   return (
-    <div className="nodrag absolute top-full z-50 my-1 h-fit w-[25rem] cursor-default rounded-md border-2 border-[#1a192b] bg-slate-50 px-2">
+    <NodeToolbar position={Position.Bottom} align="center" className="nopan rounded-md border-2 border-[#1a192b] bg-slate-50 px-2">
       <div className="flex items-center justify-between border-b-2 border-b-[#1a192b] p-2">
         <div className="flex items-center justify-center space-x-2">
           <AiTwotoneSetting className="fill-[#1a192b]" />
@@ -161,6 +161,6 @@ export default function AppViewStudyViewExpertViewFlowComponentRecorderNodeCompo
           <p>{data.opacity}%</p>
         </div>
       </div>
-    </div>
+    </NodeToolbar>
   );
 }

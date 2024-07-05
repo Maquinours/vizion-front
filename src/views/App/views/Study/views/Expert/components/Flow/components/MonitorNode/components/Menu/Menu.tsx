@@ -2,7 +2,7 @@ import { AiOutlineClose, AiTwotoneSetting } from 'react-icons/ai';
 import ProductResponseDto from '../../../../../../../../../../../../utils/types/ProductResponseDto';
 import ProductProductResponseDto from '../../../../../../../../../../../../utils/types/ProductProductResponseDto';
 import { AppViewStudyViewExpertViewFlowComponentMonitorNodeComponentData } from '../../MonitorNode';
-import { Node, useReactFlow } from 'reactflow';
+import { Node, NodeToolbar, Position, useReactFlow } from 'reactflow';
 
 type Option = {
   product: ProductProductResponseDto;
@@ -62,7 +62,7 @@ export default function AppViewStudyViewExpertViewFlowComponentMonitorNodeCompon
   };
 
   return (
-    <div className="absolute top-full z-50 my-1 h-fit w-[25rem] cursor-default rounded-md border-2 border-[#1a192b] bg-slate-50 px-2">
+    <NodeToolbar position={Position.Bottom} align="center" className="nopan rounded-md border-2 border-[#1a192b] bg-slate-50 px-2">
       <div className="flex items-center justify-between border-b-2 border-b-[#1a192b] p-2">
         <div className="flex items-center justify-center space-x-2">
           <AiTwotoneSetting className="fill-[#1a192b]" />
@@ -82,9 +82,9 @@ export default function AppViewStudyViewExpertViewFlowComponentMonitorNodeCompon
           />
         </div>
         {!!options && options.length > 0 && (
-          <div className="border-b-[#1a192b] px-2 pb-2">
+          <div className="border-b-[#1a192b] px-2 pb-2 text-center">
             <h3>Accessoires conseillés</h3>
-            <div className="flex h-auto flex-col space-y-1">
+            <div className="flex h-auto flex-col items-center justify-center space-y-1">
               {options.map((option) => (
                 <div key={option.product.id} className="flex items-center justify-start space-x-4">
                   <img src={`https://bd.vizeo.eu/6-Photos/${option.product.reference}/${option.product.reference}.jpg`} className="h-6 w-6 object-center" />
@@ -113,6 +113,6 @@ export default function AppViewStudyViewExpertViewFlowComponentMonitorNodeCompon
           <p>{data.opacity}%</p>
         </div>
       </div>
-    </div>
+    </NodeToolbar>
   );
 }

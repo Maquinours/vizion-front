@@ -93,15 +93,15 @@ export default function AppViewStudyViewExpertViewFlowComponentSynopticCameraNod
             <div title={title} onContextMenu={onContextMenu}>
               <img src={image} width={data.size.width} height={data.size.height} style={{ opacity: data.opacity / 100 }} />
             </div>
-            {showMenu && (
-              <AppViewStudyViewExpertViewFlowComponentSynopticCameraNodeComponentMenuComponent
-                nodeId={id}
-                product={product}
-                data={data}
-                onClose={() => setShowMenu(false)}
-              />
-            )}
           </div>
+          {showMenu && (
+            <AppViewStudyViewExpertViewFlowComponentSynopticCameraNodeComponentMenuComponent
+              nodeId={id}
+              product={product}
+              data={data}
+              onClose={() => setShowMenu(false)}
+            />
+          )}
         </div>
       </ClickAwayListener>
     </>
