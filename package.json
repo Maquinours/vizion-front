@@ -66,6 +66,7 @@
     "react-spinners": "^0.14.1",
     "react-stomp-hooks": "^2.2.1",
     "react-toastify": "^10.0.4",
+    "react-tooltip": "^5.27.1",
     "react-topbar-progress-indicator": "^4.1.1",
     "react-use-websocket": "^4.8.1",
     "read-excel-file": "^5.7.1",

@@ -2,6 +2,7 @@
 
 .container {
   list-style: none;
+  cursor: inherit;
 
   @include respond-below(md) {
     min-width: 180px;

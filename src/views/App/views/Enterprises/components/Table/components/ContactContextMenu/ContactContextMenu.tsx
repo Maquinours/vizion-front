@@ -1,32 +1,29 @@
 import { ClickAwayListener, Fade, MenuItem, MenuList, Paper, Popper } from '@mui/material';
-import { Link, getRouteApi } from '@tanstack/react-router';
-import ProfileResponseDto from '../../../../../../../../../../utils/types/ProfileResponseDto';
+import ProfileResponseDto from '../../../../../../../../utils/types/ProfileResponseDto';
 import { VirtualElement } from '@popperjs/core';
+import { Link, getRouteApi } from '@tanstack/react-router';
+import { useAuthentifiedUserQuery } from '../../../../../../utils/functions/getAuthentifiedUser';
 import { MdMailOutline, MdPassword, MdWork } from 'react-icons/md';
+import styles from './ContactContextMenu.module.scss';
 import { FaCopy, FaFile, FaTrash } from 'react-icons/fa';
-import { useAuthentifiedUserQuery } from '../../../../../../../../utils/functions/getAuthentifiedUser';
 import { IoMdAddCircleOutline } from 'react-icons/io';
-import CategoryClient from '../../../../../../../../../../utils/enums/CategoryClient';
-import { toast } from 'react-toastify';
-import React from 'react';
-import styles from './ContextMenu.module.scss';
 import { HiPencilAlt } from 'react-icons/hi';
+import CategoryClient from '../../../../../../../../utils/enums/CategoryClient';
+import { toast } from 'react-toastify';
 
 const routeApi = getRouteApi('/app/enterprises');
 
-type AppViewEnterprisesViewTableComponentContactsCellComponentContextMenuComponentProps = Readonly<{
+type AppViewEnterprisesViewTableComponentContactContextMenuProps = Readonly<{
   contact: ProfileResponseDto | undefined;
   anchorElement: VirtualElement | undefined;
   setAnchorElement: React.Dispatch<React.SetStateAction<VirtualElement | undefined>>;
 }>;
-export default function AppViewEnterprisesViewTableComponentContactsCellComponentContextMenuComponent({
+export default function AppViewEnterprisesViewTableComponentContactContextMenu({
   contact,
   anchorElement,
   setAnchorElement,
-}: AppViewEnterprisesViewTableComponentContactsCellComponentContextMenuComponentProps) {
+}: AppViewEnterprisesViewTableComponentContactContextMenuProps) {
   const { data: user } = useAuthentifiedUserQuery();
-
-  const isOpen = !!anchorElement;
 
   const onClose = () => {
     setAnchorElement(undefined);
@@ -62,6 +59,8 @@ export default function AppViewEnterprisesViewTableComponentContactsCellComponen
     }
   };
 
+  const isOpen = !!anchorElement;
+
   return (
     <Popper
       open={isOpen}
@@ -74,13 +73,20 @@ export default function AppViewEnterprisesViewTableComponentContactsCellComponen
       }}
     >
       {({ TransitionProps }) => (
-        <ClickAwayListener onClickAway={onClose}>
+        <ClickAwayListener onClickAway={onClose} mouseEvent="onMouseDown">
           <Fade {...TransitionProps}>
             <Paper className={styles.menu_container}>
               {contact && (
                 <MenuList>
                   <MenuItem>
-                    <Link from={routeApi.id} to="create-contact-business/$contactId" params={{ contactId: contact.id }} search={(old) => old} replace>
+                    <Link
+                      from={routeApi.id}
+                      to="create-contact-business/$contactId"
+                      params={{ contactId: contact.id }}
+                      search={(old) => old}
+                      replace
+                      resetScroll={false}
+                    >
                       <MdWork className={styles.icon} />
                       <span className={styles.text}>Créer une affaire</span>
                     </Link>
@@ -93,6 +99,7 @@ export default function AppViewEnterprisesViewTableComponentContactsCellComponen
                         params={{ enterpriseId: contact.enterprise!.id }}
                         search={(old) => old}
                         replace
+                        resetScroll={false}
                       >
                         <MdWork className={styles.icon} />
                         <span className={styles.text}>Créer un RMA</span>
@@ -101,7 +108,14 @@ export default function AppViewEnterprisesViewTableComponentContactsCellComponen
                   )}
                   {user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && [
                     <MenuItem key={0}>
-                      <Link from={routeApi.id} to="create-contact-travel-voucher/$contactId" params={{ contactId: contact.id }} search={(old) => old} replace>
+                      <Link
+                        from={routeApi.id}
+                        to="create-contact-travel-voucher/$contactId"
+                        params={{ contactId: contact.id }}
+                        search={(old) => old}
+                        replace
+                        resetScroll={false}
+                      >
                         <FaFile className={styles.icon} />
                         <span className={styles.text}>Créer un bon de transport</span>
                       </Link>
@@ -113,6 +127,7 @@ export default function AppViewEnterprisesViewTableComponentContactsCellComponen
                         params={{ enterpriseId: contact.enterprise!.id }}
                         search={(old) => old}
                         replace
+                        resetScroll={false}
                       >
                         <IoMdAddCircleOutline className={styles.icon} />
                         <span className={styles.text}>Ajouter un nouveau contact</span>
@@ -120,7 +135,14 @@ export default function AppViewEnterprisesViewTableComponentContactsCellComponen
                     </MenuItem>,
                     contact.email && (
                       <MenuItem key={2}>
-                        <Link from={routeApi.id} to="send-email-to-contact/$contactId" params={{ contactId: contact.id }} search={(old) => old} replace>
+                        <Link
+                          from={routeApi.id}
+                          to="send-email-to-contact/$contactId"
+                          params={{ contactId: contact.id }}
+                          search={(old) => old}
+                          replace
+                          resetScroll={false}
+                        >
                           <MdMailOutline className={styles.icon} />
                           <span className={styles.text}>Envoyer un mail</span>
                         </Link>
@@ -128,7 +150,14 @@ export default function AppViewEnterprisesViewTableComponentContactsCellComponen
                     ),
                   ]}
                   <MenuItem>
-                    <Link from={routeApi.id} to="update-contact/$contactId" params={{ contactId: contact.id }} search={(old) => old} replace>
+                    <Link
+                      from={routeApi.id}
+                      to="update-contact/$contactId"
+                      params={{ contactId: contact.id }}
+                      search={(old) => old}
+                      replace
+                      resetScroll={false}
+                    >
                       <HiPencilAlt className={styles.icon} />
                       <span className={styles.text}>Modifier ce contact</span>
                     </Link>
@@ -137,7 +166,14 @@ export default function AppViewEnterprisesViewTableComponentContactsCellComponen
                     (user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') &&
                       (contact.categoryClient !== CategoryClient.VIZEO || user.profile.id === contact.id))) && (
                     <MenuItem>
-                      <Link from={routeApi.id} to="update-contact-password/$contactId" params={{ contactId: contact.id }} search={(old) => old} replace>
+                      <Link
+                        from={routeApi.id}
+                        to="update-contact-password/$contactId"
+                        params={{ contactId: contact.id }}
+                        search={(old) => old}
+                        replace
+                        resetScroll={false}
+                      >
                         <MdPassword className={styles.icon} />
                         <span className={styles.text}>Modifier le mot de passe</span>
                       </Link>
@@ -161,7 +197,14 @@ export default function AppViewEnterprisesViewTableComponentContactsCellComponen
                   ]}
                   {user.profile.id !== contact.id && (
                     <MenuItem>
-                      <Link from={routeApi.id} to="delete-contact/$contactId" params={{ contactId: contact.id }} search={(old) => old} replace>
+                      <Link
+                        from={routeApi.id}
+                        to="delete-contact/$contactId"
+                        params={{ contactId: contact.id }}
+                        search={(old) => old}
+                        replace
+                        resetScroll={false}
+                      >
                         <FaTrash className={styles.icon} />
                         <span className={styles.text}>Supprimer ce contact</span>
                       </Link>

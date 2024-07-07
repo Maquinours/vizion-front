@@ -60,7 +60,7 @@ export default function AppViewBusinessViewBpViewTravelVoucherModalViewFormModal
       receiverCity: business.deliverAddressCity ?? '',
       receiverPhoneNumber: business.deliverPhoneNumber,
       receiverEmail: business.deliverEmail ?? '',
-      nbreColis: 0,
+      nbreColis: 1,
     },
   });
 

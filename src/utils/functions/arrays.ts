@@ -2,9 +2,11 @@ export const findRecursively = <T>(arr: Array<T>, recursiveAttribute: keyof T, c
   for (const i of arr) {
     if (condition(i)) return i;
     else if (i[recursiveAttribute] && Array.isArray(i[recursiveAttribute])) {
-      return findRecursively(i[recursiveAttribute] as Array<T>, recursiveAttribute, condition);
+      const item = findRecursively(i[recursiveAttribute] as Array<T>, recursiveAttribute, condition);
+      if (item) return item;
     }
   }
+  return undefined;
 };
 
 export const filterRecursively = <T>(arr: Array<T>, recursiveAttribute: keyof T, condition: (el: T) => boolean): Array<T> => {
