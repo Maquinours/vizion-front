@@ -2,6 +2,7 @@ import { useContext } from 'react';
 import { PiRectangle, PiTextT } from 'react-icons/pi';
 import LinesLogo from '../../../../../../../../assets/images/lines.svg?react';
 import ExpertStudyContext, { ExpertStudyPaneClickFunctionType } from '../../utils/context';
+import AppViewStudyViewExpertViewHeaderComponentExportMenuComponent from './components/ExportMenu/ExportMenu';
 
 export default function AppViewStudyViewExpertViewHeaderComponent() {
   const { setPaneClickFunction, paneClickFunction } = useContext(ExpertStudyContext)!;
@@ -52,6 +53,9 @@ export default function AppViewStudyViewExpertViewHeaderComponent() {
         >
           <PiRectangle color="white" size={16} viewBox="24 40 208 176" />
         </button>
+      </div>
+      <div>
+        <AppViewStudyViewExpertViewHeaderComponentExportMenuComponent />
       </div>
     </div>
   );

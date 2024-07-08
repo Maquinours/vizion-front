@@ -8,6 +8,7 @@ import AppViewStudyViewExpertViewModalProviderComponentOthersCamerasModalCompone
 import AppViewStudyViewExpertViewModalProviderComponentRecorderModalComponent from './components/RecorderModal/RecorderModal';
 import AppViewStudyViewExpertViewModalProviderComponentTransmittersModalComponent from './components/TransmittersModal/TransmittersModal';
 import AppViewStudyViewExpertViewModalProviderComponentUniversalCameraModalComponent from './components/UniversalCameraModal/UniversalCameraModal';
+import AppViewStudyViewExpertViewModalProviderComponentPdfModalComponent from './components/PdfModal/PdfModal';
 
 export default function AppViewStudyViewExpertViewModalProviderComponent() {
   const { modal } = useContext(ExpertStudyContext)!;
@@ -39,5 +40,8 @@ export default function AppViewStudyViewExpertViewModalProviderComponent() {
       return <AppViewStudyViewExpertViewModalProviderComponentAddTextModalComponent nodePosition={modal.data.nodePosition} />;
     case ExpertStudyModalType.EDIT_TEXT:
       return <AppViewStudyViewExpertViewModalProviderComponentEditTextModalComponent nodeId={modal.data.nodeId} />;
+    case ExpertStudyModalType.PDF:
+      if (modal.data.step === 'IMAGE_GENERATION') return <AppViewStudyViewExpertViewModalProviderComponentPdfModalComponent step={modal.data.step} />;
+      else return <AppViewStudyViewExpertViewModalProviderComponentPdfModalComponent step={modal.data.step} images={modal.data.images} />;
   }
 }

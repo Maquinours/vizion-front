@@ -12,6 +12,7 @@ export enum ExpertStudyModalType {
   OTHER_CAMERAS,
   ADD_TEXT,
   EDIT_TEXT,
+  PDF,
 }
 
 export type ExpertStudyModal =
@@ -24,7 +25,15 @@ export type ExpertStudyModal =
   | { type: ExpertStudyModalType.TRANSMITTERS; data?: undefined }
   | { type: ExpertStudyModalType.OTHER_CAMERAS; data?: undefined }
   | { type: ExpertStudyModalType.ADD_TEXT; data: { nodePosition: XYPosition } }
-  | { type: ExpertStudyModalType.EDIT_TEXT; data: { nodeId: string } };
+  | { type: ExpertStudyModalType.EDIT_TEXT; data: { nodeId: string } }
+  | {
+      type: ExpertStudyModalType.PDF;
+      data:
+        | {
+            step: 'IMAGE_GENERATION';
+          }
+        | { step: 'SHOW'; images: Array<Blob> };
+    };
 
 export enum ExpertStudyPaneClickFunctionType {
   TEXT,
