@@ -40,7 +40,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentAddTextM
   };
 
   const onSubmit = ({ text }: yup.InferType<typeof yupSchema>) => {
-    addNodes([{ id: uuidv4(), type: 'text', position: nodePosition, data: { text } }]);
+    addNodes({ id: uuidv4(), type: 'text', position: nodePosition, data: { text } });
     setPaneClickFunction(undefined);
     onClose();
   };

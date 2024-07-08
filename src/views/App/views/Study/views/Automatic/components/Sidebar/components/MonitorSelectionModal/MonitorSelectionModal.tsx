@@ -36,14 +36,12 @@ export default function AppViewStudyViewAutomaticViewSidebarComponentMonitorSele
 
   const onSubmit = ({ monitor }: yup.InferType<typeof yupSchema>) => {
     deleteElements({ nodes: getNodes().filter((node) => node.type === 'automatiqueTvNode') });
-    addNodes([
-      {
-        id: monitor.id,
-        position: { x: 800, y: 10 },
-        type: 'automatiqueTvNode',
-        data: {},
-      },
-    ]);
+    addNodes({
+      id: monitor.id,
+      position: { x: 800, y: 10 },
+      type: 'automatiqueTvNode',
+      data: {},
+    });
     onClose();
   };
 

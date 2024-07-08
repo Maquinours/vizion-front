@@ -5,6 +5,7 @@ import AppViewStudyViewExpertViewHeaderComponent from './components/Header/Heade
 import AppViewStudyViewExpertViewModalProviderComponent from './components/ModalProvider/ModalProvider';
 import AppViewStudyViewExpertViewProductsMenuComponent from './components/ProductsMenu/ProductsMenu';
 import ExpertStudyContext, { ExpertStudyModal, ExpertStudyPaneClickFunction } from './utils/context';
+import AppViewStudyViewExpertViewFooterComponent from './components/Footer/Footer';
 
 export default function AppViewStudyViewExpertView() {
   const [modal, setModal] = useState<ExpertStudyModal>();
@@ -18,11 +19,12 @@ export default function AppViewStudyViewExpertView() {
   return (
     <ExpertStudyContext.Provider value={contextValue}>
       <ReactFlowProvider>
-        <div className="flex flex-row gap-x-4">
+        <div className="flex h-screen w-screen flex-row gap-x-4">
           <AppViewStudyViewExpertViewProductsMenuComponent />
-          <div className="flex h-screen w-screen flex-col">
+          <div className="flex h-5/6 w-full flex-col">
             <AppViewStudyViewExpertViewHeaderComponent />
             <AppViewStudyViewExpertViewFlowComponent />
+            <AppViewStudyViewExpertViewFooterComponent />
           </div>
         </div>
         <AppViewStudyViewExpertViewModalProviderComponent />

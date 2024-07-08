@@ -93,7 +93,7 @@ export default function AppViewStudyViewExpertViewFlowComponent() {
               size: { width: maxPosition.x - minPosition.x + 2, height: maxPosition.y - minPosition.y + 2 },
             },
           };
-          addNodes([node]);
+          addNodes(node);
           setPaneClickFunction(undefined);
         }
         break;
@@ -145,7 +145,7 @@ export default function AppViewStudyViewExpertViewFlowComponent() {
             pointerEvents: 'none',
           },
         };
-        addNodes([node]);
+        addNodes(node);
       }
       setPaneClickFunction(undefined);
       return;
