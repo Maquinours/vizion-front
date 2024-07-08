@@ -9,4 +9,4 @@ export const WEBSOCKET_URL = 'https://notifications.vizeo.eu/ws-notification/';
 export const CHAT_WEBSOCKET_URL = 'wss://vizion-chat-socket.vizeo.eu:443';
 
 export const AUTH_CLIENT = 'vizion-auth-client';
-export const AUTH_SECRET = 'vQOVlk134aGkvWg473OQL3hsIr7dkXk1';
+export const AUTH_SECRET = import.meta.env.PROD ? '6530e11e-090f-44a6-b4f0-55f71329ef44' : 'vQOVlk134aGkvWg473OQL3hsIr7dkXk1';
