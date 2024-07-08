@@ -20,6 +20,7 @@ type Page = {
   nodes: Node[];
   edges: Edge[];
   viewport: Viewport;
+  name?: string;
 };
 
 export type RFState = {
@@ -33,6 +34,11 @@ export type RFState = {
   setEdges: (edges: Edge[]) => void;
   setCurrentPage: (currentPage: number) => void;
   addPage: () => void;
+  studyName?: string;
+  installerName?: string;
+  setStudyName: (studyName: string) => void;
+  setInstallerName: (installerName: string) => void;
+  setPageName: (pageName: string) => void;
 };
 
 // this is our useStore hook that we can use in our components to get parts of the store and call actions
@@ -77,6 +83,16 @@ const useStore = create<RFState>((set, get) => ({
   addPage: () => {
     const pages = [...get().pages, defaultPage];
     set({ pages, currentPage: pages.length - 1 });
+  },
+  setStudyName: (studyName: string) => {
+    set({ studyName });
+  },
+  setInstallerName: (installerName: string) => {
+    set({ installerName });
+  },
+  setPageName: (pageName: string) => {
+    const currentPage = get().currentPage;
+    set({ pages: get().pages.map((page, index) => (index === currentPage ? { ...page, name: pageName } : page)) });
   },
 }));
 

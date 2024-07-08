@@ -17,6 +17,7 @@ import useStore, { RFState } from './utils/store';
 import 'reactflow/dist/style.css';
 import AppViewStudyViewExpertViewFlowComponentLinesNodeComponent, { ExpertStudyLinesNodeData } from './components/LinesNode/LinesNode';
 import AppViewStudyViewExpertViewFlowComponentLinesTracingComponent from './components/LinesTracing/LinesTracing';
+import AppViewStudyViewExpertViewFlowComponentCartridgeComponent from './components/Cartridge/Cartridge';
 
 const nodeTypes = {
   synopticCamera: AppViewStudyViewExpertViewFlowComponentSynopticCameraNodeComponent,
@@ -182,6 +183,7 @@ export default function AppViewStudyViewExpertViewFlowComponent() {
       elementsSelectable={!paneClickFunction}
     >
       <AppViewStudyViewExpertViewFlowComponentGuideLinesComponent />
+      <AppViewStudyViewExpertViewFlowComponentCartridgeComponent />
       {paneClickFunction?.type === ExpertStudyPaneClickFunctionType.RECTANGLE && <AppViewStudyViewExpertViewFlowComponentRectangleTracingComponent />}
       {paneClickFunction?.type === ExpertStudyPaneClickFunctionType.LINES && <AppViewStudyViewExpertViewFlowComponentLinesTracingComponent />}
     </ReactFlow>
