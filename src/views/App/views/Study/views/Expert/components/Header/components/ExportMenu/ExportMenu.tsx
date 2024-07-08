@@ -31,7 +31,7 @@ export default function AppViewStudyViewExpertViewHeaderComponentExportMenuCompo
         className="btn btn-primary flex gap-1"
       >
         Exporter
-        <RiArrowDownSLine size={20} />
+        <RiArrowDownSLine size={15} />
       </Button>
       <Menu
         id="export-menu"

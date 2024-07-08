@@ -1,11 +1,11 @@
 import { useContext } from 'react';
 import { PiRectangle, PiTextT } from 'react-icons/pi';
 import LinesLogo from '../../../../../../../../assets/images/lines.svg?react';
-import ExpertStudyContext, { ExpertStudyPaneClickFunctionType } from '../../utils/context';
+import ExpertStudyContext, { ExpertStudyModalType, ExpertStudyPaneClickFunctionType } from '../../utils/context';
 import AppViewStudyViewExpertViewHeaderComponentExportMenuComponent from './components/ExportMenu/ExportMenu';
 
 export default function AppViewStudyViewExpertViewHeaderComponent() {
-  const { setPaneClickFunction, paneClickFunction } = useContext(ExpertStudyContext)!;
+  const { setPaneClickFunction, paneClickFunction, setModal } = useContext(ExpertStudyContext)!;
 
   const onLinesButtonClick = () => {
     setPaneClickFunction((func) => (func?.type !== ExpertStudyPaneClickFunctionType.LINES ? { type: ExpertStudyPaneClickFunctionType.LINES } : undefined));
@@ -19,6 +19,10 @@ export default function AppViewStudyViewExpertViewHeaderComponent() {
     setPaneClickFunction((func) =>
       func?.type !== ExpertStudyPaneClickFunctionType.RECTANGLE ? { type: ExpertStudyPaneClickFunctionType.RECTANGLE } : undefined,
     );
+  };
+
+  const onHddCalculationButtonClick = () => {
+    setModal({ type: ExpertStudyModalType.HDD_CALCULATION });
   };
 
   return (
@@ -54,8 +58,11 @@ export default function AppViewStudyViewExpertViewHeaderComponent() {
           <PiRectangle color="white" size={16} viewBox="24 40 208 176" />
         </button>
       </div>
-      <div>
+      <div className="flex items-center gap-x-2">
         <AppViewStudyViewExpertViewHeaderComponentExportMenuComponent />
+        <button className="btn btn-primary" onClick={onHddCalculationButtonClick}>
+          Calcul de disque dur
+        </button>
       </div>
     </div>
   );

@@ -13,6 +13,7 @@ export enum ExpertStudyModalType {
   ADD_TEXT,
   EDIT_TEXT,
   PDF,
+  HDD_CALCULATION,
 }
 
 export type ExpertStudyModal =
@@ -33,7 +34,8 @@ export type ExpertStudyModal =
             step: 'IMAGE_GENERATION';
           }
         | { step: 'SHOW'; images: Array<Blob> };
-    };
+    }
+  | { type: ExpertStudyModalType.HDD_CALCULATION; data?: undefined };
 
 export enum ExpertStudyPaneClickFunctionType {
   TEXT,
