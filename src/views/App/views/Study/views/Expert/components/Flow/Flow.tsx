@@ -1,22 +1,22 @@
-import ReactFlow, { ConnectionMode, Node, useReactFlow } from 'reactflow';
+import { useContext, useEffect } from 'react';
+import ReactFlow, { ConnectionMode, Node, useOnViewportChange, useReactFlow } from 'reactflow';
+import { v4 as uuidv4 } from 'uuid';
 import { useShallow } from 'zustand/react/shallow';
-import AppViewStudyViewExpertViewFlowComponentMonitorNodeComponent from './components/MonitorNode/MonitorNode';
-import AppViewStudyViewExpertViewFlowComponentSynopticCameraNodeComponent from './components/SynopticCameraNode/SynopticCameraNode';
-import useStore, { RFState } from './utils/store';
-import { useContext } from 'react';
 import ExpertStudyContext, { ExpertStudyModalType, ExpertStudyPaneClickFunctionType } from '../../utils/context';
 import AppViewStudyViewExpertViewFlowComponentGuideLinesComponent from './components/GuideLines/GuideLines';
 import AppViewStudyViewExpertViewFlowComponentImageNodeComponent from './components/ImageNode/ImageNode';
+import AppViewStudyViewExpertViewFlowComponentMonitorNodeComponent from './components/MonitorNode/MonitorNode';
 import AppViewStudyViewExpertViewFlowComponentRecorderNodeComponent from './components/RecorderNode/RecorderNode';
-import AppViewStudyViewExpertViewFlowComponentTextNodeComponent from './components/TextNode/TextNode';
-import AppViewStudyViewExpertViewFlowComponentTransmitterNodeComponent from './components/TransmitterNode/TransmitterNode';
 import AppViewStudyViewExpertViewFlowComponentRectangleNodeComponent, { ExpertStudyRectangleNodeData } from './components/RectangleNode/RectangleNode';
 import AppViewStudyViewExpertViewFlowComponentRectangleTracingComponent from './components/RectangleTracing/RectangleTracing';
-import { v4 as uuidv4 } from 'uuid';
+import AppViewStudyViewExpertViewFlowComponentSynopticCameraNodeComponent from './components/SynopticCameraNode/SynopticCameraNode';
+import AppViewStudyViewExpertViewFlowComponentTextNodeComponent from './components/TextNode/TextNode';
+import AppViewStudyViewExpertViewFlowComponentTransmitterNodeComponent from './components/TransmitterNode/TransmitterNode';
+import useStore, { RFState } from './utils/store';
 
 import 'reactflow/dist/style.css';
-import AppViewStudyViewExpertViewFlowComponentLinesTracingComponent from './components/LinesTracing/LinesTracing';
 import AppViewStudyViewExpertViewFlowComponentLinesNodeComponent, { ExpertStudyLinesNodeData } from './components/LinesNode/LinesNode';
+import AppViewStudyViewExpertViewFlowComponentLinesTracingComponent from './components/LinesTracing/LinesTracing';
 
 const nodeTypes = {
   synopticCamera: AppViewStudyViewExpertViewFlowComponentSynopticCameraNodeComponent,
@@ -30,17 +30,23 @@ const nodeTypes = {
 };
 
 const selector = (state: RFState) => ({
-  nodes: state.nodes,
-  edges: state.edges,
+  nodes: state.pages[state.currentPage].nodes,
+  edges: state.pages[state.currentPage].edges,
+  viewport: state.pages[state.currentPage].viewport,
   onNodesChange: state.onNodesChange,
   onEdgesChange: state.onEdgesChange,
   onConnect: state.onConnect,
+  setViewport: state.setViewport,
 });
 
 export default function AppViewStudyViewExpertViewFlowComponent() {
-  const { screenToFlowPosition, addNodes } = useReactFlow();
+  const { screenToFlowPosition, addNodes, setViewport: setFlowViewport } = useReactFlow();
   const { paneClickFunction, setPaneClickFunction, setModal } = useContext(ExpertStudyContext)!;
-  const { nodes, edges, onNodesChange, onEdgesChange, onConnect } = useStore(useShallow(selector));
+  const { nodes, edges, viewport, onNodesChange, onEdgesChange, onConnect, setViewport } = useStore(useShallow(selector));
+
+  useOnViewportChange({
+    onEnd: setViewport,
+  });
 
   const onPaneClick = (event: React.MouseEvent<Element, MouseEvent>) => {
     switch (paneClickFunction?.type) {
@@ -145,6 +151,10 @@ export default function AppViewStudyViewExpertViewFlowComponent() {
       return;
     }
   };
+
+  useEffect(() => {
+    setFlowViewport(viewport);
+  }, [viewport]);
 
   const title = (() => {
     switch (paneClickFunction?.type) {
