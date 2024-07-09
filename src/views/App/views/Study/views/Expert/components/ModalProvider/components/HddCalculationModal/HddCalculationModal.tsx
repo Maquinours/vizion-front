@@ -8,7 +8,6 @@ import * as yup from 'yup';
 import { useShallow } from 'zustand/react/shallow';
 import AmountFormat from '../../../../../../../../../../components/AmountFormat/AmountFormat';
 import { queries } from '../../../../../../../../../../utils/constants/queryKeys';
-import ProductResponseDto from '../../../../../../../../../../utils/types/ProductResponseDto';
 import ExpertStudyContext from '../../../../utils/context';
 import { AppViewStudyViewExpertViewFlowComponentRecorderNodeComponentData } from '../../../Flow/components/RecorderNode/RecorderNode';
 import { AppViewStudyViewExpertViewFlowComponentSynopticCameraNodeComponentData } from '../../../Flow/components/SynopticCameraNode/SynopticCameraNode';
@@ -17,49 +16,23 @@ const yupSchema = yup.object().shape({
   hoursPerDay: yup.number().required().min(1).max(24),
 });
 
-const getData = (state: ReactFlowState, products: Array<ProductResponseDto>) => {
+const getData = (state: ReactFlowState) => {
   const nodes = Array.from(state.nodeInternals.values());
-  const flux = nodes
+  const cameraNodesData = nodes
     .filter((node): node is Node<AppViewStudyViewExpertViewFlowComponentSynopticCameraNodeComponentData, 'synopticCamera'> => node.type === 'synopticCamera')
-    .reduce((acc, node) => {
-      const product = products.find((product) => product.id === node.data.productId);
-      if (!product) return acc;
-      const flux1 = product.specificationProducts?.find((spec) => spec.specification?.name === 'FLUX1')?.value;
-      const flux2 = product.specificationProducts?.find((spec) => spec.specification?.name === 'FLUX2')?.value;
-
-      if (!flux1 || !flux2) return acc;
-
-      return acc + (flux1 + flux2);
-    }, 0);
-
-  const hddSpace = nodes
+    .map((node) => ({ productId: node.data.productId }));
+  const recorderNodesData = nodes
     .filter((node): node is Node<AppViewStudyViewExpertViewFlowComponentRecorderNodeComponentData, 'recorder'> => node.type === 'recorder')
-    .reduce((acc, node) => {
-      const capacity = products
-        .find((product) => product.id === node.data.productId)
-        ?.specificationProducts?.find((spec) => spec.specification?.name === 'CAPACITE')?.value;
-      if (!capacity) return acc;
+    .map((node) => ({ productId: node.data.productId, options: node.data.options }));
 
-      const optionsCapacity = node.data.options.reduce((acc, option) => {
-        const capacity = products
-          .find((product) => product.id === option.id)
-          ?.specificationProducts?.find((spec) => spec.specification?.name === 'CAPACITE')?.value;
-        if (!capacity) return acc;
-
-        return acc + capacity * option.quantity;
-      }, 0);
-
-      return acc + capacity + optionsCapacity;
-    }, 0);
-
-  return { flux, hddSpace };
+  return { cameraNodesData, recorderNodesData };
 };
 export default function AppViewStudyViewExpertViewModalProviderComponentHddCalculationModalComponent() {
   const { setModal } = useContext(ExpertStudyContext)!;
 
   const { data: products } = useSuspenseQuery(queries.product.list);
 
-  const { flux, hddSpace } = useStore(useShallow((state) => getData(state, products)));
+  const { cameraNodesData, recorderNodesData } = useStore(useShallow(getData));
 
   const { control, watch, getValues } = useForm({
     resolver: yupResolver(yupSchema),
@@ -67,6 +40,31 @@ export default function AppViewStudyViewExpertViewModalProviderComponentHddCalcu
       hoursPerDay: 24,
     },
   });
+
+  const { flux, hddSpace } = useMemo(() => {
+    const flux = cameraNodesData.reduce((acc, data) => {
+      const product = products.find((product) => product.id === data.productId);
+      const flux1 = product?.specificationProducts?.find((spec) => spec.specification?.name === 'FLUX1')?.value ?? 0;
+      const flux2 = product?.specificationProducts?.find((spec) => spec.specification?.name === 'FLUX2')?.value ?? 0;
+      return acc + flux1 + flux2;
+    }, 0);
+
+    const hddSpace = recorderNodesData.reduce((acc, data) => {
+      const product = products.find((product) => product.id === data.productId);
+      const capacity =
+        (product?.specificationProducts?.find((spec) => spec.specification?.name === 'CAPACITE')?.value ?? 0) +
+        data.options.reduce((acc, option) => {
+          const capacity =
+            products.find((product) => product.id === option.id)?.specificationProducts?.find((spec) => spec.specification?.name === 'CAPACITE')?.value ?? 0;
+
+          return acc + capacity;
+        }, 0);
+
+      return acc + capacity;
+    }, 0);
+
+    return { flux, hddSpace };
+  }, [cameraNodesData, recorderNodesData, products]);
 
   const days = useMemo(() => {
     const hoursPerDay = getValues('hoursPerDay');
