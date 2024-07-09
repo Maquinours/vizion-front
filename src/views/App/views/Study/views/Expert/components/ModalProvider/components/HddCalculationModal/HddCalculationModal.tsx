@@ -70,7 +70,6 @@ export default function AppViewStudyViewExpertViewModalProviderComponentHddCalcu
 
   const days = useMemo(() => {
     const hoursPerDay = getValues('hoursPerDay');
-    console.log({ flux, hddSpace });
     if (flux === 0 || hddSpace === 0) return 0;
 
     return (
