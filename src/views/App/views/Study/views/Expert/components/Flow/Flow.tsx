@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react';
+import React, { useCallback, useContext, useEffect } from 'react';
 import ReactFlow, { ConnectionMode, Node, useOnViewportChange, useReactFlow } from 'reactflow';
 import { v4 as uuidv4 } from 'uuid';
 import { useShallow } from 'zustand/react/shallow';
@@ -41,13 +41,23 @@ const selector = (state: RFState) => ({
 });
 
 export default function AppViewStudyViewExpertViewFlowComponent() {
-  const { screenToFlowPosition, addNodes, setViewport: setFlowViewport } = useReactFlow();
+  const { screenToFlowPosition, setNodes, addNodes, setViewport: setFlowViewport } = useReactFlow();
   const { paneClickFunction, setPaneClickFunction, setModal } = useContext(ExpertStudyContext)!;
   const { nodes, edges, viewport, onNodesChange, onEdgesChange, onConnect, setViewport } = useStore(useShallow(selector));
 
   useOnViewportChange({
     onEnd: setViewport,
   });
+
+  const onNodeDragStart = useCallback(
+    (event: React.MouseEvent, node: Node) => {
+      if (event.ctrlKey) {
+        setNodes((nodes) => nodes.map((n) => (n.id === node.id ? { ...n, selected: true } : n)));
+        addNodes({ ...node, id: uuidv4() });
+      }
+    },
+    [setNodes, addNodes],
+  );
 
   const onPaneClick = (event: React.MouseEvent<Element, MouseEvent>) => {
     switch (paneClickFunction?.type) {
@@ -170,6 +180,7 @@ export default function AppViewStudyViewExpertViewFlowComponent() {
     <ReactFlow
       nodes={nodes}
       edges={edges}
+      onNodeDragStart={onNodeDragStart}
       onNodesChange={onNodesChange}
       onEdgesChange={onEdgesChange}
       onConnect={onConnect}
