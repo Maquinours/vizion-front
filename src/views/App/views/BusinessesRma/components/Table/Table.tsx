@@ -83,21 +83,48 @@ export default function AppViewBusinessesRmaViewTableComponent({ data, isLoading
       }),
       columnHelper.display({
         header: "Nr d'affaire",
-        cell: ({ row: { original } }) => (
-          <Link
-            data-tooltip-id="business-number-tooltip"
-            data-tooltip-content={original.id}
-            to="/app/businesses-rma/business/$businessId"
-            params={{ businessId: original.businessId }}
-            disabled={original.category !== CategoryBusiness.AFFAIRE}
-            className={styles.business_number}
-            style={{ color: 'var(--secondary-color)' }}
-          >
-            <span>{original.number}</span>
-            <span>{original.businessBillNumber}</span>
-            {original.creditNotes?.map((num, idx) => <span key={idx}>Avoir : {num.number}</span>)}
-          </Link>
-        ),
+        cell: ({ row: { original } }) => {
+          const children = (
+            <>
+              <span>{original.number}</span>
+              <span>{original.businessBillNumber}</span>
+              {original.creditNotes?.map((num, idx) => <span key={idx}>Avoir : {num.number}</span>)}
+            </>
+          );
+
+          if (original.category === CategoryBusiness.AFFAIRE)
+            return (
+              <Link
+                data-tooltip-id="business-number-tooltip"
+                data-tooltip-content={original.id}
+                to="/app/businesses-rma/business/$businessId"
+                params={{ businessId: original.businessId }}
+                className="text-[var(--secondary-color)]"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  e.nativeEvent.stopImmediatePropagation();
+                }}
+              >
+                {children}
+              </Link>
+            );
+          else if (original.category === CategoryBusiness.RMA)
+            return (
+              <Link
+                data-tooltip-id="business-number-tooltip"
+                data-tooltip-content={original.id}
+                to="/app/businesses-rma/rma/$rmaId"
+                params={{ rmaId: original.businessId }}
+                className="text-[var(--secondary-color)]"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  e.nativeEvent.stopImmediatePropagation();
+                }}
+              >
+                {children}
+              </Link>
+            );
+        },
       }),
       columnHelper.display({
         header: 'Entreprise',
