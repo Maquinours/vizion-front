@@ -85,6 +85,8 @@ export default function AppViewBusinessesRmaViewTableComponent({ data, isLoading
         header: "Nr d'affaire",
         cell: ({ row: { original } }) => (
           <Link
+            data-tooltip-id="business-number-tooltip"
+            data-tooltip-content={original.id}
             to="/app/businesses-rma/business/$businessId"
             params={{ businessId: original.businessId }}
             disabled={original.category !== CategoryBusiness.AFFAIRE}
@@ -207,9 +209,6 @@ export default function AppViewBusinessesRmaViewTableComponent({ data, isLoading
     [state, user],
   );
 
-  const getRowClassName = useCallback(() => 'allbusiness-row', []);
-  const getRowId = useCallback((row: AllBusinessResponseDto) => row.id, []);
-
   const onRowClick = useCallback(
     (e: React.MouseEvent, row: Row<AllBusinessResponseDto>) => {
       if (row.original.category === CategoryBusiness.AFFAIRE) {
@@ -226,7 +225,7 @@ export default function AppViewBusinessesRmaViewTableComponent({ data, isLoading
   return (
     <>
       <div className={styles.table_container}>
-        <TableComponent columns={columns} data={data} isLoading={isLoading} onRowClick={onRowClick} getRowClassName={getRowClassName} getRowId={getRowId} />
+        <TableComponent columns={columns} data={data} isLoading={isLoading} onRowClick={onRowClick} />
       </div>
       {!!data && <AppViewBusinessesRmaViewTableComponentRowTooltipComponent items={data} />}
       {/* {!!tooltipItem && <AppViewBusinessesRmaViewTableComponentRowTooltipComponent item={tooltipItem} />} */}
