@@ -15,6 +15,7 @@ import { AppViewStudyViewExpertViewFlowComponentMonitorNodeComponentData } from 
 import { AppViewStudyViewExpertViewFlowComponentTextNodeComponentData } from '../Flow/components/TextNode/TextNode';
 import { toast } from 'react-toastify';
 import { isError } from 'lodash';
+import AppViewStudyViewExpertViewHeaderComponentImportMenuComponent from './components/ImportMenu/ImportMenu';
 
 export default function AppViewStudyViewExpertViewHeaderComponent() {
   const queryClient = useQueryClient();
@@ -209,6 +210,7 @@ export default function AppViewStudyViewExpertViewHeaderComponent() {
         </button>
       </div>
       <div className="flex items-center gap-x-2">
+        <AppViewStudyViewExpertViewHeaderComponentImportMenuComponent />
         <AppViewStudyViewExpertViewHeaderComponentExportMenuComponent />
         <button type="button" className="btn btn-primary" onClick={onHddCalculationButtonClick}>
           Calcul de disque dur
