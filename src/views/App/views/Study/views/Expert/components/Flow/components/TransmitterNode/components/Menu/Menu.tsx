@@ -24,10 +24,12 @@ export default function AppViewStudyViewExpertViewFlowComponentTransmitterNodeCo
 }: AppViewStudyViewExpertViewFlowComponentTransmitterNodeComponentMenuComponentProps) {
   const { setNodes } = useReactFlow();
 
-  const options: Array<Option> | undefined = product.associatedProduct?.map((option) => ({
-    product: option,
-    quantity: data.options.find((opt) => opt.id === option.id)?.quantity ?? 0,
-  }));
+  const options: Array<Option> | undefined = product.associatedProduct
+    ?.map((option) => ({
+      product: option,
+      quantity: data.options.find((opt) => opt.id === option.id)?.quantity ?? 0,
+    }))
+    .sort((a, b) => (a.product.reference ?? '').localeCompare(b.product.reference ?? ''));
 
   const onNodeNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNodes((nds) => nds.map((node) => (node.id === nodeId ? { ...node, data: { ...node.data, name: e.target.value } } : node)));

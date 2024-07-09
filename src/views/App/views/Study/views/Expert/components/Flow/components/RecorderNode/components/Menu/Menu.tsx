@@ -36,10 +36,12 @@ export default function AppViewStudyViewExpertViewFlowComponentRecorderNodeCompo
   const queryClient = useQueryClient();
   const { setNodes } = useReactFlow();
 
-  const options: Array<Option> | undefined = product.associatedProduct?.map((option) => ({
-    product: option,
-    quantity: data.options.find((opt) => opt.id === option.id)?.quantity ?? 0,
-  }));
+  const options: Array<Option> | undefined = product.associatedProduct
+    ?.map((option) => ({
+      product: option,
+      quantity: data.options.find((opt) => opt.id === option.id)?.quantity ?? 0,
+    }))
+    .sort((a, b) => (a.product.reference ?? '').localeCompare(b.product.reference ?? ''));
 
   const onNodeNameChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const name = e.target.value;
