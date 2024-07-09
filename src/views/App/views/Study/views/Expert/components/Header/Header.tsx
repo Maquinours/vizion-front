@@ -210,7 +210,7 @@ export default function AppViewStudyViewExpertViewHeaderComponent() {
       </div>
       <div className="flex items-center gap-x-2">
         <AppViewStudyViewExpertViewHeaderComponentExportMenuComponent />
-        <button className="btn btn-primary" onClick={onHddCalculationButtonClick}>
+        <button type="button" className="btn btn-primary" onClick={onHddCalculationButtonClick}>
           Calcul de disque dur
         </button>
       </div>
