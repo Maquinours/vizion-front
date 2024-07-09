@@ -6,7 +6,13 @@ const colors = ['black', 'red', 'green', 'blue', 'yellow', 'purple', 'pink', 'or
 
 const getReactFlowData = (state: ReactFlowState) => {
   const nodes = Array.from(state.nodeInternals.values()).filter(
-    (node) => (node.dragging || node.resizing) && !!node.type && !['lines'].includes(node.type) && !!node.height && !!node.width,
+    (node) =>
+      (node.dragging || node.resizing) &&
+      !!node.type &&
+      !['lines'].includes(node.type) &&
+      !!node.height &&
+      !!node.width &&
+      (!('rotation' in node.data) || node.data.rotation === 0),
   );
   const reactFlowSize = { width: state.width, height: state.height };
   return { nodes, reactFlowSize };
