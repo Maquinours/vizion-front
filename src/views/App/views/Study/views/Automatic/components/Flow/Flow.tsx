@@ -1,5 +1,17 @@
 import { useCallback } from 'react';
-import ReactFlow, { Background, BackgroundVariant, ConnectionMode, Controls, OnConnect, Panel, addEdge, useEdgesState, useNodesState } from 'reactflow';
+import {
+  ReactFlow,
+  Background,
+  BackgroundVariant,
+  ConnectionMode,
+  Controls,
+  OnConnect,
+  Panel,
+  addEdge,
+  useEdgesState,
+  useNodesState,
+  DefaultEdgeOptions,
+} from '@xyflow/react';
 import AppViewStudyViewAutomaticViewFlowComponentNvrNodeComponent from './components/NvrNode/NvrNode';
 import AppViewStudyViewAutomaticViewIndependantCameraNode from './components/IndependantCameraNode/IndependantCameraNode';
 import AppViewStudyViewAutomaticViewFlowComponentMonitorNodeComponent from './components/MonitorNode/MonitorNode';
@@ -18,12 +30,14 @@ const nodeTypes = {
   boxNode: AppViewStudyViewAutomaticViewFlowComponentBoxNodeComponent,
 };
 
+const defaultEdgeOptions: DefaultEdgeOptions = { animated: true, type: 'smoothstep' };
+
 type AppViewStudyViewAutomaticViewFlowComponentProps = Readonly<{ step: AutomaticStudyStep }>;
 export default function AppViewStudyViewAutomaticViewFlowComponent({ step }: AppViewStudyViewAutomaticViewFlowComponentProps) {
   const [nodes, _setNodes, onNodesChange] = useNodesState([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
 
-  const onConnect: OnConnect = useCallback((params) => setEdges((eds) => addEdge({ ...params, animated: true, type: 'smoothstep' }, eds)), [setEdges]);
+  const onConnect: OnConnect = useCallback((connection) => setEdges((eds) => addEdge(connection, eds)), [setEdges]);
 
   return (
     <div className={`relative z-20 h-[70vh] w-[100%] rounded-md border-2 border-[#1a192b] ${classNames({ 'h-[80vh]': step === AutomaticStudyStep.Two })}`}>
@@ -37,6 +51,7 @@ export default function AppViewStudyViewAutomaticViewFlowComponent({ step }: App
         proOptions={{ hideAttribution: true }}
         connectionMode={ConnectionMode.Loose}
         panOnDrag={false}
+        defaultEdgeOptions={defaultEdgeOptions}
       >
         {
           // TODO: reimplement this

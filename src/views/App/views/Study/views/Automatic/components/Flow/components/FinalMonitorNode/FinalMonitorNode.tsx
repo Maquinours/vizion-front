@@ -1,7 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
-import { Handle, NodeProps, Position } from 'reactflow';
+import { Handle, Node, NodeProps, Position } from '@xyflow/react';
 import { queries } from '../../../../../../../../../../utils/constants/queryKeys';
 
+export type AutomaticStudyFinalMonitorNode = Node<{}, 'tvNode'>;
 export default function AppViewStudyViewAutomaticViewFlowComponentFinalMonitorNodeComponent({ id }: NodeProps) {
   const { data: product } = useQuery({
     ...queries['product'].list,

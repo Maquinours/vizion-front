@@ -2,7 +2,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useContext } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import ReactModal from 'react-modal';
-import { XYPosition, useReactFlow } from 'reactflow';
+import { XYPosition, useReactFlow } from '@xyflow/react';
 import { v4 as uuidv4 } from 'uuid';
 import * as yup from 'yup';
 import Quill from '../../../../../../../../../../components/Quill/Quill';

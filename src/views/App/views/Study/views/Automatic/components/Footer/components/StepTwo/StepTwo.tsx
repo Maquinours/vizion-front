@@ -2,13 +2,13 @@ import { QueryClient, useMutation, useQueryClient } from '@tanstack/react-query'
 import { getRouteApi } from '@tanstack/react-router';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-import { Edge, Node, Viewport, useNodesInitialized, useReactFlow } from 'reactflow';
+import { Edge, Node, Viewport, useNodesInitialized, useReactFlow } from '@xyflow/react';
 import { createSynopticBusiness } from '../../../../../../../../../../utils/api/synoptic';
 import { queries } from '../../../../../../../../../../utils/constants/queryKeys';
 import ProductResponseDto from '../../../../../../../../../../utils/types/ProductResponseDto';
 import { SynopticRequestBusinessQuotationRequestSubQuotationRequestQuotationDetailsRequestDto } from '../../../../../../../../../../utils/types/SynopticRequestDto';
 import { AutomaticStudyStep } from '../../../../Automatic';
-import { AppViewStudyViewAutomaticViewFinalCameraNodeData } from '../../../Flow/components/FinalCameraNode/FinalCameraNode';
+import { AutomaticStudyFinalCameraNode } from '../../../Flow/components/FinalCameraNode/FinalCameraNode';
 import AppViewStudyViewAutomaticViewFooterComponentStepTwoComponentPdfModalComponent from './components/PdfModal/PdfModal';
 
 const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/study/automatic');
@@ -21,7 +21,7 @@ const getModels = async (nodes: Array<Node>, queryClient: QueryClient) => {
   const products = await queryClient.ensureQueryData({ ...queries.product.list, staleTime: Infinity });
   const models: Array<{ quantity: number; product: ProductResponseDto }> = [];
 
-  for (const node of nodes.filter((node): node is Node<AppViewStudyViewAutomaticViewFinalCameraNodeData> => node.type === 'finalNode')) {
+  for (const node of nodes.filter((node): node is AutomaticStudyFinalCameraNode => node.type === 'finalNode')) {
     const model = models.find((model) => model.product.reference === node.data.model.reference);
     if (model) model.quantity++;
     else {

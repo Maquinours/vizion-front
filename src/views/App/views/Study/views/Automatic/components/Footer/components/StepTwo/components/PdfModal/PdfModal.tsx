@@ -1,24 +1,25 @@
 import { PDFDownloadLink, PDFViewer } from '@react-pdf/renderer';
 import { useMutation, useSuspenseQuery } from '@tanstack/react-query';
 import { getRouteApi } from '@tanstack/react-router';
+import { ReactFlowState, useStore, InternalNode } from '@xyflow/react';
 import { toBlob } from 'html-to-image';
 import _ from 'lodash';
 import { useEffect, useMemo, useState } from 'react';
 import ReactModal from 'react-modal';
 import { toast } from 'react-toastify';
-import { Node, ReactFlowState, useStore } from 'reactflow';
 import LoaderModal from '../../../../../../../../../../../../components/LoaderModal/LoaderModal';
 import { queries } from '../../../../../../../../../../../../utils/constants/queryKeys';
 import ProductResponseDto from '../../../../../../../../../../../../utils/types/ProductResponseDto';
-import { AppViewStudyViewAutomaticViewFinalCameraNodeData } from '../../../../../Flow/components/FinalCameraNode/FinalCameraNode';
+import { AutomaticStudyFinalCameraNode } from '../../../../../Flow/components/FinalCameraNode/FinalCameraNode';
 import AppViewStudyViewAutomaticViewFooterComponentStepTwoComponentPdfModalComponentPdfComponent from './components/Pdf/Pdf';
+import { AutomaticStudyNvrNode } from '../../../../../Flow/components/NvrNode/NvrNode';
 
 const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/study/automatic');
 
 const getCameraProducts = (state: ReactFlowState, products: Array<ProductResponseDto>) => {
-  const nodes = Array.from(state.nodeInternals.values());
+  const nodes = Array.from(state.nodeLookup.values());
 
-  const camNodes = nodes.filter((node): node is Node<AppViewStudyViewAutomaticViewFinalCameraNodeData> => node.type === 'finalNode');
+  const camNodes = nodes.filter((node): node is InternalNode<AutomaticStudyFinalCameraNode> => node.type === 'finalNode');
 
   const result: Array<{ quantity: number; product: ProductResponseDto }> = [];
 
@@ -39,8 +40,8 @@ const getCameraProducts = (state: ReactFlowState, products: Array<ProductRespons
 };
 
 const getNvrCapacity = (state: ReactFlowState, products: Array<ProductResponseDto>) => {
-  const nodes = Array.from(state.nodeInternals.values());
-  const nvrNode = nodes.find((node) => node.type === 'nvrNode');
+  const nodes = Array.from(state.nodeLookup.values());
+  const nvrNode = nodes.find((node): node is InternalNode<AutomaticStudyNvrNode> => node.type === 'nvrNode');
   const nvr = products.find((product) => product.reference === nvrNode?.data.reference);
   const capacity = nvr?.specificationProducts?.find((spec) => spec.specification?.name === 'CAPACITE')?.value;
 

@@ -1,24 +1,22 @@
 import { ClickAwayListener } from '@mui/material';
 import { useSuspenseQuery } from '@tanstack/react-query';
+import { Handle, Node, NodeProps, NodeResizer, OnResize, useReactFlow } from '@xyflow/react';
 import { useState } from 'react';
-import { Handle, NodeProps, NodeResizer, ResizeDragEvent, ResizeParamsWithDirection, useReactFlow } from 'reactflow';
 import { queries } from '../../../../../../../../../../utils/constants/queryKeys';
 import AppViewStudyViewExpertViewFlowComponentRecorderNodeComponentMenuComponent from './components/Menu/Menu';
 import handlesData from './constants/handles';
 
-// TODO: transform PAP to normal & vice versa
-export type AppViewStudyViewExpertViewFlowComponentRecorderNodeComponentData = Readonly<{
-  productId: string;
-  name?: string;
-  options: Array<{ id: string; quantity: number }>;
-  size: { width: number; height: number };
-  opacity: number;
-}>;
-export default function AppViewStudyViewExpertViewFlowComponentRecorderNodeComponent({
-  id,
-  selected,
-  data,
-}: NodeProps<AppViewStudyViewExpertViewFlowComponentRecorderNodeComponentData>) {
+export type ExpertStudyRecorderNode = Node<
+  {
+    productId: string;
+    name?: string;
+    options: Array<{ id: string; quantity: number }>;
+    size: { width: number; height: number };
+    opacity: number;
+  },
+  'recorder'
+>;
+export default function AppViewStudyViewExpertViewFlowComponentRecorderNodeComponent({ id, selected, data }: NodeProps<ExpertStudyRecorderNode>) {
   const { setNodes } = useReactFlow();
 
   const {
@@ -38,7 +36,7 @@ export default function AppViewStudyViewExpertViewFlowComponentRecorderNodeCompo
 
   const [showMenu, setShowMenu] = useState(false);
 
-  const onResize = (_event: ResizeDragEvent, params: ResizeParamsWithDirection) => {
+  const onResize: OnResize = (_event, params) => {
     setNodes((nds) => nds.map((node) => (node.id === id ? { ...node, data: { ...node.data, size: { width: params.width, height: params.height } } } : node)));
   };
 

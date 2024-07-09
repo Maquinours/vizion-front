@@ -1,11 +1,10 @@
 import { useQueryClient } from '@tanstack/react-query';
+import { NodeToolbar, Position, useReactFlow } from '@xyflow/react';
 import { AiOutlineClose, AiTwotoneSetting } from 'react-icons/ai';
-import { Node, NodeToolbar, Position, useReactFlow } from 'reactflow';
 import { queries } from '../../../../../../../../../../../../utils/constants/queryKeys';
 import ProductProductResponseDto from '../../../../../../../../../../../../utils/types/ProductProductResponseDto';
 import ProductResponseDto from '../../../../../../../../../../../../utils/types/ProductResponseDto';
-import { AppViewStudyViewExpertViewFlowComponentSynopticCameraNodeComponentData } from '../../../SynopticCameraNode/SynopticCameraNode';
-import { AppViewStudyViewExpertViewFlowComponentRecorderNodeComponentData } from '../../RecorderNode';
+import { ExpertStudyRecorderNode } from '../../RecorderNode';
 
 const transformProducts = [
   { reference: 'HD504PAP', toReference: 'HD504' },
@@ -24,7 +23,7 @@ type Option = {
 type AppViewStudyViewExpertViewFlowComponentRecorderNodeComponentMenuComponentProps = Readonly<{
   nodeId: string;
   product: ProductResponseDto;
-  data: AppViewStudyViewExpertViewFlowComponentRecorderNodeComponentData;
+  data: ExpertStudyRecorderNode['data'];
   onClose: () => void;
 }>;
 export default function AppViewStudyViewExpertViewFlowComponentRecorderNodeComponentMenuComponent({
@@ -63,9 +62,7 @@ export default function AppViewStudyViewExpertViewFlowComponentRecorderNodeCompo
                 name: name,
                 productId: newProduct?.id ?? node.data.productId,
                 options: newProduct
-                  ? (node as Node<AppViewStudyViewExpertViewFlowComponentRecorderNodeComponentData>).data.options.filter((option) =>
-                      newProduct.associatedProduct?.some((opt) => opt.id === option.id),
-                    )
+                  ? (node as ExpertStudyRecorderNode).data.options.filter((option) => newProduct.associatedProduct?.some((opt) => opt.id === option.id))
                   : node.data.options,
               },
             }
@@ -81,7 +78,7 @@ export default function AppViewStudyViewExpertViewFlowComponentRecorderNodeCompo
   const onOptionDecrementQuantity = (option: Option) => {
     if (option.quantity === 0) return;
     setNodes((nds) => {
-      const node: Node<AppViewStudyViewExpertViewFlowComponentSynopticCameraNodeComponentData> | undefined = nds.find((node) => node.id === nodeId);
+      const node = nds.find((node): node is ExpertStudyRecorderNode => node.id === nodeId);
       if (!node) return nds;
       const opt = node.data.options.find((opt) => opt.id === option.product.id);
       if (!opt) return nds;
@@ -93,7 +90,7 @@ export default function AppViewStudyViewExpertViewFlowComponentRecorderNodeCompo
 
   const onOptionIncrementQuantity = (option: Option) => {
     setNodes((nds) => {
-      const node: Node<AppViewStudyViewExpertViewFlowComponentSynopticCameraNodeComponentData> | undefined = nds.find((node) => node.id === nodeId);
+      const node = nds.find((node): node is ExpertStudyRecorderNode => node.id === nodeId);
       if (!node) return nds;
       const opt = node.data.options.find((opt) => opt.id === option.product.id);
       if (!opt) node.data.options.push({ id: option.product.id, quantity: 1 });

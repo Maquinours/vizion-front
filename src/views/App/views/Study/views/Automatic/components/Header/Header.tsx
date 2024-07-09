@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { BsFillCameraVideoFill } from 'react-icons/bs';
-import { ReactFlowState, useStore } from 'reactflow';
+import { ReactFlowState, useStore } from '@xyflow/react';
 import AppViewStudyViewAutomaticViewHeaderComponentHddCalculationModalComponent from './components/HddCalculationModal/HddCalculationModal';
 
 enum Modals {
@@ -8,7 +8,7 @@ enum Modals {
 }
 
 const getNumberOfProducts = (state: ReactFlowState) =>
-  Array.from(state.nodeInternals.values()).reduce((acc, node) => {
+  Array.from(state.nodeLookup.values()).reduce((acc, node) => {
     let value = 1;
     const options = node.data.options;
     if (!!options && Array.isArray(options)) {

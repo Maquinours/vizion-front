@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { ReactFlowProvider } from 'reactflow';
+import { ReactFlowProvider } from '@xyflow/react';
 import AppViewStudyViewExpertViewFlowComponent from './components/Flow/Flow';
 import AppViewStudyViewExpertViewHeaderComponent from './components/Header/Header';
 import AppViewStudyViewExpertViewModalProviderComponent from './components/ModalProvider/ModalProvider';

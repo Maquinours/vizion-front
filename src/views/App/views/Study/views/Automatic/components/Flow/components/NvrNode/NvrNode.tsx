@@ -1,5 +1,5 @@
 import React from 'react';
-import { Handle, HandleProps, NodeProps, Position } from 'reactflow';
+import { Handle, HandleProps, Node, NodeProps, Position } from '@xyflow/react';
 
 const HANDLES: Array<{ type: string; handles: Array<HandleProps & React.HTMLAttributes<HTMLDivElement>> }> = [
   {
@@ -363,12 +363,13 @@ const HANDLES: Array<{ type: string; handles: Array<HandleProps & React.HTMLAttr
   },
 ];
 
-export type AppViewStudyViewAutomaticViewFlowComponentNvrNodeComponentData = Readonly<{
-  reference: 'HD516PAP' | 'HD504PAP' | 'HD508PAP';
-}>;
-export default function AppViewStudyViewAutomaticViewFlowComponentNvrNodeComponent({
-  data,
-}: NodeProps<AppViewStudyViewAutomaticViewFlowComponentNvrNodeComponentData>) {
+export type AutomaticStudyNvrNode = Node<
+  {
+    reference: 'HD516PAP' | 'HD504PAP' | 'HD508PAP';
+  },
+  'nvrNode'
+>;
+export default function AppViewStudyViewAutomaticViewFlowComponentNvrNodeComponent({ data }: NodeProps<AutomaticStudyNvrNode>) {
   const handles = HANDLES.find((h) => h.type === data.reference)?.handles ?? [];
 
   return (

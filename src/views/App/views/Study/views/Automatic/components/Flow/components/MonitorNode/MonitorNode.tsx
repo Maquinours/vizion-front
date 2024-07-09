@@ -1,10 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
-import { NodeProps, useReactFlow } from 'reactflow';
+import { NodeProps, useReactFlow, Node } from '@xyflow/react';
 import { queries } from '../../../../../../../../../../utils/constants/queryKeys';
 import { useState } from 'react';
 import { MdDelete } from 'react-icons/md';
 import { ClickAwayListener } from '@mui/material';
 
+export type AutomaticStudyMonitorNode = Node<{}, 'automatiqueTvNode'>;
 export default function AppViewStudyViewAutomaticViewFlowComponentMonitorNodeComponent({ id }: NodeProps) {
   const { deleteElements } = useReactFlow();
 

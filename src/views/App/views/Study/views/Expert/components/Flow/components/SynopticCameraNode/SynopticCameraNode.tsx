@@ -1,22 +1,21 @@
+import { ClickAwayListener } from '@mui/material';
 import { useSuspenseQuery } from '@tanstack/react-query';
+import { Handle, Node, NodeProps, NodeResizer, OnResize, Position, useReactFlow } from '@xyflow/react';
 import React, { useState } from 'react';
-import { Handle, NodeProps, NodeResizer, Position, ResizeDragEvent, ResizeParamsWithDirection, useReactFlow } from 'reactflow';
 import { queries } from '../../../../../../../../../../utils/constants/queryKeys';
 import AppViewStudyViewExpertViewFlowComponentSynopticCameraNodeComponentMenuComponent from './components/Menu/Menu';
-import { ClickAwayListener } from '@mui/material';
 
-export type AppViewStudyViewExpertViewFlowComponentSynopticCameraNodeComponentData = Readonly<{
-  productId: string;
-  name?: string;
-  options: Array<{ id: string; quantity: number }>;
-  size: { width: number; height: number };
-  opacity: number;
-}>;
-export default function AppViewStudyViewExpertViewFlowComponentSynopticCameraNodeComponent({
-  id,
-  selected,
-  data,
-}: NodeProps<AppViewStudyViewExpertViewFlowComponentSynopticCameraNodeComponentData>) {
+export type ExpertStudySynopticCameraNode = Node<
+  {
+    productId: string;
+    name?: string;
+    options: Array<{ id: string; quantity: number }>;
+    size: { width: number; height: number };
+    opacity: number;
+  },
+  'synopticCamera'
+>;
+export default function AppViewStudyViewExpertViewFlowComponentSynopticCameraNodeComponent({ id, selected, data }: NodeProps<ExpertStudySynopticCameraNode>) {
   const { setNodes } = useReactFlow();
 
   const {
@@ -36,7 +35,7 @@ export default function AppViewStudyViewExpertViewFlowComponentSynopticCameraNod
 
   const [showMenu, setShowMenu] = useState(false);
 
-  const onResize = (_event: ResizeDragEvent, params: ResizeParamsWithDirection) => {
+  const onResize: OnResize = (_event, params) => {
     setNodes((nds) => nds.map((node) => (node.id === id ? { ...node, data: { ...node.data, size: { width: params.width, height: params.height } } } : node)));
   };
 

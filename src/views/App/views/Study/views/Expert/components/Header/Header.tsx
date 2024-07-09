@@ -1,20 +1,20 @@
 import { useQueryClient } from '@tanstack/react-query';
+import { useReactFlow } from '@xyflow/react';
+import { isError } from 'lodash';
 import { useContext } from 'react';
 import { PiRectangle, PiTextT } from 'react-icons/pi';
-import { Node, useReactFlow } from 'reactflow';
+import { toast } from 'react-toastify';
+import { v4 as uuidv4 } from 'uuid';
 import LinesLogo from '../../../../../../../../assets/images/lines.svg?react';
 import { queries } from '../../../../../../../../utils/constants/queryKeys';
 import ExpertStudyContext, { ExpertStudyModalType, ExpertStudyPaneClickFunctionType } from '../../utils/context';
-import { AppViewStudyViewExpertViewFlowComponentRecorderNodeComponentData } from '../Flow/components/RecorderNode/RecorderNode';
+import { ExpertStudyImageNode } from '../Flow/components/ImageNode/ImageNode';
+import { ExpertStudyMonitorNode } from '../Flow/components/MonitorNode/MonitorNode';
+import { ExpertStudyRecorderNode } from '../Flow/components/RecorderNode/RecorderNode';
 import recordersHandlesData from '../Flow/components/RecorderNode/constants/handles';
+import { ExpertStudySynopticCameraNode } from '../Flow/components/SynopticCameraNode/SynopticCameraNode';
+import { ExpertStudyTextNode } from '../Flow/components/TextNode/TextNode';
 import AppViewStudyViewExpertViewHeaderComponentExportMenuComponent from './components/ExportMenu/ExportMenu';
-import { AppViewStudyViewExpertViewFlowComponentSynopticCameraNodeComponentData } from '../Flow/components/SynopticCameraNode/SynopticCameraNode';
-import { v4 as uuidv4 } from 'uuid';
-import { AppViewStudyViewExpertViewFlowComponentImageNodeComponentData } from '../Flow/components/ImageNode/ImageNode';
-import { AppViewStudyViewExpertViewFlowComponentMonitorNodeComponentData } from '../Flow/components/MonitorNode/MonitorNode';
-import { AppViewStudyViewExpertViewFlowComponentTextNodeComponentData } from '../Flow/components/TextNode/TextNode';
-import { toast } from 'react-toastify';
-import { isError } from 'lodash';
 import AppViewStudyViewExpertViewHeaderComponentImportMenuComponent from './components/ImportMenu/ImportMenu';
 
 export default function AppViewStudyViewExpertViewHeaderComponent() {
@@ -44,9 +44,7 @@ export default function AppViewStudyViewExpertViewHeaderComponent() {
   const onPreConnectButtonClick = async () => {
     try {
       const nodes = getNodes();
-      const recorderNodes = nodes.filter(
-        (node): node is Node<AppViewStudyViewExpertViewFlowComponentRecorderNodeComponentData, 'recorder'> => node.type === 'recorder',
-      );
+      const recorderNodes = nodes.filter((node): node is ExpertStudyRecorderNode => node.type === 'recorder');
       if (recorderNodes.length !== 1) throw new Error("Le pré-raccordement n'est possible que lorsqu'il n'y a qu'un seul enregistreur");
       const recorderNode = recorderNodes[0];
       const product = (await queryClient.ensureQueryData(queries.product.list)).find((product) => product.id === recorderNode.data.productId);
@@ -75,7 +73,7 @@ export default function AppViewStudyViewExpertViewHeaderComponent() {
 
       const freeCamNodes = nodes
         .filter(
-          (node): node is Node<AppViewStudyViewExpertViewFlowComponentSynopticCameraNodeComponentData, 'synopticCamera'> =>
+          (node): node is ExpertStudySynopticCameraNode =>
             node.type === 'synopticCamera' && !edges.some((edge) => edge.source === node.id || edge.target === node.id),
         )
         .sort((a, b) => a.position.y - b.position.y);
@@ -106,9 +104,9 @@ export default function AppViewStudyViewExpertViewHeaderComponent() {
       );
       if (freeRecorderLanHandle) {
         const freeNetworkNode = nodes.find(
-          (node): node is Node<AppViewStudyViewExpertViewFlowComponentImageNodeComponentData, 'image'> =>
+          (node): node is ExpertStudyImageNode =>
             node.type === 'image' &&
-            (node as Node<AppViewStudyViewExpertViewFlowComponentImageNodeComponentData, 'image'>).data.image === 'https://bd.vizeo.eu/6-Photos/BOX/Box.png' &&
+            (node as ExpertStudyImageNode).data.image === 'https://bd.vizeo.eu/6-Photos/BOX/Box.png' &&
             !edges.some((edge) => edge.source === node.id || edge.target === node.id),
         );
         if (freeNetworkNode) {
@@ -135,8 +133,7 @@ export default function AppViewStudyViewExpertViewHeaderComponent() {
       );
       if (freeRecorderHdmiHandle) {
         const freeMonitorNode = nodes.find(
-          (node): node is Node<AppViewStudyViewExpertViewFlowComponentMonitorNodeComponentData, 'monitor'> =>
-            node.type === 'monitor' && !edges.some((edge) => edge.source === node.id || edge.target === node.id),
+          (node): node is ExpertStudyMonitorNode => node.type === 'monitor' && !edges.some((edge) => edge.source === node.id || edge.target === node.id),
         );
         if (freeMonitorNode) {
           addEdges({
@@ -157,7 +154,7 @@ export default function AppViewStudyViewExpertViewHeaderComponent() {
       const reactFlowRect = document.querySelector('.react-flow')!.getBoundingClientRect();
       const paneCenter = screenToFlowPosition({ x: reactFlowRect.x + reactFlowRect.width / 2, y: reactFlowRect.y });
 
-      const textNode: Node<AppViewStudyViewExpertViewFlowComponentTextNodeComponentData, 'text'> = {
+      const textNode: ExpertStudyTextNode = {
         id: uuidv4(),
         type: 'text',
         position: { x: paneCenter.x, y: paneCenter.y },

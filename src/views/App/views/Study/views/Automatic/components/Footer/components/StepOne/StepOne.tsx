@@ -1,11 +1,13 @@
-import { Edge, Node, ReactFlowState, Viewport, useReactFlow, useStore } from 'reactflow';
-import { AppViewStudyViewAutomaticViewIndependantCameraNodeData } from '../../../Flow/components/IndependantCameraNode/IndependantCameraNode';
-import { AppViewStudyViewAutomaticViewFinalCameraNodeData } from '../../../Flow/components/FinalCameraNode/FinalCameraNode';
+import { Edge, Node, ReactFlowState, Viewport, useReactFlow, useStore } from '@xyflow/react';
+import { AutomaticStudyIndependantCameraNode } from '../../../Flow/components/IndependantCameraNode/IndependantCameraNode';
+import { AutomaticStudyFinalCameraNode } from '../../../Flow/components/FinalCameraNode/FinalCameraNode';
 import { AutomaticStudyStep } from '../../../../Automatic';
 import { useState } from 'react';
 import AppViewStudyViewAutomaticViewFooterComponentAddMonitorModalComponent from './components/AddMonitorModal/AddMonitorModal';
 import ProductResponseDto from '../../../../../../../../../../utils/types/ProductResponseDto';
-import { AppViewStudyViewAutomaticViewFlowComponentNvrNodeComponentData } from '../../../Flow/components/NvrNode/NvrNode';
+import { AutomaticStudyNvrNode } from '../../../Flow/components/NvrNode/NvrNode';
+import { AutomaticStudyBoxNode } from '../../../Flow/components/BoxNode/BoxNode';
+import { AutomaticStudyFinalMonitorNode } from '../../../Flow/components/FinalMonitorNode/FinalMonitorNode';
 
 enum Modals {
   Monitor,
@@ -50,7 +52,7 @@ const finalNodeInitialPositionsData = {
   },
 };
 
-const getHasCameras = (state: ReactFlowState) => Array.from(state.nodeInternals.values()).some((node) => node.type === 'independantNode');
+const getHasCameras = (state: ReactFlowState) => Array.from(state.nodeLookup.values()).some((node) => node.type === 'independantNode');
 
 type AppViewStudyViewAutomaticViewFooterComponentStepOneComponentProps = Readonly<{
   setBackupFlow: (flow: { nodes: Array<Node>; edges: Array<Edge>; viewport: Viewport }) => void;
@@ -75,9 +77,9 @@ export default function AppViewStudyViewAutomaticViewFooterComponentStepOneCompo
 
     const finalNodes = (() => {
       const cams = nodes
-        .filter((node): node is Node<AppViewStudyViewAutomaticViewIndependantCameraNodeData> => node.type === 'independantNode')
+        .filter((node): node is AutomaticStudyIndependantCameraNode => node.type === 'independantNode')
         .map(
-          (node, index, arr): Node<AppViewStudyViewAutomaticViewFinalCameraNodeData> => ({
+          (node, index, arr): AutomaticStudyFinalCameraNode => ({
             id: index.toString(),
             type: 'finalNode',
             position: (() => {
@@ -102,7 +104,7 @@ export default function AppViewStudyViewAutomaticViewFooterComponentStepOneCompo
           }),
         );
 
-      const recorder: Node<AppViewStudyViewAutomaticViewFlowComponentNvrNodeComponentData> = {
+      const recorder: AutomaticStudyNvrNode = {
         id: 'enregistreur',
         type: 'nvrNode',
         position: { x: 300, y: 300 },
@@ -112,17 +114,21 @@ export default function AppViewStudyViewAutomaticViewFooterComponentStepOneCompo
         },
       };
 
-      const box: Node = {
+      const box: AutomaticStudyBoxNode = {
         id: 'box',
         type: 'boxNode',
         position: { x: 500, y: 400 },
         data: {},
       };
 
-      const result = [...cams, recorder, box];
+      const result: Array<AutomaticStudyFinalCameraNode | AutomaticStudyNvrNode | AutomaticStudyBoxNode | AutomaticStudyFinalMonitorNode> = [
+        ...cams,
+        recorder,
+        box,
+      ];
 
       if (monitor) {
-        const tv: Node = {
+        const tv: AutomaticStudyFinalMonitorNode = {
           id: monitor.id,
           type: 'tvNode',
           position: {
@@ -139,7 +145,7 @@ export default function AppViewStudyViewAutomaticViewFooterComponentStepOneCompo
 
     const finalEdges = (() => {
       const cams = finalNodes
-        .filter((node): node is Node<AppViewStudyViewAutomaticViewFinalCameraNodeData> => node.type === 'finalNode')
+        .filter((node): node is AutomaticStudyFinalCameraNode => node.type === 'finalNode')
         .map(
           (node, index): Edge => ({
             id: index.toString(),

@@ -1,19 +1,17 @@
 import { useQuery } from '@tanstack/react-query';
+import { InternalNode, ReactFlowState, useStore } from '@xyflow/react';
 import _ from 'lodash';
 import { useMemo } from 'react';
-import { Node, ReactFlowState, useStore } from 'reactflow';
 import { queries } from '../../../../../../../../utils/constants/queryKeys';
 import ProductResponseDto from '../../../../../../../../utils/types/ProductResponseDto';
-import { AppViewStudyViewAutomaticViewFinalCameraNodeData } from '../Flow/components/FinalCameraNode/FinalCameraNode';
+import { AutomaticStudyFinalCameraNode } from '../Flow/components/FinalCameraNode/FinalCameraNode';
 
 const getElements = (state: ReactFlowState, products: Array<ProductResponseDto> | undefined) => {
   const result: Array<{ reference: string; id: string; price: number; quantity: number }> = [];
 
   if (!products) return result;
 
-  const camNodes = Array.from(state.nodeInternals.values()).filter(
-    (node): node is Node<AppViewStudyViewAutomaticViewFinalCameraNodeData> => node.type === 'finalNode',
-  );
+  const camNodes = Array.from(state.nodeLookup.values()).filter((node): node is InternalNode<AutomaticStudyFinalCameraNode> => node.type === 'finalNode');
 
   for (const node of camNodes) {
     const element = result.find((element) => element.reference === node.data.model.reference);

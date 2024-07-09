@@ -1,10 +1,13 @@
 import React from 'react';
-import { NodeProps, XYPosition } from 'reactflow';
+import { Node, NodeProps, XYPosition } from '@xyflow/react';
 
-export type ExpertStudyLinesNodeData = Readonly<{
-  positions: Array<XYPosition>;
-}>;
-export default function AppViewStudyViewExpertViewFlowComponentLinesNodeComponent({ data }: NodeProps<ExpertStudyLinesNodeData>) {
+export type ExpertStudyLinesNode = Node<
+  {
+    positions: Array<XYPosition>;
+  },
+  'lines'
+>;
+export default function AppViewStudyViewExpertViewFlowComponentLinesNodeComponent({ data }: NodeProps<ExpertStudyLinesNode>) {
   const maxPosition = { x: Math.max(...data.positions.map((position) => position.x)), y: Math.max(...data.positions.map((position) => position.y)) };
   return (
     <svg width={maxPosition.x + 2} height={maxPosition.y + 2} className="block">

@@ -1,28 +1,28 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useSuspenseQuery } from '@tanstack/react-query';
+import { InternalNode, ReactFlowState, useStore } from '@xyflow/react';
 import { useContext, useMemo } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import ReactModal from 'react-modal';
-import { Node, ReactFlowState, useStore } from 'reactflow';
 import * as yup from 'yup';
 import { useShallow } from 'zustand/react/shallow';
 import AmountFormat from '../../../../../../../../../../components/AmountFormat/AmountFormat';
 import { queries } from '../../../../../../../../../../utils/constants/queryKeys';
 import ExpertStudyContext from '../../../../utils/context';
-import { AppViewStudyViewExpertViewFlowComponentRecorderNodeComponentData } from '../../../Flow/components/RecorderNode/RecorderNode';
-import { AppViewStudyViewExpertViewFlowComponentSynopticCameraNodeComponentData } from '../../../Flow/components/SynopticCameraNode/SynopticCameraNode';
+import { ExpertStudyRecorderNode } from '../../../Flow/components/RecorderNode/RecorderNode';
+import { ExpertStudySynopticCameraNode } from '../../../Flow/components/SynopticCameraNode/SynopticCameraNode';
 
 const yupSchema = yup.object().shape({
   hoursPerDay: yup.number().required().min(1).max(24),
 });
 
 const getData = (state: ReactFlowState) => {
-  const nodes = Array.from(state.nodeInternals.values());
+  const nodes = Array.from(state.nodeLookup.values());
   const cameraNodesData = nodes
-    .filter((node): node is Node<AppViewStudyViewExpertViewFlowComponentSynopticCameraNodeComponentData, 'synopticCamera'> => node.type === 'synopticCamera')
+    .filter((node): node is InternalNode<ExpertStudySynopticCameraNode> => node.type === 'synopticCamera')
     .map((node) => ({ productId: node.data.productId }));
   const recorderNodesData = nodes
-    .filter((node): node is Node<AppViewStudyViewExpertViewFlowComponentRecorderNodeComponentData, 'recorder'> => node.type === 'recorder')
+    .filter((node): node is InternalNode<ExpertStudyRecorderNode> => node.type === 'recorder')
     .map((node) => ({ productId: node.data.productId, options: node.data.options }));
 
   return { cameraNodesData, recorderNodesData };

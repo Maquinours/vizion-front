@@ -1,16 +1,16 @@
-import ReactModal from 'react-modal';
-import * as yup from 'yup';
-import ProductResponseDto from '../../../../../../../../../../utils/types/ProductResponseDto';
-import { useSuspenseQuery } from '@tanstack/react-query';
-import { queries } from '../../../../../../../../../../utils/constants/queryKeys';
-import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useSuspenseQuery } from '@tanstack/react-query';
+import { useReactFlow } from '@xyflow/react';
 import { useContext, useEffect, useState } from 'react';
-import ExpertStudyContext from '../../../../utils/context';
-import AppViewStudyViewExpertViewModalProviderComponentOthersCamerasModalComponentDensityModalComponent from './components/DensityModal/DensityModal';
-import { Node, useReactFlow } from 'reactflow';
+import { Controller, useForm } from 'react-hook-form';
+import ReactModal from 'react-modal';
 import { v4 as uuidv4 } from 'uuid';
-import { AppViewStudyViewExpertViewFlowComponentSynopticCameraNodeComponentData } from '../../../Flow/components/SynopticCameraNode/SynopticCameraNode';
+import * as yup from 'yup';
+import { queries } from '../../../../../../../../../../utils/constants/queryKeys';
+import ProductResponseDto from '../../../../../../../../../../utils/types/ProductResponseDto';
+import ExpertStudyContext from '../../../../utils/context';
+import { ExpertStudySynopticCameraNode } from '../../../Flow/components/SynopticCameraNode/SynopticCameraNode';
+import AppViewStudyViewExpertViewModalProviderComponentOthersCamerasModalComponentDensityModalComponent from './components/DensityModal/DensityModal';
 
 type Model = {
   product: ProductResponseDto;
@@ -49,19 +49,22 @@ export default function AppViewStudyViewExpertViewModalProviderComponentOthersCa
     const paneCenter = screenToFlowPosition({ x: reactFlowRect.x + reactFlowRect.width / 2, y: reactFlowRect.y });
     const nodeSize = { width: 80, height: 80 };
 
-    const nodes: Array<Node<AppViewStudyViewExpertViewFlowComponentSynopticCameraNodeComponentData>> = models
+    const nodes = models
       .filter((model) => model.selected)
-      .map((model) => ({
-        id: uuidv4(),
-        type: 'synopticCamera',
-        position: { x: paneCenter.x - nodeSize.width / 2, y: paneCenter.y },
-        data: {
-          productId: model.product.id,
-          options: [],
-          size: nodeSize,
-          opacity: 100,
-        },
-      }));
+      .map(
+        (model) =>
+          ({
+            id: uuidv4(),
+            type: 'synopticCamera',
+            position: { x: paneCenter.x - nodeSize.width / 2, y: paneCenter.y },
+            data: {
+              productId: model.product.id,
+              options: [],
+              size: nodeSize,
+              opacity: 100,
+            },
+          }) as ExpertStudySynopticCameraNode,
+      );
 
     addNodes(nodes);
     onClose();

@@ -1,9 +1,9 @@
-import { AiOutlineClose, AiTwotoneSetting } from 'react-icons/ai';
-import ProductResponseDto from '../../../../../../../../../../../../utils/types/ProductResponseDto';
-import { AppViewStudyViewExpertViewFlowComponentSynopticCameraNodeComponentData } from '../../SynopticCameraNode';
+import { NodeToolbar, Position, useReactFlow } from '@xyflow/react';
 import React from 'react';
-import { Node, NodeToolbar, Position, useReactFlow } from 'reactflow';
+import { AiOutlineClose, AiTwotoneSetting } from 'react-icons/ai';
 import ProductProductResponseDto from '../../../../../../../../../../../../utils/types/ProductProductResponseDto';
+import ProductResponseDto from '../../../../../../../../../../../../utils/types/ProductResponseDto';
+import { ExpertStudySynopticCameraNode } from '../../SynopticCameraNode';
 
 type Option = {
   product: ProductProductResponseDto;
@@ -13,7 +13,7 @@ type Option = {
 type AppViewStudyViewExpertViewFlowComponentSynopticCameraNodeComponentMenuComponentProps = Readonly<{
   nodeId: string;
   product: ProductResponseDto;
-  data: AppViewStudyViewExpertViewFlowComponentSynopticCameraNodeComponentData;
+  data: ExpertStudySynopticCameraNode['data'];
   onClose: () => void;
 }>;
 export default function AppViewStudyViewExpertViewFlowComponentSynopticCameraNodeComponentMenuComponent({
@@ -42,7 +42,7 @@ export default function AppViewStudyViewExpertViewFlowComponentSynopticCameraNod
   const onOptionDecrementQuantity = (option: Option) => {
     if (option.quantity === 0) return;
     setNodes((nds) => {
-      const node: Node<AppViewStudyViewExpertViewFlowComponentSynopticCameraNodeComponentData> | undefined = nds.find((node) => node.id === nodeId);
+      const node = nds.find((node): node is ExpertStudySynopticCameraNode => node.id === nodeId);
       if (!node) return nds;
       const opt = node.data.options.find((opt) => opt.id === option.product.id);
       if (!opt) return nds;
@@ -54,7 +54,7 @@ export default function AppViewStudyViewExpertViewFlowComponentSynopticCameraNod
 
   const onOptionIncrementQuantity = (option: Option) => {
     setNodes((nds) => {
-      const node: Node<AppViewStudyViewExpertViewFlowComponentSynopticCameraNodeComponentData> | undefined = nds.find((node) => node.id === nodeId);
+      const node = nds.find((node): node is ExpertStudySynopticCameraNode => node.id === nodeId);
       if (!node) return nds;
       const opt = node.data.options.find((opt) => opt.id === option.product.id);
       if (!opt) node.data.options.push({ id: option.product.id, quantity: 1 });

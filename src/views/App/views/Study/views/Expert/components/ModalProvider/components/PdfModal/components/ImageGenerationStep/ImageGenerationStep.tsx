@@ -1,6 +1,6 @@
 import { toBlob } from 'html-to-image';
 import { useContext, useEffect, useRef } from 'react';
-import { useNodesInitialized } from 'reactflow';
+import { useNodesInitialized } from '@xyflow/react';
 import { useShallow } from 'zustand/react/shallow';
 import ExpertStudyContext, { ExpertStudyModalType } from '../../../../../../utils/context';
 import useStore, { RFState } from '../../../../../Flow/utils/store';

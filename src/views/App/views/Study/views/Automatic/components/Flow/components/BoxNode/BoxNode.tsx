@@ -1,5 +1,6 @@
-import { Handle, Position } from 'reactflow';
+import { Handle, Position, Node } from '@xyflow/react';
 
+export type AutomaticStudyBoxNode = Node<{}, 'boxNode'>;
 export default function AppViewStudyViewAutomaticViewFlowComponentBoxNodeComponent() {
   return (
     <>

@@ -1,5 +1,5 @@
 import { getRouteApi } from '@tanstack/react-router';
-import { Panel } from 'reactflow';
+import { Panel } from '@xyflow/react';
 import { queries } from '../../../../../../../../../../utils/constants/queryKeys';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import useStore, { RFState } from '../../utils/store';

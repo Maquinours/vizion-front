@@ -1,12 +1,11 @@
 /// <reference types="vite-plugin-svgr/client" />
 
 import { classNames } from '@react-pdf-viewer/core';
-import ProductResponseDto from '../../../../../../../../../../../../utils/types/ProductResponseDto';
+import { ReactFlowState, useStore } from '@xyflow/react';
 import LogoIdentification from '../../../../../../../../../../../../assets/images/identification.svg?react';
 import LogoLecturePlaque from '../../../../../../../../../../../../assets/images/lecture_plaque.svg?react';
 import LogoReconnaissance from '../../../../../../../../../../../../assets/images/reconnaissance.svg?react';
-import { ReactFlowState, useStore } from 'reactflow';
-import _ from 'lodash';
+import ProductResponseDto from '../../../../../../../../../../../../utils/types/ProductResponseDto';
 
 type Model = {
   product: ProductResponseDto;
@@ -17,7 +16,7 @@ type Model = {
 type Models = Array<Model>;
 
 const getCameraNodesNumber = (state: ReactFlowState) => {
-  return Array.from(state.nodeInternals.values()).filter((node) => node.type === 'independantNode').length;
+  return Array.from(state.nodeLookup.values()).filter((node) => node.type === 'independantNode').length;
 };
 
 type AppViewStudyViewAutomaticViewSidebarComponentCameraSelectionModalComponentTableComponentProps = Readonly<{

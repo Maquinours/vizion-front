@@ -1,11 +1,11 @@
 import _ from 'lodash';
 import React from 'react';
-import { ReactFlowState, useStore, useViewport } from 'reactflow';
+import { ReactFlowState, useStore, useViewport } from '@xyflow/react';
 
 const colors = ['black', 'red', 'green', 'blue', 'yellow', 'purple', 'pink', 'orange', 'cyan', 'magenta', 'gray', 'white'];
 
 const getReactFlowData = (state: ReactFlowState) => {
-  const nodes = Array.from(state.nodeInternals.values()).filter(
+  const nodes = Array.from(state.nodeLookup.values()).filter(
     (node) =>
       (node.dragging || node.resizing) &&
       !!node.type &&

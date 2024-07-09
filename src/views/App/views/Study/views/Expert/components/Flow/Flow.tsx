@@ -1,5 +1,5 @@
 import React, { useCallback, useContext, useEffect } from 'react';
-import ReactFlow, { ConnectionMode, Node, useOnViewportChange, useReactFlow } from 'reactflow';
+import { ReactFlow, ConnectionMode, Node, useOnViewportChange, useReactFlow } from '@xyflow/react';
 import { v4 as uuidv4 } from 'uuid';
 import { useShallow } from 'zustand/react/shallow';
 import ExpertStudyContext, { ExpertStudyModalType, ExpertStudyPaneClickFunctionType } from '../../utils/context';
@@ -7,17 +7,18 @@ import AppViewStudyViewExpertViewFlowComponentGuideLinesComponent from './compon
 import AppViewStudyViewExpertViewFlowComponentImageNodeComponent from './components/ImageNode/ImageNode';
 import AppViewStudyViewExpertViewFlowComponentMonitorNodeComponent from './components/MonitorNode/MonitorNode';
 import AppViewStudyViewExpertViewFlowComponentRecorderNodeComponent from './components/RecorderNode/RecorderNode';
-import AppViewStudyViewExpertViewFlowComponentRectangleNodeComponent, { ExpertStudyRectangleNodeData } from './components/RectangleNode/RectangleNode';
+import AppViewStudyViewExpertViewFlowComponentRectangleNodeComponent, { ExpertStudyRectangleNode } from './components/RectangleNode/RectangleNode';
 import AppViewStudyViewExpertViewFlowComponentRectangleTracingComponent from './components/RectangleTracing/RectangleTracing';
 import AppViewStudyViewExpertViewFlowComponentSynopticCameraNodeComponent from './components/SynopticCameraNode/SynopticCameraNode';
 import AppViewStudyViewExpertViewFlowComponentTextNodeComponent from './components/TextNode/TextNode';
 import AppViewStudyViewExpertViewFlowComponentTransmitterNodeComponent from './components/TransmitterNode/TransmitterNode';
 import useStore, { RFState } from './utils/store';
 
-import 'reactflow/dist/style.css';
-import AppViewStudyViewExpertViewFlowComponentLinesNodeComponent, { ExpertStudyLinesNodeData } from './components/LinesNode/LinesNode';
+import AppViewStudyViewExpertViewFlowComponentLinesNodeComponent, { ExpertStudyLinesNode } from './components/LinesNode/LinesNode';
 import AppViewStudyViewExpertViewFlowComponentLinesTracingComponent from './components/LinesTracing/LinesTracing';
 import AppViewStudyViewExpertViewFlowComponentCartridgeComponent from './components/Cartridge/Cartridge';
+
+import '@xyflow/react/dist/style.css';
 
 const nodeTypes = {
   synopticCamera: AppViewStudyViewExpertViewFlowComponentSynopticCameraNodeComponent,
@@ -96,7 +97,7 @@ export default function AppViewStudyViewExpertViewFlowComponent() {
               y: Math.min(paneClickFunction.data.initialPosition.y, position.y),
             },
           };
-          const node: Node<ExpertStudyRectangleNodeData, 'rectangle'> = {
+          const node: ExpertStudyRectangleNode = {
             id: uuidv4(),
             type: 'rectangle',
             position: { x: minPosition.x - 1, y: minPosition.y - 1 },
@@ -139,13 +140,13 @@ export default function AppViewStudyViewExpertViewFlowComponent() {
     }
   };
 
-  const onPaneContextMenu = (event: React.MouseEvent<Element, MouseEvent>) => {
+  const onPaneContextMenu = (event: MouseEvent | React.MouseEvent) => {
     if (paneClickFunction?.type === ExpertStudyPaneClickFunctionType.LINES && paneClickFunction.data) {
       event.preventDefault();
       const positions = paneClickFunction.data.positions;
       if (positions.length !== 0) {
         const minPosition = { x: Math.min(...positions.map((position) => position.x)), y: Math.min(...positions.map((position) => position.y)) };
-        const node: Node<ExpertStudyLinesNodeData, 'lines'> = {
+        const node: ExpertStudyLinesNode = {
           id: uuidv4(),
           type: 'lines',
           position: { x: minPosition.x - 2, y: minPosition.y - 2 },

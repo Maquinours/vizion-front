@@ -1,10 +1,10 @@
 import { Button, Fade, Menu, MenuItem } from '@mui/material';
+import { useReactFlow } from '@xyflow/react';
 import { useState } from 'react';
 import { RiArrowDownSLine } from 'react-icons/ri';
-import { fileToBase64Image } from '../../../../../../../../../../utils/functions/files';
-import { Node, useReactFlow } from 'reactflow';
 import { v4 as uuidv4 } from 'uuid';
-import { AppViewStudyViewExpertViewFlowComponentImageNodeComponentData } from '../../../Flow/components/ImageNode/ImageNode';
+import { fileToBase64Image } from '../../../../../../../../../../utils/functions/files';
+import { ExpertStudyImageNode } from '../../../Flow/components/ImageNode/ImageNode';
 
 export default function AppViewStudyViewExpertViewHeaderComponentImportMenuComponent() {
   const { addNodes, screenToFlowPosition } = useReactFlow();
@@ -31,7 +31,7 @@ export default function AppViewStudyViewExpertViewHeaderComponentImportMenuCompo
       const reactFlowRect = document.querySelector('.react-flow')!.getBoundingClientRect();
       const position = screenToFlowPosition({ x: reactFlowRect.x, y: reactFlowRect.y });
 
-      const node: Node<AppViewStudyViewExpertViewFlowComponentImageNodeComponentData, 'image'> = {
+      const node: ExpertStudyImageNode = {
         id: uuidv4(),
         type: 'image',
         position: position,

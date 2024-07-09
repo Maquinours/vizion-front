@@ -1,23 +1,22 @@
-import { useSuspenseQuery } from '@tanstack/react-query';
-import { Handle, NodeProps, NodeResizer, ResizeDragEvent, ResizeParamsWithDirection, useReactFlow } from 'reactflow';
-import { queries } from '../../../../../../../../../../utils/constants/queryKeys';
-import { useState } from 'react';
-import { handlesData } from './constants/handles';
 import { ClickAwayListener } from '@mui/material';
+import { useSuspenseQuery } from '@tanstack/react-query';
+import { Handle, Node, NodeProps, NodeResizer, OnResize, useReactFlow } from '@xyflow/react';
+import { useState } from 'react';
+import { queries } from '../../../../../../../../../../utils/constants/queryKeys';
 import AppViewStudyViewExpertViewFlowComponentTransmitterNodeComponentMenuComponent from './components/Menu/Menu';
+import { handlesData } from './constants/handles';
 
-export type AppViewStudyViewExpertViewFlowComponentTransmitterNodeComponentData = Readonly<{
-  productId: string;
-  name?: string;
-  options: Array<{ id: string; quantity: number }>;
-  size: { width: number; height: number };
-  opacity: number;
-}>;
-export default function AppViewStudyViewExpertViewFlowComponentTransmitterNodeComponent({
-  id,
-  selected,
-  data,
-}: NodeProps<AppViewStudyViewExpertViewFlowComponentTransmitterNodeComponentData>) {
+export type ExpertStudyTransmitterNode = Node<
+  {
+    productId: string;
+    name?: string;
+    options: Array<{ id: string; quantity: number }>;
+    size: { width: number; height: number };
+    opacity: number;
+  },
+  'transmitter'
+>;
+export default function AppViewStudyViewExpertViewFlowComponentTransmitterNodeComponent({ id, selected, data }: NodeProps<ExpertStudyTransmitterNode>) {
   const { setNodes } = useReactFlow();
 
   const {
@@ -37,7 +36,7 @@ export default function AppViewStudyViewExpertViewFlowComponentTransmitterNodeCo
 
   const [showMenu, setShowMenu] = useState(false);
 
-  const onResize = (_event: ResizeDragEvent, params: ResizeParamsWithDirection) => {
+  const onResize: OnResize = (_event, params) => {
     setNodes((nds) => nds.map((node) => (node.id === id ? { ...node, data: { ...node.data, size: { width: params.width, height: params.height } } } : node)));
   };
 

@@ -1,18 +1,7 @@
 import { ClickAwayListener } from '@mui/material';
+import { Handle, Node, NodeProps, NodeResizer, NodeToolbar, OnResize, Position, ReactFlowState, useReactFlow, useStore } from '@xyflow/react';
 import { useRef, useState } from 'react';
 import { AiOutlineClose, AiTwotoneSetting } from 'react-icons/ai';
-import {
-  Handle,
-  NodeProps,
-  NodeResizer,
-  NodeToolbar,
-  Position,
-  ReactFlowState,
-  ResizeDragEvent,
-  ResizeParamsWithDirection,
-  useReactFlow,
-  useStore,
-} from 'reactflow';
 
 const handlesData = [
   {
@@ -38,24 +27,23 @@ const handlesData = [
 ];
 
 const getIsConnectable = (state: ReactFlowState) => {
-  return !!state.connectionNodeId;
+  return state.connection.inProgress;
 };
 
-export type AppViewStudyViewExpertViewFlowComponentImageNodeComponentData = Readonly<{
-  image: string;
-  size: { width: number; height: number };
-  opacity?: number;
-  rotation: number;
-}>;
-export default function AppViewStudyViewExpertViewFlowComponentImageNodeComponent({
-  id,
-  selected,
-  data,
-}: NodeProps<AppViewStudyViewExpertViewFlowComponentImageNodeComponentData>) {
+export type ExpertStudyImageNode = Node<
+  {
+    image: string;
+    size: { width: number; height: number };
+    opacity?: number;
+    rotation: number;
+  },
+  'image'
+>;
+export default function AppViewStudyViewExpertViewFlowComponentImageNodeComponent({ id, selected, data }: NodeProps<ExpertStudyImageNode>) {
   const isConnectable = useStore(getIsConnectable);
   const { setNodes } = useReactFlow();
 
-  const onResize = (_event: ResizeDragEvent, params: ResizeParamsWithDirection) => {
+  const onResize: OnResize = (_event, params) => {
     setNodes((nds) => nds.map((node) => (node.id === id ? { ...node, data: { ...node.data, size: { width: params.width, height: params.height } } } : node)));
   };
 

@@ -1,9 +1,8 @@
+import { NodeToolbar, Position, useReactFlow } from '@xyflow/react';
 import { AiOutlineClose, AiTwotoneSetting } from 'react-icons/ai';
-import { Node, NodeToolbar, Position, useReactFlow } from 'reactflow';
 import ProductProductResponseDto from '../../../../../../../../../../../../utils/types/ProductProductResponseDto';
 import ProductResponseDto from '../../../../../../../../../../../../utils/types/ProductResponseDto';
-import { AppViewStudyViewExpertViewFlowComponentSynopticCameraNodeComponentData } from '../../../SynopticCameraNode/SynopticCameraNode';
-import { AppViewStudyViewExpertViewFlowComponentTransmitterNodeComponentData } from '../../TransmitterNode';
+import { ExpertStudyTransmitterNode } from '../../TransmitterNode';
 
 type Option = {
   product: ProductProductResponseDto;
@@ -13,7 +12,7 @@ type Option = {
 type AppViewStudyViewExpertViewFlowComponentTransmitterNodeComponentMenuComponentProps = Readonly<{
   nodeId: string;
   product: ProductResponseDto;
-  data: AppViewStudyViewExpertViewFlowComponentTransmitterNodeComponentData;
+  data: ExpertStudyTransmitterNode['data'];
   onClose: () => void;
 }>;
 export default function AppViewStudyViewExpertViewFlowComponentTransmitterNodeComponentMenuComponent({
@@ -42,7 +41,7 @@ export default function AppViewStudyViewExpertViewFlowComponentTransmitterNodeCo
   const onOptionDecrementQuantity = (option: Option) => {
     if (option.quantity === 0) return;
     setNodes((nds) => {
-      const node: Node<AppViewStudyViewExpertViewFlowComponentSynopticCameraNodeComponentData> | undefined = nds.find((node) => node.id === nodeId);
+      const node = nds.find((node): node is ExpertStudyTransmitterNode => node.id === nodeId);
       if (!node) return nds;
       const opt = node.data.options.find((opt) => opt.id === option.product.id);
       if (!opt) return nds;
@@ -54,7 +53,7 @@ export default function AppViewStudyViewExpertViewFlowComponentTransmitterNodeCo
 
   const onOptionIncrementQuantity = (option: Option) => {
     setNodes((nds) => {
-      const node: Node<AppViewStudyViewExpertViewFlowComponentSynopticCameraNodeComponentData> | undefined = nds.find((node) => node.id === nodeId);
+      const node = nds.find((node): node is ExpertStudyTransmitterNode => node.id === nodeId);
       if (!node) return nds;
       const opt = node.data.options.find((opt) => opt.id === option.product.id);
       if (!opt) node.data.options.push({ id: option.product.id, quantity: 1 });

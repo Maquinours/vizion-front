@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Edge, Node, Viewport } from 'reactflow';
+import { Edge, Node, Viewport } from '@xyflow/react';
 import { AutomaticStudyStep } from '../../Automatic';
 import AppViewStudyViewAutomaticViewFooterComponentStepOneComponent from './components/StepOne/StepOne';
 import AppViewStudyViewAutomaticViewFooterComponentStepTwoComponent from './components/StepTwo/StepTwo';

@@ -1,16 +1,16 @@
-import { useContext, useEffect } from 'react';
-import ReactModal from 'react-modal';
-import ExpertStudyContext from '../../../../utils/context';
-import { useSuspenseQuery } from '@tanstack/react-query';
-import { queries } from '../../../../../../../../../../utils/constants/queryKeys';
-import * as yup from 'yup';
-import { Controller, useForm } from 'react-hook-form';
-import ProductResponseDto from '../../../../../../../../../../utils/types/ProductResponseDto';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Node, useReactFlow } from 'reactflow';
+import { useSuspenseQuery } from '@tanstack/react-query';
+import { useReactFlow } from '@xyflow/react';
+import { useContext, useEffect } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import ReactModal from 'react-modal';
 import { v4 as uuidv4 } from 'uuid';
-import { AppViewStudyViewExpertViewFlowComponentRecorderNodeComponentData } from '../../../Flow/components/RecorderNode/RecorderNode';
-import { AppViewStudyViewExpertViewFlowComponentImageNodeComponentData } from '../../../Flow/components/ImageNode/ImageNode';
+import * as yup from 'yup';
+import { queries } from '../../../../../../../../../../utils/constants/queryKeys';
+import ProductResponseDto from '../../../../../../../../../../utils/types/ProductResponseDto';
+import ExpertStudyContext from '../../../../utils/context';
+import { ExpertStudyImageNode } from '../../../Flow/components/ImageNode/ImageNode';
+import { ExpertStudyRecorderNode } from '../../../Flow/components/RecorderNode/RecorderNode';
 
 const includedProducts = ['HD504PAP', 'HD508PAP', 'HD516PAP', 'HD732', 'HD764', 'MX16HD'];
 
@@ -60,7 +60,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentRecorder
     const nodes = [];
 
     for (const model of models.filter((model) => model.selected)) {
-      const recorderNode: Node<AppViewStudyViewExpertViewFlowComponentRecorderNodeComponentData> = {
+      const recorderNode: ExpertStudyRecorderNode = {
         id: uuidv4(),
         type: 'recorder',
         position: nodePosition,
@@ -72,7 +72,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentRecorder
         },
       };
       nodes.push(recorderNode);
-      const boxNode: Node<AppViewStudyViewExpertViewFlowComponentImageNodeComponentData> = {
+      const boxNode: ExpertStudyImageNode = {
         id: uuidv4(),
         type: 'image',
         position: boxNodePosition,
@@ -85,7 +85,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentRecorder
       };
       nodes.push(boxNode);
       if (model.product.reference?.endsWith('PAP')) {
-        const atNode: Node<AppViewStudyViewExpertViewFlowComponentImageNodeComponentData> = {
+        const atNode: ExpertStudyImageNode = {
           id: uuidv4(),
           type: 'image',
           position: atNodePosition,

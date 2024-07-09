@@ -1,8 +1,8 @@
-import 'reactflow/dist/style.css';
+import '@xyflow/react/dist/style.css';
 import AppViewStudyViewAutomaticViewFlowComponent from './components/Flow/Flow';
 import AppViewStudyViewAutomaticViewSidebarComponent from './components/Sidebar/Sidebar';
 import AppViewStudyViewAutomaticViewHeaderComponent from './components/Header/Header';
-import { ReactFlowProvider } from 'reactflow';
+import { ReactFlowProvider } from '@xyflow/react';
 import AppViewStudyViewAutomaticViewFooterComponent from './components/Footer/Footer';
 import { useState } from 'react';
 import AppViewStudyViewAutomaticViewRecapComponent from './components/Recap/Recap';

@@ -2,7 +2,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useQuery } from '@tanstack/react-query';
 import { Controller, useForm } from 'react-hook-form';
 import ReactModal from 'react-modal';
-import { useReactFlow } from 'reactflow';
+import { useReactFlow } from '@xyflow/react';
 import * as yup from 'yup';
 import LoaderModal from '../../../../../../../../../../components/LoaderModal/LoaderModal';
 import { queries } from '../../../../../../../../../../utils/constants/queryKeys';

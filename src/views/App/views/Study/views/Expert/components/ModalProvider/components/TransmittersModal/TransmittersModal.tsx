@@ -1,15 +1,15 @@
-import { useSuspenseQuery } from '@tanstack/react-query';
-import ReactModal from 'react-modal';
-import { queries } from '../../../../../../../../../../utils/constants/queryKeys';
-import * as yup from 'yup';
-import ProductResponseDto from '../../../../../../../../../../utils/types/ProductResponseDto';
-import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useSuspenseQuery } from '@tanstack/react-query';
+import { useReactFlow } from '@xyflow/react';
 import { useContext, useEffect } from 'react';
-import ExpertStudyContext from '../../../../utils/context';
-import { Node, useReactFlow } from 'reactflow';
-import { AppViewStudyViewExpertViewFlowComponentMonitorNodeComponentData } from '../../../Flow/components/MonitorNode/MonitorNode';
+import { Controller, useForm } from 'react-hook-form';
+import ReactModal from 'react-modal';
 import { v4 as uuidv4 } from 'uuid';
+import * as yup from 'yup';
+import { queries } from '../../../../../../../../../../utils/constants/queryKeys';
+import ProductResponseDto from '../../../../../../../../../../utils/types/ProductResponseDto';
+import ExpertStudyContext from '../../../../utils/context';
+import { ExpertStudyTransmitterNode } from '../../../Flow/components/TransmitterNode/TransmitterNode';
 
 const includedProducts = ['KIT50M', 'KITFIBRE', 'POE04', 'POE04LD', 'POE08', 'POE16', 'PONTWIFI', 'SG05'];
 
@@ -48,7 +48,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentTransmit
 
     const paneCenter = screenToFlowPosition({ x: reactFlowRect.x + reactFlowRect.width / 2, y: reactFlowRect.y });
 
-    const nodes: Array<Node<AppViewStudyViewExpertViewFlowComponentMonitorNodeComponentData>> = models
+    const nodes = models
       .filter((model) => model.selected)
       .map((model) => {
         const nodeSize = model.product.reference === 'KIT50M' ? { width: 480, height: 480 } : { width: 160, height: 160 };
@@ -64,7 +64,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentTransmit
             size: model.product.reference === 'KIT50M' ? { width: 480, height: 480 } : { width: 160, height: 160 },
             opacity: 100,
           },
-        };
+        } as ExpertStudyTransmitterNode;
       });
 
     addNodes(nodes);

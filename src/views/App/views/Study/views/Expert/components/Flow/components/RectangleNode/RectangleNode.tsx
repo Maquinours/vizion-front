@@ -1,4 +1,4 @@
-import { Handle, NodeProps, NodeResizer, Position, ReactFlowState, ResizeDragEvent, ResizeParamsWithDirection, useReactFlow, useStore } from 'reactflow';
+import { Handle, Node, NodeProps, NodeResizer, OnResize, Position, ReactFlowState, useReactFlow, useStore } from '@xyflow/react';
 
 const handlesData = [
   {
@@ -24,17 +24,20 @@ const handlesData = [
 ];
 
 const getIsConnectable = (state: ReactFlowState) => {
-  return !!state.connectionNodeId;
+  return state.connection.inProgress;
 };
 
-export type ExpertStudyRectangleNodeData = Readonly<{
-  size: { width: number; height: number };
-}>;
-export default function AppViewStudyViewExpertViewFlowComponentRectangleNodeComponent({ id, selected, data }: NodeProps<ExpertStudyRectangleNodeData>) {
+export type ExpertStudyRectangleNode = Node<
+  {
+    size: { width: number; height: number };
+  },
+  'rectangle'
+>;
+export default function AppViewStudyViewExpertViewFlowComponentRectangleNodeComponent({ id, selected, data }: NodeProps<ExpertStudyRectangleNode>) {
   const { setNodes } = useReactFlow();
   const isConnectable = useStore(getIsConnectable);
 
-  const onResize = (_event: ResizeDragEvent, params: ResizeParamsWithDirection) => {
+  const onResize: OnResize = (_event, params) => {
     setNodes((nds) => nds.map((node) => (node.id === id ? { ...node, data: { ...node.data, size: { width: params.width, height: params.height } } } : node)));
   };
 

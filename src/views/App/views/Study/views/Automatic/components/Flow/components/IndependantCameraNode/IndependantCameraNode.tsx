@@ -2,25 +2,28 @@ import { useQuery } from '@tanstack/react-query';
 import React, { useState } from 'react';
 import { AiOutlineClose, AiTwotoneSetting } from 'react-icons/ai';
 import { MdDelete } from 'react-icons/md';
-import { Node, NodeProps, useReactFlow } from 'reactflow';
+import { Node, NodeProps, useReactFlow } from '@xyflow/react';
 import { queries } from '../../../../../../../../../../utils/constants/queryKeys';
 import ProductProductResponseDto from '../../../../../../../../../../utils/types/ProductProductResponseDto';
 import { ClickAwayListener } from '@mui/material';
 
-export type AppViewStudyViewAutomaticViewIndependantCameraNodeData = {
-  model: {
-    id: string;
-    reference: string;
-  };
-  options: Array<{
-    qty: number;
-    reference: string | null;
-    id: string;
-  }>;
-  name: string;
-};
+export type AutomaticStudyIndependantCameraNode = Node<
+  {
+    model: {
+      id: string;
+      reference: string;
+    };
+    options: Array<{
+      qty: number;
+      reference: string | null;
+      id: string;
+    }>;
+    name: string;
+  },
+  'independantNode'
+>;
 
-export default function AppViewStudyViewAutomaticViewIndependantCameraNode({ id, data }: NodeProps<AppViewStudyViewAutomaticViewIndependantCameraNodeData>) {
+export default function AppViewStudyViewAutomaticViewIndependantCameraNode({ id, data }: NodeProps<AutomaticStudyIndependantCameraNode>) {
   const { setNodes, deleteElements } = useReactFlow();
 
   const { data: product } = useQuery({
@@ -42,7 +45,7 @@ export default function AppViewStudyViewAutomaticViewIndependantCameraNode({ id,
     setNodes((nodes) =>
       nodes.map((node) => {
         if (node.id !== id) return node;
-        const options = [...(node as Node<AppViewStudyViewAutomaticViewIndependantCameraNodeData>).data.options];
+        const options = [...(node as AutomaticStudyIndependantCameraNode).data.options];
         const nodeOption = options.find((opt) => opt.id === option.id);
         if (nodeOption) nodeOption.qty = qty;
         else

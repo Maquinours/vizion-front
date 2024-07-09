@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import ExpertStudyContext, { ExpertStudyPaneClickFunctionType } from '../../../../utils/context';
-import { ReactFlowState, useStore, useViewport } from 'reactflow';
+import { ReactFlowState, useStore, useViewport } from '@xyflow/react';
 import _ from 'lodash';
 
 const getReactFlowSize = (state: ReactFlowState) => {

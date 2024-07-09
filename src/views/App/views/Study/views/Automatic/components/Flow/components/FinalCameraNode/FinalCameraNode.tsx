@@ -1,20 +1,22 @@
 import { useMemo } from 'react';
-import { Handle, NodeProps, Position } from 'reactflow';
+import { Handle, NodeProps, Position, Node } from '@xyflow/react';
 
-export type AppViewStudyViewAutomaticViewFinalCameraNodeData = {
-  options: Array<{
-    qty: number;
-    reference: string | null;
-  }>;
-  model: {
-    reference: string;
-  };
-  width: number;
-  height: number;
-};
-export default function AppViewStudyViewAutomaticViewFlowComponentFinalCameraNodeComponent({
-  data,
-}: NodeProps<AppViewStudyViewAutomaticViewFinalCameraNodeData>) {
+export type AutomaticStudyFinalCameraNode = Node<
+  {
+    options: Array<{
+      qty: number;
+      reference: string | null;
+    }>;
+    model: {
+      reference: string;
+    };
+    width: number;
+    height: number;
+  },
+  'finalNode'
+>;
+
+export default function AppViewStudyViewAutomaticViewFlowComponentFinalCameraNodeComponent({ data }: NodeProps<AutomaticStudyFinalCameraNode>) {
   const options = useMemo(() => data.options.filter((option) => option.qty > 0), [data.options]);
 
   return (

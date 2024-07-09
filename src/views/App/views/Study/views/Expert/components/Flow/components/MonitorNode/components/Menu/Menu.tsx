@@ -1,8 +1,8 @@
+import { NodeToolbar, Position, useReactFlow } from '@xyflow/react';
 import { AiOutlineClose, AiTwotoneSetting } from 'react-icons/ai';
-import ProductResponseDto from '../../../../../../../../../../../../utils/types/ProductResponseDto';
 import ProductProductResponseDto from '../../../../../../../../../../../../utils/types/ProductProductResponseDto';
-import { AppViewStudyViewExpertViewFlowComponentMonitorNodeComponentData } from '../../MonitorNode';
-import { Node, NodeToolbar, Position, useReactFlow } from 'reactflow';
+import ProductResponseDto from '../../../../../../../../../../../../utils/types/ProductResponseDto';
+import { ExpertStudyMonitorNode } from '../../MonitorNode';
 
 type Option = {
   product: ProductProductResponseDto;
@@ -11,7 +11,7 @@ type Option = {
 
 type AppViewStudyViewExpertViewFlowComponentMonitorNodeComponentMenuComponentProps = Readonly<{
   product: ProductResponseDto;
-  data: AppViewStudyViewExpertViewFlowComponentMonitorNodeComponentData;
+  data: ExpertStudyMonitorNode['data'];
   nodeId: string;
   onClose: () => void;
 }>;
@@ -41,7 +41,7 @@ export default function AppViewStudyViewExpertViewFlowComponentMonitorNodeCompon
   const onOptionDecrementQuantity = (option: Option) => {
     if (option.quantity === 0) return;
     setNodes((nds) => {
-      const node: Node<AppViewStudyViewExpertViewFlowComponentMonitorNodeComponentData> | undefined = nds.find((node) => node.id === nodeId);
+      const node = nds.find((node): node is ExpertStudyMonitorNode => node.id === nodeId);
       if (!node) return nds;
       const opt = node.data.options.find((opt) => opt.id === option.product.id);
       if (!opt) return nds;
@@ -53,7 +53,7 @@ export default function AppViewStudyViewExpertViewFlowComponentMonitorNodeCompon
 
   const onOptionIncrementQuantity = (option: Option) => {
     setNodes((nds) => {
-      const node: Node<AppViewStudyViewExpertViewFlowComponentMonitorNodeComponentData> | undefined = nds.find((node) => node.id === nodeId);
+      const node = nds.find((node): node is ExpertStudyMonitorNode => node.id === nodeId);
       if (!node) return nds;
       const opt = node.data.options.find((opt) => opt.id === option.product.id);
       if (!opt) node.data.options.push({ id: option.product.id, quantity: 1 });

@@ -3,17 +3,16 @@ import DOMPurify from 'dompurify';
 import parse from 'html-react-parser';
 import { useContext } from 'react';
 import 'react-quill/dist/quill.snow.css';
-import { NodeProps } from 'reactflow';
+import { Node, NodeProps } from '@xyflow/react';
 import ExpertStudyContext, { ExpertStudyModalType } from '../../../../utils/context';
 
-export type AppViewStudyViewExpertViewFlowComponentTextNodeComponentData = Readonly<{
-  text: string;
-}>;
-export default function AppViewStudyViewExpertViewFlowComponentTextNodeComponent({
-  id,
-  data,
-  selected,
-}: NodeProps<AppViewStudyViewExpertViewFlowComponentTextNodeComponentData>) {
+export type ExpertStudyTextNode = Node<
+  {
+    text: string;
+  },
+  'text'
+>;
+export default function AppViewStudyViewExpertViewFlowComponentTextNodeComponent({ id, data, selected }: NodeProps<ExpertStudyTextNode>) {
   const { setModal } = useContext(ExpertStudyContext)!;
 
   const onDoubleClick = () => {

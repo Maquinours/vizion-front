@@ -12,7 +12,7 @@ import {
   applyNodeChanges,
   applyEdgeChanges,
   Viewport,
-} from 'reactflow';
+} from '@xyflow/react';
 
 const defaultPage = { nodes: [], edges: [], viewport: { x: 0, y: 0, zoom: 1 } };
 

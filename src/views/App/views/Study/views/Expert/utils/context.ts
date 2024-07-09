@@ -1,5 +1,5 @@
 import React, { createContext } from 'react';
-import { XYPosition } from 'reactflow';
+import { XYPosition } from '@xyflow/react';
 
 export enum ExpertStudyModalType {
   INDOOR_CAMERAS,

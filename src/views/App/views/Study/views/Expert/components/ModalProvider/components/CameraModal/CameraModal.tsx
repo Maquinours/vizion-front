@@ -1,16 +1,16 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useSuspenseQuery } from '@tanstack/react-query';
+import { useReactFlow } from '@xyflow/react';
 import { useContext, useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { BiShow } from 'react-icons/bi';
 import ReactModal from 'react-modal';
-import { Node, useReactFlow } from 'reactflow';
 import { v4 as uuidv4 } from 'uuid';
 import * as yup from 'yup';
 import { queries } from '../../../../../../../../../../utils/constants/queryKeys';
 import ProductResponseDto from '../../../../../../../../../../utils/types/ProductResponseDto';
 import ExpertStudyContext, { ExpertStudyModalType } from '../../../../utils/context';
-import { AppViewStudyViewExpertViewFlowComponentSynopticCameraNodeComponentData } from '../../../Flow/components/SynopticCameraNode/SynopticCameraNode';
+import { ExpertStudySynopticCameraNode } from '../../../Flow/components/SynopticCameraNode/SynopticCameraNode';
 import AppViewStudyViewExpertViewModalProviderComponentTableComponent from './components/Table/Table';
 
 const bestSellers = ['CA10HD', 'CA50HD', 'DA330HD', 'DA450HD'];
@@ -77,19 +77,22 @@ export default function AppViewStudyViewExpertViewModalProviderComponentCameraMo
     const paneCenter = screenToFlowPosition({ x: reactFlowRect.x + reactFlowRect.width / 2, y: reactFlowRect.y });
     const nodeSize = { width: 80, height: 80 };
 
-    const nodes: Array<Node<AppViewStudyViewExpertViewFlowComponentSynopticCameraNodeComponentData>> = models
+    const nodes = models
       .filter((model) => model.selected)
-      .map((model) => ({
-        id: uuidv4(),
-        type: 'synopticCamera',
-        position: { x: paneCenter.x - nodeSize.width / 2, y: paneCenter.y },
-        data: {
-          productId: model.product.id,
-          options: [],
-          size: nodeSize,
-          opacity: 100,
-        },
-      }));
+      .map(
+        (model) =>
+          ({
+            id: uuidv4(),
+            type: 'synopticCamera',
+            position: { x: paneCenter.x - nodeSize.width / 2, y: paneCenter.y },
+            data: {
+              productId: model.product.id,
+              options: [],
+              size: nodeSize,
+              opacity: 100,
+            },
+          }) as ExpertStudySynopticCameraNode,
+      );
 
     addNodes(nodes);
     onClose();

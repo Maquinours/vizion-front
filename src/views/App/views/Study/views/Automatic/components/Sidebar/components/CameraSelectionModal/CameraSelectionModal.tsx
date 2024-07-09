@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import React, { useEffect, useState } from 'react';
 import { BiShow } from 'react-icons/bi';
 import ReactModal from 'react-modal';
-import { useReactFlow } from 'reactflow';
+import { useReactFlow } from '@xyflow/react';
 import { v4 as uuidv4 } from 'uuid';
 import { queries } from '../../../../../../../../../../utils/constants/queryKeys';
 import ProductResponseDto from '../../../../../../../../../../utils/types/ProductResponseDto';

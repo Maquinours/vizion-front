@@ -1,12 +1,12 @@
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useReactFlow } from '@xyflow/react';
 import { useContext, useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import ReactModal from 'react-modal';
-import { Node, useReactFlow } from 'reactflow';
 import * as yup from 'yup';
 import Quill from '../../../../../../../../../../components/Quill/Quill';
 import ExpertStudyContext from '../../../../utils/context';
-import { AppViewStudyViewExpertViewFlowComponentTextNodeComponentData } from '../../../Flow/components/TextNode/TextNode';
+import { ExpertStudyTextNode } from '../../../Flow/components/TextNode/TextNode';
 
 const quillModules = {
   toolbar: {
@@ -48,7 +48,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentEditText
   useEffect(() => {
     const node = getNode(nodeId);
     if (!node || node.type !== 'text') return;
-    const textNode = node as Node<AppViewStudyViewExpertViewFlowComponentTextNodeComponentData>;
+    const textNode = node as ExpertStudyTextNode;
     setValue('text', textNode.data.text);
   }, [nodeId]);
 
