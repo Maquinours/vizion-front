@@ -192,6 +192,7 @@ export default function AppViewStudyViewExpertViewFlowComponent() {
       title={title}
       nodesDraggable={!paneClickFunction}
       elementsSelectable={!paneClickFunction}
+      proOptions={{ hideAttribution: true }}
     >
       <AppViewStudyViewExpertViewFlowComponentGuideLinesComponent />
       <AppViewStudyViewExpertViewFlowComponentCartridgeComponent />
