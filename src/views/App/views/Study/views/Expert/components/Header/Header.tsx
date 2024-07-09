@@ -40,6 +40,15 @@ export default function AppViewStudyViewExpertViewHeaderComponent() {
         <button
           type="button"
           className="btn btn-primary"
+          title="Tracer un rectangle"
+          onClick={onRectangleButtonClick}
+          style={{ backgroundColor: paneClickFunction?.type === ExpertStudyPaneClickFunctionType.RECTANGLE ? '#262b42' : undefined }}
+        >
+          <PiRectangle color="white" size={16} viewBox="24 40 208 176" />
+        </button>
+        <button
+          type="button"
+          className="btn btn-primary"
           style={{
             backgroundColor: paneClickFunction?.type === ExpertStudyPaneClickFunctionType.TEXT ? '#262b42' : undefined,
           }}
@@ -47,15 +56,6 @@ export default function AppViewStudyViewExpertViewHeaderComponent() {
           onClick={onTextButtonClick}
         >
           <PiTextT color="white" size={16} viewBox="48 48 160 160" />
-        </button>
-        <button
-          type="button"
-          className="btn btn-primary"
-          title="Tracer un rectangle"
-          onClick={onRectangleButtonClick}
-          style={{ backgroundColor: paneClickFunction?.type === ExpertStudyPaneClickFunctionType.RECTANGLE ? '#262b42' : undefined }}
-        >
-          <PiRectangle color="white" size={16} viewBox="24 40 208 176" />
         </button>
       </div>
       <div className="flex items-center gap-x-2">
