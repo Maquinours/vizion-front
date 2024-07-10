@@ -54,7 +54,7 @@ export default function AppViewStudyViewExpertViewFlowComponent() {
     (event: React.MouseEvent, node: Node) => {
       if (event.ctrlKey) {
         updateNode(node.id, { selected: true });
-        addNodes({ ...node, id: uuidv4() });
+        addNodes({ ...node, id: uuidv4(), selected: false, dragging: false });
       }
     },
     [updateNode, addNodes],
