@@ -1,5 +1,5 @@
-import { ConnectionMode, Node, ReactFlow, useOnViewportChange, useReactFlow } from '@xyflow/react';
-import React, { useCallback, useContext, useEffect } from 'react';
+import { ConnectionMode, Node, ReactFlow, Viewport, useReactFlow } from '@xyflow/react';
+import React, { useCallback, useContext } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { useShallow } from 'zustand/react/shallow';
 import ExpertStudyContext, { ExpertStudyModalType, ExpertStudyPaneClickFunctionType } from '../../utils/context';
@@ -42,13 +42,9 @@ const selector = (state: RFState) => ({
 });
 
 export default function AppViewStudyViewExpertViewFlowComponent() {
-  const { screenToFlowPosition, updateNode, addNodes, setViewport: setFlowViewport } = useReactFlow();
+  const { screenToFlowPosition, updateNode, addNodes } = useReactFlow();
   const { paneClickFunction, setPaneClickFunction, setModal } = useContext(ExpertStudyContext)!;
   const { nodes, edges, viewport, onNodesChange, onEdgesChange, onConnect, setViewport } = useStore(useShallow(selector));
-
-  useOnViewportChange({
-    onEnd: setViewport,
-  });
 
   const onNodeDragStart = useCallback(
     (event: React.MouseEvent, node: Node) => {
@@ -164,9 +160,7 @@ export default function AppViewStudyViewExpertViewFlowComponent() {
     }
   };
 
-  useEffect(() => {
-    setFlowViewport(viewport);
-  }, [viewport]);
+  const onViewportChange = useCallback((viewport: Viewport) => setViewport(viewport), [setViewport]);
 
   const title = (() => {
     switch (paneClickFunction?.type) {
@@ -194,6 +188,8 @@ export default function AppViewStudyViewExpertViewFlowComponent() {
       nodesDraggable={!paneClickFunction}
       elementsSelectable={!paneClickFunction}
       proOptions={{ hideAttribution: true }}
+      viewport={viewport}
+      onViewportChange={onViewportChange}
     >
       <AppViewStudyViewExpertViewFlowComponentGuideLinesComponent />
       <AppViewStudyViewExpertViewFlowComponentCartridgeComponent />
