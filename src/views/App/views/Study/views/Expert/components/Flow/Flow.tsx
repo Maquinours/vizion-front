@@ -1,4 +1,4 @@
-import { ConnectionMode, Node, ReactFlow, Viewport, useReactFlow } from '@xyflow/react';
+import { ConnectionMode, Node, ProOptions, ReactFlow, Viewport, useReactFlow } from '@xyflow/react';
 import React, { useCallback, useContext } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { useShallow } from 'zustand/react/shallow';
@@ -29,6 +29,10 @@ const nodeTypes = {
   text: AppViewStudyViewExpertViewFlowComponentTextNodeComponent,
   rectangle: AppViewStudyViewExpertViewFlowComponentRectangleNodeComponent,
   lines: AppViewStudyViewExpertViewFlowComponentLinesNodeComponent,
+};
+
+const proOptions: ProOptions = {
+  hideAttribution: true,
 };
 
 const selector = (state: RFState) => ({
@@ -187,7 +191,7 @@ export default function AppViewStudyViewExpertViewFlowComponent() {
       title={title}
       nodesDraggable={!paneClickFunction}
       elementsSelectable={!paneClickFunction}
-      proOptions={{ hideAttribution: true }}
+      proOptions={proOptions}
       viewport={viewport}
       onViewportChange={onViewportChange}
     >
