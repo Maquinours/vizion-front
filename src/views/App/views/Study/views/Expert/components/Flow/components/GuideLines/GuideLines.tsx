@@ -10,8 +10,8 @@ const getReactFlowData = (state: ReactFlowState) => {
       (node.dragging || node.resizing) &&
       !!node.type &&
       !['lines'].includes(node.type) &&
-      !!node.height &&
-      !!node.width &&
+      !!node.measured?.height &&
+      !!node.measured?.width &&
       (!('rotation' in node.data) || node.data.rotation === 0),
   );
   const reactFlowSize = { width: state.width, height: state.height };
@@ -27,7 +27,7 @@ export default function AppViewStudyViewExpertViewFlowComponentGuideLinesCompone
     <svg className="pointer-events-none absolute left-0 top-0 h-full w-full">
       {nodes.map((node, index) => {
         const nodePosition = { x: x + node.position.x * zoom, y: y + node.position.y * zoom };
-        const nodeSize = { width: node.width! * zoom, height: node.height! * zoom };
+        const nodeSize = { width: node.measured!.width! * zoom, height: node.measured!.height! * zoom };
         const lineColor = colors[index % colors.length];
         return (
           <React.Fragment key={node.id}>
