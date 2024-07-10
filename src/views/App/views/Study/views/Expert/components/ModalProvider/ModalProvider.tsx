@@ -10,6 +10,7 @@ import AppViewStudyViewExpertViewModalProviderComponentTransmittersModalComponen
 import AppViewStudyViewExpertViewModalProviderComponentUniversalCameraModalComponent from './components/UniversalCameraModal/UniversalCameraModal';
 import AppViewStudyViewExpertViewModalProviderComponentPdfModalComponent from './components/PdfModal/PdfModal';
 import AppViewStudyViewExpertViewModalProviderComponentHddCalculationModalComponent from './components/HddCalculationModal/HddCalculationModal';
+import AppViewStudyViewExpertViewModalProviderComponentImportGedImageModalComponent from './components/ImportGedImageModal/ImportGedImageModal';
 
 export default function AppViewStudyViewExpertViewModalProviderComponent() {
   const { modal } = useContext(ExpertStudyContext)!;
@@ -46,5 +47,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponent() {
       else return <AppViewStudyViewExpertViewModalProviderComponentPdfModalComponent step={modal.data.step} images={modal.data.images} />;
     case ExpertStudyModalType.HDD_CALCULATION:
       return <AppViewStudyViewExpertViewModalProviderComponentHddCalculationModalComponent />;
+    case ExpertStudyModalType.IMPORT_GED_IMAGE:
+      return <AppViewStudyViewExpertViewModalProviderComponentImportGedImageModalComponent />;
   }
 }

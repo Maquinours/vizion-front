@@ -1,13 +1,15 @@
 import { Button, Fade, Menu, MenuItem } from '@mui/material';
 import { useReactFlow } from '@xyflow/react';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { RiArrowDownSLine } from 'react-icons/ri';
 import { v4 as uuidv4 } from 'uuid';
 import { fileToBase64Image } from '../../../../../../../../../../utils/functions/files';
 import { ExpertStudyImageNode } from '../../../Flow/components/ImageNode/ImageNode';
+import ExpertStudyContext, { ExpertStudyModalType } from '../../../../utils/context';
 
 export default function AppViewStudyViewExpertViewHeaderComponentImportMenuComponent() {
   const { addNodes, screenToFlowPosition } = useReactFlow();
+  const { setModal } = useContext(ExpertStudyContext)!;
 
   const [anchorEl, setAnchorEl] = useState<HTMLElement>();
   const open = Boolean(anchorEl);
@@ -50,6 +52,10 @@ export default function AppViewStudyViewExpertViewHeaderComponentImportMenuCompo
     input.click();
   };
 
+  const onImportGedImageButtonClick = () => {
+    setModal({ type: ExpertStudyModalType.IMPORT_GED_IMAGE });
+  };
+
   return (
     <>
       <Button
@@ -74,6 +80,7 @@ export default function AppViewStudyViewExpertViewHeaderComponentImportMenuCompo
         TransitionComponent={Fade}
       >
         <MenuItem onClick={onImportImageButtonClick}>Objet à partir de ce PC</MenuItem>
+        <MenuItem onClick={onImportGedImageButtonClick}>Objet à partir de la GED</MenuItem>
       </Menu>
     </>
   );

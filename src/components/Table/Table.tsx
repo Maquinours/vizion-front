@@ -16,6 +16,7 @@ type TableComponentProps<T> = Readonly<{
   getSubRows?(row: T): Array<T>;
   renderSubComponent?: (props: { row: Row<T> }) => React.ReactElement;
   getRowClassName?: (row: T) => string;
+  className?: string;
 }>;
 export default function TableComponent<T>({
   columns,
@@ -30,6 +31,7 @@ export default function TableComponent<T>({
   getSubRows,
   renderSubComponent,
   getRowClassName,
+  className,
 }: TableComponentProps<T>) {
   const { getHeaderGroups, getRowModel } = useReactTable({
     data,
@@ -46,7 +48,7 @@ export default function TableComponent<T>({
   });
 
   return (
-    <table>
+    <table className={className}>
       <TableComponentHeaderComponent getHeaderGroups={getHeaderGroups} />
       <TableComponentBodyComponent
         getRowModel={getRowModel}
