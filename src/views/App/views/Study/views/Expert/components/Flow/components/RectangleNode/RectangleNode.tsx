@@ -43,7 +43,13 @@ export default function AppViewStudyViewExpertViewFlowComponentRectangleNodeComp
 
   return (
     <>
-      <NodeResizer minHeight={20} minWidth={20} isVisible={selected} onResize={onResize} handleStyle={{ width: 10, height: 10, borderRadius: '100%' }} />
+      <NodeResizer
+        minHeight={20}
+        minWidth={20}
+        isVisible={selected ?? false}
+        onResize={onResize}
+        handleStyle={{ width: 10, height: 10, borderRadius: '100%' }}
+      />
       {handlesData.map((handle) => (
         <Handle key={handle.id} id={handle.id} position={handle.position} style={handle.style} type="source" isConnectable={isConnectable} />
       ))}

@@ -57,7 +57,7 @@ export default function AppViewStudyViewExpertViewFlowComponentMonitorNodeCompon
   return (
     <>
       <NodeResizer
-        isVisible={selected}
+        isVisible={selected ?? false}
         minWidth={50}
         minHeight={50}
         keepAspectRatio

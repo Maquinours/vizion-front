@@ -60,7 +60,7 @@ export default function AppViewStudyViewExpertViewFlowComponentSynopticCameraNod
       <NodeResizer
         // onResizeStart={onResizeStart} //TODO: maybe reimplement this
         keepAspectRatio
-        isVisible={selected}
+        isVisible={selected ?? false}
         minWidth={50}
         minHeight={50}
         onResize={onResize}

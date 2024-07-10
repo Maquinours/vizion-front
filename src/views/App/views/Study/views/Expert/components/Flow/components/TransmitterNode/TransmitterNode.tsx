@@ -59,7 +59,7 @@ export default function AppViewStudyViewExpertViewFlowComponentTransmitterNodeCo
     <>
       <NodeResizer
         // onResizeStart={onResizeStart}
-        isVisible={selected}
+        isVisible={selected ?? false}
         minWidth={50}
         minHeight={50}
         keepAspectRatio

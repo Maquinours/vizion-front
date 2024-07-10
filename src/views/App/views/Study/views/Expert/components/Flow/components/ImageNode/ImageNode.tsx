@@ -98,7 +98,7 @@ export default function AppViewStudyViewExpertViewFlowComponentImageNodeComponen
     <ClickAwayListener mouseEvent={showMenu ? 'onPointerDown' : false} onClickAway={() => setShowMenu(false)}>
       <div>
         <div style={{ transform: `rotate(${data.rotation}deg)` }}>
-          <NodeResizer onResize={onResize} isVisible={selected} keepAspectRatio handleStyle={{ width: 10, height: 10, borderRadius: '100%' }} />
+          <NodeResizer onResize={onResize} isVisible={selected ?? false} keepAspectRatio handleStyle={{ width: 10, height: 10, borderRadius: '100%' }} />
           {handles.map((handle) => (
             <Handle
               key={handle.id}
