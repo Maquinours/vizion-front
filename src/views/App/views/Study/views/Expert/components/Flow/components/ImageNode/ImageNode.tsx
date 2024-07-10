@@ -41,14 +41,14 @@ export type ExpertStudyImageNode = Node<
 >;
 export default function AppViewStudyViewExpertViewFlowComponentImageNodeComponent({ id, selected, data }: NodeProps<ExpertStudyImageNode>) {
   const isConnectable = useStore(getIsConnectable);
-  const { setNodes } = useReactFlow();
+  const { setNodes, updateNodeData } = useReactFlow();
 
   const onResize: OnResize = (_event, params) => {
-    setNodes((nds) => nds.map((node) => (node.id === id ? { ...node, data: { ...node.data, size: { width: params.width, height: params.height } } } : node)));
+    updateNodeData(id, { size: { width: params.width, height: params.height } });
   };
 
   const onOpacityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setNodes((nds) => nds.map((node) => (node.id === id ? { ...node, data: { ...node.data, opacity: Number(e.target.value) } } : node)));
+    updateNodeData(id, { opacity: Number(e.target.value) });
   };
 
   const [showMenu, setShowMenu] = useState(false);
@@ -88,7 +88,7 @@ export default function AppViewStudyViewExpertViewFlowComponentImageNodeComponen
       const centerX = rect.left + rect.width / 2;
       const centerY = rect.top + rect.height / 2;
       const angle = Math.atan2(e.clientY - centerY, e.clientX - centerX) * (180 / Math.PI);
-      setNodes((nds) => nds.map((node) => (node.id === id ? { ...node, data: { ...node.data, rotation: angle } } : node)));
+      updateNodeData(id, { rotation: angle });
     }
   };
 

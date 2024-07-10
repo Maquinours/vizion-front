@@ -16,7 +16,7 @@ export type ExpertStudySynopticCameraNode = Node<
   'synopticCamera'
 >;
 export default function AppViewStudyViewExpertViewFlowComponentSynopticCameraNodeComponent({ id, selected, data }: NodeProps<ExpertStudySynopticCameraNode>) {
-  const { setNodes } = useReactFlow();
+  const { setNodes, updateNodeData } = useReactFlow();
 
   const {
     data: { product, options },
@@ -36,7 +36,7 @@ export default function AppViewStudyViewExpertViewFlowComponentSynopticCameraNod
   const [showMenu, setShowMenu] = useState(false);
 
   const onResize: OnResize = (_event, params) => {
-    setNodes((nds) => nds.map((node) => (node.id === id ? { ...node, data: { ...node.data, size: { width: params.width, height: params.height } } } : node)));
+    updateNodeData(id, { size: { width: params.width, height: params.height } });
   };
 
   const onContextMenu = (e: React.MouseEvent) => {

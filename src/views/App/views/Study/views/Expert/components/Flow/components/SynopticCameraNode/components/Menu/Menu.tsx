@@ -22,7 +22,7 @@ export default function AppViewStudyViewExpertViewFlowComponentSynopticCameraNod
   data,
   onClose,
 }: AppViewStudyViewExpertViewFlowComponentSynopticCameraNodeComponentMenuComponentProps) {
-  const { setNodes } = useReactFlow();
+  const { updateNodeData } = useReactFlow();
 
   const options: Array<Option> | undefined = product.associatedProduct
     ?.map((option) => ({
@@ -32,35 +32,28 @@ export default function AppViewStudyViewExpertViewFlowComponentSynopticCameraNod
     .sort((a, b) => (a.product.reference ?? '').localeCompare(b.product.reference ?? ''));
 
   const onNodeNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setNodes((nds) => nds.map((node) => (node.id === nodeId ? { ...node, data: { ...node.data, name: e.target.value } } : node)));
+    updateNodeData(nodeId, { name: e.target.value });
   };
 
   const onOpacityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setNodes((nds) => nds.map((node) => (node.id === nodeId ? { ...node, data: { ...node.data, opacity: Number(e.target.value) } } : node)));
+    updateNodeData(nodeId, { opacity: Number(e.target.value) });
   };
 
   const onOptionDecrementQuantity = (option: Option) => {
-    if (option.quantity === 0) return;
-    setNodes((nds) => {
-      const node = nds.find((node): node is ExpertStudySynopticCameraNode => node.id === nodeId);
-      if (!node) return nds;
-      const opt = node.data.options.find((opt) => opt.id === option.product.id);
-      if (!opt) return nds;
-      if (opt.quantity === 1) node.data.options.splice(node.data.options.indexOf(opt), 1);
-      else opt.quantity--;
-      return structuredClone(nds);
-    });
+    const options = [...data.options];
+    const opt = options.find((opt) => opt.id === option.product.id);
+    if (!opt) return;
+    if (opt.quantity <= 1) options.splice(options.indexOf(opt), 1);
+    else opt.quantity--;
+    updateNodeData(nodeId, { options });
   };
 
   const onOptionIncrementQuantity = (option: Option) => {
-    setNodes((nds) => {
-      const node = nds.find((node): node is ExpertStudySynopticCameraNode => node.id === nodeId);
-      if (!node) return nds;
-      const opt = node.data.options.find((opt) => opt.id === option.product.id);
-      if (!opt) node.data.options.push({ id: option.product.id, quantity: 1 });
-      else opt.quantity++;
-      return structuredClone(nds);
-    });
+    const options = [...data.options];
+    const opt = options.find((opt) => opt.id === option.product.id);
+    if (!opt) options.push({ id: option.product.id, quantity: 1 });
+    else opt.quantity++;
+    updateNodeData(nodeId, { options });
   };
 
   return (

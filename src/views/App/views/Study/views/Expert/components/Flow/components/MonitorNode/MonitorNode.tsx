@@ -16,7 +16,7 @@ export type ExpertStudyMonitorNode = Node<
   'monitor'
 >;
 export default function AppViewStudyViewExpertViewFlowComponentMonitorNodeComponent({ id, selected, data }: NodeProps<ExpertStudyMonitorNode>) {
-  const { setNodes } = useReactFlow();
+  const { updateNodeData, setNodes } = useReactFlow();
 
   const {
     data: { product, options },
@@ -36,7 +36,7 @@ export default function AppViewStudyViewExpertViewFlowComponentMonitorNodeCompon
   const [showMenu, setShowMenu] = useState(false);
 
   const onResize: OnResize = (_event, params) => {
-    setNodes((nds) => nds.map((node) => (node.id === id ? { ...node, data: { ...node.data, size: { width: params.width, height: params.height } } } : node)));
+    updateNodeData(id, { size: { width: params.width, height: params.height } });
   };
 
   const onContextMenu = (e: React.MouseEvent) => {

@@ -42,7 +42,7 @@ const selector = (state: RFState) => ({
 });
 
 export default function AppViewStudyViewExpertViewFlowComponent() {
-  const { screenToFlowPosition, setNodes, addNodes, setViewport: setFlowViewport } = useReactFlow();
+  const { screenToFlowPosition, updateNode, addNodes, setViewport: setFlowViewport } = useReactFlow();
   const { paneClickFunction, setPaneClickFunction, setModal } = useContext(ExpertStudyContext)!;
   const { nodes, edges, viewport, onNodesChange, onEdgesChange, onConnect, setViewport } = useStore(useShallow(selector));
 
@@ -53,11 +53,11 @@ export default function AppViewStudyViewExpertViewFlowComponent() {
   const onNodeDragStart = useCallback(
     (event: React.MouseEvent, node: Node) => {
       if (event.ctrlKey) {
-        setNodes((nodes) => nodes.map((n) => (n.id === node.id ? { ...n, selected: true } : n)));
+        updateNode(node.id, { selected: true });
         addNodes({ ...node, id: uuidv4() });
       }
     },
-    [setNodes, addNodes],
+    [updateNode, addNodes],
   );
 
   const onPaneClick = (event: React.MouseEvent<Element, MouseEvent>) => {

@@ -24,7 +24,7 @@ type AppViewStudyViewExpertViewModalProviderComponentEditTextModalComponentProps
 export default function AppViewStudyViewExpertViewModalProviderComponentEditTextModalComponent({
   nodeId,
 }: AppViewStudyViewExpertViewModalProviderComponentEditTextModalComponentProps) {
-  const { setNodes, getNode } = useReactFlow();
+  const { getNode, updateNodeData } = useReactFlow();
   const { setModal } = useContext(ExpertStudyContext)!;
 
   const {
@@ -41,7 +41,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentEditText
   };
 
   const onSubmit = ({ text }: yup.InferType<typeof yupSchema>) => {
-    if (!!nodeId) setNodes((nodes) => nodes.map((node) => (node.id === nodeId ? { ...node, data: { ...node.data, text } } : node)));
+    updateNodeData(nodeId, { text });
     onClose();
   };
 

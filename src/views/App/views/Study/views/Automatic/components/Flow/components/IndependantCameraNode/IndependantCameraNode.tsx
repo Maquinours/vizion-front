@@ -1,11 +1,11 @@
+import { ClickAwayListener } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
+import { Node, NodeProps, useReactFlow } from '@xyflow/react';
 import React, { useState } from 'react';
 import { AiOutlineClose, AiTwotoneSetting } from 'react-icons/ai';
 import { MdDelete } from 'react-icons/md';
-import { Node, NodeProps, useReactFlow } from '@xyflow/react';
 import { queries } from '../../../../../../../../../../utils/constants/queryKeys';
 import ProductProductResponseDto from '../../../../../../../../../../utils/types/ProductProductResponseDto';
-import { ClickAwayListener } from '@mui/material';
 
 export type AutomaticStudyIndependantCameraNode = Node<
   {
@@ -23,8 +23,12 @@ export type AutomaticStudyIndependantCameraNode = Node<
   'independantNode'
 >;
 
+const isAutomaticStudyIndependantCameraNode = (node: Node): node is AutomaticStudyIndependantCameraNode => {
+  return node.type === 'independantNode';
+};
+
 export default function AppViewStudyViewAutomaticViewIndependantCameraNode({ id, data }: NodeProps<AutomaticStudyIndependantCameraNode>) {
-  const { setNodes, deleteElements } = useReactFlow();
+  const { updateNodeData, deleteElements } = useReactFlow();
 
   const { data: product } = useQuery({
     ...queries['product'].list,
@@ -38,25 +42,25 @@ export default function AppViewStudyViewAutomaticViewIndependantCameraNode({ id,
   };
 
   const onNodeNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setNodes((nodes) => nodes.map((node) => (node.id === id ? { ...node, data: { ...node.data, name: e.target.value } } : node)));
+    updateNodeData(id, { name: e.target.value });
   };
 
   const onAccessoryQuantityChange = (option: ProductProductResponseDto, qty: number) => {
-    setNodes((nodes) =>
-      nodes.map((node) => {
-        if (node.id !== id) return node;
-        const options = [...(node as AutomaticStudyIndependantCameraNode).data.options];
-        const nodeOption = options.find((opt) => opt.id === option.id);
+    updateNodeData(id, (node) => {
+      if (isAutomaticStudyIndependantCameraNode(node)) {
+        const nodeOptions = [...node.data.options];
+        const nodeOption = nodeOptions.find((opt) => opt.id === option.id);
         if (nodeOption) nodeOption.qty = qty;
         else
-          options.push({
+          nodeOptions.push({
             id: option.id,
             reference: option.reference,
             qty,
           });
-        return { ...node, data: { ...node.data, options } };
-      }),
-    );
+        return { ...node.data, options: nodeOptions };
+      }
+      return {};
+    });
   };
 
   const onNodeDelete = () => {

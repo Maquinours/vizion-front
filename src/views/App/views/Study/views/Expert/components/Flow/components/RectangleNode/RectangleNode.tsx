@@ -34,11 +34,11 @@ export type ExpertStudyRectangleNode = Node<
   'rectangle'
 >;
 export default function AppViewStudyViewExpertViewFlowComponentRectangleNodeComponent({ id, selected, data }: NodeProps<ExpertStudyRectangleNode>) {
-  const { setNodes } = useReactFlow();
+  const { updateNodeData } = useReactFlow();
   const isConnectable = useStore(getIsConnectable);
 
   const onResize: OnResize = (_event, params) => {
-    setNodes((nds) => nds.map((node) => (node.id === id ? { ...node, data: { ...node.data, size: { width: params.width, height: params.height } } } : node)));
+    updateNodeData(id, { size: { width: params.width, height: params.height } });
   };
 
   return (

@@ -33,7 +33,7 @@ export default function AppViewStudyViewExpertViewFlowComponentRecorderNodeCompo
   onClose,
 }: AppViewStudyViewExpertViewFlowComponentRecorderNodeComponentMenuComponentProps) {
   const queryClient = useQueryClient();
-  const { setNodes } = useReactFlow();
+  const { updateNodeData } = useReactFlow();
 
   const options: Array<Option> | undefined = product.associatedProduct
     ?.map((option) => ({
@@ -52,51 +52,32 @@ export default function AppViewStudyViewExpertViewFlowComponentRecorderNodeCompo
       const product = (await queryClient.ensureQueryData(queries.product.list)).find((p) => p.reference === transformTo);
       if (product) newProduct = product;
     }
-    setNodes((nds) =>
-      nds.map((node) =>
-        node.id === nodeId
-          ? {
-              ...node,
-              data: {
-                ...node.data,
-                name: name,
-                productId: newProduct?.id ?? node.data.productId,
-                options: newProduct
-                  ? (node as ExpertStudyRecorderNode).data.options.filter((option) => newProduct.associatedProduct?.some((opt) => opt.id === option.id))
-                  : node.data.options,
-              },
-            }
-          : node,
-      ),
-    );
+    updateNodeData(nodeId, {
+      name,
+      productId: newProduct?.id ?? data.productId,
+      options: newProduct ? data.options.filter((option) => newProduct.associatedProduct?.some((opt) => opt.id === option.id)) : data.options,
+    });
   };
 
   const onOpacityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setNodes((nds) => nds.map((node) => (node.id === nodeId ? { ...node, data: { ...node.data, opacity: Number(e.target.value) } } : node)));
+    updateNodeData(nodeId, { opacity: Number(e.target.value) });
   };
 
   const onOptionDecrementQuantity = (option: Option) => {
-    if (option.quantity === 0) return;
-    setNodes((nds) => {
-      const node = nds.find((node): node is ExpertStudyRecorderNode => node.id === nodeId);
-      if (!node) return nds;
-      const opt = node.data.options.find((opt) => opt.id === option.product.id);
-      if (!opt) return nds;
-      if (opt.quantity === 1) node.data.options.splice(node.data.options.indexOf(opt), 1);
-      else opt.quantity--;
-      return structuredClone(nds);
-    });
+    const options = [...data.options];
+    const opt = options.find((opt) => opt.id === option.product.id);
+    if (!opt) return;
+    if (opt.quantity <= 1) options.splice(options.indexOf(opt), 1);
+    else opt.quantity--;
+    updateNodeData(nodeId, { options: options });
   };
 
   const onOptionIncrementQuantity = (option: Option) => {
-    setNodes((nds) => {
-      const node = nds.find((node): node is ExpertStudyRecorderNode => node.id === nodeId);
-      if (!node) return nds;
-      const opt = node.data.options.find((opt) => opt.id === option.product.id);
-      if (!opt) node.data.options.push({ id: option.product.id, quantity: 1 });
-      else opt.quantity++;
-      return structuredClone(nds);
-    });
+    const options = [...data.options];
+    const opt = options.find((opt) => opt.id === option.product.id);
+    if (!opt) options.push({ id: option.product.id, quantity: 1 });
+    else opt.quantity++;
+    updateNodeData(nodeId, { options: options });
   };
 
   const hddSlots = product.specificationProducts?.find((spec) => spec.specification?.name === 'SLOT')?.value ?? 0;
