@@ -1,5 +1,5 @@
+import { ConnectionMode, Node, ReactFlow, useOnViewportChange, useReactFlow } from '@xyflow/react';
 import React, { useCallback, useContext, useEffect } from 'react';
-import { ReactFlow, ConnectionMode, Node, useOnViewportChange, useReactFlow } from '@xyflow/react';
 import { v4 as uuidv4 } from 'uuid';
 import { useShallow } from 'zustand/react/shallow';
 import ExpertStudyContext, { ExpertStudyModalType, ExpertStudyPaneClickFunctionType } from '../../utils/context';
@@ -14,9 +14,9 @@ import AppViewStudyViewExpertViewFlowComponentTextNodeComponent from './componen
 import AppViewStudyViewExpertViewFlowComponentTransmitterNodeComponent from './components/TransmitterNode/TransmitterNode';
 import useStore, { RFState } from './utils/store';
 
+import AppViewStudyViewExpertViewFlowComponentCartridgeComponent from './components/Cartridge/Cartridge';
 import AppViewStudyViewExpertViewFlowComponentLinesNodeComponent, { ExpertStudyLinesNode } from './components/LinesNode/LinesNode';
 import AppViewStudyViewExpertViewFlowComponentLinesTracingComponent from './components/LinesTracing/LinesTracing';
-import AppViewStudyViewExpertViewFlowComponentCartridgeComponent from './components/Cartridge/Cartridge';
 
 import '@xyflow/react/dist/style.css';
 

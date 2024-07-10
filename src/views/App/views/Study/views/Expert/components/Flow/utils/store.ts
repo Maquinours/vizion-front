@@ -1,24 +1,41 @@
-import { create } from 'zustand';
 import {
   Connection,
   Edge,
   EdgeChange,
-  Node,
   NodeChange,
-  addEdge,
-  OnNodesChange,
-  OnEdgesChange,
   OnConnect,
-  applyNodeChanges,
-  applyEdgeChanges,
+  OnEdgesChange,
+  OnNodesChange,
   Viewport,
+  addEdge,
+  applyEdgeChanges,
+  applyNodeChanges,
 } from '@xyflow/react';
+import { create } from 'zustand';
+import { ExpertStudyImageNode } from '../components/ImageNode/ImageNode';
+import { ExpertStudyLinesNode } from '../components/LinesNode/LinesNode';
+import { ExpertStudyMonitorNode } from '../components/MonitorNode/MonitorNode';
+import { ExpertStudyRecorderNode } from '../components/RecorderNode/RecorderNode';
+import { ExpertStudyRectangleNode } from '../components/RectangleNode/RectangleNode';
+import { ExpertStudySynopticCameraNode } from '../components/SynopticCameraNode/SynopticCameraNode';
+import { ExpertStudyTextNode } from '../components/TextNode/TextNode';
+import { ExpertStudyTransmitterNode } from '../components/TransmitterNode/TransmitterNode';
 
 const defaultPage = { nodes: [], edges: [], viewport: { x: 0, y: 0, zoom: 1 } };
 
+export type ExpertStudyNode =
+  | ExpertStudySynopticCameraNode
+  | ExpertStudyMonitorNode
+  | ExpertStudyRecorderNode
+  | ExpertStudyTransmitterNode
+  | ExpertStudyImageNode
+  | ExpertStudyTextNode
+  | ExpertStudyRectangleNode
+  | ExpertStudyLinesNode;
+
 type Page = {
-  nodes: Node[];
-  edges: Edge[];
+  nodes: Array<ExpertStudyNode>;
+  edges: Array<Edge>;
   viewport: Viewport;
   name?: string;
 };
@@ -26,12 +43,12 @@ type Page = {
 export type RFState = {
   pages: Array<Page>;
   currentPage: number;
-  onNodesChange: OnNodesChange;
+  onNodesChange: OnNodesChange<ExpertStudyNode>;
   onEdgesChange: OnEdgesChange;
   setViewport: (viewport: Viewport) => void;
   onConnect: OnConnect;
-  setNodes: (nodes: Node[]) => void;
-  setEdges: (edges: Edge[]) => void;
+  setNodes: (nodes: Array<ExpertStudyNode>) => void;
+  setEdges: (edges: Array<Edge>) => void;
   setCurrentPage: (currentPage: number) => void;
   addPage: () => void;
   studyName?: string;
@@ -45,12 +62,12 @@ export type RFState = {
 const useStore = create<RFState>((set, get) => ({
   pages: [defaultPage],
   currentPage: 0,
-  onNodesChange: (changes: NodeChange[]) => {
+  onNodesChange: (changes: Array<NodeChange<ExpertStudyNode>>) => {
     set({
       pages: get().pages.map((page, index) => (index === get().currentPage ? { ...page, nodes: applyNodeChanges(changes, page.nodes) } : page)),
     });
   },
-  onEdgesChange: (changes: EdgeChange[]) => {
+  onEdgesChange: (changes: Array<EdgeChange>) => {
     set({
       pages: get().pages.map((page, index) => (index === get().currentPage ? { ...page, edges: applyEdgeChanges(changes, page.edges) } : page)),
     });
@@ -67,7 +84,7 @@ const useStore = create<RFState>((set, get) => ({
       ),
     });
   },
-  setNodes: (nodes: Node[]) => {
+  setNodes: (nodes: Array<ExpertStudyNode>) => {
     const currentPage = get().currentPage;
     set({ pages: get().pages.map((page, index) => (index === currentPage ? { ...page, nodes } : page)) });
   },
