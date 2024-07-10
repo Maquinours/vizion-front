@@ -5,7 +5,7 @@ import CurrencyFormat from '../../../../../../../../components/CurrencyFormat/Cu
 import { yearsList } from '../../../../../../../../utils/functions/dates';
 import MONTHS from '../../../../../../../../utils/constants/months';
 import * as yup from 'yup';
-import { Controller, useForm } from 'react-hook-form';
+import { Controller, useFieldArray, useForm, useWatch } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { ClipLoader } from 'react-spinners';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
@@ -41,11 +41,7 @@ const yupSchema = yup.object({
             message: 'Format invalide (95012 / 2A256)',
             excludeEmptyString: true,
           }),
-        amount: yup
-          .number()
-          .transform((_value, originalValue) => (typeof originalValue === 'string' ? Number(originalValue.replace(/,/, '.')) : originalValue))
-          .typeError('Format invalide')
-          .required('Le montant est requis'),
+        amount: yup.number().typeError('Format invalide').required('Le montant est requis'),
       }),
     )
     .required(),
@@ -55,7 +51,12 @@ export default function AppViewToolsViewVvaListViewCreateModalView() {
   const queryClient = useQueryClient();
   const navigate = useNavigate({ from: routeApi.id });
 
-  const { register, setValue, getValues, watch, control, handleSubmit } = useForm({
+  const {
+    register,
+    control,
+    formState: { errors },
+    handleSubmit,
+  } = useForm({
     resolver: yupResolver(yupSchema),
     defaultValues: {
       year: new Date().getFullYear(),
@@ -64,50 +65,61 @@ export default function AppViewToolsViewVvaListViewCreateModalView() {
     },
   });
 
+  const { fields, append, remove } = useFieldArray({ control, name: 'lines' });
+
+  const lines = useWatch({
+    name: 'lines',
+    control,
+  });
+
   const columns = useMemo(
     () => [
       columnHelper.display({
         header: 'Livré à',
-        cell: ({ row: { index } }) => <input {...register(`lines.${index}.address`)} />,
+        cell: ({ row: { index } }) => (
+          <div>
+            <input {...register(`lines.${index}.address`)} />
+            <p className={styles.__errors}>{errors.lines && errors.lines[index]?.address?.message}</p>
+          </div>
+        ),
       }),
       columnHelper.display({
         header: 'Code Postal',
-        cell: ({ row: { index } }) => <input {...register(`lines.${index}.zipCode`)} />,
+        cell: ({ row: { index } }) => (
+          <div>
+            <input {...register(`lines.${index}.zipCode`)} />
+            <p className={styles.__errors}>{errors.lines && errors.lines[index]?.zipCode?.message}</p>
+          </div>
+        ),
       }),
       columnHelper.display({
         header: 'Montant HT',
         cell: ({ row: { index } }) => (
-          <Controller
-            control={control}
-            name={`lines.${index}.amount`}
-            render={({ field: { value, onChange } }) => (
-              <CurrencyFormat displayType="input" defaultValue={0} value={value} onChange={(e) => onChange(parseInt(e.target.value))} />
-            )}
-          />
+          <div>
+            <Controller
+              control={control}
+              name={`lines.${index}.amount`}
+              render={({ field: { value, onChange } }) => (
+                <CurrencyFormat displayType="input" defaultValue={0} value={value} onValueChange={(v) => onChange(Number(v.value))} />
+              )}
+            />
+            <p className={styles.__errors}>{errors.lines && errors.lines[index]?.amount?.message}</p>
+          </div>
         ),
       }),
       columnHelper.display({
-        header: '',
         id: 'action',
         cell: ({ row: { index } }) => (
-          <button
-            className={styles.action}
-            onClick={() =>
-              setValue(
-                'lines',
-                getValues('lines').filter((_, i) => i !== index),
-              )
-            }
-          >
+          <button className={styles.action} onClick={() => remove(index)}>
             <FaTrash color="#F24C52" />
           </button>
         ),
       }),
     ],
-    [setValue, getValues, register, control],
+    [register, control, remove, fields, errors],
   );
 
-  const totalAmount = useMemo(() => watch('lines').reduce((acc, el) => acc + el.amount, 0), [watch('lines')]);
+  const totalAmount = lines.reduce((acc, el) => acc + el.amount, 0);
 
   const onClose = () => {
     navigate({ to: '..', search: (old) => old, replace: true, resetScroll: false });
@@ -116,9 +128,9 @@ export default function AppViewToolsViewVvaListViewCreateModalView() {
   const { mutate, isPending } = useMutation({
     mutationFn: async ({ year, month, lines }: yup.InferType<typeof yupSchema>) => {
       const startAndEnd = (() => {
-        const currentMonth = new Date(getValues('year'), getValues('month'));
+        const currentMonth = new Date(year, month);
         const firstDay = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), 1);
-        const lastDay = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), 0);
+        const lastDay = new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 0);
         const data = {
           firstDay,
           lastDay,
@@ -139,14 +151,14 @@ export default function AppViewToolsViewVvaListViewCreateModalView() {
             departmentCode: department!.code,
             representativeName: department?.repEnterprise?.name,
             representativeId: department?.repEnterprise?.name,
-            amountHT: Number(line.amount),
+            amountHT: line.amount,
             type: SalesType.VVA,
-            year: Number(year),
-            month: Number(month),
-            startDate: `${startAndEnd.firstDay.getFullYear()}-${startAndEnd.firstDay.getMonth() < 10 ? '0' : ''}${startAndEnd.firstDay.getMonth()}-${
+            year: year,
+            month: month + 1,
+            startDate: `${startAndEnd.firstDay.getFullYear()}-${startAndEnd.firstDay.getMonth() + 1 < 10 ? '0' : ''}${startAndEnd.firstDay.getMonth() + 1}-${
               startAndEnd.firstDay.getDate() < 10 ? '0' : ''
             }${startAndEnd.firstDay.getDate()}`,
-            endDate: `${startAndEnd.lastDay.getFullYear()}-${startAndEnd.lastDay.getMonth() < 10 ? '0' : ''}${startAndEnd.lastDay.getMonth()}-${
+            endDate: `${startAndEnd.lastDay.getFullYear()}-${startAndEnd.lastDay.getMonth() + 1 < 10 ? '0' : ''}${startAndEnd.lastDay.getMonth() + 1}-${
               startAndEnd.lastDay.getDate() < 10 ? '0' : ''
             }${startAndEnd.lastDay.getDate()}`,
           };
@@ -187,7 +199,7 @@ export default function AppViewToolsViewVvaListViewCreateModalView() {
                 <label htmlFor="month">Mois :</label>
                 <select id="month" {...register('month')}>
                   {MONTHS.map((month, index) => (
-                    <option key={index} value={index + 1}>
+                    <option key={index} value={index}>
                       {month}
                     </option>
                   ))}
@@ -196,20 +208,14 @@ export default function AppViewToolsViewVvaListViewCreateModalView() {
               <CurrencyFormat className={styles.total_amount} prefix="Total: " value={totalAmount} />
             </div>
             <div className={styles.add_button}>
-              <Controller
-                control={control}
-                name="lines"
-                render={({ field: { value, onChange } }) => (
-                  <button className="btn btn-primary" onClick={() => onChange([...(value ?? []), { address: '', zipCode: '', amount: 0 }])}>
-                    Ajouter une ligne
-                  </button>
-                )}
-              />
+              <button className="btn btn-primary" onClick={() => append({ address: '', zipCode: '', amount: 0 })}>
+                Ajouter une ligne
+              </button>
             </div>
           </div>
           <div className={styles.step_one}>
             <div className={styles.table_container}>
-              <TableComponent data={watch('lines') as VvaLine[]} isLoading={false} columns={columns} />
+              <TableComponent data={fields} isLoading={false} columns={columns} />
             </div>
             <div className={styles.loader_container}>
               <ClipLoader color="#16204E" loading={isPending} className="" size={35} speedMultiplier={0.8} />
