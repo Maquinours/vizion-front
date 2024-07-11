@@ -36,6 +36,9 @@ const proOptions: ProOptions = {
   hideAttribution: true,
 };
 
+const deleteKeyCode = ['Delete', 'Backspace'];
+const multiSelectionKeyCode = 'Alt';
+
 const selector = (state: RFState) => ({
   nodes: state.pages[state.currentPage].nodes,
   edges: state.pages[state.currentPage].edges,
@@ -228,8 +231,8 @@ export default function AppViewStudyViewExpertViewFlowComponent() {
       proOptions={proOptions}
       viewport={viewport}
       onViewportChange={onViewportChange}
-      deleteKeyCode={['Delete', 'Backspace']}
-      multiSelectionKeyCode={'Alt'}
+      deleteKeyCode={deleteKeyCode}
+      multiSelectionKeyCode={multiSelectionKeyCode}
     >
       <AppViewStudyViewExpertViewFlowComponentComponentHelperLinesComponent horizontal={helperLines.horizontal} vertical={helperLines.vertical} />
       <AppViewStudyViewExpertViewFlowComponentCartridgeComponent />
