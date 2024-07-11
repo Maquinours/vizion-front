@@ -214,38 +214,42 @@ export default function AppViewStudyViewExpertViewFlowComponent() {
   );
 
   return (
-    <ReactFlow
-      nodes={nodes}
-      edges={edges}
-      onNodeDragStart={onNodeDragStart}
-      onNodesChange={onNodesChange}
-      onEdgesChange={onEdgesChange}
-      onConnect={onConnect}
-      nodeTypes={nodeTypes}
-      connectionMode={ConnectionMode.Loose}
-      onPaneClick={onPaneClick}
-      onPaneMouseMove={onPaneMouseMove}
-      onPaneContextMenu={onPaneContextMenu}
-      title={title}
-      nodesDraggable={nodesDraggable}
-      elementsSelectable={elementsSelectable}
-      proOptions={proOptions}
-      viewport={viewport}
-      onViewportChange={onViewportChange}
-      deleteKeyCode={deleteKeyCode}
-      multiSelectionKeyCode={multiSelectionKeyCode}
-    >
-      <AppViewStudyViewExpertViewFlowComponentComponentHelperLinesComponent horizontal={helperLines.horizontal} vertical={helperLines.vertical} />
-      <AppViewStudyViewExpertViewFlowComponentCartridgeComponent />
-      <AppViewStudyViewExpertViewFlowComponentKeyPluginComponent />
-      {(() => {
-        switch (paneClickFunction?.type) {
-          case ExpertStudyPaneClickFunctionType.RECTANGLE:
-            return <AppViewStudyViewExpertViewFlowComponentRectangleTracingComponent />;
-          case ExpertStudyPaneClickFunctionType.LINES:
-            return <AppViewStudyViewExpertViewFlowComponentLinesTracingComponent />;
-        }
-      })()}
-    </ReactFlow>
+    <div className="h-full">
+      <div className="flex aspect-[29.7/21] h-full items-center justify-center border-r border-r-slate-800">
+        <ReactFlow
+          nodes={nodes}
+          edges={edges}
+          onNodeDragStart={onNodeDragStart}
+          onNodesChange={onNodesChange}
+          onEdgesChange={onEdgesChange}
+          onConnect={onConnect}
+          nodeTypes={nodeTypes}
+          connectionMode={ConnectionMode.Loose}
+          onPaneClick={onPaneClick}
+          onPaneMouseMove={onPaneMouseMove}
+          onPaneContextMenu={onPaneContextMenu}
+          title={title}
+          nodesDraggable={nodesDraggable}
+          elementsSelectable={elementsSelectable}
+          proOptions={proOptions}
+          viewport={viewport}
+          onViewportChange={onViewportChange}
+          deleteKeyCode={deleteKeyCode}
+          multiSelectionKeyCode={multiSelectionKeyCode}
+        >
+          <AppViewStudyViewExpertViewFlowComponentComponentHelperLinesComponent horizontal={helperLines.horizontal} vertical={helperLines.vertical} />
+          <AppViewStudyViewExpertViewFlowComponentCartridgeComponent />
+          <AppViewStudyViewExpertViewFlowComponentKeyPluginComponent />
+          {(() => {
+            switch (paneClickFunction?.type) {
+              case ExpertStudyPaneClickFunctionType.RECTANGLE:
+                return <AppViewStudyViewExpertViewFlowComponentRectangleTracingComponent />;
+              case ExpertStudyPaneClickFunctionType.LINES:
+                return <AppViewStudyViewExpertViewFlowComponentLinesTracingComponent />;
+            }
+          })()}
+        </ReactFlow>
+      </div>
+    </div>
   );
 }
