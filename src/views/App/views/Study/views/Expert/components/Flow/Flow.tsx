@@ -20,6 +20,7 @@ import AppViewStudyViewExpertViewFlowComponentLinesTracingComponent from './comp
 import '@xyflow/react/dist/style.css';
 import AppViewStudyViewExpertViewFlowComponentComponentHelperLinesComponent from './components/HelperLines/HelperLines';
 import { getHelperLines } from './utils/functions/helperLines';
+import AppViewStudyViewExpertViewFlowComponentKeyPluginComponent from './components/KeyPlugin/KeyPlugin';
 
 const nodeTypes = {
   synopticCamera: AppViewStudyViewExpertViewFlowComponentSynopticCameraNodeComponent,
@@ -236,6 +237,7 @@ export default function AppViewStudyViewExpertViewFlowComponent() {
     >
       <AppViewStudyViewExpertViewFlowComponentComponentHelperLinesComponent horizontal={helperLines.horizontal} vertical={helperLines.vertical} />
       <AppViewStudyViewExpertViewFlowComponentCartridgeComponent />
+      <AppViewStudyViewExpertViewFlowComponentKeyPluginComponent />
       {(() => {
         switch (paneClickFunction?.type) {
           case ExpertStudyPaneClickFunctionType.RECTANGLE:
