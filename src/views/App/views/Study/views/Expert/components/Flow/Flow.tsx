@@ -231,6 +231,7 @@ export default function AppViewStudyViewExpertViewFlowComponent() {
       proOptions={proOptions}
       viewport={viewport}
       onViewportChange={onViewportChange}
+      deleteKeyCode={['Delete', 'Backspace']}
     >
       <AppViewStudyViewExpertViewFlowComponentComponentHelperLinesComponent horizontal={helperLines.horizontal} vertical={helperLines.vertical} />
       <AppViewStudyViewExpertViewFlowComponentCartridgeComponent />
