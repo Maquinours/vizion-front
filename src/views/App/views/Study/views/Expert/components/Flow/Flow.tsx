@@ -1,9 +1,8 @@
-import { ConnectionMode, Node, ProOptions, ReactFlow, Viewport, useReactFlow } from '@xyflow/react';
-import React, { useCallback, useContext, useMemo } from 'react';
+import { ConnectionMode, Node, NodeChange, ProOptions, ReactFlow, Viewport, useReactFlow } from '@xyflow/react';
+import React, { useCallback, useContext, useMemo, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { useShallow } from 'zustand/react/shallow';
 import ExpertStudyContext, { ExpertStudyModalType, ExpertStudyPaneClickFunctionType } from '../../utils/context';
-import AppViewStudyViewExpertViewFlowComponentGuideLinesComponent from './components/GuideLines/GuideLines';
 import AppViewStudyViewExpertViewFlowComponentImageNodeComponent from './components/ImageNode/ImageNode';
 import AppViewStudyViewExpertViewFlowComponentMonitorNodeComponent from './components/MonitorNode/MonitorNode';
 import AppViewStudyViewExpertViewFlowComponentRecorderNodeComponent from './components/RecorderNode/RecorderNode';
@@ -12,13 +11,15 @@ import AppViewStudyViewExpertViewFlowComponentRectangleTracingComponent from './
 import AppViewStudyViewExpertViewFlowComponentSynopticCameraNodeComponent from './components/SynopticCameraNode/SynopticCameraNode';
 import AppViewStudyViewExpertViewFlowComponentTextNodeComponent from './components/TextNode/TextNode';
 import AppViewStudyViewExpertViewFlowComponentTransmitterNodeComponent from './components/TransmitterNode/TransmitterNode';
-import useStore, { RFState } from './utils/store';
+import useStore, { ExpertStudyNode, RFState } from './utils/store';
 
 import AppViewStudyViewExpertViewFlowComponentCartridgeComponent from './components/Cartridge/Cartridge';
 import AppViewStudyViewExpertViewFlowComponentLinesNodeComponent, { ExpertStudyLinesNode } from './components/LinesNode/LinesNode';
 import AppViewStudyViewExpertViewFlowComponentLinesTracingComponent from './components/LinesTracing/LinesTracing';
 
 import '@xyflow/react/dist/style.css';
+import AppViewStudyViewExpertViewFlowComponentComponentHelperLinesComponent from './components/HelperLines/HelperLines';
+import { getHelperLines } from './utils/functions/helperLines';
 
 const nodeTypes = {
   synopticCamera: AppViewStudyViewExpertViewFlowComponentSynopticCameraNodeComponent,
@@ -46,9 +47,11 @@ const selector = (state: RFState) => ({
 });
 
 export default function AppViewStudyViewExpertViewFlowComponent() {
-  const { screenToFlowPosition, updateNode, addNodes } = useReactFlow();
+  const { screenToFlowPosition, updateNode, addNodes, getNodes } = useReactFlow();
   const { paneClickFunction, setPaneClickFunction, setModal } = useContext(ExpertStudyContext)!;
-  const { nodes, edges, viewport, onNodesChange, onEdgesChange, onConnect, setViewport } = useStore(useShallow(selector));
+  const { nodes, edges, viewport, onNodesChange: onNodesChangeStore, onEdgesChange, onConnect, setViewport } = useStore(useShallow(selector));
+
+  const [helperLines, setHelperLines] = useState<{ vertical?: number; horizontal?: number }>({});
 
   const title = useMemo(() => {
     switch (paneClickFunction?.type) {
@@ -191,6 +194,24 @@ export default function AppViewStudyViewExpertViewFlowComponent() {
 
   const onViewportChange = useCallback((viewport: Viewport) => setViewport(viewport), [setViewport]);
 
+  const onNodesChange = useCallback(
+    (changes: Array<NodeChange<ExpertStudyNode>>) => {
+      // reset the helper lines (clear existing lines, if any)
+      setHelperLines({});
+      if (changes.length === 1 && changes[0].type === 'position' && changes[0].dragging && changes[0].position) {
+        const helperLines = getHelperLines(changes[0], getNodes());
+
+        // if we have a helper line, we snap the node to the helper line position
+        // this is being done by manipulating the node position inside the change object
+        changes[0].position.x = helperLines.snapPosition.x ?? changes[0].position.x;
+        changes[0].position.y = helperLines.snapPosition.y ?? changes[0].position.y;
+        setHelperLines({ horizontal: helperLines.horizontal, vertical: helperLines.vertical });
+      }
+      onNodesChangeStore(changes);
+    },
+    [setHelperLines, onNodesChangeStore],
+  );
+
   return (
     <ReactFlow
       nodes={nodes}
@@ -211,7 +232,7 @@ export default function AppViewStudyViewExpertViewFlowComponent() {
       viewport={viewport}
       onViewportChange={onViewportChange}
     >
-      <AppViewStudyViewExpertViewFlowComponentGuideLinesComponent />
+      <AppViewStudyViewExpertViewFlowComponentComponentHelperLinesComponent horizontal={helperLines.horizontal} vertical={helperLines.vertical} />
       <AppViewStudyViewExpertViewFlowComponentCartridgeComponent />
       {(() => {
         switch (paneClickFunction?.type) {
