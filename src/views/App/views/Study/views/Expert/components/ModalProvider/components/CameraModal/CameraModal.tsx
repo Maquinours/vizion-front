@@ -29,6 +29,7 @@ const includedProducts = [
   'CA80HD',
   'DO518HD',
   'DO530HD',
+  'DO505PAP',
 ];
 
 type Model = {
