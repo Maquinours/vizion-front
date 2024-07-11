@@ -2,11 +2,12 @@ import { HeaderGroup, flexRender } from '@tanstack/react-table';
 
 type TableComponentHeaderComponentProps<T> = Readonly<{
   getHeaderGroups: () => HeaderGroup<T>[];
+  className?: string;
 }>;
 
-export default function TableComponentHeaderComponent<T>({ getHeaderGroups }: TableComponentHeaderComponentProps<T>) {
+export default function TableComponentHeaderComponent<T>({ getHeaderGroups, className }: TableComponentHeaderComponentProps<T>) {
   return (
-    <thead>
+    <thead className={className}>
       {getHeaderGroups().map((headerGroup) => (
         <tr key={headerGroup.id}>
           {headerGroup.headers.map((header) => (

@@ -16,6 +16,7 @@ import { ExpertStudySynopticCameraNode } from '../Flow/components/SynopticCamera
 import { ExpertStudyTextNode } from '../Flow/components/TextNode/TextNode';
 import AppViewStudyViewExpertViewHeaderComponentExportMenuComponent from './components/ExportMenu/ExportMenu';
 import AppViewStudyViewExpertViewHeaderComponentImportMenuComponent from './components/ImportMenu/ImportMenu';
+import AppViewStudyViewExpertViewHeaderComponentCartComponent from './components/Cart/Cart';
 
 export default function AppViewStudyViewExpertViewHeaderComponent() {
   const queryClient = useQueryClient();
@@ -212,6 +213,24 @@ export default function AppViewStudyViewExpertViewHeaderComponent() {
         <button type="button" className="btn btn-primary" onClick={onHddCalculationButtonClick}>
           Calcul de disque dur
         </button>
+      </div>
+      <div className="flex gap-x-2">
+        <AppViewStudyViewExpertViewHeaderComponentCartComponent />
+        {/* <button
+          onClick={cartOpenClose}
+          className="flex h-[2.5rem] w-36 items-center justify-center space-x-1 rounded-md border border-slate-800 px-4 py-2 text-sm shadow-sm hover:outline hover:outline-offset-[1px] hover:outline-blue-500"
+        >
+          <span>Etude {}</span>
+          <p className="inline-block ">
+            {totalProductsQuantity} article{totalProductsQuantity > 1 && 's'}
+          </p>
+        </button> */}
+        {/* <button
+          onClick={saveIntoBusiness}
+          className="flex h-[2.5rem] items-center justify-center space-x-2 rounded-md bg-[#31385A] px-4 py-2 text-sm  font-medium text-white shadow-sm hover:bg-[#31385A]/80"
+        >
+          Sauvegarder
+        </button> */}
       </div>
     </div>
   );
