@@ -172,7 +172,7 @@ export default function AppViewStudyViewExpertViewHeaderComponent() {
   };
 
   return (
-    <div className="flex h-12 items-center justify-between border-b border-b-slate-800 px-4">
+    <div className="flex min-h-12 items-center justify-between border-b border-b-slate-800 px-4">
       <div className="flex items-center gap-x-2">
         <button
           type="button"

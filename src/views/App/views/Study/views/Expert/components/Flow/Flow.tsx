@@ -214,7 +214,7 @@ export default function AppViewStudyViewExpertViewFlowComponent() {
   );
 
   return (
-    <div className="h-full">
+    <div className="h-[calc(100%-48px)]">
       <div className="flex aspect-[29.7/21] h-full items-center justify-center border-r border-r-slate-800">
         <ReactFlow
           nodes={nodes}
