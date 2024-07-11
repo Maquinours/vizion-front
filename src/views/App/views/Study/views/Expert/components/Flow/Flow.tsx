@@ -209,7 +209,7 @@ export default function AppViewStudyViewExpertViewFlowComponent() {
       }
       onNodesChangeStore(changes);
     },
-    [setHelperLines, onNodesChangeStore],
+    [setHelperLines, onNodesChangeStore, getNodes],
   );
 
   return (
