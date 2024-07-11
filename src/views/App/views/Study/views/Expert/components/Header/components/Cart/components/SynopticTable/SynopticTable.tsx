@@ -51,7 +51,7 @@ const columns = [
   columnHelper.display({
     header: 'Total',
     cell: ({ row: { original } }) => (
-      <AmountFormat
+      <CurrencyFormat
         value={'product' in original ? (original.product.publicPrice ?? 0) * original.quantity : original.price}
         className={classNames('flex justify-center px-3 py-3.5 text-left text-sm text-black', 'product' in original ? 'font-normal' : 'font-bold')}
       />
