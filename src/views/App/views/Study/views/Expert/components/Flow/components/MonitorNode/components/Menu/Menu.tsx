@@ -72,7 +72,7 @@ export default function AppViewStudyViewExpertViewFlowComponentMonitorNodeCompon
             value={data.name || product.reference || ''}
             onChange={onNameChange}
             placeholder="Choisir un nom"
-            className="nokey rounded-md border border-[#1a192b] p-2"
+            className="rounded-md border border-[#1a192b] p-2"
           />
         </div>
         {!!options && options.length > 0 && (

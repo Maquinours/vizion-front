@@ -19,9 +19,9 @@ export default function AppViewStudyViewExpertView() {
   return (
     <ExpertStudyContext.Provider value={contextValue}>
       <ReactFlowProvider>
-        <div className="flex h-full w-full flex-row gap-x-4">
+        <div className="flex h-[80vh] w-full flex-row">
           <AppViewStudyViewExpertViewProductsMenuComponent />
-          <div className="flex h-[80vh] w-full flex-col">
+          <div className="flex h-full w-full flex-col">
             <AppViewStudyViewExpertViewHeaderComponent />
             <AppViewStudyViewExpertViewFlowComponent />
             <AppViewStudyViewExpertViewFooterComponent />

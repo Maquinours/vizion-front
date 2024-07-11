@@ -75,7 +75,7 @@ export default function AppViewStudyViewExpertViewFlowComponentTransmitterNodeCo
             value={data.name || product.reference || ''}
             onChange={onNodeNameChange}
             placeholder="Choisir un nom"
-            className="nokey rounded-md border border-[#1a192b] p-2"
+            className="rounded-md border border-[#1a192b] p-2"
           />
         </div>
         {!!options && options.length > 0 && (

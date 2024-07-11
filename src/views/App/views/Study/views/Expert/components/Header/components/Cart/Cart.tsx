@@ -67,7 +67,7 @@ export default function AppViewStudyViewExpertViewHeaderComponentCartComponent()
         onClick={() => setIsOpen(!isOpen)}
         className="flex h-[2.5rem] w-36 items-center justify-center space-x-1 rounded-md border border-slate-800 px-4 py-2 text-sm shadow-sm hover:outline hover:outline-offset-[1px] hover:outline-blue-500"
       >
-        Etude {totalProductsQuantity} {totalProductsQuantity > 1 ? 'articles' : 'article'}
+        Étude {totalProductsQuantity} {totalProductsQuantity > 1 ? 'articles' : 'article'}
       </button>
       <div
         className={classNames(

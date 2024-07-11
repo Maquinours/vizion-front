@@ -30,11 +30,11 @@ export default function AppViewStudyViewExpertViewFlowComponentCartridgeComponen
   const pageNameValue = pageName ?? `Page ${currentPage + 1}`;
 
   return (
-    <Panel position="bottom-right" className=" rounded-md bg-gray-50 font-bold">
-      <table className="rounded-med min-h-full w-fit divide-y divide-gray-300 border border-[#1a192b]">
+    <Panel position="bottom-right">
+      <table className="min-h-full w-fit divide-y divide-gray-300 border border-[#1a192b]">
         <thead>
           <tr className="rounded-md border border-[#1a192b]">
-            <th scope="col" className=" border border-[#1a192b] py-2 pl-4 pr-3 text-xs font-semibold text-[#1a192b] sm:pl-6">
+            <th scope="col" className="border border-[#1a192b] py-2 pl-4 pr-3 text-xs font-semibold text-[#1a192b] sm:pl-6">
               <p className="w-full rounded-md bg-[#16204e]/30 px-2 text-center">
                 <input
                   type="text"
@@ -76,7 +76,7 @@ export default function AppViewStudyViewExpertViewFlowComponentCartridgeComponen
             </td>
             <td className="whitespace-nowrap border border-[#1a192b] px-3 py-2 text-center text-xs text-[#1a192b]">
               <input
-                className="nokey bg-transparent"
+                className="bg-transparent font-bold"
                 style={{ width: `${pageNameValue.length}ch`, minWidth: '3ch' }}
                 type="text"
                 value={pageNameValue}
