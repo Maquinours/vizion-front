@@ -31,7 +31,7 @@ export default function AppViewStudyViewExpertViewFlowComponentCartridgeComponen
 
   return (
     <Panel position="bottom-right">
-      <table className="min-h-full w-fit divide-y divide-gray-300 border border-[#1a192b]">
+      <table className="min-h-full w-fit divide-y divide-gray-300 border border-[#1a192b] bg-gray-50">
         <thead>
           <tr className="rounded-md border border-[#1a192b]">
             <th scope="col" className="border border-[#1a192b] py-2 pl-4 pr-3 text-xs font-semibold text-[#1a192b] sm:pl-6">
