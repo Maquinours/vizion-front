@@ -17,6 +17,7 @@ export default function AppViewStudyViewExpertViewHeaderComponentExportMenuCompo
   };
 
   const onExportPdf = () => {
+    handleClose();
     setModal({ type: ExpertStudyModalType.PDF, data: { step: 'IMAGE_GENERATION' } });
   };
 
@@ -30,7 +31,7 @@ export default function AppViewStudyViewExpertViewHeaderComponentExportMenuCompo
         onClick={handleClick}
         className="btn btn-primary flex gap-1"
       >
-        Exporter
+        <span className="normal-case">Exporter</span>
         <RiArrowDownSLine size={15} />
       </Button>
       <Menu
@@ -43,7 +44,9 @@ export default function AppViewStudyViewExpertViewHeaderComponentExportMenuCompo
         onClose={handleClose}
         TransitionComponent={Fade}
       >
-        <MenuItem onClick={onExportPdf}>Sauvegarder et éditer PDF</MenuItem>
+        <MenuItem onClick={onExportPdf}>
+          <span className="w-full text-left text-sm text-gray-700">Sauvegarder et éditer PDF</span>
+        </MenuItem>
       </Menu>
     </>
   );

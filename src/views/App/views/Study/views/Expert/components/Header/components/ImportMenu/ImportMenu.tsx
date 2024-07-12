@@ -23,6 +23,7 @@ export default function AppViewStudyViewExpertViewHeaderComponentImportMenuCompo
   };
 
   const onImportImageButtonClick = () => {
+    handleClose();
     const input = document.createElement('input');
     input.type = 'file';
     input.accept = 'image/png, image/jpeg, image/webp, application/pdf';
@@ -53,6 +54,7 @@ export default function AppViewStudyViewExpertViewHeaderComponentImportMenuCompo
   };
 
   const onImportGedImageButtonClick = () => {
+    handleClose();
     setModal({ type: ExpertStudyModalType.IMPORT_GED_IMAGE });
   };
 
@@ -66,7 +68,7 @@ export default function AppViewStudyViewExpertViewHeaderComponentImportMenuCompo
         onClick={handleClick}
         className="btn btn-primary flex gap-1"
       >
-        Importer
+        <span className='normal-case'>Importer</span>
         <RiArrowDownSLine size={15} />
       </Button>
       <Menu
@@ -79,8 +81,12 @@ export default function AppViewStudyViewExpertViewHeaderComponentImportMenuCompo
         onClose={handleClose}
         TransitionComponent={Fade}
       >
-        <MenuItem onClick={onImportImageButtonClick}>Objet à partir de ce PC</MenuItem>
-        <MenuItem onClick={onImportGedImageButtonClick}>Objet à partir de la GED</MenuItem>
+        <MenuItem onClick={onImportImageButtonClick}>
+          <span className="w-full text-left text-sm text-gray-700">Objet à partir de ce PC</span>
+        </MenuItem>
+        <MenuItem onClick={onImportGedImageButtonClick}>
+          <span className="w-full text-left text-sm text-gray-700">Objet à partir de la GED</span>
+        </MenuItem>
       </Menu>
     </>
   );
