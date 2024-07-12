@@ -20,6 +20,7 @@ import { ExpertStudyRectangleNode } from '../components/RectangleNode/RectangleN
 import { ExpertStudySynopticCameraNode } from '../components/SynopticCameraNode/SynopticCameraNode';
 import { ExpertStudyTextNode } from '../components/TextNode/TextNode';
 import { ExpertStudyTransmitterNode } from '../components/TransmitterNode/TransmitterNode';
+import { ExpertStudyServiceNode } from '../components/ServiceNode/ServiceNode';
 
 const defaultPage = { nodes: [], edges: [], viewport: { x: 0, y: 0, zoom: 1 } };
 
@@ -28,6 +29,7 @@ export type ExpertStudyNode =
   | ExpertStudyMonitorNode
   | ExpertStudyRecorderNode
   | ExpertStudyTransmitterNode
+  | ExpertStudyServiceNode
   | ExpertStudyImageNode
   | ExpertStudyTextNode
   | ExpertStudyRectangleNode

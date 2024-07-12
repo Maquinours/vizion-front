@@ -13,6 +13,7 @@ import { ExpertStudyTransmitterNode } from '../../../Flow/components/Transmitter
 import useStateStore, { RFState } from '../../../Flow/utils/store';
 import ProductResponseDto from '../../../../../../../../../../utils/types/ProductResponseDto';
 import AppViewStudyViewExpertViewHeaderComponentCartComponentSynopticTableComponent from './components/SynopticTable/SynopticTable';
+import { ExpertStudyServiceNode } from '../../../Flow/components/ServiceNode/ServiceNode';
 
 const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/study/expert');
 
@@ -20,8 +21,11 @@ const reactFlowSelector = (state: ReactFlowState) => {
   const nodes = Array.from(state.nodeLookup.values());
 
   const productNodes = nodes.filter(
-    (node): node is InternalNode<ExpertStudySynopticCameraNode | ExpertStudyMonitorNode | ExpertStudyRecorderNode | ExpertStudyTransmitterNode> =>
-      !!node.type && ['synopticCamera', 'monitor', 'recorder', 'transmitter'].includes(node.type),
+    (
+      node,
+    ): node is InternalNode<
+      ExpertStudySynopticCameraNode | ExpertStudyMonitorNode | ExpertStudyRecorderNode | ExpertStudyTransmitterNode | ExpertStudyServiceNode
+    > => !!node.type && ['synopticCamera', 'monitor', 'recorder', 'transmitter', 'service'].includes(node.type),
   );
 
   const products: Array<{ id: string; quantity: number }> = [];
@@ -29,10 +33,12 @@ const reactFlowSelector = (state: ReactFlowState) => {
     const product = products.find((p) => p.id === node.data.productId);
     if (!!product) product.quantity++;
     else products.push({ id: node.data.productId, quantity: 1 });
-    for (const option of node.data.options) {
-      const product = products.find((p) => p.id === option.id);
-      if (!!product) product.quantity += option.quantity;
-      else products.push({ id: option.id, quantity: option.quantity });
+    if ('options' in node.data) {
+      for (const option of node.data.options) {
+        const product = products.find((p) => p.id === option.id);
+        if (!!product) product.quantity += option.quantity;
+        else products.push({ id: option.id, quantity: option.quantity });
+      }
     }
   }
   return { productsData: products, camerasCount: nodes.filter((node) => node.type === 'synopticCamera').length };

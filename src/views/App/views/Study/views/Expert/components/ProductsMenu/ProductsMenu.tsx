@@ -9,7 +9,8 @@ const categories: Array<{
     | ExpertStudyModalType.MONITORS
     | ExpertStudyModalType.RECORDERS
     | ExpertStudyModalType.TRANSMITTERS
-    | ExpertStudyModalType.OTHER_CAMERAS;
+    | ExpertStudyModalType.OTHER_CAMERAS
+    | ExpertStudyModalType.SERVICES;
   label: string;
   category: string;
   image: string;
@@ -55,6 +56,12 @@ const categories: Array<{
     label: 'Autres Caméras',
     category: 'autre',
     image: 'https://bd.vizeo.eu/6-Photos/LP50/LP50.png',
+  },
+  {
+    modalId: ExpertStudyModalType.SERVICES,
+    label: 'Services',
+    category: 'autre',
+    image: 'https://bd.vizeo.eu/6-Photos/AT1/AT1.png',
   },
 ];
 

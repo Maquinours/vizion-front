@@ -68,7 +68,7 @@ export default function AppViewStudyViewExpertViewHeaderComponentImportMenuCompo
         onClick={handleClick}
         className="btn btn-primary flex gap-1"
       >
-        <span className='normal-case'>Importer</span>
+        <span className="normal-case">Importer</span>
         <RiArrowDownSLine size={15} />
       </Button>
       <Menu

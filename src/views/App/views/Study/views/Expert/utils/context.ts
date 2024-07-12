@@ -10,6 +10,7 @@ export enum ExpertStudyModalType {
   RECORDERS,
   TRANSMITTERS,
   OTHER_CAMERAS,
+  SERVICES,
   ADD_TEXT,
   EDIT_TEXT,
   PDF,
@@ -26,6 +27,7 @@ export type ExpertStudyModal =
   | { type: ExpertStudyModalType.RECORDERS; data?: undefined }
   | { type: ExpertStudyModalType.TRANSMITTERS; data?: undefined }
   | { type: ExpertStudyModalType.OTHER_CAMERAS; data?: undefined }
+  | { type: ExpertStudyModalType.SERVICES }
   | { type: ExpertStudyModalType.ADD_TEXT; data: { nodePosition: XYPosition } }
   | { type: ExpertStudyModalType.EDIT_TEXT; data: { nodeId: string } }
   | {

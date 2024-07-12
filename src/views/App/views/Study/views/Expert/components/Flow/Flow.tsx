@@ -1,4 +1,4 @@
-import { ConnectionMode, IsValidConnection, NodeChange, OnNodeDrag, ProOptions, ReactFlow, Viewport, useReactFlow } from '@xyflow/react';
+import { ConnectionMode, IsValidConnection, NodeChange, NodeTypes, OnNodeDrag, ProOptions, ReactFlow, Viewport, useReactFlow } from '@xyflow/react';
 import React, { useCallback, useContext, useMemo, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { useShallow } from 'zustand/react/shallow';
@@ -26,12 +26,14 @@ import AppViewStudyViewExpertViewFlowComponentKeyPluginComponent from './compone
 import recordersHandlesData from './components/RecorderNode/constants/handles';
 import { handlesData as transmitterHandlesData } from './components/TransmitterNode/constants/handles';
 import { getHelperLines } from './utils/functions/helperLines';
+import AppViewStudyViewExpertViewFlowComponentServiceNodeComponent from './components/ServiceNode/ServiceNode';
 
-const nodeTypes = {
+const nodeTypes: NodeTypes = {
   synopticCamera: AppViewStudyViewExpertViewFlowComponentSynopticCameraNodeComponent,
   monitor: AppViewStudyViewExpertViewFlowComponentMonitorNodeComponent,
   recorder: AppViewStudyViewExpertViewFlowComponentRecorderNodeComponent,
   transmitter: AppViewStudyViewExpertViewFlowComponentTransmitterNodeComponent,
+  service: AppViewStudyViewExpertViewFlowComponentServiceNodeComponent,
   image: AppViewStudyViewExpertViewFlowComponentImageNodeComponent,
   text: AppViewStudyViewExpertViewFlowComponentTextNodeComponent,
   rectangle: AppViewStudyViewExpertViewFlowComponentRectangleNodeComponent,

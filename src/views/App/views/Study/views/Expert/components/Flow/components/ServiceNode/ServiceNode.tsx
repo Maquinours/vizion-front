@@ -1,46 +1,23 @@
 import { ClickAwayListener } from '@mui/material';
-import { Handle, Node, NodeProps, NodeResizer, NodeToolbar, OnResize, Position, ReactFlowState, useReactFlow, useStore } from '@xyflow/react';
+import { useSuspenseQuery } from '@tanstack/react-query';
+import { Node, NodeProps, NodeResizer, NodeToolbar, OnResize, Position, useReactFlow } from '@xyflow/react';
 import { useRef, useState } from 'react';
 import { AiOutlineClose, AiTwotoneSetting } from 'react-icons/ai';
+import { queries } from '../../../../../../../../../../utils/constants/queryKeys';
 
-const handlesData = [
+export type ExpertStudyServiceNode = Node<
   {
-    id: '1',
-    position: Position.Top,
-    excludedImages: ['https://bd.vizeo.eu/6-Photos/BOX/Box.png'],
-  },
-  {
-    id: '2',
-    position: Position.Bottom,
-    excludedImages: ['https://bd.vizeo.eu/6-Photos/BOX/Box.png'],
-  },
-  {
-    id: '3',
-    position: Position.Left,
-  },
-  {
-    id: '4',
-    position: Position.Right,
-    excludedImages: ['https://bd.vizeo.eu/6-Photos/BOX/Box.png'],
-  },
-];
-
-const getIsConnectable = (state: ReactFlowState) => {
-  return state.connection.inProgress;
-};
-
-export type ExpertStudyImageNode = Node<
-  {
-    image: string;
+    productId: string;
     size: { width: number; height: number };
     opacity?: number;
     rotation: number;
   },
-  'image'
+  'service'
 >;
-export default function AppViewStudyViewExpertViewFlowComponentImageNodeComponent({ id, selected, data }: NodeProps<ExpertStudyImageNode>) {
-  const isConnectable = useStore(getIsConnectable);
+export default function AppViewStudyViewExpertViewFlowComponentServiceNodeComponent({ id, selected, data }: NodeProps<ExpertStudyServiceNode>) {
   const { setNodes, updateNodeData } = useReactFlow();
+
+  const { data: product } = useSuspenseQuery({ ...queries.product.list, select: (products) => products.find((product) => product.id === data.productId) });
 
   const onResize: OnResize = (_event, params) => {
     updateNodeData(id, { size: { width: params.width, height: params.height } });
@@ -91,33 +68,17 @@ export default function AppViewStudyViewExpertViewFlowComponentImageNodeComponen
     }
   };
 
-  const handles = handlesData.filter((handle) => !handle.excludedImages?.includes(data.image));
+  if (!product) return;
 
   return (
     <ClickAwayListener mouseEvent={showMenu ? 'onPointerDown' : false} onClickAway={() => setShowMenu(false)}>
       <div>
         <div style={{ transform: `rotate(${data.rotation}deg)` }}>
           <NodeResizer onResize={onResize} isVisible={selected ?? false} keepAspectRatio handleStyle={{ width: 10, height: 10, borderRadius: '100%' }} />
-          {handles.map((handle) => (
-            <Handle
-              key={handle.id}
-              type="source"
-              position={handle.position}
-              id={handle.id}
-              isConnectable={isConnectable}
-              style={{
-                width: handle.position === Position.Top || handle.position === Position.Bottom ? '90%' : '10%',
-                height: handle.position === Position.Top || handle.position === Position.Bottom ? '10%' : '90%',
-                bottom: 0,
-                background: 'transparent',
-                border: 0,
-              }}
-            />
-          ))}
           <div ref={nodeRef} className="flex justify-center">
             <img
               title={title}
-              src={data.image}
+              src={`https://bd.vizeo.eu/6-Photos/${product.reference}/${product.reference}.webp`}
               width={data.size.width}
               height={data.size.height}
               style={{ opacity: opacity / 100 }}
@@ -130,14 +91,14 @@ export default function AppViewStudyViewExpertViewFlowComponentImageNodeComponen
           <div className="flex items-center justify-between p-2">
             <div className="flex items-center justify-center space-x-2">
               <AiTwotoneSetting className="fill-[#1a192b]" />
-              <h3 className="text-sm font-bold text-[#1a192b]">Paramétrage de votre image</h3>
+              <h3 className="text-sm font-bold text-[#1a192b]">Paramétrage de votre service</h3>
             </div>
             <AiOutlineClose className="fill-[#1a192b]" onClick={() => setShowMenu(false)} />
           </div>
           <div>
             <div className="flex gap-x-1 border-t-2 border-t-[#1a192b] px-2 pb-2">
               <label>Opacité :</label>
-              <input type={'range'} min={10} max={100} value={opacity} onChange={onOpacityChange} className="flex-auto" />
+              <input type="range" min={10} max={100} value={opacity} onChange={onOpacityChange} className="flex-auto" />
               <p>{opacity}%</p>
             </div>
           </div>

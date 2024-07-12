@@ -1,5 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useSuspenseQuery } from '@tanstack/react-query';
+import { useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import { useReactFlow } from '@xyflow/react';
 import { useContext, useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
@@ -11,6 +11,7 @@ import ProductResponseDto from '../../../../../../../../../../utils/types/Produc
 import ExpertStudyContext from '../../../../utils/context';
 import { ExpertStudyImageNode } from '../../../Flow/components/ImageNode/ImageNode';
 import { ExpertStudyRecorderNode } from '../../../Flow/components/RecorderNode/RecorderNode';
+import { ExpertStudyServiceNode } from '../../../Flow/components/ServiceNode/ServiceNode';
 
 const includedProducts = ['HD504PAP', 'HD508PAP', 'HD516PAP', 'HD732', 'HD764', 'MX16HD'];
 
@@ -24,6 +25,7 @@ const yupSchema = yup.object().shape({
 });
 
 export default function AppViewStudyViewExpertViewModalProviderComponentRecorderModalComponent() {
+  const queryClient = useQueryClient();
   const { addNodes, screenToFlowPosition } = useReactFlow();
   const { setModal } = useContext(ExpertStudyContext)!;
 
@@ -85,12 +87,14 @@ export default function AppViewStudyViewExpertViewModalProviderComponentRecorder
       };
       nodes.push(boxNode);
       if (model.product.reference?.endsWith('PAP')) {
-        const atNode: ExpertStudyImageNode = {
+        const product = queryClient.getQueryData<Array<ProductResponseDto>>(queries.product.list.queryKey)?.find((product) => product.reference === 'AT1');
+        if (!product) throw new Error('Impossible de trouver le produit AT1');
+        const atNode: ExpertStudyServiceNode = {
           id: uuidv4(),
-          type: 'image',
+          type: 'service',
           position: atNodePosition,
           data: {
-            image: 'https://bd.vizeo.eu/6-Photos/AT1/AT1.png',
+            productId: product.id,
             size: atNodeSize,
             opacity: 100,
             rotation: 0,
@@ -112,7 +116,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentRecorder
         selected: models.find((model) => model.product.id === product.id)?.selected ?? false,
       })),
     );
-  });
+  }, [products]);
 
   return (
     <ReactModal

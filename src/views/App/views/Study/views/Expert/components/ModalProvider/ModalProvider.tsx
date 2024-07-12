@@ -11,6 +11,7 @@ import AppViewStudyViewExpertViewModalProviderComponentUniversalCameraModalCompo
 import AppViewStudyViewExpertViewModalProviderComponentPdfModalComponent from './components/PdfModal/PdfModal';
 import AppViewStudyViewExpertViewModalProviderComponentHddCalculationModalComponent from './components/HddCalculationModal/HddCalculationModal';
 import AppViewStudyViewExpertViewModalProviderComponentImportGedImageModalComponent from './components/ImportGedImageModal/ImportGedImageModal';
+import AppViewStudyViewExpertViewModalProviderComponentServicesModalComponent from './components/ServicesModal/ServicesModal';
 
 export default function AppViewStudyViewExpertViewModalProviderComponent() {
   const { modal } = useContext(ExpertStudyContext)!;
@@ -38,6 +39,8 @@ export default function AppViewStudyViewExpertViewModalProviderComponent() {
       return <AppViewStudyViewExpertViewModalProviderComponentTransmittersModalComponent />;
     case ExpertStudyModalType.OTHER_CAMERAS:
       return <AppViewStudyViewExpertViewModalProviderComponentOthersCamerasModalComponent />;
+    case ExpertStudyModalType.SERVICES:
+      return <AppViewStudyViewExpertViewModalProviderComponentServicesModalComponent />;
     case ExpertStudyModalType.ADD_TEXT:
       return <AppViewStudyViewExpertViewModalProviderComponentAddTextModalComponent nodePosition={modal.data.nodePosition} />;
     case ExpertStudyModalType.EDIT_TEXT:
