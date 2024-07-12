@@ -1,4 +1,4 @@
-import { ConnectionMode, Node, NodeChange, ProOptions, ReactFlow, Viewport, useReactFlow } from '@xyflow/react';
+import { ConnectionMode, IsValidConnection, NodeChange, OnNodeDrag, ProOptions, ReactFlow, Viewport, useReactFlow } from '@xyflow/react';
 import React, { useCallback, useContext, useMemo, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { useShallow } from 'zustand/react/shallow';
@@ -17,10 +17,15 @@ import AppViewStudyViewExpertViewFlowComponentCartridgeComponent from './compone
 import AppViewStudyViewExpertViewFlowComponentLinesNodeComponent, { ExpertStudyLinesNode } from './components/LinesNode/LinesNode';
 import AppViewStudyViewExpertViewFlowComponentLinesTracingComponent from './components/LinesTracing/LinesTracing';
 
+import { useQueryClient } from '@tanstack/react-query';
 import '@xyflow/react/dist/style.css';
+import { queries } from '../../../../../../../../utils/constants/queryKeys';
+import ProductResponseDto from '../../../../../../../../utils/types/ProductResponseDto';
 import AppViewStudyViewExpertViewFlowComponentComponentHelperLinesComponent from './components/HelperLines/HelperLines';
-import { getHelperLines } from './utils/functions/helperLines';
 import AppViewStudyViewExpertViewFlowComponentKeyPluginComponent from './components/KeyPlugin/KeyPlugin';
+import recordersHandlesData from './components/RecorderNode/constants/handles';
+import { handlesData as transmitterHandlesData } from './components/TransmitterNode/constants/handles';
+import { getHelperLines } from './utils/functions/helperLines';
 
 const nodeTypes = {
   synopticCamera: AppViewStudyViewExpertViewFlowComponentSynopticCameraNodeComponent,
@@ -51,7 +56,8 @@ const selector = (state: RFState) => ({
 });
 
 export default function AppViewStudyViewExpertViewFlowComponent() {
-  const { screenToFlowPosition, addNodes, getNodes } = useReactFlow();
+  const queryClient = useQueryClient();
+  const { screenToFlowPosition, addNodes, getNodes, getEdges } = useReactFlow<ExpertStudyNode>();
   const { paneClickFunction, setPaneClickFunction, setModal } = useContext(ExpertStudyContext)!;
   const { nodes, edges, viewport, onNodesChange: onNodesChangeStore, onEdgesChange, onConnect, setViewport } = useStore(useShallow(selector));
 
@@ -69,8 +75,8 @@ export default function AppViewStudyViewExpertViewFlowComponent() {
   const nodesDraggable = useMemo(() => !paneClickFunction, [paneClickFunction]);
   const elementsSelectable = useMemo(() => !paneClickFunction, [paneClickFunction]);
 
-  const onNodeDragStart = useCallback(
-    (event: React.MouseEvent, node: Node) => {
+  const onNodeDragStart: OnNodeDrag<ExpertStudyNode> = useCallback(
+    (event, node) => {
       if (event.ctrlKey) addNodes({ ...node, id: uuidv4(), selected: false, dragging: false });
     },
     [addNodes],
@@ -213,6 +219,76 @@ export default function AppViewStudyViewExpertViewFlowComponent() {
     [setHelperLines, onNodesChangeStore, getNodes],
   );
 
+  const isValidConnection: IsValidConnection = useCallback(
+    (connection) => {
+      // If one handle is not defined, the connection is invalid
+      if (!connection.sourceHandle || !connection.targetHandle) return false;
+      // If the two handles are from the same node, the connection is invalid
+      if (connection.source === connection.target) return false;
+
+      const edges = getEdges();
+      // If one handle is already used by an edge, the connection is invalid
+      if (
+        edges.some(
+          (edge) =>
+            (edge.source === connection.source && edge.sourceHandle === connection.sourceHandle) ||
+            (edge.source === connection.target && edge.sourceHandle === connection.targetHandle) ||
+            (edge.target === connection.source && edge.targetHandle === connection.sourceHandle) ||
+            (edge.target === connection.target && edge.targetHandle === connection.targetHandle),
+        )
+      )
+        return false;
+
+      const nodes = getNodes();
+      const sourceNode = nodes.find((node) => node.id === connection.source);
+      const targetNode = nodes.find((node) => node.id === connection.target);
+      // If we can't find the source or target node, the connection is invalid
+      if (!sourceNode || !targetNode) return false;
+
+      if (sourceNode.type === 'synopticCamera' && targetNode.type === 'synopticCamera') return false;
+
+      const getHandlesType = (node: ExpertStudyNode, handleId: string) => {
+        switch (node.type) {
+          case 'synopticCamera':
+            return 'RJ45';
+          case 'recorder':
+          case 'transmitter': {
+            const handlesDataList = node.type === 'recorder' ? recordersHandlesData : node.type === 'transmitter' ? transmitterHandlesData : undefined;
+            if (!handlesDataList) throw new Error('Impossible de trouver les handles');
+            const product = queryClient
+              .getQueryData<Array<ProductResponseDto>>(queries.product.list.queryKey)
+              ?.find((product) => product.id === node.data.productId);
+            if (!product) throw new Error('Impossible de trouver le produit');
+            const handle = handlesDataList.find((handle) => handle.productReference === product.reference)?.handles.find((handle) => handle.id === handleId);
+            if (!handle) throw new Error('Impossible de trouver le handle');
+            return handle.data.type;
+          }
+          case 'monitor':
+            return 'HDMI';
+          default: {
+            if (node.type === 'text') return 'RJ45-LAN';
+            return 'any';
+          }
+        }
+      };
+
+      const sourceHandleType = getHandlesType(sourceNode, connection.sourceHandle);
+      const targetHandleType = getHandlesType(targetNode, connection.targetHandle);
+
+      // If the handles are not compatible, the connection is invalid
+      if (
+        ![sourceHandleType, targetHandleType].includes('any') &&
+        sourceHandleType !== targetHandleType &&
+        (sourceHandleType !== 'RJ45' || targetHandleType !== 'RJ45-LAN') &&
+        (sourceHandleType !== 'RJ45-LAN' || targetHandleType !== 'RJ45')
+      )
+        return false;
+
+      return true;
+    },
+    [getEdges, getNodes, queryClient],
+  );
+
   return (
     <div className="h-[calc(100%-48px)]">
       <div className="flex aspect-[29.7/21] h-full items-center justify-center border-r border-r-slate-800">
@@ -236,6 +312,7 @@ export default function AppViewStudyViewExpertViewFlowComponent() {
           onViewportChange={onViewportChange}
           deleteKeyCode={deleteKeyCode}
           multiSelectionKeyCode={multiSelectionKeyCode}
+          isValidConnection={isValidConnection}
         >
           <AppViewStudyViewExpertViewFlowComponentComponentHelperLinesComponent horizontal={helperLines.horizontal} vertical={helperLines.vertical} />
           <AppViewStudyViewExpertViewFlowComponentCartridgeComponent />
