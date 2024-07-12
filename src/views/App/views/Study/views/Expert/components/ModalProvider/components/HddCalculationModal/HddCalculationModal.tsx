@@ -16,23 +16,15 @@ const yupSchema = yup.object().shape({
   hoursPerDay: yup.number().required().min(1).max(24),
 });
 
-const getData = (state: ReactFlowState) => {
-  const nodes = Array.from(state.nodeLookup.values());
-  const cameraNodesData = nodes
-    .filter((node): node is InternalNode<ExpertStudySynopticCameraNode> => node.type === 'synopticCamera')
-    .map((node) => ({ productId: node.data.productId }));
-  const recorderNodesData = nodes
-    .filter((node): node is InternalNode<ExpertStudyRecorderNode> => node.type === 'recorder')
-    .map((node) => ({ productId: node.data.productId, options: node.data.options }));
-
-  return { cameraNodesData, recorderNodesData };
+const getNodes = (state: ReactFlowState) => {
+  return Array.from(state.nodeLookup.values());
 };
 export default function AppViewStudyViewExpertViewModalProviderComponentHddCalculationModalComponent() {
   const { setModal } = useContext(ExpertStudyContext)!;
 
   const { data: products } = useSuspenseQuery(queries.product.list);
 
-  const { cameraNodesData, recorderNodesData } = useStore(useShallow(getData));
+  const nodes = useStore(useShallow(getNodes));
 
   const { control, watch, getValues } = useForm({
     resolver: yupResolver(yupSchema),
@@ -42,6 +34,13 @@ export default function AppViewStudyViewExpertViewModalProviderComponentHddCalcu
   });
 
   const { flux, hddSpace } = useMemo(() => {
+    const cameraNodesData = nodes
+      .filter((node): node is InternalNode<ExpertStudySynopticCameraNode> => node.type === 'synopticCamera')
+      .map((node) => ({ productId: node.data.productId }));
+    const recorderNodesData = nodes
+      .filter((node): node is InternalNode<ExpertStudyRecorderNode> => node.type === 'recorder')
+      .map((node) => ({ productId: node.data.productId, options: node.data.options }));
+
     const flux = cameraNodesData.reduce((acc, data) => {
       const product = products.find((product) => product.id === data.productId);
       const flux1 = product?.specificationProducts?.find((spec) => spec.specification?.name === 'FLUX1')?.value ?? 0;
@@ -55,7 +54,8 @@ export default function AppViewStudyViewExpertViewModalProviderComponentHddCalcu
         (product?.specificationProducts?.find((spec) => spec.specification?.name === 'CAPACITE')?.value ?? 0) +
         data.options.reduce((acc, option) => {
           const capacity =
-            products.find((product) => product.id === option.id)?.specificationProducts?.find((spec) => spec.specification?.name === 'CAPACITE')?.value ?? 0;
+            (products.find((product) => product.id === option.id)?.specificationProducts?.find((spec) => spec.specification?.name === 'CAPACITE')?.value ?? 0) *
+            option.quantity;
 
           return acc + capacity;
         }, 0);
@@ -64,7 +64,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentHddCalcu
     }, 0);
 
     return { flux, hddSpace };
-  }, [cameraNodesData, recorderNodesData, products]);
+  }, [nodes, products]);
 
   const days = useMemo(() => {
     const hoursPerDay = getValues('hoursPerDay');
