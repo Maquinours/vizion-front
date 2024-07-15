@@ -1,5 +1,5 @@
 import { ClickAwayListener } from '@mui/material';
-import { Handle, Node, NodeProps, NodeResizer, NodeToolbar, OnResize, Position, ReactFlowState, useReactFlow, useStore } from '@xyflow/react';
+import { Handle, Node, NodeProps, NodeResizer, NodeToolbar, OnResize, Position, ReactFlowState, useReactFlow, useStore, useUpdateNodeInternals } from '@xyflow/react';
 import { useRef, useState } from 'react';
 import { AiOutlineClose, AiTwotoneSetting } from 'react-icons/ai';
 
@@ -41,6 +41,7 @@ export type ExpertStudyImageNode = Node<
 export default function AppViewStudyViewExpertViewFlowComponentImageNodeComponent({ id, selected, data }: NodeProps<ExpertStudyImageNode>) {
   const isConnectable = useStore(getIsConnectable);
   const { setNodes, updateNodeData } = useReactFlow();
+  const updateNodeInternals = useUpdateNodeInternals();
 
   const onResize: OnResize = (_event, params) => {
     updateNodeData(id, { size: { width: params.width, height: params.height } });
@@ -88,6 +89,7 @@ export default function AppViewStudyViewExpertViewFlowComponentImageNodeComponen
       const centerY = rect.top + rect.height / 2;
       const angle = Math.atan2(e.clientY - centerY, e.clientX - centerX) * (180 / Math.PI);
       updateNodeData(id, { rotation: angle });
+      updateNodeInternals(id);
     }
   };
 

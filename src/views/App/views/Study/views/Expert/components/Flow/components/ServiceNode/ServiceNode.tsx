@@ -1,6 +1,6 @@
 import { ClickAwayListener } from '@mui/material';
 import { useSuspenseQuery } from '@tanstack/react-query';
-import { Node, NodeProps, NodeResizer, NodeToolbar, OnResize, Position, useReactFlow } from '@xyflow/react';
+import { Node, NodeProps, NodeResizer, NodeToolbar, OnResize, Position, useReactFlow, useUpdateNodeInternals } from '@xyflow/react';
 import { useRef, useState } from 'react';
 import { AiOutlineClose, AiTwotoneSetting } from 'react-icons/ai';
 import { queries } from '../../../../../../../../../../utils/constants/queryKeys';
@@ -16,6 +16,7 @@ export type ExpertStudyServiceNode = Node<
 >;
 export default function AppViewStudyViewExpertViewFlowComponentServiceNodeComponent({ id, selected, data }: NodeProps<ExpertStudyServiceNode>) {
   const { setNodes, updateNodeData } = useReactFlow();
+  const updateNodeInternals = useUpdateNodeInternals();
 
   const { data: product } = useSuspenseQuery({ ...queries.product.list, select: (products) => products.find((product) => product.id === data.productId) });
 
@@ -65,6 +66,7 @@ export default function AppViewStudyViewExpertViewFlowComponentServiceNodeCompon
       const centerY = rect.top + rect.height / 2;
       const angle = Math.atan2(e.clientY - centerY, e.clientX - centerX) * (180 / Math.PI);
       updateNodeData(id, { rotation: angle });
+      updateNodeInternals(id);
     }
   };
 
