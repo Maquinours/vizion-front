@@ -27,6 +27,7 @@ import recordersHandlesData from './components/RecorderNode/constants/handles';
 import { handlesData as transmitterHandlesData } from './components/TransmitterNode/constants/handles';
 import { getHelperLines } from './utils/functions/helperLines';
 import AppViewStudyViewExpertViewFlowComponentServiceNodeComponent from './components/ServiceNode/ServiceNode';
+import AppViewStudyViewExpertViewFlowComponentDensityScaleNodeComponent from './components/DensityScaleNode/DensityScaleNode';
 
 const nodeTypes: NodeTypes = {
   synopticCamera: AppViewStudyViewExpertViewFlowComponentSynopticCameraNodeComponent,
@@ -38,6 +39,7 @@ const nodeTypes: NodeTypes = {
   text: AppViewStudyViewExpertViewFlowComponentTextNodeComponent,
   rectangle: AppViewStudyViewExpertViewFlowComponentRectangleNodeComponent,
   lines: AppViewStudyViewExpertViewFlowComponentLinesNodeComponent,
+  densityScale: AppViewStudyViewExpertViewFlowComponentDensityScaleNodeComponent,
 };
 
 const proOptions: ProOptions = {
