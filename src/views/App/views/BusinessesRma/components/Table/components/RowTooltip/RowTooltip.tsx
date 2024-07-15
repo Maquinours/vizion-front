@@ -10,11 +10,11 @@ type AppViewBusinessesRmaViewTableComponentRowTooltipComponentProps = Readonly<{
 export default function AppViewBusinessesRmaViewTableComponentRowTooltipComponent({ items }: AppViewBusinessesRmaViewTableComponentRowTooltipComponentProps) {
   return (
     <Tooltip
-      anchorSelect=".allbusiness-row"
+      id="business-number-tooltip"
       delayShow={500}
       float
-      render={({ activeAnchor }) => {
-        const item = items.find((item) => item.id === activeAnchor?.id);
+      render={({ content }) => {
+        const item = items.find((item) => item.id === content);
         if (
           !!item &&
           !!item.state &&
