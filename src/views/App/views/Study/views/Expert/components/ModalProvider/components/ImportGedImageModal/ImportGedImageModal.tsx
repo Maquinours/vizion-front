@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { getRouteApi } from '@tanstack/react-router';
 import { RowSelectionState, createColumnHelper } from '@tanstack/react-table';
 import { useReactFlow } from '@xyflow/react';
-import { useContext, useState } from 'react';
+import { useContext, useMemo, useState } from 'react';
 import ReactModal from 'react-modal';
 import { v4 as uuidv4 } from 'uuid';
 import TableComponent from '../../../../../../../../../../components/Table/Table';
@@ -14,6 +14,7 @@ import { filterRecursively } from '../../../../../../../../../../utils/functions
 import FileDataTreeResponseDto from '../../../../../../../../../../utils/types/FileDataTreeResponseDto';
 import ExpertStudyContext from '../../../../utils/context';
 import { ExpertStudyImageNode } from '../../../Flow/components/ImageNode/ImageNode';
+import { ExpertStudyBackgroundNode } from '../../../Flow/components/BackgroundNode/BackgroundNode';
 
 const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/study/expert');
 
@@ -47,9 +48,14 @@ const columns = [
 
 // TODO: handle PDF
 
-export default function AppViewStudyViewExpertViewModalProviderComponentImportGedImageModalComponent() {
+type AppViewStudyViewExpertViewModalProviderComponentImportGedImageModalComponentProps = Readonly<{
+  type: 'image' | 'background';
+}>;
+export default function AppViewStudyViewExpertViewModalProviderComponentImportGedImageModalComponent({
+  type,
+}: AppViewStudyViewExpertViewModalProviderComponentImportGedImageModalComponentProps) {
   const { setModal } = useContext(ExpertStudyContext)!;
-  const { addNodes, screenToFlowPosition } = useReactFlow();
+  const { addNodes, screenToFlowPosition, getNodes, deleteElements } = useReactFlow();
 
   const { businessId } = routeApi.useParams();
 
@@ -60,6 +66,8 @@ export default function AppViewStudyViewExpertViewModalProviderComponentImportGe
 
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
 
+  const enableMultiRowSelection = useMemo(() => type !== 'background', [type]);
+
   const onClose = () => {
     setModal(undefined);
   };
@@ -68,24 +76,65 @@ export default function AppViewStudyViewExpertViewModalProviderComponentImportGe
     e.preventDefault();
     const reactFlowRect = document.querySelector('.react-flow')!.getBoundingClientRect();
     const position = screenToFlowPosition({ x: reactFlowRect.x, y: reactFlowRect.y });
-    for (const [key] of Object.entries(rowSelection).filter(([, isSelected]) => isSelected)) {
-      const node: ExpertStudyImageNode = {
-        id: uuidv4(),
-        type: 'image',
-        position: position,
-        data: {
-          image: `${PUBLIC_BASE_URL}ged/v1/s3/download?filename=${key}`,
-          size: {
-            width: 100,
-            height: 100,
-          },
-          rotation: 0,
-        },
-      };
-      addNodes(node);
+    switch (type) {
+      case 'image': {
+        for (const [key] of Object.entries(rowSelection).filter(([, isSelected]) => isSelected)) {
+          const node: ExpertStudyImageNode = {
+            id: uuidv4(),
+            type: 'image',
+            position: position,
+            data: {
+              image: `${PUBLIC_BASE_URL}ged/v1/s3/download?filename=${key}`,
+              size: {
+                width: 100,
+                height: 100,
+              },
+              rotation: 0,
+            },
+          };
+          addNodes(node);
+        }
+        break;
+      }
+      case 'background': {
+        const item = Object.entries(rowSelection).find(([, isSelected]) => isSelected);
+        if (!!item) {
+          const reactFlowRect = document.querySelector('.react-flow')!.getBoundingClientRect();
+          const position = screenToFlowPosition({ x: reactFlowRect.x, y: reactFlowRect.y });
+          const endPosition = screenToFlowPosition({ x: reactFlowRect.x + reactFlowRect.width, y: reactFlowRect.y + reactFlowRect.height });
+          const { width, height } = { width: endPosition.x - position.x, height: endPosition.y - position.y };
+          const node: ExpertStudyBackgroundNode = {
+            id: 'background',
+            type: 'background',
+            position: position,
+            data: {
+              image: `${PUBLIC_BASE_URL}ged/v1/s3/download?filename=${item[0]}`,
+              width: width,
+              height: height,
+              scale: 1,
+              opacity: 1,
+              rotation: 0,
+            },
+            zIndex: -1,
+            draggable: false,
+          };
+          const backgroundNodes = getNodes().filter((node) => node.type === 'background');
+          deleteElements({ nodes: backgroundNodes });
+          addNodes(node);
+        }
+      }
     }
     onClose();
   };
+
+  const title = (() => {
+    switch (type) {
+      case 'image':
+        return "Import d'objet(s) depuis la GED";
+      case 'background':
+        return "Import d'un plan depuis la GED";
+    }
+  })();
 
   return (
     <ReactModal
@@ -95,7 +144,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentImportGe
       overlayClassName="Overlay"
     >
       <form onSubmit={onValidate} className="w-full rounded-md bg-white pb-2">
-        <h2 className="flex h-10 items-center justify-center rounded-t-md bg-[var(--primary-color)] text-white">{"Import d'objet depuis la GED"}</h2>
+        <h2 className="flex h-10 items-center justify-center rounded-t-md bg-[var(--primary-color)] text-white">{title}</h2>
         <div className="w-full bg-white">
           <TableComponent
             columns={columns}
@@ -104,6 +153,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentImportGe
             rowSelection={rowSelection}
             setRowSelection={setRowSelection}
             rowId="key"
+            enableMultiRowSelection={enableMultiRowSelection}
             className="w-full"
           />
           <div className="grid grid-cols-2 gap-x-1 pb-2 pt-4">

@@ -39,7 +39,7 @@ export type ExpertStudyModal =
         | { step: 'SHOW'; images: Array<Blob> };
     }
   | { type: ExpertStudyModalType.HDD_CALCULATION; data?: undefined }
-  | { type: ExpertStudyModalType.IMPORT_GED_IMAGE; data?: undefined };
+  | { type: ExpertStudyModalType.IMPORT_GED_IMAGE; data: { type: 'image' | 'background' } };
 
 export enum ExpertStudyPaneClickFunctionType {
   TEXT,

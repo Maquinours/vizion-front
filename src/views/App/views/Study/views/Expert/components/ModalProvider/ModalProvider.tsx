@@ -51,6 +51,6 @@ export default function AppViewStudyViewExpertViewModalProviderComponent() {
     case ExpertStudyModalType.HDD_CALCULATION:
       return <AppViewStudyViewExpertViewModalProviderComponentHddCalculationModalComponent />;
     case ExpertStudyModalType.IMPORT_GED_IMAGE:
-      return <AppViewStudyViewExpertViewModalProviderComponentImportGedImageModalComponent />;
+      return <AppViewStudyViewExpertViewModalProviderComponentImportGedImageModalComponent type={modal.data.type} />;
   }
 }

@@ -29,6 +29,7 @@ import { getHelperLines } from './utils/functions/helperLines';
 import AppViewStudyViewExpertViewFlowComponentServiceNodeComponent from './components/ServiceNode/ServiceNode';
 import AppViewStudyViewExpertViewFlowComponentDensityScaleNodeComponent from './components/DensityScaleNode/DensityScaleNode';
 import AppViewStudyViewExpertViewFlowComponentDensityCameraNodeComponent from './components/DensityCameraNode/DensityCameraNode';
+import AppViewStudyViewExpertViewFlowComponentBackgroundNodeComponent from './components/BackgroundNode/BackgroundNode';
 
 const nodeTypes: NodeTypes = {
   synopticCamera: AppViewStudyViewExpertViewFlowComponentSynopticCameraNodeComponent,
@@ -42,6 +43,7 @@ const nodeTypes: NodeTypes = {
   lines: AppViewStudyViewExpertViewFlowComponentLinesNodeComponent,
   densityScale: AppViewStudyViewExpertViewFlowComponentDensityScaleNodeComponent,
   densityCamera: AppViewStudyViewExpertViewFlowComponentDensityCameraNodeComponent,
+  background: AppViewStudyViewExpertViewFlowComponentBackgroundNodeComponent,
 };
 
 const proOptions: ProOptions = {
@@ -219,7 +221,9 @@ export default function AppViewStudyViewExpertViewFlowComponent() {
         changes[0].position.x = helperLines.snapPosition.x ?? changes[0].position.x;
         changes[0].position.y = helperLines.snapPosition.y ?? changes[0].position.y;
         setHelperLines({ horizontal: helperLines.horizontal, vertical: helperLines.vertical });
-      }
+      } else
+        for (const change of changes) if (change.type === 'select' && change.selected && change.id === 'background') changes.splice(changes.indexOf(change), 1); // can't select the background node
+
       onNodesChangeStore(changes);
     },
     [setHelperLines, onNodesChangeStore, getNodes],

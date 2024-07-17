@@ -23,6 +23,7 @@ import { ExpertStudySynopticCameraNode } from '../components/SynopticCameraNode/
 import { ExpertStudyTextNode } from '../components/TextNode/TextNode';
 import { ExpertStudyTransmitterNode } from '../components/TransmitterNode/TransmitterNode';
 import { ExpertStudyDensityScaleNode } from '../components/DensityScaleNode/DensityScaleNode';
+import { ExpertStudyBackgroundNode } from '../components/BackgroundNode/BackgroundNode';
 
 const defaultSynopticPage = {
   nodes: [],
@@ -50,7 +51,8 @@ export type ExpertStudyNode =
   | ExpertStudyRectangleNode
   | ExpertStudyLinesNode
   | ExpertStudyDensityCameraNode
-  | ExpertStudyDensityScaleNode;
+  | ExpertStudyDensityScaleNode
+  | ExpertStudyBackgroundNode;
 
 type BasePage = {
   nodes: Array<ExpertStudyNode>;
