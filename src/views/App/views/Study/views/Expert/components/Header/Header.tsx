@@ -17,8 +17,16 @@ import { ExpertStudyTextNode } from '../Flow/components/TextNode/TextNode';
 import AppViewStudyViewExpertViewHeaderComponentExportMenuComponent from './components/ExportMenu/ExportMenu';
 import AppViewStudyViewExpertViewHeaderComponentImportMenuComponent from './components/ImportMenu/ImportMenu';
 import AppViewStudyViewExpertViewHeaderComponentCartComponent from './components/Cart/Cart';
+import useStore, { RFState } from '../Flow/utils/store';
+import { useShallow } from 'zustand/react/shallow';
+
+const selector = (state: RFState) => ({
+  hasPage: state.pages.length > 0,
+});
 
 export default function AppViewStudyViewExpertViewHeaderComponent() {
+  const { hasPage } = useStore(useShallow(selector));
+
   const queryClient = useQueryClient();
 
   const { getNodes, getEdges, addNodes, addEdges, screenToFlowPosition } = useReactFlow();
@@ -173,50 +181,52 @@ export default function AppViewStudyViewExpertViewHeaderComponent() {
 
   return (
     <div className="flex min-h-12 items-center justify-between border-b border-b-slate-800 px-4">
-      <div className="flex items-center gap-x-2">
-        <button
-          type="button"
-          className="btn btn-primary"
-          title="Tracer des lignes"
-          onClick={onLinesButtonClick}
-          style={{ backgroundColor: paneClickFunction?.type === ExpertStudyPaneClickFunctionType.LINES ? '#262b42' : undefined }}
-        >
-          <LinesLogo stroke="white" width={16} height={16} viewBox="3 6.5 18 10" />
-        </button>
-        <button
-          type="button"
-          className="btn btn-primary"
-          title="Tracer un rectangle"
-          onClick={onRectangleButtonClick}
-          style={{ backgroundColor: paneClickFunction?.type === ExpertStudyPaneClickFunctionType.RECTANGLE ? '#262b42' : undefined }}
-        >
-          <PiRectangle color="white" size={16} viewBox="24 40 208 176" />
-        </button>
-        <button
-          type="button"
-          className="btn btn-primary"
-          style={{
-            backgroundColor: paneClickFunction?.type === ExpertStudyPaneClickFunctionType.TEXT ? '#262b42' : undefined,
-          }}
-          title="Ajouter du texte"
-          onClick={onTextButtonClick}
-        >
-          <PiTextT color="white" size={16} viewBox="48 48 160 160" />
-        </button>
-        <button type="button" className="btn btn-primary" onClick={onPreConnectButtonClick}>
-          Pré-raccorder
-        </button>
-      </div>
-      <div className="flex items-center gap-x-2">
-        <AppViewStudyViewExpertViewHeaderComponentImportMenuComponent />
-        <AppViewStudyViewExpertViewHeaderComponentExportMenuComponent />
-        <button type="button" className="btn btn-primary" onClick={onHddCalculationButtonClick}>
-          Calcul de disque dur
-        </button>
-      </div>
-      <div className="flex gap-x-2">
-        <AppViewStudyViewExpertViewHeaderComponentCartComponent />
-        {/* <button
+      {hasPage && (
+        <>
+          <div className="flex items-center gap-x-2">
+            <button
+              type="button"
+              className="btn btn-primary"
+              title="Tracer des lignes"
+              onClick={onLinesButtonClick}
+              style={{ backgroundColor: paneClickFunction?.type === ExpertStudyPaneClickFunctionType.LINES ? '#262b42' : undefined }}
+            >
+              <LinesLogo stroke="white" width={16} height={16} viewBox="3 6.5 18 10" />
+            </button>
+            <button
+              type="button"
+              className="btn btn-primary"
+              title="Tracer un rectangle"
+              onClick={onRectangleButtonClick}
+              style={{ backgroundColor: paneClickFunction?.type === ExpertStudyPaneClickFunctionType.RECTANGLE ? '#262b42' : undefined }}
+            >
+              <PiRectangle color="white" size={16} viewBox="24 40 208 176" />
+            </button>
+            <button
+              type="button"
+              className="btn btn-primary"
+              style={{
+                backgroundColor: paneClickFunction?.type === ExpertStudyPaneClickFunctionType.TEXT ? '#262b42' : undefined,
+              }}
+              title="Ajouter du texte"
+              onClick={onTextButtonClick}
+            >
+              <PiTextT color="white" size={16} viewBox="48 48 160 160" />
+            </button>
+            <button type="button" className="btn btn-primary" onClick={onPreConnectButtonClick}>
+              Pré-raccorder
+            </button>
+          </div>
+          <div className="flex items-center gap-x-2">
+            <AppViewStudyViewExpertViewHeaderComponentImportMenuComponent />
+            <AppViewStudyViewExpertViewHeaderComponentExportMenuComponent />
+            <button type="button" className="btn btn-primary" onClick={onHddCalculationButtonClick}>
+              Calcul de disque dur
+            </button>
+          </div>
+          <div className="flex gap-x-2">
+            <AppViewStudyViewExpertViewHeaderComponentCartComponent />
+            {/* <button
           onClick={cartOpenClose}
           className="flex h-[2.5rem] w-36 items-center justify-center space-x-1 rounded-md border border-slate-800 px-4 py-2 text-sm shadow-sm hover:outline hover:outline-offset-[1px] hover:outline-blue-500"
         >
@@ -225,13 +235,15 @@ export default function AppViewStudyViewExpertViewHeaderComponent() {
             {totalProductsQuantity} article{totalProductsQuantity > 1 && 's'}
           </p>
         </button> */}
-        {/* <button
+            {/* <button
           onClick={saveIntoBusiness}
           className="flex h-[2.5rem] items-center justify-center space-x-2 rounded-md bg-[#31385A] px-4 py-2 text-sm  font-medium text-white shadow-sm hover:bg-[#31385A]/80"
         >
           Sauvegarder
         </button> */}
-      </div>
+          </div>
+        </>
+      )}
     </div>
   );
 }

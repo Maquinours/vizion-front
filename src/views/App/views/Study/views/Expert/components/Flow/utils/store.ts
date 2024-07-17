@@ -12,17 +12,32 @@ import {
   applyNodeChanges,
 } from '@xyflow/react';
 import { create } from 'zustand';
+import { ExpertStudyDensityCameraNode } from '../components/DensityCameraNode/DensityCameraNode';
 import { ExpertStudyImageNode } from '../components/ImageNode/ImageNode';
 import { ExpertStudyLinesNode } from '../components/LinesNode/LinesNode';
 import { ExpertStudyMonitorNode } from '../components/MonitorNode/MonitorNode';
 import { ExpertStudyRecorderNode } from '../components/RecorderNode/RecorderNode';
 import { ExpertStudyRectangleNode } from '../components/RectangleNode/RectangleNode';
+import { ExpertStudyServiceNode } from '../components/ServiceNode/ServiceNode';
 import { ExpertStudySynopticCameraNode } from '../components/SynopticCameraNode/SynopticCameraNode';
 import { ExpertStudyTextNode } from '../components/TextNode/TextNode';
 import { ExpertStudyTransmitterNode } from '../components/TransmitterNode/TransmitterNode';
-import { ExpertStudyServiceNode } from '../components/ServiceNode/ServiceNode';
+import { ExpertStudyDensityScaleNode } from '../components/DensityScaleNode/DensityScaleNode';
 
-const defaultPage = { nodes: [], edges: [], viewport: { x: 0, y: 0, zoom: 1 } };
+const defaultSynopticPage = {
+  nodes: [],
+  edges: [],
+  viewport: { x: 0, y: 0, zoom: 1 },
+  type: 'synoptic',
+} as SynopticPage;
+
+const defaultDensityPage = {
+  nodes: [{ id: 'scale', type: 'densityScale', position: { x: 0, y: 0 }, data: { rotation: 0 } } as ExpertStudyDensityScaleNode],
+  edges: [],
+  viewport: { x: 0, y: 0, zoom: 1 },
+  type: 'density',
+  scale: { virtual: 50, real: 10 },
+} as DensityPage;
 
 export type ExpertStudyNode =
   | ExpertStudySynopticCameraNode
@@ -33,14 +48,21 @@ export type ExpertStudyNode =
   | ExpertStudyImageNode
   | ExpertStudyTextNode
   | ExpertStudyRectangleNode
-  | ExpertStudyLinesNode;
+  | ExpertStudyLinesNode
+  | ExpertStudyDensityCameraNode
+  | ExpertStudyDensityScaleNode;
 
-type Page = {
+type BasePage = {
   nodes: Array<ExpertStudyNode>;
   edges: Array<Edge>;
   viewport: Viewport;
   name?: string;
 };
+
+type SynopticPage = BasePage & { type: 'synoptic' };
+type DensityPage = BasePage & { type: 'density'; scale: { virtual: number; real: number } };
+
+type Page = SynopticPage | DensityPage;
 
 export type RFState = {
   pages: Array<Page>;
@@ -52,17 +74,20 @@ export type RFState = {
   setNodes: (nodes: Array<ExpertStudyNode>) => void;
   setEdges: (edges: Array<Edge>) => void;
   setCurrentPage: (currentPage: number) => void;
-  addPage: () => void;
+  addPage: (mode: 'synoptic' | 'density') => void;
+  removePage: () => void;
   studyName?: string;
   installerName?: string;
   setStudyName: (studyName: string) => void;
   setInstallerName: (installerName: string) => void;
   setPageName: (pageName: string) => void;
+  setPageScale: ({ virtual, real }: { virtual?: number; real?: number }) => void;
+  getPageType: () => 'synoptic' | 'density';
 };
 
 // this is our useStore hook that we can use in our components to get parts of the store and call actions
 const useStore = create<RFState>((set, get) => ({
-  pages: [defaultPage],
+  pages: [],
   currentPage: 0,
   onNodesChange: (changes: Array<NodeChange<ExpertStudyNode>>) => {
     set({
@@ -99,10 +124,6 @@ const useStore = create<RFState>((set, get) => ({
     if (currentPage < 0 || currentPage >= pages.length) return;
     set({ currentPage });
   },
-  addPage: () => {
-    const pages = [...get().pages, defaultPage];
-    set({ pages, currentPage: pages.length - 1 });
-  },
   setStudyName: (studyName: string) => {
     set({ studyName });
   },
@@ -112,6 +133,30 @@ const useStore = create<RFState>((set, get) => ({
   setPageName: (pageName: string) => {
     const currentPage = get().currentPage;
     set({ pages: get().pages.map((page, index) => (index === currentPage ? { ...page, name: pageName } : page)) });
+  },
+  setPageScale: ({ virtual, real }) => {
+    const currentPage = get().currentPage;
+    set({
+      pages: get().pages.map((page, index) => {
+        if (index !== currentPage) return page;
+        if (page.type !== 'density') throw new Error('Page is not a density page');
+        return { ...page, scale: { virtual: virtual ?? page.scale.virtual, real: real ?? page.scale.real } };
+      }),
+    });
+  },
+  addPage: (mode: 'synoptic' | 'density') => {
+    const pages = [...get().pages, mode === 'synoptic' ? defaultSynopticPage : defaultDensityPage];
+    set({ pages });
+    set({ currentPage: pages.length - 1 });
+  },
+  removePage: () => {
+    const currentPage = get().currentPage;
+    const pages = get().pages.filter((_page, index) => index !== currentPage);
+    set({ pages });
+    set({ currentPage: pages.length - 1 });
+  },
+  getPageType: () => {
+    return get().pages[get().currentPage].type;
   },
 }));
 

@@ -44,7 +44,7 @@ const reactFlowSelector = (state: ReactFlowState) => {
   return { productsData: products, camerasCount: nodes.filter((node) => node.type === 'synopticCamera').length };
 };
 
-const stateSelector = (state: RFState) => ({ pageName: state.pages[state.currentPage].name ?? `Page ${state.currentPage + 1}` });
+const stateSelector = (state: RFState) => ({ pageName: state.pages[state.currentPage]?.name ?? `Page ${state.currentPage + 1}` });
 
 export default function AppViewStudyViewExpertViewHeaderComponentCartComponent() {
   const { productsData, camerasCount } = useFlowStore(reactFlowSelector, (a, b) => _.isEqual(a, b));

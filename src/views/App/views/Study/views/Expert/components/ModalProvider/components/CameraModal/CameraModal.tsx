@@ -12,6 +12,9 @@ import ProductResponseDto from '../../../../../../../../../../utils/types/Produc
 import ExpertStudyContext, { ExpertStudyModalType } from '../../../../utils/context';
 import { ExpertStudySynopticCameraNode } from '../../../Flow/components/SynopticCameraNode/SynopticCameraNode';
 import AppViewStudyViewExpertViewModalProviderComponentTableComponent from './components/Table/Table';
+import useStore, { RFState } from '../../../Flow/utils/store';
+import { useShallow } from 'zustand/react/shallow';
+import { ExpertStudyDensityCameraNode } from '../../../Flow/components/DensityCameraNode/DensityCameraNode';
 
 const bestSellers = ['CA10HD', 'CA50HD', 'DA330HD', 'DA450HD'];
 const includedProducts = [
@@ -42,6 +45,10 @@ const yupSchema = yup.object().shape({
   models: yup.array().of(yup.mixed<Model>().required()).required('Champs requis.'),
 });
 
+const selector = (state: RFState) => ({
+  getPageType: state.getPageType,
+});
+
 type AppViewStudyViewExpertViewModalProviderComponentCameraModalComponentProps = Readonly<{
   category: 'Caméra interieure' | 'Caméra exterieure' | 'Dôme motorisé';
 }>;
@@ -49,6 +56,7 @@ type AppViewStudyViewExpertViewModalProviderComponentCameraModalComponentProps =
 export default function AppViewStudyViewExpertViewModalProviderComponentCameraModalComponent({
   category,
 }: AppViewStudyViewExpertViewModalProviderComponentCameraModalComponentProps) {
+  const { getPageType } = useStore(useShallow(selector));
   const { addNodes, screenToFlowPosition } = useReactFlow();
   const { setModal } = useContext(ExpertStudyContext)!;
 
@@ -76,26 +84,60 @@ export default function AppViewStudyViewExpertViewModalProviderComponentCameraMo
     const reactFlowRect = document.querySelector('.react-flow')!.getBoundingClientRect();
 
     const paneCenter = screenToFlowPosition({ x: reactFlowRect.x + reactFlowRect.width / 2, y: reactFlowRect.y });
-    const nodeSize = { width: 80, height: 80 };
 
-    const nodes = models
-      .filter((model) => model.selected)
-      .map(
-        (model) =>
-          ({
-            id: uuidv4(),
-            type: 'synopticCamera',
-            position: { x: paneCenter.x - nodeSize.width / 2, y: paneCenter.y },
-            data: {
-              productId: model.product.id,
-              options: [],
-              size: nodeSize,
-              opacity: 100,
-            },
-          }) as ExpertStudySynopticCameraNode,
-      );
+    const pageType = getPageType();
 
-    addNodes(nodes);
+    switch (pageType) {
+      case 'synoptic': {
+        const nodeSize = { width: 80, height: 80 };
+        const nodes = models
+          .filter((model) => model.selected)
+          .map(
+            (model) =>
+              ({
+                id: uuidv4(),
+                type: 'synopticCamera',
+                position: { x: paneCenter.x - nodeSize.width / 2, y: paneCenter.y },
+                data: {
+                  productId: model.product.id,
+                  options: [],
+                  size: nodeSize,
+                  opacity: 100,
+                },
+              }) as ExpertStudySynopticCameraNode,
+          );
+
+        addNodes(nodes);
+        break;
+      }
+      case 'density': {
+        const nodes = models
+          .filter((model) => model.selected)
+          .map((model) => {
+            const hAngle = model.product.specificationProducts?.find((spec) => spec.specification?.name === 'ANGLE H');
+            const angle = hAngle?.value || hAngle?.maxValue;
+            if (!angle) return undefined;
+            return {
+              id: uuidv4(),
+              type: 'densityCamera',
+              position: { x: paneCenter.x, y: paneCenter.y },
+              style: {
+                pointerEvents: 'none',
+              },
+              data: {
+                productId: model.product.id,
+                range: 10,
+                rotation: 0,
+                opacity: 100,
+                angle,
+              },
+            } as ExpertStudyDensityCameraNode;
+          })
+          .filter((node): node is ExpertStudyDensityCameraNode => !!node);
+        addNodes(nodes);
+        break;
+      }
+    }
     onClose();
   };
 

@@ -7,7 +7,7 @@ export type ExpertStudyLinesNode = Node<
   },
   'lines'
 >;
-export default function AppViewStudyViewExpertViewFlowComponentLinesNodeComponent({ data }: NodeProps<ExpertStudyLinesNode>) {
+export default function AppViewStudyViewExpertViewFlowComponentLinesNodeComponent({ id, data }: NodeProps<ExpertStudyLinesNode>) {
   const maxPosition = { x: Math.max(...data.positions.map((position) => position.x)), y: Math.max(...data.positions.map((position) => position.y)) };
   return (
     <svg width={maxPosition.x + 2} height={maxPosition.y + 2} className="block">
@@ -16,7 +16,16 @@ export default function AppViewStudyViewExpertViewFlowComponentLinesNodeComponen
         const previousPosition = arr[index - 1];
         return (
           <React.Fragment key={index}>
-            <line x1={previousPosition.x} y1={previousPosition.y} x2={position.x} y2={position.y} stroke="black" strokeWidth={3} strokeDasharray={4} />
+            <line
+              id={`line-${id}-${index}`}
+              x1={previousPosition.x}
+              y1={previousPosition.y}
+              x2={position.x}
+              y2={position.y}
+              stroke="black"
+              strokeWidth={3}
+              strokeDasharray={4}
+            />
             <line
               className="pointer-events-auto"
               key={index}

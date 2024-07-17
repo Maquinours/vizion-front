@@ -1,5 +1,17 @@
 import { ClickAwayListener } from '@mui/material';
-import { Handle, Node, NodeProps, NodeResizer, NodeToolbar, OnResize, Position, ReactFlowState, useReactFlow, useStore, useUpdateNodeInternals } from '@xyflow/react';
+import {
+  Handle,
+  Node,
+  NodeProps,
+  NodeResizer,
+  NodeToolbar,
+  OnResize,
+  Position,
+  ReactFlowState,
+  useReactFlow,
+  useStore,
+  useUpdateNodeInternals,
+} from '@xyflow/react';
 import { useRef, useState } from 'react';
 import { AiOutlineClose, AiTwotoneSetting } from 'react-icons/ai';
 

@@ -1591,6 +1591,11 @@
     "@types/prop-types" "*"
     csstype "^3.0.2"
 
+"@types/svg-intersections@^0.4.4":
+  version "0.4.4"
+  resolved "https://registry.yarnpkg.com/@types/svg-intersections/-/svg-intersections-0.4.4.tgz#742cc44d690bc366a0395c5a42a96aa9b77ed3bd"
+  integrity sha512-qymyu0Z5IjXUPSaitDp/EydY7aCztDfEEj8ydekL1Rxpu9dvIzI6KXTeKAX27SMks20px8Ry2kB0494m43O7sg==
+
 "@types/trusted-types@*":
   version "2.0.7"
   resolved "https://registry.yarnpkg.com/@types/trusted-types/-/trusted-types-2.0.7.tgz#baccb07a970b91707df3a3e8ba6896c57ead2d11"
@@ -4059,6 +4064,16 @@ keyv@^4.5.4:
   dependencies:
     json-buffer "3.0.1"
 
+kld-affine@2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/kld-affine/-/kld-affine-2.0.0.tgz#a3f3a96d08deb176a4561c4c552b20d718a253c7"
+  integrity sha512-UmP2/cQizPEE1PO1PVyk7GN7TIbGB1r6h3kGJcscPvE7F49Dsv0TnNgoLEBVBgDXx0LFUbhPBcc0MtwUL3VjgQ==
+
+kld-polynomial@0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/kld-polynomial/-/kld-polynomial-0.1.1.tgz#6d7b114db5945409af8e1b6225cd2f0a6b555bd5"
+  integrity sha512-ropyUXXdsbarUe+19taltkkJxbFr8jQCsZFPAzIK/qxcWjKWrnO7WR+8kjpIxB2BT7YjZdxLFF4TmGSJHS7B9g==
+
 language-subtag-registry@^0.3.20:
   version "0.3.23"
   resolved "https://registry.yarnpkg.com/language-subtag-registry/-/language-subtag-registry-0.3.23.tgz#23529e04d9e3b74679d70142df3fd2eb6ec572e7"
@@ -5613,6 +5628,14 @@ svg-arc-to-cubic-bezier@^3.0.0, svg-arc-to-cubic-bezier@^3.2.0:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/svg-arc-to-cubic-bezier/-/svg-arc-to-cubic-bezier-3.2.0.tgz#390c450035ae1c4a0104d90650304c3bc814abe6"
   integrity sha512-djbJ/vZKZO+gPoSDThGNpKDO+o+bAeA4XQKovvkNCqnIS2t+S4qnLAGQhyyrulhCFRl1WWzAp0wUDV8PpTVU3g==
+
+svg-intersections@^0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/svg-intersections/-/svg-intersections-0.4.0.tgz#1d491530988974b1923d04a10bd59cc04ec150ff"
+  integrity sha512-w/OhJFvOlpy8Qyf+IuNB6uk3EhwkzHzrbqnbD8ktgvVf3zk+VotPWOsUQtYOV9zSLEYWq0jFEh/uah/qVSzMiQ==
+  dependencies:
+    kld-affine "2.0.0"
+    kld-polynomial "0.1.1"
 
 svg-parser@^2.0.4:
   version "2.0.4"

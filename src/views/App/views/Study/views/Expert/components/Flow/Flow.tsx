@@ -28,6 +28,7 @@ import { handlesData as transmitterHandlesData } from './components/TransmitterN
 import { getHelperLines } from './utils/functions/helperLines';
 import AppViewStudyViewExpertViewFlowComponentServiceNodeComponent from './components/ServiceNode/ServiceNode';
 import AppViewStudyViewExpertViewFlowComponentDensityScaleNodeComponent from './components/DensityScaleNode/DensityScaleNode';
+import AppViewStudyViewExpertViewFlowComponentDensityCameraNodeComponent from './components/DensityCameraNode/DensityCameraNode';
 
 const nodeTypes: NodeTypes = {
   synopticCamera: AppViewStudyViewExpertViewFlowComponentSynopticCameraNodeComponent,
@@ -40,6 +41,7 @@ const nodeTypes: NodeTypes = {
   rectangle: AppViewStudyViewExpertViewFlowComponentRectangleNodeComponent,
   lines: AppViewStudyViewExpertViewFlowComponentLinesNodeComponent,
   densityScale: AppViewStudyViewExpertViewFlowComponentDensityScaleNodeComponent,
+  densityCamera: AppViewStudyViewExpertViewFlowComponentDensityCameraNodeComponent,
 };
 
 const proOptions: ProOptions = {
@@ -294,43 +296,39 @@ export default function AppViewStudyViewExpertViewFlowComponent() {
   );
 
   return (
-    <div className="h-[calc(100%-48px)]">
-      <div className="flex aspect-[29.7/21] h-full items-center justify-center border-r border-r-slate-800">
-        <ReactFlow
-          nodes={nodes}
-          edges={edges}
-          onNodeDragStart={onNodeDragStart}
-          onNodesChange={onNodesChange}
-          onEdgesChange={onEdgesChange}
-          onConnect={onConnect}
-          nodeTypes={nodeTypes}
-          connectionMode={ConnectionMode.Loose}
-          onPaneClick={onPaneClick}
-          onPaneMouseMove={onPaneMouseMove}
-          onPaneContextMenu={onPaneContextMenu}
-          title={title}
-          nodesDraggable={nodesDraggable}
-          elementsSelectable={elementsSelectable}
-          proOptions={proOptions}
-          viewport={viewport}
-          onViewportChange={onViewportChange}
-          deleteKeyCode={deleteKeyCode}
-          multiSelectionKeyCode={multiSelectionKeyCode}
-          isValidConnection={isValidConnection}
-        >
-          <AppViewStudyViewExpertViewFlowComponentComponentHelperLinesComponent horizontal={helperLines.horizontal} vertical={helperLines.vertical} />
-          <AppViewStudyViewExpertViewFlowComponentCartridgeComponent />
-          <AppViewStudyViewExpertViewFlowComponentKeyPluginComponent />
-          {(() => {
-            switch (paneClickFunction?.type) {
-              case ExpertStudyPaneClickFunctionType.RECTANGLE:
-                return <AppViewStudyViewExpertViewFlowComponentRectangleTracingComponent />;
-              case ExpertStudyPaneClickFunctionType.LINES:
-                return <AppViewStudyViewExpertViewFlowComponentLinesTracingComponent />;
-            }
-          })()}
-        </ReactFlow>
-      </div>
-    </div>
+    <ReactFlow
+      nodes={nodes}
+      edges={edges}
+      onNodeDragStart={onNodeDragStart}
+      onNodesChange={onNodesChange}
+      onEdgesChange={onEdgesChange}
+      onConnect={onConnect}
+      nodeTypes={nodeTypes}
+      connectionMode={ConnectionMode.Loose}
+      onPaneClick={onPaneClick}
+      onPaneMouseMove={onPaneMouseMove}
+      onPaneContextMenu={onPaneContextMenu}
+      title={title}
+      nodesDraggable={nodesDraggable}
+      elementsSelectable={elementsSelectable}
+      proOptions={proOptions}
+      viewport={viewport}
+      onViewportChange={onViewportChange}
+      deleteKeyCode={deleteKeyCode}
+      multiSelectionKeyCode={multiSelectionKeyCode}
+      isValidConnection={isValidConnection}
+    >
+      <AppViewStudyViewExpertViewFlowComponentComponentHelperLinesComponent horizontal={helperLines.horizontal} vertical={helperLines.vertical} />
+      <AppViewStudyViewExpertViewFlowComponentCartridgeComponent />
+      <AppViewStudyViewExpertViewFlowComponentKeyPluginComponent />
+      {(() => {
+        switch (paneClickFunction?.type) {
+          case ExpertStudyPaneClickFunctionType.RECTANGLE:
+            return <AppViewStudyViewExpertViewFlowComponentRectangleTracingComponent />;
+          case ExpertStudyPaneClickFunctionType.LINES:
+            return <AppViewStudyViewExpertViewFlowComponentLinesTracingComponent />;
+        }
+      })()}
+    </ReactFlow>
   );
 }

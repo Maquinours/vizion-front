@@ -4,27 +4,37 @@ import { drag } from 'd3-drag';
 import { select } from 'd3-selection';
 import AmountFormat from '../../../../../../../../../../components/AmountFormat/AmountFormat';
 import { OnValueChange } from 'react-number-format';
+import useStore, { RFState } from '../../utils/store';
+import { useShallow } from 'zustand/react/shallow';
+
+const selector = (state: RFState) => {
+  const page = state.pages[state.currentPage];
+  return {
+    scale: page.type === 'density' ? page.scale : undefined,
+    setPageScale: state.setPageScale,
+  };
+};
 
 export type ExpertStudyDensityScaleNode = Node<
   {
-    realWidth: number;
-    virtualWidth: number;
     rotation: number;
   },
   'densityScale'
 >;
 export default function AppViewStudyViewExpertViewFlowComponentDensityScaleNodeComponent({ id, selected, data }: NodeProps<ExpertStudyDensityScaleNode>) {
   const { updateNodeData } = useReactFlow();
+  const { scale, setPageScale } = useStore(useShallow(selector));
+
   const updateNodeInternals = useUpdateNodeInternals();
 
   const rotateControlRef = useRef<HTMLDivElement>(null);
 
   const onResize: OnResize = (_e, params) => {
-    updateNodeData(id, { virtualWidth: params.width });
+    setPageScale({ virtual: params.width });
   };
 
   const onChangeRealWidth: OnValueChange = (values) => {
-    updateNodeData(id, { realWidth: Number(values.value) });
+    setPageScale({ real: Number(values.value) });
   };
 
   useEffect(() => {
@@ -43,8 +53,10 @@ export default function AppViewStudyViewExpertViewFlowComponentDensityScaleNodeC
     selection.call(dragHandler);
   }, [id, updateNodeInternals]);
 
+  if (!scale) return;
+
   return (
-    <div id="calibreNode" style={{ transform: `rotate(${data.rotation}deg)`, width: data.virtualWidth }}>
+    <div id="calibreNode" style={{ transform: `rotate(${data.rotation}deg)`, width: scale.virtual }}>
       <NodeResizeControl
         className="calibreNode-virtual"
         position={Position.Right}
@@ -61,7 +73,7 @@ export default function AppViewStudyViewExpertViewFlowComponentDensityScaleNodeC
       <div className="flex flex-col items-center">
         <div id="calibreNode-real" className="flex-1 bg-[#FBFCFE]">
           <AmountFormat
-            value={data.realWidth}
+            value={scale.real}
             displayType="input"
             suffix="m"
             onValueChange={onChangeRealWidth}
@@ -69,8 +81,8 @@ export default function AppViewStudyViewExpertViewFlowComponentDensityScaleNodeC
             className="w-full bg-transparent text-center"
           />
         </div>
-        <svg id="calibreNode-line" height={3} width={data.virtualWidth}>
-          <line x1={0} y1={1.5} x2={data.virtualWidth} y2={1.5} stroke="black" strokeWidth={3} />
+        <svg id="calibreNode-line" height={3} width={scale.virtual}>
+          <line x1={0} y1={1.5} x2={scale.virtual} y2={1.5} stroke="black" strokeWidth={3} />
         </svg>
       </div>
     </div>
