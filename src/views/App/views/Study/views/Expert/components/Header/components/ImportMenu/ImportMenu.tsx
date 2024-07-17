@@ -132,10 +132,10 @@ export default function AppViewStudyViewExpertViewHeaderComponentImportMenuCompo
         TransitionComponent={Fade}
       >
         {pageType === 'density' && [
-          <MenuItem onClick={onImportBackgroundButtonClick}>
+          <MenuItem key={0} onClick={onImportBackgroundButtonClick}>
             <span className="w-full text-left text-sm text-gray-700">Plan à partir de ce PC</span>
           </MenuItem>,
-          <MenuItem onClick={onImportGedBackgroundButtonClick}>
+          <MenuItem key={1} onClick={onImportGedBackgroundButtonClick}>
             <span className="w-full text-left text-sm text-gray-700">Plan à partir de la GED</span>
           </MenuItem>,
         ]}
