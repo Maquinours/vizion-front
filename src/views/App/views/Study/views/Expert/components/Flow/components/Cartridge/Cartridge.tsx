@@ -13,13 +13,14 @@ const selector = (state: RFState) => ({
   installerName: state.installerName,
   pageName: state.pages[state.currentPage].name,
   currentPage: state.currentPage,
+  pageType: state.pages[state.currentPage]?.type,
   setStudyName: state.setStudyName,
   setInstallerName: state.setInstallerName,
   setPageName: state.setPageName,
 });
 
 export default function AppViewStudyViewExpertViewFlowComponentCartridgeComponent() {
-  const { studyName, installerName, pageName, currentPage, setStudyName, setInstallerName, setPageName } = useStore(useShallow(selector));
+  const { studyName, installerName, pageName, currentPage, pageType, setStudyName, setInstallerName, setPageName } = useStore(useShallow(selector));
 
   const { businessId } = routeApi.useParams();
 
@@ -71,7 +72,16 @@ export default function AppViewStudyViewExpertViewFlowComponentCartridgeComponen
             </td>
             <td className="text-medium whitespace-nowrap border border-[#1a192b] px-3 py-2 text-center font-extrabold text-[#1a192b] " colSpan={2}>
               <div className="flex items-center justify-center space-x-2 text-center text-xs">
-                {/* <p>{page.mode == 'SYNOPTIC' ? 'Synoptique' : 'Calcul de densité'}</p> // TODO: reimplement this */}
+                <p>
+                  {(() => {
+                    switch (pageType) {
+                      case 'synoptic':
+                        return 'Synoptique';
+                      case 'density':
+                        return 'Calcul de densité';
+                    }
+                  })()}
+                </p>
               </div>
             </td>
             <td className="whitespace-nowrap border border-[#1a192b] px-3 py-2 text-center text-xs text-[#1a192b]">
