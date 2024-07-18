@@ -57,7 +57,7 @@ export default function AppViewStudyViewExpertViewFlowComponentCartridgeComponen
             </th>
           </tr>
         </thead>
-        <tbody className="divide-y divide-gray-200 ">
+        <tbody className="divide-y divide-gray-200">
           <tr className="rounded-md border border-[#1a192b]">
             <td className="whitespace-nowrap border border-[#1a192b] py-2 pl-4 pr-3 text-sm font-bold text-[#1a192b] sm:pl-6">
               <p className="w-full rounded-md bg-[#16204e]/30 px-2 text-center">
@@ -70,7 +70,7 @@ export default function AppViewStudyViewExpertViewFlowComponentCartridgeComponen
                 />
               </p>
             </td>
-            <td className="text-medium whitespace-nowrap border border-[#1a192b] px-3 py-2 text-center font-extrabold text-[#1a192b] " colSpan={2}>
+            <td className="text-medium whitespace-nowrap border border-[#1a192b] px-3 py-2 text-center font-extrabold text-[#1a192b]" colSpan={2}>
               <div className="flex items-center justify-center space-x-2 text-center text-xs">
                 <p>
                   {(() => {

@@ -36,7 +36,7 @@ export default function AppViewStudyViewAutomaticViewSidebarComponentDensityModa
           </div>
         </div>
 
-        <div className="flex items-center justify-center space-x-4 text-white ">
+        <div className="flex items-center justify-center space-x-4 text-white">
           <button className="btn btn-secondary mt-5 rounded-md" onClick={() => onClose()}>
             Fermer
           </button>

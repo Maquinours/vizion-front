@@ -11,8 +11,8 @@ export default function AppViewStudyViewExpertViewFlowComponentKeyPluginComponen
 
   useEffect(() => {
     if (ctrlAPressed) {
-      setNodes((nodes) => nodes.map((node) => (node.selectable ?? true ? { ...node, selected: true } : node)));
-      setEdges((edges) => edges.map((edge) => (edge.selectable ?? true ? { ...edge, selected: true } : edge)));
+      setNodes((nodes) => nodes.map((node) => ((node.selectable ?? true) ? { ...node, selected: true } : node)));
+      setEdges((edges) => edges.map((edge) => ((edge.selectable ?? true) ? { ...edge, selected: true } : edge)));
     }
   }, [ctrlAPressed]);
 

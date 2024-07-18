@@ -23,7 +23,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentTableCom
   };
 
   return (
-    <div className=" mt-10 flex w-fit min-w-[660px]  flex-1 flex-col items-center justify-start rounded-md border-2 border-[#31385A] lg:w-full">
+    <div className="mt-10 flex w-fit min-w-[660px] flex-1 flex-col items-center justify-start rounded-md border-2 border-[#31385A] lg:w-full">
       <div className="w-full pl-6 pr-6 pt-6">
         <div className="flex">
           <div className="flex-[3_3_0%]"></div>

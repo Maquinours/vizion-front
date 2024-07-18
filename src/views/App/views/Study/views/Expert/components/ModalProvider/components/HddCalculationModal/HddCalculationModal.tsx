@@ -109,7 +109,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentHddCalcu
                 control={control}
                 name="hoursPerDay"
                 render={({ field: { value, onChange } }) => (
-                  <div className="w-full p-3 ">
+                  <div className="w-full p-3">
                     <ul className="mb-4 flex w-full justify-between px-[10px]">
                       <li className="relative flex justify-center">
                         <span className="absolute">1H</span>

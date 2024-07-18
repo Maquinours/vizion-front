@@ -99,7 +99,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentOthersCa
                 <div className="flex items-center justify-center">
                   {value.map((model) => (
                     <div
-                      className="flex w-48 flex-col items-center  justify-center space-y-2 border border-[#16204e] bg-slate-200 p-4"
+                      className="flex w-48 flex-col items-center justify-center space-y-2 border border-[#16204e] bg-slate-200 p-4"
                       onClick={() => onChange(value.map((m) => (m.product.id === model.product.id ? { ...m, selected: !m.selected } : m)))}
                     >
                       <button
@@ -120,7 +120,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentOthersCa
                         alt={`Produit ${model.product.reference}`}
                         className="h-14 rounded-md"
                       />
-                      <div className="flex items-center justify-center space-x-2 ">
+                      <div className="flex items-center justify-center space-x-2">
                         <input type={'checkbox'} checked={model.selected} readOnly={true} />
                       </div>
                     </div>

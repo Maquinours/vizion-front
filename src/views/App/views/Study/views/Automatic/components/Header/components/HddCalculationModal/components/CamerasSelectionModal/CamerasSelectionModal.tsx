@@ -98,7 +98,7 @@ export default function AppViewStudyViewAutomaticViewHeaderComponentHddCalculati
                         <img src={`https://bd.vizeo.eu/6-Photos/${model.product.reference}/${model.product.reference}.jpg`} className="h-24 w-32" />
                         <div>
                           <p className="font-bold">{model.product.reference}</p>
-                          <p className="text-gray-500 ">Code: {model.product.reference}</p>
+                          <p className="text-gray-500">Code: {model.product.reference}</p>
                         </div>
                       </div>
                     </div>

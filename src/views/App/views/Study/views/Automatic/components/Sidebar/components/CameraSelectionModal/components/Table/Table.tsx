@@ -43,7 +43,7 @@ export default function AppViewStudyViewAutomaticViewSidebarComponentCameraSelec
   };
 
   return (
-    <div className="flex w-fit min-w-[660px]  flex-1 flex-col items-center justify-start rounded-md border-2 border-t-0 border-[#31385A]">
+    <div className="flex w-fit min-w-[660px] flex-1 flex-col items-center justify-start rounded-md border-2 border-t-0 border-[#31385A]">
       <h1 className="flex h-8 w-full items-center justify-center rounded-t-md bg-[#31385A] text-white">Faire quoi à quelle distance</h1>
       <div className="w-full pl-6 pr-6 pt-6">
         <div className="flex">
@@ -148,7 +148,7 @@ export default function AppViewStudyViewAutomaticViewSidebarComponentCameraSelec
               {models.map((model) => (
                 <td
                   key={model.product.id}
-                  className={`flex-1 border-b-2 border-r-2 border-t-2 border-[#31385A]  text-[#16204E] ${
+                  className={`flex-1 border-b-2 border-r-2 border-t-2 border-[#31385A] text-[#16204E] ${
                     model == models[models.length - 1] ? 'rounded-r-md' : ''
                   }`}
                 >
@@ -156,7 +156,7 @@ export default function AppViewStudyViewAutomaticViewSidebarComponentCameraSelec
                     <div className="flex flex-1 items-center justify-center">
                       <button
                         type="button"
-                        className=" h-5 w-5 rounded-full border-2 bg-red-400 leading-3"
+                        className="h-5 w-5 rounded-full border-2 bg-red-400 leading-3"
                         disabled={model.quantity === 0}
                         onClick={() => decrement(model)}
                       >
@@ -165,7 +165,7 @@ export default function AppViewStudyViewAutomaticViewSidebarComponentCameraSelec
                     </div>
                     {model.quantity}
                     <div className="flex flex-1 items-center justify-center">
-                      <button type="button" className=" h-5 w-5 rounded-full border-2 bg-green-400 leading-3" onClick={() => increment(model)}>
+                      <button type="button" className="h-5 w-5 rounded-full border-2 bg-green-400 leading-3" onClick={() => increment(model)}>
                         +
                       </button>
                     </div>

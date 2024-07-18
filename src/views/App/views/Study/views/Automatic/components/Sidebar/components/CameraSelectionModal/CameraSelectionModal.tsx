@@ -119,7 +119,7 @@ export default function AppViewStudyViewAutomaticViewSidebarComponentCameraSelec
                         }}
                       >
                         <img src={'https://bd.vizeo.eu/6-Photos/DO518HD/DO518HD.jpg'} style={{ width: '70px' }} className="mr-2" />
-                        <p className="text-black-700 w-32 text-sm font-bold ">{'Dôme Motorisé'}</p>
+                        <p className="text-black-700 w-32 text-sm font-bold">{'Dôme Motorisé'}</p>
                         <BiShow
                           className="cursor-pointer"
                           style={{

@@ -75,7 +75,7 @@ export default function AppViewStudyViewExpertViewHeaderComponentCartComponent()
         )}
       >
         <div className="h-full w-[40rem] overflow-y-auto overflow-x-hidden pb-4">
-          <div className="mt-8 flex h-full flex-col ">
+          <div className="mt-8 flex h-full flex-col">
             <div className="">
               <p className="pl-6 text-black">
                 Numéro de dossier: {business.numBusiness} ({pageName}) ({`${cameraCount} ${cameraCount > 1 ? 'caméras' : 'caméra'}`})

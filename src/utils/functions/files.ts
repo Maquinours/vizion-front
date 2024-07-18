@@ -37,7 +37,7 @@ export const excelFileToObject = async (file: File) => {
 
 export const formatFileName = (fileName: string) => {
   return fileName.replace(/[\/\\?%*:|"<> ]/g, '_');
-}
+};
 
 const fileToBase64 = (file: File): Promise<string> => {
   return new Promise((resolve, reject) => {

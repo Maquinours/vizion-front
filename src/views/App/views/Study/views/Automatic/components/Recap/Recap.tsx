@@ -46,29 +46,29 @@ export default function AppViewStudyViewAutomaticViewRecapComponent() {
 
   return (
     <div className="scrollbar-hide z-50 mt-2 h-[82vh] overflow-auto rounded-md border-2 border-[#1a192b] bg-white">
-      <div className=" mx-auto h-full w-fit px-1 py-2 transition-transform duration-100 ease-in-out">
-        <div className=" mt-2 flex w-fit flex-col items-end justify-end backdrop-blur-md ">
-          <div className="-mx-4 -my-2 w-fit overflow-x-auto sm:-mx-6  lg:-mx-8">
-            <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8 ">
+      <div className="mx-auto h-full w-fit px-1 py-2 transition-transform duration-100 ease-in-out">
+        <div className="mt-2 flex w-fit flex-col items-end justify-end backdrop-blur-md">
+          <div className="-mx-4 -my-2 w-fit overflow-x-auto sm:-mx-6 lg:-mx-8">
+            <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
               <div className="overflow-hidden border-none ring-1 ring-black ring-opacity-5">
-                <table className="min-w-full divide-y divide-gray-500 ">
+                <table className="min-w-full divide-y divide-gray-500">
                   <thead className="bg-white">
                     <tr>
-                      <th scope="col" className="px-4 py-3 text-center text-sm font-semibold text-gray-900  ">
+                      <th scope="col" className="px-4 py-3 text-center text-sm font-semibold text-gray-900">
                         REFERENCE
                       </th>
-                      <th scope="col" className=" px-6 py-1 text-center text-sm font-semibold text-gray-900">
+                      <th scope="col" className="px-6 py-1 text-center text-sm font-semibold text-gray-900">
                         QTE
                       </th>
-                      <th scope="col" className=" px-6 py-3 text-center text-sm font-semibold text-gray-900">
+                      <th scope="col" className="px-6 py-3 text-center text-sm font-semibold text-gray-900">
                         CODE PX
                       </th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-gray-500 ">
+                  <tbody className="divide-y divide-gray-500">
                     {elements?.map((camera) => (
                       <tr key={camera.id}>
-                        <td className="whitespace-nowrap px-6 py-3 text-sm  ">
+                        <td className="whitespace-nowrap px-6 py-3 text-sm">
                           <div className="flex items-center">
                             <div className="h-12 w-12 flex-shrink-0">
                               <img className="h-12 w-12" src={`https://bd.vizeo.eu/6-Photos/${camera.reference}/${camera.reference}.png`} alt="Camera" />
@@ -85,7 +85,7 @@ export default function AppViewStudyViewAutomaticViewRecapComponent() {
                           </div>
                         </td>
                         <td className="text-md whitespace-nowrap px-6 py-3 text-black">
-                          <span className="text-md  inline-flex font-bold leading-5 ">{`00${camera.price}`}</span>
+                          <span className="text-md inline-flex font-bold leading-5">{`00${camera.price}`}</span>
                         </td>
 
                         <td className="relative whitespace-nowrap py-3 pl-3 pr-4 text-right text-sm font-medium sm:pr-6"></td>

@@ -34,7 +34,7 @@ export default function AppViewStudyViewAutomaticViewHeaderComponentHddCalculati
       className="absolute left-2/4 top-2/4 z-[2005] m-auto h-auto w-auto min-w-[70%] max-w-[1000px] -translate-x-2/4 -translate-y-2/4 rounded-[5px] p-0 opacity-100"
       overlayClassName="Overlay"
     >
-      <div className="mx-auto mt-4 flex max-h-[750px] max-w-6xl flex-col space-y-2 overflow-auto rounded-md border-2 border-t-0  border-[#1a192b] bg-white pb-4">
+      <div className="mx-auto mt-4 flex max-h-[750px] max-w-6xl flex-col space-y-2 overflow-auto rounded-md border-2 border-t-0 border-[#1a192b] bg-white pb-4">
         <h1 className="flex h-8 w-full items-center justify-center rounded-t-md bg-[#16204e] text-white">Résultat</h1>
         <div className="flex flex-col gap-4 overflow-auto p-4 pl-5 pr-5">
           <div className="grid-row-2 grid">

@@ -16,7 +16,7 @@ export default function AppViewStudyViewExpertViewFooterComponent() {
   return (
     <div className="flex w-full items-center justify-center border-t border-t-slate-800 py-2">
       {hasPage && (
-        <div className="flex w-[75%] items-center justify-between space-x-2 pl-4 ">
+        <div className="flex w-[75%] items-center justify-between space-x-2 pl-4">
           {/* <div className="flex items-center justify-center space-x-2 ">
           <button className="rounded-md border border-indigo-800 p-2 text-indigo-800 hover:bg-[#31385A] hover:text-white" onClick={onHddCalcCommentButtonClick}>
             Commentaire de calcul de disque
