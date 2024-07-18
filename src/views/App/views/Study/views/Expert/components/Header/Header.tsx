@@ -21,6 +21,7 @@ import useStore, { RFState } from '../Flow/utils/store';
 import AppViewStudyViewExpertViewHeaderComponentCartComponent from './components/Cart/Cart';
 import AppViewStudyViewExpertViewHeaderComponentExportMenuComponent from './components/ExportMenu/ExportMenu';
 import AppViewStudyViewExpertViewHeaderComponentImportMenuComponent from './components/ImportMenu/ImportMenu';
+import { MatchRoute } from '@tanstack/react-router';
 
 const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/study/expert');
 
@@ -192,7 +193,9 @@ export default function AppViewStudyViewExpertViewHeaderComponent() {
   return (
     <div className="flex min-h-12 items-center justify-between border-b border-b-slate-800 px-4">
       <div className="flex items-center justify-center gap-x-2">
-        <Switch checked onChange={onSwitchChange} />
+        <MatchRoute to="/app/businesses-rma/business/$businessId/study/automatic" pending>
+          {(match) => <Switch checked={!match} onChange={onSwitchChange} />}
+        </MatchRoute>
         <span>Mode expert</span>
       </div>
       {hasPage && (
