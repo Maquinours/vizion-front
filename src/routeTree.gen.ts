@@ -216,6 +216,8 @@ import { Route as AppBusinessesRmaRmaRmaIdReceptionCreateDetailRouteImport } fro
 import { Route as AppBusinessesRmaRmaRmaIdDeliveryTravelVoucherRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/delivery/travel-voucher/route'
 import { Route as AppBusinessesRmaRmaRmaIdDeliveryPdfRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/delivery/pdf/route'
 import { Route as AppBusinessesRmaRmaRmaIdDeliveryCreateDetailRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/delivery/create-detail/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdStudyExpertRouteImport } from './routes/app/businesses-rma_/business.$businessId_/study/expert/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdStudyAutomaticRouteImport } from './routes/app/businesses-rma_/business.$businessId_/study/automatic/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdRouteImport } from './routes/app/businesses-rma_/business.$businessId_/assistance.$assistanceId/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdQuotationUpdateShippingPriceRouteImport } from './routes/app/businesses-rma_/business.$businessId/quotation/update-shipping-price/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdQuotationPdfRouteImport } from './routes/app/businesses-rma_/business.$businessId/quotation/pdf/route'
@@ -309,10 +311,6 @@ const AuthForgotPasswordRouteLazyImport = createFileRoute(
 const AuthResetPasswordTokenRouteLazyImport = createFileRoute(
   '/auth/reset-password/$token',
 )()
-const AppBusinessesRmaBusinessBusinessIdStudyExpertRouteLazyImport =
-  createFileRoute('/app/businesses-rma/business/$businessId/study/expert')()
-const AppBusinessesRmaBusinessBusinessIdStudyAutomaticRouteLazyImport =
-  createFileRoute('/app/businesses-rma/business/$businessId/study/automatic')()
 
 // Create/Update Routes
 
@@ -1924,26 +1922,6 @@ const AppBusinessesRmaBusinessBusinessIdStudyIndexRoute =
     getParentRoute: () => AppRouteRoute,
   } as any)
 
-const AppBusinessesRmaBusinessBusinessIdStudyExpertRouteLazyRoute =
-  AppBusinessesRmaBusinessBusinessIdStudyExpertRouteLazyImport.update({
-    path: '/businesses-rma/business/$businessId/study/expert',
-    getParentRoute: () => AppRouteRoute,
-  } as any).lazy(() =>
-    import(
-      './routes/app/businesses-rma_/business.$businessId_/study/expert/route.lazy'
-    ).then((d) => d.Route),
-  )
-
-const AppBusinessesRmaBusinessBusinessIdStudyAutomaticRouteLazyRoute =
-  AppBusinessesRmaBusinessBusinessIdStudyAutomaticRouteLazyImport.update({
-    path: '/businesses-rma/business/$businessId/study/automatic',
-    getParentRoute: () => AppRouteRoute,
-  } as any).lazy(() =>
-    import(
-      './routes/app/businesses-rma_/business.$businessId_/study/automatic/route.lazy'
-    ).then((d) => d.Route),
-  )
-
 const AppToolsSchedulerDetailsRdvIdUpdateRouteRoute =
   AppToolsSchedulerDetailsRdvIdUpdateRouteImport.update({
     path: '/update',
@@ -2248,6 +2226,26 @@ const AppBusinessesRmaRmaRmaIdDeliveryCreateDetailRouteRoute =
   } as any).lazy(() =>
     import(
       './routes/app/businesses-rma_/rma.$rmaId/delivery/create-detail/route.lazy'
+    ).then((d) => d.Route),
+  )
+
+const AppBusinessesRmaBusinessBusinessIdStudyExpertRouteRoute =
+  AppBusinessesRmaBusinessBusinessIdStudyExpertRouteImport.update({
+    path: '/businesses-rma/business/$businessId/study/expert',
+    getParentRoute: () => AppRouteRoute,
+  } as any).lazy(() =>
+    import(
+      './routes/app/businesses-rma_/business.$businessId_/study/expert/route.lazy'
+    ).then((d) => d.Route),
+  )
+
+const AppBusinessesRmaBusinessBusinessIdStudyAutomaticRouteRoute =
+  AppBusinessesRmaBusinessBusinessIdStudyAutomaticRouteImport.update({
+    path: '/businesses-rma/business/$businessId/study/automatic',
+    getParentRoute: () => AppRouteRoute,
+  } as any).lazy(() =>
+    import(
+      './routes/app/businesses-rma_/business.$businessId_/study/automatic/route.lazy'
     ).then((d) => d.Route),
   )
 
@@ -4591,6 +4589,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdRouteImport
       parentRoute: typeof AppRouteImport
     }
+    '/app/businesses-rma/business/$businessId/study/automatic': {
+      id: '/app/businesses-rma/business/$businessId/study/automatic'
+      path: '/businesses-rma/business/$businessId/study/automatic'
+      fullPath: '/app/businesses-rma/business/$businessId/study/automatic'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdStudyAutomaticRouteImport
+      parentRoute: typeof AppRouteImport
+    }
+    '/app/businesses-rma/business/$businessId/study/expert': {
+      id: '/app/businesses-rma/business/$businessId/study/expert'
+      path: '/businesses-rma/business/$businessId/study/expert'
+      fullPath: '/app/businesses-rma/business/$businessId/study/expert'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdStudyExpertRouteImport
+      parentRoute: typeof AppRouteImport
+    }
     '/app/businesses-rma/rma/$rmaId/delivery/create-detail': {
       id: '/app/businesses-rma/rma/$rmaId/delivery/create-detail'
       path: '/create-detail'
@@ -4800,20 +4812,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/app/tools/scheduler/details/$rdvId/update'
       preLoaderRoute: typeof AppToolsSchedulerDetailsRdvIdUpdateRouteImport
       parentRoute: typeof AppToolsSchedulerDetailsRdvIdRouteImport
-    }
-    '/app/businesses-rma/business/$businessId/study/automatic': {
-      id: '/app/businesses-rma/business/$businessId/study/automatic'
-      path: '/businesses-rma/business/$businessId/study/automatic'
-      fullPath: '/app/businesses-rma/business/$businessId/study/automatic'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdStudyAutomaticRouteLazyImport
-      parentRoute: typeof AppRouteImport
-    }
-    '/app/businesses-rma/business/$businessId/study/expert': {
-      id: '/app/businesses-rma/business/$businessId/study/expert'
-      path: '/businesses-rma/business/$businessId/study/expert'
-      fullPath: '/app/businesses-rma/business/$businessId/study/expert'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdStudyExpertRouteLazyImport
-      parentRoute: typeof AppRouteImport
     }
     '/app/businesses-rma/business/$businessId/study/': {
       id: '/app/businesses-rma/business/$businessId/study/'
@@ -5724,8 +5722,8 @@ export const routeTree = rootRoute.addChildren({
           AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdRenameGedObjectObjectRelativePathRouteRoute,
         },
       ),
-    AppBusinessesRmaBusinessBusinessIdStudyAutomaticRouteLazyRoute,
-    AppBusinessesRmaBusinessBusinessIdStudyExpertRouteLazyRoute,
+    AppBusinessesRmaBusinessBusinessIdStudyAutomaticRouteRoute,
+    AppBusinessesRmaBusinessBusinessIdStudyExpertRouteRoute,
     AppBusinessesRmaBusinessBusinessIdStudyIndexRoute,
   }),
   AuthRouteRoute: AuthRouteRoute.addChildren({
@@ -6918,6 +6916,14 @@ export const routeTree = rootRoute.addChildren({
         "/app/businesses-rma/business/$businessId/assistance/$assistanceId/rename-ged-object/$objectRelativePath"
       ]
     },
+    "/app/businesses-rma/business/$businessId/study/automatic": {
+      "filePath": "app/businesses-rma_/business.$businessId_/study/automatic/route.ts",
+      "parent": "/app"
+    },
+    "/app/businesses-rma/business/$businessId/study/expert": {
+      "filePath": "app/businesses-rma_/business.$businessId_/study/expert/route.ts",
+      "parent": "/app"
+    },
     "/app/businesses-rma/rma/$rmaId/delivery/create-detail": {
       "filePath": "app/businesses-rma_/rma.$rmaId/delivery/create-detail/route.ts",
       "parent": "/app/businesses-rma/rma/$rmaId/delivery"
@@ -7049,14 +7055,6 @@ export const routeTree = rootRoute.addChildren({
     "/app/tools/scheduler/details/$rdvId/update": {
       "filePath": "app/tools/scheduler/details.$rdvId/update/route.ts",
       "parent": "/app/tools/scheduler/details/$rdvId"
-    },
-    "/app/businesses-rma/business/$businessId/study/automatic": {
-      "filePath": "app/businesses-rma_/business.$businessId_/study/automatic/route.lazy.ts",
-      "parent": "/app"
-    },
-    "/app/businesses-rma/business/$businessId/study/expert": {
-      "filePath": "app/businesses-rma_/business.$businessId_/study/expert/route.lazy.ts",
-      "parent": "/app"
     },
     "/app/businesses-rma/business/$businessId/study/": {
       "filePath": "app/businesses-rma_/business.$businessId_/study/index.ts",
