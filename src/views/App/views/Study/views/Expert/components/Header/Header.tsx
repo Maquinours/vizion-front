@@ -1,10 +1,13 @@
+import { Switch } from '@mui/material';
 import { useQueryClient } from '@tanstack/react-query';
+import { getRouteApi } from '@tanstack/react-router';
 import { useReactFlow } from '@xyflow/react';
 import { isError } from 'lodash';
 import { useContext } from 'react';
 import { PiRectangle, PiTextT } from 'react-icons/pi';
 import { toast } from 'react-toastify';
 import { v4 as uuidv4 } from 'uuid';
+import { useShallow } from 'zustand/react/shallow';
 import LinesLogo from '../../../../../../../../assets/images/lines.svg?react';
 import { queries } from '../../../../../../../../utils/constants/queryKeys';
 import ExpertStudyContext, { ExpertStudyModalType, ExpertStudyPaneClickFunctionType } from '../../utils/context';
@@ -14,17 +17,20 @@ import { ExpertStudyRecorderNode } from '../Flow/components/RecorderNode/Recorde
 import recordersHandlesData from '../Flow/components/RecorderNode/constants/handles';
 import { ExpertStudySynopticCameraNode } from '../Flow/components/SynopticCameraNode/SynopticCameraNode';
 import { ExpertStudyTextNode } from '../Flow/components/TextNode/TextNode';
+import useStore, { RFState } from '../Flow/utils/store';
+import AppViewStudyViewExpertViewHeaderComponentCartComponent from './components/Cart/Cart';
 import AppViewStudyViewExpertViewHeaderComponentExportMenuComponent from './components/ExportMenu/ExportMenu';
 import AppViewStudyViewExpertViewHeaderComponentImportMenuComponent from './components/ImportMenu/ImportMenu';
-import AppViewStudyViewExpertViewHeaderComponentCartComponent from './components/Cart/Cart';
-import useStore, { RFState } from '../Flow/utils/store';
-import { useShallow } from 'zustand/react/shallow';
+
+const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/study/expert');
 
 const selector = (state: RFState) => ({
   hasPage: state.pages.length > 0,
 });
 
 export default function AppViewStudyViewExpertViewHeaderComponent() {
+  const navigate = routeApi.useNavigate();
+
   const { hasPage } = useStore(useShallow(selector));
 
   const queryClient = useQueryClient();
@@ -179,8 +185,16 @@ export default function AppViewStudyViewExpertViewHeaderComponent() {
     }
   };
 
+  const onSwitchChange = () => {
+    navigate({ to: '../automatic', replace: true });
+  };
+
   return (
     <div className="flex min-h-12 items-center justify-between border-b border-b-slate-800 px-4">
+      <div className="flex items-center justify-center gap-x-2">
+        <Switch checked onChange={onSwitchChange} />
+        <span>Mode expert</span>
+      </div>
       {hasPage && (
         <>
           <div className="flex items-center gap-x-2">
