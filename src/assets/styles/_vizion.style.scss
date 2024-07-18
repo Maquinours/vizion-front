@@ -1437,13 +1437,6 @@ button[type='submit'].btn {
   z-index: 3000;
 }
 
-button {
-  background: inherit;
-  border: none;
-  font: normal normal normal 14px/18px $primary-font-family;
-  cursor: pointer;
-}
-
 #sentry-feedback {
   --inset: auto auto 0 0;
 }
