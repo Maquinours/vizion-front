@@ -17,22 +17,27 @@ export const isImageFile = (fileName: string) => {
 
 export const excelFileToObject = async (file: File) => {
   const rows = await readXlsxFile(file);
-  const labelCells = rows.at(0);
+  const labels = rows.at(0)?.map((cell) => cell?.toString());
 
-  if (!labelCells) throw new Error('Excel file contains no data');
+  if (!labels) throw new Error('Excel file contains no data');
 
   const data: Array<Record<string, string>> = [];
 
   rows.slice(1).forEach((row) => {
     const rowData: Record<string, string> = {};
     row.forEach((cell, i) => {
-      rowData[labelCells[i].toString()] = cell.toString();
+      const label = labels[i];
+      if (!!label) rowData[label] = cell?.toString() ?? '';
     });
     data.push(rowData);
   });
 
   return data;
 };
+
+export const formatFileName = (fileName: string) => {
+  return fileName.replace(/[\/\\?%*:|"<> ]/g, '_');
+}
 
 const fileToBase64 = (file: File): Promise<string> => {
   return new Promise((resolve, reject) => {

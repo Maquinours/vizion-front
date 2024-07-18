@@ -58,9 +58,9 @@ export default function AppViewBusinessViewQuotationViewTableComponent() {
     onMutate: ({ id, orderNum }) => {
       queryClient.setQueryData<BusinessQuotationResponseDto>(queries['business-quotations'].detail._ctx.byBusinessId(businessId).queryKey, (old) => {
         if (!old || !old.subQuotationList) return old;
-        const oldIndex = dataIds.indexOf(id);
+        const oldIndex = old.subQuotationList.findIndex((subQuotation) => subQuotation.id === id);
         const newIndex = orderNum;
-        const newSubList = arrayMove(old.subQuotationList!, oldIndex, newIndex);
+        const newSubList = arrayMove(old.subQuotationList!, oldIndex, newIndex).map((subQuotation, index) => ({ ...subQuotation, orderNum: index.toString() }));
         return { ...old, subQuotationList: newSubList };
       });
     },
@@ -95,6 +95,11 @@ export default function AppViewBusinessViewQuotationViewTableComponent() {
     setQuotationDetailContextMenuAnchor(getAnchor(e));
   };
 
+  const subQuotations = useMemo(
+    () => quotation.subQuotationList?.sort((a, b) => parseInt(a.orderNum ?? '', 10) - parseInt(b.orderNum ?? '', 10)),
+    [quotation.subQuotationList],
+  );
+
   return (
     <>
       <div className={styles.table_container}>
@@ -115,7 +120,7 @@ export default function AppViewBusinessViewQuotationViewTableComponent() {
             </thead>
             <tbody>
               <SortableContext items={dataIds} strategy={verticalListSortingStrategy}>
-                {quotation.subQuotationList?.map((subQuotation, _index, arr) => (
+                {subQuotations?.map((subQuotation, _index, arr) => (
                   <React.Fragment key={subQuotation.id}>
                     {subQuotation.name === 'Default' && (!subQuotation.quotationDetails || subQuotation.quotationDetails.length === 0) && arr.length === 1 && (
                       <tr>

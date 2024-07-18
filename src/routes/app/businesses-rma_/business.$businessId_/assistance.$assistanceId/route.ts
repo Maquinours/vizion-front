@@ -1,12 +1,18 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { technicalSupportRecapOptionsQueryKeys } from '../../../../../utils/constants/queryKeys/technicalSupportRecapOptions';
-import { queries } from '../../../../../utils/constants/queryKeys';
-import { lifesheets } from '../../../../../utils/constants/queryKeys/lifesheet';
-import { LifesheetAssociatedItem } from '../../../../../utils/enums/LifesheetAssociatedItem';
-import { geds } from '../../../../../utils/constants/queryKeys/ged';
-import FileType from '../../../../../utils/enums/FileType';
+import { technicalSupportRecapOptionsQueryKeys } from '../../../../utils/constants/queryKeys/technicalSupportRecapOptions';
+import { queries } from '../../../../utils/constants/queryKeys';
+import { lifesheets } from '../../../../utils/constants/queryKeys/lifesheet';
+import { LifesheetAssociatedItem } from '../../../../utils/enums/LifesheetAssociatedItem';
+import { geds } from '../../../../utils/constants/queryKeys/ged';
+import FileType from '../../../../utils/enums/FileType';
+import { z } from 'zod';
+
+const searchSchema = z.object({
+  assistanceModal: z.enum(['before-close']).optional().catch(undefined),
+});
 
 export const Route = createFileRoute('/app/businesses-rma/business/$businessId/assistance/$assistanceId')({
+  validateSearch: searchSchema,
   loader: async ({ context: { queryClient }, params: { assistanceId } }) => {
     queryClient.prefetchQuery(technicalSupportRecapOptionsQueryKeys.list._ctx.byTechnicalSupportId(assistanceId));
     queryClient.prefetchQuery(
@@ -20,5 +26,6 @@ export const Route = createFileRoute('/app/businesses-rma/business/$businessId/a
       queryClient
         .ensureQueryData(queries['technical-supports'].detail._ctx.byId((match.params as { assistanceId: string }).assistanceId))
         .then((assistance) => `Assistance (${assistance.businessNumber})`),
+    getCloseTabRoute: (prev) => ({ to: prev.to, params: prev.params, search: { ...prev.search, assistanceModal: 'before-close' } }),
   },
 });

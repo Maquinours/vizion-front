@@ -23,8 +23,9 @@ export default function AppViewBusinessViewBlViewHeaderComponent() {
         numOrder: business.numOrder,
         businessId: business.id,
       }),
-    onSuccess: (bill) => {
-      queryClient.setQueryData(queries['business-bills'].list._ctx.byBusinessId(business.id).queryKey, bill);
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: queries['business-bills']._def });
+      queryClient.invalidateQueries({ queryKey: queries['businesses']._def });
       toast.success('Facture créée avec succès');
       navigate({ to: '../bill', replace: true });
     },

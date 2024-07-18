@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { FaTrash } from 'react-icons/fa';
 import { useContext } from 'react';
 import { SendEmailFormContext } from '../../../../utils/contexts/sendEmail';
+import { formatFileName } from '../../../../../../utils/functions/files';
 
 export default function SendEmailComponentBodyComponentAttachmentsComponent() {
   const { watch, setValue } = useContext(SendEmailFormContext)!;
@@ -14,7 +15,7 @@ export default function SendEmailComponentBodyComponentAttachmentsComponent() {
       ...watch('attachments'),
       ...acceptedFiles.map((file) => ({
         id: uuidv4(),
-        file: new File([file], file.name.replace(/\s|-/g, '_'), { type: file.type, lastModified: file.lastModified }),
+        file: new File([file], formatFileName(file.name), { type: file.type, lastModified: file.lastModified }),
       })),
     ]);
   };
@@ -47,7 +48,7 @@ export default function SendEmailComponentBodyComponentAttachmentsComponent() {
                 <li key={id}>
                   <span>
                     <a href={URL.createObjectURL(file)} target="_blank" rel="noreferrer">
-                      {file.name.replace(/\s|-/g, '_')}
+                      {formatFileName(file.name)}
                     </a>
                     - {fileSize}
                   </span>

@@ -1,15 +1,18 @@
 import { DndContext, DragEndEvent, KeyboardSensor, MouseSensor, PointerSensor, TouchSensor, useSensor, useSensors } from '@dnd-kit/core';
 import { restrictToHorizontalAxis } from '@dnd-kit/modifiers';
 import { SortableContext, arrayMove, horizontalListSortingStrategy } from '@dnd-kit/sortable';
+import { VirtualElement } from '@popperjs/core';
 import { QueryClient, useQueryClient } from '@tanstack/react-query';
 import { ToOptions, ToPathOption, useMatchRoute, useNavigate, useRouterState } from '@tanstack/react-router';
 import { useLocalStorage } from '@uidotdev/usehooks';
 import _ from 'lodash';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { queries } from '../../../../utils/constants/queryKeys';
+import { UserRole } from '../../../../utils/types/ProfileInfoResponseDto';
 import { useAuthentifiedUserQuery } from '../../utils/functions/getAuthentifiedUser';
 import styles from './TabsContainer.module.scss';
 import AppViewTabsContainerComponentTabComponent from './components/Tab/Tab';
+import AppViewTabsContainerComponentTabContextMenuComponent from './components/TabContextMenu/TabContextMenu';
 import { TabsContext } from './utils/contexts/context';
 
 export type Tab = {
@@ -25,10 +28,10 @@ type InitialTab = {
   name: string;
   route?: ToOptions;
   getRoute?: (queryClient: QueryClient) => Promise<ToOptions>;
-  allowedRoles?: Array<string>;
+  allowedRoles?: Array<UserRole>;
 };
 
-const getExternalLinkInitialTab = (name: string, allowedRoles?: Array<string>): InitialTab => {
+const getExternalLinkInitialTab = (name: string, allowedRoles?: Array<UserRole>): InitialTab => {
   return {
     name,
     getRoute: async (queryClient: QueryClient): Promise<ToOptions> => {
@@ -75,7 +78,7 @@ const INITIAL_TABS: Array<InitialTab> = [
     route: {
       to: '/app/businesses-rma',
     },
-    allowedRoles: ['ROLE_CLIENT', 'ROLE_DISTRIBUTEUR_VIZEO', 'ROLE_REPRESENTANT_VIZEO'],
+    allowedRoles: ['ROLE_CLIENT', 'ROLE_DISTRIBUTEUR', 'ROLE_REPRESENTANT'],
   },
 ];
 
@@ -92,6 +95,9 @@ export default function AppViewTabsContainerComponent({ children }: AppViewTabsC
   const [isLoadingInitialTabs, setIsLoadingInitialTabs] = useState(false);
   const isLoadingInitialTabsRef = useRef(isLoadingInitialTabs);
 
+  const [contextMenuAnchor, setContextMenuAnchor] = useState<VirtualElement | undefined>(undefined);
+  const [selectedTab, setSelectedTab] = useState<Tab>();
+
   const { data: user } = useAuthentifiedUserQuery();
 
   const sensors = useSensors(
@@ -105,22 +111,30 @@ export default function AppViewTabsContainerComponent({ children }: AppViewTabsC
     }),
   );
 
-  const removeTab = useCallback(
-    (tabId?: string) => {
-      setTabs((tabs) => {
-        const tabIndex = tabId ? tabs.findIndex((tab) => tab.id === tabId) : tabs.findIndex((tab) => matchRoute({ to: tab.route.to }));
-        if (tabIndex !== -1) {
-          const tab = tabs[tabIndex];
-          if (matchRoute({ to: tab.route.to })) navigate(tabs.at(Math.max(tabIndex - 1, 0))?.route ?? { to: '/app' });
-
-          const newTabs = [...tabs];
-          newTabs.splice(tabIndex, 1);
-          return newTabs;
-        }
-        return tabs; // if we can't remove, then we return the initial array
+  const removeTabs = useCallback(
+    (tabs: Array<Tab>) => {
+      const removedTabs: Array<Tab> = [];
+      setTabs((currentTabs) => {
+        const result = currentTabs.filter((t) => {
+          if (tabs.some((tab) => tab.id === t.id)) {
+            removedTabs.push(t);
+            return false;
+          }
+          return true;
+        });
+        if (removedTabs.some((tab) => matchRoute({ to: tab.route.to }))) navigate(result.at(-1)?.route ?? { to: '/app' });
+        return result;
       });
     },
-    [matchRoute, navigate, setTabs],
+    [setTabs, matchRoute, navigate],
+  );
+
+  const removeTab = useCallback(
+    (tab?: Tab) => {
+      tab = tab ?? tabs.find((tab) => matchRoute({ to: tab.route.to }));
+      if (tab) removeTabs([tab]);
+    },
+    [tabs, matchRoute, removeTabs],
   );
 
   const onCloseTab = useCallback(
@@ -129,7 +143,7 @@ export default function AppViewTabsContainerComponent({ children }: AppViewTabsC
       e.stopPropagation();
       e.nativeEvent.stopImmediatePropagation();
       if (tab.closeRoute) navigate(tab.closeRoute);
-      else removeTab(tab.id);
+      else removeTab(tab);
     },
     [removeTab],
   );
@@ -147,6 +161,27 @@ export default function AppViewTabsContainerComponent({ children }: AppViewTabsC
       }
     },
     [setTabs],
+  );
+
+  const onTabContextMenu = useCallback(
+    (e: React.MouseEvent, tab: Tab) => {
+      e.preventDefault();
+      setSelectedTab(tab);
+      setContextMenuAnchor({
+        getBoundingClientRect: () => ({
+          width: 0,
+          height: 0,
+          x: e.clientX,
+          y: e.clientY,
+          top: e.clientY,
+          right: e.clientX,
+          bottom: e.clientY,
+          left: e.clientX,
+          toJSON: () => {},
+        }),
+      });
+    },
+    [setSelectedTab, setContextMenuAnchor],
   );
 
   const contextValue = useMemo(() => ({ removeTab }), [removeTab]);
@@ -229,12 +264,19 @@ export default function AppViewTabsContainerComponent({ children }: AppViewTabsC
           <DndContext modifiers={[restrictToHorizontalAxis]} onDragEnd={handleDragEnd} sensors={sensors}>
             <SortableContext items={tabs.map(({ id }) => id)} strategy={horizontalListSortingStrategy}>
               {tabs.map((tab) => (
-                <AppViewTabsContainerComponentTabComponent key={tab.id} tab={tab} onCloseTab={onCloseTab} />
+                <AppViewTabsContainerComponentTabComponent key={tab.id} tab={tab} onCloseTab={onCloseTab} onContextMenu={onTabContextMenu} />
               ))}
             </SortableContext>
           </DndContext>
         </div>
       </div>
+      <AppViewTabsContainerComponentTabContextMenuComponent
+        tabs={tabs}
+        removeTabs={removeTabs}
+        anchorElement={contextMenuAnchor}
+        setAnchorElement={setContextMenuAnchor}
+        selectedItem={selectedTab}
+      />
       {children}
     </TabsContext.Provider>
   );

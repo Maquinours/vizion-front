@@ -17,16 +17,19 @@ export default function AppViewProductsViewTableComponentSubRowComponent({ row }
       </tr>
       {row.original.associatedProduct?.map((itm, idx) => (
         <tr className={styles.sub_row_content} key={idx}>
-          <td colSpan={1}>
+          <td>
             <img src={`https://bd.vizeo.eu/6-Photos/${itm.reference}/MINI_${itm.reference}.jpg`} alt={itm.reference ?? undefined} />
           </td>
-          <td colSpan={1}>
+          <td>
             <p>{itm.reference}</p>
           </td>
-          <td colSpan={1}>
+          <td>
             <p className={styles.description}>{itm.shortDescription}</p>
           </td>
-          <td colSpan={3}></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
         </tr>
       ))}
     </>

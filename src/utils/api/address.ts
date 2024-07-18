@@ -28,6 +28,16 @@ export const createAddress = async (address: AddressRequestDto) => {
   ).data;
 };
 
+export const createAddresses = async (data: Array<AddressRequestDto>) => {
+  return (
+    await privateInstance<Array<AddressResponseDto>>({
+      method: 'POST',
+      url: '/business/v1/address/add-list',
+      data,
+    })
+  ).data;
+};
+
 export const getAddressById = async (id: string) => {
   return (
     await privateInstance<AddressResponseDto>({

@@ -3,6 +3,8 @@ import TableComponent from '../../../../../../../../components/Table/Table';
 import { useMemo } from 'react';
 import { BusinessCreditRow } from '../../Credit';
 import styles from './Table.module.scss';
+import AmountFormat from '../../../../../../../../components/AmountFormat/AmountFormat';
+import CurrencyFormat from '../../../../../../../../components/CurrencyFormat/CurrencyFormat';
 
 const columnHelper = createColumnHelper<BusinessCreditRow>();
 
@@ -44,11 +46,12 @@ export default function AppViewToolsViewCreditsViewTableComponent({ items, setIt
         ),
       }),
       columnHelper.display({
-        header: 'Quantité facturé',
+        header: 'Quantité facturée',
         cell: ({ row: { original } }) => (
-          <input
-            type="number"
+          <AmountFormat
+            displayType="input"
             value={original.detail.quantity}
+            decimalScale={0}
             onChange={(e) =>
               setItems((items) =>
                 items.map((item) =>
@@ -62,9 +65,10 @@ export default function AppViewToolsViewCreditsViewTableComponent({ items, setIt
       columnHelper.display({
         header: 'Quantité pour Avoir',
         cell: ({ row: { original } }) => (
-          <input
-            type="number"
+          <AmountFormat
+            displayType="input"
             value={original.quantity}
+            decimalScale={0}
             onChange={(e) =>
               setItems((items) => items.map((item) => (item.detail.id === original.detail.id ? { ...item, quantity: parseInt(e.target.value) } : item)))
             }
@@ -74,13 +78,13 @@ export default function AppViewToolsViewCreditsViewTableComponent({ items, setIt
       columnHelper.display({
         header: 'Prix Facture',
         cell: ({ row: { original } }) => (
-          <input
-            type="number"
+          <CurrencyFormat
+            displayType="input"
             value={original.detail.unitPrice ?? undefined}
             onChange={(e) =>
               setItems((items) =>
                 items.map((item) =>
-                  item.detail.id === original.detail.id ? { ...item, detail: { ...item.detail, unitPrice: parseInt(e.target.value) } } : item,
+                  item.detail.id === original.detail.id ? { ...item, detail: { ...item.detail, unitPrice: parseFloat(e.target.value) } } : item,
                 ),
               )
             }
@@ -90,11 +94,11 @@ export default function AppViewToolsViewCreditsViewTableComponent({ items, setIt
       columnHelper.display({
         header: 'Prix Avoir',
         cell: ({ row: { original } }) => (
-          <input
-            type="number"
+          <CurrencyFormat
+            displayType="input"
             value={original.price}
             onChange={(e) =>
-              setItems((items) => items.map((item) => (item.detail.id === original.detail.id ? { ...item, price: parseInt(e.target.value) } : item)))
+              setItems((items) => items.map((item) => (item.detail.id === original.detail.id ? { ...item, price: parseFloat(e.target.value) } : item)))
             }
           />
         ),

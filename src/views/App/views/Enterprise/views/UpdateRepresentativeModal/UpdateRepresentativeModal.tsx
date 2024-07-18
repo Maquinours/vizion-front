@@ -107,14 +107,14 @@ export default function AppViewEnterpriseViewUpdateRepresentativeModalView() {
                 <label className={styles.label} htmlFor="company_relation_one">
                   En relation avec :
                 </label>
-                <input {...register('relationOne')} name="company_relation_one" id="company_relation_one" />
+                <input {...register('relationOne')} id="company_relation_one" />
                 <p className={styles.__errors}>{errors.relationOne?.message}</p>
               </div>
               <div className={styles.form_group}>
                 <label className={styles.label} htmlFor="company_relation_two">
                   En relation avec :
                 </label>
-                <input {...register('relationTwo')} name="company_relation_two" id="company_relation_two" />
+                <input {...register('relationTwo')} id="company_relation_two" />
                 <p className={styles.__errors}>{errors.relationTwo?.message}</p>
               </div>
 
@@ -122,22 +122,14 @@ export default function AppViewEnterpriseViewUpdateRepresentativeModalView() {
                 <label className={styles.label} htmlFor="company_relation_three">
                   En relation avec :
                 </label>
-                <input {...register('relationThree')} name="company_relation_three" id="company_relation_three" />
+                <input {...register('relationThree')} id="company_relation_three" />
                 <p className={styles.__errors}>{errors.relationThree?.message}</p>
               </div>
               <div className={styles.form_group}>
                 <label className={styles.label} htmlFor="company_website">
                   Site internet :
                 </label>
-                <input
-                  {...register('website')}
-                  type="url"
-                  placeholder="Site internet"
-                  name="company_website"
-                  id="company_website"
-                  autoCorrect="true"
-                  autoComplete="off"
-                />
+                <input {...register('website')} type="url" placeholder="Site internet" id="company_website" autoCorrect="true" autoComplete="off" />
                 <p className={styles.__errors}>{errors.website?.message}</p>
               </div>
               <div className={styles.form_request_loader}>

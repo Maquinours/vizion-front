@@ -173,6 +173,7 @@ import { Route as AppEnterprisesEnterpriseIdRenameGedObjectObjectRelativePathRou
 import { Route as AppEnterprisesEnterpriseIdDeleteGedObjectObjectRelativePathRouteImport } from './routes/app/enterprises_.$enterpriseId/delete-ged-object.$objectRelativePath/route'
 import { Route as AppEnterprisesEnterpriseIdDeleteContactContactIdRouteImport } from './routes/app/enterprises_.$enterpriseId/delete-contact.$contactId/route'
 import { Route as AppEnterprisesEnterpriseIdCreateContactBusinessContactIdRouteImport } from './routes/app/enterprises_.$enterpriseId/create-contact-business.$contactId/route'
+import { Route as AppEnterprisesEnterpriseIdAddressBookImportRouteImport } from './routes/app/enterprises_.$enterpriseId/address-book/import/route'
 import { Route as AppEnterprisesEnterpriseIdAddressBookCreateRouteImport } from './routes/app/enterprises_.$enterpriseId/address-book/create/route'
 import { Route as AppDashboardTaskEmailTaskIdReplyRouteImport } from './routes/app/dashboard/task-email.$taskId/reply/route'
 import { Route as AppBusinessesRmaRmaRmaIdSupportRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/support/route'
@@ -1793,6 +1794,16 @@ const AppEnterprisesEnterpriseIdCreateContactBusinessContactIdRouteRoute =
   } as any).lazy(() =>
     import(
       './routes/app/enterprises_.$enterpriseId/create-contact-business.$contactId/route.lazy'
+    ).then((d) => d.Route),
+  )
+
+const AppEnterprisesEnterpriseIdAddressBookImportRouteRoute =
+  AppEnterprisesEnterpriseIdAddressBookImportRouteImport.update({
+    path: '/import',
+    getParentRoute: () => AppEnterprisesEnterpriseIdAddressBookRouteRoute,
+  } as any).lazy(() =>
+    import(
+      './routes/app/enterprises_.$enterpriseId/address-book/import/route.lazy'
     ).then((d) => d.Route),
   )
 
@@ -4055,6 +4066,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppEnterprisesEnterpriseIdAddressBookCreateRouteImport
       parentRoute: typeof AppEnterprisesEnterpriseIdAddressBookRouteImport
     }
+    '/app/enterprises/$enterpriseId/address-book/import': {
+      id: '/app/enterprises/$enterpriseId/address-book/import'
+      path: '/import'
+      fullPath: '/app/enterprises/$enterpriseId/address-book/import'
+      preLoaderRoute: typeof AppEnterprisesEnterpriseIdAddressBookImportRouteImport
+      parentRoute: typeof AppEnterprisesEnterpriseIdAddressBookRouteImport
+    }
     '/app/enterprises/$enterpriseId/create-contact-business/$contactId': {
       id: '/app/enterprises/$enterpriseId/create-contact-business/$contactId'
       path: '/create-contact-business/$contactId'
@@ -5424,6 +5442,7 @@ export const routeTree = rootRoute.addChildren({
         AppEnterprisesEnterpriseIdAddressBookRouteRoute:
           AppEnterprisesEnterpriseIdAddressBookRouteRoute.addChildren({
             AppEnterprisesEnterpriseIdAddressBookCreateRouteRoute,
+            AppEnterprisesEnterpriseIdAddressBookImportRouteRoute,
             AppEnterprisesEnterpriseIdAddressBookDeleteAddressIdRouteRoute,
             AppEnterprisesEnterpriseIdAddressBookUpdateAddressIdRouteRoute,
           }),
@@ -6212,6 +6231,7 @@ export const routeTree = rootRoute.addChildren({
       "parent": "/app/enterprises/$enterpriseId",
       "children": [
         "/app/enterprises/$enterpriseId/address-book/create",
+        "/app/enterprises/$enterpriseId/address-book/import",
         "/app/enterprises/$enterpriseId/address-book/delete/$addressId",
         "/app/enterprises/$enterpriseId/address-book/update/$addressId"
       ]
@@ -6527,6 +6547,10 @@ export const routeTree = rootRoute.addChildren({
     },
     "/app/enterprises/$enterpriseId/address-book/create": {
       "filePath": "app/enterprises_.$enterpriseId/address-book/create/route.ts",
+      "parent": "/app/enterprises/$enterpriseId/address-book"
+    },
+    "/app/enterprises/$enterpriseId/address-book/import": {
+      "filePath": "app/enterprises_.$enterpriseId/address-book/import/route.ts",
       "parent": "/app/enterprises/$enterpriseId/address-book"
     },
     "/app/enterprises/$enterpriseId/create-contact-business/$contactId": {

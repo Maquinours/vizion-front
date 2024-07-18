@@ -133,7 +133,7 @@ export default function UpdateContactPasswordModalComponentStepOneComponent({
               <label className={styles.label} htmlFor="mail">
                 Email :
               </label>
-              <input type="email" {...register('mail')} name="mail" id="mail" style={{ textTransform: 'lowercase' }} onBlur={() => refetchEmail()} />
+              <input type="email" {...register('mail')} id="mail" style={{ textTransform: 'lowercase' }} onBlur={() => refetchEmail()} />
               <p className={styles.__errors}>
                 {errors.mail?.message}
                 {emailExists && <span>Email déjà utilisé</span>}
@@ -204,14 +204,7 @@ export default function UpdateContactPasswordModalComponentStepOneComponent({
               <label className={styles.label} htmlFor="confirm">
                 Confirmer MDP :
               </label>
-              <input
-                placeholder="********"
-                type={showConfirmPassword ? 'text' : 'password'}
-                {...register('confirm')}
-                name="confirm"
-                id="confirm"
-                autoCorrect="true"
-              />
+              <input placeholder="********" type={showConfirmPassword ? 'text' : 'password'} {...register('confirm')} id="confirm" autoCorrect="true" />
               <p className={styles.__errors}>{errors.confirm?.message}</p>
 
               <div className={styles.icons}>

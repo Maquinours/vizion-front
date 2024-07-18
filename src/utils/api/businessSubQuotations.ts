@@ -14,7 +14,10 @@ export const createBusinessSubQuotation = (data: BusinessSubQuotationRequestDto)
 export const reorderBusinessSubQuotation = ({ id, orderNum }: { id: string; orderNum: number }) => {
   return privateInstance<void>({
     method: 'PUT',
-    url: `/business/v1/business/sub-quotation/${id}/reorder/${orderNum}`,
+    url: `/business/v1/business/sub-quotation/reorder/${id}`,
+    data: {
+      orderNum,
+    },
   }).then((res) => res.data);
 };
 

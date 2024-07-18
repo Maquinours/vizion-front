@@ -53,7 +53,7 @@ export default function AppViewProductViewManageViewCreateVersionModalView() {
   });
 
   const onClose = () => {
-    navigate({ from: routeApi.id, to: '..', search: (old) => old });
+    navigate({ from: routeApi.id, to: '..', search: true, replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({
@@ -75,7 +75,7 @@ export default function AppViewProductViewManageViewCreateVersionModalView() {
         vizeo: true,
       }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: queries.product._def });
+      queryClient.invalidateQueries({ queryKey: queries['product-versions']._def });
       toast.success('Version ajoutée avec succès');
       onClose();
     },

@@ -14,7 +14,13 @@ export default function AppViewProductViewInformationsViewLifesheetComponent() {
       associatedItemId={productId}
       page={lifesheetPage}
       pageLink={(page) => ({ from: routeApi.id, search: (old) => ({ ...old, lifesheetPage: page }), params: (old) => old })}
-      createLink={{ from: routeApi.id, to: '/app/products/$productId/informations/create-lifesheet-comment', search: (old) => old, params: (old) => old }}
+      createLink={{
+        from: routeApi.id,
+        to: '/app/products/$productId/informations/create-lifesheet-comment',
+        search: (old) => old,
+        replace: true,
+        resetScroll: false,
+      }}
     />
   );
 }

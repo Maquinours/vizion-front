@@ -21,6 +21,9 @@ import ProfileResponseDto from '../../utils/types/ProfileResponseDto';
 import { useAuthentifiedUserQuery } from '../../views/App/utils/functions/getAuthentifiedUser';
 import Quill from '../Quill/Quill';
 import styles from './CreateLifesheetModal.module.scss';
+import ReactDatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import moment from 'moment';
 
 const yupSchema = yup.object({
   description: yup.string().required('Ce champ est requis'),
@@ -107,7 +110,7 @@ export default function CreateLifesheetModalComponent({
         ...data,
         tasksDtoList: receivers.map((receiver) => ({
           name: `${receiver.firstName?.split(' ').at(0)} ${receiver.lastName?.at(0)}.`,
-          deadline,
+          deadline: moment(deadline).utc(true).toDate(),
           profileId: receiver.id,
           enterpriseId: data.enterpriseId,
           enterpriseName: data.enterpriseName,
@@ -203,7 +206,13 @@ export default function CreateLifesheetModalComponent({
             <div className={styles.choose_date}>
               <div className={styles.form_group}>
                 <label htmlFor="lifeSheetDeadline">{"Date d'échéance :"}</label>
-                <input name="lifeSheetDeadline" id="lifeSheetDeadline" type="date" />
+                <Controller
+                  control={control}
+                  name="deadline"
+                  render={({ field: { value, onChange } }) => (
+                    <ReactDatePicker id="lifeSheetDeadline" wrapperClassName="w-fit" selected={value} onChange={onChange} dateFormat="dd/MM/y" />
+                  )}
+                />
                 <p className={styles.__errors}></p>
               </div>
             </div>

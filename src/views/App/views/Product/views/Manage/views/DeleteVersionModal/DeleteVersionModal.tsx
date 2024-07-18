@@ -18,13 +18,13 @@ export default function AppViewProductViewManageViewDeleteVersionModalView() {
   const { data: version } = useSuspenseQuery(queries['product-versions'].detail._ctx.byId(versionId));
 
   const onClose = () => {
-    navigate({ from: routeApi.id, to: '../..', search: (old) => old });
+    navigate({ from: routeApi.id, to: '../..', search: true, replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({
     mutationFn: () => deleteProductVersion(versionId),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: queries.product._def });
+      queryClient.invalidateQueries({ queryKey: queries['product-versions']._def });
       toast.success('La version a été supprimée avec succès.');
       onClose();
     },

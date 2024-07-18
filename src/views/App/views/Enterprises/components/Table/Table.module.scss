@@ -4,8 +4,6 @@
   width: 100%;
   margin-top: 1rem;
   padding-bottom: 0.1rem;
-  max-height: 75vh;
-  overflow-y: auto;
 
   table {
     width: 100%;
@@ -14,23 +12,35 @@
     border: 1px solid var(--primary-color);
     table-layout: auto;
 
-    thead tr:nth-child(1) {
-      background: var(--primary-color) 0% 0% no-repeat padding-box;
+    thead {
+      display: table;
+      width: 100%;
+      table-layout: fixed;
 
-      th {
-        padding: 0.5rem 0;
-        text-align: center;
-        font:
-          normal normal normal 14px/18px 'DIN2014',
-          Arial,
-          sans-serif;
-        letter-spacing: 0px;
-        color: #ebeef8;
-        opacity: 1;
-        border-right: 2px solid #686e89;
+      tr:nth-child(1) {
+        background: var(--primary-color) 0% 0% no-repeat padding-box;
 
-        &:nth-last-child(1) {
-          border-right: none;
+        th {
+          padding: 0.5rem 0;
+          text-align: center;
+          font:
+            normal normal normal 14px/18px 'DIN2014',
+            Arial,
+            sans-serif;
+          letter-spacing: 0px;
+          color: #ebeef8;
+          opacity: 1;
+          border-right: 2px solid #686e89;
+
+          &:nth-last-child(1) {
+            width: 1.1rem;
+            padding: 0px;
+            border-right: none;
+          }
+
+          &:nth-last-child(2) {
+            border-right: none;
+          }
         }
       }
     }
@@ -45,13 +55,26 @@
     }
 
     tbody {
+      display: block;
+      max-height: 75vh;
+      overflow-y: scroll;
+
       tr {
         vertical-align: top;
         background-color: #fff;
+        display: table;
+        width: 100%;
+        table-layout: fixed;
+        cursor: pointer;
       }
 
       tr:hover {
         background-color: #e5e5e5;
+
+        td {
+          transform: scale(0.95);
+          font-weight: 600;
+        }
       }
 
       tr:nth-child(2n + 1) {
@@ -60,7 +83,7 @@
       }
 
       td {
-        padding: 0.5rem 0 0.5rem 1rem;
+        padding: 1rem;
         text-align: center;
         vertical-align: middle;
         font:
@@ -71,20 +94,9 @@
         color: var(--primary-light-color);
         opacity: 1;
 
-        &:nth-child(1) {
-          a {
-            color: inherit;
-            text-decoration: inherit;
-
-            &:hover {
-              color: var(--secondary-color);
-            }
-          }
-        }
-
-        &:nth-child(2) {
-          width: 25%;
-          max-width: 600px;
+        &:nth-last-child(1) {
+          padding: 0px;
+          width: 0px;
         }
 
         &.contact {

@@ -3,6 +3,7 @@ import { queries } from '../../../../../../../utils/constants/queryKeys';
 import AppViewBusinessViewQuotationViewPdfModalViewPdfComponent from '../../../../../../../views/App/views/Business/views/Quotation/views/PdfModal/components/Pdf/Pdf';
 import { pdf } from '@react-pdf/renderer';
 import LoaderModal from '../../../../../../../components/LoaderModal/LoaderModal';
+import { formatFileName } from '../../../../../../../utils/functions/files';
 
 export const Route = createFileRoute('/app/businesses-rma/business/$businessId/quotation/pdf/send-by-email')({
   loaderDeps: ({ search: { hideAddresses, hideReferences, hidePrices, hideTotal } }) => ({ hideAddresses, hideReferences, hidePrices, hideTotal }),
@@ -38,7 +39,7 @@ export const Route = createFileRoute('/app/businesses-rma/business/$businessId/q
         hideTotal={hideTotal}
       />,
     ).toBlob();
-    const quotationPdfFile = new File([quotationPdfBlob], `Devis-${quotation.number}.pdf`.replace(/\s|-/g, '_'), {
+    const quotationPdfFile = new File([quotationPdfBlob], formatFileName(`Devis-${quotation.number}.pdf`), {
       type: quotationPdfBlob.type,
     });
     return { business, quotation, representative, commercialNoticeFile, quotationPdfFile };

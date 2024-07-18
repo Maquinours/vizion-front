@@ -7,3 +7,10 @@ export const getAllProductStocks = () => {
     url: '/product-inventory/v1/product-stock/find-all',
   }).then((res) => res.data);
 };
+
+export const getProductStockByProductReference = (productReference: string) => {
+  return privateInstance<ProductStockResponseDto>({
+    method: 'GET',
+    url: `/product-inventory/v1/product-stock/find-by-product/ref/${encodeURIComponent(productReference)}`,
+  }).then((res) => res.data);
+};

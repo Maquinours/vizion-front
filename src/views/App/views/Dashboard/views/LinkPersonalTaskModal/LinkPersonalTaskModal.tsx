@@ -1,6 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useQuery, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { useMemo } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
@@ -15,12 +16,9 @@ import CategoryBusiness from '../../../../../../utils/enums/CategoryBusiness';
 import WorkloadType from '../../../../../../utils/enums/WorkloadType';
 import AllBusinessResponseDto from '../../../../../../utils/types/AllBusinessResponseDto';
 import EnterpriseResponseDto from '../../../../../../utils/types/EnterpriseResponseDto';
-import Page from '../../../../../../utils/types/Page';
 import ProductResponseDto from '../../../../../../utils/types/ProductResponseDto';
 import TaskRequestDto from '../../../../../../utils/types/TaskRequestDto';
-import TaskResponseDto from '../../../../../../utils/types/TaskResponseDto';
 import styles from './LinkPersonalTaskModal.module.scss';
-import { useMemo } from 'react';
 
 enum LinkType {
   BUSINESS = 'BUSINESS',
@@ -58,7 +56,7 @@ export default function AppViewDashboardViewLinkPersonalTaskModalView() {
   const { data: task } = useSuspenseQuery(queries.tasks.detail(taskId));
 
   const { data: enterprisesList, isLoading: isLoadingEnterprises } = useQuery(enterprises.list);
-  const { data: businesses, isLoading: isLoadingBusiness } = useQuery(allBusinesses.list);
+  const { data: businesses, isLoading: isLoadingBusinesses } = useQuery(allBusinesses.list);
   const { data: products, isLoading: isLoadingProducts } = useQuery(queries.product.list);
 
   const { register, control, getValues, watch, handleSubmit } = useForm({
@@ -85,8 +83,8 @@ export default function AppViewDashboardViewLinkPersonalTaskModalView() {
       switch (data.type) {
         case LinkType.BUSINESS:
           if (data.business!.category === CategoryBusiness.AFFAIRE)
-            content = { ...content, businessId: data.business!.id, businessNum: data.business!.number, businessName: data.business!.title };
-          else if (data.business!.category === CategoryBusiness.RMA) content = { ...content, rmaId: data.business!.id, rmaNum: data.business!.number };
+            content = { ...content, businessId: data.business!.businessId, businessNum: data.business!.number, businessName: data.business!.title };
+          else if (data.business!.category === CategoryBusiness.RMA) content = { ...content, rmaId: data.business!.businessId, rmaNum: data.business!.number };
           break;
         case LinkType.PRODUCT:
           content = { ...content, productId: data.product!.id, reference: data.product!.reference };
@@ -97,19 +95,8 @@ export default function AppViewDashboardViewLinkPersonalTaskModalView() {
       }
       return updateTask(task.id, task.profileId!, task.state!, content);
     },
-    onSuccess: (task) => {
-      queryClient.setQueriesData<Page<TaskResponseDto>>({ queryKey: queries.tasks.page.queryKey }, (old) =>
-        old
-          ? {
-              ...old,
-              content: old.content.map((t) => (t.id === task.id ? task : t)),
-            }
-          : old,
-      );
-      queryClient.setQueriesData<Array<TaskResponseDto>>({ queryKey: queries.tasks.list.queryKey }, (old) =>
-        old ? old.map((t) => (t.id === task.id ? task : t)) : old,
-      );
-      queryClient.setQueriesData<TaskResponseDto>({ queryKey: queries.tasks.detail._def }, (old) => (old?.id === task.id ? task : old));
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: queries.tasks._def });
       toast.success('Tâche liée avec succès');
       onClose();
     },
@@ -132,7 +119,7 @@ export default function AppViewDashboardViewLinkPersonalTaskModalView() {
               options={businesses}
               getOptionLabel={(opt) => `${opt.number}${!!opt.title ? ` / ${opt.title}` : ''}`}
               getOptionValue={(opt) => opt.id}
-              isLoading={isLoadingBusiness}
+              isLoading={isLoadingBusinesses}
               value={value}
               onChange={onChange}
               onBlur={onBlur}
@@ -176,7 +163,7 @@ export default function AppViewDashboardViewLinkPersonalTaskModalView() {
         />
       </>
     );
-  }, [watch('type')]);
+  }, [watch('type'), businesses, products, isLoadingBusinesses, enterprisesList, isLoadingProducts, isLoadingEnterprises]);
 
   return (
     <ReactModal isOpen={true} onRequestClose={onClose} className={styles.modal_link} overlayClassName="Overlay">

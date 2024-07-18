@@ -5,13 +5,13 @@ import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthent
 import React, { useMemo } from 'react';
 import { IconType } from 'react-icons/lib';
 import { IoMdHome } from 'react-icons/io';
-import ProfileInfoResponseDto from '../../../../../../utils/types/ProfileInfoResponseDto';
+import ProfileInfoResponseDto, { UserRole } from '../../../../../../utils/types/ProfileInfoResponseDto';
 
 type MenuItem = {
   icon: IconType;
   label: string;
   route: LinkProps | ((authentifiedUser: ProfileInfoResponseDto) => LinkProps);
-  allowedRoles?: string[];
+  allowedRoles?: Array<UserRole>;
 };
 
 const MENUS: Array<MenuItem> = [

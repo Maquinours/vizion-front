@@ -48,7 +48,7 @@ export default function AppViewDashboardViewOtherPersonalTasksModalViewTableComp
                       </Link>
                     </MenuItem>
                   )}
-                  {currentUser.userInfo.roles.includes('ROLE_DIRECTION_VIZEO') && [(TaskState.CLOSED, TaskState.CREATED)].includes(task.state!) && (
+                  {currentUser.userInfo.roles.includes('ROLE_DIRECTION_VIZEO') && [TaskState.CLOSED, TaskState.CREATED].includes(task.state!) && (
                     <MenuItem>
                       <Link from={Route.id} to="../../update-personal-task-deadline/$taskId" params={{ taskId: task.id }} search={(old) => old}>
                         <MdSchedule className={styles.icon} />

@@ -26,7 +26,7 @@ export default function AppViewToolsViewSchedulerViewDetailsModalViewDeleteModal
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queries.rdvs._def });
       toast.success('Rendez-vous supprimé avec succès');
-      onClose();
+      navigate({ from: routeApi.id, to: '../../..', search: (old) => old, replace: true, resetScroll: false });
     },
     onError: (error) => {
       console.error(error);

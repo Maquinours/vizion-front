@@ -12,6 +12,12 @@ export default function AppViewBusinessViewQuotationViewPdfModalViewSendByEmailM
     navigate({ to: '..', search: (old) => old, replace: true, resetScroll: false });
   };
 
+  let defaultRecipient = (() => {
+    if (business.enterpriseName === 'DIVERS CLIENTS') {
+      if (!!business.billingEmail) return [business.billingEmail];
+    } else if (!!business.profileEmail) return [business.profileEmail];
+  })();
+
   return (
     <SendEmailModalComponent
       isOpen={true}
@@ -23,7 +29,7 @@ export default function AppViewBusinessViewQuotationViewPdfModalViewSendByEmailM
         resetScroll: false,
       }}
       defaultAttachments={[quotationPdfFile, commercialNoticeFile]}
-      defaultRecipient={business.profileEmail ? [business.profileEmail] : undefined}
+      defaultRecipient={defaultRecipient}
       defaultCc={representative?.profiles.filter((profile) => profile.civility === 'Service').map((service) => service.email!)}
       defaultSubject={`Devis ${quotation.number} ${business.title ?? ''}`}
       defaultContent={`Bonjour <br /><p>Suite à votre demande, ci-joint le devis ainsi que les documents avec :</p> <br /><ul><li>Offre de prix HT</li><li>Dossier technique</li><li>Notices commerciales</li></ul><br /><br />`}

@@ -149,7 +149,9 @@ body {
   }
 
   height: 100%;
-  font-family: 'DIN2014', Arial, sans-serif;
+  font-family: 'DIN2014',
+  Arial,
+  sans-serif;
   background-color: $white-color;
 }
 
@@ -811,7 +813,9 @@ ul {
                 font-family: 'DIN2014', Arial, sans-serif;
               }
 
-              font-family: 'DIN2014', Arial, sans-serif;
+              font-family: 'DIN2014',
+              Arial,
+              sans-serif;
               font-size: 16px;
               line-height: 20px;
               color: $primary-color;
@@ -1405,7 +1409,7 @@ button[type='submit'].btn {
   background: rgba(0, 0, 0, 0.25) 0% 0% no-repeat padding-box;
   overflow-y: auto;
 
-  & > div {
+  &>div {
     outline: none;
   }
 
@@ -1431,4 +1435,15 @@ button[type='submit'].btn {
 .Overlay-2 {
   @extend .Overlay;
   z-index: 3000;
+}
+
+button {
+  background: inherit;
+  border: none;
+  font: normal normal normal 14px/18px $primary-font-family;
+  cursor: pointer;
+}
+
+#sentry-feedback {
+  --inset: auto auto 0 0;
 }

@@ -39,7 +39,7 @@ export default function AppViewBusinessViewArcViewHeaderComponentSectionThreeCom
   });
 
   const { mutate, isPending } = useMutation({
-    mutationFn: ({ product, quantity }: yup.InferType<typeof yupSchema>) => {
+    mutationFn: async ({ product, quantity }: yup.InferType<typeof yupSchema>) => {
       const unitPrice = (product.publicPrice ?? 0) * (1 - (business.reduction ?? 0) / 100);
       const totalPrice = unitPrice * quantity;
       const totalAmountHT = (arc.totalAmountHT ?? 0) + totalPrice;
@@ -56,6 +56,10 @@ export default function AppViewBusinessViewArcViewHeaderComponentSectionThreeCom
         productName: product.reference,
         reduction: business.reduction,
         publicUnitPrice: product.publicPrice,
+        stock:
+          product.virtualQty ||
+          product.bom ||
+          ((await queryClient.ensureQueryData(queries['product-stocks'].detail._ctx.byProductReference(product.reference!)))?.currentStock ?? 0) > 0,
         unitPrice,
         totalPrice,
         taxDEEE: 0,

@@ -65,26 +65,24 @@
             .content {
               width: 100%;
 
-              a {
+              a.mail_content {
                 display: flex;
                 flex-direction: column;
 
-                &.mail_content {
-                  p {
-                    &:nth-child(1) {
-                      color: var(--primary-light-color);
-                    }
+                p {
+                  &:nth-child(1) {
+                    color: var(--primary-light-color);
+                  }
 
-                    &:nth-child(2) {
-                      color: var(--primary-color);
-                      font-weight: normal;
-                      font-size: 12px;
-                    }
-
+                  &:nth-child(2) {
+                    color: var(--primary-color);
                     font-weight: normal;
                     font-size: 12px;
-                    width: 100%;
                   }
+
+                  font-weight: normal;
+                  font-size: 12px;
+                  width: 100%;
                 }
               }
 

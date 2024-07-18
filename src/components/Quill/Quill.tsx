@@ -5,7 +5,18 @@ const modules = {
     container: [
       ['bold', 'italic', 'underline'],
       [{ align: '' }, { align: 'center' }, { align: 'right' }, { align: 'justify' }],
-      ['link', 'image', 'video'],
+      ['link'],
+      [
+        {
+          color: [
+            '', // Default
+            '#5dc896', // Green
+            '#f08c62', // Orange
+            '#e26868', // Red
+            '#16204e', // Grey
+          ],
+        },
+      ],
     ],
   },
 };

@@ -45,7 +45,7 @@ export default function AppViewDashboardViewPersonalTasksComponentTableComponent
                       </Link>
                     </MenuItem>
                   )}
-                  {[(TaskState.CLOSED, TaskState.CREATED)].includes(task.state!) && (
+                  {[TaskState.CLOSED, TaskState.CREATED].includes(task.state!) && (
                     <MenuItem>
                       <Link
                         from={Route.id}

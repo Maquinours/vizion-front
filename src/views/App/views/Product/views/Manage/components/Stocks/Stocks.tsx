@@ -24,7 +24,7 @@ export default function AppViewProductViewManageViewStocksComponent() {
     <CardComponent title="Stocks">
       <div className={styles.container}>
         <div className={styles.button_container}>
-          <Link from={routeApi.id} to={'./create-stock'} search={(old) => old} className="btn btn-primary">
+          <Link from={routeApi.id} to="create-stock" search replace resetScroll={false} className="btn btn-primary">
             Ajouter sur étagère
           </Link>
           <RefreshButtonComponent className="btn btn-primary" style={{ marginLeft: '0.5rem' }} onRefresh={() => refetch()} isRefreshing={isRefetching} />
@@ -36,7 +36,7 @@ export default function AppViewProductViewManageViewStocksComponent() {
             <PaginationComponent
               page={page}
               totalPages={data?.totalPages}
-              pageLink={(page) => ({ from: routeApi.id, search: (old) => ({ ...old, stocksPage: page }), params: (old) => old })}
+              pageLink={(page) => ({ from: routeApi.id, search: (old) => ({ ...old, stocksPage: page }), replace: true, resetScroll: false })}
             />
           </div>
         </div>

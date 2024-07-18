@@ -14,7 +14,9 @@ export default function AppViewProductViewInformationsViewDeleteGedObjectModalVi
       type={FileType.PRODUIT}
       id={productId}
       objectRelativePath={gedObjectRelativePath}
-      onClose={() => navigate({ from: routeApi.id, to: '..', search: (old) => ({ lifesheetPage: old.lifesheetPage }) })}
+      onClose={() =>
+        navigate({ from: routeApi.id, to: '..', search: (old) => ({ ...old, gedObjectRelativePath: undefined }), replace: true, resetScroll: false })
+      }
     />
   );
 }

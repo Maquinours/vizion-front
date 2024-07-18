@@ -14,7 +14,7 @@ const columns = [
   columnHelper.display({
     header: 'Nom',
     cell: ({ row: { original } }) => (
-      <Link from={routeApi.id} to={'./$filterId'} params={(old) => ({ ...old, filterId: original.id })} search={(old) => old}>
+      <Link from={routeApi.id} to="$filterId" params={{ filterId: original.id }} search replace resetScroll={false}>
         {original.name}
       </Link>
     ),
@@ -22,7 +22,7 @@ const columns = [
   columnHelper.display({
     header: 'Description',
     cell: ({ row: { original } }) => (
-      <Link from={routeApi.id} to={'./$filterId'} params={(old) => ({ ...old, filterId: original.id })} search={(old) => old}>
+      <Link from={routeApi.id} to="$filterId" params={{ filterId: original.id }} search replace resetScroll={false}>
         {original.type}
       </Link>
     ),
@@ -30,7 +30,7 @@ const columns = [
   columnHelper.display({
     header: 'Unité',
     cell: ({ row: { original } }) => (
-      <Link from={routeApi.id} to={'./$filterId'} params={(old) => ({ ...old, filterId: original.id })} search={(old) => old}>
+      <Link from={routeApi.id} to="$filterId" params={{ filterId: original.id }} search replace resetScroll={false}>
         {original.unit}
       </Link>
     ),

@@ -4,6 +4,7 @@ import BillType from '../../../../../../utils/enums/BillType';
 import { pdf } from '@react-pdf/renderer';
 import AppViewBusinessViewBillViewPdfComponent from '../../../../../../views/App/views/Business/views/Bill/components/Pdf/Pdf';
 import LoaderModal from '../../../../../../components/LoaderModal/LoaderModal';
+import { formatFileName } from '../../../../../../utils/functions/files';
 
 export const Route = createFileRoute('/app/businesses-rma/business/$businessId/bill/send-by-email')({
   loader: async ({ context: { queryClient }, params: { businessId } }) => {
@@ -17,7 +18,7 @@ export const Route = createFileRoute('/app/businesses-rma/business/$businessId/b
     if (!bill) throw redirect({ from: Route.id, to: '..', replace: true });
 
     const blob = await pdf(<AppViewBusinessViewBillViewPdfComponent bill={bill} business={business} />).toBlob();
-    const file = new File([blob], `${bill.number}.pdf`.replace(/\s|-/g, '_'), {
+    const file = new File([blob], formatFileName(`${bill.number}.pdf`), {
       type: blob.type,
     });
 

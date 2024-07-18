@@ -42,11 +42,11 @@ export default function AppViewEnterpriseViewImportContactsModalViewStepOneCompo
           data.map((row) => ({
             lastName: row.Nom ?? '',
             firstName: row.Prenom,
-            civility: row.Civilité === 'M.' ? 'Monsieur' : row.Civilité === 'F' ? 'Madame' : 'Service',
+            civility: row.Civilité === 'M' ? 'Monsieur' : row.Civilité === 'F' ? 'Madame' : 'Service',
             email: row.Mail,
             password: null,
             phoneNumber: row.Telephone,
-            standardPhoneNumber: null,
+            standardPhoneNumber: row.Portable,
             landlinePhoneNumber: row.AGENCE,
             job: row.Fonction,
             profileClient: ProfileClient[row.Profil as keyof typeof ProfileClient],
@@ -64,7 +64,7 @@ export default function AppViewEnterpriseViewImportContactsModalViewStepOneCompo
   return (
     <div className={styles.modal_container}>
       <div className={styles.modal_title}>
-        <h6>Import de contact</h6>
+        <h6>Import de contacts</h6>
       </div>
 
       <div className={styles.modal_content}>

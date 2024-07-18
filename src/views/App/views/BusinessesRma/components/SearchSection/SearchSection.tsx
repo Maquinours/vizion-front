@@ -18,6 +18,7 @@ import { RiArrowDropDownLine, RiArrowDropUpLine } from 'react-icons/ri';
 import CurrencyFormat from '../../../../../../components/CurrencyFormat/CurrencyFormat';
 import { ClickAwayListener } from '@mui/material';
 import { E164Number } from 'libphonenumber-js';
+import { UserRole } from '../../../../../../utils/types/ProfileInfoResponseDto';
 
 const routeApi = getRouteApi('/app/businesses-rma');
 
@@ -33,7 +34,7 @@ const yupSchema = yup.object().shape({
   amounts: yup.array().of(yup.number().required()).length(2).required(),
   enterpriseName: yup.string(),
   state: yup.mixed<AllBusinessState>().oneOf(Object.values(AllBusinessState)),
-  dates: yup.array().of(yup.date().required().nullable()).min(2).max(2).required(),
+  dates: yup.array().of(yup.date()).min(2).max(2).required(),
   excludeds: yup
     .array()
     .of(yup.mixed<CategoryClient>().oneOf(Object.values(CategoryClient)).required())
@@ -41,7 +42,7 @@ const yupSchema = yup.object().shape({
   fuzzy: yup.boolean().required(),
 });
 
-const STATE_OPTIONS = [
+const STATE_OPTIONS: Array<{ label: string; value: AllBusinessState | ''; allowedRoles?: Array<UserRole> }> = [
   {
     label: 'Tous les états',
     value: '',
@@ -73,7 +74,7 @@ const STATE_OPTIONS = [
   {
     label: 'Archivée',
     value: AllBusinessState.ARCHIVE,
-    allowedRoles: ['ROLE_VIZEO', 'ROLE_DIRECTION_VIZEO', 'ROLE_STAGIAIRE_VIZEO', 'ROLE_REPRESENTANT_VIZEO'],
+    allowedRoles: ['ROLE_MEMBRE_VIZEO', 'ROLE_DIRECTION_VIZEO', 'ROLE_STAGIAIRE_VIZEO', 'ROLE_REPRESENTANT'],
   },
   {
     label: 'RMA Prise en charge',
@@ -128,7 +129,7 @@ const CATEGORY_OPTIONS = [
 export default function AppViewBusinessesRmaViewSearchSectionComponent() {
   const navigate = useNavigate({ from: routeApi.id });
 
-  const { numOrder, name, contact, deliverPhoneNumber, zipCode, representative, installer, amounts, enterpriseName, state, dates, excludeds, fuzzy } =
+  const { number, numOrder, name, contact, deliverPhoneNumber, zipCode, representative, installer, amounts, enterpriseName, state, dates, excludeds, fuzzy } =
     routeApi.useSearch();
 
   const [showAmounts, setShowAmounts] = useState(false);
@@ -143,7 +144,7 @@ export default function AppViewBusinessesRmaViewSearchSectionComponent() {
   const { register, control, setValue, resetField, reset, handleSubmit } = useForm({
     resolver: yupResolver(yupSchema),
     defaultValues: {
-      dates: [null, null],
+      dates: [undefined, undefined],
       amounts: [0, 80_000],
       excludeds: [CategoryClient.FOURNISSEUR],
       fuzzy: true,
@@ -232,6 +233,7 @@ export default function AppViewBusinessesRmaViewSearchSectionComponent() {
   );
 
   useEffect(() => {
+    setValue('number', number);
     setValue('numOrder', numOrder);
     setValue('name', name);
     setValue('contact', contact);
@@ -246,7 +248,7 @@ export default function AppViewBusinessesRmaViewSearchSectionComponent() {
     if (!!amounts) setValue('amounts', amounts);
     else resetField('amounts');
     setValue('fuzzy', fuzzy);
-  }, [numOrder, name, contact, deliverPhoneNumber, zipCode, installer, enterpriseName, state, dates, excludeds, amounts, fuzzy]);
+  }, [number, numOrder, name, contact, deliverPhoneNumber, zipCode, installer, enterpriseName, state, dates, excludeds, amounts, fuzzy]);
 
   useEffect(() => {
     if (representatives) setValue('representative', representatives.find((rep) => rep.id === representative)?.id);
@@ -266,8 +268,8 @@ export default function AppViewBusinessesRmaViewSearchSectionComponent() {
               <ReactDatePicker
                 selectsRange={true}
                 onChange={onChange}
-                startDate={value.at(0)}
-                endDate={value.at(1)}
+                startDate={value[0]}
+                endDate={value[1]}
                 allowSameDay
                 withPortal
                 closeOnScroll={true}
@@ -404,7 +406,7 @@ export default function AppViewBusinessesRmaViewSearchSectionComponent() {
           <input placeholder="Numéro de commande" id="businessNumOrder" {...register('numOrder')} />
           <input placeholder="Code Postal de livraison" id="zipCode" {...register('zipCode')} />
           {user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && (
-            <select id="representative" {...register('representative')}>
+            <select id="representative" {...register('representative', { onChange: handleSubmit(onSubmit) })}>
               {isLoadingRepresentatives ? (
                 <option value="">Chargement...</option>
               ) : (
@@ -419,7 +421,7 @@ export default function AppViewBusinessesRmaViewSearchSectionComponent() {
               )}
             </select>
           )}
-          <select id="state" {...register('state', { setValueAs: (val) => val || undefined })} defaultValue="">
+          <select id="state" {...register('state', { setValueAs: (val) => val || undefined, onChange: handleSubmit(onSubmit) })} defaultValue="">
             {stateOptions.map((item) => (
               <option key={item.value} value={item.value}>
                 {item.label}
@@ -453,7 +455,10 @@ export default function AppViewBusinessesRmaViewSearchSectionComponent() {
                       options={CATEGORY_OPTIONS}
                       isMulti
                       value={CATEGORY_OPTIONS.filter((opt) => value.some((val) => val === opt.value))}
-                      onChange={(e) => onChange(e.map((opt) => opt.value))}
+                      onChange={(e) => {
+                        onChange(e.map((opt) => opt.value));
+                        handleSubmit(onSubmit)();
+                      }}
                       styles={{
                         control: (styles) => ({
                           ...styles,
@@ -472,12 +477,26 @@ export default function AppViewBusinessesRmaViewSearchSectionComponent() {
                 />
               </div>
             )}
-            <div className="flex gap-1">
-              <label htmlFor="fuzzy" className="font-['DIN2014'] text-base text-[color:var(--primary-color)]">
-                Recherche floue
-              </label>
-              <input type="checkbox" id="fuzzy" {...register('fuzzy')} />
-            </div>
+            <Controller
+              control={control}
+              name="fuzzy"
+              render={({ field: { value, onChange } }) => (
+                <div className="flex gap-1">
+                  <label htmlFor="fuzzy" className="font-['DIN2014'] text-base text-[color:var(--primary-color)]">
+                    Recherche floue
+                  </label>
+                  <input
+                    type="checkbox"
+                    id="fuzzy"
+                    checked={value}
+                    onChange={(e) => {
+                      onChange(e);
+                      handleSubmit(onSubmit)();
+                    }}
+                  />
+                </div>
+              )}
+            />
           </div>
           <div>
             <button className="btn btn-primary-light" type="reset">

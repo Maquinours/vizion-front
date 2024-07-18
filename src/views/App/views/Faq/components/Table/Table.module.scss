@@ -4,8 +4,6 @@
   margin-top: 1rem;
   width: auto;
   border-bottom: 1px solid #31385a;
-  max-height: 75vh;
-  overflow-y: auto;
 
   table {
     width: 100%;
@@ -13,8 +11,9 @@
     tbody {
       border-left: 1px solid #31385a;
       border-right: 1px solid #31385a;
-      min-height: 60vh;
+      max-height: 80vh;
       display: block;
+      overflow-y: scroll;
 
       &::-webkit-scrollbar {
         width: 3px;
@@ -56,14 +55,14 @@
         td {
           font: normal normal normal 14px/18px 'DIN2014';
           color: #16204e;
-          padding-left: 1rem;
+          padding: 1rem;
 
           @include respond-below(md) {
             padding-left: 10px;
           }
 
           height: 35px;
-          text-align: left;
+          text-align: center;
 
           &:nth-child(1) {
             width: 5%;
@@ -91,110 +90,27 @@
             }
           }
 
-          &:nth-child(2) {
-            width: 35%;
-            font: normal normal 600 14px/18px 'DIN2014';
+          &:nth-child(1) {
+            width: 5%;
+            border-top-left-radius: 5px;
+          }
 
-            @include respond-below(sm) {
-              width: 30%;
-            }
+          &:nth-child(2) {
+            font: normal normal 600 14px/18px 'DIN2014';
+            width: 50%;
           }
 
           &:nth-child(3) {
-            width: 20%;
+            width: 25%;
           }
 
           &:nth-child(4) {
             width: 20%;
           }
 
-          &:nth-child(5) {
-            width: 15%;
-          }
-
-          &:nth-child(6) {
-            width: 5%;
-            text-align: right;
-
-            div.tooltip {
-              position: relative;
-              width: auto;
-
-              svg {
-                position: relative;
-                color: var(--secondary-color);
-                font-size: 20px;
-                align-self: center;
-                cursor: pointer;
-                padding-right: 5px;
-              }
-
-              .content {
-                display: none;
-                position: absolute;
-                width: 150px;
-                height: auto;
-                font-size: 16px;
-                font-weight: normal;
-                color: #fff;
-                border-radius: 6px;
-                padding: 5px;
-                z-index: 2;
-                top: -10px;
-                right: 25px;
-                background: #ffffff 0% 0% no-repeat padding-box;
-                border: 1px solid #31385a;
-                border-radius: 5px;
-
-                ul {
-                  width: 100%;
-                  height: 100%;
-                  overflow: auto;
-                  padding: 0.2rem 0;
-
-                  li {
-                    display: flex;
-                    align-items: center;
-                    // margin-bottom: 0.5rem;
-                    padding: 0.2rem 0.2rem;
-                    cursor: pointer;
-
-                    span.icon {
-                      margin-right: 4px;
-                    }
-
-                    span.text {
-                      font: normal normal normal 12px/15px 'DIN2014';
-                      letter-spacing: 0px;
-                      color: #16204e;
-                    }
-
-                    &:hover {
-                      background-color: #16204e1d;
-                    }
-                  }
-                }
-              }
-
-              .content::after {
-                content: '';
-                position: absolute;
-                top: 13px;
-                right: -11px;
-                z-index: 5;
-                width: 0;
-                height: 0;
-                border-top: 5px solid transparent;
-                border-left: 10px solid var(--primary-color);
-                border-bottom: 5px solid transparent;
-              }
-
-              &:hover {
-                .content {
-                  display: initial;
-                }
-              }
-            }
+          &:nth-last-child(1) {
+            width: 0px;
+            padding: 0px;
           }
         }
       }
@@ -221,6 +137,9 @@
     line-height: 18px;
     color: #ebeef8;
     box-shadow: 0px 3px 5px #10173526;
+    display: table;
+    width: 100%;
+    table-layout: fixed;
 
     @include respond-below(md) {
       font-size: 12px;
@@ -230,8 +149,8 @@
     th {
       background-color: var(--primary-color);
       height: 38px;
-      padding-left: 0.5rem;
-      text-align: left;
+      padding: 1rem;
+      text-align: center;
       border: none;
       border-right: 2px solid #686e89;
       position: sticky;
@@ -247,26 +166,26 @@
       }
 
       &:nth-child(2) {
-        width: 35%;
+        width: 50%;
       }
 
       &:nth-child(3) {
-        width: 20%;
+        width: 25%;
       }
 
       &:nth-child(4) {
         width: 20%;
       }
 
-      &:nth-child(5) {
-        border-right: none;
-        width: 15%;
-      }
-
-      &:nth-child(6) {
+      &:nth-last-child(1) {
+        width: 1.1rem;
+        padding: 0px;
         border-top-right-radius: 5px;
         border-right: none;
-        width: 5%;
+      }
+
+      &:nth-last-child(2) {
+        border-right: none;
       }
     }
   }

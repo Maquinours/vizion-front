@@ -175,13 +175,13 @@
                     color: #16204e;
                   }
 
-                  p {
-                    text-align: left;
+                  p.__errors {
+                    text-align: center;
                     font-family: 'DIN2014';
                     font-style: normal;
                     font-weight: normal;
                     font-variant: normal;
-                    font-size: 8px;
+                    font-size: 11px;
                     line-height: 10px;
                     letter-spacing: 0px;
                     color: var(--secondary-color);

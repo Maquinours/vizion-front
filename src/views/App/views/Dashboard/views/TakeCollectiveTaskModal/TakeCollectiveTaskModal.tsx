@@ -6,8 +6,6 @@ import { PulseLoader } from 'react-spinners';
 import { toast } from 'react-toastify';
 import { attributeTask } from '../../../../../../utils/api/task';
 import { queries } from '../../../../../../utils/constants/queryKeys';
-import WorkloadType from '../../../../../../utils/enums/WorkloadType';
-import TaskResponseDto from '../../../../../../utils/types/TaskResponseDto';
 import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthentifiedUser';
 import styles from './TakeCollectiveTaskModal.module.scss';
 
@@ -29,11 +27,8 @@ export default function AppViewDashboardViewTakeCollectiveTaskModalView() {
 
   const { mutate, isPending } = useMutation({
     mutationFn: () => attributeTask(task.id, currentUser.profile.id, task.senderId && !task.mailId ? task.senderId : currentUser.profile.id, false),
-    onSuccess: (data) => {
-      queryClient.setQueryData<Array<TaskResponseDto>>(queries.tasks.list._ctx.byType(WorkloadType.COLLECTIVE).queryKey, (old) =>
-        old?.filter((t) => t.id !== data.id),
-      );
-      // TODO: set to personal task
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: queries.tasks._def });
       toast.success('Charge de travail prise en charge avec succès.');
       onClose();
     },

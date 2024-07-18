@@ -32,7 +32,7 @@ export default function ImportGedFilesModalComponent({ directoryRelativePath, id
   const { mutate, isPending } = useMutation({
     mutationFn: () =>
       uploadFilesOnS3(
-        directoryRelativePath ?? `ged/${type.toLowerCase()}/${id}/`,
+        directoryRelativePath.replace(/\/+$/, ''), // We remove trailing slashes
         id,
         type,
         files.map((file) => file.file),
@@ -104,7 +104,7 @@ export default function ImportGedFilesModalComponent({ directoryRelativePath, id
               </div>
 
               <div className={styles.form_buttons}>
-                <button className="btn btn-primary-light" onClick={() => setFiles([])}>
+                <button className="btn btn-primary-light" onClick={() => onClose()}>
                   Annuler
                 </button>
                 <button disabled={files.length === 0} className="btn btn-secondary" onClick={() => mutate()}>

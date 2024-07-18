@@ -1,59 +1,50 @@
 import { Row } from '@tanstack/react-table';
-import EnterpriseResponseDto from '../../../../../../../../utils/types/EnterpriseResponseDto';
 import { useState } from 'react';
-import styles from './ContactsCell.module.scss';
 import { IoMdArrowDropdown, IoMdArrowDropright } from 'react-icons/io';
+import EnterpriseResponseDto from '../../../../../../../../utils/types/EnterpriseResponseDto';
 import ProfileResponseDto from '../../../../../../../../utils/types/ProfileResponseDto';
-import { VirtualElement } from '@popperjs/core';
-import AppViewEnterprisesViewTableComponentContactsCellComponentContextMenuComponent from './components/ContextMenu/ContextMenu';
+import styles from './ContactsCell.module.scss';
 
-type AppViewEnterprisesViewTableComponentContactsCellComponentProps = Readonly<{ row: Row<EnterpriseResponseDto> }>;
+type AppViewEnterprisesViewTableComponentContactsCellComponentProps = Readonly<{
+  row: Row<EnterpriseResponseDto>;
+  onContactContextMenu: (e: React.MouseEvent, contact: ProfileResponseDto) => void;
+}>;
 
 export default function AppViewEnterprisesViewTableComponentContactsCellComponent({
   row: { original },
+  onContactContextMenu,
 }: AppViewEnterprisesViewTableComponentContactsCellComponentProps) {
   const [isOpen, setIsOpen] = useState(false);
 
-  const [contextMenuAnchor, setContextMenuAnchor] = useState<VirtualElement>();
-  const [contact, setContact] = useState<ProfileResponseDto>();
-
-  const onContactContextMenu = (e: React.MouseEvent, contact: ProfileResponseDto) => {
-    e.preventDefault();
-    setContact(contact);
-    setContextMenuAnchor({
-      getBoundingClientRect: () => ({
-        width: 0,
-        height: 0,
-        x: e.clientX,
-        y: e.clientY,
-        top: e.clientY,
-        right: e.clientX,
-        bottom: e.clientY,
-        left: e.clientX,
-        toJSON: () => {},
-      }),
-    });
+  const onClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    e.nativeEvent.stopImmediatePropagation();
   };
 
   return (
-    <>
-      <ul className={styles.container}>
-        {original.profiles.length > 1 && !isOpen ? (
-          <li>
-            <div>
-              <span>{original.profiles.length} contacts</span>
-              <button onClick={() => setIsOpen(true)}>
-                <IoMdArrowDropright />
-              </button>
-            </div>
-          </li>
-        ) : (
-          original.profiles.map((contact, index, arr) => (
+    <ul className={styles.container} onClick={onClick}>
+      {original.profiles.length > 1 && !isOpen ? (
+        <li>
+          <button onClick={() => setIsOpen(true)}>
+            <span>{original.profiles.length} contacts</span>
+            <IoMdArrowDropright />
+          </button>
+        </li>
+      ) : (
+        original.profiles.map((contact, index, arr) => {
+          const isDropDownItem = index === 0 && arr.length > 1;
+          const children = (
             <li key={contact.id} onContextMenu={(e) => onContactContextMenu(e, contact)}>
               <span>{contact.landlinePhoneNumber}</span>
               <span>
                 {contact.standardPhoneNumber ? (
-                  <a href={`tel:${contact.standardPhoneNumber}`}>
+                  <a
+                    href={`tel:${contact.standardPhoneNumber}`}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      e.nativeEvent.stopImmediatePropagation();
+                    }}
+                  >
                     {contact.firstName} {contact.lastName}
                   </a>
                 ) : (
@@ -61,21 +52,14 @@ export default function AppViewEnterprisesViewTableComponentContactsCellComponen
                     {contact.firstName} {contact.lastName}
                   </>
                 )}
-                {index === 0 && arr.length > 1 && (
-                  <button onClick={() => setIsOpen(false)}>
-                    <IoMdArrowDropdown />
-                  </button>
-                )}
+                {isDropDownItem && <IoMdArrowDropdown />}
               </span>
             </li>
-          ))
-        )}
-      </ul>
-      <AppViewEnterprisesViewTableComponentContactsCellComponentContextMenuComponent
-        contact={contact}
-        anchorElement={contextMenuAnchor}
-        setAnchorElement={setContextMenuAnchor}
-      />
-    </>
+          );
+          if (isDropDownItem) return <button onClick={() => setIsOpen(false)}>{children}</button>;
+          return children;
+        })
+      )}
+    </ul>
   );
 }

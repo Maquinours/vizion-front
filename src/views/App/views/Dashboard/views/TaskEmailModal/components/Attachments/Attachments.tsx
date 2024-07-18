@@ -27,7 +27,7 @@ export default function AppViewDashboardViewTaskEmailModalViewAttachmentsCompone
   task,
   email,
 }: AppViewDashboardViewTaskEmailModalViewAttachmentsComponentProps) {
-  const { register, watch, setValue, handleSubmit } = useForm({
+  const { register, getValues, watch, setValue, handleSubmit } = useForm({
     resolver: yupResolver(yupSchema),
     defaultValues: {
       copy: false,
@@ -74,6 +74,7 @@ export default function AppViewDashboardViewTaskEmailModalViewAttachmentsCompone
               key={attachment.id}
               email={email}
               attachment={attachment}
+              getValues={getValues}
               watch={watch}
               setValue={setValue}
             />

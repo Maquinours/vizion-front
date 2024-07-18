@@ -157,7 +157,7 @@ export default function AppViewToolsViewExternalLinksViewUpdateModalView() {
                 <label className={styles.label} htmlFor="title">
                   Titre
                 </label>
-                <input type="text" {...register('title')} name="title" id="title" />
+                <input type="text" {...register('title')} id="title" />
                 <p className={styles.__errors}>{errors.title?.message}</p>
               </div>
               <div className={styles.form_group}>
@@ -177,7 +177,7 @@ export default function AppViewToolsViewExternalLinksViewUpdateModalView() {
                 <label className={styles.label} htmlFor="targetType">
                   TARGET
                 </label>
-                <select {...register('targetType')} name="targetType" id="targetType">
+                <select {...register('targetType')} id="targetType">
                   {[
                     { label: 'VIZION', value: 'INTERN' },
                     { label: 'ORIGINE', value: 'EXTERN' },
@@ -193,7 +193,7 @@ export default function AppViewToolsViewExternalLinksViewUpdateModalView() {
                 <label className={styles.label} htmlFor="url">
                   URL
                 </label>
-                <input type="url" {...register('url')} name="url" id="url" />
+                <input type="url" {...register('url')} id="url" />
                 <p className={styles.__errors}>{errors.url?.message}</p>
               </div>
               <div className={styles.form_group}>

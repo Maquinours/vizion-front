@@ -109,8 +109,8 @@ export default function AppViewToolsViewMailsViewUpdateModalViewFormModalCompone
                 <label htmlFor="enterprise">Entreprise</label>
                 <div className={styles.react_select_custom}>
                   <Controller
-                    name="enterprise"
                     control={control}
+                    name="enterprise"
                     render={({ field: { onChange, value } }) => (
                       <CustomSelect
                         options={enterprises}

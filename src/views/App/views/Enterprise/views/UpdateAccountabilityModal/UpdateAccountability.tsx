@@ -105,7 +105,6 @@ export default function AppViewEnterpriseViewUpdateAccountabilityModalView() {
                   type="text"
                   {...register('billingServiceName')}
                   placeholder="Nom du service de facturation"
-                  name="company_facturation_name"
                   autoCorrect="true"
                   id="company_facturation_name"
                 />
@@ -115,52 +114,28 @@ export default function AppViewEnterpriseViewUpdateAccountabilityModalView() {
                 <label className="label" htmlFor="company_email_comptable">
                   Email comptable :
                 </label>
-                <input
-                  type="email"
-                  {...register('accountingEmail')}
-                  placeholder="Email"
-                  name="company_email_comptable"
-                  id="company_email_comptable"
-                  autoCorrect="true"
-                  autoComplete="off"
-                />
+                <input type="email" {...register('accountingEmail')} placeholder="Email" id="company_email_comptable" autoCorrect="true" autoComplete="off" />
                 <p className={styles.__errors}>{errors.accountingEmail?.message}</p>
               </div>
               <div className={styles.form__group}>
                 <label className="label" htmlFor="company_sirenNumber">
                   N° SIREN :
                 </label>
-                <input
-                  type="number"
-                  {...register('siren')}
-                  placeholder="N° SIREN"
-                  name="company_sirenNumber"
-                  id="company_sirenNumber"
-                  autoCorrect="true"
-                  autoComplete="off"
-                />
+                <input type="number" {...register('siren')} placeholder="N° SIREN" id="company_sirenNumber" autoCorrect="true" autoComplete="off" />
                 <p className={styles.__errors}>{errors.siren?.message}</p>
               </div>
               <div className={styles.form__group}>
                 <label className="label" htmlFor="company_taxeNumber">
                   N° de TVA :
                 </label>
-                <input
-                  {...register('vatNumber')}
-                  type="text"
-                  placeholder="N° de TVA "
-                  name="company_taxeNumber"
-                  id="company_taxeNumber"
-                  autoCorrect="true"
-                  autoComplete="off"
-                />
+                <input {...register('vatNumber')} type="text" placeholder="N° de TVA " id="company_taxeNumber" autoCorrect="true" autoComplete="off" />
                 <p className={styles.__errors}>{errors.vatNumber?.message}</p>
               </div>
               <div className={styles.form__group}>
                 <label className="label" htmlFor="company_discount">
                   Remise
                 </label>
-                <input {...register('discount')} type="number" placeholder="Remise" name="company_discount" id="company_discount" />
+                <input {...register('discount')} type="number" placeholder="Remise" id="company_discount" />
                 <p className={styles.__errors}>{errors.discount?.message}</p>
               </div>
               <div className={styles.form__group}>
@@ -171,7 +146,6 @@ export default function AppViewEnterpriseViewUpdateAccountabilityModalView() {
                   {...register('accountNumber')}
                   type="text"
                   placeholder="Numéro de compte comptable"
-                  name="company_accounting_account_number"
                   id="company_accounting_account_number"
                   autoCorrect="true"
                   autoComplete="off"

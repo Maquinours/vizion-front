@@ -1,23 +1,45 @@
-import React from 'react';
-import styles from './Address.module.scss';
-import AddressResponseDto from '../../../../../../../../../../utils/types/AddressResponseDto';
-import { MdLocalPhone, MdLocationPin } from 'react-icons/md';
+import { Link, getRouteApi } from '@tanstack/react-router';
 import { AiOutlineMail } from 'react-icons/ai';
+import { BsThreeDots } from 'react-icons/bs';
+import { FaTrash } from 'react-icons/fa';
+import { HiPencilAlt } from 'react-icons/hi';
+import { MdLocalPhone, MdLocationPin } from 'react-icons/md';
+import AddressResponseDto from '../../../../../../../../../../utils/types/AddressResponseDto';
+import styles from './Address.module.scss';
+
+const routeApi = getRouteApi('/app/enterprises/$enterpriseId/address-book');
 
 type AppViewEnterpriseViewAddressBookModalViewAddressesComponentPropsAddressComponentProps = Readonly<{
   address: AddressResponseDto;
   index: number;
-  onContextMenu: (e: React.MouseEvent, address: AddressResponseDto) => void;
 }>;
 export default function AppViewEnterpriseViewAddressBookModalViewAddressesComponentAddressComponent({
   address,
   index,
-  onContextMenu,
 }: AppViewEnterpriseViewAddressBookModalViewAddressesComponentPropsAddressComponentProps) {
   return (
-    <button className={styles.address_card} onContextMenu={(e) => onContextMenu(e, address)}>
+    <div className={styles.address_card}>
       <div className={styles.header}>
         <div className={styles.header_title}>Adresse {index + 1}</div>
+        <div className={styles.header_icon}>
+          <BsThreeDots color="#F24C52" />
+          <div className={styles.header_tooltip}>
+            <div>
+              <Link from={routeApi.id} to="update/$addressId" search={(old) => old} params={{ addressId: address.id }} replace resetScroll={false}>
+                <span className={styles.icon}>
+                  <HiPencilAlt width={13} height={13} color={'#16204E'} />
+                </span>
+                <span className={styles.text}>Modifier</span>
+              </Link>
+              <Link from={routeApi.id} to="delete/$addressId" search={(old) => old} params={{ addressId: address.id }} replace resetScroll={false}>
+                <span className={styles.icon}>
+                  <FaTrash width={13} height={13} color={'#16204E'} />
+                </span>
+                <span className={styles.text}>Supprimer la ligne</span>
+              </Link>
+            </div>
+          </div>
+        </div>
       </div>
       <div className={styles.divider} />
       <div className={styles.content}>
@@ -51,6 +73,6 @@ export default function AppViewEnterpriseViewAddressBookModalViewAddressesCompon
           </div>
         </div>
       </div>
-    </button>
+    </div>
   );
 }

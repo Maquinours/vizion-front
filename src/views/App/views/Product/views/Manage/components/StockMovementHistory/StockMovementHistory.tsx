@@ -7,7 +7,7 @@ import CardComponent from '../../../../../../../../components/Card/Card';
 import PaginationComponent from '../../../../../../../../components/Pagination/Pagination';
 import RefreshButtonComponent from '../../../../../../../../components/RefreshButton/RefreshButton';
 import TableComponent from '../../../../../../../../components/Table/Table';
-import { queries } from '../../../../../../../../utils/constants/queryKeys';
+import { productStockEntriesQueryKeys } from '../../../../../../../../utils/constants/queryKeys/productStockEntries';
 import { formatDateAndHourWithSlash } from '../../../../../../../../utils/functions/dates';
 import ProductStockEntryResponseDto from '../../../../../../../../utils/types/ProductStockEntryResponseDto';
 import styles from './StockMovementHistory.module.scss';
@@ -54,12 +54,14 @@ export default function AppViewProductViewManageViewStockMovementHistoryComponen
   const { productId } = routeApi.useParams();
   const { stockEntriesPage: page, stockEntriesSize: size } = routeApi.useSearch();
 
-  const { data, isLoading, refetch, isRefetching } = useQuery(queries.product.detail(productId)._ctx.stockEntries._ctx.page({ page, size }));
+  const { data, isLoading, refetch, isRefetching } = useQuery(productStockEntriesQueryKeys.page._ctx.byProductId(productId, { page, size }));
 
   const onSizeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     navigate({
       from: routeApi.id,
       search: (old) => ({ ...old, stockEntriesPage: 0, stockEntriesSize: Number(e.target.value) as 10 | 100 | 5 | 20 | 50 | 15 | 25 | 30 }),
+      replace: true,
+      resetScroll: false,
     });
   };
 
@@ -85,7 +87,7 @@ export default function AppViewProductViewManageViewStockMovementHistoryComponen
             <PaginationComponent
               page={page}
               totalPages={data?.totalPages}
-              pageLink={(page) => ({ from: routeApi.id, search: (old) => ({ ...old, stockEntriesPage: page }), params: (old) => old })}
+              pageLink={(page) => ({ from: routeApi.id, search: (old) => ({ ...old, stockEntriesPage: page }), replace: true, resetScroll: false })}
             />
           </div>
         </div>

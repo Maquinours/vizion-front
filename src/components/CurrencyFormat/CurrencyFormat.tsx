@@ -1,32 +1,9 @@
-import React from 'react';
-import { NumericFormat } from 'react-number-format';
+import { NumericFormatProps } from 'react-number-format';
+import AmountFormat from '../AmountFormat/AmountFormat';
 
-type CurrencyFormatProps = Readonly<{
-  value: string | number | null | undefined;
-  defaultValue?: number;
-  prefix?: string;
-  displayType?: 'text' | 'input';
-  onChange?: React.ChangeEventHandler<HTMLInputElement>;
-  className?: string;
-  style?: React.CSSProperties;
-  allowNegative?: boolean;
-}>;
-export default function CurrencyFormat({ value, defaultValue, prefix, displayType = 'text', onChange, className, style, allowNegative }: CurrencyFormatProps) {
-  return (
-    <NumericFormat
-      value={value}
-      className={className}
-      displayType={displayType}
-      decimalSeparator=","
-      thousandSeparator=" "
-      suffix=" €"
-      decimalScale={2}
-      fixedDecimalScale
-      defaultValue={defaultValue}
-      prefix={prefix}
-      onChange={onChange}
-      style={style}
-      allowNegative={allowNegative}
-    />
-  );
+type CurrencyFormatProps = Readonly<Omit<NumericFormatProps, 'decimalSeparator' | 'thousandSeparator' | 'suffix' | 'decimalScale' | 'fixedDecimalScale'>> & {
+  currency?: '€' | '$';
+};
+export default function CurrencyFormat({ currency = '€', ...props }: CurrencyFormatProps) {
+  return <AmountFormat suffix={` ${currency}`} decimalScale={2} fixedDecimalScale {...props} />;
 }

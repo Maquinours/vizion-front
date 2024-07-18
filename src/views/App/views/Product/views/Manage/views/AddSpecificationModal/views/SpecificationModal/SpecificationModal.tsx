@@ -9,6 +9,7 @@ import * as yup from 'yup';
 import { addProductSpecificationToProduct } from '../../../../../../../../../../utils/api/productSpecification';
 import { queries } from '../../../../../../../../../../utils/constants/queryKeys';
 import styles from './SpecificationModal.module.scss';
+import { productSpecificationsQueryKeys } from '../../../../../../../../../../utils/constants/queryKeys/productSpecifications';
 
 const routeApi = getRouteApi('/app/products/$productId/manage/add-specification/$filterId');
 
@@ -51,14 +52,14 @@ export default function AppViewProductViewManageViewAddSpecificationModalViewSpe
   });
 
   const onClose = () => {
-    navigate({ from: routeApi.id, to: '../..', search: (old) => old });
+    navigate({ from: routeApi.id, to: '../..', search: true, replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({
     mutationFn: ({ value, minValue, maxValue }: yup.InferType<typeof yupSchema>) =>
       addProductSpecificationToProduct(productId, filter.id, value ?? null, minValue ?? null, maxValue ?? null),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: queries.product._def });
+      queryClient.invalidateQueries({ queryKey: productSpecificationsQueryKeys._def });
       toast.success('La valeur a été ajoutée avec succès.');
       onClose();
     },

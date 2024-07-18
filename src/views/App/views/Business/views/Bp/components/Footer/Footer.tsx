@@ -75,7 +75,7 @@ export default function AppViewBusinessViewBpViewFooterComponent() {
       navigate({ to: '../bl', replace: true });
     },
     onError: (error) => {
-      if (!isAxiosError(error) && error.message === 'NO PRODUCT') toast.warning('Aucun produit preparé');
+      if (!isAxiosError(error) && error.message === 'NO PRODUCT') toast.warning('Aucun produit préparé');
       else {
         console.error(error);
         toast.error('Une erreur est survenue lors de la création du bon de livraison');
@@ -97,7 +97,7 @@ export default function AppViewBusinessViewBpViewFooterComponent() {
       {!business.archived && (
         <div className={styles.buttons_container}>
           {business.deliveryMode !== 'A disposition' && (
-            <Link from={routeApi.id} to="travel-voucher" search={(old) => old} replace className="btn btn-primary">
+            <Link from={routeApi.id} to="travel-voucher" search replace resetScroll={false} className="btn btn-primary">
               Editer BT
             </Link>
           )}

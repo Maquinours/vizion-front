@@ -33,9 +33,11 @@ const columns = [
     cell: ({ row: { original } }) => (
       <Link
         from={routeApi.id}
-        to={'./remove-associated-product/$associatedProductId'}
-        params={(old) => ({ ...old, associatedProductId: original.id })}
-        search={(old) => old}
+        to="remove-associated-product/$associatedProductId"
+        params={{ associatedProductId: original.id }}
+        search
+        replace
+        resetScroll={false}
         className={styles.action}
       >
         <IoIosClose />
@@ -56,7 +58,7 @@ export default function AppViewProductViewManageViewAssociatedProductsComponent(
     <CardComponent title="Produits associés">
       <div className={styles.container}>
         <div className={styles.button_container}>
-          <Link from={routeApi.id} to={'./add-associated-product'} search={(old) => old} className="btn btn-primary">
+          <Link from={routeApi.id} to={'add-associated-product'} search replace resetScroll={false} className="btn btn-primary">
             Ajouter un produit associé
           </Link>
           <RefreshButtonComponent className="btn btn-primary" style={{ marginLeft: '0.5rem' }} onRefresh={() => refetch()} isRefreshing={isRefetching} />
@@ -70,7 +72,13 @@ export default function AppViewProductViewManageViewAssociatedProductsComponent(
             <PaginationComponent
               page={page}
               totalPages={data?.totalElements}
-              pageLink={(page) => ({ from: routeApi.id, search: (old) => ({ ...old, associatedProductsPage: page }), params: (old) => old })}
+              pageLink={(page) => ({
+                from: routeApi.id,
+                search: (old) => ({ ...old, associatedProductsPage: page }),
+                params: (old) => old,
+                replace: true,
+                resetScroll: false,
+              })}
             />
           </div>
         </div>

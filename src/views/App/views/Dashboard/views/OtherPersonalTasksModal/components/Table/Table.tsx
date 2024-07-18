@@ -1,5 +1,5 @@
 import { VirtualElement } from '@popperjs/core';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { Link, getRouteApi, useNavigate } from '@tanstack/react-router';
 import { Row, createColumnHelper } from '@tanstack/react-table';
 import classNames from 'classnames';
@@ -16,7 +16,6 @@ import TaskResponseDto from '../../../../../../../../utils/types/TaskResponseDto
 import { useAuthentifiedUserQuery } from '../../../../../../utils/functions/getAuthentifiedUser';
 import styles from './Table.module.scss';
 import AppViewDashboardViewPersonalTasksComponentPersonalTasksComponentTableComponentContextMenuComponent from './components/ContextMenu/ContextMenu';
-import { markTaskAsRead } from './utils/api/tasks';
 
 const Route = getRouteApi('/app/dashboard/other-personal-tasks/$profileId');
 
@@ -30,7 +29,6 @@ export default function AppViewDashboardViewOtherPersonalTasksModalViewTableComp
   data,
   isLoading,
 }: AppViewDashboardViewOtherPersonalTasksModalViewTableComponentProps) {
-  const queryClient = useQueryClient();
   const navigate = useNavigate();
 
   const [task, setTask] = useState<TaskResponseDto>();
@@ -42,10 +40,9 @@ export default function AppViewDashboardViewOtherPersonalTasksModalViewTableComp
 
   const onMailTaskClick = useCallback(
     (original: TaskResponseDto) => {
-      queryClient.setQueryData(queries.tasks.detail(original.id).queryKey, original);
       navigate({ from: Route.id, to: '../../task-email/$taskId', params: { taskId: original.id }, search: (old) => old });
     },
-    [queryClient, navigate],
+    [navigate],
   );
 
   const columns = useMemo(
@@ -77,7 +74,14 @@ export default function AppViewDashboardViewOtherPersonalTasksModalViewTableComp
                 <p className="text-secondary">A : {original.receiver?.to?.toString().split(';').join(' ')}</p>
                 <p>
                   De :{' '}
-                  <a onClick={(e) => e.stopPropagation()} href={`mailto:${original.name}`}>
+                  <a
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      e.nativeEvent.stopImmediatePropagation();
+                    }}
+                    href={`mailto:${original.name}`}
+                    className="text-blue-600 underline visited:text-purple-600 hover:text-blue-800"
+                  >
                     {original.name}
                   </a>
                 </p>
@@ -138,38 +142,6 @@ export default function AppViewDashboardViewOtherPersonalTasksModalViewTableComp
     [currentUser.profile.id, members, onMailTaskClick],
   );
 
-  const { mutate: readTaskMutate } = useMutation({
-    mutationFn: (task: TaskResponseDto) => markTaskAsRead(task),
-    onMutate: (task) => {
-      const newTask = { ...task, taskOpened: true };
-      queryClient.setQueriesData<Page<TaskResponseDto>>({ queryKey: queries.tasks.page.queryKey }, (old) =>
-        old ? { ...old, content: old?.content.map((t) => (t.id === task.id ? newTask : t)) } : old,
-      );
-      queryClient.setQueriesData<Array<TaskResponseDto>>({ queryKey: queries.tasks.list.queryKey }, (old) => old?.map((t) => (t.id === task.id ? newTask : t)));
-      queryClient.setQueriesData<TaskResponseDto>({ queryKey: queries.tasks.detail._def }, (old) => (old?.id === task.id ? newTask : old));
-    },
-    onError: (error, task) => {
-      queryClient.setQueriesData<Page<TaskResponseDto>>({ queryKey: queries.tasks.page.queryKey }, (old) =>
-        old ? { ...old, content: old?.content.map((t) => (t.id === task.id ? { ...t, taskOpened: false } : t)) } : old,
-      );
-      queryClient.setQueriesData<Array<TaskResponseDto>>({ queryKey: queries.tasks.list.queryKey }, (old) =>
-        old?.map((t) => (t.id === task.id ? { ...t, taskOpened: false } : t)),
-      );
-      queryClient.setQueriesData<TaskResponseDto>({ queryKey: queries.tasks.detail._def }, (old) =>
-        old?.id === task.id ? { ...old, taskOpened: false } : old,
-      );
-
-      console.error(error);
-    },
-  });
-
-  const onRowClick = (e: React.MouseEvent, row: Row<TaskResponseDto>) => {
-    if (!row.original.taskOpened) {
-      e.preventDefault();
-      readTaskMutate(row.original);
-    }
-  };
-
   const onRowContextMenu = (e: React.MouseEvent, row: Row<TaskResponseDto>) => {
     e.preventDefault();
     setTask(row.original);
@@ -192,7 +164,7 @@ export default function AppViewDashboardViewOtherPersonalTasksModalViewTableComp
   return (
     <>
       <div className={styles.table_container}>
-        <TableComponent columns={columns} data={data?.content} isLoading={isLoading} onRowClick={onRowClick} onRowContextMenu={onRowContextMenu} rowId={'id'} />
+        <TableComponent columns={columns} data={data?.content} isLoading={isLoading} onRowContextMenu={onRowContextMenu} rowId={'id'} />
       </div>
       <AppViewDashboardViewPersonalTasksComponentPersonalTasksComponentTableComponentContextMenuComponent
         anchor={contextMenuAnchor}

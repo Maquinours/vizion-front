@@ -1,5 +1,5 @@
 import { createQueryKeys } from '@lukemorales/query-key-factory';
-import { getProductVersionById, getProductVersions, getProductVersionsByProductId } from '../../api/productVersion';
+import { getProductVersionById, getProductVersions, getProductVersionsByProductId, getProductVersionsPageByProductId } from '../../api/productVersion';
 
 export const productVersions = createQueryKeys('product-versions', {
   list: {
@@ -12,6 +12,15 @@ export const productVersions = createQueryKeys('product-versions', {
       byProductId: (productId: string) => ({
         queryKey: [productId],
         queryFn: () => getProductVersionsByProductId(productId),
+      }),
+    },
+  },
+  page: {
+    queryKey: null,
+    contextQueries: {
+      byProductId: (productId: string, { page, size }: { page: number; size: number }) => ({
+        queryKey: [{ productId, page, size }],
+        queryFn: () => getProductVersionsPageByProductId(productId, page, size),
       }),
     },
   },

@@ -1,14 +1,15 @@
+import { Link, getRouteApi, useNavigate } from '@tanstack/react-router';
 import { Row, createColumnHelper } from '@tanstack/react-table';
 import React, { useCallback, useMemo } from 'react';
-import AllBusinessResponseDto from '../../../../../../utils/types/AllBusinessResponseDto';
-import { Link, getRouteApi, useNavigate } from '@tanstack/react-router';
-import AllBusinessState from '../../../../../../utils/enums/AllBusinessState';
-import { formatDateAndHourWithSlash } from '../../../../../../utils/functions/dates';
-import CategoryBusiness from '../../../../../../utils/enums/CategoryBusiness';
 import CurrencyFormat from '../../../../../../components/CurrencyFormat/CurrencyFormat';
+import TableComponent from '../../../../../../components/Table/Table';
+import AllBusinessState from '../../../../../../utils/enums/AllBusinessState';
+import CategoryBusiness from '../../../../../../utils/enums/CategoryBusiness';
+import { formatDateAndHourWithSlash } from '../../../../../../utils/functions/dates';
+import AllBusinessResponseDto from '../../../../../../utils/types/AllBusinessResponseDto';
 import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthentifiedUser';
 import styles from './Table.module.scss';
-import TableComponent from '../../../../../../components/Table/Table';
+import AppViewBusinessesRmaViewTableComponentRowTooltipComponent from './components/RowTooltip/RowTooltip';
 
 const routeApi = getRouteApi('/app/businesses-rma');
 
@@ -72,6 +73,8 @@ export default function AppViewBusinessesRmaViewTableComponent({ data, isLoading
 
   const { data: user } = useAuthentifiedUserQuery();
 
+  // const [tooltipItem, setTooltipItem] = useState<AllBusinessResponseDto>();
+
   const columns = useMemo(
     () => [
       columnHelper.display({
@@ -80,19 +83,48 @@ export default function AppViewBusinessesRmaViewTableComponent({ data, isLoading
       }),
       columnHelper.display({
         header: "Nr d'affaire",
-        cell: ({ row: { original } }) => (
-          <Link
-            to="/app/businesses-rma/business/$businessId"
-            params={{ businessId: original.businessId }}
-            disabled={original.category !== CategoryBusiness.AFFAIRE}
-            className={styles.business_number}
-            style={{ color: 'var(--secondary-color)' }}
-          >
-            <span>{original.number}</span>
-            <span>{original.businessBillNumber}</span>
-            {original.creditNotes?.map((num, idx) => <span key={idx}>Avoir : {num.number}</span>)}
-          </Link>
-        ),
+        cell: ({ row: { original } }) => {
+          const children = (
+            <>
+              <span>{original.number}</span>
+              <span>{original.businessBillNumber}</span>
+              {original.creditNotes?.map((num, idx) => <span key={idx}>Avoir : {num.number}</span>)}
+            </>
+          );
+
+          if (original.category === CategoryBusiness.AFFAIRE)
+            return (
+              <Link
+                data-tooltip-id="business-number-tooltip"
+                data-tooltip-content={original.id}
+                to="/app/businesses-rma/business/$businessId"
+                params={{ businessId: original.businessId }}
+                className="text-[var(--secondary-color)]"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  e.nativeEvent.stopImmediatePropagation();
+                }}
+              >
+                {children}
+              </Link>
+            );
+          else if (original.category === CategoryBusiness.RMA)
+            return (
+              <Link
+                data-tooltip-id="business-number-tooltip"
+                data-tooltip-content={original.id}
+                to="/app/businesses-rma/rma/$rmaId"
+                params={{ rmaId: original.businessId }}
+                className="text-[var(--secondary-color)]"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  e.nativeEvent.stopImmediatePropagation();
+                }}
+              >
+                {children}
+              </Link>
+            );
+        },
       }),
       columnHelper.display({
         header: 'Entreprise',
@@ -194,8 +226,11 @@ export default function AppViewBusinessesRmaViewTableComponent({ data, isLoading
         ),
       }),
       columnHelper.display({
-        header: 'Etat',
+        header: 'État',
         cell: ({ row: { original } }) => STATES.find((state) => original.state === state.value)?.label,
+      }),
+      columnHelper.display({
+        id: 'scrollbar_compensator',
       }),
     ],
     [state, user],
@@ -215,8 +250,12 @@ export default function AppViewBusinessesRmaViewTableComponent({ data, isLoading
   );
 
   return (
-    <div className={styles.table_container}>
-      <TableComponent columns={columns} data={data} isLoading={isLoading} onRowClick={onRowClick} />
-    </div>
+    <>
+      <div className={styles.table_container}>
+        <TableComponent columns={columns} data={data} isLoading={isLoading} onRowClick={onRowClick} />
+      </div>
+      {!!data && <AppViewBusinessesRmaViewTableComponentRowTooltipComponent items={data} />}
+      {/* {!!tooltipItem && <AppViewBusinessesRmaViewTableComponentRowTooltipComponent item={tooltipItem} />} */}
+    </>
   );
 }

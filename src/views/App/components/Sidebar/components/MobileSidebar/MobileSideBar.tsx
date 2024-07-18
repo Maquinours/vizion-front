@@ -5,12 +5,13 @@ import { IconType } from 'react-icons/lib';
 import { MdBusinessCenter, MdPerson } from 'react-icons/md';
 import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthentifiedUser';
 import styles from './MobileSidebar.module.scss';
+import { UserRole } from '../../../../../../utils/types/ProfileInfoResponseDto';
 
 type MenuItem = {
   icon: IconType;
   label: string;
   route: LinkProps;
-  allowedRoles?: string[];
+  allowedRoles?: Array<UserRole>;
 };
 
 const MENUS: MenuItem[] = [

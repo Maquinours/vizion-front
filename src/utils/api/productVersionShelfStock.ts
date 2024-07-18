@@ -28,16 +28,6 @@ export const getProductVersionShelfStockById = (id: string) => {
   }).then((res) => res.data);
 };
 
-export const updateProductVersionShelfStockQuantity = (id: string, quantity: number) => {
-  return privateInstance<ProductVersionShelfStockResponseDto>({
-    method: 'GET',
-    url: `/product-inventory/v1/product-version-shelf-stock/update-quantity/${encodeURIComponent(id)}`,
-    data: {
-      quantity,
-    },
-  }).then((res) => res.data);
-};
-
 export const deleteProductVersionShelfStock = (id: string) => {
   return privateInstance<void>({
     method: 'DELETE',

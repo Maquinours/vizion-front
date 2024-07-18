@@ -357,7 +357,7 @@ export default function AppViewBusinessViewBlViewBodyComponentPdfComponent({ bus
                 <View key={item.id} style={pageStyles.tableBodyContainerBody}>
                   <Text style={pageStyles.tableBodyQuantity}>{item.quantityDelivered}</Text>
                   <Text style={pageStyles.tableBodyReference}>{item.productReference}</Text>
-                  <Text style={pageStyles.tableBodyReference}>{item.productDesignation}</Text>
+                  <Text style={pageStyles.tableBodyDescription}>{item.productDesignation}</Text>
                   <Text style={pageStyles.tableBodyPackage}>{item.packageNumber}</Text>
                   <Text style={pageStyles.tableBodyComment}>{item.comment}</Text>
                 </View>

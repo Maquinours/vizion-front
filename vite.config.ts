@@ -1,3 +1,4 @@
+import { sentryVitePlugin } from '@sentry/vite-plugin';
 // import { sentryVitePlugin } from '@sentry/vite-plugin';
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
@@ -10,17 +11,17 @@ export default defineConfig({
     react(),
     TanStackRouterVite(),
     svgr(),
-    // sentryVitePlugin({
-    //   org: 'vizeo',
-    //   project: 'javascript-react',
-    // }),
+    sentryVitePlugin({
+      org: 'vizeo',
+      project: 'vizion-front',
+    }),
   ],
   preview: {
     port: 3001,
     strictPort: true,
   },
   build: {
-    // sourcemap: true,
+    sourcemap: true,
     rollupOptions: {
       onwarn(warning, defaultHandler) {
         if (warning.code === 'SOURCEMAP_ERROR') {

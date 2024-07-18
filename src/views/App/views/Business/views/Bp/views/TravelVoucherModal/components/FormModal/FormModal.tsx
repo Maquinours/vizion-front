@@ -7,7 +7,7 @@ import { PulseLoader } from 'react-spinners';
 import { toast } from 'react-toastify';
 import * as yup from 'yup';
 import { queries } from '../../../../../../../../../../utils/constants/queryKeys';
-import { generateTravelVoucher } from '../../../../../../../Enterprises/views/CreateContactTravelVoucherModal/components/StepOne/utils/api/travelVoucher';
+import { generateBusinessBpTravelVoucher } from '../../../../../../../Enterprises/views/CreateContactTravelVoucherModal/components/StepOne/utils/api/travelVoucher';
 import styles from './FormModal.module.scss';
 
 const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/bp/travel-voucher');
@@ -40,6 +40,7 @@ export default function AppViewBusinessViewBpViewTravelVoucherModalViewFormModal
   const { businessId } = routeApi.useParams();
 
   const { data: business } = useSuspenseQuery(queries.businesses.detail._ctx.byId(businessId));
+  const { data: bp } = useSuspenseQuery(queries['business-bps'].detail._ctx.byBusinessId(businessId));
 
   const {
     register,
@@ -59,7 +60,7 @@ export default function AppViewBusinessViewBpViewTravelVoucherModalViewFormModal
       receiverCity: business.deliverAddressCity ?? '',
       receiverPhoneNumber: business.deliverPhoneNumber,
       receiverEmail: business.deliverEmail ?? '',
-      nbreColis: 0,
+      nbreColis: 1,
     },
   });
 
@@ -69,11 +70,9 @@ export default function AppViewBusinessViewBpViewTravelVoucherModalViewFormModal
 
   const { mutate, isPending } = useMutation({
     mutationFn: async (data: yup.InferType<typeof yupSchema>) => {
-      const res = await generateTravelVoucher({
-        businessNumber: business.numBusiness,
+      const res = await generateBusinessBpTravelVoucher(bp.id, {
         companyName: data.receiverCompanyName,
         name: data.receiverName,
-        note: business.title?.slice(0, 50),
         addressOne: data.receiverAddressOne,
         addressTwo: data.receiverAddressTwo,
         zipCode: data.receiverZipCode,
