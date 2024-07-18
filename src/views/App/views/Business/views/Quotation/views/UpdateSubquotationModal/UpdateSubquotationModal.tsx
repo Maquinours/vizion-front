@@ -20,8 +20,9 @@ export default function AppViewBusinessViewQuotationViewUpdateSubquotationModalV
   const queryClient = useQueryClient();
   const navigate = useNavigate({ from: routeApi.id });
 
-  const { subquotationId } = routeApi.useParams();
+  const { businessId, subquotationId } = routeApi.useParams();
 
+  const { data: quotation } = useSuspenseQuery(queries['business-quotations'].detail._ctx.byBusinessId(businessId));
   const { data: subquotation } = useSuspenseQuery(queries['business-sub-quotations'].detail._ctx.byId(subquotationId));
 
   const {
@@ -40,7 +41,7 @@ export default function AppViewBusinessViewQuotationViewUpdateSubquotationModalV
   };
 
   const { mutate, isPending } = useMutation({
-    mutationFn: ({ name }: yup.InferType<typeof yupSchema>) => updateBusinessSubQuotation(subquotation.id, { name }),
+    mutationFn: ({ name }: yup.InferType<typeof yupSchema>) => updateBusinessSubQuotation(subquotation.id, { quotationId: quotation.id, name }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queries['business-sub-quotations']._def });
       toast.success('Sous devis modifié avec succès');
