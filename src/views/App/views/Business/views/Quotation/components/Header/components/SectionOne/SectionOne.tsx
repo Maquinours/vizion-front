@@ -94,9 +94,9 @@ export default function AppViewBusinessViewQuotationViewHeaderComponentSectionOn
         <span>{business.enterpriseName}</span> / <span>{business.title}</span>
       </div>
       <div className={styles.buttons_container}>
-        {/* <Link to={`/app/businesses/business-study/${business.id}`} className="btn btn-secondary"> // TODO: reimplement this
+        <Link from={routeApi.id} to="../study" className="btn btn-secondary">
           Accès à l&apos;étude
-        </Link> */}
+        </Link>
         <Link from={routeApi.id} to="commercial-notice" search={(old) => old} replace resetScroll={false} className="btn btn-primary">
           Générer les notices commerciales
         </Link>

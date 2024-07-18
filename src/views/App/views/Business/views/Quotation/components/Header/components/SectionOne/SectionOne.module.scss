@@ -10,12 +10,8 @@
     gap: 1rem;
   }
 
-  button {
-    margin-left: 5px;
-    height: fit-content;
-  }
-
   .buttons_container {
     display: flex;
+    gap: 0.5rem;
   }
 }

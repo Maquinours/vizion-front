@@ -176,9 +176,9 @@ export default function AppViewBusinessViewDashboardView() {
                   {isSavePending ? 'Sauvegarde en cours...' : 'Sauvegarder'}
                 </button>
               )}
-              {/* <Link to={`/app/businesses/business-study/${business.id}`} className="btn btn-secondary">
-                {"Accès à l'étude"} TODO: Reimplement this
-              </Link> */}
+              <Link from={routeApi.id} to="../study" className="btn btn-secondary">
+                {"Accès à l'étude"}
+              </Link>
               <AppViewBusinessViewDashboardViewQuotationButtonComponent />
             </div>
           )}

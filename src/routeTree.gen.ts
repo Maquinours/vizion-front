@@ -185,6 +185,7 @@ import { Route as AppBusinessesRmaBusinessBusinessIdBpRouteImport } from './rout
 import { Route as AppBusinessesRmaBusinessBusinessIdBlRouteImport } from './routes/app/businesses-rma_/business.$businessId/bl/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdBillRouteImport } from './routes/app/businesses-rma_/business.$businessId/bill/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdArcRouteImport } from './routes/app/businesses-rma_/business.$businessId/arc/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdStudyIndexImport } from './routes/app/businesses-rma_/business.$businessId_/study/index'
 import { Route as AppToolsSchedulerDetailsRdvIdUpdateRouteImport } from './routes/app/tools/scheduler/details.$rdvId/update/route'
 import { Route as AppToolsSchedulerDetailsRdvIdDeleteRouteImport } from './routes/app/tools/scheduler/details.$rdvId/delete/route'
 import { Route as AppToolsFormationsUpdateFormationIdDetailsRouteImport } from './routes/app/tools/formations/update.$formationId/details/route'
@@ -1916,6 +1917,12 @@ const AppBusinessesRmaBusinessBusinessIdArcRouteRoute =
       './routes/app/businesses-rma_/business.$businessId/arc/route.lazy'
     ).then((d) => d.Route),
   )
+
+const AppBusinessesRmaBusinessBusinessIdStudyIndexRoute =
+  AppBusinessesRmaBusinessBusinessIdStudyIndexImport.update({
+    path: '/businesses-rma/business/$businessId/study/',
+    getParentRoute: () => AppRouteRoute,
+  } as any)
 
 const AppBusinessesRmaBusinessBusinessIdStudyExpertRouteLazyRoute =
   AppBusinessesRmaBusinessBusinessIdStudyExpertRouteLazyImport.update({
@@ -4808,6 +4815,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdStudyExpertRouteLazyImport
       parentRoute: typeof AppRouteImport
     }
+    '/app/businesses-rma/business/$businessId/study/': {
+      id: '/app/businesses-rma/business/$businessId/study/'
+      path: '/businesses-rma/business/$businessId/study'
+      fullPath: '/app/businesses-rma/business/$businessId/study'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdStudyIndexImport
+      parentRoute: typeof AppRouteImport
+    }
     '/app/businesses-rma/business/$businessId/arc/delete-detail/$detailId': {
       id: '/app/businesses-rma/business/$businessId/arc/delete-detail/$detailId'
       path: '/delete-detail/$detailId'
@@ -5712,6 +5726,7 @@ export const routeTree = rootRoute.addChildren({
       ),
     AppBusinessesRmaBusinessBusinessIdStudyAutomaticRouteLazyRoute,
     AppBusinessesRmaBusinessBusinessIdStudyExpertRouteLazyRoute,
+    AppBusinessesRmaBusinessBusinessIdStudyIndexRoute,
   }),
   AuthRouteRoute: AuthRouteRoute.addChildren({
     AuthLoginRouteRoute,
@@ -5755,7 +5770,8 @@ export const routeTree = rootRoute.addChildren({
         "/app/businesses-rma/rma/$rmaId",
         "/app/businesses-rma/business/$businessId/assistance/$assistanceId",
         "/app/businesses-rma/business/$businessId/study/automatic",
-        "/app/businesses-rma/business/$businessId/study/expert"
+        "/app/businesses-rma/business/$businessId/study/expert",
+        "/app/businesses-rma/business/$businessId/study/"
       ]
     },
     "/auth": {
@@ -7040,6 +7056,10 @@ export const routeTree = rootRoute.addChildren({
     },
     "/app/businesses-rma/business/$businessId/study/expert": {
       "filePath": "app/businesses-rma_/business.$businessId_/study/expert/route.lazy.ts",
+      "parent": "/app"
+    },
+    "/app/businesses-rma/business/$businessId/study/": {
+      "filePath": "app/businesses-rma_/business.$businessId_/study/index.ts",
       "parent": "/app"
     },
     "/app/businesses-rma/business/$businessId/arc/delete-detail/$detailId": {
