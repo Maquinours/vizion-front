@@ -1,9 +1,9 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { queries } from '../../../../../../../utils/constants/queryKeys';
 import { pdf } from '@react-pdf/renderer';
-import AppViewAssistanceViewPdfModalViewPdfComponent from '../../../../../../views/App/views/Assistance/views/PdfModal/components/Pdf/Pdf';
-import LoaderModal from '../../../../../../components/LoaderModal/LoaderModal';
-import { formatFileName } from '../../../../../../utils/functions/files';
+import AppViewAssistanceViewPdfModalViewPdfComponent from '../../../../../../../views/App/views/Assistance/views/PdfModal/components/Pdf/Pdf';
+import { formatFileName } from '../../../../../../../utils/functions/files';
+import LoaderModal from '../../../../../../../components/LoaderModal/LoaderModal';
 
 export const Route = createFileRoute('/app/businesses-rma/business/$businessId/assistance/$assistanceId/pdf/send-by-email')({
   loader: async ({ context: { queryClient }, params: { assistanceId } }) => {
