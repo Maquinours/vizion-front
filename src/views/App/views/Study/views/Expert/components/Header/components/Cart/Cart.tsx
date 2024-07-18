@@ -2,70 +2,63 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 import { getRouteApi } from '@tanstack/react-router';
 import { InternalNode, ReactFlowState, useStore as useFlowStore } from '@xyflow/react';
 import classNames from 'classnames';
-import _ from 'lodash';
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { useShallow } from 'zustand/react/shallow';
 import { queries } from '../../../../../../../../../../utils/constants/queryKeys';
+import { ExpertStudyDensityCameraNode } from '../../../Flow/components/DensityCameraNode/DensityCameraNode';
 import { ExpertStudyMonitorNode } from '../../../Flow/components/MonitorNode/MonitorNode';
 import { ExpertStudyRecorderNode } from '../../../Flow/components/RecorderNode/RecorderNode';
+import { ExpertStudyServiceNode } from '../../../Flow/components/ServiceNode/ServiceNode';
 import { ExpertStudySynopticCameraNode } from '../../../Flow/components/SynopticCameraNode/SynopticCameraNode';
 import { ExpertStudyTransmitterNode } from '../../../Flow/components/TransmitterNode/TransmitterNode';
 import useStateStore, { RFState } from '../../../Flow/utils/store';
-import ProductResponseDto from '../../../../../../../../../../utils/types/ProductResponseDto';
+import AppViewStudyViewExpertViewHeaderComponentCartComponentDensityTableComponent from './components/DensityTable/DensityTable';
 import AppViewStudyViewExpertViewHeaderComponentCartComponentSynopticTableComponent from './components/SynopticTable/SynopticTable';
-import { ExpertStudyServiceNode } from '../../../Flow/components/ServiceNode/ServiceNode';
 
 const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/study/expert');
 
 const reactFlowSelector = (state: ReactFlowState) => {
   const nodes = Array.from(state.nodeLookup.values());
-
   const productNodes = nodes.filter(
     (
       node,
     ): node is InternalNode<
-      ExpertStudySynopticCameraNode | ExpertStudyMonitorNode | ExpertStudyRecorderNode | ExpertStudyTransmitterNode | ExpertStudyServiceNode
-    > => !!node.type && ['synopticCamera', 'monitor', 'recorder', 'transmitter', 'service'].includes(node.type),
+      | ExpertStudySynopticCameraNode
+      | ExpertStudyDensityCameraNode
+      | ExpertStudyMonitorNode
+      | ExpertStudyRecorderNode
+      | ExpertStudyTransmitterNode
+      | ExpertStudyServiceNode
+    > => !!node.type && ['synopticCamera', 'densityCamera', 'monitor', 'recorder', 'transmitter', 'service'].includes(node.type),
+  );
+  const cameraNodes = productNodes.filter(
+    (node): node is InternalNode<ExpertStudySynopticCameraNode | ExpertStudyDensityCameraNode> =>
+      !!node.type && ['synopticCamera', 'densityCamera'].includes(node.type),
   );
 
-  const products: Array<{ id: string; quantity: number }> = [];
-  for (const node of productNodes) {
-    const product = products.find((p) => p.id === node.data.productId);
-    if (!!product) product.quantity++;
-    else products.push({ id: node.data.productId, quantity: 1 });
-    if ('options' in node.data) {
-      for (const option of node.data.options) {
-        const product = products.find((p) => p.id === option.id);
-        if (!!product) product.quantity += option.quantity;
-        else products.push({ id: option.id, quantity: option.quantity });
-      }
-    }
-  }
-  return { productsData: products, camerasCount: nodes.filter((node) => node.type === 'synopticCamera').length };
+  return {
+    productCount: productNodes.reduce(
+      (acc, node) => (acc += 1 + ('options' in node.data ? node.data.options.reduce((acc, option) => acc + option.quantity, 0) : 0)),
+      0,
+    ),
+    cameraCount: cameraNodes.length,
+  };
 };
 
-const stateSelector = (state: RFState) => ({ pageName: state.pages[state.currentPage]?.name ?? `Page ${state.currentPage + 1}` });
+const stateSelector = (state: RFState) => ({
+  pageName: state.pages[state.currentPage].name ?? `Page ${state.currentPage + 1}`,
+  pageType: state.pages[state.currentPage].type,
+});
 
 export default function AppViewStudyViewExpertViewHeaderComponentCartComponent() {
-  const { productsData, camerasCount } = useFlowStore(reactFlowSelector, (a, b) => _.isEqual(a, b));
-  const { pageName } = useStateStore(useShallow(stateSelector));
+  const { productCount, cameraCount } = useFlowStore(useShallow(reactFlowSelector));
+  const { pageName, pageType } = useStateStore(useShallow(stateSelector));
 
   const { businessId } = routeApi.useParams();
 
   const { data: business } = useSuspenseQuery(queries.businesses.detail._ctx.byId(businessId));
-  const { data: products } = useSuspenseQuery(queries.product.list);
 
   const [isOpen, setIsOpen] = useState(false);
-
-  const data = useMemo(
-    () =>
-      productsData
-        .map((productData) => ({ product: products.find((product) => product.id === productData.id), quantity: productData.quantity }))
-        .filter((productData): productData is { product: ProductResponseDto; quantity: number } => !!productData.product),
-    [productsData, products],
-  );
-
-  const totalProductsQuantity = productsData.reduce((acc, product) => acc + product.quantity, 0);
 
   return (
     <>
@@ -73,7 +66,7 @@ export default function AppViewStudyViewExpertViewHeaderComponentCartComponent()
         onClick={() => setIsOpen(!isOpen)}
         className="flex h-[2.5rem] w-36 items-center justify-center space-x-1 rounded-md border border-slate-800 px-4 py-2 text-sm shadow-sm hover:outline hover:outline-offset-[1px] hover:outline-blue-500"
       >
-        Étude {totalProductsQuantity} {totalProductsQuantity > 1 ? 'articles' : 'article'}
+        Étude {productCount} {productCount > 1 ? 'articles' : 'article'}
       </button>
       <div
         className={classNames(
@@ -85,7 +78,7 @@ export default function AppViewStudyViewExpertViewHeaderComponentCartComponent()
           <div className="mt-8 flex h-full flex-col ">
             <div className="">
               <p className="pl-6 text-black">
-                Numéro de dossier: {business.numBusiness} ({pageName}) ({`${camerasCount} ${camerasCount > 1 ? 'caméras' : 'caméra'}`})
+                Numéro de dossier: {business.numBusiness} ({pageName}) ({`${cameraCount} ${cameraCount > 1 ? 'caméras' : 'caméra'}`})
               </p>
 
               <button type="button" onClick={() => setIsOpen(false)}>
@@ -100,8 +93,15 @@ export default function AppViewStudyViewExpertViewHeaderComponentCartComponent()
                   <path stroke="white" strokeLinecap="round" strokeLinejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
               </button>
-              <AppViewStudyViewExpertViewHeaderComponentCartComponentSynopticTableComponent data={data} />
-              {/* {pageMode === 'DENSITY' ? <DensityPanier /> : <SynopticPanier />} // TODO: reimplement this */}
+              {isOpen &&
+                (() => {
+                  switch (pageType) {
+                    case 'synoptic':
+                      return <AppViewStudyViewExpertViewHeaderComponentCartComponentSynopticTableComponent />;
+                    case 'density':
+                      return <AppViewStudyViewExpertViewHeaderComponentCartComponentDensityTableComponent />;
+                  }
+                })()}
             </div>
           </div>
         </div>

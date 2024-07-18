@@ -13,7 +13,7 @@ import AppViewStudyViewExpertViewFlowComponentDensityCameraNodeComponentMenuComp
 //   };
 // };
 
-export type ExpertStudyDensityCameraNode = Node<{ productId: string; range: number; angle: number; rotation: number; opacity: number }, 'densityCamera'>;
+export type ExpertStudyDensityCameraNode = Node<{ productId: string; range: number; angle: number; rotation: number; opacity: number, name: string }, 'densityCamera'>;
 export default function AppViewStudyViewExpertViewFlowComponentDensityCameraNodeComponent({ id, selected, data }: NodeProps<ExpertStudyDensityCameraNode>) {
   //   const canvasRef = useRef<HTMLCanvasElement>(null);
 

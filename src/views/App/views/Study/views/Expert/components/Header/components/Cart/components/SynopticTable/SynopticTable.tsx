@@ -1,9 +1,19 @@
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { createColumnHelper } from '@tanstack/react-table';
-import ProductResponseDto from '../../../../../../../../../../../../utils/types/ProductResponseDto';
-import TableComponent from '../../../../../../../../../../../../components/Table/Table';
-import AmountFormat from '../../../../../../../../../../../../components/AmountFormat/AmountFormat';
+import { InternalNode, ReactFlowState, useStore } from '@xyflow/react';
 import classNames from 'classnames';
+import { isEqual } from 'lodash';
+import { useMemo } from 'react';
+import AmountFormat from '../../../../../../../../../../../../components/AmountFormat/AmountFormat';
 import CurrencyFormat from '../../../../../../../../../../../../components/CurrencyFormat/CurrencyFormat';
+import TableComponent from '../../../../../../../../../../../../components/Table/Table';
+import { queries } from '../../../../../../../../../../../../utils/constants/queryKeys';
+import ProductResponseDto from '../../../../../../../../../../../../utils/types/ProductResponseDto';
+import { ExpertStudyMonitorNode } from '../../../../../Flow/components/MonitorNode/MonitorNode';
+import { ExpertStudyRecorderNode } from '../../../../../Flow/components/RecorderNode/RecorderNode';
+import { ExpertStudyServiceNode } from '../../../../../Flow/components/ServiceNode/ServiceNode';
+import { ExpertStudySynopticCameraNode } from '../../../../../Flow/components/SynopticCameraNode/SynopticCameraNode';
+import { ExpertStudyTransmitterNode } from '../../../../../Flow/components/TransmitterNode/TransmitterNode';
 
 const columnHelper = createColumnHelper<{ product: ProductResponseDto; quantity: number } | { quantity: number; price: number }>();
 const columns = [
@@ -59,20 +69,52 @@ const columns = [
   }),
 ];
 
-type AppViewStudyViewExpertViewHeaderComponentCartComponentSynopticTableComponentProps = Readonly<{
-  data: Array<{ product: ProductResponseDto; quantity: number }>;
-}>;
-export default function AppViewStudyViewExpertViewHeaderComponentCartComponentSynopticTableComponent({
-  data,
-}: AppViewStudyViewExpertViewHeaderComponentCartComponentSynopticTableComponentProps) {
-  const total = data.reduce(
-    (acc: { quantity: number; price: number }, productData) => {
-      acc.quantity += productData.quantity;
-      acc.price += (productData.product.publicPrice ?? 0) * productData.quantity;
+const selector = (state: ReactFlowState) => ({
+  productsData: Array.from(state.nodeLookup.values())
+    .filter(
+      (
+        node,
+      ): node is InternalNode<
+        ExpertStudySynopticCameraNode | ExpertStudyMonitorNode | ExpertStudyRecorderNode | ExpertStudyTransmitterNode | ExpertStudyServiceNode
+      > => !!node.type && ['synopticCamera', 'monitor', 'recorder', 'transmitter', 'service'].includes(node.type),
+    )
+    .reduce((acc: Array<{ id: string; quantity: number }>, node) => {
+      const product = acc.find((p) => p.id === node.data.productId);
+      if (!!product) product.quantity++;
+      else acc.push({ id: node.data.productId, quantity: 1 });
+      if ('options' in node.data) {
+        for (const option of node.data.options) {
+          const product = acc.find((p) => p.id === option.id);
+          if (!!product) product.quantity += option.quantity;
+          else acc.push({ id: option.id, quantity: option.quantity });
+        }
+      }
       return acc;
-    },
-    { quantity: 0, price: 0 },
-  );
+    }, []),
+});
+
+export default function AppViewStudyViewExpertViewHeaderComponentCartComponentSynopticTableComponent() {
+  const { productsData } = useStore(selector, (a, b) => isEqual(a, b));
+
+  const { data: products } = useSuspenseQuery(queries.product.list);
+
+  const { data, total } = useMemo(() => {
+    const data = productsData
+      .map((productData) => ({ product: products.find((product) => product.id === productData.id), quantity: productData.quantity }))
+      .filter((productData): productData is { product: ProductResponseDto; quantity: number } => !!productData.product);
+
+    const total = data.reduce(
+      (acc: { quantity: number; price: number }, productData) => {
+        acc.quantity += productData.quantity;
+        acc.price += (productData.product.publicPrice ?? 0) * productData.quantity;
+        return acc;
+      },
+      { quantity: 0, price: 0 },
+    );
+
+    return { data, total };
+  }, [productsData, products]);
+
   return (
     <div>
       <TableComponent columns={columns} data={[...data, total]} isLoading={false} className="w-full divide-y divide-gray-300 text-black" />

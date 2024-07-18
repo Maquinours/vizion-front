@@ -15,7 +15,7 @@ type TableComponentProps<T> = Readonly<{
   getRowCanExpand?(row: Row<T>): boolean;
   getSubRows?(row: T): Array<T>;
   renderSubComponent?: (props: { row: Row<T> }) => React.ReactElement;
-  getRowClassName?: (row: T) => string;
+  getRowClassName?: (row: T) => string | undefined;
   className?: string;
   headerClassName?: string;
   enableMultiRowSelection?: boolean;
