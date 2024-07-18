@@ -61,13 +61,14 @@ const selector = (state: RFState) => ({
   onEdgesChange: state.onEdgesChange,
   onConnect: state.onConnect,
   setViewport: state.setViewport,
+  getPageType: state.getPageType,
 });
 
 export default function AppViewStudyViewExpertViewFlowComponent() {
   const queryClient = useQueryClient();
   const { screenToFlowPosition, addNodes, getNodes, getEdges } = useReactFlow<ExpertStudyNode>();
   const { paneClickFunction, setPaneClickFunction, setModal } = useContext(ExpertStudyContext)!;
-  const { nodes, edges, viewport, onNodesChange: onNodesChangeStore, onEdgesChange, onConnect, setViewport } = useStore(useShallow(selector));
+  const { nodes, edges, viewport, onNodesChange: onNodesChangeStore, onEdgesChange, onConnect, setViewport, getPageType } = useStore(useShallow(selector));
 
   const [helperLines, setHelperLines] = useState<{ vertical?: number; horizontal?: number }>({});
 
@@ -213,7 +214,7 @@ export default function AppViewStudyViewExpertViewFlowComponent() {
     (changes: Array<NodeChange<ExpertStudyNode>>) => {
       // reset the helper lines (clear existing lines, if any)
       setHelperLines({});
-      if (changes.length === 1 && changes[0].type === 'position' && changes[0].dragging && changes[0].position) {
+      if (getPageType() === 'synoptic' && changes.length === 1 && changes[0].type === 'position' && changes[0].dragging && changes[0].position) {
         const helperLines = getHelperLines(changes[0], getNodes());
 
         // if we have a helper line, we snap the node to the helper line position
@@ -226,7 +227,7 @@ export default function AppViewStudyViewExpertViewFlowComponent() {
 
       onNodesChangeStore(changes);
     },
-    [setHelperLines, onNodesChangeStore, getNodes],
+    [setHelperLines, onNodesChangeStore, getNodes, getPageType],
   );
 
   const isValidConnection: IsValidConnection = useCallback(
