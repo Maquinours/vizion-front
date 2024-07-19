@@ -179,6 +179,7 @@ import { Route as AppDashboardTaskEmailTaskIdReplyRouteImport } from './routes/a
 import { Route as AppBusinessesRmaRmaRmaIdSupportRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/support/route'
 import { Route as AppBusinessesRmaRmaRmaIdReceptionRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/reception/route'
 import { Route as AppBusinessesRmaRmaRmaIdDeliveryRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/delivery/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdStudyRouteImport } from './routes/app/businesses-rma_/business.$businessId_/study/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdQuotationRouteImport } from './routes/app/businesses-rma_/business.$businessId/quotation/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdDashboardRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdBpRouteImport } from './routes/app/businesses-rma_/business.$businessId/bp/route'
@@ -1856,6 +1857,12 @@ const AppBusinessesRmaRmaRmaIdDeliveryRouteRoute =
     ),
   )
 
+const AppBusinessesRmaBusinessBusinessIdStudyRouteRoute =
+  AppBusinessesRmaBusinessBusinessIdStudyRouteImport.update({
+    path: '/businesses-rma/business/$businessId/study',
+    getParentRoute: () => AppRouteRoute,
+  } as any)
+
 const AppBusinessesRmaBusinessBusinessIdQuotationRouteRoute =
   AppBusinessesRmaBusinessBusinessIdQuotationRouteImport.update({
     path: '/quotation',
@@ -1918,8 +1925,8 @@ const AppBusinessesRmaBusinessBusinessIdArcRouteRoute =
 
 const AppBusinessesRmaBusinessBusinessIdStudyIndexRoute =
   AppBusinessesRmaBusinessBusinessIdStudyIndexImport.update({
-    path: '/businesses-rma/business/$businessId/study/',
-    getParentRoute: () => AppRouteRoute,
+    path: '/',
+    getParentRoute: () => AppBusinessesRmaBusinessBusinessIdStudyRouteRoute,
   } as any)
 
 const AppToolsSchedulerDetailsRdvIdUpdateRouteRoute =
@@ -2231,8 +2238,8 @@ const AppBusinessesRmaRmaRmaIdDeliveryCreateDetailRouteRoute =
 
 const AppBusinessesRmaBusinessBusinessIdStudyExpertRouteRoute =
   AppBusinessesRmaBusinessBusinessIdStudyExpertRouteImport.update({
-    path: '/businesses-rma/business/$businessId/study/expert',
-    getParentRoute: () => AppRouteRoute,
+    path: '/expert',
+    getParentRoute: () => AppBusinessesRmaBusinessBusinessIdStudyRouteRoute,
   } as any).lazy(() =>
     import(
       './routes/app/businesses-rma_/business.$businessId_/study/expert/route.lazy'
@@ -2241,8 +2248,8 @@ const AppBusinessesRmaBusinessBusinessIdStudyExpertRouteRoute =
 
 const AppBusinessesRmaBusinessBusinessIdStudyAutomaticRouteRoute =
   AppBusinessesRmaBusinessBusinessIdStudyAutomaticRouteImport.update({
-    path: '/businesses-rma/business/$businessId/study/automatic',
-    getParentRoute: () => AppRouteRoute,
+    path: '/automatic',
+    getParentRoute: () => AppBusinessesRmaBusinessBusinessIdStudyRouteRoute,
   } as any).lazy(() =>
     import(
       './routes/app/businesses-rma_/business.$businessId_/study/automatic/route.lazy'
@@ -4036,6 +4043,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdQuotationRouteImport
       parentRoute: typeof AppBusinessesRmaBusinessBusinessIdRouteImport
     }
+    '/app/businesses-rma/business/$businessId/study': {
+      id: '/app/businesses-rma/business/$businessId/study'
+      path: '/businesses-rma/business/$businessId/study'
+      fullPath: '/app/businesses-rma/business/$businessId/study'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdStudyRouteImport
+      parentRoute: typeof AppRouteImport
+    }
     '/app/businesses-rma/rma/$rmaId/delivery': {
       id: '/app/businesses-rma/rma/$rmaId/delivery'
       path: '/delivery'
@@ -4591,17 +4605,17 @@ declare module '@tanstack/react-router' {
     }
     '/app/businesses-rma/business/$businessId/study/automatic': {
       id: '/app/businesses-rma/business/$businessId/study/automatic'
-      path: '/businesses-rma/business/$businessId/study/automatic'
+      path: '/automatic'
       fullPath: '/app/businesses-rma/business/$businessId/study/automatic'
       preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdStudyAutomaticRouteImport
-      parentRoute: typeof AppRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdStudyRouteImport
     }
     '/app/businesses-rma/business/$businessId/study/expert': {
       id: '/app/businesses-rma/business/$businessId/study/expert'
-      path: '/businesses-rma/business/$businessId/study/expert'
+      path: '/expert'
       fullPath: '/app/businesses-rma/business/$businessId/study/expert'
       preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdStudyExpertRouteImport
-      parentRoute: typeof AppRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdStudyRouteImport
     }
     '/app/businesses-rma/rma/$rmaId/delivery/create-detail': {
       id: '/app/businesses-rma/rma/$rmaId/delivery/create-detail'
@@ -4815,10 +4829,10 @@ declare module '@tanstack/react-router' {
     }
     '/app/businesses-rma/business/$businessId/study/': {
       id: '/app/businesses-rma/business/$businessId/study/'
-      path: '/businesses-rma/business/$businessId/study'
-      fullPath: '/app/businesses-rma/business/$businessId/study'
+      path: '/'
+      fullPath: '/app/businesses-rma/business/$businessId/study/'
       preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdStudyIndexImport
-      parentRoute: typeof AppRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdStudyRouteImport
     }
     '/app/businesses-rma/business/$businessId/arc/delete-detail/$detailId': {
       id: '/app/businesses-rma/business/$businessId/arc/delete-detail/$detailId'
@@ -5697,6 +5711,12 @@ export const routeTree = rootRoute.addChildren({
           }),
         AppBusinessesRmaRmaRmaIdIndexRoute,
       }),
+    AppBusinessesRmaBusinessBusinessIdStudyRouteRoute:
+      AppBusinessesRmaBusinessBusinessIdStudyRouteRoute.addChildren({
+        AppBusinessesRmaBusinessBusinessIdStudyAutomaticRouteRoute,
+        AppBusinessesRmaBusinessBusinessIdStudyExpertRouteRoute,
+        AppBusinessesRmaBusinessBusinessIdStudyIndexRoute,
+      }),
     AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdRouteRoute:
       AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdRouteRoute.addChildren(
         {
@@ -5722,9 +5742,6 @@ export const routeTree = rootRoute.addChildren({
           AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdRenameGedObjectObjectRelativePathRouteRoute,
         },
       ),
-    AppBusinessesRmaBusinessBusinessIdStudyAutomaticRouteRoute,
-    AppBusinessesRmaBusinessBusinessIdStudyExpertRouteRoute,
-    AppBusinessesRmaBusinessBusinessIdStudyIndexRoute,
   }),
   AuthRouteRoute: AuthRouteRoute.addChildren({
     AuthLoginRouteRoute,
@@ -5766,10 +5783,8 @@ export const routeTree = rootRoute.addChildren({
         "/app/products/$productId",
         "/app/businesses-rma/business/$businessId",
         "/app/businesses-rma/rma/$rmaId",
-        "/app/businesses-rma/business/$businessId/assistance/$assistanceId",
-        "/app/businesses-rma/business/$businessId/study/automatic",
-        "/app/businesses-rma/business/$businessId/study/expert",
-        "/app/businesses-rma/business/$businessId/study/"
+        "/app/businesses-rma/business/$businessId/study",
+        "/app/businesses-rma/business/$businessId/assistance/$assistanceId"
       ]
     },
     "/auth": {
@@ -6518,6 +6533,15 @@ export const routeTree = rootRoute.addChildren({
         "/app/businesses-rma/business/$businessId/quotation/update-subquotation/$subquotationId"
       ]
     },
+    "/app/businesses-rma/business/$businessId/study": {
+      "filePath": "app/businesses-rma_/business.$businessId_/study/route.ts",
+      "parent": "/app",
+      "children": [
+        "/app/businesses-rma/business/$businessId/study/automatic",
+        "/app/businesses-rma/business/$businessId/study/expert",
+        "/app/businesses-rma/business/$businessId/study/"
+      ]
+    },
     "/app/businesses-rma/rma/$rmaId/delivery": {
       "filePath": "app/businesses-rma_/rma.$rmaId/delivery/route.ts",
       "parent": "/app/businesses-rma/rma/$rmaId",
@@ -6918,11 +6942,11 @@ export const routeTree = rootRoute.addChildren({
     },
     "/app/businesses-rma/business/$businessId/study/automatic": {
       "filePath": "app/businesses-rma_/business.$businessId_/study/automatic/route.ts",
-      "parent": "/app"
+      "parent": "/app/businesses-rma/business/$businessId/study"
     },
     "/app/businesses-rma/business/$businessId/study/expert": {
       "filePath": "app/businesses-rma_/business.$businessId_/study/expert/route.ts",
-      "parent": "/app"
+      "parent": "/app/businesses-rma/business/$businessId/study"
     },
     "/app/businesses-rma/rma/$rmaId/delivery/create-detail": {
       "filePath": "app/businesses-rma_/rma.$rmaId/delivery/create-detail/route.ts",
@@ -7058,7 +7082,7 @@ export const routeTree = rootRoute.addChildren({
     },
     "/app/businesses-rma/business/$businessId/study/": {
       "filePath": "app/businesses-rma_/business.$businessId_/study/index.ts",
-      "parent": "/app"
+      "parent": "/app/businesses-rma/business/$businessId/study"
     },
     "/app/businesses-rma/business/$businessId/arc/delete-detail/$detailId": {
       "filePath": "app/businesses-rma_/business.$businessId/arc/delete-detail.$detailId/route.ts",
