@@ -25,6 +25,14 @@ import { ExpertStudyTransmitterNode } from '../components/TransmitterNode/Transm
 import { ExpertStudyDensityScaleNode } from '../components/DensityScaleNode/DensityScaleNode';
 import { ExpertStudyBackgroundNode } from '../components/BackgroundNode/BackgroundNode';
 
+const initialState = {
+  pages: [],
+  currentPage: 0,
+  studyName: undefined,
+  installerName: undefined,
+  businessId: undefined,
+};
+
 const defaultSynopticPage = {
   nodes: [],
   edges: [],
@@ -69,6 +77,9 @@ type Page = SynopticPage | DensityPage;
 export type RFState = {
   pages: Array<Page>;
   currentPage: number;
+  studyName: string | undefined;
+  installerName: string | undefined;
+  businessId: string | undefined;
   onNodesChange: OnNodesChange<ExpertStudyNode>;
   onEdgesChange: OnEdgesChange;
   setViewport: (viewport: Viewport) => void;
@@ -78,20 +89,20 @@ export type RFState = {
   setCurrentPage: (currentPage: number) => void;
   addPage: (mode: 'synoptic' | 'density', options?: { nodes?: Array<ExpertStudyNode>; viewport?: Viewport }) => void;
   removePage: () => void;
-  studyName?: string;
-  installerName?: string;
   setStudyName: (studyName: string) => void;
   setInstallerName: (installerName: string) => void;
   setPageName: (pageName: string) => void;
   setPageScale: ({ virtual, real }: { virtual?: number; real?: number }) => void;
   getPageType: () => 'synoptic' | 'density';
   getPages: () => Array<Page>;
+  getBusinessId: () => string | undefined;
+  setBusinessId: (businessId: string) => void;
+  reset: () => void;
 };
 
 // this is our useStore hook that we can use in our components to get parts of the store and call actions
 const useStore = create<RFState>((set, get) => ({
-  pages: [],
-  currentPage: 0,
+  ...initialState,
   onNodesChange: (changes: Array<NodeChange<ExpertStudyNode>>) => {
     set({
       pages: get().pages.map((page, index) => (index === get().currentPage ? { ...page, nodes: applyNodeChanges(changes, page.nodes) } : page)),
@@ -166,6 +177,13 @@ const useStore = create<RFState>((set, get) => ({
     return get().pages[get().currentPage].type;
   },
   getPages: () => get().pages,
+  getBusinessId: () => get().businessId,
+  setBusinessId: (businessId: string) => {
+    set({ businessId });
+  },
+  reset: () => {
+    set(initialState);
+  },
 }));
 
 export default useStore;
