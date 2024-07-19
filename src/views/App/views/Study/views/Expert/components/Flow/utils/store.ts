@@ -76,7 +76,7 @@ export type RFState = {
   setNodes: (nodes: Array<ExpertStudyNode>) => void;
   setEdges: (edges: Array<Edge>) => void;
   setCurrentPage: (currentPage: number) => void;
-  addPage: (mode: 'synoptic' | 'density') => void;
+  addPage: (mode: 'synoptic' | 'density', options?: { nodes?: Array<ExpertStudyNode>; viewport?: Viewport }) => void;
   removePage: () => void;
   studyName?: string;
   installerName?: string;
@@ -85,6 +85,7 @@ export type RFState = {
   setPageName: (pageName: string) => void;
   setPageScale: ({ virtual, real }: { virtual?: number; real?: number }) => void;
   getPageType: () => 'synoptic' | 'density';
+  getPages: () => Array<Page>;
 };
 
 // this is our useStore hook that we can use in our components to get parts of the store and call actions
@@ -146,8 +147,12 @@ const useStore = create<RFState>((set, get) => ({
       }),
     });
   },
-  addPage: (mode: 'synoptic' | 'density') => {
-    const pages = [...get().pages, mode === 'synoptic' ? defaultSynopticPage : defaultDensityPage];
+  addPage: (mode: 'synoptic' | 'density', options: { nodes?: Array<ExpertStudyNode>; viewport?: Viewport } = {}) => {
+    const page = mode === 'synoptic' ? defaultSynopticPage : defaultDensityPage;
+    if (options.nodes) page.nodes = options.nodes;
+    if (options.viewport) page.viewport = options.viewport;
+
+    const pages = [...get().pages, page];
     set({ pages });
     set({ currentPage: pages.length - 1 });
   },
@@ -160,6 +165,7 @@ const useStore = create<RFState>((set, get) => ({
   getPageType: () => {
     return get().pages[get().currentPage].type;
   },
+  getPages: () => get().pages,
 }));
 
 export default useStore;

@@ -12,6 +12,7 @@ export type ExpertStudySynopticCameraNode = Node<
     options: Array<{ id: string; quantity: number }>;
     size: { width: number; height: number };
     opacity: number;
+    quantity?: number;
   },
   'synopticCamera'
 >;
@@ -86,6 +87,11 @@ export default function AppViewStudyViewExpertViewFlowComponentSynopticCameraNod
                 ))}
               </div>
               <div className="my-auto ml-auto">
+                {!!data.quantity && data.quantity > 1 && (
+                  <p className="absolute right-1 top-[calc(50%-30px)] ml-auto h-5 w-5 rounded-md bg-amber-300 text-center text-sm font-medium text-white">
+                    x{data.quantity}
+                  </p>
+                )}
                 <p className="h-4 text-sm">{name}</p>
               </div>
             </div>

@@ -26,7 +26,7 @@ const selector = (state: RFState) => ({
         ),
       'data.productId',
     ),
-  ).map(([key, value]) => ({ id: key, quantity: value.length })),
+  ).map(([key, value]) => ({ id: key, quantity: value.reduce((acc, node) => acc + (node.data.quantity ?? 1), 0) })),
   recorders: state.pages
     .filter((page) => page.type === 'synoptic')
     .reduce(

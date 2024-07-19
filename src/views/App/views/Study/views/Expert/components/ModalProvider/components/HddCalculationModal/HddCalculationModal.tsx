@@ -36,7 +36,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentHddCalcu
   const { flux, hddSpace } = useMemo(() => {
     const cameraNodesData = nodes
       .filter((node): node is InternalNode<ExpertStudySynopticCameraNode> => node.type === 'synopticCamera')
-      .map((node) => ({ productId: node.data.productId }));
+      .map((node) => ({ productId: node.data.productId, quantity: node.data.quantity ?? 1 }));
     const recorderNodesData = nodes
       .filter((node): node is InternalNode<ExpertStudyRecorderNode> => node.type === 'recorder')
       .map((node) => ({ productId: node.data.productId, options: node.data.options }));
@@ -45,7 +45,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentHddCalcu
       const product = products.find((product) => product.id === data.productId);
       const flux1 = product?.specificationProducts?.find((spec) => spec.specification?.name === 'FLUX1')?.value ?? 0;
       const flux2 = product?.specificationProducts?.find((spec) => spec.specification?.name === 'FLUX2')?.value ?? 0;
-      return acc + flux1 + flux2;
+      return acc + (flux1 + flux2) * data.quantity;
     }, 0);
 
     const hddSpace = recorderNodesData.reduce((acc, data) => {

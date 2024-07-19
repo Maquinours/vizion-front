@@ -22,6 +22,7 @@ import AppViewStudyViewExpertViewHeaderComponentCartComponent from './components
 import AppViewStudyViewExpertViewHeaderComponentExportMenuComponent from './components/ExportMenu/ExportMenu';
 import AppViewStudyViewExpertViewHeaderComponentImportMenuComponent from './components/ImportMenu/ImportMenu';
 import { MatchRoute } from '@tanstack/react-router';
+import AppViewStudyViewExpertViewHeaderComponentTransferMenuComponent from './components/TransferMenu/TransferMenu';
 
 const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/study/expert');
 
@@ -236,6 +237,7 @@ export default function AppViewStudyViewExpertViewHeaderComponent() {
           </div>
           <div className="flex items-center gap-x-2">
             <AppViewStudyViewExpertViewHeaderComponentImportMenuComponent />
+            <AppViewStudyViewExpertViewHeaderComponentTransferMenuComponent />
             <AppViewStudyViewExpertViewHeaderComponentExportMenuComponent />
             <button type="button" className="btn btn-primary" onClick={onHddCalculationButtonClick}>
               Calcul de disque dur
