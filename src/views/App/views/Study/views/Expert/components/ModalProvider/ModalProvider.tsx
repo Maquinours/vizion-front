@@ -12,6 +12,7 @@ import AppViewStudyViewExpertViewModalProviderComponentPdfModalComponent from '.
 import AppViewStudyViewExpertViewModalProviderComponentHddCalculationModalComponent from './components/HddCalculationModal/HddCalculationModal';
 import AppViewStudyViewExpertViewModalProviderComponentImportGedImageModalComponent from './components/ImportGedImageModal/ImportGedImageModal';
 import AppViewStudyViewExpertViewModalProviderComponentServicesModalComponent from './components/ServicesModal/ServicesModal';
+import AppViewStudyViewExpertViewModalProviderComponentConfirmQuotationTransferModalComponent from './components/ConfirmQuotationTransferModal/ConfirmQuotationTransferModal';
 
 export default function AppViewStudyViewExpertViewModalProviderComponent() {
   const { modal } = useContext(ExpertStudyContext)!;
@@ -52,5 +53,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponent() {
       return <AppViewStudyViewExpertViewModalProviderComponentHddCalculationModalComponent />;
     case ExpertStudyModalType.IMPORT_GED_IMAGE:
       return <AppViewStudyViewExpertViewModalProviderComponentImportGedImageModalComponent type={modal.data.type} />;
+    case ExpertStudyModalType.CONFIRM_QUOTATION_TRANSFER:
+      return <AppViewStudyViewExpertViewModalProviderComponentConfirmQuotationTransferModalComponent />;
   }
 }

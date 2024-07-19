@@ -16,6 +16,7 @@ export enum ExpertStudyModalType {
   PDF,
   HDD_CALCULATION,
   IMPORT_GED_IMAGE,
+  CONFIRM_QUOTATION_TRANSFER,
 }
 
 export type ExpertStudyModal =
@@ -39,7 +40,10 @@ export type ExpertStudyModal =
         | { step: 'SHOW'; images: Array<Blob> };
     }
   | { type: ExpertStudyModalType.HDD_CALCULATION; data?: undefined }
-  | { type: ExpertStudyModalType.IMPORT_GED_IMAGE; data: { type: 'image' | 'background' } };
+  | { type: ExpertStudyModalType.IMPORT_GED_IMAGE; data: { type: 'image' | 'background' } }
+  | {
+      type: ExpertStudyModalType.CONFIRM_QUOTATION_TRANSFER;
+    };
 
 export enum ExpertStudyPaneClickFunctionType {
   TEXT,

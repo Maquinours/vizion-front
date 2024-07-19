@@ -1,5 +1,5 @@
 import { Button, Fade, Menu, MenuItem } from '@mui/material';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { RiArrowDownSLine } from 'react-icons/ri';
 import useStore, { ExpertStudyNode, RFState } from '../../../Flow/utils/store';
 import { useShallow } from 'zustand/react/shallow';
@@ -8,6 +8,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { ExpertStudyDensityCameraNode } from '../../../Flow/components/DensityCameraNode/DensityCameraNode';
 import { groupBy } from 'lodash';
 import { ExpertStudySynopticCameraNode } from '../../../Flow/components/SynopticCameraNode/SynopticCameraNode';
+import ExpertStudyContext, { ExpertStudyModalType } from '../../../../utils/context';
 
 const selector = (state: RFState) => ({
   getPages: state.getPages,
@@ -15,6 +16,7 @@ const selector = (state: RFState) => ({
 });
 export default function AppViewStudyViewExpertViewHeaderComponentTransferMenuComponent() {
   const { getPages, addPage } = useStore(useShallow(selector));
+  const { setModal } = useContext(ExpertStudyContext)!;
 
   const [anchorEl, setAnchorEl] = useState<HTMLElement>();
 
@@ -26,6 +28,10 @@ export default function AppViewStudyViewExpertViewHeaderComponentTransferMenuCom
 
   const handleClose = () => {
     setAnchorEl(undefined);
+  };
+
+  const onTransferSynopticsToQuotation = () => {
+    setModal({ type: ExpertStudyModalType.CONFIRM_QUOTATION_TRANSFER });
   };
 
   const onTransferDensitiesToSynoptic = () => {
@@ -103,8 +109,11 @@ export default function AppViewStudyViewExpertViewHeaderComponentTransferMenuCom
         onClose={handleClose}
         TransitionComponent={Fade}
       >
+        <MenuItem onClick={onTransferSynopticsToQuotation}>
+          <span className="w-full text-left text-sm text-gray-700">Synoptiques -&gt; devis</span>
+        </MenuItem>
         <MenuItem onClick={onTransferDensitiesToSynoptic}>
-          <span className="w-full text-left text-sm text-gray-700">Densité -&gt; Synoptique</span>
+          <span className="w-full text-left text-sm text-gray-700">Densités -&gt; synoptique</span>
         </MenuItem>
       </Menu>
     </>
