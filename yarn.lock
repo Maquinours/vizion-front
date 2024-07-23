@@ -1773,6 +1773,11 @@
     "@types/prop-types" "*"
     csstype "^3.0.2"
 
+"@types/sockjs-client@^1.5.1":
+  version "1.5.4"
+  resolved "https://registry.yarnpkg.com/@types/sockjs-client/-/sockjs-client-1.5.4.tgz#2c0b6aadf0cfeb49cd210e4c59995a6608fbd8ea"
+  integrity sha512-zk+uFZeWyvJ5ZFkLIwoGA/DfJ+pYzcZ8eH4H/EILCm2OBZyHH6Hkdna1/UWL/CFruh5wj6ES7g75SvUB0VsH5w==
+
 "@types/svg-intersections@^0.4.4":
   version "0.4.4"
   resolved "https://registry.yarnpkg.com/@types/svg-intersections/-/svg-intersections-0.4.4.tgz#742cc44d690bc366a0395c5a42a96aa9b77ed3bd"
@@ -5279,12 +5284,13 @@ react-spinners@^0.14.1:
   resolved "https://registry.yarnpkg.com/react-spinners/-/react-spinners-0.14.1.tgz#de7d7d6b3e6d4f29d9620c65495b502c7dd90812"
   integrity sha512-2Izq+qgQ08HTofCVEdcAQCXFEYfqTDdfeDQJeo/HHQiQJD4imOicNLhkfN2eh1NYEWVOX4D9ok2lhuDB0z3Aag==
 
-react-stomp-hooks@^2.2.1:
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/react-stomp-hooks/-/react-stomp-hooks-2.2.1.tgz#d806b7e4cd981b677d4b02749add55d47581fff1"
-  integrity sha512-Zzc1XHLYPegiPSybYJWIpZma0T5Kg1irrndlxgFaENsuU2MdyGXDR31rHQ7AGCsZdRH2tRXzki09bBBIwkhlOg==
+react-stomp-hooks@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/react-stomp-hooks/-/react-stomp-hooks-3.0.0.tgz#77f81c31d7c1ac2a2aa70d36fc3f5d97876f6f69"
+  integrity sha512-bJ+FKapPjEeIuBgylkwhygVkmaNokKevQtamQUVVtzzZQW6DcuIIMA+KW+gSFYf6wUhqUlzM82DXWSqcUT+V7Q==
   dependencies:
     "@stomp/stompjs" "^7.0.0"
+    "@types/sockjs-client" "^1.5.1"
     sockjs-client "^1.6.0"
 
 react-toastify@^10.0.4:
