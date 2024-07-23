@@ -15,62 +15,53 @@ const categories: Array<{
     | ExpertStudyModalType.SERVICES;
   label: string;
   pageTypes: Array<'synoptic' | 'density'>;
-  category: string;
   image: string;
 }> = [
   {
     modalId: ExpertStudyModalType.INDOOR_CAMERAS,
     label: 'Caméras Intérieures',
-    category: 'cameraInterieur',
     image: 'https://bd.vizeo.eu/6-Photos/DA330HD/DA330HD.png',
     pageTypes: ['synoptic', 'density'],
   },
   {
     modalId: ExpertStudyModalType.OUTDOOR_CAMERAS,
     label: 'Caméras Extérieures',
-    category: 'cameraExterieur',
     image: 'https://bd.vizeo.eu/6-Photos/CA60HD/CA60HD.png',
     pageTypes: ['synoptic', 'density'],
   },
   {
     modalId: ExpertStudyModalType.UNIVERSAL_CAMERAS,
     label: 'Caméras Universelles FULL COLOR',
-    category: 'cameraUniverselle',
     image: 'https://bd.vizeo.eu/6-Photos/DA350PAP/DA350PAP.png',
     pageTypes: ['synoptic', 'density'],
   },
   {
     modalId: ExpertStudyModalType.MONITORS,
     label: 'Moniteurs',
-    category: 'moniteur',
     image: 'https://bd.vizeo.eu/6-Photos/MO122/MO122.png',
     pageTypes: ['synoptic'],
   },
   {
     modalId: ExpertStudyModalType.RECORDERS,
     label: 'Enregistreur',
-    category: 'enregistreur',
     image: 'https://bd.vizeo.eu/6-Photos/HD508/Site_BACK_HD508.webp',
     pageTypes: ['synoptic'],
   },
   {
     modalId: ExpertStudyModalType.TRANSMITTERS,
     label: 'Transmetteurs',
-    category: 'transmetteur',
     image: 'https://bd.vizeo.eu/6-Photos/POE08/POE08.png',
     pageTypes: ['synoptic'],
   },
   {
     modalId: ExpertStudyModalType.OTHER_CAMERAS,
     label: 'Autres Caméras',
-    category: 'autre',
     image: 'https://bd.vizeo.eu/6-Photos/LP50/LP50.png',
     pageTypes: ['synoptic'],
   },
   {
     modalId: ExpertStudyModalType.SERVICES,
     label: 'Services',
-    category: 'autre',
     image: 'https://bd.vizeo.eu/6-Photos/AT1/AT1.png',
     pageTypes: ['synoptic'],
   },
