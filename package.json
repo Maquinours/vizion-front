@@ -90,7 +90,7 @@
     "@types/qs": "^6.9.12",
     "@types/react": "^18.2.56",
     "@types/react-big-calendar": "^1.8.9",
-    "@types/react-datepicker": "^6.2.0",
+    "@types/react-datepicker": "^7.0.0",
     "@types/react-dom": "^18.2.19",
     "@types/react-modal": "^3.16.3",
     "@types/svg-intersections": "^0.4.4",
