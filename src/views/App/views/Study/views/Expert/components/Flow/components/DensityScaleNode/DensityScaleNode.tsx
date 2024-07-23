@@ -7,6 +7,10 @@ import { OnValueChange } from 'react-number-format';
 import useStore, { RFState } from '../../utils/store';
 import { useShallow } from 'zustand/react/shallow';
 
+export const isExpertStudyDensityScaleNode = (node: Node): node is ExpertStudyDensityScaleNode => {
+  return node.type === 'densityScale' && 'rotation' in node.data && typeof node.data.rotation === 'number';
+};
+
 const selector = (state: RFState) => {
   const page = state.pages[state.currentPage];
   return {

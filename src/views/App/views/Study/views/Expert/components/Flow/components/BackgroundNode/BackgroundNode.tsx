@@ -2,6 +2,24 @@ import { Node, NodeProps } from '@xyflow/react';
 import { useState } from 'react';
 import AppViewStudyViewExpertViewFlowComponentBackgroundNodeComponentMenuComponent from './components/Menu/Menu';
 
+export const isExpertStudyBackgroundNode = (node: Node): node is ExpertStudyBackgroundNode => {
+  return (
+    node.type === 'background' &&
+    'image' in node.data &&
+    typeof node.data.image === 'string' &&
+    'width' in node.data &&
+    typeof node.data.width === 'number' &&
+    'height' in node.data &&
+    typeof node.data.height === 'number' &&
+    'scale' in node.data &&
+    typeof node.data.scale === 'number' &&
+    'opacity' in node.data &&
+    typeof node.data.opacity === 'number' &&
+    'rotation' in node.data &&
+    typeof node.data.rotation === 'number'
+  );
+};
+
 export type ExpertStudyBackgroundNode = Node<{ image: string; width: number; height: number; scale: number; opacity: number; rotation: number }, 'background'>;
 export default function AppViewStudyViewExpertViewFlowComponentBackgroundNodeComponent({ id, data, draggable }: NodeProps<ExpertStudyBackgroundNode>) {
   const [menuPosition, setMenuPosition] = useState<{ top: number; left: number }>();

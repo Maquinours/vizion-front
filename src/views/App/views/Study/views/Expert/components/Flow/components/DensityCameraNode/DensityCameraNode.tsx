@@ -5,6 +5,23 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 import { queries } from '../../../../../../../../../../utils/constants/queryKeys';
 import AppViewStudyViewExpertViewFlowComponentDensityCameraNodeComponentMenuComponent from './components/Menu/Menu';
 
+export const isExpertStudyDensityCameraNode = (node: Node): node is ExpertStudyDensityCameraNode => {
+  return (
+    node.type === 'densityCamera' &&
+    'productId' in node.data &&
+    typeof node.data.productId === 'string' &&
+    'range' in node.data &&
+    typeof node.data.range === 'number' &&
+    'angle' in node.data &&
+    typeof node.data.angle === 'number' &&
+    'rotation' in node.data &&
+    typeof node.data.rotation === 'number' &&
+    'opacity' in node.data &&
+    typeof node.data.opacity === 'number' &&
+    (!('name' in node.data) || typeof node.data.name === 'string')
+  );
+};
+
 // const polarToCartesian = (distance: number, angleInDegrees: number) => {
 //   let angleInRadians = (angleInDegrees * Math.PI) / 180.0;
 //   return {
@@ -14,7 +31,7 @@ import AppViewStudyViewExpertViewFlowComponentDensityCameraNodeComponentMenuComp
 // };
 
 export type ExpertStudyDensityCameraNode = Node<
-  { productId: string; range: number; angle: number; rotation: number; opacity: number; name: string },
+  { productId: string; range: number; angle: number; rotation: number; opacity: number; name?: string },
   'densityCamera'
 >;
 export default function AppViewStudyViewExpertViewFlowComponentDensityCameraNodeComponent({ id, selected, data }: NodeProps<ExpertStudyDensityCameraNode>) {

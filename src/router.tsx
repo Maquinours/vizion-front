@@ -6,7 +6,7 @@ import Loader from './components/Loader/Loader';
 import { routeTree } from './routeTree.gen';
 import AllBusinessQInfoRequestDto from './utils/types/AllBusinessQInfoRequestDto';
 
-const queryClient = new QueryClient();
+export const queryClient = new QueryClient();
 
 declare module '@tanstack/react-router' {
   interface Register {

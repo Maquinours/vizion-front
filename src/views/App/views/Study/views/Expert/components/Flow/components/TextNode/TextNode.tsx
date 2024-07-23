@@ -6,6 +6,10 @@ import 'react-quill/dist/quill.snow.css';
 import { Node, NodeProps } from '@xyflow/react';
 import ExpertStudyContext, { ExpertStudyModalType } from '../../../../utils/context';
 
+export const isExpertStudyTextNode = (node: Node): node is ExpertStudyTextNode => {
+  return node.type === 'text' && 'text' in node.data && typeof node.data.text === 'string';
+};
+
 export type ExpertStudyTextNode = Node<
   {
     text: string;

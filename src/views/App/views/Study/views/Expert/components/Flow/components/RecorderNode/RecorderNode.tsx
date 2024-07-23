@@ -6,6 +6,35 @@ import { queries } from '../../../../../../../../../../utils/constants/queryKeys
 import AppViewStudyViewExpertViewFlowComponentRecorderNodeComponentMenuComponent from './components/Menu/Menu';
 import handlesData from './constants/handles';
 
+export const isExpertStudyRecorderNode = (node: Node): node is ExpertStudyRecorderNode => {
+  return (
+    node.type === 'recorder' &&
+    'productId' in node.data &&
+    typeof node.data.productId === 'string' &&
+    (!('name' in node.data) || typeof node.data.name === 'string' || node.data.name === undefined) &&
+    'options' in node.data &&
+    Array.isArray(node.data.options) &&
+    node.data.options.every(
+      (option) =>
+        typeof option === 'object' &&
+        !!option &&
+        'id' in option &&
+        typeof option.id === 'string' &&
+        'quantity' in option &&
+        typeof option.quantity === 'number',
+    ) &&
+    'size' in node.data &&
+    !!node.data.size &&
+    typeof node.data.size === 'object' &&
+    'width' in node.data.size &&
+    typeof node.data.size.width === 'number' &&
+    'height' in node.data.size &&
+    typeof node.data.size.height === 'number' &&
+    'opacity' in node.data &&
+    typeof node.data.opacity === 'number'
+  );
+};
+
 export type ExpertStudyRecorderNode = Node<
   {
     productId: string;

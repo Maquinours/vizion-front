@@ -5,6 +5,24 @@ import { useRef, useState } from 'react';
 import { AiOutlineClose, AiTwotoneSetting } from 'react-icons/ai';
 import { queries } from '../../../../../../../../../../utils/constants/queryKeys';
 
+export const isExpertStudyServiceNode = (node: Node): node is ExpertStudyServiceNode => {
+  return (
+    node.type === 'service' &&
+    'productId' in node.data &&
+    typeof node.data.productId === 'string' &&
+    'size' in node.data &&
+    typeof node.data.size === 'object' &&
+    !!node.data.size &&
+    'width' in node.data.size &&
+    typeof node.data.size.width === 'number' &&
+    'height' in node.data.size &&
+    typeof node.data.size.height === 'number' &&
+    (!('opacity' in node.data) || typeof node.data.opacity === 'number' || node.data.opacity === undefined) &&
+    'rotation' in node.data &&
+    typeof node.data.rotation === 'number'
+  );
+};
+
 export type ExpertStudyServiceNode = Node<
   {
     productId: string;
