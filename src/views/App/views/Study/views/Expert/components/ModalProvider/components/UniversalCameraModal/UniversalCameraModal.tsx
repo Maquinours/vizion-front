@@ -15,7 +15,7 @@ import useStore, { RFState } from '../../../Flow/utils/store';
 import { useShallow } from 'zustand/react/shallow';
 import { ExpertStudyDensityCameraNode } from '../../../Flow/components/DensityCameraNode/DensityCameraNode';
 
-const includedProducts = ['DA350PAP'];
+const includedProducts = ['DA350PAP', 'DO505PAP'];
 
 type Model = {
   product: ProductResponseDto;
@@ -134,12 +134,12 @@ export default function AppViewStudyViewExpertViewModalProviderComponentUniversa
         onRequestClose={onClose}
       >
         <form onSubmit={handleSubmit(onSubmit)} className="w-full rounded-md bg-white pb-2">
-          <h2 className="flex h-10 items-center justify-center rounded-t-md bg-[var(--primary-color)] text-white">CAMERA UNIVERSELLE</h2>
+          <h2 className="flex h-10 items-center justify-center rounded-t-md bg-[var(--primary-color)] text-white">Caméras universelles</h2>
           <Controller
             control={control}
             name="models"
             render={({ field: { value, onChange } }) => (
-              <div>
+              <div className="flex flex-row">
                 {value.map((model) => (
                   <div
                     key={model.product.id}
