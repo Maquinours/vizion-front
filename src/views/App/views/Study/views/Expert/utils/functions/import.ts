@@ -16,6 +16,7 @@ import { ExpertStudySynopticCameraNode } from '../../components/Flow/components/
 import { ExpertStudyTextNode } from '../../components/Flow/components/TextNode/TextNode';
 import { ExpertStudyTransmitterNode } from '../../components/Flow/components/TransmitterNode/TransmitterNode';
 import { ExpertStudyPage, isExpertStudyPage } from '../../components/Flow/utils/store';
+import { v4 as uuidv4 } from 'uuid';
 
 type ValidPage =
   | { nodes: Array<Node>; edges: Array<Edge>; viewport: Viewport; mode: 'SYNOPTIC' }
@@ -360,27 +361,42 @@ const handleCameraNode = (node: Node, pageType: 'synoptic' | 'density', products
   }
 };
 
-const handleTextNode = (node: Node) => {
+const handleTextNode = async (node: Node) => {
   if (!('editorState' in node.data) || typeof node.data.editorState !== 'string') throw new Error('Invalid text node');
   const JSONText = JSON.parse(node.data.editorState);
   const editor = createEditor({
     editorState: JSONText,
   });
-  const text = $generateHtmlFromNodes(editor, null);
-  const newNode: ExpertStudyTextNode = {
-    id: node.id,
-    type: 'text',
-    position: { x: node.position.x, y: node.position.y + 28 },
-    data: {
-      text: text,
-    },
-  };
+
+  const newNode = await (async (): Promise<ExpertStudyTextNode> => {
+    return new Promise((resolve, reject) => {
+      try {
+        editor.getEditorState().read(() => {
+          console.log('editorState', editor.getEditorState()); // Problem: editor doesn't hangle old states
+          const text = $generateHtmlFromNodes(editor, null);
+          console.log({ text });
+          const newNode: ExpertStudyTextNode = {
+            id: node.id,
+            type: 'text',
+            position: { x: node.position.x, y: node.position.y + 28 },
+            data: {
+              text: text,
+            },
+          };
+          resolve(newNode);
+        });
+      } catch (error) {
+        reject(error);
+      }
+    });
+  })();
+
   return newNode;
 };
 
 const transformNode = async (node: Node, pageType: 'synoptic' | 'density') => {
   switch (node.type) {
-    case 'monitorNode':
+    case 'moniteurNode':
       return handleMonitorNode(node);
     case 'HD504PAP':
     case 'HD508PAP':
@@ -417,8 +433,9 @@ const transformNode = async (node: Node, pageType: 'synoptic' | 'density') => {
     case 'synopticCameraNode':
       return handleCameraNode(node, pageType, await queryClient.ensureQueryData(queries.product.list));
     case 'textNode':
-      return handleTextNode(node);
+      return await handleTextNode(node);
     default:
+      console.log('nodeType', node.type);
       throw new Error('Invalid node type');
   }
 };
@@ -454,7 +471,33 @@ const isValidPage = (page: unknown): page is ValidPage =>
       typeof page.scale.real === 'number'));
 
 const transformPage = async (page: unknown): Promise<ExpertStudyPage> => {
+  console.log(page);
+  if (!!page && typeof page === 'object' && 'edges' in page && Array.isArray(page.edges))
+    page.edges = page.edges.map((edge) => (typeof edge === 'object' && !!edge ? { ...edge, id: uuidv4() } : edge));
+  // if (!page || typeof page !== 'object' || page === null) console.log(1);
+  // else if (!('nodes' in page) || !Array.isArray(page.nodes) || page.nodes.some((node) => !isNode(node))) console.log(2);
+  // else if (!('edges' in page) || !Array.isArray(page.edges) || page.edges.some((edge) => !isEdge(edge))) console.log(3);
+  // else if (
+  //   !('viewport' in page) ||
+  //   typeof page.viewport !== 'object' ||
+  //   !page.viewport ||
+  //   !('x' in page.viewport) ||
+  //   typeof page.viewport.x !== 'number' ||
+  //   !('y' in page.viewport) ||
+  //   typeof page.viewport.y !== 'number' ||
+  //   !('zoom' in page.viewport) ||
+  //   typeof page.viewport.zoom !== 'number'
+  // )
+  //   console.log(4);
+  // else if (!('mode' in page) || (page.mode !== 'SYNOPTIC' && page.mode !== 'DENSITY')) console.log(5);
+  // else if (
+  //   page.mode === 'DENSITY' &&
+  //   (!('scale' in page) || typeof page.scale !== 'object' || !page.scale || !('virtual' in page.scale) || !('real' in page.scale))
+  // )
+  //   console.log(6);
+
   if (!isValidPage(page)) throw new Error('Invalid page');
+  console.log(2);
 
   const pageType = page.mode === 'SYNOPTIC' ? 'synoptic' : page.mode === 'DENSITY' ? 'density' : undefined;
   if (!pageType) throw new Error('Invalid page type');
