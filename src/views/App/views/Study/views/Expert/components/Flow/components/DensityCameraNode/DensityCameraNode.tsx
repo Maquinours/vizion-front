@@ -18,7 +18,7 @@ export const isExpertStudyDensityCameraNode = (node: Node): node is ExpertStudyD
     typeof node.data.rotation === 'number' &&
     'opacity' in node.data &&
     typeof node.data.opacity === 'number' &&
-    (!('name' in node.data) || typeof node.data.name === 'string')
+    (!('name' in node.data) || typeof node.data.name === 'string' || node.data.name === undefined)
   );
 };
 

@@ -148,6 +148,7 @@ const handleLineNode = (node: Node) => {
   const positions = [rotatePoint(node.data.size.width / 2, node.data.size.height, angle), rotatePoint(node.data.size.width / 2, 0, angle)];
   const newNode: ExpertStudyLinesNode = {
     id: node.id,
+    type: 'lines',
     position: { x: node.position.x, y: node.position.y },
     data: {
       positions: positions,
@@ -181,6 +182,7 @@ const handleLinesNode = (node: Node) => {
   positions.push({ x: lines[lines.length - 1].x2 - node.position.x, y: lines[lines.length - 1].y2 - node.position.y });
   const newNode: ExpertStudyLinesNode = {
     id: node.id,
+    type: 'lines',
     position: { x: node.position.x, y: node.position.y },
     data: {
       positions: positions,
@@ -495,6 +497,7 @@ export const getStudy = async (study: unknown) => {
     else if (study.version === 2) return study;
     else throw new Error('Invalid study version');
   })();
+
   if (!('pages' in parsedStudy) || !parsedStudy.pages || !Array.isArray(parsedStudy.pages) || !parsedStudy.pages.every((page) => isExpertStudyPage(page)))
     throw new Error('Invalid study');
   return parsedStudy;
