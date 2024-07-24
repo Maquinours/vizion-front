@@ -229,7 +229,7 @@ export default function AppViewAssistanceViewPdfModalViewPdfComponent({ assistan
               <View style={pageStyles.sectionTwoDetail}>
                 <Text style={pageStyles.sectionTwoDetailNumber}>3</Text>
                 <Text style={pageStyles.sectionTwoDetailContent} wrap={false}>
-                  Sur ce PC, téléchargez et installez VizeoDesk sur :<Text style={pageStyles.sectionTwoDetailContentLink}> https://desk.vizeo.eu</Text>
+                  Sur ce PC, téléchargez et installez AnyDesk sur : <Text style={pageStyles.sectionTwoDetailContentLink}>https://anydesk.com</Text>
                 </Text>
               </View>
               <View style={pageStyles.sectionTwoDetail}>
