@@ -14,7 +14,9 @@ import {
   isNode,
 } from '@xyflow/react';
 import { create } from 'zustand';
+import { ExpertStudyBackgroundNode, isExpertStudyBackgroundNode } from '../components/BackgroundNode/BackgroundNode';
 import { ExpertStudyDensityCameraNode, isExpertStudyDensityCameraNode } from '../components/DensityCameraNode/DensityCameraNode';
+import { ExpertStudyDensityScaleNode, isExpertStudyDensityScaleNode } from '../components/DensityScaleNode/DensityScaleNode';
 import { ExpertStudyImageNode, isExpertStudyImageNode } from '../components/ImageNode/ImageNode';
 import { ExpertStudyLinesNode, isExpertStudyLinesNode } from '../components/LinesNode/LinesNode';
 import { ExpertStudyMonitorNode, isExpertStudyMonitorNode } from '../components/MonitorNode/MonitorNode';
@@ -24,10 +26,6 @@ import { ExpertStudyServiceNode, isExpertStudyServiceNode } from '../components/
 import { ExpertStudySynopticCameraNode, isExpertStudySynopticCameraNode } from '../components/SynopticCameraNode/SynopticCameraNode';
 import { ExpertStudyTextNode, isExpertStudyTextNode } from '../components/TextNode/TextNode';
 import { ExpertStudyTransmitterNode, isExpertStudyTransmitterNode } from '../components/TransmitterNode/TransmitterNode';
-import { ExpertStudyDensityScaleNode, isExpertStudyDensityScaleNode } from '../components/DensityScaleNode/DensityScaleNode';
-import { ExpertStudyBackgroundNode, isExpertStudyBackgroundNode } from '../components/BackgroundNode/BackgroundNode';
-import { getStudy } from '../../../utils/functions/import';
-import { toast } from 'react-toastify';
 
 const initialState = {
   pages: [],
@@ -242,13 +240,7 @@ const useStore = create<RFState>((set, get) => ({
     set(initialState);
   },
   importStudy: async (study: { pages: Array<ExpertStudyPage> }) => {
-    try {
-      const { pages } = await getStudy(study);
-      set({ pages, currentPage: 0 });
-    } catch (error) {
-      console.error(error);
-      toast.error("Une erreur est survenue lors de l'importation du synoptique");
-    }
+    set({ pages: study.pages, currentPage: 0 });
   },
 }));
 

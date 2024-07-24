@@ -1,9 +1,9 @@
 import { $generateHtmlFromNodes } from '@lexical/html';
 import { Edge, Node, Viewport, isEdge, isNode } from '@xyflow/react';
 import { createEditor } from 'lexical';
+import { v4 as uuidv4 } from 'uuid';
 import { queryClient } from '../../../../../../../../router';
 import { queries } from '../../../../../../../../utils/constants/queryKeys';
-import ProductResponseDto from '../../../../../../../../utils/types/ProductResponseDto';
 import { ExpertStudyBackgroundNode } from '../../components/Flow/components/BackgroundNode/BackgroundNode';
 import { ExpertStudyDensityCameraNode } from '../../components/Flow/components/DensityCameraNode/DensityCameraNode';
 import { ExpertStudyDensityScaleNode } from '../../components/Flow/components/DensityScaleNode/DensityScaleNode';
@@ -16,7 +16,6 @@ import { ExpertStudySynopticCameraNode } from '../../components/Flow/components/
 import { ExpertStudyTextNode } from '../../components/Flow/components/TextNode/TextNode';
 import { ExpertStudyTransmitterNode } from '../../components/Flow/components/TransmitterNode/TransmitterNode';
 import { ExpertStudyPage, isExpertStudyPage } from '../../components/Flow/utils/store';
-import { v4 as uuidv4 } from 'uuid';
 
 type ValidPage =
   | { nodes: Array<Node>; edges: Array<Edge>; viewport: Viewport; mode: 'SYNOPTIC' }
@@ -311,11 +310,12 @@ const handleSynopticCameraNode = (node: Node, productId: string) => {
   return newNode;
 };
 
-const handleDensityCameraNode = (node: Node, productId: string, products: Array<ProductResponseDto>) => {
-  const angle = (() => {
+const handleDensityCameraNode = async (node: Node, productId: string) => {
+  const angle = await (async () => {
     const angle = typeof node.data.angle === 'number' ? node.data.angle : undefined;
     if (!!angle) return angle;
     else {
+      const products = await queryClient.ensureQueryData(queries.product.list);
       const product = products.find((product) => product.id === productId);
       if (!product) throw new Error('Impossible de trouver le produit');
       const hAngle = product.specificationProducts?.find((spec) => spec.specification?.name === 'ANGLE H');
@@ -342,7 +342,7 @@ const handleDensityCameraNode = (node: Node, productId: string, products: Array<
   return newNode;
 };
 
-const handleCameraNode = (node: Node, pageType: 'synoptic' | 'density', products: Array<ProductResponseDto>) => {
+const handleCameraNode = async (node: Node, pageType: 'synoptic' | 'density') => {
   const productId =
     typeof node.data.productId === 'string'
       ? node.data.productId
@@ -357,28 +357,25 @@ const handleCameraNode = (node: Node, pageType: 'synoptic' | 'density', products
     case 'synoptic':
       return handleSynopticCameraNode(node, productId);
     case 'density':
-      return handleDensityCameraNode(node, productId, products);
+      return handleDensityCameraNode(node, productId);
   }
 };
 
 const handleTextNode = async (node: Node) => {
   if (!('editorState' in node.data) || typeof node.data.editorState !== 'string') throw new Error('Invalid text node');
-  const JSONText = JSON.parse(node.data.editorState);
-  const editor = createEditor({
-    editorState: JSONText,
-  });
+  const editor = createEditor();
+  const parsedEditorState = editor.parseEditorState(node.data.editorState);
+  editor.setEditorState(parsedEditorState);
 
   const newNode = await (async (): Promise<ExpertStudyTextNode> => {
     return new Promise((resolve, reject) => {
       try {
         editor.getEditorState().read(() => {
-          console.log('editorState', editor.getEditorState()); // Problem: editor doesn't hangle old states
           const text = $generateHtmlFromNodes(editor, null);
-          console.log({ text });
           const newNode: ExpertStudyTextNode = {
             id: node.id,
             type: 'text',
-            position: { x: node.position.x, y: node.position.y + 28 },
+            position: { x: node.position.x + 10, y: node.position.y + 87 },
             data: {
               text: text,
             },
@@ -431,12 +428,11 @@ const transformNode = async (node: Node, pageType: 'synoptic' | 'density') => {
       return handleBackgroundNode(node);
     case 'cameraNode':
     case 'synopticCameraNode':
-      return handleCameraNode(node, pageType, await queryClient.ensureQueryData(queries.product.list));
+      return handleCameraNode(node, pageType);
     case 'textNode':
-      return await handleTextNode(node);
+      return handleTextNode(node);
     default:
-      console.log('nodeType', node.type);
-      throw new Error('Invalid node type');
+      throw new Error('Invalid node type : ' + node.type);
   }
 };
 
@@ -471,38 +467,15 @@ const isValidPage = (page: unknown): page is ValidPage =>
       typeof page.scale.real === 'number'));
 
 const transformPage = async (page: unknown): Promise<ExpertStudyPage> => {
-  console.log(page);
   if (!!page && typeof page === 'object' && 'edges' in page && Array.isArray(page.edges))
-    page.edges = page.edges.map((edge) => (typeof edge === 'object' && !!edge ? { ...edge, id: uuidv4() } : edge));
-  // if (!page || typeof page !== 'object' || page === null) console.log(1);
-  // else if (!('nodes' in page) || !Array.isArray(page.nodes) || page.nodes.some((node) => !isNode(node))) console.log(2);
-  // else if (!('edges' in page) || !Array.isArray(page.edges) || page.edges.some((edge) => !isEdge(edge))) console.log(3);
-  // else if (
-  //   !('viewport' in page) ||
-  //   typeof page.viewport !== 'object' ||
-  //   !page.viewport ||
-  //   !('x' in page.viewport) ||
-  //   typeof page.viewport.x !== 'number' ||
-  //   !('y' in page.viewport) ||
-  //   typeof page.viewport.y !== 'number' ||
-  //   !('zoom' in page.viewport) ||
-  //   typeof page.viewport.zoom !== 'number'
-  // )
-  //   console.log(4);
-  // else if (!('mode' in page) || (page.mode !== 'SYNOPTIC' && page.mode !== 'DENSITY')) console.log(5);
-  // else if (
-  //   page.mode === 'DENSITY' &&
-  //   (!('scale' in page) || typeof page.scale !== 'object' || !page.scale || !('virtual' in page.scale) || !('real' in page.scale))
-  // )
-  //   console.log(6);
+    page.edges = page.edges.map((edge) => (typeof edge === 'object' && !!edge ? { ...edge, id: uuidv4(), type: 'smoothstep' } : edge));
 
   if (!isValidPage(page)) throw new Error('Invalid page');
-  console.log(2);
 
   const pageType = page.mode === 'SYNOPTIC' ? 'synoptic' : page.mode === 'DENSITY' ? 'density' : undefined;
   if (!pageType) throw new Error('Invalid page type');
 
-  const nodes = await Promise.all(page.nodes.map(async (node) => await transformNode(node, pageType)));
+  const nodes = await Promise.all(page.nodes.map((node) => transformNode(node, pageType)));
   if (page.mode === 'SYNOPTIC') return { viewport: page.viewport, nodes: nodes, edges: page.edges, type: 'synoptic' };
   else if (page.mode === 'DENSITY') return { viewport: page.viewport, nodes: nodes, edges: page.edges, type: 'density', scale: page.scale };
   else throw new Error('Invalid page type');
@@ -510,7 +483,7 @@ const transformPage = async (page: unknown): Promise<ExpertStudyPage> => {
 
 export const studyV1ToV2 = async (study: object) => {
   if (!study || !('pages' in study) || !Array.isArray(study.pages)) throw new Error('Invalid study');
-  const pages = await Promise.all(study.pages.map(async (page) => await transformPage(page)));
+  const pages = await Promise.all(study.pages.map((page) => transformPage(page)));
 
   return { pages: pages };
 };
@@ -522,7 +495,7 @@ export const getStudy = async (study: unknown) => {
     else if (study.version === 2) return study;
     else throw new Error('Invalid study version');
   })();
-  if (!('pages' in parsedStudy) || !parsedStudy.pages || !Array.isArray(parsedStudy.pages) || parsedStudy.pages.every((page) => !isExpertStudyPage(page)))
+  if (!('pages' in parsedStudy) || !parsedStudy.pages || !Array.isArray(parsedStudy.pages) || !parsedStudy.pages.every((page) => isExpertStudyPage(page)))
     throw new Error('Invalid study');
   return parsedStudy;
 };

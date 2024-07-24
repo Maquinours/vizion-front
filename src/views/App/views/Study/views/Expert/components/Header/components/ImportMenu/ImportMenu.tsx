@@ -132,6 +132,11 @@ export default function AppViewStudyViewExpertViewHeaderComponentImportMenuCompo
     },
   });
 
+  const onImportStudyButtonClick = () => {
+    handleClose();
+    importStudyMutate();
+  };
+
   return (
     <>
       <Button
@@ -169,7 +174,7 @@ export default function AppViewStudyViewExpertViewHeaderComponentImportMenuCompo
         <MenuItem onClick={onImportGedImageButtonClick}>
           <span className="w-full text-left text-sm text-gray-700">Objet à partir de la GED</span>
         </MenuItem>
-        <MenuItem disabled={!synoptic?.synopticList || isImportingStudy} onClick={() => importStudyMutate()}>
+        <MenuItem disabled={!synoptic?.synopticList || isImportingStudy} onClick={onImportStudyButtonClick}>
           <span className="w-full text-left text-sm text-gray-700">
             {isLoadingSynoptic ? 'Chargement...' : isImportingStudy ? 'Importation en cours...' : "Synoptique de l'affaire"}
           </span>
