@@ -1,5 +1,5 @@
 import { Switch } from '@mui/material';
-import { useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { getRouteApi } from '@tanstack/react-router';
 import { useReactFlow } from '@xyflow/react';
 import { isError } from 'lodash';
@@ -23,22 +23,27 @@ import AppViewStudyViewExpertViewHeaderComponentExportMenuComponent from './comp
 import AppViewStudyViewExpertViewHeaderComponentImportMenuComponent from './components/ImportMenu/ImportMenu';
 import { MatchRoute } from '@tanstack/react-router';
 import AppViewStudyViewExpertViewHeaderComponentTransferMenuComponent from './components/TransferMenu/TransferMenu';
+import { saveSynopticBusiness } from '../../../../../../../../utils/api/synoptic';
+import { synopticBusinessQueryKeys } from '../../../../../../../../utils/constants/queryKeys/synoptic';
 
 const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/study/expert');
 
 const selector = (state: RFState) => ({
   hasPage: state.pages.length > 0,
+  getPages: state.getPages,
 });
 
 export default function AppViewStudyViewExpertViewHeaderComponent() {
   const navigate = routeApi.useNavigate();
 
-  const { hasPage } = useStore(useShallow(selector));
+  const { hasPage, getPages } = useStore(useShallow(selector));
 
   const queryClient = useQueryClient();
 
   const { getNodes, getEdges, addNodes, addEdges, screenToFlowPosition } = useReactFlow();
   const { setPaneClickFunction, paneClickFunction, setModal } = useContext(ExpertStudyContext)!;
+
+  const { businessId } = routeApi.useParams();
 
   const onLinesButtonClick = () => {
     setPaneClickFunction((func) => (func?.type !== ExpertStudyPaneClickFunctionType.LINES ? { type: ExpertStudyPaneClickFunctionType.LINES } : undefined));
@@ -191,6 +196,43 @@ export default function AppViewStudyViewExpertViewHeaderComponent() {
     navigate({ to: '../automatic', replace: true });
   };
 
+  const { mutate: saveSynopticBusinessMutate, isPending: isSavingSynopticBusiness } = useMutation({
+    mutationFn: async () => {
+      const pages = getPages();
+      const business = await queryClient.ensureQueryData(queries.businesses.detail._ctx.byId(businessId));
+
+      return saveSynopticBusiness({
+        name: 'SYNOPTIQUE',
+        businessPticId: business.id,
+        businessNumber: business.numBusiness,
+        vizeo: true,
+        vizeoptik: true,
+        updateSynoptic: false,
+        synopticList: {
+          version: 2,
+          pages: pages,
+        },
+        enterpriseId: business.enterpriseId,
+        enterpriseName: business.enterpriseName,
+        profileId: business.profileId,
+        profileName: business.profileName,
+        profileEmail: business.profileEmail,
+      });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: synopticBusinessQueryKeys._def });
+      toast.success('Le synoptique a été sauvegardé avec succès');
+    },
+    onError: (error) => {
+      console.error(error);
+      toast.error('Une erreur est survenue lors de la sauvegarde du synoptique');
+    },
+  });
+
+  const onSaveButtonClick = () => {
+    saveSynopticBusinessMutate();
+  };
+
   return (
     <div className="flex min-h-12 items-center justify-between border-b border-b-slate-800 px-4">
       <div className="flex items-center justify-center gap-x-2">
@@ -245,21 +287,9 @@ export default function AppViewStudyViewExpertViewHeaderComponent() {
           </div>
           <div className="flex gap-x-2">
             <AppViewStudyViewExpertViewHeaderComponentCartComponent />
-            {/* <button
-          onClick={cartOpenClose}
-          className="flex h-[2.5rem] w-36 items-center justify-center space-x-1 rounded-md border border-slate-800 px-4 py-2 text-sm shadow-sm hover:outline hover:outline-offset-[1px] hover:outline-blue-500"
-        >
-          <span>Etude {}</span>
-          <p className="inline-block ">
-            {totalProductsQuantity} article{totalProductsQuantity > 1 && 's'}
-          </p>
-        </button> */}
-            {/* <button
-          onClick={saveIntoBusiness}
-          className="flex h-[2.5rem] items-center justify-center space-x-2 rounded-md bg-[#31385A] px-4 py-2 text-sm  font-medium text-white shadow-sm hover:bg-[#31385A]/80"
-        >
-          Sauvegarder
-        </button> */}
+            <button type="button" disabled={isSavingSynopticBusiness} onClick={onSaveButtonClick} className="btn btn-primary">
+              {isSavingSynopticBusiness ? 'Sauvegarde en cours...' : 'Sauvegarder'}
+            </button>
           </div>
         </>
       )}
