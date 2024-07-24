@@ -64,14 +64,7 @@ export default function AppViewStudyViewExpertViewFlowComponentDensityCameraNode
     // onClick={onNodeClick}
     >
       <div className="flex justify-center">
-        <div
-          className={classNames(selected ? 'invisible' : undefined)}
-          style={{
-            pointerEvents: selected // && !isLineDrawing
-              ? 'all'
-              : 'none',
-          }}
-        >
+        <div className={classNames(selected ? undefined : 'invisible')}>
           <div className="flex h-[80px] w-[80px] items-center justify-center">
             <div className="text-center text-xs">{product.reference}</div>
           </div>

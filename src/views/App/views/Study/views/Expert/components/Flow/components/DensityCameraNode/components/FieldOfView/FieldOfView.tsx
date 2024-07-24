@@ -4,6 +4,7 @@ import useStore, { RFState } from '../../../../utils/store';
 import { ExpertStudyDensityCameraNode } from '../../DensityCameraNode';
 import AppViewStudyViewExpertViewFlowComponentDensityCameraNodeComponentFieldOfViewComponentArcComponent from './components/Arc/Arc';
 import polarToCartesian from './utils/functions/polarToCartesian';
+import AppViewStudyViewExpertViewFlowComponentDensityCameraNodeComponentFieldOfViewComponentTextComponent from './components/Text/Text';
 
 const types: Array<'recognition' | 'reading' | 'identification' | 'full'> = ['recognition', 'reading', 'identification', 'full'];
 
@@ -91,7 +92,14 @@ export default function AppViewStudyViewExpertViewFlowComponentDensityCameraNode
           />
         ))}
       </g>
-      {/* {!selected && <FOVText maxRange={maxRange} SvgHeight={SvgHeight} reference={reference} rotation={rotation} />} */}
+      {!selected && (
+        <AppViewStudyViewExpertViewFlowComponentDensityCameraNodeComponentFieldOfViewComponentTextComponent
+          product={product}
+          maxRange={maxRange}
+          svgHeight={svgHeight}
+          rotation={data.rotation}
+        />
+      )}
     </svg>
   );
 }
