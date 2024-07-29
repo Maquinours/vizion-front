@@ -35,26 +35,6 @@ export default function AppViewStudyViewExpertViewFooterComponent() {
               Ajouter une densité
             </button>
           </div>
-          {/* <div className="flex items-center justify-center space-x-2">
-          {hasBackground && !pdfRender && (
-            <button
-              id="btn_delete_background"
-              onClick={deleteBackgroundCallback}
-              className="relative rounded-md border border-indigo-800 p-2 text-indigo-800 hover:bg-red-500 hover:text-white"
-            >
-              Supprimer le plan
-            </button>
-          )}
-          <button onClick={deletePageCallback} className="relative rounded-md border border-indigo-800 p-2 text-indigo-800 hover:bg-red-500 hover:text-white">
-            Supprimer cette page
-          </button>
-          <button onClick={addSynopticPage} className="rounded-md border border-indigo-800 p-2 text-indigo-800 hover:bg-[#31385A] hover:text-white">
-            Ajouter une synoptique
-          </button>
-          <button onClick={addDensityPage} className="rounded-md border border-indigo-800 p-2 text-indigo-800 hover:bg-[#31385A] hover:text-white">
-            Ajouter une densité
-          </button>
-        </div> */}
         </div>
       )}
     </div>
