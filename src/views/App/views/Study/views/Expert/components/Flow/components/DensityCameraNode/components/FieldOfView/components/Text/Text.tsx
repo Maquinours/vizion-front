@@ -13,7 +13,7 @@ export default function AppViewStudyViewExpertViewFlowComponentDensityCameraNode
   rotation,
 }: AppViewStudyViewExpertViewFlowComponentDensityCameraNodeComponentFieldOfViewComponentTextComponentProps) {
   if (!product.reference) return;
-  const fontSize = Math.max(25, Math.round(maxRange / product.reference.length));
+  const fontSize = Math.min(25, Math.round(maxRange / product.reference.length));
   const position = { x: maxRange / 2, y: Math.floor(svgHeight / 2 + (fontSize / 2) * 0.7) };
   const transform = rotation > 80 && rotation < 270 ? `rotate(180deg) translate(-100%, -100%)` : undefined;
 
