@@ -31,8 +31,8 @@ export default function AppViewStudyViewExpertViewFlowComponentCartridgeComponen
   const pageNameValue = pageName ?? `Page ${currentPage + 1}`;
 
   return (
-    <Panel position="bottom-right">
-      <table className="min-h-full w-fit divide-y divide-gray-300 border border-[#1a192b] bg-gray-50">
+    <Panel position="bottom-right" style={{ margin: 0 }}>
+      <table className="min-h-full w-fit divide-y divide-gray-300 border-l border-t border-[#1a192b] bg-gray-50">
         <thead>
           <tr className="rounded-md border border-[#1a192b]">
             <th scope="col" className="border border-[#1a192b] py-2 pl-4 pr-3 text-xs font-semibold text-[#1a192b] sm:pl-6">

@@ -1,16 +1,14 @@
+import { ReactFlowState, useStore as useFlowStore } from '@xyflow/react';
+import { isEqual } from 'lodash';
+import { intersect, shape } from 'svg-intersections';
 import { useShallow } from 'zustand/react/shallow';
 import ProductResponseDto from '../../../../../../../../../../../../utils/types/ProductResponseDto';
 import useStore, { RFState } from '../../../../utils/store';
+import { ExpertStudyLinesNode } from '../../../LinesNode/LinesNode';
 import { ExpertStudyDensityCameraNode } from '../../DensityCameraNode';
 import AppViewStudyViewExpertViewFlowComponentDensityCameraNodeComponentFieldOfViewComponentArcComponent from './components/Arc/Arc';
-import polarToCartesian from './utils/functions/polarToCartesian';
 import AppViewStudyViewExpertViewFlowComponentDensityCameraNodeComponentFieldOfViewComponentTextComponent from './components/Text/Text';
-import { ReactFlowState } from '@xyflow/react';
-import { ExpertStudyLinesNode } from '../../../LinesNode/LinesNode';
-import { useStore as useFlowStore } from '@xyflow/react';
-import { isEqual } from 'lodash';
-import { intersect, shape } from 'svg-intersections';
-import { useMemo } from 'react';
+import polarToCartesian from './utils/functions/polarToCartesian';
 
 const types: Array<'recognition' | 'reading' | 'identification' | 'full'> = ['recognition', 'reading', 'identification', 'full'];
 
@@ -105,7 +103,7 @@ export default function AppViewStudyViewExpertViewFlowComponentDensityCameraNode
 
   const svgHeight = polarToCartesian(maxRange, -data.angle / 2).y - polarToCartesian(maxRange, data.angle / 2).y;
 
-  const masks = useMemo(() => {
+  const masks = (() => {
     const fovPosition = { x: nodePosition.x + 80, y: nodePosition.y + 36 };
 
     const result: Array<string> = [];
@@ -163,7 +161,7 @@ export default function AppViewStudyViewExpertViewFlowComponentDensityCameraNode
         `);
     }
     return result;
-  }, [data.angle, data.rotation, maxRange, nodePosition.x, nodePosition.y, svgHeight, obstacles]);
+  })();
 
   const maskId = `${nodeId}-mask`;
 
