@@ -483,14 +483,14 @@ const transformPage = async (page: unknown): Promise<ExpertStudyPage> => {
   else throw new Error('Invalid page type');
 };
 
-export const studyV1ToV2 = async (study: object) => {
+const studyV1ToV2 = async (study: object) => {
   if (!study || !('pages' in study) || !Array.isArray(study.pages)) throw new Error('Invalid study');
   const pages = await Promise.all(study.pages.map((page) => transformPage(page)));
 
   return { pages: pages };
 };
 
-export const getStudy = async (study: unknown) => {
+export const parseStudy = async (study: unknown): Promise<{ pages: Array<ExpertStudyPage> }> => {
   const parsedStudy = await (async () => {
     if (typeof study !== 'object' || study === null) throw new Error('Invalid study');
     if (!('version' in study)) return studyV1ToV2(study);
@@ -500,5 +500,21 @@ export const getStudy = async (study: unknown) => {
 
   if (!('pages' in parsedStudy) || !parsedStudy.pages || !Array.isArray(parsedStudy.pages) || !parsedStudy.pages.every((page) => isExpertStudyPage(page)))
     throw new Error('Invalid study');
-  return parsedStudy;
+  return {
+    pages: parsedStudy.pages.map((page) => ({
+      ...page,
+      nodes: page.nodes.map((node) => {
+        switch (node.type) {
+          case 'densityCamera':
+          case 'lines':
+            return {
+              ...node,
+              style: { pointerEvents: 'none' },
+            };
+          default:
+            return node;
+        }
+      }),
+    })),
+  };
 };
