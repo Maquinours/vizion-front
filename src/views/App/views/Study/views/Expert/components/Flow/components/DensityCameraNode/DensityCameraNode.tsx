@@ -34,7 +34,13 @@ export type ExpertStudyDensityCameraNode = Node<
   { productId: string; range: number; angle: number; rotation: number; opacity: number; name?: string },
   'densityCamera'
 >;
-export default function AppViewStudyViewExpertViewFlowComponentDensityCameraNodeComponent({ id, selected, data }: NodeProps<ExpertStudyDensityCameraNode>) {
+export default function AppViewStudyViewExpertViewFlowComponentDensityCameraNodeComponent({
+  id,
+  selected,
+  data,
+  positionAbsoluteX,
+  positionAbsoluteY,
+}: NodeProps<ExpertStudyDensityCameraNode>) {
   //   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   const { data: product } = useSuspenseQuery({ ...queries.product.list, select: (products) => products.find((product) => product.id === data.productId) });
@@ -76,6 +82,7 @@ export default function AppViewStudyViewExpertViewFlowComponentDensityCameraNode
           data={data}
           selected={selected ?? false}
           product={product}
+          nodePosition={{ x: positionAbsoluteX, y: positionAbsoluteY }}
         />
       </div>
       {selected && <AppViewStudyViewExpertViewFlowComponentDensityCameraNodeComponentMenuComponent nodeId={id} camSpecs={camSpecs} />}
