@@ -14,7 +14,7 @@ export const isExpertStudyDensityScaleNode = (node: Node): node is ExpertStudyDe
 const selector = (state: RFState) => {
   const page = state.pages[state.currentPage];
   return {
-    scale: page.type === 'density' ? page.scale : undefined,
+    scale: page?.type === 'density' ? page.scale : undefined,
     setPageScale: state.setPageScale,
   };
 };

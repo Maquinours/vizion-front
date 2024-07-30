@@ -9,11 +9,11 @@ import { useShallow } from 'zustand/react/shallow';
 import { synopticBusinessQueryKeys } from '../../../../../../../../../../utils/constants/queryKeys/synoptic';
 import { fileToBase64Image } from '../../../../../../../../../../utils/functions/files';
 import ExpertStudyContext, { ExpertStudyModalType } from '../../../../utils/context';
-import { getStudy } from '../../../../utils/functions/import';
-import { ExpertStudyBackgroundNode } from '../../../Flow/components/BackgroundNode/BackgroundNode';
 import { ExpertStudyImageNode } from '../../../Flow/components/ImageNode/ImageNode';
 import useStore, { RFState } from '../../../Flow/utils/store';
 import { toast } from 'react-toastify';
+import { parseStudy } from '../../../../utils/functions/parse';
+import { ExpertStudyBackgroundNode } from '../../../Flow/components/BackgroundNode/BackgroundNode';
 
 const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/study');
 
@@ -123,7 +123,7 @@ export default function AppViewStudyViewExpertViewHeaderComponentImportMenuCompo
   const { mutate: importStudyMutate, isPending: isImportingStudy } = useMutation({
     mutationFn: async () => {
       if (!synoptic?.synopticList) return;
-      const study = await getStudy(synoptic.synopticList);
+      const study = await parseStudy(synoptic.synopticList);
       importStudy(study);
     },
     onError: (error) => {

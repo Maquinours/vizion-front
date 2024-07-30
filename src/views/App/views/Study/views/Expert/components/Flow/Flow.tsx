@@ -30,6 +30,7 @@ import AppViewStudyViewExpertViewFlowComponentServiceNodeComponent from './compo
 import AppViewStudyViewExpertViewFlowComponentDensityScaleNodeComponent from './components/DensityScaleNode/DensityScaleNode';
 import AppViewStudyViewExpertViewFlowComponentDensityCameraNodeComponent from './components/DensityCameraNode/DensityCameraNode';
 import AppViewStudyViewExpertViewFlowComponentBackgroundNodeComponent from './components/BackgroundNode/BackgroundNode';
+import AppViewStudyViewExpertViewFlowComponentDensityCaptionComponent from './components/DensityCaption/DensityCaption';
 
 const nodeTypes: NodeTypes = {
   synopticCamera: AppViewStudyViewExpertViewFlowComponentSynopticCameraNodeComponent,
@@ -326,6 +327,7 @@ export default function AppViewStudyViewExpertViewFlowComponent() {
       <AppViewStudyViewExpertViewFlowComponentComponentHelperLinesComponent horizontal={helperLines.horizontal} vertical={helperLines.vertical} />
       <AppViewStudyViewExpertViewFlowComponentCartridgeComponent />
       <AppViewStudyViewExpertViewFlowComponentKeyPluginComponent />
+      <AppViewStudyViewExpertViewFlowComponentDensityCaptionComponent />
       {(() => {
         switch (paneClickFunction?.type) {
           case ExpertStudyPaneClickFunctionType.RECTANGLE:

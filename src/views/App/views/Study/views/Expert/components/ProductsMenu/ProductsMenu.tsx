@@ -43,7 +43,7 @@ const categories: Array<{
   },
   {
     modalId: ExpertStudyModalType.RECORDERS,
-    label: 'Enregistreur',
+    label: 'Enregistreurs',
     image: 'https://bd.vizeo.eu/6-Photos/HD508/Site_BACK_HD508.webp',
     pageTypes: ['synoptic'],
   },

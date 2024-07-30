@@ -8,7 +8,7 @@ import { useShallow } from 'zustand/react/shallow';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { synopticBusinessQueryKeys } from '../../../../../../../../utils/constants/queryKeys/synoptic';
 import { getRouteApi } from '@tanstack/react-router';
-import { getStudy } from '../../utils/functions/import';
+import { parseStudy } from '../../utils/functions/parse';
 import { toast } from 'react-toastify';
 
 const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/study/expert');
@@ -43,7 +43,7 @@ export default function AppViewStudyViewExpertViewFirstPageTypeSelectionComponen
   const { mutate: importStudyMutate, isPending: isImportingStudy } = useMutation({
     mutationFn: async () => {
       if (!synoptic?.synopticList) return;
-      const study = await getStudy(synoptic.synopticList);
+      const study = await parseStudy(synoptic.synopticList);
       importStudy(study);
     },
     onError: (error) => {
