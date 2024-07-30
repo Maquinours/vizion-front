@@ -1,23 +1,35 @@
 import { Button, Fade, Menu, MenuItem } from '@mui/material';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { getRouteApi } from '@tanstack/react-router';
 import { useReactFlow } from '@xyflow/react';
 import { useContext, useState } from 'react';
 import { RiArrowDownSLine } from 'react-icons/ri';
 import { v4 as uuidv4 } from 'uuid';
 import { useShallow } from 'zustand/react/shallow';
+import { synopticBusinessQueryKeys } from '../../../../../../../../../../utils/constants/queryKeys/synoptic';
 import { fileToBase64Image } from '../../../../../../../../../../utils/functions/files';
 import ExpertStudyContext, { ExpertStudyModalType } from '../../../../utils/context';
-import { ExpertStudyBackgroundNode } from '../../../Flow/components/BackgroundNode/BackgroundNode';
 import { ExpertStudyImageNode } from '../../../Flow/components/ImageNode/ImageNode';
 import useStore, { RFState } from '../../../Flow/utils/store';
+import { toast } from 'react-toastify';
+import { parseStudy } from '../../../../utils/functions/parse';
+import { ExpertStudyBackgroundNode } from '../../../Flow/components/BackgroundNode/BackgroundNode';
+
+const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/study');
 
 const selector = (state: RFState) => ({
   pageType: state.pages[state.currentPage].type,
+  importStudy: state.importStudy,
 });
 export default function AppViewStudyViewExpertViewHeaderComponentImportMenuComponent() {
-  const { pageType } = useStore(useShallow(selector));
+  const { pageType, importStudy } = useStore(useShallow(selector));
 
   const { addNodes, screenToFlowPosition, getNodes, deleteElements } = useReactFlow();
   const { setModal } = useContext(ExpertStudyContext)!;
+
+  const { businessId } = routeApi.useParams();
+
+  const { data: synoptic, isLoading: isLoadingSynoptic } = useQuery(synopticBusinessQueryKeys.detail._ctx.byBusinessId(businessId));
 
   const [anchorEl, setAnchorEl] = useState<HTMLElement>();
   const open = Boolean(anchorEl);
@@ -108,6 +120,23 @@ export default function AppViewStudyViewExpertViewHeaderComponentImportMenuCompo
     setModal({ type: ExpertStudyModalType.IMPORT_GED_IMAGE, data: { type: 'background' } });
   };
 
+  const { mutate: importStudyMutate, isPending: isImportingStudy } = useMutation({
+    mutationFn: async () => {
+      if (!synoptic?.synopticList) return;
+      const study = await parseStudy(synoptic.synopticList);
+      importStudy(study);
+    },
+    onError: (error) => {
+      console.error(error);
+      toast.error("Une erreur est survenue lors de l'importation du synoptique");
+    },
+  });
+
+  const onImportStudyButtonClick = () => {
+    handleClose();
+    importStudyMutate();
+  };
+
   return (
     <>
       <Button
@@ -144,6 +173,11 @@ export default function AppViewStudyViewExpertViewHeaderComponentImportMenuCompo
         </MenuItem>
         <MenuItem onClick={onImportGedImageButtonClick}>
           <span className="w-full text-left text-sm text-gray-700">Objet à partir de la GED</span>
+        </MenuItem>
+        <MenuItem disabled={!synoptic?.synopticList || isImportingStudy} onClick={onImportStudyButtonClick}>
+          <span className="w-full text-left text-sm text-gray-700">
+            {isLoadingSynoptic ? 'Chargement...' : isImportingStudy ? 'Importation en cours...' : "Synoptique de l'affaire"}
+          </span>
         </MenuItem>
       </Menu>
     </>

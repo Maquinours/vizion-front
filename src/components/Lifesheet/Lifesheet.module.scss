@@ -1,6 +1,8 @@
 @import '/src/assets/styles/mixins';
 
 .container {
+  overflow: auto;
+
   .link,
   .button {
     margin: 0.5rem 0 0.5rem 0.3rem;
@@ -76,6 +78,7 @@
           &:nth-child(3) {
             width: 70%;
             overflow-wrap: anywhere;
+            white-space: preserve;
           }
 
           @include respond-below(md) {

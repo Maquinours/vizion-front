@@ -22,21 +22,25 @@ export default function AppViewEnterprisesViewTableComponentContactsCellComponen
   };
 
   return (
-    <ul className={styles.container} onClick={onClick}>
+    <table className={styles.container} onClick={onClick}>
       {original.profiles.length > 1 && !isOpen ? (
-        <li>
-          <button onClick={() => setIsOpen(true)}>
+        <tr onClick={() => setIsOpen(true)}>
+          <td colSpan={2} className="w-[90%] p-1">
             <span>{original.profiles.length} contacts</span>
+          </td>
+          <td className="w-[10%] p-1">
             <IoMdArrowDropright />
-          </button>
-        </li>
+          </td>
+        </tr>
       ) : (
         original.profiles.map((contact, index, arr) => {
           const isDropDownItem = index === 0 && arr.length > 1;
-          const children = (
-            <li key={contact.id} onContextMenu={(e) => onContactContextMenu(e, contact)}>
-              <span>{contact.landlinePhoneNumber}</span>
-              <span>
+          return (
+            <tr key={contact.id} onContextMenu={(e) => onContactContextMenu(e, contact)} onClick={() => isDropDownItem && setIsOpen(false)}>
+              <td className="w-[45%] p-1">
+                <span>{contact.landlinePhoneNumber}</span>
+              </td>
+              <td className="w-[45%] p-1">
                 {contact.standardPhoneNumber ? (
                   <a
                     href={`tel:${contact.standardPhoneNumber}`}
@@ -44,22 +48,21 @@ export default function AppViewEnterprisesViewTableComponentContactsCellComponen
                       e.stopPropagation();
                       e.nativeEvent.stopImmediatePropagation();
                     }}
+                    className="text-blue-600 underline visited:text-purple-600 hover:text-blue-800"
                   >
                     {contact.firstName} {contact.lastName}
                   </a>
                 ) : (
-                  <>
+                  <span>
                     {contact.firstName} {contact.lastName}
-                  </>
+                  </span>
                 )}
-                {isDropDownItem && <IoMdArrowDropdown />}
-              </span>
-            </li>
+              </td>
+              <td className="w-[10%] p-1">{isDropDownItem && <IoMdArrowDropdown />}</td>
+            </tr>
           );
-          if (isDropDownItem) return <button onClick={() => setIsOpen(false)}>{children}</button>;
-          return children;
         })
       )}
-    </ul>
+    </table>
   );
 }

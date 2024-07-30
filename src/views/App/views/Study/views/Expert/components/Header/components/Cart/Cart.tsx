@@ -31,17 +31,22 @@ const reactFlowSelector = (state: ReactFlowState) => {
       | ExpertStudyServiceNode
     > => !!node.type && ['synopticCamera', 'densityCamera', 'monitor', 'recorder', 'transmitter', 'service'].includes(node.type),
   );
-  const cameraNodes = productNodes.filter(
-    (node): node is InternalNode<ExpertStudySynopticCameraNode | ExpertStudyDensityCameraNode> =>
-      !!node.type && ['synopticCamera', 'densityCamera'].includes(node.type),
+  const camerasCount = productNodes.reduce(
+    (acc, node) => acc + (node.type === 'synopticCamera' ? (node.data.quantity ?? 1) : node.type === 'densityCamera' ? 1 : 0),
+    0,
+  );
+
+  const productsCount = productNodes.reduce(
+    (acc, node) =>
+      (acc +=
+        ('quantity' in node.data && node.data.quantity !== undefined ? node.data.quantity : 1) +
+        ('options' in node.data ? node.data.options.reduce((acc, option) => acc + option.quantity, 0) : 0)),
+    0,
   );
 
   return {
-    productCount: productNodes.reduce(
-      (acc, node) => (acc += 1 + ('options' in node.data ? node.data.options.reduce((acc, option) => acc + option.quantity, 0) : 0)),
-      0,
-    ),
-    cameraCount: cameraNodes.length,
+    productCount: productsCount,
+    cameraCount: camerasCount,
   };
 };
 

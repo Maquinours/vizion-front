@@ -10,20 +10,30 @@ import {
   addEdge,
   applyEdgeChanges,
   applyNodeChanges,
+  isEdge,
+  isNode,
 } from '@xyflow/react';
 import { create } from 'zustand';
-import { ExpertStudyDensityCameraNode } from '../components/DensityCameraNode/DensityCameraNode';
-import { ExpertStudyImageNode } from '../components/ImageNode/ImageNode';
-import { ExpertStudyLinesNode } from '../components/LinesNode/LinesNode';
-import { ExpertStudyMonitorNode } from '../components/MonitorNode/MonitorNode';
-import { ExpertStudyRecorderNode } from '../components/RecorderNode/RecorderNode';
-import { ExpertStudyRectangleNode } from '../components/RectangleNode/RectangleNode';
-import { ExpertStudyServiceNode } from '../components/ServiceNode/ServiceNode';
-import { ExpertStudySynopticCameraNode } from '../components/SynopticCameraNode/SynopticCameraNode';
-import { ExpertStudyTextNode } from '../components/TextNode/TextNode';
-import { ExpertStudyTransmitterNode } from '../components/TransmitterNode/TransmitterNode';
-import { ExpertStudyDensityScaleNode } from '../components/DensityScaleNode/DensityScaleNode';
-import { ExpertStudyBackgroundNode } from '../components/BackgroundNode/BackgroundNode';
+import { ExpertStudyBackgroundNode, isExpertStudyBackgroundNode } from '../components/BackgroundNode/BackgroundNode';
+import { ExpertStudyDensityCameraNode, isExpertStudyDensityCameraNode } from '../components/DensityCameraNode/DensityCameraNode';
+import { ExpertStudyDensityScaleNode, isExpertStudyDensityScaleNode } from '../components/DensityScaleNode/DensityScaleNode';
+import { ExpertStudyImageNode, isExpertStudyImageNode } from '../components/ImageNode/ImageNode';
+import { ExpertStudyLinesNode, isExpertStudyLinesNode } from '../components/LinesNode/LinesNode';
+import { ExpertStudyMonitorNode, isExpertStudyMonitorNode } from '../components/MonitorNode/MonitorNode';
+import { ExpertStudyRecorderNode, isExpertStudyRecorderNode } from '../components/RecorderNode/RecorderNode';
+import { ExpertStudyRectangleNode, isExpertStudyRectangleNode } from '../components/RectangleNode/RectangleNode';
+import { ExpertStudyServiceNode, isExpertStudyServiceNode } from '../components/ServiceNode/ServiceNode';
+import { ExpertStudySynopticCameraNode, isExpertStudySynopticCameraNode } from '../components/SynopticCameraNode/SynopticCameraNode';
+import { ExpertStudyTextNode, isExpertStudyTextNode } from '../components/TextNode/TextNode';
+import { ExpertStudyTransmitterNode, isExpertStudyTransmitterNode } from '../components/TransmitterNode/TransmitterNode';
+
+const initialState = {
+  pages: [],
+  currentPage: 0,
+  studyName: undefined,
+  installerName: undefined,
+  businessId: undefined,
+};
 
 const defaultSynopticPage = {
   nodes: [],
@@ -54,6 +64,56 @@ export type ExpertStudyNode =
   | ExpertStudyDensityScaleNode
   | ExpertStudyBackgroundNode;
 
+export const isExpertStudyNode = (node: unknown): node is ExpertStudyNode => {
+  return (
+    isNode(node) &&
+    (isExpertStudySynopticCameraNode(node) ||
+      isExpertStudyMonitorNode(node) ||
+      isExpertStudyRecorderNode(node) ||
+      isExpertStudyTransmitterNode(node) ||
+      isExpertStudyServiceNode(node) ||
+      isExpertStudyImageNode(node) ||
+      isExpertStudyTextNode(node) ||
+      isExpertStudyRectangleNode(node) ||
+      isExpertStudyLinesNode(node) ||
+      isExpertStudyDensityCameraNode(node) ||
+      isExpertStudyDensityScaleNode(node) ||
+      isExpertStudyBackgroundNode(node))
+  );
+};
+
+export const isExpertStudyPage = (page: unknown): page is ExpertStudyPage => {
+  return (
+    !!page &&
+    typeof page === 'object' &&
+    'nodes' in page &&
+    Array.isArray(page.nodes) &&
+    page.nodes.every((node) => isExpertStudyNode(node)) &&
+    'edges' in page &&
+    Array.isArray(page.edges) &&
+    page.edges.every((edge) => isEdge(edge)) &&
+    'viewport' in page &&
+    typeof page.viewport === 'object' &&
+    !!page.viewport &&
+    'x' in page.viewport &&
+    typeof page.viewport.x === 'number' &&
+    'y' in page.viewport &&
+    typeof page.viewport.y === 'number' &&
+    'zoom' in page.viewport &&
+    typeof page.viewport.zoom === 'number' &&
+    'type' in page &&
+    (page.type === 'synoptic' || page.type === 'density') &&
+    (page.type !== 'density' ||
+      ('scale' in page &&
+        typeof page.scale === 'object' &&
+        !!page.scale &&
+        'virtual' in page.scale &&
+        typeof page.scale.virtual === 'number' &&
+        'real' in page.scale &&
+        typeof page.scale.real === 'number'))
+  );
+};
+
 type BasePage = {
   nodes: Array<ExpertStudyNode>;
   edges: Array<Edge>;
@@ -64,11 +124,16 @@ type BasePage = {
 type SynopticPage = BasePage & { type: 'synoptic' };
 type DensityPage = BasePage & { type: 'density'; scale: { virtual: number; real: number } };
 
+export type ExpertStudyPage = SynopticPage | DensityPage;
+
 type Page = SynopticPage | DensityPage;
 
 export type RFState = {
   pages: Array<Page>;
   currentPage: number;
+  studyName: string | undefined;
+  installerName: string | undefined;
+  businessId: string | undefined;
   onNodesChange: OnNodesChange<ExpertStudyNode>;
   onEdgesChange: OnEdgesChange;
   setViewport: (viewport: Viewport) => void;
@@ -76,21 +141,23 @@ export type RFState = {
   setNodes: (nodes: Array<ExpertStudyNode>) => void;
   setEdges: (edges: Array<Edge>) => void;
   setCurrentPage: (currentPage: number) => void;
-  addPage: (mode: 'synoptic' | 'density') => void;
+  addPage: (mode: 'synoptic' | 'density', options?: { nodes?: Array<ExpertStudyNode>; viewport?: Viewport }) => void;
   removePage: () => void;
-  studyName?: string;
-  installerName?: string;
   setStudyName: (studyName: string) => void;
   setInstallerName: (installerName: string) => void;
   setPageName: (pageName: string) => void;
   setPageScale: ({ virtual, real }: { virtual?: number; real?: number }) => void;
   getPageType: () => 'synoptic' | 'density';
+  getPages: () => Array<Page>;
+  getBusinessId: () => string | undefined;
+  setBusinessId: (businessId: string) => void;
+  reset: () => void;
+  importStudy: (study: { pages: Array<ExpertStudyPage> }) => void;
 };
 
 // this is our useStore hook that we can use in our components to get parts of the store and call actions
 const useStore = create<RFState>((set, get) => ({
-  pages: [],
-  currentPage: 0,
+  ...initialState,
   onNodesChange: (changes: Array<NodeChange<ExpertStudyNode>>) => {
     set({
       pages: get().pages.map((page, index) => (index === get().currentPage ? { ...page, nodes: applyNodeChanges(changes, page.nodes) } : page)),
@@ -146,8 +213,12 @@ const useStore = create<RFState>((set, get) => ({
       }),
     });
   },
-  addPage: (mode: 'synoptic' | 'density') => {
-    const pages = [...get().pages, mode === 'synoptic' ? defaultSynopticPage : defaultDensityPage];
+  addPage: (mode: 'synoptic' | 'density', options: { nodes?: Array<ExpertStudyNode>; viewport?: Viewport } = {}) => {
+    const page = mode === 'synoptic' ? defaultSynopticPage : defaultDensityPage;
+    if (options.nodes) page.nodes = options.nodes;
+    if (options.viewport) page.viewport = options.viewport;
+
+    const pages = [...get().pages, page];
     set({ pages });
     set({ currentPage: pages.length - 1 });
   },
@@ -159,6 +230,17 @@ const useStore = create<RFState>((set, get) => ({
   },
   getPageType: () => {
     return get().pages[get().currentPage].type;
+  },
+  getPages: () => get().pages,
+  getBusinessId: () => get().businessId,
+  setBusinessId: (businessId: string) => {
+    set({ businessId });
+  },
+  reset: () => {
+    set(initialState);
+  },
+  importStudy: async (study: { pages: Array<ExpertStudyPage> }) => {
+    set({ pages: study.pages, currentPage: 0 });
   },
 }));
 

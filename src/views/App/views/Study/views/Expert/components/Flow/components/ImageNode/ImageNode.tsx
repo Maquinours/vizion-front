@@ -15,6 +15,24 @@ import {
 import { useRef, useState } from 'react';
 import { AiOutlineClose, AiTwotoneSetting } from 'react-icons/ai';
 
+export const isExpertStudyImageNode = (node: Node): node is ExpertStudyImageNode => {
+  return (
+    node.type === 'image' &&
+    'image' in node.data &&
+    typeof node.data.image === 'string' &&
+    'size' in node.data &&
+    !!node.data.size &&
+    typeof node.data.size === 'object' &&
+    'width' in node.data.size &&
+    typeof node.data.size.width === 'number' &&
+    'height' in node.data.size &&
+    typeof node.data.size.height === 'number' &&
+    (!('opacity' in node.data) || typeof node.data.opacity === 'number' || node.data.opacity === undefined) &&
+    'rotation' in node.data &&
+    typeof node.data.rotation === 'number'
+  );
+};
+
 const handlesData = [
   {
     id: '1',

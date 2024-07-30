@@ -5,6 +5,36 @@ import React, { useState } from 'react';
 import { queries } from '../../../../../../../../../../utils/constants/queryKeys';
 import AppViewStudyViewExpertViewFlowComponentSynopticCameraNodeComponentMenuComponent from './components/Menu/Menu';
 
+export const isExpertStudySynopticCameraNode = (node: Node): node is ExpertStudySynopticCameraNode => {
+  return (
+    node.type === 'synopticCamera' &&
+    'productId' in node.data &&
+    typeof node.data.productId === 'string' &&
+    (!('name' in node.data) || typeof node.data.name === 'string' || node.data.name === undefined) &&
+    'options' in node.data &&
+    Array.isArray(node.data.options) &&
+    node.data.options.every(
+      (option) =>
+        typeof option === 'object' &&
+        !!option &&
+        'id' in option &&
+        typeof option.id === 'string' &&
+        'quantity' in option &&
+        typeof option.quantity === 'number',
+    ) &&
+    'size' in node.data &&
+    typeof node.data.size === 'object' &&
+    !!node.data.size &&
+    'width' in node.data.size &&
+    typeof node.data.size.width === 'number' &&
+    'height' in node.data.size &&
+    typeof node.data.size.height === 'number' &&
+    'opacity' in node.data &&
+    typeof node.data.opacity === 'number' &&
+    (!('quantity' in node.data) || typeof node.data.quantity === 'number' || node.data.quantity === undefined)
+  );
+};
+
 export type ExpertStudySynopticCameraNode = Node<
   {
     productId: string;
@@ -12,6 +42,7 @@ export type ExpertStudySynopticCameraNode = Node<
     options: Array<{ id: string; quantity: number }>;
     size: { width: number; height: number };
     opacity: number;
+    quantity?: number;
   },
   'synopticCamera'
 >;
@@ -86,6 +117,11 @@ export default function AppViewStudyViewExpertViewFlowComponentSynopticCameraNod
                 ))}
               </div>
               <div className="my-auto ml-auto">
+                {!!data.quantity && data.quantity > 1 && (
+                  <p className="absolute right-1 top-[calc(50%-30px)] ml-auto h-5 w-5 rounded-md bg-amber-300 text-center text-sm font-medium text-white">
+                    x{data.quantity}
+                  </p>
+                )}
                 <p className="h-4 text-sm">{name}</p>
               </div>
             </div>

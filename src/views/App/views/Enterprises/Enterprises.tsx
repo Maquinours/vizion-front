@@ -13,7 +13,21 @@ const size = 20;
 export default function AppViewEnterprisesView() {
   const { enterprise, contact, zipCode, city, phoneNumber, category, representativeId, fuzzy, page } = Route.useSearch();
 
-  const { data, isLoading } = useQuery(enterprises.page({ enterprise, contact, zipCode, city, phoneNumber, category, representativeId, fuzzy, page, size }));
+  const { data, isLoading } = useQuery({
+    ...enterprises.page({ enterprise, contact, zipCode, city, phoneNumber, category, representativeId, fuzzy, page, size }),
+    select: (data) => ({
+      ...data,
+      content: data.content.map((enterprise) => ({
+        ...enterprise,
+        profiles: enterprise.profiles.sort(
+          (a, b) =>
+            (a.landlinePhoneNumber?.trim() ?? '').toLowerCase().localeCompare((b.landlinePhoneNumber?.trim() ?? '').toLowerCase()) * 100 +
+            (a.lastName?.trim() ?? '').toLowerCase().localeCompare((b.lastName?.trim() ?? '').toLowerCase()) * 10 +
+            (a.firstName?.trim() ?? '').toLowerCase().localeCompare((b.firstName?.trim() ?? '').toLowerCase()),
+        ),
+      })),
+    }),
+  });
 
   return (
     <>

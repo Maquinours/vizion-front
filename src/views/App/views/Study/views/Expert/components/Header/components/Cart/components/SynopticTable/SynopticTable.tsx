@@ -80,7 +80,7 @@ const selector = (state: ReactFlowState) => ({
     )
     .reduce((acc: Array<{ id: string; quantity: number }>, node) => {
       const product = acc.find((p) => p.id === node.data.productId);
-      if (!!product) product.quantity++;
+      if (!!product) product.quantity += 'quantity' in node.data && node.data.quantity !== undefined ? node.data.quantity : 1;
       else acc.push({ id: node.data.productId, quantity: 1 });
       if ('options' in node.data) {
         for (const option of node.data.options) {

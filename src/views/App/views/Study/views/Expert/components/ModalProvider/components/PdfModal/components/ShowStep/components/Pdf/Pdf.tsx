@@ -2,6 +2,9 @@ import FontDinRegular from '../../../../../../../../../../../../../../assets/fon
 import FontDinBold from '../../../../../../../../../../../../../../assets/fonts/DIN2014/DIN2014-Bold.ttf';
 import { Document, Font, Image, Page, StyleSheet, Text, View } from '@react-pdf/renderer';
 import ProductResponseDto from '../../../../../../../../../../../../../../utils/types/ProductResponseDto';
+import moment from 'moment';
+import CoverImage from '../../../../../../../../../../../../../../assets/images/synoptic_cover_bg.jpg';
+import BusinessResponseDto from '../../../../../../../../../../../../../../utils/types/BusinessResponseDto';
 
 Font.register({
   family: 'DIN',
@@ -16,14 +19,43 @@ Font.register({
   ],
 });
 
+const coverPageStyle = StyleSheet.create({
+  page: {
+    width: '100%',
+    height: '100%',
+    fontFamily: 'DIN',
+  },
+  image: {
+    height: '100%',
+    position: 'relative',
+  },
+  body: {
+    display: 'flex',
+    flexDirection: 'column',
+    position: 'absolute',
+    maxWidth: '300',
+    marginTop: '35%',
+    marginLeft: '50%',
+  },
+  title: {
+    color: '#16204E',
+    fontSize: '30',
+    fontWeight: 'bold',
+  },
+  footer: {
+    position: 'absolute',
+    marginTop: '65%',
+    marginLeft: '80%',
+  },
+});
+
 const synopticPageStyle = StyleSheet.create({
   synoptic: {
     width: '100%',
     height: '100%',
     fontFamily: 'DIN',
     image: {
-      height: 570,
-      width: 850,
+      height: '100%',
     },
   },
 });
@@ -174,20 +206,30 @@ type AppViewStudyViewExpertViewModalProviderComponentPdfModalComponentShowStepCo
   cameras: Array<{ product: ProductResponseDto; quantity: number }>;
   hddSpace: number;
   hddCalculationDays: number;
+  business: BusinessResponseDto;
 }>;
 export default function AppViewStudyViewExpertViewModalProviderComponentPdfModalComponentShowStepComponentPdfComponent({
   images,
   cameras,
   hddSpace,
   hddCalculationDays,
+  business,
 }: AppViewStudyViewExpertViewModalProviderComponentPdfModalComponentShowStepComponentPdfComponentProps) {
   return (
     <Document title="VIZEO" author="VIZEO" creator="VIZEO" producer="VIZEO">
+      <Page wrap={false} size="A4" style={coverPageStyle.page} orientation="landscape">
+        <Image src={CoverImage} style={coverPageStyle.image} />
+        <View style={coverPageStyle.body}>
+          <Text style={coverPageStyle.title}>{business.title ?? ''}</Text>
+          <Text>Ref dossier: {business.numBusiness ?? 'Non fournie'}</Text>
+        </View>
+        <View style={coverPageStyle.footer}>
+          <Text>{moment().format('DD/MM/YYYY HH:mm')}</Text>
+        </View>
+      </Page>
       {images.map((image, index) => (
         <Page key={index} size="A4" style={synopticPageStyle.synoptic} orientation="landscape">
-          <View>
-            <Image src={image} style={synopticPageStyle.synoptic.image} />
-          </View>
+          <Image src={image} style={synopticPageStyle.synoptic.image} />
         </Page>
       ))}
       {cameras.map((camera) => (

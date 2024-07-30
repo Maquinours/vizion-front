@@ -85,7 +85,6 @@ export default function AppViewStudyViewExpertViewFlowComponentDensityCameraNode
 
   return (
     <>
-      <a data-tooltip-id={`FOVArc-${nodeId}-${type}`}>
         <path
           id={`${nodeId}-${type}`}
           className={className}
@@ -96,7 +95,6 @@ export default function AppViewStudyViewExpertViewFlowComponentDensityCameraNode
           strokeWidth={strokeWidth}
           strokeDasharray={strokeDasharray}
         />
-      </a>
       {isNotVisibleAtNight && (
         <text x={range - 10} y={8} fill={'orange'} style={{ transform: 'translate(0%, 50%) scaleX(-1)' }}>
           *

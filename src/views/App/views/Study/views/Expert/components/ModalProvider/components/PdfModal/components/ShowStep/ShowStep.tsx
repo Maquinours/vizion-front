@@ -26,7 +26,7 @@ const selector = (state: RFState) => ({
         ),
       'data.productId',
     ),
-  ).map(([key, value]) => ({ id: key, quantity: value.length })),
+  ).map(([key, value]) => ({ id: key, quantity: value.reduce((acc, node) => acc + (node.data.quantity ?? 1), 0) })),
   recorders: state.pages
     .filter((page) => page.type === 'synoptic')
     .reduce(
@@ -65,7 +65,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentPdfModal
     const flux = cameras.reduce((acc, camera) => {
       const flux1 = camera.product.specificationProducts?.find((spec) => spec.specification?.name === 'FLUX1')?.value ?? 0;
       const flux2 = camera.product.specificationProducts?.find((spec) => spec.specification?.name === 'FLUX2')?.value ?? 0;
-      return acc + flux1 + flux2;
+      return acc + (flux1 + flux2) * camera.quantity;
     }, 0);
 
     const hddSpace = recorders.reduce((acc, recorder) => {
@@ -117,6 +117,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentPdfModal
             cameras={cameras}
             hddSpace={hddSpace}
             hddCalculationDays={hddCalculationDays}
+            business={business}
           />
         </PDFViewer>
         <div className="mt-6 flex items-center justify-center space-x-2">
@@ -131,6 +132,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentPdfModal
                 cameras={cameras}
                 hddSpace={hddSpace}
                 hddCalculationDays={hddCalculationDays}
+                business={business}
               />
             }
           >

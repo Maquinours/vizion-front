@@ -3,7 +3,7 @@ import { getRouteApi } from '@tanstack/react-router';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { Edge, Node, Viewport, useNodesInitialized, useReactFlow } from '@xyflow/react';
-import { createSynopticBusiness } from '../../../../../../../../../../utils/api/synoptic';
+import { saveSynopticBusiness } from '../../../../../../../../../../utils/api/synoptic';
 import { queries } from '../../../../../../../../../../utils/constants/queryKeys';
 import ProductResponseDto from '../../../../../../../../../../utils/types/ProductResponseDto';
 import { SynopticRequestBusinessQuotationRequestSubQuotationRequestQuotationDetailsRequestDto } from '../../../../../../../../../../utils/types/SynopticRequestDto';
@@ -101,7 +101,7 @@ export default function AppViewStudyViewAutomaticViewFooterComponentStepTwoCompo
         };
       });
 
-      return createSynopticBusiness({
+      return saveSynopticBusiness({
         name: 'SYNOPTIQUE',
         businessPticId: business.id,
         businessNumber: business.numBusiness,

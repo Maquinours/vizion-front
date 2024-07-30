@@ -23,6 +23,19 @@ const handlesData = [
   },
 ];
 
+export const isExpertStudyRectangleNode = (node: Node): node is ExpertStudyRectangleNode => {
+  return (
+    node.type === 'rectangle' &&
+    'size' in node.data &&
+    typeof node.data.size === 'object' &&
+    !!node.data.size &&
+    'width' in node.data.size &&
+    typeof node.data.size.width === 'number' &&
+    'height' in node.data.size &&
+    typeof node.data.size.height === 'number'
+  );
+};
+
 const getIsConnectable = (state: ReactFlowState) => {
   return state.connection.inProgress;
 };
