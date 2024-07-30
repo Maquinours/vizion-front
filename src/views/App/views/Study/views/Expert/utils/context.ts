@@ -17,6 +17,7 @@ export enum ExpertStudyModalType {
   HDD_CALCULATION,
   IMPORT_GED_IMAGE,
   CONFIRM_QUOTATION_TRANSFER,
+  SEND_STUDY,
 }
 
 export type ExpertStudyModal =
@@ -43,7 +44,8 @@ export type ExpertStudyModal =
   | { type: ExpertStudyModalType.IMPORT_GED_IMAGE; data: { type: 'image' | 'background' } }
   | {
       type: ExpertStudyModalType.CONFIRM_QUOTATION_TRANSFER;
-    };
+    }
+  | { type: ExpertStudyModalType.SEND_STUDY };
 
 export enum ExpertStudyPaneClickFunctionType {
   TEXT,

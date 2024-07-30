@@ -233,6 +233,10 @@ export default function AppViewStudyViewExpertViewHeaderComponent() {
     saveSynopticBusinessMutate();
   };
 
+  const onSendStudyButtonClick = () => {
+    setModal({ type: ExpertStudyModalType.SEND_STUDY });
+  };
+
   return (
     <div className="flex min-h-12 items-center justify-between border-b border-b-slate-800 px-4">
       <div className="flex items-center justify-center gap-x-2">
@@ -283,6 +287,9 @@ export default function AppViewStudyViewExpertViewHeaderComponent() {
             <AppViewStudyViewExpertViewHeaderComponentExportMenuComponent />
             <button type="button" className="btn btn-primary" onClick={onHddCalculationButtonClick}>
               Calcul de disque dur
+            </button>
+            <button type="button" className="btn btn-primary" onClick={onSendStudyButtonClick}>
+              Envoyer l'étude
             </button>
           </div>
           <div className="flex gap-x-2">
