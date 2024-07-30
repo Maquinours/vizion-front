@@ -47,6 +47,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentPdfModal
             closeButton: true,
             render: 'Une erreur est survenue lors de la génération du PDF, veuillez réessayer ultérieurement.',
             isLoading: false,
+            toastId: 'pdf-generation-error',
           });
           setModal(undefined);
         });
