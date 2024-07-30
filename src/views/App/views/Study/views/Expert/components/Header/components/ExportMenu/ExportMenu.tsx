@@ -2,9 +2,28 @@ import { Button, Fade, Menu, MenuItem } from '@mui/material';
 import { useContext, useState } from 'react';
 import { RiArrowDownSLine } from 'react-icons/ri';
 import ExpertStudyContext, { ExpertStudyModalType } from '../../../../utils/context';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { getRouteApi } from '@tanstack/react-router';
+import useStore, { RFState } from '../../../Flow/utils/store';
+import { useShallow } from 'zustand/react/shallow';
+import { queries } from '../../../../../../../../../../utils/constants/queryKeys';
+import { synopticBusinessQueryKeys } from '../../../../../../../../../../utils/constants/queryKeys/synoptic';
+import { toast } from 'react-toastify';
+import { saveSynopticBusiness } from '../../../../../../../../../../utils/api/synoptic';
+
+const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/study/expert');
+
+const selector = (state: RFState) => ({
+  getPages: state.getPages,
+});
 
 export default function AppViewStudyViewExpertViewHeaderComponentExportMenuComponent() {
+  const queryClient = useQueryClient();
+
+  const { getPages } = useStore(useShallow(selector));
   const { setModal } = useContext(ExpertStudyContext)!;
+
+  const { businessId } = routeApi.useParams();
 
   const [anchorEl, setAnchorEl] = useState<HTMLElement>();
   const open = Boolean(anchorEl);
@@ -16,8 +35,42 @@ export default function AppViewStudyViewExpertViewHeaderComponentExportMenuCompo
     setAnchorEl(undefined);
   };
 
+  const { mutate: saveSynopticBusinessMutate } = useMutation({
+    mutationFn: async () => {
+      const pages = getPages();
+      const business = await queryClient.ensureQueryData(queries.businesses.detail._ctx.byId(businessId));
+
+      return saveSynopticBusiness({
+        name: 'SYNOPTIQUE',
+        businessPticId: business.id,
+        businessNumber: business.numBusiness,
+        vizeo: true,
+        vizeoptik: true,
+        updateSynoptic: false,
+        synopticList: {
+          version: 2,
+          pages: pages,
+        },
+        enterpriseId: business.enterpriseId,
+        enterpriseName: business.enterpriseName,
+        profileId: business.profileId,
+        profileName: business.profileName,
+        profileEmail: business.profileEmail,
+      });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: synopticBusinessQueryKeys._def });
+      toast.success('Le synoptique a été sauvegardé avec succès');
+    },
+    onError: (error) => {
+      console.error(error);
+      toast.error('Une erreur est survenue lors de la sauvegarde du synoptique');
+    },
+  });
+
   const onExportPdf = () => {
     handleClose();
+    saveSynopticBusinessMutate();
     setModal({ type: ExpertStudyModalType.PDF, data: { step: 'IMAGE_GENERATION' } });
   };
 
