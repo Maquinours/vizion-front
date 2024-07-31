@@ -33,11 +33,11 @@ export default function AppViewToolsViewCreditViewShowModalView() {
   const { mutate, isPending } = useMutation({
     mutationFn: () =>
       createBusinessCredit({
-        numBusiness: details?.billNumBusiness,
-        numOrder: details?.billNumOrder,
+        numBusiness: details?.billNumBusiness || business?.numBusiness,
+        numOrder: details?.billNumOrder || bill?.numOrder,
         type: BillType.AVOIR,
         shippingServicePrice: shippingServicePrice,
-        numBill: details?.numBill,
+        numBill: details?.numBill || bill?.numBill,
         vat: vat,
         totalAmount: totalAmount,
         totalAmountHt: totalAmountHT,
