@@ -60,11 +60,13 @@ export default function AppViewStudyViewExpertViewFlowComponentDensityCameraNode
     if (!!rotationButtonRef.current) {
       const rotationSelection = select(rotationButtonRef.current);
       const rotationDragHandler = drag<HTMLButtonElement, unknown>().on('drag', (evt) => {
-        const dx = evt.x - evt.subject.x;
-        const dy = evt.y - evt.subject.y;
-        const rad = Math.atan2(dx, dy);
+        if (!rotationButtonRef.current) return;
+        const buttonRect = rotationButtonRef.current.getBoundingClientRect();
+        const buttonCenterX = buttonRect.left + buttonRect.width / 2;
+        const buttonCenterY = buttonRect.top + buttonRect.height / 2;
+        const rad = Math.atan2(evt.sourceEvent.clientY - buttonCenterY, evt.sourceEvent.clientX - buttonCenterX);
         const deg = rad * (180 / Math.PI);
-        updateNodeData(nodeId, { rotation: 180 - deg });
+        updateNodeData(nodeId, { rotation: deg });
       });
       rotationSelection.call(rotationDragHandler);
     }
