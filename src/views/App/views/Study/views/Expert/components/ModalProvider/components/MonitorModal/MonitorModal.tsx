@@ -24,7 +24,11 @@ export default function AppViewStudyViewExpertViewModalProviderComponentMonitorM
   const { addNodes, screenToFlowPosition } = useReactFlow();
   const { setModal } = useContext(ExpertStudyContext)!;
 
-  const { data: products } = useSuspenseQuery({ ...queries.product.list, select: (products) => products.filter((product) => product.category === 'Moniteur') });
+  const { data: products } = useSuspenseQuery({
+    ...queries.product.list,
+    staleTime: Infinity,
+    select: (products) => products.filter((product) => product.category === 'Moniteur'),
+  });
 
   const { getValues, setValue, control, handleSubmit } = useForm({
     resolver: yupResolver(yupSchema),

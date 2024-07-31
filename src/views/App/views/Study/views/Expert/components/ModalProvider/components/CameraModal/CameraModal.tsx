@@ -68,6 +68,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentCameraMo
 
   const { data: products } = useSuspenseQuery({
     ...queries.product.list,
+    staleTime: Infinity,
     select: (products) =>
       products
         .filter((product) => product.category === category && !!product.reference && includedProducts.includes(product.reference))

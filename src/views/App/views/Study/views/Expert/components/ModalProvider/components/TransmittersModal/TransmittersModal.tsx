@@ -28,6 +28,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentTransmit
 
   const { data: products } = useSuspenseQuery({
     ...queries.product.list,
+    staleTime: Infinity,
     select: (products) =>
       products.filter((product) => product.category === 'Transmission' && !!product.reference && includedProducts.includes(product.reference)),
   });

@@ -39,6 +39,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentUniversa
 
   const { data: products } = useSuspenseQuery({
     ...queries.product.list,
+    staleTime: Infinity,
     select: (products) =>
       products.filter((product) => product.category === 'Caméra universelle' && !!product.reference && includedProducts.includes(product.reference)),
   });

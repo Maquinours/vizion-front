@@ -25,7 +25,11 @@ export default function AppViewStudyViewExpertViewModalProviderComponentServices
   const { setModal } = useContext(ExpertStudyContext)!;
   const { addNodes, screenToFlowPosition } = useReactFlow<ExpertStudyNode>();
 
-  const { data: products } = useSuspenseQuery({ ...queries.product.list, select: (products) => products.filter((product) => product.category === 'Services') });
+  const { data: products } = useSuspenseQuery({
+    ...queries.product.list,
+    staleTime: Infinity,
+    select: (products) => products.filter((product) => product.category === 'Services'),
+  });
 
   const { setValue, getValues, control, handleSubmit } = useForm({
     resolver: yupResolver(yupSchema),

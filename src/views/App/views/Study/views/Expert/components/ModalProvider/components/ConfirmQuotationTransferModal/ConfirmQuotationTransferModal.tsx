@@ -52,7 +52,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentConfirmQ
       const pages = getPages();
 
       const [products, business] = await Promise.all([
-        queryClient.ensureQueryData(queries.product.list),
+        queryClient.ensureQueryData({ ...queries.product.list, staleTime: Infinity }),
         queryClient.ensureQueryData(queries.businesses.detail._ctx.byId(businessId)),
       ]);
 

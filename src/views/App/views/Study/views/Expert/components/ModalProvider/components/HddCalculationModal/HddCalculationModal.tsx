@@ -22,7 +22,7 @@ const getNodes = (state: ReactFlowState) => {
 export default function AppViewStudyViewExpertViewModalProviderComponentHddCalculationModalComponent() {
   const { setModal } = useContext(ExpertStudyContext)!;
 
-  const { data: products } = useSuspenseQuery(queries.product.list);
+  const { data: products } = useSuspenseQuery({ ...queries.product.list, staleTime: Infinity });
 
   const nodes = useStore(useShallow(getNodes));
 

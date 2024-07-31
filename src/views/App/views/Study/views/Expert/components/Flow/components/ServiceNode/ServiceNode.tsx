@@ -36,7 +36,11 @@ export default function AppViewStudyViewExpertViewFlowComponentServiceNodeCompon
   const { setNodes, updateNodeData } = useReactFlow();
   const updateNodeInternals = useUpdateNodeInternals();
 
-  const { data: product } = useSuspenseQuery({ ...queries.product.list, select: (products) => products.find((product) => product.id === data.productId) });
+  const { data: product } = useSuspenseQuery({
+    ...queries.product.list,
+    staleTime: Infinity,
+    select: (products) => products.find((product) => product.id === data.productId),
+  });
 
   const onResize: OnResize = (_event, params) => {
     updateNodeData(id, { size: { width: params.width, height: params.height } });

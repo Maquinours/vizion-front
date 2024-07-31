@@ -53,6 +53,8 @@ const proOptions: ProOptions = {
 
 const deleteKeyCode = ['Delete', 'Backspace'];
 const multiSelectionKeyCode = 'Alt';
+const autoPanOnNodeDrag = false;
+const autoPanOnConnect = false;
 
 const selector = (state: RFState) => ({
   nodes: state.pages[state.currentPage].nodes,
@@ -323,6 +325,8 @@ export default function AppViewStudyViewExpertViewFlowComponent() {
       deleteKeyCode={deleteKeyCode}
       multiSelectionKeyCode={multiSelectionKeyCode}
       isValidConnection={isValidConnection}
+      autoPanOnNodeDrag={autoPanOnNodeDrag}
+      autoPanOnConnect={autoPanOnConnect}
     >
       <AppViewStudyViewExpertViewFlowComponentComponentHelperLinesComponent horizontal={helperLines.horizontal} vertical={helperLines.vertical} />
       <AppViewStudyViewExpertViewFlowComponentCartridgeComponent />

@@ -69,7 +69,9 @@ export default function AppViewStudyViewExpertViewHeaderComponent() {
       const recorderNodes = nodes.filter((node): node is ExpertStudyRecorderNode => node.type === 'recorder');
       if (recorderNodes.length !== 1) throw new Error("Le pré-raccordement n'est possible que lorsqu'il n'y a qu'un seul enregistreur");
       const recorderNode = recorderNodes[0];
-      const product = (await queryClient.ensureQueryData(queries.product.list)).find((product) => product.id === recorderNode.data.productId);
+      const product = (await queryClient.ensureQueryData({ ...queries.product.list, staleTime: Infinity })).find(
+        (product) => product.id === recorderNode.data.productId,
+      );
       if (!product) throw new Error('Impossible de trouver le produit');
       const recorderHandles = recordersHandlesData.find((handle) => handle.productReference === product.reference)?.handles;
       if (!recorderHandles) throw new Error('Impossible de trouver les ancrages du produit');

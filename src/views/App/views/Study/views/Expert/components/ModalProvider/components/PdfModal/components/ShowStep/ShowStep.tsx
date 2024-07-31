@@ -53,7 +53,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentPdfModal
   const { businessId } = routeApi.useParams();
 
   const { data: business } = useSuspenseQuery(queries.businesses.detail._ctx.byId(businessId));
-  const { data: products } = useSuspenseQuery(queries.product.list);
+  const { data: products } = useSuspenseQuery({ ...queries.product.list, staleTime: Infinity });
 
   const [sendByEmailFile, setSendByEmailFile] = useState<File>();
 
