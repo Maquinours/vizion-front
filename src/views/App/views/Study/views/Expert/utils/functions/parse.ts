@@ -490,7 +490,7 @@ const studyV1ToV2 = async (study: object) => {
   return { pages: pages };
 };
 
-export const parseStudy = async (study: unknown): Promise<{ pages: Array<ExpertStudyPage> }> => {
+export const parseStudy = async (study: unknown): Promise<{ pages: Array<ExpertStudyPage>; studyName?: string; installerName?: string }> => {
   const parsedStudy = await (async () => {
     if (typeof study !== 'object' || study === null) throw new Error('Invalid study');
     if (!('version' in study)) return studyV1ToV2(study);
@@ -498,7 +498,14 @@ export const parseStudy = async (study: unknown): Promise<{ pages: Array<ExpertS
     else throw new Error('Invalid study version');
   })();
 
-  if (!('pages' in parsedStudy) || !parsedStudy.pages || !Array.isArray(parsedStudy.pages) || !parsedStudy.pages.every((page) => isExpertStudyPage(page)))
+  if (
+    !('pages' in parsedStudy) ||
+    !parsedStudy.pages ||
+    !Array.isArray(parsedStudy.pages) ||
+    !parsedStudy.pages.every((page) => isExpertStudyPage(page)) ||
+    ('studyName' in parsedStudy && typeof parsedStudy.studyName !== 'string' && parsedStudy.studyName !== undefined) ||
+    ('installerName' in parsedStudy && typeof parsedStudy.installerName !== 'string' && parsedStudy.installerName !== undefined)
+  )
     throw new Error('Invalid study');
   return {
     pages: parsedStudy.pages.map((page) => ({
@@ -516,5 +523,7 @@ export const parseStudy = async (study: unknown): Promise<{ pages: Array<ExpertS
         }
       }),
     })),
+    studyName: 'studyName' in parsedStudy && typeof parsedStudy.studyName === 'string' ? parsedStudy.studyName : undefined,
+    installerName: 'installerName' in parsedStudy && typeof parsedStudy.installerName === 'string' ? parsedStudy.installerName : undefined,
   };
 };

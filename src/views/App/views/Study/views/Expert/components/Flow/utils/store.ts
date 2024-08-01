@@ -144,7 +144,9 @@ export type RFState = {
   getCurrentPage: () => number;
   addPage: (mode: 'synoptic' | 'density', options?: { nodes?: Array<ExpertStudyNode>; viewport?: Viewport }) => void;
   removePage: () => void;
+  getStudyName: () => string | undefined;
   setStudyName: (studyName: string) => void;
+  getInstallerName: () => string | undefined;
   setInstallerName: (installerName: string) => void;
   setPageName: (pageName: string) => void;
   setPageScale: ({ virtual, real }: { virtual?: number; real?: number }) => void;
@@ -153,7 +155,7 @@ export type RFState = {
   getBusinessId: () => string | undefined;
   setBusinessId: (businessId: string) => void;
   reset: () => void;
-  importStudy: (study: { pages: Array<ExpertStudyPage> }) => void;
+  importStudy: (study: { pages: Array<ExpertStudyPage>; studyName?: string; installerName?: string }) => void;
 };
 
 // this is our useStore hook that we can use in our components to get parts of the store and call actions
@@ -195,9 +197,11 @@ const useStore = create<RFState>((set, get) => ({
     set({ currentPage });
   },
   getCurrentPage: () => get().currentPage,
+  getStudyName: () => get().studyName,
   setStudyName: (studyName: string) => {
     set({ studyName });
   },
+  getInstallerName: () => get().installerName,
   setInstallerName: (installerName: string) => {
     set({ installerName });
   },
@@ -241,8 +245,8 @@ const useStore = create<RFState>((set, get) => ({
   reset: () => {
     set(initialState);
   },
-  importStudy: async (study: { pages: Array<ExpertStudyPage> }) => {
-    set({ pages: study.pages, currentPage: 0 });
+  importStudy: async (study: { pages: Array<ExpertStudyPage>; studyName?: string; installerName?: string }) => {
+    set({ pages: study.pages, studyName: study.studyName, installerName: study.installerName, currentPage: 0 });
   },
 }));
 

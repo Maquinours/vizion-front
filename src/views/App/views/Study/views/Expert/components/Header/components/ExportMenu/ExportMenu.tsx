@@ -15,12 +15,14 @@ const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/study/exp
 
 const selector = (state: RFState) => ({
   getPages: state.getPages,
+  getStudyName: state.getStudyName,
+  getInstallerName: state.getInstallerName,
 });
 
 export default function AppViewStudyViewExpertViewHeaderComponentExportMenuComponent() {
   const queryClient = useQueryClient();
 
-  const { getPages } = useStore(useShallow(selector));
+  const { getPages, getStudyName, getInstallerName } = useStore(useShallow(selector));
   const { setModal } = useContext(ExpertStudyContext)!;
 
   const { businessId } = routeApi.useParams();
@@ -49,6 +51,8 @@ export default function AppViewStudyViewExpertViewHeaderComponentExportMenuCompo
         updateSynoptic: false,
         synopticList: {
           version: 2,
+          studyName: getStudyName(),
+          installerName: getInstallerName(),
           pages: pages,
         },
         enterpriseId: business.enterpriseId,
