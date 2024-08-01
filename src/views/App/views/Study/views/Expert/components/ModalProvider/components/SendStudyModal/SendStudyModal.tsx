@@ -9,7 +9,8 @@ export default function AppViewStudyViewExpertViewModalProviderComponentSendStud
   const { setModal } = useContext(ExpertStudyContext)!;
 
   const [stepData, setStepData] = useState<
-    { step: 'GENERATION' } | { step: 'SHOW'; data: { quotationPdf: File; studyPdf: File; representative: EnterpriseResponseDto | undefined } }
+    | { step: 'GENERATION' }
+    | { step: 'SHOW'; data: { quotationPdf: File; studyPdf: File; commercialNoticePdf: File; representative: EnterpriseResponseDto | undefined } }
   >({ step: 'GENERATION' });
 
   const onClose = () => {
@@ -49,6 +50,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentSendStud
           onClose={onClose}
           quotationPdf={stepData.data.quotationPdf}
           studyPdf={stepData.data.studyPdf}
+          commercialNoticePdf={stepData.data.commercialNoticePdf}
           representative={stepData.data.representative}
         />
       );

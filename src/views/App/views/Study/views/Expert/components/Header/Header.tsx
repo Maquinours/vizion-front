@@ -299,8 +299,7 @@ export default function AppViewStudyViewExpertViewHeaderComponent() {
             <button type="button" className="btn btn-primary" onClick={onHddCalculationButtonClick}>
               Calcul de disque dur
             </button>
-            {/* TODO: remove the hidden class when the send study button is ready */}
-            <button type="button" className="btn btn-primary hidden" onClick={onSendStudyButtonClick}>
+            <button type="button" className="btn btn-primary" onClick={onSendStudyButtonClick}>
               Envoyer l'étude
             </button>
           </div>

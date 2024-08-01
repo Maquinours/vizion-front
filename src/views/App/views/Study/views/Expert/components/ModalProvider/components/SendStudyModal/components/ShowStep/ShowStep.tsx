@@ -10,12 +10,14 @@ type AppViewStudyViewExpertViewModalProviderComponentSendStudyModalComponentShow
   onClose: () => void;
   studyPdf: File;
   quotationPdf: File;
+  commercialNoticePdf: File;
   representative: EnterpriseResponseDto | undefined;
 }>;
 export default function AppViewStudyViewExpertViewModalProviderComponentSendStudyModalComponentShowStepComponent({
   onClose,
   studyPdf,
   quotationPdf,
+  commercialNoticePdf,
   representative,
 }: AppViewStudyViewExpertViewModalProviderComponentSendStudyModalComponentShowStepComponentProps) {
   const { businessId } = routeApi.useParams();
@@ -33,7 +35,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentSendStud
       defaultCc={defaultCc}
       defaultRecipient={defaultRecipient}
       defaultSubject={defaultSubject}
-      defaultAttachments={[studyPdf, quotationPdf]}
+      defaultAttachments={[studyPdf, quotationPdf, commercialNoticePdf]}
       lifeSheetInfoDto={{
         businessNumber: business.numBusiness,
         enterpriseName: business.enterpriseName,
