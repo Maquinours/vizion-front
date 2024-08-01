@@ -78,7 +78,7 @@ export default function AppViewStudyViewExpertViewProductsMenuComponent() {
   const { setModal } = useContext(ExpertStudyContext)!;
 
   return (
-    <div className="w-[15%] space-y-2 border-r border-r-slate-800">
+    <div className="space-y-2 border-r border-r-slate-800">
       <h2 className="flex h-12 w-full items-center justify-center border-b border-b-slate-900 text-black">PRODUITS</h2>
       <div id="product_categories_block" className="space-y-2 px-4">
         {categories.map((category, index) => (
