@@ -230,10 +230,13 @@ export default function AppViewStudyViewExpertViewModalProviderComponentSendStud
 
   const { mutate: generateStudyPdf } = useMutation({
     mutationFn: async (images: Array<Blob>) => {
-      const pages = getPages().filter((page) => page.type === 'synoptic');
+      const pages = getPages();
+      const synopticPages = pages.filter((page) => page.type === 'synoptic');
       const cameras = Object.entries(
         groupBy(
-          pages.flatMap((page) => page.nodes.filter((node): node is ExpertStudySynopticCameraNode => node.type === 'synopticCamera')).map((node) => node),
+          synopticPages
+            .flatMap((page) => page.nodes.filter((node): node is ExpertStudySynopticCameraNode => node.type === 'synopticCamera'))
+            .map((node) => node),
           'data.productId',
         ),
       )
@@ -253,7 +256,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentSendStud
         return acc + (flux1 + flux2) * camera.quantity;
       }, 0);
 
-      const hddSpace = pages
+      const hddSpace = synopticPages
         .flatMap((page) => page.nodes.filter((node): node is ExpertStudyRecorderNode => node.type === 'recorder'))
         .reduce((acc, node) => {
           const product = products.find((product) => product.id === node.data.productId);
@@ -280,6 +283,8 @@ export default function AppViewStudyViewExpertViewModalProviderComponentSendStud
           1024) / // GB per hour
         HOURS_PER_DAY;
 
+      const showDensityImages = !pages.some((page) => page.type === 'density');
+
       return pdf(
         <AppViewStudyViewExpertViewModalProviderComponentPdfModalComponentShowStepComponentPdfComponent
           images={images}
@@ -287,6 +292,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentSendStud
           hddSpace={hddSpace}
           hddCalculationDays={hddCalculationDays}
           business={business}
+          showDensityImages={showDensityImages}
         />,
       ).toBlob();
     },

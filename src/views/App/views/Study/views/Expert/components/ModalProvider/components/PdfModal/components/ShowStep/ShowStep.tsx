@@ -40,13 +40,14 @@ const selector = (state: RFState) => ({
         ),
       [],
     ),
+  showDensityImages: !state.pages.some((page) => page.type === 'density'),
 });
 
 type AppViewStudyViewExpertViewModalProviderComponentPdfModalComponentShowStepComponentProps = Readonly<{ images: Array<Blob> }>;
 export default function AppViewStudyViewExpertViewModalProviderComponentPdfModalComponentShowStepComponent({
   images,
 }: AppViewStudyViewExpertViewModalProviderComponentPdfModalComponentShowStepComponentProps) {
-  const { cams, recorders } = useStore(selector, (a, b) => isEqual(a, b));
+  const { cams, recorders, showDensityImages } = useStore(selector, (a, b) => isEqual(a, b));
 
   const { setModal } = useContext(ExpertStudyContext)!;
 
@@ -123,6 +124,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentPdfModal
               hddSpace={hddSpace}
               hddCalculationDays={hddCalculationDays}
               business={business}
+              showDensityImages={showDensityImages}
             />
           </PDFViewer>
           <div className="mt-6 flex items-center justify-center space-x-2">
@@ -138,6 +140,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentPdfModal
                   hddSpace={hddSpace}
                   hddCalculationDays={hddCalculationDays}
                   business={business}
+                  showDensityImages={showDensityImages}
                 />
               }
             >
@@ -152,6 +155,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentPdfModal
                   hddSpace={hddSpace}
                   hddCalculationDays={hddCalculationDays}
                   business={business}
+                  showDensityImages={showDensityImages}
                 />
               }
             >
