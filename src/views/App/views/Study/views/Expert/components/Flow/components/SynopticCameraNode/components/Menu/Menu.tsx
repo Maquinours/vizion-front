@@ -73,18 +73,18 @@ export default function AppViewStudyViewExpertViewFlowComponentSynopticCameraNod
           <AiOutlineClose className="fill-[#1a192b]" onClick={onClose} />
         </div>
         <div className="flex items-center justify-start space-x-2 p-2">
-          <p className="text-sm">Nom de la caméra</p>
+          <p className="flex-1 text-right text-sm">Nom de la caméra :</p>
           <input
             type="text"
             value={data.name || product.reference || ''}
             onChange={onNodeNameChange}
             // onMouseDown={saveCurrentState}
             placeholder="Choisir un nom"
-            className="rounded-md border border-[#1a192b] p-2"
+            className="flex-1 rounded-md border border-[#1a192b] p-2"
           />
         </div>
         <div className="flex items-center justify-start space-x-2 border-t-2 border-t-[#1a192b] p-2">
-          <p className="text-sm">Quantité</p>
+          <p className="flex-1 text-right text-sm">Quantité :</p>
           <AmountFormat
             value={quantity}
             onValueChange={onQuantityChange}
@@ -92,7 +92,7 @@ export default function AppViewStudyViewExpertViewFlowComponentSynopticCameraNod
             decimalScale={0}
             isAllowed={(v) => v.floatValue === undefined || v.floatValue >= 1}
             displayType="input"
-            className="rounded-md border border-[#1a192b] p-2"
+            className="flex-1 rounded-md border border-[#1a192b] p-2"
           />
         </div>
         {!!options && options.length > 0 && (
