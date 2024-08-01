@@ -61,7 +61,7 @@ export default function AppViewStudyViewExpertViewFlowComponentSynopticCameraNod
   };
 
   const onQuantityChange: OnValueChange = (v) => {
-    if (!!v.floatValue) updateNodeData(nodeId, { quantity: v.floatValue });
+    updateNodeData(nodeId, { quantity: v.floatValue });
   };
 
   return (
