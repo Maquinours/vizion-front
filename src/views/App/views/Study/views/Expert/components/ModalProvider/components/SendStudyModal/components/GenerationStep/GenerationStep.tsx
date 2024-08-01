@@ -192,6 +192,8 @@ export default function AppViewStudyViewExpertViewModalProviderComponentSendStud
       const vat = Number(((totalAmountHT + shippingServicePrice) * 0.2).toFixed(2));
       const totalAmount = totalAmountHT + shippingServicePrice + vat;
 
+      const flowRect = document.querySelector('.react-flow')!.getBoundingClientRect();
+
       return saveSynopticBusiness({
         name: 'SYNOPTIQUE',
         businessPticId: business.id,
@@ -203,6 +205,10 @@ export default function AppViewStudyViewExpertViewModalProviderComponentSendStud
           studyName: getStudyName(),
           installerName: getInstallerName(),
           pages: pages,
+          flowSize: {
+            width: flowRect.width,
+            height: flowRect.height,
+          },
         },
         enterpriseId: business.enterpriseId,
         enterpriseName: business.enterpriseName,

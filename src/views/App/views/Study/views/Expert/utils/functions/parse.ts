@@ -494,7 +494,7 @@ export const parseStudy = async (study: unknown): Promise<{ pages: Array<ExpertS
   const parsedStudy = await (async () => {
     if (typeof study !== 'object' || study === null) throw new Error('Invalid study');
     if (!('version' in study)) return studyV1ToV2(study);
-    else if (study.version === 2) return study;
+    else if (study.version === 2) return { ...study };
     else throw new Error('Invalid study version');
   })();
 
@@ -507,6 +507,26 @@ export const parseStudy = async (study: unknown): Promise<{ pages: Array<ExpertS
     ('installerName' in parsedStudy && typeof parsedStudy.installerName !== 'string' && parsedStudy.installerName !== undefined)
   )
     throw new Error('Invalid study');
+
+  if (
+    'flowSize' in parsedStudy &&
+    typeof parsedStudy.flowSize === 'object' &&
+    !!parsedStudy.flowSize &&
+    'width' in parsedStudy.flowSize &&
+    typeof parsedStudy.flowSize.width === 'number' &&
+    'height' in parsedStudy.flowSize &&
+    typeof parsedStudy.flowSize.height === 'number'
+  ) {
+    const flowParentRect = document.querySelector('#flow-parent')!.getBoundingClientRect();
+    const oldFlowSize = parsedStudy.flowSize as { width: number; height: number };
+    parsedStudy.pages = parsedStudy.pages.map((page) => ({
+      ...page,
+      viewport: {
+        ...page.viewport,
+        zoom: page.viewport.zoom / Math.min(oldFlowSize.width / flowParentRect.width, oldFlowSize.height / flowParentRect.height),
+      },
+    }));
+  }
   return {
     pages: parsedStudy.pages.map((page) => ({
       ...page,

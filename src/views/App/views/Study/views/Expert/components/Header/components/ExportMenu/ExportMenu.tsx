@@ -41,7 +41,8 @@ export default function AppViewStudyViewExpertViewHeaderComponentExportMenuCompo
     mutationFn: async () => {
       const pages = getPages();
       const business = await queryClient.ensureQueryData(queries.businesses.detail._ctx.byId(businessId));
-
+      const flowRect = document.querySelector('.react-flow')!.getBoundingClientRect();
+      
       return saveSynopticBusiness({
         name: 'SYNOPTIQUE',
         businessPticId: business.id,
@@ -54,6 +55,10 @@ export default function AppViewStudyViewExpertViewHeaderComponentExportMenuCompo
           studyName: getStudyName(),
           installerName: getInstallerName(),
           pages: pages,
+          flowSize: {
+            width: flowRect.width,
+            height: flowRect.height,
+          },
         },
         enterpriseId: business.enterpriseId,
         enterpriseName: business.enterpriseName,

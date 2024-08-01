@@ -204,6 +204,7 @@ export default function AppViewStudyViewExpertViewHeaderComponent() {
     mutationFn: async () => {
       const pages = getPages();
       const business = await queryClient.ensureQueryData(queries.businesses.detail._ctx.byId(businessId));
+      const flowRect = document.querySelector('.react-flow')!.getBoundingClientRect();
 
       return saveSynopticBusiness({
         name: 'SYNOPTIQUE',
@@ -217,6 +218,10 @@ export default function AppViewStudyViewExpertViewHeaderComponent() {
           studyName: getStudyName(),
           installerName: getInstallerName(),
           pages: pages,
+          flowSize: {
+            width: flowRect.width,
+            height: flowRect.height,
+          },
         },
         enterpriseId: business.enterpriseId,
         enterpriseName: business.enterpriseName,
@@ -244,7 +249,7 @@ export default function AppViewStudyViewExpertViewHeaderComponent() {
   };
 
   return (
-    <div className="flex min-h-12 items-center justify-between border-b border-b-slate-800 px-4">
+    <div className="flex flex-wrap items-center justify-between border-b border-b-slate-800 px-4 py-2">
       <div className="flex items-center justify-center gap-x-2">
         <MatchRoute to="/app/businesses-rma/business/$businessId/study/automatic" pending>
           {(match) => <Switch checked={!match} onChange={onSwitchChange} />}
