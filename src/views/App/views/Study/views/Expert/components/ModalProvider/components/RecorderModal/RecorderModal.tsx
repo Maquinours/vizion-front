@@ -16,6 +16,51 @@ import { ExpertStudySynopticCameraNode } from '../../../Flow/components/Synoptic
 
 const includedProducts = ['HD504PAP', 'HD508PAP', 'HD516PAP', 'HD732', 'HD764', 'MX16HD'];
 
+const DEFAULT_OPTIONS = [
+  {
+    reference: 'HD732',
+    options: [
+      {
+        reference: 'DD4TO',
+        quantity: 2,
+      },
+      {
+        reference: 'INT1DD',
+        quantity: 2,
+      },
+      {
+        reference: 'AT2',
+        quantity: 1,
+      },
+      {
+        reference: 'AFFICHE',
+        quantity: 2,
+      },
+    ],
+  },
+  {
+    reference: 'HD764',
+    options: [
+      {
+        reference: 'DD4TO',
+        quantity: 4,
+      },
+      {
+        reference: 'INT1DD',
+        quantity: 4,
+      },
+      {
+        reference: 'AFFICHE',
+        quantity: 4,
+      },
+      {
+        reference: 'AT3',
+        quantity: 1,
+      },
+    ],
+  },
+];
+
 type Model = {
   product: ProductResponseDto;
   selected: boolean;
@@ -64,13 +109,23 @@ export default function AppViewStudyViewExpertViewModalProviderComponentRecorder
     const nodes = [];
 
     for (const model of models.filter((model) => model.selected)) {
+      const options =
+        DEFAULT_OPTIONS.find((option) => option.reference === model.product.reference)
+          ?.options?.map((option) => {
+            const opt = queryClient
+              .getQueryData<Array<ProductResponseDto>>(queries.product.list.queryKey)
+              ?.find((product) => product.reference === option.reference);
+            if (!opt) return;
+            return { id: opt.id, quantity: option.quantity };
+          })
+          .filter((option) => !!option) ?? [];
       const recorderNode: ExpertStudyRecorderNode = {
         id: uuidv4(),
         type: 'recorder',
         position: nodePosition,
         data: {
           productId: model.product.id,
-          options: [],
+          options: options,
           size: nodeSize,
           opacity: 100,
         },
