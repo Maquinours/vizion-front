@@ -4,6 +4,8 @@ import { AiOutlineClose, AiTwotoneSetting } from 'react-icons/ai';
 import ProductProductResponseDto from '../../../../../../../../../../../../utils/types/ProductProductResponseDto';
 import ProductResponseDto from '../../../../../../../../../../../../utils/types/ProductResponseDto';
 import { ExpertStudySynopticCameraNode } from '../../SynopticCameraNode';
+import AmountFormat from '../../../../../../../../../../../../components/AmountFormat/AmountFormat';
+import { OnValueChange } from 'react-number-format';
 
 type Option = {
   product: ProductProductResponseDto;
@@ -31,6 +33,8 @@ export default function AppViewStudyViewExpertViewFlowComponentSynopticCameraNod
     }))
     .sort((a, b) => (a.product.reference ?? '').localeCompare(b.product.reference ?? ''));
 
+  const quantity = data.quantity ?? 1;
+
   const onNodeNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     updateNodeData(nodeId, { name: e.target.value });
   };
@@ -56,6 +60,10 @@ export default function AppViewStudyViewExpertViewFlowComponentSynopticCameraNod
     updateNodeData(nodeId, { options });
   };
 
+  const onQuantityChange: OnValueChange = (v) => {
+    if (!!v.floatValue) updateNodeData(nodeId, { quantity: v.floatValue });
+  };
+
   return (
     <NodeToolbar position={Position.Bottom} align="center" className="nopan rounded-md border-2 border-[#1a192b] bg-slate-50 px-2">
       <div className="text-center">
@@ -72,6 +80,18 @@ export default function AppViewStudyViewExpertViewFlowComponentSynopticCameraNod
             onChange={onNodeNameChange}
             // onMouseDown={saveCurrentState}
             placeholder="Choisir un nom"
+            className="rounded-md border border-[#1a192b] p-2"
+          />
+        </div>
+        <div className="flex items-center justify-start space-x-2 border-t-2 border-t-[#1a192b] p-2">
+          <p className="text-sm">Quantité</p>
+          <AmountFormat
+            value={quantity}
+            onValueChange={onQuantityChange}
+            allowNegative={false}
+            decimalScale={0}
+            isAllowed={(v) => v.floatValue === undefined || v.floatValue >= 1}
+            displayType="input"
             className="rounded-md border border-[#1a192b] p-2"
           />
         </div>
