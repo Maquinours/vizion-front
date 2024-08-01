@@ -119,7 +119,7 @@ export default function AppViewStudyViewExpertViewFlowComponentSynopticCameraNod
               </div>
               <div className="my-auto ml-auto">
                 {!!data.quantity && data.quantity > 1 && (
-                  <p className="absolute right-1 top-[calc(50%-30px)] ml-auto h-5 w-5 rounded-md bg-amber-300 text-center text-sm font-medium text-white">
+                  <p className="absolute right-1 top-[calc(50%-30px)] ml-auto h-fit w-fit rounded-md bg-amber-300 p-[1px] text-center text-sm font-medium text-white">
                     x{data.quantity}
                   </p>
                 )}
