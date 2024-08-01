@@ -25,7 +25,11 @@ export default function AppViewStudyViewExpertViewModalProviderComponentServices
   const { setModal } = useContext(ExpertStudyContext)!;
   const { addNodes, screenToFlowPosition } = useReactFlow<ExpertStudyNode>();
 
-  const { data: products } = useSuspenseQuery({ ...queries.product.list, select: (products) => products.filter((product) => product.category === 'Services') });
+  const { data: products } = useSuspenseQuery({
+    ...queries.product.list,
+    staleTime: Infinity,
+    select: (products) => products.filter((product) => product.category === 'Services'),
+  });
 
   const { setValue, getValues, control, handleSubmit } = useForm({
     resolver: yupResolver(yupSchema),
@@ -75,7 +79,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentServices
   return (
     <ReactModal
       isOpen
-      className="absolute left-2/4 top-2/4 m-auto h-auto w-auto min-w-72 -translate-x-2/4 -translate-y-2/4 rounded-md opacity-100"
+      className="absolute left-2/4 top-2/4 m-auto h-auto w-auto min-w-72 max-w-[80%] -translate-x-2/4 -translate-y-2/4 rounded-md opacity-100"
       overlayClassName="Overlay"
       onRequestClose={onClose}
     >

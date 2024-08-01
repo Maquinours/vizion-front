@@ -96,7 +96,7 @@ const selector = (state: ReactFlowState) => ({
 export default function AppViewStudyViewExpertViewHeaderComponentCartComponentSynopticTableComponent() {
   const { productsData } = useStore(selector, (a, b) => isEqual(a, b));
 
-  const { data: products } = useSuspenseQuery(queries.product.list);
+  const { data: products } = useSuspenseQuery({ ...queries.product.list, staleTime: Infinity });
 
   const { data, total } = useMemo(() => {
     const data = productsData

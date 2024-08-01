@@ -51,6 +51,7 @@ export default function AppViewStudyViewExpertViewFlowComponentMonitorNodeCompon
     data: { product, options },
   } = useSuspenseQuery({
     ...queries.product.list,
+    staleTime: Infinity,
     select: (products) => {
       const product = products.find((product) => product.id === data.productId);
       const options = [];

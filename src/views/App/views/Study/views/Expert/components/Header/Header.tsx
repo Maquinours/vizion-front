@@ -69,7 +69,9 @@ export default function AppViewStudyViewExpertViewHeaderComponent() {
       const recorderNodes = nodes.filter((node): node is ExpertStudyRecorderNode => node.type === 'recorder');
       if (recorderNodes.length !== 1) throw new Error("Le pré-raccordement n'est possible que lorsqu'il n'y a qu'un seul enregistreur");
       const recorderNode = recorderNodes[0];
-      const product = (await queryClient.ensureQueryData(queries.product.list)).find((product) => product.id === recorderNode.data.productId);
+      const product = (await queryClient.ensureQueryData({ ...queries.product.list, staleTime: Infinity })).find(
+        (product) => product.id === recorderNode.data.productId,
+      );
       if (!product) throw new Error('Impossible de trouver le produit');
       const recorderHandles = recordersHandlesData.find((handle) => handle.productReference === product.reference)?.handles;
       if (!recorderHandles) throw new Error('Impossible de trouver les ancrages du produit');
@@ -233,6 +235,10 @@ export default function AppViewStudyViewExpertViewHeaderComponent() {
     saveSynopticBusinessMutate();
   };
 
+  const onSendStudyButtonClick = () => {
+    setModal({ type: ExpertStudyModalType.SEND_STUDY });
+  };
+
   return (
     <div className="flex min-h-12 items-center justify-between border-b border-b-slate-800 px-4">
       <div className="flex items-center justify-center gap-x-2">
@@ -283,6 +289,10 @@ export default function AppViewStudyViewExpertViewHeaderComponent() {
             <AppViewStudyViewExpertViewHeaderComponentExportMenuComponent />
             <button type="button" className="btn btn-primary" onClick={onHddCalculationButtonClick}>
               Calcul de disque dur
+            </button>
+            {/* TODO: remove the hidden class when the send study button is ready */}
+            <button type="button" className="btn btn-primary hidden" onClick={onSendStudyButtonClick}>
+              Envoyer l'étude
             </button>
           </div>
           <div className="flex gap-x-2">

@@ -43,7 +43,7 @@ export default function AppViewStudyViewExpertViewHeaderComponentCartComponentDe
   const { productNodes } = useStore(selector, (a, b) => isEqual(a, b));
   const { updateNodeData, setNodes } = useReactFlow();
 
-  const { data: products } = useSuspenseQuery(queries.product.list);
+  const { data: products } = useSuspenseQuery({ ...queries.product.list, staleTime: Infinity });
 
   const data = useMemo(() => {
     return productNodes

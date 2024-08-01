@@ -7,14 +7,14 @@ import useStore, { RFState } from '../../../../../Flow/utils/store';
 import { toast } from 'react-toastify';
 
 const selector = (state: RFState) => ({
-  currentPage: state.currentPage,
-  pagesLength: state.pages.length,
+  getCurrentPage: state.getCurrentPage,
+  getPages: state.getPages,
   setCurrentPage: state.setCurrentPage,
 });
 export default function AppViewStudyViewExpertViewModalProviderComponentPdfModalComponentImageGenerationStepComponent() {
   const { setModal } = useContext(ExpertStudyContext)!;
 
-  const { currentPage, pagesLength, setCurrentPage } = useStore(useShallow(selector));
+  const { getCurrentPage, getPages, setCurrentPage } = useStore(useShallow(selector));
   const nodesInitialized = useNodesInitialized();
 
   const data = useRef<Map<number, Blob>>(new Map());
@@ -23,10 +23,11 @@ export default function AppViewStudyViewExpertViewModalProviderComponentPdfModal
     if (nodesInitialized) {
       toBlob(document.querySelector('.react-flow') as HTMLElement, {
         quality: 1,
+        cacheBust: true,
       })
         .then((blob) => {
-          data.current.set(currentPage, blob!);
-          const next = Array.from({ length: pagesLength }, (_, index) => index).find((pageIndex) => !data.current.has(pageIndex));
+          data.current.set(getCurrentPage(), blob!);
+          const next = Array.from({ length: getPages().length }, (_, index) => index).find((pageIndex) => !data.current.has(pageIndex));
           if (next !== undefined) setCurrentPage(next);
           else
             setModal({
@@ -47,6 +48,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentPdfModal
             closeButton: true,
             render: 'Une erreur est survenue lors de la génération du PDF, veuillez réessayer ultérieurement.',
             isLoading: false,
+            toastId: 'pdf-generation-error',
           });
           setModal(undefined);
         });

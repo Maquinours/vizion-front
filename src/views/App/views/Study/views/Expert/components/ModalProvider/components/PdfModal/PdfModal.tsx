@@ -9,11 +9,21 @@ export default function AppViewStudyViewExpertViewModalProviderComponentPdfModal
 ) {
   useEffect(() => {
     if (props.step === 'IMAGE_GENERATION') toast.loading('Génération du PDF en cours...', { toastId: 'pdf-generation', autoClose: false });
-    else toast.update('pdf-generation', { type: 'success', autoClose: 3000, closeButton: true, render: 'PDF généré avec succès !', isLoading: false });
+    else
+      toast.update('pdf-generation', {
+        type: 'success',
+        autoClose: 3000,
+        closeButton: true,
+        render: 'PDF généré avec succès !',
+        isLoading: false,
+        toastId: 'pdf-generation-success',
+      });
   }, [props.step]);
 
   useEffect(() => {
-    return () => toast.dismiss('pdf-generation');
+    return () => {
+      if (toast.isActive('pdf-generation')) toast.dismiss('pdf-generation');
+    };
   }, []);
 
   switch (props.step) {

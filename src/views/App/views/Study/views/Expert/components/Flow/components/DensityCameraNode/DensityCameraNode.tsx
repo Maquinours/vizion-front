@@ -43,7 +43,11 @@ export default function AppViewStudyViewExpertViewFlowComponentDensityCameraNode
 }: NodeProps<ExpertStudyDensityCameraNode>) {
   //   const canvasRef = useRef<HTMLCanvasElement>(null);
 
-  const { data: product } = useSuspenseQuery({ ...queries.product.list, select: (products) => products.find((product) => product.id === data.productId) });
+  const { data: product } = useSuspenseQuery({
+    ...queries.product.list,
+    staleTime: Infinity,
+    select: (products) => products.find((product) => product.id === data.productId),
+  });
 
   //   const { angle, identification, plaque, reconnaissance } = (() => {
   //     const angle = product?.specificationProducts?.find((spec) => spec.specification?.name === 'ANGLE H');

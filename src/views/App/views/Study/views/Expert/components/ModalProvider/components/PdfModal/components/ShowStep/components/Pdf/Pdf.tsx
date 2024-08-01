@@ -207,6 +207,7 @@ type AppViewStudyViewExpertViewModalProviderComponentPdfModalComponentShowStepCo
   hddSpace: number;
   hddCalculationDays: number;
   business: BusinessResponseDto;
+  showDensityImages: boolean;
 }>;
 export default function AppViewStudyViewExpertViewModalProviderComponentPdfModalComponentShowStepComponentPdfComponent({
   images,
@@ -214,6 +215,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentPdfModal
   hddSpace,
   hddCalculationDays,
   business,
+  showDensityImages,
 }: AppViewStudyViewExpertViewModalProviderComponentPdfModalComponentShowStepComponentPdfComponentProps) {
   return (
     <Document title="VIZEO" author="VIZEO" creator="VIZEO" producer="VIZEO">
@@ -232,16 +234,20 @@ export default function AppViewStudyViewExpertViewModalProviderComponentPdfModal
           <Image src={image} style={synopticPageStyle.synoptic.image} />
         </Page>
       ))}
-      {cameras.map((camera) => (
-        <Page size="A4" style={cameraDensityPageStyle.page} orientation="landscape">
-          <View style={cameraDensityPageStyle.sectionOne}>
-            <Image
-              src={`https://bd.vizeo.eu/6-Photos/${camera.product.reference}/DENSITE_MAX_${camera.product.reference}.jpg`}
-              style={cameraDensityPageStyle.image}
-            />
-          </View>
-        </Page>
-      ))}
+      {showDensityImages
+        ? cameras
+            .filter((camera) => camera.product.category !== 'Autres cameras')
+            .map((camera) => (
+              <Page key={camera.product.id} size="A4" style={cameraDensityPageStyle.page} orientation="landscape">
+                <View style={cameraDensityPageStyle.sectionOne}>
+                  <Image
+                    src={`https://bd.vizeo.eu/6-Photos/${camera.product.reference}/DENSITE_MAX_${camera.product.reference}.jpg`}
+                    style={cameraDensityPageStyle.image}
+                  />
+                </View>
+              </Page>
+            ))
+        : null}
       {!!hddSpace && !!hddCalculationDays && Number.isFinite(hddCalculationDays) && (
         <Page size="A4" style={hddCalculationPageStyle.page} orientation="landscape">
           <View style={hddCalculationPageStyle.sectionOne}>

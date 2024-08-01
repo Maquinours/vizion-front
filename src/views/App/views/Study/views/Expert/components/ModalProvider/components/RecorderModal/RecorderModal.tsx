@@ -12,6 +12,7 @@ import ExpertStudyContext from '../../../../utils/context';
 import { ExpertStudyImageNode } from '../../../Flow/components/ImageNode/ImageNode';
 import { ExpertStudyRecorderNode } from '../../../Flow/components/RecorderNode/RecorderNode';
 import { ExpertStudyServiceNode } from '../../../Flow/components/ServiceNode/ServiceNode';
+import { ExpertStudySynopticCameraNode } from '../../../Flow/components/SynopticCameraNode/SynopticCameraNode';
 
 const includedProducts = ['HD504PAP', 'HD508PAP', 'HD516PAP', 'HD732', 'HD764', 'MX16HD'];
 
@@ -26,11 +27,12 @@ const yupSchema = yup.object().shape({
 
 export default function AppViewStudyViewExpertViewModalProviderComponentRecorderModalComponent() {
   const queryClient = useQueryClient();
-  const { addNodes, screenToFlowPosition } = useReactFlow();
+  const { addNodes, screenToFlowPosition, getNodes } = useReactFlow();
   const { setModal } = useContext(ExpertStudyContext)!;
 
   const { data: products } = useSuspenseQuery({
     ...queries.product.list,
+    staleTime: Infinity,
     select: (products) => products.filter((product) => product.category === 'NVR' && !!product.reference && includedProducts.includes(product.reference)),
   });
 
@@ -109,13 +111,25 @@ export default function AppViewStudyViewExpertViewModalProviderComponentRecorder
 
   useEffect(() => {
     const models = getValues('models');
-    setValue(
-      'models',
-      products.map((product) => ({
-        product,
-        selected: models.find((model) => model.product.id === product.id)?.selected ?? false,
-      })),
-    );
+    const newModels = products.map((product) => ({
+      product,
+      selected: models.find((model) => model.product.id === product.id)?.selected ?? false,
+    }));
+    if (!newModels.some((model) => model.selected)) {
+      const cams = getNodes()
+        .filter((node): node is ExpertStudySynopticCameraNode => node.type === 'synopticCamera')
+        .reduce((acc, node) => acc + (node.data.quantity ?? 1), 0);
+      const selectedReference = (() => {
+        if (cams <= 4) return 'HD504PAP';
+        else if (cams <= 8) return 'HD508PAP';
+        else if (cams <= 16) return 'HD516PAP';
+      })();
+      if (!!selectedReference) {
+        const model = newModels.find((model) => model.product.reference === selectedReference);
+        if (model) model.selected = true;
+      }
+    }
+    setValue('models', newModels);
   }, [products]);
 
   return (

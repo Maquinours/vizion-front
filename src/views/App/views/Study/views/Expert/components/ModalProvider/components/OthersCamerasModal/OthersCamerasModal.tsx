@@ -27,6 +27,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentOthersCa
 
   const { data: products } = useSuspenseQuery({
     ...queries.product.list,
+    staleTime: Infinity,
     select: (products) => products.filter((product) => product.category === 'Autres cameras' && !!product.reference),
   });
 

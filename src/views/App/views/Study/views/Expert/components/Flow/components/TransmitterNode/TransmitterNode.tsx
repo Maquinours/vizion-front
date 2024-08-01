@@ -12,7 +12,6 @@ export const isExpertStudyTransmitterNode = (node: Node): node is ExpertStudyTra
     'productId' in node.data &&
     typeof node.data.productId === 'string' &&
     (!('name' in node.data) || typeof node.data.name === 'string' || node.data.name === undefined) &&
-    typeof node.data.name === 'string' &&
     'options' in node.data &&
     Array.isArray(node.data.options) &&
     node.data.options.every(
@@ -53,6 +52,7 @@ export default function AppViewStudyViewExpertViewFlowComponentTransmitterNodeCo
     data: { product, options },
   } = useSuspenseQuery({
     ...queries.product.list,
+    staleTime: Infinity,
     select: (products) => {
       const product = products.find((product) => product.id === data.productId);
       const options = [];

@@ -141,6 +141,7 @@ export type RFState = {
   setNodes: (nodes: Array<ExpertStudyNode>) => void;
   setEdges: (edges: Array<Edge>) => void;
   setCurrentPage: (currentPage: number) => void;
+  getCurrentPage: () => number;
   addPage: (mode: 'synoptic' | 'density', options?: { nodes?: Array<ExpertStudyNode>; viewport?: Viewport }) => void;
   removePage: () => void;
   setStudyName: (studyName: string) => void;
@@ -193,6 +194,7 @@ const useStore = create<RFState>((set, get) => ({
     if (currentPage < 0 || currentPage >= pages.length) return;
     set({ currentPage });
   },
+  getCurrentPage: () => get().currentPage,
   setStudyName: (studyName: string) => {
     set({ studyName });
   },
