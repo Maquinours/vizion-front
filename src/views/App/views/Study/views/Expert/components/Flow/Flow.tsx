@@ -192,9 +192,9 @@ export default function AppViewStudyViewExpertViewFlowComponent() {
               const node: ExpertStudyLinesNode = {
                 id: uuidv4(),
                 type: 'lines',
-                position: { x: minPosition.x - 2, y: minPosition.y - 2 },
+                position: { x: minPosition.x - 5, y: minPosition.y - 2 },
                 data: {
-                  positions: positions.map((position) => ({ x: position.x - minPosition.x + 2, y: position.y - minPosition.y + 2 })),
+                  positions: positions.map((position) => ({ x: position.x - minPosition.x + 5, y: position.y - minPosition.y + 2 })),
                 },
                 style: {
                   pointerEvents: 'none',
