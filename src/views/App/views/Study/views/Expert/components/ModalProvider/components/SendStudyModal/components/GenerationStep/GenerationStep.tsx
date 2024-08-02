@@ -81,7 +81,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentSendStud
 
   const { mutate: generateQuotationPdf } = useMutation({
     mutationFn: async () => {
-      const quotation = await queryClient.ensureQueryData(queries['business-quotations'].detail._ctx.byBusinessId(businessId));
+      const quotation = await queryClient.fetchQuery(queries['business-quotations'].detail._ctx.byBusinessId(businessId));
       const blob = await pdf(
         <AppViewBusinessViewQuotationViewPdfModalViewPdfComponent
           business={business}
