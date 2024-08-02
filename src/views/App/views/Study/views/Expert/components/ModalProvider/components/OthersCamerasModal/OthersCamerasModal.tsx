@@ -28,7 +28,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentOthersCa
   const { data: products } = useSuspenseQuery({
     ...queries.product.list,
     staleTime: Infinity,
-    select: (products) => products.filter((product) => product.category === 'Autres cameras' && !!product.reference),
+    select: (products) => products.filter((product) => product.category === 'Autres cameras' && !!product.reference && product.vizeo),
   });
 
   const { setValue, getValues, control, handleSubmit } = useForm({
