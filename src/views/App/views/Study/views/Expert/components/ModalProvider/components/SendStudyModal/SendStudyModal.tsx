@@ -1,9 +1,8 @@
-import { useContext, useEffect, useState } from 'react';
-import AppViewStudyViewExpertViewModalProviderComponentSendStudyModalComponentImageGenerationStepComponent from './components/GenerationStep/GenerationStep';
-import ExpertStudyContext from '../../../../utils/context';
-import AppViewStudyViewExpertViewModalProviderComponentSendStudyModalComponentShowStepComponent from './components/ShowStep/ShowStep';
+import { useContext, useState } from 'react';
 import EnterpriseResponseDto from '../../../../../../../../../../utils/types/EnterpriseResponseDto';
-import { toast } from 'react-toastify';
+import ExpertStudyContext from '../../../../utils/context';
+import AppViewStudyViewExpertViewModalProviderComponentSendStudyModalComponentImageGenerationStepComponent from './components/GenerationStep/GenerationStep';
+import AppViewStudyViewExpertViewModalProviderComponentSendStudyModalComponentShowStepComponent from './components/ShowStep/ShowStep';
 
 export default function AppViewStudyViewExpertViewModalProviderComponentSendStudyModalComponent() {
   const { setModal } = useContext(ExpertStudyContext)!;
@@ -16,25 +15,6 @@ export default function AppViewStudyViewExpertViewModalProviderComponentSendStud
   const onClose = () => {
     setModal(undefined);
   };
-
-  useEffect(() => {
-    if (stepData.step === 'GENERATION') toast.loading('Génération du PDF en cours...', { toastId: 'pdf-generation', autoClose: false });
-    else
-      toast.update('pdf-generation', {
-        type: 'success',
-        autoClose: 3000,
-        closeButton: true,
-        render: 'PDF généré avec succès !',
-        isLoading: false,
-        toastId: 'pdf-generation-success',
-      });
-  }, [stepData.step]);
-
-  useEffect(() => {
-    return () => {
-      if (toast.isActive('pdf-generation')) toast.dismiss('pdf-generation');
-    };
-  }, []);
 
   switch (stepData.step) {
     case 'GENERATION':

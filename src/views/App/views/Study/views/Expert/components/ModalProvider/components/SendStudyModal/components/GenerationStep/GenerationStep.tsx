@@ -368,14 +368,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentSendStud
         })
         .catch((error) => {
           console.error('pdf generation error', error);
-          toast.update('pdf-generation', {
-            type: 'error',
-            autoClose: 3000,
-            closeButton: true,
-            render: 'Une erreur est survenue lors de la génération du PDF, veuillez réessayer ultérieurement.',
-            isLoading: false,
-            toastId: 'pdf-generation-error',
-          });
+          toast.error('Une erreur est survenue lors de la génération du PDF');
           onClose();
         });
     }

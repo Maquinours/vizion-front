@@ -5,6 +5,7 @@ import { useShallow } from 'zustand/react/shallow';
 import ExpertStudyContext, { ExpertStudyModalType } from '../../../../../../utils/context';
 import useStore, { RFState } from '../../../../../Flow/utils/store';
 import { toast } from 'react-toastify';
+import LoaderModal from '../../../../../../../../../../../../components/LoaderModal/LoaderModal';
 
 const selector = (state: RFState) => ({
   getCurrentPage: state.getCurrentPage,
@@ -42,18 +43,11 @@ export default function AppViewStudyViewExpertViewModalProviderComponentPdfModal
         })
         .catch((error) => {
           console.error('pdf generation error', error);
-          toast.update('pdf-generation', {
-            type: 'error',
-            autoClose: 3000,
-            closeButton: true,
-            render: 'Une erreur est survenue lors de la génération du PDF, veuillez réessayer ultérieurement.',
-            isLoading: false,
-            toastId: 'pdf-generation-error',
-          });
+          toast.error('Une erreur est survenue lors de la génération du PDF, veuillez réessayer ultérieurement.');
           setModal(undefined);
         });
     }
   }, [nodesInitialized]);
 
-  return null;
+  return <LoaderModal />;
 }
