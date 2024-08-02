@@ -64,18 +64,15 @@ const cameraDensityPageStyle = StyleSheet.create({
   page: {
     width: '100%',
     height: '100%',
-    padding: 20,
-    fontFamily: 'DIN',
   },
-  sectionOne: {
-    margin: 10,
-    height: '98%',
+  imageContainer: {
+    display: 'flex',
+    height: '100%',
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  image: {
-    height: 400,
-    width: 800,
-    marginTop: 5,
-  },
+  image: { objectFit: 'contain' },
 });
 
 const hddCalculationPageStyle = StyleSheet.create({
@@ -239,7 +236,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentPdfModal
             .filter((camera) => camera.product.category !== 'Autres cameras')
             .map((camera) => (
               <Page key={camera.product.id} size="A4" style={cameraDensityPageStyle.page} orientation="landscape">
-                <View style={cameraDensityPageStyle.sectionOne}>
+                <View style={cameraDensityPageStyle.imageContainer}>
                   <Image
                     src={`https://bd.vizeo.eu/6-Photos/${camera.product.reference}/DENSITE_MAX_${camera.product.reference}.jpg`}
                     style={cameraDensityPageStyle.image}
