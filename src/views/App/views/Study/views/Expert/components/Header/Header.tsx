@@ -185,7 +185,7 @@ export default function AppViewStudyViewExpertViewHeaderComponent() {
         type: 'text',
         position: { x: paneCenter.x, y: paneCenter.y },
         data: {
-          text: '<p>Câble CAT6 ou 7 - U/FTP — maxi 100 m</p>',
+          text: '<p>Câble CAT6 ou 7 - S/FTP — maxi 100 m</p>',
         },
       };
       addNodes(textNode);
