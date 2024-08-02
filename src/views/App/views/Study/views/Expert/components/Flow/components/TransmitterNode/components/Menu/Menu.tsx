@@ -3,6 +3,8 @@ import { AiOutlineClose, AiTwotoneSetting } from 'react-icons/ai';
 import ProductProductResponseDto from '../../../../../../../../../../../../utils/types/ProductProductResponseDto';
 import ProductResponseDto from '../../../../../../../../../../../../utils/types/ProductResponseDto';
 import { ExpertStudyTransmitterNode } from '../../TransmitterNode';
+import { OnValueChange } from 'react-number-format';
+import AmountFormat from '../../../../../../../../../../../../components/AmountFormat/AmountFormat';
 
 type Option = {
   product: ProductProductResponseDto;
@@ -22,6 +24,8 @@ export default function AppViewStudyViewExpertViewFlowComponentTransmitterNodeCo
   onClose,
 }: AppViewStudyViewExpertViewFlowComponentTransmitterNodeComponentMenuComponentProps) {
   const { updateNodeData } = useReactFlow();
+
+  const quantity = data.quantity ?? 1;
 
   const options: Array<Option> | undefined = product.associatedProduct
     ?.map((option) => ({
@@ -55,6 +59,15 @@ export default function AppViewStudyViewExpertViewFlowComponentTransmitterNodeCo
     updateNodeData(nodeId, { options });
   };
 
+  const onQuantityChange: OnValueChange = (v, info) => {
+    if (v.floatValue !== undefined && info.source === 'event') {
+      const quantity = v.floatValue;
+      const data: { quantity: number; opacity?: number } = { quantity: quantity };
+      if (quantity === 0) data.opacity = 50;
+      updateNodeData(nodeId, data);
+    }
+  };
+
   const hddSlots = product.specificationProducts?.find((spec) => spec.specification?.name === 'SLOT')?.value ?? 0;
   const totalHddQuantity = options?.filter((opt) => opt.product.reference?.startsWith('DD')).reduce((acc, opt) => acc + opt.quantity, 0) ?? 0;
 
@@ -76,6 +89,18 @@ export default function AppViewStudyViewExpertViewFlowComponentTransmitterNodeCo
             onChange={onNodeNameChange}
             placeholder="Choisir un nom"
             className="rounded-md border border-[#1a192b] p-2"
+          />
+        </div>
+        <div className="flex items-center justify-start space-x-2 border-t-2 border-t-[#1a192b] p-2">
+          <p className="flex-1 text-right text-sm">Quantité :</p>
+          <AmountFormat
+            value={quantity}
+            onValueChange={onQuantityChange}
+            allowNegative={false}
+            decimalScale={0}
+            isAllowed={(v) => v.floatValue === undefined || v.floatValue >= 0}
+            displayType="input"
+            className="flex-1 rounded-md border border-[#1a192b] p-2"
           />
         </div>
         {!!options && options.length > 0 && (

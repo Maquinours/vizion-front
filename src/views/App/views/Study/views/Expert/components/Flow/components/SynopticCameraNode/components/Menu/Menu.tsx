@@ -60,8 +60,13 @@ export default function AppViewStudyViewExpertViewFlowComponentSynopticCameraNod
     updateNodeData(nodeId, { options });
   };
 
-  const onQuantityChange: OnValueChange = (v) => {
-    updateNodeData(nodeId, { quantity: v.floatValue });
+  const onQuantityChange: OnValueChange = (v, info) => {
+    if (v.floatValue !== undefined && info.source === 'event') {
+      const quantity = v.floatValue;
+      const data: { quantity: number; opacity?: number } = { quantity: quantity };
+      if (quantity === 0) data.opacity = 50;
+      updateNodeData(nodeId, data);
+    }
   };
 
   return (
@@ -90,7 +95,7 @@ export default function AppViewStudyViewExpertViewFlowComponentSynopticCameraNod
             onValueChange={onQuantityChange}
             allowNegative={false}
             decimalScale={0}
-            isAllowed={(v) => v.floatValue === undefined || v.floatValue >= 1}
+            isAllowed={(v) => v.floatValue === undefined || v.floatValue >= 0}
             displayType="input"
             className="flex-1 rounded-md border border-[#1a192b] p-2"
           />

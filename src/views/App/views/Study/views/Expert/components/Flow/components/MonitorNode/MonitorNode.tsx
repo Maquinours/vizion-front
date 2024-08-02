@@ -4,6 +4,7 @@ import { Handle, Node, NodeProps, NodeResizer, OnResize, Position, useReactFlow 
 import { ReactEventHandler, useState } from 'react';
 import { queries } from '../../../../../../../../../../utils/constants/queryKeys';
 import AppViewStudyViewExpertViewFlowComponentMonitorNodeComponentMenuComponent from './components/Menu/Menu';
+import AmountFormat from '../../../../../../../../../../components/AmountFormat/AmountFormat';
 
 export const isExpertStudyMonitorNode = (node: Node): node is ExpertStudyMonitorNode => {
   return (
@@ -41,6 +42,7 @@ export type ExpertStudyMonitorNode = Node<
     options: Array<{ id: string; quantity: number }>;
     size: { width: number; height: number };
     opacity: number;
+    quantity?: number;
   },
   'monitor'
 >;
@@ -126,6 +128,14 @@ export default function AppViewStudyViewExpertViewFlowComponentMonitorNodeCompon
             ))}
           </div>
           <div className="absolute top-[-20px] w-full text-center">
+            {!!data.quantity && data.quantity > 1 && (
+              <AmountFormat
+                prefix="x"
+                value={data.quantity}
+                displayType="text"
+                className="absolute right-1 top-[calc(50%-30px)] ml-auto h-fit w-fit rounded-md bg-amber-300 p-[1px] text-center text-sm font-medium text-white"
+              />
+            )}
             <p className="h-4 text-sm">{name}</p>
           </div>
           <div className="flex justify-center">

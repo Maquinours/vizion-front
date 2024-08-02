@@ -4,6 +4,8 @@ import { Node, NodeProps, NodeResizer, NodeToolbar, OnResize, Position, useReact
 import { ReactEventHandler, useRef, useState } from 'react';
 import { AiOutlineClose, AiTwotoneSetting } from 'react-icons/ai';
 import { queries } from '../../../../../../../../../../utils/constants/queryKeys';
+import AmountFormat from '../../../../../../../../../../components/AmountFormat/AmountFormat';
+import { OnValueChange } from 'react-number-format';
 
 export const isExpertStudyServiceNode = (node: Node): node is ExpertStudyServiceNode => {
   return (
@@ -29,12 +31,15 @@ export type ExpertStudyServiceNode = Node<
     size: { width: number; height: number };
     opacity?: number;
     rotation: number;
+    quantity?: number;
   },
   'service'
 >;
 export default function AppViewStudyViewExpertViewFlowComponentServiceNodeComponent({ id, selected, data }: NodeProps<ExpertStudyServiceNode>) {
   const { setNodes, updateNodeData } = useReactFlow();
   const updateNodeInternals = useUpdateNodeInternals();
+
+  const quantity = data.quantity ?? 1;
 
   const { data: product } = useSuspenseQuery({
     ...queries.product.list,
@@ -96,6 +101,15 @@ export default function AppViewStudyViewExpertViewFlowComponentServiceNodeCompon
     updateNodeData(id, { size: { width: e.currentTarget.offsetWidth, height: e.currentTarget.offsetHeight } });
   };
 
+  const onQuantityChange: OnValueChange = (v, info) => {
+    if (v.floatValue !== undefined && info.source === 'event') {
+      const quantity = v.floatValue;
+      const data: { quantity: number; opacity?: number } = { quantity: quantity };
+      if (quantity === 0) data.opacity = 50;
+      updateNodeData(id, data);
+    }
+  };
+
   if (!product) return;
 
   return (
@@ -103,6 +117,17 @@ export default function AppViewStudyViewExpertViewFlowComponentServiceNodeCompon
       <div>
         <div style={{ transform: `rotate(${data.rotation}deg)` }}>
           <NodeResizer onResize={onResize} isVisible={selected ?? false} keepAspectRatio handleStyle={{ width: 10, height: 10, borderRadius: '100%' }} />
+          <div className="absolute top-[-20px] w-full text-center">
+            {!!data.quantity && data.quantity > 1 && (
+              <AmountFormat
+                prefix="x"
+                value={data.quantity}
+                displayType="text"
+                className="absolute right-1 top-[calc(50%-30px)] ml-auto h-fit w-fit rounded-md bg-amber-300 p-[1px] text-center text-sm font-medium text-white"
+              />
+            )}
+            <p className="h-4 text-sm">{product.reference}</p>
+          </div>
           <div ref={nodeRef} className="flex justify-center">
             <img
               title={title}
@@ -124,7 +149,19 @@ export default function AppViewStudyViewExpertViewFlowComponentServiceNodeCompon
             </div>
             <AiOutlineClose className="fill-[#1a192b]" onClick={() => setShowMenu(false)} />
           </div>
-          <div>
+          <div className="border-t-2 border-t-[#1a192b]">
+            <div className="flex items-center justify-start space-x-2 p-2">
+              <p className="flex-1 text-right text-sm">Quantité :</p>
+              <AmountFormat
+                value={quantity}
+                onValueChange={onQuantityChange}
+                allowNegative={false}
+                decimalScale={0}
+                isAllowed={(v) => v.floatValue === undefined || v.floatValue >= 0}
+                displayType="input"
+                className="flex-1 rounded-md border border-[#1a192b] p-2"
+              />
+            </div>
             <div className="flex gap-x-1 border-t-2 border-t-[#1a192b] px-2 pb-2">
               <label>Opacité :</label>
               <input type="range" min={10} max={100} value={opacity} onChange={onOpacityChange} className="flex-auto" />
