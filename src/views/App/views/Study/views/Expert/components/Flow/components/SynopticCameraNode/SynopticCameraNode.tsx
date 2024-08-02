@@ -1,7 +1,7 @@
 import { ClickAwayListener } from '@mui/material';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { Handle, Node, NodeProps, NodeResizer, OnResize, Position, useReactFlow } from '@xyflow/react';
-import React, { useState } from 'react';
+import React, { ReactEventHandler, useState } from 'react';
 import { queries } from '../../../../../../../../../../utils/constants/queryKeys';
 import AppViewStudyViewExpertViewFlowComponentSynopticCameraNodeComponentMenuComponent from './components/Menu/Menu';
 import AmountFormat from '../../../../../../../../../../components/AmountFormat/AmountFormat';
@@ -78,6 +78,10 @@ export default function AppViewStudyViewExpertViewFlowComponentSynopticCameraNod
     setShowMenu((showMenu) => !showMenu);
   };
 
+  const onImageLoad: ReactEventHandler<HTMLImageElement> = (e) => {
+    updateNodeData(id, { size: { width: e.currentTarget.offsetWidth, height: e.currentTarget.offsetHeight } });
+  };
+
   const title =
     `${!selected ? 'Clic gauche pour sélectionner' : 'Touche Suppr. pour supprimer les objets selectionnés'}\n` +
     `Clic droit pour ${showMenu ? 'fermer la fenêtre des' : 'accéder aux'} options de la caméra\n` +
@@ -131,7 +135,7 @@ export default function AppViewStudyViewExpertViewFlowComponentSynopticCameraNod
               </div>
             </div>
             <div title={title} onContextMenu={onContextMenu}>
-              <img src={image} width={data.size.width} height={data.size.height} style={{ opacity: data.opacity / 100 }} />
+              <img src={image} width={data.size.width} height={data.size.height} style={{ opacity: data.opacity / 100 }} onLoad={onImageLoad} />
             </div>
           </div>
           {showMenu && (

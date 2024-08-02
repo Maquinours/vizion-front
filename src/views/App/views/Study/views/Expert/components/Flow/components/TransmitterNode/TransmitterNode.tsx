@@ -1,7 +1,7 @@
 import { ClickAwayListener } from '@mui/material';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { Handle, Node, NodeProps, NodeResizer, OnResize, useReactFlow } from '@xyflow/react';
-import { useState } from 'react';
+import { ReactEventHandler, useState } from 'react';
 import { queries } from '../../../../../../../../../../utils/constants/queryKeys';
 import AppViewStudyViewExpertViewFlowComponentTransmitterNodeComponentMenuComponent from './components/Menu/Menu';
 import { handlesData } from './constants/handles';
@@ -76,6 +76,10 @@ export default function AppViewStudyViewExpertViewFlowComponentTransmitterNodeCo
     setShowMenu((showMenu) => !showMenu);
   };
 
+  const onImageLoad: ReactEventHandler<HTMLImageElement> = (e) => {
+    updateNodeData(id, { size: { width: e.currentTarget.offsetWidth, height: e.currentTarget.offsetHeight } });
+  };
+
   if (!product) return null;
 
   const handles = handlesData.find((handle) => handle.productReference === product.reference)?.handles;
@@ -124,6 +128,7 @@ export default function AppViewStudyViewExpertViewFlowComponentTransmitterNodeCo
                 src={`https://bd.vizeo.eu/6-Photos/${product.reference}/PLUG_${product.reference}.png`}
                 width={data.size.width}
                 height={data.size.height}
+                onLoad={onImageLoad}
               />
             </div>
           </div>

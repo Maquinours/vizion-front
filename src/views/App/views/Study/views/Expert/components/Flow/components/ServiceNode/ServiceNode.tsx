@@ -1,7 +1,7 @@
 import { ClickAwayListener } from '@mui/material';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { Node, NodeProps, NodeResizer, NodeToolbar, OnResize, Position, useReactFlow, useUpdateNodeInternals } from '@xyflow/react';
-import { useRef, useState } from 'react';
+import { ReactEventHandler, useRef, useState } from 'react';
 import { AiOutlineClose, AiTwotoneSetting } from 'react-icons/ai';
 import { queries } from '../../../../../../../../../../utils/constants/queryKeys';
 
@@ -92,6 +92,10 @@ export default function AppViewStudyViewExpertViewFlowComponentServiceNodeCompon
     }
   };
 
+  const onImageLoad: ReactEventHandler<HTMLImageElement> = (e) => {
+    updateNodeData(id, { size: { width: e.currentTarget.offsetWidth, height: e.currentTarget.offsetHeight } });
+  };
+
   if (!product) return;
 
   return (
@@ -108,6 +112,7 @@ export default function AppViewStudyViewExpertViewFlowComponentServiceNodeCompon
               style={{ opacity: opacity / 100 }}
               onMouseDown={onMouseDown}
               onContextMenu={onContextMenu}
+              onLoad={onImageLoad}
             />
           </div>
         </div>

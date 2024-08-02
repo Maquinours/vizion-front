@@ -1,7 +1,7 @@
 import { ClickAwayListener } from '@mui/material';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { Handle, Node, NodeProps, NodeResizer, OnResize, Position, useReactFlow } from '@xyflow/react';
-import { useState } from 'react';
+import { ReactEventHandler, useState } from 'react';
 import { queries } from '../../../../../../../../../../utils/constants/queryKeys';
 import AppViewStudyViewExpertViewFlowComponentMonitorNodeComponentMenuComponent from './components/Menu/Menu';
 
@@ -75,6 +75,10 @@ export default function AppViewStudyViewExpertViewFlowComponentMonitorNodeCompon
     setShowMenu((showMenu) => !showMenu);
   };
 
+  const onImageLoad: ReactEventHandler<HTMLImageElement> = (e) => {
+    updateNodeData(id, { size: { width: e.currentTarget.offsetWidth, height: e.currentTarget.offsetHeight } });
+  };
+
   if (!product) return;
 
   const name = !data.name || data.name === product.reference ? product.reference : `${data.name} (${product.reference})`;
@@ -133,6 +137,7 @@ export default function AppViewStudyViewExpertViewFlowComponentMonitorNodeCompon
               width={data.size.width}
               height={data.size.height}
               style={{ opacity: data.opacity / 100 }}
+              onLoad={onImageLoad}
             />
           </div>
           {showMenu && (

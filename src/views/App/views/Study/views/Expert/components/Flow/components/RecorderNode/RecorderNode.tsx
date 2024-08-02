@@ -1,7 +1,7 @@
 import { ClickAwayListener } from '@mui/material';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { Handle, Node, NodeProps, NodeResizer, OnResize, useReactFlow } from '@xyflow/react';
-import { useState } from 'react';
+import { ReactEventHandler, useState } from 'react';
 import { queries } from '../../../../../../../../../../utils/constants/queryKeys';
 import AppViewStudyViewExpertViewFlowComponentRecorderNodeComponentMenuComponent from './components/Menu/Menu';
 import handlesData from './constants/handles';
@@ -85,6 +85,10 @@ export default function AppViewStudyViewExpertViewFlowComponentRecorderNodeCompo
     `Clic droit pour ${showMenu ? 'fermer la fenêtre des' : 'accéder aux'} options de l'enregistreur\n` +
     `Maintenez le clic gauche et déplacez la souris pour déplacer l'enregistreur`;
 
+  const onImageLoad: ReactEventHandler<HTMLImageElement> = (e) => {
+    updateNodeData(id, { size: { width: e.currentTarget.offsetWidth, height: e.currentTarget.offsetHeight } });
+  };
+
   return (
     <>
       <NodeResizer
@@ -124,6 +128,7 @@ export default function AppViewStudyViewExpertViewFlowComponentRecorderNodeCompo
                 src={`https://bd.vizeo.eu/6-Photos/${product.reference}/PLUG_${product.reference}.png`}
                 width={data.size.width}
                 height={data.size.height}
+                onLoad={onImageLoad}
               />
             </div>
           </div>
