@@ -34,7 +34,7 @@ export default function AppViewStudyViewExpertViewFlowComponentCartridgeComponen
     <Panel position="bottom-right" style={{ margin: 0 }}>
       <table className="min-h-full w-fit divide-y divide-gray-300 border-l border-t border-[#1a192b] bg-gray-50">
         <thead>
-          <tr className="rounded-md border border-[#1a192b]">
+          <tr className="border-y border-l border-[#1a192b]">
             <th scope="col" className="border border-[#1a192b] py-2 pl-4 pr-3 text-xs font-semibold text-[#1a192b] sm:pl-6">
               <p className="w-full rounded-md bg-[#16204e]/30 px-2 text-center">
                 <input
@@ -52,14 +52,14 @@ export default function AppViewStudyViewExpertViewFlowComponentCartridgeComponen
             <th scope="col" className="border border-[#1a192b] px-3 py-2 text-center text-xs font-semibold text-[#1a192b]">
               {/* {hasNightBlindFov ? <p className="text-[orange]">* Valeurs mode jour</p> : <p>Etude</p>} // TODO: reimplement this */}
             </th>
-            <th scope="col" className="border border-[#1a192b] px-3 py-2 text-center text-xs font-semibold text-[#1a192b]">
+            <th scope="col" className="border-y border-l border-[#1a192b] px-3 py-2 text-center text-xs font-semibold text-[#1a192b]">
               {moment().format('DD/MM/YYYY')}
             </th>
           </tr>
         </thead>
         <tbody className="divide-y divide-gray-200">
-          <tr className="rounded-md border border-[#1a192b]">
-            <td className="whitespace-nowrap border border-[#1a192b] py-2 pl-4 pr-3 text-sm font-bold text-[#1a192b] sm:pl-6">
+          <tr className="border-l border-t border-[#1a192b]">
+            <td className="whitespace-nowrap border-x border-t border-[#1a192b] py-2 pl-4 pr-3 text-sm font-bold text-[#1a192b] sm:pl-6">
               <p className="w-full rounded-md bg-[#16204e]/30 px-2 text-center">
                 <input
                   type="text"
@@ -70,7 +70,7 @@ export default function AppViewStudyViewExpertViewFlowComponentCartridgeComponen
                 />
               </p>
             </td>
-            <td className="text-medium whitespace-nowrap border border-[#1a192b] px-3 py-2 text-center font-extrabold text-[#1a192b]" colSpan={2}>
+            <td className="text-medium whitespace-nowrap border-x border-t border-[#1a192b] px-3 py-2 text-center font-extrabold text-[#1a192b]" colSpan={2}>
               <div className="flex items-center justify-center space-x-2 text-center text-xs">
                 <p>
                   {(() => {
@@ -84,7 +84,7 @@ export default function AppViewStudyViewExpertViewFlowComponentCartridgeComponen
                 </p>
               </div>
             </td>
-            <td className="whitespace-nowrap border border-[#1a192b] px-3 py-2 text-center text-xs text-[#1a192b]">
+            <td className="whitespace-nowrap border-l border-t border-[#1a192b] px-3 py-2 text-center text-xs text-[#1a192b]">
               <input
                 className="bg-transparent font-bold"
                 style={{ width: `${pageNameValue.length}ch`, minWidth: '3ch' }}
