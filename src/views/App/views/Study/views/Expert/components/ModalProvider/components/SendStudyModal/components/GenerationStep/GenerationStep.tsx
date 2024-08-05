@@ -371,6 +371,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentSendStud
     else if (nodesInitialized) {
       toBlob(document.querySelector('.react-flow') as HTMLElement, {
         quality: 1,
+        cacheBust: true,
       })
         .then((blob) => {
           data.current.set(currentPage, blob!);
