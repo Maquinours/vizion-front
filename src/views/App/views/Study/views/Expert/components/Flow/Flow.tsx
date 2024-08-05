@@ -77,8 +77,6 @@ export default function AppViewStudyViewExpertViewFlowComponent() {
 
   const title = useMemo(() => {
     switch (paneClickFunction?.type) {
-      case ExpertStudyPaneClickFunctionType.TEXT:
-        return 'Cliquez pour ajouter du texte';
       case ExpertStudyPaneClickFunctionType.RECTANGLE:
         return 'Cliquez pour tracer un rectangle';
     }
@@ -86,6 +84,28 @@ export default function AppViewStudyViewExpertViewFlowComponent() {
 
   const nodesDraggable = useMemo(() => !paneClickFunction, [paneClickFunction]);
   const elementsSelectable = useMemo(() => !paneClickFunction, [paneClickFunction]);
+
+  const onDragOver: React.DragEventHandler<HTMLDivElement> = useCallback((event) => {
+    event.preventDefault();
+    event.dataTransfer.dropEffect = 'move';
+  }, []);
+
+  const onDrop: React.DragEventHandler<HTMLDivElement> = useCallback(
+    (event) => {
+      event.preventDefault();
+      const type = event.dataTransfer.getData('application/reactflow');
+      switch (type) {
+        case 'text': {
+          const position = screenToFlowPosition({
+            x: event.clientX,
+            y: event.clientY,
+          });
+          setModal({ type: ExpertStudyModalType.ADD_TEXT, data: { nodePosition: position } });
+        }
+      }
+    },
+    [screenToFlowPosition],
+  );
 
   const onNodeDragStart: OnNodeDrag<ExpertStudyNode> = useCallback(
     (event, node) => {
@@ -108,12 +128,6 @@ export default function AppViewStudyViewExpertViewFlowComponent() {
               data: { positions: [...paneClickFunction.data.positions, position], cursorPosition: position },
             });
           }
-          break;
-        }
-        case ExpertStudyPaneClickFunctionType.TEXT: {
-          const { x, y } = { x: event.clientX, y: event.clientY };
-          const position = screenToFlowPosition({ x, y });
-          setModal({ type: ExpertStudyModalType.ADD_TEXT, data: { nodePosition: position } });
           break;
         }
         case ExpertStudyPaneClickFunctionType.RECTANGLE: {
@@ -327,6 +341,8 @@ export default function AppViewStudyViewExpertViewFlowComponent() {
       isValidConnection={isValidConnection}
       autoPanOnNodeDrag={autoPanOnNodeDrag}
       autoPanOnConnect={autoPanOnConnect}
+      onDragOver={onDragOver}
+      onDrop={onDrop}
     >
       <AppViewStudyViewExpertViewFlowComponentComponentHelperLinesComponent horizontal={helperLines.horizontal} vertical={helperLines.vertical} />
       <AppViewStudyViewExpertViewFlowComponentCartridgeComponent />

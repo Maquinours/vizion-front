@@ -3,7 +3,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { getRouteApi } from '@tanstack/react-router';
 import { useReactFlow } from '@xyflow/react';
 import { isError } from 'lodash';
-import { useContext } from 'react';
+import { DragEventHandler, useContext } from 'react';
 import { PiRectangle, PiTextT } from 'react-icons/pi';
 import { toast } from 'react-toastify';
 import { v4 as uuidv4 } from 'uuid';
@@ -52,7 +52,14 @@ export default function AppViewStudyViewExpertViewHeaderComponent() {
   };
 
   const onTextButtonClick = () => {
-    setPaneClickFunction((func) => (func?.type !== ExpertStudyPaneClickFunctionType.TEXT ? { type: ExpertStudyPaneClickFunctionType.TEXT } : undefined));
+    const flowRect = document.querySelector('.react-flow')!.getBoundingClientRect();
+    const position = screenToFlowPosition({ x: flowRect.x + flowRect.width / 2, y: flowRect.y });
+    setModal({ type: ExpertStudyModalType.ADD_TEXT, data: { nodePosition: position } });
+  };
+
+  const onTextDragStart: DragEventHandler<HTMLButtonElement> = (event) => {
+    event.dataTransfer.setData('application/reactflow', 'text');
+    event.dataTransfer.effectAllowed = 'move';
   };
 
   const onRectangleButtonClick = () => {
@@ -277,15 +284,7 @@ export default function AppViewStudyViewExpertViewHeaderComponent() {
             >
               <PiRectangle color="white" size={16} viewBox="24 40 208 176" />
             </button>
-            <button
-              type="button"
-              className="btn btn-primary"
-              style={{
-                backgroundColor: paneClickFunction?.type === ExpertStudyPaneClickFunctionType.TEXT ? '#262b42' : undefined,
-              }}
-              title="Ajouter du texte"
-              onClick={onTextButtonClick}
-            >
+            <button type="button" className="btn btn-primary" title="Ajouter du texte" onClick={onTextButtonClick} onDragStart={onTextDragStart} draggable>
               <PiTextT color="white" size={16} viewBox="48 48 160 160" />
             </button>
             <button type="button" className="btn btn-primary" onClick={onPreConnectButtonClick}>
