@@ -50,7 +50,7 @@ export default function AppViewStudyViewExpertViewFlowComponentCartridgeComponen
               {business.numBusiness}
             </th>
             <th scope="col" className="border border-[#1a192b] px-3 py-2 text-center text-xs font-semibold text-[#1a192b]">
-              {/* {hasNightBlindFov ? <p className="text-[orange]">* Valeurs mode jour</p> : <p>Etude</p>} // TODO: reimplement this */}
+              {pageType === 'density' ? <p className="text-[orange]">* Valeurs mode jour</p> : <p>Étude</p>}
             </th>
             <th scope="col" className="border-y border-l border-[#1a192b] px-3 py-2 text-center text-xs font-semibold text-[#1a192b]">
               {moment().format('DD/MM/YYYY')}
