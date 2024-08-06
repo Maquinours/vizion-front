@@ -5,6 +5,7 @@ import { NumberFormatValues, OnValueChange } from 'react-number-format';
 import AmountFormat from '../../../../../../../../../../../../components/AmountFormat/AmountFormat';
 import { ExpertStudyBackgroundNode } from '../../BackgroundNode';
 import { ClickAwayListener } from '@mui/material';
+import { FaTrash } from 'react-icons/fa';
 
 const isScaleValueAllowed = ({ floatValue }: NumberFormatValues) => !floatValue || (floatValue >= 0 && floatValue <= 200);
 const isOpacityValueAllowed = ({ floatValue }: NumberFormatValues) => !floatValue || (floatValue >= 0 && floatValue <= 100);
@@ -24,7 +25,7 @@ export default function AppViewStudyViewExpertViewFlowComponentBackgroundNodeCom
   data,
   onClose,
 }: AppViewStudyViewExpertViewFlowComponentBackgroundNodeComponentMenuComponentProps) {
-  const { updateNodeData, updateNode } = useReactFlow();
+  const { updateNodeData, updateNode, deleteElements } = useReactFlow();
 
   const onLockButtonClick = () => updateNode(nodeId, { draggable: !draggable });
 
@@ -60,6 +61,10 @@ export default function AppViewStudyViewExpertViewFlowComponentBackgroundNodeCom
     },
     [updateNodeData, nodeId],
   );
+
+  const onDeleteButtonClick = () => {
+    deleteElements({ nodes: [{ id: nodeId }] });
+  };
 
   return (
     <NodeToolbar isVisible style={{ transform: `translate(${position.left}px, ${position.top}px)`, zIndex: 1 }} className="nodrag nopan absolute left-0 top-0">
@@ -107,6 +112,9 @@ export default function AppViewStudyViewExpertViewFlowComponentBackgroundNodeCom
               onValueChange={onRotationValueChange}
             />
           </div>
+          <button onClick={onDeleteButtonClick} title="Supprimer le plan" className="w-full">
+            <FaTrash size={32} />
+          </button>
         </div>
       </ClickAwayListener>
     </NodeToolbar>
