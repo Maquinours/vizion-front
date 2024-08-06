@@ -1,24 +1,29 @@
 import { Checkbox } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
 import { getRouteApi } from '@tanstack/react-router';
-import { RowSelectionState, createColumnHelper } from '@tanstack/react-table';
+import { Row, RowSelectionState, createColumnHelper } from '@tanstack/react-table';
 import { useReactFlow } from '@xyflow/react';
-import { useContext, useMemo, useState } from 'react';
+import { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import ReactModal from 'react-modal';
+import { ClipLoader } from 'react-spinners';
 import { v4 as uuidv4 } from 'uuid';
 import TableComponent from '../../../../../../../../../../components/Table/Table';
 import { PUBLIC_BASE_URL } from '../../../../../../../../../../utils/constants/api';
 import { queries } from '../../../../../../../../../../utils/constants/queryKeys';
 import FileType from '../../../../../../../../../../utils/enums/FileType';
 import { filterRecursively } from '../../../../../../../../../../utils/functions/arrays';
-import FileDataTreeResponseDto from '../../../../../../../../../../utils/types/FileDataTreeResponseDto';
+import { pdfUriToBase64Image } from '../../../../../../../../../../utils/functions/files';
 import ExpertStudyContext from '../../../../utils/context';
-import { ExpertStudyImageNode } from '../../../Flow/components/ImageNode/ImageNode';
 import { ExpertStudyBackgroundNode } from '../../../Flow/components/BackgroundNode/BackgroundNode';
+import { ExpertStudyImageNode } from '../../../Flow/components/ImageNode/ImageNode';
+
+type LoadedImage = { key: string; name: string; src: string; loading: false };
+type LoadingImage = { key: string; name: string; loading: true };
+type Image = LoadedImage | LoadingImage;
 
 const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/study/expert');
 
-const columnHelper = createColumnHelper<FileDataTreeResponseDto>();
+const columnHelper = createColumnHelper<Image>();
 const columns = [
   columnHelper.display({
     header: 'Sélection',
@@ -32,7 +37,11 @@ const columns = [
     header: 'Aperçu',
     cell: ({ row }) => (
       <div className="flex justify-center p-2">
-        <img src={`${PUBLIC_BASE_URL}ged/v1/s3/download?filename=${row.original.key}`} alt={`Aperçu de ${row.original.name}`} width={48} height={48} />
+        {row.original.loading ? (
+          <ClipLoader color="#31385A" loading className="" size={48} speedMultiplier={1} />
+        ) : (
+          <img src={row.original.src} alt={`Aperçu de ${row.original.name}`} width={48} height={48} />
+        )}
       </div>
     ),
   }),
@@ -61,12 +70,16 @@ export default function AppViewStudyViewExpertViewModalProviderComponentImportGe
 
   const { data, isLoading } = useQuery({
     ...queries.geds.detail._ctx.byTypeAndId(FileType.AFFAIRE, businessId),
-    select: (data) => filterRecursively(data, 'subRows', (item) => item.dir === false && ['image/png', 'image/jpeg', 'image/webp'].includes(item.type)),
+    select: (data) =>
+      filterRecursively(data, 'subRows', (item) => item.dir === false && ['image/png', 'image/jpeg', 'image/webp', 'application/pdf'].includes(item.type)),
   });
+
+  const [images, setImages] = useState<Array<Image>>([]);
 
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
 
   const enableMultiRowSelection = useMemo(() => type !== 'background', [type]);
+  const enableRowSelection = useCallback((row: Row<Image>) => !row.original.loading, []);
 
   const onClose = () => {
     setModal(undefined);
@@ -78,13 +91,16 @@ export default function AppViewStudyViewExpertViewModalProviderComponentImportGe
     const position = screenToFlowPosition({ x: reactFlowRect.x, y: reactFlowRect.y });
     switch (type) {
       case 'image': {
-        for (const [key] of Object.entries(rowSelection).filter(([, isSelected]) => isSelected)) {
+        for (const image of Object.entries(rowSelection)
+          .filter(([, isSelected]) => isSelected)
+          .map(([key]) => images.find((image) => image.key === key))
+          .filter((image): image is LoadedImage => !!image && !image.loading)) {
           const node: ExpertStudyImageNode = {
             id: uuidv4(),
             type: 'image',
             position: position,
             data: {
-              image: `${PUBLIC_BASE_URL}ged/v1/s3/download?filename=${key}`,
+              image: image.src,
               size: {
                 width: 100,
                 height: 100,
@@ -97,30 +113,34 @@ export default function AppViewStudyViewExpertViewModalProviderComponentImportGe
         break;
       }
       case 'background': {
-        const item = Object.entries(rowSelection).find(([, isSelected]) => isSelected);
-        if (!!item) {
-          const reactFlowRect = document.querySelector('.react-flow')!.getBoundingClientRect();
-          const position = screenToFlowPosition({ x: reactFlowRect.x, y: reactFlowRect.y });
-          const endPosition = screenToFlowPosition({ x: reactFlowRect.x + reactFlowRect.width, y: reactFlowRect.y + reactFlowRect.height });
-          const { width, height } = { width: endPosition.x - position.x, height: endPosition.y - position.y };
-          const node: ExpertStudyBackgroundNode = {
-            id: 'background',
-            type: 'background',
-            position: position,
-            data: {
-              image: `${PUBLIC_BASE_URL}ged/v1/s3/download?filename=${item[0]}`,
-              width: width,
-              height: height,
-              scale: 1,
-              opacity: 1,
-              rotation: 0,
-            },
-            zIndex: -1,
-            draggable: false,
-          };
-          const backgroundNodes = getNodes().filter((node) => node.type === 'background');
-          deleteElements({ nodes: backgroundNodes });
-          addNodes(node);
+        const selection = Object.entries(rowSelection).find(([, isSelected]) => isSelected);
+        if (!!selection) {
+          const [key] = selection;
+          const item = images.find((image): image is LoadedImage => image.key === key && !image.loading);
+          if (!!item) {
+            const reactFlowRect = document.querySelector('.react-flow')!.getBoundingClientRect();
+            const position = screenToFlowPosition({ x: reactFlowRect.x, y: reactFlowRect.y });
+            const endPosition = screenToFlowPosition({ x: reactFlowRect.x + reactFlowRect.width, y: reactFlowRect.y + reactFlowRect.height });
+            const { width, height } = { width: endPosition.x - position.x, height: endPosition.y - position.y };
+            const node: ExpertStudyBackgroundNode = {
+              id: 'background',
+              type: 'background',
+              position: position,
+              data: {
+                image: item.src,
+                width: width,
+                height: height,
+                scale: 1,
+                opacity: 1,
+                rotation: 0,
+              },
+              zIndex: -1,
+              draggable: false,
+            };
+            const backgroundNodes = getNodes().filter((node) => node.type === 'background');
+            deleteElements({ nodes: backgroundNodes });
+            addNodes(node);
+          }
         }
       }
     }
@@ -136,6 +156,39 @@ export default function AppViewStudyViewExpertViewModalProviderComponentImportGe
     }
   })();
 
+  useEffect(() => {
+    if (!data) return;
+    const items: Array<Image> = [];
+    for (const item of data) {
+      switch (item.type) {
+        case 'application/pdf':
+          items.push({
+            key: item.key,
+            name: item.name,
+            loading: true,
+          });
+          pdfUriToBase64Image(`${PUBLIC_BASE_URL}ged/v1/s3/download?filename=${encodeURIComponent(item.key)}`).then((src) => {
+            setImages((images) => images.map((image) => (image.key === item.key ? { ...image, src: src, loading: false } : image)));
+            items.push({
+              key: item.key,
+              name: item.name,
+              src: src,
+              loading: false,
+            });
+          });
+          break;
+        default:
+          items.push({
+            key: item.key,
+            name: item.name,
+            src: `${PUBLIC_BASE_URL}ged/v1/s3/download?filename=${encodeURIComponent(item.key)}`,
+            loading: false,
+          });
+      }
+    }
+    setImages((images) => items.map((item) => images.find((image) => image.key === item.key) ?? item));
+  }, [data]);
+
   return (
     <ReactModal
       isOpen
@@ -148,12 +201,13 @@ export default function AppViewStudyViewExpertViewModalProviderComponentImportGe
         <div className="w-full bg-white">
           <TableComponent
             columns={columns}
-            data={data}
+            data={images}
             isLoading={isLoading}
             rowSelection={rowSelection}
             setRowSelection={setRowSelection}
             rowId="key"
             enableMultiRowSelection={enableMultiRowSelection}
+            enableRowSelection={enableRowSelection}
             className="w-full"
           />
           <div className="grid grid-cols-2 gap-x-1 pb-2 pt-4">
