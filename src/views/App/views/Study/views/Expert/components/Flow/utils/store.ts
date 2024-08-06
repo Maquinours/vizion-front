@@ -26,6 +26,8 @@ import { ExpertStudyServiceNode, isExpertStudyServiceNode } from '../components/
 import { ExpertStudySynopticCameraNode, isExpertStudySynopticCameraNode } from '../components/SynopticCameraNode/SynopticCameraNode';
 import { ExpertStudyTextNode, isExpertStudyTextNode } from '../components/TextNode/TextNode';
 import { ExpertStudyTransmitterNode, isExpertStudyTransmitterNode } from '../components/TransmitterNode/TransmitterNode';
+import { arrayMove } from '@dnd-kit/sortable';
+import { v4 as uuidv4 } from 'uuid';
 
 const initialState = {
   pages: [],
@@ -36,19 +38,19 @@ const initialState = {
 };
 
 const defaultSynopticPage = {
-  nodes: [],
-  edges: [],
-  viewport: { x: 0, y: 0, zoom: 1 },
-  type: 'synoptic',
-} as SynopticPage;
+  nodes: [] as Array<ExpertStudyNode>,
+  edges: [] as Array<Edge>,
+  viewport: { x: 0, y: 0, zoom: 1 } as Viewport,
+  type: 'synoptic' as 'synoptic',
+};
 
 const defaultDensityPage = {
-  nodes: [{ id: 'scale', type: 'densityScale', position: { x: 0, y: 0 }, data: { rotation: 0 } } as ExpertStudyDensityScaleNode],
-  edges: [],
-  viewport: { x: 0, y: 0, zoom: 1 },
-  type: 'density',
+  nodes: [{ id: 'scale', type: 'densityScale', position: { x: 0, y: 0 }, data: { rotation: 0 } } as ExpertStudyDensityScaleNode] as Array<ExpertStudyNode>,
+  edges: [] as Array<Edge>,
+  viewport: { x: 0, y: 0, zoom: 1 } as Viewport,
+  type: 'density' as 'density',
   scale: { virtual: 50, real: 10 },
-} as DensityPage;
+};
 
 export type ExpertStudyNode =
   | ExpertStudySynopticCameraNode
@@ -86,6 +88,9 @@ export const isExpertStudyPage = (page: unknown): page is ExpertStudyPage => {
   return (
     !!page &&
     typeof page === 'object' &&
+    'id' in page &&
+    typeof page.id === 'string' &&
+    !!page.id &&
     'nodes' in page &&
     Array.isArray(page.nodes) &&
     page.nodes.every((node) => isExpertStudyNode(node)) &&
@@ -115,21 +120,20 @@ export const isExpertStudyPage = (page: unknown): page is ExpertStudyPage => {
 };
 
 type BasePage = {
+  id: string;
   nodes: Array<ExpertStudyNode>;
   edges: Array<Edge>;
   viewport: Viewport;
   name?: string;
 };
 
-type SynopticPage = BasePage & { type: 'synoptic' };
-type DensityPage = BasePage & { type: 'density'; scale: { virtual: number; real: number } };
+export type ExpertStudySynopticPage = BasePage & { type: 'synoptic' };
+export type ExpertStudyDensityPage = BasePage & { type: 'density'; scale: { virtual: number; real: number } };
 
-export type ExpertStudyPage = SynopticPage | DensityPage;
-
-type Page = SynopticPage | DensityPage;
+export type ExpertStudyPage = ExpertStudySynopticPage | ExpertStudyDensityPage;
 
 export type RFState = {
-  pages: Array<Page>;
+  pages: Array<ExpertStudyPage>;
   currentPage: number;
   studyName: string | undefined;
   installerName: string | undefined;
@@ -151,11 +155,12 @@ export type RFState = {
   setPageName: (pageName: string) => void;
   setPageScale: ({ virtual, real }: { virtual?: number; real?: number }) => void;
   getPageType: () => 'synoptic' | 'density';
-  getPages: () => Array<Page>;
+  getPages: () => Array<ExpertStudyPage>;
   getBusinessId: () => string | undefined;
   setBusinessId: (businessId: string) => void;
   reset: () => void;
   importStudy: (study: { pages: Array<ExpertStudyPage>; studyName?: string; installerName?: string }) => void;
+  pageMove: (fromId: string, toId: string) => void;
 };
 
 // this is our useStore hook that we can use in our components to get parts of the store and call actions
@@ -220,7 +225,7 @@ const useStore = create<RFState>((set, get) => ({
     });
   },
   addPage: (mode: 'synoptic' | 'density', options: { nodes?: Array<ExpertStudyNode>; viewport?: Viewport } = {}) => {
-    const page = mode === 'synoptic' ? defaultSynopticPage : defaultDensityPage;
+    const page = { ...(mode === 'synoptic' ? defaultSynopticPage : defaultDensityPage), id: uuidv4() };
     if (options.nodes) page.nodes = options.nodes;
     if (options.viewport) page.viewport = options.viewport;
 
@@ -247,6 +252,16 @@ const useStore = create<RFState>((set, get) => ({
   },
   importStudy: async (study: { pages: Array<ExpertStudyPage>; studyName?: string; installerName?: string }) => {
     set({ pages: study.pages, studyName: study.studyName, installerName: study.installerName, currentPage: 0 });
+  },
+  pageMove: (fromId: string, toId: string) => {
+    const pages = get().pages;
+    const page = pages[get().currentPage];
+    const fromIndex = pages.findIndex((page) => page.id === fromId);
+    const toIndex = pages.findIndex((page) => page.id === toId);
+    if (fromIndex === undefined || toIndex === undefined) throw new Error('Invalid page id');
+    const newPages = arrayMove(pages, fromIndex, toIndex);
+    const newPage = newPages.indexOf(page);
+    set({ pages: newPages, currentPage: newPage });
   },
 }));
 
