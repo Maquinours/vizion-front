@@ -11,7 +11,6 @@ import ProductResponseDto from '../../../../../../../../../../utils/types/Produc
 import ExpertStudyContext from '../../../../utils/context';
 import { ExpertStudyImageNode } from '../../../Flow/components/ImageNode/ImageNode';
 import { ExpertStudyRecorderNode } from '../../../Flow/components/RecorderNode/RecorderNode';
-import { ExpertStudyServiceNode } from '../../../Flow/components/ServiceNode/ServiceNode';
 import { ExpertStudySynopticCameraNode } from '../../../Flow/components/SynopticCameraNode/SynopticCameraNode';
 
 const includedProducts = ['HD504PAP', 'HD508PAP', 'HD516PAP', 'HD732', 'HD764', 'MX16HD'];
@@ -103,9 +102,6 @@ export default function AppViewStudyViewExpertViewModalProviderComponentRecorder
     const boxNodeSize = { width: 150, height: 150 };
     const boxNodePosition = { x: nodePosition.x + nodeSize.width, y: nodePosition.y };
 
-    const atNodeSize = { width: 150, height: 150 };
-    const atNodePosition = { x: boxNodePosition.x + boxNodeSize.width, y: nodePosition.y };
-
     const nodes = [];
 
     for (const model of models.filter((model) => model.selected)) {
@@ -143,22 +139,6 @@ export default function AppViewStudyViewExpertViewModalProviderComponentRecorder
         },
       };
       nodes.push(boxNode);
-      if (model.product.reference?.endsWith('PAP')) {
-        const product = queryClient.getQueryData<Array<ProductResponseDto>>(queries.product.list.queryKey)?.find((product) => product.reference === 'AT1');
-        if (!product) throw new Error('Impossible de trouver le produit AT1');
-        const atNode: ExpertStudyServiceNode = {
-          id: uuidv4(),
-          type: 'service',
-          position: atNodePosition,
-          data: {
-            productId: product.id,
-            size: atNodeSize,
-            opacity: 100,
-            rotation: 0,
-          },
-        };
-        nodes.push(atNode);
-      }
     }
     addNodes(nodes);
     onClose();

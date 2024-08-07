@@ -12,7 +12,7 @@ import {
   useStore,
   useUpdateNodeInternals,
 } from '@xyflow/react';
-import { useRef, useState } from 'react';
+import { ReactEventHandler, useRef, useState } from 'react';
 import { AiOutlineClose, AiTwotoneSetting } from 'react-icons/ai';
 
 export const isExpertStudyImageNode = (node: Node): node is ExpertStudyImageNode => {
@@ -123,6 +123,10 @@ export default function AppViewStudyViewExpertViewFlowComponentImageNodeComponen
     }
   };
 
+  const onImageLoad: ReactEventHandler<HTMLImageElement> = (e) => {
+    updateNodeData(id, { size: { width: e.currentTarget.offsetWidth, height: e.currentTarget.offsetHeight } });
+  };
+
   const handles = handlesData.filter((handle) => !handle.excludedImages?.includes(data.image));
 
   return (
@@ -155,6 +159,7 @@ export default function AppViewStudyViewExpertViewFlowComponentImageNodeComponen
               style={{ opacity: opacity / 100 }}
               onMouseDown={onMouseDown}
               onContextMenu={onContextMenu}
+              onLoad={onImageLoad}
             />
           </div>
         </div>

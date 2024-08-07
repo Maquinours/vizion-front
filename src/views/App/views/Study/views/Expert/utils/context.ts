@@ -48,19 +48,11 @@ export type ExpertStudyModal =
   | { type: ExpertStudyModalType.SEND_STUDY };
 
 export enum ExpertStudyPaneClickFunctionType {
-  TEXT,
   RECTANGLE,
   LINES,
 }
 
 export type ExpertStudyPaneClickFunction =
-  | {
-      type: ExpertStudyPaneClickFunctionType.TEXT;
-      data?: {
-        position?: XYPosition;
-        nodeId?: string;
-      };
-    }
   | {
       type: ExpertStudyPaneClickFunctionType.RECTANGLE;
       data?: {

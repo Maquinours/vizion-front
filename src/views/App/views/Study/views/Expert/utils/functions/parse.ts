@@ -15,7 +15,7 @@ import { ExpertStudyRectangleNode } from '../../components/Flow/components/Recta
 import { ExpertStudySynopticCameraNode } from '../../components/Flow/components/SynopticCameraNode/SynopticCameraNode';
 import { ExpertStudyTextNode } from '../../components/Flow/components/TextNode/TextNode';
 import { ExpertStudyTransmitterNode } from '../../components/Flow/components/TransmitterNode/TransmitterNode';
-import { ExpertStudyPage, isExpertStudyPage } from '../../components/Flow/utils/store';
+import { ExpertStudyDensityPage, ExpertStudyPage, ExpertStudySynopticPage, isExpertStudyPage } from '../../components/Flow/utils/store';
 
 type ValidPage =
   | { nodes: Array<Node>; edges: Array<Edge>; viewport: Viewport; mode: 'SYNOPTIC' }
@@ -468,7 +468,7 @@ const isValidPage = (page: unknown): page is ValidPage =>
       'real' in page.scale &&
       typeof page.scale.real === 'number'));
 
-const transformPage = async (page: unknown): Promise<ExpertStudyPage> => {
+const transformPage = async (page: unknown): Promise<Omit<ExpertStudySynopticPage, 'id'> | Omit<ExpertStudyDensityPage, 'id'>> => {
   if (!!page && typeof page === 'object' && 'edges' in page && Array.isArray(page.edges))
     page.edges = page.edges.map((edge) => (typeof edge === 'object' && !!edge ? { ...edge, id: uuidv4(), type: 'smoothstep' } : edge));
 
@@ -490,6 +490,16 @@ const studyV1ToV2 = async (study: object) => {
   return { pages: pages };
 };
 
+const isStudy = (study: unknown): study is { pages: Array<ExpertStudyPage>; studyName?: string; installerName?: string } =>
+  !!study &&
+  typeof study === 'object' &&
+  'pages' in study &&
+  !!study.pages &&
+  Array.isArray(study.pages) &&
+  study.pages.every((page) => isExpertStudyPage(page)) &&
+  (!('studyName' in study) || typeof study.studyName === 'string' || study.studyName === undefined) &&
+  (!('installerName' in study) || typeof study.installerName === 'string' || study.installerName === undefined);
+
 export const parseStudy = async (study: unknown): Promise<{ pages: Array<ExpertStudyPage>; studyName?: string; installerName?: string }> => {
   const parsedStudy = await (async () => {
     if (typeof study !== 'object' || study === null) throw new Error('Invalid study');
@@ -498,15 +508,10 @@ export const parseStudy = async (study: unknown): Promise<{ pages: Array<ExpertS
     else throw new Error('Invalid study version');
   })();
 
-  if (
-    !('pages' in parsedStudy) ||
-    !parsedStudy.pages ||
-    !Array.isArray(parsedStudy.pages) ||
-    !parsedStudy.pages.every((page) => isExpertStudyPage(page)) ||
-    ('studyName' in parsedStudy && typeof parsedStudy.studyName !== 'string' && parsedStudy.studyName !== undefined) ||
-    ('installerName' in parsedStudy && typeof parsedStudy.installerName !== 'string' && parsedStudy.installerName !== undefined)
-  )
-    throw new Error('Invalid study');
+  if ('pages' in parsedStudy && Array.isArray(parsedStudy.pages))
+    parsedStudy.pages = parsedStudy.pages.map((page) => (typeof page === 'object' && !!page ? { ...page, id: uuidv4() } : page));
+
+  if (!isStudy(parsedStudy)) throw new Error('Invalid study');
 
   if (
     'flowSize' in parsedStudy &&

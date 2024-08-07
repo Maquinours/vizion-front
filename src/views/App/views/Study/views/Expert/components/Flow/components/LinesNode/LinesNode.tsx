@@ -41,7 +41,7 @@ export default function AppViewStudyViewExpertViewFlowComponentLinesNodeComponen
 
   return (
     <>
-      <svg width={maxPosition.x + 2} height={maxPosition.y + 2} className="block">
+      <svg width={maxPosition.x + 5} height={maxPosition.y + 2} className="block">
         {data.positions.map((position, index, arr) => {
           if (index === 0) return;
           const previousPosition = arr[index - 1];

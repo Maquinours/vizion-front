@@ -10,12 +10,13 @@ import LoaderModal from '../LoaderModal/LoaderModal';
 import { useMutation } from '@tanstack/react-query';
 import { sendEmail } from './utils/api/email';
 import { SendEmailFormContext } from './utils/contexts/sendEmail';
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import MailResponseDto from '../../utils/types/MailResponseDto';
 import { formatDateWithHour } from '../../utils/functions/dates';
 import { toast } from 'react-toastify';
 import { LinkProps, Outlet, Link } from '@tanstack/react-router';
 import { isAxiosError } from 'axios';
+import SendEmailPredefinedMessagesModalComponent from '../SendEmailPredefinedMessagesModal/SendEmailPredefinedMessagesModal';
 
 const yupSchema = yup.object({
   recipient: yup
@@ -95,6 +96,8 @@ export default function SendEmailComponent({
 }: SendEmailComponentProps) {
   const { data: user } = useAuthentifiedUserQuery();
 
+  const [isPredefinedMessagesModalOpened, setIsPredefinedMessagesModalOpened] = useState(false);
+
   const {
     control,
     register,
@@ -159,10 +162,14 @@ export default function SendEmailComponent({
       <div className={styles.container}>
         <div className={styles.header_container}>
           <div className={styles.header_right}>
-            {predefinedMessagesModalLink && (
+            {!!predefinedMessagesModalLink ? (
               <Link {...predefinedMessagesModalLink} className="btn btn-primary">
                 Messages prédéfinis
               </Link>
+            ) : (
+              <button className="btn btn-primary" onClick={() => setIsPredefinedMessagesModalOpened(true)}>
+                Messages prédéfinis
+              </button>
             )}
           </div>
         </div>
@@ -174,7 +181,11 @@ export default function SendEmailComponent({
         </div>
       </div>
       <LoaderModal isLoading={isPending} />
-      <Outlet />
+      {!!predefinedMessagesModalLink ? (
+        <Outlet />
+      ) : (
+        isPredefinedMessagesModalOpened && <SendEmailPredefinedMessagesModalComponent onClose={() => setIsPredefinedMessagesModalOpened(false)} />
+      )}
     </SendEmailFormContext.Provider>
   );
 }

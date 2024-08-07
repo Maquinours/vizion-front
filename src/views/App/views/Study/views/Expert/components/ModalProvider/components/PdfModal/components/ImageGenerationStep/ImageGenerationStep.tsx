@@ -21,25 +21,35 @@ export default function AppViewStudyViewExpertViewModalProviderComponentPdfModal
   const data = useRef<Map<number, Blob>>(new Map());
 
   useEffect(() => {
-    if (nodesInitialized) {
+    const pages = getPages();
+    const currentPage = getCurrentPage();
+
+    const next = () => {
+      const next = Array.from({ length: pages.length }, (_, index) => index).find(
+        (pageIndex) => !data.current.has(pageIndex) && pages[pageIndex].nodes.length > 0,
+      );
+      if (next !== undefined) setCurrentPage(next);
+      else
+        setModal({
+          type: ExpertStudyModalType.PDF,
+          data: {
+            step: 'SHOW',
+            images: Array.from(data.current.entries())
+              .sort(([a], [b]) => a - b)
+              .map(([_, blob]) => blob),
+          },
+        });
+    };
+
+    if (pages[currentPage].nodes.length === 0) next();
+    else if (nodesInitialized) {
       toBlob(document.querySelector('.react-flow') as HTMLElement, {
         quality: 1,
         cacheBust: true,
       })
         .then((blob) => {
-          data.current.set(getCurrentPage(), blob!);
-          const next = Array.from({ length: getPages().length }, (_, index) => index).find((pageIndex) => !data.current.has(pageIndex));
-          if (next !== undefined) setCurrentPage(next);
-          else
-            setModal({
-              type: ExpertStudyModalType.PDF,
-              data: {
-                step: 'SHOW',
-                images: Array.from(data.current.entries())
-                  .sort(([a], [b]) => a - b)
-                  .map(([_, blob]) => blob),
-              },
-            });
+          data.current.set(currentPage, blob!);
+          next();
         })
         .catch((error) => {
           console.error('pdf generation error', error);

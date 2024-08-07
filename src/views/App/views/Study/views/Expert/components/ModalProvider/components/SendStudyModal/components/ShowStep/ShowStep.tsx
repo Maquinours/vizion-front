@@ -36,6 +36,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentSendStud
       defaultRecipient={defaultRecipient}
       defaultSubject={defaultSubject}
       defaultAttachments={[studyPdf, quotationPdf, commercialNoticePdf]}
+      defaultContent="Bonjour <br /><p>Suite à votre demande, ci-joint le devis ainsi que les documents avec :</p> <br /><ul><li>Étude</li><li>Offre de prix HT</li><li>Dossier technique</li><li>Notices commerciales</li></ul><br /><br />"
       lifeSheetInfoDto={{
         businessNumber: business.numBusiness,
         enterpriseName: business.enterpriseName,

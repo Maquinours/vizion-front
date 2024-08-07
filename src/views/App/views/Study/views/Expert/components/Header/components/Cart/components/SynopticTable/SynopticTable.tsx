@@ -80,8 +80,9 @@ const selector = (state: ReactFlowState) => ({
     )
     .reduce((acc: Array<{ id: string; quantity: number }>, node) => {
       const product = acc.find((p) => p.id === node.data.productId);
-      if (!!product) product.quantity += 'quantity' in node.data && node.data.quantity !== undefined ? node.data.quantity : 1;
-      else acc.push({ id: node.data.productId, quantity: 1 });
+      const quantity = 'quantity' in node.data && node.data.quantity !== undefined ? node.data.quantity : 1;
+      if (!!product) product.quantity += quantity;
+      else acc.push({ id: node.data.productId, quantity: quantity });
       if ('options' in node.data) {
         for (const option of node.data.options) {
           const product = acc.find((p) => p.id === option.id);
@@ -90,7 +91,8 @@ const selector = (state: ReactFlowState) => ({
         }
       }
       return acc;
-    }, []),
+    }, [])
+    .filter((productData) => productData.quantity > 0),
 });
 
 export default function AppViewStudyViewExpertViewHeaderComponentCartComponentSynopticTableComponent() {

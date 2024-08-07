@@ -1,9 +1,10 @@
 import { ClickAwayListener } from '@mui/material';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { Handle, Node, NodeProps, NodeResizer, OnResize, Position, useReactFlow } from '@xyflow/react';
-import { useState } from 'react';
+import { ReactEventHandler, useState } from 'react';
 import { queries } from '../../../../../../../../../../utils/constants/queryKeys';
 import AppViewStudyViewExpertViewFlowComponentMonitorNodeComponentMenuComponent from './components/Menu/Menu';
+import AmountFormat from '../../../../../../../../../../components/AmountFormat/AmountFormat';
 
 export const isExpertStudyMonitorNode = (node: Node): node is ExpertStudyMonitorNode => {
   return (
@@ -41,6 +42,7 @@ export type ExpertStudyMonitorNode = Node<
     options: Array<{ id: string; quantity: number }>;
     size: { width: number; height: number };
     opacity: number;
+    quantity?: number;
   },
   'monitor'
 >;
@@ -73,6 +75,10 @@ export default function AppViewStudyViewExpertViewFlowComponentMonitorNodeCompon
     e.preventDefault();
     setNodes((nds) => nds.map((node) => (node.id === id ? { ...node, selected: true } : { ...node, selected: false })));
     setShowMenu((showMenu) => !showMenu);
+  };
+
+  const onImageLoad: ReactEventHandler<HTMLImageElement> = (e) => {
+    updateNodeData(id, { size: { width: e.currentTarget.offsetWidth, height: e.currentTarget.offsetHeight } });
   };
 
   if (!product) return;
@@ -122,6 +128,14 @@ export default function AppViewStudyViewExpertViewFlowComponentMonitorNodeCompon
             ))}
           </div>
           <div className="absolute top-[-20px] w-full text-center">
+            {!!data.quantity && data.quantity > 1 && (
+              <AmountFormat
+                prefix="x"
+                value={data.quantity}
+                displayType="text"
+                className="absolute right-1 top-[calc(50%-30px)] ml-auto h-fit w-fit rounded-md bg-amber-300 p-[1px] text-center text-sm font-medium text-white"
+              />
+            )}
             <p className="h-4 text-sm">{name}</p>
           </div>
           <div className="flex justify-center">
@@ -133,6 +147,7 @@ export default function AppViewStudyViewExpertViewFlowComponentMonitorNodeCompon
               width={data.size.width}
               height={data.size.height}
               style={{ opacity: data.opacity / 100 }}
+              onLoad={onImageLoad}
             />
           </div>
           {showMenu && (
