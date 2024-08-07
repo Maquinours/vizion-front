@@ -112,8 +112,8 @@ export default function AppViewStudyViewExpertViewFlowComponentBackgroundNodeCom
               onValueChange={onRotationValueChange}
             />
           </div>
-          <button onClick={onDeleteButtonClick} title="Supprimer le plan" className="w-full">
-            <FaTrash size={32} />
+          <button onClick={onDeleteButtonClick} title="Supprimer le plan" className="w-full border-t-2 border-black p-1">
+            <FaTrash size={20} />
           </button>
         </div>
       </ClickAwayListener>
