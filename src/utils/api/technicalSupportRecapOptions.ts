@@ -1,5 +1,5 @@
 import { privateInstance } from '../functions/axios';
-import TechnicalSupportRecapOptionResquestDto from '../types/TechnicalSupportRecapOptionRequestDto';
+import TechnicalSupportRecapOptionRequestDto from '../types/TechnicalSupportRecapOptionRequestDto';
 import TechnicalSupportRecapOptionResponseDto from '../types/TechnicalSupportRecapOptionResponseDto';
 
 export const getTechnicalSupportRecapOptionsByTechnicalSupportId = (technicalSupportId: string) => {
@@ -12,7 +12,7 @@ export const getTechnicalSupportRecapOptionsByTechnicalSupportId = (technicalSup
   }).then((res) => res.data);
 };
 
-export const createTechnicalSupportRecapOption = (data: TechnicalSupportRecapOptionResquestDto) => {
+export const createTechnicalSupportRecapOption = (data: TechnicalSupportRecapOptionRequestDto) => {
   return privateInstance<TechnicalSupportRecapOptionResponseDto>({
     method: 'POST',
     url: '/all-business/v1/technical-assistance-detail-recap/',
@@ -20,7 +20,7 @@ export const createTechnicalSupportRecapOption = (data: TechnicalSupportRecapOpt
   }).then((res) => res.data);
 };
 
-export const createTechnicalSupportRecapOptions = ({ supportId, data }: { supportId: string; data: Array<TechnicalSupportRecapOptionResquestDto> }) => {
+export const createTechnicalSupportRecapOptions = ({ supportId, data }: { supportId: string; data: Array<TechnicalSupportRecapOptionRequestDto> }) => {
   return privateInstance<Array<TechnicalSupportRecapOptionResponseDto>>({
     method: 'POST',
     url: `/all-business/v1/technical-assistance-detail-recap/all`,
@@ -31,7 +31,7 @@ export const createTechnicalSupportRecapOptions = ({ supportId, data }: { suppor
   }).then((res) => res.data);
 };
 
-export const updateTechnicalSupportRecapOption = (id: string, data: TechnicalSupportRecapOptionResquestDto) => {
+export const updateTechnicalSupportRecapOption = (id: string, data: TechnicalSupportRecapOptionRequestDto) => {
   return privateInstance<TechnicalSupportRecapOptionResponseDto>({
     method: 'PUT',
     url: `/all-business/v1/technical-assistance-detail-recap/${encodeURIComponent(id)}`,
