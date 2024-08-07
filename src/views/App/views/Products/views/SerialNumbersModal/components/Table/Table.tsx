@@ -33,16 +33,6 @@ const columns = [
       ),
   }),
   columnHelper.display({
-    header: 'Avec Fournisseur',
-    cell: ({ row: { original } }) =>
-      !!original.providerBusinessNumber &&
-      !!original.providerBusinessId && (
-        <Link to="/app/businesses-rma/business/$businessId" params={{ businessId: original.providerBusinessId }}>
-          {original.providerBusinessNumber}
-        </Link>
-      ),
-  }),
-  columnHelper.display({
     id: 'actions',
     cell: ({ row: { original } }) => (
       <div style={{ display: 'flex' }}>
