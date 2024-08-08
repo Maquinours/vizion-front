@@ -2,7 +2,7 @@ type TechnicalSupportRecapOptionResponseDto = {
   id: string;
   name: string;
   value: string;
-  boolValue: string;
+  boolValue: boolean;
   createdDate: string;
   modifiedDate: string | null;
   createdBy: string | null;
