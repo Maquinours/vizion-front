@@ -20,8 +20,8 @@ export const Route = createFileRoute('/app/businesses-rma/business/$businessId')
     ]);
     if (
       ((businessModal === 'assistances' || businessModal === 'create-assistance') &&
-        !(user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && ![BusinessState.DEVIS, BusinessState.ARCHIVE].includes(business.state!))) ||
-      (businessModal === 'archive' && !(user.userInfo.roles.includes('ROLE_DIRECTION_VIZEO') && business.state !== BusinessState.ARCHIVE))
+        (!user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') || business.state === BusinessState.ARCHIVE)) ||
+      (businessModal === 'archive' && (!user.userInfo.roles.includes('ROLE_DIRECTION_VIZEO') || business.state === BusinessState.ARCHIVE))
     )
       throw redirect({ search: { businessModal: undefined } });
 
