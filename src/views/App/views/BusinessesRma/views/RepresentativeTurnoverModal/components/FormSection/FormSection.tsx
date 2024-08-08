@@ -50,7 +50,7 @@ export default function AppViewBusinessesRmaViewRepresentativeTurnoverModalViewF
       const fileName = formatFileName(
         `Chiffre_Affaire_${month.toLocaleString('fr-FR', {
           minimumIntegerDigits: 2,
-        })}_${year}_${user.profile.enterprise!.name}.xls`,
+        })}_${year}_${user.profile.enterprise!.name}.xlsx`,
       );
       fileDownload(data, fileName);
     },
