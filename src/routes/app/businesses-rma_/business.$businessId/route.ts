@@ -30,7 +30,7 @@ export const Route = createFileRoute('/app/businesses-rma/business/$businessId')
         queries['technical-supports'].list._ctx.byBusinessOrRmaNumber({ categoryBusiness: CategoryBusiness.AFFAIRE, number: business.numBusiness }),
       );
       if (assistances.length === 0) throw redirect({ search: (old) => ({ ...old, businessModal: 'create-assistance' }) });
-    }
+    } else if (businessModal === 'create-assistance') queryClient.prefetchQuery(queries['business-bills'].list._ctx.byBusinessId(businessId));
   },
   staticData: {
     getTitle: (queryClient, match) =>
