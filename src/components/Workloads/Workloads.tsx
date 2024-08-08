@@ -63,21 +63,8 @@ export default function WorkloadsComponent({ associatedItemType, associatedItemI
     [emailLink],
   );
 
-  const title = useMemo(() => {
-    let title = 'Charges ';
-    switch (associatedItemType) {
-      case WorkloadAssociatedItem.ENTERPRISE:
-        title += "de l'entreprise";
-        break;
-      case WorkloadAssociatedItem.PRODUCT:
-        title += 'du produit';
-        break;
-    }
-    return title;
-  }, [associatedItemType]);
-
   return (
-    <CardComponent title={title} onReload={() => refetch()} isReloading={isRefetching}>
+    <CardComponent title="Documents liés" onReload={() => refetch()} isReloading={isRefetching}>
       <div className={styles.table_container}>
         <TableComponent columns={columns} data={data?.content} rowId="id" />
       </div>
