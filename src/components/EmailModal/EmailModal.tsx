@@ -27,9 +27,7 @@ export default function EmailModalComponent({ onClose, emailId, replyLink }: Ema
             <div className={styles.attached_files}>
               <div>
                 <p>A : {email?.receiver?.split(';').join(' ')}</p>
-                <p>
-                  De : <a href={`mailto:${email?.sender}`}>{email?.sender}</a>
-                </p>
+                <p>De : {email?.sender}</p>
                 <h4>Pièces jointes : </h4>
                 {email.pjList?.length > 0 ? (
                   <ul>

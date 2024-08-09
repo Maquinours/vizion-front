@@ -45,12 +45,7 @@ export default function WorkloadsComponent({ associatedItemType, associatedItemI
                 <p className="text-secondary">
                   À : {original.receiver?.to?.toString()?.split(';').join(' ')} {original.receiver?.cc?.toString()}
                 </p>
-                <p>
-                  De :{' '}
-                  <a onClick={(e) => e.stopPropagation()} href={`mailto:${original.name}`}>
-                    {original.name}
-                  </a>
-                </p>
+                <p>De : {original.name}</p>
               </Link>
             ) : (
               <>

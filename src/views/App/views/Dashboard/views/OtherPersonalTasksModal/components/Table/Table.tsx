@@ -72,19 +72,7 @@ export default function AppViewDashboardViewOtherPersonalTasksModalViewTableComp
               <button onClick={() => onMailTaskClick(original)}>
                 {parse(DOMPurify.sanitize(original.content ?? ''))}
                 <p className="text-secondary">A : {original.receiver?.to?.toString().split(';').join(' ')}</p>
-                <p>
-                  De :{' '}
-                  <a
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      e.nativeEvent.stopImmediatePropagation();
-                    }}
-                    href={`mailto:${original.name}`}
-                    className="text-blue-600 underline visited:text-purple-600 hover:text-blue-800"
-                  >
-                    {original.name}
-                  </a>
-                </p>
+                <p>De : {original.name}</p>
               </button>
             );
           else {

@@ -48,19 +48,7 @@ const columns = [
               <p>
                 À : {original.receiver?.to?.toString()?.split(';').join(' ')} {original.receiver?.cc?.toString()}
               </p>
-              <p>
-                De :{' '}
-                <a
-                  href={`mailto:${original.name}`}
-                  className="text-blue-600 underline visited:text-purple-600 hover:text-blue-800"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    e.nativeEvent.stopImmediatePropagation();
-                  }}
-                >
-                  {original.name}
-                </a>
-              </p>
+              <p>De : {original.name}</p>
             </Link>
           ) : (
             <div className={styles.default_task}>
