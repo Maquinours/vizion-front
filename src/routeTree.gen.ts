@@ -167,6 +167,7 @@ import { Route as AppFaqGedFaqIdImportFilesRouteImport } from './routes/app/faq/
 import { Route as AppFaqGedFaqIdCreateDirectoryRouteImport } from './routes/app/faq/ged.$faqId/create-directory/route'
 import { Route as AppEnterprisesEnterpriseIdUpdateContactContactIdRouteImport } from './routes/app/enterprises_.$enterpriseId/update-contact.$contactId/route'
 import { Route as AppEnterprisesEnterpriseIdUpdateContactPasswordContactIdRouteImport } from './routes/app/enterprises_.$enterpriseId/update-contact-password.$contactId/route'
+import { Route as AppEnterprisesEnterpriseIdUnlinkTaskTaskIdRouteImport } from './routes/app/enterprises_.$enterpriseId/unlink-task.$taskId/route'
 import { Route as AppEnterprisesEnterpriseIdTaskEmailTaskIdRouteImport } from './routes/app/enterprises_.$enterpriseId/task-email.$taskId/route'
 import { Route as AppEnterprisesEnterpriseIdSendEmailToContactContactIdRouteImport } from './routes/app/enterprises_.$enterpriseId/send-email-to-contact.$contactId/route'
 import { Route as AppEnterprisesEnterpriseIdRenameGedObjectObjectRelativePathRouteImport } from './routes/app/enterprises_.$enterpriseId/rename-ged-object.$objectRelativePath/route'
@@ -201,6 +202,7 @@ import { Route as AppProductsProductIdManageDeleteVersionVersionIdRouteImport } 
 import { Route as AppProductsProductIdManageDeleteStockStockIdRouteImport } from './routes/app/products_.$productId/manage/delete-stock.$stockId/route'
 import { Route as AppProductsProductIdManageDeleteSpecificationSpecificationIdRouteImport } from './routes/app/products_.$productId/manage/delete-specification.$specificationId/route'
 import { Route as AppProductsProductIdManageAddSpecificationFilterIdRouteImport } from './routes/app/products_.$productId/manage/add-specification/$filterId/route'
+import { Route as AppProductsProductIdInformationsUnlinkTaskTaskIdRouteImport } from './routes/app/products_.$productId/informations/unlink-task.$taskId/route'
 import { Route as AppProductsProductIdInformationsTaskEmailTaskIdRouteImport } from './routes/app/products_.$productId/informations/task-email.$taskId/route'
 import { Route as AppFaqGedFaqIdRenameItemRelativePathRouteImport } from './routes/app/faq/ged.$faqId/rename.$itemRelativePath/route'
 import { Route as AppFaqGedFaqIdDeleteItemRelativePathRouteImport } from './routes/app/faq/ged.$faqId/delete.$itemRelativePath/route'
@@ -243,6 +245,7 @@ import { Route as AppToolsFormationsSubscribersFormationDetailIdSendEmailSubscri
 import { Route as AppToolsFormationsSubscribersFormationDetailIdDeleteSubscriptionIdRouteImport } from './routes/app/tools/formations/subscribers.$formationDetailId/delete.$subscriptionId/route'
 import { Route as AppProductsProductIdInformationsTaskEmailTaskIdReplyRouteImport } from './routes/app/products_.$productId/informations/task-email.$taskId/reply/route'
 import { Route as AppBusinessesRmaRmaRmaIdSupportUpdateDetailDetailIdRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/support/update-detail.$detailId/route'
+import { Route as AppBusinessesRmaRmaRmaIdSupportUnlinkTaskTaskIdRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/support/unlink-task.$taskId/route'
 import { Route as AppBusinessesRmaRmaRmaIdSupportTaskEmailTaskIdRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/support/task-email.$taskId/route'
 import { Route as AppBusinessesRmaRmaRmaIdSupportRenameGedObjectObjectRelativePathRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/support/rename-ged-object.$objectRelativePath/route'
 import { Route as AppBusinessesRmaRmaRmaIdSupportPdfSendByEmailRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/support/pdf/send-by-email/route'
@@ -270,6 +273,7 @@ import { Route as AppBusinessesRmaBusinessBusinessIdQuotationDeleteDetailDetailI
 import { Route as AppBusinessesRmaBusinessBusinessIdQuotationCreateDetailSubquotationIdRouteImport } from './routes/app/businesses-rma_/business.$businessId/quotation/create-detail.$subquotationId/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdQuotationCreateAssociatedDetailDetailIdRouteImport } from './routes/app/businesses-rma_/business.$businessId/quotation/create-associated-detail.$detailId/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdQuotationCommercialNoticeSendByEmailRouteImport } from './routes/app/businesses-rma_/business.$businessId/quotation/commercial-notice/send-by-email/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdDashboardUnlinkTaskTaskIdRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/unlink-task.$taskId/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdDashboardTaskEmailTaskIdRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/task-email.$taskId/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdDashboardSendEmailPredefinedMessagesRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/send-email/predefined-messages/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdDashboardRenameGedObjectObjectRelativePathRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/rename-ged-object.$objectRelativePath/route'
@@ -1733,6 +1737,16 @@ const AppEnterprisesEnterpriseIdUpdateContactPasswordContactIdRouteRoute =
     ).then((d) => d.Route),
   )
 
+const AppEnterprisesEnterpriseIdUnlinkTaskTaskIdRouteRoute =
+  AppEnterprisesEnterpriseIdUnlinkTaskTaskIdRouteImport.update({
+    path: '/unlink-task/$taskId',
+    getParentRoute: () => AppEnterprisesEnterpriseIdRouteRoute,
+  } as any).lazy(() =>
+    import(
+      './routes/app/enterprises_.$enterpriseId/unlink-task.$taskId/route.lazy'
+    ).then((d) => d.Route),
+  )
+
 const AppEnterprisesEnterpriseIdTaskEmailTaskIdRouteRoute =
   AppEnterprisesEnterpriseIdTaskEmailTaskIdRouteImport.update({
     path: '/task-email/$taskId',
@@ -2073,6 +2087,16 @@ const AppProductsProductIdManageAddSpecificationFilterIdRouteRoute =
   } as any).lazy(() =>
     import(
       './routes/app/products_.$productId/manage/add-specification/$filterId/route.lazy'
+    ).then((d) => d.Route),
+  )
+
+const AppProductsProductIdInformationsUnlinkTaskTaskIdRouteRoute =
+  AppProductsProductIdInformationsUnlinkTaskTaskIdRouteImport.update({
+    path: '/unlink-task/$taskId',
+    getParentRoute: () => AppProductsProductIdInformationsRouteRoute,
+  } as any).lazy(() =>
+    import(
+      './routes/app/products_.$productId/informations/unlink-task.$taskId/route.lazy'
     ).then((d) => d.Route),
   )
 
@@ -2521,6 +2545,16 @@ const AppBusinessesRmaRmaRmaIdSupportUpdateDetailDetailIdRouteRoute =
     ).then((d) => d.Route),
   )
 
+const AppBusinessesRmaRmaRmaIdSupportUnlinkTaskTaskIdRouteRoute =
+  AppBusinessesRmaRmaRmaIdSupportUnlinkTaskTaskIdRouteImport.update({
+    path: '/unlink-task/$taskId',
+    getParentRoute: () => AppBusinessesRmaRmaRmaIdSupportRouteRoute,
+  } as any).lazy(() =>
+    import(
+      './routes/app/businesses-rma_/rma.$rmaId/support/unlink-task.$taskId/route.lazy'
+    ).then((d) => d.Route),
+  )
+
 const AppBusinessesRmaRmaRmaIdSupportTaskEmailTaskIdRouteRoute =
   AppBusinessesRmaRmaRmaIdSupportTaskEmailTaskIdRouteImport.update({
     path: '/task-email/$taskId',
@@ -2836,6 +2870,19 @@ const AppBusinessesRmaBusinessBusinessIdQuotationCommercialNoticeSendByEmailRout
   ).lazy(() =>
     import(
       './routes/app/businesses-rma_/business.$businessId/quotation/commercial-notice/send-by-email/route.lazy'
+    ).then((d) => d.Route),
+  )
+
+const AppBusinessesRmaBusinessBusinessIdDashboardUnlinkTaskTaskIdRouteRoute =
+  AppBusinessesRmaBusinessBusinessIdDashboardUnlinkTaskTaskIdRouteImport.update(
+    {
+      path: '/unlink-task/$taskId',
+      getParentRoute: () =>
+        AppBusinessesRmaBusinessBusinessIdDashboardRouteRoute,
+    } as any,
+  ).lazy(() =>
+    import(
+      './routes/app/businesses-rma_/business.$businessId/dashboard/unlink-task.$taskId/route.lazy'
     ).then((d) => d.Route),
   )
 
@@ -4134,6 +4181,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppEnterprisesEnterpriseIdTaskEmailTaskIdRouteImport
       parentRoute: typeof AppEnterprisesEnterpriseIdRouteImport
     }
+    '/app/enterprises/$enterpriseId/unlink-task/$taskId': {
+      id: '/app/enterprises/$enterpriseId/unlink-task/$taskId'
+      path: '/unlink-task/$taskId'
+      fullPath: '/app/enterprises/$enterpriseId/unlink-task/$taskId'
+      preLoaderRoute: typeof AppEnterprisesEnterpriseIdUnlinkTaskTaskIdRouteImport
+      parentRoute: typeof AppEnterprisesEnterpriseIdRouteImport
+    }
     '/app/enterprises/$enterpriseId/update-contact-password/$contactId': {
       id: '/app/enterprises/$enterpriseId/update-contact-password/$contactId'
       path: '/update-contact-password/$contactId'
@@ -4729,6 +4783,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppProductsProductIdInformationsTaskEmailTaskIdRouteImport
       parentRoute: typeof AppProductsProductIdInformationsRouteImport
     }
+    '/app/products/$productId/informations/unlink-task/$taskId': {
+      id: '/app/products/$productId/informations/unlink-task/$taskId'
+      path: '/unlink-task/$taskId'
+      fullPath: '/app/products/$productId/informations/unlink-task/$taskId'
+      preLoaderRoute: typeof AppProductsProductIdInformationsUnlinkTaskTaskIdRouteImport
+      parentRoute: typeof AppProductsProductIdInformationsRouteImport
+    }
     '/app/products/$productId/manage/add-specification/$filterId': {
       id: '/app/products/$productId/manage/add-specification/$filterId'
       path: '/$filterId'
@@ -4967,6 +5028,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardTaskEmailTaskIdRouteImport
       parentRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardRouteImport
     }
+    '/app/businesses-rma/business/$businessId/dashboard/unlink-task/$taskId': {
+      id: '/app/businesses-rma/business/$businessId/dashboard/unlink-task/$taskId'
+      path: '/unlink-task/$taskId'
+      fullPath: '/app/businesses-rma/business/$businessId/dashboard/unlink-task/$taskId'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardUnlinkTaskTaskIdRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardRouteImport
+    }
     '/app/businesses-rma/business/$businessId/quotation/commercial-notice/send-by-email': {
       id: '/app/businesses-rma/business/$businessId/quotation/commercial-notice/send-by-email'
       path: '/send-by-email'
@@ -5154,6 +5222,13 @@ declare module '@tanstack/react-router' {
       path: '/task-email/$taskId'
       fullPath: '/app/businesses-rma/rma/$rmaId/support/task-email/$taskId'
       preLoaderRoute: typeof AppBusinessesRmaRmaRmaIdSupportTaskEmailTaskIdRouteImport
+      parentRoute: typeof AppBusinessesRmaRmaRmaIdSupportRouteImport
+    }
+    '/app/businesses-rma/rma/$rmaId/support/unlink-task/$taskId': {
+      id: '/app/businesses-rma/rma/$rmaId/support/unlink-task/$taskId'
+      path: '/unlink-task/$taskId'
+      fullPath: '/app/businesses-rma/rma/$rmaId/support/unlink-task/$taskId'
+      preLoaderRoute: typeof AppBusinessesRmaRmaRmaIdSupportUnlinkTaskTaskIdRouteImport
       parentRoute: typeof AppBusinessesRmaRmaRmaIdSupportRouteImport
     }
     '/app/businesses-rma/rma/$rmaId/support/update-detail/$detailId': {
@@ -5491,6 +5566,7 @@ export const routeTree = rootRoute.addChildren({
           AppEnterprisesEnterpriseIdTaskEmailTaskIdRouteRoute.addChildren({
             AppEnterprisesEnterpriseIdTaskEmailTaskIdReplyRouteRoute,
           }),
+        AppEnterprisesEnterpriseIdUnlinkTaskTaskIdRouteRoute,
         AppEnterprisesEnterpriseIdUpdateContactPasswordContactIdRouteRoute,
         AppEnterprisesEnterpriseIdUpdateContactContactIdRouteRoute,
       }),
@@ -5509,6 +5585,7 @@ export const routeTree = rootRoute.addChildren({
                 AppProductsProductIdInformationsTaskEmailTaskIdReplyRouteRoute,
               },
             ),
+          AppProductsProductIdInformationsUnlinkTaskTaskIdRouteRoute,
         }),
       AppProductsProductIdManageRouteRoute:
         AppProductsProductIdManageRouteRoute.addChildren({
@@ -5615,6 +5692,7 @@ export const routeTree = rootRoute.addChildren({
             AppBusinessesRmaBusinessBusinessIdDashboardDeleteLinkAssociatedIdRouteRoute,
             AppBusinessesRmaBusinessBusinessIdDashboardRenameGedObjectObjectRelativePathRouteRoute,
             AppBusinessesRmaBusinessBusinessIdDashboardTaskEmailTaskIdRouteRoute,
+            AppBusinessesRmaBusinessBusinessIdDashboardUnlinkTaskTaskIdRouteRoute,
           }),
         AppBusinessesRmaBusinessBusinessIdQuotationRouteRoute:
           AppBusinessesRmaBusinessBusinessIdQuotationRouteRoute.addChildren({
@@ -5707,6 +5785,7 @@ export const routeTree = rootRoute.addChildren({
                   AppBusinessesRmaRmaRmaIdSupportTaskEmailTaskIdReplyRouteRoute,
                 },
               ),
+            AppBusinessesRmaRmaRmaIdSupportUnlinkTaskTaskIdRouteRoute,
             AppBusinessesRmaRmaRmaIdSupportUpdateDetailDetailIdRouteRoute,
           }),
         AppBusinessesRmaRmaRmaIdIndexRoute,
@@ -5953,6 +6032,7 @@ export const routeTree = rootRoute.addChildren({
         "/app/enterprises/$enterpriseId/rename-ged-object/$objectRelativePath",
         "/app/enterprises/$enterpriseId/send-email-to-contact/$contactId",
         "/app/enterprises/$enterpriseId/task-email/$taskId",
+        "/app/enterprises/$enterpriseId/unlink-task/$taskId",
         "/app/enterprises/$enterpriseId/update-contact-password/$contactId",
         "/app/enterprises/$enterpriseId/update-contact/$contactId"
       ]
@@ -6344,7 +6424,8 @@ export const routeTree = rootRoute.addChildren({
         "/app/products/$productId/informations/delete-ged-object",
         "/app/products/$productId/informations/import-ged-files",
         "/app/products/$productId/informations/rename-ged-object",
-        "/app/products/$productId/informations/task-email/$taskId"
+        "/app/products/$productId/informations/task-email/$taskId",
+        "/app/products/$productId/informations/unlink-task/$taskId"
       ]
     },
     "/app/products/$productId/manage": {
@@ -6515,7 +6596,8 @@ export const routeTree = rootRoute.addChildren({
         "/app/businesses-rma/business/$businessId/dashboard/delete-ged-object/$objectRelativePath",
         "/app/businesses-rma/business/$businessId/dashboard/delete-link/$associatedId",
         "/app/businesses-rma/business/$businessId/dashboard/rename-ged-object/$objectRelativePath",
-        "/app/businesses-rma/business/$businessId/dashboard/task-email/$taskId"
+        "/app/businesses-rma/business/$businessId/dashboard/task-email/$taskId",
+        "/app/businesses-rma/business/$businessId/dashboard/unlink-task/$taskId"
       ]
     },
     "/app/businesses-rma/business/$businessId/quotation": {
@@ -6576,6 +6658,7 @@ export const routeTree = rootRoute.addChildren({
         "/app/businesses-rma/rma/$rmaId/support/delete-ged-object/$relativePath",
         "/app/businesses-rma/rma/$rmaId/support/rename-ged-object/$objectRelativePath",
         "/app/businesses-rma/rma/$rmaId/support/task-email/$taskId",
+        "/app/businesses-rma/rma/$rmaId/support/unlink-task/$taskId",
         "/app/businesses-rma/rma/$rmaId/support/update-detail/$detailId"
       ]
     },
@@ -6617,6 +6700,10 @@ export const routeTree = rootRoute.addChildren({
       "children": [
         "/app/enterprises/$enterpriseId/task-email/$taskId/reply"
       ]
+    },
+    "/app/enterprises/$enterpriseId/unlink-task/$taskId": {
+      "filePath": "app/enterprises_.$enterpriseId/unlink-task.$taskId/route.ts",
+      "parent": "/app/enterprises/$enterpriseId"
     },
     "/app/enterprises/$enterpriseId/update-contact-password/$contactId": {
       "filePath": "app/enterprises_.$enterpriseId/update-contact-password.$contactId/route.ts",
@@ -7024,6 +7111,10 @@ export const routeTree = rootRoute.addChildren({
         "/app/products/$productId/informations/task-email/$taskId/reply"
       ]
     },
+    "/app/products/$productId/informations/unlink-task/$taskId": {
+      "filePath": "app/products_.$productId/informations/unlink-task.$taskId/route.ts",
+      "parent": "/app/products/$productId/informations"
+    },
     "/app/products/$productId/manage/add-specification/$filterId": {
       "filePath": "app/products_.$productId/manage/add-specification/$filterId/route.ts",
       "parent": "/app/products/$productId/manage/add-specification"
@@ -7166,6 +7257,10 @@ export const routeTree = rootRoute.addChildren({
       "filePath": "app/businesses-rma_/business.$businessId/dashboard/task-email.$taskId/route.ts",
       "parent": "/app/businesses-rma/business/$businessId/dashboard"
     },
+    "/app/businesses-rma/business/$businessId/dashboard/unlink-task/$taskId": {
+      "filePath": "app/businesses-rma_/business.$businessId/dashboard/unlink-task.$taskId/route.ts",
+      "parent": "/app/businesses-rma/business/$businessId/dashboard"
+    },
     "/app/businesses-rma/business/$businessId/quotation/commercial-notice/send-by-email": {
       "filePath": "app/businesses-rma_/business.$businessId/quotation/commercial-notice/send-by-email/route.ts",
       "parent": "/app/businesses-rma/business/$businessId/quotation/commercial-notice",
@@ -7294,6 +7389,10 @@ export const routeTree = rootRoute.addChildren({
       "children": [
         "/app/businesses-rma/rma/$rmaId/support/task-email/$taskId/reply"
       ]
+    },
+    "/app/businesses-rma/rma/$rmaId/support/unlink-task/$taskId": {
+      "filePath": "app/businesses-rma_/rma.$rmaId/support/unlink-task.$taskId/route.ts",
+      "parent": "/app/businesses-rma/rma/$rmaId/support"
     },
     "/app/businesses-rma/rma/$rmaId/support/update-detail/$detailId": {
       "filePath": "app/businesses-rma_/rma.$rmaId/support/update-detail.$detailId/route.ts",

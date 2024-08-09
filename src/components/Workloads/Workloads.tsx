@@ -11,6 +11,7 @@ import TaskResponseDto from '../../utils/types/TaskResponseDto';
 import CardComponent from '../Card/Card';
 import TableComponent from '../Table/Table';
 import styles from './Workloads.module.scss';
+import { FaTrash } from 'react-icons/fa';
 
 const columnHelper = createColumnHelper<TaskResponseDto>();
 
@@ -21,8 +22,9 @@ type WorkloadsComponentProps = Readonly<{
   associatedItemType: WorkloadAssociatedItem;
   associatedItemId: string;
   emailLink: (data: TaskResponseDto) => LinkProps;
+  unlinkLink: (data: TaskResponseDto) => LinkProps;
 }>;
-export default function WorkloadsComponent({ associatedItemType, associatedItemId, emailLink }: WorkloadsComponentProps) {
+export default function WorkloadsComponent({ associatedItemType, associatedItemId, emailLink, unlinkLink }: WorkloadsComponentProps) {
   const { data, refetch, isRefetching } = useQuery(queries.tasks.page._ctx.byAssociatedItem({ associatedItemType, associatedItemId }, { page, size }));
 
   const columns = useMemo(
@@ -59,8 +61,18 @@ export default function WorkloadsComponent({ associatedItemType, associatedItemI
           </div>
         ),
       }),
+      columnHelper.display({
+        id: 'actions',
+        cell: ({ row: { original } }) => (
+          <div className={styles.actions}>
+            <Link {...unlinkLink(original)}>
+              <FaTrash width={16} height={16} color={'#F24C52'} />
+            </Link>
+          </div>
+        ),
+      }),
     ],
-    [emailLink],
+    [emailLink, unlinkLink],
   );
 
   return (

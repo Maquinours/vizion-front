@@ -234,7 +234,15 @@ export default function AppViewBusinessViewDashboardView() {
                       from: routeApi.id,
                       to: '/app/businesses-rma/business/$businessId/dashboard/task-email/$taskId',
                       params: { taskId: task.id },
-                      search: (old) => old,
+                      search: true,
+                      replace: true,
+                      resetScroll: false,
+                    })}
+                    unlinkLink={(task) => ({
+                      from: routeApi.id,
+                      to: '/app/businesses-rma/business/$businessId/dashboard/unlink-task/$taskId',
+                      params: { taskId: task.id },
+                      search: true,
                       replace: true,
                       resetScroll: false,
                     })}
