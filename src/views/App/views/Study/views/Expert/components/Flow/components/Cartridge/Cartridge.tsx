@@ -39,7 +39,7 @@ export default function AppViewStudyViewExpertViewFlowComponentCartridgeComponen
               <p className="w-full rounded-md bg-[#16204e]/30 px-2 text-center">
                 <input
                   type="text"
-                  style={{ minWidth: '3ch', width: `${studyNameValue.length}ch` }}
+                  size={Math.max(studyNameValue.length, 1)}
                   className="bg-transparent text-center"
                   value={studyNameValue}
                   onChange={(e) => setStudyName(e.target.value)}
@@ -63,7 +63,7 @@ export default function AppViewStudyViewExpertViewFlowComponentCartridgeComponen
               <p className="w-full rounded-md bg-[#16204e]/30 px-2 text-center">
                 <input
                   type="text"
-                  style={{ minWidth: '3ch', width: `${installerNameValue.length}ch` }}
+                  size={Math.max(installerNameValue.length, 1)}
                   className="bg-transparent text-center"
                   onChange={(e) => setInstallerName(e.target.value)}
                   value={installerNameValue}
