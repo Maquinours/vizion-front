@@ -10,7 +10,7 @@ type AppViewStudyViewExpertViewModalProviderComponentSendStudyModalComponentShow
   onClose: () => void;
   studyPdf: File;
   quotationPdf: File;
-  commercialNoticePdf: File;
+  commercialNoticePdf: File | null;
   representative: EnterpriseResponseDto | undefined;
 }>;
 export default function AppViewStudyViewExpertViewModalProviderComponentSendStudyModalComponentShowStepComponent({
@@ -27,6 +27,8 @@ export default function AppViewStudyViewExpertViewModalProviderComponentSendStud
   const defaultCc = representative?.profiles.filter((profile) => profile.civility === 'Service' && !!profile.email).map((service) => service.email!);
   const defaultRecipient = business.profileEmail ? [business.profileEmail] : [];
   const defaultSubject = `Étude ${business.numBusiness}`;
+  const defaultAttachments = [studyPdf, quotationPdf, commercialNoticePdf].filter((file): file is File => !!file);
+  const defaultContent = `Bonjour <br /><p>Suite à votre demande, ci-joint le devis ainsi que les documents avec :</p> <br /><ul><li>Offre de prix HT</li><li>Dossier technique</li>${!!commercialNoticePdf ? `<li>Notices commerciales</li>` : ''}</ul>`;
 
   return (
     <SendEmailModalComponent
@@ -35,8 +37,8 @@ export default function AppViewStudyViewExpertViewModalProviderComponentSendStud
       defaultCc={defaultCc}
       defaultRecipient={defaultRecipient}
       defaultSubject={defaultSubject}
-      defaultAttachments={[studyPdf, quotationPdf, commercialNoticePdf]}
-      defaultContent="Bonjour <br /><p>Suite à votre demande, ci-joint le devis ainsi que les documents avec :</p> <br /><ul><li>Étude</li><li>Offre de prix HT</li><li>Dossier technique</li><li>Notices commerciales</li></ul><br /><br />"
+      defaultAttachments={defaultAttachments}
+      defaultContent={defaultContent}
       lifeSheetInfoDto={{
         businessNumber: business.numBusiness,
         enterpriseName: business.enterpriseName,

@@ -3,7 +3,7 @@ import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-q
 import { getRouteApi } from '@tanstack/react-router';
 import { useNodesInitialized } from '@xyflow/react';
 import { toBlob } from 'html-to-image';
-import { groupBy } from 'lodash';
+import { groupBy, uniq } from 'lodash';
 import { useEffect, useRef, useState } from 'react';
 import { toast } from 'react-toastify';
 import { useShallow } from 'zustand/react/shallow';
@@ -47,15 +47,7 @@ const selector = (state: RFState) => ({
 
 type AppViewStudyViewExpertViewModalProviderComponentSendStudyModalComponentImageGenerationStepComponentProps = Readonly<{
   onClose: () => void;
-  onGenerated: ({
-    quotationPdf,
-    studyPdf,
-  }: {
-    quotationPdf: File;
-    studyPdf: File;
-    commercialNoticePdf: File;
-    representative: EnterpriseResponseDto | undefined;
-  }) => void;
+  onGenerated: (data: { quotationPdf: File; studyPdf: File; commercialNoticePdf: File | null; representative: EnterpriseResponseDto | undefined }) => void;
 }>;
 export default function AppViewStudyViewExpertViewModalProviderComponentSendStudyModalComponentImageGenerationStepComponent({
   onClose,
@@ -77,7 +69,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentSendStud
   const [studyPdf, setStudyPdf] = useState<File>();
   const [quotationPdf, setQuotationPdf] = useState<File>();
   const [representative, setRepresentative] = useState<EnterpriseResponseDto>();
-  const [commercialNoticePdf, setCommercialNoticePdf] = useState<File>();
+  const [commercialNoticePdf, setCommercialNoticePdf] = useState<File | null>();
 
   const { mutate: generateQuotationPdf } = useMutation({
     mutationFn: async () => {
@@ -125,13 +117,13 @@ export default function AppViewStudyViewExpertViewModalProviderComponentSendStud
   const { mutate: generateCommercialNoticePdf } = useMutation({
     mutationFn: async () => {
       const quotation = await queryClient.fetchQuery(queries['business-quotations'].detail._ctx.byBusinessId(businessId));
-      const data = await queryClient.ensureQueryData(
-        queries['commercial-notices'].data._ctx.byProductReferences(
-          (quotation.subQuotationList
-            ?.flatMap((subQuotation) => subQuotation.quotationDetails?.map((detail) => detail.productReference))
-            ?.filter((reference) => reference !== null) ?? []) as string[],
-        ),
+      const products = uniq(
+        quotation.subQuotationList
+          ?.flatMap((subQuotation) => subQuotation.quotationDetails?.map((detail) => detail.productReference))
+          ?.filter((reference): reference is string => !!reference) ?? [],
       );
+      if (products.length === 0) return null;
+      const data = await queryClient.ensureQueryData(queries['commercial-notices'].data._ctx.byProductReferences(products));
       const blob = await (await fetch(`data:application/pdf;base64,${data}`)).blob();
       const file = new File([blob], 'DOC_COMMERCIAL_VIZEO.pdf', { type: blob.type });
       return file;
@@ -391,7 +383,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentSendStud
   }, []);
 
   useEffect(() => {
-    if (!!studyPdf && !!quotationPdf && !!commercialNoticePdf && !isFetchingRepresentative)
+    if (!!studyPdf && !!quotationPdf && commercialNoticePdf !== undefined && !isFetchingRepresentative)
       onGenerated({ studyPdf, quotationPdf, commercialNoticePdf, representative });
   }, [studyPdf, quotationPdf, commercialNoticePdf, isFetchingRepresentative]);
 

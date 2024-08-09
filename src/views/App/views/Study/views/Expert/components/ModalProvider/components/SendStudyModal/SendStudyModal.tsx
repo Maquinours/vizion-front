@@ -9,7 +9,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentSendStud
 
   const [stepData, setStepData] = useState<
     | { step: 'GENERATION' }
-    | { step: 'SHOW'; data: { quotationPdf: File; studyPdf: File; commercialNoticePdf: File; representative: EnterpriseResponseDto | undefined } }
+    | { step: 'SHOW'; data: { quotationPdf: File; studyPdf: File; commercialNoticePdf: File | null; representative: EnterpriseResponseDto | undefined } }
   >({ step: 'GENERATION' });
 
   const onClose = () => {
