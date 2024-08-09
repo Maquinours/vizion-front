@@ -53,7 +53,7 @@ export default function AppViewBusinessViewQuotationViewCommercialNoticeModalVie
       defaultRecipient={[business.profileEmail!]}
       defaultCc={representative?.profiles.filter((profile) => profile.civility === 'Service').map((service) => service.email!)}
       defaultSubject={`Devis ${business.numBusiness}`}
-      defaultContent="Bonjour <br /><p>Suite à votre demande,</p><h4>Ci-joint la notice commerciale des différents produits de votre devis. </h4> <br />"
+      defaultContent="Bonjour <br /><p>Suite à votre demande,</p><h4>Ci-joint la notice commerciale des différents produits de votre devis.</h4>"
       defaultAttachments={[commercialNoticeFile]}
       lifeSheetInfoDto={{
         businessNumber: business.numBusiness,
