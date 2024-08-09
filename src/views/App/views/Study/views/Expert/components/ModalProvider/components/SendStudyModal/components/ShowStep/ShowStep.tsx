@@ -28,7 +28,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentSendStud
   const defaultRecipient = business.profileEmail ? [business.profileEmail] : [];
   const defaultSubject = `Étude ${business.numBusiness}`;
   const defaultAttachments = [studyPdf, quotationPdf, commercialNoticePdf].filter((file): file is File => !!file);
-  const defaultContent = `Bonjour <br /><p>Suite à votre demande, ci-joint le devis ainsi que les documents avec :</p> <br /><ul><li>Offre de prix HT</li><li>Dossier technique</li>${!!commercialNoticePdf ? `<li>Notices commerciales</li>` : ''}</ul>`;
+  const defaultContent = `Bonjour <br /><p>Suite a votre demande, ci joint votre dossier complet avec :</p> <br /><ul><li>Offre de prix HT</li><li>Dossier technique</li>${!!commercialNoticePdf ? `<li>Notices commerciales</li>` : ''}</ul>`;
 
   return (
     <SendEmailModalComponent
