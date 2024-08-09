@@ -148,6 +148,8 @@ export default function AppViewBusinessViewDashboardView() {
     },
   });
 
+  const onSave = handleSubmit((data) => save(data));
+
   return (
     <>
       <div className={styles.container}>
@@ -172,7 +174,7 @@ export default function AppViewBusinessViewDashboardView() {
               {(business.state === null ||
                 ![BusinessState.FACTURE, BusinessState.ARC, BusinessState.BP, BusinessState.BL].includes(business.state) ||
                 user.userInfo.roles.find((role) => ['ROLE_VIZEO', 'ROLE_DIRECTION_VIZEO', 'ROLE_STAGIAIRE_VIZEO'].includes(role))) && (
-                <button className="btn btn-secondary" disabled={isSavePending} onClick={handleSubmit((data) => save(data))}>
+                <button className="btn btn-secondary" disabled={isSavePending} onClick={onSave}>
                   {isSavePending ? 'Sauvegarde en cours...' : 'Sauvegarder'}
                 </button>
               )}
@@ -193,12 +195,7 @@ export default function AppViewBusinessViewDashboardView() {
         >
           {user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && <AppViewBusinessViewDashboardViewLifesheetComponent />}
           <div className={styles.second_grid}>
-            <AppViewBusinessViewDashboardViewGeneralInformationsComponent
-              register={register}
-              errors={errors}
-              onSave={handleSubmit((data) => save(data))}
-              isSavePending={isSavePending}
-            />
+            <AppViewBusinessViewDashboardViewGeneralInformationsComponent register={register} errors={errors} onSave={onSave} isSavePending={isSavePending} />
             <div className={styles.address_sections}>
               <div>
                 <div className={styles.enterprise_category}>
@@ -253,7 +250,7 @@ export default function AppViewBusinessViewDashboardView() {
               </div>
               <div>
                 <AppViewBusinessViewDashboardViewBillingAddressComponent />
-                <AppViewBusinessViewDashboardViewTransferDataButtonComponent setValue={setValue} />
+                <AppViewBusinessViewDashboardViewTransferDataButtonComponent setValue={setValue} saveBusiness={onSave} />
                 <AppViewBusinessViewDashboardViewDeliveryAddressComponent register={register} errors={errors} />
               </div>
               <div>

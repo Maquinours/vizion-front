@@ -10,9 +10,11 @@ const routeApi = getRouteApi('/app/businesses-rma/business/$businessId');
 
 type AppViewBusinessViewDashboardViewTransferDataButtonComponentProps = Readonly<{
   setValue: UseFormSetValue<BusinessDashboardFormType>;
+  saveBusiness: () => void;
 }>;
 export default function AppViewBusinessViewDashboardViewTransferDataButtonComponent({
   setValue,
+  saveBusiness,
 }: AppViewBusinessViewDashboardViewTransferDataButtonComponentProps) {
   const { businessId } = routeApi.useParams();
 
@@ -27,6 +29,7 @@ export default function AppViewBusinessViewDashboardViewTransferDataButtonCompon
     setValue('receiverCity', business.billingCity);
     setValue('receiverPhoneNumber', business.billingPhoneNumber);
     setValue('receiverEmail', business.billingEmail);
+    saveBusiness();
   };
 
   return (
