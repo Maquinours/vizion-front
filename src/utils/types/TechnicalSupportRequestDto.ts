@@ -1,4 +1,4 @@
-import TechnicalSupportRecapOptionRequestDto from "./TechnicalSupportRecapOptionRequestDto";
+import TechnicalSupportRecapOptionRequestDto from './TechnicalSupportRecapOptionRequestDto';
 
 type TechnicalSupportRequestDto = {
   name?: string | null;

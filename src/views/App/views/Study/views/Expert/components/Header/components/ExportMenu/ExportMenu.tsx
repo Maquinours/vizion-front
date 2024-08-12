@@ -42,7 +42,7 @@ export default function AppViewStudyViewExpertViewHeaderComponentExportMenuCompo
       const pages = getPages();
       const business = await queryClient.ensureQueryData(queries.businesses.detail._ctx.byId(businessId));
       const flowRect = document.querySelector('.react-flow')!.getBoundingClientRect();
-      
+
       return saveSynopticBusiness({
         name: 'SYNOPTIQUE',
         businessPticId: business.id,

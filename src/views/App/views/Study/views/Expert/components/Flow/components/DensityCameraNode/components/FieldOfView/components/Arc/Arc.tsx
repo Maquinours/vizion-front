@@ -85,16 +85,16 @@ export default function AppViewStudyViewExpertViewFlowComponentDensityCameraNode
 
   return (
     <>
-        <path
-          id={`${nodeId}-${type}`}
-          className={className}
-          transform={transform}
-          d={d}
-          fill={color}
-          stroke={stroke}
-          strokeWidth={strokeWidth}
-          strokeDasharray={strokeDasharray}
-        />
+      <path
+        id={`${nodeId}-${type}`}
+        className={className}
+        transform={transform}
+        d={d}
+        fill={color}
+        stroke={stroke}
+        strokeWidth={strokeWidth}
+        strokeDasharray={strokeDasharray}
+      />
       {isNotVisibleAtNight && (
         <text x={range - 10} y={8} fill={'orange'} style={{ transform: 'translate(0%, 50%) scaleX(-1)' }}>
           *
