@@ -39,14 +39,30 @@ export default function AppViewEnterpriseViewContactsComponentTableComponentCont
               {profile && (
                 <MenuList>
                   <MenuItem>
-                    <Link from={Route.id} to="./create-contact-business/$contactId" params={{ contactId: profile.id }} search replace resetScroll={false}>
+                    <Link
+                      from={Route.id}
+                      to="./create-contact-business/$contactId"
+                      params={{ contactId: profile.id }}
+                      search
+                      replace
+                      resetScroll={false}
+                      preload="viewport"
+                    >
                       <MdWork width={16} height={16} color={'#16204E'} className={styles.icon} />
                       <span className={styles.text}>Créer une affaire</span>
                     </Link>
                   </MenuItem>
                   {user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && (
                     <MenuItem>
-                      <Link from={Route.id} to="./send-email-to-contact/$contactId" params={{ contactId: profile.id }} search replace resetScroll={false}>
+                      <Link
+                        from={Route.id}
+                        to="./send-email-to-contact/$contactId"
+                        params={{ contactId: profile.id }}
+                        search
+                        replace
+                        resetScroll={false}
+                        preload="viewport"
+                      >
                         <MdMailOutline width={13} height={16} color={'#16204E'} className={styles.icon} />
                         <span className={styles.text}>Envoyer un mail</span>
                       </Link>
@@ -54,7 +70,15 @@ export default function AppViewEnterpriseViewContactsComponentTableComponentCont
                   )}
                   {user.profile.id !== profile.id && user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && (
                     <MenuItem>
-                      <Link from={Route.id} to="./delete-contact/$contactId" params={{ contactId: profile.id }} search replace resetScroll={false}>
+                      <Link
+                        from={Route.id}
+                        to="./delete-contact/$contactId"
+                        params={{ contactId: profile.id }}
+                        search
+                        replace
+                        resetScroll={false}
+                        preload="viewport"
+                      >
                         <FaTrash width={16} height={16} color={'#16204E'} className={styles.icon} />
                         <span className={styles.text}>Supprimer ce contact</span>
                       </Link>
@@ -62,7 +86,15 @@ export default function AppViewEnterpriseViewContactsComponentTableComponentCont
                   )}
                   {user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && (
                     <MenuItem>
-                      <Link from={Route.id} to="./update-contact/$contactId" params={{ contactId: profile.id }} search replace resetScroll={false}>
+                      <Link
+                        from={Route.id}
+                        to="./update-contact/$contactId"
+                        params={{ contactId: profile.id }}
+                        search
+                        replace
+                        resetScroll={false}
+                        preload="viewport"
+                      >
                         <HiPencilAlt width={16} height={16} color={'#16204E'} className={styles.icon} />
                         <span className={styles.text}>Modifier ce contact</span>
                       </Link>
@@ -71,7 +103,15 @@ export default function AppViewEnterpriseViewContactsComponentTableComponentCont
                   {(user.userInfo.roles.includes('ROLE_DIRECTION_VIZEO') ||
                     (user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && profile.categoryClient !== CategoryClient.VIZEO)) && (
                     <MenuItem>
-                      <Link from={Route.id} to="./update-contact-password/$contactId" params={{ contactId: profile.id }} search replace resetScroll={false}>
+                      <Link
+                        from={Route.id}
+                        to="./update-contact-password/$contactId"
+                        params={{ contactId: profile.id }}
+                        search
+                        replace
+                        resetScroll={false}
+                        preload="viewport"
+                      >
                         <MdPassword width={16} height={16} color={'#16204E'} className={styles.icon} />
                         <span className={styles.text}>Modifier mot de passe</span>
                       </Link>

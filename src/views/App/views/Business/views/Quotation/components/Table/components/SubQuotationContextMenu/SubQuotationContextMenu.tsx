@@ -41,6 +41,7 @@ export default function AppViewBusinessViewQuotationViewTableComponentSubQuotati
                       search={(old) => old}
                       replace
                       resetScroll={false}
+                      preload="viewport"
                     >
                       <IoMdAddCircleOutline width={16} height={16} color={'#16204E'} className={styles.icon} />
                       <span className={styles.text}>Ajouter un produit</span>
@@ -54,6 +55,7 @@ export default function AppViewBusinessViewQuotationViewTableComponentSubQuotati
                       search={(old) => old}
                       replace
                       resetScroll={false}
+                      preload="viewport"
                     >
                       <HiPencilAlt width={16} height={16} color={'#16204E'} className={styles.icon} />
                       <span className={styles.text}>Modifier</span>
@@ -67,6 +69,7 @@ export default function AppViewBusinessViewQuotationViewTableComponentSubQuotati
                       search={(old) => old}
                       replace
                       resetScroll={false}
+                      preload="viewport"
                     >
                       <FaTrash width={16} height={16} color={'#16204E'} className={styles.icon} />
                       <span className={styles.text}>Supprimer</span>

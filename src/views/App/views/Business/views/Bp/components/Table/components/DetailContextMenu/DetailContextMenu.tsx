@@ -41,19 +41,43 @@ export default function AppViewBusinessViewBpViewTableComponentDetailContextMenu
               {item && (
                 <MenuList>
                   <MenuItem>
-                    <Link from={routeApi.id} to="update-detail/$detailId" params={{ detailId: item.id }} search={(old) => old} replace resetScroll={false}>
+                    <Link
+                      from={routeApi.id}
+                      to="update-detail/$detailId"
+                      params={{ detailId: item.id }}
+                      search={(old) => old}
+                      replace
+                      resetScroll={false}
+                      preload="viewport"
+                    >
                       <HiPencilAlt width={16} height={16} color={'#16204E'} className={styles.icon} />
                       <span className={styles.text}>Modifier le produit</span>
                     </Link>
                   </MenuItem>
                   <MenuItem>
-                    <Link from={routeApi.id} to="add-serial/$detailId" params={{ detailId: item.id }} search={(old) => old} replace resetScroll={false}>
+                    <Link
+                      from={routeApi.id}
+                      to="add-serial/$detailId"
+                      params={{ detailId: item.id }}
+                      search={(old) => old}
+                      replace
+                      resetScroll={false}
+                      preload="viewport"
+                    >
                       <HiPencilAlt width={16} height={16} color={'#16204E'} className={styles.icon} />
                       <span className={styles.text}>Entrer numéro de série</span>
                     </Link>
                   </MenuItem>
                   <MenuItem>
-                    <Link from={routeApi.id} to="delete-detail/$detailId" params={{ detailId: item.id }} search={(old) => old} replace resetScroll={false}>
+                    <Link
+                      from={routeApi.id}
+                      to="delete-detail/$detailId"
+                      params={{ detailId: item.id }}
+                      search={(old) => old}
+                      replace
+                      resetScroll={false}
+                      preload="viewport"
+                    >
                       <FaTrash width={16} height={16} color={'#16204E'} className={styles.icon} />
                       <span className={styles.text}>Supprimer le produit</span>
                     </Link>
@@ -67,6 +91,7 @@ export default function AppViewBusinessViewBpViewTableComponentDetailContextMenu
                         search={(old) => old}
                         replace
                         resetScroll={false}
+                        preload="viewport"
                       >
                         <MdBusinessCenter width={16} height={16} color={'#16204E'} className={styles.icon} />
                         <span className={styles.text}>Créér un RMA</span>

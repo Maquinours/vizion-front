@@ -60,7 +60,15 @@ export default function AppViewBusinessViewBpViewTableComponentSerialContextMenu
                     </button>
                   </MenuItem>
                   <MenuItem>
-                    <Link from={routeApi.id} to="delete-serial/$serialId" params={{ serialId: item.id }} search={(old) => old} replace resetScroll={false}>
+                    <Link
+                      from={routeApi.id}
+                      to="delete-serial/$serialId"
+                      params={{ serialId: item.id }}
+                      search={(old) => old}
+                      replace
+                      resetScroll={false}
+                      preload="viewport"
+                    >
                       <FaTrash width={16} height={16} color={'#16204E'} className={styles.icon} />
                       <span className={styles.text}>Supprimer</span>
                     </Link>
@@ -74,6 +82,7 @@ export default function AppViewBusinessViewBpViewTableComponentSerialContextMenu
                         search={(old) => old}
                         replace
                         resetScroll={false}
+                        preload="viewport"
                       >
                         <MdBusinessCenter width={16} height={16} color={'#16204E'} className={styles.icon} />
                         <span className={styles.text}>Créer un RMA</span>

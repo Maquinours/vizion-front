@@ -34,13 +34,29 @@ export default function AppViewBusinessViewArcViewTableComponentContextMenuCompo
               {item && (
                 <MenuList>
                   <MenuItem>
-                    <Link from={routeApi.id} to="update-detail/$detailId" params={{ detailId: item.id }} search={(old) => old} replace resetScroll={false}>
+                    <Link
+                      from={routeApi.id}
+                      to="update-detail/$detailId"
+                      params={{ detailId: item.id }}
+                      search={(old) => old}
+                      replace
+                      resetScroll={false}
+                      preload="viewport"
+                    >
                       <HiPencilAlt width={16} height={16} color={'#16204E'} />
                       <span>Modifier le produit</span>
                     </Link>
                   </MenuItem>
                   <MenuItem>
-                    <Link from={routeApi.id} to="delete-detail/$detailId" params={{ detailId: item.id }} search={(old) => old} replace resetScroll={false}>
+                    <Link
+                      from={routeApi.id}
+                      to="delete-detail/$detailId"
+                      params={{ detailId: item.id }}
+                      search={(old) => old}
+                      replace
+                      resetScroll={false}
+                      preload="viewport"
+                    >
                       <FaTrash width={16} height={16} color={'#16204E'} />
                       <span>Supprimer le produit</span>
                     </Link>

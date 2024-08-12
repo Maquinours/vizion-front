@@ -32,14 +32,30 @@ export default function AppViewDashboardViewPersonalTasksComponentTableComponent
                 <MenuList>
                   {!task.businessId && !task.enterpriseId && !task.productId && !task.rmaId && (
                     <MenuItem>
-                      <Link from={Route.id} to="./link-personal-task/$taskId" params={{ taskId: task.id }} search={(old) => old} replace resetScroll={false}>
+                      <Link
+                        from={Route.id}
+                        to="./link-personal-task/$taskId"
+                        params={{ taskId: task.id }}
+                        search={(old) => old}
+                        replace
+                        resetScroll={false}
+                        preload="viewport"
+                      >
                         <BsLink45Deg className={styles.icon} /> <span className={styles.text}>Relier à</span>
                       </Link>
                     </MenuItem>
                   )}
                   {task.state !== TaskState.ARCHIVED && (
                     <MenuItem>
-                      <Link from={Route.id} to="./archive-personal-task/$taskId" params={{ taskId: task.id }} search={(old) => old} replace resetScroll={false}>
+                      <Link
+                        from={Route.id}
+                        to="./archive-personal-task/$taskId"
+                        params={{ taskId: task.id }}
+                        search={(old) => old}
+                        replace
+                        resetScroll={false}
+                        preload="viewport"
+                      >
                         <BsFillCircleFill className={styles.icon} color="#5DC896" />
                         <span className={styles.text}>Archiver</span>
                       </Link>
@@ -54,6 +70,7 @@ export default function AppViewDashboardViewPersonalTasksComponentTableComponent
                         search={(old) => old}
                         replace
                         resetScroll={false}
+                        preload="viewport"
                       >
                         <MdSchedule className={styles.icon} />
                         <span className={styles.text}>Repousser</span>
@@ -62,7 +79,15 @@ export default function AppViewDashboardViewPersonalTasksComponentTableComponent
                   )}
                   {![TaskState.CLOSED, TaskState.ARCHIVED].includes(task.state!) && (
                     <MenuItem>
-                      <Link from={Route.id} to="./transfer-task/$taskId" params={{ taskId: task.id }} search={(old) => old} replace resetScroll={false}>
+                      <Link
+                        from={Route.id}
+                        to="./transfer-task/$taskId"
+                        params={{ taskId: task.id }}
+                        search={(old) => old}
+                        replace
+                        resetScroll={false}
+                        preload="viewport"
+                      >
                         <IoMdArrowForward className={styles.icon} />
                         <span className={styles.text}>Transférer à</span>
                       </Link>
@@ -77,6 +102,7 @@ export default function AppViewDashboardViewPersonalTasksComponentTableComponent
                         search={(old) => old}
                         replace
                         resetScroll={false}
+                        preload="viewport"
                       >
                         <BsFillCircleFill className={styles.icon} color="#31385A" />
                         <span className={styles.text}>En attente</span>
@@ -84,13 +110,29 @@ export default function AppViewDashboardViewPersonalTasksComponentTableComponent
                     </MenuItem>
                   )}
                   <MenuItem>
-                    <Link from={Route.id} to="./personal-task-details/$taskId" params={{ taskId: task.id }} search={(old) => old} replace resetScroll={false}>
+                    <Link
+                      from={Route.id}
+                      to="./personal-task-details/$taskId"
+                      params={{ taskId: task.id }}
+                      search={(old) => old}
+                      replace
+                      resetScroll={false}
+                      preload="viewport"
+                    >
                       <BsEyeFill className={styles.icon} />
                       <span className={styles.text}>Ouvrir</span>
                     </Link>
                   </MenuItem>
                   <MenuItem>
-                    <Link from={Route.id} to="./task-comments/$taskId" params={{ taskId: task.id }} search={(old) => old} replace resetScroll={false}>
+                    <Link
+                      from={Route.id}
+                      to="./task-comments/$taskId"
+                      params={{ taskId: task.id }}
+                      search={(old) => old}
+                      replace
+                      resetScroll={false}
+                      preload="viewport"
+                    >
                       <MdOutlineComment className={styles.icon} />
                       <span className={styles.text}>Commentaires</span>
                     </Link>
