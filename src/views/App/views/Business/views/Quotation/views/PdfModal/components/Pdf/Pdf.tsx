@@ -437,6 +437,8 @@ export default function AppViewBusinessViewQuotationViewPdfModalViewPdfComponent
     [quotation.subQuotationList],
   );
 
+  const businessNumber = quotation.number.substring(0, 7) + ' ' + quotation.number.substring(7);
+
   return (
     <Document title={quotation.number} author="VIZEO" creator="VIZEO" producer="VIZEO">
       <Page size="A4" style={pageStyles.page}>
@@ -498,7 +500,7 @@ export default function AppViewBusinessViewQuotationViewPdfModalViewPdfComponent
               <View style={pageStyles.quoteDetailOne}>
                 <View style={pageStyles.quoteDetailOneContainer}>
                   <Text style={pageStyles.quoteDetailOneTitle}>Dossier</Text>
-                  <Text style={pageStyles.quoteDetailOneContent}>{quotation.number}</Text>
+                  <Text style={pageStyles.quoteDetailOneContent}>{businessNumber}</Text>
                 </View>
               </View>
               <View style={pageStyles.quoteDetailTwo}>
