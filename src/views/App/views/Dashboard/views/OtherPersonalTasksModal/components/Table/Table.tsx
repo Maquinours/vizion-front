@@ -1,11 +1,11 @@
 import { VirtualElement } from '@popperjs/core';
 import { useQuery } from '@tanstack/react-query';
-import { Link, getRouteApi, useNavigate } from '@tanstack/react-router';
+import { Link, getRouteApi } from '@tanstack/react-router';
 import { Row, createColumnHelper } from '@tanstack/react-table';
 import classNames from 'classnames';
 import DOMPurify from 'dompurify';
 import parse from 'html-react-parser';
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { AiFillTag } from 'react-icons/ai';
 import TableComponent from '../../../../../../../../components/Table/Table';
 import { queries } from '../../../../../../../../utils/constants/queryKeys';
@@ -29,21 +29,12 @@ export default function AppViewDashboardViewOtherPersonalTasksModalViewTableComp
   data,
   isLoading,
 }: AppViewDashboardViewOtherPersonalTasksModalViewTableComponentProps) {
-  const navigate = useNavigate();
-
   const [task, setTask] = useState<TaskResponseDto>();
   const [contextMenuAnchor, setContextMenuAnchor] = useState<VirtualElement>();
 
   const { data: currentUser } = useAuthentifiedUserQuery();
 
   const { data: members } = useQuery(queries.profiles.list._ctx.byEnterpriseId(currentUser.profile.enterprise!.id));
-
-  const onMailTaskClick = useCallback(
-    (original: TaskResponseDto) => {
-      navigate({ from: Route.id, to: '../../task-email/$taskId', params: { taskId: original.id }, search: (old) => old });
-    },
-    [navigate],
-  );
 
   const columns = useMemo(
     () => [
@@ -69,11 +60,11 @@ export default function AppViewDashboardViewOtherPersonalTasksModalViewTableComp
           let item;
           if (original.mailId)
             item = (
-              <button onClick={() => onMailTaskClick(original)}>
+              <Link from={Route.id} to="../../task-email/$taskId" params={{ taskId: original.id }} search replace resetScroll={false} preload="intent">
                 {parse(DOMPurify.sanitize(original.content ?? ''))}
                 <p className="text-secondary">A : {original.receiver?.to?.toString().split(';').join(' ')}</p>
                 <p>De : {original.name}</p>
-              </button>
+              </Link>
             );
           else {
             const sender = members?.find((member) => member.id === original.senderId);
@@ -127,7 +118,7 @@ export default function AppViewDashboardViewOtherPersonalTasksModalViewTableComp
         },
       }),
     ],
-    [currentUser.profile.id, members, onMailTaskClick],
+    [currentUser.profile.id, members],
   );
 
   const onRowContextMenu = (e: React.MouseEvent, row: Row<TaskResponseDto>) => {

@@ -38,6 +38,7 @@ export default function AppViewDashboardViewPersonalTasksComponentHeaderComponen
             search={(old) => ({ ...old, personalTaskState: item.value })}
             replace
             resetScroll={false}
+            preload="intent"
             className={styles.tag_tooltip}
           >
             <BsFillCircleFill color={item.color} className={classNames(styles.icon, { [styles.isActive]: item.value === state })} />

@@ -17,7 +17,13 @@ export default function AppViewDashboardViewOtherPersonalTasksModalViewPaginatio
       <PaginationComponent
         page={page}
         totalPages={data?.totalPages}
-        pageLink={(page) => ({ from: Route.id, search: (old) => ({ ...old, otherPersonalTaskPage: page }), params: (old) => old })}
+        pageLink={(page) => ({
+          from: Route.id,
+          search: (old) => ({ ...old, otherPersonalTaskPage: page }),
+          replace: true,
+          resetScroll: false,
+          preload: 'intent',
+        })}
       />
     </div>
   );

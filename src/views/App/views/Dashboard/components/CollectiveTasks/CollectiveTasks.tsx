@@ -32,7 +32,7 @@ export default function AppViewDashboardViewCollectiveTasksComponent() {
   return (
     <CardComponent
       title="Charges de travail collectives"
-      addLink={{ to: '/app/dashboard/create-collective-task', search: (old) => old, replace: true }}
+      addLink={{ to: '/app/dashboard/create-collective-task', search: true, replace: true, preload: 'intent' }}
       onReload={() => refetch()}
       isReloading={isRefetching}
       isMinimized={isMinimized}
@@ -43,10 +43,11 @@ export default function AppViewDashboardViewCollectiveTasksComponent() {
           <div className={styles.header_container}>
             <Link
               from={Route.id}
-              to={'./delete-collective-tasks'}
+              to="./delete-collective-tasks"
               search={(old) => ({ ...old, tasksId: selectedItems.map(({ id }) => id) })}
               replace
               resetScroll={false}
+              preload="viewport"
             >
               <FaTrash width={18} height={18} color="#16204E" />
             </Link>

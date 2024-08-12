@@ -67,10 +67,11 @@ export default function AppViewDashboardViewPersonalTasksComponentTableComponent
                 from={Route.id}
                 to="task-email/$taskId"
                 params={{ taskId: original.id }}
-                search={(old) => old}
-                replace={true}
+                search
+                replace
                 resetScroll={false}
                 className={styles.link}
+                preload="intent"
               >
                 {parse(DOMPurify.sanitize(original.content ?? ''))}
                 <p className="text-secondary">A : {original.receiver?.to?.toString().split(';').join(' ')}</p>

@@ -39,9 +39,10 @@ const columns = [
               from={Route.id}
               to="task-email/$taskId"
               params={{ taskId: original.id }}
-              search={(old) => old}
+              search
               replace
               resetScroll={false}
+              preload="intent"
               className={styles.mail_content}
             >
               <div>{parse(DOMPurify.sanitize(original.content ?? ''))}</div>
