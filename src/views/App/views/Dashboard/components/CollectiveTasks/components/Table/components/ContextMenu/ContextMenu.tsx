@@ -28,7 +28,7 @@ export default function AppViewDashboardViewCollectiveTasksComponentTableCompone
   return (
     <Popper open={isOpen} anchorEl={anchorElement} transition placement="bottom-start" className={styles.popper}>
       {({ TransitionProps }) => (
-        <ClickAwayListener onClickAway={onClose}>
+        <ClickAwayListener mouseEvent="onMouseUp" onClickAway={onClose}>
           <Fade {...TransitionProps}>
             <Paper className={styles.menu_container}>
               {task && (

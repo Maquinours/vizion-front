@@ -73,7 +73,7 @@ export default function AppViewEnterprisesViewTableComponentContactContextMenu({
       }}
     >
       {({ TransitionProps }) => (
-        <ClickAwayListener onClickAway={onClose} mouseEvent="onMouseDown">
+        <ClickAwayListener mouseEvent="onMouseUp" onClickAway={onClose}>
           <Fade {...TransitionProps}>
             <Paper className={styles.menu_container}>
               {contact && (

@@ -28,7 +28,7 @@ export default function AppViewDashboardViewOtherPersonalTasksModalViewTableComp
   return (
     <Popper open={isOpen} anchorEl={anchor} transition placement="bottom-start" className={styles.popper}>
       {({ TransitionProps }) => (
-        <ClickAwayListener onClickAway={() => setAnchor(undefined)}>
+        <ClickAwayListener mouseEvent="onMouseUp" onClickAway={() => setAnchor(undefined)}>
           <Fade {...TransitionProps}>
             <Paper className={styles.menu_container}>
               {task && (

@@ -28,7 +28,7 @@ export default function AppViewProductViewManageViewSpecificationsComponentTable
   return (
     <Popper open={isOpen} anchorEl={anchorElement} transition placement="bottom-start">
       {({ TransitionProps }) => (
-        <ClickAwayListener onClickAway={onClose}>
+        <ClickAwayListener mouseEvent="onMouseUp" onClickAway={onClose}>
           <Fade {...TransitionProps}>
             <Paper className={styles.menu_container}>
               {productSpecification?.specification && (

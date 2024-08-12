@@ -27,7 +27,7 @@ export default function AppViewDashboardViewProgressiveInfosComponentTableCompon
   return (
     <Popper open={isOpen} anchorEl={anchor} transition placement="bottom-start">
       {({ TransitionProps }) => (
-        <ClickAwayListener onClickAway={onClose}>
+        <ClickAwayListener mouseEvent="onMouseUp" onClickAway={onClose}>
           <Fade {...TransitionProps}>
             <Paper className={styles.menu_container}>
               <MenuList>
