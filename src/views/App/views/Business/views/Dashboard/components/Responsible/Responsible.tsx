@@ -22,9 +22,10 @@ export default function AppViewBusinessViewDashboardViewResponsibleComponent() {
             ? {
                 from: routeApi.id,
                 to: '/app/businesses-rma/business/$businessId/dashboard/update-responsible',
-                search: (old) => old,
+                search: true,
                 replace: true,
                 resetScroll: false,
+                preload: 'intent',
               }
             : undefined
         }

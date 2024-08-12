@@ -45,7 +45,7 @@ export default function AppViewBusinessViewBillView() {
       <div className={styles.container}>
         {!business.archived && credits.length > 0 && user.userInfo.roles.some((role) => ['ROLE_MEMBRE_VIZEO', 'ROLE_REPRESENTANT'].includes(role)) && (
           <div className={styles.avoir_container}>
-            <Link from={routeApi.id} to="credits" search={(old) => old} replace resetScroll={false} className="btn btn-secondary">
+            <Link from={routeApi.id} to="credits" search replace resetScroll={false} preload="intent" className="btn btn-secondary">
               Voir les avoirs
             </Link>
           </div>
@@ -62,7 +62,7 @@ export default function AppViewBusinessViewBillView() {
             {!business.archived && (
               <div className={styles.buttons_container}>
                 {user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && (
-                  <Link from={routeApi.id} to="send-by-email" search={(old) => old} replace resetScroll={false} className="btn btn-secondary">
+                  <Link from={routeApi.id} to="send-by-email" search={(old) => old} replace resetScroll={false} preload="intent" className="btn btn-secondary">
                     Envoyer par mail
                   </Link>
                 )}

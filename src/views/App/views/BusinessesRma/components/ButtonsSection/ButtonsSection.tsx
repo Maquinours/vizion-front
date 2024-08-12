@@ -12,16 +12,17 @@ export default function AppViewBusinessesRmaViewButtonsSectionComponent() {
         <Link
           from={routeApi.id}
           to="representative-turnover"
-          search={(old) => old}
+          search
           state={(prev) => prev}
           replace
           resetScroll={false}
+          preload="intent"
           className="btn btn-primary"
         >
           {"Mon chiffre d'affaires"}
         </Link>
       )}
-      <Link from={routeApi.id} to="search-by-products" search={(old) => old} state={(prev) => prev} replace resetScroll={false} className="btn btn-primary">
+      <Link from={routeApi.id} to="search-by-products" search state={(prev) => prev} replace resetScroll={false} preload="intent" className="btn btn-primary">
         Rechercher par produit(s)
       </Link>
     </div>

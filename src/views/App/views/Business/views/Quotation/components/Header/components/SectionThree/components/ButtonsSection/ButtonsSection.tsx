@@ -155,7 +155,7 @@ export default function AppViewBusinessViewQuotationViewHeaderComponentSectionTh
           </Link>
         </>
       )}
-      <Link from={routeApi.id} to="pdf" search={(old) => old} replace className="btn btn-primary">
+      <Link from={routeApi.id} to="pdf" search replace resetScroll={false} preload="intent" className="btn btn-primary">
         Editer
       </Link>
       <button onClick={onExport} className="btn btn-primary">

@@ -22,7 +22,6 @@ export default function AppViewDashboardViewOtherPersonalTasksModalViewPaginatio
           search: (old) => ({ ...old, otherPersonalTaskPage: page }),
           replace: true,
           resetScroll: false,
-          preload: 'intent',
         })}
       />
     </div>

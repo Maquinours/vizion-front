@@ -32,7 +32,7 @@ export default function AppViewBusinessViewQuotationViewRecapComponent() {
               <td>
                 {quotation.shippingServicePrice === 0 ? 'Offert' : <CurrencyFormat value={quotation.shippingServicePrice} />}
                 {user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && !business.archived && (
-                  <Link from={routeApi.id} to="update-shipping-price" search={(old) => old} replace>
+                  <Link from={routeApi.id} to="update-shipping-price" search replace resetScroll={false} preload="intent">
                     <HiPencilAlt size={18} />
                   </Link>
                 )}

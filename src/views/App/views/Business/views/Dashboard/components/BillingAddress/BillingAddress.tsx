@@ -19,7 +19,14 @@ export default function AppViewBusinessViewDashboardViewBillingAddressComponent(
         title="Adresse de facturation"
         editLink={
           !business.archived && user.userInfo.roles.includes('ROLE_DIRECTION_VIZEO')
-            ? { from: routeApi.id, to: '/app/businesses-rma/business/$businessId/dashboard/update-billing-address' }
+            ? {
+                from: routeApi.id,
+                to: '/app/businesses-rma/business/$businessId/dashboard/update-billing-address',
+                search: true,
+                replace: true,
+                resetScroll: false,
+                preload: 'intent',
+              }
             : undefined
         }
       >

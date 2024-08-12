@@ -57,7 +57,7 @@ export default function AppViewBusinessViewQuotationViewCommercialNoticeModalVie
                 </button>
               )}
             </getFilePluginInstance.Download>
-            <Link from={routeApi.id} to="send-by-email" search={(old) => old} replace resetScroll={false} className="btn btn-secondary ml-2">
+            <Link from={routeApi.id} to="send-by-email" search={(old) => old} replace resetScroll={false} preload="intent" className="btn btn-secondary ml-2">
               Envoyer par mail
             </Link>
           </div>

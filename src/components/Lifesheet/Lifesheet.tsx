@@ -46,7 +46,7 @@ export default function LifesheetComponent({ associatedItemType, associatedItemI
   return (
     <CardComponent title="Fiche de vie" className={className}>
       <div className={styles.container}>
-        <Link {...createLink} className={classNames('btn btn-primary', styles.link)}>
+        <Link {...createLink} preload="intent" className={classNames('btn btn-primary', styles.link)}>
           Ajouter un commentaire
         </Link>
         <RefreshButtonComponent className={classNames('btn btn-primary', styles.button)} onRefresh={refetch} isRefreshing={isRefetching} />

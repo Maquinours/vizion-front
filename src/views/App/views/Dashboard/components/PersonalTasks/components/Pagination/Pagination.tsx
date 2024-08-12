@@ -23,7 +23,6 @@ export default function AppViewDashboardViewPersonalTasksComponentPaginationComp
           search: (old) => ({ ...old, personalTaskPage: page }),
           replace: true,
           resetScroll: false,
-          preload: 'intent',
         })}
       />
     </div>

@@ -14,10 +14,10 @@ export default function GedComponentButtonsComponent({ refetch, isRefetching }: 
   if (canMakeAction)
     return (
       <div className={styles.buttons_container}>
-        <Link {...getImportFilesLink()} className="btn btn-primary">
+        <Link {...getImportFilesLink()} preload="intent" className="btn btn-primary">
           Importer un fichier
         </Link>
-        <Link {...getCreateDirectoryLink()} className="btn btn-primary-light">
+        <Link {...getCreateDirectoryLink()} preload="intent" className="btn btn-primary-light">
           Nouveau dossier
         </Link>
         <RefreshButtonComponent className="btn btn-primary" onRefresh={refetch} isRefreshing={isRefetching} />

@@ -63,7 +63,7 @@ export default function AppViewBusinessViewQuotationViewPdfModalView() {
               {({ loading }) => <button className="btn btn-secondary">{loading ? 'Chargement...' : 'Télécharger'}</button>}
             </PDFDownloadLink>
             {user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && (
-              <Link from={routeApi.id} to="send-by-email" search={(old) => old} replace resetScroll={false} className="btn btn-secondary">
+              <Link from={routeApi.id} to="send-by-email" search={(old) => old} replace resetScroll={false} preload="intent" className="btn btn-secondary">
                 Envoyer par mail
               </Link>
             )}
