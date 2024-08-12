@@ -102,7 +102,7 @@ export default function AppViewRmaViewDeliveryViewTravelVoucherModalViewFormModa
     <ReactModal isOpen={show} onRequestClose={onClose} className={styles.modal} overlayClassName="Overlay">
       <div className={styles.modal_container}>
         <div className={styles.modal_header}>
-          <div className={styles.modal_title}>Edition du BT </div>
+          <div className={styles.modal_title}>Édition du BT </div>
         </div>
         <div className={styles.modal_content}>
           <form onSubmit={handleSubmit((data) => mutate(data))} onReset={onClose}>

@@ -18,7 +18,7 @@ export default function AppViewRmaViewReceptionViewHeaderComponent() {
           </Link>
         )}
         <Link from={routeApi.id} to="pdf" search replace resetScroll={false} className="btn btn-secondary">
-          Editer
+          Éditer
         </Link>
       </div>
     </div>

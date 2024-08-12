@@ -60,7 +60,7 @@ export default function AppViewRmaViewSupportViewHeaderComponent() {
           </Link>
         )}
         <Link from={routeApi.id} to="pdf" search replace resetScroll={false} className="btn btn-secondary">
-          Editer
+          Éditer
         </Link>
         <button type="button" disabled={isPending} className="btn btn-secondary" onClick={() => onNextStepButtonClick()}>
           {isPending ? "Passage à l'étape suivante..." : 'Étape suivante'}

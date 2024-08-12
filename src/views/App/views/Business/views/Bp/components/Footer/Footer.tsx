@@ -98,11 +98,11 @@ export default function AppViewBusinessViewBpViewFooterComponent() {
         <div className={styles.buttons_container}>
           {business.deliveryMode !== 'A disposition' && (
             <Link from={routeApi.id} to="travel-voucher" search replace resetScroll={false} preload="intent" className="btn btn-primary">
-              Editer BT
+              Éditer BT
             </Link>
           )}
           <button disabled={isPending} className="btn btn-secondary" onClick={() => onBlButtonClick()}>
-            {isPending ? 'Edition du BL...' : 'Editer BL'}
+            {isPending ? 'Édition du BL...' : 'Éditer BL'}
           </button>
         </div>
       )}

@@ -118,7 +118,7 @@ export default function AppViewBusinessViewArcViewHeaderComponentSectionOneCompo
       </div>
       <div>
         <Link from={routeApi.id} to="pdf" search replace resetScroll={false} preload="intent" className="btn btn-primary-light">
-          Editer
+          Éditer
         </Link>
         {!business.archived && (
           <button disabled={isPending} className="btn btn-secondary" onClick={() => onBpButtonClick()}>

@@ -42,7 +42,7 @@ export default function AppViewBusinessViewBlViewHeaderComponent() {
       </div>
       {!business.archived && business.state === BusinessState.BL && (
         <button disabled={isCreatingBill} className="btn btn-secondary" onClick={() => createBill()}>
-          {isCreatingBill ? 'Edition de la facture...' : 'Editer Facture'}
+          {isCreatingBill ? 'Édition de la facture...' : 'Éditer Facture'}
         </button>
       )}
     </div>
