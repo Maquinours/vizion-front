@@ -249,7 +249,7 @@ export default function AppViewBusinessViewDashboardView() {
 
                 <AppViewBusinessViewDashboardViewLinksComponent />
               </div>
-              <div>
+              <div className="h-fit">
                 <AppViewBusinessViewDashboardViewBillingAddressComponent />
                 <AppViewBusinessViewDashboardViewTransferDataButtonComponent setValue={setValue} saveBusiness={onSave} />
                 <AppViewBusinessViewDashboardViewDeliveryAddressComponent register={register} errors={errors} />
