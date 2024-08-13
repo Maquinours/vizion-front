@@ -60,7 +60,7 @@ export default function WorkloadsComponent({ associatedItemType, associatedItemI
         id: 'actions',
         cell: ({ row: { original } }) => (
           <div className={styles.actions}>
-            <Link {...unlinkLink(original)}>
+            <Link {...unlinkLink(original)} preload="intent">
               <FaTrash width={16} height={16} color={'#F24C52'} />
             </Link>
           </div>

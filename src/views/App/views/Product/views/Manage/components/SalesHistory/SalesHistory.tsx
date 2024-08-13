@@ -126,7 +126,7 @@ export default function AppViewProductViewManageViewSalesHistoryComponent() {
             </button>
           </form>
           <div className={styles.actions_container}>
-            <select value={size} onChange={onSizeChange}>
+            <select value={size} onChange={onSizeChange} className={styles.size_select}>
               {sizeOptions.map((el) => (
                 <option key={el} value={el}>
                   {el}

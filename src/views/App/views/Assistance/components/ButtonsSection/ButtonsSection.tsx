@@ -13,10 +13,10 @@ export default function AppViewAssistanceViewButtonsSectionComponent() {
         <Link to="/app/tools/ddns/create" className="btn btn-primary">
           Créer DDNS
         </Link>
-        <Link from={routeApi.id} to="pdf" search={(old) => old} replace className="btn btn-secondary">
+        <Link from={routeApi.id} to="pdf" search replace resetScroll={false} preload="intent" className="btn btn-secondary">
           {"Éditer l'AT"}
         </Link>
-        <Link from={routeApi.id} to="delete" search={(old) => old} replace className="btn btn-secondary">
+        <Link from={routeApi.id} to="delete" search replace resetScroll={false} preload="intent" className="btn btn-secondary">
           {"Supprimer l'AT"}
         </Link>
       </div>

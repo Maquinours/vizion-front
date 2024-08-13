@@ -8,10 +8,10 @@ export default function AppViewProductViewButtonsComponent() {
   if (user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO'))
     return (
       <div className={styles.buttons_container}>
-        <Link search={(old) => ({ ...old, productModal: 'update' })} replace resetScroll={false} className="btn btn-primary-light">
+        <Link search={(old) => ({ ...old, productModal: 'update' })} replace resetScroll={false} preload="intent" className="btn btn-primary-light">
           Modifier le produit
         </Link>
-        <Link search={(old) => ({ ...old, productModal: 'delete' })} replace resetScroll={false} className="btn btn-secondary">
+        <Link search={(old) => ({ ...old, productModal: 'delete' })} replace resetScroll={false} preload="intent" className="btn btn-secondary">
           Supprimer le produit
         </Link>
       </div>

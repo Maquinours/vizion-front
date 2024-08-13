@@ -83,7 +83,7 @@ export default function AppViewAssistanceViewCumulatedTimeCardComponent({ assist
           }}
         />
         <div className={styles.buttons_container}>
-          <Link from={routeApi.id} to="edit-cumulated-time" search={(old) => old} replace resetScroll={false}>
+          <Link from={routeApi.id} to="edit-cumulated-time" search replace resetScroll={false} preload="intent">
             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
               <g id="Groupe_2701" data-name="Groupe 2701" transform="translate(-1396 -249)">
                 <g id="Ellipse_148" data-name="Ellipse 148" transform="translate(1396 249)" fill="#fff" stroke="#16204e" strokeWidth="1">

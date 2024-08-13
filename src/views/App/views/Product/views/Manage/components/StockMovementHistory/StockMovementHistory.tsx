@@ -70,7 +70,7 @@ export default function AppViewProductViewManageViewStockMovementHistoryComponen
       <div className={styles.container}>
         <div className={styles.button_container}>
           <RefreshButtonComponent className="btn btn-primary" style={{ marginLeft: '0.5rem' }} onRefresh={() => refetch()} isRefreshing={isRefetching} />
-          <select defaultValue={5} value={size} onChange={onSizeChange}>
+          <select defaultValue={5} value={size} onChange={onSizeChange} className={styles.size_select}>
             {sizeOptions.map((el) => (
               <option key={el} value={el}>
                 {el}

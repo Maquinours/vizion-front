@@ -1,6 +1,17 @@
 @import '../AssociatedProducts/AssociatedProducts.module.scss';
 
 .container {
+  .button_container>.size_select {
+    background: #f2f3f8 0% 0% no-repeat padding-box;
+    border: .5px solid #16204e;
+    border-radius: 5px;
+    height: 28px;
+    width: auto;
+    outline: none;
+    padding-left: .5rem;
+    font: 14px/18px DIN2014;
+  }
+
   .table {
     .container {
       table {
@@ -44,6 +55,7 @@
 
         tbody {
           td {
+
             &:nth-child(6),
             &:nth-child(4),
             &:nth-child(5) {

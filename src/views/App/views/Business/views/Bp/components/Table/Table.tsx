@@ -122,24 +122,27 @@ export default function AppViewBusinessViewBpViewTableComponent() {
                   })
                   .map((serialNumber) => {
                     const createdDate = serialNumber.createdDate ? new Date(serialNumber.createdDate) : undefined;
-                    const version =
-                      serialNumber.numSerie.toUpperCase().startsWith('B0') && createdDate
-                        ? NVR_VERSIONS.find((version) => version.date <= createdDate)
-                        : undefined;
+                    const { isNvr, version } = (() => {
+                      const isNvr = serialNumber.numSerie.toUpperCase().startsWith('B0');
+                      const version = isNvr && !!createdDate ? NVR_VERSIONS.find((version) => version.date <= createdDate) : undefined;
+                      return { isNvr, version };
+                    })();
                     return (
-                      <li key={serialNumber.id} onContextMenu={(e) => onSerialNumberContextMenu(e, serialNumber)}>
+                      <li key={serialNumber.id} onContextMenu={(e) => onSerialNumberContextMenu(e, serialNumber)} className="flex justify-center gap-x-1">
                         <span>{serialNumber.numSerie}</span>
-                        {version && (
+                        {isNvr && (
                           <>
-                            <a
-                              href={version.patchNoteUrl}
-                              target="_blank"
-                              rel="noreferrer"
-                              title={version.title}
-                              className="mx-1 rounded-md bg-[#f24c52] p-1 text-xs text-white"
-                            >
-                              {version.name}
-                            </a>
+                            {!!version && (
+                              <a
+                                href={version.patchNoteUrl}
+                                target="_blank"
+                                rel="noreferrer"
+                                title={version.title}
+                                className="mx-1 rounded-md bg-[#f24c52] p-1 text-xs text-white"
+                              >
+                                {version.name}
+                              </a>
+                            )}
                             <a
                               href={`https://myvizeo.fr/webproxy/home?id=${serialNumber.numSerie}`}
                               target="_blank"
