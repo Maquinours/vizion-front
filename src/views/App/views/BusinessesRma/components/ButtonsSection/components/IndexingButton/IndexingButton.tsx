@@ -1,11 +1,15 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { indexAllBusinesses } from '../../../../../../../../utils/api/allBusiness';
 import { toast } from 'react-toastify';
+import { queries } from '../../../../../../../../utils/constants/queryKeys';
 
 export default function AppViewBusinessesRmaViewButtonsSectionComponentIndexingButtonComponent() {
+  const queryClient = useQueryClient();
+
   const { mutate, isPending } = useMutation({
     mutationFn: () => indexAllBusinesses(),
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: queries['all-businesses']._def });
       toast.success('Les affaires ont été indexées avec succès');
     },
     onError: (error) => {
