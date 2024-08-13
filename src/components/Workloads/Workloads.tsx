@@ -40,7 +40,7 @@ export default function WorkloadsComponent({ associatedItemType, associatedItemI
         cell: ({ row: { original } }) => (
           <div className={styles.content_tooltip}>
             {original.mailId ? (
-              <Link {...emailLink(original)}>
+              <Link {...emailLink(original)} preload="intent">
                 {parse(DOMPurify.sanitize(original.content ?? ''))}
                 <p className="text-secondary">
                   À : {original.receiver?.to?.toString()?.split(';').join(' ')} {original.receiver?.cc?.toString()}

@@ -5,6 +5,7 @@ import Page from '../../../../../../utils/types/Page';
 import TaskResponseDto from '../../../../../../utils/types/TaskResponseDto';
 import LoaderModal from '../../../../../../components/LoaderModal/LoaderModal';
 import { redirect } from '@tanstack/react-router';
+import { emails } from '../../../../../../utils/constants/queryKeys/email';
 
 export const Route = createFileRoute('/app/businesses-rma/business/$businessId/dashboard/task-email/$taskId')({
   loader: async ({ context: { queryClient }, params: { taskId } }) => {
@@ -13,7 +14,7 @@ export const Route = createFileRoute('/app/businesses-rma/business/$businessId/d
 
     let initialDataKey: QueryKey | undefined;
 
-    queryClient.ensureQueryData({
+    const task = await queryClient.ensureQueryData({
       ...queries.tasks.detail(taskId),
       initialData: () => {
         for (const [key, value] of queryClient.getQueriesData<Page<TaskResponseDto>>({ queryKey: queries.tasks.page.queryKey })) {
@@ -26,6 +27,8 @@ export const Route = createFileRoute('/app/businesses-rma/business/$businessId/d
       },
       initialDataUpdatedAt: initialDataKey ? queryClient.getQueryState(initialDataKey)?.dataUpdatedAt : undefined,
     });
+    if (!task?.mailId) throw redirect({ from: Route.id, to: '../..', search: true, replace: true, resetScroll: false });
+    await queryClient.ensureQueryData(emails.detail(task.mailId));
   },
   pendingComponent: LoaderModal,
 });

@@ -1,10 +1,10 @@
-import { createFileRoute, notFound } from '@tanstack/react-router';
+import { QueryKey } from '@tanstack/react-query';
+import { createFileRoute, redirect } from '@tanstack/react-router';
+import LoaderModal from '../../../../components/LoaderModal/LoaderModal';
 import { queries } from '../../../../utils/constants/queryKeys';
 import { emails } from '../../../../utils/constants/queryKeys/email';
-import { QueryKey } from '@tanstack/react-query';
-import TaskResponseDto from '../../../../utils/types/TaskResponseDto';
 import Page from '../../../../utils/types/Page';
-import LoaderModal from '../../../../components/LoaderModal/LoaderModal';
+import TaskResponseDto from '../../../../utils/types/TaskResponseDto';
 
 export const Route = createFileRoute('/app/dashboard/task-email/$taskId')({
   loader: async ({ context: { queryClient }, params: { taskId } }) => {
@@ -30,7 +30,7 @@ export const Route = createFileRoute('/app/dashboard/task-email/$taskId')({
       initialDataUpdatedAt: () => (initialDataKey ? queryClient.getQueryState(initialDataKey)?.dataUpdatedAt : undefined),
     });
     const emailId = task.mailId;
-    if (!emailId) throw notFound();
+    if (!emailId) throw redirect({ from: Route.id, to: '../..', search: true, replace: true, resetScroll: false });
 
     await queryClient.ensureQueryData(emails.detail(emailId));
   },

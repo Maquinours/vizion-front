@@ -211,13 +211,14 @@ export default function AppViewBusinessViewDashboardView() {
                       search={(old) => old}
                       replace
                       resetScroll={false}
+                      preload="intent"
                       className="btn btn-primary"
                       style={{ marginRight: '10px' }}
                     >
                       Modifier le représentant
                     </Link>
                   )}
-                  <Link from={routeApi.id} to="address-book" search={(old) => old} replace resetScroll={false} className="btn btn-primary">
+                  <Link from={routeApi.id} to="address-book" search={(old) => old} replace resetScroll={false} preload="intent" className="btn btn-primary">
                     Carnet d&apos;adresse
                   </Link>
                 </div>
