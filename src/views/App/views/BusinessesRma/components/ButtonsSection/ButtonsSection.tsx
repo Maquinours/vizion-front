@@ -1,13 +1,16 @@
 import { Link, getRouteApi } from '@tanstack/react-router';
 import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthentifiedUser';
 import styles from './ButtonsSection.module.scss';
+import AppViewBusinessesRmaViewButtonsSectionComponentIndexingButtonComponent from './components/IndexingButton/IndexingButton';
 
 const routeApi = getRouteApi('/app/businesses-rma');
 
 export default function AppViewBusinessesRmaViewButtonsSectionComponent() {
   const { data: user } = useAuthentifiedUserQuery();
+
   return (
     <div className={styles.buttons_container}>
+      {user.userInfo.roles.includes('ROLE_ADMIN_VIZION') && <AppViewBusinessesRmaViewButtonsSectionComponentIndexingButtonComponent />}
       {user.userInfo.roles.includes('ROLE_REPRESENTANT') && (
         <Link
           from={routeApi.id}
