@@ -17,6 +17,7 @@ export default function AppViewBusinessViewDashboardViewBillingAddressComponent(
     <div className={styles.container}>
       <CardComponent
         title="Adresse de facturation"
+        className="h-full"
         editLink={
           !business.archived && user.userInfo.roles.includes('ROLE_DIRECTION_VIZEO')
             ? {

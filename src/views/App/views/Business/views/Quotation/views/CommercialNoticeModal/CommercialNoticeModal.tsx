@@ -7,6 +7,8 @@ import { queries } from '../../../../../../../../utils/constants/queryKeys';
 import styles from './CommercialNoticeModal.module.scss';
 import { formatFileName } from '../../../../../../../../utils/functions/files';
 
+import '@react-pdf-viewer/core/lib/styles/index.css';
+
 const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/quotation/commercial-notice');
 
 export default function AppViewBusinessViewQuotationViewCommercialNoticeModalView() {
