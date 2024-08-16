@@ -5,7 +5,7 @@
   margin-top: 1rem;
   padding-bottom: 0.1rem;
 
-  > table {
+  >table {
     width: 100%;
     min-width: 1000px;
     opacity: 1;
@@ -13,7 +13,7 @@
     border: 1px solid var(--primary-color);
     table-layout: auto;
 
-    > thead {
+    >thead {
       display: table;
       width: 100%;
       table-layout: fixed;
@@ -55,12 +55,12 @@
       margin: 1rem 0;
     }
 
-    > tbody {
+    >tbody {
       display: block;
       max-height: 75vh;
       overflow-y: scroll;
 
-      > tr {
+      >tr {
         vertical-align: top;
         background-color: #fff;
         display: table;
@@ -68,7 +68,7 @@
         table-layout: fixed;
         cursor: pointer;
 
-        > td {
+        >td {
           padding: 1rem;
           text-align: center;
           vertical-align: middle;
@@ -93,28 +93,18 @@
         }
       }
 
-      > tr:hover {
+      >tr:hover {
         background-color: #e5e5e5;
 
-        > td {
+        >td {
           transform: scale(0.95);
           font-weight: 600;
         }
       }
 
-      > tr:nth-child(2n + 1) {
+      >tr:nth-child(2n + 1) {
         background: #f2f3f8 0% 0% no-repeat padding-box;
         opacity: 1;
-      }
-    }
-
-    @include respond-below(md) {
-      table-layout: auto;
-
-      > tbody > tr > td {
-        &:nth-child(2) {
-          min-width: 300px;
-        }
       }
     }
   }
