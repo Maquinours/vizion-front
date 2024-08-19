@@ -26,6 +26,7 @@ import AppViewBusinessViewDashboardViewQuotationButtonComponent from './componen
 import AppViewBusinessViewDashboardViewResponsibleComponent from './components/Responsible/Responsible';
 import AppViewBusinessViewDashboardViewTransferDataButtonComponent from './components/TransferDataButton/TransferDataButton';
 import { BusinessDashboardContext } from './utils/contexts/context';
+import { HiPencilAlt } from 'react-icons/hi';
 
 const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/dashboard');
 
@@ -203,20 +204,16 @@ export default function AppViewBusinessViewDashboardView() {
                     Catégorie : <span>{business.enterpriseCategory}</span>
                   </p>
                 </div>
-                <div>
+                <div className="flex gap-x-3">
                   {user.userInfo.roles.includes('ROLE_DIRECTION_VIZEO') && (
-                    <Link
-                      from={routeApi.id}
-                      to="update-representative"
-                      search={(old) => old}
-                      replace
-                      resetScroll={false}
-                      preload="intent"
-                      className="btn btn-primary"
-                      style={{ marginRight: '10px' }}
-                    >
-                      Modifier le représentant
-                    </Link>
+                    <div className="flex gap-x-1">
+                      <span className="m-auto font-[DIN2014] text-sm">
+                        Représentant : <span className="font-bold text-[var(--primary-color)]">{business.representativeName || 'Aucun'}</span>
+                      </span>
+                      <Link from={routeApi.id} to="update-representative" search replace resetScroll={false} preload="intent" className="m-auto flex">
+                        <HiPencilAlt className="text-[var(--primary-color)]" />
+                      </Link>
+                    </div>
                   )}
                   <Link from={routeApi.id} to="address-book" search={(old) => old} replace resetScroll={false} preload="intent" className="btn btn-primary">
                     Carnet d&apos;adresse
