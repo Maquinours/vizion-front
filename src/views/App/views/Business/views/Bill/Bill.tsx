@@ -30,8 +30,8 @@ export default function AppViewBusinessViewBillView() {
         numOrder: business.numOrder,
         businessId: business.id,
       }),
-    onSuccess: (data) => {
-      queryClient.setQueryData(queries['business-bills'].list._ctx.byBusinessId(businessId).queryKey, data);
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: queries['business-bills']._def });
       toast.success('La facture a été rafraîchie avec succès');
     },
     onError: (error) => {
