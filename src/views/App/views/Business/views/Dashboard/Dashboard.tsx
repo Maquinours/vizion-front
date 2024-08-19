@@ -156,7 +156,7 @@ export default function AppViewBusinessViewDashboardView() {
       <div className={styles.container}>
         <div className={styles.headers_buttons}>
           {(business.state === BusinessState.DEVIS || business.state === BusinessState.CREATED) && !business.archived && (
-            <Link from={routeApi.id} to="delete" search={(old) => old} replace resetScroll={false} className="btn btn-secondary">
+            <Link from={routeApi.id} to="delete" search replace resetScroll={false} className="btn btn-secondary">
               <FaTrash color="#FFF" width={14} height={14} />
               Supprimer cette affaire
             </Link>
@@ -168,7 +168,7 @@ export default function AppViewBusinessViewDashboardView() {
           {!business.archived && (
             <div className={styles.right_buttons}>
               {user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && (
-                <Link from={routeApi.id} to="send-email" search={(old) => old} replace resetScroll={false} className="btn btn-primary">
+                <Link from={routeApi.id} to="send-email" search replace resetScroll={false} className="btn btn-primary">
                   Envoyer un mail
                 </Link>
               )}
@@ -215,7 +215,7 @@ export default function AppViewBusinessViewDashboardView() {
                       </Link>
                     </div>
                   )}
-                  <Link from={routeApi.id} to="address-book" search={(old) => old} replace resetScroll={false} preload="intent" className="btn btn-primary">
+                  <Link from={routeApi.id} to="address-book" search replace resetScroll={false} preload="intent" className="btn btn-primary">
                     Carnet d&apos;adresse
                   </Link>
                 </div>
