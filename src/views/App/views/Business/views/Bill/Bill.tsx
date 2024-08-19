@@ -3,7 +3,7 @@ import { queries } from '../../../../../../utils/constants/queryKeys';
 import { Link, Outlet, getRouteApi } from '@tanstack/react-router';
 import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthentifiedUser';
 import styles from './Bill.module.scss';
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import BillType from '../../../../../../utils/enums/BillType';
 import { PDFDownloadLink, PDFViewer } from '@react-pdf/renderer';
 import AppViewBusinessViewBillViewPdfComponent from './components/Pdf/Pdf';
@@ -40,6 +40,15 @@ export default function AppViewBusinessViewBillView() {
     },
   });
 
+  useEffect(() => {
+    if (!!bill && !bill.totalAmountHT) {
+      const toastId = toast.warning("Une erreur est survenue et la facture n'est pas conforme. (Total HT à 0)", { autoClose: false });
+      return () => {
+        toast.dismiss(toastId);
+      };
+    }
+  }, [bill]);
+
   return (
     <>
       <div className={styles.container}>
@@ -50,7 +59,7 @@ export default function AppViewBusinessViewBillView() {
             </Link>
           </div>
         )}
-        {bill && (
+        {!!bill && (
           <div className={styles.pdf_container}>
             <div className={styles.title}>Facture : {bill.number}</div>
 
