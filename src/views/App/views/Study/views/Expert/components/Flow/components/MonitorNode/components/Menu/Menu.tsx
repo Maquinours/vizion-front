@@ -1,10 +1,11 @@
-import { NodeToolbar, Position, useReactFlow } from '@xyflow/react';
+import { NodeToolbar, Position, useReactFlow, useViewport } from '@xyflow/react';
 import { AiOutlineClose, AiTwotoneSetting } from 'react-icons/ai';
 import ProductProductResponseDto from '../../../../../../../../../../../../utils/types/ProductProductResponseDto';
 import ProductResponseDto from '../../../../../../../../../../../../utils/types/ProductResponseDto';
 import { ExpertStudyMonitorNode } from '../../MonitorNode';
 import { OnValueChange } from 'react-number-format';
 import AmountFormat from '../../../../../../../../../../../../components/AmountFormat/AmountFormat';
+import { useMemo } from 'react';
 
 type Option = {
   product: ProductProductResponseDto;
@@ -16,14 +17,19 @@ type AppViewStudyViewExpertViewFlowComponentMonitorNodeComponentMenuComponentPro
   data: ExpertStudyMonitorNode['data'];
   nodeId: string;
   onClose: () => void;
+  nodeHeight: number | undefined;
+  nodePositionY: number;
 }>;
 export default function AppViewStudyViewExpertViewFlowComponentMonitorNodeComponentMenuComponent({
   product,
   data,
   nodeId,
   onClose,
+  nodeHeight,
+  nodePositionY,
 }: AppViewStudyViewExpertViewFlowComponentMonitorNodeComponentMenuComponentProps) {
-  const { updateNodeData } = useReactFlow();
+  const { updateNodeData, flowToScreenPosition } = useReactFlow();
+  const { y: viewportY, zoom: viewportZoom } = useViewport();
 
   const quantity = data.quantity ?? 1;
 
@@ -33,6 +39,16 @@ export default function AppViewStudyViewExpertViewFlowComponentMonitorNodeCompon
       quantity: data.options.find((opt) => opt.id === option.id)?.quantity ?? 0,
     }))
     .sort((a, b) => (a.product.reference ?? '').localeCompare(b.product.reference ?? ''));
+
+  const position = useMemo(() => {
+    if (nodeHeight !== undefined) {
+      const flowRect = document.querySelector('.react-flow')!.getBoundingClientRect();
+      const flowCenterY = flowRect.y + flowRect.height / 2;
+      const nodeCenter = flowToScreenPosition({ x: 0, y: nodePositionY + nodeHeight / 2 });
+      if (nodeCenter.y >= flowCenterY) return Position.Top;
+    }
+    return Position.Bottom;
+  }, [viewportY, viewportZoom, nodePositionY, nodeHeight]);
 
   const onNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     updateNodeData(nodeId, { name: e.target.value });
@@ -69,7 +85,7 @@ export default function AppViewStudyViewExpertViewFlowComponentMonitorNodeCompon
   };
 
   return (
-    <NodeToolbar position={Position.Bottom} align="center" className="nopan rounded-md border-2 border-[#1a192b] bg-slate-50 px-2">
+    <NodeToolbar position={position} align="center" className="nopan rounded-md border-2 border-[#1a192b] bg-slate-50 px-2">
       <div className="flex items-center justify-between border-b-2 border-b-[#1a192b] p-2">
         <div className="flex items-center justify-center space-x-2">
           <AiTwotoneSetting className="fill-[#1a192b]" />

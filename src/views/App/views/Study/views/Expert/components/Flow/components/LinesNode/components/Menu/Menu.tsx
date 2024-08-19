@@ -1,9 +1,10 @@
-import { NodeToolbar, useReactFlow } from '@xyflow/react';
-import { HexColorPicker } from 'react-colorful';
-import { ExpertStudyLinesNode } from '../../LinesNode';
-import useStore, { RFState } from '../../../../utils/store';
-import { useShallow } from 'zustand/react/shallow';
 import { ClickAwayListener } from '@mui/material';
+import { NodeToolbar, Position, useReactFlow } from '@xyflow/react';
+import { useMemo } from 'react';
+import { HexColorPicker } from 'react-colorful';
+import { useShallow } from 'zustand/react/shallow';
+import useStore, { RFState } from '../../../../utils/store';
+import { ExpertStudyLinesNode } from '../../LinesNode';
 
 const selector = (state: RFState) => ({
   pageType: state.pages[state.currentPage]?.type,
@@ -29,6 +30,13 @@ export default function AppViewStudyViewExpertViewFlowComponentLinesNodeComponen
   const dasharray = data.dasharray ?? 4;
   const obstacle = data.obstacle ?? true;
 
+  const yPosition = useMemo(() => {
+    const flowRect = document.querySelector('.react-flow')!.getBoundingClientRect();
+    const flowCenterY = flowRect.height / 2;
+    if (position.top >= flowCenterY) return Position.Top;
+    return Position.Bottom;
+  }, [position.top]);
+
   const onChangeColor = (color: string) => {
     updateNodeData(nodeId, { ...data, color });
   };
@@ -42,7 +50,11 @@ export default function AppViewStudyViewExpertViewFlowComponentLinesNodeComponen
   };
 
   return (
-    <NodeToolbar isVisible style={{ transform: `translate(${position.left}px, ${position.top}px)`, zIndex: 1 }} className="nopan nodrag bg-white text-center">
+    <NodeToolbar
+      isVisible
+      style={{ transform: `translate(${position.left}px, ${position.top}px) translate(0%, ${yPosition === Position.Top ? '-100%' : '0%'})`, zIndex: 1 }}
+      className="nopan nodrag bg-white text-center"
+    >
       <ClickAwayListener mouseEvent="onPointerDown" onClickAway={onClose}>
         <div className="flex flex-col gap-y-1">
           <HexColorPicker onChange={onChangeColor} color={color} />

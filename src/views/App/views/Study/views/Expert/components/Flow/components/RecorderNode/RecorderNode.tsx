@@ -47,7 +47,13 @@ export type ExpertStudyRecorderNode = Node<
   },
   'recorder'
 >;
-export default function AppViewStudyViewExpertViewFlowComponentRecorderNodeComponent({ id, selected, data }: NodeProps<ExpertStudyRecorderNode>) {
+export default function AppViewStudyViewExpertViewFlowComponentRecorderNodeComponent({
+  id,
+  selected,
+  data,
+  positionAbsoluteY,
+  height,
+}: NodeProps<ExpertStudyRecorderNode>) {
   const { setNodes, updateNodeData } = useReactFlow();
 
   const {
@@ -148,6 +154,8 @@ export default function AppViewStudyViewExpertViewFlowComponentRecorderNodeCompo
               product={product}
               data={data}
               onClose={() => setShowMenu(false)}
+              nodePositionY={positionAbsoluteY}
+              nodeHeight={height}
             />
           )}
         </div>

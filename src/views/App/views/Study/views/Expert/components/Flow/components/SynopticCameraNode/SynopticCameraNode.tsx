@@ -2,9 +2,9 @@ import { ClickAwayListener } from '@mui/material';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { Handle, Node, NodeProps, NodeResizer, OnResize, Position, useReactFlow } from '@xyflow/react';
 import React, { ReactEventHandler, useState } from 'react';
+import AmountFormat from '../../../../../../../../../../components/AmountFormat/AmountFormat';
 import { queries } from '../../../../../../../../../../utils/constants/queryKeys';
 import AppViewStudyViewExpertViewFlowComponentSynopticCameraNodeComponentMenuComponent from './components/Menu/Menu';
-import AmountFormat from '../../../../../../../../../../components/AmountFormat/AmountFormat';
 
 export const isExpertStudySynopticCameraNode = (node: Node): node is ExpertStudySynopticCameraNode => {
   return (
@@ -47,7 +47,13 @@ export type ExpertStudySynopticCameraNode = Node<
   },
   'synopticCamera'
 >;
-export default function AppViewStudyViewExpertViewFlowComponentSynopticCameraNodeComponent({ id, selected, data }: NodeProps<ExpertStudySynopticCameraNode>) {
+export default function AppViewStudyViewExpertViewFlowComponentSynopticCameraNodeComponent({
+  id,
+  selected,
+  data,
+  positionAbsoluteY,
+  height,
+}: NodeProps<ExpertStudySynopticCameraNode>) {
   const { setNodes, updateNodeData } = useReactFlow();
 
   const {
@@ -144,6 +150,8 @@ export default function AppViewStudyViewExpertViewFlowComponentSynopticCameraNod
               product={product}
               data={data}
               onClose={() => setShowMenu(false)}
+              nodePositionY={positionAbsoluteY}
+              nodeHeight={height}
             />
           )}
         </div>

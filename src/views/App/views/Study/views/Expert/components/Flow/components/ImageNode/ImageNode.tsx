@@ -1,19 +1,7 @@
 import { ClickAwayListener } from '@mui/material';
-import {
-  Handle,
-  Node,
-  NodeProps,
-  NodeResizer,
-  NodeToolbar,
-  OnResize,
-  Position,
-  ReactFlowState,
-  useReactFlow,
-  useStore,
-  useUpdateNodeInternals,
-} from '@xyflow/react';
+import { Handle, Node, NodeProps, NodeResizer, OnResize, Position, ReactFlowState, useReactFlow, useStore, useUpdateNodeInternals } from '@xyflow/react';
 import { ReactEventHandler, useRef, useState } from 'react';
-import { AiOutlineClose, AiTwotoneSetting } from 'react-icons/ai';
+import AppViewStudyViewExpertViewFlowComponentImageNodeComponentMenuComponent from './components/Menu/Menu';
 
 export const isExpertStudyImageNode = (node: Node): node is ExpertStudyImageNode => {
   return (
@@ -68,17 +56,19 @@ export type ExpertStudyImageNode = Node<
   },
   'image'
 >;
-export default function AppViewStudyViewExpertViewFlowComponentImageNodeComponent({ id, selected, data }: NodeProps<ExpertStudyImageNode>) {
+export default function AppViewStudyViewExpertViewFlowComponentImageNodeComponent({
+  id,
+  selected,
+  data,
+  height,
+  positionAbsoluteY,
+}: NodeProps<ExpertStudyImageNode>) {
   const isConnectable = useStore(getIsConnectable);
   const { setNodes, updateNodeData } = useReactFlow();
   const updateNodeInternals = useUpdateNodeInternals();
 
   const onResize: OnResize = (_event, params) => {
     updateNodeData(id, { size: { width: params.width, height: params.height } });
-  };
-
-  const onOpacityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    updateNodeData(id, { opacity: Number(e.target.value) });
   };
 
   const [showMenu, setShowMenu] = useState(false);
@@ -163,22 +153,15 @@ export default function AppViewStudyViewExpertViewFlowComponentImageNodeComponen
             />
           </div>
         </div>
-        <NodeToolbar isVisible={showMenu} position={Position.Bottom} align="center" className="nopan rounded-md border-2 border-[#1a192b] bg-slate-50 px-2">
-          <div className="flex items-center justify-between p-2">
-            <div className="flex items-center justify-center space-x-2">
-              <AiTwotoneSetting className="fill-[#1a192b]" />
-              <h3 className="text-sm font-bold text-[#1a192b]">Paramétrage de votre image</h3>
-            </div>
-            <AiOutlineClose className="fill-[#1a192b]" onClick={() => setShowMenu(false)} />
-          </div>
-          <div>
-            <div className="flex gap-x-1 border-t-2 border-t-[#1a192b] px-2 pb-2">
-              <label>Opacité :</label>
-              <input type={'range'} min={10} max={100} value={opacity} onChange={onOpacityChange} className="flex-auto" />
-              <p>{opacity}%</p>
-            </div>
-          </div>
-        </NodeToolbar>
+        {showMenu && (
+          <AppViewStudyViewExpertViewFlowComponentImageNodeComponentMenuComponent
+            nodeId={id}
+            data={data}
+            onClose={() => setShowMenu(false)}
+            nodeHeight={height}
+            nodePositionY={positionAbsoluteY}
+          />
+        )}
       </div>
     </ClickAwayListener>
   );

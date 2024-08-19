@@ -46,7 +46,13 @@ export type ExpertStudyMonitorNode = Node<
   },
   'monitor'
 >;
-export default function AppViewStudyViewExpertViewFlowComponentMonitorNodeComponent({ id, selected, data }: NodeProps<ExpertStudyMonitorNode>) {
+export default function AppViewStudyViewExpertViewFlowComponentMonitorNodeComponent({
+  id,
+  selected,
+  data,
+  positionAbsoluteY,
+  height,
+}: NodeProps<ExpertStudyMonitorNode>) {
   const { updateNodeData, setNodes } = useReactFlow();
 
   const {
@@ -156,6 +162,8 @@ export default function AppViewStudyViewExpertViewFlowComponentMonitorNodeCompon
               data={data}
               nodeId={id}
               onClose={() => setShowMenu(false)}
+              nodePositionY={positionAbsoluteY}
+              nodeHeight={height}
             />
           )}
         </div>

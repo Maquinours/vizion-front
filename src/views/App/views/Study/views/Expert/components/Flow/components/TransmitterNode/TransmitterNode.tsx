@@ -47,7 +47,13 @@ export type ExpertStudyTransmitterNode = Node<
   },
   'transmitter'
 >;
-export default function AppViewStudyViewExpertViewFlowComponentTransmitterNodeComponent({ id, selected, data }: NodeProps<ExpertStudyTransmitterNode>) {
+export default function AppViewStudyViewExpertViewFlowComponentTransmitterNodeComponent({
+  id,
+  selected,
+  data,
+  positionAbsoluteY,
+  height,
+}: NodeProps<ExpertStudyTransmitterNode>) {
   const { setNodes, updateNodeData } = useReactFlow();
 
   const {
@@ -148,6 +154,8 @@ export default function AppViewStudyViewExpertViewFlowComponentTransmitterNodeCo
               product={product}
               data={data}
               onClose={() => setShowMenu(false)}
+              nodePositionY={positionAbsoluteY}
+              nodeHeight={height}
             />
           )}
         </div>

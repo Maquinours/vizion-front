@@ -1,11 +1,11 @@
-import { NodeToolbar, Position, useReactFlow } from '@xyflow/react';
-import React from 'react';
+import { NodeToolbar, Position, useReactFlow, useViewport } from '@xyflow/react';
+import React, { useMemo } from 'react';
 import { AiOutlineClose, AiTwotoneSetting } from 'react-icons/ai';
+import { OnValueChange } from 'react-number-format';
+import AmountFormat from '../../../../../../../../../../../../components/AmountFormat/AmountFormat';
 import ProductProductResponseDto from '../../../../../../../../../../../../utils/types/ProductProductResponseDto';
 import ProductResponseDto from '../../../../../../../../../../../../utils/types/ProductResponseDto';
 import { ExpertStudySynopticCameraNode } from '../../SynopticCameraNode';
-import AmountFormat from '../../../../../../../../../../../../components/AmountFormat/AmountFormat';
-import { OnValueChange } from 'react-number-format';
 
 type Option = {
   product: ProductProductResponseDto;
@@ -17,14 +17,19 @@ type AppViewStudyViewExpertViewFlowComponentSynopticCameraNodeComponentMenuCompo
   product: ProductResponseDto;
   data: ExpertStudySynopticCameraNode['data'];
   onClose: () => void;
+  nodePositionY: number;
+  nodeHeight: number | undefined;
 }>;
 export default function AppViewStudyViewExpertViewFlowComponentSynopticCameraNodeComponentMenuComponent({
   nodeId,
   product,
   data,
   onClose,
+  nodePositionY,
+  nodeHeight,
 }: AppViewStudyViewExpertViewFlowComponentSynopticCameraNodeComponentMenuComponentProps) {
-  const { updateNodeData } = useReactFlow();
+  const { updateNodeData, flowToScreenPosition } = useReactFlow();
+  const { y: viewportY, zoom: viewportZoom } = useViewport();
 
   const options: Array<Option> | undefined = product.associatedProduct
     ?.map((option) => ({
@@ -34,6 +39,16 @@ export default function AppViewStudyViewExpertViewFlowComponentSynopticCameraNod
     .sort((a, b) => (a.product.reference ?? '').localeCompare(b.product.reference ?? ''));
 
   const quantity = data.quantity ?? 1;
+
+  const position = useMemo(() => {
+    if (nodeHeight !== undefined) {
+      const flowRect = document.querySelector('.react-flow')!.getBoundingClientRect();
+      const flowCenterY = flowRect.y + flowRect.height / 2;
+      const nodeCenter = flowToScreenPosition({ x: 0, y: nodePositionY + nodeHeight / 2 });
+      if (nodeCenter.y >= flowCenterY) return Position.Top;
+    }
+    return Position.Bottom;
+  }, [viewportY, viewportZoom, nodePositionY, nodeHeight]);
 
   const onNodeNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     updateNodeData(nodeId, { name: e.target.value });
@@ -70,7 +85,7 @@ export default function AppViewStudyViewExpertViewFlowComponentSynopticCameraNod
   };
 
   return (
-    <NodeToolbar position={Position.Bottom} align="center" className="nopan rounded-md border-2 border-[#1a192b] bg-slate-50 px-2">
+    <NodeToolbar position={position} align="center" className="nopan rounded-md border-2 border-[#1a192b] bg-slate-50 px-2">
       <div className="text-center">
         <div className="flex items-center justify-between border-b-2 border-b-[#1a192b] p-2">
           <AiTwotoneSetting className="fill-[#1a192b]" />
@@ -127,19 +142,19 @@ export default function AppViewStudyViewExpertViewFlowComponentSynopticCameraNod
             </div>
           </div>
         )}
-      </div>
-      <div className="flex gap-x-1 border-t-2 border-t-[#1a192b] px-2 pb-2">
-        <label>Opacité :</label>
-        <input
-          type={'range'}
-          min={10}
-          max={100}
-          value={data.opacity}
-          onChange={onOpacityChange}
-          //  onMouseDown={saveCurrentState}
-          className="flex-auto"
-        />
-        <p>{data.opacity}%</p>
+        <div className="flex gap-x-1 border-t-2 border-t-[#1a192b] px-2 pb-2">
+          <label>Opacité :</label>
+          <input
+            type={'range'}
+            min={10}
+            max={100}
+            value={data.opacity}
+            onChange={onOpacityChange}
+            //  onMouseDown={saveCurrentState}
+            className="flex-auto"
+          />
+          <p>{data.opacity}%</p>
+        </div>
       </div>
     </NodeToolbar>
   );

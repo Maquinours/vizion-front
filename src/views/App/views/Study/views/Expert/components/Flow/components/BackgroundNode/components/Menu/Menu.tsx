@@ -1,11 +1,11 @@
-import { NodeToolbar, useReactFlow } from '@xyflow/react';
-import { useCallback } from 'react';
+import { ClickAwayListener } from '@mui/material';
+import { NodeToolbar, Position, useReactFlow } from '@xyflow/react';
+import { useCallback, useMemo } from 'react';
+import { FaTrash } from 'react-icons/fa';
 import { IoIosLock, IoIosUnlock } from 'react-icons/io';
 import { NumberFormatValues, OnValueChange } from 'react-number-format';
 import AmountFormat from '../../../../../../../../../../../../components/AmountFormat/AmountFormat';
 import { ExpertStudyBackgroundNode } from '../../BackgroundNode';
-import { ClickAwayListener } from '@mui/material';
-import { FaTrash } from 'react-icons/fa';
 
 const isScaleValueAllowed = ({ floatValue }: NumberFormatValues) => !floatValue || (floatValue >= 0 && floatValue <= 200);
 const isOpacityValueAllowed = ({ floatValue }: NumberFormatValues) => !floatValue || (floatValue >= 0 && floatValue <= 100);
@@ -26,6 +26,13 @@ export default function AppViewStudyViewExpertViewFlowComponentBackgroundNodeCom
   onClose,
 }: AppViewStudyViewExpertViewFlowComponentBackgroundNodeComponentMenuComponentProps) {
   const { updateNodeData, updateNode, deleteElements } = useReactFlow();
+
+  const yPosition = useMemo(() => {
+    const flowRect = document.querySelector('.react-flow')!.getBoundingClientRect();
+    const flowCenterY = flowRect.height / 2;
+    if (position.top >= flowCenterY) return Position.Top;
+    return Position.Bottom;
+  }, [position.top]);
 
   const onLockButtonClick = () => updateNode(nodeId, { draggable: !draggable });
 
@@ -67,7 +74,11 @@ export default function AppViewStudyViewExpertViewFlowComponentBackgroundNodeCom
   };
 
   return (
-    <NodeToolbar isVisible style={{ transform: `translate(${position.left}px, ${position.top}px)`, zIndex: 1 }} className="nodrag nopan absolute left-0 top-0">
+    <NodeToolbar
+      isVisible
+      style={{ transform: `translate(${position.left}px, ${position.top}px) translate(0%, ${yPosition === Position.Top ? '-100%' : '0%'})`, zIndex: 1 }}
+      className="nodrag nopan absolute left-0 top-0"
+    >
       <ClickAwayListener mouseEvent="onPointerDown" onClickAway={onClose}>
         <div className="flex w-60 flex-col items-center rounded-md border-2 border-black bg-white p-2">
           <button onClick={onLockButtonClick} title={draggable ? 'Bloquer la position du plan' : 'Débloquer la position du plan'} className="w-full">

@@ -1,11 +1,10 @@
 import { ClickAwayListener } from '@mui/material';
 import { useSuspenseQuery } from '@tanstack/react-query';
-import { Node, NodeProps, NodeResizer, NodeToolbar, OnResize, Position, useReactFlow, useUpdateNodeInternals } from '@xyflow/react';
+import { Node, NodeProps, NodeResizer, OnResize, useReactFlow, useUpdateNodeInternals } from '@xyflow/react';
 import { ReactEventHandler, useRef, useState } from 'react';
-import { AiOutlineClose, AiTwotoneSetting } from 'react-icons/ai';
-import { queries } from '../../../../../../../../../../utils/constants/queryKeys';
 import AmountFormat from '../../../../../../../../../../components/AmountFormat/AmountFormat';
-import { OnValueChange } from 'react-number-format';
+import { queries } from '../../../../../../../../../../utils/constants/queryKeys';
+import AppViewStudyViewExpertViewFlowComponentServiceNodeComponentMenuComponent from './components/Menu/Menu';
 
 export const isExpertStudyServiceNode = (node: Node): node is ExpertStudyServiceNode => {
   return (
@@ -35,11 +34,15 @@ export type ExpertStudyServiceNode = Node<
   },
   'service'
 >;
-export default function AppViewStudyViewExpertViewFlowComponentServiceNodeComponent({ id, selected, data }: NodeProps<ExpertStudyServiceNode>) {
+export default function AppViewStudyViewExpertViewFlowComponentServiceNodeComponent({
+  id,
+  selected,
+  data,
+  positionAbsoluteY,
+  height,
+}: NodeProps<ExpertStudyServiceNode>) {
   const { setNodes, updateNodeData } = useReactFlow();
   const updateNodeInternals = useUpdateNodeInternals();
-
-  const quantity = data.quantity ?? 1;
 
   const { data: product } = useSuspenseQuery({
     ...queries.product.list,
@@ -49,10 +52,6 @@ export default function AppViewStudyViewExpertViewFlowComponentServiceNodeCompon
 
   const onResize: OnResize = (_event, params) => {
     updateNodeData(id, { size: { width: params.width, height: params.height } });
-  };
-
-  const onOpacityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    updateNodeData(id, { opacity: Number(e.target.value) });
   };
 
   const [showMenu, setShowMenu] = useState(false);
@@ -101,15 +100,6 @@ export default function AppViewStudyViewExpertViewFlowComponentServiceNodeCompon
     updateNodeData(id, { size: { width: e.currentTarget.offsetWidth, height: e.currentTarget.offsetHeight } });
   };
 
-  const onQuantityChange: OnValueChange = (v, info) => {
-    if (v.floatValue !== undefined && info.source === 'event') {
-      const quantity = v.floatValue;
-      const data: { quantity: number; opacity?: number } = { quantity: quantity };
-      if (quantity === 0) data.opacity = 50;
-      updateNodeData(id, data);
-    }
-  };
-
   if (!product) return;
 
   return (
@@ -141,34 +131,15 @@ export default function AppViewStudyViewExpertViewFlowComponentServiceNodeCompon
             />
           </div>
         </div>
-        <NodeToolbar isVisible={showMenu} position={Position.Bottom} align="center" className="nopan rounded-md border-2 border-[#1a192b] bg-slate-50 px-2">
-          <div className="flex items-center justify-between p-2">
-            <div className="flex items-center justify-center space-x-2">
-              <AiTwotoneSetting className="fill-[#1a192b]" />
-              <h3 className="text-sm font-bold text-[#1a192b]">Paramétrage de votre service</h3>
-            </div>
-            <AiOutlineClose className="fill-[#1a192b]" onClick={() => setShowMenu(false)} />
-          </div>
-          <div className="border-t-2 border-t-[#1a192b]">
-            <div className="flex items-center justify-start space-x-2 p-2">
-              <p className="flex-1 text-right text-sm">Quantité :</p>
-              <AmountFormat
-                value={quantity}
-                onValueChange={onQuantityChange}
-                allowNegative={false}
-                decimalScale={0}
-                isAllowed={(v) => v.floatValue === undefined || v.floatValue >= 0}
-                displayType="input"
-                className="flex-1 rounded-md border border-[#1a192b] p-2"
-              />
-            </div>
-            <div className="flex gap-x-1 border-t-2 border-t-[#1a192b] px-2 pb-2">
-              <label>Opacité :</label>
-              <input type="range" min={10} max={100} value={opacity} onChange={onOpacityChange} className="flex-auto" />
-              <p>{opacity}%</p>
-            </div>
-          </div>
-        </NodeToolbar>
+        {showMenu && (
+          <AppViewStudyViewExpertViewFlowComponentServiceNodeComponentMenuComponent
+            nodeId={id}
+            data={data}
+            onClose={() => setShowMenu(false)}
+            nodeHeight={height}
+            nodePositionY={positionAbsoluteY}
+          />
+        )}
       </div>
     </ClickAwayListener>
   );

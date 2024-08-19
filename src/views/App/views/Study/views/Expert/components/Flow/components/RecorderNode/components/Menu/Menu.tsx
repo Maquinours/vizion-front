@@ -1,5 +1,5 @@
 import { useQueryClient } from '@tanstack/react-query';
-import { NodeToolbar, Position, useReactFlow } from '@xyflow/react';
+import { NodeToolbar, Position, useReactFlow, useViewport } from '@xyflow/react';
 import { AiOutlineClose, AiTwotoneSetting } from 'react-icons/ai';
 import { queries } from '../../../../../../../../../../../../utils/constants/queryKeys';
 import ProductProductResponseDto from '../../../../../../../../../../../../utils/types/ProductProductResponseDto';
@@ -7,6 +7,7 @@ import ProductResponseDto from '../../../../../../../../../../../../utils/types/
 import { ExpertStudyRecorderNode } from '../../RecorderNode';
 import { OnValueChange } from 'react-number-format';
 import AmountFormat from '../../../../../../../../../../../../components/AmountFormat/AmountFormat';
+import { useMemo } from 'react';
 
 const transformProducts = [
   { reference: 'HD504PAP', toReference: 'HD504' },
@@ -27,15 +28,20 @@ type AppViewStudyViewExpertViewFlowComponentRecorderNodeComponentMenuComponentPr
   product: ProductResponseDto;
   data: ExpertStudyRecorderNode['data'];
   onClose: () => void;
+  nodeHeight: number | undefined;
+  nodePositionY: number;
 }>;
 export default function AppViewStudyViewExpertViewFlowComponentRecorderNodeComponentMenuComponent({
   nodeId,
   product,
   data,
   onClose,
+  nodeHeight,
+  nodePositionY,
 }: AppViewStudyViewExpertViewFlowComponentRecorderNodeComponentMenuComponentProps) {
   const queryClient = useQueryClient();
-  const { updateNodeData } = useReactFlow();
+  const { updateNodeData, flowToScreenPosition } = useReactFlow();
+  const { y: viewportY, zoom: viewportZoom } = useViewport();
 
   const quantity = data.quantity ?? 1;
 
@@ -45,6 +51,16 @@ export default function AppViewStudyViewExpertViewFlowComponentRecorderNodeCompo
       quantity: data.options.find((opt) => opt.id === option.id)?.quantity ?? 0,
     }))
     .sort((a, b) => (a.product.reference ?? '').localeCompare(b.product.reference ?? ''));
+
+  const position = useMemo(() => {
+    if (nodeHeight !== undefined) {
+      const flowRect = document.querySelector('.react-flow')!.getBoundingClientRect();
+      const flowCenterY = flowRect.y + flowRect.height / 2;
+      const nodeCenter = flowToScreenPosition({ x: 0, y: nodePositionY + nodeHeight / 2 });
+      if (nodeCenter.y >= flowCenterY) return Position.Top;
+    }
+    return Position.Bottom;
+  }, [viewportY, viewportZoom, nodePositionY, nodeHeight]);
 
   const onNodeNameChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const name = e.target.value;
@@ -97,7 +113,7 @@ export default function AppViewStudyViewExpertViewFlowComponentRecorderNodeCompo
   const totalHddQuantity = options?.filter((opt) => opt.product.reference?.startsWith('DD')).reduce((acc, opt) => acc + opt.quantity, 0) ?? 0;
 
   return (
-    <NodeToolbar position={Position.Bottom} align="center" className="nopan rounded-md border-2 border-[#1a192b] bg-slate-50 px-2">
+    <NodeToolbar position={position} align="center" className="nopan rounded-md border-2 border-[#1a192b] bg-slate-50 px-2">
       <div className="flex items-center justify-between border-b-2 border-b-[#1a192b] p-2">
         <div className="flex items-center justify-center space-x-2">
           <AiTwotoneSetting className="fill-[#1a192b]" />
