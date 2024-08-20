@@ -60,7 +60,7 @@ export default function LifesheetComponent({
           const content = parse(DOMPurify.sanitize(`${!!receiver ? `à [${receiver}] - ` : ''}${original.description}`));
           if (!!original.mailId)
             return (
-              <Link {...getEmailLink(original)} replace resetScroll={false} preload="intent">
+              <Link {...getEmailLink(original)} replace resetScroll={false} preload="intent" className="flex justify-center">
                 {content}
               </Link>
             );
