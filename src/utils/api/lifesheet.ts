@@ -82,3 +82,12 @@ export const createLifesheet = async (data: LifeSheetRequestDto) => {
     })
   ).data;
 };
+
+export const getLifesheetById = async (id: string) => {
+  return (
+    await privateInstance<LifeSheetResponseDto>({
+      method: 'GET',
+      url: `/life-sheet/v1/hist/find-by-id/${encodeURIComponent(id)}`,
+    })
+  ).data;
+};

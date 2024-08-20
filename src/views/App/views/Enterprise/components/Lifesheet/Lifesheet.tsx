@@ -22,6 +22,12 @@ export default function AppViewEnterpriseViewLifesheetComponent() {
         replace: true,
         resetScroll: false,
       }}
+      getEmailLink={(data) => ({
+        from: Route.id,
+        to: '/app/enterprises/$enterpriseId/lifesheet-email/$lifesheetId',
+        params: { lifesheetId: data.id },
+        search: true,
+      })}
     />
   );
 }
