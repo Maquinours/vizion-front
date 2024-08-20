@@ -94,6 +94,10 @@
           opacity: 1;
         }
 
+        &.provider {
+          background-color: rgba(159, 165, 185, 0.5);
+        }
+
         td {
           padding: 0.7rem;
           text-align: center;
