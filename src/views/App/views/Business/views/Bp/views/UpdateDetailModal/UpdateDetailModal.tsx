@@ -116,6 +116,7 @@ export default function AppViewBusinessViewBpViewUpdateDetailModalView() {
                 render={({ field: { value, onChange } }) => (
                   <CustomSelect
                     id="productVersion"
+                    placeholder="Sélectionnez une version"
                     options={productVersions}
                     isLoading={isLoadingProductVersions}
                     getOptionLabel={(opt) => opt.reference ?? ''}
