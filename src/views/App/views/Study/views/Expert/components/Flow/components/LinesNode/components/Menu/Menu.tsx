@@ -1,10 +1,29 @@
 import { ClickAwayListener } from '@mui/material';
 import { NodeToolbar, Position, useReactFlow } from '@xyflow/react';
+import { Property } from 'csstype';
 import { useMemo } from 'react';
-import { HexColorPicker } from 'react-colorful';
 import { useShallow } from 'zustand/react/shallow';
 import useStore, { RFState } from '../../../../utils/store';
 import { ExpertStudyLinesNode } from '../../LinesNode';
+import classNames from 'classnames';
+
+const PRESET_COLORS: Array<Property.BackgroundColor> = [
+  'black',
+  'silver',
+  'gray',
+  'maroon',
+  'red',
+  'purple',
+  'fuchsia',
+  'green',
+  'lime',
+  'olive',
+  'yellow',
+  'navy',
+  'blue',
+  'teal',
+  'aqua',
+];
 
 const selector = (state: RFState) => ({
   pageType: state.pages[state.currentPage]?.type,
@@ -26,7 +45,7 @@ export default function AppViewStudyViewExpertViewFlowComponentLinesNodeComponen
 
   const { pageType } = useStore(useShallow(selector));
 
-  const color = data.color ?? '#000000';
+  const color = data.color ?? 'black';
   const dasharray = data.dasharray ?? 4;
   const obstacle = data.obstacle ?? true;
 
@@ -53,17 +72,31 @@ export default function AppViewStudyViewExpertViewFlowComponentLinesNodeComponen
     <NodeToolbar
       isVisible
       style={{ transform: `translate(${position.left}px, ${position.top}px) translate(0%, ${yPosition === Position.Top ? '-100%' : '0%'})`, zIndex: 1 }}
-      className="nopan nodrag bg-white text-center"
+      className="nopan nodrag max-w-64 rounded-md border border-black bg-white text-center"
     >
       <ClickAwayListener mouseEvent="onPointerDown" onClickAway={onClose}>
-        <div className="flex flex-col gap-y-1">
-          <HexColorPicker onChange={onChangeColor} color={color} />
-          <div className="flex justify-center gap-x-1">
+        <div className="flex flex-col p-1">
+          <div className="flex flex-col gap-y-2 border-b border-black py-2">
+            <span>Couleur :</span>
+            <div className="flex flex-wrap gap-2">
+              {PRESET_COLORS.map((presetColor) => (
+                <button
+                  key={presetColor}
+                  className={classNames('h-6 w-6 rounded-md', {
+                    'border-2 border-black': color === presetColor,
+                  })}
+                  style={{ backgroundColor: presetColor }}
+                  onClick={() => onChangeColor(presetColor)}
+                />
+              ))}
+            </div>
+          </div>
+          <div className="flex justify-center gap-x-1 py-2">
             <label htmlFor="dasharray">Pointillés :</label>
             <input type="checkbox" id="dasharray" checked={!!dasharray} readOnly onClick={onChangeDasharray} />
           </div>
           {pageType === 'density' && (
-            <div className="flex justify-center gap-x-1">
+            <div className="flex justify-center gap-x-1 border-t border-black py-2">
               <label htmlFor="obstacle">Obstacle :</label>
               <input type="checkbox" id="obstacle" checked={obstacle} readOnly onClick={onChangeObstacle} />
             </div>
