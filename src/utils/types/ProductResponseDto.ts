@@ -3,8 +3,6 @@ import ProductBomDetailsResponseDto from './ProductBomDetailsResponseDto';
 import ProductProductResponseDto from './ProductProductResponseDto';
 import ProductVersionResponseDto from './ProductVersionResponseDto';
 
-type ProductProductBomDetailsResponseDto = Omit<ProductBomDetailsResponseDto, 'productBOM'>;
-
 type ProductResponseDto = {
   id: string;
   name: string | null;
@@ -29,7 +27,7 @@ type ProductResponseDto = {
   associatedProduct: ProductProductResponseDto[] | null;
   specificationProducts: AdvancedProductSpecificationProductResponseDto[] | null;
   qty: number | null;
-  productBOMDetails: ProductProductBomDetailsResponseDto[] | null;
+  productBOMDetails: ProductBomDetailsResponseDto[] | null;
   createdDate: Date;
   modifiedDate: Date | null;
   createdBy: string | null;

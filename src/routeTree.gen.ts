@@ -155,6 +155,7 @@ import { Route as AppToolsDdnsDeleteDdnsIdRouteImport } from './routes/app/tools
 import { Route as AppProductsProductIdManageCreateVersionRouteImport } from './routes/app/products_.$productId/manage/create-version/route'
 import { Route as AppProductsProductIdManageCreateStockRouteImport } from './routes/app/products_.$productId/manage/create-stock/route'
 import { Route as AppProductsProductIdManageAddSpecificationRouteImport } from './routes/app/products_.$productId/manage/add-specification/route'
+import { Route as AppProductsProductIdManageAddNomenclatureDetailRouteImport } from './routes/app/products_.$productId/manage/add-nomenclature-detail/route'
 import { Route as AppProductsProductIdManageAddAssociatedProductRouteImport } from './routes/app/products_.$productId/manage/add-associated-product/route'
 import { Route as AppProductsProductIdInformationsRenameGedObjectRouteImport } from './routes/app/products_.$productId/informations/rename-ged-object/route'
 import { Route as AppProductsProductIdInformationsImportGedFilesRouteImport } from './routes/app/products_.$productId/informations/import-ged-files/route'
@@ -197,11 +198,13 @@ import { Route as AppToolsFormationsSubscribersFormationDetailIdCreateRouteImpor
 import { Route as AppProductsProductIdManageUpdateVersionVersionIdRouteImport } from './routes/app/products_.$productId/manage/update-version.$versionId/route'
 import { Route as AppProductsProductIdManageUpdateStockStockIdRouteImport } from './routes/app/products_.$productId/manage/update-stock.$stockId/route'
 import { Route as AppProductsProductIdManageUpdateSpecificationSpecificationIdRouteImport } from './routes/app/products_.$productId/manage/update-specification.$specificationId/route'
+import { Route as AppProductsProductIdManageUpdateNomenclatureDetailNomenclatureDetailIdRouteImport } from './routes/app/products_.$productId/manage/update-nomenclature-detail.$nomenclatureDetailId/route'
 import { Route as AppProductsProductIdManageStockHistoryStockIdRouteImport } from './routes/app/products_.$productId/manage/stock-history.$stockId/route'
 import { Route as AppProductsProductIdManageRemoveAssociatedProductAssociatedProductIdRouteImport } from './routes/app/products_.$productId/manage/remove-associated-product.$associatedProductId/route'
 import { Route as AppProductsProductIdManageDeleteVersionVersionIdRouteImport } from './routes/app/products_.$productId/manage/delete-version.$versionId/route'
 import { Route as AppProductsProductIdManageDeleteStockStockIdRouteImport } from './routes/app/products_.$productId/manage/delete-stock.$stockId/route'
 import { Route as AppProductsProductIdManageDeleteSpecificationSpecificationIdRouteImport } from './routes/app/products_.$productId/manage/delete-specification.$specificationId/route'
+import { Route as AppProductsProductIdManageDeleteNomenclatureDetailNomenclatureDetailIdRouteImport } from './routes/app/products_.$productId/manage/delete-nomenclature-detail.$nomenclatureDetailId/route'
 import { Route as AppProductsProductIdManageAddSpecificationFilterIdRouteImport } from './routes/app/products_.$productId/manage/add-specification/$filterId/route'
 import { Route as AppProductsProductIdInformationsUnlinkTaskTaskIdRouteImport } from './routes/app/products_.$productId/informations/unlink-task.$taskId/route'
 import { Route as AppProductsProductIdInformationsTaskEmailTaskIdRouteImport } from './routes/app/products_.$productId/informations/task-email.$taskId/route'
@@ -1622,6 +1625,16 @@ const AppProductsProductIdManageAddSpecificationRouteRoute =
     ).then((d) => d.Route),
   )
 
+const AppProductsProductIdManageAddNomenclatureDetailRouteRoute =
+  AppProductsProductIdManageAddNomenclatureDetailRouteImport.update({
+    path: '/add-nomenclature-detail',
+    getParentRoute: () => AppProductsProductIdManageRouteRoute,
+  } as any).lazy(() =>
+    import(
+      './routes/app/products_.$productId/manage/add-nomenclature-detail/route.lazy'
+    ).then((d) => d.Route),
+  )
+
 const AppProductsProductIdManageAddAssociatedProductRouteRoute =
   AppProductsProductIdManageAddAssociatedProductRouteImport.update({
     path: '/add-associated-product',
@@ -2041,6 +2054,18 @@ const AppProductsProductIdManageUpdateSpecificationSpecificationIdRouteRoute =
     ).then((d) => d.Route),
   )
 
+const AppProductsProductIdManageUpdateNomenclatureDetailNomenclatureDetailIdRouteRoute =
+  AppProductsProductIdManageUpdateNomenclatureDetailNomenclatureDetailIdRouteImport.update(
+    {
+      path: '/update-nomenclature-detail/$nomenclatureDetailId',
+      getParentRoute: () => AppProductsProductIdManageRouteRoute,
+    } as any,
+  ).lazy(() =>
+    import(
+      './routes/app/products_.$productId/manage/update-nomenclature-detail.$nomenclatureDetailId/route.lazy'
+    ).then((d) => d.Route),
+  )
+
 const AppProductsProductIdManageStockHistoryStockIdRouteRoute =
   AppProductsProductIdManageStockHistoryStockIdRouteImport.update({
     path: '/stock-history/$stockId',
@@ -2092,6 +2117,18 @@ const AppProductsProductIdManageDeleteSpecificationSpecificationIdRouteRoute =
   ).lazy(() =>
     import(
       './routes/app/products_.$productId/manage/delete-specification.$specificationId/route.lazy'
+    ).then((d) => d.Route),
+  )
+
+const AppProductsProductIdManageDeleteNomenclatureDetailNomenclatureDetailIdRouteRoute =
+  AppProductsProductIdManageDeleteNomenclatureDetailNomenclatureDetailIdRouteImport.update(
+    {
+      path: '/delete-nomenclature-detail/$nomenclatureDetailId',
+      getParentRoute: () => AppProductsProductIdManageRouteRoute,
+    } as any,
+  ).lazy(() =>
+    import(
+      './routes/app/products_.$productId/manage/delete-nomenclature-detail.$nomenclatureDetailId/route.lazy'
     ).then((d) => d.Route),
   )
 
@@ -4340,6 +4377,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppProductsProductIdManageAddAssociatedProductRouteImport
       parentRoute: typeof AppProductsProductIdManageRouteImport
     }
+    '/app/products/$productId/manage/add-nomenclature-detail': {
+      id: '/app/products/$productId/manage/add-nomenclature-detail'
+      path: '/add-nomenclature-detail'
+      fullPath: '/app/products/$productId/manage/add-nomenclature-detail'
+      preLoaderRoute: typeof AppProductsProductIdManageAddNomenclatureDetailRouteImport
+      parentRoute: typeof AppProductsProductIdManageRouteImport
+    }
     '/app/products/$productId/manage/add-specification': {
       id: '/app/products/$productId/manage/add-specification'
       path: '/add-specification'
@@ -4872,6 +4916,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppProductsProductIdManageAddSpecificationFilterIdRouteImport
       parentRoute: typeof AppProductsProductIdManageAddSpecificationRouteImport
     }
+    '/app/products/$productId/manage/delete-nomenclature-detail/$nomenclatureDetailId': {
+      id: '/app/products/$productId/manage/delete-nomenclature-detail/$nomenclatureDetailId'
+      path: '/delete-nomenclature-detail/$nomenclatureDetailId'
+      fullPath: '/app/products/$productId/manage/delete-nomenclature-detail/$nomenclatureDetailId'
+      preLoaderRoute: typeof AppProductsProductIdManageDeleteNomenclatureDetailNomenclatureDetailIdRouteImport
+      parentRoute: typeof AppProductsProductIdManageRouteImport
+    }
     '/app/products/$productId/manage/delete-specification/$specificationId': {
       id: '/app/products/$productId/manage/delete-specification/$specificationId'
       path: '/delete-specification/$specificationId'
@@ -4905,6 +4956,13 @@ declare module '@tanstack/react-router' {
       path: '/stock-history/$stockId'
       fullPath: '/app/products/$productId/manage/stock-history/$stockId'
       preLoaderRoute: typeof AppProductsProductIdManageStockHistoryStockIdRouteImport
+      parentRoute: typeof AppProductsProductIdManageRouteImport
+    }
+    '/app/products/$productId/manage/update-nomenclature-detail/$nomenclatureDetailId': {
+      id: '/app/products/$productId/manage/update-nomenclature-detail/$nomenclatureDetailId'
+      path: '/update-nomenclature-detail/$nomenclatureDetailId'
+      fullPath: '/app/products/$productId/manage/update-nomenclature-detail/$nomenclatureDetailId'
+      preLoaderRoute: typeof AppProductsProductIdManageUpdateNomenclatureDetailNomenclatureDetailIdRouteImport
       parentRoute: typeof AppProductsProductIdManageRouteImport
     }
     '/app/products/$productId/manage/update-specification/$specificationId': {
@@ -5688,17 +5746,20 @@ export const routeTree = rootRoute.addChildren({
       AppProductsProductIdManageRouteRoute:
         AppProductsProductIdManageRouteRoute.addChildren({
           AppProductsProductIdManageAddAssociatedProductRouteRoute,
+          AppProductsProductIdManageAddNomenclatureDetailRouteRoute,
           AppProductsProductIdManageAddSpecificationRouteRoute:
             AppProductsProductIdManageAddSpecificationRouteRoute.addChildren({
               AppProductsProductIdManageAddSpecificationFilterIdRouteRoute,
             }),
           AppProductsProductIdManageCreateStockRouteRoute,
           AppProductsProductIdManageCreateVersionRouteRoute,
+          AppProductsProductIdManageDeleteNomenclatureDetailNomenclatureDetailIdRouteRoute,
           AppProductsProductIdManageDeleteSpecificationSpecificationIdRouteRoute,
           AppProductsProductIdManageDeleteStockStockIdRouteRoute,
           AppProductsProductIdManageDeleteVersionVersionIdRouteRoute,
           AppProductsProductIdManageRemoveAssociatedProductAssociatedProductIdRouteRoute,
           AppProductsProductIdManageStockHistoryStockIdRouteRoute,
+          AppProductsProductIdManageUpdateNomenclatureDetailNomenclatureDetailIdRouteRoute,
           AppProductsProductIdManageUpdateSpecificationSpecificationIdRouteRoute,
           AppProductsProductIdManageUpdateStockStockIdRouteRoute,
           AppProductsProductIdManageUpdateVersionVersionIdRouteRoute,
@@ -6536,14 +6597,17 @@ export const routeTree = rootRoute.addChildren({
       "parent": "/app/products/$productId",
       "children": [
         "/app/products/$productId/manage/add-associated-product",
+        "/app/products/$productId/manage/add-nomenclature-detail",
         "/app/products/$productId/manage/add-specification",
         "/app/products/$productId/manage/create-stock",
         "/app/products/$productId/manage/create-version",
+        "/app/products/$productId/manage/delete-nomenclature-detail/$nomenclatureDetailId",
         "/app/products/$productId/manage/delete-specification/$specificationId",
         "/app/products/$productId/manage/delete-stock/$stockId",
         "/app/products/$productId/manage/delete-version/$versionId",
         "/app/products/$productId/manage/remove-associated-product/$associatedProductId",
         "/app/products/$productId/manage/stock-history/$stockId",
+        "/app/products/$productId/manage/update-nomenclature-detail/$nomenclatureDetailId",
         "/app/products/$productId/manage/update-specification/$specificationId",
         "/app/products/$productId/manage/update-stock/$stockId",
         "/app/products/$productId/manage/update-version/$versionId"
@@ -6860,6 +6924,10 @@ export const routeTree = rootRoute.addChildren({
     },
     "/app/products/$productId/manage/add-associated-product": {
       "filePath": "app/products_.$productId/manage/add-associated-product/route.ts",
+      "parent": "/app/products/$productId/manage"
+    },
+    "/app/products/$productId/manage/add-nomenclature-detail": {
+      "filePath": "app/products_.$productId/manage/add-nomenclature-detail/route.ts",
       "parent": "/app/products/$productId/manage"
     },
     "/app/products/$productId/manage/add-specification": {
@@ -7233,6 +7301,10 @@ export const routeTree = rootRoute.addChildren({
       "filePath": "app/products_.$productId/manage/add-specification/$filterId/route.ts",
       "parent": "/app/products/$productId/manage/add-specification"
     },
+    "/app/products/$productId/manage/delete-nomenclature-detail/$nomenclatureDetailId": {
+      "filePath": "app/products_.$productId/manage/delete-nomenclature-detail.$nomenclatureDetailId/route.ts",
+      "parent": "/app/products/$productId/manage"
+    },
     "/app/products/$productId/manage/delete-specification/$specificationId": {
       "filePath": "app/products_.$productId/manage/delete-specification.$specificationId/route.ts",
       "parent": "/app/products/$productId/manage"
@@ -7251,6 +7323,10 @@ export const routeTree = rootRoute.addChildren({
     },
     "/app/products/$productId/manage/stock-history/$stockId": {
       "filePath": "app/products_.$productId/manage/stock-history.$stockId/route.ts",
+      "parent": "/app/products/$productId/manage"
+    },
+    "/app/products/$productId/manage/update-nomenclature-detail/$nomenclatureDetailId": {
+      "filePath": "app/products_.$productId/manage/update-nomenclature-detail.$nomenclatureDetailId/route.ts",
       "parent": "/app/products/$productId/manage"
     },
     "/app/products/$productId/manage/update-specification/$specificationId": {
