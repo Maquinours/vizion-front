@@ -65,7 +65,11 @@ export default function AppViewProductViewUpdateModalComponent() {
   const {
     register: stepTwoRegister,
     formState: { errors: stepTwoErrors },
+    watch: stepTwoWatch,
     setValue: stepTwoSetValue,
+    getValues: stepTwoGetValues,
+    resetField: stepTwoResetField,
+    control: stepTwoControl,
     handleSubmit: stepTwoHandleSubmit,
   } = useForm({
     resolver: yupResolver(stepTwoYupSchema),
@@ -93,7 +97,7 @@ export default function AppViewProductViewUpdateModalComponent() {
         ecoTaxDEEE: stepTwoData.ecoTax,
         publicPrice: stepTwoData.price,
         productCategoryName: stepOneData.category,
-        assistanceTime: stepTwoData.assistanceHour,
+        assistanceTime: Number(stepTwoData.assistanceHour) ?? null,
         vizeo: stepOneData.isVizeo === 'yes',
         virtualQty: stepOneData.isVirtual === 'yes',
         bom: stepOneData.isNomenclature === 'yes',
@@ -168,6 +172,11 @@ export default function AppViewProductViewUpdateModalComponent() {
             product={product}
             register={stepTwoRegister}
             errors={stepTwoErrors}
+            watch={stepTwoWatch}
+            setValue={stepTwoSetValue}
+            getValues={stepTwoGetValues}
+            resetField={stepTwoResetField}
+            control={stepTwoControl}
             onReset={() => setStep(0)}
             onSubmit={onSubmitStepTwo}
             isPending={isPending}

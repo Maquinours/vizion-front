@@ -1,23 +1,21 @@
-import { FieldErrors, UseFormRegister } from 'react-hook-form';
+import { Control, Controller, FieldErrors, UseFormGetValues, UseFormRegister, UseFormResetField, UseFormSetValue, UseFormWatch } from 'react-hook-form';
 import CardComponent from '../../../../../../../../components/Card/Card';
 import ProductResponseDto from '../../../../../../../../utils/types/ProductResponseDto';
 import { UpdateProductStepTwoSchema } from '../../UpdateModal';
 import styles from './StepTwo.module.scss';
 import { PulseLoader } from 'react-spinners';
-import React from 'react';
-
-const assistanceHours = [
-  ...Array.from({ length: 10 }, (_, i) => i + 1).map((item) => ({ value: item, label: item.toLocaleString('fr-FR', { minimumIntegerDigits: 2 }) })),
-  {
-    value: 11,
-    label: 'Plus de 10',
-  },
-];
+import React, { useEffect } from 'react';
+import AmountFormat from '../../../../../../../../components/AmountFormat/AmountFormat';
 
 type AppViewProductViewUpdateModalComponentStepTwoComponentProps = Readonly<{
   product: ProductResponseDto;
   register: UseFormRegister<UpdateProductStepTwoSchema>;
   errors: FieldErrors<UpdateProductStepTwoSchema>;
+  watch: UseFormWatch<UpdateProductStepTwoSchema>;
+  setValue: UseFormSetValue<UpdateProductStepTwoSchema>;
+  getValues: UseFormGetValues<UpdateProductStepTwoSchema>;
+  resetField: UseFormResetField<UpdateProductStepTwoSchema>;
+  control: Control<UpdateProductStepTwoSchema>;
   onReset: () => void;
   onSubmit: (e?: React.BaseSyntheticEvent<object, unknown, unknown> | undefined) => Promise<void>;
   isPending: boolean;
@@ -27,10 +25,26 @@ export default function AppViewProductViewUpdateModalComponentStepTwoComponent({
   product,
   register,
   errors,
+  watch,
+  setValue,
+  getValues,
+  resetField,
+  control,
   onReset,
   onSubmit,
   isPending,
 }: AppViewProductViewUpdateModalComponentStepTwoComponentProps) {
+  useEffect(() => {
+    const costPrice = Number(getValues('costPrice')) || 0;
+    const shippingService = Number(getValues('portOrService')) || 0;
+    const tax = Number(getValues('tax')) || 0;
+    const price = Number(getValues('price')) || 0;
+
+    const margin = Math.round((1 - (costPrice + shippingService + tax) / price) * 100);
+    if (!isNaN(margin) && isFinite(margin)) setValue('margin', margin);
+    else resetField('margin');
+  }, [watch('costPrice'), watch('portOrService'), watch('tax'), watch('price')]);
+
   return (
     <form className={styles.container} onSubmit={onSubmit} onReset={onReset}>
       <CardComponent title={'Modification du produit ' + product.reference}>
@@ -75,16 +89,22 @@ export default function AppViewProductViewUpdateModalComponentStepTwoComponent({
             <p className="__errors">{errors.ecoTax?.message}</p>
           </div>
           <div className={styles.form_group}>
-            <label htmlFor="assistanceHour">{"Heure(s) d'assistance prévue :"}</label>
-            <select id="assistanceHour" {...register('assistanceHour')}>
-              <option value={undefined}>Sélectionnez une option</option>
-              {assistanceHours.map((item) => (
-                <option key={item.value} value={item.value}>
-                  {item.label}
-                </option>
-              ))}
-            </select>
-            <p className="__errors">{errors.assistanceHour?.message}</p>
+            <label htmlFor="productAssistanceHourMore">{"Heures d'assistance"} :</label>
+            <Controller
+              control={control}
+              name="assistanceHour"
+              render={({ field: { value, onChange } }) => (
+                <AmountFormat
+                  id="productAssistanceHourMore"
+                  placeholder="10"
+                  displayType="input"
+                  decimalScale={0}
+                  value={value}
+                  onValueChange={(v) => onChange(v.value)}
+                />
+              )}
+            />
+            <p className={styles.errors}>{errors.assistanceHour?.message}</p>
           </div>
         </div>
       </CardComponent>

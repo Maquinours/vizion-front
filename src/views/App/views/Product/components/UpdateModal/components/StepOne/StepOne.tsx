@@ -180,7 +180,7 @@ export default function AppViewProductViewUpdateModalComponentStepOneComponent({
             Annuler
           </button>
           <button type="submit" className="btn btn-secondary">
-            Modifier
+            Suivant
           </button>
         </div>
       </div>
