@@ -1,38 +1,24 @@
-import { Controller, useForm } from 'react-hook-form';
-import styles from './SectionTwo.module.scss';
-import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Link, getRouteApi } from '@tanstack/react-router';
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
+import { Link, getRouteApi } from '@tanstack/react-router';
+import { useMemo } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
+import * as yup from 'yup';
+import CurrencyFormat from '../../../../../../../../../../components/CurrencyFormat/CurrencyFormat';
+import { updateBusinessArc } from '../../../../../../../../../../utils/api/businessArcs';
 import { queries } from '../../../../../../../../../../utils/constants/queryKeys';
 import BusinessArcResponseDto from '../../../../../../../../../../utils/types/BusinessArcResponseDto';
-import { updateBusinessArc } from '../../../../../../../../../../utils/api/businessArcs';
-import { toast } from 'react-toastify';
-import { useEffect } from 'react';
-import CurrencyFormat from '../../../../../../../../../../components/CurrencyFormat/CurrencyFormat';
+import styles from './SectionTwo.module.scss';
 
 const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/arc');
 
 const yupSchema = yup.object({
   documentName: yup.string().required('Le nom du document est requis !!'),
   orderNumber: yup.string().required('Le numéro de commande est requis !!'),
-  totalAmountHT: yup.number().required(), // USED TO handle clientTotalAmountHT
   clientTotalAmountHT: yup
     .number()
-    .transform((_value, originalValue) => (typeof originalValue === 'string' ? Number(originalValue.replace(/,/, '.')) : originalValue))
-    .typeError('Entrer un nombre')
-    .required('Champs requis')
-    .test({
-      name: 'equalOrDifferentByOne',
-      skipAbsent: false,
-      test(value) {
-        const { totalAmountHT } = this.parent as { totalAmountHT: number };
-        const absoluteDiffValue = Math.abs(value - totalAmountHT);
-        if (absoluteDiffValue < 0 || absoluteDiffValue > 1)
-          return this.createError({ message: `Le montant total HT du client diffère de celui de l'ARC, Diff: ${absoluteDiffValue} €` });
-        return true;
-      },
-    }),
+    .transform((_value, originalValue) => (typeof originalValue === 'string' ? Number(originalValue.replace(/,/, '.')) : originalValue)),
 });
 
 export default function AppViewBusinessViewArcViewHeaderComponentSectionTwoComponent() {
@@ -48,7 +34,8 @@ export default function AppViewBusinessViewArcViewHeaderComponentSectionTwoCompo
     register,
     control,
     formState: { errors },
-    setValue,
+    watch,
+    getValues,
     handleSubmit,
   } = useForm({
     resolver: yupResolver(yupSchema),
@@ -58,6 +45,20 @@ export default function AppViewBusinessViewArcViewHeaderComponentSectionTwoCompo
       clientTotalAmountHT: arc.amountHtConfirmed ?? 0,
     },
   });
+
+  const formWarnings = useMemo(() => {
+    const result: { clientTotalAmountHT?: string } = {};
+    const clientTotalAmountHT = getValues('clientTotalAmountHT');
+    if (clientTotalAmountHT === undefined) result.clientTotalAmountHT = 'Champs requis';
+    else if (isNaN(clientTotalAmountHT)) result.clientTotalAmountHT = 'Entrez un nombre';
+    else {
+      const totalAmountHT = (arc.totalAmountHT ?? 0) + arc.shippingServicePrice;
+      const absoluteDiffValue = Math.abs(clientTotalAmountHT - totalAmountHT);
+      if (absoluteDiffValue > 1)
+        result.clientTotalAmountHT = `Le montant total HT du client diffère de celui de l'ARC, Diff: ${absoluteDiffValue.toFixed(2)} €`;
+    }
+    return result;
+  }, [watch('clientTotalAmountHT'), arc.totalAmountHT, arc.shippingServicePrice]);
 
   const { mutate, isPending } = useMutation({
     mutationFn: (data: yup.InferType<typeof yupSchema>) =>
@@ -84,10 +85,6 @@ export default function AppViewBusinessViewArcViewHeaderComponentSectionTwoCompo
       toast.error("Une erreur est survenue lors de la mise à jour de l'ARC");
     },
   });
-
-  useEffect(() => {
-    setValue('totalAmountHT', (arc.totalAmountHT ?? 0) + arc.shippingServicePrice);
-  }, [arc.totalAmountHT, arc.shippingServicePrice]);
 
   return (
     <div className={styles._two}>
@@ -125,7 +122,7 @@ export default function AppViewBusinessViewArcViewHeaderComponentSectionTwoCompo
                 )}
               />
             </div>
-            <p className={styles.__errors}>{errors.clientTotalAmountHT?.message}</p>
+            <p className={styles.__warnings}>{formWarnings.clientTotalAmountHT}</p>
           </div>
           {/* <div className={styles.form_group}>
                               <label htmlFor="clientShippingPrice">

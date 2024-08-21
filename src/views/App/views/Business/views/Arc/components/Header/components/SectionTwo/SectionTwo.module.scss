@@ -9,7 +9,7 @@
     display: grid;
     grid-template-columns: repeat(1, 1fr);
 
-    & > div {
+    &>div {
       width: 100%;
     }
   }
@@ -144,6 +144,20 @@
           line-height: 10px;
           letter-spacing: 0px;
           color: var(--secondary-color);
+          opacity: 1;
+          word-wrap: break-word;
+        }
+
+        p.__warnings {
+          text-align: left;
+          font-family: 'DIN2014';
+          font-style: normal;
+          font-weight: normal;
+          font-variant: normal;
+          font-size: 11px;
+          line-height: 10px;
+          letter-spacing: 0px;
+          color: orange;
           opacity: 1;
           word-wrap: break-word;
         }
