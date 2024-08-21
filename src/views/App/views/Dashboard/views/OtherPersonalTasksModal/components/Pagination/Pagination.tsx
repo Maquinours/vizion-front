@@ -10,7 +10,7 @@ type AppViewDashboardViewOtherPersonalTasksModalViewPaginationComponentProps = R
 export default function AppViewDashboardViewOtherPersonalTasksModalViewPaginationComponent({
   data,
 }: AppViewDashboardViewOtherPersonalTasksModalViewPaginationComponentProps) {
-  const { personalTaskPage: page } = Route.useSearch();
+  const { otherPersonalTaskPage: page } = Route.useSearch();
 
   return (
     <div className={styles.container}>
