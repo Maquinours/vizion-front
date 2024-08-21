@@ -37,7 +37,9 @@ export default function AppLayoutTopbarComponentBasicTopbarComponent({ logout }:
         </div>
         {currentUser.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && (
           <div className={styles.email}>
-            <Link to="/app/tools/emails/send">Écrire un mail</Link>
+            <Link search={(old) => ({ ...old, appModal: 'send-email' })} replace preload="intent" resetScroll={false}>
+              Écrire un mail
+            </Link>
           </div>
         )}
 

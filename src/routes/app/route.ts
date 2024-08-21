@@ -24,6 +24,7 @@ const searchSchema = z.object({
       'business-ged-rename',
       'business-ged-delete',
       'create-client-business',
+      'send-email',
     ])
     .optional()
     .catch(undefined),
@@ -39,18 +40,21 @@ export const Route = createFileRoute('/app')({
       throw redirect({
         to: '/auth/login',
         search: { redirect: location.href },
+        replace: true,
       });
     if (search.appModal?.startsWith('business-ged') && !search.businessId) {
       toast.error('Aucune affaire sélectionnée');
       throw redirect({
-        from: Route.id,
         search: (old) => ({ ...old, appModal: undefined, businessId: undefined, gedItemKey: undefined }),
+        replace: true,
+        resetScroll: false,
       });
     }
     if ((search.appModal === 'business-ged-rename' || search.appModal === 'business-ged-delete') && !search.gedItemKey)
       throw redirect({
-        from: Route.id,
         search: (old) => ({ ...old, appModal: 'business-ged', gedItemKey: undefined }),
+        replace: true,
+        resetScroll: false,
       });
   },
   loaderDeps: ({ search: { appModal, businessId, gedItemKey } }) => ({ appModal, businessId, gedItemKey }),
@@ -63,24 +67,40 @@ export const Route = createFileRoute('/app')({
         if (!findRecursively(ged, 'subRows', (d) => d.key === gedItemKey)) {
           // ged element does not exists
           throw redirect({
-            from: Route.id,
             search: (old) => ({ ...old, appModal: 'business-ged', gedItemKey: undefined }),
+            replace: true,
+            resetScroll: false,
           });
         }
       });
     }
-    if (appModal === 'create-client-business') {
-      const currentUser = await userPromise;
-      if (!currentUser.userInfo.roles.some((role) => ['ROLE_DISTRIBUTEUR', 'ROLE_CLIENT'].includes(role)))
-        throw redirect({
-          from: Route.id,
-          search: (old) => ({ ...old, appModal: undefined, businessId: undefined, gedItemKey: undefined }),
-        });
-    }
-    if (appModal === 'create-business' || appModal === 'create-client-business') {
-      const currentUser = await userPromise;
-      promises.push(queryClient.ensureQueryData(enterprises.detail(currentUser.profile.enterprise!.id)));
+    switch (appModal) {
+      case 'create-business':
+      case 'create-client-business': {
+        const currentUser = await userPromise;
+        if (appModal === 'create-client-business') {
+          if (!currentUser.userInfo.roles.some((role) => ['ROLE_DISTRIBUTEUR', 'ROLE_CLIENT'].includes(role)))
+            throw redirect({
+              search: (old) => ({ ...old, appModal: undefined, businessId: undefined, gedItemKey: undefined }),
+              replace: true,
+              resetScroll: false,
+            });
+        }
+        promises.push(queryClient.ensureQueryData(enterprises.detail(currentUser.profile.enterprise!.id)));
+        break;
+      }
+      case 'send-email': {
+        const currentUser = await userPromise;
+        if (!currentUser.userInfo.roles.includes('ROLE_MEMBRE_VIZEO'))
+          throw redirect({
+            search: (old) => ({ ...old, appModal: undefined, businessId: undefined, gedItemKey: undefined }),
+            replace: true,
+            resetScroll: false,
+          });
+        break;
+      }
     }
     await Promise.all(promises);
+    console.log('no redirect');
   },
 });

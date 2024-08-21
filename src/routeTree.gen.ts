@@ -71,7 +71,6 @@ import { Route as AppToolsMenuCreateEnterpriseRouteImport } from './routes/app/t
 import { Route as AppToolsMailsCreateRouteImport } from './routes/app/tools/mails/create/route'
 import { Route as AppToolsFormationsCreateRouteImport } from './routes/app/tools/formations/create/route'
 import { Route as AppToolsExternalLinksCreateRouteImport } from './routes/app/tools/external-links/create/route'
-import { Route as AppToolsEmailsSendRouteImport } from './routes/app/tools/emails_.send/route'
 import { Route as AppToolsEmailsEmailIdRouteImport } from './routes/app/tools/emails/$emailId/route'
 import { Route as AppToolsDepartmentsCreateRouteImport } from './routes/app/tools/departments/create/route'
 import { Route as AppToolsDdnsCreateRouteImport } from './routes/app/tools/ddns/create/route'
@@ -147,7 +146,6 @@ import { Route as AppToolsFormationsCreateAddDetailRouteImport } from './routes/
 import { Route as AppToolsExternalLinksUpdateExternalLinkIdRouteImport } from './routes/app/tools/external-links/update.$externalLinkId/route'
 import { Route as AppToolsExternalLinksDeleteExternalLinkIdRouteImport } from './routes/app/tools/external-links/delete.$externalLinkId/route'
 import { Route as AppToolsExternalLinksArchiveExternalLinkIdRouteImport } from './routes/app/tools/external-links/archive.$externalLinkId/route'
-import { Route as AppToolsEmailsSendPredefinedMessagesRouteImport } from './routes/app/tools/emails_.send/predefined-messages/route'
 import { Route as AppToolsEmailsEmailIdReplyRouteImport } from './routes/app/tools/emails/$emailId/reply/route'
 import { Route as AppToolsDepartmentsUpdateDepartmentIdRouteImport } from './routes/app/tools/departments/update.$departmentId/route'
 import { Route as AppToolsDepartmentsDeleteDepartmentIdRouteImport } from './routes/app/tools/departments/delete.$departmentId/route'
@@ -815,13 +813,6 @@ const AppToolsExternalLinksCreateRouteRoute =
       (d) => d.Route,
     ),
   )
-
-const AppToolsEmailsSendRouteRoute = AppToolsEmailsSendRouteImport.update({
-  path: '/emails/send',
-  getParentRoute: () => AppToolsRouteRoute,
-} as any).lazy(() =>
-  import('./routes/app/tools/emails_.send/route.lazy').then((d) => d.Route),
-)
 
 const AppToolsEmailsEmailIdRouteRoute = AppToolsEmailsEmailIdRouteImport.update(
   {
@@ -1542,16 +1533,6 @@ const AppToolsExternalLinksArchiveExternalLinkIdRouteRoute =
   } as any).lazy(() =>
     import(
       './routes/app/tools/external-links/archive.$externalLinkId/route.lazy'
-    ).then((d) => d.Route),
-  )
-
-const AppToolsEmailsSendPredefinedMessagesRouteRoute =
-  AppToolsEmailsSendPredefinedMessagesRouteImport.update({
-    path: '/predefined-messages',
-    getParentRoute: () => AppToolsEmailsSendRouteRoute,
-  } as any).lazy(() =>
-    import(
-      './routes/app/tools/emails_.send/predefined-messages/route.lazy'
     ).then((d) => d.Route),
   )
 
@@ -4041,13 +4022,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppToolsEmailsEmailIdRouteImport
       parentRoute: typeof AppToolsEmailsRouteImport
     }
-    '/app/tools/emails/send': {
-      id: '/app/tools/emails/send'
-      path: '/emails/send'
-      fullPath: '/app/tools/emails/send'
-      preLoaderRoute: typeof AppToolsEmailsSendRouteImport
-      parentRoute: typeof AppToolsRouteImport
-    }
     '/app/tools/external-links/create': {
       id: '/app/tools/external-links/create'
       path: '/create'
@@ -4432,13 +4406,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/app/tools/emails/$emailId/reply'
       preLoaderRoute: typeof AppToolsEmailsEmailIdReplyRouteImport
       parentRoute: typeof AppToolsEmailsEmailIdRouteImport
-    }
-    '/app/tools/emails/send/predefined-messages': {
-      id: '/app/tools/emails/send/predefined-messages'
-      path: '/predefined-messages'
-      fullPath: '/app/tools/emails/send/predefined-messages'
-      preLoaderRoute: typeof AppToolsEmailsSendPredefinedMessagesRouteImport
-      parentRoute: typeof AppToolsEmailsSendRouteImport
     }
     '/app/tools/external-links/archive/$externalLinkId': {
       id: '/app/tools/external-links/archive/$externalLinkId'
@@ -5687,9 +5654,6 @@ export const routeTree = rootRoute.addChildren({
         AppToolsVvaDeleteVvaIdRouteRoute,
       }),
       AppToolsIndexRoute,
-      AppToolsEmailsSendRouteRoute: AppToolsEmailsSendRouteRoute.addChildren({
-        AppToolsEmailsSendPredefinedMessagesRouteRoute,
-      }),
     }),
     AppIndexRoute,
     AppEnterprisesEnterpriseIdRouteRoute:
@@ -6129,8 +6093,7 @@ export const routeTree = rootRoute.addChildren({
         "/app/tools/representatives-turnover",
         "/app/tools/scheduler",
         "/app/tools/vva",
-        "/app/tools/",
-        "/app/tools/emails/send"
+        "/app/tools/"
       ]
     },
     "/auth/login": {
@@ -6636,13 +6599,6 @@ export const routeTree = rootRoute.addChildren({
         "/app/tools/emails/$emailId/reply"
       ]
     },
-    "/app/tools/emails/send": {
-      "filePath": "app/tools/emails_.send/route.ts",
-      "parent": "/app/tools",
-      "children": [
-        "/app/tools/emails/send/predefined-messages"
-      ]
-    },
     "/app/tools/external-links/create": {
       "filePath": "app/tools/external-links/create/route.ts",
       "parent": "/app/tools/external-links"
@@ -6960,10 +6916,6 @@ export const routeTree = rootRoute.addChildren({
     "/app/tools/emails/$emailId/reply": {
       "filePath": "app/tools/emails/$emailId/reply/route.ts",
       "parent": "/app/tools/emails/$emailId"
-    },
-    "/app/tools/emails/send/predefined-messages": {
-      "filePath": "app/tools/emails_.send/predefined-messages/route.ts",
-      "parent": "/app/tools/emails/send"
     },
     "/app/tools/external-links/archive/$externalLinkId": {
       "filePath": "app/tools/external-links/archive.$externalLinkId/route.ts",

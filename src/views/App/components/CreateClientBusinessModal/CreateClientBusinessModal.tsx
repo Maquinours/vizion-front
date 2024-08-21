@@ -1,21 +1,19 @@
+import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useSuspenseQuery } from '@tanstack/react-query';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { useNavigate } from '@tanstack/react-router';
 import { Controller, useForm } from 'react-hook-form';
 import ReactModal from 'react-modal';
-import * as yup from 'yup';
-import { enterprises } from '../../../../utils/constants/queryKeys/enterprise';
-import { useAuthentifiedUserQuery } from '../../utils/functions/getAuthentifiedUser';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { createBusiness } from '../../../../utils/api/business';
-import CategoryClient from '../../../../utils/enums/CategoryClient';
-import BusinessType from '../../../../utils/enums/BusinessType';
-import { toast } from 'react-toastify';
-import ProfileResponseDto from '../../../../utils/types/ProfileResponseDto';
 import { PulseLoader } from 'react-spinners';
-import styles from './CreateClientBusinessModal.module.scss';
+import { toast } from 'react-toastify';
+import * as yup from 'yup';
 import CustomSelect from '../../../../components/CustomSelect/CustomSelect';
-
-const Route = getRouteApi('/app');
+import { createBusiness } from '../../../../utils/api/business';
+import { enterprises } from '../../../../utils/constants/queryKeys/enterprise';
+import BusinessType from '../../../../utils/enums/BusinessType';
+import CategoryClient from '../../../../utils/enums/CategoryClient';
+import ProfileResponseDto from '../../../../utils/types/ProfileResponseDto';
+import { useAuthentifiedUserQuery } from '../../utils/functions/getAuthentifiedUser';
+import styles from './CreateClientBusinessModal.module.scss';
 
 const yupSchema = yup.object().shape({
   contact: yup.mixed<ProfileResponseDto>().required("L'utilisateur est requis"),
@@ -39,7 +37,7 @@ export default function AppViewCreateClientBusinessModalComponent() {
   const { data: enterprise } = useSuspenseQuery(enterprises.detail(enterpriseId));
 
   const onClose = () => {
-    navigate({ from: Route.id, search: (search) => ({ ...search, appModal: undefined }), replace: true, resetScroll: false });
+    navigate({ search: (prev) => ({ ...prev, appModal: undefined }), replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({
@@ -79,9 +77,9 @@ export default function AppViewCreateClientBusinessModalComponent() {
         deliveryMode: 'A expédier',
         billAndLock: false,
       }),
-    onSuccess: () => {
+    onSuccess: (business) => {
       toast.success('Affaire créée avec succès');
-      // TODO: set data & redirect to synoptic
+      navigate({ to: '/app/businesses-rma/business/$businessId/study', params: { businessId: business.id } });
     },
     onError: (error) => {
       console.error(error);
