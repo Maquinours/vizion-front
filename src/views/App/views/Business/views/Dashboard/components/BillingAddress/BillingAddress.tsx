@@ -27,6 +27,7 @@ export default function AppViewBusinessViewDashboardViewBillingAddressComponent(
                 replace: true,
                 resetScroll: false,
                 preload: 'intent',
+                ignoreBlocker: true,
               }
             : undefined
         }

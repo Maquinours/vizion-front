@@ -13,7 +13,7 @@ export default function AppViewBusinessViewDashboardViewTaskEmailModalView() {
   const { data: task } = useSuspenseQuery(queries.tasks.detail(taskId));
 
   const onClose = () => {
-    navigate({ to: '../..', search: (old) => old, replace: true, resetScroll: false });
+    navigate({ to: '../..', search: (old) => old, replace: true, resetScroll: false, ignoreBlocker: true });
   };
 
   return <EmailModalComponent emailId={task.mailId!} onClose={onClose} />;

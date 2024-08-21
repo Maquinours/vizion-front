@@ -26,6 +26,7 @@ export default function AppViewBusinessViewDashboardViewResponsibleComponent() {
                 replace: true,
                 resetScroll: false,
                 preload: 'intent',
+                ignoreBlocker: true,
               }
             : undefined
         }

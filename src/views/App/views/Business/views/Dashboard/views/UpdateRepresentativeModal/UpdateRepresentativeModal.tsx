@@ -39,7 +39,7 @@ export default function AppViewBusinessViewDashboardViewUpdateRepresentativeModa
   });
 
   const onClose = () => {
-    navigate({ to: '..', search: (old) => old, replace: true, resetScroll: false });
+    navigate({ to: '..', search: (old) => old, replace: true, resetScroll: false, ignoreBlocker: true });
   };
 
   const { mutate, isPending } = useMutation({
@@ -114,7 +114,7 @@ export default function AppViewBusinessViewDashboardViewUpdateRepresentativeModa
             </div>
 
             <div className={styles.footer_buttons}>
-              <button className="btn btn-primary-light" onClick={onClose}>
+              <button type="button" className="btn btn-primary-light" onClick={onClose}>
                 Annuler
               </button>
               <button className="btn btn-secondary" type="submit">

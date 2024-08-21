@@ -12,7 +12,7 @@ export default function AppViewBusinessViewDashboardViewLifesheetEmailModalView(
   const { data: lifesheet } = useSuspenseQuery(queries.lifesheets.detail._ctx.byId(lifesheetId));
 
   const onClose = () => {
-    navigate({ to: '../..', search: true, replace: true, resetScroll: false });
+    navigate({ to: '../..', search: true, replace: true, resetScroll: false, ignoreBlocker: true });
   };
 
   return <EmailModalComponent emailId={lifesheet.mailId!} onClose={onClose} />;

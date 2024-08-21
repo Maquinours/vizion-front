@@ -9,7 +9,7 @@ export default function AppViewBusinessViewDashboardViewDeleteGedObjectModalView
 
   const { businessId, objectRelativePath } = routeApi.useParams();
   const onClose = () => {
-    navigate({ to: '../..', search: (old) => old, replace: true, resetScroll: false });
+    navigate({ to: '../..', search: (old) => old, replace: true, resetScroll: false, ignoreBlocker: true });
   };
 
   return <DeleteGedObjectModalComponent type={FileType.AFFAIRE} id={businessId} objectRelativePath={objectRelativePath} onClose={onClose} />;

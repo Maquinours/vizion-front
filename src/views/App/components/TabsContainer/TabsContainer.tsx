@@ -122,7 +122,7 @@ export default function AppViewTabsContainerComponent({ children }: AppViewTabsC
           }
           return true;
         });
-        if (removedTabs.some((tab) => matchRoute({ to: tab.route.to }))) navigate(result.at(-1)?.route ?? { to: '/app' });
+        if (removedTabs.some((tab) => matchRoute({ to: tab.route.to }))) navigate({ ...(result.at(-1)?.route ?? { to: '/app' }), ignoreBlocker: true });
         return result;
       });
     },

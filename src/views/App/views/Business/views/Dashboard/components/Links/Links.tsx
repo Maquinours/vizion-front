@@ -99,7 +99,16 @@ export default function AppViewBusinessViewDashboardViewLinksComponent() {
       <div className={styles.container}>
         <div className={styles.buttons_container}>
           {user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && !business.archived && (
-            <Link from={routeApi.id} to="create-link" search={(old) => old} replace resetScroll={false} preload="intent" className="btn btn-primary">
+            <Link
+              from={routeApi.id}
+              to="create-link"
+              search={(old) => old}
+              replace
+              resetScroll={false}
+              preload="intent"
+              ignoreBlocker
+              className="btn btn-primary"
+            >
               Ajouter
             </Link>
           )}

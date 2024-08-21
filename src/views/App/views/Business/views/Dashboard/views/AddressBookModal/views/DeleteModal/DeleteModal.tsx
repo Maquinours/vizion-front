@@ -19,7 +19,7 @@ export default function AppViewBusinessViewDashboardViewAddressBookModalViewDele
   const { data: address } = useSuspenseQuery(queries.address.detail._ctx.byId(addressId));
 
   const onClose = () => {
-    navigate({ to: '../..', search: (old) => old, replace: true, resetScroll: false });
+    navigate({ to: '../..', search: (old) => old, replace: true, resetScroll: false, ignoreBlocker: true });
   };
 
   const { mutate, isPending } = useMutation({

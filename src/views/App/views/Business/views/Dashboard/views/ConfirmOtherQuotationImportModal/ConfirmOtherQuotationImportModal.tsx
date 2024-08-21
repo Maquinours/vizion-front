@@ -20,7 +20,7 @@ export default function AppViewBusinessViewDashboardViewConfirmOtherQuotationImp
   const { data: otherBusiness } = useSuspenseQuery(queries.businesses.detail._ctx.byId(otherBusinessId));
 
   const onClose = () => {
-    navigate({ to: '../..', search: (old) => old, replace: true, resetScroll: false });
+    navigate({ to: '../..', search: (old) => old, replace: true, resetScroll: false, ignoreBlocker: true });
   };
 
   const { mutate, isPending } = useMutation({

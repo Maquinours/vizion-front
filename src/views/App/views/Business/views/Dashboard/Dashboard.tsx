@@ -1,10 +1,11 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { Link, Outlet, getRouteApi } from '@tanstack/react-router';
+import { Link, Outlet, getRouteApi, useBlocker } from '@tanstack/react-router';
 import classNames from 'classnames';
 import { useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import { FaTrash } from 'react-icons/fa';
+import { HiPencilAlt } from 'react-icons/hi';
 import { toast } from 'react-toastify';
 import * as yup from 'yup';
 import WorkloadsComponent from '../../../../../../components/Workloads/Workloads';
@@ -22,11 +23,11 @@ import AppViewBusinessViewDashboardViewGeneralInformationsComponent from './comp
 import AppViewBusinessViewDashboardViewImportOtherBusinessQuotationComponent from './components/ImportOtherBusinessQuotation/ImportOtherBusinessQuotation';
 import AppViewBusinessViewDashboardViewLifesheetComponent from './components/Lifesheet/Lifesheet';
 import AppViewBusinessViewDashboardViewLinksComponent from './components/Links/Links';
+import AppViewBusinessViewDashboardViewNavigationBlockingModalComponent from './components/NavigationBlockingModal/NavigationBlockingModal';
 import AppViewBusinessViewDashboardViewQuotationButtonComponent from './components/QuotationButton/QuotationButton';
 import AppViewBusinessViewDashboardViewResponsibleComponent from './components/Responsible/Responsible';
 import AppViewBusinessViewDashboardViewTransferDataButtonComponent from './components/TransferDataButton/TransferDataButton';
 import { BusinessDashboardContext } from './utils/contexts/context';
-import { HiPencilAlt } from 'react-icons/hi';
 
 const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/dashboard');
 
@@ -57,7 +58,7 @@ export default function AppViewBusinessViewDashboardView() {
 
   const {
     register,
-    formState: { errors },
+    formState: { errors, isDirty },
     setValue,
     handleSubmit,
   } = useForm({
@@ -151,12 +152,16 @@ export default function AppViewBusinessViewDashboardView() {
 
   const onSave = handleSubmit((data) => save(data));
 
+  const { proceed, reset, status } = useBlocker({
+    condition: isDirty,
+  });
+
   return (
     <>
       <div className={styles.container}>
         <div className={styles.headers_buttons}>
           {(business.state === BusinessState.DEVIS || business.state === BusinessState.CREATED) && !business.archived && (
-            <Link from={routeApi.id} to="delete" search replace resetScroll={false} className="btn btn-secondary">
+            <Link from={routeApi.id} to="delete" search replace resetScroll={false} ignoreBlocker className="btn btn-secondary">
               <FaTrash color="#FFF" width={14} height={14} />
               Supprimer cette affaire
             </Link>
@@ -168,7 +173,7 @@ export default function AppViewBusinessViewDashboardView() {
           {!business.archived && (
             <div className={styles.right_buttons}>
               {user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && (
-                <Link from={routeApi.id} to="send-email" search replace resetScroll={false} className="btn btn-primary">
+                <Link from={routeApi.id} to="send-email" search replace resetScroll={false} ignoreBlocker className="btn btn-primary">
                   Envoyer un mail
                 </Link>
               )}
@@ -210,12 +215,21 @@ export default function AppViewBusinessViewDashboardView() {
                       <span className="m-auto font-[DIN2014] text-sm">
                         Représentant : <span className="font-bold text-[var(--primary-color)]">{business.representativeName || 'Aucun'}</span>
                       </span>
-                      <Link from={routeApi.id} to="update-representative" search replace resetScroll={false} preload="intent" className="m-auto flex">
+                      <Link
+                        from={routeApi.id}
+                        to="update-representative"
+                        search
+                        replace
+                        resetScroll={false}
+                        preload="intent"
+                        ignoreBlocker
+                        className="m-auto flex"
+                      >
                         <HiPencilAlt className="text-[var(--primary-color)]" />
                       </Link>
                     </div>
                   )}
-                  <Link from={routeApi.id} to="address-book" search replace resetScroll={false} preload="intent" className="btn btn-primary">
+                  <Link from={routeApi.id} to="address-book" search replace resetScroll={false} preload="intent" ignoreBlocker className="btn btn-primary">
                     Carnet d&apos;adresse
                   </Link>
                 </div>
@@ -232,6 +246,7 @@ export default function AppViewBusinessViewDashboardView() {
                       search: true,
                       replace: true,
                       resetScroll: false,
+                      ignoreBlocker: true,
                     })}
                     unlinkLink={(task) => ({
                       from: routeApi.id,
@@ -240,6 +255,7 @@ export default function AppViewBusinessViewDashboardView() {
                       search: true,
                       replace: true,
                       resetScroll: false,
+                      ignoreBlocker: true,
                     })}
                   />
                 )}
@@ -264,6 +280,7 @@ export default function AppViewBusinessViewDashboardView() {
       <BusinessDashboardContext.Provider value={contextValue}>
         <Outlet />
       </BusinessDashboardContext.Provider>
+      {status === 'blocked' && <AppViewBusinessViewDashboardViewNavigationBlockingModalComponent proceed={proceed} reset={reset} />}
     </>
   );
 }

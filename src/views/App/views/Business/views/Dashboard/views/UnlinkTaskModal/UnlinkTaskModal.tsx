@@ -9,7 +9,7 @@ export default function AppViewBusinessViewDashboardViewUnlinkTaskModalView() {
   const { taskId } = routeApi.useParams();
 
   const onClose = () => {
-    navigate({ from: routeApi.id, to: '../..', search: true, replace: true, resetScroll: false });
+    navigate({ from: routeApi.id, to: '../..', search: true, replace: true, resetScroll: false, ignoreBlocker: true });
   };
 
   return <UnlinkWorkloadModalComponent taskId={taskId} onClose={onClose} />;
