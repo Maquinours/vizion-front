@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Node, NodeProps, XYPosition } from '@xyflow/react';
+import { Node, NodeProps, useReactFlow, XYPosition } from '@xyflow/react';
 import AppViewStudyViewExpertViewFlowComponentLinesNodeComponentMenuComponent from './components/Menu/Menu';
 
 export const isExpertStudyLinesNode = (node: Node): node is ExpertStudyLinesNode => {
@@ -26,7 +26,8 @@ export type ExpertStudyLinesNode = Node<
   },
   'lines'
 >;
-export default function AppViewStudyViewExpertViewFlowComponentLinesNodeComponent({ id, data }: NodeProps<ExpertStudyLinesNode>) {
+export default function AppViewStudyViewExpertViewFlowComponentLinesNodeComponent({ id, data, selected }: NodeProps<ExpertStudyLinesNode>) {
+  const { setNodes } = useReactFlow();
   const maxPosition = { x: Math.max(...data.positions.map((position) => position.x)), y: Math.max(...data.positions.map((position) => position.y)) };
   const stroke = data.color ?? 'black';
   const strokeDasharray = data.dasharray ?? 4;
@@ -35,6 +36,7 @@ export default function AppViewStudyViewExpertViewFlowComponentLinesNodeComponen
 
   const onContextMenu = (e: React.MouseEvent) => {
     e.preventDefault();
+    setNodes((nds) => nds.map((node) => (node.id === id ? { ...node, selected: true } : { ...node, selected: false })));
     const rect = document.querySelector('.react-flow')!.getBoundingClientRect();
     setMenuPosition({ top: e.pageY - rect.top, left: e.pageX - rect.left });
   };
@@ -48,16 +50,6 @@ export default function AppViewStudyViewExpertViewFlowComponentLinesNodeComponen
           return (
             <React.Fragment key={index}>
               <line
-                id={`line-${id}-${index}`}
-                x1={previousPosition.x}
-                y1={previousPosition.y}
-                x2={position.x}
-                y2={position.y}
-                stroke={stroke}
-                strokeWidth={3}
-                strokeDasharray={strokeDasharray}
-              />
-              <line
                 className="pointer-events-auto"
                 onContextMenu={onContextMenu}
                 key={index}
@@ -65,8 +57,17 @@ export default function AppViewStudyViewExpertViewFlowComponentLinesNodeComponen
                 y1={previousPosition.y}
                 x2={position.x}
                 y2={position.y}
-                stroke="transparent"
+                stroke={selected ? 'yellow' : 'transparent'}
                 strokeWidth={10}
+              />
+              <line
+                x1={previousPosition.x}
+                y1={previousPosition.y}
+                x2={position.x}
+                y2={position.y}
+                stroke={stroke}
+                strokeWidth={3}
+                strokeDasharray={strokeDasharray}
               />
             </React.Fragment>
           );
