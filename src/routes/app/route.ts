@@ -101,6 +101,5 @@ export const Route = createFileRoute('/app')({
       }
     }
     await Promise.all(promises);
-    console.log('no redirect');
   },
 });
