@@ -61,7 +61,7 @@ export default function AppViewBusinessViewArcViewUpdateDetailModalView() {
   });
 
   const onClose = () => {
-    navigate({ to: '../..', search: (old) => old, replace: true, resetScroll: false });
+    navigate({ to: '../..', search: (old) => old, replace: true, resetScroll: false, ignoreBlocker: true });
   };
 
   const onChangeProduct = (product: ProductResponseDto | null) => {
