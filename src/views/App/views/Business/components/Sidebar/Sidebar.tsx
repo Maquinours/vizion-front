@@ -1,11 +1,11 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
-import { Link, ToPathOption, getRouteApi } from '@tanstack/react-router';
+import { Link, ToPathOption, getRouteApi, useLocation } from '@tanstack/react-router';
+import { useWindowSize } from '@uidotdev/usehooks';
+import { useMemo } from 'react';
 import { queries } from '../../../../../../utils/constants/queryKeys';
 import BusinessState from '../../../../../../utils/enums/BusinessState';
 import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthentifiedUser';
 import styles from './Sidebar.module.scss';
-import { useMemo } from 'react';
-import { useWindowSize } from '@uidotdev/usehooks';
 
 const stepsData: Array<{
   label: string;
@@ -48,6 +48,8 @@ const stepsData: Array<{
 const routeApi = getRouteApi('/app/businesses-rma/business/$businessId');
 
 export default function AppViewBusinessViewSidebarComponent() {
+  useLocation(); // We need to use useLocation to trigger a rerender of the links when the user navigates
+
   const { businessId } = routeApi.useParams();
 
   const { data: user } = useAuthentifiedUserQuery();

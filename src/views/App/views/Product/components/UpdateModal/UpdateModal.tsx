@@ -76,7 +76,7 @@ export default function AppViewProductViewUpdateModalComponent() {
   });
 
   const onClose = () => {
-    navigate({ from: routeApi.id, search: (old) => ({ ...old, productModal: undefined }), replace: true, resetScroll: false });
+    navigate({ search: (old) => ({ ...old, productModal: undefined }), replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({

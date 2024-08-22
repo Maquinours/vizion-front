@@ -2,12 +2,13 @@ import { MdPerson, MdPowerSettingsNew } from 'react-icons/md';
 import styles from './BasicTopbar.module.scss';
 import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthentifiedUser';
 import CategoryClient from '../../../../../../utils/enums/CategoryClient';
-import { Link } from '@tanstack/react-router';
+import { Link, useLocation } from '@tanstack/react-router';
 
 type AppLayoutTopbarComponentBasicTopbarComponentProps = {
   logout: () => void;
 };
 export default function AppLayoutTopbarComponentBasicTopbarComponent({ logout }: Readonly<AppLayoutTopbarComponentBasicTopbarComponentProps>) {
+  useLocation(); // We need to use useLocation to trigger a rerender of the link when the user navigates
   const { data: currentUser } = useAuthentifiedUserQuery();
 
   return (

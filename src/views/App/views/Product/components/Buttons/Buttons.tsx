@@ -1,8 +1,10 @@
-import { Link } from '@tanstack/react-router';
+import { Link, useLocation } from '@tanstack/react-router';
 import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthentifiedUser';
 import styles from './Buttons.module.scss';
 
 export default function AppViewProductViewButtonsComponent() {
+  useLocation(); // We need to use useLocation to trigger a rerender of the links when the user navigates
+
   const { data: user } = useAuthentifiedUserQuery();
 
   if (user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO'))
