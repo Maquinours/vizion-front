@@ -21,6 +21,7 @@ export default function DeleteContactModalComponent({ contactId, onClose }: Dele
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queries.enterprise._def });
       toast.success('Le contact a été supprimé avec succès');
+      onClose();
     },
     onError: (error) => {
       console.error(error);
