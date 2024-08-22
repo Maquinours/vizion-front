@@ -129,7 +129,15 @@ export default function AppViewBusinessViewQuotationViewHeaderComponentSectionTh
     <div className={styles.actions_container}>
       {!user.userInfo.roles.includes('ROLE_CLIENT') && (
         <>
-          <Link from={routeApi.id} search={(prev) => ({ ...prev, hideTotal: !hideTotal })} className="btn btn-primary-light" replace resetScroll={false}>
+          <Link
+            from={routeApi.id}
+            search={(prev) => ({ ...prev, hideTotal: !hideTotal })}
+            className="btn btn-primary-light"
+            replace
+            resetScroll={false}
+            preload="intent"
+            ignoreBlocker
+          >
             {hideTotal ? 'Afficher' : 'Masquer'} total
           </Link>
           <Link
@@ -138,10 +146,20 @@ export default function AppViewBusinessViewQuotationViewHeaderComponentSectionTh
             className="btn btn-primary-light"
             replace
             resetScroll={false}
+            preload="intent"
+            ignoreBlocker
           >
             {hideReferences ? 'Afficher' : 'Masquer'} les références
           </Link>
-          <Link from={routeApi.id} search={(prev) => ({ ...prev, hidePrices: !hidePrices })} className="btn btn-primary-light" replace resetScroll={false}>
+          <Link
+            from={routeApi.id}
+            search={(prev) => ({ ...prev, hidePrices: !hidePrices })}
+            className="btn btn-primary-light"
+            replace
+            resetScroll={false}
+            preload="intent"
+            ignoreBlocker
+          >
             {hidePrices ? 'Afficher' : 'Masquer'} les prix
           </Link>
           <Link
@@ -150,12 +168,14 @@ export default function AppViewBusinessViewQuotationViewHeaderComponentSectionTh
             className="btn btn-primary-light"
             replace
             resetScroll={false}
+            preload="intent"
+            ignoreBlocker
           >
             {hideAddresses ? 'Afficher' : 'Masquer'} {"l'adresse"}
           </Link>
         </>
       )}
-      <Link from={routeApi.id} to="pdf" search replace resetScroll={false} preload="intent" className="btn btn-primary">
+      <Link from={routeApi.id} to="pdf" search replace resetScroll={false} preload="intent" ignoreBlocker className="btn btn-primary">
         Éditer
       </Link>
       <button onClick={onExport} className="btn btn-primary">

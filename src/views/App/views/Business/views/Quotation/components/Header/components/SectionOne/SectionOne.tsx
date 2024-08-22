@@ -97,7 +97,7 @@ export default function AppViewBusinessViewQuotationViewHeaderComponentSectionOn
         <Link from={routeApi.id} to="../study" className="btn btn-secondary">
           Accès à l&apos;étude
         </Link>
-        <Link from={routeApi.id} to="commercial-notice" search={(old) => old} replace resetScroll={false} className="btn btn-primary">
+        <Link from={routeApi.id} to="commercial-notice" search replace resetScroll={false} preload="intent" ignoreBlocker className="btn btn-primary">
           Générer les notices commerciales
         </Link>
         {/* {![BusinessState.FACTURE, BusinessState.ARC, BusinessState.BP, BusinessState.BL].includes(business.state!) ||

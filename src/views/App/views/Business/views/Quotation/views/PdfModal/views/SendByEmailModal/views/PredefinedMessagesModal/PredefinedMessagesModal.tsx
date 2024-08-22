@@ -7,7 +7,7 @@ export default function AppViewBusinessViewQuotationViewPdfModalViewSendByEmailM
   const navigate = routeApi.useNavigate();
 
   const onClose = () => {
-    navigate({ to: '..', search: true, replace: true, resetScroll: false });
+    navigate({ to: '..', search: true, replace: true, resetScroll: false, ignoreBlocker: true });
   };
 
   return <SendEmailPredefinedMessagesModalComponent onClose={onClose} />;

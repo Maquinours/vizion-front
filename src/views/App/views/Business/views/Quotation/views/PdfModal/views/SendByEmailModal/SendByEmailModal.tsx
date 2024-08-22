@@ -9,7 +9,7 @@ export default function AppViewBusinessViewQuotationViewPdfModalViewSendByEmailM
   const { business, quotation, representative, commercialNoticeFile, quotationPdfFile } = routeApi.useLoaderData();
 
   const onClose = () => {
-    navigate({ to: '..', search: (old) => old, replace: true, resetScroll: false });
+    navigate({ to: '..', search: (old) => old, replace: true, resetScroll: false, ignoreBlocker: true });
   };
 
   let defaultRecipient = (() => {
@@ -27,6 +27,7 @@ export default function AppViewBusinessViewQuotationViewPdfModalViewSendByEmailM
         search: true,
         replace: true,
         resetScroll: false,
+        ignoreBlocker: true,
       }}
       defaultAttachments={[quotationPdfFile, commercialNoticeFile]}
       defaultRecipient={defaultRecipient}

@@ -37,7 +37,7 @@ export default function AppViewBusinessViewQuotationViewCommercialNoticeModalVie
   });
 
   const onClose = () => {
-    navigate({ to: '..', search: (old) => old, replace: true, resetScroll: false });
+    navigate({ to: '..', search: (old) => old, replace: true, resetScroll: false, ignoreBlocker: true });
   };
 
   return (
@@ -49,6 +49,7 @@ export default function AppViewBusinessViewQuotationViewCommercialNoticeModalVie
         search: true,
         replace: true,
         resetScroll: false,
+        ignoreBlocker: true,
       }}
       defaultRecipient={[business.profileEmail!]}
       defaultCc={representative?.profiles.filter((profile) => profile.civility === 'Service').map((service) => service.email!)}
