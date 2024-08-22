@@ -78,12 +78,19 @@ export default function AppViewBusinessViewSidebarComponent() {
       </div>
       <div className={styles.buttons}>
         {user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && business.state !== BusinessState.ARCHIVE && (
-          <Link search={(old) => ({ ...old, businessModal: 'assistances' })} replace resetScroll={false} className="btn btn-primary">
+          <Link
+            search={(old) => ({ ...old, businessModal: 'assistances' })}
+            replace
+            resetScroll={false}
+            preload="intent"
+            ignoreBlocker
+            className="btn btn-primary"
+          >
             Assistance
           </Link>
         )}
         {user.userInfo.roles.includes('ROLE_DIRECTION_VIZEO') && business.state !== BusinessState.ARCHIVE && (
-          <Link search={(old) => ({ ...old, businessModal: 'archive' })} replace resetScroll={false} className="btn btn-primary">
+          <Link search={(old) => ({ ...old, businessModal: 'archive' })} replace resetScroll={false} preload="intent" ignoreBlocker className="btn btn-primary">
             Archiver
           </Link>
         )}

@@ -2,12 +2,12 @@
 
 .modal {
     position: absolute;
-    transform: translate(-50%, -5%);
-    width: 35%;
-    max-width: 350px;
-    height: auto;
-    top: 20%;
+    top: 50%;
     left: 50%;
+    transform: translate(-50%, -50%);
+    width: fit-content;
+    max-width: 100%;
+    height: auto;
     background: #fbfcfe 0% 0% no-repeat padding-box;
     box-shadow: 0px 3px 5px #10173526;
     border: 1px solid #9fa5b9;
@@ -23,10 +23,6 @@
             letter-spacing: 0px;
             color: var(--primary-color);
             padding: 1rem;
-
-            .secondary_color {
-                color: var(--secondary-color);
-            }
         }
 
         .text {
@@ -48,17 +44,9 @@
             gap: 1rem;
             text-align: center;
 
-            button {
-                width: 50%;
+            >button {
+                flex: 1 1 0%;
             }
         }
-    }
-
-    @include respond-below(md) {
-        width: 70%;
-    }
-
-    @include respond-below(sm) {
-        width: 98%;
     }
 }

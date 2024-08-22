@@ -18,7 +18,7 @@ export default function AppViewBusinessViewArchiveModalComponent() {
   const { businessModal } = routeApi.useSearch();
 
   const onClose = () => {
-    navigate({ search: { businessModal: undefined }, replace: true, resetScroll: false });
+    navigate({ search: { businessModal: undefined }, replace: true, resetScroll: false, ignoreBlocker: true });
   };
 
   const { mutate, isPending } = useMutation({

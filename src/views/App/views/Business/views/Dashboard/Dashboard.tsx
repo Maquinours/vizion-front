@@ -8,11 +8,13 @@ import { FaTrash } from 'react-icons/fa';
 import { HiPencilAlt } from 'react-icons/hi';
 import { toast } from 'react-toastify';
 import * as yup from 'yup';
+import UnsavedChangesBlockingModalComponent from '../../../../../../components/UnsavedChangesBlockingModal/UnsavedChangesBlockingModal';
 import WorkloadsComponent from '../../../../../../components/Workloads/Workloads';
 import { updateBusiness } from '../../../../../../utils/api/business';
 import { queries } from '../../../../../../utils/constants/queryKeys';
 import BusinessState from '../../../../../../utils/enums/BusinessState';
 import { WorkloadAssociatedItem } from '../../../../../../utils/enums/WorkloadAssociatedItem';
+import BusinessResponseDto from '../../../../../../utils/types/BusinessResponseDto';
 import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthentifiedUser';
 import styles from './Dashboard.module.scss';
 import AppViewBusinessViewDashboardViewBillingAddressComponent from './components/BillingAddress/BillingAddress';
@@ -23,12 +25,10 @@ import AppViewBusinessViewDashboardViewGeneralInformationsComponent from './comp
 import AppViewBusinessViewDashboardViewImportOtherBusinessQuotationComponent from './components/ImportOtherBusinessQuotation/ImportOtherBusinessQuotation';
 import AppViewBusinessViewDashboardViewLifesheetComponent from './components/Lifesheet/Lifesheet';
 import AppViewBusinessViewDashboardViewLinksComponent from './components/Links/Links';
-import AppViewBusinessViewDashboardViewNavigationBlockingModalComponent from './components/NavigationBlockingModal/NavigationBlockingModal';
 import AppViewBusinessViewDashboardViewQuotationButtonComponent from './components/QuotationButton/QuotationButton';
 import AppViewBusinessViewDashboardViewResponsibleComponent from './components/Responsible/Responsible';
 import AppViewBusinessViewDashboardViewTransferDataButtonComponent from './components/TransferDataButton/TransferDataButton';
 import { BusinessDashboardContext } from './utils/contexts/context';
-import BusinessResponseDto from '../../../../../../utils/types/BusinessResponseDto';
 
 const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/dashboard');
 
@@ -114,6 +114,10 @@ export default function AppViewBusinessViewDashboardView() {
       });
   };
 
+  const { proceed, reset, status } = useBlocker({
+    condition: isDirty,
+  });
+
   const { mutate: save, isPending: isSavePending } = useMutation({
     mutationFn: async (data: BusinessDashboardFormType) => {
       const possibleDepartmentCodes = [data.receiverZipCode?.toString().trim().slice(0, 2), data?.businessInstaller?.toString().trim().slice(0, 3)];
@@ -165,6 +169,7 @@ export default function AppViewBusinessViewDashboardView() {
       queryClient.setQueryData<BusinessResponseDto>(queries.businesses.detail._ctx.byId(business.id).queryKey, business);
       // queryClient.invalidateQueries({ queryKey: queries.businesses._def });
       toast.success('Les modifications ont été enregistrées');
+      if (status === 'blocked') proceed();
     },
     onError: (error) => {
       console.error(error);
@@ -173,10 +178,6 @@ export default function AppViewBusinessViewDashboardView() {
   });
 
   const onSave = handleSubmit((data) => save(data));
-
-  const { proceed, reset, status } = useBlocker({
-    condition: isDirty,
-  });
 
   useEffect(() => {
     resetForm(formDefaultValues, { keepDirtyValues: true });
@@ -306,7 +307,7 @@ export default function AppViewBusinessViewDashboardView() {
       <BusinessDashboardContext.Provider value={contextValue}>
         <Outlet />
       </BusinessDashboardContext.Provider>
-      {status === 'blocked' && <AppViewBusinessViewDashboardViewNavigationBlockingModalComponent proceed={proceed} reset={reset} />}
+      {status === 'blocked' && <UnsavedChangesBlockingModalComponent proceed={proceed} reset={reset} save={onSave} isSaving={isSavePending} />}
     </>
   );
 }
