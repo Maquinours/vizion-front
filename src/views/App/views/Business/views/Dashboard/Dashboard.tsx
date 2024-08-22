@@ -2,7 +2,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import { Link, Outlet, getRouteApi, useBlocker } from '@tanstack/react-router';
 import classNames from 'classnames';
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import { FaTrash } from 'react-icons/fa';
 import { HiPencilAlt } from 'react-icons/hi';
@@ -28,6 +28,7 @@ import AppViewBusinessViewDashboardViewQuotationButtonComponent from './componen
 import AppViewBusinessViewDashboardViewResponsibleComponent from './components/Responsible/Responsible';
 import AppViewBusinessViewDashboardViewTransferDataButtonComponent from './components/TransferDataButton/TransferDataButton';
 import { BusinessDashboardContext } from './utils/contexts/context';
+import BusinessResponseDto from '../../../../../../utils/types/BusinessResponseDto';
 
 const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/dashboard');
 
@@ -56,14 +57,8 @@ export default function AppViewBusinessViewDashboardView() {
   const { data: user } = useAuthentifiedUserQuery();
   const { data: business } = useSuspenseQuery(queries.businesses.detail._ctx.byId(businessId));
 
-  const {
-    register,
-    formState: { errors, isDirty },
-    setValue,
-    handleSubmit,
-  } = useForm({
-    resolver: yupResolver(yupSchema),
-    defaultValues: {
+  const formDefaultValues = useMemo(
+    () => ({
       businessName: business.title ?? '',
       businessInstaller: business.installerProfileName ?? '',
       businessExport: business.exportTva ? 'yes' : 'no',
@@ -76,8 +71,34 @@ export default function AppViewBusinessViewDashboardView() {
       receiverCity: business.deliverAddressCity ?? '',
       receiverPhoneNumber: business.deliverPhoneNumber ?? '',
       receiverEmail: business.deliverEmail ?? '',
-    },
+    }),
+    [
+      business.title,
+      business.installerProfileName,
+      business.exportTva,
+      business.deliveryMode,
+      business.deliverAddressName,
+      business.deliverAddressOne,
+      business.deliverAddressTwo,
+      business.deliverAddressZipCode,
+      business.deliverAddressCity,
+      business.deliverPhoneNumber,
+      business.deliverEmail,
+    ],
+  );
+
+  const {
+    register,
+    formState: { errors, isDirty },
+    setValue,
+    handleSubmit,
+    reset: resetForm,
+  } = useForm({
+    resolver: yupResolver(yupSchema),
+    defaultValues: formDefaultValues,
   });
+
+  // console.log(business.deliverAddressTwo, watch('receiverAddressTwo'), dirtyFields.receiverAddressTwo);
 
   const contextValue = useMemo(() => ({ setValue }), [setValue]);
 
@@ -140,8 +161,9 @@ export default function AppViewBusinessViewDashboardView() {
         type: business.type!,
       });
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: queries.businesses._def });
+    onSuccess: (business) => {
+      queryClient.setQueryData<BusinessResponseDto>(queries.businesses.detail._ctx.byId(business.id).queryKey, business);
+      // queryClient.invalidateQueries({ queryKey: queries.businesses._def });
       toast.success('Les modifications ont été enregistrées');
     },
     onError: (error) => {
@@ -155,6 +177,10 @@ export default function AppViewBusinessViewDashboardView() {
   const { proceed, reset, status } = useBlocker({
     condition: isDirty,
   });
+
+  useEffect(() => {
+    resetForm(formDefaultValues, { keepDirtyValues: true });
+  }, [formDefaultValues]);
 
   return (
     <>
