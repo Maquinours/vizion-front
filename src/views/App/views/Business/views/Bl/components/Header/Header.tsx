@@ -35,13 +35,20 @@ export default function AppViewBusinessViewBlViewHeaderComponent() {
     },
   });
 
+  const onCreateBill = () => {
+    if (!business.deliverAddressZipCode || business.deliverAddressZipCode.length < 2) {
+      toast.warning('Impossible de passer en facture : Le CP de livraison est invalide.');
+      navigate({ to: '/app/businesses-rma/business/$businessId/dashboard', params: { businessId }, replace: true });
+    } else createBill();
+  };
+
   return (
     <div className={styles.edit_container}>
       <div className={styles.business_info}>
         <span>{business.enterpriseName}</span> / <span>{business.title}</span>
       </div>
       {!business.archived && business.state === BusinessState.BL && (
-        <button disabled={isCreatingBill} className="btn btn-secondary" onClick={() => createBill()}>
+        <button disabled={isCreatingBill} className="btn btn-secondary" onClick={onCreateBill}>
           {isCreatingBill ? 'Édition de la facture...' : 'Éditer Facture'}
         </button>
       )}
