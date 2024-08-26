@@ -35,7 +35,7 @@ export default function AppViewDashboardViewPersonalTasksComponentHeaderComponen
           <Link
             key={item.value}
             from={Route.id}
-            search={(old) => ({ ...old, personalTaskState: item.value })}
+            search={(old) => ({ ...old, personalTaskState: item.value, personalTaskPage: 0 })}
             replace
             resetScroll={false}
             preload="intent"

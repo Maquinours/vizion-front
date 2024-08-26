@@ -35,7 +35,7 @@ export default function AppViewDashboardViewOtherPersonalTasksModalViewHeaderCom
           <Link
             key={item.value}
             from={Route.id}
-            search={(old) => ({ ...old, otherPersonalTaskState: item.value })}
+            search={(old) => ({ ...old, otherPersonalTaskState: item.value, otherPersonalTaskPage: 0 })}
             replace
             resetScroll={false}
             preload="intent"
