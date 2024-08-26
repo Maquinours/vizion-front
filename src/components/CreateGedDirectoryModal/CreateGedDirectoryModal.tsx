@@ -8,14 +8,10 @@ import * as yup from 'yup';
 import { createDirectoryOnS3 } from '../../utils/api/ged';
 import { geds } from '../../utils/constants/queryKeys/ged';
 import FileType from '../../utils/enums/FileType';
-import { fileFolderValidationRegex } from '../../utils/functions/regex';
 import styles from './CreateGedDirectoryModal.module.scss';
 
 const yupSchema = yup.object({
-  name: yup
-    .string()
-    .required('Le nom du dossier est requis')
-    .matches(fileFolderValidationRegex, 'Le nom du dossier ne peut contenir les caractères suivants : / \\ : * ? " < > |'),
+  name: yup.string().required('Le nom du dossier est requis'),
 });
 
 type CreateGedDirectoryModalComponentProps = Readonly<{

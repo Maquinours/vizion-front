@@ -76,7 +76,7 @@ export default function AppViewBusinessViewDashboardViewAddressBookModalView() {
               <BsArrowLeft width="16" height="16" color="#FFF" />
             </button>
             <div className={styles.modal_title}>{"Carnet d'adresse"}</div>
-            <Link from={routeApi.id} to="create" search={(old) => old} replace resetScroll={false} preload="intent">
+            <Link from={routeApi.id} to="create" search replace resetScroll={false} preload="intent" ignoreBlocker>
               <IoMdAddCircleOutline width="16" height="16" color="#FFF" />
             </Link>
           </div>

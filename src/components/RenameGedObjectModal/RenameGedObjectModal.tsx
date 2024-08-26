@@ -10,14 +10,10 @@ import { renameObjectOnS3 } from '../../utils/api/ged';
 import { geds } from '../../utils/constants/queryKeys/ged';
 import FileType from '../../utils/enums/FileType';
 import { findRecursively } from '../../utils/functions/arrays';
-import { fileFolderValidationRegex } from '../../utils/functions/regex';
 import styles from './RenameGedObjectModal.module.scss';
 
 const yupSchema = yup.object({
-  name: yup
-    .string()
-    .required('Le nom du dossier est requis')
-    .matches(fileFolderValidationRegex, 'Le nom du dossier ne peut contenir les caractères suivants : / \\ : * ? " < > |'),
+  name: yup.string().required('Le nom du dossier est requis'),
 });
 
 type RenameGedObjectModalComponentProps = Readonly<{

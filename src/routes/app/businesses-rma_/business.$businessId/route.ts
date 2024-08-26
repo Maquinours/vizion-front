@@ -29,7 +29,8 @@ export const Route = createFileRoute('/app/businesses-rma/business/$businessId')
       const assistances = await queryClient.ensureQueryData(
         queries['technical-supports'].list._ctx.byBusinessOrRmaNumber({ categoryBusiness: CategoryBusiness.AFFAIRE, number: business.numBusiness }),
       );
-      if (assistances.length === 0) throw redirect({ search: (old) => ({ ...old, businessModal: 'create-assistance' }) });
+      if (assistances.length === 0)
+        throw redirect({ search: (old) => ({ ...old, businessModal: 'create-assistance' }), replace: true, resetScroll: false, ignoreBlocker: true });
     } else if (businessModal === 'create-assistance') queryClient.prefetchQuery(queries['business-bills'].list._ctx.byBusinessId(businessId));
   },
   staticData: {

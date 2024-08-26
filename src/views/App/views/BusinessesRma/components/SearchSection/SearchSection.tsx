@@ -481,7 +481,7 @@ export default function AppViewBusinessesRmaViewSearchSectionComponent() {
               control={control}
               name="fuzzy"
               render={({ field: { value, onChange } }) => (
-                <div className="flex gap-1">
+                <div className="flex flex-wrap gap-1">
                   <label htmlFor="fuzzy" className="font-['DIN2014'] text-base text-[color:var(--primary-color)]">
                     Recherche floue
                   </label>
@@ -498,7 +498,7 @@ export default function AppViewBusinessesRmaViewSearchSectionComponent() {
               )}
             />
           </div>
-          <div>
+          <div className="flex flex-wrap gap-1">
             <button className="btn btn-primary-light" type="reset">
               RAZ
             </button>

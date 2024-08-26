@@ -1435,4 +1435,8 @@ button[type='submit'].btn {
 
 #sentry-feedback {
   --inset: auto auto 0 0;
+
+  @include respond-below(sm) {
+    display: none;
+  }
 }

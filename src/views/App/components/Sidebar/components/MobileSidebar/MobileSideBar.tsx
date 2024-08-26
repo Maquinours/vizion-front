@@ -31,6 +31,7 @@ const MENUS: MenuItem[] = [
       activeOptions: { exact: true, includeSearch: true },
       replace: true,
       resetScroll: false,
+      ignoreBlocker: true,
     },
   },
 ];
