@@ -24,7 +24,7 @@ export default function AppViewDashboardViewOtherPersonalTasksModalViewHeaderCom
           <Link
             key={member.id}
             from={Route.id}
-            search
+            search={(prev) => ({ ...prev, otherPersonalTaskPage: 0 })}
             params={{ profileId: member.id }}
             replace
             resetScroll={false}
