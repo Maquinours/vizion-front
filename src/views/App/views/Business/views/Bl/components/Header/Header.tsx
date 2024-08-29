@@ -5,6 +5,7 @@ import BusinessState from '../../../../../../../../utils/enums/BusinessState';
 import { createBusinessBill } from '../../../../../../../../utils/api/businessBill';
 import { toast } from 'react-toastify';
 import styles from './Header.module.scss';
+import CategoryClient from '../../../../../../../../utils/enums/CategoryClient';
 
 const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/bl');
 
@@ -47,7 +48,7 @@ export default function AppViewBusinessViewBlViewHeaderComponent() {
       <div className={styles.business_info}>
         <span>{business.enterpriseName}</span> / <span>{business.title}</span>
       </div>
-      {!business.archived && business.state === BusinessState.BL && (
+      {!business.archived && business.state === BusinessState.BL && business.enterpriseCategory !== CategoryClient.FOURNISSEUR && (
         <button disabled={isCreatingBill} className="btn btn-secondary" onClick={onCreateBill}>
           {isCreatingBill ? 'Édition de la facture...' : 'Éditer Facture'}
         </button>
