@@ -24,8 +24,13 @@ export default function AppViewTabsContainerComponentTabContextMenuComponent({
   };
 
   const onCloseOtherTabs = () => {
-    removeTabs(tabs.filter((tab) => tab.id !== selectedItem?.id && tab.closable !== false && !tab.closeRoute));
     onClose();
+    removeTabs(tabs.filter((tab) => tab.id !== selectedItem?.id && tab.closable !== false));
+  };
+
+  const onCloseAllTabs = () => {
+    onClose();
+    removeTabs(tabs.filter((tab) => tab.closable !== false));
   };
 
   return (
@@ -34,10 +39,13 @@ export default function AppViewTabsContainerComponentTabContextMenuComponent({
         <ClickAwayListener mouseEvent="onMouseUp" onClickAway={onClose}>
           <Fade {...TransitionProps}>
             <Paper className={styles.menu_container}>
-              {selectedItem && (
+              {!!selectedItem && (
                 <MenuList>
                   <MenuItem onClick={onCloseOtherTabs}>
                     <span className={styles.text}>Fermer les autres onglets</span>
+                  </MenuItem>
+                  <MenuItem onClick={onCloseAllTabs}>
+                    <span className={styles.text}>Fermer tous les onglets</span>
                   </MenuItem>
                 </MenuList>
               )}

@@ -111,22 +111,21 @@ export default function AppViewTabsContainerComponent({ children }: AppViewTabsC
     }),
   );
 
+  // TODO: fix this
   const removeTabs = useCallback(
-    (tabs: Array<Tab>) => {
+    async (tabsToRemove: Array<Tab>) => {
       const removedTabs: Array<Tab> = [];
-      setTabs((currentTabs) => {
-        const result = currentTabs.filter((t) => {
-          if (tabs.some((tab) => tab.id === t.id)) {
-            removedTabs.push(t);
-            return false;
-          }
-          return true;
-        });
-        if (removedTabs.some((tab) => matchRoute({ to: tab.route.to }))) navigate({ ...(result.at(-1)?.route ?? { to: '/app' }), ignoreBlocker: true });
-        return result;
+      const result = tabs.filter((t) => {
+        if (tabsToRemove.some((tab) => tab.id === t.id)) {
+          removedTabs.push(t);
+          return false;
+        }
+        return true;
       });
+      if (removedTabs.some((tab) => matchRoute({ to: tab.route.to }))) await navigate({ ...(result.at(-1)?.route ?? { to: '/app' }), ignoreBlocker: true });
+      setTabs(result);
     },
-    [setTabs, matchRoute, navigate],
+    [tabs, setTabs, matchRoute, navigate],
   );
 
   const removeTab = useCallback(
