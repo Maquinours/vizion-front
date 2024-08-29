@@ -215,6 +215,7 @@ import { Route as AppEnterprisesEnterpriseIdAddressBookUpdateAddressIdRouteImpor
 import { Route as AppEnterprisesEnterpriseIdAddressBookDeleteAddressIdRouteImport } from './routes/app/enterprises_.$enterpriseId/address-book/delete.$addressId/route'
 import { Route as AppBusinessesRmaRmaRmaIdSupportPdfRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/support/pdf/route'
 import { Route as AppBusinessesRmaRmaRmaIdSupportImportGedFilesRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/support/import-ged-files/route'
+import { Route as AppBusinessesRmaRmaRmaIdSupportCreateLinkRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/support/create-link/route'
 import { Route as AppBusinessesRmaRmaRmaIdSupportCreateLifesheetRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/support/create-lifesheet/route'
 import { Route as AppBusinessesRmaRmaRmaIdSupportCreateGedDirectoryRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/support/create-ged-directory/route'
 import { Route as AppBusinessesRmaRmaRmaIdSupportCreateDetailRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/support/create-detail/route'
@@ -254,6 +255,7 @@ import { Route as AppBusinessesRmaRmaRmaIdSupportTaskEmailTaskIdRouteImport } fr
 import { Route as AppBusinessesRmaRmaRmaIdSupportRenameGedObjectObjectRelativePathRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/support/rename-ged-object.$objectRelativePath/route'
 import { Route as AppBusinessesRmaRmaRmaIdSupportPdfSendByEmailRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/support/pdf/send-by-email/route'
 import { Route as AppBusinessesRmaRmaRmaIdSupportLifesheetEmailLifesheetIdRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/support/lifesheet-email.$lifesheetId/route'
+import { Route as AppBusinessesRmaRmaRmaIdSupportDeleteLinkAssociatedIdRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/support/delete-link.$associatedId/route'
 import { Route as AppBusinessesRmaRmaRmaIdSupportDeleteGedObjectRelativePathRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/support/delete-ged-object.$relativePath/route'
 import { Route as AppBusinessesRmaRmaRmaIdSupportDeleteDetailDetailIdRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/support/delete-detail.$detailId/route'
 import { Route as AppBusinessesRmaRmaRmaIdReceptionUpdateDetailDetailIdRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/reception/update-detail.$detailId/route'
@@ -2234,6 +2236,16 @@ const AppBusinessesRmaRmaRmaIdSupportImportGedFilesRouteRoute =
     ).then((d) => d.Route),
   )
 
+const AppBusinessesRmaRmaRmaIdSupportCreateLinkRouteRoute =
+  AppBusinessesRmaRmaRmaIdSupportCreateLinkRouteImport.update({
+    path: '/create-link',
+    getParentRoute: () => AppBusinessesRmaRmaRmaIdSupportRouteRoute,
+  } as any).lazy(() =>
+    import(
+      './routes/app/businesses-rma_/rma.$rmaId/support/create-link/route.lazy'
+    ).then((d) => d.Route),
+  )
+
 const AppBusinessesRmaRmaRmaIdSupportCreateLifesheetRouteRoute =
   AppBusinessesRmaRmaRmaIdSupportCreateLifesheetRouteImport.update({
     path: '/create-lifesheet',
@@ -2648,6 +2660,16 @@ const AppBusinessesRmaRmaRmaIdSupportLifesheetEmailLifesheetIdRouteRoute =
   } as any).lazy(() =>
     import(
       './routes/app/businesses-rma_/rma.$rmaId/support/lifesheet-email.$lifesheetId/route.lazy'
+    ).then((d) => d.Route),
+  )
+
+const AppBusinessesRmaRmaRmaIdSupportDeleteLinkAssociatedIdRouteRoute =
+  AppBusinessesRmaRmaRmaIdSupportDeleteLinkAssociatedIdRouteImport.update({
+    path: '/delete-link/$associatedId',
+    getParentRoute: () => AppBusinessesRmaRmaRmaIdSupportRouteRoute,
+  } as any).lazy(() =>
+    import(
+      './routes/app/businesses-rma_/rma.$rmaId/support/delete-link.$associatedId/route.lazy'
     ).then((d) => d.Route),
   )
 
@@ -4824,6 +4846,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppBusinessesRmaRmaRmaIdSupportCreateLifesheetRouteImport
       parentRoute: typeof AppBusinessesRmaRmaRmaIdSupportRouteImport
     }
+    '/app/businesses-rma/rma/$rmaId/support/create-link': {
+      id: '/app/businesses-rma/rma/$rmaId/support/create-link'
+      path: '/create-link'
+      fullPath: '/app/businesses-rma/rma/$rmaId/support/create-link'
+      preLoaderRoute: typeof AppBusinessesRmaRmaRmaIdSupportCreateLinkRouteImport
+      parentRoute: typeof AppBusinessesRmaRmaRmaIdSupportRouteImport
+    }
     '/app/businesses-rma/rma/$rmaId/support/import-ged-files': {
       id: '/app/businesses-rma/rma/$rmaId/support/import-ged-files'
       path: '/import-ged-files'
@@ -5326,6 +5355,13 @@ declare module '@tanstack/react-router' {
       path: '/delete-ged-object/$relativePath'
       fullPath: '/app/businesses-rma/rma/$rmaId/support/delete-ged-object/$relativePath'
       preLoaderRoute: typeof AppBusinessesRmaRmaRmaIdSupportDeleteGedObjectRelativePathRouteImport
+      parentRoute: typeof AppBusinessesRmaRmaRmaIdSupportRouteImport
+    }
+    '/app/businesses-rma/rma/$rmaId/support/delete-link/$associatedId': {
+      id: '/app/businesses-rma/rma/$rmaId/support/delete-link/$associatedId'
+      path: '/delete-link/$associatedId'
+      fullPath: '/app/businesses-rma/rma/$rmaId/support/delete-link/$associatedId'
+      preLoaderRoute: typeof AppBusinessesRmaRmaRmaIdSupportDeleteLinkAssociatedIdRouteImport
       parentRoute: typeof AppBusinessesRmaRmaRmaIdSupportRouteImport
     }
     '/app/businesses-rma/rma/$rmaId/support/lifesheet-email/$lifesheetId': {
@@ -5909,6 +5945,7 @@ export const routeTree = rootRoute.addChildren({
             AppBusinessesRmaRmaRmaIdSupportCreateDetailRouteRoute,
             AppBusinessesRmaRmaRmaIdSupportCreateGedDirectoryRouteRoute,
             AppBusinessesRmaRmaRmaIdSupportCreateLifesheetRouteRoute,
+            AppBusinessesRmaRmaRmaIdSupportCreateLinkRouteRoute,
             AppBusinessesRmaRmaRmaIdSupportImportGedFilesRouteRoute,
             AppBusinessesRmaRmaRmaIdSupportPdfRouteRoute:
               AppBusinessesRmaRmaRmaIdSupportPdfRouteRoute.addChildren({
@@ -5921,6 +5958,7 @@ export const routeTree = rootRoute.addChildren({
               }),
             AppBusinessesRmaRmaRmaIdSupportDeleteDetailDetailIdRouteRoute,
             AppBusinessesRmaRmaRmaIdSupportDeleteGedObjectRelativePathRouteRoute,
+            AppBusinessesRmaRmaRmaIdSupportDeleteLinkAssociatedIdRouteRoute,
             AppBusinessesRmaRmaRmaIdSupportLifesheetEmailLifesheetIdRouteRoute,
             AppBusinessesRmaRmaRmaIdSupportRenameGedObjectObjectRelativePathRouteRoute,
             AppBusinessesRmaRmaRmaIdSupportTaskEmailTaskIdRouteRoute:
@@ -6796,10 +6834,12 @@ export const routeTree = rootRoute.addChildren({
         "/app/businesses-rma/rma/$rmaId/support/create-detail",
         "/app/businesses-rma/rma/$rmaId/support/create-ged-directory",
         "/app/businesses-rma/rma/$rmaId/support/create-lifesheet",
+        "/app/businesses-rma/rma/$rmaId/support/create-link",
         "/app/businesses-rma/rma/$rmaId/support/import-ged-files",
         "/app/businesses-rma/rma/$rmaId/support/pdf",
         "/app/businesses-rma/rma/$rmaId/support/delete-detail/$detailId",
         "/app/businesses-rma/rma/$rmaId/support/delete-ged-object/$relativePath",
+        "/app/businesses-rma/rma/$rmaId/support/delete-link/$associatedId",
         "/app/businesses-rma/rma/$rmaId/support/lifesheet-email/$lifesheetId",
         "/app/businesses-rma/rma/$rmaId/support/rename-ged-object/$objectRelativePath",
         "/app/businesses-rma/rma/$rmaId/support/task-email/$taskId",
@@ -7227,6 +7267,10 @@ export const routeTree = rootRoute.addChildren({
       "filePath": "app/businesses-rma_/rma.$rmaId/support/create-lifesheet/route.ts",
       "parent": "/app/businesses-rma/rma/$rmaId/support"
     },
+    "/app/businesses-rma/rma/$rmaId/support/create-link": {
+      "filePath": "app/businesses-rma_/rma.$rmaId/support/create-link/route.ts",
+      "parent": "/app/businesses-rma/rma/$rmaId/support"
+    },
     "/app/businesses-rma/rma/$rmaId/support/import-ged-files": {
       "filePath": "app/businesses-rma_/rma.$rmaId/support/import-ged-files/route.ts",
       "parent": "/app/businesses-rma/rma/$rmaId/support"
@@ -7540,6 +7584,10 @@ export const routeTree = rootRoute.addChildren({
     },
     "/app/businesses-rma/rma/$rmaId/support/delete-ged-object/$relativePath": {
       "filePath": "app/businesses-rma_/rma.$rmaId/support/delete-ged-object.$relativePath/route.ts",
+      "parent": "/app/businesses-rma/rma/$rmaId/support"
+    },
+    "/app/businesses-rma/rma/$rmaId/support/delete-link/$associatedId": {
+      "filePath": "app/businesses-rma_/rma.$rmaId/support/delete-link.$associatedId/route.ts",
       "parent": "/app/businesses-rma/rma/$rmaId/support"
     },
     "/app/businesses-rma/rma/$rmaId/support/lifesheet-email/$lifesheetId": {

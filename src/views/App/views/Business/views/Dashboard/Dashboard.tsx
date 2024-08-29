@@ -8,11 +8,13 @@ import { FaTrash } from 'react-icons/fa';
 import { HiPencilAlt } from 'react-icons/hi';
 import { toast } from 'react-toastify';
 import * as yup from 'yup';
+import BusinessRmaLinksComponent from '../../../../../../components/BusinessRmaLinks/BusinessRmaLinks';
 import UnsavedChangesBlockingModalComponent from '../../../../../../components/UnsavedChangesBlockingModal/UnsavedChangesBlockingModal';
 import WorkloadsComponent from '../../../../../../components/Workloads/Workloads';
 import { updateBusiness } from '../../../../../../utils/api/business';
 import { queries } from '../../../../../../utils/constants/queryKeys';
 import BusinessState from '../../../../../../utils/enums/BusinessState';
+import CategoryBusiness from '../../../../../../utils/enums/CategoryBusiness';
 import { WorkloadAssociatedItem } from '../../../../../../utils/enums/WorkloadAssociatedItem';
 import BusinessResponseDto from '../../../../../../utils/types/BusinessResponseDto';
 import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthentifiedUser';
@@ -24,7 +26,6 @@ import AppViewBusinessViewDashboardViewGedComponent from './components/Ged/Ged';
 import AppViewBusinessViewDashboardViewGeneralInformationsComponent from './components/GeneralInformations/GeneralInformations';
 import AppViewBusinessViewDashboardViewImportOtherBusinessQuotationComponent from './components/ImportOtherBusinessQuotation/ImportOtherBusinessQuotation';
 import AppViewBusinessViewDashboardViewLifesheetComponent from './components/Lifesheet/Lifesheet';
-import AppViewBusinessViewDashboardViewLinksComponent from './components/Links/Links';
 import AppViewBusinessViewDashboardViewQuotationButtonComponent from './components/QuotationButton/QuotationButton';
 import AppViewBusinessViewDashboardViewResponsibleComponent from './components/Responsible/Responsible';
 import AppViewBusinessViewDashboardViewTransferDataButtonComponent from './components/TransferDataButton/TransferDataButton';
@@ -284,8 +285,29 @@ export default function AppViewBusinessViewDashboardView() {
                     })}
                   />
                 )}
-
-                <AppViewBusinessViewDashboardViewLinksComponent />
+                <BusinessRmaLinksComponent
+                  category={CategoryBusiness.AFFAIRE}
+                  number={business.numBusiness}
+                  canCreate={user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO')}
+                  createLink={{
+                    to: '/app/businesses-rma/business/$businessId/dashboard/create-link',
+                    search: true,
+                    replace: true,
+                    resetScroll: false,
+                    ignoreBlocker: true,
+                    preload: 'intent',
+                  }}
+                  getDeleteLink={(data) => ({
+                    to: '/app/businesses-rma/business/$businessId/dashboard/delete-link/$associatedId',
+                    params: { associatedId: data.id },
+                    search: true,
+                    replace: true,
+                    resetScroll: false,
+                    ignoreBlocker: true,
+                    preload: 'intent',
+                  })}
+                  className="min-h-[60vh]"
+                />
               </div>
               <div className="h-fit">
                 <AppViewBusinessViewDashboardViewBillingAddressComponent />

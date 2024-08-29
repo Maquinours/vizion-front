@@ -4,20 +4,18 @@ import DeleteBusinessRmaLinkModalComponent from '../../../../../../../../compone
 import { queries } from '../../../../../../../../utils/constants/queryKeys';
 import CategoryBusiness from '../../../../../../../../utils/enums/CategoryBusiness';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/dashboard/delete-link/$associatedId');
+const routeApi = getRouteApi('/app/businesses-rma/rma/$rmaId/support/delete-link/$associatedId');
 
-export default function AppViewBusinessViewDashboardViewDeleteLinkModalView() {
+export default function AppViewRmaViewSupportViewDeleteLinkModalView() {
   const navigate = useNavigate({ from: routeApi.id });
 
-  const { businessId, associatedId } = routeApi.useParams();
+  const { rmaId, associatedId } = routeApi.useParams();
 
-  const { data: business } = useSuspenseQuery(queries.businesses.detail._ctx.byId(businessId));
+  const { data: rma } = useSuspenseQuery(queries.rmas.detail(rmaId));
 
   const onClose = () => {
     navigate({ to: '../..', search: true, replace: true, resetScroll: false, ignoreBlocker: true });
   };
 
-  return (
-    <DeleteBusinessRmaLinkModalComponent category={CategoryBusiness.AFFAIRE} number={business.numBusiness} associatedId={associatedId} onClose={onClose} />
-  );
+  return <DeleteBusinessRmaLinkModalComponent category={CategoryBusiness.RMA} number={rma.number} associatedId={associatedId} onClose={onClose} />;
 }

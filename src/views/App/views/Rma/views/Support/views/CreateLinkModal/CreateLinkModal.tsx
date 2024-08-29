@@ -4,18 +4,18 @@ import CreateBusinessRmaLinkModalComponent from '../../../../../../../../compone
 import { queries } from '../../../../../../../../utils/constants/queryKeys';
 import CategoryBusiness from '../../../../../../../../utils/enums/CategoryBusiness';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/dashboard/create-link');
+const routeApi = getRouteApi('/app/businesses-rma/rma/$rmaId/support/create-link');
 
-export default function AppViewBusinessViewDashboardViewCreateLinkModalView() {
+export default function AppViewRmaViewSupportViewCreateLinkModalView() {
   const navigate = useNavigate({ from: routeApi.id });
 
-  const { businessId } = routeApi.useParams();
+  const { rmaId } = routeApi.useParams();
 
-  const { data: business } = useSuspenseQuery(queries.businesses.detail._ctx.byId(businessId));
+  const { data: rma } = useSuspenseQuery(queries.rmas.detail(rmaId));
 
   const onClose = () => {
     navigate({ to: '..', search: true, replace: true, resetScroll: false, ignoreBlocker: true });
   };
 
-  return <CreateBusinessRmaLinkModalComponent category={CategoryBusiness.AFFAIRE} number={business.numBusiness} onClose={onClose} />;
+  return <CreateBusinessRmaLinkModalComponent category={CategoryBusiness.RMA} number={rma.number} onClose={onClose} />;
 }
