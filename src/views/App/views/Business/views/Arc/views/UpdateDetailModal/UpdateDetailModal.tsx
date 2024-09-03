@@ -73,7 +73,7 @@ export default function AppViewBusinessViewArcViewUpdateDetailModalView() {
     mutationFn: (data: yup.InferType<typeof yupSchema>) => {
       const reduction = ((detail.publicUnitPrice ?? 0 - data.price) / detail.publicUnitPrice) * 100;
       const totalPrice = data.quantity * data.price;
-      const totalAmountHT = (arc.totalAmountHT ?? 0) - detail!.totalPrice + totalPrice;
+      const totalAmountHT = arc.arcDetailsList?.reduce((acc, d) => acc + (d.id === detail.id ? totalPrice : (d.totalPrice ?? 0)), 0) ?? 0;
       const shippingServicePrice = totalAmountHT < 1200 ? arc.shippingServicePrice : 0;
       const totalAmount = (totalAmountHT + shippingServicePrice) * 1.2;
       return updateBusinessArcDetail(detail!.id, {
