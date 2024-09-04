@@ -60,7 +60,7 @@ export default function AppViewToolsViewVvaListViewCreateModalView() {
     resolver: yupResolver(yupSchema),
     defaultValues: {
       year: new Date().getFullYear(),
-      month: new Date().getMonth() + 1,
+      month: new Date().getMonth(),
       lines: [],
     },
   });
@@ -150,7 +150,7 @@ export default function AppViewToolsViewVvaListViewCreateModalView() {
             zipCode: line.zipCode,
             departmentCode: department!.code,
             representativeName: department?.repEnterprise?.name,
-            representativeId: department?.repEnterprise?.name,
+            representativeId: department?.repEnterprise?.id,
             amountHT: line.amount,
             type: SalesType.VVA,
             year: year,
