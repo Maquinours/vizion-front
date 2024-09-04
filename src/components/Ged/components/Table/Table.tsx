@@ -28,7 +28,7 @@ const gedColumns = [
       ) : null,
   }),
   columnHelper.display({
-    header: 'name',
+    header: 'Nom',
     cell: ({ row }) => (
       <div className={styles.directory}>
         <div className={styles.directory_file_name}>

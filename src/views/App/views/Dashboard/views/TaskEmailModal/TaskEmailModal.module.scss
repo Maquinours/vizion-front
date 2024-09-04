@@ -37,6 +37,10 @@
       }
 
       .mailbox {
+        max-height: 50vh;
+        overflow: auto;
+        display: flex;
+        justify-content: center;
         word-break: break-word;
         border: 1px solid var(--primary-color);
         border-radius: 5px;
@@ -45,13 +49,6 @@
         opacity: 1;
         width: 100%;
         max-width: 100%;
-
-        div {
-          table {
-            width: 100%;
-            max-width: 100%;
-          }
-        }
       }
     }
   }

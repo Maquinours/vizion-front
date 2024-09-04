@@ -85,6 +85,10 @@
       }
 
       .mailbox {
+        display: flex;
+        justify-content: center;
+        max-height: 50vh;
+        overflow-y: auto;
         border: 1px solid var(--primary-color);
         background-color: #fff;
         border-radius: 5px;
@@ -97,13 +101,6 @@
         word-break: break-word;
         max-height: 50vh;
         overflow-y: auto;
-
-        div {
-          table {
-            width: 100%;
-            max-width: 100%;
-          }
-        }
       }
     }
 

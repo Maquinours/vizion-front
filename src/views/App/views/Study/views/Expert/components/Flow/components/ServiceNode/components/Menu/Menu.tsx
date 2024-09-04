@@ -64,7 +64,7 @@ export default function AppViewStudyViewExpertViewFlowComponentServiceNodeCompon
             value={quantity}
             onValueChange={onQuantityChange}
             allowNegative={false}
-            decimalScale={0}
+            decimalScale={1}
             isAllowed={(v) => v.floatValue === undefined || v.floatValue >= 0}
             displayType="input"
             className="flex-1 rounded-md border border-[#1a192b] p-2"
