@@ -21,7 +21,7 @@ export default function AppViewBusinessViewArcView() {
   const { mutate, isPending } = useMutation({
     mutationFn: () => {
       const totalAmountHT = arc.arcDetailsList?.reduce((acc, detail) => acc + (detail.totalPrice ?? 0), 0) ?? 0;
-      const vat = totalAmountHT + arc.shippingServicePrice * 0.2;
+      const vat = (totalAmountHT + arc.shippingServicePrice) * 0.2;
       const totalAmount = totalAmountHT + arc.shippingServicePrice + vat;
 
       return updateBusinessArc(arc.id, {
@@ -56,7 +56,7 @@ export default function AppViewBusinessViewArcView() {
   useEffect(() => {
     if (!!arc && !business.archived && !!arc.numOrder?.trim()) {
       const totalAmountHT = arc.arcDetailsList?.reduce((acc, detail) => acc + (detail.totalPrice ?? 0), 0) ?? 0;
-      const vat = totalAmountHT + arc.shippingServicePrice * 0.2;
+      const vat = (totalAmountHT + arc.shippingServicePrice) * 0.2;
       const totalAmount = totalAmountHT + arc.shippingServicePrice + vat;
       if (totalAmountHT !== (arc.totalAmountHT ?? 0) || vat !== arc.vat || totalAmount !== (arc.totalAmount ?? 0)) mutate();
     }
