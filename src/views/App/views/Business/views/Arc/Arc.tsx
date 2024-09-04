@@ -18,7 +18,7 @@ export default function AppViewBusinessViewArcView() {
   const { data: business } = useSuspenseQuery(queries.businesses.detail._ctx.byId(businessId));
   const { data: arc } = useSuspenseQuery(queries['business-ARCs'].detail._ctx.byBusinessId(businessId));
 
-  const { mutate, isPending } = useMutation({
+  const { isPending } = useMutation({
     mutationFn: () => {
       const totalAmountHT = arc.arcDetailsList?.reduce((acc, detail) => acc + (detail.totalPrice ?? 0), 0) ?? 0;
       const vat = (totalAmountHT + arc.shippingServicePrice) * 0.2;
@@ -58,7 +58,8 @@ export default function AppViewBusinessViewArcView() {
       const totalAmountHT = arc.arcDetailsList?.reduce((acc, detail) => acc + (detail.totalPrice ?? 0), 0) ?? 0;
       const vat = (totalAmountHT + arc.shippingServicePrice) * 0.2;
       const totalAmount = totalAmountHT + arc.shippingServicePrice + vat;
-      if (totalAmountHT !== (arc.totalAmountHT ?? 0) || vat !== arc.vat || totalAmount !== (arc.totalAmount ?? 0)) mutate();
+      console.log({ totalAmountHT, arcTotalAmountHT: arc.totalAmountHT, vat, arcVat: arc.vat, totalAmount, arcTotalAmount: arc.totalAmount });
+      // if (totalAmountHT !== (arc.totalAmountHT ?? 0) || vat !== arc.vat || totalAmount !== (arc.totalAmount ?? 0)) mutate();
     }
   }, [arc, business.archived]);
 
