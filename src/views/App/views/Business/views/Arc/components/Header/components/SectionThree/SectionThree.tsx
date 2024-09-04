@@ -44,7 +44,9 @@ export default function AppViewBusinessViewArcViewHeaderComponentSectionThreeCom
       const totalPrice = unitPrice * quantity;
       const totalAmountHT = (arc.arcDetailsList?.reduce((acc, detail) => acc + (detail.totalPrice ?? 0), 0) ?? 0) + totalPrice;
       const shippingServicePrice = arc.shippingServicePrice === 25 && (arc.totalAmountHT ?? 0) < 1200 && totalAmountHT >= 1200 ? 0 : arc.shippingServicePrice;
-      const totalAmount = (totalAmountHT + shippingServicePrice) * 1.2;
+      const vat = (totalAmountHT + shippingServicePrice) * 0.2;
+      const totalAmount = totalAmountHT + shippingServicePrice + vat;
+
       return createBusinessArcDetail({
         arcId: arc.id,
         numDetails: arc.number,
@@ -68,6 +70,7 @@ export default function AppViewBusinessViewArcViewHeaderComponentSectionThreeCom
         shippingServicePrice,
         virtualQty: product.virtualQty,
         bom: product.bom,
+        vat,
       });
     },
     onSuccess: () => {

@@ -27,12 +27,15 @@ export default function AppViewBusinessViewArcViewDeleteDetailModalView() {
     mutationFn: () => {
       const totalAmountHT = arc.arcDetailsList?.reduce((acc, d) => acc + (d.id !== detail.id ? (d.totalPrice ?? 0) : 0), 0) ?? 0;
       const shippingServicePrice = arc.shippingServicePrice === 0 && (arc.totalAmountHT ?? 0) >= 1200 && totalAmountHT < 1200 ? 25 : arc.shippingServicePrice;
-      const totalAmount = (totalAmountHT + shippingServicePrice) * 1.2;
+      const vat = (totalAmountHT + shippingServicePrice) * 0.2;
+      const totalAmount = totalAmountHT + shippingServicePrice + vat;
+
       return deleteBusinessArcDetail(detail.id, {
         totalAmountHT,
         totalAmount,
         arcId: arc.id,
         shippingServicePrice,
+        vat,
       });
     },
     onSuccess: () => {

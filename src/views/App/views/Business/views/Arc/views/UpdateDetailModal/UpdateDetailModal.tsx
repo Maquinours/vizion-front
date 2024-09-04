@@ -75,7 +75,9 @@ export default function AppViewBusinessViewArcViewUpdateDetailModalView() {
       const totalPrice = data.quantity * data.price;
       const totalAmountHT = arc.arcDetailsList?.reduce((acc, d) => acc + (d.id === detail.id ? totalPrice : (d.totalPrice ?? 0)), 0) ?? 0;
       const shippingServicePrice = totalAmountHT < 1200 ? arc.shippingServicePrice : 0;
-      const totalAmount = (totalAmountHT + shippingServicePrice) * 1.2;
+      const vat = (totalAmountHT + shippingServicePrice) * 0.2;
+      const totalAmount = totalAmountHT + shippingServicePrice + vat;
+
       return updateBusinessArcDetail(detail!.id, {
         arcId: arc.id,
         numDetails: detail!.numDetails,
@@ -97,6 +99,7 @@ export default function AppViewBusinessViewArcViewUpdateDetailModalView() {
         totalAmount,
         shippingServicePrice,
         virtualQty: data.product.virtualQty,
+        vat,
       });
     },
     onSuccess: (data) => {

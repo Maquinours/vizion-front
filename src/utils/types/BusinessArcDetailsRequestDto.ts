@@ -21,6 +21,7 @@ type BusinessArcDetailsRequestDto = {
   availableDate?: string | null;
   amountHtConfirmed?: number | null;
   shippingPriceConfirmed?: number | null;
+  vat?: number | null;
 };
 
 export default BusinessArcDetailsRequestDto;

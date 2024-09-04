@@ -16,9 +16,9 @@ export default function AppViewBusinessViewArcView() {
   const { businessId } = routeApi.useParams();
 
   const { data: business } = useSuspenseQuery(queries.businesses.detail._ctx.byId(businessId));
-  const { data: arc } = useSuspenseQuery(queries['business-ARCs'].detail._ctx.byBusinessId(businessId));
+  const { data: arc, dataUpdatedAt: arcDataUpdatedAt } = useSuspenseQuery(queries['business-ARCs'].detail._ctx.byBusinessId(businessId));
 
-  const { isPending } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: () => {
       const totalAmountHT = arc.arcDetailsList?.reduce((acc, detail) => acc + (detail.totalPrice ?? 0), 0) ?? 0;
       const vat = (totalAmountHT + arc.shippingServicePrice) * 0.2;
@@ -54,14 +54,14 @@ export default function AppViewBusinessViewArcView() {
   });
 
   useEffect(() => {
-    if (!!arc && !business.archived && !!arc.numOrder?.trim()) {
-      const totalAmountHT = arc.arcDetailsList?.reduce((acc, detail) => acc + (detail.totalPrice ?? 0), 0) ?? 0;
-      const vat = (totalAmountHT + arc.shippingServicePrice) * 0.2;
-      const totalAmount = totalAmountHT + arc.shippingServicePrice + vat;
+    if (!!arc && !business.archived && !!arc.numOrder?.trim() && !isPending && Date.now() - arcDataUpdatedAt < 1000) {
+      const totalAmountHT = Number((arc.arcDetailsList?.reduce((acc, detail) => acc + (detail.totalPrice ?? 0), 0) ?? 0).toFixed(2));
+      const vat = Number(((totalAmountHT + arc.shippingServicePrice) * 0.2).toFixed(2));
+      const totalAmount = Number((totalAmountHT + arc.shippingServicePrice + vat).toFixed(2));
       console.log({ totalAmountHT, arcTotalAmountHT: arc.totalAmountHT, vat, arcVat: arc.vat, totalAmount, arcTotalAmount: arc.totalAmount });
-      // if (totalAmountHT !== (arc.totalAmountHT ?? 0) || vat !== arc.vat || totalAmount !== (arc.totalAmount ?? 0)) mutate();
+      if (totalAmountHT !== (arc.totalAmountHT ?? 0) || vat !== arc.vat || totalAmount !== (arc.totalAmount ?? 0)) mutate();
     }
-  }, [arc, business.archived]);
+  }, [arc]);
 
   return (
     <>
