@@ -33,6 +33,10 @@ const levelOptions = [
     text: 'Professionnel',
     value: FaqAccessLevel.PROFESSIONNEL,
   },
+  {
+    text: 'Interne IA',
+    value: FaqAccessLevel.INTERNE_IA,
+  }
 ];
 
 const yupSchema = yup.object().shape({

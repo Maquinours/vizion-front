@@ -40,6 +40,10 @@ const levelOptions = [
     text: 'Professionnel',
     value: FaqAccessLevel.PROFESSIONNEL,
   },
+  {
+    text: 'Interne IA',
+    value: FaqAccessLevel.INTERNE_IA,
+  },
 ];
 
 export default function AppViewFaqViewUpdateModalView() {
