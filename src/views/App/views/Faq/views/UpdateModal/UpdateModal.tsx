@@ -132,6 +132,7 @@ export default function AppViewFaqViewUpdateModalView() {
                       className={styles.multi_email}
                       onChange={onChange}
                       onBlur={onBlur}
+                      delimiter="[,;]"
                       getLabel={(value, index, removeItem) => (
                         <div data-tag key={index}>
                           <div data-tag-item>{value}</div>
