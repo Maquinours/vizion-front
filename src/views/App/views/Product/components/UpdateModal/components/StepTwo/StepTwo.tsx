@@ -1,15 +1,15 @@
-import { Control, Controller, FieldErrors, UseFormGetValues, UseFormRegister, UseFormResetField, UseFormSetValue, UseFormWatch } from 'react-hook-form';
+import React, { useEffect } from 'react';
+import { Control, Controller, FieldErrors, UseFormGetValues, UseFormResetField, UseFormSetValue, UseFormWatch } from 'react-hook-form';
+import { PulseLoader } from 'react-spinners';
+import AmountFormat from '../../../../../../../../components/AmountFormat/AmountFormat';
 import CardComponent from '../../../../../../../../components/Card/Card';
+import CurrencyFormat from '../../../../../../../../components/CurrencyFormat/CurrencyFormat';
 import ProductResponseDto from '../../../../../../../../utils/types/ProductResponseDto';
 import { UpdateProductStepTwoSchema } from '../../UpdateModal';
 import styles from './StepTwo.module.scss';
-import { PulseLoader } from 'react-spinners';
-import React, { useEffect } from 'react';
-import AmountFormat from '../../../../../../../../components/AmountFormat/AmountFormat';
 
 type AppViewProductViewUpdateModalComponentStepTwoComponentProps = Readonly<{
   product: ProductResponseDto;
-  register: UseFormRegister<UpdateProductStepTwoSchema>;
   errors: FieldErrors<UpdateProductStepTwoSchema>;
   watch: UseFormWatch<UpdateProductStepTwoSchema>;
   setValue: UseFormSetValue<UpdateProductStepTwoSchema>;
@@ -23,7 +23,6 @@ type AppViewProductViewUpdateModalComponentStepTwoComponentProps = Readonly<{
 
 export default function AppViewProductViewUpdateModalComponentStepTwoComponent({
   product,
-  register,
   errors,
   watch,
   setValue,
@@ -51,41 +50,83 @@ export default function AppViewProductViewUpdateModalComponentStepTwoComponent({
         <div className={styles.form_container}>
           <div className={styles.form_group}>
             <label htmlFor="purchasePrice">Tarif achat en $ :</label>
-            <input id="purchasePrice" placeholder="0.00 $" type="number" {...register('purchasePrice')} />
+            <Controller
+              control={control}
+              name="purchasePrice"
+              render={({ field: { value, onChange } }) => (
+                <AmountFormat id="purchasePrice" displayType="input" value={value} suffix=" $" decimalScale={2} onValueChange={(v) => onChange(v.value)} />
+              )}
+            />
             <p className="__errors">{errors.purchasePrice?.message}</p>
           </div>
           <div className={styles.form_group}>
             <label htmlFor="costPrice" className={styles.required}>
               <span>*</span>Prix revient en € :
             </label>
-            <input id="costPrice" placeholder="0.00 €" type="number" {...register('costPrice')} />
+            <Controller
+              control={control}
+              name="costPrice"
+              render={({ field: { value, onChange } }) => (
+                <CurrencyFormat id="costPrice" displayType="input" value={value} onValueChange={(v) => onChange(v.value)} />
+              )}
+            />
             <p className="__errors">{errors.costPrice?.message}</p>
           </div>
           <div className={styles.form_group}>
             <label htmlFor="margin">Marge :</label>
-            <input id="margin" placeholder="0.00" type="number" {...register('margin')} readOnly />
+            <Controller
+              control={control}
+              name="margin"
+              render={({ field: { value } }) => (
+                <AmountFormat id="margin" displayType="input" allowNegative placeholder="0.00 %" suffix="%" decimalScale={2} value={value} readOnly />
+              )}
+            />
             <p className="__errors">{errors.margin?.message}</p>
           </div>
           <div className={styles.form_group}>
             <label htmlFor="portOrService">Port / Service :</label>
-            <input id="portOrService" placeholder="0.00" type="number" {...register('portOrService')} />
+            <Controller
+              control={control}
+              name="portOrService"
+              render={({ field: { value, onChange } }) => (
+                <CurrencyFormat id="portOrService" displayType="input" value={value} onValueChange={(v) => onChange(v.value)} />
+              )}
+            />
             <p className="__errors">{errors.portOrService?.message}</p>
           </div>
           <div className={styles.form_group}>
             <label htmlFor="tax">Taxe / Douane :</label>
-            <input id="tax" placeholder="0.00" type="number" {...register('tax')} />
+            <Controller
+              control={control}
+              name="tax"
+              render={({ field: { value, onChange } }) => (
+                <CurrencyFormat id="tax" displayType="input" value={value} onValueChange={(v) => onChange(v.value)} />
+              )}
+            />
             <p className="__errors">{errors.tax?.message}</p>
           </div>
           <div className={styles.form_group}>
             <label htmlFor="price" className={styles.required}>
               <span>*</span>Prix public :
             </label>
-            <input id="price" placeholder="0.00" type="number" {...register('price')} />
+            <Controller
+              control={control}
+              name="price"
+              render={({ field: { value, onChange } }) => (
+                <CurrencyFormat id="price" displayType="input" value={value} onValueChange={(v) => onChange(v.value)} />
+              )}
+            />
             <p className="__errors">{errors.price?.message}</p>
           </div>
           <div className={styles.form_group}>
             <label htmlFor="ecoTax">Ecotaxe DEEE :</label>
-            <input id="ecoTax" placeholder="0.00" type="number" {...register('ecoTax')} />
+            <Controller
+              control={control}
+              name="ecoTax"
+              render={({ field: { value, onChange } }) => (
+                <CurrencyFormat id="ecoTax" displayType="input" value={value} onValueChange={(v) => onChange(v.value)} />
+              )}
+            />
             <p className="__errors">{errors.ecoTax?.message}</p>
           </div>
           <div className={styles.form_group}>

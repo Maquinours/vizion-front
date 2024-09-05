@@ -63,7 +63,6 @@ export default function AppViewProductViewUpdateModalComponent() {
   });
 
   const {
-    register: stepTwoRegister,
     formState: { errors: stepTwoErrors },
     watch: stepTwoWatch,
     setValue: stepTwoSetValue,
@@ -170,7 +169,6 @@ export default function AppViewProductViewUpdateModalComponent() {
         step === 1 && (
           <AppViewProductViewUpdateModalComponentStepTwoComponent
             product={product}
-            register={stepTwoRegister}
             errors={stepTwoErrors}
             watch={stepTwoWatch}
             setValue={stepTwoSetValue}
