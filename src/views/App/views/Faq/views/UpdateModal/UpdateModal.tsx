@@ -151,26 +151,26 @@ export default function AppViewFaqViewUpdateModalView() {
                 />
                 <p className={styles.__errors}>{errors.concerneds?.message}</p>
               </div>
-            </form>
 
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                margin: '1rem 0',
-              }}
-            >
-              <PulseLoader color="#31385A" loading={isPending} className="" size={10} speedMultiplier={0.5} />
-            </div>
-            <div className={styles.form_buttons}>
-              <button className="btn btn-primary-light" onClick={onClose}>
-                Annuler
-              </button>
-              <button type="submit" className="btn btn-secondary">
-                Modifier
-              </button>
-            </div>
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  margin: '1rem 0',
+                }}
+              >
+                <PulseLoader color="#31385A" loading={isPending} className="" size={10} speedMultiplier={0.5} />
+              </div>
+              <div className={styles.form_buttons}>
+                <button type="button" className="btn btn-primary-light" onClick={onClose}>
+                  Annuler
+                </button>
+                <button type="submit" className="btn btn-secondary">
+                  Modifier
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       </div>
