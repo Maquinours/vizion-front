@@ -71,7 +71,7 @@ export default function AppViewProductViewManageViewAssociatedProductsComponent(
           <div className={styles.pagination}>
             <PaginationComponent
               page={page}
-              totalPages={data?.totalElements}
+              totalPages={data?.totalPages}
               pageLink={(page) => ({
                 from: routeApi.id,
                 search: (old) => ({ ...old, associatedProductsPage: page }),
