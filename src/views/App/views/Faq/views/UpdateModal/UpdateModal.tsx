@@ -44,6 +44,10 @@ const levelOptions = [
     text: 'Interne IA',
     value: FaqAccessLevel.INTERNE_IA,
   },
+  {
+    text: 'Publique IA',
+    value: FaqAccessLevel.PUBLIC_IA,
+  },
 ];
 
 export default function AppViewFaqViewUpdateModalView() {
@@ -95,63 +99,66 @@ export default function AppViewFaqViewUpdateModalView() {
         </div>
         <div className={styles.content}>
           <div className={styles.inputs_container}>
-            <form className={styles.form_content} onSubmit={handleSubmit((data) => mutate(data))}>
-              <div className={styles.form_group}>
-                <label className={styles.label} htmlFor="title">
-                  Titre
-                </label>
-                <input type="text" {...register('title')} id="title" />
-                <p className={styles.__errors}>{errors.title?.message}</p>
-              </div>
-              <div className={styles.form_group}>
-                <label className={styles.label} htmlFor="level">
-                  {"Niveau d'autorisation"}
-                </label>
-                <select id="level" {...register('level')}>
-                  {levelOptions.map((item) => {
-                    return (
-                      <option key={item.value} value={item.value}>
-                        {item.text}
-                      </option>
-                    );
-                  })}
-                </select>
-                <p className={styles.__errors}>{errors.level?.message}</p>
-              </div>
+            <form onSubmit={handleSubmit((data) => mutate(data))}>
+              <div className={styles.form_content}>
+                <div className={styles.form_group}>
+                  <label className={styles.label} htmlFor="title">
+                    Titre
+                  </label>
+                  <input type="text" {...register('title')} id="title" />
+                  <p className={styles.__errors}>{errors.title?.message}</p>
+                </div>
+                <div className={styles.form_group}>
+                  <label className={styles.label} htmlFor="level">
+                    {"Niveau d'autorisation"}
+                  </label>
+                  <select id="level" {...register('level')}>
+                    {levelOptions.map((item) => {
+                      return (
+                        <option key={item.value} value={item.value}>
+                          {item.text}
+                        </option>
+                      );
+                    })}
+                  </select>
+                  <p className={styles.__errors}>{errors.level?.message}</p>
+                </div>
 
-              <div className={styles.form_editor}>
-                <Controller control={control} name="description" render={({ field }) => <Quill {...field} />} />
-                <p className={styles.__errors}>{errors.description?.message}</p>
-              </div>
-              <div className={styles.form_group}>
-                <label className={styles.label} htmlFor="concerned">
-                  Mots-clés
-                </label>
-                <Controller
-                  control={control}
-                  name="concerneds"
-                  render={({ field: { value, onBlur, onChange } }) => (
-                    <ReactMultiEmail
-                      emails={value}
-                      className={styles.multi_email}
-                      onChange={onChange}
-                      onBlur={onBlur}
-                      delimiter="[,;]"
-                      getLabel={(value, index, removeItem) => (
-                        <div data-tag key={index}>
-                          <div data-tag-item>{value}</div>
-                          <button type="button" data-tag-handle onClick={() => removeItem(index)}>
-                            ×
-                          </button>
-                        </div>
+                <div className={styles.form_editor}>
+                  <Controller control={control} name="description" render={({ field }) => <Quill {...field} />} />
+                  <p className={styles.__errors}>{errors.description?.message}</p>
+                </div>
+                <div className={styles.second_grid}>
+                  <div className={styles.form_group}>
+                    <label className={styles.label} htmlFor="concerned">
+                      Mots-clés
+                    </label>
+                    <Controller
+                      control={control}
+                      name="concerneds"
+                      render={({ field: { value, onBlur, onChange } }) => (
+                        <ReactMultiEmail
+                          emails={value}
+                          className={styles.multi_email}
+                          onChange={onChange}
+                          onBlur={onBlur}
+                          delimiter="[,;]"
+                          getLabel={(value, index, removeItem) => (
+                            <div data-tag key={index}>
+                              <div data-tag-item>{value}</div>
+                              <button type="button" data-tag-handle onClick={() => removeItem(index)}>
+                                ×
+                              </button>
+                            </div>
+                          )}
+                          validateEmail={() => true}
+                        />
                       )}
-                      validateEmail={() => true}
                     />
-                  )}
-                />
-                <p className={styles.__errors}>{errors.concerneds?.message}</p>
+                    <p className={styles.__errors}>{errors.concerneds?.message}</p>
+                  </div>
+                </div>
               </div>
-
               <div
                 style={{
                   display: 'flex',

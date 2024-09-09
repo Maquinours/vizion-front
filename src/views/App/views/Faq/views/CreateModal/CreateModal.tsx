@@ -36,7 +36,11 @@ const levelOptions = [
   {
     text: 'Interne IA',
     value: FaqAccessLevel.INTERNE_IA,
-  }
+  },
+  {
+    text: 'Publique IA',
+    value: FaqAccessLevel.PUBLIC_IA,
+  },
 ];
 
 const yupSchema = yup.object().shape({
