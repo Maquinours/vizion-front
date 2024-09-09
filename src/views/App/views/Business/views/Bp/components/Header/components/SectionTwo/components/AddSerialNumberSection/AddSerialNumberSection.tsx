@@ -32,6 +32,7 @@ export default function AppViewBusinessViewBpViewHeaderComponentSectionTwoCompon
     register,
     formState: { errors },
     handleSubmit,
+    reset,
   } = useForm({
     resolver: yupResolver(yupSchema),
   });
@@ -60,6 +61,9 @@ export default function AppViewBusinessViewBpViewHeaderComponentSectionTwoCompon
           extern: false,
         }),
       };
+    },
+    onMutate: () => {
+      reset();
     },
     onSuccess: ({ detail, serial }) => {
       queryClient.setQueryData<BusinessBpResponseDto>(queries['business-bps'].detail._ctx.byBusinessId(businessId).queryKey, (old) =>

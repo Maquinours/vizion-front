@@ -40,6 +40,7 @@ export default function AppViewBusinessViewBpViewAddSerialModalView() {
     setValue,
     formState: { errors },
     handleSubmit,
+    resetField,
   } = useForm({
     resolver: yupResolver(yupSchema),
   });
@@ -76,6 +77,7 @@ export default function AppViewBusinessViewBpViewAddSerialModalView() {
       queryClient.setQueryData<BusinessBpDetailsResponseDto>(queries['business-bp-details'].detail._ctx.byId(detailId).queryKey, newDetail);
       queryClient.invalidateQueries({ queryKey: queries['business-bps']._def });
       queryClient.invalidateQueries({ queryKey: queries['business-bp-details']._def });
+      resetField('serialNumber');
       toast.success('Numéro de série ajouté avec succès');
     },
     onError: (error) => {
