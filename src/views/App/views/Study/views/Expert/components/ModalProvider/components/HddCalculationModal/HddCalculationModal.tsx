@@ -39,7 +39,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentHddCalcu
       .map((node) => ({ productId: node.data.productId, quantity: node.data.quantity ?? 1 }));
     const recorderNodesData = nodes
       .filter((node): node is InternalNode<ExpertStudyRecorderNode> => node.type === 'recorder')
-      .map((node) => ({ productId: node.data.productId, options: node.data.options }));
+      .map((node) => ({ productId: node.data.productId, quantity: node.data.quantity ?? 1, options: node.data.options }));
 
     const flux = cameraNodesData.reduce((acc, data) => {
       const product = products.find((product) => product.id === data.productId);
@@ -51,14 +51,15 @@ export default function AppViewStudyViewExpertViewModalProviderComponentHddCalcu
     const hddSpace = recorderNodesData.reduce((acc, data) => {
       const product = products.find((product) => product.id === data.productId);
       const capacity =
-        (product?.specificationProducts?.find((spec) => spec.specification?.name === 'CAPACITE')?.value ?? 0) +
-        data.options.reduce((acc, option) => {
-          const capacity =
-            (products.find((product) => product.id === option.id)?.specificationProducts?.find((spec) => spec.specification?.name === 'CAPACITE')?.value ?? 0) *
-            option.quantity;
+        ((product?.specificationProducts?.find((spec) => spec.specification?.name === 'CAPACITE')?.value ?? 0) +
+          data.options.reduce((acc, option) => {
+            const capacity =
+              (products.find((product) => product.id === option.id)?.specificationProducts?.find((spec) => spec.specification?.name === 'CAPACITE')?.value ??
+                0) * option.quantity;
 
-          return acc + capacity;
-        }, 0);
+            return acc + capacity;
+          }, 0)) *
+        data.quantity;
 
       return acc + capacity;
     }, 0);

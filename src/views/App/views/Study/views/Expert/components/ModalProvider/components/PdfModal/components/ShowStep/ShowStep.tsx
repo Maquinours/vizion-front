@@ -32,11 +32,11 @@ const selector = (state: RFState) => ({
   recorders: state.pages
     .filter((page) => page.type === 'synoptic')
     .reduce(
-      (acc: Array<{ productId: string; options: Array<{ id: string; quantity: number }> }>, page) =>
+      (acc: Array<{ productId: string; quantity: number; options: Array<{ id: string; quantity: number }> }>, page) =>
         acc.concat(
           page.nodes
             .filter((node): node is ExpertStudyRecorderNode => node.type === 'recorder')
-            .map((node) => ({ productId: node.data.productId, options: node.data.options })),
+            .map((node) => ({ productId: node.data.productId, quantity: node.data.quantity ?? 1, options: node.data.options })),
         ),
       [],
     ),
@@ -76,14 +76,15 @@ export default function AppViewStudyViewExpertViewModalProviderComponentPdfModal
     const hddSpace = recorders.reduce((acc, recorder) => {
       const product = products.find((product) => product.id === recorder.productId);
       const capacity =
-        (product?.specificationProducts?.find((spec) => spec.specification?.name === 'CAPACITE')?.value ?? 0) +
-        recorder.options.reduce((acc, option) => {
-          const capacity =
-            (products.find((product) => product.id === option.id)?.specificationProducts?.find((spec) => spec.specification?.name === 'CAPACITE')?.value ?? 0) *
-            option.quantity;
+        ((product?.specificationProducts?.find((spec) => spec.specification?.name === 'CAPACITE')?.value ?? 0) +
+          recorder.options.reduce((acc, option) => {
+            const capacity =
+              (products.find((product) => product.id === option.id)?.specificationProducts?.find((spec) => spec.specification?.name === 'CAPACITE')?.value ??
+                0) * option.quantity;
 
-          return acc + capacity;
-        }, 0);
+            return acc + capacity;
+          }, 0)) *
+        recorder.quantity;
       return acc + capacity;
     }, 0);
 
