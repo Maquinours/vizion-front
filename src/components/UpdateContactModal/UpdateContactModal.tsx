@@ -238,13 +238,20 @@ export default function UpdateContactModalComponent({ contactId, onClose }: Upda
             <div className={styles.form__row_four}>
               <div className={styles.form__group}>
                 <label className={styles.label} htmlFor="emailAddress">
-                  Adresse email :
+                  Email :
                 </label>
                 <input type="email" {...register('email')} id="emailAddress" style={{ textTransform: 'lowercase' }} onBlur={() => refetchEmail()} />
                 <p className={styles.__errors}>
                   {errors.email?.message}
                   {emailExists && <span>Email déjà utilisé</span>}
                 </p>
+              </div>
+              <div className={styles.form__group}>
+                <label className={styles.label} htmlFor="job">
+                  Fonction :
+                </label>
+                <input placeholder="Vendeur" type="text" {...register('job')} id="job" autoCorrect="off" autoComplete="off" />
+                <p className={styles.__errors}>{errors.job?.message}</p>
               </div>
             </div>
             <div className={styles.form__row_two}>
