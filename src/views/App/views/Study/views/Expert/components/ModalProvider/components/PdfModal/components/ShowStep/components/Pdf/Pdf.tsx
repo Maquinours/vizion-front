@@ -233,7 +233,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentPdfModal
       ))}
       {showDensityImages
         ? cameras
-            .filter((camera) => camera.product.category !== 'Autres cameras')
+            .filter((camera) => camera.product.category !== 'Autres cameras' && camera.quantity > 0)
             .map((camera) => (
               <Page key={camera.product.id} size="A4" style={cameraDensityPageStyle.page} orientation="landscape">
                 <View style={cameraDensityPageStyle.imageContainer}>
