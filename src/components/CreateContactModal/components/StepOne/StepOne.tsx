@@ -316,10 +316,10 @@ export default function CreateContactModalComponentStepOneComponent({
                 </p>
               </div>
               <div className={styles.form__group}>
-                <label className={styles.label} htmlFor="name">
+                <label className={styles.label} htmlFor="job">
                   Fonction :
                 </label>
-                <input placeholder="Vendeur" type="text" {...register('job')} id="activity" autoCorrect="off" autoComplete="off" />
+                <input placeholder="Vendeur" type="text" {...register('job')} id="job" autoCorrect="off" autoComplete="off" />
                 <p className={styles.__errors}>{errors.job?.message}</p>
               </div>
             </div>
