@@ -24,7 +24,7 @@ export default function AppViewProductsViewSearchSectionComponent() {
   const onSubmit = ({ ref, designation }: yup.InferType<typeof yupSchema>) => {
     navigate({
       from: routeApi.id,
-      search: (old) => ({ ...old, ref: ref || undefined, designation: designation || undefined, page: undefined }),
+      search: (old) => ({ ...old, ref: ref?.trim() || undefined, designation: designation?.trim() || undefined, page: undefined }),
       replace: true,
       resetScroll: false,
     });
