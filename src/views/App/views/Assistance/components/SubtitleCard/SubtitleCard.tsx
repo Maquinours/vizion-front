@@ -9,7 +9,13 @@ export default function AppViewAssistanceViewSubTitleCard({ assistance }: AppVie
   return (
     <CardComponent
       title="Sous nom de l'affaire"
-      editLink={{ to: '/app/businesses-rma/business/$businessId/assistance/$assistanceId/edit-subtitle', search: (old) => old }}
+      editLink={{
+        to: '/app/businesses-rma/business/$businessId/assistance/$assistanceId/edit-subtitle',
+        search: true,
+        replace: true,
+        resetScroll: false,
+        preload: 'intent',
+      }}
       className={styles.card}
     >
       <div className={styles.text}>{assistance.name}</div>

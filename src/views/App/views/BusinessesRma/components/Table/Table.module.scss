@@ -6,10 +6,11 @@
   margin-top: 1rem;
   padding-bottom: 0.1rem;
   // max-height: 75vh;
-  // overflow-y: auto;
+  overflow-x: auto;
 
   table {
     width: 100%;
+    min-width: 1250px;
     opacity: 1;
     border-collapse: collapse;
     table-layout: fixed;
@@ -93,6 +94,10 @@
           opacity: 1;
         }
 
+        &.provider {
+          background-color: rgba(159, 165, 185, 0.5);
+        }
+
         td {
           padding: 0.7rem;
           text-align: center;
@@ -164,9 +169,5 @@
     @include respond-below(md) {
       table-layout: auto;
     }
-  }
-
-  @include respond-below(md) {
-    overflow-x: auto;
   }
 }

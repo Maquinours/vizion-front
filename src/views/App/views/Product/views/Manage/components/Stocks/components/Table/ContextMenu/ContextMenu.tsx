@@ -29,25 +29,25 @@ export default function AppViewProductViewManageViewStocksComponentTableComponen
   return (
     <Popper open={isOpen} anchorEl={anchorElement} transition placement="bottom-start">
       {({ TransitionProps }) => (
-        <ClickAwayListener onClickAway={onClose}>
+        <ClickAwayListener mouseEvent="onMouseUp" onClickAway={onClose}>
           <Fade {...TransitionProps}>
             <Paper className={styles.menu_container}>
               {stock && (
                 <MenuList>
                   <MenuItem>
-                    <Link from={routeApi.id} to="stock-history/$stockId" params={{ stockId: stock.id }} search replace resetScroll={false}>
+                    <Link from={routeApi.id} to="stock-history/$stockId" params={{ stockId: stock.id }} search replace resetScroll={false} preload="viewport">
                       <MdOutlineInventory className={styles.icon} width={16} height={16} color="#16204E" />
                       <span className={styles.text}>Historique du stock</span>
                     </Link>
                   </MenuItem>
                   <MenuItem>
-                    <Link from={routeApi.id} to="delete-stock/$stockId" params={{ stockId: stock.id }} search replace resetScroll={false}>
+                    <Link from={routeApi.id} to="delete-stock/$stockId" params={{ stockId: stock.id }} search replace resetScroll={false} preload="viewport">
                       <FaTrash className={styles.icon} width={16} height={16} color="#16204E" />
                       <span className={styles.text}>Supprimer le stock</span>
                     </Link>
                   </MenuItem>
                   <MenuItem>
-                    <Link from={routeApi.id} to="update-stock/$stockId" params={{ stockId: stock.id }} search replace resetScroll={false}>
+                    <Link from={routeApi.id} to="update-stock/$stockId" params={{ stockId: stock.id }} search replace resetScroll={false} preload="viewport">
                       <HiPencilAlt className={styles.icon} width={16} height={16} color="#16204E" />
                       <span className={styles.text}>Modifier le stock</span>
                     </Link>

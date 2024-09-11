@@ -20,8 +20,8 @@ export const Route = createFileRoute('/app/businesses-rma/business/$businessId')
     ]);
     if (
       ((businessModal === 'assistances' || businessModal === 'create-assistance') &&
-        !(user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && ![BusinessState.DEVIS, BusinessState.ARCHIVE].includes(business.state!))) ||
-      (businessModal === 'archive' && !(user.userInfo.roles.includes('ROLE_DIRECTION_VIZEO') && business.state !== BusinessState.ARCHIVE))
+        (!user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') || business.state === BusinessState.ARCHIVE)) ||
+      (businessModal === 'archive' && (!user.userInfo.roles.includes('ROLE_DIRECTION_VIZEO') || business.state === BusinessState.ARCHIVE))
     )
       throw redirect({ search: { businessModal: undefined } });
 
@@ -29,8 +29,9 @@ export const Route = createFileRoute('/app/businesses-rma/business/$businessId')
       const assistances = await queryClient.ensureQueryData(
         queries['technical-supports'].list._ctx.byBusinessOrRmaNumber({ categoryBusiness: CategoryBusiness.AFFAIRE, number: business.numBusiness }),
       );
-      if (assistances.length === 0) throw redirect({ search: (old) => ({ ...old, businessModal: 'create-assistance' }) });
-    }
+      if (assistances.length === 0)
+        throw redirect({ search: (old) => ({ ...old, businessModal: 'create-assistance' }), replace: true, resetScroll: false, ignoreBlocker: true });
+    } else if (businessModal === 'create-assistance') queryClient.prefetchQuery(queries['business-bills'].list._ctx.byBusinessId(businessId));
   },
   staticData: {
     getTitle: (queryClient, match) =>

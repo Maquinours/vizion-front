@@ -63,16 +63,19 @@ export default function AppViewProductViewUpdateModalComponent() {
   });
 
   const {
-    register: stepTwoRegister,
     formState: { errors: stepTwoErrors },
+    watch: stepTwoWatch,
     setValue: stepTwoSetValue,
+    getValues: stepTwoGetValues,
+    resetField: stepTwoResetField,
+    control: stepTwoControl,
     handleSubmit: stepTwoHandleSubmit,
   } = useForm({
     resolver: yupResolver(stepTwoYupSchema),
   });
 
   const onClose = () => {
-    navigate({ from: routeApi.id, search: (old) => ({ ...old, productModal: undefined }), replace: true, resetScroll: false });
+    navigate({ search: (old) => ({ ...old, productModal: undefined }), replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({
@@ -93,7 +96,7 @@ export default function AppViewProductViewUpdateModalComponent() {
         ecoTaxDEEE: stepTwoData.ecoTax,
         publicPrice: stepTwoData.price,
         productCategoryName: stepOneData.category,
-        assistanceTime: stepTwoData.assistanceHour,
+        assistanceTime: Number(stepTwoData.assistanceHour) ?? null,
         vizeo: stepOneData.isVizeo === 'yes',
         virtualQty: stepOneData.isVirtual === 'yes',
         bom: stepOneData.isNomenclature === 'yes',
@@ -166,8 +169,12 @@ export default function AppViewProductViewUpdateModalComponent() {
         step === 1 && (
           <AppViewProductViewUpdateModalComponentStepTwoComponent
             product={product}
-            register={stepTwoRegister}
             errors={stepTwoErrors}
+            watch={stepTwoWatch}
+            setValue={stepTwoSetValue}
+            getValues={stepTwoGetValues}
+            resetField={stepTwoResetField}
+            control={stepTwoControl}
             onReset={() => setStep(0)}
             onSubmit={onSubmitStepTwo}
             isPending={isPending}

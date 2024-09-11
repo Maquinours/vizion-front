@@ -14,7 +14,14 @@ export default function AppViewProductViewInformationsViewWorkloadsComponent() {
       emailLink={(data) => ({
         to: '/app/products/$productId/informations/task-email/$taskId',
         params: { taskId: data.id },
-        search: (old) => old,
+        search: true,
+        replace: true,
+        resetScroll: false,
+      })}
+      unlinkLink={(data) => ({
+        to: '/app/products/$productId/informations/unlink-task/$taskId',
+        params: { taskId: data.id },
+        search: true,
         replace: true,
         resetScroll: false,
       })}

@@ -28,7 +28,7 @@ export default function AppViewDashboardViewTaskEmailModalViewInformationsCompon
       <div className={styles.informations}>
         <div>
           <p className={styles.sender}>
-            De : <a href={`mailto:${email.sender}`}>{email.sender}</a>
+            De : {email.sender}
             <button onClick={() => copyEmailAddress(email.sender)}>
               <AiOutlineCopy />
             </button>
@@ -39,7 +39,7 @@ export default function AppViewDashboardViewTaskEmailModalViewInformationsCompon
             {!!email.cc &&
               email.cc.split(';').map((cc, index, arr) => (
                 <>
-                  <a href={`mailto:${cc}`}>{cc}</a>
+                  <span>{cc}</span>
                   <button onClick={() => copyEmailAddress(cc)}>
                     <AiOutlineCopy />
                   </button>

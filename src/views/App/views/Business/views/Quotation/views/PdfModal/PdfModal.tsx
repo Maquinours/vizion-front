@@ -21,7 +21,7 @@ export default function AppViewBusinessViewQuotationViewPdfModalView() {
   const { data: quotation } = useSuspenseQuery(queries['business-quotations'].detail._ctx.byBusinessId(businessId));
 
   const onClose = () => {
-    navigate({ to: '..', search: (old) => old, replace: true, resetScroll: false });
+    navigate({ to: '..', search: true, replace: true, resetScroll: false, ignoreBlocker: true });
   };
 
   return (
@@ -63,7 +63,7 @@ export default function AppViewBusinessViewQuotationViewPdfModalView() {
               {({ loading }) => <button className="btn btn-secondary">{loading ? 'Chargement...' : 'Télécharger'}</button>}
             </PDFDownloadLink>
             {user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && (
-              <Link from={routeApi.id} to="send-by-email" search={(old) => old} replace resetScroll={false} className="btn btn-secondary">
+              <Link from={routeApi.id} to="send-by-email" search replace resetScroll={false} preload="intent" ignoreBlocker className="btn btn-secondary">
                 Envoyer par mail
               </Link>
             )}

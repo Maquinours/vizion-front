@@ -12,6 +12,7 @@ import { toast } from 'react-toastify';
 import { PulseLoader } from 'react-spinners';
 import CurrencyFormat from '../../../../../../../../components/CurrencyFormat/CurrencyFormat';
 import { useEffect } from 'react';
+import { isAxiosError } from 'axios';
 
 const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/arc/update-shipping-price');
 
@@ -43,13 +44,13 @@ export default function AppViewBusinessViewArcViewUpdateShippingPriceModalView()
   });
 
   const onClose = () => {
-    navigate({ to: '..', search: (old) => old, replace: true, resetScroll: false });
+    navigate({ to: '..', search: (old) => old, replace: true, resetScroll: false, ignoreBlocker: true });
   };
 
   const { mutate, isPending } = useMutation({
     mutationFn: ({ shippingServicePrice }: yup.InferType<typeof yupSchema>) => {
-      const totalAmountHT = arc.totalAmountHT ?? 0;
-      const vat = totalAmountHT + shippingServicePrice * 0.2;
+      const totalAmountHT = arc.arcDetailsList?.reduce((acc, detail) => acc + (detail.totalPrice ?? 0), 0) ?? 0;
+      const vat = (totalAmountHT + shippingServicePrice) * 0.2;
       const totalAmount = totalAmountHT + shippingServicePrice + vat;
 
       return updateBusinessArc(arc.id, {
@@ -73,7 +74,16 @@ export default function AppViewBusinessViewArcViewUpdateShippingPriceModalView()
     },
     onError: (error) => {
       console.error(error);
-      toast.error('Une erreur est survenue lors de la mise à jour des frais de port');
+      let message = 'Une erreur est survenue lors de la mise à jour des frais de port';
+      if (
+        isAxiosError(error) &&
+        !!error.response &&
+        typeof error.response === 'object' &&
+        'message' in error.response?.data &&
+        error.response?.data.message === 'Numéro de commande requis.'
+      )
+        message = 'Veuillez saisir un numéro de commande avant de modifier les frais de port';
+      toast.error(message);
     },
   });
 

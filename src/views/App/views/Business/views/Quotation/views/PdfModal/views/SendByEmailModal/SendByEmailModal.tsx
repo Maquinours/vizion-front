@@ -9,7 +9,7 @@ export default function AppViewBusinessViewQuotationViewPdfModalViewSendByEmailM
   const { business, quotation, representative, commercialNoticeFile, quotationPdfFile } = routeApi.useLoaderData();
 
   const onClose = () => {
-    navigate({ to: '..', search: (old) => old, replace: true, resetScroll: false });
+    navigate({ to: '..', search: (old) => old, replace: true, resetScroll: false, ignoreBlocker: true });
   };
 
   let defaultRecipient = (() => {
@@ -27,12 +27,13 @@ export default function AppViewBusinessViewQuotationViewPdfModalViewSendByEmailM
         search: true,
         replace: true,
         resetScroll: false,
+        ignoreBlocker: true,
       }}
       defaultAttachments={[quotationPdfFile, commercialNoticeFile]}
       defaultRecipient={defaultRecipient}
       defaultCc={representative?.profiles.filter((profile) => profile.civility === 'Service').map((service) => service.email!)}
       defaultSubject={`Devis ${quotation.number} ${business.title ?? ''}`}
-      defaultContent={`Bonjour <br /><p>Suite à votre demande, ci-joint le devis ainsi que les documents avec :</p> <br /><ul><li>Offre de prix HT</li><li>Dossier technique</li><li>Notices commerciales</li></ul><br /><br />`}
+      defaultContent={`Bonjour <br /><br /><p>Suite à votre demande, ci-joint le devis ainsi que les documents avec :</p> <br /><ul><li>Offre de prix HT</li><li>Dossier technique</li><li>Notices commerciales</li></ul>`}
       lifeSheetInfoDto={{
         businessNumber: business.numBusiness,
         enterpriseName: business.enterpriseName,

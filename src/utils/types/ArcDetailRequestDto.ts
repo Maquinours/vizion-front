@@ -5,5 +5,6 @@ type ArcDetailRequestDto = {
   shippingServicePrice?: number | null;
   amountHtConfirmed?: number | null;
   shippingPriceConfirmed?: number | null;
+  vat?: number | null;
 };
 export default ArcDetailRequestDto;

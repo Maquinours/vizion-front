@@ -40,9 +40,10 @@ export default function AppViewBusinessViewDashboardViewImportOtherBusinessQuota
     navigate({
       to: 'confirm-quotation-import/$otherBusinessId',
       params: { otherBusinessId: fromBusiness.id },
-      search: (old) => old,
+      search: true,
       replace: true,
       resetScroll: false,
+      ignoreBlocker: true,
     });
   };
 

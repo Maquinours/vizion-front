@@ -3,10 +3,6 @@
 .container {
   width: 100%;
 
-  @include respond-below(md) {
-    min-width: 180px;
-  }
-
   li {
     width: 100%;
     display: flex;

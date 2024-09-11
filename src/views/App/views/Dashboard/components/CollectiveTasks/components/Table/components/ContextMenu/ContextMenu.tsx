@@ -28,31 +28,63 @@ export default function AppViewDashboardViewCollectiveTasksComponentTableCompone
   return (
     <Popper open={isOpen} anchorEl={anchorElement} transition placement="bottom-start" className={styles.popper}>
       {({ TransitionProps }) => (
-        <ClickAwayListener onClickAway={onClose}>
+        <ClickAwayListener mouseEvent="onMouseUp" onClickAway={onClose}>
           <Fade {...TransitionProps}>
             <Paper className={styles.menu_container}>
               {task && (
                 <MenuList>
                   <MenuItem>
-                    <Link from={Route.id} to="take-collective-task/$taskId" params={{ taskId: task.id }} search={(old) => old} replace resetScroll={false}>
+                    <Link
+                      from={Route.id}
+                      to="take-collective-task/$taskId"
+                      params={{ taskId: task.id }}
+                      search={(old) => old}
+                      replace
+                      resetScroll={false}
+                      preload="viewport"
+                    >
                       <IoIosCheckmarkCircleOutline className={styles.icon} />
                       <span className={styles.text}>Je prends en charge</span>
                     </Link>
                   </MenuItem>
                   <MenuItem>
-                    <Link from={Route.id} to="transfer-task/$taskId" params={{ taskId: task.id }} search={(old) => old} replace resetScroll={false}>
+                    <Link
+                      from={Route.id}
+                      to="transfer-task/$taskId"
+                      params={{ taskId: task.id }}
+                      search={(old) => old}
+                      replace
+                      resetScroll={false}
+                      preload="viewport"
+                    >
                       <IoMdArrowForward className={styles.icon} />
                       <span className={styles.text}>Transférer</span>
                     </Link>
                   </MenuItem>
                   <MenuItem>
-                    <Link from={Route.id} to="task-comments/$taskId" params={{ taskId: task.id }} search={(old) => old} replace resetScroll={false}>
+                    <Link
+                      from={Route.id}
+                      to="task-comments/$taskId"
+                      params={{ taskId: task.id }}
+                      search={(old) => old}
+                      replace
+                      resetScroll={false}
+                      preload="viewport"
+                    >
                       <MdOutlineComment className={styles.icon} />
                       <span className={styles.text}>Commentaires</span>
                     </Link>
                   </MenuItem>
                   <MenuItem>
-                    <Link from={Route.id} to="delete-collective-task/$taskId" params={{ taskId: task.id }} search={(old) => old} replace resetScroll={false}>
+                    <Link
+                      from={Route.id}
+                      to="delete-collective-task/$taskId"
+                      params={{ taskId: task.id }}
+                      search={(old) => old}
+                      replace
+                      resetScroll={false}
+                      preload="viewport"
+                    >
                       <FaTrash className={styles.icon} />
                       <span className={styles.text}>Supprimer</span>
                     </Link>

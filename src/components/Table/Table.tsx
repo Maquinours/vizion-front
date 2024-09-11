@@ -16,8 +16,12 @@ type TableComponentProps<T> = Readonly<{
   getRowCanExpand?(row: Row<T>): boolean;
   getSubRows?(row: T): Array<T>;
   renderSubComponent?: (props: { row: Row<T> }) => React.ReactElement;
-  getRowClassName?: (row: T) => string;
+  getRowClassName?: (row: T) => string | undefined;
+  className?: string;
+  headerClassName?: string;
+  enableMultiRowSelection?: boolean;
   getRowId?: (row: T) => string;
+  enableRowSelection?: (row: Row<T>) => boolean;
 }>;
 export default function TableComponent<T>({
   columns,
@@ -33,7 +37,11 @@ export default function TableComponent<T>({
   getSubRows,
   renderSubComponent,
   getRowClassName,
+  className,
+  headerClassName,
+  enableMultiRowSelection,
   getRowId,
+  enableRowSelection,
 }: TableComponentProps<T>) {
   const { getHeaderGroups, getRowModel } = useReactTable({
     data,
@@ -47,11 +55,13 @@ export default function TableComponent<T>({
     getRowCanExpand,
     getSubRows,
     getRowId: rowId ? (row) => row[rowId] as string : undefined,
+    enableMultiRowSelection: enableMultiRowSelection,
+    enableRowSelection,
   });
 
   return (
-    <table>
-      <TableComponentHeaderComponent getHeaderGroups={getHeaderGroups} />
+    <table className={className}>
+      <TableComponentHeaderComponent getHeaderGroups={getHeaderGroups} className={headerClassName} />
       <TableComponentBodyComponent
         getRowModel={getRowModel}
         columns={columns}

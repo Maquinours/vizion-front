@@ -26,8 +26,8 @@ const yupSchema = yup.object({
     .string()
     .nullable()
     .typeError('Format invalide')
-    .when('productAvailablity', {
-      is: false,
+    .when('availability', {
+      is: 'no',
       then: () => yup.string().typeError('Format invalide').required('La disponibilité est requise.'),
     }),
   quantity: yup.number().typeError('Format invalide').required('Le nombre est requis.'),
@@ -52,6 +52,7 @@ export default function AppViewBusinessViewArcViewUpdateDetailModalView() {
   const {
     register,
     control,
+    watch,
     formState: { errors },
     setValue,
     handleSubmit,
@@ -60,7 +61,7 @@ export default function AppViewBusinessViewArcViewUpdateDetailModalView() {
   });
 
   const onClose = () => {
-    navigate({ to: '../..', search: (old) => old, replace: true, resetScroll: false });
+    navigate({ to: '../..', search: (old) => old, replace: true, resetScroll: false, ignoreBlocker: true });
   };
 
   const onChangeProduct = (product: ProductResponseDto | null) => {
@@ -70,11 +71,13 @@ export default function AppViewBusinessViewArcViewUpdateDetailModalView() {
 
   const { mutate, isPending } = useMutation({
     mutationFn: (data: yup.InferType<typeof yupSchema>) => {
-      const reduction = (1 - data.price / detail!.publicUnitPrice) * 100;
+      const reduction = ((detail.publicUnitPrice ?? 0 - data.price) / detail.publicUnitPrice) * 100;
       const totalPrice = data.quantity * data.price;
-      const totalAmountHT = (arc.totalAmountHT ?? 0) - detail!.totalPrice + totalPrice;
+      const totalAmountHT = arc.arcDetailsList?.reduce((acc, d) => acc + (d.id === detail.id ? totalPrice : (d.totalPrice ?? 0)), 0) ?? 0;
       const shippingServicePrice = totalAmountHT < 1200 ? arc.shippingServicePrice : 0;
-      const totalAmount = (totalAmountHT + shippingServicePrice) * 1.2;
+      const vat = (totalAmountHT + shippingServicePrice) * 0.2;
+      const totalAmount = totalAmountHT + shippingServicePrice + vat;
+
       return updateBusinessArcDetail(detail!.id, {
         arcId: arc.id,
         numDetails: detail!.numDetails,
@@ -96,6 +99,7 @@ export default function AppViewBusinessViewArcViewUpdateDetailModalView() {
         totalAmount,
         shippingServicePrice,
         virtualQty: data.product.virtualQty,
+        vat,
       });
     },
     onSuccess: (data) => {
@@ -123,6 +127,8 @@ export default function AppViewBusinessViewArcViewUpdateDetailModalView() {
     const product = products?.find((p) => p.reference === detail.productReference);
     if (product) setValue('product', product);
   }, [isLoadingProducts]);
+
+  const availability = watch('availability');
 
   return (
     <ReactModal isOpen={true} onRequestClose={onClose} className={styles.modal} overlayClassName="Overlay">
@@ -182,11 +188,13 @@ export default function AppViewBusinessViewArcViewUpdateDetailModalView() {
               </select>
               <p className={styles.__errors}>{errors.availability?.message}</p>
             </div>
-            <div className={styles.form_group}>
-              <label htmlFor="productAvailablityDate">Date de disponibilité</label>
-              <input id="productAvailablityDate" {...register('availabilityDate')} type="date" />
-              <p className={styles.__errors}>{errors.availabilityDate?.message}</p>
-            </div>
+            {availability === 'no' && (
+              <div className={styles.form_group}>
+                <label htmlFor="productAvailablityDate">Date de disponibilité</label>
+                <input id="productAvailablityDate" {...register('availabilityDate')} type="date" />
+                <p className={styles.__errors}>{errors.availabilityDate?.message}</p>
+              </div>
+            )}
             <div className={styles.form_group}>
               <label htmlFor="productQuantity">Quantité</label>
               <Controller

@@ -27,7 +27,7 @@ export default function AppViewDashboardViewProgressiveInfosComponentTableCompon
   return (
     <Popper open={isOpen} anchorEl={anchor} transition placement="bottom-start">
       {({ TransitionProps }) => (
-        <ClickAwayListener onClickAway={onClose}>
+        <ClickAwayListener mouseEvent="onMouseUp" onClickAway={onClose}>
           <Fade {...TransitionProps}>
             <Paper className={styles.menu_container}>
               <MenuList>
@@ -39,6 +39,7 @@ export default function AppViewDashboardViewProgressiveInfosComponentTableCompon
                     search={(old) => old}
                     replace
                     resetScroll={false}
+                    preload="viewport"
                   >
                     <MdModeEdit className={styles.icon} />
                     <span className={styles.text}>Modifier</span>
@@ -52,6 +53,7 @@ export default function AppViewDashboardViewProgressiveInfosComponentTableCompon
                     search={(old) => old}
                     replace
                     resetScroll={false}
+                    preload="viewport"
                   >
                     <FaTrash className={styles.icon} />
                     <span className={styles.text}>Supprimer</span>

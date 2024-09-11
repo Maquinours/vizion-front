@@ -4,7 +4,7 @@ import { getRouteApi, useNavigate, useRouterState } from '@tanstack/react-router
 import { createColumnHelper } from '@tanstack/react-table';
 import { useEffect, useMemo } from 'react';
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
-import { IoMdClose } from 'react-icons/io';
+import { FaTrash } from 'react-icons/fa';
 import ReactModal from 'react-modal';
 import * as yup from 'yup';
 import CustomSelect from '../../../../../../components/CustomSelect/CustomSelect';
@@ -106,11 +106,13 @@ export default function AppViewBusinessesRmaViewSearchByProductsModalView() {
         cell: ({ row: { original } }) => original.product.shortDescription,
       }),
       rowsColumnHelper.display({
-        header: 'Suppression',
+        id: 'actions',
         cell: ({ row: { index } }) => (
-          <button className={styles.tooltip}>
-            <IoMdClose onClick={() => remove(index)} />
-          </button>
+          <div className="flex justify-center">
+            <button className={styles.tooltip} onClick={() => remove(index)}>
+              <FaTrash color="#F24C52" size={16} />
+            </button>
+          </div>
         ),
       }),
     ],

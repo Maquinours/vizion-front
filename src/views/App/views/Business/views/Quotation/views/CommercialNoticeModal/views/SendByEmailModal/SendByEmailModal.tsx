@@ -37,7 +37,7 @@ export default function AppViewBusinessViewQuotationViewCommercialNoticeModalVie
   });
 
   const onClose = () => {
-    navigate({ to: '..', search: (old) => old, replace: true, resetScroll: false });
+    navigate({ to: '..', search: (old) => old, replace: true, resetScroll: false, ignoreBlocker: true });
   };
 
   return (
@@ -49,11 +49,12 @@ export default function AppViewBusinessViewQuotationViewCommercialNoticeModalVie
         search: true,
         replace: true,
         resetScroll: false,
+        ignoreBlocker: true,
       }}
       defaultRecipient={[business.profileEmail!]}
       defaultCc={representative?.profiles.filter((profile) => profile.civility === 'Service').map((service) => service.email!)}
       defaultSubject={`Devis ${business.numBusiness}`}
-      defaultContent="Bonjour <br /><p>Suite à votre demande,</p><h4>Ci-joint la notice commerciale des différents produits de votre devis. </h4> <br />"
+      defaultContent="Bonjour <br /><br /><p>Suite à votre demande,</p><h4>Ci-joint la notice commerciale des différents produits de votre devis.</h4>"
       defaultAttachments={[commercialNoticeFile]}
       lifeSheetInfoDto={{
         businessNumber: business.numBusiness,

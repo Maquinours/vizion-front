@@ -117,8 +117,8 @@ export default function AppViewBusinessViewArcViewHeaderComponentSectionOneCompo
         <span>{business.enterpriseName}</span> / <span>{business.title}</span>
       </div>
       <div>
-        <Link from={routeApi.id} to="pdf" search={(old) => old} replace resetScroll={false} className="btn btn-primary-light">
-          Editer
+        <Link from={routeApi.id} to="pdf" search replace resetScroll={false} preload="intent" ignoreBlocker className="btn btn-primary-light">
+          Éditer
         </Link>
         {!business.archived && (
           <button disabled={isPending} className="btn btn-secondary" onClick={() => onBpButtonClick()}>

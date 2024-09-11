@@ -13,7 +13,7 @@ export default function AppViewBusinessViewDashboardViewDeliveryAddressComponent
 }: AppViewBusinessViewDashboardViewDeliveryAddressComponentProps) {
   return (
     <div className={styles.container}>
-      <CardComponent title="Adresse de livraison ou contact">
+      <CardComponent title="Adresse de livraison ou contact" className="h-full">
         <div className={styles.content}>
           <div className={styles.form_group}>
             <label htmlFor="receiverCompanyName">Société :</label>

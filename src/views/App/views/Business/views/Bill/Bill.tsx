@@ -3,7 +3,7 @@ import { queries } from '../../../../../../utils/constants/queryKeys';
 import { Link, Outlet, getRouteApi } from '@tanstack/react-router';
 import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthentifiedUser';
 import styles from './Bill.module.scss';
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import BillType from '../../../../../../utils/enums/BillType';
 import { PDFDownloadLink, PDFViewer } from '@react-pdf/renderer';
 import AppViewBusinessViewBillViewPdfComponent from './components/Pdf/Pdf';
@@ -30,8 +30,8 @@ export default function AppViewBusinessViewBillView() {
         numOrder: business.numOrder,
         businessId: business.id,
       }),
-    onSuccess: (data) => {
-      queryClient.setQueryData(queries['business-bills'].list._ctx.byBusinessId(businessId).queryKey, data);
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: queries['business-bills']._def });
       toast.success('La facture a été rafraîchie avec succès');
     },
     onError: (error) => {
@@ -40,17 +40,26 @@ export default function AppViewBusinessViewBillView() {
     },
   });
 
+  useEffect(() => {
+    if (!!bill && !bill.totalAmountHT) {
+      const toastId = toast.warning("Une erreur est survenue et la facture n'est pas conforme. (Total HT à 0)", { autoClose: false });
+      return () => {
+        toast.dismiss(toastId);
+      };
+    }
+  }, [bill]);
+
   return (
     <>
       <div className={styles.container}>
         {!business.archived && credits.length > 0 && user.userInfo.roles.some((role) => ['ROLE_MEMBRE_VIZEO', 'ROLE_REPRESENTANT'].includes(role)) && (
           <div className={styles.avoir_container}>
-            <Link from={routeApi.id} to="credits" search={(old) => old} replace resetScroll={false} className="btn btn-secondary">
+            <Link from={routeApi.id} to="credits" search replace resetScroll={false} preload="intent" className="btn btn-secondary">
               Voir les avoirs
             </Link>
           </div>
         )}
-        {bill && (
+        {!!bill && (
           <div className={styles.pdf_container}>
             <div className={styles.title}>Facture : {bill.number}</div>
 
@@ -62,7 +71,7 @@ export default function AppViewBusinessViewBillView() {
             {!business.archived && (
               <div className={styles.buttons_container}>
                 {user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && (
-                  <Link from={routeApi.id} to="send-by-email" search={(old) => old} replace resetScroll={false} className="btn btn-secondary">
+                  <Link from={routeApi.id} to="send-by-email" search={(old) => old} replace resetScroll={false} preload="intent" className="btn btn-secondary">
                     Envoyer par mail
                   </Link>
                 )}

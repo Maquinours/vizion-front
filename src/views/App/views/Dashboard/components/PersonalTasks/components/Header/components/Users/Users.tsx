@@ -27,6 +27,7 @@ export default function AppViewDashboardViewPersonalTasksComponentHeaderComponen
             params={{ profileId: member.id }}
             replace
             resetScroll={false}
+            preload="intent"
             className={styles.tag_tooltip}
           >
             {member.firstName?.charAt(0).toUpperCase()}

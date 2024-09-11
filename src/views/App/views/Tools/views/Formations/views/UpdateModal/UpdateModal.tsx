@@ -140,16 +140,16 @@ export default function AppViewToolsViewFormationsViewUpdateModalView() {
         <div className={styles.container}>
           <div className={styles.header}>
             <button className="btn btn-secondary" onClick={handleSubmit((data) => mutate(data))}>
-              Ajouter une formation
+              Modifier une formation
             </button>
           </div>
           <div className={styles.news_container}>
             <div className={styles.content}>
               <div className={styles.details_buttons}>
-                <Link from={routeApi.id} to="add-detail" search={(old) => old} replace resetScroll={false} className="btn btn-primary">
+                <Link from={routeApi.id} to="add-detail" search replace resetScroll={false} preload="intent" className="btn btn-primary">
                   Ajouter un détail
                 </Link>
-                <Link from={routeApi.id} to="details" search={(old) => old} replace resetScroll={false} className="btn btn-secondary">
+                <Link from={routeApi.id} to="details" search replace resetScroll={false} preload="intent" className="btn btn-secondary">
                   Voir les détails
                 </Link>
               </div>
@@ -221,7 +221,7 @@ export default function AppViewToolsViewFormationsViewUpdateModalView() {
                 </div>
               </div>
             </div>
-            <div className={styles.form__loader}>
+            <div className="flex w-full items-center justify-center">
               <PulseLoader color="#31385A" loading={isPending} className="" size={10} speedMultiplier={0.5} />
             </div>
           </div>

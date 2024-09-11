@@ -28,7 +28,7 @@ export default function AppViewToolsViewExternalLinksViewTableComponentContextMe
   return (
     <Popper open={isOpen} anchorEl={anchorElement} transition placement="bottom-start" className={styles.popper}>
       {({ TransitionProps }) => (
-        <ClickAwayListener onClickAway={onClose}>
+        <ClickAwayListener mouseEvent="onMouseUp" onClickAway={onClose}>
           <Fade {...TransitionProps}>
             <Paper className={styles.menu_container}>
               {externalLink && (
@@ -40,7 +40,8 @@ export default function AppViewToolsViewExternalLinksViewTableComponentContextMe
                       params={{ externalLinkId: externalLink.id }}
                       replace
                       resetScroll={false}
-                      search={(old) => old}
+                      search
+                      preload="viewport"
                     >
                       <HiPencilAlt className={styles.icon} />
                       <span className={styles.text}>Modifier</span>
@@ -53,7 +54,8 @@ export default function AppViewToolsViewExternalLinksViewTableComponentContextMe
                       params={{ externalLinkId: externalLink.id }}
                       replace
                       resetScroll={false}
-                      search={(old) => old}
+                      search
+                      preload="viewport"
                     >
                       <FaFileImport className={styles.icon} />
                       <span className={styles.text}>{externalLink.archived ? 'Désarchiver' : 'Archiver'}</span>
@@ -66,7 +68,8 @@ export default function AppViewToolsViewExternalLinksViewTableComponentContextMe
                       params={{ externalLinkId: externalLink.id }}
                       replace
                       resetScroll={false}
-                      search={(old) => old}
+                      search
+                      preload="viewport"
                     >
                       <FaTrash className={styles.icon} />
                       <span className={styles.text}>Supprimer</span>

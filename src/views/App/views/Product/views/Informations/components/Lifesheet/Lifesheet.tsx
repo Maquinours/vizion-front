@@ -21,6 +21,12 @@ export default function AppViewProductViewInformationsViewLifesheetComponent() {
         replace: true,
         resetScroll: false,
       }}
+      getEmailLink={(data) => ({
+        from: routeApi.id,
+        to: '/app/products/$productId/informations/lifesheet-email/$lifesheetId',
+        params: { lifesheetId: data.id },
+        search: true,
+      })}
     />
   );
 }

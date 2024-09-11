@@ -13,7 +13,7 @@ export default function AppViewBusinessViewDashboardViewSendEmailModalView() {
   const { data: business } = useSuspenseQuery(queries.businesses.detail._ctx.byId(businessId));
 
   const onClose = () => {
-    navigate({ to: '..', search: (old) => old, replace: true, resetScroll: false });
+    navigate({ to: '..', search: (old) => old, replace: true, resetScroll: false, ignoreBlocker: true });
   };
 
   return (
@@ -25,6 +25,7 @@ export default function AppViewBusinessViewDashboardViewSendEmailModalView() {
         search: true,
         replace: true,
         resetScroll: false,
+        ignoreBlocker: true,
       }}
       defaultSubject={`${business.numBusiness} - ${business.title}`}
       defaultRecipient={business.profileEmail ? [business.profileEmail] : undefined}

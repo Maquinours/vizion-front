@@ -19,7 +19,7 @@ const columns = [
   columnHelper.display({
     header: 'Email',
     cell: ({ row: { original } }) => (
-      <Link from={routeApi.id} to="send-email/$subscriptionId" params={{ subscriptionId: original.id }} search={(old) => old} replace resetScroll={false}>
+      <Link from={routeApi.id} to="send-email/$subscriptionId" params={{ subscriptionId: original.id }} search replace resetScroll={false} preload="intent">
         {original.email}
       </Link>
     ),
@@ -32,7 +32,7 @@ const columns = [
     id: 'actions',
     cell: ({ row: { original } }) => (
       <div className={styles.action_buttons}>
-        <Link from={routeApi.id} to="delete/$subscriptionId" params={{ subscriptionId: original.id }} search={(old) => old} replace resetScroll={false}>
+        <Link from={routeApi.id} to="delete/$subscriptionId" params={{ subscriptionId: original.id }} search replace resetScroll={false} preload="intent">
           <FaTrash width="25" height="25" color="#F24C52" />
         </Link>
       </div>
@@ -48,7 +48,7 @@ export default function AppViewToolsViewFormationsViewSubscribersModalView() {
   const { data, isLoading } = useQuery(queries['formation-subscriptions'].list._ctx.byFormationDetailId(formationDetailId));
 
   const onClose = () => {
-    navigate({ to: '../..', search: (old) => old, replace: true });
+    navigate({ to: '../..', search: true, replace: true });
   };
 
   return (

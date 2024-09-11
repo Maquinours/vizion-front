@@ -17,9 +17,18 @@ export default function AppViewBusinessViewDashboardViewBillingAddressComponent(
     <div className={styles.container}>
       <CardComponent
         title="Adresse de facturation"
+        className="h-full"
         editLink={
           !business.archived && user.userInfo.roles.includes('ROLE_DIRECTION_VIZEO')
-            ? { from: routeApi.id, to: '/app/businesses-rma/business/$businessId/dashboard/update-billing-address' }
+            ? {
+                from: routeApi.id,
+                to: '/app/businesses-rma/business/$businessId/dashboard/update-billing-address',
+                search: true,
+                replace: true,
+                resetScroll: false,
+                preload: 'intent',
+                ignoreBlocker: true,
+              }
             : undefined
         }
       >

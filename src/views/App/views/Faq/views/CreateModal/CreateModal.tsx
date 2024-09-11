@@ -33,6 +33,14 @@ const levelOptions = [
     text: 'Professionnel',
     value: FaqAccessLevel.PROFESSIONNEL,
   },
+  {
+    text: 'Interne IA',
+    value: FaqAccessLevel.INTERNE_IA,
+  },
+  {
+    text: 'Publique IA',
+    value: FaqAccessLevel.PUBLIC_IA,
+  },
 ];
 
 const yupSchema = yup.object().shape({
@@ -138,6 +146,7 @@ export default function AppViewFaqViewCreateModalView() {
                           className={styles.multi_email}
                           onChange={onChange}
                           onBlur={onBlur}
+                          delimiter="[,;]"
                           getLabel={(value, index, removeItem) => (
                             <div data-tag key={index}>
                               <div data-tag-item>{value}</div>

@@ -55,12 +55,12 @@ export default function AppViewRmaViewSupportViewHeaderComponent() {
     <div className={styles.header}>
       <div className={styles.buttons_container}>
         {rma.state !== AssistanceState.ARCHIVE && (
-          <Link from={routeApi.id} to="create-detail" search replace resetScroll={false} className="btn btn-primary">
+          <Link from={routeApi.id} to="create-detail" search replace resetScroll={false} preload="intent" className="btn btn-primary">
             Ajouter un article
           </Link>
         )}
-        <Link from={routeApi.id} to="pdf" search replace resetScroll={false} className="btn btn-secondary">
-          Editer
+        <Link from={routeApi.id} to="pdf" search replace resetScroll={false} preload="intent" className="btn btn-secondary">
+          Éditer
         </Link>
         <button type="button" disabled={isPending} className="btn btn-secondary" onClick={() => onNextStepButtonClick()}>
           {isPending ? "Passage à l'étape suivante..." : 'Étape suivante'}

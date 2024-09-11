@@ -6,6 +6,8 @@ import { queries } from '../../../../../../../../utils/constants/queryKeys';
 import { deleteBusiness } from '../../../../../../../../utils/api/business';
 import { toast } from 'react-toastify';
 import { PulseLoader } from 'react-spinners';
+import { useContext } from 'react';
+import { TabsContext } from '../../../../../../components/TabsContainer/utils/contexts/context';
 
 const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/dashboard/delete');
 
@@ -13,12 +15,14 @@ export default function AppViewBusinessViewDashboardViewDeleteModalView() {
   const queryClient = useQueryClient();
   const navigate = useNavigate({ from: routeApi.id });
 
+  const { removeTab } = useContext(TabsContext)!;
+
   const { businessId } = routeApi.useParams();
 
   const { data: business } = useSuspenseQuery(queries.businesses.detail._ctx.byId(businessId));
 
   const onClose = () => {
-    navigate({ to: '..', search: (old) => old, replace: true, resetScroll: false });
+    navigate({ to: '..', search: (old) => old, replace: true, resetScroll: false, ignoreBlocker: true });
   };
 
   const { mutate, isPending } = useMutation({
@@ -26,7 +30,7 @@ export default function AppViewBusinessViewDashboardViewDeleteModalView() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queries.businesses._def });
       toast.success("L'affaire a bien été supprimée");
-      navigate({ to: '/app/businesses-rma', replace: true });
+      removeTab();
     },
     onError: (error) => {
       console.error(error);

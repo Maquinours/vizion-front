@@ -20,7 +20,7 @@ export default function AppViewBusinessViewQuotationViewDeleteDetailModalView() 
   const { data: detail } = useSuspenseQuery(queries['business-quotation-details'].detail._ctx.byId(detailId));
 
   const onClose = () => {
-    navigate({ to: '../..', search: (old) => old, replace: true, resetScroll: false });
+    navigate({ to: '../..', search: true, replace: true, resetScroll: false, ignoreBlocker: true });
   };
 
   const { mutate, isPending } = useMutation({

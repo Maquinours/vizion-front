@@ -27,7 +27,7 @@ export default function AppViewDashboardViewPersonalTasksComponent() {
   return (
     <CardComponent
       title="Charges de travail personnelles"
-      addLink={{ to: '/app/dashboard/create-personal-task', search: (old) => old, replace: true, resetScroll: false }}
+      addLink={{ to: '/app/dashboard/create-personal-task', search: true, replace: true, resetScroll: false, preload: 'intent' }}
       onReload={() => refetch()}
       isReloading={isRefetching}
       isMinimized={isMinimized}

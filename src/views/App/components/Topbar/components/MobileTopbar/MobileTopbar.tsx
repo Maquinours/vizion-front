@@ -32,7 +32,9 @@ export default function AppLayoutTopbarComponentMobileTopbar({ logout }: Readonl
   return (
     <div className={styles.container}>
       <div className={styles.left_menu_icon}>
-        <Link search={{ mobileSidebar: mobileSidebar ? undefined : true }}>{mobileSidebar ? <MdClose /> : <HiMenuAlt1 />}</Link>
+        <Link search={{ mobileSidebar: mobileSidebar ? undefined : true }} replace resetScroll={false} ignoreBlocker>
+          {mobileSidebar ? <MdClose /> : <HiMenuAlt1 />}
+        </Link>
       </div>
       <div className={styles.current_page}>
         <p>{title}</p>

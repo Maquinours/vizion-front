@@ -175,7 +175,7 @@ export default function AppViewEnterprisesViewSearchSectionComponent() {
               />
             )}
           />
-          <select id="category" {...register('category')} defaultValue="">
+          <select id="category" {...register('category', { onChange: handleSubmit(onSubmit) })} defaultValue="">
             {availableCategoryOptions.map((itm) => (
               <option key={itm.value} value={itm.value}>
                 {itm.label}
@@ -183,7 +183,7 @@ export default function AppViewEnterprisesViewSearchSectionComponent() {
             ))}
           </select>
           {user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && (
-            <select id="representativeId" {...register('representativeId')}>
+            <select id="representativeId" {...register('representativeId', { onChange: handleSubmit(onSubmit) })}>
               <option value="">Choisir un représentant</option>
               {representatives?.map((itm) => (
                 <option key={itm.id} value={itm.id}>
@@ -192,12 +192,26 @@ export default function AppViewEnterprisesViewSearchSectionComponent() {
               ))}
             </select>
           )}
-          <div className="flex items-center gap-1">
-            <label htmlFor="fuzzy" className="font-['DIN2014'] text-base text-[color:var(--primary-color)]">
-              Recherche floue
-            </label>
-            <input type="checkbox" id="fuzzy" {...register('fuzzy')} />
-          </div>
+          <Controller
+            control={control}
+            name="fuzzy"
+            render={({ field: { value, onChange } }) => (
+              <div className="flex items-center gap-1">
+                <label htmlFor="fuzzy" className="font-['DIN2014'] text-base text-[color:var(--primary-color)]">
+                  Recherche floue
+                </label>
+                <input
+                  type="checkbox"
+                  id="fuzzy"
+                  checked={!!value}
+                  onChange={(e) => {
+                    onChange(e);
+                    handleSubmit(onSubmit)();
+                  }}
+                />
+              </div>
+            )}
+          />
           <button type="submit" className="btn btn-secondary">
             Rechercher
           </button>

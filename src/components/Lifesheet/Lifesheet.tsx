@@ -13,23 +13,9 @@ import PaginationComponent from '../Pagination/Pagination';
 import RefreshButtonComponent from '../RefreshButton/RefreshButton';
 import TableComponent from '../Table/Table';
 import styles from './Lifesheet.module.scss';
+import { useMemo } from 'react';
 
 const columnHelper = createColumnHelper<LifeSheetResponseDto>();
-const columns = [
-  columnHelper.display({
-    header: 'Nom',
-    cell: ({ row: { original } }) => original.name,
-  }),
-  columnHelper.display({
-    header: 'Date & heure',
-    cell: ({ row: { original } }) => formatDateAndHourWithSlash(original.modifiedDate),
-  }),
-  columnHelper.display({
-    header: 'Description',
-    cell: ({ row: { original } }) =>
-      parse(DOMPurify.sanitize((original.receiver ? `à [${original.receiver.split(';').join(', ')}] ` : '') + original.description)),
-  }),
-];
 
 type LifesheetComponentProps = Readonly<{
   associatedItemType: LifesheetAssociatedItem;
@@ -39,14 +25,56 @@ type LifesheetComponentProps = Readonly<{
   createLink: LinkProps;
   pageLink?: (page: number) => LinkProps;
   className?: string;
+  getEmailLink: (data: LifeSheetResponseDto) => LinkProps;
 }>;
-export default function LifesheetComponent({ associatedItemType, associatedItemId, page, size = 5, createLink, pageLink, className }: LifesheetComponentProps) {
+export default function LifesheetComponent({
+  associatedItemType,
+  associatedItemId,
+  page,
+  size = 5,
+  createLink,
+  pageLink,
+  className,
+  getEmailLink,
+}: LifesheetComponentProps) {
   const { data, isLoading, refetch, isRefetching } = useQuery(lifesheets.page({ page, size })._ctx.byAssociatedItem({ associatedItemType, associatedItemId }));
+
+  const columns = useMemo(
+    () => [
+      columnHelper.display({
+        header: 'Nom',
+        cell: ({ row: { original } }) => original.name,
+      }),
+      columnHelper.display({
+        header: 'Date & heure',
+        cell: ({ row: { original } }) => formatDateAndHourWithSlash(original.modifiedDate),
+      }),
+      columnHelper.display({
+        header: 'Description',
+        cell: ({ row: { original } }) => {
+          const receiver: string | undefined = original.receiver
+            ?.split(';')
+            .filter((item) => item.trim().length > 0)
+            .join('; ');
+
+          const content = parse(DOMPurify.sanitize(`${!!receiver ? `à [${receiver}] - ` : ''}${original.description}`));
+          if (!!original.mailId)
+            return (
+              <Link {...getEmailLink(original)} replace resetScroll={false} preload="intent" className="flex justify-center">
+                {content}
+              </Link>
+            );
+          return content;
+        },
+      }),
+    ],
+    [getEmailLink],
+  );
 
   return (
     <CardComponent title="Fiche de vie" className={className}>
       <div className={styles.container}>
-        <Link {...createLink} className={classNames('btn btn-primary', styles.link)}>
+        <Link {...createLink} preload="intent" className={classNames('btn btn-primary', styles.link)}>
           Ajouter un commentaire
         </Link>
         <RefreshButtonComponent className={classNames('btn btn-primary', styles.button)} onRefresh={refetch} isRefreshing={isRefetching} />

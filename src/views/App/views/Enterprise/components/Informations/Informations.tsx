@@ -20,7 +20,7 @@ export default function AppViewEnterpriseViewInformationsComponent({ enterprise 
         currentUser.userInfo.roles.some(
           (role) => ['ROLE_MEMBRE_VIZEO', 'ROLE_REPRESENTANT'].includes(role) && !currentUser.userInfo.roles.includes('ROLE_STAGIAIRE_VIZEO'),
         )
-          ? { to: '/app/enterprises/$enterpriseId/update', params: { enterpriseId: enterprise.id }, search: (old) => old, replace: true }
+          ? { to: '/app/enterprises/$enterpriseId/update', params: { enterpriseId: enterprise.id }, search: true, replace: true, preload: 'intent' }
           : undefined
       }
     >

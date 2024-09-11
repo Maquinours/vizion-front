@@ -17,7 +17,7 @@ import { PulseLoader } from 'react-spinners';
 const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/dashboard/update-representative');
 
 const yupSchema = yup.object().shape({
-  representative: yup.mixed<EnterpriseResponseDto>().required('Le représentant est requis'),
+  representative: yup.mixed<EnterpriseResponseDto>().nullable(),
 });
 
 export default function AppViewBusinessViewDashboardViewUpdateRepresentativeModalView() {
@@ -39,7 +39,7 @@ export default function AppViewBusinessViewDashboardViewUpdateRepresentativeModa
   });
 
   const onClose = () => {
-    navigate({ to: '..', search: (old) => old, replace: true, resetScroll: false });
+    navigate({ to: '..', search: (old) => old, replace: true, resetScroll: false, ignoreBlocker: true });
   };
 
   const { mutate, isPending } = useMutation({
@@ -50,9 +50,9 @@ export default function AppViewBusinessViewDashboardViewUpdateRepresentativeModa
         billingZipCode: business.billingZipCode ?? '',
         billingCompany: business.billingCompany ?? '',
         type: business.type!,
-        representativeId: representative.id,
-        representativeName: representative.name,
-        representativeZipCode: representative.zipCode,
+        representativeId: representative?.id,
+        representativeName: representative?.name,
+        representativeZipCode: representative?.zipCode,
       }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queries.businesses._def });
@@ -88,10 +88,12 @@ export default function AppViewBusinessViewDashboardViewUpdateRepresentativeModa
                 name="representative"
                 render={({ field: { value, onChange } }) => (
                   <CustomSelect
+                    placeholder="Sélectionnez un représentant"
                     options={representatives}
                     isLoading={isLoadingRepresentatives}
                     getOptionLabel={(opt) => opt.name}
                     getOptionValue={(opt) => opt.id}
+                    isClearable
                     value={value}
                     onChange={onChange}
                   />
@@ -112,7 +114,7 @@ export default function AppViewBusinessViewDashboardViewUpdateRepresentativeModa
             </div>
 
             <div className={styles.footer_buttons}>
-              <button className="btn btn-primary-light" onClick={onClose}>
+              <button type="button" className="btn btn-primary-light" onClick={onClose}>
                 Annuler
               </button>
               <button className="btn btn-secondary" type="submit">

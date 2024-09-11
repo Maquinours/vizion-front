@@ -1,6 +1,6 @@
 import { MdBusinessCenter, MdGroups, MdGroup, MdSell, MdQuestionAnswer, MdLeakAdd, MdBuild } from 'react-icons/md';
 import styles from './BasicSidebar.module.scss';
-import { Link, LinkProps } from '@tanstack/react-router';
+import { Link, LinkProps, useLocation } from '@tanstack/react-router';
 import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthentifiedUser';
 import React, { useMemo } from 'react';
 import { IconType } from 'react-icons/lib';
@@ -19,7 +19,6 @@ const MENUS: Array<MenuItem> = [
     icon: MdBusinessCenter,
     label: 'Nouvelle affaire',
     route: {
-      params: (old) => old,
       search: (old) => ({ ...old, appModal: 'create-client-business', businessId: undefined, gedItemKey: undefined }),
       replace: true,
       resetScroll: false,
@@ -90,6 +89,7 @@ const MENUS: Array<MenuItem> = [
 ];
 
 export default function SidebarComponentBasicSidebarComponent() {
+  useLocation(); // We need to use useLocation to trigger a rerender of the links when the user navigates
   const { data: authentifiedUser } = useAuthentifiedUserQuery();
 
   const menus = useMemo(

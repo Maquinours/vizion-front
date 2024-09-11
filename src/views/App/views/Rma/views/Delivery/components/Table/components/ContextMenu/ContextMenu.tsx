@@ -28,19 +28,19 @@ export default function AppViewRmaViewReceptionViewTableComponentContextMenuComp
   return (
     <Popper open={isOpen} anchorEl={anchorElement} transition placement="bottom-start">
       {({ TransitionProps }) => (
-        <ClickAwayListener onClickAway={onClose}>
+        <ClickAwayListener mouseEvent="onMouseUp" onClickAway={onClose}>
           <Fade {...TransitionProps}>
             <Paper className={styles.menu_container}>
               {item && (
                 <MenuList>
                   <MenuItem>
-                    <Link from={routeId} to="update-detail/$detailId" params={{ detailId: item.id }} search replace resetScroll={false}>
+                    <Link from={routeId} to="update-detail/$detailId" params={{ detailId: item.id }} search replace resetScroll={false} preload="viewport">
                       <HiPencilAlt className={styles.icon} />
                       <span className={styles.text}>Modifier la ligne</span>
                     </Link>
                   </MenuItem>
                   <MenuItem>
-                    <Link from={routeId} to="delete-detail/$detailId" params={{ detailId: item.id }} search replace resetScroll={false}>
+                    <Link from={routeId} to="delete-detail/$detailId" params={{ detailId: item.id }} search replace resetScroll={false} preload="viewport">
                       <FaTrash className={styles.icon} />
                       <span className={styles.text}>Supprimer la ligne</span>
                     </Link>

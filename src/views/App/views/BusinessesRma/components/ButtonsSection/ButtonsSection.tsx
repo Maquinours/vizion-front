@@ -1,27 +1,31 @@
 import { Link, getRouteApi } from '@tanstack/react-router';
 import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthentifiedUser';
 import styles from './ButtonsSection.module.scss';
+import AppViewBusinessesRmaViewButtonsSectionComponentIndexingButtonComponent from './components/IndexingButton/IndexingButton';
 
 const routeApi = getRouteApi('/app/businesses-rma');
 
 export default function AppViewBusinessesRmaViewButtonsSectionComponent() {
   const { data: user } = useAuthentifiedUserQuery();
+
   return (
     <div className={styles.buttons_container}>
+      {user.userInfo.roles.includes('ROLE_ADMIN_VIZION') && <AppViewBusinessesRmaViewButtonsSectionComponentIndexingButtonComponent />}
       {user.userInfo.roles.includes('ROLE_REPRESENTANT') && (
         <Link
           from={routeApi.id}
           to="representative-turnover"
-          search={(old) => old}
+          search
           state={(prev) => prev}
           replace
           resetScroll={false}
+          preload="intent"
           className="btn btn-primary"
         >
           {"Mon chiffre d'affaires"}
         </Link>
       )}
-      <Link from={routeApi.id} to="search-by-products" search={(old) => old} state={(prev) => prev} replace resetScroll={false} className="btn btn-primary">
+      <Link from={routeApi.id} to="search-by-products" search state={(prev) => prev} replace resetScroll={false} preload="intent" className="btn btn-primary">
         Rechercher par produit(s)
       </Link>
     </div>

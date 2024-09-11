@@ -28,7 +28,7 @@ export default function AppViewProductViewManageViewSpecificationsComponentTable
   return (
     <Popper open={isOpen} anchorEl={anchorElement} transition placement="bottom-start">
       {({ TransitionProps }) => (
-        <ClickAwayListener onClickAway={onClose}>
+        <ClickAwayListener mouseEvent="onMouseUp" onClickAway={onClose}>
           <Fade {...TransitionProps}>
             <Paper className={styles.menu_container}>
               {productSpecification?.specification && (
@@ -41,6 +41,7 @@ export default function AppViewProductViewManageViewSpecificationsComponentTable
                       search
                       replace
                       resetScroll={false}
+                      preload="viewport"
                     >
                       <HiPencilAlt className={styles.icon} width={16} height={16} color="#16204E" />
                       <span className={styles.text}>Modifier la spécification</span>
@@ -54,6 +55,7 @@ export default function AppViewProductViewManageViewSpecificationsComponentTable
                       search
                       replace
                       resetScroll={false}
+                      preload="viewport"
                     >
                       <FaTrash className={styles.icon} width={16} height={16} color="#16204E" />
                       <span className={styles.text}>Supprimer la spécification</span>

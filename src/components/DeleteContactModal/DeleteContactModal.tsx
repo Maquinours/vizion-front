@@ -21,6 +21,7 @@ export default function DeleteContactModalComponent({ contactId, onClose }: Dele
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queries.enterprise._def });
       toast.success('Le contact a été supprimé avec succès');
+      onClose();
     },
     onError: (error) => {
       console.error(error);
@@ -43,8 +44,7 @@ export default function DeleteContactModalComponent({ contactId, onClose }: Dele
         <form onSubmit={onSubmit} onReset={onClose}>
           <div className={styles.modal_content}>
             <p>
-              {' '}
-              Vous êtes sur le point de supprimer le profil de {contact.civility} {contact.lastName} {contact.firstName}, profil de type {contact.profileClient}{' '}
+              Vous êtes sur le point de supprimer le profil de {contact.civility} {contact.lastName} {contact.firstName}, profil de type {contact.profileClient}
               .
             </p>
             <p>Voulez-vous continuer ?</p>

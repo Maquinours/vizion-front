@@ -21,7 +21,7 @@ export default function AppViewProductViewManageViewVersionsComponent() {
     <CardComponent title="Versions de produit">
       <div className={styles.container}>
         <div className={styles.button_container}>
-          <Link from={routeApi.id} to="create-version" search replace resetScroll={false} className="btn btn-primary">
+          <Link from={routeApi.id} to="create-version" search replace resetScroll={false} preload="intent" className="btn btn-primary">
             Ajouter une nouvelle version
           </Link>
           <RefreshButtonComponent className="btn btn-primary" style={{ marginLeft: '0.5rem' }} onRefresh={() => refetch()} isRefreshing={isRefetching} />

@@ -13,6 +13,7 @@ import AppViewSidebarComponent from './components/Sidebar/Sidebar';
 import AppViewTabsContainerComponent from './components/TabsContainer/TabsContainer';
 import AppViewTopbarComponent from './components/Topbar/Topbar';
 import { useAuthentifiedUserQuery } from './utils/functions/getAuthentifiedUser';
+import AppViewSendEmailModalComponent from './components/SendEmailModal/SendEmailModal';
 
 const Route = getRouteApi('/app');
 
@@ -27,6 +28,8 @@ export default function AppLayout() {
         return <AppViewCreateBusinessModalComponent />;
       case 'create-client-business':
         return <AppViewCreateClientBusinessModalComponent />;
+      case 'send-email':
+        return <AppViewSendEmailModalComponent />;
       default:
         if (modalId?.startsWith('business-ged')) return <AppViewBusinessGedModalComponent />;
     }

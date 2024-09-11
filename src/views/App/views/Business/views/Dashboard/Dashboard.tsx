@@ -1,17 +1,22 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { Link, Outlet, getRouteApi } from '@tanstack/react-router';
+import { Link, Outlet, getRouteApi, useBlocker } from '@tanstack/react-router';
 import classNames from 'classnames';
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import { FaTrash } from 'react-icons/fa';
+import { HiPencilAlt } from 'react-icons/hi';
 import { toast } from 'react-toastify';
 import * as yup from 'yup';
+import BusinessRmaLinksComponent from '../../../../../../components/BusinessRmaLinks/BusinessRmaLinks';
+import UnsavedChangesBlockingModalComponent from '../../../../../../components/UnsavedChangesBlockingModal/UnsavedChangesBlockingModal';
 import WorkloadsComponent from '../../../../../../components/Workloads/Workloads';
 import { updateBusiness } from '../../../../../../utils/api/business';
 import { queries } from '../../../../../../utils/constants/queryKeys';
 import BusinessState from '../../../../../../utils/enums/BusinessState';
+import CategoryBusiness from '../../../../../../utils/enums/CategoryBusiness';
 import { WorkloadAssociatedItem } from '../../../../../../utils/enums/WorkloadAssociatedItem';
+import BusinessResponseDto from '../../../../../../utils/types/BusinessResponseDto';
 import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthentifiedUser';
 import styles from './Dashboard.module.scss';
 import AppViewBusinessViewDashboardViewBillingAddressComponent from './components/BillingAddress/BillingAddress';
@@ -21,7 +26,6 @@ import AppViewBusinessViewDashboardViewGedComponent from './components/Ged/Ged';
 import AppViewBusinessViewDashboardViewGeneralInformationsComponent from './components/GeneralInformations/GeneralInformations';
 import AppViewBusinessViewDashboardViewImportOtherBusinessQuotationComponent from './components/ImportOtherBusinessQuotation/ImportOtherBusinessQuotation';
 import AppViewBusinessViewDashboardViewLifesheetComponent from './components/Lifesheet/Lifesheet';
-import AppViewBusinessViewDashboardViewLinksComponent from './components/Links/Links';
 import AppViewBusinessViewDashboardViewQuotationButtonComponent from './components/QuotationButton/QuotationButton';
 import AppViewBusinessViewDashboardViewResponsibleComponent from './components/Responsible/Responsible';
 import AppViewBusinessViewDashboardViewTransferDataButtonComponent from './components/TransferDataButton/TransferDataButton';
@@ -54,14 +58,8 @@ export default function AppViewBusinessViewDashboardView() {
   const { data: user } = useAuthentifiedUserQuery();
   const { data: business } = useSuspenseQuery(queries.businesses.detail._ctx.byId(businessId));
 
-  const {
-    register,
-    formState: { errors },
-    setValue,
-    handleSubmit,
-  } = useForm({
-    resolver: yupResolver(yupSchema),
-    defaultValues: {
+  const formDefaultValues = useMemo(
+    () => ({
       businessName: business.title ?? '',
       businessInstaller: business.installerProfileName ?? '',
       businessExport: business.exportTva ? 'yes' : 'no',
@@ -74,7 +72,31 @@ export default function AppViewBusinessViewDashboardView() {
       receiverCity: business.deliverAddressCity ?? '',
       receiverPhoneNumber: business.deliverPhoneNumber ?? '',
       receiverEmail: business.deliverEmail ?? '',
-    },
+    }),
+    [
+      business.title,
+      business.installerProfileName,
+      business.exportTva,
+      business.deliveryMode,
+      business.deliverAddressName,
+      business.deliverAddressOne,
+      business.deliverAddressTwo,
+      business.deliverAddressZipCode,
+      business.deliverAddressCity,
+      business.deliverPhoneNumber,
+      business.deliverEmail,
+    ],
+  );
+
+  const {
+    register,
+    formState: { errors, isDirty },
+    setValue,
+    handleSubmit,
+    reset: resetForm,
+  } = useForm({
+    resolver: yupResolver(yupSchema),
+    defaultValues: formDefaultValues,
   });
 
   const contextValue = useMemo(() => ({ setValue }), [setValue]);
@@ -90,6 +112,10 @@ export default function AppViewBusinessViewDashboardView() {
         toast.error("Erreur lors de la copie du numéro de l'affaire");
       });
   };
+
+  const { proceed, reset, status } = useBlocker({
+    condition: isDirty,
+  });
 
   const { mutate: save, isPending: isSavePending } = useMutation({
     mutationFn: async (data: BusinessDashboardFormType) => {
@@ -138,9 +164,11 @@ export default function AppViewBusinessViewDashboardView() {
         type: business.type!,
       });
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: queries.businesses._def });
+    onSuccess: (business) => {
+      queryClient.setQueryData<BusinessResponseDto>(queries.businesses.detail._ctx.byId(business.id).queryKey, business);
+      // queryClient.invalidateQueries({ queryKey: queries.businesses._def });
       toast.success('Les modifications ont été enregistrées');
+      if (status === 'blocked') proceed();
     },
     onError: (error) => {
       console.error(error);
@@ -148,12 +176,18 @@ export default function AppViewBusinessViewDashboardView() {
     },
   });
 
+  const onSave = handleSubmit((data) => save(data));
+
+  useEffect(() => {
+    resetForm(formDefaultValues, { keepDirtyValues: true });
+  }, [formDefaultValues]);
+
   return (
     <>
       <div className={styles.container}>
         <div className={styles.headers_buttons}>
           {(business.state === BusinessState.DEVIS || business.state === BusinessState.CREATED) && !business.archived && (
-            <Link from={routeApi.id} to="delete" search={(old) => old} replace resetScroll={false} className="btn btn-secondary">
+            <Link from={routeApi.id} to="delete" search replace resetScroll={false} ignoreBlocker className="btn btn-secondary">
               <FaTrash color="#FFF" width={14} height={14} />
               Supprimer cette affaire
             </Link>
@@ -165,20 +199,20 @@ export default function AppViewBusinessViewDashboardView() {
           {!business.archived && (
             <div className={styles.right_buttons}>
               {user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && (
-                <Link from={routeApi.id} to="send-email" search={(old) => old} replace resetScroll={false} className="btn btn-primary">
+                <Link from={routeApi.id} to="send-email" search replace resetScroll={false} ignoreBlocker className="btn btn-primary">
                   Envoyer un mail
                 </Link>
               )}
               {(business.state === null ||
                 ![BusinessState.FACTURE, BusinessState.ARC, BusinessState.BP, BusinessState.BL].includes(business.state) ||
                 user.userInfo.roles.find((role) => ['ROLE_VIZEO', 'ROLE_DIRECTION_VIZEO', 'ROLE_STAGIAIRE_VIZEO'].includes(role))) && (
-                <button className="btn btn-secondary" disabled={isSavePending} onClick={handleSubmit((data) => save(data))}>
+                <button className="btn btn-secondary" disabled={isSavePending} onClick={onSave}>
                   {isSavePending ? 'Sauvegarde en cours...' : 'Sauvegarder'}
                 </button>
               )}
-              {/* <Link to={`/app/businesses/business-study/${business.id}`} className="btn btn-secondary">
-                {"Accès à l'étude"} TODO: Reimplement this
-              </Link> */}
+              <Link from={routeApi.id} to="../study" className="btn btn-secondary">
+                {"Accès à l'étude"}
+              </Link>
               <AppViewBusinessViewDashboardViewQuotationButtonComponent />
             </div>
           )}
@@ -193,12 +227,7 @@ export default function AppViewBusinessViewDashboardView() {
         >
           {user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && <AppViewBusinessViewDashboardViewLifesheetComponent />}
           <div className={styles.second_grid}>
-            <AppViewBusinessViewDashboardViewGeneralInformationsComponent
-              register={register}
-              errors={errors}
-              onSave={handleSubmit((data) => save(data))}
-              isSavePending={isSavePending}
-            />
+            <AppViewBusinessViewDashboardViewGeneralInformationsComponent register={register} errors={errors} onSave={onSave} isSavePending={isSavePending} />
             <div className={styles.address_sections}>
               <div>
                 <div className={styles.enterprise_category}>
@@ -206,21 +235,27 @@ export default function AppViewBusinessViewDashboardView() {
                     Catégorie : <span>{business.enterpriseCategory}</span>
                   </p>
                 </div>
-                <div>
+                <div className="flex gap-x-3">
                   {user.userInfo.roles.includes('ROLE_DIRECTION_VIZEO') && (
-                    <Link
-                      from={routeApi.id}
-                      to="update-representative"
-                      search={(old) => old}
-                      replace
-                      resetScroll={false}
-                      className="btn btn-primary"
-                      style={{ marginRight: '10px' }}
-                    >
-                      Modifier le représentant
-                    </Link>
+                    <div className="flex gap-x-1">
+                      <span className="m-auto font-[DIN2014] text-sm">
+                        Représentant : <span className="font-bold text-[var(--primary-color)]">{business.representativeName || 'Aucun'}</span>
+                      </span>
+                      <Link
+                        from={routeApi.id}
+                        to="update-representative"
+                        search
+                        replace
+                        resetScroll={false}
+                        preload="intent"
+                        ignoreBlocker
+                        className="m-auto flex"
+                      >
+                        <HiPencilAlt className="text-[var(--primary-color)]" />
+                      </Link>
+                    </div>
                   )}
-                  <Link from={routeApi.id} to="address-book" search={(old) => old} replace resetScroll={false} className="btn btn-primary">
+                  <Link from={routeApi.id} to="address-book" search replace resetScroll={false} preload="intent" ignoreBlocker className="btn btn-primary">
                     Carnet d&apos;adresse
                   </Link>
                 </div>
@@ -234,18 +269,49 @@ export default function AppViewBusinessViewDashboardView() {
                       from: routeApi.id,
                       to: '/app/businesses-rma/business/$businessId/dashboard/task-email/$taskId',
                       params: { taskId: task.id },
-                      search: (old) => old,
+                      search: true,
                       replace: true,
                       resetScroll: false,
+                      ignoreBlocker: true,
+                    })}
+                    unlinkLink={(task) => ({
+                      from: routeApi.id,
+                      to: '/app/businesses-rma/business/$businessId/dashboard/unlink-task/$taskId',
+                      params: { taskId: task.id },
+                      search: true,
+                      replace: true,
+                      resetScroll: false,
+                      ignoreBlocker: true,
                     })}
                   />
                 )}
-
-                <AppViewBusinessViewDashboardViewLinksComponent />
+                <BusinessRmaLinksComponent
+                  category={CategoryBusiness.AFFAIRE}
+                  number={business.numBusiness}
+                  canCreate={user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO')}
+                  createLink={{
+                    to: '/app/businesses-rma/business/$businessId/dashboard/create-link',
+                    search: true,
+                    replace: true,
+                    resetScroll: false,
+                    ignoreBlocker: true,
+                    preload: 'intent',
+                  }}
+                  getDeleteLink={(data) => ({
+                    to: '/app/businesses-rma/business/$businessId/dashboard/delete-link/$associatedId',
+                    params: { associatedId: data.id },
+                    search: true,
+                    replace: true,
+                    resetScroll: false,
+                    ignoreBlocker: true,
+                    preload: 'intent',
+                  })}
+                  className="min-h-[60vh]"
+                />
               </div>
-              <div>
+              <div className="h-fit">
                 <AppViewBusinessViewDashboardViewBillingAddressComponent />
-                <AppViewBusinessViewDashboardViewTransferDataButtonComponent setValue={setValue} />
+                <AppViewBusinessViewDashboardViewTransferDataButtonComponent setValue={setValue} saveBusiness={onSave} />
                 <AppViewBusinessViewDashboardViewDeliveryAddressComponent register={register} errors={errors} />
               </div>
               <div>
@@ -261,6 +327,7 @@ export default function AppViewBusinessViewDashboardView() {
       <BusinessDashboardContext.Provider value={contextValue}>
         <Outlet />
       </BusinessDashboardContext.Provider>
+      {status === 'blocked' && <UnsavedChangesBlockingModalComponent proceed={proceed} reset={reset} save={onSave} isSaving={isSavePending} />}
     </>
   );
 }

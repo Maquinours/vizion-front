@@ -31,7 +31,7 @@ export default function AppViewFaqViewTableComponentContextMenuComponent({
   return (
     <Popper open={isOpen} anchorEl={anchorElement} transition placement="bottom-start">
       {({ TransitionProps }) => (
-        <ClickAwayListener onClickAway={onClose}>
+        <ClickAwayListener mouseEvent="onMouseUp" onClickAway={onClose}>
           <Fade {...TransitionProps}>
             <Paper className={styles.menu_container}>
               {faq && (
@@ -45,6 +45,7 @@ export default function AppViewFaqViewTableComponentContextMenuComponent({
                         search={(old) => old}
                         replace
                         resetScroll={false}
+                        preload="viewport"
                       >
                         <HiPencilAlt className={styles.icon} width={16} height={16} color="#16204E" />
                         <span className={styles.text}>Modifier</span>
@@ -58,6 +59,7 @@ export default function AppViewFaqViewTableComponentContextMenuComponent({
                         search={(old) => old}
                         replace
                         resetScroll={false}
+                        preload="viewport"
                       >
                         <FaFile className={styles.icon} width={16} height={16} color="#16204E" />
                         <span className={styles.text}>Accéder à la GED</span>
@@ -72,6 +74,7 @@ export default function AppViewFaqViewTableComponentContextMenuComponent({
                       search={(old) => old}
                       replace
                       resetScroll={false}
+                      preload="viewport"
                     >
                       <MdMailOutline className={styles.icon} width={16} height={16} color="#16204E" />
                       <span className={styles.text}>Envoyer par mail</span>
@@ -86,6 +89,7 @@ export default function AppViewFaqViewTableComponentContextMenuComponent({
                         search={(old) => old}
                         replace
                         resetScroll={false}
+                        preload="viewport"
                       >
                         <FaArchive className={styles.icon} width={16} height={16} color="#16204E" />
                         <span className={styles.text}>{faq.archived ? 'Désarchiver' : 'Archiver'}</span>
@@ -99,6 +103,7 @@ export default function AppViewFaqViewTableComponentContextMenuComponent({
                         search={(old) => old}
                         replace
                         resetScroll={false}
+                        preload="viewport"
                       >
                         <FaTrash className={styles.icon} width={16} height={16} color="#16204E" />
                         <span className={styles.text}>Supprimer</span>

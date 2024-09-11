@@ -27,13 +27,21 @@ export default function AppViewToolsViewDdnsViewTableComponentContextMenuCompone
   return (
     <Popper open={isOpen} anchorEl={anchorElement} transition placement="bottom-start" className={styles.popper}>
       {({ TransitionProps }) => (
-        <ClickAwayListener onClickAway={onClose}>
+        <ClickAwayListener mouseEvent="onMouseUp" onClickAway={onClose}>
           <Fade {...TransitionProps}>
             <Paper className={styles.menu_container}>
               {ddns && (
                 <MenuList>
                   <MenuItem>
-                    <Link from={routeApi.id} to="delete/$ddnsId" params={{ ddnsId: ddns.id }} search={(old) => old} replace resetScroll={false}>
+                    <Link
+                      from={routeApi.id}
+                      to="delete/$ddnsId"
+                      params={{ ddnsId: ddns.id }}
+                      search={(old) => old}
+                      replace
+                      resetScroll={false}
+                      preload="viewport"
+                    >
                       <FaTrash className={styles.icon} />
                       <span className={styles.text}>Supprimer</span>
                     </Link>

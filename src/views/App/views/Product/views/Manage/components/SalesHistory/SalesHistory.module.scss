@@ -43,6 +43,17 @@
     .actions_container {
       @extend .search_container;
       margin: 0.5rem 0 0.5rem 0.5rem;
+
+      .size_select {
+        background: #f2f3f8 0% 0% no-repeat padding-box;
+        border: 0.5px solid #16204e;
+        border-radius: 5px;
+        height: 28px;
+        width: auto;
+        outline: none;
+        padding-left: 0.5rem;
+        font: 14px/18px DIN2014;
+      }
     }
   }
 

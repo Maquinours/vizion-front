@@ -21,7 +21,7 @@
 
       th {
         height: 40px;
-        text-align: left;
+        text-align: center;
         padding: 0 0.3rem;
         border: none;
         border-left: 0.5px solid #898fa6;
@@ -81,14 +81,13 @@
       }
 
       tr {
-        vertical-align: top;
         padding: 10px 0;
 
         td {
           font: normal normal normal 16px/20px 'DIN2014';
           color: #16204e;
           padding: 0.3rem;
-          text-align: left;
+          text-align: center;
           height: 50px;
 
           &:nth-child(1) {
@@ -122,6 +121,10 @@
 
               .details_content {
                 margin-bottom: 1rem;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
 
                 .title {
                   font-weight: 900;
@@ -168,14 +171,9 @@
           &:nth-last-child(1) {
             .action_buttons {
               display: flex;
-
-              svg {
-                cursor: pointer;
-
-                &:nth-child(2) {
-                  margin-left: 5px;
-                }
-              }
+              justify-content: center;
+              align-items: center;
+              gap: 0.5rem;
             }
           }
         }

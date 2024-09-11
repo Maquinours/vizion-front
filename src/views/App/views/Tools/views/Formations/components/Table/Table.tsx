@@ -96,7 +96,9 @@ const columns = [
   }),
   columnHelper.display({
     header: 'Etat',
-    cell: ({ row: { original } }) => <BsFillCircleFill color={original.archived ? '#F24C52' : '#5DC896'} height={20} width={20} />,
+    cell: ({ row: { original } }) => (
+      <BsFillCircleFill color={original.archived ? '#F24C52' : '#5DC896'} title={original.archived ? 'Archivé' : 'Non archivé'} size={20} />
+    ),
   }),
   columnHelper.display({
     id: 'actions',

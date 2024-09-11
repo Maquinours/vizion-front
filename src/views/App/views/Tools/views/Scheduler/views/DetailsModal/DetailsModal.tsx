@@ -31,10 +31,10 @@ export default function AppViewToolsViewSchedulerViewDetailsModalView() {
           </div>
           <div className={styles.modal_content}>
             <div className={styles.modal_buttons}>
-              <Link from={routeApi.id} to="./update" search={(old) => old} params={(old) => old} replace className={styles.modal_header_icon}>
+              <Link from={routeApi.id} to="./update" search replace resetScroll={false} preload="intent" className={styles.modal_header_icon}>
                 <HiPencilAlt width="16" height="16" color="#16204E" />
               </Link>
-              <Link from={routeApi.id} to="./delete" search={(old) => old} params={(old) => old} replace className={styles.modal_header_icon}>
+              <Link from={routeApi.id} to="./delete" search replace resetScroll={false} preload="intent" className={styles.modal_header_icon}>
                 <FaTrash width="16" height="16" color="#16204E" />
               </Link>
             </div>

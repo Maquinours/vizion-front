@@ -32,7 +32,7 @@ export default function AppViewBusinessViewArcViewRecapComponent() {
               <td>
                 {arc.shippingServicePrice === 0 ? 'Offert' : <CurrencyFormat value={arc.shippingServicePrice} />}{' '}
                 {user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && !business.archived && (
-                  <Link from={routeApi.id} to="update-shipping-price" search={(old) => old}>
+                  <Link from={routeApi.id} to="update-shipping-price" search replace resetScroll={false} ignoreBlocker preload="intent">
                     <HiPencilAlt size={18} color="" />
                   </Link>
                 )}

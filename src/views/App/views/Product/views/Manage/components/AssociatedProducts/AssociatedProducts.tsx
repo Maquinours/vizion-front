@@ -58,7 +58,7 @@ export default function AppViewProductViewManageViewAssociatedProductsComponent(
     <CardComponent title="Produits associés">
       <div className={styles.container}>
         <div className={styles.button_container}>
-          <Link from={routeApi.id} to={'add-associated-product'} search replace resetScroll={false} className="btn btn-primary">
+          <Link from={routeApi.id} to={'add-associated-product'} search replace resetScroll={false} preload="intent" className="btn btn-primary">
             Ajouter un produit associé
           </Link>
           <RefreshButtonComponent className="btn btn-primary" style={{ marginLeft: '0.5rem' }} onRefresh={() => refetch()} isRefreshing={isRefetching} />
@@ -71,7 +71,7 @@ export default function AppViewProductViewManageViewAssociatedProductsComponent(
           <div className={styles.pagination}>
             <PaginationComponent
               page={page}
-              totalPages={data?.totalElements}
+              totalPages={data?.totalPages}
               pageLink={(page) => ({
                 from: routeApi.id,
                 search: (old) => ({ ...old, associatedProductsPage: page }),

@@ -16,7 +16,7 @@ export default function AppViewDashboardViewProgressiveInfosComponent() {
   return (
     <CardComponent
       title="Fil de l'eau"
-      addLink={{ to: '/app/dashboard/create-progressive-info', search: (old) => old, replace: true, resetScroll: false }}
+      addLink={{ to: '/app/dashboard/create-progressive-info', search: true, replace: true, resetScroll: false, preload: 'intent' }}
       onReload={() => refetch()}
       isReloading={isRefetching}
       isMinimized={isMinimized}

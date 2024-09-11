@@ -43,7 +43,7 @@ export default function AppViewBusinessViewDashboardViewQuotationButtonComponent
   };
 
   return (
-    <button onClick={onClick} className="btn btn-secondary">
+    <button type="button" onClick={onClick} className="btn btn-secondary">
       {isPending ? 'Création du devis...' : 'Saisir un devis'}
     </button>
   );

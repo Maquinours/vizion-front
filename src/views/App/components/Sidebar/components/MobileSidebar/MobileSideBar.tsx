@@ -1,4 +1,4 @@
-import { Link, LinkProps } from '@tanstack/react-router';
+import { Link, LinkProps, useLocation } from '@tanstack/react-router';
 import React from 'react';
 import { IoMdHome } from 'react-icons/io';
 import { IconType } from 'react-icons/lib';
@@ -27,16 +27,17 @@ const MENUS: MenuItem[] = [
     icon: MdBusinessCenter,
     label: 'Nouvelle affaire',
     route: {
-      params: (old) => old,
       search: (old) => ({ ...old, appModal: 'create-business', businessId: undefined, gedItemKey: undefined }),
       activeOptions: { exact: true, includeSearch: true },
       replace: true,
       resetScroll: false,
+      ignoreBlocker: true,
     },
   },
 ];
 
 export default function SidebarComponentMobileSidebarComponent() {
+  useLocation(); // We need to use useLocation to trigger a rerender of the links when the user navigates
   const { data: currentUser } = useAuthentifiedUserQuery();
 
   const menus = MENUS.filter((menu) => !menu.allowedRoles || menu.allowedRoles.some((role) => currentUser.userInfo.roles.includes(role)));

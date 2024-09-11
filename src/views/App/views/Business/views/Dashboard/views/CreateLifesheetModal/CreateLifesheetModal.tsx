@@ -11,7 +11,7 @@ export default function AppViewBusinessViewDashboardViewCreateLifesheetModalView
   const { businessId } = routeApi.useParams();
 
   const onClose = () => {
-    navigate({ to: '..', search: (old) => old, replace: true, resetScroll: false });
+    navigate({ to: '..', search: (old) => old, replace: true, resetScroll: false, ignoreBlocker: true });
   };
 
   return <CreateLifesheetModalComponent associatedItemType={LifesheetAssociatedItem.BUSINESS} associatedItemId={businessId} onClose={onClose} />;

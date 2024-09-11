@@ -1,38 +1,23 @@
-import { Controller, useForm } from 'react-hook-form';
-import styles from './SectionTwo.module.scss';
-import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Link, getRouteApi } from '@tanstack/react-router';
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
+import { Link, getRouteApi, useBlocker } from '@tanstack/react-router';
+import { useEffect, useMemo } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
+import * as yup from 'yup';
+import CurrencyFormat from '../../../../../../../../../../components/CurrencyFormat/CurrencyFormat';
+import { updateBusinessArc } from '../../../../../../../../../../utils/api/businessArcs';
 import { queries } from '../../../../../../../../../../utils/constants/queryKeys';
 import BusinessArcResponseDto from '../../../../../../../../../../utils/types/BusinessArcResponseDto';
-import { updateBusinessArc } from '../../../../../../../../../../utils/api/businessArcs';
-import { toast } from 'react-toastify';
-import { useEffect } from 'react';
-import CurrencyFormat from '../../../../../../../../../../components/CurrencyFormat/CurrencyFormat';
+import styles from './SectionTwo.module.scss';
+import UnsavedChangesBlockingModalComponent from '../../../../../../../../../../components/UnsavedChangesBlockingModal/UnsavedChangesBlockingModal';
 
 const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/arc');
 
 const yupSchema = yup.object({
   documentName: yup.string().required('Le nom du document est requis !!'),
   orderNumber: yup.string().required('Le numéro de commande est requis !!'),
-  totalAmountHT: yup.number().required(), // USED TO handle clientTotalAmountHT
-  clientTotalAmountHT: yup
-    .number()
-    .transform((_value, originalValue) => (typeof originalValue === 'string' ? Number(originalValue.replace(/,/, '.')) : originalValue))
-    .typeError('Entrer un nombre')
-    .required('Champs requis')
-    .test({
-      name: 'equalOrDifferentByOne',
-      skipAbsent: false,
-      test(value) {
-        const { totalAmountHT } = this.parent as { totalAmountHT: number };
-        const absoluteDiffValue = Math.abs(value - totalAmountHT);
-        if (absoluteDiffValue < 0 || absoluteDiffValue > 1)
-          return this.createError({ message: `Le montant total HT du client diffère de celui de l'ARC, Diff: ${absoluteDiffValue} €` });
-        return true;
-      },
-    }),
+  clientTotalAmountHT: yup.number(),
 });
 
 export default function AppViewBusinessViewArcViewHeaderComponentSectionTwoComponent() {
@@ -44,19 +29,40 @@ export default function AppViewBusinessViewArcViewHeaderComponentSectionTwoCompo
   const { data: business } = useSuspenseQuery(queries.businesses.detail._ctx.byId(businessId));
   const { data: arc } = useSuspenseQuery(queries['business-ARCs'].detail._ctx.byBusinessId(businessId));
 
+  const formDefaultValues = useMemo(
+    () => ({ documentName: arc.documentName, orderNumber: arc.numOrder ?? '', clientTotalAmountHT: arc.amountHtConfirmed ?? 0 }),
+    [arc.documentName, arc.numOrder, arc.amountHtConfirmed],
+  );
+
   const {
     register,
     control,
-    formState: { errors },
-    setValue,
+    formState: { errors, isDirty },
+    watch,
+    reset: resetForm,
+    getValues,
     handleSubmit,
   } = useForm({
     resolver: yupResolver(yupSchema),
-    defaultValues: {
-      documentName: arc.documentName,
-      orderNumber: arc.numOrder ?? '',
-      clientTotalAmountHT: arc.amountHtConfirmed ?? 0,
-    },
+    defaultValues: formDefaultValues,
+  });
+
+  const formWarnings = useMemo(() => {
+    const result: { clientTotalAmountHT?: string } = {};
+    const clientTotalAmountHT = getValues('clientTotalAmountHT');
+    if (clientTotalAmountHT === undefined) result.clientTotalAmountHT = 'Champs requis';
+    else if (isNaN(clientTotalAmountHT)) result.clientTotalAmountHT = 'Entrez un nombre';
+    else {
+      const totalAmountHT = (arc.totalAmountHT ?? 0) + arc.shippingServicePrice;
+      const absoluteDiffValue = Math.abs(clientTotalAmountHT - totalAmountHT);
+      if (absoluteDiffValue > 1)
+        result.clientTotalAmountHT = `Le montant total HT du client diffère de celui de l'ARC, Diff: ${absoluteDiffValue.toFixed(2)} €`;
+    }
+    return result;
+  }, [watch('clientTotalAmountHT'), arc.totalAmountHT, arc.shippingServicePrice]);
+
+  const { status, proceed, reset } = useBlocker({
+    condition: isDirty,
   });
 
   const { mutate, isPending } = useMutation({
@@ -78,6 +84,7 @@ export default function AppViewBusinessViewArcViewHeaderComponentSectionTwoCompo
       queryClient.invalidateQueries({ queryKey: queries['business-ARCs']._def });
       queryClient.setQueryData<BusinessArcResponseDto>(queries['business-ARCs'].detail._ctx.byBusinessId(businessId).queryKey, data);
       toast.success('ARC mis à jour avec succès');
+      if (status === 'blocked') proceed();
     },
     onError: (error) => {
       console.error(error);
@@ -85,49 +92,52 @@ export default function AppViewBusinessViewArcViewHeaderComponentSectionTwoCompo
     },
   });
 
+  const onSubmit = handleSubmit((data) => mutate(data));
+
   useEffect(() => {
-    setValue('totalAmountHT', (arc.totalAmountHT ?? 0) + arc.shippingServicePrice);
-  }, [arc.totalAmountHT, arc.shippingServicePrice]);
+    resetForm(formDefaultValues, { keepDirtyValues: true });
+  }, [formDefaultValues]);
 
   return (
-    <div className={styles._two}>
-      <form onSubmit={handleSubmit((data) => mutate(data))}>
-        <div className={styles.arc_details}>
-          <div className={styles.form_group}>
-            <label htmlFor="documentName">Nom du document</label>
-            <div className={styles.form_input_save}>
-              <input id="documentName" readOnly={!!business.archived} placeholder="ARC" {...register('documentName')} />
+    <>
+      <div className={styles._two}>
+        <form onSubmit={onSubmit}>
+          <div className={styles.arc_details}>
+            <div className={styles.form_group}>
+              <label htmlFor="documentName">Nom du document</label>
+              <div className={styles.form_input_save}>
+                <input id="documentName" readOnly={!!business.archived} placeholder="ARC" {...register('documentName')} />
+              </div>
+              <p className={styles.__errors}>{errors.documentName?.message}</p>
             </div>
-            <p className={styles.__errors}>{errors.documentName?.message}</p>
-          </div>
-          <div className={styles.form_group}>
-            <label htmlFor="orderNumber">Numéro de commande</label>
-            <div className={styles.form_input_save}>
-              <input id="orderNumber" readOnly={!!business.archived} placeholder="Numéro de commande" {...register('orderNumber')} />
+            <div className={styles.form_group}>
+              <label htmlFor="orderNumber">Numéro de commande</label>
+              <div className={styles.form_input_save}>
+                <input id="orderNumber" readOnly={!!business.archived} placeholder="Numéro de commande" {...register('orderNumber')} />
+              </div>
+              <p className={styles.__errors}>{errors.orderNumber?.message}</p>
             </div>
-            <p className={styles.__errors}>{errors.orderNumber?.message}</p>
-          </div>
-          <div className={styles.form_group}>
-            <label htmlFor="clientTotalAmountHT">Montant HT (+ fdp) pour contrôle</label>
-            <div className={styles.form_input_save}>
-              <Controller
-                control={control}
-                name="clientTotalAmountHT"
-                render={({ field: { value, onChange } }) => (
-                  <CurrencyFormat
-                    id="clientTotalAmountHT"
-                    readOnly={!!business.archived}
-                    placeholder="Montant HT (+ frais de port)"
-                    displayType="input"
-                    value={value}
-                    onValueChange={(v) => onChange(v.value)}
-                  />
-                )}
-              />
+            <div className={styles.form_group}>
+              <label htmlFor="clientTotalAmountHT">Montant HT (+ fdp) pour contrôle</label>
+              <div className={styles.form_input_save}>
+                <Controller
+                  control={control}
+                  name="clientTotalAmountHT"
+                  render={({ field: { value, onChange } }) => (
+                    <CurrencyFormat
+                      id="clientTotalAmountHT"
+                      readOnly={!!business.archived}
+                      placeholder="Montant HT (+ frais de port)"
+                      displayType="input"
+                      value={value}
+                      onValueChange={(v) => onChange(Number(v.value) || 0)}
+                    />
+                  )}
+                />
+              </div>
+              <p className={styles.__warnings}>{formWarnings.clientTotalAmountHT}</p>
             </div>
-            <p className={styles.__errors}>{errors.clientTotalAmountHT?.message}</p>
-          </div>
-          {/* <div className={styles.form_group}>
+            {/* <div className={styles.form_group}>
                               <label htmlFor="clientShippingPrice">
                                 Frais de port (Client)
                               </label>
@@ -143,24 +153,27 @@ export default function AppViewBusinessViewArcViewHeaderComponentSectionTwoCompo
                                 {arcErrors.clientShippingPrice?.message}
                               </p>
                             </div> */}
-        </div>
-        <div className={styles.actions_container}>
-          {!business.archived && (
-            <button type="submit" disabled={isPending} className="btn btn-secondary">
-              {isPending ? 'Sauvegarde en cours...' : 'Sauvegarder'}
-            </button>
-          )}
-          <Link
-            from={routeApi.id}
-            search={(prev) => ({ ...prev, hideReferencesPrices: !hideReferencesPrices })}
-            replace
-            resetScroll={false}
-            className="btn btn-primary-light"
-          >
-            {hideReferencesPrices ? 'Afficher' : 'Masquer'} les références et prix
-          </Link>
-        </div>
-      </form>
-    </div>
+          </div>
+          <div className={styles.actions_container}>
+            {!business.archived && (
+              <button type="submit" disabled={isPending} className="btn btn-secondary">
+                {isPending ? 'Sauvegarde en cours...' : 'Sauvegarder'}
+              </button>
+            )}
+            <Link
+              from={routeApi.id}
+              search={(prev) => ({ ...prev, hideReferencesPrices: !hideReferencesPrices })}
+              replace
+              resetScroll={false}
+              ignoreBlocker
+              className="btn btn-primary-light"
+            >
+              {hideReferencesPrices ? 'Afficher' : 'Masquer'} les références et prix
+            </Link>
+          </div>
+        </form>
+      </div>
+      {status === 'blocked' && <UnsavedChangesBlockingModalComponent proceed={proceed} reset={reset} save={onSubmit} isSaving={isPending} />}
+    </>
   );
 }

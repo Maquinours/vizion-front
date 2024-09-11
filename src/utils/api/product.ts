@@ -73,10 +73,9 @@ export const getAssociatedProductsPage = async (productId: string, page: number,
 export const getNotAssociatedProducts = async (productId: string) => {
   return privateInstance<Array<ProductResponseDto>>({
     method: 'GET',
-    url: `/product/v1/list/no-associated-and-category`,
+    url: `/product/v1/list/no-associated`,
     params: {
       id: productId,
-      category: 'Accessoires',
     },
   }).then((res) => res.data);
 };

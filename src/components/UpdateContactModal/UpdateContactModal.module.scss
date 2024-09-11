@@ -104,9 +104,8 @@
             gap: 1rem 0;
           }
 
-          grid-template-areas:
-            'input'
-            'error';
+          grid-template-areas: 'input'
+          'error';
 
           // grid-template-columns: auto auto;
 
@@ -154,9 +153,12 @@
 
       &_four {
         display: grid;
+        grid-template-columns: auto auto;
+        margin-bottom: .8rem;
 
         div {
           margin: auto;
+          width: 100%;
         }
       }
     }
@@ -216,9 +218,8 @@
         margin-top: 2px;
       }
 
-      grid-template-areas:
-        'label input'
-        'label error';
+      grid-template-areas: 'label input'
+      'label error';
 
       grid-template-columns: 25% 75%;
 

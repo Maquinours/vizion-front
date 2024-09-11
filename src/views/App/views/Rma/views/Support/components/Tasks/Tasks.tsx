@@ -18,6 +18,13 @@ export default function AppViewRmaViewSupportViewTasksComponent() {
         replace: true,
         resetScroll: false,
       })}
+      unlinkLink={(task) => ({
+        to: '/app/businesses-rma/rma/$rmaId/support/unlink-task/$taskId',
+        params: { taskId: task.id },
+        search: true,
+        replace: true,
+        resetScroll: false,
+      })}
     />
   );
 }

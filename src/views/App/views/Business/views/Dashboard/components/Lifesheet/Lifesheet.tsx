@@ -20,7 +20,15 @@ export default function AppViewBusinessViewDashboardViewLifesheetComponent() {
           search: (old) => old,
           replace: true,
           resetScroll: false,
+          ignoreBlocker: true,
         }}
+        getEmailLink={(data) => ({
+          from: routeApi.id,
+          to: '/app/businesses-rma/business/$businessId/dashboard/lifesheet-email/$lifesheetId',
+          params: { lifesheetId: data.id },
+          search: true,
+          ignoreBlocker: true,
+        })}
       />
     </div>
   );

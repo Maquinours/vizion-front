@@ -11,6 +11,7 @@ import TaskResponseDto from '../../utils/types/TaskResponseDto';
 import CardComponent from '../Card/Card';
 import TableComponent from '../Table/Table';
 import styles from './Workloads.module.scss';
+import { FaTrash } from 'react-icons/fa';
 
 const columnHelper = createColumnHelper<TaskResponseDto>();
 
@@ -21,8 +22,9 @@ type WorkloadsComponentProps = Readonly<{
   associatedItemType: WorkloadAssociatedItem;
   associatedItemId: string;
   emailLink: (data: TaskResponseDto) => LinkProps;
+  unlinkLink: (data: TaskResponseDto) => LinkProps;
 }>;
-export default function WorkloadsComponent({ associatedItemType, associatedItemId, emailLink }: WorkloadsComponentProps) {
+export default function WorkloadsComponent({ associatedItemType, associatedItemId, emailLink, unlinkLink }: WorkloadsComponentProps) {
   const { data, refetch, isRefetching } = useQuery(queries.tasks.page._ctx.byAssociatedItem({ associatedItemType, associatedItemId }, { page, size }));
 
   const columns = useMemo(
@@ -38,17 +40,12 @@ export default function WorkloadsComponent({ associatedItemType, associatedItemI
         cell: ({ row: { original } }) => (
           <div className={styles.content_tooltip}>
             {original.mailId ? (
-              <Link {...emailLink(original)}>
+              <Link {...emailLink(original)} preload="intent">
                 {parse(DOMPurify.sanitize(original.content ?? ''))}
                 <p className="text-secondary">
                   À : {original.receiver?.to?.toString()?.split(';').join(' ')} {original.receiver?.cc?.toString()}
                 </p>
-                <p>
-                  De :{' '}
-                  <a onClick={(e) => e.stopPropagation()} href={`mailto:${original.name}`}>
-                    {original.name}
-                  </a>
-                </p>
+                <p>De : {original.name}</p>
               </Link>
             ) : (
               <>
@@ -59,25 +56,22 @@ export default function WorkloadsComponent({ associatedItemType, associatedItemI
           </div>
         ),
       }),
+      columnHelper.display({
+        id: 'actions',
+        cell: ({ row: { original } }) => (
+          <div className={styles.actions}>
+            <Link {...unlinkLink(original)} preload="intent">
+              <FaTrash width={16} height={16} color={'#F24C52'} />
+            </Link>
+          </div>
+        ),
+      }),
     ],
-    [emailLink],
+    [emailLink, unlinkLink],
   );
 
-  const title = useMemo(() => {
-    let title = 'Charges ';
-    switch (associatedItemType) {
-      case WorkloadAssociatedItem.ENTERPRISE:
-        title += "de l'entreprise";
-        break;
-      case WorkloadAssociatedItem.PRODUCT:
-        title += 'du produit';
-        break;
-    }
-    return title;
-  }, [associatedItemType]);
-
   return (
-    <CardComponent title={title} onReload={() => refetch()} isReloading={isRefetching}>
+    <CardComponent title="Documents liés" onReload={() => refetch()} isReloading={isRefetching}>
       <div className={styles.table_container}>
         <TableComponent columns={columns} data={data?.content} rowId="id" />
       </div>

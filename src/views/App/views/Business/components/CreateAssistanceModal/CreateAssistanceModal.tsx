@@ -1,11 +1,13 @@
+import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import { getRouteApi, useNavigate } from '@tanstack/react-router';
 import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
-import styles from './CreateAssistanceModal.module.scss';
-import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
+import { toast } from 'react-toastify';
 import { createTechnicalSupport } from '../../../../../../utils/api/technicalSupports';
 import { queries } from '../../../../../../utils/constants/queryKeys';
-import { toast } from 'react-toastify';
+import BillType from '../../../../../../utils/enums/BillType';
+import { formatDateWithSlash } from '../../../../../../utils/functions/dates';
+import styles from './CreateAssistanceModal.module.scss';
 
 const routeApi = getRouteApi('/app/businesses-rma/business/$businessId');
 
@@ -19,12 +21,15 @@ export default function AppViewBusinessViewCreateAssistanceModalComponent() {
   const { data: business } = useSuspenseQuery(queries.businesses.detail._ctx.byId(businessId));
 
   const onClose = () => {
-    navigate({ search: { businessModal: undefined }, replace: true, resetScroll: false });
+    navigate({ search: { businessModal: undefined }, replace: true, resetScroll: false, ignoreBlocker: true });
   };
 
   const { mutate, isPending } = useMutation({
-    mutationFn: () =>
-      createTechnicalSupport({
+    mutationFn: async () => {
+      const bill = (await queryClient.ensureQueryData(queries['business-bills'].list._ctx.byBusinessId(businessId)))?.find(
+        (bill) => bill.type === BillType.FACTURE,
+      );
+      return createTechnicalSupport({
         name: '',
         enterpriseId: business.enterpriseId,
         enterpriseName: business.enterpriseName,
@@ -32,7 +37,9 @@ export default function AppViewBusinessViewCreateAssistanceModalComponent() {
         predefinedTime: '00:00:00',
         cumulatedTime: '00:00:00',
         noBilledTime: '00:00:00',
-      }),
+        recaps: !!bill?.createdDate ? [{ name: 'Date de facturation', value: formatDateWithSlash(bill.createdDate) }] : undefined,
+      });
+    },
     onSuccess: (technicalSupport) => {
       queryClient.invalidateQueries({ queryKey: queries['technical-supports']._def });
       queryClient.setQueryData(queries['technical-supports'].detail._ctx.byId(technicalSupport.id).queryKey, technicalSupport);

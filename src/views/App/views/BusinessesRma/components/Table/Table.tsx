@@ -10,6 +10,7 @@ import AllBusinessResponseDto from '../../../../../../utils/types/AllBusinessRes
 import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthentifiedUser';
 import styles from './Table.module.scss';
 import AppViewBusinessesRmaViewTableComponentRowTooltipComponent from './components/RowTooltip/RowTooltip';
+import CategoryClient from '../../../../../../utils/enums/CategoryClient';
 
 const routeApi = getRouteApi('/app/businesses-rma');
 
@@ -236,6 +237,11 @@ export default function AppViewBusinessesRmaViewTableComponent({ data, isLoading
     [state, user],
   );
 
+  const getRowClassName = useCallback(
+    (row: AllBusinessResponseDto) => (row.enterpriseCategory === CategoryClient.FOURNISSEUR ? styles.provider : undefined),
+    [],
+  );
+
   const onRowClick = useCallback(
     (e: React.MouseEvent, row: Row<AllBusinessResponseDto>) => {
       if (row.original.category === CategoryBusiness.AFFAIRE) {
@@ -252,7 +258,7 @@ export default function AppViewBusinessesRmaViewTableComponent({ data, isLoading
   return (
     <>
       <div className={styles.table_container}>
-        <TableComponent columns={columns} data={data} isLoading={isLoading} onRowClick={onRowClick} />
+        <TableComponent columns={columns} data={data} isLoading={isLoading} onRowClick={onRowClick} getRowClassName={getRowClassName} />
       </div>
       {!!data && <AppViewBusinessesRmaViewTableComponentRowTooltipComponent items={data} />}
       {/* {!!tooltipItem && <AppViewBusinessesRmaViewTableComponentRowTooltipComponent item={tooltipItem} />} */}

@@ -1,6 +1,13 @@
 import ProfileResponseDto from './ProfileResponseDto';
 
-export type UserRole = 'ROLE_MEMBRE_VIZEO' | 'ROLE_DIRECTION_VIZEO' | 'ROLE_STAGIAIRE_VIZEO' | 'ROLE_REPRESENTANT' | 'ROLE_DISTRIBUTEUR' | 'ROLE_CLIENT';
+export type UserRole =
+  | 'ROLE_MEMBRE_VIZEO'
+  | 'ROLE_DIRECTION_VIZEO'
+  | 'ROLE_STAGIAIRE_VIZEO'
+  | 'ROLE_REPRESENTANT'
+  | 'ROLE_DISTRIBUTEUR'
+  | 'ROLE_CLIENT'
+  | 'ROLE_ADMIN_VIZION';
 
 type UserInfoResponseDto = {
   email: string;

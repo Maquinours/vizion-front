@@ -17,6 +17,7 @@ export default function AppViewProductViewTabsComponent() {
           activeProps={{ className: 'btn-primary' }}
           inactiveProps={{ className: 'btn-primary-light' }}
           replace
+          preload="intent"
         >
           Informations
         </Link>
@@ -27,6 +28,7 @@ export default function AppViewProductViewTabsComponent() {
           activeProps={{ className: 'btn-primary' }}
           inactiveProps={{ className: 'btn-primary-light' }}
           replace
+          preload="intent"
         >
           Gestion
         </Link>

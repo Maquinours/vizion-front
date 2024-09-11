@@ -14,7 +14,12 @@ export default function AppViewAssistanceViewLifesheetComponent({ assistance }: 
       page={0}
       size={100}
       className={styles.card}
-      createLink={{ to: '/app/businesses-rma/business/$businessId/assistance/$assistanceId/create-lifesheet', replace: true, resetScroll: false }}
+      createLink={{ to: '/app/businesses-rma/business/$businessId/assistance/$assistanceId/create-lifesheet', search: true, replace: true, resetScroll: false }}
+      getEmailLink={(data) => ({
+        to: '/app/businesses-rma/business/$businessId/assistance/$assistanceId/lifesheet-email/$lifesheetId',
+        params: { lifesheetId: data.id },
+        search: true,
+      })}
     />
   );
 }

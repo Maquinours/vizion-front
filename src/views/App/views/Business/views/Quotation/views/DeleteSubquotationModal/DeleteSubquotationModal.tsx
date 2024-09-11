@@ -20,7 +20,7 @@ export default function AppViewBusinessViewQuotationViewDeleteSubquotationModalV
   const { data: subQuotation } = useSuspenseQuery(queries['business-sub-quotations'].detail._ctx.byId(subquotationId));
 
   const onClose = () => {
-    navigate({ to: '../..', search: (old) => old, replace: true, resetScroll: false });
+    navigate({ to: '../..', search: true, replace: true, resetScroll: false, ignoreBlocker: true });
   };
 
   const { mutate, isPending } = useMutation({

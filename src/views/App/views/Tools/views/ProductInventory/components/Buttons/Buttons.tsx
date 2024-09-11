@@ -14,7 +14,7 @@ export default function AppViewToolsViewProductInventoryViewButtonsComponent({ r
   const { mutate: excelExport, isPending: isExcelExportPending } = useMutation({
     mutationFn: getProductVersionShelfStocksExcel,
     onSuccess: (data) => {
-      fileDownload(data, 'inventaire.xls');
+      fileDownload(data, 'inventaire.xlsx');
     },
     onError: (error) => {
       toast.error("Une erreur est survenue lors de l'export de l'inventaire.");

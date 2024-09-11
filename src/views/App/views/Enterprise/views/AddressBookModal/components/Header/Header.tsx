@@ -16,10 +16,10 @@ export default function AppViewEnterpriseViewAddressBookModalViewHeaderComponent
       </div>
       <div className={styles.modal_title}>{"Carnet d'adresse"}</div>
       <div className="flex gap-x-2">
-        <Link from={Route.id} to="import" search replace resetScroll={false} title="Importer des adresses">
+        <Link from={Route.id} to="import" search replace resetScroll={false} preload="intent" title="Importer des adresses">
           <BiImport width={16} height={16} color="#FFF" />
         </Link>
-        <Link from={Route.id} to="./create" search={(old) => old} replace resetScroll={false}>
+        <Link from={Route.id} to="create" search replace resetScroll={false} preload="intent">
           <IoMdAddCircleOutline width="16" height="16" color="#FFF" />
         </Link>
       </div>

@@ -34,7 +34,7 @@ export default function GedComponentTableComponentContextMenuComponent({
   return (
     <Popper open={isOpen} anchorEl={anchorElement} transition placement="bottom-start">
       {({ TransitionProps }) => (
-        <ClickAwayListener onClickAway={onClose}>
+        <ClickAwayListener mouseEvent="onMouseUp" onClickAway={onClose}>
           <Fade {...TransitionProps}>
             <Paper className={styles.menu_container}>
               {selectedItem && (
@@ -47,27 +47,27 @@ export default function GedComponentTableComponentContextMenuComponent({
                   )} */}
                   {selectedItem?.dir === true && (
                     <MenuItem>
-                      <Link {...getCreateDirectoryLink(selectedItem)}>
+                      <Link {...getCreateDirectoryLink(selectedItem)} preload="viewport">
                         <FaFileImport className={styles.icon} />
                         <span className={styles.text}>Nouveau dossier</span>
                       </Link>
                     </MenuItem>
                   )}
                   <MenuItem>
-                    <Link {...getImportFilesLink(selectedItem)}>
+                    <Link {...getImportFilesLink(selectedItem)} preload="viewport">
                       <FaFileImport className={styles.icon} />
                       <span className={styles.text}>{selectedItem?.dir ? 'Importer un fichier' : 'Ajouter un fichier'}</span>
                     </Link>
                   </MenuItem>
                   <MenuItem>
-                    <Link {...getRenameLink(selectedItem)}>
+                    <Link {...getRenameLink(selectedItem)} preload="viewport">
                       <MdModeEdit className={styles.icon} />
                       <span className={styles.text}>Renommer le {selectedItem?.dir ? 'dossier' : 'fichier'}</span>
                     </Link>
                   </MenuItem>
                   {isVizeoMember && (
                     <MenuItem>
-                      <Link {...getDeleteLink(selectedItem)}>
+                      <Link {...getDeleteLink(selectedItem)} preload="viewport">
                         <FaTrash className={styles.icon} />
                         <span className={styles.text}>Supprimer le {selectedItem?.dir ? 'dossier' : 'fichier'}</span>
                       </Link>

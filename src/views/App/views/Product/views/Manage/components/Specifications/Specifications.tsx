@@ -21,7 +21,7 @@ export default function AppViewProductViewManageViewSpecificationsComponent() {
     <CardComponent title="Caractéristiques">
       <div className={styles.container}>
         <div className={styles.button_container}>
-          <Link from={routeApi.id} to="add-specification" search replace resetScroll={false} className="btn btn-primary">
+          <Link from={routeApi.id} to="add-specification" search replace resetScroll={false} preload="intent" className="btn btn-primary">
             Ajouter des filtres
           </Link>
           <RefreshButtonComponent className="btn btn-primary" style={{ marginLeft: '0.5rem' }} onRefresh={() => refetch()} isRefreshing={isRefetching} />

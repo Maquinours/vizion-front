@@ -24,10 +24,12 @@ export default function AppViewDashboardViewOtherPersonalTasksModalViewHeaderCom
           <Link
             key={member.id}
             from={Route.id}
-            search={(old) => old}
+            search={(prev) => ({ ...prev, otherPersonalTaskPage: 0 })}
             params={{ profileId: member.id }}
-            className={classNames(styles.tag_tooltip, { [styles.selected]: member.id === profileId })}
             replace
+            resetScroll={false}
+            preload="intent"
+            className={classNames(styles.tag_tooltip, { [styles.selected]: member.id === profileId })}
           >
             {member.firstName?.charAt(0).toUpperCase()}
             {member.lastName?.charAt(0).toUpperCase()}

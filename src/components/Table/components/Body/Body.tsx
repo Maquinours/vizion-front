@@ -12,7 +12,7 @@ type TableComponentBodyComponentProps<T> = {
   onRowContextMenu?: (e: React.MouseEvent, row: Row<T>) => void;
   onRowMouseOver?: (e: React.MouseEvent, row: Row<T>) => void;
   renderSubComponent: ((props: { row: Row<T> }) => React.ReactElement) | undefined;
-  getRowClassName?: (row: T) => string;
+  getRowClassName?: (row: T) => string | undefined;
   getRowId?: (row: T) => string;
 };
 

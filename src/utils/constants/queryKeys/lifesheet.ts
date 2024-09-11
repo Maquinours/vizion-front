@@ -1,6 +1,7 @@
 import { createQueryKeys } from '@lukemorales/query-key-factory';
 import { LifesheetAssociatedItem } from '../../enums/LifesheetAssociatedItem';
 import {
+  getLifesheetById,
   getLifesheetPageByAssistanceId,
   getLifesheetPageByBusinessId,
   getLifesheetPageByEnterpriseId,
@@ -31,4 +32,13 @@ export const lifesheets = createQueryKeys('lifesheets', {
       }),
     },
   }),
+  detail: {
+    queryKey: null,
+    contextQueries: {
+      byId: (id: string) => ({
+        queryKey: [id],
+        queryFn: () => getLifesheetById(id),
+      }),
+    },
+  },
 });

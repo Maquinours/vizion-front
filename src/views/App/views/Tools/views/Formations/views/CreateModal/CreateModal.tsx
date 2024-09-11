@@ -85,10 +85,13 @@ export default function AppViewToolsViewFormationsViewCreateModalView() {
         title,
         subtitle,
         content,
-        files: (await uploadFiles(files)).content.reduce((acc: Record<string, UploadedFile>, file, index) => {
-          acc['file' + index] = file;
-          return acc;
-        }, {}),
+        files:
+          files.length > 0
+            ? (await uploadFiles(files)).content.reduce((acc: Record<string, UploadedFile>, file, index) => {
+                acc['file' + index] = file;
+                return acc;
+              }, {})
+            : {},
         archived: archive === 'Oui' ? true : false,
         formationDetails: details.map((detail) => ({
           title: detail.title,
@@ -124,10 +127,10 @@ export default function AppViewToolsViewFormationsViewCreateModalView() {
           <div className={styles.news_container}>
             <div className={styles.content}>
               <div className={styles.details_buttons}>
-                <Link from={routeApi.id} to="add-detail" search={(old) => old} replace resetScroll={false} className="btn btn-primary">
+                <Link from={routeApi.id} to="add-detail" search replace resetScroll={false} preload="intent" className="btn btn-primary">
                   Ajouter un détail
                 </Link>
-                <Link from={routeApi.id} to="details" search={(old) => old} replace resetScroll={false} className="btn btn-secondary">
+                <Link from={routeApi.id} to="details" search replace resetScroll={false} preload="intent" className="btn btn-secondary">
                   Voir les détails
                 </Link>
               </div>
@@ -199,7 +202,7 @@ export default function AppViewToolsViewFormationsViewCreateModalView() {
                 </div>
               </div>
             </div>
-            <div className={styles.form__loader}>
+            <div className="flex w-full items-center justify-center">
               <PulseLoader color="#31385A" loading={isPending} className="" size={10} speedMultiplier={0.5} />
             </div>
           </div>

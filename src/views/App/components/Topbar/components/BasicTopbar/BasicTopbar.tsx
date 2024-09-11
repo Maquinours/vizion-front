@@ -2,12 +2,13 @@ import { MdPerson, MdPowerSettingsNew } from 'react-icons/md';
 import styles from './BasicTopbar.module.scss';
 import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthentifiedUser';
 import CategoryClient from '../../../../../../utils/enums/CategoryClient';
-import { Link } from '@tanstack/react-router';
+import { Link, useLocation } from '@tanstack/react-router';
 
 type AppLayoutTopbarComponentBasicTopbarComponentProps = {
   logout: () => void;
 };
 export default function AppLayoutTopbarComponentBasicTopbarComponent({ logout }: Readonly<AppLayoutTopbarComponentBasicTopbarComponentProps>) {
+  useLocation(); // We need to use useLocation to trigger a rerender of the link when the user navigates
   const { data: currentUser } = useAuthentifiedUserQuery();
 
   return (
@@ -37,7 +38,9 @@ export default function AppLayoutTopbarComponentBasicTopbarComponent({ logout }:
         </div>
         {currentUser.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && (
           <div className={styles.email}>
-            <Link to="/app/tools/emails/send">Écrire un mail</Link>
+            <Link search={(old) => ({ ...old, appModal: 'send-email' })} replace preload="intent" resetScroll={false}>
+              Écrire un mail
+            </Link>
           </div>
         )}
 

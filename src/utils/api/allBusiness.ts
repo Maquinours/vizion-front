@@ -148,3 +148,10 @@ export const searchAllBusiness = (
     data: qInfos,
   }).then((res) => res.data);
 };
+
+export const indexAllBusinesses = () => {
+  return privateInstance<void>({
+    method: 'POST',
+    url: `/all-business/v1/all-business-and-rma/index-all`,
+  }).then((res) => res.data);
+};

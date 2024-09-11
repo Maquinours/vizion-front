@@ -11,7 +11,7 @@ export default function AppViewBusinessViewDashboardViewCreateGedDirectoryModalV
   const { relativePath } = routeApi.useSearch();
 
   const onClose = () => {
-    navigate({ to: '..', search: (old) => ({ ...old, relativePath: undefined }), replace: true, resetScroll: false });
+    navigate({ to: '..', search: (old) => ({ ...old, relativePath: undefined }), replace: true, resetScroll: false, ignoreBlocker: true });
   };
 
   return <CreateGedDirectoryModalComponent type={FileType.AFFAIRE} id={businessId} directoryRelativePath={relativePath} onClose={onClose} />;
