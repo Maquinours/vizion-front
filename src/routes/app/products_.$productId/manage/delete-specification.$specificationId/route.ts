@@ -8,7 +8,7 @@ import Page from '../../../../../utils/types/Page';
 export const Route = createFileRoute('/app/products/$productId/manage/delete-specification/$specificationId')({
   loader: async ({ context: { queryClient }, params: { productId, specificationId } }) => {
     let initialDataKey: QueryKey | undefined = undefined;
-    await queryClient.ensureQueryData({
+    await queryClient.prefetchQuery({
       ...productSpecificationsQueryKeys.detail._ctx.byId({ productId, specificationId }),
       initialData: () => {
         for (const [key, value] of queryClient.getQueriesData<Page<AdvancedProductSpecificationProductResponseDto>>({
