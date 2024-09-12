@@ -111,7 +111,6 @@ export default function AppViewTabsContainerComponent({ children }: AppViewTabsC
     }),
   );
 
-  // TODO: fix this
   const removeTabs = useCallback(
     async (tabsToRemove: Array<Tab>) => {
       const removedTabs: Array<Tab> = [];
