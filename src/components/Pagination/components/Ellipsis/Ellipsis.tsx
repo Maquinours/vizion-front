@@ -1,13 +1,6 @@
-import { yupResolver } from '@hookform/resolvers/yup';
-import { useEffect, useState } from 'react';
-import { Controller, useForm } from 'react-hook-form';
-import * as yup from 'yup';
-import AmountFormat from '../../../AmountFormat/AmountFormat';
-
-const yupSchema = yup.object({
-  page: yup.number().required('Le champ page est requis').min(1).max(yup.ref('totalPages')),
-  totalPages: yup.number(),
-});
+import { useState } from 'react';
+import PaginationComponentEllipsisComponentButtonComponent from './components/Button/Button';
+import PaginationComponentEllipsisComponentInputComponent from './components/Input/Input';
 
 type PaginationComponentEllipsisComponentProps = Readonly<{
   totalPages: number;
@@ -16,56 +9,22 @@ type PaginationComponentEllipsisComponentProps = Readonly<{
 export default function PaginationComponentEllipsisComponent({ totalPages, changePage }: PaginationComponentEllipsisComponentProps) {
   const [step, setStep] = useState<'button' | 'input'>('button');
 
-  const { control, setValue, handleSubmit, reset } = useForm({
-    resolver: yupResolver(yupSchema),
-  });
-
-  const onButtonClick = () => {
-    setStep('input');
-  };
-
-  const onInputBlur = () => {
-    setStep('button');
-    reset();
-  };
-
-  const onSubmit = (data: yup.InferType<typeof yupSchema>) => {
-    changePage(data.page - 1);
-  };
-
-  useEffect(() => {
-    setValue('totalPages', totalPages);
-  }, [totalPages]);
-
   switch (step) {
     case 'button':
-      return (
-        <button type="button" onClick={onButtonClick} className="h-full w-full">
-          ...
-        </button>
-      );
+      const onButtonClick = () => {
+        setStep('input');
+      };
+      return <PaginationComponentEllipsisComponentButtonComponent onClick={onButtonClick} />;
     case 'input':
-      return (
-        <form onSubmit={handleSubmit(onSubmit)} className="h-full w-full">
-          <Controller
-            control={control}
-            name="page"
-            render={({ field: { value, onChange } }) => (
-              <AmountFormat
-                value={value}
-                onValueChange={(v) => onChange(Number(v.value))}
-                displayType="input"
-                decimalScale={0}
-                allowNegative={false}
-                onBlur={onInputBlur}
-                size={3}
-                autoFocus
-                className="h-full w-full text-center"
-              />
-            )}
-          />
-        </form>
-      );
+      const onSubmit = ({ page }: { page: number }) => {
+        if (!Number.isSafeInteger(page) || page < 0 || page > totalPages) return;
+        setStep('button');
+        changePage(page - 1);
+      };
+      const onInputBlur = () => {
+        setStep('button');
+      };
+      return <PaginationComponentEllipsisComponentInputComponent onSubmit={onSubmit} onBlur={onInputBlur} />;
   }
 
   //   return (
