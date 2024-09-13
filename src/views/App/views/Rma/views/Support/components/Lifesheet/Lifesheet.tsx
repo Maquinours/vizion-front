@@ -15,7 +15,7 @@ export default function AppViewRmaViewSupportViewLifesheetComponent() {
       page={lifesheetPage}
       size={5}
       createLink={{ to: '/app/businesses-rma/rma/$rmaId/support/create-lifesheet', params: true, search: true, replace: true, resetScroll: false }}
-      pageLink={(page) => ({ search: (old) => ({ ...old, page }), replace: true, resetScroll: false })}
+      pageLink={(page) => ({ search: (old) => ({ ...old, lifesheetPage: page }), replace: true, resetScroll: false })}
       getEmailLink={(data) => ({
         to: '/app/businesses-rma/rma/$rmaId/support/lifesheet-email/$lifesheetId',
         params: { lifesheetId: data.id },
