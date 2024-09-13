@@ -7,6 +7,7 @@ import TableComponent from '../../../../../../../../components/Table/Table';
 import styles from './Table.module.scss';
 import { useAuthentifiedUserQuery } from '../../../../../../utils/functions/getAuthentifiedUser';
 import { useMemo } from 'react';
+import { HiPencilAlt } from 'react-icons/hi';
 
 const routeApi = getRouteApi('/app/products/serial-numbers');
 
@@ -25,7 +26,7 @@ export default function AppViewProductsViewSerialNumbersModalViewTableComponent(
   const columns = useMemo(
     () => [
       columnHelper.display({
-        header: 'Nr de série',
+        header: 'Numéro de série',
         cell: ({ row: { original } }) => original.serialNumber,
       }),
       columnHelper.display({
@@ -47,6 +48,10 @@ export default function AppViewProductsViewSerialNumbersModalViewTableComponent(
           ) : (
             <span>{original.businessNumber}</span>
           )),
+      }),
+      columnHelper.display({
+        header: 'Note',
+        cell: ({ row: { original } }) => original.note,
       }),
       columnHelper.display({
         id: 'actions',
@@ -94,6 +99,18 @@ export default function AppViewProductsViewSerialNumbersModalViewTableComponent(
                 <MdBusinessCenter size={20} />
               </Link>
             )}
+            <Link
+              from={routeApi.id}
+              to="update/$serialNumberId"
+              params={{ serialNumberId: original.id }}
+              search
+              replace
+              resetScroll={false}
+              preload="intent"
+              title="Modifier le numéro de série"
+            >
+              <HiPencilAlt size={20} />
+            </Link>
           </div>
         ),
       }),
