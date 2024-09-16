@@ -18,55 +18,55 @@ const columns = [
   }),
   columnHelper.display({
     header: 'Janvier',
-    cell: ({ row: { original } }) => <CurrencyFormat value={original.jan} defaultValue={0} />,
+    cell: ({ row: { original } }) => <CurrencyFormat value={original.jan ?? 0} />,
   }),
   columnHelper.display({
     header: 'Février',
-    cell: ({ row: { original } }) => <CurrencyFormat value={original.feb} defaultValue={0} />,
+    cell: ({ row: { original } }) => <CurrencyFormat value={original.feb ?? 0} />,
   }),
   columnHelper.display({
     header: 'Mars',
-    cell: ({ row: { original } }) => <CurrencyFormat value={original.mar} defaultValue={0} />,
+    cell: ({ row: { original } }) => <CurrencyFormat value={original.mar ?? 0} />,
   }),
   columnHelper.display({
     header: 'Avril',
-    cell: ({ row: { original } }) => <CurrencyFormat value={original.apr} defaultValue={0} />,
+    cell: ({ row: { original } }) => <CurrencyFormat value={original.apr ?? 0} />,
   }),
   columnHelper.display({
     header: 'Mai',
-    cell: ({ row: { original } }) => <CurrencyFormat value={original.mai} defaultValue={0} />,
+    cell: ({ row: { original } }) => <CurrencyFormat value={original.mai ?? 0} />,
   }),
   columnHelper.display({
     header: 'Juin',
-    cell: ({ row: { original } }) => <CurrencyFormat value={original.jun} defaultValue={0} />,
+    cell: ({ row: { original } }) => <CurrencyFormat value={original.jun ?? 0} />,
   }),
   columnHelper.display({
     header: 'Juillet',
-    cell: ({ row: { original } }) => <CurrencyFormat value={original.jul} defaultValue={0} />,
+    cell: ({ row: { original } }) => <CurrencyFormat value={original.jul ?? 0} />,
   }),
   columnHelper.display({
     header: 'Aout',
-    cell: ({ row: { original } }) => <CurrencyFormat value={original.aug} defaultValue={0} />,
+    cell: ({ row: { original } }) => <CurrencyFormat value={original.aug ?? 0} />,
   }),
   columnHelper.display({
     header: 'Septembre',
-    cell: ({ row: { original } }) => <CurrencyFormat value={original.sep} defaultValue={0} />,
+    cell: ({ row: { original } }) => <CurrencyFormat value={original.sep ?? 0} />,
   }),
   columnHelper.display({
     header: 'Octobre',
-    cell: ({ row: { original } }) => <CurrencyFormat value={original.oct} defaultValue={0} />,
+    cell: ({ row: { original } }) => <CurrencyFormat value={original.oct ?? 0} />,
   }),
   columnHelper.display({
     header: 'Novembre',
-    cell: ({ row: { original } }) => <CurrencyFormat value={original.nov} defaultValue={0} />,
+    cell: ({ row: { original } }) => <CurrencyFormat value={original.nov ?? 0} />,
   }),
   columnHelper.display({
     header: 'Décembre',
-    cell: ({ row: { original } }) => <CurrencyFormat value={original.dec} defaultValue={0} />,
+    cell: ({ row: { original } }) => <CurrencyFormat value={original.dec ?? 0} />,
   }),
   columnHelper.display({
     header: 'Total',
-    cell: ({ row: { original } }) => <CurrencyFormat value={original.total} defaultValue={0} />,
+    cell: ({ row: { original } }) => <CurrencyFormat value={original.total ?? 0} />,
   }),
 ];
 
