@@ -15,6 +15,7 @@ const menus: Array<{
     icon: IconType;
     label: string;
     link: Pick<LinkOptions, 'to' | 'resetScroll' | 'replace'>;
+    disabled?: boolean;
   }>;
 }> = [
   {
@@ -101,6 +102,7 @@ const menus: Array<{
         link: {
           to: '/app/tools/representatives-turnover',
         },
+        disabled: true,
       },
       {
         icon: FaFileImport,
@@ -190,12 +192,26 @@ export default function AppViewToolsMenuView() {
               {menus.map((menu) => (
                 <div key={menu.label} className={styles.menu_section}>
                   <div className={styles.section_title}>{menu.label}</div>
-                  {menu.tools.map((tool) => (
-                    <Link key={tool.label} {...tool.link} className={styles.menu}>
-                      {React.createElement(tool.icon, { className: styles.icon })}
-                      <span className={styles.title}>{tool.label}</span>
-                    </Link>
-                  ))}
+                  {menu.tools.map((tool) => {
+                    const children = (
+                      <>
+                        {React.createElement(tool.icon, { className: styles.icon })}
+                        <span className={styles.title}>{tool.label}</span>
+                      </>
+                    );
+                    if (tool.disabled)
+                      return (
+                        <button key={tool.label} className={styles.menu} disabled>
+                          {children}
+                        </button>
+                      );
+                    else
+                      return (
+                        <Link key={tool.label} {...tool.link} className={styles.menu}>
+                          {children}
+                        </Link>
+                      );
+                  })}
                 </div>
               ))}
             </div>
