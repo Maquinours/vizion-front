@@ -18,7 +18,11 @@ export default function AppViewBusinessesRmaViewPaginationComponent({ totalPages
   return (
     <div className={styles.pagination_container}>
       <div />
-      <PaginationComponent page={page} totalPages={totalPages} pageLink={(page) => ({ from: routeApi.id, search: (old) => ({ ...old, page }) })} />
+      <PaginationComponent
+        page={page}
+        totalPages={totalPages}
+        pageLink={(page) => ({ from: routeApi.id, search: (old) => ({ ...old, page }), replace: true, resetScroll: false })}
+      />
       <select
         value={size}
         onChange={(e) =>
