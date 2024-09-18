@@ -10,6 +10,7 @@
   .grid {
     display: grid;
     gap: 1rem;
+    grid-template-columns: repeat(2, 1fr);
 
     .card_item {
       border: 1px solid var(--primary-color);
@@ -23,8 +24,6 @@
         height: auto;
       }
     }
-
-    grid-template-columns: repeat(2, 1fr);
 
     @include respond-below(md) {
       grid-template-columns: repeat(1, 1fr);

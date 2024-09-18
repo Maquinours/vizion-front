@@ -47,6 +47,11 @@
           align-self: center;
           // gap:  0 1rem;
           margin-bottom: 0.8rem;
+          grid-template-areas:
+            'label'
+            'input'
+            'error';
+          grid-template-columns: repeat(1, 1fr);
 
           label {
             grid-area: label;
@@ -106,13 +111,6 @@
             margin-top: 2px;
           }
 
-          grid-template-areas:
-            'label'
-            'input'
-            'error';
-
-          grid-template-columns: repeat(1, 1fr);
-
           p.__errors {
             text-align: left;
             font-family: 'DIN2014';
@@ -167,7 +165,8 @@
           }
         }
 
-        & > .form__group {
+        &>.form__group {
+
           &:nth-child(3),
           &:nth-child(4) {
             width: 80%;

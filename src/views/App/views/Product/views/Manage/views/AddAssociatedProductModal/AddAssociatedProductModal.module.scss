@@ -19,6 +19,8 @@
     padding: 1.5rem 0.5rem;
 
     .modal_title {
+      margin-bottom: 1rem;
+
       h6 {
         text-align: center;
         font:
@@ -27,8 +29,6 @@
           sans-serif;
         color: var(--primary-light);
       }
-
-      margin-bottom: 1rem;
     }
 
     form {
@@ -46,6 +46,11 @@
         display: grid;
         align-self: center;
         margin-bottom: 0.8rem;
+        grid-template-areas:
+          'label'
+          'input'
+          'error';
+        grid-template-columns: repeat(1, 1fr);
 
         label {
           margin-bottom: 0.5rem;
@@ -117,13 +122,6 @@
           grid-area: error;
           margin-top: 2px;
         }
-
-        grid-template-areas:
-          'label'
-          'input'
-          'error';
-
-        grid-template-columns: repeat(1, 1fr);
 
         p.__errors {
           text-align: left;

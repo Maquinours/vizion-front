@@ -46,6 +46,11 @@
           display: grid;
           align-self: center;
           width: 100%;
+          grid-template-areas:
+            'label'
+            'input'
+            'error';
+          grid-template-columns: repeat(1, 1fr);
 
           label {
             margin-bottom: 0.3rem;
@@ -128,13 +133,6 @@
             grid-area: error;
             margin-top: 2px;
           }
-
-          grid-template-areas:
-            'label'
-            'input'
-            'error';
-
-          grid-template-columns: repeat(1, 1fr);
 
           p.__errors {
             text-align: left;

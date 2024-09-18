@@ -43,19 +43,17 @@
           display: grid;
           align-self: center;
           margin-bottom: 0.5rem;
+          grid-template-areas:
+            'label'
+            'input'
+            'error';
+          grid-template-columns: repeat(1, 1fr);
+          grid-row-gap: 0.2rem;
 
           p:nth-child(3) {
             grid-area: error;
             margin-top: 2px;
           }
-
-          grid-template-areas:
-            'label'
-            'input'
-            'error';
-
-          grid-template-columns: repeat(1, 1fr);
-          grid-row-gap: 0.2rem;
 
           label {
             grid-area: label;
@@ -78,15 +76,17 @@
             }
 
             &.required {
+              font-family: 'DIN2014',
+                Arial,
+                sans-serif;
+
               span {
                 color: var(--secondary-color);
               }
-
-              font-family: 'DIN2014', Arial, sans-serif;
             }
           }
 
-          & > input {
+          &>input {
             background: var(--grey-color) 0% 0% no-repeat padding-box;
             border: 1px solid var(--primary-color);
             border-radius: 5px;

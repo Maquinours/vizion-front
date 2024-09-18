@@ -4,10 +4,10 @@ import React from 'react';
 import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
 import { toast } from 'react-toastify';
-import { deleteBusinessBpSerial } from '../../../../../../../../utils/api/businessBpSerials';
 import { queries } from '../../../../../../../../utils/constants/queryKeys';
-import SerialNumberOperationType from '../../../../../../../../utils/enums/SerialNumberOperationType';
 import styles from './RemoveFromBusinessModal.module.scss';
+import SerialNumberOperationType from '../../../../../../../../utils/enums/SerialNumberOperationType';
+import { deleteBusinessBpSerial } from '../../../../../../../../utils/api/businessBpSerials';
 
 const routeApi = getRouteApi('/app/products/serial-numbers/remove-from-business/$serialNumberId');
 
@@ -15,7 +15,7 @@ export default function AppViewProductsViewSerialNumbersModalViewRemoveFromBusin
   const queryClient = useQueryClient();
   const navigate = useNavigate({ from: routeApi.id });
 
-  const { serialNumber, business, bp, bpSerialNumber } = routeApi.useLoaderData();
+  const { serialNumber, business, bp, bpDetail, bpSerialNumber } = routeApi.useLoaderData();
 
   const onClose = () => {
     navigate({ to: '../..', search: (old) => old, replace: true, resetScroll: false });
@@ -27,7 +27,7 @@ export default function AppViewProductsViewSerialNumbersModalViewRemoveFromBusin
         productId: serialNumber.productId,
         productVersionId: serialNumber.productVersionId,
         bpId: bp.id,
-        bpDetailId: bp.bpDetailsList.find((detail) => detail.bpSerialList?.some((serial) => serial.id === serialNumber.id))?.id,
+        bpDetailId: bpDetail.id,
         buninessNumber: business.numBusiness,
         productReference: bpSerialNumber.productReference,
         productVersionReference: bpSerialNumber.productVersionReference,

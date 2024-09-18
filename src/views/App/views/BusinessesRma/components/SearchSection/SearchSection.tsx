@@ -266,17 +266,19 @@ export default function AppViewBusinessesRmaViewSearchSectionComponent() {
             name="dates"
             render={({ field: { value, onChange } }) => (
               <ReactDatePicker
-                selectsRange={true}
+                selectsRange
                 onChange={onChange}
                 startDate={value[0]}
                 endDate={value[1]}
                 allowSameDay
                 withPortal
-                closeOnScroll={true}
                 locale="fr"
                 dateFormat="dd/MM/yyyy"
+                showMonthDropdown
+                showYearDropdown
+                scrollableMonthYearDropdown
                 placeholderText="Date de modification"
-                isClearable={true}
+                isClearable
               />
             )}
           />

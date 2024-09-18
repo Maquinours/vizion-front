@@ -71,6 +71,10 @@
           grid-template-columns: 25% 75%;
           align-items: center;
 
+          &:disabled {
+            opacity: 0.5;
+          }
+
           @include respond-below(lg) {
             width: 285px;
           }
@@ -80,7 +84,7 @@
             padding: 5px;
           }
 
-          &:hover {
+          &:not([disabled]):hover {
             background-color: #fff;
 
             .icon {

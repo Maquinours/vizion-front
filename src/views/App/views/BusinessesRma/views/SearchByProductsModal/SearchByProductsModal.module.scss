@@ -49,6 +49,11 @@
           .form_group {
             position: relative;
             gap: 0.5rem;
+            grid-template-areas:
+              'label'
+              'input'
+              'error';
+            grid-template-columns: repeat(1, 1fr);
 
             input {
               background: var(--grey-color) 0% 0% no-repeat padding-box;
@@ -118,13 +123,6 @@
               grid-area: error;
               margin-top: 2px;
             }
-
-            grid-template-areas:
-              'label'
-              'input'
-              'error';
-
-            grid-template-columns: repeat(1, 1fr);
 
             p.__errors {
               text-align: left;

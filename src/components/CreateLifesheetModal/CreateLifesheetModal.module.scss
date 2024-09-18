@@ -91,12 +91,12 @@
       }
 
       .editor {
-        & > div {
+        &>div {
           border: 1px solid #31385a;
           border-radius: 5px;
 
           :nth-child(2) {
-            & > div {
+            &>div {
               min-height: auto;
               max-height: 35vh;
               height: 100%;
@@ -220,6 +220,11 @@
           align-self: center;
           // gap:  0 1rem;
           margin-bottom: 0.8rem;
+          grid-template-areas:
+            'label'
+            'input'
+            'error';
+          grid-template-columns: auto;
 
           label {
             grid-area: label;
@@ -273,13 +278,6 @@
               opacity: 1;
             }
           }
-
-          grid-template-areas:
-            'label'
-            'input'
-            'error';
-
-          grid-template-columns: auto;
         }
       }
 

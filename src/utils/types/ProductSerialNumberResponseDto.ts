@@ -11,6 +11,7 @@ type ProductSerialNumberResponseDto = {
   businessId: string | null;
   soldState: boolean | null;
   defaultStock: boolean | null;
+  note: string | null;
   createdDate: Date;
   modifiedDate: Date | null;
   createdBy: string | null;

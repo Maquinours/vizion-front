@@ -30,26 +30,25 @@
     .form_group {
       margin: 0.5rem 0;
       display: grid;
+      grid-template-areas: 'label'
+        'input'
+        'error';
+      grid-template-columns: auto;
+      grid-row-gap: 0.5rem;
 
       label {
         grid-area: label;
         justify-self: center;
       }
+
       input:nth-child(2) {
         grid-area: input;
       }
+
       p:nth-child(3) {
         grid-area: error;
         margin-top: 2px;
       }
-
-      grid-template-areas:
-        'label'
-        'input'
-        'error';
-
-      grid-template-columns: auto;
-      grid-row-gap: 0.5rem;
 
       label {
         text-align: left;
@@ -67,10 +66,11 @@
         }
 
         &.required {
+          font-family: 'DIN2014';
+
           span {
             color: var(--secondary-color);
           }
-          font-family: 'DIN2014';
         }
       }
 
@@ -83,6 +83,7 @@
         outline: none;
         height: 30px;
         width: inherit;
+
         &::placeholder {
           text-align: left;
           font: normal normal normal 11px/14px 'DIN2014';
@@ -90,6 +91,7 @@
           color: #9fa5b9;
           opacity: 1;
         }
+
         &:-ms-input-placeholder {
           text-align: left;
           font: normal normal normal 11px/14px 'DIN2014';
@@ -97,6 +99,7 @@
           color: #9fa5b9;
           opacity: 1;
         }
+
         &::-ms-input-placeholder {
           text-align: left;
           font: normal normal normal 11px/14px 'DIN2014';
@@ -125,6 +128,7 @@
         opacity: 1;
       }
     }
+
     .modal_buttons {
       display: flex;
       justify-content: space-between;

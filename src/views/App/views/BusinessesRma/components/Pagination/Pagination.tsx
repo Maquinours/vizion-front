@@ -2,7 +2,9 @@ import { getRouteApi, useNavigate } from '@tanstack/react-router';
 import PaginationComponent from '../../../../../../components/Pagination/Pagination';
 import styles from './Pagination.module.scss';
 
-const sizeOptions = [20, 30, 40, 50, 100, 150, 200];
+type SizeOption = 20 | 30 | 40 | 50 | 100 | 150 | 200 | 400;
+
+const SIZE_OPTIONS: Array<SizeOption> = [20, 30, 40, 50, 100, 150, 200, 400];
 
 const routeApi = getRouteApi('/app/businesses-rma');
 
@@ -16,19 +18,23 @@ export default function AppViewBusinessesRmaViewPaginationComponent({ totalPages
   return (
     <div className={styles.pagination_container}>
       <div />
-      <PaginationComponent page={page} totalPages={totalPages} pageLink={(page) => ({ from: routeApi.id, search: (old) => ({ ...old, page }) })} />
+      <PaginationComponent
+        page={page}
+        totalPages={totalPages}
+        pageLink={(page) => ({ from: routeApi.id, search: (old) => ({ ...old, page }), replace: true, resetScroll: false })}
+      />
       <select
         value={size}
         onChange={(e) =>
           navigate({
-            search: (old) => ({ ...old, page: undefined, size: Number(e.target.value) as 20 | 30 | 40 | 50 | 100 | 150 | 200 }),
+            search: (old) => ({ ...old, page: undefined, size: Number(e.target.value) as SizeOption }),
             state: (prev) => prev,
             replace: true,
             resetScroll: false,
           })
         }
       >
-        {sizeOptions.map((element, i) => (
+        {SIZE_OPTIONS.map((element, i) => (
           <option key={i} value={element}>
             {element}
           </option>

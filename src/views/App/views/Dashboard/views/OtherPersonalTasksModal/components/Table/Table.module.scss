@@ -122,6 +122,11 @@
 
     tbody {
       .isNotRead {
+        animation-duration: 2s;
+        animation-name: clignoter;
+        animation-iteration-count: infinite;
+        transition: none;
+
         @keyframes clignoter {
           0% {
             background-color: transparent;
@@ -135,11 +140,6 @@
             background-color: transparent;
           }
         }
-
-        animation-duration: 2s;
-        animation-name: clignoter;
-        animation-iteration-count: infinite;
-        transition: none;
       }
 
       tr {

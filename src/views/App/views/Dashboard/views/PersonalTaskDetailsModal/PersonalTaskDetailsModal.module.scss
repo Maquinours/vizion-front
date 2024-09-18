@@ -55,6 +55,11 @@
           align-self: center;
           // gap:  0 1rem;
           margin-bottom: 0.8rem;
+          grid-template-areas:
+            'label label'
+            'input input'
+            'error error';
+          grid-template-columns: auto;
 
           label {
             grid-area: label;
@@ -73,6 +78,9 @@
             outline: none;
             height: 30px;
             // width: 200px;
+            resize: none;
+            width: inherit;
+            height: inherit;
 
             @include respond-below(md) {
               width: inherit;
@@ -103,10 +111,6 @@
               color: #9fa5b9;
               opacity: 1;
             }
-
-            resize: none;
-            width: inherit;
-            height: inherit;
           }
 
           input,
@@ -120,13 +124,6 @@
             margin-top: 2px;
           }
 
-          grid-template-areas:
-            'label label'
-            'input input'
-            'error error';
-
-          grid-template-columns: auto;
-
           textarea {
             background: var(--grey-color) 0% 0% no-repeat padding-box;
             border: 1px solid var(--primary-color);
@@ -135,6 +132,9 @@
             outline: none;
             height: 30px;
             width: 200px;
+            resize: none;
+            width: inherit;
+            height: inherit;
 
             @include respond-below(md) {
               width: inherit;
@@ -165,10 +165,6 @@
               color: #9fa5b9;
               opacity: 1;
             }
-
-            resize: none;
-            width: inherit;
-            height: inherit;
           }
 
           select {

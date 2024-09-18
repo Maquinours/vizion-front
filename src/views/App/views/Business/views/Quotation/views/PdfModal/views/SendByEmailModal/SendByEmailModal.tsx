@@ -31,7 +31,7 @@ export default function AppViewBusinessViewQuotationViewPdfModalViewSendByEmailM
       }}
       defaultAttachments={[quotationPdfFile, commercialNoticeFile]}
       defaultRecipient={defaultRecipient}
-      defaultCc={representative?.profiles.filter((profile) => profile.civility === 'Service').map((service) => service.email!)}
+      defaultCc={representative?.profiles.filter((profile) => profile.civility === 'Service').map((service) => service.email!).filter((email) => !!email)}
       defaultSubject={`Devis ${quotation.number} ${business.title ?? ''}`}
       defaultContent={`Bonjour <br /><br /><p>Suite à votre demande, ci-joint le devis ainsi que les documents avec :</p> <br /><ul><li>Offre de prix HT</li><li>Dossier technique</li><li>Notices commerciales</li></ul>`}
       lifeSheetInfoDto={{

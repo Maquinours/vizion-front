@@ -53,6 +53,11 @@
             display: grid;
             align-self: flex-start;
             margin-bottom: 0.5rem;
+            grid-template-areas:
+              'label'
+              'input'
+              'error';
+            grid-template-columns: repeat(1, 1fr);
 
             label {
               grid-area: label;
@@ -68,13 +73,6 @@
               margin-top: 2px;
             }
 
-            grid-template-areas:
-              'label'
-              'input'
-              'error';
-
-            grid-template-columns: repeat(1, 1fr);
-
             label {
               text-align: left;
               font: normal normal normal 16px/20px 'DIN2014';
@@ -87,11 +85,11 @@
               padding-right: 1rem;
 
               &.required {
+                font-family: 'DIN2014';
+
                 span {
                   color: var(--secondary-color);
                 }
-
-                font-family: 'DIN2014';
               }
             }
 
@@ -193,13 +191,13 @@
               }
             }
 
-            & > div:nth-child(2) {
+            &>div:nth-child(2) {
               border: 1px solid #31385a;
               border-radius: 5px;
               background: #f2f3f8 0% 0% no-repeat padding-box;
 
               :nth-child(2) {
-                & > div {
+                &>div {
                   min-height: 50vh;
                   max-height: 60vh;
                   height: 100%;
@@ -244,7 +242,7 @@
             }
           }
 
-          & > div:nth-child(4) {
+          &>div:nth-child(4) {
             height: fit-content;
           }
         }

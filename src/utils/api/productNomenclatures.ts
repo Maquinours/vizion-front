@@ -5,7 +5,7 @@ import ProductBomDetailsResponseDto from '../types/ProductBomDetailsResponseDto'
 export const addProductNomenclatureDetail = (productId: string, data: ProductBomDetailsRequestDto) => {
   return privateInstance<ProductBomDetailsResponseDto>({
     method: 'POST',
-    url: `/product/v1/product-bom-details/add/${encodeURIComponent(productId)}`,
+    url: `/product/v1/bom-details/add/${encodeURIComponent(productId)}`,
     data,
   }).then((res) => res.data);
 };
@@ -13,7 +13,7 @@ export const addProductNomenclatureDetail = (productId: string, data: ProductBom
 export const updateProductNomenclatureDetail = (productId: string, nomenclatureDetailId: string, data: ProductBomDetailsRequestDto) => {
   return privateInstance<ProductBomDetailsResponseDto>({
     method: 'PUT',
-    url: `/product/v1/product-bom-details/${encodeURIComponent(productId)}/${encodeURIComponent(nomenclatureDetailId)}`,
+    url: `/product/v1/bom-details/update/${encodeURIComponent(nomenclatureDetailId)}/${encodeURIComponent(productId)}`,
     data,
   }).then((res) => res.data);
 };
@@ -21,6 +21,6 @@ export const updateProductNomenclatureDetail = (productId: string, nomenclatureD
 export const deleteProductNomenclatureDetail = (nomenclatureDetailId: string) => {
   return privateInstance<void>({
     method: 'DELETE',
-    url: `/product/v1/product-bom-details/delete/${encodeURIComponent(nomenclatureDetailId)}`,
+    url: `/product/v1/bom-details/delete/${encodeURIComponent(nomenclatureDetailId)}`,
   }).then((res) => res.data);
 };

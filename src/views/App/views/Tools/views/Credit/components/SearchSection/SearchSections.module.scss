@@ -15,6 +15,10 @@
       display: grid;
       align-self: center;
       margin-bottom: 0.5rem;
+      grid-template-areas:
+        'label input'
+        'label error';
+      grid-template-columns: 45% 55%;
 
       label {
         grid-area: label;
@@ -29,12 +33,6 @@
         grid-area: error;
         margin-top: 2px;
       }
-
-      grid-template-areas:
-        'label input'
-        'label error';
-
-      grid-template-columns: 45% 55%;
 
       label {
         text-align: right;

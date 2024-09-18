@@ -44,6 +44,11 @@
           display: grid;
           align-self: center;
           margin-bottom: 0.8rem;
+          grid-template-areas:
+            'label'
+            'input'
+            'error';
+          grid-template-columns: repeat(1, 1fr);
 
           label {
             margin-bottom: 0.5rem;
@@ -152,13 +157,6 @@
             color: var(--secondary-color);
             opacity: 1;
           }
-
-          grid-template-areas:
-            'label'
-            'input'
-            'error';
-
-          grid-template-columns: repeat(1, 1fr);
         }
       }
     }

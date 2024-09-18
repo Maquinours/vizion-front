@@ -1,4 +1,6 @@
 svg.spin {
+  animation: spin 0.5s linear infinite;
+
   @keyframes spin {
     from {
       transform: rotate(0deg);
@@ -8,6 +10,4 @@ svg.spin {
       transform: rotate(360deg);
     }
   }
-
-  animation: spin 0.5s linear infinite;
 }

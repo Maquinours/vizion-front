@@ -160,6 +160,7 @@ import { Route as AppProductsProductIdInformationsImportGedFilesRouteImport } fr
 import { Route as AppProductsProductIdInformationsDeleteGedObjectRouteImport } from './routes/app/products_.$productId/informations/delete-ged-object/route'
 import { Route as AppProductsProductIdInformationsCreateLifesheetCommentRouteImport } from './routes/app/products_.$productId/informations/create-lifesheet-comment/route'
 import { Route as AppProductsProductIdInformationsCreateGedDirectoryRouteImport } from './routes/app/products_.$productId/informations/create-ged-directory/route'
+import { Route as AppProductsSerialNumbersUpdateSerialNumberIdRouteImport } from './routes/app/products/serial-numbers/update.$serialNumberId/route'
 import { Route as AppProductsSerialNumbersRemoveFromBusinessSerialNumberIdRouteImport } from './routes/app/products/serial-numbers/remove-from-business.$serialNumberId/route'
 import { Route as AppProductsSerialNumbersDeleteSerialNumberIdRouteImport } from './routes/app/products/serial-numbers/delete.$serialNumberId/route'
 import { Route as AppProductsSerialNumbersCreateRmaSerialNumberIdRouteImport } from './routes/app/products/serial-numbers/create-rma.$serialNumberId/route'
@@ -1676,6 +1677,16 @@ const AppProductsProductIdInformationsCreateGedDirectoryRouteRoute =
   } as any).lazy(() =>
     import(
       './routes/app/products_.$productId/informations/create-ged-directory/route.lazy'
+    ).then((d) => d.Route),
+  )
+
+const AppProductsSerialNumbersUpdateSerialNumberIdRouteRoute =
+  AppProductsSerialNumbersUpdateSerialNumberIdRouteImport.update({
+    path: '/update/$serialNumberId',
+    getParentRoute: () => AppProductsSerialNumbersRouteRoute,
+  } as any).lazy(() =>
+    import(
+      './routes/app/products/serial-numbers/update.$serialNumberId/route.lazy'
     ).then((d) => d.Route),
   )
 
@@ -4349,6 +4360,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppProductsSerialNumbersRemoveFromBusinessSerialNumberIdRouteImport
       parentRoute: typeof AppProductsSerialNumbersRouteImport
     }
+    '/app/products/serial-numbers/update/$serialNumberId': {
+      id: '/app/products/serial-numbers/update/$serialNumberId'
+      path: '/update/$serialNumberId'
+      fullPath: '/app/products/serial-numbers/update/$serialNumberId'
+      preLoaderRoute: typeof AppProductsSerialNumbersUpdateSerialNumberIdRouteImport
+      parentRoute: typeof AppProductsSerialNumbersRouteImport
+    }
     '/app/products/$productId/informations/create-ged-directory': {
       id: '/app/products/$productId/informations/create-ged-directory'
       path: '/create-ged-directory'
@@ -5598,6 +5616,7 @@ export const routeTree = rootRoute.addChildren({
           AppProductsSerialNumbersCreateRmaSerialNumberIdRouteRoute,
           AppProductsSerialNumbersDeleteSerialNumberIdRouteRoute,
           AppProductsSerialNumbersRemoveFromBusinessSerialNumberIdRouteRoute,
+          AppProductsSerialNumbersUpdateSerialNumberIdRouteRoute,
         }),
     }),
     AppToolsRouteRoute: AppToolsRouteRoute.addChildren({
@@ -6235,7 +6254,8 @@ export const routeTree = rootRoute.addChildren({
         "/app/products/serial-numbers/create",
         "/app/products/serial-numbers/create-rma/$serialNumberId",
         "/app/products/serial-numbers/delete/$serialNumberId",
-        "/app/products/serial-numbers/remove-from-business/$serialNumberId"
+        "/app/products/serial-numbers/remove-from-business/$serialNumberId",
+        "/app/products/serial-numbers/update/$serialNumberId"
       ]
     },
     "/app/products/$productId": {
@@ -6920,6 +6940,10 @@ export const routeTree = rootRoute.addChildren({
     },
     "/app/products/serial-numbers/remove-from-business/$serialNumberId": {
       "filePath": "app/products/serial-numbers/remove-from-business.$serialNumberId/route.ts",
+      "parent": "/app/products/serial-numbers"
+    },
+    "/app/products/serial-numbers/update/$serialNumberId": {
+      "filePath": "app/products/serial-numbers/update.$serialNumberId/route.ts",
       "parent": "/app/products/serial-numbers"
     },
     "/app/products/$productId/informations/create-ged-directory": {
