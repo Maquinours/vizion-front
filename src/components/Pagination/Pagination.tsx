@@ -32,6 +32,7 @@ export default function PaginationComponent({ page, totalPages = 0, pageLink, on
     }
   };
 
+  if (totalPages === 0) return null;
   return (
     <nav className={styles.nav}>
       <ul className={styles.container}>
