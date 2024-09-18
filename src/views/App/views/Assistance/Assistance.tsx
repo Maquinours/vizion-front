@@ -62,8 +62,6 @@ export default function AppViewAssistanceView() {
     mutationFn: () =>
       updateTechnicalSupport(assistance.id, {
         name: getValues('name'),
-        enterpriseId: assistance.enterpriseId,
-        enterpriseName: assistance.enterpriseName,
         businessNum: assistance.businessNumber,
         predefinedTime: `${getValues('predefinedTime')}:00:00`,
         cumulatedTime: (() => {
