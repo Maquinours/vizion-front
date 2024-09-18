@@ -3,6 +3,7 @@ import Page from '../types/Page';
 import ProductSerialNumberResponseDto from '../types/ProductSerialNumberResponseDto';
 import ProductSerialListRequestDto from '../types/ProductSerialListRequestDto';
 import SerialNumberResponseDto from '../types/SerialNumberResponseDto';
+import UpdateProductSerialNumberRequestDto from '../types/UpdateProductSerialNumberRequestDto';
 
 export const getProductSerialNumbersPage = async (page: number, size: number) => {
   return privateInstance<Page<ProductSerialNumberResponseDto>>({
@@ -73,5 +74,13 @@ export const getProductSerialNumberByNumber = async (number: string) => {
     params: {
       number,
     },
+  }).then((res) => res.data);
+};
+
+export const updateProductSerialNumberNote = (id: string, data: UpdateProductSerialNumberRequestDto) => {
+  return privateInstance<ProductSerialNumberResponseDto>({
+    method: 'PUT',
+    url: `/product-inventory/v1/serial/note/${encodeURIComponent(id)}`,
+    data,
   }).then((res) => res.data);
 };
