@@ -48,6 +48,11 @@
           display: grid;
           align-self: center;
           margin-bottom: 0.8rem;
+          grid-template-areas:
+            'label input'
+            'label error';
+          grid-template-columns: 25% auto;
+          column-gap: 10px;
 
           p {
             justify-self: left;
@@ -57,7 +62,7 @@
             color: var(--primary-light);
           }
 
-          & > p:nth-child(1) {
+          &>p:nth-child(1) {
             grid-area: label;
           }
 
@@ -123,6 +128,9 @@
             outline: none;
             height: 30px;
             width: 200px;
+            resize: none;
+            width: inherit;
+            height: inherit;
 
             @include respond-below(md) {
               width: inherit;
@@ -153,10 +161,6 @@
               color: #9fa5b9;
               opacity: 1;
             }
-
-            resize: none;
-            width: inherit;
-            height: inherit;
           }
 
           p.__errors {
@@ -171,13 +175,6 @@
             color: var(--secondary-color);
             opacity: 1;
           }
-
-          grid-template-areas:
-            'label input'
-            'label error';
-
-          grid-template-columns: 25% auto;
-          column-gap: 10px;
         }
 
         .footer_buttons {

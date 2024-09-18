@@ -54,11 +54,11 @@
             }
 
             &.required {
+              font-family: 'DIN2014', Arial, sans-serif;
+
               span {
                 color: var(--secondary-color);
               }
-
-              font-family: 'DIN2014', Arial, sans-serif;
             }
           }
 

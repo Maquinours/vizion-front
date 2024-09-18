@@ -9,7 +9,7 @@
     display: grid;
     grid-template-columns: repeat(1, 1fr);
 
-    & > div {
+    &>div {
       width: 100%;
     }
   }
@@ -21,12 +21,11 @@
 
     .arc_details {
       display: flex;
+      gap: 1rem;
 
       @include respond-below(sm) {
         flex-direction: column;
       }
-
-      gap: 1rem;
 
       .form_group {
         width: auto;
@@ -74,11 +73,11 @@
           padding-right: 1rem;
 
           &.required {
+            font-family: 'DIN2014';
+
             span {
               color: var(--secondary-color);
             }
-
-            font-family: 'DIN2014';
           }
         }
 

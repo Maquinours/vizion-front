@@ -54,13 +54,12 @@
             font: normal normal normal 14px/18px 'DIN2014';
             color: #16204e;
             padding-left: 1rem;
+            height: 35px;
+            text-align: left;
 
             @include respond-below(md) {
               padding-left: 10px;
             }
-
-            height: 35px;
-            text-align: left;
 
             &:nth-child(1) {
               width: 30%;
@@ -105,15 +104,14 @@
         background-color: var(--primary-color);
         height: 38px;
         padding-left: 1rem;
-
-        @include respond-below(md) {
-          padding-left: 10px;
-        }
-
         text-align: left;
         border: none;
         position: sticky;
         top: 0;
+
+        @include respond-below(md) {
+          padding-left: 10px;
+        }
 
         &:nth-child(1) {
           border-top-left-radius: 5px;

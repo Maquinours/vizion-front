@@ -28,11 +28,11 @@
       }
 
       &.required {
+        font-family: 'DIN2014', Arial, sans-serif;
+
         span {
           color: var(--secondary-color);
         }
-
-        font-family: 'DIN2014', Arial, sans-serif;
       }
     }
 
@@ -54,6 +54,9 @@
       display: grid;
       align-self: center;
       margin-bottom: 0.8rem;
+      grid-template-areas: 'label'
+        'input'
+        'error';
 
       label:nth-child(1) {
         grid-area: label;
@@ -68,11 +71,6 @@
         grid-area: error;
         margin-top: 2px;
       }
-
-      grid-template-areas:
-        'label'
-        'input'
-        'error';
 
       input {
         background: var(--grey-color) 0% 0% no-repeat padding-box;

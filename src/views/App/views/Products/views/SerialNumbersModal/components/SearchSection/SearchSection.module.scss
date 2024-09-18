@@ -4,18 +4,22 @@
   form {
     display: flex;
     flex-direction: row;
+    gap: 10px;
 
     @include respond-below(sm) {
       flex-direction: column;
       width: 100%;
     }
 
-    gap: 10px;
-
     .form_group {
       position: relative;
       display: grid;
       align-self: center;
+      grid-template-areas:
+        'label'
+        'input'
+        'error';
+      grid-template-columns: repeat(1, 1fr);
 
       @include respond-below(sm) {
         width: 100%;
@@ -30,7 +34,7 @@
         color: var(--primary-light);
       }
 
-      & > input {
+      &>input {
         background: var(--grey-color) 0% 0% no-repeat padding-box;
         border: 1px solid var(--primary-color);
         border-radius: 5px;
@@ -78,13 +82,6 @@
         grid-area: error;
         margin-top: 2px;
       }
-
-      grid-template-areas:
-        'label'
-        'input'
-        'error';
-
-      grid-template-columns: repeat(1, 1fr);
 
       p.__errors {
         text-align: left;

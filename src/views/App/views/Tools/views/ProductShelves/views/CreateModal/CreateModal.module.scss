@@ -30,6 +30,11 @@
     .form_group {
       margin: 0.5rem 0;
       display: grid;
+      grid-template-areas: 'label'
+        'input'
+        'error';
+      grid-template-columns: auto;
+      grid-row-gap: 0.5rem;
 
       label {
         grid-area: label;
@@ -44,14 +49,6 @@
         grid-area: error;
         margin-top: 2px;
       }
-
-      grid-template-areas:
-        'label'
-        'input'
-        'error';
-
-      grid-template-columns: auto;
-      grid-row-gap: 0.5rem;
 
       label {
         text-align: left;
@@ -69,11 +66,11 @@
         }
 
         &.required {
+          font-family: 'DIN2014';
+
           span {
             color: var(--secondary-color);
           }
-
-          font-family: 'DIN2014';
         }
       }
 

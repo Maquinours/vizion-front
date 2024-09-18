@@ -40,7 +40,9 @@
         font-size: 16px;
 
         &.reload {
-          &.spin > svg {
+          &.spin>svg {
+            animation: spin 0.5s linear infinite;
+
             @keyframes spin {
               from {
                 transform: rotate(0deg);
@@ -50,8 +52,6 @@
                 transform: rotate(360deg);
               }
             }
-
-            animation: spin 0.5s linear infinite;
           }
         }
 

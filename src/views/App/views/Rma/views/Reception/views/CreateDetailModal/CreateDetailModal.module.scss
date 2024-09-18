@@ -39,6 +39,11 @@
           align-self: center;
           // gap:  0 1rem;
           margin-bottom: 0.8rem;
+          grid-template-areas:
+            'label'
+            'input'
+            'error';
+          grid-template-columns: repeat(1, 1fr);
 
           label {
             margin-bottom: 0.5rem;
@@ -96,6 +101,9 @@
             padding: 0.5rem 0.5rem;
             outline: none;
             height: 30px;
+            resize: none;
+            width: inherit;
+            height: inherit;
 
             @include respond-below(md) {
               width: inherit;
@@ -126,10 +134,6 @@
               color: #9fa5b9;
               opacity: 1;
             }
-
-            resize: none;
-            width: inherit;
-            height: inherit;
           }
 
           .form_group_radio {
@@ -165,13 +169,6 @@
             grid-area: error;
             margin-top: 2px;
           }
-
-          grid-template-areas:
-            'label'
-            'input'
-            'error';
-
-          grid-template-columns: repeat(1, 1fr);
 
           p.__errors {
             text-align: left;

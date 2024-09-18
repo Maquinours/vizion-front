@@ -15,21 +15,20 @@
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
+    margin: 1rem 0;
 
     img {
       cursor: pointer;
     }
-
-    margin: 1rem 0;
   }
 
   :global div#ReactSimpleImageViewer {
-    & > span:nth-child(1) {
+    &>span:nth-child(1) {
       color: var(--secondary-color);
       opacity: 1;
     }
 
-    & > span:nth-child(2),
+    &>span:nth-child(2),
     span:nth-child(3) {
       height: 30%;
       opacity: 1;

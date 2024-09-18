@@ -17,6 +17,10 @@
           align-self: center;
           margin-bottom: 5px;
           // gap:  0 1rem;
+          grid-template-areas:
+            'label input'
+            'label error';
+          grid-template-columns: 40% auto;
 
           label {
             grid-area: label;
@@ -72,12 +76,6 @@
           p {
             grid-area: error;
           }
-
-          grid-template-areas:
-            'label input'
-            'label error';
-
-          grid-template-columns: 40% auto;
 
           p.__errors {
             text-align: left;

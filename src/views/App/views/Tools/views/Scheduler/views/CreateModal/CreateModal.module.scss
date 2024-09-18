@@ -176,7 +176,7 @@
               display: flex;
               gap: 1rem;
 
-              & > div {
+              &>div {
                 display: flex;
                 flex-direction: column;
                 gap: 3px;
@@ -236,6 +236,7 @@
             grid-template-columns: 30% auto;
             gap: 1rem;
             align-self: center;
+            grid-template-areas: 'label input';
 
             @include respond-below(sm) {
               grid-template-columns: repeat(1, 1fr);
@@ -249,15 +250,13 @@
               grid-area: label;
             }
 
-            & > div {
+            &>div {
               grid-area: input;
 
               display: flex;
               flex-direction: column;
               gap: 3px;
             }
-
-            grid-template-areas: 'label input';
 
             // grid-template-columns: repeat(1, 1fr);
 

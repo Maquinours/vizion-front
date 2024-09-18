@@ -1,15 +1,15 @@
 @import '../../../../../../assets/styles/mixins';
 
 .container {
-  @include respond-below(sm) {
-    display: none;
-  }
-
   background: var(--primary-color) 0% 0% no-repeat padding-box;
   width: var(--sidebar-container-width);
   border-top: 1px solid var(--grey-line);
   overflow-y: auto;
   height: 100%;
+
+  @include respond-below(sm) {
+    display: none;
+  }
 
   &::-webkit-scrollbar {
     width: 0px;

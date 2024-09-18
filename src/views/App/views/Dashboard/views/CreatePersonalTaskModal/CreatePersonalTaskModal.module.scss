@@ -58,6 +58,11 @@
           margin-bottom: 0.8rem;
           display: flex;
           flex-direction: column;
+          grid-template-areas:
+            'label label'
+            'input input'
+            'error error';
+          grid-template-columns: auto;
 
           label {
             grid-area: label;
@@ -131,13 +136,6 @@
             grid-area: error;
             margin-top: 2px;
           }
-
-          grid-template-areas:
-            'label label'
-            'input input'
-            'error error';
-
-          grid-template-columns: auto;
 
           textarea {
             background: var(--grey-color) 0% 0% no-repeat padding-box;

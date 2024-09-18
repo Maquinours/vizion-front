@@ -44,6 +44,11 @@
           display: grid;
           align-self: center;
           margin-bottom: 0.8rem;
+          grid-template-areas:
+            'label'
+            'input'
+            'error';
+          grid-template-columns: auto;
 
           label {
             grid-area: label;
@@ -102,13 +107,6 @@
             grid-area: error;
             margin-top: 2px;
           }
-
-          grid-template-areas:
-            'label'
-            'input'
-            'error';
-
-          grid-template-columns: auto;
 
           textarea {
             grid-area: input;

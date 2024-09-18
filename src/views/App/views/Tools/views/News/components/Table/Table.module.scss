@@ -120,13 +120,13 @@
           }
 
           &:nth-last-child(1) {
+            width: 6%;
+
             .action_buttons {
               display: flex;
               justify-content: center;
               gap: 10%;
             }
-
-            width: 6%;
           }
         }
       }

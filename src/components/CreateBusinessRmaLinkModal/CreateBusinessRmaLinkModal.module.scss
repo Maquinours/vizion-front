@@ -38,6 +38,11 @@
           display: grid;
           align-self: center;
           margin-bottom: 0.8rem;
+          grid-template-areas:
+            'label input'
+            'label error';
+          grid-template-columns: 20% auto;
+          column-gap: 10px;
 
           label {
             justify-self: left;
@@ -71,7 +76,7 @@
             }
           }
 
-          & > label:nth-child(1) {
+          &>label:nth-child(1) {
             grid-area: label;
           }
 
@@ -105,13 +110,6 @@
               opacity: 1;
             }
           }
-
-          grid-template-areas:
-            'label input'
-            'label error';
-
-          grid-template-columns: 20% auto;
-          column-gap: 10px;
         }
 
         .footer_buttons {
