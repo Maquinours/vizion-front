@@ -107,7 +107,7 @@ export default function AppViewProductsViewSerialNumbersModalViewTableComponent(
               replace
               resetScroll={false}
               preload="intent"
-              title="Modifier le numéro de série"
+              title="Modifier la note du numéro de série"
             >
               <HiPencilAlt size={20} />
             </Link>

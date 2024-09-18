@@ -4,10 +4,11 @@ import styles from './UpdateModal.module.scss';
 import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import { updateProductSerialNumberNote } from '../../../../../../../../utils/api/productSerialNumber';
 import { toast } from 'react-toastify';
 import { queries } from '../../../../../../../../utils/constants/queryKeys';
+import { useEffect } from 'react';
 
 const routeApi = getRouteApi('/app/products/serial-numbers/update/$serialNumberId');
 
@@ -18,17 +19,18 @@ const yupSchema = yup.object({
 export default function AppViewProductsViewSerialNumbersModalViewUpdateModalView() {
   const queryClient = useQueryClient();
   const navigate = routeApi.useNavigate();
-  const { serialNumber } = routeApi.useLoaderData();
+
+  const { serialNumberId } = routeApi.useParams();
+
+  const { data: serialNumber } = useSuspenseQuery(queries['product-serial-numbers'].detail._ctx.byId(serialNumberId));
 
   const {
     register,
-    formState: { errors },
+    formState: { errors, isDirty },
     handleSubmit,
+    reset,
   } = useForm({
     resolver: yupResolver(yupSchema),
-    defaultValues: {
-      note: serialNumber.note ?? '',
-    },
   });
 
   const onClose = () => {
@@ -36,7 +38,7 @@ export default function AppViewProductsViewSerialNumbersModalViewUpdateModalView
   };
 
   const { mutate, isPending } = useMutation({
-    mutationFn: ({ note }: yup.InferType<typeof yupSchema>) => updateProductSerialNumberNote(serialNumber.id, { note }),
+    mutationFn: ({ note }: yup.InferType<typeof yupSchema>) => updateProductSerialNumberNote(serialNumber.id, { note: note || null }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queries['product-serial-numbers']._def });
       toast.success('Le numéro de série a été modifié avec succès');
@@ -47,6 +49,10 @@ export default function AppViewProductsViewSerialNumbersModalViewUpdateModalView
       toast.error('Une erreur est survenue lors de la modification du numéro de série');
     },
   });
+
+  useEffect(() => {
+    if (!isDirty) reset({ note: serialNumber.note ?? '' });
+  }, [serialNumber]);
 
   return (
     <ReactModal
