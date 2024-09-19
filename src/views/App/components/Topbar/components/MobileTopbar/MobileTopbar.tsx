@@ -5,7 +5,7 @@ import { HiMenuAlt1 } from 'react-icons/hi';
 import { MdClose, MdLogout } from 'react-icons/md';
 import styles from './MobileTopbar.module.scss';
 
-const Route = getRouteApi('/app');
+const routeApi = getRouteApi('/app');
 
 type AppLayoutTopbarComponentMobileTopbarProps = {
   logout: () => void;
@@ -15,7 +15,7 @@ export default function AppLayoutTopbarComponentMobileTopbar({ logout }: Readonl
 
   const [title, setTitle] = useState('');
 
-  const { mobileSidebar } = Route.useSearch();
+  const { mobileSidebar } = routeApi.useSearch();
 
   const matches = useMatches();
 
@@ -32,7 +32,7 @@ export default function AppLayoutTopbarComponentMobileTopbar({ logout }: Readonl
   return (
     <div className={styles.container}>
       <div className={styles.left_menu_icon}>
-        <Link search={{ mobileSidebar: mobileSidebar ? undefined : true }} replace resetScroll={false} ignoreBlocker>
+        <Link to="." search={{ mobileSidebar: mobileSidebar ? undefined : true }} replace resetScroll={false} ignoreBlocker>
           {mobileSidebar ? <MdClose /> : <HiMenuAlt1 />}
         </Link>
       </div>

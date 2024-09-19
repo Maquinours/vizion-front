@@ -6,6 +6,7 @@ export default function AppViewSendEmailModalComponent() {
 
   const onClose = () => {
     navigate({
+      to: '.',
       search: (old) => ({ ...old, appModal: undefined, businessId: undefined, gedItemKey: undefined }),
       replace: true,
       resetScroll: false,

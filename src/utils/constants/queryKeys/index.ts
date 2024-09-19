@@ -45,6 +45,7 @@ import { technicalSupports } from './technicalSupports';
 import { turnovers } from './turnovers';
 import { users } from './user';
 
+// @ts-ignore
 export const queries = mergeQueryKeys(
   businesses,
   businessQuotations,
