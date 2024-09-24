@@ -1,7 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
 import { toast } from 'react-toastify';
@@ -9,7 +9,6 @@ import * as yup from 'yup';
 import { updateProductSpecification } from '../../../../../../../../utils/api/productSpecification';
 import { productSpecificationsQueryKeys } from '../../../../../../../../utils/constants/queryKeys/productSpecifications';
 import styles from './UpdateSpecificationModal.module.scss';
-import AmountFormat from '../../../../../../../../components/AmountFormat/AmountFormat';
 
 const routeApi = getRouteApi('/app/products/$productId/manage/update-specification/$specificationId');
 
@@ -58,7 +57,7 @@ export default function AppViewProductViewManageViewUpdateSpecificationModalView
   const { data: productSpec } = useSuspenseQuery(productSpecificationsQueryKeys.detail._ctx.byId({ productId, specificationId }));
 
   const {
-    control,
+    register,
     formState: { errors },
     handleSubmit,
   } = useForm({
@@ -102,39 +101,21 @@ export default function AppViewProductViewManageViewUpdateSpecificationModalView
             <label className={styles.label} htmlFor="value">
               Valeur :
             </label>
-            <Controller
-              control={control}
-              name="value"
-              render={({ field: { value, onChange } }) => (
-                <AmountFormat value={value} suffix={productSpec.specification?.unit ?? undefined} onValueChange={(v) => onChange(v.value)} />
-              )}
-            />
+            <input placeholder="..." type="number" step="any" {...register('value')} />
             <p className={styles.__errors}>{errors.value?.message}</p>
           </div>
           <div className={styles.form_group}>
             <label className={styles.label} htmlFor="minValue">
               Min :
             </label>
-            <Controller
-              control={control}
-              name="minValue"
-              render={({ field: { value, onChange } }) => (
-                <AmountFormat value={value} suffix={productSpec.specification?.unit ?? undefined} onValueChange={(v) => onChange(v.value)} />
-              )}
-            />
+            <input placeholder="..." type="number" step="any" {...register('minValue')} />
             <p className={styles.__errors}>{errors.minValue?.message}</p>
           </div>
           <div className={styles.form_group}>
             <label className={styles.label} htmlFor="maxValue">
               Max :
             </label>
-            <Controller
-              control={control}
-              name="maxValue"
-              render={({ field: { value, onChange } }) => (
-                <AmountFormat value={value} suffix={productSpec.specification?.unit ?? undefined} onValueChange={(v) => onChange(v.value)} />
-              )}
-            />
+            <input placeholder="..." type="number" step="any" {...register('maxValue')} />
             <p className={styles.__errors}>{errors.maxValue?.message}</p>
           </div>
           <div className={styles.loader}>
@@ -145,7 +126,7 @@ export default function AppViewProductViewManageViewUpdateSpecificationModalView
               Annuler
             </button>
             <button type="submit" disabled={isPending} className="btn btn-secondary">
-              Ajouter
+              Modifier
             </button>
           </div>
         </form>
