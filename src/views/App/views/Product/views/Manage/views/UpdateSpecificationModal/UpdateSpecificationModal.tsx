@@ -13,27 +13,41 @@ import AmountFormat from '../../../../../../../../components/AmountFormat/Amount
 
 const routeApi = getRouteApi('/app/products/$productId/manage/update-specification/$specificationId');
 
-const yupSchema = yup.object({
-  value: yup
-    .number()
-    .typeError('Veuillez entrer un nombre')
-    .when(['maxValue', 'minValue'], ([minValue, maxValue], schema) => {
-      return maxValue === null && maxValue === undefined && minValue === null && minValue === undefined
-        ? schema.required('La valeur fixe ou les valeurs maximal et minimal sont requises')
-        : schema.nullable();
-    }),
-  minValue: yup
-    .number()
-    .typeError('Veuillez entrer un nombre')
-    .when('maxValue', ([maxValue], schema) => {
-      return maxValue !== null && maxValue !== undefined
-        ? schema
-            .required('La valeur maximale est requise si la valeur minimale est renseignée')
-            .min(maxValue, 'La valeur minimale doit être inférieure ou égale à la valeur maximale')
-        : schema.nullable();
-    }),
-  maxValue: yup.number().typeError('Veuillez entrer un nombre'),
-});
+const yupSchema = yup.object().shape(
+  {
+    value: yup
+      .number()
+      .transform((value) => (isNaN(value) ? undefined : value))
+      .when(['minValue', 'maxValue'], ([minValue, maxValue], schema) =>
+        isNaN(minValue) && isNaN(maxValue)
+          ? schema.typeError('Veuillez entrer un nombre').required('La valeur fixe ou les valeurs maximal et minimal sont requises')
+          : schema.nullable(),
+      ),
+    minValue: yup
+      .number()
+      .typeError('Veuillez entrer un nombre')
+      .transform((value) => (isNaN(value) ? undefined : value))
+      .when('maxValue', ([maxValue], schema) =>
+        !isNaN(maxValue)
+          ? schema
+              .required("La valeur minimale doit être accompagnée d'une valeur maximale")
+              .max(maxValue, 'La valeur minimale doit être inférieure ou égale à la valeur maximale')
+          : schema.nullable(),
+      ),
+    maxValue: yup
+      .number()
+      .typeError('Veuillez entrer un nombre')
+      .transform((value) => (isNaN(value) ? undefined : value))
+      .when('minValue', ([minValue], schema) =>
+        !isNaN(minValue)
+          ? schema
+              .required("La valeur minimale doit être accompagnée d'une valeur maximale")
+              .min(minValue, 'La valeur maximale doit être supérieure ou égale à la valeur minimale')
+          : schema.nullable(),
+      ),
+  },
+  [['minValue', 'maxValue']],
+);
 
 export default function AppViewProductViewManageViewUpdateSpecificationModalView() {
   const queryClient = useQueryClient();
