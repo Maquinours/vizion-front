@@ -29,6 +29,7 @@ export const Route = createFileRoute('/app/products/$productId')({
           }
         } catch (error) {
           Sentry.captureException(error, { data: { productPages: queryClient.getQueriesData({ queryKey: queries.product.page._def }) } });
+          throw error;
         }
       },
       initialDataUpdatedAt: () => (initialDataKey ? queryClient.getQueryState(initialDataKey)?.dataUpdatedAt : undefined),
