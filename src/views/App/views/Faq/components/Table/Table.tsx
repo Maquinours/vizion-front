@@ -27,8 +27,8 @@ const columns = [
   //     ),
   //   }),
   columnHelper.display({
-    header: 'Mots clés',
-    cell: ({ row: { original } }) => original.faqConcerneds?.map((element) => element.name).join('; '),
+    header: 'Produits',
+    cell: ({ row: { original } }) => original.products?.map((product) => product.reference).join('; '),
   }),
   columnHelper.display({
     header: 'Niveau',
