@@ -20,7 +20,9 @@ export const isExpertStudyServiceNode = (node: Node): node is ExpertStudyService
     typeof node.data.size.height === 'number' &&
     (!('opacity' in node.data) || typeof node.data.opacity === 'number' || node.data.opacity === undefined) &&
     'rotation' in node.data &&
-    typeof node.data.rotation === 'number'
+    typeof node.data.rotation === 'number' &&
+    (!('quantity' in node.data) || typeof node.data.quantity === 'number' || node.data.quantity === undefined) &&
+    (!('option' in node.data) || typeof node.data.option === 'boolean' || node.data.option === undefined)
   );
 };
 
@@ -31,6 +33,7 @@ export type ExpertStudyServiceNode = Node<
     opacity?: number;
     rotation: number;
     quantity?: number;
+    option?: boolean;
   },
   'service'
 >;
