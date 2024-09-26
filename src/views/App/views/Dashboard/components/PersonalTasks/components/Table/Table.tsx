@@ -102,25 +102,31 @@ export default function AppViewDashboardViewPersonalTasksComponentTableComponent
       columnHelper.display({
         header: 'Objet',
         cell: ({ row: { original } }) => {
-          if (original.businessId)
+          if (!!original.businessId && !!original.technicalSupportId)
+            return (
+              <Link to="/app/businesses-rma/business/$businessId/assistance/$assistanceId" params={{ businessId: original.businessId, assistanceId: original.technicalSupportId }}>
+                {original.technicalSupportName?.trim() || 'Sans nom'}
+              </Link>
+            );
+          if (!!original.businessId)
             return (
               <Link to="/app/businesses-rma/business/$businessId" params={{ businessId: original.businessId }}>
                 {original.businessNum}
               </Link>
             );
-          if (original.rmaId)
+          if (!!original.rmaId)
             return (
               <Link to="/app/businesses-rma/rma/$rmaId" params={{ rmaId: original.rmaId }}>
                 {original.rmaNum}
               </Link>
             );
-          if (original.enterpriseId)
+          if (!!original.enterpriseId)
             return (
               <Link to="/app/enterprises/$enterpriseId" params={{ enterpriseId: original.enterpriseId }}>
                 {original.enterpriseName}
               </Link>
             );
-          if (original.productId)
+          if (!!original.productId)
             return (
               <Link to="/app/products/$productId" params={{ productId: original.productId }}>
                 {original.reference}
