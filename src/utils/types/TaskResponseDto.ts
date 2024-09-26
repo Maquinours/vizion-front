@@ -26,6 +26,8 @@ type TaskResponseDto = {
   productId: string | null;
   enterpriseId: string | null;
   reference: string | null;
+  technicalSupportId: string | null;
+  technicalSupportName: string | null;
   taskOpened: boolean | null;
   createdDate: string | null;
   modifiedDate: string | null;
