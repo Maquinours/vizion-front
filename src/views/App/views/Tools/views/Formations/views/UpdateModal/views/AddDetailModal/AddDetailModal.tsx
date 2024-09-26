@@ -51,8 +51,8 @@ export default function AppViewToolsViewFormationsViewUpdateModalViewAddDetailMo
     navigate({ to: '..', search: (old) => old, replace: true, resetScroll: false });
   };
 
-  const onSubmit = (data: yup.InferType<typeof yupSchema>) => {
-    setDetails([...details, data]);
+  const onSubmit = ({ title, formationDate, startTime, endTime, trainers }: yup.InferType<typeof yupSchema>) => {
+    setDetails([...details, { title, formationDate, startTime: `${startTime}:00`, endTime: `${endTime}:00`, trainers }]);
     onClose();
   };
 

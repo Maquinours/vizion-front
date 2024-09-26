@@ -17,6 +17,7 @@ import { queries } from '../../../../../../../../utils/constants/queryKeys';
 import UploadedFile from '../../../../../../../../utils/types/UploadedFile';
 import styles from './UpdateModal.module.scss';
 import { FormationDetail, UpdateFormationDetailsContext } from './utils/contexts/context';
+import { FILE_READ_STORAGE_BASE_URL } from '../../../../../../../../utils/constants/api';
 
 const routeApi = getRouteApi('/app/tools/formations/update/$formationId');
 
@@ -97,15 +98,16 @@ export default function AppViewToolsViewFormationsViewUpdateModalView() {
   };
 
   const { mutate, isPending } = useMutation({
-    mutationFn: async ({ title, subtitle, content, files, archive, details }: yup.InferType<typeof yupSchema>) =>
-      updateFormation(formation.id, {
+    mutationFn: async ({ title, subtitle, content, files, archive, details }: yup.InferType<typeof yupSchema>) => {
+      const filesToUpload = files.filter((file): file is File => file instanceof File);
+      return updateFormation(formation.id, {
         title,
         subtitle,
         content,
         files: (
           [
             ...files.filter((file) => !(file instanceof File)),
-            ...(await uploadFiles(files.filter((file) => file instanceof File) as File[])).content,
+            ...(filesToUpload.length > 0 ? (await uploadFiles(filesToUpload)).content : []),
           ] as Array<UploadedFile>
         ).reduce((acc: Record<string, UploadedFile>, file, index) => {
           acc['file' + index] = file;
@@ -122,7 +124,8 @@ export default function AppViewToolsViewFormationsViewUpdateModalView() {
             return acc;
           }, {}),
         })),
-      }),
+      });
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queries.formations._def });
       toast.success('Formation modifiée avec succès.');
@@ -203,14 +206,29 @@ export default function AppViewToolsViewFormationsViewUpdateModalView() {
                         <div className={styles.selected_files}>
                           <h4>Fichiers</h4>
                           <ul>
-                            {value.map((file) => (
-                              <li key={file.name}>
-                                <span>{file.name}</span>
-                                <button onClick={() => onChange(value.filter((f) => f.name !== file.name))}>
-                                  <FaTrash color="#F24C52" width="14" height="14" />
-                                </button>
-                              </li>
-                            ))}
+                            {value.map((file) => {
+                              console.log(file);
+                              if (!(file instanceof File))
+                                return (
+                                  <li key={file.path}>
+                                    <a href={`${FILE_READ_STORAGE_BASE_URL}/${file.name}`} target="_blank" rel="noopener noreferrer">
+                                      <span>{file.name}</span>
+                                    </a>
+                                    <button onClick={() => onChange(value.filter((f) => f.name !== file.name))}>
+                                      <FaTrash color="#F24C52" width="14" height="14" />
+                                    </button>
+                                  </li>
+                                );
+                              else
+                                return (
+                                  <li key={file.name}>
+                                    <span>{file.name}</span>
+                                    <button onClick={() => onChange(value.filter((f) => f.name !== file.name))}>
+                                      <FaTrash color="#F24C52" width="14" height="14" />
+                                    </button>
+                                  </li>
+                                );
+                            })}
                           </ul>
                         </div>
                       ) : (
