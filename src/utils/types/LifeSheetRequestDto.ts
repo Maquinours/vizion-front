@@ -15,6 +15,7 @@ type LifeSheetRequestDto = {
   enterpriseName?: string | null;
   businessNumber?: string | null;
   rmaNumber?: string | null;
+  technicalSupportName?: string | null;
   tasksDtoList?: LifeSheetTaskRequestDto[] | null;
 };
 

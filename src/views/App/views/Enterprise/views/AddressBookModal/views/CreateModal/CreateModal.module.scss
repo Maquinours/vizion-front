@@ -51,6 +51,11 @@
           display: grid;
           align-self: center;
           margin-bottom: 0.8rem;
+          grid-template-areas:
+            'label input'
+            'label error';
+          grid-template-columns: 25% auto;
+          column-gap: 10px;
 
           label {
             justify-self: left;
@@ -63,7 +68,7 @@
             color: var(--primary-light);
           }
 
-          & > label:nth-child(1) {
+          &>label:nth-child(1) {
             grid-area: label;
           }
 
@@ -163,13 +168,6 @@
             color: var(--secondary-color);
             opacity: 1;
           }
-
-          grid-template-areas:
-            'label input'
-            'label error';
-
-          grid-template-columns: 25% auto;
-          column-gap: 10px;
         }
 
         .footer_buttons {

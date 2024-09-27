@@ -56,13 +56,12 @@
           font: normal normal normal 14px/18px 'DIN2014';
           color: #16204e;
           padding: 1rem;
+          height: 35px;
+          text-align: center;
 
           @include respond-below(md) {
             padding-left: 10px;
           }
-
-          height: 35px;
-          text-align: center;
 
           &:nth-child(1) {
             width: 5%;

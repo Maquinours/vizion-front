@@ -29,7 +29,7 @@ const yupSchema = yup.object({
       return maxValue !== null && maxValue !== undefined
         ? schema
             .required('La valeur maximale est requise si la valeur minimale est renseignée')
-            .lessThan(maxValue, 'La valeur minimale doit être inférieure à la valeur maximale')
+            .min(maxValue, 'La valeur minimale doit être inférieure ou égale à la valeur maximale')
         : schema.nullable();
     }),
   maxValue: yup.number().typeError('Veuillez entrer un nombre'),

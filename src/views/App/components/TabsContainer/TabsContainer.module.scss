@@ -1,13 +1,13 @@
 @import '../../../../assets/styles/mixins';
 
 .container {
-  @include respond-below(sm) {
-    display: none;
-  }
-
   position: sticky;
   z-index: 500;
   top: var(--topbar-container-height);
+
+  @include respond-below(sm) {
+    display: none;
+  }
 
   .tabs {
     white-space: nowrap;

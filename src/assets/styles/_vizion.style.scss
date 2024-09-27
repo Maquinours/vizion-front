@@ -143,14 +143,16 @@ Table of Contents
 }
 
 body {
+  height: 100%;
+  font-family: 'DIN2014',
+    Arial,
+    sans-serif;
+  background-color: $white-color;
+
   svg {
     display: initial;
     vertical-align: sub;
   }
-
-  height: 100%;
-  font-family: 'DIN2014', Arial, sans-serif;
-  background-color: $white-color;
 }
 
 #outer_wrap {
@@ -200,13 +202,13 @@ main.app__layout {
     position: relative;
 
     .app__layout_tabs_wrapper {
-      @include respond-below(sm) {
-        display: none;
-      }
-
       position: sticky;
       z-index: 500;
       top: $topbar-container-height;
+
+      @include respond-below(sm) {
+        display: none;
+      }
 
       .app__layout_tabs {
         white-space: nowrap;
@@ -625,17 +627,16 @@ ul {
 
     .topbar__mobile {
       display: none;
-
-      @include respond-below(sm) {
-        display: flex;
-      }
-
       justify-content: space-between;
       align-items: center;
       color: $white-color;
       padding: 0.8rem 0.8rem;
       width: 100%;
       height: 100%;
+
+      @include respond-below(sm) {
+        display: flex;
+      }
 
       .topbar__left__menu_icon {
         font-size: 30px;
@@ -665,15 +666,15 @@ ul {
   height: 100%;
 
   .sidebar__menu {
-    @include respond-below(sm) {
-      display: none;
-    }
-
     background: $primary-color 0% 0% no-repeat padding-box;
     width: $sidebar-container-width;
     border-top: 1px solid $grey-line;
     overflow-y: auto;
     height: 100%;
+
+    @include respond-below(sm) {
+      display: none;
+    }
 
     &::-webkit-scrollbar {
       width: 0px;
@@ -807,14 +808,16 @@ ul {
             text-align: left;
 
             span {
-              &:nth-child(1) {
-                font-family: 'DIN2014', Arial, sans-serif;
-              }
-
-              font-family: 'DIN2014', Arial, sans-serif;
+              font-family: 'DIN2014',
+                Arial,
+                sans-serif;
               font-size: 16px;
               line-height: 20px;
               color: $primary-color;
+
+              &:nth-child(1) {
+                font-family: 'DIN2014', Arial, sans-serif;
+              }
             }
           }
         }
@@ -964,6 +967,9 @@ ul {
           border-radius: 50%;
           text-align: center;
           cursor: pointer;
+          font: normal normal normal 12px/15px $primary-font-family;
+          letter-spacing: 0px;
+          color: #16204e;
 
           &.counts_in_progress {
             background: #d69e3c 0% 0% no-repeat padding-box;
@@ -976,10 +982,6 @@ ul {
           &.counts_achieved {
             background: #609ad5 0% 0% no-repeat padding-box;
           }
-
-          font: normal normal normal 12px/15px $primary-font-family;
-          letter-spacing: 0px;
-          color: #16204e;
         }
       }
 
@@ -1405,7 +1407,7 @@ button[type='submit'].btn {
   background: rgba(0, 0, 0, 0.25) 0% 0% no-repeat padding-box;
   overflow-y: auto;
 
-  & > div {
+  &>div {
     outline: none;
   }
 

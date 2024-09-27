@@ -70,8 +70,8 @@ export default function AppViewBusinessViewBpViewFooterComponent() {
         })),
       });
     },
-    onSuccess: (bl) => {
-      queryClient.setQueryData(queries['business-bls'].list._ctx.byBusinessId(businessId).queryKey, [bl]);
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: queries['business-bls'].list._ctx.byBusinessId(businessId).queryKey });
       toast.success('Bon de livraison créé avec succès');
       navigate({ to: '../bl', replace: true });
     },

@@ -3,6 +3,7 @@ import AssistanceResponseDto from '../../../../../../../../../../utils/types/Ass
 import Logo from '../../../../../../../../../../assets/images/logo-vizeo-fond-blanc-baseline.png';
 import FontDinRegular from '../../../../../../../../../../assets/fonts/DIN2014/DIN2014-Regular.ttf';
 import FontDinBold from '../../../../../../../../../../assets/fonts/DIN2014/DIN2014-Bold.ttf';
+import { formatDateWithSlash } from '../../../../../../../../../../utils/functions/dates';
 
 Font.register({
   family: 'Din',
@@ -75,12 +76,12 @@ const pageStyles = StyleSheet.create({
     alignItems: 'center',
   },
   quoteHeaderText: {
-    width: '40%',
+    width: '60%',
     color: '#16204E',
     fontSize: '15',
   },
   quoteHeaderLine: {
-    width: '60%',
+    width: '40%',
     borderTop: '1px solid #16204E',
   },
   sectionTwo: {
@@ -263,7 +264,9 @@ export default function AppViewRmaViewSupportViewPdfModalViewPdfComponent({ rma 
 
           <View>
             <View style={pageStyles.quoteHeader}>
-              <Text style={pageStyles.quoteHeaderText}>RMA n° {rma.number} (Prise en charge)</Text>
+              <Text style={pageStyles.quoteHeaderText}>
+                RMA n° {rma.number} (Prise en charge) du {formatDateWithSlash(rma.assistanceSupport?.createdDate)}
+              </Text>
               <Text style={pageStyles.quoteHeaderLine}></Text>
             </View>
           </View>

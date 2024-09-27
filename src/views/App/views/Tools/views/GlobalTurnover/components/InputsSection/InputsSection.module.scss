@@ -13,6 +13,11 @@
         width: 100%;
         display: grid;
         gap: 5px;
+        grid-template-areas:
+          'label input'
+          'label error';
+
+        grid-template-columns: 40% auto;
 
         label {
           align-self: center;
@@ -51,12 +56,6 @@
           color: var(--secondary-color);
           opacity: 1;
         }
-
-        grid-template-areas:
-          'label input'
-          'label error';
-
-        grid-template-columns: 40% auto;
       }
 
       .form_loader {

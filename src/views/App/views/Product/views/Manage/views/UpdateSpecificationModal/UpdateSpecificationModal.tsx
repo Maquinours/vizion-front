@@ -1,7 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
 import { toast } from 'react-toastify';
@@ -9,6 +9,7 @@ import * as yup from 'yup';
 import { updateProductSpecification } from '../../../../../../../../utils/api/productSpecification';
 import { productSpecificationsQueryKeys } from '../../../../../../../../utils/constants/queryKeys/productSpecifications';
 import styles from './UpdateSpecificationModal.module.scss';
+import AmountFormat from '../../../../../../../../components/AmountFormat/AmountFormat';
 
 const routeApi = getRouteApi('/app/products/$productId/manage/update-specification/$specificationId');
 
@@ -28,7 +29,7 @@ const yupSchema = yup.object({
       return maxValue !== null && maxValue !== undefined
         ? schema
             .required('La valeur maximale est requise si la valeur minimale est renseignée')
-            .lessThan(maxValue, 'La valeur minimale doit être inférieure à la valeur maximale')
+            .min(maxValue, 'La valeur minimale doit être inférieure ou égale à la valeur maximale')
         : schema.nullable();
     }),
   maxValue: yup.number().typeError('Veuillez entrer un nombre'),
@@ -43,7 +44,7 @@ export default function AppViewProductViewManageViewUpdateSpecificationModalView
   const { data: productSpec } = useSuspenseQuery(productSpecificationsQueryKeys.detail._ctx.byId({ productId, specificationId }));
 
   const {
-    register,
+    control,
     formState: { errors },
     handleSubmit,
   } = useForm({
@@ -87,21 +88,39 @@ export default function AppViewProductViewManageViewUpdateSpecificationModalView
             <label className={styles.label} htmlFor="value">
               Valeur :
             </label>
-            <input placeholder="..." type="number" step="any" {...register('value')} />
+            <Controller
+              control={control}
+              name="value"
+              render={({ field: { value, onChange } }) => (
+                <AmountFormat value={value} suffix={productSpec.specification?.unit ?? undefined} onValueChange={(v) => onChange(v.value)} />
+              )}
+            />
             <p className={styles.__errors}>{errors.value?.message}</p>
           </div>
           <div className={styles.form_group}>
             <label className={styles.label} htmlFor="minValue">
               Min :
             </label>
-            <input placeholder="..." type="number" step="any" {...register('minValue')} />
+            <Controller
+              control={control}
+              name="minValue"
+              render={({ field: { value, onChange } }) => (
+                <AmountFormat value={value} suffix={productSpec.specification?.unit ?? undefined} onValueChange={(v) => onChange(v.value)} />
+              )}
+            />
             <p className={styles.__errors}>{errors.minValue?.message}</p>
           </div>
           <div className={styles.form_group}>
             <label className={styles.label} htmlFor="maxValue">
               Max :
             </label>
-            <input placeholder="..." type="number" step="any" {...register('maxValue')} />
+            <Controller
+              control={control}
+              name="maxValue"
+              render={({ field: { value, onChange } }) => (
+                <AmountFormat value={value} suffix={productSpec.specification?.unit ?? undefined} onValueChange={(v) => onChange(v.value)} />
+              )}
+            />
             <p className={styles.__errors}>{errors.maxValue?.message}</p>
           </div>
           <div className={styles.loader}>

@@ -34,13 +34,16 @@ export const Route = createFileRoute('/app/products/serial-numbers/remove-from-b
       queryClient.ensureQueryData(queries.businesses.detail._ctx.byId(serialNumber.businessId)),
       queryClient.ensureQueryData(queries['business-bps'].detail._ctx.byBusinessId(serialNumber.businessId!)),
     ]);
-    const bpSerialNumber = bp.bpDetailsList.flatMap((detail) => detail.bpSerialList ?? []).find((serial) => serial?.numSerie === serialNumber.serialNumber);
-    if (!bpSerialNumber) {
+
+    const bpDetail = bp.bpDetailsList.find((detail) => detail.bpSerialList?.some((serial) => serial.numSerie === serialNumber.serialNumber));
+    const bpSerialNumber = bpDetail?.bpSerialList?.find((serial) => serial?.numSerie === serialNumber.serialNumber);
+
+    if (!bpDetail || !bpSerialNumber) {
       toast.error('Une erreur est survenue lors de la récupération des données liées au numéro de série');
       throw redirect({ from: Route.id, to: '../..', search: true, replace: true });
     }
 
-    return { serialNumber, business, bp, bpSerialNumber };
+    return { serialNumber, business, bp, bpDetail, bpSerialNumber };
   },
   pendingComponent: LoaderModal,
 });

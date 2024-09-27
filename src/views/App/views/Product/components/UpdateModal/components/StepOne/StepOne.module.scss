@@ -11,6 +11,9 @@
       display: grid;
       align-self: center;
       margin-bottom: 1rem;
+      grid-template-areas: 'label input'
+        'label error';
+      grid-template-columns: 25% 75%;
 
       label {
         grid-area: label;
@@ -27,12 +30,6 @@
         grid-area: error;
         margin-top: 2px;
       }
-
-      grid-template-areas:
-        'label input'
-        'label error';
-
-      grid-template-columns: 25% 75%;
 
       @include respond-below(sm) {
         grid-template-areas:
@@ -59,11 +56,11 @@
         }
 
         &.required {
+          font-family: 'DIN2014';
+
           span {
             color: var(--secondary-color);
           }
-
-          font-family: 'DIN2014';
         }
       }
 

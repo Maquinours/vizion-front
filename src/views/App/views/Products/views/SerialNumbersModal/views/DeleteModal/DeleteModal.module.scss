@@ -19,6 +19,8 @@
     padding: 1.5rem 0.5rem;
 
     .modal_title {
+      margin-bottom: 1rem;
+
       h6 {
         text-align: center;
         font:
@@ -27,8 +29,6 @@
           sans-serif;
         color: var(--primary-light);
       }
-
-      margin-bottom: 1rem;
     }
 
     form {

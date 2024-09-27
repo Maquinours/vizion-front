@@ -94,7 +94,12 @@ export default function CreateLifesheetModalComponent({
           };
           break;
         case LifesheetAssociatedItem.ASSISTANCE:
-          data = { technicalSupportId: associatedItemId };
+          const technicalSupport = await queryClient.ensureQueryData(queries['technical-supports'].detail._ctx.byId(associatedItemId));
+          data = {
+            technicalSupportId: associatedItemId,
+            technicalSupportName: technicalSupport.name,
+            businessId: technicalSupport.businessId,
+          };
           break;
         case LifesheetAssociatedItem.BUSINESS:
           data = {

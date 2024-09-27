@@ -47,18 +47,21 @@
           .form_content {
             display: grid;
             grid-template-columns: 60% auto;
+            gap: 1rem;
 
             @include respond-below(sm) {
               grid-template-columns: repeat(1, 1fr);
             }
-
-            gap: 1rem;
 
             .form_group {
               width: 100%;
               display: grid;
               align-self: center;
               margin-bottom: 0.5rem;
+              grid-template-areas: 'label'
+                'input'
+                'error';
+              grid-template-columns: repeat(1, 1fr);
 
               input,
               select:nth-child(2) {
@@ -69,13 +72,6 @@
                 grid-area: error;
                 margin-top: 2px;
               }
-
-              grid-template-areas:
-                'label'
-                'input'
-                'error';
-
-              grid-template-columns: repeat(1, 1fr);
 
               label {
                 grid-area: label;
@@ -93,11 +89,11 @@
                 padding-right: 1rem;
 
                 &.required {
+                  font-family: 'DIN2014', Arial, sans-serif;
+
                   span {
                     color: var(--secondary-color);
                   }
-
-                  font-family: 'DIN2014', Arial, sans-serif;
                 }
               }
 
@@ -200,13 +196,13 @@
                 margin-bottom: 0.2rem;
               }
 
-              & > div {
+              &>div {
                 border: 1px solid #31385a;
                 border-radius: 5px;
                 background: #f2f3f8 0% 0% no-repeat padding-box;
 
                 :nth-child(2) {
-                  & > div {
+                  &>div {
                     min-height: 50vh;
                     max-height: 60vh;
                     height: 100%;

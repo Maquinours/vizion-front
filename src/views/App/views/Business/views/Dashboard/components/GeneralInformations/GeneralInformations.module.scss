@@ -13,6 +13,10 @@
       // grid-template-columns: 20% 80%;
       align-self: center;
       margin-bottom: 0.3rem;
+      grid-template-areas: 'label'
+        'input'
+        'error';
+      grid-template-columns: repeat(1, 1fr);
 
       label {
         grid-area: label;
@@ -30,13 +34,6 @@
         margin-top: 2px;
       }
 
-      grid-template-areas:
-        'label'
-        'input'
-        'error';
-
-      grid-template-columns: repeat(1, 1fr);
-
       label {
         text-align: left;
         font: normal normal normal 16px/20px 'DIN2014';
@@ -49,11 +46,11 @@
         padding-right: 1rem;
 
         &.required {
+          font-family: 'DIN2014';
+
           span {
             color: var(--secondary-color);
           }
-
-          font-family: 'DIN2014';
         }
       }
 
@@ -130,6 +127,11 @@
       // grid-template-columns: 20% 80%;
       align-self: center;
       margin-bottom: 0.3rem;
+      grid-template-areas:
+        'label'
+        'input'
+        'error';
+      grid-template-columns: repeat(1, 1fr);
 
       label {
         grid-area: label;
@@ -146,13 +148,6 @@
         grid-area: error;
         margin-top: 2px;
       }
-
-      grid-template-areas:
-        'label'
-        'input'
-        'error';
-
-      grid-template-columns: repeat(1, 1fr);
 
       .form_select_save {
         select {
@@ -203,11 +198,11 @@
         padding-right: 1rem;
 
         &.required {
+          font-family: 'DIN2014';
+
           span {
             color: var(--secondary-color);
           }
-
-          font-family: 'DIN2014';
         }
       }
 

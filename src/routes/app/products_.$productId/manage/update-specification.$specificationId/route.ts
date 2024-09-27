@@ -6,10 +6,9 @@ import AdvancedProductSpecificationProductResponseDto from '../../../../../utils
 import Page from '../../../../../utils/types/Page';
 
 export const Route = createFileRoute('/app/products/$productId/manage/update-specification/$specificationId')({
-  loader: ({ context: { queryClient }, params: { productId, specificationId } }) => {
+  loader: async ({ context: { queryClient }, params: { productId, specificationId } }) => {
     let initialDataKey: QueryKey | undefined = undefined;
-    productSpecificationsQueryKeys;
-    queryClient.ensureQueryData({
+    await queryClient.prefetchQuery({
       ...productSpecificationsQueryKeys.detail._ctx.byId({ productId, specificationId }),
       initialData: () => {
         for (const [key, value] of queryClient.getQueriesData<Page<AdvancedProductSpecificationProductResponseDto>>({

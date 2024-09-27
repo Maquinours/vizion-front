@@ -1,5 +1,7 @@
 import { getRouteApi, useNavigate } from '@tanstack/react-router';
 import SendEmailModalComponent from '../../../../../../../../components/SendEmailModal/SendEmailModal';
+import _ from 'lodash';
+import { useMemo } from 'react';
 
 const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/bl/send-by-email');
 
@@ -12,6 +14,11 @@ export default function AppViewBusinessViewBlViewSendByEmailModalView() {
     navigate({ to: '..', search: (old) => old, replace: true, resetScroll: false });
   };
 
+  const defaultRecipient = useMemo(
+    () => _.uniq([business.billingEmail, business.deliverEmail].filter((email): email is string => !!email).map((email) => email.toLowerCase())),
+    [],
+  );
+
   return (
     <SendEmailModalComponent
       isOpen={true}
@@ -22,7 +29,7 @@ export default function AppViewBusinessViewBlViewSendByEmailModalView() {
         replace: true,
         resetScroll: false,
       }}
-      defaultRecipient={business.profileEmail ? [business.profileEmail] : undefined}
+      defaultRecipient={defaultRecipient}
       defaultSubject={bl.number}
       defaultAttachments={[file]}
       lifeSheetInfoDto={{

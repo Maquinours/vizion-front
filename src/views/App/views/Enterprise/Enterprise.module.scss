@@ -32,7 +32,7 @@
       flex-direction: column;
       gap: 1rem;
 
-      & > div {
+      &>div {
         height: auto;
       }
     }
@@ -49,14 +49,6 @@
   }
 
   .grid_two {
-    & > div:nth-child(1) {
-      grid-area: item1;
-    }
-
-    & > div:nth-child(2) {
-      grid-area: item2;
-    }
-
     display: grid;
     gap: 1rem;
     margin-top: 1rem;
@@ -66,6 +58,14 @@
       'item1 item2';
 
     grid-template-columns: repeat(2, 1fr);
+
+    &>div:nth-child(1) {
+      grid-area: item1;
+    }
+
+    &>div:nth-child(2) {
+      grid-area: item2;
+    }
 
     @include respond-below(md) {
       grid-template-areas:

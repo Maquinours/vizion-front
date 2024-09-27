@@ -47,8 +47,9 @@ export const updateProductSpecification = async (
   maxValue: number | null,
 ) => {
   return privateInstance<AdvancedProductSpecificationProductResponseDto>({
-    method: 'PUT',
-    url: `/product/v1/product-specification/${encodeURIComponent(productId)}/${encodeURIComponent(specificationId)}`,
+    // We use same endpoint as add, it works for both
+    method: 'POST',
+    url: `/product/v1/add-advanced-specs/${encodeURIComponent(productId)}/${encodeURIComponent(specificationId)}`,
     params: {
       value,
       minValue,
