@@ -7,7 +7,7 @@ export default function AppViewAssistanceViewButtonsSectionComponent() {
   return (
     <>
       <div className={styles.buttons_container}>
-        <Link to="/app/faq" className="btn btn-primary-light">
+        <Link to="/app/faq" className="btn btn-primary-light text-sm" style={{ fontSize: '14px', lineHeight: '20px' }}>
           FAQ
         </Link>
         <Link to="/app/tools/ddns/create" className="btn btn-primary">
