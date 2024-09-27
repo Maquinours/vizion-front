@@ -255,19 +255,28 @@ export default function AppViewStudyViewExpertViewFlowComponent() {
       if (connection.source === connection.target) return false;
 
       const edges = getEdges();
+      const nodes = getNodes();
+
       // If one handle is already used by an edge, the connection is invalid
       if (
         edges.some(
           (edge) =>
-            (edge.source === connection.source && edge.sourceHandle === connection.sourceHandle) ||
-            (edge.source === connection.target && edge.sourceHandle === connection.targetHandle) ||
-            (edge.target === connection.source && edge.targetHandle === connection.sourceHandle) ||
-            (edge.target === connection.target && edge.targetHandle === connection.targetHandle),
+            (edge.source === connection.source &&
+              edge.sourceHandle === connection.sourceHandle &&
+              nodes.find((node) => node.id === connection.source)?.type !== 'image') ||
+            (edge.source === connection.target &&
+              edge.sourceHandle === connection.targetHandle &&
+              nodes.find((node) => node.id === connection.target)?.type !== 'image') ||
+            (edge.target === connection.source &&
+              edge.targetHandle === connection.sourceHandle &&
+              nodes.find((node) => node.id === connection.source)?.type !== 'image') ||
+            (edge.target === connection.target &&
+              edge.targetHandle === connection.targetHandle &&
+              nodes.find((node) => node.id === connection.target)?.type !== 'image'),
         )
       )
         return false;
 
-      const nodes = getNodes();
       const sourceNode = nodes.find((node) => node.id === connection.source);
       const targetNode = nodes.find((node) => node.id === connection.target);
       // If we can't find the source or target node, the connection is invalid
