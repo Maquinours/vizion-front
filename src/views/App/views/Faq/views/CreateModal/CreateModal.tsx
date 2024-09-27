@@ -46,7 +46,7 @@ const levelOptions = [
 ];
 
 const yupSchema = yup.object().shape({
-  title: yup.string().required('Le titre est requis.'),
+  title: yup.string().required('Le titre est requis.').max(255, 'Le problème ne peut excéder 255 caractères'),
   description: yup.string().required('La description est requise.'),
   level: yup.mixed<FaqAccessLevel>().oneOf(Object.values(FaqAccessLevel)).required('Le niveau est requis'),
   products: yup.array().of(yup.mixed<ProductResponseDto>().required()).nullable(),
@@ -108,11 +108,11 @@ export default function AppViewFaqViewCreateModalView() {
           <div className={styles.inputs_container}>
             <form onSubmit={handleSubmit((data) => mutate(data))} onReset={onClose}>
               <div className={styles.form_content}>
-                <div className={styles.form_group}>
+                <div className={styles.form_editor}>
                   <label className={styles.label} htmlFor="title">
-                    Titre
+                    Problème
                   </label>
-                  <input type="text" {...register('title')} id="title" />
+                  <Controller control={control} name="title" render={({ field }) => <Quill {...field} />} />
                   <p className={styles.__errors}>{errors.title?.message}</p>
                 </div>
                 <div className={styles.form_group}>
