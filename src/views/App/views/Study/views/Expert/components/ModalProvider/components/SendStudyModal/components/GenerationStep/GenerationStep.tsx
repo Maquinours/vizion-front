@@ -157,9 +157,12 @@ export default function AppViewStudyViewExpertViewModalProviderComponentSendStud
         const product = products.find((product) => product.id === node.data.productId);
         if (!product) return acc;
         const quantity = 'quantity' in node.data && node.data.quantity !== undefined ? node.data.quantity : 1;
-        const data = acc.find((data) => data.product.id === node.data.productId);
+        const data = acc.find((data) => data.product.id === node.data.productId && (!node.data.option || (node.data.option && data.groupName === 'Options')));
         const groupName =
-          data?.groupName ?? (GROUPS.find((group) => !!product.category && group.categories.includes(product.category))?.name || product.category || 'Autres');
+          data?.groupName ??
+          (node.data.option
+            ? 'Options'
+            : GROUPS.find((group) => !!product.category && group.categories.includes(product.category))?.name || product.category || 'Autres');
         if (!!data) data.quantity += quantity;
         else
           acc.push({

@@ -9,6 +9,7 @@ import AppViewProductViewManageViewStockMovementHistoryComponent from './compone
 import AppViewProductViewManageViewNomenclatureComponent from './components/Nomenclature/Nomenclature';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { queries } from '../../../../../../utils/constants/queryKeys';
+import AppViewProductViewManageViewAssociatedFaqsComponent from './components/AssociatedFaqs/AssociatedFaqs';
 
 const routeApi = getRouteApi('/app/products/$productId/manage');
 
@@ -26,6 +27,7 @@ export default function AppViewProductViewManageView() {
         <AppViewProductViewManageViewStocksComponent />
         <AppViewProductViewManageViewSalesHistoryComponent />
         <AppViewProductViewManageViewStockMovementHistoryComponent />
+        <AppViewProductViewManageViewAssociatedFaqsComponent />
         {!!product.bom && <AppViewProductViewManageViewNomenclatureComponent />}
       </div>
       <Outlet />

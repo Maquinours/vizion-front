@@ -84,6 +84,10 @@ export default function AppViewStudyViewExpertViewFlowComponentSynopticCameraNod
     }
   };
 
+  const onOptionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    updateNodeData(nodeId, { option: e.target.checked });
+  };
+
   return (
     <NodeToolbar position={position} align="center" className="nopan rounded-md border-2 border-[#1a192b] bg-slate-50 px-2">
       <div className="text-center">
@@ -154,6 +158,10 @@ export default function AppViewStudyViewExpertViewFlowComponentSynopticCameraNod
             className="flex-auto"
           />
           <p>{data.opacity}%</p>
+        </div>
+        <div className="flex gap-x-1 border-t-2 border-t-[#1a192b] p-2">
+          <label htmlFor="option">Option :</label>
+          <input id="option" type={'checkbox'} checked={data.option} onChange={onOptionChange} className="flex-auto" />
         </div>
       </div>
     </NodeToolbar>

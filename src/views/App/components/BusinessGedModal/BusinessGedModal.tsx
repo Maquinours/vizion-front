@@ -13,6 +13,7 @@ export default function AppViewBusinessGedModalComponent() {
       overlayClassName="Overlay"
       onRequestClose={() =>
         navigate({
+          to: '.',
           search: (old) => ({ ...old, appModal: undefined, businessId: undefined, gedItemKey: undefined }),
           replace: true,
           resetScroll: false,

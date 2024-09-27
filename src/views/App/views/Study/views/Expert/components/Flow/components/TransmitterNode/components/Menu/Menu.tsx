@@ -84,6 +84,10 @@ export default function AppViewStudyViewExpertViewFlowComponentTransmitterNodeCo
     }
   };
 
+  const onOptionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    updateNodeData(nodeId, { option: e.target.checked });
+  };
+
   const hddSlots = product.specificationProducts?.find((spec) => spec.specification?.name === 'SLOT')?.value ?? 0;
   const totalHddQuantity = options?.filter((opt) => opt.product.reference?.startsWith('DD')).reduce((acc, opt) => acc + opt.quantity, 0) ?? 0;
 
@@ -151,10 +155,14 @@ export default function AppViewStudyViewExpertViewFlowComponentTransmitterNodeCo
             </div>
           </div>
         )}
-        <div className="flex gap-x-1 border-t-2 border-t-[#1a192b] px-2 pb-2">
+        <div className="flex gap-x-1 border-t-2 border-t-[#1a192b] p-2">
           <label>Opacité :</label>
           <input type={'range'} min={10} max={100} value={data.opacity} onChange={onOpacityChange} className="flex-auto" />
           <p>{data.opacity}%</p>
+        </div>
+        <div className="flex gap-x-1 border-t-2 border-t-[#1a192b] p-2">
+          <label htmlFor="option">Option :</label>
+          <input id="option" type={'checkbox'} checked={data.option} onChange={onOptionChange} className="flex-auto" />
         </div>
       </div>
     </NodeToolbar>

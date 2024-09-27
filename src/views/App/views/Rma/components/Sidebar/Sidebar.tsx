@@ -55,7 +55,7 @@ export default function AppViewRmaViewSidebarComponent() {
       </div>
       {authentifiedUser.userInfo.roles.find((role) => ['ROLE_VIZEO', 'ROLE_DIRECTION_VIZEO', 'ROLE_STAGIAIRE_VIZEO'].includes(role)) &&
         rma.state !== AssistanceState.ARCHIVE && (
-          <Link search={(old) => ({ ...old, rmaModal: 'archive' })} replace resetScroll={false} className="btn btn-primary">
+          <Link to="." search={(old) => ({ ...old, rmaModal: 'archive' })} replace resetScroll={false} className="btn btn-primary">
             Archiver
           </Link>
         )}

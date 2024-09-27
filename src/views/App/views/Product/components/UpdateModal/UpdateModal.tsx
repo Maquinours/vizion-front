@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { getRouteApi } from '@tanstack/react-router';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import ReactModal from 'react-modal';
@@ -13,6 +13,7 @@ import EnterpriseResponseDto from '../../../../../../utils/types/EnterpriseRespo
 import styles from './UpdateModal.module.scss';
 import AppViewProductViewUpdateModalComponentStepOneComponent from './components/StepOne/StepOne';
 import AppViewProductViewUpdateModalComponentStepTwoComponent from './components/StepTwo/StepTwo';
+import { useNavigate } from '@tanstack/react-router';
 
 const routeApi = getRouteApi('/app/products/$productId');
 
@@ -75,7 +76,7 @@ export default function AppViewProductViewUpdateModalComponent() {
   });
 
   const onClose = () => {
-    navigate({ search: (old) => ({ ...old, productModal: undefined }), replace: true, resetScroll: false });
+    navigate({ to: '.', search: (old) => ({ ...old, productModal: undefined }), replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({

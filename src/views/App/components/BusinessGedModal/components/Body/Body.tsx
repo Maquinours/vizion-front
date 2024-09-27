@@ -1,18 +1,18 @@
 import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import GedComponent from '../../../../../../components/Ged/Ged';
-import FileType from '../../../../../../utils/enums/FileType';
-import styles from './Body.module.scss';
 import CreateGedDirectoryModalComponent from '../../../../../../components/CreateGedDirectoryModal/CreateGedDirectoryModal';
+import DeleteGedObjectModalComponent from '../../../../../../components/DeleteGedObjectModal/DeleteGedObjectModal';
+import GedComponent from '../../../../../../components/Ged/Ged';
 import ImportGedFilesModalComponent from '../../../../../../components/ImportGedFilesModal/ImportGedFilesModal';
 import RenameGedObjectModalComponent from '../../../../../../components/RenameGedObjectModal/RenameGedObjectModal';
-import DeleteGedObjectModalComponent from '../../../../../../components/DeleteGedObjectModal/DeleteGedObjectModal';
+import FileType from '../../../../../../utils/enums/FileType';
+import styles from './Body.module.scss';
 
-const Route = getRouteApi('/app');
+const routeApi = getRouteApi('/app');
 
 export default function AppViewBusinessGedModalComponentBodyComponent() {
   const navigate = useNavigate();
 
-  const { businessId, appModal: modalId, gedItemKey } = Route.useSearch();
+  const { businessId, appModal: modalId, gedItemKey } = routeApi.useSearch();
 
   const gedObjectRelativePath = decodeURIComponent(gedItemKey ?? '');
 
@@ -25,6 +25,7 @@ export default function AppViewBusinessGedModalComponentBodyComponent() {
           directoryRelativePath={gedObjectRelativePath}
           onClose={() =>
             navigate({
+              to: '.',
               search: (old) => ({ ...old, appModal: 'business-ged', gedItemKey: undefined }),
               params: (old) => old,
               replace: true,
@@ -41,6 +42,7 @@ export default function AppViewBusinessGedModalComponentBodyComponent() {
           directoryRelativePath={gedObjectRelativePath}
           onClose={() =>
             navigate({
+              to: '.',
               search: (old) => ({ ...old, appModal: 'business-ged', gedItemKey: undefined }),
               params: (old) => old,
               replace: true,
@@ -57,6 +59,7 @@ export default function AppViewBusinessGedModalComponentBodyComponent() {
           objectRelativePath={gedObjectRelativePath}
           onClose={() =>
             navigate({
+              to: '.',
               search: (old) => ({ ...old, appModal: 'business-ged', gedItemKey: undefined }),
               params: (old) => old,
               replace: true,
@@ -73,6 +76,7 @@ export default function AppViewBusinessGedModalComponentBodyComponent() {
           objectRelativePath={gedObjectRelativePath}
           onClose={() =>
             navigate({
+              to: '.',
               search: (old) => ({ ...old, appModal: 'business-ged', gedItemKey: undefined }),
               params: (old) => old,
               replace: true,

@@ -7,6 +7,8 @@ import AppViewFaqViewTableComponentSubRowComponent from './components/SubRowComp
 import { useCallback, useState } from 'react';
 import { VirtualElement } from '@popperjs/core';
 import AppViewFaqViewTableComponentContextMenuComponent from './components/ContextMenu/ContextMenu';
+import parse from 'html-react-parser';
+import DOMPurify from 'dompurify';
 
 const columnHelper = createColumnHelper<FaqResponseDto>();
 const columns = [
@@ -15,8 +17,8 @@ const columns = [
     cell: ({ row }) => <TableRowExpandButtonComponent row={row} />,
   }),
   columnHelper.display({
-    header: 'Titre',
-    cell: ({ row }) => row.original.title,
+    header: 'Problème',
+    cell: ({ row }) => parse(DOMPurify.sanitize(row.original.title)),
   }),
   //   columnHelper.display({ // TODO: reimplement this with a link
   //     header: 'Fichiers associés',
@@ -27,8 +29,8 @@ const columns = [
   //     ),
   //   }),
   columnHelper.display({
-    header: 'Mots clés',
-    cell: ({ row: { original } }) => original.faqConcerneds?.map((element) => element.name).join('; '),
+    header: 'Produits',
+    cell: ({ row: { original } }) => original.products?.map((product) => product.reference).join('; '),
   }),
   columnHelper.display({
     header: 'Niveau',

@@ -48,6 +48,10 @@ export default function AppViewStudyViewExpertViewFlowComponentServiceNodeCompon
     }
   };
 
+  const onOptionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    updateNodeData(nodeId, { option: e.target.checked });
+  };
+
   return (
     <NodeToolbar isVisible position={position} align="center" className="nopan rounded-md border-2 border-[#1a192b] bg-slate-50 px-2">
       <div className="flex items-center justify-between p-2">
@@ -70,10 +74,14 @@ export default function AppViewStudyViewExpertViewFlowComponentServiceNodeCompon
             className="flex-1 rounded-md border border-[#1a192b] p-2"
           />
         </div>
-        <div className="flex gap-x-1 border-t-2 border-t-[#1a192b] px-2 pb-2">
+        <div className="flex gap-x-1 border-t-2 border-t-[#1a192b] p-2">
           <label>Opacité :</label>
           <input type="range" min={10} max={100} value={opacity} onChange={onOpacityChange} className="flex-auto" />
           <p>{opacity}%</p>
+        </div>
+        <div className="flex gap-x-1 border-t-2 border-t-[#1a192b] p-2">
+          <label htmlFor="option">Option :</label>
+          <input id="option" type={'checkbox'} checked={data.option} onChange={onOptionChange} className="flex-auto" />
         </div>
       </div>
     </NodeToolbar>

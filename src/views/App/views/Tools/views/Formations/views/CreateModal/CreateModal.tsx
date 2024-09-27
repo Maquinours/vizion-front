@@ -96,8 +96,8 @@ export default function AppViewToolsViewFormationsViewCreateModalView() {
         formationDetails: details.map((detail) => ({
           title: detail.title,
           formationDate: detail.formationDate,
-          startTime: detail.startTime,
-          endTime: detail.endTime,
+          startTime: `${detail.startTime}:00`,
+          endTime: `${detail.endTime}:00`,
           trainers: detail.trainers.reduce((acc: Record<string, object>, trainer, index) => {
             acc['trainer' + index] = { label: `${trainer.firstName} ${trainer.lastName}`, value: trainer.id };
             return acc;

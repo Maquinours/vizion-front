@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { Outlet, getRouteApi } from '@tanstack/react-router';
+import { Link, Outlet, getRouteApi } from '@tanstack/react-router';
 import { useEffect, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
@@ -20,6 +20,7 @@ import { updateTechnicalSupport } from '../../../../utils/api/technicalSupports'
 import moment from 'moment';
 import { toast } from 'react-toastify';
 import AppViewAssistanceViewBeforeCloseModalView from './components/BeforeCloseModal/BeforeCloseModal';
+import { TiArrowBack } from 'react-icons/ti';
 
 const amountFormatter = (value: number) => {
   return value.toLocaleString('fr-FR', {
@@ -92,6 +93,9 @@ export default function AppViewAssistanceView() {
 
   return (
     <AssistanceContext.Provider value={contextValue}>
+      <Link from={routeApi.id} to="/app/businesses-rma/business/$businessId" title="Retourner dans l'affaire" className="btn btn-primary mb-2 flex w-fit">
+        <TiArrowBack size={16} />
+      </Link>
       <div className={styles.container}>
         <div className={styles.content_grid}>
           <div className={styles.first_grid}>

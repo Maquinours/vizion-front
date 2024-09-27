@@ -1,8 +1,8 @@
-import { MdPerson, MdPowerSettingsNew } from 'react-icons/md';
-import styles from './BasicTopbar.module.scss';
-import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthentifiedUser';
-import CategoryClient from '../../../../../../utils/enums/CategoryClient';
 import { Link, useLocation } from '@tanstack/react-router';
+import { MdPerson, MdPowerSettingsNew } from 'react-icons/md';
+import CategoryClient from '../../../../../../utils/enums/CategoryClient';
+import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthentifiedUser';
+import styles from './BasicTopbar.module.scss';
 
 type AppLayoutTopbarComponentBasicTopbarComponentProps = {
   logout: () => void;
@@ -38,7 +38,7 @@ export default function AppLayoutTopbarComponentBasicTopbarComponent({ logout }:
         </div>
         {currentUser.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && (
           <div className={styles.email}>
-            <Link search={(old) => ({ ...old, appModal: 'send-email' })} replace preload="intent" resetScroll={false}>
+            <Link to="." search={(old) => ({ ...old, appModal: 'send-email' })} replace preload="intent" resetScroll={false}>
               Écrire un mail
             </Link>
           </div>

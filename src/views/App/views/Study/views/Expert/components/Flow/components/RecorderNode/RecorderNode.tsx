@@ -32,7 +32,9 @@ export const isExpertStudyRecorderNode = (node: Node): node is ExpertStudyRecord
     'height' in node.data.size &&
     typeof node.data.size.height === 'number' &&
     'opacity' in node.data &&
-    typeof node.data.opacity === 'number'
+    typeof node.data.opacity === 'number' &&
+    (!('quantity' in node.data) || typeof node.data.quantity === 'number' || node.data.quantity === undefined) &&
+    (!('option' in node.data) || typeof node.data.option === 'boolean' || node.data.option === undefined)
   );
 };
 
@@ -44,6 +46,7 @@ export type ExpertStudyRecorderNode = Node<
     size: { width: number; height: number };
     opacity: number;
     quantity?: number;
+    option?: boolean;
   },
   'recorder'
 >;

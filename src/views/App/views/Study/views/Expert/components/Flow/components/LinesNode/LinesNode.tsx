@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Node, NodeProps, useReactFlow, XYPosition } from '@xyflow/react';
 import AppViewStudyViewExpertViewFlowComponentLinesNodeComponentMenuComponent from './components/Menu/Menu';
+import ExpertStudyContext from '../../../../utils/context';
+import classNames from 'classnames';
 
 export const isExpertStudyLinesNode = (node: Node): node is ExpertStudyLinesNode => {
   return (
@@ -28,6 +30,9 @@ export type ExpertStudyLinesNode = Node<
 >;
 export default function AppViewStudyViewExpertViewFlowComponentLinesNodeComponent({ id, data, selected }: NodeProps<ExpertStudyLinesNode>) {
   const { setNodes } = useReactFlow();
+
+  const { paneClickFunction } = useContext(ExpertStudyContext)!;
+
   const maxPosition = { x: Math.max(...data.positions.map((position) => position.x)), y: Math.max(...data.positions.map((position) => position.y)) };
   const stroke = data.color ?? 'black';
   const strokeDasharray = data.dasharray ?? 4;
@@ -50,7 +55,7 @@ export default function AppViewStudyViewExpertViewFlowComponentLinesNodeComponen
           return (
             <React.Fragment key={index}>
               <line
-                className="pointer-events-auto"
+                className={classNames({ 'pointer-events-auto': !paneClickFunction })}
                 onContextMenu={onContextMenu}
                 key={index}
                 x1={previousPosition.x}

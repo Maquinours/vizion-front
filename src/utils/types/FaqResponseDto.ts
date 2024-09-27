@@ -1,5 +1,5 @@
 import FaqAccessLevel from '../enums/FaqAccessLevel';
-import FaqConcernedResponseDto from './FaqConcernedResponseDto';
+import FaqProductResponseDto from './FaqProductResponseDto';
 
 type FaqResponseDto = {
   id: string;
@@ -7,7 +7,7 @@ type FaqResponseDto = {
   description: string;
   accessLevel: FaqAccessLevel;
   archived: boolean;
-  faqConcerneds: FaqConcernedResponseDto[] | null;
+  products: Array<FaqProductResponseDto> | null;
   createdDate: Date;
   modifiedDate: Date | null;
   createdBy: string | null;

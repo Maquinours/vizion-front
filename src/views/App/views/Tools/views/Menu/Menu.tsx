@@ -95,6 +95,7 @@ const menus: Array<{
         link: {
           to: '/app/tools/global-turnover',
         },
+        disabled: true,
       },
       {
         icon: MdWork,
@@ -102,7 +103,6 @@ const menus: Array<{
         link: {
           to: '/app/tools/representatives-turnover',
         },
-        disabled: true,
       },
       {
         icon: FaFileImport,

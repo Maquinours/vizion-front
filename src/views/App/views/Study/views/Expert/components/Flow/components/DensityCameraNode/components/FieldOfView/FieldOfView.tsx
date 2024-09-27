@@ -9,6 +9,8 @@ import { ExpertStudyDensityCameraNode } from '../../DensityCameraNode';
 import AppViewStudyViewExpertViewFlowComponentDensityCameraNodeComponentFieldOfViewComponentArcComponent from './components/Arc/Arc';
 import AppViewStudyViewExpertViewFlowComponentDensityCameraNodeComponentFieldOfViewComponentTextComponent from './components/Text/Text';
 import polarToCartesian from './utils/functions/polarToCartesian';
+import { useContext } from 'react';
+import ExpertStudyContext from '../../../../../../utils/context';
 
 const types: Array<'recognition' | 'reading' | 'identification' | 'full'> = ['recognition', 'reading', 'identification', 'full'];
 
@@ -81,6 +83,7 @@ export default function AppViewStudyViewExpertViewFlowComponentDensityCameraNode
 }: AppViewStudyViewExpertViewFlowComponentDensityCameraNodeComponentFieldOfViewComponentProps) {
   const { scale } = useStore(useShallow(selector));
   const { obstacles } = useFlowStore(flowSelector, (a, b) => isEqual(a, b));
+  const { paneClickFunction } = useContext(ExpertStudyContext)!;
 
   if (!scale) return;
 
@@ -197,6 +200,7 @@ export default function AppViewStudyViewExpertViewFlowComponentDensityCameraNode
             nodeId={nodeId}
             svgHeight={svgHeight}
             camSpecs={camSpecs}
+            clickable={!paneClickFunction}
           />
         ))}
       </g>

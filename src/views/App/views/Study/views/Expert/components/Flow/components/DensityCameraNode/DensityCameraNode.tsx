@@ -41,26 +41,11 @@ export default function AppViewStudyViewExpertViewFlowComponentDensityCameraNode
   positionAbsoluteX,
   positionAbsoluteY,
 }: NodeProps<ExpertStudyDensityCameraNode>) {
-  //   const canvasRef = useRef<HTMLCanvasElement>(null);
-
   const { data: product } = useSuspenseQuery({
     ...queries.product.list,
     staleTime: Infinity,
     select: (products) => products.find((product) => product.id === data.productId),
   });
-
-  //   const { angle, identification, plaque, reconnaissance } = (() => {
-  //     const angle = product?.specificationProducts?.find((spec) => spec.specification?.name === 'ANGLE H');
-  //     const identification = product?.specificationProducts?.find((spec) => spec.specification?.name === 'IDENTIFICATION');
-  //     const plaque = product?.specificationProducts?.find((spec) => spec.specification?.name === 'LECTURE DE PLAQUE');
-  //     const reconnaissance = product?.specificationProducts?.find((spec) => spec.specification?.name === 'RECONNAISSANCE');
-  //     return {
-  //       angle: (angle?.value || angle?.maxValue) ?? 0,
-  //       identification: (identification?.value || identification?.maxValue) ?? 0,
-  //       plaque: (plaque?.value || plaque?.maxValue) ?? 0,
-  //       reconnaissance: (reconnaissance?.value || reconnaissance?.maxValue) ?? 0,
-  //     };
-  //   })();
 
   if (!product) return;
 
@@ -68,6 +53,8 @@ export default function AppViewStudyViewExpertViewFlowComponentDensityCameraNode
     const hAngle = product.specificationProducts?.find((spec) => spec.specification?.name === 'ANGLE H');
     return { hAngle: { value: hAngle?.value ?? 0, min: hAngle?.minValue ?? 0, max: hAngle?.maxValue ?? 0 } };
   })();
+
+  const nodePosition = { x: positionAbsoluteX, y: positionAbsoluteY };
 
   return (
     <div
@@ -86,7 +73,7 @@ export default function AppViewStudyViewExpertViewFlowComponentDensityCameraNode
           data={data}
           selected={selected ?? false}
           product={product}
-          nodePosition={{ x: positionAbsoluteX, y: positionAbsoluteY }}
+          nodePosition={nodePosition}
         />
       </div>
       {selected && <AppViewStudyViewExpertViewFlowComponentDensityCameraNodeComponentMenuComponent nodeId={id} camSpecs={camSpecs} />}

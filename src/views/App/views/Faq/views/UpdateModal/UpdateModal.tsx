@@ -1,24 +1,25 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import { getRouteApi, useNavigate } from '@tanstack/react-router';
 import { Controller, useForm } from 'react-hook-form';
 import ReactModal from 'react-modal';
-import { ReactMultiEmail } from 'react-multi-email';
 import 'react-multi-email/dist/style.css';
 import { PulseLoader } from 'react-spinners';
 import { toast } from 'react-toastify';
 import * as yup from 'yup';
+import CustomSelect from '../../../../../../components/CustomSelect/CustomSelect';
 import Quill from '../../../../../../components/Quill/Quill';
 import { updateFaq } from '../../../../../../utils/api/faq';
+import { queries } from '../../../../../../utils/constants/queryKeys';
 import { faqs } from '../../../../../../utils/constants/queryKeys/faq';
 import FaqAccessLevel from '../../../../../../utils/enums/FaqAccessLevel';
 import styles from './UpdateModal.module.scss';
 
 const yupSchema = yup.object().shape({
-  title: yup.string().required('Le titre est requis.'),
+  title: yup.string().required('Le titre est requis.').max(255, 'Le problème ne peut excéder 255 caractères'),
   description: yup.string().required('La description est requise.'),
   level: yup.mixed<FaqAccessLevel>().oneOf(Object.values(FaqAccessLevel)).required('Le niveau est requis'),
-  concerneds: yup.array().of(yup.string().required()).min(1, 'Au moins un mot clé est requis').required('Les mots clés sont requis'),
+  products: yup.array().of(yup.mixed<{ id: string; reference: string | null }>().required()).nullable(),
 });
 
 const routeApi = getRouteApi('/app/faq/update/$faqId');
@@ -57,6 +58,7 @@ export default function AppViewFaqViewUpdateModalView() {
   const { faqId } = routeApi.useParams();
 
   const { data: faq } = useSuspenseQuery(faqs.detail._ctx.byId(faqId));
+  const { data: products, isLoading: isLoadingProducts } = useQuery(queries.product.list);
 
   const {
     register,
@@ -69,7 +71,7 @@ export default function AppViewFaqViewUpdateModalView() {
       title: faq.title,
       description: faq.description,
       level: faq.accessLevel,
-      concerneds: faq.faqConcerneds?.map((item) => item.name) ?? [],
+      products: faq.products ?? [],
     },
   });
 
@@ -78,8 +80,8 @@ export default function AppViewFaqViewUpdateModalView() {
   };
 
   const { mutate, isPending } = useMutation({
-    mutationFn: ({ title, description, level, concerneds }: yup.InferType<typeof yupSchema>) =>
-      updateFaq(faq.id, { title, description, accessLevel: level, faqConcernedNames: concerneds, archived: faq.archived }),
+    mutationFn: ({ title, description, level, products }: yup.InferType<typeof yupSchema>) =>
+      updateFaq(faq.id, { title, description, accessLevel: level, products: products?.map((product) => product.id), archived: faq.archived }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: faqs._def });
       toast.success('La FAQ a été modifiée avec succès.');
@@ -101,61 +103,62 @@ export default function AppViewFaqViewUpdateModalView() {
           <div className={styles.inputs_container}>
             <form onSubmit={handleSubmit((data) => mutate(data))}>
               <div className={styles.form_content}>
-                <div className={styles.form_group}>
+                <div className={styles.form_editor}>
                   <label className={styles.label} htmlFor="title">
-                    Titre
+                    Problème
                   </label>
-                  <input type="text" {...register('title')} id="title" />
+                  <Controller control={control} name="title" render={({ field }) => <Quill {...field} />} />
                   <p className={styles.__errors}>{errors.title?.message}</p>
                 </div>
-                <div className={styles.form_group}>
-                  <label className={styles.label} htmlFor="level">
-                    {"Niveau d'autorisation"}
-                  </label>
-                  <select id="level" {...register('level')}>
-                    {levelOptions.map((item) => {
-                      return (
-                        <option key={item.value} value={item.value}>
-                          {item.text}
-                        </option>
-                      );
-                    })}
-                  </select>
-                  <p className={styles.__errors}>{errors.level?.message}</p>
+                <div className={styles.second_grid}>
+                  <div className={styles.form_group}>
+                    <label className={styles.label} htmlFor="level">
+                      {"Niveau d'autorisation"}
+                    </label>
+                    <select id="level" {...register('level')}>
+                      {levelOptions.map((item) => {
+                        return (
+                          <option key={item.value} value={item.value}>
+                            {item.text}
+                          </option>
+                        );
+                      })}
+                    </select>
+                    <p className={styles.__errors}>{errors.level?.message}</p>
+                  </div>
                 </div>
 
                 <div className={styles.form_editor}>
+                  <label className={styles.label} htmlFor="solution">
+                    Solution
+                  </label>
                   <Controller control={control} name="description" render={({ field }) => <Quill {...field} />} />
                   <p className={styles.__errors}>{errors.description?.message}</p>
                 </div>
                 <div className={styles.second_grid}>
                   <div className={styles.form_group}>
-                    <label className={styles.label} htmlFor="concerned">
-                      Mots-clés
+                    <label className={styles.label} htmlFor="products">
+                      Produits associés
                     </label>
                     <Controller
                       control={control}
-                      name="concerneds"
+                      name="products"
                       render={({ field: { value, onBlur, onChange } }) => (
-                        <ReactMultiEmail
-                          emails={value}
-                          className={styles.multi_email}
+                        <CustomSelect
+                          id="products"
+                          placeholder="Sélectionnez un produit"
+                          isLoading={isLoadingProducts}
+                          options={products}
+                          value={value}
+                          getOptionLabel={(opt) => opt.reference ?? ''}
+                          getOptionValue={(opt) => opt.id}
                           onChange={onChange}
                           onBlur={onBlur}
-                          delimiter="[,;]"
-                          getLabel={(value, index, removeItem) => (
-                            <div data-tag key={index}>
-                              <div data-tag-item>{value}</div>
-                              <button type="button" data-tag-handle onClick={() => removeItem(index)}>
-                                ×
-                              </button>
-                            </div>
-                          )}
-                          validateEmail={() => true}
+                          isMulti
                         />
                       )}
                     />
-                    <p className={styles.__errors}>{errors.concerneds?.message}</p>
+                    <p className={styles.__errors}>{errors.products?.message}</p>
                   </div>
                 </div>
               </div>

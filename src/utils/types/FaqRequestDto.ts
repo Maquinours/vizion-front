@@ -5,7 +5,7 @@ type FaqRequestDto = {
   description: string;
   accessLevel: FaqAccessLevel;
   archived: boolean;
-  faqConcernedNames?: string[] | null;
+  products?: string[] | null;
 };
 
 export default FaqRequestDto;

@@ -94,7 +94,7 @@ export default function AppViewBusinessViewBpViewHeaderComponentSectionTwoCompon
       <form onSubmit={handleSubmit((data) => mutate(data))}>
         <div className={styles.form_group}>
           <label htmlFor="serialNumber">Saisir numéro de série</label>
-          <input id="serialNumber" {...register('serialNumber')} />
+          <input id="serialNumber" {...register('serialNumber')} autoFocus />
           <p className={styles.__errors}>{errors.serialNumber?.message}</p>
         </div>
         <div className={styles.button_container}>
