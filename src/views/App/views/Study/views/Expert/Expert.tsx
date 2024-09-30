@@ -1,15 +1,18 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useSuspenseQuery } from '@tanstack/react-query';
+import { getRouteApi } from '@tanstack/react-router';
 import { ReactFlowProvider } from '@xyflow/react';
+import { useEffect, useMemo, useState } from 'react';
+import { useShallow } from 'zustand/react/shallow';
+import { synopticBusinessQueryKeys } from '../../../../../../utils/constants/queryKeys/synoptic';
+import AppViewStudyViewExpertViewFirstPageTypeSelectionComponent from './components/FirstPageTypeSelection/FirstPageTypeSelection';
 import AppViewStudyViewExpertViewFlowComponent from './components/Flow/Flow';
+import useStore, { RFState } from './components/Flow/utils/store';
+import AppViewStudyViewExpertViewFooterComponent from './components/Footer/Footer';
 import AppViewStudyViewExpertViewHeaderComponent from './components/Header/Header';
 import AppViewStudyViewExpertViewModalProviderComponent from './components/ModalProvider/ModalProvider';
 import AppViewStudyViewExpertViewProductsMenuComponent from './components/ProductsMenu/ProductsMenu';
 import ExpertStudyContext, { ExpertStudyModal, ExpertStudyPaneClickFunction } from './utils/context';
-import AppViewStudyViewExpertViewFooterComponent from './components/Footer/Footer';
-import useStore, { RFState } from './components/Flow/utils/store';
-import { useShallow } from 'zustand/react/shallow';
-import AppViewStudyViewExpertViewFirstPageTypeSelectionComponent from './components/FirstPageTypeSelection/FirstPageTypeSelection';
-import { getRouteApi } from '@tanstack/react-router';
+import { parseStudy } from './utils/functions/parse';
 
 const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/study/expert');
 
@@ -18,12 +21,15 @@ const selector = (state: RFState) => ({
   getBusinessId: state.getBusinessId,
   setBusinessId: state.setBusinessId,
   reset: state.reset,
+  importStudy: state.importStudy,
 });
 
 export default function AppViewStudyViewExpertView() {
-  const { hasPage, getBusinessId, setBusinessId, reset } = useStore(useShallow(selector));
+  const { hasPage, getBusinessId, setBusinessId, reset, importStudy } = useStore(useShallow(selector));
 
   const { businessId } = routeApi.useParams();
+
+  const { data: synoptic } = useSuspenseQuery(synopticBusinessQueryKeys.detail._ctx.byBusinessId(businessId));
 
   const [modal, setModal] = useState<ExpertStudyModal>();
   const [paneClickFunction, setPaneClickFunction] = useState<ExpertStudyPaneClickFunction>();
@@ -35,7 +41,13 @@ export default function AppViewStudyViewExpertView() {
 
   useEffect(() => {
     if (getBusinessId() !== businessId) {
-      reset();
+      if (!!synoptic?.synopticList) {
+        parseStudy(synoptic.synopticList).then((study) => {
+          importStudy(study);
+        });
+      } else {
+        reset();
+      }
       setBusinessId(businessId);
     }
   }, [businessId]);
