@@ -221,3 +221,5 @@ export default function AppViewStudyViewExpertViewModalProviderComponentRecorder
     </ReactModal>
   );
 }
+
+export { includedProducts as RECORDERS_INCLUDED_PRODUCTS, DEFAULT_OPTIONS as RECORDER_NODES_DEFAULT_OPTIONS };
