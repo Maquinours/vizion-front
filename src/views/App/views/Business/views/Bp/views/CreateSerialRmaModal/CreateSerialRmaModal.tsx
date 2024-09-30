@@ -1,7 +1,7 @@
 import ReactModal from 'react-modal';
 import styles from './CreateSerialRmaModal.module.scss';
 import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import { useMutation, useSuspenseQuery } from '@tanstack/react-query';
+import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import { queries } from '../../../../../../../../utils/constants/queryKeys';
 import { createRmaFromBusiness } from '../../../../../../../../utils/api/rma';
 import CategoryBusiness from '../../../../../../../../utils/enums/CategoryBusiness';
@@ -11,6 +11,7 @@ import { toast } from 'react-toastify';
 const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/bp/create-serial-rma/$serialId');
 
 export default function AppViewBusinessViewBpViewCreateSerialRmaModalView() {
+  const queryClient = useQueryClient();
   const navigate = useNavigate({ from: routeApi.id });
 
   const { businessId, serialId } = routeApi.useParams();
@@ -24,10 +25,10 @@ export default function AppViewBusinessViewBpViewCreateSerialRmaModalView() {
 
   const { mutate, isPending } = useMutation({
     mutationFn: () => createRmaFromBusiness(CategoryBusiness.AFFAIRE, business.numBusiness, [serialNumber.numSerie]),
-    onSuccess: () => {
-      // set query data and redirect
+    onSuccess: (rma) => {
+      queryClient.invalidateQueries({ queryKey: queries.rmas._def });
       toast.success('Le RMA a été généré avec succès');
-      onClose();
+      navigate({ to: '/app/businesses-rma/rma/$rmaId', params: { rmaId: rma.id } });
     },
     onError: (error) => {
       console.error(error);
