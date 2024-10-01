@@ -19,17 +19,16 @@ export const Route = createFileRoute('/app/products/$productId')({
     const productPromise = queryClient.ensureQueryData({
       ...queries.product.detail(productId),
       initialData: () => {
-        try {
-          for (const [key, value] of queryClient.getQueriesData<Page<ProductResponseDto>>({ queryKey: queries.product.page._def })) {
-            const item = value?.content.find((item) => item.id === productId);
-            if (item) {
-              initialDataKey = key;
-              return item;
-            }
+        for (const [key, value] of queryClient.getQueriesData<Page<ProductResponseDto>>({ queryKey: queries.product.page._def })) {
+          if (!!value && !value.content)
+            Sentry.captureException(new Error('Product cache error'), {
+              extra: { productPage: value },
+            });
+          const item = value?.content.find((item) => item.id === productId);
+          if (item) {
+            initialDataKey = key;
+            return item;
           }
-        } catch (error) {
-          Sentry.captureException(error, { data: { productPages: queryClient.getQueriesData({ queryKey: queries.product.page._def }) } });
-          throw error;
         }
       },
       initialDataUpdatedAt: () => (initialDataKey ? queryClient.getQueryState(initialDataKey)?.dataUpdatedAt : undefined),
