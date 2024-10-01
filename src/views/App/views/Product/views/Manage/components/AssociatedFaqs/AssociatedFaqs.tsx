@@ -8,6 +8,9 @@ import TableRowExpandButtonComponent from '../../../../../../../../components/Ta
 import { queries } from '../../../../../../../../utils/constants/queryKeys';
 import ProductFaqResponseDto from '../../../../../../../../utils/types/ProductFaqResponseDto';
 import styles from './AssociatedFaqs.module.scss';
+import AppViewProductViewManageViewAssociatedFaqsComponentSubRowComponent from './components/SubRowComponent/SubRowComponent';
+import DOMPurify from 'dompurify';
+import parse from 'html-react-parser';
 
 const routeApi = getRouteApi('/app/products/$productId/manage');
 
@@ -19,7 +22,7 @@ const columns = [
   }),
   columnHelper.display({
     header: 'Titre',
-    cell: ({ row }) => row.original.title,
+    cell: ({ row }) => parse(DOMPurify.sanitize(row.original.title)),
   }),
   columnHelper.display({
     header: 'Niveau',
@@ -47,7 +50,14 @@ export default function AppViewProductViewManageViewAssociatedFaqsComponent() {
 
         <div className={styles.table}>
           <div className={styles.container}>
-            <TableComponent isLoading={isLoading} data={data} columns={columns} rowId="id" />
+            <TableComponent
+              isLoading={isLoading}
+              data={data}
+              columns={columns}
+              rowId="id"
+              getRowCanExpand={() => true}
+              renderSubComponent={AppViewProductViewManageViewAssociatedFaqsComponentSubRowComponent}
+            />
           </div>
         </div>
       </div>
