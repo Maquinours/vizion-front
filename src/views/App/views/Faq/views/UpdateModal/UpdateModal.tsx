@@ -81,7 +81,7 @@ export default function AppViewFaqViewUpdateModalView() {
 
   const { mutate, isPending } = useMutation({
     mutationFn: ({ title, description, level, products }: yup.InferType<typeof yupSchema>) =>
-      updateFaq(faq.id, { title, description, accessLevel: level, products: products?.map((product) => product.id), archived: faq.archived }),
+      updateFaq(faq.id, { title, description, accessLevel: level, productIds: products?.map((product) => product.id), archived: faq.archived }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: faqs._def });
       toast.success('La FAQ a été modifiée avec succès.');
