@@ -78,7 +78,7 @@ export default function AppViewFaqViewCreateModalView() {
         description,
         accessLevel: level,
         archived: false,
-        products: products?.map((product) => product.id),
+        productIds: products?.map((product) => product.id),
       }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: faqs._def });

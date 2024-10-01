@@ -107,16 +107,29 @@
                         color: var(--primary-light);
                         opacity: 1;
 
-                        &:nth-child(4) {
-                            a.action {
-                                svg {
-                                    color: var(--secondary-color);
-                                    font-size: 25px;
-                                    align-self: center;
-                                    cursor: pointer;
-                                    padding-right: 5px;
-                                }
-                            }
+                        &:nth-last-child(1) {
+                            border-right: none;
+                        }
+
+                        &:nth-last-child(2) {
+                            border-right: none;
+                        }
+
+                        &:nth-child(1) {
+                            width: 10%;
+                        }
+
+                        &:nth-child(2) {
+                            width: 65%;
+                        }
+
+                        &:nth-child(3) {
+                            width: 25%;
+                        }
+
+                        &:nth-last-child(1) {
+                            width: 0px;
+                            padding: 0px;
                         }
 
                         @include respond-below(md) {
