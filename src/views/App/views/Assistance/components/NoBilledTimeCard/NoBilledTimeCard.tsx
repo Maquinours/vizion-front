@@ -21,7 +21,7 @@ type AppViewAssistanceViewNoBilledTimeCardComponentProps = Readonly<{
 }>;
 export default function AppViewAssistanceViewNoBilledTimeCardComponent({ assistance }: AppViewAssistanceViewNoBilledTimeCardComponentProps) {
   const { control, getValues, setValue, update } = useContext(AssistanceContext)!;
-  const [runningIntervalId, setRunningIntervalId] = useState<NodeJS.Timeout>();
+  const [runningIntervalId, setRunningIntervalId] = useState<ReturnType<typeof setInterval>>();
 
   const startTimer = () => {
     setRunningIntervalId(
