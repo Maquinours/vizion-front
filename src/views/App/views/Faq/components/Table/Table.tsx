@@ -9,6 +9,7 @@ import { VirtualElement } from '@popperjs/core';
 import AppViewFaqViewTableComponentContextMenuComponent from './components/ContextMenu/ContextMenu';
 import parse from 'html-react-parser';
 import DOMPurify from 'dompurify';
+import { Link } from '@tanstack/react-router';
 
 const columnHelper = createColumnHelper<FaqResponseDto>();
 const columns = [
@@ -30,7 +31,15 @@ const columns = [
   //   }),
   columnHelper.display({
     header: 'Produits',
-    cell: ({ row: { original } }) => original.products?.map((product) => product.reference).join('; '),
+    cell: ({ row: { original } }) => (
+      <div className="flex flex-col items-center">
+        {original.products?.map((product) => (
+          <Link to="/app/products/$productId" params={{ productId: product.id }} className="w-fit">
+            {product.reference}
+          </Link>
+        ))}
+      </div>
+    ),
   }),
   columnHelper.display({
     header: 'Niveau',
