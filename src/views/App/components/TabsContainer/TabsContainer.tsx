@@ -4,7 +4,7 @@ import { SortableContext, arrayMove, horizontalListSortingStrategy } from '@dnd-
 import { VirtualElement } from '@popperjs/core';
 import { QueryClient, useQueryClient } from '@tanstack/react-query';
 import { ToOptions, ToPathOption, useMatchRoute, useNavigate, useRouterState } from '@tanstack/react-router';
-import { useLocalStorage } from '@uidotdev/usehooks';
+import { useLocalStorage } from 'usehooks-ts';
 import _ from 'lodash';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { queries } from '../../../../utils/constants/queryKeys';

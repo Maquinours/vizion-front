@@ -1,6 +1,6 @@
 import { useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import { useLocalStorage } from '@uidotdev/usehooks';
+import { useLocalStorage } from 'usehooks-ts';
 import { useCallback } from 'react';
 import { View, Views } from 'react-big-calendar';
 import CardComponent from '../../../../../../components/Card/Card';
