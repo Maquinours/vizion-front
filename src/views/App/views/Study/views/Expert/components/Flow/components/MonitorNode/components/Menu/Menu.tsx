@@ -5,7 +5,7 @@ import ProductResponseDto from '../../../../../../../../../../../../utils/types/
 import { ExpertStudyMonitorNode } from '../../MonitorNode';
 import { OnValueChange } from 'react-number-format';
 import AmountFormat from '../../../../../../../../../../../../components/AmountFormat/AmountFormat';
-import { useMemo } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 
 type Option = {
   product: ProductProductResponseDto;
@@ -33,6 +33,10 @@ export default function AppViewStudyViewExpertViewFlowComponentMonitorNodeCompon
 
   const quantity = data.quantity ?? 1;
 
+  const ref = useRef<HTMLDivElement>(null);
+
+  const [isMounted, setIsMounted] = useState(false);
+
   const options: Array<Option> | undefined = product.associatedProduct
     ?.map((option) => ({
       product: option,
@@ -49,6 +53,22 @@ export default function AppViewStudyViewExpertViewFlowComponentMonitorNodeCompon
     }
     return Position.Bottom;
   }, [viewportY, viewportZoom, nodePositionY, nodeHeight]);
+
+  const offset = useMemo(() => {
+    const element = ref.current;
+    if (!element) return;
+    const flowRect = document.querySelector('.react-flow')!.getBoundingClientRect();
+    if (position === Position.Top) {
+      const nodeTop = flowToScreenPosition({ x: 0, y: nodePositionY }).y;
+      const top = nodeTop - element.getBoundingClientRect().height;
+      return Math.min(top - flowRect.top, 10);
+    } else if (position === Position.Bottom) {
+      if (!nodeHeight) return;
+      const nodeBottom = flowToScreenPosition({ x: 0, y: nodePositionY + nodeHeight }).y;
+      const bottom = nodeBottom + element.getBoundingClientRect().height;
+      return Math.min(flowRect.bottom - bottom, 10);
+    }
+  }, [isMounted, position, nodePositionY, nodeHeight]);
 
   const onNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     updateNodeData(nodeId, { name: e.target.value });
@@ -88,72 +108,79 @@ export default function AppViewStudyViewExpertViewFlowComponentMonitorNodeCompon
     updateNodeData(nodeId, { option: e.target.checked });
   };
 
+  useEffect(() => {
+    setIsMounted(true);
+    return () => setIsMounted(false);
+  }, []);
+
   return (
-    <NodeToolbar position={position} align="center" className="nopan rounded-md border-2 border-[#1a192b] bg-slate-50 px-2">
-      <div className="flex items-center justify-between border-b-2 border-b-[#1a192b] p-2">
-        <div className="flex items-center justify-center space-x-2">
-          <AiTwotoneSetting className="fill-[#1a192b]" />
-          <h3 className="text-sm font-bold text-[#1a192b]">Paramétrage de votre produit {product.reference}</h3>
-        </div>
-        <AiOutlineClose className="fill-[#1a192b]" onClick={() => onClose()} />
-      </div>
-      <div>
-        <div className="flex items-center justify-start space-x-2 border-b-2 border-b-[#1a192b] p-2">
-          <p>Nom du moniteur</p>
-          <input
-            type="text"
-            value={data.name || product.reference || ''}
-            onChange={onNameChange}
-            placeholder="Choisir un nom"
-            className="rounded-md border border-[#1a192b] p-2"
-          />
-        </div>
-        <div className="flex items-center justify-start space-x-2 border-b-2 border-b-[#1a192b] p-2">
-          <p className="flex-1 text-right text-sm">Quantité :</p>
-          <AmountFormat
-            value={quantity}
-            onValueChange={onQuantityChange}
-            allowNegative={false}
-            decimalScale={0}
-            isAllowed={(v) => v.floatValue === undefined || v.floatValue >= 0}
-            displayType="input"
-            className="flex-1 rounded-md border border-[#1a192b] p-2"
-          />
-        </div>
-        {!!options && options.length > 0 && (
-          <div className="border-b-[#1a192b] px-2 pb-2 text-center">
-            <h3>Accessoires conseillés</h3>
-            <div className="flex h-auto flex-col items-center justify-center space-y-1">
-              {options.map((option) => (
-                <div key={option.product.id} className="flex items-center justify-start space-x-4">
-                  <img src={`https://bd.vizeo.eu/6-Photos/${option.product.reference}/${option.product.reference}.jpg`} className="h-6 w-6 object-center" />
-                  <p className="w-20">{option.product.reference}</p>
-                  <div className="flex items-center justify-center space-x-2">
-                    <button
-                      disabled={option.quantity === 0}
-                      onClick={() => onOptionDecrementQuantity(option)}
-                      className="bg-[#16204e] px-2 text-white disabled:bg-[#676A83]"
-                    >
-                      -
-                    </button>
-                    <span>{option.quantity}</span>
-                    <button onClick={() => onOptionIncrementQuantity(option)} className="bg-[#16204e] px-2 text-white">
-                      +
-                    </button>
-                  </div>
-                </div>
-              ))}
-            </div>
+    <NodeToolbar position={position} align="center" offset={offset}>
+      <div ref={ref} className="nopan rounded-md border-2 border-[#1a192b] bg-slate-50 px-2">
+        <div className="flex items-center justify-between border-b-2 border-b-[#1a192b] p-2">
+          <div className="flex items-center justify-center space-x-2">
+            <AiTwotoneSetting className="fill-[#1a192b]" />
+            <h3 className="text-sm font-bold text-[#1a192b]">Paramétrage de votre produit {product.reference}</h3>
           </div>
-        )}
-        <div className="flex gap-x-1 border-t-2 border-t-[#1a192b] p-2">
-          <label>Opacité :</label>
-          <input type={'range'} min={10} max={100} value={data.opacity} onChange={onOpacityChange} className="flex-auto" />
-          <p>{data.opacity}%</p>
+          <AiOutlineClose className="fill-[#1a192b]" onClick={() => onClose()} />
         </div>
-        <div className="flex gap-x-1 border-t-2 border-t-[#1a192b] p-2">
-          <label htmlFor="option">Option :</label>
-          <input id="option" type={'checkbox'} checked={data.option ?? false} onChange={onOptionChange} className="flex-auto" />
+        <div>
+          <div className="flex items-center justify-start space-x-2 border-b-2 border-b-[#1a192b] p-2">
+            <p>Nom du moniteur</p>
+            <input
+              type="text"
+              value={data.name || product.reference || ''}
+              onChange={onNameChange}
+              placeholder="Choisir un nom"
+              className="rounded-md border border-[#1a192b] p-2"
+            />
+          </div>
+          <div className="flex items-center justify-start space-x-2 border-b-2 border-b-[#1a192b] p-2">
+            <p className="flex-1 text-right text-sm">Quantité :</p>
+            <AmountFormat
+              value={quantity}
+              onValueChange={onQuantityChange}
+              allowNegative={false}
+              decimalScale={0}
+              isAllowed={(v) => v.floatValue === undefined || v.floatValue >= 0}
+              displayType="input"
+              className="flex-1 rounded-md border border-[#1a192b] p-2"
+            />
+          </div>
+          {!!options && options.length > 0 && (
+            <div className="border-b-[#1a192b] px-2 pb-2 text-center">
+              <h3>Accessoires conseillés</h3>
+              <div className="flex h-auto flex-col items-center justify-center space-y-1">
+                {options.map((option) => (
+                  <div key={option.product.id} className="flex items-center justify-start space-x-4">
+                    <img src={`https://bd.vizeo.eu/6-Photos/${option.product.reference}/${option.product.reference}.jpg`} className="h-6 w-6 object-center" />
+                    <p className="w-20">{option.product.reference}</p>
+                    <div className="flex items-center justify-center space-x-2">
+                      <button
+                        disabled={option.quantity === 0}
+                        onClick={() => onOptionDecrementQuantity(option)}
+                        className="bg-[#16204e] px-2 text-white disabled:bg-[#676A83]"
+                      >
+                        -
+                      </button>
+                      <span>{option.quantity}</span>
+                      <button onClick={() => onOptionIncrementQuantity(option)} className="bg-[#16204e] px-2 text-white">
+                        +
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+          <div className="flex gap-x-1 border-t-2 border-t-[#1a192b] p-2">
+            <label>Opacité :</label>
+            <input type={'range'} min={10} max={100} value={data.opacity} onChange={onOpacityChange} className="flex-auto" />
+            <p>{data.opacity}%</p>
+          </div>
+          <div className="flex gap-x-1 border-t-2 border-t-[#1a192b] p-2">
+            <label htmlFor="option">Option :</label>
+            <input id="option" type={'checkbox'} checked={data.option ?? false} onChange={onOptionChange} className="flex-auto" />
+          </div>
         </div>
       </div>
     </NodeToolbar>
