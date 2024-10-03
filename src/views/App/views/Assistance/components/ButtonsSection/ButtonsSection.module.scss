@@ -10,7 +10,8 @@
     align-self: end;
     width: auto;
 
-    &.faq_link {
+    &.faq_link,
+    &.study_link {
       align-self: start;
     }
   }
