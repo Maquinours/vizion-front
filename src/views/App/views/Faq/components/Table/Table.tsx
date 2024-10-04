@@ -54,7 +54,11 @@ export default function AppViewFaqViewTableComponent({ data, isLoading }: AppVie
         cell: ({ row: { original } }) => (
           <div className="flex flex-col items-center">
             {original.products?.map((product) => (
-              <Link to="/app/products/$productId" params={{ productId: product.id }} className="w-fit">
+              <Link
+                to="/app/products/$productId"
+                params={{ productId: product.id }}
+                className="w-fit text-[var(--primary-color)] hover:text-[var(--secondary-color)]"
+              >
                 {product.reference}
               </Link>
             ))}
