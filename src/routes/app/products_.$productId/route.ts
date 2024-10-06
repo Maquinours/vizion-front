@@ -5,6 +5,7 @@ import { enterprises } from '../../../utils/constants/queryKeys/enterprise';
 import { QueryKey } from '@tanstack/react-query';
 import Page from '../../../utils/types/Page';
 import ProductResponseDto from '../../../utils/types/ProductResponseDto';
+import * as Sentry from '@sentry/react';
 
 const searchSchema = z.object({
   productModal: z.enum(['update', 'delete']).optional().catch(undefined),
@@ -19,6 +20,10 @@ export const Route = createFileRoute('/app/products/$productId')({
       ...queries.product.detail(productId),
       initialData: () => {
         for (const [key, value] of queryClient.getQueriesData<Page<ProductResponseDto>>({ queryKey: queries.product.page._def })) {
+          if (!!value && !value.content)
+            Sentry.captureException(new Error('Product cache error'), {
+              extra: { productPage: value },
+            });
           const item = value?.content.find((item) => item.id === productId);
           if (item) {
             initialDataKey = key;

@@ -1,11 +1,13 @@
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { getRouteApi } from '@tanstack/react-router';
 import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
 import { toast } from 'react-toastify';
 import { deleteProduct } from '../../../../../../utils/api/product';
 import { queries } from '../../../../../../utils/constants/queryKeys';
 import styles from './DeleteModal.module.scss';
+import { useNavigate } from '@tanstack/react-router';
+
 const routeApi = getRouteApi('/app/products/$productId');
 
 export default function AppViewProductViewDeleteModalComponent() {
@@ -17,7 +19,7 @@ export default function AppViewProductViewDeleteModalComponent() {
   const { data: product } = useSuspenseQuery(queries.product.detail(productId));
 
   const onClose = () => {
-    navigate({ search: (old) => ({ ...old, productModal: undefined }), replace: true, resetScroll: false });
+    navigate({ to: '.', search: (old) => ({ ...old, productModal: undefined }), replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({

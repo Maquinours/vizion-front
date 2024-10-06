@@ -45,6 +45,7 @@ export const Route = createFileRoute('/app')({
     if (search.appModal?.startsWith('business-ged') && !search.businessId) {
       toast.error('Aucune affaire sélectionnée');
       throw redirect({
+        to: '.',
         search: (old) => ({ ...old, appModal: undefined, businessId: undefined, gedItemKey: undefined }),
         replace: true,
         resetScroll: false,
@@ -52,6 +53,7 @@ export const Route = createFileRoute('/app')({
     }
     if ((search.appModal === 'business-ged-rename' || search.appModal === 'business-ged-delete') && !search.gedItemKey)
       throw redirect({
+        to: '.',
         search: (old) => ({ ...old, appModal: 'business-ged', gedItemKey: undefined }),
         replace: true,
         resetScroll: false,
@@ -66,11 +68,7 @@ export const Route = createFileRoute('/app')({
       queryClient.ensureQueryData(geds.detail._ctx.byTypeAndId(FileType.AFFAIRE, businessId!)).then((ged) => {
         if (!findRecursively(ged, 'subRows', (d) => d.key === gedItemKey)) {
           // ged element does not exists
-          throw redirect({
-            search: (old) => ({ ...old, appModal: 'business-ged', gedItemKey: undefined }),
-            replace: true,
-            resetScroll: false,
-          });
+          throw redirect({ to: '.', search: (old) => ({ ...old, appModal: 'business-ged', gedItemKey: undefined }), replace: true, resetScroll: false });
         }
       });
     }
@@ -81,6 +79,7 @@ export const Route = createFileRoute('/app')({
         if (appModal === 'create-client-business') {
           if (!currentUser.userInfo.roles.some((role) => ['ROLE_DISTRIBUTEUR', 'ROLE_CLIENT'].includes(role)))
             throw redirect({
+              to: '.',
               search: (old) => ({ ...old, appModal: undefined, businessId: undefined, gedItemKey: undefined }),
               replace: true,
               resetScroll: false,
@@ -93,6 +92,7 @@ export const Route = createFileRoute('/app')({
         const currentUser = await userPromise;
         if (!currentUser.userInfo.roles.includes('ROLE_MEMBRE_VIZEO'))
           throw redirect({
+            to: '.',
             search: (old) => ({ ...old, appModal: undefined, businessId: undefined, gedItemKey: undefined }),
             replace: true,
             resetScroll: false,

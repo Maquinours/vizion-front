@@ -1,7 +1,8 @@
 import { NodeToolbar, Position, useReactFlow } from '@xyflow/react';
 import { drag } from 'd3-drag';
 import { select } from 'd3-selection';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { MdDragHandle } from 'react-icons/md';
 import AngleLogo from '../../../../../../../../../../../../assets/images/angle.svg?react';
 import OpacityLogo from '../../../../../../../../../../../../assets/images/opacity.svg?react';
 import RangeLogo from '../../../../../../../../../../../../assets/images/range.svg?react';
@@ -20,6 +21,7 @@ export default function AppViewStudyViewExpertViewFlowComponentDensityCameraNode
 }: AppViewStudyViewExpertViewFlowComponentDensityCameraNodeComponentMenuComponentProps) {
   const { updateNodeData } = useReactFlow<ExpertStudyNode>();
 
+  const dragButtonRef = useRef<HTMLButtonElement>(null);
   const angleButtonRef = useRef<HTMLButtonElement>(null);
   const rangeButtonRef = useRef<HTMLButtonElement>(null);
   const rotationButtonRef = useRef<HTMLButtonElement>(null);
@@ -27,7 +29,27 @@ export default function AppViewStudyViewExpertViewFlowComponentDensityCameraNode
 
   const isVarifocal = camSpecs.hAngle.value === 0 && camSpecs.hAngle.min !== 0 && camSpecs.hAngle.max !== 0;
 
+  const [position, setPosition] = useState<{ left: number; top: number }>({ left: 0, top: 0 });
+
   useEffect(() => {
+    if (!!dragButtonRef.current) {
+      const dragSelection = select(dragButtonRef.current);
+      let lastMousePosition = { x: 0, y: 0 };
+      dragSelection.on('mousedown', (evt) => {
+        lastMousePosition = { x: evt.x, y: evt.y };
+      });
+      const dragDragHandler = drag<HTMLButtonElement, unknown>().on('drag', (evt) => {
+        setPosition(({ left, top }) => {
+          const newPosition = {
+            left: left + evt.sourceEvent.clientX - lastMousePosition.x,
+            top: top + evt.sourceEvent.clientY - lastMousePosition.y,
+          };
+          lastMousePosition = { x: evt.sourceEvent.clientX, y: evt.sourceEvent.clientY };
+          return newPosition;
+        });
+      });
+      dragSelection.call(dragDragHandler);
+    }
     if (!!angleButtonRef.current) {
       const angleSelection = select(angleButtonRef.current);
       const angleDragHandler = drag<HTMLButtonElement, unknown>().on('drag', (evt) => {
@@ -86,21 +108,45 @@ export default function AppViewStudyViewExpertViewFlowComponentDensityCameraNode
     }
   }, [nodeId]);
 
+  useEffect(() => {
+    const nodeToolbar = document.getElementById(`nodetoolbar-${nodeId}`);
+    if (!nodeToolbar) return;
+    const flow = document.querySelector('.react-flow');
+    if (!flow) return;
+    const nodeRect = nodeToolbar.getBoundingClientRect();
+    const flowRect = flow.getBoundingClientRect();
+    const position = { left: 0, top: 0 };
+    if (nodeRect.left < flowRect.left) position.left = flowRect.left - nodeRect.left;
+    else if (nodeRect.right > flowRect.right) position.left = flowRect.right - nodeRect.right;
+    if (nodeRect.top < flowRect.top) position.top = flowRect.top - nodeRect.top;
+    else if (nodeRect.bottom > flowRect.bottom) position.top = flowRect.bottom - nodeRect.bottom;
+    setPosition(position);
+  }, []);
+
   return (
-    <NodeToolbar position={Position.Bottom} align="center" className="nodrag nopan">
+    <NodeToolbar
+      id={`nodetoolbar-${nodeId}`}
+      position={Position.Bottom}
+      align="center"
+      className="nodrag nopan"
+      style={{ left: position.left, top: position.top }}
+    >
       <div className="flex h-fit w-fit flex-col rounded-md bg-green-400">
+        <button ref={dragButtonRef} title="Déplacer le menu">
+          <MdDragHandle size={36} />
+        </button>
         {isVarifocal && (
-          <button ref={angleButtonRef}>
+          <button ref={angleButtonRef} title="Régler l'angle de la caméra">
             <AngleLogo width={36} height={36} />
           </button>
         )}
-        <button ref={rangeButtonRef}>
+        <button ref={rangeButtonRef} title="Régler la distance de vue de la caméra">
           <RangeLogo width={36} height={36} />
         </button>
-        <button ref={rotationButtonRef}>
+        <button ref={rotationButtonRef} title="Régler la rotation de la caméra">
           <RotationLogo width={36} height={36} />
         </button>
-        <button ref={opacityButtonRef}>
+        <button ref={opacityButtonRef} title="Régler l'opacité">
           <OpacityLogo width={36} height={36} />
         </button>
       </div>

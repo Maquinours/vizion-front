@@ -29,14 +29,6 @@ import { ExpertStudyTransmitterNode, isExpertStudyTransmitterNode } from '../com
 import { arrayMove } from '@dnd-kit/sortable';
 import { v4 as uuidv4 } from 'uuid';
 
-const initialState = {
-  pages: [],
-  currentPage: 0,
-  studyName: undefined,
-  installerName: undefined,
-  businessId: undefined,
-};
-
 const defaultSynopticPage = {
   nodes: [] as Array<ExpertStudyNode>,
   edges: [] as Array<Edge>,
@@ -50,6 +42,14 @@ const defaultDensityPage = {
   viewport: { x: 0, y: 0, zoom: 1 } as Viewport,
   type: 'density' as 'density',
   scale: { virtual: 50, real: 10 },
+};
+
+const initialState = {
+  pages: [{ ...defaultSynopticPage, id: uuidv4() }],
+  currentPage: 0,
+  studyName: undefined,
+  installerName: undefined,
+  businessId: undefined,
 };
 
 export type ExpertStudyNode =

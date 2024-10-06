@@ -35,7 +35,7 @@ export default function AppViewCreateBusinessModalComponent() {
   });
 
   const onClose = () => {
-    navigate({ search: (prev) => ({ ...prev, appModal: undefined }), replace: true, resetScroll: false });
+    navigate({ to: '.', search: (prev) => ({ ...prev, appModal: undefined }), replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({
@@ -79,7 +79,7 @@ export default function AppViewCreateBusinessModalComponent() {
     onSuccess: (business) => {
       toast.success(`Affaire créée avec succès.`);
       queryClient.setQueryData(businesses.detail._ctx.byId(business.id).queryKey, business);
-      navigate({ search: (old) => ({ ...old, appModal: 'business-ged', businessId: business.id }), replace: true, resetScroll: false });
+      navigate({ to: '.', search: (old) => ({ ...old, appModal: 'business-ged', businessId: business.id }), replace: true, resetScroll: false });
     },
     onError: (error) => {
       console.error(error);

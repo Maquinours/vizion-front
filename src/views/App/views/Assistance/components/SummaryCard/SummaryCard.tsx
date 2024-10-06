@@ -50,11 +50,11 @@ export default function AppViewAssistanceViewSummaryCardComponent({ assistance }
     () => [
       columnHelper.display({
         header: 'Nom',
-        cell: ({ row: { original, index } }) => <input {...register(`items.${index}.name`)} defaultValue={original.name} />,
+        cell: ({ row: { original, index } }) => <input {...register(`items.${index}.name`)} defaultValue={original.name} className="px-1" />,
       }),
       columnHelper.display({
         header: 'Valeur',
-        cell: ({ row: { original, index } }) => <input {...register(`items.${index}.value`)} defaultValue={original.value} />,
+        cell: ({ row: { original, index } }) => <input {...register(`items.${index}.value`)} defaultValue={original.value} className="px-1" />,
       }),
     ],
     [register],

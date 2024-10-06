@@ -35,4 +35,11 @@ export default defineConfig({
   define: {
     global: {},
   },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        api: 'modern',
+      },
+    },
+  },
 });

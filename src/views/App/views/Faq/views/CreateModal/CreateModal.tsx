@@ -1,17 +1,19 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { getRouteApi, useNavigate } from '@tanstack/react-router';
 import { Controller, useForm } from 'react-hook-form';
 import ReactModal from 'react-modal';
-import { ReactMultiEmail } from 'react-multi-email';
 import 'react-multi-email/dist/style.css';
 import { PulseLoader } from 'react-spinners';
 import { toast } from 'react-toastify';
 import * as yup from 'yup';
+import CustomSelect from '../../../../../../components/CustomSelect/CustomSelect';
 import Quill from '../../../../../../components/Quill/Quill';
 import { createFaq } from '../../../../../../utils/api/faq';
+import { queries } from '../../../../../../utils/constants/queryKeys';
 import { faqs } from '../../../../../../utils/constants/queryKeys/faq';
 import FaqAccessLevel from '../../../../../../utils/enums/FaqAccessLevel';
+import ProductResponseDto from '../../../../../../utils/types/ProductResponseDto';
 import styles from './CreateModal.module.scss';
 
 const routeApi = getRouteApi('/app/faq/create');
@@ -44,15 +46,17 @@ const levelOptions = [
 ];
 
 const yupSchema = yup.object().shape({
-  title: yup.string().required('Le titre est requis.'),
+  title: yup.string().required('Le titre est requis.').max(255, 'Le problème ne peut excéder 255 caractères'),
   description: yup.string().required('La description est requise.'),
   level: yup.mixed<FaqAccessLevel>().oneOf(Object.values(FaqAccessLevel)).required('Le niveau est requis'),
-  concerneds: yup.array().of(yup.string().required()).min(1, 'Au moins un mot clé est requis').required('Les mots clés sont requis'),
+  products: yup.array().of(yup.mixed<ProductResponseDto>().required()).nullable(),
 });
 
 export default function AppViewFaqViewCreateModalView() {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
+
+  const { data: products, isLoading: isLoadingProducts } = useQuery(queries.product.list);
 
   const {
     register,
@@ -68,13 +72,13 @@ export default function AppViewFaqViewCreateModalView() {
   };
 
   const { mutate, isPending } = useMutation({
-    mutationFn: ({ title, description, level, concerneds }: yup.InferType<typeof yupSchema>) =>
+    mutationFn: ({ title, description, level, products }: yup.InferType<typeof yupSchema>) =>
       createFaq({
         title,
         description,
         accessLevel: level,
         archived: false,
-        faqConcernedNames: concerneds,
+        productIds: products?.map((product) => product.id),
       }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: faqs._def });
@@ -104,11 +108,11 @@ export default function AppViewFaqViewCreateModalView() {
           <div className={styles.inputs_container}>
             <form onSubmit={handleSubmit((data) => mutate(data))} onReset={onClose}>
               <div className={styles.form_content}>
-                <div className={styles.form_group}>
+                <div className={styles.form_editor}>
                   <label className={styles.label} htmlFor="title">
-                    Titre
+                    Problème
                   </label>
-                  <input type="text" {...register('title')} id="title" />
+                  <Controller control={control} name="title" render={({ field }) => <Quill {...field} />} />
                   <p className={styles.__errors}>{errors.title?.message}</p>
                 </div>
                 <div className={styles.form_group}>
@@ -134,32 +138,28 @@ export default function AppViewFaqViewCreateModalView() {
                 </div>
                 <div className={styles.second_grid}>
                   <div className={styles.form_group}>
-                    <label className={styles.label} htmlFor="concerned">
-                      Mots-clés
+                    <label className={styles.label} htmlFor="products">
+                      Produits associés
                     </label>
                     <Controller
                       control={control}
-                      name="concerneds"
+                      name="products"
                       render={({ field: { value, onBlur, onChange } }) => (
-                        <ReactMultiEmail
-                          emails={value}
-                          className={styles.multi_email}
+                        <CustomSelect
+                          id="products"
+                          placeholder="Sélectionnez un produit"
+                          isLoading={isLoadingProducts}
+                          options={products}
+                          value={value}
+                          getOptionLabel={(opt) => opt.reference ?? ''}
+                          getOptionValue={(opt) => opt.id}
                           onChange={onChange}
                           onBlur={onBlur}
-                          delimiter="[,;]"
-                          getLabel={(value, index, removeItem) => (
-                            <div data-tag key={index}>
-                              <div data-tag-item>{value}</div>
-                              <button type="button" data-tag-handle onClick={() => removeItem(index)}>
-                                ×
-                              </button>
-                            </div>
-                          )}
-                          validateEmail={() => true}
+                          isMulti
                         />
                       )}
                     />
-                    <p className={styles.__errors}>{errors.concerneds?.message}</p>
+                    <p className={styles.__errors}>{errors.products?.message}</p>
                   </div>
                 </div>
               </div>

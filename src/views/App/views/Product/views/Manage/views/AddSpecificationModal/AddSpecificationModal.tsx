@@ -43,7 +43,7 @@ export default function AppViewProductViewManageViewAddSpecificationModalView() 
   const { data, isLoading } = useQuery(queries['product-filter'].list);
 
   const onClose = () => {
-    navigate({ from: routeApi.id, to: '..', search: (old) => old });
+    navigate({ from: routeApi.id, to: '..', search: true, replace: true, resetScroll: false });
   };
 
   return (

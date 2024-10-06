@@ -6,7 +6,10 @@ export const Route = createFileRoute('/app/businesses-rma/business/$businessId/s
   loader: async ({ context: { queryClient }, params: { businessId } }) => {
     const user = await queryClient.ensureQueryData(queries.user.authentified());
     if (!user.profile.expert) throw redirect({ from: Route.id, to: '../automatic', replace: true });
-    queryClient.prefetchQuery(synopticBusinessQueryKeys.detail._ctx.byBusinessId(businessId));
-    await Promise.all([queryClient.ensureQueryData(queries.businesses.detail._ctx.byId(businessId)), queryClient.ensureQueryData(queries.product.list)]);
+    await Promise.all([
+      queryClient.ensureQueryData(queries.businesses.detail._ctx.byId(businessId)),
+      queryClient.ensureQueryData(queries.product.list),
+      queryClient.ensureQueryData(synopticBusinessQueryKeys.detail._ctx.byBusinessId(businessId)),
+    ]);
   },
 });

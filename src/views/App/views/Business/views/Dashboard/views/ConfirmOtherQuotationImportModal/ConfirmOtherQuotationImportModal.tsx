@@ -27,6 +27,7 @@ export default function AppViewBusinessViewDashboardViewConfirmOtherQuotationImp
     mutationFn: () => importBusinessQuotation({ business, otherBusiness }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queries['business-quotations']._def });
+      queryClient.invalidateQueries({ queryKey: queries.businesses._def });
       toast.success('Le devis a été importé avec succès');
       onClose();
     },

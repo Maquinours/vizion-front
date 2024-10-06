@@ -23,14 +23,20 @@ export const Route = createFileRoute('/app/businesses-rma/business/$businessId')
         (!user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') || business.state === BusinessState.ARCHIVE)) ||
       (businessModal === 'archive' && (!user.userInfo.roles.includes('ROLE_DIRECTION_VIZEO') || business.state === BusinessState.ARCHIVE))
     )
-      throw redirect({ search: { businessModal: undefined } });
+      throw redirect({ to: '.', search: { businessModal: undefined } });
 
     if (businessModal === 'assistances') {
       const assistances = await queryClient.ensureQueryData(
         queries['technical-supports'].list._ctx.byBusinessOrRmaNumber({ categoryBusiness: CategoryBusiness.AFFAIRE, number: business.numBusiness }),
       );
       if (assistances.length === 0)
-        throw redirect({ search: (old) => ({ ...old, businessModal: 'create-assistance' }), replace: true, resetScroll: false, ignoreBlocker: true });
+        throw redirect({
+          to: '.',
+          search: (old) => ({ ...old, businessModal: 'create-assistance' }),
+          replace: true,
+          resetScroll: false,
+          ignoreBlocker: true,
+        });
     } else if (businessModal === 'create-assistance') queryClient.prefetchQuery(queries['business-bills'].list._ctx.byBusinessId(businessId));
   },
   staticData: {

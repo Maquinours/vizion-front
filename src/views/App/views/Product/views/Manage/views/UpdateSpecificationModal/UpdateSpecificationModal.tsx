@@ -1,7 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
 import { toast } from 'react-toastify';
@@ -9,31 +9,44 @@ import * as yup from 'yup';
 import { updateProductSpecification } from '../../../../../../../../utils/api/productSpecification';
 import { productSpecificationsQueryKeys } from '../../../../../../../../utils/constants/queryKeys/productSpecifications';
 import styles from './UpdateSpecificationModal.module.scss';
-import AmountFormat from '../../../../../../../../components/AmountFormat/AmountFormat';
 
 const routeApi = getRouteApi('/app/products/$productId/manage/update-specification/$specificationId');
 
-const yupSchema = yup.object({
-  value: yup
-    .number()
-    .typeError('Veuillez entrer un nombre')
-    .when(['maxValue', 'minValue'], ([minValue, maxValue], schema) => {
-      return maxValue === null && maxValue === undefined && minValue === null && minValue === undefined
-        ? schema.required('La valeur fixe ou les valeurs maximal et minimal sont requises')
-        : schema.nullable();
-    }),
-  minValue: yup
-    .number()
-    .typeError('Veuillez entrer un nombre')
-    .when('maxValue', ([maxValue], schema) => {
-      return maxValue !== null && maxValue !== undefined
-        ? schema
-            .required('La valeur maximale est requise si la valeur minimale est renseignée')
-            .min(maxValue, 'La valeur minimale doit être inférieure ou égale à la valeur maximale')
-        : schema.nullable();
-    }),
-  maxValue: yup.number().typeError('Veuillez entrer un nombre'),
-});
+const yupSchema = yup.object().shape(
+  {
+    value: yup
+      .number()
+      .transform((value) => (isNaN(value) ? undefined : value))
+      .when(['minValue', 'maxValue'], ([minValue, maxValue], schema) =>
+        isNaN(minValue) && isNaN(maxValue)
+          ? schema.typeError('Veuillez entrer un nombre').required('La valeur fixe ou les valeurs maximal et minimal sont requises')
+          : schema.nullable(),
+      ),
+    minValue: yup
+      .number()
+      .typeError('Veuillez entrer un nombre')
+      .transform((value) => (isNaN(value) ? undefined : value))
+      .when('maxValue', ([maxValue], schema) =>
+        !isNaN(maxValue)
+          ? schema
+              .required("La valeur minimale doit être accompagnée d'une valeur maximale")
+              .max(maxValue, 'La valeur minimale doit être inférieure ou égale à la valeur maximale')
+          : schema.nullable(),
+      ),
+    maxValue: yup
+      .number()
+      .typeError('Veuillez entrer un nombre')
+      .transform((value) => (isNaN(value) ? undefined : value))
+      .when('minValue', ([minValue], schema) =>
+        !isNaN(minValue)
+          ? schema
+              .required("La valeur minimale doit être accompagnée d'une valeur maximale")
+              .min(minValue, 'La valeur maximale doit être supérieure ou égale à la valeur minimale')
+          : schema.nullable(),
+      ),
+  },
+  [['minValue', 'maxValue']],
+);
 
 export default function AppViewProductViewManageViewUpdateSpecificationModalView() {
   const queryClient = useQueryClient();
@@ -44,7 +57,7 @@ export default function AppViewProductViewManageViewUpdateSpecificationModalView
   const { data: productSpec } = useSuspenseQuery(productSpecificationsQueryKeys.detail._ctx.byId({ productId, specificationId }));
 
   const {
-    control,
+    register,
     formState: { errors },
     handleSubmit,
   } = useForm({
@@ -88,39 +101,21 @@ export default function AppViewProductViewManageViewUpdateSpecificationModalView
             <label className={styles.label} htmlFor="value">
               Valeur :
             </label>
-            <Controller
-              control={control}
-              name="value"
-              render={({ field: { value, onChange } }) => (
-                <AmountFormat value={value} suffix={productSpec.specification?.unit ?? undefined} onValueChange={(v) => onChange(v.value)} />
-              )}
-            />
+            <input placeholder="..." type="number" step="any" {...register('value')} />
             <p className={styles.__errors}>{errors.value?.message}</p>
           </div>
           <div className={styles.form_group}>
             <label className={styles.label} htmlFor="minValue">
               Min :
             </label>
-            <Controller
-              control={control}
-              name="minValue"
-              render={({ field: { value, onChange } }) => (
-                <AmountFormat value={value} suffix={productSpec.specification?.unit ?? undefined} onValueChange={(v) => onChange(v.value)} />
-              )}
-            />
+            <input placeholder="..." type="number" step="any" {...register('minValue')} />
             <p className={styles.__errors}>{errors.minValue?.message}</p>
           </div>
           <div className={styles.form_group}>
             <label className={styles.label} htmlFor="maxValue">
               Max :
             </label>
-            <Controller
-              control={control}
-              name="maxValue"
-              render={({ field: { value, onChange } }) => (
-                <AmountFormat value={value} suffix={productSpec.specification?.unit ?? undefined} onValueChange={(v) => onChange(v.value)} />
-              )}
-            />
+            <input placeholder="..." type="number" step="any" {...register('maxValue')} />
             <p className={styles.__errors}>{errors.maxValue?.message}</p>
           </div>
           <div className={styles.loader}>
@@ -131,7 +126,7 @@ export default function AppViewProductViewManageViewUpdateSpecificationModalView
               Annuler
             </button>
             <button type="submit" disabled={isPending} className="btn btn-secondary">
-              Ajouter
+              Modifier
             </button>
           </div>
         </form>

@@ -17,6 +17,7 @@ type AppViewStudyViewExpertViewFlowComponentDensityCameraNodeComponentFieldOfVie
     identification: { min: number; max: number; value: number };
     pir: number | undefined;
   };
+  clickable: boolean;
 }>;
 export default function AppViewStudyViewExpertViewFlowComponentDensityCameraNodeComponentFieldOfViewComponentArcComponent({
   type,
@@ -27,6 +28,7 @@ export default function AppViewStudyViewExpertViewFlowComponentDensityCameraNode
   selected,
   nodeId,
   camSpecs,
+  clickable,
 }: AppViewStudyViewExpertViewFlowComponentDensityCameraNodeComponentFieldOfViewComponentArcComponentProps) {
   const realRange = (() => {
     if (type === 'full') return maxRangeInMeter;
@@ -48,7 +50,7 @@ export default function AppViewStudyViewExpertViewFlowComponentDensityCameraNode
   const transform = `translate(0, ${svgHeight / 2})`;
 
   const className = classNames({
-    'drag-handle pointer-events-auto': type === 'full',
+    'drag-handle pointer-events-auto': clickable && type === 'full',
   });
 
   const d = useMemo(

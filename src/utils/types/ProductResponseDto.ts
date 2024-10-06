@@ -1,5 +1,6 @@
 import AdvancedProductSpecificationProductResponseDto from './AdvancedProductSpecificationProductResponseDto';
 import ProductBomDetailsResponseDto from './ProductBomDetailsResponseDto';
+import ProductFaqResponseDto from './ProductFaqResponseDto';
 import ProductProductResponseDto from './ProductProductResponseDto';
 import ProductVersionResponseDto from './ProductVersionResponseDto';
 
@@ -28,6 +29,7 @@ type ProductResponseDto = {
   specificationProducts: AdvancedProductSpecificationProductResponseDto[] | null;
   qty: number | null;
   productBOMDetails: ProductBomDetailsResponseDto[] | null;
+  faqList: Array<ProductFaqResponseDto> | null;
   createdDate: Date;
   modifiedDate: Date | null;
   createdBy: string | null;
