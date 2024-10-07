@@ -95,6 +95,7 @@ export default function AppViewStudyViewExpertViewFlowComponentRecorderNodeCompo
     `${!selected ? 'Clic gauche pour sélectionner' : 'Touche Suppr. pour supprimer les objets selectionnés'}\n` +
     `Clic droit pour ${showMenu ? 'fermer la fenêtre des' : 'accéder aux'} options de l'enregistreur\n` +
     `Maintenez le clic gauche et déplacez la souris pour déplacer l'enregistreur`;
+  const quantity = data.quantity ?? 1;
 
   const onImageLoad: ReactEventHandler<HTMLImageElement> = (e) => {
     updateNodeData(id, { size: { width: e.currentTarget.offsetWidth, height: e.currentTarget.offsetHeight } });
@@ -130,7 +131,7 @@ export default function AppViewStudyViewExpertViewFlowComponentRecorderNodeCompo
             ))}
           </div>
           <div className="absolute top-[-20px] w-full text-center">
-            {!!data.quantity && data.quantity > 1 && (
+            {quantity !== 0 && (
               <AmountFormat
                 prefix="x"
                 value={data.quantity}

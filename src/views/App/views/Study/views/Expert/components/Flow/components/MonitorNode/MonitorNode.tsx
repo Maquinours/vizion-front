@@ -98,6 +98,7 @@ export default function AppViewStudyViewExpertViewFlowComponentMonitorNodeCompon
     `Clic droit pour ${showMenu ? 'fermer la fenêtre des' : 'accéder aux'} options du moniteur\n` +
     `Maintenez le clic gauche et déplacez la souris pour déplacer le moniteur`;
   const image = `https://bd.vizeo.eu/6-Photos/${product?.reference}/${product?.reference}.png`;
+  const quantity = data.quantity ?? 1;
 
   return (
     <>
@@ -137,7 +138,7 @@ export default function AppViewStudyViewExpertViewFlowComponentMonitorNodeCompon
             ))}
           </div>
           <div className="absolute top-[-20px] w-full text-center">
-            {!!data.quantity && data.quantity > 1 && (
+            {quantity !== 0 && (
               <AmountFormat
                 prefix="x"
                 value={data.quantity}

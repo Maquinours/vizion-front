@@ -105,13 +105,15 @@ export default function AppViewStudyViewExpertViewFlowComponentServiceNodeCompon
 
   if (!product) return;
 
+  const quantity = data.quantity ?? 1;
+
   return (
     <ClickAwayListener mouseEvent={showMenu ? 'onPointerDown' : false} onClickAway={() => setShowMenu(false)}>
       <div>
         <div style={{ transform: `rotate(${data.rotation}deg)` }}>
           <NodeResizer onResize={onResize} isVisible={selected ?? false} keepAspectRatio handleStyle={{ width: 10, height: 10, borderRadius: '100%' }} />
           <div className="absolute top-[-20px] w-full text-center">
-            {!!data.quantity && data.quantity > 1 && (
+            {quantity !== 0 && (
               <AmountFormat
                 prefix="x"
                 value={data.quantity}

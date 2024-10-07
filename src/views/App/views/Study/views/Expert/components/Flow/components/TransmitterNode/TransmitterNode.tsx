@@ -100,6 +100,8 @@ export default function AppViewStudyViewExpertViewFlowComponentTransmitterNodeCo
     `Clic droit pour ${showMenu ? 'fermer la fenêtre des' : 'accéder aux'} options de l'enregistreur\n` +
     `Maintenez le clic gauche et déplacez la souris pour déplacer l'enregistreur`;
 
+  const quantity = data.quantity ?? 1;
+
   return (
     <>
       <NodeResizer
@@ -130,7 +132,7 @@ export default function AppViewStudyViewExpertViewFlowComponentTransmitterNodeCo
             ))}
           </div>
           <div className="absolute top-[-20px] w-full text-center">
-            {!!data.quantity && data.quantity > 1 && (
+            {quantity !== 0 && (
               <AmountFormat
                 prefix="x"
                 value={data.quantity}
