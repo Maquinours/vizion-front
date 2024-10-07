@@ -131,14 +131,17 @@ export default function AppViewStudyViewExpertViewFlowComponentRecorderNodeCompo
             ))}
           </div>
           <div className="absolute top-[-20px] w-full text-center">
-            {quantity !== 0 && (
-              <AmountFormat
-                prefix="x"
-                value={quantity}
-                displayType="text"
-                className="absolute right-1 top-[calc(50%-30px)] ml-auto h-fit w-fit rounded-md bg-amber-300 p-[1px] text-center text-sm font-medium text-white"
-              />
-            )}
+            <div className="absolute right-1 top-[calc(50%-30px)] ml-auto flex h-fit w-fit gap-x-1">
+              {data.option && <span className="rounded-md bg-purple-300 p-[1px] text-center text-sm font-medium text-white">O</span>}
+              {quantity !== 0 && (
+                <AmountFormat
+                  prefix="x"
+                  value={quantity}
+                  displayType="text"
+                  className="rounded-md bg-amber-300 p-[1px] text-center text-sm font-medium text-white"
+                />
+              )}
+            </div>
             <p className="h-4 text-sm">{name}</p>
           </div>
           <div className="flex justify-center" onContextMenu={onContextMenu}>
