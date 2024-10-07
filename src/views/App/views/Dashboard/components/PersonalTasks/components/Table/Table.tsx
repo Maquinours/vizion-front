@@ -104,7 +104,10 @@ export default function AppViewDashboardViewPersonalTasksComponentTableComponent
         cell: ({ row: { original } }) => {
           if (!!original.businessId && !!original.technicalSupportId)
             return (
-              <Link to="/app/businesses-rma/business/$businessId/assistance/$assistanceId" params={{ businessId: original.businessId, assistanceId: original.technicalSupportId }}>
+              <Link
+                to="/app/businesses-rma/business/$businessId/assistance/$assistanceId"
+                params={{ businessId: original.businessId, assistanceId: original.technicalSupportId }}
+              >
                 {original.technicalSupportName?.trim() || 'Sans nom'}
               </Link>
             );
@@ -211,6 +214,7 @@ export default function AppViewDashboardViewPersonalTasksComponentTableComponent
         anchor={contextMenuAnchor}
         setAnchor={setContextMenuAnchor}
         task={task}
+        user={currentUser}
       />
     </>
   );

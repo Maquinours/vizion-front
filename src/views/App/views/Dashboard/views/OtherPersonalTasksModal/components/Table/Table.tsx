@@ -16,6 +16,7 @@ import TaskResponseDto from '../../../../../../../../utils/types/TaskResponseDto
 import { useAuthentifiedUserQuery } from '../../../../../../utils/functions/getAuthentifiedUser';
 import styles from './Table.module.scss';
 import AppViewDashboardViewPersonalTasksComponentPersonalTasksComponentTableComponentContextMenuComponent from './components/ContextMenu/ContextMenu';
+import ProfileResponseDto from '../../../../../../../../utils/types/ProfileResponseDto';
 
 const Route = getRouteApi('/app/dashboard/other-personal-tasks/$profileId');
 
@@ -24,10 +25,12 @@ const columnHelper = createColumnHelper<TaskResponseDto>();
 type AppViewDashboardViewOtherPersonalTasksModalViewTableComponentProps = Readonly<{
   data: Page<TaskResponseDto> | undefined;
   isLoading: boolean;
+  profile: ProfileResponseDto;
 }>;
 export default function AppViewDashboardViewOtherPersonalTasksModalViewTableComponent({
   data,
   isLoading,
+  profile,
 }: AppViewDashboardViewOtherPersonalTasksModalViewTableComponentProps) {
   const [task, setTask] = useState<TaskResponseDto>();
   const [contextMenuAnchor, setContextMenuAnchor] = useState<VirtualElement>();
@@ -158,6 +161,7 @@ export default function AppViewDashboardViewOtherPersonalTasksModalViewTableComp
         anchor={contextMenuAnchor}
         setAnchor={setContextMenuAnchor}
         task={task}
+        profile={profile}
       />
     </>
   );
