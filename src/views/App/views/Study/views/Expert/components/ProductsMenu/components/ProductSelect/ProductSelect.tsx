@@ -20,6 +20,7 @@ import { ExpertStudyTransmitterNode } from '../../../Flow/components/Transmitter
 import { CAMERAS_INCLUDED_PRODUCTS } from '../../../ModalProvider/components/CameraModal/CameraModal';
 import { UNIVERSAL_CAMERAS_INCLUDED_PRODUCTS } from '../../../ModalProvider/components/UniversalCameraModal/UniversalCameraModal';
 import { TRANSMITTERS_INCLUDED_PRODUCTS } from '../../../ModalProvider/components/TransmittersModal/TransmittersModal';
+import { useEffect } from 'react';
 
 const yupSchema = yup.object().shape({
   product: yup.mixed<ProductResponseDto>().required('Champs requis').defined('Champs requis'),
@@ -35,7 +36,7 @@ export default function AppViewStudyViewExpertViewProductsMenuComponentProductSe
   const { pageType } = useStore(useShallow(selector));
   const { addNodes, screenToFlowPosition } = useReactFlow();
 
-  const { control, reset, handleSubmit } = useForm({
+  const { control, reset, handleSubmit, watch, getValues } = useForm({
     resolver: yupResolver(yupSchema),
   });
 
@@ -219,24 +220,26 @@ export default function AppViewStudyViewExpertViewProductsMenuComponentProductSe
     }
   };
 
+  useEffect(() => {
+    if (getValues('product')) handleSubmit(onSubmit)();
+  }, [watch('product')]);
+
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-row items-center justify-center gap-x-1">
-      <Controller
-        control={control}
-        name="product"
-        render={({ field: { value, onChange, onBlur } }) => (
-          <CustomSelect
-            id="product_node_select"
-            options={products}
-            getOptionLabel={(product) => product.reference ?? ''}
-            getOptionValue={(product) => product.id}
-            value={value ?? null}
-            onChange={onChange}
-            onBlur={onBlur}
-            placeholder="Sélectionnez un produit"
-          />
-        )}
-      />
-    </form>
+    <Controller
+      control={control}
+      name="product"
+      render={({ field: { value, onChange, onBlur } }) => (
+        <CustomSelect
+          id="product_node_select"
+          options={products}
+          getOptionLabel={(product) => product.reference ?? ''}
+          getOptionValue={(product) => product.id}
+          value={value ?? null}
+          onChange={onChange}
+          onBlur={onBlur}
+          placeholder="Sélectionnez un produit"
+        />
+      )}
+    />
   );
 }
