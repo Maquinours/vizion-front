@@ -116,7 +116,7 @@ export default function AppViewStudyViewExpertViewFlowComponentServiceNodeCompon
             {quantity !== 0 && (
               <AmountFormat
                 prefix="x"
-                value={data.quantity}
+                value={quantity}
                 displayType="text"
                 className="absolute right-1 top-[calc(50%-30px)] ml-auto h-fit w-fit rounded-md bg-amber-300 p-[1px] text-center text-sm font-medium text-white"
               />
