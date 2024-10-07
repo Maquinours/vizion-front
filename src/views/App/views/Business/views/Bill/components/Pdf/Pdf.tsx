@@ -384,6 +384,7 @@ export default function AppViewBusinessViewBillViewPdfComponent({ business, bill
               <View style={pageStyles.enterprise}>
                 <Text style={pageStyles.enterpriseName}>{business.billingCompany}</Text>
                 <Text style={pageStyles.enterpriseAddress}>{business.billingAddressOne}</Text>
+                {!!business.billingAddressTwo?.trim() && <Text style={pageStyles.enterpriseAddress}>{business.billingAddressTwo.trim()}</Text>}
                 <Text style={pageStyles.enterpriseAddress}>
                   {business.billingZipCode} {business.billingCity}
                 </Text>

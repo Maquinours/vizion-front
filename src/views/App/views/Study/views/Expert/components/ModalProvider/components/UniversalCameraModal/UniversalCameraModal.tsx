@@ -192,3 +192,5 @@ export default function AppViewStudyViewExpertViewModalProviderComponentUniversa
     </>
   );
 }
+
+export { includedProducts as UNIVERSAL_CAMERAS_INCLUDED_PRODUCTS };

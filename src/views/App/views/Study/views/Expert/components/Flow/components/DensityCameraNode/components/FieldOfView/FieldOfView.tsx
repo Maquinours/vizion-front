@@ -11,6 +11,7 @@ import AppViewStudyViewExpertViewFlowComponentDensityCameraNodeComponentFieldOfV
 import polarToCartesian from './utils/functions/polarToCartesian';
 import { useContext } from 'react';
 import ExpertStudyContext from '../../../../../../utils/context';
+import DensityColors from '../../../../utils/enums/DensityColors';
 
 const types: Array<'recognition' | 'reading' | 'identification' | 'full'> = ['recognition', 'reading', 'identification', 'full'];
 
@@ -44,6 +45,7 @@ const selector = (state: RFState) => {
   const scale = page?.type === 'density' ? page.scale : undefined;
   return {
     scale: scale ? scale.virtual / scale.real : undefined,
+    densityColors: page?.type === 'density' ? page.colors : undefined,
   };
 };
 
@@ -81,7 +83,7 @@ export default function AppViewStudyViewExpertViewFlowComponentDensityCameraNode
   product,
   nodePosition,
 }: AppViewStudyViewExpertViewFlowComponentDensityCameraNodeComponentFieldOfViewComponentProps) {
-  const { scale } = useStore(useShallow(selector));
+  const { scale, densityColors } = useStore(useShallow(selector));
   const { obstacles } = useFlowStore(flowSelector, (a, b) => isEqual(a, b));
   const { paneClickFunction } = useContext(ExpertStudyContext)!;
 
@@ -201,6 +203,7 @@ export default function AppViewStudyViewExpertViewFlowComponentDensityCameraNode
             svgHeight={svgHeight}
             camSpecs={camSpecs}
             clickable={!paneClickFunction}
+            densityColors={densityColors ?? DensityColors.DEFAULT}
           />
         ))}
       </g>

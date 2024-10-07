@@ -1,6 +1,8 @@
 import { useMemo } from 'react';
 import polarToCartesian from '../../utils/functions/polarToCartesian';
 import { classNames } from '@react-pdf-viewer/core';
+import { DENSITY_COLORS_DATA } from '../../../../../DensityCaption/DensityCaption';
+import DensityColors from '../../../../../../utils/enums/DensityColors';
 
 type AppViewStudyViewExpertViewFlowComponentDensityCameraNodeComponentFieldOfViewComponentArcComponentProps = Readonly<{
   type: 'recognition' | 'reading' | 'identification' | 'full';
@@ -18,6 +20,7 @@ type AppViewStudyViewExpertViewFlowComponentDensityCameraNodeComponentFieldOfVie
     pir: number | undefined;
   };
   clickable: boolean;
+  densityColors: DensityColors;
 }>;
 export default function AppViewStudyViewExpertViewFlowComponentDensityCameraNodeComponentFieldOfViewComponentArcComponent({
   type,
@@ -29,6 +32,7 @@ export default function AppViewStudyViewExpertViewFlowComponentDensityCameraNode
   nodeId,
   camSpecs,
   clickable,
+  densityColors,
 }: AppViewStudyViewExpertViewFlowComponentDensityCameraNodeComponentFieldOfViewComponentArcComponentProps) {
   const realRange = (() => {
     if (type === 'full') return maxRangeInMeter;
@@ -62,15 +66,8 @@ export default function AppViewStudyViewExpertViewFlowComponentDensityCameraNode
   );
 
   const color = (() => {
-    switch (type) {
-      case 'recognition':
-        return '#EAEAEF';
-      case 'reading':
-        return '#6F7592';
-      case 'identification':
-        return '#101735';
-    }
-    return 'transparent';
+    if (type === 'full') return 'transparent';
+    return DENSITY_COLORS_DATA.find((color) => color.type === densityColors)?.colors[type];
   })();
 
   //   const style = useMemo(() => {

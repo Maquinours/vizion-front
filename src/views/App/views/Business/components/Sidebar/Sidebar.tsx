@@ -1,6 +1,6 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { Link, ToPathOption, getRouteApi, useLocation } from '@tanstack/react-router';
-import { useWindowSize } from '@uidotdev/usehooks';
+import { useWindowSize } from 'usehooks-ts';
 import { useMemo } from 'react';
 import { queries } from '../../../../../../utils/constants/queryKeys';
 import BusinessState from '../../../../../../utils/enums/BusinessState';

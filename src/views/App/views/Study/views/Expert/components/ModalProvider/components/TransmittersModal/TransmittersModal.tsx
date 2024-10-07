@@ -136,3 +136,5 @@ export default function AppViewStudyViewExpertViewModalProviderComponentTransmit
     </ReactModal>
   );
 }
+
+export { includedProducts as TRANSMITTERS_INCLUDED_PRODUCTS };

@@ -1,6 +1,7 @@
 import { useShallow } from 'zustand/react/shallow';
 import useStore, { RFState } from '../Flow/utils/store';
 import AppViewStudyViewExpertViewFooterComponentPaginationComponent from './components/Pagination/Pagination';
+import AppViewStudyViewExpertViewFooterComponentColorsMenuComponent from './components/ColorsMenu/ColorsMenu';
 
 const selector = (state: RFState) => ({
   currentPage: state.currentPage,
@@ -8,10 +9,11 @@ const selector = (state: RFState) => ({
   setCurrentPage: state.setCurrentPage,
   addPage: state.addPage,
   removePage: state.removePage,
+  pageType: state.pages.at(state.currentPage)?.type,
 });
 
 export default function AppViewStudyViewExpertViewFooterComponent() {
-  const { hasPage, addPage, removePage } = useStore(useShallow(selector));
+  const { hasPage, addPage, removePage, pageType } = useStore(useShallow(selector));
 
   return (
     <div className="flex w-full items-center justify-center border-t border-t-slate-800 py-2">
@@ -34,6 +36,7 @@ export default function AppViewStudyViewExpertViewFooterComponent() {
             <button type="button" className="btn btn-primary" onClick={() => addPage('density')}>
               Ajouter une densité
             </button>
+            {pageType === 'density' && <AppViewStudyViewExpertViewFooterComponentColorsMenuComponent />}
           </div>
         </div>
       )}

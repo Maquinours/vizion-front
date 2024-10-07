@@ -1,4 +1,6 @@
-import ReactSelect, { GroupBase, Props } from 'react-select';
+import ReactSelect, { createFilter, GroupBase, Props } from 'react-select';
+
+const filterOption = createFilter({ ignoreAccents: false });
 
 type CustomSelectProps<Option, IsMulti extends boolean = false, Group extends GroupBase<Option> = GroupBase<Option>> = Readonly<Props<Option, IsMulti, Group>>;
 export default function CustomSelect<Option, IsMulti extends boolean = false, Group extends GroupBase<Option> = GroupBase<Option>>(
@@ -7,6 +9,7 @@ export default function CustomSelect<Option, IsMulti extends boolean = false, Gr
   return (
     <ReactSelect
       {...props}
+      filterOption={filterOption}
       loadingMessage={() => 'Chargement...'}
       theme={(theme) => ({
         ...theme,

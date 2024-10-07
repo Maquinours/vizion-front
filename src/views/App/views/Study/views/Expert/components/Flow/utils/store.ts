@@ -1,3 +1,4 @@
+import { arrayMove } from '@dnd-kit/sortable';
 import {
   Connection,
   Edge,
@@ -13,6 +14,7 @@ import {
   isEdge,
   isNode,
 } from '@xyflow/react';
+import { v4 as uuidv4 } from 'uuid';
 import { create } from 'zustand';
 import { ExpertStudyBackgroundNode, isExpertStudyBackgroundNode } from '../components/BackgroundNode/BackgroundNode';
 import { ExpertStudyDensityCameraNode, isExpertStudyDensityCameraNode } from '../components/DensityCameraNode/DensityCameraNode';
@@ -26,8 +28,7 @@ import { ExpertStudyServiceNode, isExpertStudyServiceNode } from '../components/
 import { ExpertStudySynopticCameraNode, isExpertStudySynopticCameraNode } from '../components/SynopticCameraNode/SynopticCameraNode';
 import { ExpertStudyTextNode, isExpertStudyTextNode } from '../components/TextNode/TextNode';
 import { ExpertStudyTransmitterNode, isExpertStudyTransmitterNode } from '../components/TransmitterNode/TransmitterNode';
-import { arrayMove } from '@dnd-kit/sortable';
-import { v4 as uuidv4 } from 'uuid';
+import DensityColors from './enums/DensityColors';
 
 const defaultSynopticPage = {
   nodes: [] as Array<ExpertStudyNode>,
@@ -128,7 +129,7 @@ type BasePage = {
 };
 
 export type ExpertStudySynopticPage = BasePage & { type: 'synoptic' };
-export type ExpertStudyDensityPage = BasePage & { type: 'density'; scale: { virtual: number; real: number } };
+export type ExpertStudyDensityPage = BasePage & { type: 'density'; scale: { virtual: number; real: number }; colors?: DensityColors };
 
 export type ExpertStudyPage = ExpertStudySynopticPage | ExpertStudyDensityPage;
 
@@ -161,6 +162,7 @@ export type RFState = {
   reset: () => void;
   importStudy: (study: { pages: Array<ExpertStudyPage>; studyName?: string; installerName?: string }) => void;
   pageMove: (fromId: string, toId: string) => void;
+  setPageColors: (colors: DensityColors) => void;
 };
 
 // this is our useStore hook that we can use in our components to get parts of the store and call actions
@@ -262,6 +264,11 @@ const useStore = create<RFState>((set, get) => ({
     const newPages = arrayMove(pages, fromIndex, toIndex);
     const newPage = newPages.indexOf(page);
     set({ pages: newPages, currentPage: newPage });
+  },
+  setPageColors: (colors: DensityColors) => {
+    const pages = get().pages;
+    const currentPage = get().currentPage;
+    set({ pages: pages.map((page, index) => (index === currentPage && page.type === 'density' ? { ...page, colors } : page)) });
   },
 }));
 

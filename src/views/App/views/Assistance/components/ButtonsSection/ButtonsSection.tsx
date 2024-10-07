@@ -19,6 +19,9 @@ export default function AppViewAssistanceViewButtonsSectionComponent() {
       <Link from={routeApi.id} to="delete" search replace resetScroll={false} preload="intent" className="btn btn-secondary">
         {"Supprimer l'AT"}
       </Link>
+      <Link from={routeApi.id} to="/app/businesses-rma/business/$businessId/study" className={classNames('btn btn-primary', styles.study_link)}>
+        Accès dossier technique
+      </Link>
     </div>
   );
 }

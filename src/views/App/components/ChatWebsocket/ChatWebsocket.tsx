@@ -76,7 +76,7 @@ export default function AppViewChatWebsocketComponent() {
   const navigate = useNavigate();
 
   const { data: authentifiedUser } = useAuthentifiedUserQuery();
-  const [pingInterval, setPingInterval] = useState<NodeJS.Timeout>();
+  const [pingInterval, setPingInterval] = useState<ReturnType<typeof setInterval>>();
 
   const { data: chatLink } = useQuery({
     ...queries['external-link'].list._ctx.byArchiveState(false),

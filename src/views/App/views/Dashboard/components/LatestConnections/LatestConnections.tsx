@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { useLocalStorage } from '@uidotdev/usehooks';
+import { useLocalStorage } from 'usehooks-ts';
 import CardComponent from '../../../../../../components/Card/Card';
 import { keycloakEvents } from '../../../../../../utils/constants/queryKeys/keycloakEvent';
 import styles from './LatestConnections.module.scss';
