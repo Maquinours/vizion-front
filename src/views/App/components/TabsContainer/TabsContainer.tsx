@@ -127,6 +127,14 @@ export default function AppViewTabsContainerComponent({ children }: AppViewTabsC
     [tabs, setTabs, matchRoute, navigate],
   );
 
+  const getCurrentTab = useCallback(() => tabs.find((tab) => matchRoute({ to: tab.route.to })), [tabs, matchRoute]);
+
+  const updateTabRoute = useCallback(
+    (tabId: string, callback: (tab: Tab) => Tab['route']) =>
+      setTabs((tabs) => tabs.map((tab) => (tab.id === tabId ? { ...tab, route: { ...tab.route, ...callback(tab) } } : tab))),
+    [setTabs],
+  );
+
   const removeTab = useCallback(
     (tab?: Tab) => {
       tab = tab ?? tabs.find((tab) => matchRoute({ to: tab.route.to }));
@@ -182,7 +190,7 @@ export default function AppViewTabsContainerComponent({ children }: AppViewTabsC
     [setSelectedTab, setContextMenuAnchor],
   );
 
-  const contextValue = useMemo(() => ({ removeTab }), [removeTab]);
+  const contextValue = useMemo(() => ({ removeTab, getCurrentTab, updateTabRoute }), [removeTab, getCurrentTab, updateTabRoute]);
 
   useEffect(() => {
     setIsLoadingInitialTabs(true);
