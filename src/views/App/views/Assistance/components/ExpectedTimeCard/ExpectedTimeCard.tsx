@@ -17,7 +17,7 @@ type AppViewAssistanceViewExpectedTimeCardComponentProps = Readonly<{
 export default function AppViewAssistanceViewExpectedTimeCardComponent({ assistance }: AppViewAssistanceViewExpectedTimeCardComponentProps) {
   const { control, getValues, watch, update } = useContext(AssistanceContext)!;
 
-  const [updateTimeoutId, setUpdateTimeoutId] = useState<NodeJS.Timeout>();
+  const [updateTimeoutId, setUpdateTimeoutId] = useState<ReturnType<typeof setInterval>>();
 
   useEffect(() => {
     if (updateTimeoutId) clearTimeout(updateTimeoutId);

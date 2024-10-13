@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { getRouteApi } from '@tanstack/react-router';
-import { useLocalStorage } from '@uidotdev/usehooks';
+import { useLocalStorage } from 'usehooks-ts';
 import CardComponent from '../../../../../../components/Card/Card';
 import { queries } from '../../../../../../utils/constants/queryKeys';
 import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthentifiedUser';

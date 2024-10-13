@@ -17,8 +17,7 @@ export default function AppViewBusinessViewDashboardViewDatesDataComponent() {
 
   const { data } = useQuery({
     ...queries.profiles.list._ctx.byIds(profileIds),
-    enabled: profileIds.length > 0,
-    select: (data) => ({ creater: data.find((d) => d.id === business.createdBy), modifier: data.find((d) => d.id === business.modifiedBy) }),
+    select: (data) => ({ creater: data.find((d) => d.userId === business.createdBy), modifier: data.find((d) => d.userId === business.modifiedBy) }),
   });
 
   return (

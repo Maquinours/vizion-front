@@ -1,5 +1,5 @@
 import { NodeToolbar, Position, useReactFlow, useViewport } from '@xyflow/react';
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { AiOutlineClose, AiTwotoneSetting } from 'react-icons/ai';
 import { OnValueChange } from 'react-number-format';
 import AmountFormat from '../../../../../../../../../../../../components/AmountFormat/AmountFormat';
@@ -31,6 +31,10 @@ export default function AppViewStudyViewExpertViewFlowComponentSynopticCameraNod
   const { updateNodeData, flowToScreenPosition } = useReactFlow();
   const { y: viewportY, zoom: viewportZoom } = useViewport();
 
+  const ref = useRef<HTMLDivElement>(null);
+
+  const [isMounted, setIsMounted] = useState(false);
+
   const options: Array<Option> | undefined = product.associatedProduct
     ?.map((option) => ({
       product: option,
@@ -49,6 +53,22 @@ export default function AppViewStudyViewExpertViewFlowComponentSynopticCameraNod
     }
     return Position.Bottom;
   }, [viewportY, viewportZoom, nodePositionY, nodeHeight]);
+
+  const offset = useMemo(() => {
+    const element = ref.current;
+    if (!element) return;
+    const flowRect = document.querySelector('.react-flow')!.getBoundingClientRect();
+    if (position === Position.Top) {
+      const nodeTop = flowToScreenPosition({ x: 0, y: nodePositionY }).y;
+      const top = nodeTop - element.getBoundingClientRect().height;
+      return Math.min(top - flowRect.top, 10);
+    } else if (position === Position.Bottom) {
+      if (!nodeHeight) return;
+      const nodeBottom = flowToScreenPosition({ x: 0, y: nodePositionY + nodeHeight }).y;
+      const bottom = nodeBottom + element.getBoundingClientRect().height;
+      return Math.min(flowRect.bottom - bottom, 10);
+    }
+  }, [isMounted, position, nodePositionY, nodeHeight]);
 
   const onNodeNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     updateNodeData(nodeId, { name: e.target.value });
@@ -88,9 +108,14 @@ export default function AppViewStudyViewExpertViewFlowComponentSynopticCameraNod
     updateNodeData(nodeId, { option: e.target.checked });
   };
 
+  useEffect(() => {
+    setIsMounted(true);
+    return () => setIsMounted(false);
+  }, []);
+
   return (
-    <NodeToolbar position={position} align="center" className="nopan rounded-md border-2 border-[#1a192b] bg-slate-50 px-2">
-      <div className="text-center">
+    <NodeToolbar position={position} align="center" offset={offset}>
+      <div ref={ref} className="nopan rounded-md border-2 border-[#1a192b] bg-slate-50 px-2 text-center">
         <div className="flex items-center justify-between border-b-2 border-b-[#1a192b] p-2">
           <AiTwotoneSetting className="fill-[#1a192b]" />
           <p className="text-sm font-bold text-[#1a192b]">Paramètrage de votre produit {product.reference}</p>

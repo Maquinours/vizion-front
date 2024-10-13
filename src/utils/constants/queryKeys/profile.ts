@@ -27,7 +27,7 @@ export const profiles = createQueryKeys('profiles', {
       }),
       byIds: (ids: Array<string>) => ({
         queryKey: [ids],
-        queryFn: () => getProfilesByIds(ids),
+        queryFn: () => (ids.length > 0 ? getProfilesByIds(ids) : Promise.resolve([])),
       }),
     },
   },

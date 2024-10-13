@@ -150,7 +150,7 @@ export default function AppViewBusinessesRmaViewTableComponent({ data, isLoading
                       e.nativeEvent.stopImmediatePropagation();
                     }}
                   >
-                    {item.number} {item.title !== item.number ? `(${item.title})` : ''}
+                    {item.number} {!!item.title?.trim() && item.title !== item.number ? `(${item.title})` : ''}
                   </Link>
                 ) : (
                   item.category === CategoryBusiness.RMA && (

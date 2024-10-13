@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { Link, getRouteApi } from '@tanstack/react-router';
 import { RowSelectionState } from '@tanstack/react-table';
-import { useLocalStorage } from '@uidotdev/usehooks';
+import { useLocalStorage } from 'usehooks-ts';
 import { useState } from 'react';
 import { FaTrash } from 'react-icons/fa';
 import CardComponent from '../../../../../../components/Card/Card';

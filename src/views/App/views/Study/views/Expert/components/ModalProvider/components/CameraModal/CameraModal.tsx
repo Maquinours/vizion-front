@@ -80,7 +80,6 @@ export default function AppViewStudyViewExpertViewModalProviderComponentCameraMo
   };
 
   const onSubmit = ({ models }: yup.InferType<typeof yupSchema>) => {
-    // TODO: set nodes in case of density
     const reactFlowRect = document.querySelector('.react-flow')!.getBoundingClientRect();
 
     const paneCenter = screenToFlowPosition({ x: reactFlowRect.x + reactFlowRect.width / 2, y: reactFlowRect.y });
@@ -220,3 +219,5 @@ export default function AppViewStudyViewExpertViewModalProviderComponentCameraMo
     </ReactModal>
   );
 }
+
+export { includedProducts as CAMERAS_INCLUDED_PRODUCTS };
