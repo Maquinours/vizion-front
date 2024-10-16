@@ -1,20 +1,20 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useQuery, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { format } from 'date-fns';
+import { useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
-import { toast } from 'react-toastify';
 import * as yup from 'yup';
+import AmountFormat from '../../../../../../../../components/AmountFormat/AmountFormat';
+import CurrencyFormat from '../../../../../../../../components/CurrencyFormat/CurrencyFormat';
 import CustomSelect from '../../../../../../../../components/CustomSelect/CustomSelect';
-import { updateBusinessArcDetail } from '../../../../../../../../utils/api/businessArcDetails';
 import { queries } from '../../../../../../../../utils/constants/queryKeys';
 import ProductResponseDto from '../../../../../../../../utils/types/ProductResponseDto';
 import styles from './UpdateDetailModal.module.scss';
-import { useEffect } from 'react';
-import { format } from 'date-fns';
-import AmountFormat from '../../../../../../../../components/AmountFormat/AmountFormat';
-import CurrencyFormat from '../../../../../../../../components/CurrencyFormat/CurrencyFormat';
+import { updateBusinessArcDetail } from '../../../../../../../../utils/api/businessArcDetails';
+import { toast } from 'react-toastify';
 
 const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/arc/update-detail/$detailId');
 
@@ -70,8 +70,8 @@ export default function AppViewBusinessViewArcViewUpdateDetailModalView() {
   };
 
   const { mutate, isPending } = useMutation({
-    mutationFn: (data: yup.InferType<typeof yupSchema>) => {
-      const reduction = ((detail.publicUnitPrice ?? 0 - data.price) / detail.publicUnitPrice) * 100;
+    mutationFn: async (data: yup.InferType<typeof yupSchema>) => {
+      const reduction = (((detail.publicUnitPrice ?? 0) - data.price) / detail.publicUnitPrice) * 100;
       const totalPrice = data.quantity * data.price;
       const totalAmountHT = arc.arcDetailsList?.reduce((acc, d) => acc + (d.id === detail.id ? totalPrice : (d.totalPrice ?? 0)), 0) ?? 0;
       const shippingServicePrice = totalAmountHT < 1200 ? arc.shippingServicePrice : 0;
