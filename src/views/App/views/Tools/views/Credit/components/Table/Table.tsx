@@ -81,11 +81,9 @@ export default function AppViewToolsViewCreditsViewTableComponent({ items, setIt
           <CurrencyFormat
             displayType="input"
             value={original.detail.unitPrice ?? undefined}
-            onChange={(e) =>
+            onValueChange={(v) =>
               setItems((items) =>
-                items.map((item) =>
-                  item.detail.id === original.detail.id ? { ...item, detail: { ...item.detail, unitPrice: parseFloat(e.target.value) } } : item,
-                ),
+                items.map((item) => (item.detail.id === original.detail.id ? { ...item, detail: { ...item.detail, unitPrice: parseFloat(v.value) } } : item)),
               )
             }
           />
@@ -97,8 +95,8 @@ export default function AppViewToolsViewCreditsViewTableComponent({ items, setIt
           <CurrencyFormat
             displayType="input"
             value={original.price}
-            onChange={(e) =>
-              setItems((items) => items.map((item) => (item.detail.id === original.detail.id ? { ...item, price: parseFloat(e.target.value) } : item)))
+            onValueChange={(v) =>
+              setItems((items) => items.map((item) => (item.detail.id === original.detail.id ? { ...item, price: parseFloat(v.value) } : item)))
             }
           />
         ),
