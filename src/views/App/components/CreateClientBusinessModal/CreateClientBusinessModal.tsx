@@ -119,7 +119,7 @@ export default function AppViewCreateClientBusinessModalComponent() {
                 render={({ field: { onChange, value } }) => (
                   <CustomSelect
                     options={enterprise.profiles}
-                    getOptionLabel={(opt) => `${opt.firstName} ${opt.lastName}`}
+                    getOptionLabel={(opt) => `${opt.firstName ?? ''} ${opt.lastName ?? ''}`.trim()}
                     getOptionValue={(opt) => opt.id}
                     placeholder="Sélectionnez un contact"
                     value={value}

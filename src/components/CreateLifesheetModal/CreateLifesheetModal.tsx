@@ -73,6 +73,7 @@ export default function CreateLifesheetModalComponent({
 
   const { mutate, isPending } = useMutation({
     mutationFn: async ({ receivers, description, deadline }: yup.InferType<typeof yupSchema>) => {
+      if (description === predefinedTexts?.at(0)?.description) return;
       let data: Partial<LifeSheetRequestDto> = {};
       switch (associatedItemType) {
         case LifesheetAssociatedItem.PRODUCT:
