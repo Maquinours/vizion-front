@@ -104,6 +104,22 @@ export default function AppViewAssistanceViewSummaryCardComponent({ assistance }
           <button className="btn btn-primary" disabled={isPending} onClick={handleSubmit((data) => mutate(data))}>
             {isPending ? 'Sauvegarde en cours...' : 'Sauvegarder'}
           </button>
+          {(() => {
+            const nvrSerialNumber = data?.find((d) => d.name === 'S2C')?.value;
+            if (!nvrSerialNumber) return null;
+            return (
+              <a
+                href={`https://myvizeo.fr/webproxy/home?id=${nvrSerialNumber}`}
+                target="_blank"
+                title="Accéder à l'enregistreur"
+                rel="noreferrer"
+                style={{ textDecoration: 'revert', color: 'revert' }}
+                className="btn btn-secondary"
+              >
+                Accéder à l'enregistreur
+              </a>
+            );
+          })()}
         </div>
         <div className={styles.table_container}>
           <TableComponent columns={columns} data={watch('items')} isLoading={isLoading} />

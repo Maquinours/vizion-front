@@ -10,6 +10,7 @@ import { formatDateWithSlash } from '../../../../../../utils/functions/dates';
 import styles from './CreateAssistanceModal.module.scss';
 import { useContext } from 'react';
 import { TabsContext } from '../../../../components/TabsContainer/utils/contexts/context';
+import BusinessBpSerialResponseDto from '../../../../../../utils/types/BusinessBpSerialResponseDto';
 
 const routeApi = getRouteApi('/app/businesses-rma/business/$businessId');
 
@@ -33,6 +34,15 @@ export default function AppViewBusinessViewCreateAssistanceModalComponent() {
       const bill = (await queryClient.ensureQueryData(queries['business-bills'].list._ctx.byBusinessId(businessId)))?.find(
         (bill) => bill.type === BillType.FACTURE,
       );
+      const nvrSerialNumbers = (await queryClient.ensureQueryData(queries['business-bps'].detail._ctx.byBusinessId(businessId))).bpDetailsList
+        .flatMap((detail) => detail.bpSerialList)
+        .filter((serial): serial is BusinessBpSerialResponseDto => !!serial && serial.numSerie.startsWith('B011'));
+      const recaps = [];
+      if (!!bill?.createdDate) recaps.push({ name: 'Date de facturation', value: formatDateWithSlash(bill.createdDate) });
+      if (nvrSerialNumbers.length === 1) {
+        const nvrSerialNumber = nvrSerialNumbers[0];
+        recaps.push({ name: 'S2C', value: nvrSerialNumber.numSerie });
+      }
       return createTechnicalSupport({
         name: '',
         enterpriseId: business.enterpriseId,
@@ -41,7 +51,7 @@ export default function AppViewBusinessViewCreateAssistanceModalComponent() {
         predefinedTime: '00:00:00',
         cumulatedTime: '00:00:00',
         noBilledTime: '00:00:00',
-        recaps: !!bill?.createdDate ? [{ name: 'Date de facturation', value: formatDateWithSlash(bill.createdDate) }] : undefined,
+        recaps: recaps,
       });
     },
     onSuccess: async (technicalSupport) => {
