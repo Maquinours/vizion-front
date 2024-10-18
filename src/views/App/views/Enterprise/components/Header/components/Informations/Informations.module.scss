@@ -1,4 +1,4 @@
-@import '/src/assets/styles/mixins';
+@use '/src/assets/styles/mixins';
 
 .container {
   display: flex;
@@ -54,7 +54,7 @@
     }
   }
 
-  @include respond-below(md) {
+  @include mixins.respond-below(md) {
     flex-direction: column-reverse;
     justify-content: flex-start;
     gap: 1rem;

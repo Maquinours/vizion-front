@@ -1,4 +1,4 @@
-@import '/src/assets/styles/mixins';
+@use '/src/assets/styles/mixins';
 
 .topbar {
   width: 100%;
@@ -10,7 +10,7 @@
   height: var(--topbar-container-height);
   z-index: 1999;
 
-  @include respond-below(sm) {
+  @include mixins.respond-below(sm) {
     height: var(--topbar-mobile-container-height);
   }
 

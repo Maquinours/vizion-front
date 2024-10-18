@@ -1,4 +1,4 @@
-@import '/src/assets/styles/mixins';
+@use '/src/assets/styles/mixins';
 
 .table_container {
   width: 100%;
@@ -68,7 +68,7 @@
             }
           }
 
-          @include respond-below(sm) {
+          @include mixins.respond-below(sm) {
             padding: 0.5rem 1rem;
           }
 
@@ -108,7 +108,7 @@
           &:nth-child(8) {
             width: 2%;
 
-            & > div {
+            &>div {
               position: relative;
               width: auto;
 
@@ -121,7 +121,7 @@
                 // padding-top: 5px;
               }
 
-              & > div {
+              &>div {
                 display: none;
                 position: absolute;
                 width: 150px;
@@ -168,7 +168,7 @@
                 }
               }
 
-              & > div::after {
+              &>div::after {
                 content: '';
                 position: absolute;
                 top: 13px;
@@ -182,7 +182,7 @@
               }
 
               &:hover {
-                & > div {
+                &>div {
                   display: initial;
                 }
               }
@@ -192,7 +192,7 @@
       }
     }
 
-    @include respond-below(md) {
+    @include mixins.respond-below(md) {
       table-layout: auto;
     }
   }
@@ -204,7 +204,7 @@
     display: table;
     width: 100%;
 
-    @include respond-below(sm) {
+    @include mixins.respond-below(sm) {
       table-layout: auto;
     }
   }
@@ -257,14 +257,14 @@
           width: 2%;
         }
 
-        @include respond-below(sm) {
+        @include mixins.respond-below(sm) {
           padding: 0.5rem 1rem;
         }
       }
     }
   }
 
-  @include respond-below(md) {
+  @include mixins.respond-below(md) {
     overflow-x: auto;
   }
 }

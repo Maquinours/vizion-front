@@ -1,4 +1,4 @@
-@import '/src/assets/styles/mixins';
+@use '/src/assets/styles/mixins';
 
 .table_container {
   margin-top: 1rem;
@@ -59,7 +59,7 @@
           height: 35px;
           text-align: center;
 
-          @include respond-below(md) {
+          @include mixins.respond-below(md) {
             padding-left: 10px;
           }
 
@@ -84,7 +84,7 @@
               }
             }
 
-            @include respond-below(sm) {
+            @include mixins.respond-below(sm) {
               width: 10%;
             }
           }
@@ -127,7 +127,7 @@
     display: table;
     width: 100%;
 
-    @include respond-below(sm) {
+    @include mixins.respond-below(sm) {
       table-layout: auto;
     }
   }
@@ -144,7 +144,7 @@
     width: 100%;
     table-layout: fixed;
 
-    @include respond-below(md) {
+    @include mixins.respond-below(md) {
       font-size: 12px;
       line-height: 15px;
     }
@@ -159,7 +159,7 @@
       position: sticky;
       top: 0;
 
-      @include respond-below(md) {
+      @include mixins.respond-below(md) {
         padding-left: 10px;
       }
 

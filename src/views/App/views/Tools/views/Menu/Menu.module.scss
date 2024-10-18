@@ -1,4 +1,4 @@
-@import '/src/assets/styles/mixins';
+@use '/src/assets/styles/mixins';
 
 .container {
   width: 100%;
@@ -19,11 +19,11 @@
     display: flex;
     justify-content: center;
 
-    @include respond-below(md) {
+    @include mixins.respond-below(md) {
       margin: 0;
     }
 
-    @include respond-below(xs) {
+    @include mixins.respond-below(xs) {
       margin: 0 1rem;
       display: inherit;
     }
@@ -38,11 +38,11 @@
       // @include respond-above(md) {
       //   grid-template-columns: auto auto;
       // }
-      @include respond-below(sm) {
+      @include mixins.respond-below(sm) {
         grid-template-columns: auto auto;
       }
 
-      @include respond-below(xs) {
+      @include mixins.respond-below(xs) {
         grid-template-columns: auto;
         gap: 3rem 0;
       }
@@ -75,11 +75,11 @@
             opacity: 0.5;
           }
 
-          @include respond-below(lg) {
+          @include mixins.respond-below(lg) {
             width: 285px;
           }
 
-          @include respond-below(md) {
+          @include mixins.respond-below(md) {
             width: 100%;
             padding: 5px;
           }
@@ -120,7 +120,7 @@
             transition: transform 1s;
             font-size: 48px;
 
-            @include respond-below(md) {
+            @include mixins.respond-below(md) {
               margin-left: 5px;
             }
           }

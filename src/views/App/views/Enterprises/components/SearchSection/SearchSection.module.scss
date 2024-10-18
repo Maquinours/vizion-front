@@ -1,4 +1,4 @@
-@import '/src/assets/styles/mixins';
+@use '/src/assets/styles/mixins';
 
 .container {
   width: 100%;
@@ -30,7 +30,7 @@
           width: 100px;
         }
 
-        @include respond-below(sm) {
+        @include mixins.respond-below(sm) {
           width: 100%;
           justify-content: flex-end;
         }
@@ -59,7 +59,7 @@
           opacity: 1;
         }
 
-        @include respond-below(sm) {
+        @include mixins.respond-below(sm) {
           width: 100%;
         }
       }
@@ -90,7 +90,7 @@
           color: var(--secondary-color);
         }
 
-        @include respond-below(sm) {
+        @include mixins.respond-below(sm) {
           width: 100%;
         }
       }

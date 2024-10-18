@@ -1,11 +1,11 @@
-@import '../../../../assets/styles/mixins';
+@use '../../../../assets/styles/mixins';
 
 .container {
   position: sticky;
   z-index: 500;
   top: var(--topbar-container-height);
 
-  @include respond-below(sm) {
+  @include mixins.respond-below(sm) {
     display: none;
   }
 

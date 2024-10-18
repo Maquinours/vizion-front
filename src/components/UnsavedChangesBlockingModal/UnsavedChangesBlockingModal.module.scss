@@ -1,4 +1,4 @@
-@import '/src/assets/styles/mixins';
+@use '/src/assets/styles/mixins';
 
 .modal {
   position: absolute;
@@ -44,7 +44,7 @@
       gap: 1rem;
       text-align: center;
 
-      > button {
+      >button {
         flex: 1 1 0%;
       }
     }

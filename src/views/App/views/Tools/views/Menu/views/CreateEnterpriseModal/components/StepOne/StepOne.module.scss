@@ -1,4 +1,4 @@
-@import '/src/assets/styles/mixins';
+@use '/src/assets/styles/mixins';
 
 .forms_container {
   width: 100%;
@@ -33,7 +33,7 @@
         margin-top: 2px;
       }
 
-      @include respond-below(sm) {
+      @include mixins.respond-below(sm) {
         grid-template-areas:
           'label label label label'
           'input input input input'
@@ -53,7 +53,7 @@
         align-self: center;
         padding-right: 1rem;
 
-        @include respond-below(sm) {
+        @include mixins.respond-below(sm) {
           text-align: left;
         }
 

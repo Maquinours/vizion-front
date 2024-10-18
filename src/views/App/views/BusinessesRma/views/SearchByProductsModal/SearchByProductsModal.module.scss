@@ -1,4 +1,4 @@
-@import '/src/assets/styles/mixins';
+@use '/src/assets/styles/mixins';
 
 .modal {
   position: absolute;
@@ -64,7 +64,7 @@
               height: 20px;
               width: auto;
 
-              @include respond-below(md) {
+              @include mixins.respond-below(md) {
                 width: inherit;
               }
 
@@ -194,7 +194,7 @@
                   width: 5%;
                 }
 
-                @include respond-below(sm) {
+                @include mixins.respond-below(sm) {
                   padding: 0.5rem;
                 }
               }
@@ -235,12 +235,12 @@
             }
           }
 
-          @include respond-below(md) {
+          @include mixins.respond-below(md) {
             table-layout: auto;
           }
         }
 
-        @include respond-below(md) {
+        @include mixins.respond-below(md) {
           overflow-x: auto;
         }
       }
@@ -268,15 +268,15 @@
     }
   }
 
-  @include respond-below(lg) {
+  @include mixins.respond-below(lg) {
     width: 50%;
   }
 
-  @include respond-below(md) {
+  @include mixins.respond-below(md) {
     width: 70%;
   }
 
-  @include respond-below(sm) {
+  @include mixins.respond-below(sm) {
     width: 98%;
   }
 }

@@ -1,4 +1,4 @@
-@import '/src/assets/styles/mixins';
+@use '/src/assets/styles/mixins';
 
 .container {
   width: 100%;
@@ -14,7 +14,7 @@
     justify-content: center;
     margin: 1rem 0;
 
-    @include respond-below(sm) {
+    @include mixins.respond-below(sm) {
       font-size: 25px;
       line-height: 29px;
     }
@@ -94,6 +94,7 @@
         //   }
         // }
         .faq_content {
+
           // color: white;
           .faq_description {
             cursor: none;
@@ -102,7 +103,7 @@
       }
     }
 
-    @include respond-below(sm) {
+    @include mixins.respond-below(sm) {
       grid-template-columns: repeat(1, 1fr);
     }
   }

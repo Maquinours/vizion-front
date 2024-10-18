@@ -1,4 +1,4 @@
-@import '/src/assets/styles/mixins';
+@use '/src/assets/styles/mixins';
 
 .modal {
   position: absolute;
@@ -29,7 +29,7 @@
           width: 95%;
           height: 70vh;
 
-          @include respond-below(sm) {
+          @include mixins.respond-below(sm) {
             width: 100%;
           }
         }

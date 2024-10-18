@@ -1,4 +1,4 @@
-@import '/src/assets/styles/mixins';
+@use '/src/assets/styles/mixins';
 
 .container {
   width: 100%;
@@ -69,7 +69,7 @@
         }
       }
 
-      @include respond-below(md) {
+      @include mixins.respond-below(md) {
         overflow-x: auto;
       }
     }

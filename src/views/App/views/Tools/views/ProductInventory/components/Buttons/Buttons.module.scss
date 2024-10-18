@@ -1,4 +1,4 @@
-@import '/src/assets/styles/mixins';
+@use '/src/assets/styles/mixins';
 
 .footer_buttons {
   margin-top: 1rem;
@@ -6,7 +6,7 @@
   justify-content: flex-end;
   gap: 10px;
 
-  @include respond-below(sm) {
+  @include mixins.respond-below(sm) {
     display: none;
   }
 }

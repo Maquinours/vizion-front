@@ -1,4 +1,4 @@
-@import '/src/assets/styles/mixins';
+@use '/src/assets/styles/mixins';
 
 .container {
   width: 100%;
@@ -9,11 +9,11 @@
   align-items: center;
   flex-direction: column;
 
-  @include respond-below(md) {
+  @include mixins.respond-below(md) {
     padding: 1rem;
   }
 
-  @include respond-below(xs) {
+  @include mixins.respond-below(xs) {
     padding: 0;
   }
 

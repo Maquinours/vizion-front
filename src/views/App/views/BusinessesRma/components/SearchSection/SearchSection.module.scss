@@ -1,4 +1,4 @@
-@import '/src/assets/styles/mixins';
+@use '/src/assets/styles/mixins';
 
 .filters_container {
   ._title {
@@ -13,7 +13,7 @@
     flex-wrap: wrap;
     gap: 10px;
 
-    @include respond-below(sm) {
+    @include mixins.respond-below(sm) {
       margin-bottom: 1rem;
     }
 
@@ -29,7 +29,7 @@
       padding-left: 0.5rem;
       font: normal normal normal 14px/18px 'DIN2014';
 
-      @include respond-below(sm) {
+      @include mixins.respond-below(sm) {
         width: 100%;
       }
 
@@ -50,7 +50,7 @@
       min-width: 250px;
       height: 28px;
 
-      & > button {
+      &>button {
         width: 100%;
         height: 100%;
         border: 1px solid var(--primary-color);

@@ -1,4 +1,4 @@
-@import '/src/assets/styles/mixins';
+@use '/src/assets/styles/mixins';
 
 .research_container {
   margin: 1rem 0;
@@ -23,7 +23,7 @@
         sans-serif;
       outline: none;
 
-      @include respond-below(md) {
+      @include mixins.respond-below(md) {
         width: inherit;
       }
 

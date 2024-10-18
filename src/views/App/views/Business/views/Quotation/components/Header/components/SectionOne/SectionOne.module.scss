@@ -1,11 +1,11 @@
-@import '/src/assets/styles/mixins';
+@use '/src/assets/styles/mixins';
 
 .header {
   width: 100%;
   display: flex;
   justify-content: space-between;
 
-  @include respond-below(sm) {
+  @include mixins.respond-below(sm) {
     flex-wrap: wrap;
     gap: 1rem;
   }

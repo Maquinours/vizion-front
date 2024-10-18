@@ -1,4 +1,4 @@
-@import '/src/assets/styles/mixins';
+@use '/src/assets/styles/mixins';
 
 .research_container {
   width: 40%;
@@ -6,7 +6,7 @@
   border-radius: 5px;
   padding: 1rem;
 
-  @include respond-below(sm) {
+  @include mixins.respond-below(sm) {
     width: 100%;
   }
 
@@ -45,7 +45,7 @@
         align-self: center;
         padding-right: 1rem;
 
-        @include respond-below(sm) {
+        @include mixins.respond-below(sm) {
           text-align: left;
         }
       }
@@ -113,7 +113,7 @@
       justify-content: center;
       gap: 1rem;
 
-      @include respond-below(sm) {
+      @include mixins.respond-below(sm) {
         justify-content: flex-end;
       }
     }

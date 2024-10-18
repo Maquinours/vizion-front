@@ -1,4 +1,4 @@
-@import '/src/assets/styles/mixins';
+@use '/src/assets/styles/mixins';
 
 .modal_container {
   padding: 2rem 0;
@@ -110,7 +110,7 @@
           }
         }
 
-        @include respond-below(md) {
+        @include mixins.respond-below(md) {
           table-layout: auto;
 
           tbody {

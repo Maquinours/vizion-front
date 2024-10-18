@@ -1,4 +1,6 @@
-@import '../CreateCollectiveTaskModal/CreateCollectiveTaskModal.module.scss';
+@use '../CreateCollectiveTaskModal/CreateCollectiveTaskModal.module.scss';
+@use "/src/assets/styles/mixins";
+
 
 .mail_modal {
   @extend .modal;
@@ -32,7 +34,7 @@
       padding: 1rem 2rem;
       width: 100%;
 
-      @include respond-below(sm) {
+      @include mixins.respond-below(sm) {
         padding: 0.5rem;
       }
 
@@ -51,11 +53,11 @@
     }
   }
 
-  @include respond-below(md) {
+  @include mixins.respond-below(md) {
     width: 75%;
   }
 
-  @include respond-below(sm) {
+  @include mixins.respond-below(sm) {
     width: 98%;
   }
 }

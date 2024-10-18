@@ -1,4 +1,4 @@
-@import '/src/assets/styles/mixins';
+@use '/src/assets/styles/mixins';
 
 .quote_recap {
   width: 100%;
@@ -9,7 +9,7 @@
   .quote_container {
     width: 320px;
 
-    @include respond-below(sm) {
+    @include mixins.respond-below(sm) {
       width: 300px;
     }
 
@@ -33,6 +33,7 @@
 
     table {
       tbody {
+
         tr,
         td {
           border-collapse: collapse;

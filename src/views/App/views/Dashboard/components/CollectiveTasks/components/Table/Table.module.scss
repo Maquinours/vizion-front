@@ -1,4 +1,4 @@
-@import '/src/assets/styles/mixins';
+@use '/src/assets/styles/mixins';
 
 .table_container {
   width: 100%;
@@ -57,7 +57,7 @@
             letter-spacing: 0px;
             color: var(--primary-light-color);
 
-            @include respond-below(sm) {
+            @include mixins.respond-below(sm) {
               justify-content: space-between;
               align-items: center;
             }
