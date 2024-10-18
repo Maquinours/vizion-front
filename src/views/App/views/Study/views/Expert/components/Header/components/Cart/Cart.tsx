@@ -8,7 +8,7 @@ import { queries } from '../../../../../../../../../../utils/constants/queryKeys
 import { ExpertStudyDensityCameraNode } from '../../../Flow/components/DensityCameraNode/DensityCameraNode';
 import { ExpertStudyMonitorNode } from '../../../Flow/components/MonitorNode/MonitorNode';
 import { ExpertStudyRecorderNode } from '../../../Flow/components/RecorderNode/RecorderNode';
-import { ExpertStudyServiceNode } from '../../../Flow/components/ServiceNode/ServiceNode';
+import { ExpertStudyMiscProductNode } from '../../../Flow/components/MiscProductNode/MiscProductNode';
 import { ExpertStudySynopticCameraNode } from '../../../Flow/components/SynopticCameraNode/SynopticCameraNode';
 import { ExpertStudyTransmitterNode } from '../../../Flow/components/TransmitterNode/TransmitterNode';
 import useStateStore, { RFState } from '../../../Flow/utils/store';
@@ -28,7 +28,7 @@ const reactFlowSelector = (state: ReactFlowState) => {
       | ExpertStudyMonitorNode
       | ExpertStudyRecorderNode
       | ExpertStudyTransmitterNode
-      | ExpertStudyServiceNode
+      | ExpertStudyMiscProductNode
     > => !!node.type && ['synopticCamera', 'densityCamera', 'monitor', 'recorder', 'transmitter', 'service'].includes(node.type),
   );
   const camerasCount = productNodes.reduce(

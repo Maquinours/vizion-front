@@ -4,11 +4,11 @@ import { Node, NodeProps, NodeResizer, OnResize, useReactFlow, useUpdateNodeInte
 import { ReactEventHandler, useRef, useState } from 'react';
 import AmountFormat from '../../../../../../../../../../components/AmountFormat/AmountFormat';
 import { queries } from '../../../../../../../../../../utils/constants/queryKeys';
-import AppViewStudyViewExpertViewFlowComponentServiceNodeComponentMenuComponent from './components/Menu/Menu';
+import AppViewStudyViewExpertViewFlowComponentMiscProductNodeComponentMenuComponent from './components/Menu/Menu';
 
-export const isExpertStudyServiceNode = (node: Node): node is ExpertStudyServiceNode => {
+export const isExpertStudyMiscProductNode = (node: Node): node is ExpertStudyMiscProductNode => {
   return (
-    node.type === 'service' &&
+    node.type === 'misc-product' &&
     'productId' in node.data &&
     typeof node.data.productId === 'string' &&
     'size' in node.data &&
@@ -26,7 +26,7 @@ export const isExpertStudyServiceNode = (node: Node): node is ExpertStudyService
   );
 };
 
-export type ExpertStudyServiceNode = Node<
+export type ExpertStudyMiscProductNode = Node<
   {
     productId: string;
     size: { width: number; height: number };
@@ -35,15 +35,15 @@ export type ExpertStudyServiceNode = Node<
     quantity?: number;
     option?: boolean;
   },
-  'service'
+  'misc-product'
 >;
-export default function AppViewStudyViewExpertViewFlowComponentServiceNodeComponent({
+export default function AppViewStudyViewExpertViewFlowComponentMiscProductNodeComponent({
   id,
   selected,
   data,
   positionAbsoluteY,
   height,
-}: NodeProps<ExpertStudyServiceNode>) {
+}: NodeProps<ExpertStudyMiscProductNode>) {
   const { setNodes, updateNodeData } = useReactFlow();
   const updateNodeInternals = useUpdateNodeInternals();
 
@@ -140,7 +140,7 @@ export default function AppViewStudyViewExpertViewFlowComponentServiceNodeCompon
           </div>
         </div>
         {showMenu && (
-          <AppViewStudyViewExpertViewFlowComponentServiceNodeComponentMenuComponent
+          <AppViewStudyViewExpertViewFlowComponentMiscProductNodeComponentMenuComponent
             nodeId={id}
             data={data}
             onClose={() => setShowMenu(false)}

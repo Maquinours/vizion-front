@@ -26,7 +26,7 @@ import AppViewStudyViewExpertViewFlowComponentKeyPluginComponent from './compone
 import recordersHandlesData from './components/RecorderNode/constants/handles';
 import { handlesData as transmitterHandlesData } from './components/TransmitterNode/constants/handles';
 import { getHelperLines } from './utils/functions/helperLines';
-import AppViewStudyViewExpertViewFlowComponentServiceNodeComponent from './components/ServiceNode/ServiceNode';
+import AppViewStudyViewExpertViewFlowComponentMiscProductNodeComponent from './components/MiscProductNode/MiscProductNode';
 import AppViewStudyViewExpertViewFlowComponentDensityScaleNodeComponent from './components/DensityScaleNode/DensityScaleNode';
 import AppViewStudyViewExpertViewFlowComponentDensityCameraNodeComponent from './components/DensityCameraNode/DensityCameraNode';
 import AppViewStudyViewExpertViewFlowComponentBackgroundNodeComponent from './components/BackgroundNode/BackgroundNode';
@@ -37,7 +37,7 @@ const nodeTypes: NodeTypes = {
   monitor: AppViewStudyViewExpertViewFlowComponentMonitorNodeComponent,
   recorder: AppViewStudyViewExpertViewFlowComponentRecorderNodeComponent,
   transmitter: AppViewStudyViewExpertViewFlowComponentTransmitterNodeComponent,
-  service: AppViewStudyViewExpertViewFlowComponentServiceNodeComponent,
+  'misc-product': AppViewStudyViewExpertViewFlowComponentMiscProductNodeComponent,
   image: AppViewStudyViewExpertViewFlowComponentImageNodeComponent,
   text: AppViewStudyViewExpertViewFlowComponentTextNodeComponent,
   rectangle: AppViewStudyViewExpertViewFlowComponentRectangleNodeComponent,

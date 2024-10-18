@@ -24,7 +24,7 @@ import { ExpertStudyLinesNode, isExpertStudyLinesNode } from '../components/Line
 import { ExpertStudyMonitorNode, isExpertStudyMonitorNode } from '../components/MonitorNode/MonitorNode';
 import { ExpertStudyRecorderNode, isExpertStudyRecorderNode } from '../components/RecorderNode/RecorderNode';
 import { ExpertStudyRectangleNode, isExpertStudyRectangleNode } from '../components/RectangleNode/RectangleNode';
-import { ExpertStudyServiceNode, isExpertStudyServiceNode } from '../components/ServiceNode/ServiceNode';
+import { ExpertStudyMiscProductNode, isExpertStudyMiscProductNode } from '../components/MiscProductNode/MiscProductNode';
 import { ExpertStudySynopticCameraNode, isExpertStudySynopticCameraNode } from '../components/SynopticCameraNode/SynopticCameraNode';
 import { ExpertStudyTextNode, isExpertStudyTextNode } from '../components/TextNode/TextNode';
 import { ExpertStudyTransmitterNode, isExpertStudyTransmitterNode } from '../components/TransmitterNode/TransmitterNode';
@@ -58,7 +58,7 @@ export type ExpertStudyNode =
   | ExpertStudyMonitorNode
   | ExpertStudyRecorderNode
   | ExpertStudyTransmitterNode
-  | ExpertStudyServiceNode
+  | ExpertStudyMiscProductNode
   | ExpertStudyImageNode
   | ExpertStudyTextNode
   | ExpertStudyRectangleNode
@@ -74,7 +74,7 @@ export const isExpertStudyNode = (node: unknown): node is ExpertStudyNode => {
       isExpertStudyMonitorNode(node) ||
       isExpertStudyRecorderNode(node) ||
       isExpertStudyTransmitterNode(node) ||
-      isExpertStudyServiceNode(node) ||
+      isExpertStudyMiscProductNode(node) ||
       isExpertStudyImageNode(node) ||
       isExpertStudyTextNode(node) ||
       isExpertStudyRectangleNode(node) ||

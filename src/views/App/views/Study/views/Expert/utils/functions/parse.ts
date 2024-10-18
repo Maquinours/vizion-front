@@ -511,7 +511,15 @@ export const parseStudy = async (study: unknown): Promise<{ pages: Array<ExpertS
   const parsedStudy = await (async () => {
     if (typeof study !== 'object' || study === null) throw new Error('Invalid study');
     if (!('version' in study)) return studyV1ToV2(study);
-    else if (study.version === 2) return { ...study };
+    else if (study.version === 2)
+      return {
+        ...study,
+        nodes:
+          'nodes' in study && Array.isArray(study.nodes)
+            ? study.nodes.map((node) => ('type' in node && node.type === 'service' ? { ...node, type: 'misc-product' } : node))
+            : null,
+      };
+    else if (study.version === 2.1) return { ...study };
     else throw new Error('Invalid study version');
   })();
 
