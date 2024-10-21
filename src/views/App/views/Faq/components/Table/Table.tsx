@@ -70,6 +70,18 @@ export default function AppViewFaqViewTableComponent({ data, isLoading }: AppVie
         cell: ({ row }) => row.original.accessLevel,
       }),
       columnHelper.display({
+        header: 'Assistance',
+        cell: ({ row }) =>
+          row.original.assistanceId && row.original.businessId ? (
+            <Link
+              to="/app/businesses-rma/business/$businessId/assistance/$assistanceId"
+              params={{ businessId: row.original.businessId, assistanceId: row.original.assistanceId }}
+            >
+              {row.original.assistanceName}
+            </Link>
+          ) : null,
+      }),
+      columnHelper.display({
         header: 'Dernière modification',
         cell: ({ row }) => {
           const profile = profiles?.find((profile) => profile.userId === row.original.modifiedBy);
