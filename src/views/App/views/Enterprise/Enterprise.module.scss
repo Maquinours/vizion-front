@@ -1,4 +1,4 @@
-@import '/src/assets/styles/mixins';
+@use '/src/assets/styles/mixins';
 
 .info_section {
   margin-top: 1rem;
@@ -38,12 +38,12 @@
     }
 
     .two {
-      @include respond-below(sm) {
+      @include mixins.respond-below(sm) {
         overflow-x: auto;
       }
     }
 
-    @include respond-below(md) {
+    @include mixins.respond-below(md) {
       grid-template-columns: repeat(1, 1fr);
     }
   }
@@ -67,7 +67,7 @@
       grid-area: item2;
     }
 
-    @include respond-below(md) {
+    @include mixins.respond-below(md) {
       grid-template-areas:
         'item1 item1'
         'item2 item2';

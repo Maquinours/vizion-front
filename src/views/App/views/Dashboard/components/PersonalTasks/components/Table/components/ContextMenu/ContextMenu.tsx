@@ -1,12 +1,13 @@
 import { ClickAwayListener, Fade, MenuItem, MenuList, Paper, Popper } from '@mui/material';
 import { VirtualElement } from '@popperjs/core';
-import styles from './ContextMenu.module.scss';
-import { BsEyeFill, BsFillCircleFill, BsLink45Deg } from 'react-icons/bs';
-import { MdOutlineComment, MdSchedule } from 'react-icons/md';
-import { IoMdArrowForward } from 'react-icons/io';
-import TaskResponseDto from '../../../../../../../../../../utils/types/TaskResponseDto';
 import { Link, getRouteApi } from '@tanstack/react-router';
+import { BsEyeFill, BsFillCircleFill, BsLink45Deg } from 'react-icons/bs';
+import { IoMdArrowForward } from 'react-icons/io';
+import { MdOutlineComment, MdSchedule } from 'react-icons/md';
 import TaskState from '../../../../../../../../../../utils/enums/TaskState';
+import ProfileInfoResponseDto from '../../../../../../../../../../utils/types/ProfileInfoResponseDto';
+import TaskResponseDto from '../../../../../../../../../../utils/types/TaskResponseDto';
+import styles from './ContextMenu.module.scss';
 
 const Route = getRouteApi('/app/dashboard');
 
@@ -14,11 +15,13 @@ type AppViewDashboardViewPersonalTasksComponentTableComponentContextMenuComponen
   anchor: VirtualElement | undefined;
   setAnchor: (anchor: VirtualElement | undefined) => void;
   task: TaskResponseDto | undefined;
+  user: ProfileInfoResponseDto;
 }>;
 export default function AppViewDashboardViewPersonalTasksComponentTableComponentContextMenuComponent({
   anchor,
   setAnchor,
   task,
+  user,
 }: AppViewDashboardViewPersonalTasksComponentTableComponentContextMenuComponentProps) {
   const isOpen = Boolean(anchor);
 
@@ -45,7 +48,10 @@ export default function AppViewDashboardViewPersonalTasksComponentTableComponent
                       </Link>
                     </MenuItem>
                   )}
-                  {task.state !== TaskState.ARCHIVED && (
+                  {!(
+                    (task.profileId === user.profile.id && task.state === TaskState.ARCHIVED) ||
+                    (task.senderId === user.profile.id && task.senderState === TaskState.ARCHIVED)
+                  ) && (
                     <MenuItem>
                       <Link
                         from={Route.id}
@@ -61,7 +67,8 @@ export default function AppViewDashboardViewPersonalTasksComponentTableComponent
                       </Link>
                     </MenuItem>
                   )}
-                  {[TaskState.CLOSED, TaskState.CREATED].includes(task.state!) && (
+                  {((task.profileId === user.profile.id && [TaskState.CLOSED, TaskState.CREATED].includes(task.state!)) ||
+                    (task.senderId === user.profile.id && [TaskState.CLOSED, TaskState.CREATED].includes(task.senderState!))) && (
                     <MenuItem>
                       <Link
                         from={Route.id}
@@ -77,7 +84,8 @@ export default function AppViewDashboardViewPersonalTasksComponentTableComponent
                       </Link>
                     </MenuItem>
                   )}
-                  {![TaskState.CLOSED, TaskState.ARCHIVED].includes(task.state!) && (
+                  {((task.profileId === user.profile.id && task.state === TaskState.CREATED) ||
+                    (task.senderId === user.profile.id && task.senderState === TaskState.CREATED)) && (
                     <MenuItem>
                       <Link
                         from={Route.id}
@@ -93,7 +101,8 @@ export default function AppViewDashboardViewPersonalTasksComponentTableComponent
                       </Link>
                     </MenuItem>
                   )}
-                  {![TaskState.CLOSED, TaskState.ARCHIVED].includes(task.state!) && (
+                  {((task.profileId === user.profile.id && task.state === TaskState.CREATED) ||
+                    (task.senderId === user.profile.id && task.senderState === TaskState.CREATED)) && (
                     <MenuItem>
                       <Link
                         from={Route.id}

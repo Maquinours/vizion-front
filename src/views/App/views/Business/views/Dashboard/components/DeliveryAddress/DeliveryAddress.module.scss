@@ -1,4 +1,4 @@
-@import '/src/assets/styles/mixins';
+@use '/src/assets/styles/mixins';
 
 .container {
   .content {
@@ -33,7 +33,7 @@
         height: 15px;
         width: 100%;
 
-        @include respond-below(md) {
+        @include mixins.respond-below(md) {
           width: inherit;
         }
 

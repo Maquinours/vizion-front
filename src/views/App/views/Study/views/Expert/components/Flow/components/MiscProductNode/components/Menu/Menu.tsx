@@ -1,24 +1,24 @@
 import { NodeToolbar, Position, useReactFlow, useViewport } from '@xyflow/react';
 import { AiOutlineClose, AiTwotoneSetting } from 'react-icons/ai';
 import AmountFormat from '../../../../../../../../../../../../components/AmountFormat/AmountFormat';
-import { ExpertStudyServiceNode } from '../../ServiceNode';
 import { OnValueChange } from 'react-number-format';
 import { useEffect, useMemo, useRef, useState } from 'react';
+import { ExpertStudyMiscProductNode } from '../../MiscProductNode';
 
-type AppViewStudyViewExpertViewFlowComponentServiceNodeComponentMenuComponentProps = Readonly<{
+type AppViewStudyViewExpertViewFlowComponentMiscProductNodeComponentMenuComponentProps = Readonly<{
   nodeId: string;
-  data: ExpertStudyServiceNode['data'];
+  data: ExpertStudyMiscProductNode['data'];
   onClose: () => void;
   nodeHeight: number | undefined;
   nodePositionY: number;
 }>;
-export default function AppViewStudyViewExpertViewFlowComponentServiceNodeComponentMenuComponent({
+export default function AppViewStudyViewExpertViewFlowComponentMiscProductNodeComponentMenuComponent({
   nodeId,
   data,
   onClose,
   nodeHeight,
   nodePositionY,
-}: AppViewStudyViewExpertViewFlowComponentServiceNodeComponentMenuComponentProps) {
+}: AppViewStudyViewExpertViewFlowComponentMiscProductNodeComponentMenuComponentProps) {
   const { updateNodeData, flowToScreenPosition } = useReactFlow();
   const { y: viewportY, zoom: viewportZoom } = useViewport();
 
@@ -83,7 +83,7 @@ export default function AppViewStudyViewExpertViewFlowComponentServiceNodeCompon
         <div className="flex items-center justify-between p-2">
           <div className="flex items-center justify-center space-x-2">
             <AiTwotoneSetting className="fill-[#1a192b]" />
-            <h3 className="text-sm font-bold text-[#1a192b]">Paramétrage de votre service</h3>
+            <h3 className="text-sm font-bold text-[#1a192b]">Paramétrage de votre produit</h3>
           </div>
           <AiOutlineClose className="fill-[#1a192b]" onClick={onClose} />
         </div>

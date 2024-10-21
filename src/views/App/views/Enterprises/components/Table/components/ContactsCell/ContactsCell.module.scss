@@ -1,7 +1,8 @@
-@import '/src/assets/styles/mixins';
+@use '/src/assets/styles/mixins';
 
 .container {
   width: 100%;
+  cursor: default;
 
   li {
     width: 100%;

@@ -14,6 +14,8 @@ import CategoryClient from '../../../../utils/enums/CategoryClient';
 import ProfileResponseDto from '../../../../utils/types/ProfileResponseDto';
 import { useAuthentifiedUserQuery } from '../../utils/functions/getAuthentifiedUser';
 import styles from './CreateClientBusinessModal.module.scss';
+import { useContext } from 'react';
+import { TabsContext } from '../TabsContainer/utils/contexts/context';
 
 const yupSchema = yup.object().shape({
   contact: yup.mixed<ProfileResponseDto>().required("L'utilisateur est requis"),
@@ -21,6 +23,8 @@ const yupSchema = yup.object().shape({
 
 export default function AppViewCreateClientBusinessModalComponent() {
   const navigate = useNavigate();
+
+  const { getCurrentTab, updateTabRoute } = useContext(TabsContext)!;
 
   const {
     control,
@@ -77,9 +81,14 @@ export default function AppViewCreateClientBusinessModalComponent() {
         deliveryMode: 'A expédier',
         billAndLock: false,
       }),
-    onSuccess: (business) => {
+    onSuccess: async (business) => {
       toast.success('Affaire créée avec succès');
-      navigate({ to: '/app/businesses-rma/business/$businessId/study', params: { businessId: business.id } });
+      const currentTabId = getCurrentTab()?.id;
+      await navigate({ to: '/app/businesses-rma/business/$businessId/study', params: { businessId: business.id } });
+      if (!!currentTabId)
+        updateTabRoute(currentTabId, (tab) => ({
+          search: typeof tab.route.search === 'object' ? { ...tab.route.search, appModal: undefined } : tab.route.search,
+        }));
     },
     onError: (error) => {
       console.error(error);
@@ -110,7 +119,7 @@ export default function AppViewCreateClientBusinessModalComponent() {
                 render={({ field: { onChange, value } }) => (
                   <CustomSelect
                     options={enterprise.profiles}
-                    getOptionLabel={(opt) => `${opt.firstName} ${opt.lastName}`}
+                    getOptionLabel={(opt) => `${opt.firstName ?? ''} ${opt.lastName ?? ''}`.trim()}
                     getOptionValue={(opt) => opt.id}
                     placeholder="Sélectionnez un contact"
                     value={value}

@@ -1,4 +1,4 @@
-@import '/src/assets/styles/mixins';
+@use '/src/assets/styles/mixins';
 
 .container {
   padding: 2rem 0rem;
@@ -19,7 +19,7 @@
       display: grid;
     }
 
-    @include respond-below(sm) {
+    @include mixins.respond-below(sm) {
       grid-template-columns: repeat(1, 1fr);
     }
   }

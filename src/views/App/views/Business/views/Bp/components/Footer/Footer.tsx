@@ -2,11 +2,10 @@ import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-q
 import { Link, getRouteApi, useNavigate } from '@tanstack/react-router';
 import { isAxiosError } from 'axios';
 import { toast } from 'react-toastify';
+import AmountFormat from '../../../../../../../../components/AmountFormat/AmountFormat';
 import { createBusinessBl } from '../../../../../../../../utils/api/businessBls';
 import { queries } from '../../../../../../../../utils/constants/queryKeys';
 import styles from './Footer.module.scss';
-import BusinessState from '../../../../../../../../utils/enums/BusinessState';
-import AmountFormat from '../../../../../../../../components/AmountFormat/AmountFormat';
 
 const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/bp');
 
@@ -85,8 +84,8 @@ export default function AppViewBusinessViewBpViewFooterComponent() {
   });
 
   const onBlButtonClick = () => {
-    if (business.state !== BusinessState.BP) navigate({ to: '../bl', replace: true });
-    else if (!business.deliveryMode) {
+    // if (business.state !== BusinessState.BP) navigate({ to: '../bl', replace: true });
+    if (!business.deliveryMode) {
       toast.warning('Veuillez renseigner le mode de livraison');
       navigate({ to: '../dashboard', replace: true });
     } else mutate();

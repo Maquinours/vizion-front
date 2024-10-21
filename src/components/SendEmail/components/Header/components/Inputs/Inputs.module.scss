@@ -1,11 +1,11 @@
-@import '/src/assets/styles/mixins';
+@use '/src/assets/styles/mixins';
 
 .input_container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
 
-  @include respond-below(sm) {
+  @include mixins.respond-below(sm) {
     grid-template-columns: repeat(1, 1fr);
   }
 
@@ -14,7 +14,7 @@
   }
 
   .form_group {
-    .multi_email > span[data-placeholder] {
+    .multi_email>span[data-placeholder] {
       top: inherit;
     }
 

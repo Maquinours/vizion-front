@@ -6,6 +6,9 @@ type FaqRequestDto = {
   accessLevel: FaqAccessLevel;
   archived: boolean;
   productIds?: string[] | null;
+  assistanceId?: string | null;
+  assistanceName?: string | null;
+  businessId?: string | null;
 };
 
 export default FaqRequestDto;

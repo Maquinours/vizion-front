@@ -133,7 +133,7 @@ export default function AppViewToolsViewCreditView() {
   };
 
   useEffect(() => {
-    search();
+    if (!!serialNumber || !!businessNumber) search();
   }, [serialNumber, businessNumber]);
 
   return (

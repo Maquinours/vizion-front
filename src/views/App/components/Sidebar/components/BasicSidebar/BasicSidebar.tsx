@@ -20,8 +20,10 @@ const MENUS: Array<MenuItem> = [
     label: 'Nouvelle affaire',
     route: {
       search: (old) => ({ ...old, appModal: 'create-client-business', businessId: undefined, gedItemKey: undefined }),
+      activeOptions: { exact: true, includeSearch: true },
       replace: true,
       resetScroll: false,
+      ignoreBlocker: true,
     },
     allowedRoles: ['ROLE_DISTRIBUTEUR', 'ROLE_CLIENT'],
   },

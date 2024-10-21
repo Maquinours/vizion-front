@@ -1,4 +1,4 @@
-@import '/src/assets/styles/mixins';
+@use '/src/assets/styles/mixins';
 
 .pdf_container {
   .title {
@@ -14,7 +14,7 @@
       width: 900px;
       height: 90vh;
 
-      @include respond-below(sm) {
+      @include mixins.respond-below(sm) {
         width: 100%;
       }
     }

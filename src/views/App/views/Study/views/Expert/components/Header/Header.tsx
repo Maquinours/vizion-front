@@ -221,7 +221,7 @@ export default function AppViewStudyViewExpertViewHeaderComponent() {
         vizeoptik: true,
         updateSynoptic: false,
         synopticList: {
-          version: 2,
+          version: 2.1,
           studyName: getStudyName(),
           installerName: getInstallerName(),
           pages: pages,

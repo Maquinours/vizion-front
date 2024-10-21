@@ -11,6 +11,7 @@ import { createExternalLink } from '../../../../../../../../utils/api/externalLi
 import { externalLinks } from '../../../../../../../../utils/constants/queryKeys/externalLink';
 import { toast } from 'react-toastify';
 import FaqAccessLevel from '../../../../../../../../utils/enums/FaqAccessLevel';
+import { isValidUrl } from '../../../../../../../../utils/functions/url';
 
 const routeApi = getRouteApi('/app/tools/external-links/create');
 
@@ -96,7 +97,7 @@ const yupSchema = yup.object().shape({
   type: yup.string().nullable(),
   url: yup
     .string()
-    .matches(/((https?):\/\/)?(www.)?[a-z0-9]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#]+)*\/?(\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$/, 'Entrer une URL valide!')
+    .test('is-url-valid', "L'URL n'est pas valide.", (value) => typeof value === 'string' && isValidUrl(value))
     .required("L'url est requis"),
   targetType: yup.string().required('Champs requis'),
 });

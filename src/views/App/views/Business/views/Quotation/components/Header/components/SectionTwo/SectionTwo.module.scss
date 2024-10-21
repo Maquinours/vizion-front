@@ -1,4 +1,4 @@
-@import '/src/assets/styles/mixins';
+@use '/src/assets/styles/mixins';
 
 ._one {
   width: 100%;
@@ -67,7 +67,7 @@
         width: inherit;
         max-width: 250px;
 
-        @include respond-below(sm) {
+        @include mixins.respond-below(sm) {
           width: 100%;
           max-width: 100%;
         }
@@ -125,7 +125,7 @@
       }
     }
 
-    @include respond-below(sm) {
+    @include mixins.respond-below(sm) {
       grid-template-columns: auto auto;
       gap: 0.5rem 1rem;
     }

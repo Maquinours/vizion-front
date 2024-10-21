@@ -1,4 +1,4 @@
-@import '/src/assets/styles/mixins';
+@use '/src/assets/styles/mixins';
 
 .table_container {
   margin-top: 1rem;
@@ -53,7 +53,7 @@
             border-top-right-radius: 5px;
           }
 
-          @include respond-below(sm) {
+          @include mixins.respond-below(sm) {
             padding: 0.5rem;
           }
         }
@@ -166,7 +166,7 @@
       }
     }
 
-    @include respond-below(md) {
+    @include mixins.respond-below(md) {
       table-layout: auto;
     }
   }

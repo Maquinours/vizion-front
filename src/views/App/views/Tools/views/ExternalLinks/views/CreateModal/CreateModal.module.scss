@@ -1,4 +1,4 @@
-@import '/src/assets/styles/mixins';
+@use '/src/assets/styles/mixins';
 
 .modal {
   position: absolute;
@@ -46,7 +46,7 @@
             grid-template-columns: 60% auto;
             gap: 1rem;
 
-            @include respond-below(sm) {
+            @include mixins.respond-below(sm) {
               grid-template-columns: repeat(1, 1fr);
             }
 
@@ -264,11 +264,11 @@
     }
   }
 
-  @include respond-above(md) {
+  @include mixins.respond-above(md) {
     width: 75%;
   }
 
-  @include respond-below(sm) {
+  @include mixins.respond-below(sm) {
     width: 95%;
   }
 }

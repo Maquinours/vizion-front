@@ -1,4 +1,4 @@
-@import '/src/assets/styles/mixins';
+@use '/src/assets/styles/mixins';
 
 .modal {
   position: absolute;
@@ -113,18 +113,18 @@
               ul.vizeo_all_contacts_list {
                 list-style: none;
 
-                @include respond-below(md) {
+                @include mixins.respond-below(md) {
                   min-width: 180px;
                 }
 
-                & > li {
+                &>li {
                   width: 100%;
                   display: grid;
                   grid-template-columns: 40% auto;
                   gap: 1rem;
                   margin-bottom: 0.5rem;
 
-                  & > {
+                  &> {
                     :nth-child(2) {
                       ul {
                         li {
@@ -252,7 +252,7 @@
             }
           }
 
-          @include respond-below(md) {
+          @include mixins.respond-below(md) {
             table-layout: auto;
 
             tbody {

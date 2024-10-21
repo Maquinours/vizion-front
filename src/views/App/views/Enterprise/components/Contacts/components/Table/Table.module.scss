@@ -1,4 +1,4 @@
-@import '/src/assets/styles/mixins';
+@use '/src/assets/styles/mixins';
 
 .container {
   width: 100%;
@@ -160,7 +160,7 @@
               .vizeo__contact__table_tooltip_content {
                 display: inline;
 
-                @include respond-below(sm) {
+                @include mixins.respond-below(sm) {
                   left: -190px;
 
                   &::after {
@@ -175,7 +175,7 @@
           }
         }
 
-        @include respond-below(md) {
+        @include mixins.respond-below(md) {
           div {
             width: 6rem;
           }
@@ -184,7 +184,7 @@
     }
   }
 
-  @include respond-below(md) {
+  @include mixins.respond-below(md) {
     overflow-x: auto;
   }
 }

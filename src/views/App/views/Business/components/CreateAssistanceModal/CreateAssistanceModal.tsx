@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { getRouteApi, ToOptions, useNavigate } from '@tanstack/react-router';
 import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
 import { toast } from 'react-toastify';
@@ -8,12 +8,17 @@ import { queries } from '../../../../../../utils/constants/queryKeys';
 import BillType from '../../../../../../utils/enums/BillType';
 import { formatDateWithSlash } from '../../../../../../utils/functions/dates';
 import styles from './CreateAssistanceModal.module.scss';
+import { useContext } from 'react';
+import { TabsContext } from '../../../../components/TabsContainer/utils/contexts/context';
+import BusinessBpSerialResponseDto from '../../../../../../utils/types/BusinessBpSerialResponseDto';
 
 const routeApi = getRouteApi('/app/businesses-rma/business/$businessId');
 
 export default function AppViewBusinessViewCreateAssistanceModalComponent() {
   const queryClient = useQueryClient();
   const navigate = useNavigate({ from: routeApi.id });
+
+  const { getCurrentTab, updateTabRoute } = useContext(TabsContext)!;
 
   const { businessId } = routeApi.useParams();
   const { businessModal } = routeApi.useSearch();
@@ -29,6 +34,15 @@ export default function AppViewBusinessViewCreateAssistanceModalComponent() {
       const bill = (await queryClient.ensureQueryData(queries['business-bills'].list._ctx.byBusinessId(businessId)))?.find(
         (bill) => bill.type === BillType.FACTURE,
       );
+      const nvrSerialNumbers = (await queryClient.ensureQueryData(queries['business-bps'].detail._ctx.byBusinessId(businessId))).bpDetailsList
+        .flatMap((detail) => detail.bpSerialList)
+        .filter((serial): serial is BusinessBpSerialResponseDto => !!serial && serial.numSerie.startsWith('B011'));
+      const recaps = [];
+      if (!!bill?.createdDate) recaps.push({ name: 'Date de facturation', value: formatDateWithSlash(bill.createdDate) });
+      if (nvrSerialNumbers.length === 1) {
+        const nvrSerialNumber = nvrSerialNumbers[0];
+        recaps.push({ name: 'S2C', value: nvrSerialNumber.numSerie });
+      }
       return createTechnicalSupport({
         name: '',
         enterpriseId: business.enterpriseId,
@@ -37,14 +51,16 @@ export default function AppViewBusinessViewCreateAssistanceModalComponent() {
         predefinedTime: '00:00:00',
         cumulatedTime: '00:00:00',
         noBilledTime: '00:00:00',
-        recaps: !!bill?.createdDate ? [{ name: 'Date de facturation', value: formatDateWithSlash(bill.createdDate) }] : undefined,
+        recaps: recaps,
       });
     },
-    onSuccess: (technicalSupport) => {
+    onSuccess: async (technicalSupport) => {
       queryClient.invalidateQueries({ queryKey: queries['technical-supports']._def });
       queryClient.setQueryData(queries['technical-supports'].detail._ctx.byId(technicalSupport.id).queryKey, technicalSupport);
       toast.success("L'assistance a été créée avec succès.");
-      navigate({ to: '/app/businesses-rma/business/$businessId/assistance/$assistanceId', params: { assistanceId: technicalSupport.id } });
+      const currentTabId = getCurrentTab()?.id;
+      await navigate({ to: '/app/businesses-rma/business/$businessId/assistance/$assistanceId', params: { assistanceId: technicalSupport.id } });
+      if (!!currentTabId) updateTabRoute(currentTabId, (tab) => ({ to: tab.id as ToOptions['to'] }));
     },
     onError: (error) => {
       console.error(error);

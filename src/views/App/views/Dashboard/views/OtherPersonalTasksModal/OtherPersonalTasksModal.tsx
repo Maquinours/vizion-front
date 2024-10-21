@@ -33,7 +33,7 @@ export default function AppViewDashboardViewOtherPersonalTasksModalView() {
         isReloading={isRefetching}
       >
         <AppViewDashboardViewOtherPersonalTasksModalViewHeaderComponent />
-        <AppViewDashboardViewOtherPersonalTasksModalViewTableComponent data={data} isLoading={isLoading} />
+        <AppViewDashboardViewOtherPersonalTasksModalViewTableComponent data={data} isLoading={isLoading} profile={profile} />
         <AppViewDashboardViewOtherPersonalTasksModalViewPaginationComponent data={data} />
       </CardComponent>
     </ReactModal>

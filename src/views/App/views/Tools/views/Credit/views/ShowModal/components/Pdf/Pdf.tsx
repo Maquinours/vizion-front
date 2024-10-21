@@ -146,6 +146,10 @@ const pageStyles = StyleSheet.create({
     fontSize: 10,
     fontWeight: 'bold',
   },
+  arcDetailContentThree: {
+    color: '#16204E',
+    fontSize: 10,
+  },
   arcDetailTwo: {
     width: '100%',
     paddingLeft: 10,
@@ -365,7 +369,9 @@ const amountFormatter = (number: number) => {
   return new Intl.NumberFormat('de-DE', {
     style: 'currency',
     currency: 'EUR',
-  }).format(Number(number.toFixed(2)));
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  }).format(Number(number));
 };
 
 type AppViewToolsViewCreditsViewShowModalViewPdfComponentProps = Readonly<{
@@ -429,7 +435,7 @@ export default function AppViewToolsViewCreditsViewShowModalViewPdfComponent({
               </View>
               <View style={pageStyles.arcDetailOne}>
                 <Text style={pageStyles.arcDetailTitle}>N° Commande</Text>
-                <Text style={pageStyles.arcDetailContent}>{bill?.numOrder}</Text>
+                <Text style={pageStyles.arcDetailContentThree}>{bill?.numOrder}</Text>
               </View>
               <View style={pageStyles.arcDetailOne}>
                 <Text style={pageStyles.arcDetailTitle}>Dossier</Text>
@@ -437,7 +443,7 @@ export default function AppViewToolsViewCreditsViewShowModalViewPdfComponent({
               </View>
               <View style={pageStyles.arcDetailTwo}>
                 <Text style={pageStyles.arcDetailTitle}>{"Date de l'avoir"}</Text>
-                <Text style={pageStyles.arcDetailContent}>{formatDateWithSlash(new Date())}</Text>
+                <Text style={pageStyles.arcDetailContentThree}>{formatDateWithSlash(new Date())}</Text>
               </View>
             </View>
           </View>

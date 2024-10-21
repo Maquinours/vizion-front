@@ -1,4 +1,4 @@
-@import '/src/assets/styles/mixins';
+@use '/src/assets/styles/mixins';
 
 .table_container {
   width: 100%;
@@ -105,7 +105,7 @@
     box-shadow: 0px 3px 5px #10173526;
     background-color: var(--primary-color);
 
-    @include respond-below(md) {
+    @include mixins.respond-below(md) {
       font-size: 12px;
       line-height: 15px;
     }
@@ -139,7 +139,7 @@
     }
   }
 
-  @include respond-below(md) {
+  @include mixins.respond-below(md) {
     overflow-x: auto;
   }
 }

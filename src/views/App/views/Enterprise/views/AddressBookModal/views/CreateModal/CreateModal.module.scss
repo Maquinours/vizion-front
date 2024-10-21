@@ -1,4 +1,4 @@
-@import '/src/assets/styles/mixins.scss';
+@use '/src/assets/styles/mixins.scss';
 
 .modal {
   position: absolute;
@@ -88,7 +88,7 @@
               sans-serif;
             outline: none;
 
-            @include respond-below(md) {
+            @include mixins.respond-below(md) {
               width: inherit;
             }
 
@@ -116,7 +116,7 @@
               Arial,
               sans-serif;
 
-            @include respond-below(md) {
+            @include mixins.respond-below(md) {
               width: inherit;
             }
 
@@ -185,11 +185,11 @@
     }
   }
 
-  @include respond-below(md) {
+  @include mixins.respond-below(md) {
     width: 70%;
   }
 
-  @include respond-below(sm) {
+  @include mixins.respond-below(sm) {
     width: 98%;
   }
 }

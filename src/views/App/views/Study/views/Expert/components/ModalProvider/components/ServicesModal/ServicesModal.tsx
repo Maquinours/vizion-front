@@ -8,7 +8,7 @@ import * as yup from 'yup';
 import ProductResponseDto from '../../../../../../../../../../utils/types/ProductResponseDto';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useReactFlow } from '@xyflow/react';
-import { ExpertStudyServiceNode } from '../../../Flow/components/ServiceNode/ServiceNode';
+import { ExpertStudyMiscProductNode } from '../../../Flow/components/MiscProductNode/MiscProductNode';
 import { ExpertStudyNode } from '../../../Flow/utils/store';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -52,14 +52,14 @@ export default function AppViewStudyViewExpertViewModalProviderComponentServices
         (model) =>
           ({
             id: uuidv4(),
-            type: 'service',
+            type: 'misc-product',
             position: nodePosition,
             data: {
               productId: model.product.id,
               size: { width: 80, height: 80 },
               rotation: 0,
             },
-          }) as ExpertStudyServiceNode,
+          }) as ExpertStudyMiscProductNode,
       );
     addNodes(nodes);
     onClose();

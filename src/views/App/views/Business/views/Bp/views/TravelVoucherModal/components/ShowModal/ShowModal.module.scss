@@ -1,4 +1,5 @@
-@import '../FormModal/FormModal.module.scss';
+@use '../FormModal/FormModal.module.scss';
+@use "/src/assets/styles/mixins";
 
 .show_modal {
   @extend .modal;
@@ -17,7 +18,7 @@
           width: 95%;
           height: 70vh;
 
-          @include respond-below(sm) {
+          @include mixins.respond-below(sm) {
             width: 100%;
           }
         }

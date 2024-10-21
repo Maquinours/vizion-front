@@ -4,11 +4,11 @@ import { Node, NodeProps, NodeResizer, OnResize, useReactFlow, useUpdateNodeInte
 import { ReactEventHandler, useRef, useState } from 'react';
 import AmountFormat from '../../../../../../../../../../components/AmountFormat/AmountFormat';
 import { queries } from '../../../../../../../../../../utils/constants/queryKeys';
-import AppViewStudyViewExpertViewFlowComponentServiceNodeComponentMenuComponent from './components/Menu/Menu';
+import AppViewStudyViewExpertViewFlowComponentMiscProductNodeComponentMenuComponent from './components/Menu/Menu';
 
-export const isExpertStudyServiceNode = (node: Node): node is ExpertStudyServiceNode => {
+export const isExpertStudyMiscProductNode = (node: Node): node is ExpertStudyMiscProductNode => {
   return (
-    node.type === 'service' &&
+    node.type === 'misc-product' &&
     'productId' in node.data &&
     typeof node.data.productId === 'string' &&
     'size' in node.data &&
@@ -26,7 +26,7 @@ export const isExpertStudyServiceNode = (node: Node): node is ExpertStudyService
   );
 };
 
-export type ExpertStudyServiceNode = Node<
+export type ExpertStudyMiscProductNode = Node<
   {
     productId: string;
     size: { width: number; height: number };
@@ -35,15 +35,15 @@ export type ExpertStudyServiceNode = Node<
     quantity?: number;
     option?: boolean;
   },
-  'service'
+  'misc-product'
 >;
-export default function AppViewStudyViewExpertViewFlowComponentServiceNodeComponent({
+export default function AppViewStudyViewExpertViewFlowComponentMiscProductNodeComponent({
   id,
   selected,
   data,
   positionAbsoluteY,
   height,
-}: NodeProps<ExpertStudyServiceNode>) {
+}: NodeProps<ExpertStudyMiscProductNode>) {
   const { setNodes, updateNodeData } = useReactFlow();
   const updateNodeInternals = useUpdateNodeInternals();
 
@@ -105,20 +105,25 @@ export default function AppViewStudyViewExpertViewFlowComponentServiceNodeCompon
 
   if (!product) return;
 
+  const quantity = data.quantity ?? 1;
+
   return (
     <ClickAwayListener mouseEvent={showMenu ? 'onPointerDown' : false} onClickAway={() => setShowMenu(false)}>
       <div>
         <div style={{ transform: `rotate(${data.rotation}deg)` }}>
           <NodeResizer onResize={onResize} isVisible={selected ?? false} keepAspectRatio handleStyle={{ width: 10, height: 10, borderRadius: '100%' }} />
           <div className="absolute top-[-20px] w-full text-center">
-            {!!data.quantity && data.quantity > 1 && (
-              <AmountFormat
-                prefix="x"
-                value={data.quantity}
-                displayType="text"
-                className="absolute right-1 top-[calc(50%-30px)] ml-auto h-fit w-fit rounded-md bg-amber-300 p-[1px] text-center text-sm font-medium text-white"
-              />
-            )}
+            <div className="absolute right-1 top-[calc(50%-30px)] ml-auto flex h-fit w-fit gap-x-1">
+              {data.option && <span className="rounded-md bg-purple-300 p-[1px] text-center text-sm font-medium text-white">O</span>}
+              {quantity !== 0 && (
+                <AmountFormat
+                  prefix="x"
+                  value={quantity}
+                  displayType="text"
+                  className="rounded-md bg-amber-300 p-[1px] text-center text-sm font-medium text-white"
+                />
+              )}
+            </div>
             <p className="h-4 text-sm">{product.reference}</p>
           </div>
           <div ref={nodeRef} className="flex justify-center">
@@ -135,7 +140,7 @@ export default function AppViewStudyViewExpertViewFlowComponentServiceNodeCompon
           </div>
         </div>
         {showMenu && (
-          <AppViewStudyViewExpertViewFlowComponentServiceNodeComponentMenuComponent
+          <AppViewStudyViewExpertViewFlowComponentMiscProductNodeComponentMenuComponent
             nodeId={id}
             data={data}
             onClose={() => setShowMenu(false)}

@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { getRouteApi, ToOptions, useNavigate } from '@tanstack/react-router';
 import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
 import { toast } from 'react-toastify';
@@ -7,6 +7,8 @@ import { createRma } from '../../../../../../utils/api/rma';
 import { queries } from '../../../../../../utils/constants/queryKeys';
 import { enterprises } from '../../../../../../utils/constants/queryKeys/enterprise';
 import styles from './CreateEnterpriseRmaModal.module.scss';
+import { useContext } from 'react';
+import { TabsContext } from '../../../../components/TabsContainer/utils/contexts/context';
 
 const routeApi = getRouteApi('/app/enterprises/create-enterprise-rma/$enterpriseId');
 
@@ -15,6 +17,8 @@ export default function CreateEnterpriseRmaModal() {
   const navigate = useNavigate();
 
   const { enterpriseId } = routeApi.useParams();
+
+  const { getCurrentTab, updateTabRoute } = useContext(TabsContext)!;
 
   const { data: enterprise } = useSuspenseQuery(enterprises.detail(enterpriseId));
 
@@ -37,10 +41,12 @@ export default function CreateEnterpriseRmaModal() {
         enterpriseCategory: enterprise.category,
         deliveryDepartmentCode: null,
       }),
-    onSuccess: (data) => {
+    onSuccess: async (data) => {
       toast.success('RMA créé avec succès');
+      const currentTabId = getCurrentTab()?.id;
       queryClient.setQueryData(queries.rmas.detail(data.id).queryKey, data);
-      navigate({ to: '/app/businesses-rma/rma/$rmaId', params: { rmaId: data.id } });
+      await navigate({ to: '/app/businesses-rma/rma/$rmaId', params: { rmaId: data.id } });
+      if (!!currentTabId) updateTabRoute(currentTabId, (tab) => ({ to: tab.id as ToOptions['to'] }));
     },
     onError: (error) => {
       console.error(error);

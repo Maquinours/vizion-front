@@ -1,4 +1,4 @@
-@import '/src/assets/styles/mixins';
+@use '/src/assets/styles/mixins';
 
 .no_content,
 .loading {
@@ -14,11 +14,11 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
 
-  @include respond-below(md) {
+  @include mixins.respond-below(md) {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  @include respond-below(sm) {
+  @include mixins.respond-below(sm) {
     grid-template-columns: repeat(1, 1fr);
   }
 }

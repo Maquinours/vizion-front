@@ -1,4 +1,4 @@
-@import '/src/assets/styles/mixins';
+@use '/src/assets/styles/mixins';
 
 .research_container {
   .research_content {
@@ -70,12 +70,12 @@
         justify-content: flex-end;
         gap: 5px;
 
-        @include respond-below(sm) {
+        @include mixins.respond-below(sm) {
           justify-content: space-between;
         }
       }
 
-      @include respond-below(sm) {
+      @include mixins.respond-below(sm) {
         grid-template-columns: repeat(1, 1fr);
       }
     }

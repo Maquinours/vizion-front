@@ -1,4 +1,5 @@
-@import '../StepOne/StepOne.module.scss';
+@use '../StepOne/StepOne.module.scss';
+@use "/src/assets/styles/mixins";
 
 .voucher_modal {
   @extend .modal;
@@ -17,7 +18,7 @@
           width: 95%;
           height: 70vh;
 
-          @include respond-below(sm) {
+          @include mixins.respond-below(sm) {
             width: 100%;
           }
         }

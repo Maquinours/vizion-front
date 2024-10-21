@@ -1,4 +1,6 @@
-@import '../ImportGedFilesModal/ImportGedFilesModal.module.scss';
+@use '../ImportGedFilesModal/ImportGedFilesModal.module.scss';
+@use "/src/assets/styles/mixins";
+
 
 .directory_modal {
   @extend .modal;
@@ -22,7 +24,7 @@
       padding-right: 1rem;
       margin-bottom: 0.5rem;
 
-      @include respond-below(sm) {
+      @include mixins.respond-below(sm) {
         text-align: left;
         margin-bottom: 0.3rem;
       }
@@ -81,7 +83,7 @@
         height: 30px;
         width: auto;
 
-        @include respond-below(md) {
+        @include mixins.respond-below(md) {
           width: inherit;
         }
 
@@ -123,11 +125,11 @@
     }
   }
 
-  @include respond-below(md) {
+  @include mixins.respond-below(md) {
     width: 75%;
   }
 
-  @include respond-below(sm) {
+  @include mixins.respond-below(sm) {
     width: 98%;
   }
 }

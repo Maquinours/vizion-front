@@ -11,7 +11,7 @@ import { queries } from '../../../../../../../../../../../../utils/constants/que
 import ProductResponseDto from '../../../../../../../../../../../../utils/types/ProductResponseDto';
 import { ExpertStudyMonitorNode } from '../../../../../Flow/components/MonitorNode/MonitorNode';
 import { ExpertStudyRecorderNode } from '../../../../../Flow/components/RecorderNode/RecorderNode';
-import { ExpertStudyServiceNode } from '../../../../../Flow/components/ServiceNode/ServiceNode';
+import { ExpertStudyMiscProductNode } from '../../../../../Flow/components/MiscProductNode/MiscProductNode';
 import { ExpertStudySynopticCameraNode } from '../../../../../Flow/components/SynopticCameraNode/SynopticCameraNode';
 import { ExpertStudyTransmitterNode } from '../../../../../Flow/components/TransmitterNode/TransmitterNode';
 
@@ -75,7 +75,7 @@ const selector = (state: ReactFlowState) => ({
       (
         node,
       ): node is InternalNode<
-        ExpertStudySynopticCameraNode | ExpertStudyMonitorNode | ExpertStudyRecorderNode | ExpertStudyTransmitterNode | ExpertStudyServiceNode
+        ExpertStudySynopticCameraNode | ExpertStudyMonitorNode | ExpertStudyRecorderNode | ExpertStudyTransmitterNode | ExpertStudyMiscProductNode
       > => !!node.type && ['synopticCamera', 'monitor', 'recorder', 'transmitter', 'service'].includes(node.type),
     )
     .reduce((acc: Array<{ id: string; quantity: number }>, node) => {

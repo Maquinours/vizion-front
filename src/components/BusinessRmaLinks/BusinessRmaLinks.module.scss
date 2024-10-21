@@ -1,4 +1,4 @@
-@import '/src/assets/styles/mixins';
+@use '/src/assets/styles/mixins';
 
 .container {
   min-width: 200px;
@@ -35,7 +35,7 @@
             opacity: 1;
             padding: 0.2rem 0.5rem;
 
-            @include respond-below(sm) {
+            @include mixins.respond-below(sm) {
               padding: 0.5rem;
             }
           }
@@ -70,12 +70,12 @@
         }
       }
 
-      @include respond-below(md) {
+      @include mixins.respond-below(md) {
         table-layout: auto;
       }
     }
 
-    @include respond-below(md) {
+    @include mixins.respond-below(md) {
       overflow-x: auto;
     }
   }

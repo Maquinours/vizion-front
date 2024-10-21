@@ -145,6 +145,10 @@ const pageStyles = StyleSheet.create({
     color: '#F24C52',
     fontSize: 10,
   },
+  creditDetailTwoContent: {
+    color: '#16204E',
+    fontSize: 10,
+  },
   creditDetailThreeContent: {
     color: '#F24C52',
     fontSize: 10,
@@ -402,7 +406,7 @@ export default function AppViewBusinessViewBillViewCreditsModalViewPdfComponent(
               <View style={pageStyles.creditDetailOne}>
                 <View style={pageStyles.creditDetailOneContainer}>
                   <Text style={pageStyles.creditDetailOneTitle}>N° Commande</Text>
-                  <Text style={pageStyles.creditDetailOneContent}>{credit.numOrder}</Text>
+                  <Text style={pageStyles.creditDetailTwoContent}>{credit.numOrder}</Text>
                 </View>
               </View>
               <View style={pageStyles.creditDetailOne}>
@@ -414,7 +418,7 @@ export default function AppViewBusinessViewBillViewCreditsModalViewPdfComponent(
               <View style={pageStyles.creditDetailFour}>
                 <View style={pageStyles.creditDetailOneContainer}>
                   <Text style={pageStyles.creditDetailOneTitle}>{"Date de l'avoir"}</Text>
-                  <Text style={pageStyles.creditDetailOneContent}>{formatDateWithSlash(credit.createdDate)}</Text>
+                  <Text style={pageStyles.creditDetailTwoContent}>{formatDateWithSlash(credit.createdDate)}</Text>
                 </View>
               </View>
             </View>

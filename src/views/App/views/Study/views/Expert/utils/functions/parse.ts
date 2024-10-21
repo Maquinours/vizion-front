@@ -16,6 +16,11 @@ import { ExpertStudySynopticCameraNode } from '../../components/Flow/components/
 import { ExpertStudyTextNode } from '../../components/Flow/components/TextNode/TextNode';
 import { ExpertStudyTransmitterNode } from '../../components/Flow/components/TransmitterNode/TransmitterNode';
 import { ExpertStudyDensityPage, ExpertStudyPage, ExpertStudySynopticPage, isExpertStudyPage } from '../../components/Flow/utils/store';
+import { HeadingNode, QuoteNode } from '@lexical/rich-text';
+import { TableCellNode, TableNode, TableRowNode } from '@lexical/table';
+import { ListItemNode, ListNode } from '@lexical/list';
+import { CodeHighlightNode, CodeNode } from '@lexical/code';
+import { AutoLinkNode, LinkNode } from '@lexical/link';
 
 type ValidPage =
   | { nodes: Array<Node>; edges: Array<Edge>; viewport: Viewport; mode: 'SYNOPTIC' }
@@ -365,7 +370,9 @@ const handleCameraNode = async (node: Node, pageType: 'synoptic' | 'density') =>
 
 const handleTextNode = async (node: Node) => {
   if (!('editorState' in node.data) || typeof node.data.editorState !== 'string') throw new Error('Invalid text node');
-  const editor = createEditor();
+  const editor = createEditor({
+    nodes: [HeadingNode, ListNode, ListItemNode, QuoteNode, CodeNode, CodeHighlightNode, TableNode, TableCellNode, TableRowNode, AutoLinkNode, LinkNode],
+  });
   const parsedEditorState = editor.parseEditorState(node.data.editorState);
   editor.setEditorState(parsedEditorState);
 
@@ -504,7 +511,15 @@ export const parseStudy = async (study: unknown): Promise<{ pages: Array<ExpertS
   const parsedStudy = await (async () => {
     if (typeof study !== 'object' || study === null) throw new Error('Invalid study');
     if (!('version' in study)) return studyV1ToV2(study);
-    else if (study.version === 2) return { ...study };
+    else if (study.version === 2)
+      return {
+        ...study,
+        nodes:
+          'nodes' in study && Array.isArray(study.nodes)
+            ? study.nodes.map((node) => ('type' in node && node.type === 'service' ? { ...node, type: 'misc-product' } : node))
+            : null,
+      };
+    else if (study.version === 2.1) return { ...study };
     else throw new Error('Invalid study version');
   })();
 

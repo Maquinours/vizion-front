@@ -1,4 +1,4 @@
-@import '/src/assets/styles/mixins';
+@use '/src/assets/styles/mixins';
 
 .modal {
   position: absolute;
@@ -79,7 +79,7 @@
             font: normal normal normal 11px/14px 'DIN2014';
             outline: none;
 
-            @include respond-below(md) {
+            @include mixins.respond-below(md) {
               width: inherit;
             }
 
@@ -104,7 +104,7 @@
             width: inherit;
             height: inherit;
 
-            @include respond-below(md) {
+            @include mixins.respond-below(md) {
               width: inherit;
             }
 
@@ -169,11 +169,11 @@
     }
   }
 
-  @include respond-below(md) {
+  @include mixins.respond-below(md) {
     width: 70%;
   }
 
-  @include respond-below(sm) {
+  @include mixins.respond-below(sm) {
     width: 98%;
   }
 }

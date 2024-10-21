@@ -1,4 +1,5 @@
-@import '/src/assets/styles/mixins';
+@use "sass:meta";
+@use '/src/assets/styles/mixins';
 
 .modal {
   position: absolute;
@@ -54,9 +55,9 @@
     }
   }
 
-  @include respond-below(md) {
+  @include mixins.respond-below(md) {
     width: 75%;
-    @import '../CreateModal/CreateModal.module.scss';
+    @include meta.load-css('../CreateModal/CreateModal.module.scss');
 
     .modal {
       .container {
@@ -65,7 +66,7 @@
     }
   }
 
-  @include respond-below(sm) {
+  @include mixins.respond-below(sm) {
     width: 95%;
   }
 }

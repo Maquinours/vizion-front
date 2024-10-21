@@ -1,4 +1,4 @@
-@import '/src/assets/styles/mixins';
+@use '/src/assets/styles/mixins';
 
 .general_informations {
   display: flex;
@@ -115,7 +115,7 @@
       }
     }
 
-    @include respond-below(sm) {
+    @include mixins.respond-below(sm) {
       width: 100%;
     }
   }

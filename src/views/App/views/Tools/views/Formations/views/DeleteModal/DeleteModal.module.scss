@@ -1,4 +1,4 @@
-@import '/src/assets/styles/mixins';
+@use '/src/assets/styles/mixins';
 
 .delete_modal {
   position: absolute;
@@ -50,11 +50,11 @@
     }
   }
 
-  @include respond-below(md) {
+  @include mixins.respond-below(md) {
     width: 40%;
   }
 
-  @include respond-below(sm) {
+  @include mixins.respond-below(sm) {
     width: 95%;
   }
 }
