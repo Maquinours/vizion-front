@@ -1,9 +1,10 @@
 import { BlobProvider, PDFDownloadLink, PDFViewer } from '@react-pdf/renderer';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { getRouteApi } from '@tanstack/react-router';
-import { groupBy, isEqual } from 'lodash';
+import { groupBy } from 'lodash';
 import { useContext, useMemo, useState } from 'react';
 import ReactModal from 'react-modal';
+import { useShallow } from 'zustand/react/shallow';
 import { queries } from '../../../../../../../../../../../../utils/constants/queryKeys';
 import { formatFileName } from '../../../../../../../../../../../../utils/functions/files';
 import ProductResponseDto from '../../../../../../../../../../../../utils/types/ProductResponseDto';
@@ -47,7 +48,7 @@ type AppViewStudyViewExpertViewModalProviderComponentPdfModalComponentShowStepCo
 export default function AppViewStudyViewExpertViewModalProviderComponentPdfModalComponentShowStepComponent({
   images,
 }: AppViewStudyViewExpertViewModalProviderComponentPdfModalComponentShowStepComponentProps) {
-  const { cams, recorders, showDensityImages } = useStore(selector, (a, b) => isEqual(a, b));
+  const { cams, recorders, showDensityImages } = useStore(useShallow(selector));
 
   const { setModal } = useContext(ExpertStudyContext)!;
 
