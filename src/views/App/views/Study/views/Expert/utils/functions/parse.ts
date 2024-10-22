@@ -1,4 +1,9 @@
+import { CodeHighlightNode, CodeNode } from '@lexical/code';
 import { $generateHtmlFromNodes } from '@lexical/html';
+import { AutoLinkNode, LinkNode } from '@lexical/link';
+import { ListItemNode, ListNode } from '@lexical/list';
+import { HeadingNode, QuoteNode } from '@lexical/rich-text';
+import { TableCellNode, TableNode, TableRowNode } from '@lexical/table';
 import { Edge, Node, Viewport, isEdge, isNode } from '@xyflow/react';
 import { createEditor } from 'lexical';
 import { v4 as uuidv4 } from 'uuid';
@@ -16,11 +21,6 @@ import { ExpertStudySynopticCameraNode } from '../../components/Flow/components/
 import { ExpertStudyTextNode } from '../../components/Flow/components/TextNode/TextNode';
 import { ExpertStudyTransmitterNode } from '../../components/Flow/components/TransmitterNode/TransmitterNode';
 import { ExpertStudyDensityPage, ExpertStudyPage, ExpertStudySynopticPage, isExpertStudyPage } from '../../components/Flow/utils/store';
-import { HeadingNode, QuoteNode } from '@lexical/rich-text';
-import { TableCellNode, TableNode, TableRowNode } from '@lexical/table';
-import { ListItemNode, ListNode } from '@lexical/list';
-import { CodeHighlightNode, CodeNode } from '@lexical/code';
-import { AutoLinkNode, LinkNode } from '@lexical/link';
 
 type ValidPage =
   | { nodes: Array<Node>; edges: Array<Edge>; viewport: Viewport; mode: 'SYNOPTIC' }
@@ -503,7 +503,7 @@ const isStudy = (study: unknown): study is { pages: Array<ExpertStudyPage>; stud
   'pages' in study &&
   !!study.pages &&
   Array.isArray(study.pages) &&
-  study.pages.every((page) => isExpertStudyPage(page)) &&
+  study.pages.every(isExpertStudyPage) &&
   (!('studyName' in study) || typeof study.studyName === 'string' || study.studyName === undefined) &&
   (!('installerName' in study) || typeof study.installerName === 'string' || study.installerName === undefined);
 
@@ -514,10 +514,18 @@ export const parseStudy = async (study: unknown): Promise<{ pages: Array<ExpertS
     else if (study.version === 2)
       return {
         ...study,
-        nodes:
-          'nodes' in study && Array.isArray(study.nodes)
-            ? study.nodes.map((node) => ('type' in node && node.type === 'service' ? { ...node, type: 'misc-product' } : node))
-            : null,
+        pages:
+          'pages' in study && Array.isArray(study.pages)
+            ? study.pages.map((page) => ({
+                ...page,
+                nodes:
+                  'nodes' in page && Array.isArray(page.nodes)
+                    ? page.nodes.map((node: unknown) =>
+                        typeof node === 'object' && !!node && 'type' in node && node.type === 'service' ? { ...node, type: 'misc-product' } : node,
+                      )
+                    : undefined,
+              }))
+            : undefined,
       };
     else if (study.version === 2.1) return { ...study };
     else throw new Error('Invalid study version');
