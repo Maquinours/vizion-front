@@ -103,9 +103,10 @@ export default function CreateLifesheetModalComponent({
           };
           break;
         case LifesheetAssociatedItem.BUSINESS:
+          const business = await queryClient.ensureQueryData(businesses.detail._ctx.byId(associatedItemId));
           data = {
             businessId: associatedItemId,
-            businessNumber: (await queryClient.ensureQueryData(businesses.detail._ctx.byId(associatedItemId))).numBusiness,
+            businessNumber: `${business.numBusiness} (${business.title})`,
           };
           break;
       }
