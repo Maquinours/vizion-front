@@ -58,6 +58,7 @@ export default function AppViewAssistanceViewCreateFaqModalView() {
 
   const { businessId, assistanceId } = routeApi.useParams();
 
+  const { data: business } = useSuspenseQuery(queries['businesses'].detail._ctx.byId(businessId));
   const { data: assistance } = useSuspenseQuery(queries['technical-supports'].detail._ctx.byId(assistanceId));
 
   const { data: products, isLoading: isLoadingProducts } = useQuery(queries.product.list);
@@ -84,7 +85,7 @@ export default function AppViewAssistanceViewCreateFaqModalView() {
         archived: false,
         productIds: products?.map((product) => product.id),
         assistanceId,
-        assistanceName: assistance.name,
+        assistanceName: `${assistance.name} (${business.numBusiness})`,
         businessId,
       }),
     onSuccess: () => {
