@@ -46,7 +46,7 @@ const levelOptions = [
 ];
 
 const yupSchema = yup.object().shape({
-  title: yup.string().required('Le titre est requis.').max(255, 'Le problème ne peut excéder 255 caractères'),
+  title: yup.string().required('Le titre est requis.').max(255, 'Le problème est trop long.'),
   description: yup.string().required('La description est requise.'),
   level: yup.mixed<FaqAccessLevel>().oneOf(Object.values(FaqAccessLevel)).required('Le niveau est requis'),
   products: yup.array().of(yup.mixed<ProductResponseDto>().required()).nullable(),
