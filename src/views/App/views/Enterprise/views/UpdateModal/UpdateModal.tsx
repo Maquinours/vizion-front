@@ -15,7 +15,6 @@ import { enterprises } from '../../../../../../utils/constants/queryKeys/enterpr
 import styles from './UpdateModal.module.scss';
 import { E164Number } from 'libphonenumber-js';
 
-const zipCodeRegex = /([A-Z0-9]){5}/;
 const yupSchema = object({
   name: string()
     .required("Le nom de l'entreprise est obligatoire")
@@ -32,10 +31,7 @@ const yupSchema = object({
   city: string()
     .required('La ville est requise')
     .transform((value) => value.toUpperCase()),
-  zipCode: string().max(5, 'Cinq (05) caractères au maximum').required('Le code postal est requis').matches(zipCodeRegex, {
-    message: 'Format invalide (doit contenir 05 caracteres (95012 / 2A256)',
-    excludeEmptyString: true,
-  }),
+  zipCode: string().required('Le code postal est requis'),
   country: string().nullable(),
   email: string()
     .email('Formail de mail invalide')
