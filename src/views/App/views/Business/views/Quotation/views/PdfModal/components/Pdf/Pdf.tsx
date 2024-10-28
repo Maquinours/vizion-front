@@ -559,7 +559,9 @@ export default function AppViewBusinessViewQuotationViewPdfModalViewPdfComponent
             <View style={pageStyles.recapContainer} wrap={false}>
               <View style={pageStyles.recap}>
                 <View style={pageStyles.recapHeader}>
-                  <Text style={pageStyles.recapHeaderText}>TOTAL GÉNÉRAL HT</Text>
+                  <Text style={pageStyles.recapHeaderText}>
+                    TOTAL GÉNÉRAL HT{subQuotations?.some((subQuotation) => subQuotation.name === 'Options') ? ' avec options' : ''}
+                  </Text>
                   <Text style={pageStyles.recapHeaderValue}>{quotation.totalAmountHT} €</Text>
                 </View>
                 <View style={pageStyles.recapBody}>

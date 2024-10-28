@@ -12,7 +12,7 @@ import { ExpertStudyDensityCameraNode } from '../../../Flow/components/DensityCa
 import { ExpertStudyImageNode } from '../../../Flow/components/ImageNode/ImageNode';
 import { ExpertStudyMonitorNode } from '../../../Flow/components/MonitorNode/MonitorNode';
 import { ExpertStudyRecorderNode } from '../../../Flow/components/RecorderNode/RecorderNode';
-import { ExpertStudyServiceNode } from '../../../Flow/components/ServiceNode/ServiceNode';
+import { ExpertStudyMiscProductNode } from '../../../Flow/components/MiscProductNode/MiscProductNode';
 import { ExpertStudySynopticCameraNode } from '../../../Flow/components/SynopticCameraNode/SynopticCameraNode';
 import useStore, { RFState } from '../../../Flow/utils/store';
 import { RECORDER_NODES_DEFAULT_OPTIONS, RECORDERS_INCLUDED_PRODUCTS } from '../../../ModalProvider/components/RecorderModal/RecorderModal';
@@ -62,7 +62,7 @@ export default function AppViewStudyViewExpertViewProductsMenuComponentProductSe
           case 'Transmission':
             return pageType === 'synoptic' && TRANSMITTERS_INCLUDED_PRODUCTS.includes(product.reference);
           default:
-            return false;
+            return true;
         }
       }),
   });
@@ -202,18 +202,18 @@ export default function AppViewStudyViewExpertViewProductsMenuComponentProductSe
 
         break;
       }
-      case 'Services': {
+      default: {
         const nodePosition = screenToFlowPosition({ x: reactFlowRect.x, y: reactFlowRect.y });
         const node = {
           id: uuidv4(),
-          type: 'service',
+          type: 'misc-product',
           position: nodePosition,
           data: {
             productId: product.id,
             size: { width: 80, height: 80 },
             rotation: 0,
           },
-        } as ExpertStudyServiceNode;
+        } as ExpertStudyMiscProductNode;
         addNodes([node]);
         break;
       }

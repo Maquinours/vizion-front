@@ -1,4 +1,4 @@
-@import '/src/assets/styles/mixins';
+@use '/src/assets/styles/mixins';
 
 .table_container {
   margin-top: 1rem;
@@ -15,7 +15,7 @@
       min-height: 50vh;
       display: block;
 
-      @include respond-below(md) {
+      @include mixins.respond-below(md) {
         display: inherit;
       }
 
@@ -61,7 +61,7 @@
           color: #16204e;
           opacity: 1;
 
-          @include respond-below(sm) {
+          @include mixins.respond-below(sm) {
             padding: 0 1rem;
           }
 
@@ -72,7 +72,7 @@
             align-items: center;
           }
 
-          @include respond-below(md) {
+          @include mixins.respond-below(md) {
             div {
               width: 100px;
             }
@@ -140,7 +140,7 @@
               position: relative;
               width: auto;
 
-              @include respond-below(sm) {
+              @include mixins.respond-below(sm) {
                 width: 100px;
                 text-align: right;
               }
@@ -222,11 +222,11 @@
       }
     }
 
-    @include respond-below(md) {
+    @include mixins.respond-below(md) {
       table-layout: auto;
     }
 
-    @include respond-below(sm) {
+    @include mixins.respond-below(sm) {
       table-layout: fixed;
     }
   }
@@ -238,7 +238,7 @@
     display: table;
     width: 100%;
 
-    @include respond-below(sm) {
+    @include mixins.respond-below(sm) {
       table-layout: auto;
       width: 100%;
     }
@@ -258,7 +258,7 @@
         padding: 0.2rem 0.5rem;
         border-right: 1px solid #686e89;
 
-        @include respond-below(md) {
+        @include mixins.respond-below(md) {
           &>div {
             width: 100px;
           }
@@ -309,14 +309,14 @@
           text-align: center;
         }
 
-        @include respond-below(sm) {
+        @include mixins.respond-below(sm) {
           padding: 0.5rem 1rem;
         }
       }
     }
   }
 
-  @include respond-below(md) {
+  @include mixins.respond-below(md) {
     overflow-x: auto;
   }
 }

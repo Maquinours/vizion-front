@@ -1,4 +1,6 @@
-@import '../AssociatedProducts/AssociatedProducts.module.scss';
+@use '../AssociatedProducts/AssociatedProducts.module.scss';
+@use "/src/assets/styles/mixins";
+
 
 .container {
   width: 100%;
@@ -27,7 +29,7 @@
           Arial,
           sans-serif;
 
-        @include respond-below(sm) {
+        @include mixins.respond-below(sm) {
           width: 100%;
         }
 

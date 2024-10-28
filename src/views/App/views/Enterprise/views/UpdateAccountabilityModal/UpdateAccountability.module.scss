@@ -1,4 +1,4 @@
-@import '/src/assets/styles/mixins';
+@use '/src/assets/styles/mixins';
 
 .modal {
   position: absolute;
@@ -16,11 +16,11 @@
   opacity: 1;
   z-index: 2005;
 
-  @include respond-below(md) {
+  @include mixins.respond-below(md) {
     width: 70%;
   }
 
-  @include respond-below(sm) {
+  @include mixins.respond-below(sm) {
     width: 95%;
   }
 
@@ -89,7 +89,7 @@
             align-self: center;
             padding-right: 1rem;
 
-            @include respond-below(sm) {
+            @include mixins.respond-below(sm) {
               text-align: left;
             }
 

@@ -1,4 +1,4 @@
-@import '/src/assets/styles/mixins';
+@use '/src/assets/styles/mixins';
 
 .table_container {
   margin-top: 1rem;
@@ -24,7 +24,7 @@
           padding: 0.2rem 0.5rem;
           border-right: 1px solid #686e89;
 
-          @include respond-below(sm) {
+          @include mixins.respond-below(sm) {
             padding: 0.3rem;
           }
 
@@ -69,19 +69,19 @@
           opacity: 1;
           word-wrap: break-word;
 
-          @include respond-below(sm) {
+          @include mixins.respond-below(sm) {
             padding-left: 0.3rem;
           }
         }
       }
     }
 
-    @include respond-below(md) {
+    @include mixins.respond-below(md) {
       table-layout: auto;
     }
   }
 
-  @include respond-below(sm) {
+  @include mixins.respond-below(sm) {
     overflow-x: auto;
 
     &::-webkit-scrollbar {

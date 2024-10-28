@@ -1,9 +1,10 @@
 import { BlobProvider, PDFDownloadLink, PDFViewer } from '@react-pdf/renderer';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { getRouteApi } from '@tanstack/react-router';
-import { groupBy, isEqual } from 'lodash';
+import { groupBy } from 'lodash';
 import { useContext, useMemo, useState } from 'react';
 import ReactModal from 'react-modal';
+import { useShallow } from 'zustand/react/shallow';
 import { queries } from '../../../../../../../../../../../../utils/constants/queryKeys';
 import { formatFileName } from '../../../../../../../../../../../../utils/functions/files';
 import ProductResponseDto from '../../../../../../../../../../../../utils/types/ProductResponseDto';
@@ -17,29 +18,7 @@ import AppViewStudyViewExpertViewModalProviderComponentPdfModalComponentShowStep
 const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/study/expert');
 
 const selector = (state: RFState) => ({
-  cams: Object.entries(
-    groupBy(
-      state.pages
-        .filter((page) => page.type === 'synoptic')
-        .reduce(
-          (acc: Array<ExpertStudySynopticCameraNode>, page) =>
-            acc.concat(page.nodes.filter((node): node is ExpertStudySynopticCameraNode => node.type === 'synopticCamera')),
-          [],
-        ),
-      'data.productId',
-    ),
-  ).map(([key, value]) => ({ id: key, quantity: value.reduce((acc, node) => acc + (node.data.quantity ?? 1), 0) })),
-  recorders: state.pages
-    .filter((page) => page.type === 'synoptic')
-    .reduce(
-      (acc: Array<{ productId: string; quantity: number; options: Array<{ id: string; quantity: number }> }>, page) =>
-        acc.concat(
-          page.nodes
-            .filter((node): node is ExpertStudyRecorderNode => node.type === 'recorder')
-            .map((node) => ({ productId: node.data.productId, quantity: node.data.quantity ?? 1, options: node.data.options })),
-        ),
-      [],
-    ),
+  pages: state.pages,
   showDensityImages: !state.pages.some((page) => page.type === 'density'),
 });
 
@@ -47,7 +26,7 @@ type AppViewStudyViewExpertViewModalProviderComponentPdfModalComponentShowStepCo
 export default function AppViewStudyViewExpertViewModalProviderComponentPdfModalComponentShowStepComponent({
   images,
 }: AppViewStudyViewExpertViewModalProviderComponentPdfModalComponentShowStepComponentProps) {
-  const { cams, recorders, showDensityImages } = useStore(selector, (a, b) => isEqual(a, b));
+  const { pages, showDensityImages } = useStore(useShallow(selector));
 
   const { setModal } = useContext(ExpertStudyContext)!;
 
@@ -57,6 +36,34 @@ export default function AppViewStudyViewExpertViewModalProviderComponentPdfModal
   const { data: products } = useSuspenseQuery({ ...queries.product.list, staleTime: Infinity });
 
   const [sendByEmailFile, setSendByEmailFile] = useState<File>();
+
+  const { cams, recorders } = useMemo(() => {
+    return {
+      cams: Object.entries(
+        groupBy(
+          pages
+            .filter((page) => page.type === 'synoptic')
+            .reduce(
+              (acc: Array<ExpertStudySynopticCameraNode>, page) =>
+                acc.concat(page.nodes.filter((node): node is ExpertStudySynopticCameraNode => node.type === 'synopticCamera')),
+              [],
+            ),
+          'data.productId',
+        ),
+      ).map(([key, value]) => ({ id: key, quantity: value.reduce((acc, node) => acc + (node.data.quantity ?? 1), 0) })),
+      recorders: pages
+        .filter((page) => page.type === 'synoptic')
+        .reduce(
+          (acc: Array<{ productId: string; quantity: number; options: Array<{ id: string; quantity: number }> }>, page) =>
+            acc.concat(
+              page.nodes
+                .filter((node): node is ExpertStudyRecorderNode => node.type === 'recorder')
+                .map((node) => ({ productId: node.data.productId, quantity: node.data.quantity ?? 1, options: node.data.options })),
+            ),
+          [],
+        ),
+    };
+  }, [pages]);
 
   const { cameras, hddSpace, hddCalculationDays } = useMemo(() => {
     const cameras = cams

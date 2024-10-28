@@ -1,4 +1,4 @@
-@import '/src/assets/styles/mixins';
+@use '/src/assets/styles/mixins';
 
 .event_modal {
   position: absolute;
@@ -66,7 +66,7 @@
         }
       }
 
-      @include respond-below(sm) {
+      @include mixins.respond-below(sm) {
         padding: 0.5rem;
       }
 

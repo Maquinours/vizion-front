@@ -1,4 +1,4 @@
-@import '/src/assets/styles/mixins';
+@use '/src/assets/styles/mixins';
 
 .container {
   width: 100%;
@@ -55,7 +55,7 @@
           width: auto;
         }
 
-        @include respond-below(md) {
+        @include mixins.respond-below(md) {
           &:nth-child(1) {
             width: 15%;
           }
@@ -108,7 +108,7 @@
           }
         }
 
-        @include respond-below(md) {
+        @include mixins.respond-below(md) {
           div {
             width: 6rem;
           }
@@ -117,7 +117,7 @@
     }
   }
 
-  @include respond-below(md) {
+  @include mixins.respond-below(md) {
     overflow-x: auto;
   }
 }

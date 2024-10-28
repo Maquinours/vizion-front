@@ -1,11 +1,11 @@
-@import '/src/assets/styles/mixins';
+@use '/src/assets/styles/mixins';
 
 ._two {
   width: 100%;
   display: flex;
   justify-content: space-between;
 
-  @include respond-below(sm) {
+  @include mixins.respond-below(sm) {
     display: grid;
     grid-template-columns: repeat(1, 1fr);
 
@@ -23,7 +23,7 @@
       display: flex;
       gap: 1rem;
 
-      @include respond-below(sm) {
+      @include mixins.respond-below(sm) {
         flex-direction: column;
       }
 
@@ -34,7 +34,7 @@
         // align-self: center;
         margin-bottom: 0.3rem;
 
-        @include respond-below(sm) {
+        @include mixins.respond-below(sm) {
           max-width: auto;
         }
 
@@ -95,7 +95,7 @@
             width: inherit;
             max-width: 200px;
 
-            @include respond-below(sm) {
+            @include mixins.respond-below(sm) {
               width: 100%;
               max-width: 100%;
             }
@@ -166,7 +166,7 @@
     .actions_container {
       margin-top: 15px;
 
-      @include respond-below(sm) {
+      @include mixins.respond-below(sm) {
         text-align: right;
       }
 
@@ -174,7 +174,7 @@
       button {
         margin-left: 10px;
 
-        @include respond-below(sm) {
+        @include mixins.respond-below(sm) {
           margin-left: 0;
         }
       }

@@ -1,11 +1,11 @@
-@import '/src/assets/styles/mixins';
+@use '/src/assets/styles/mixins';
 
 .buttons_container {
   display: flex;
   justify-content: end;
   gap: 1rem;
 
-  @include respond-below(sm) {
+  @include mixins.respond-below(sm) {
     display: flex;
     justify-content: center;
     margin-bottom: 1rem;
@@ -15,7 +15,7 @@
     }
   }
 
-  & > button {
+  &>button {
     margin-left: 5px;
   }
 }

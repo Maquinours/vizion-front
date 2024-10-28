@@ -1,4 +1,4 @@
-@import '/src/assets/styles/mixins';
+@use '/src/assets/styles/mixins';
 
 .container {
   .grid {
@@ -7,7 +7,7 @@
     grid-template-columns: 75% auto;
     gap: 0.5rem;
 
-    @include respond-below(sm) {
+    @include mixins.respond-below(sm) {
       grid-template-columns: repeat(1, 1fr);
     }
 
@@ -103,7 +103,7 @@
                 width: 2%;
                 padding: 0;
 
-                & > div {
+                &>div {
                   position: relative;
                   width: auto;
 
@@ -116,7 +116,7 @@
                     // padding-top: 5px;
                   }
 
-                  & > div {
+                  &>div {
                     display: none;
                     position: absolute;
                     width: 150px;
@@ -163,7 +163,7 @@
                     }
                   }
 
-                  & > div::after {
+                  &>div::after {
                     content: '';
                     position: absolute;
                     top: 13px;
@@ -177,7 +177,7 @@
                   }
 
                   &:hover {
-                    & > div {
+                    &>div {
                       display: initial;
                     }
                   }
@@ -187,7 +187,7 @@
           }
         }
 
-        @include respond-below(md) {
+        @include mixins.respond-below(md) {
           table-layout: auto;
         }
       }
@@ -199,7 +199,7 @@
         display: table;
         width: 100%;
 
-        @include respond-below(sm) {
+        @include mixins.respond-below(sm) {
           table-layout: auto;
         }
       }
@@ -239,14 +239,14 @@
               width: 30%;
             }
 
-            @include respond-below(sm) {
+            @include mixins.respond-below(sm) {
               padding: 0.5rem 1rem;
             }
           }
         }
       }
 
-      @include respond-below(md) {
+      @include mixins.respond-below(md) {
         overflow-x: auto;
       }
     }
@@ -272,11 +272,11 @@
     grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
 
-    & > div {
+    &>div {
       height: fit-content;
     }
 
-    @include respond-below(sm) {
+    @include mixins.respond-below(sm) {
       grid-template-columns: repeat(1, 1fr);
     }
   }

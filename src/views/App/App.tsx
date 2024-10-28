@@ -63,13 +63,13 @@ export default function AppLayout() {
               <div className={styles.outlet_container}>
                 <Outlet />
               </div>
+              {modal}
             </AppViewTabsContainerComponent>
           </div>
         </main>
         <AppViewSidebarComponent />
         <AppViewFooterComponent />
       </div>
-      {modal}
     </>
   );
 }

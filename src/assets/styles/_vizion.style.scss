@@ -1,5 +1,5 @@
-@import './mixins';
-@import './variables';
+@use 'mixins';
+@use 'variables';
 
 /* Vizion Main Style 
 
@@ -101,37 +101,37 @@ Table of Contents
 :root {
   --toastify-color-success: #31385a;
   --toastify-color-error: #f24c52;
-  --primary-color: #{$primary-color};
-  --secondary-color: #{$secondary-color};
-  --grey-color: #{$grey-color};
-  --grey-line: #{$grey-line};
-  --white-color: #{$white-color};
-  --bg-color: #{$bg-color};
-  --primary-light: #{$primary-light-color};
-  --grey-light: #{$grey-light-color};
-  --assistance-comment-green: #{$assistance-comment-green};
-  --assistance-comment-orange: #{$assistance-comment-orange};
-  --assistance-comment-red: #{$assistance-comment-red};
-  --assistance-comment-grey: #{$assistance-comment-grey};
-  --primary-font-family: #{$primary-font-family};
-  --toastify-font-family: #{$toastify-font-family};
-  --hover-animation-delay: #{$hover-animation-delay};
-  --topbar-container-height: #{$topbar-container-height};
-  --sidebar-container-width: #{$sidebar-container-width};
-  --sidebar-mobile-container-width: #{$sidebar-mobile-container-width};
-  --topbar-mobile-container-height: #{$topbar-mobile-container-height};
-  --card-xl: #{$card-xl};
-  --card-lg: #{$card-lg};
-  --card-md: #{$card-md};
-  --card-ls: #{$card-ls};
-  --card-sm: #{$card-sm};
-  --card-xs: #{$card-xs};
-  --card-xxs: #{$card-xxs};
-  --avatar-border-radius: #{$avatar-border-radius};
-  --avatar-width: #{$avatar-width};
-  --avatar-height: #{$avatar-height};
-  --vizion-light-blue: #{$vizion-light-blue};
-  --menu-animation-delay: #{$menu-animation-delay};
+  --primary-color: #{variables.$primary-color};
+  --secondary-color: #{variables.$secondary-color};
+  --grey-color: #{variables.$grey-color};
+  --grey-line: #{variables.$grey-line};
+  --white-color: #{variables.$white-color};
+  --bg-color: #{variables.$bg-color};
+  --primary-light: #{variables.$primary-light-color};
+  --grey-light: #{variables.$grey-light-color};
+  --assistance-comment-green: #{variables.$assistance-comment-green};
+  --assistance-comment-orange: #{variables.$assistance-comment-orange};
+  --assistance-comment-red: #{variables.$assistance-comment-red};
+  --assistance-comment-grey: #{variables.$assistance-comment-grey};
+  --primary-font-family: #{variables.$primary-font-family};
+  --toastify-font-family: #{variables.$toastify-font-family};
+  --hover-animation-delay: #{variables.$hover-animation-delay};
+  --topbar-container-height: #{variables.$topbar-container-height};
+  --sidebar-container-width: #{variables.$sidebar-container-width};
+  --sidebar-mobile-container-width: #{variables.$sidebar-mobile-container-width};
+  --topbar-mobile-container-height: #{variables.$topbar-mobile-container-height};
+  --card-xl: #{variables.$card-xl};
+  --card-lg: #{variables.$card-lg};
+  --card-md: #{variables.$card-md};
+  --card-ls: #{variables.$card-ls};
+  --card-sm: #{variables.$card-sm};
+  --card-xs: #{variables.$card-xs};
+  --card-xxs: #{variables.$card-xxs};
+  --avatar-border-radius: #{variables.$avatar-border-radius};
+  --avatar-width: #{variables.$avatar-width};
+  --avatar-height: #{variables.$avatar-height};
+  --vizion-light-blue: #{variables.$vizion-light-blue};
+  --menu-animation-delay: #{variables.$menu-animation-delay};
 }
 
 *,
@@ -147,7 +147,7 @@ body {
   font-family: 'DIN2014',
     Arial,
     sans-serif;
-  background-color: $white-color;
+  background-color: variables.$white-color;
 
   svg {
     display: initial;
@@ -161,35 +161,35 @@ body {
 
 main.app__layout {
   position: relative;
-  width: calc(100% - ($sidebar-container-width));
+  width: calc(100% - (variables.$sidebar-container-width));
   height: 100vh !important;
   min-height: 100% !important;
-  top: $topbar-container-height;
-  margin-left: $sidebar-container-width;
+  top: variables.$topbar-container-height;
+  margin-left: variables.$sidebar-container-width;
   height: 100% !important;
-  border-left: 2px solid $bg-color;
-  border-right: 2px solid $bg-color;
+  border-left: 2px solid variables.$bg-color;
+  border-right: 2px solid variables.$bg-color;
 
-  @include respond-below(sm) {
-    top: $topbar-mobile-container-height;
+  @include mixins.respond-below(sm) {
+    top: variables.$topbar-mobile-container-height;
     margin-left: 0;
     width: 100%;
     height: 100%;
   }
 
   &.openLoadContainer {
-    @include respond-below(xs) {
+    @include mixins.respond-below(xs) {
       width: 100%;
       margin-left: 0;
     }
   }
 
   &.showMobileSidebar {
-    @include respond-below(sm) {
+    @include mixins.respond-below(sm) {
       width: 100%;
       margin-left: 0;
       left: 0;
-      transform: translateX($sidebar-mobile-container-width);
+      transform: translateX(variables.$sidebar-mobile-container-width);
       transition: transform 100ms ease-in;
       backface-visibility: hidden;
       min-height: 100vh;
@@ -204,9 +204,9 @@ main.app__layout {
     .app__layout_tabs_wrapper {
       position: sticky;
       z-index: 500;
-      top: $topbar-container-height;
+      top: variables.$topbar-container-height;
 
-      @include respond-below(sm) {
+      @include mixins.respond-below(sm) {
         display: none;
       }
 
@@ -219,7 +219,7 @@ main.app__layout {
         height: 100%;
         padding-top: 0;
         overflow-x: auto;
-        background-color: $bg-color;
+        background-color: variables.$bg-color;
 
         &::-webkit-scrollbar {
           height: 0px;
@@ -230,8 +230,8 @@ main.app__layout {
           width: auto;
           max-width: auto;
           height: 32px;
-          background-color: $bg-color;
-          border-right: 1.5px solid $white-color;
+          background-color: variables.$bg-color;
+          border-right: 1.5px solid variables.$white-color;
           display: flex;
           justify-content: space-between;
           align-items: center;
@@ -246,7 +246,7 @@ main.app__layout {
             font-size: 14px;
             line-height: 18px;
             letter-spacing: 0px;
-            color: $primary-color;
+            color: variables.$primary-color;
             height: 100%;
             display: flex;
             align-items: center;
@@ -259,12 +259,12 @@ main.app__layout {
           &.active {
             border-right: none;
             border-top-right-radius: 5px;
-            background-color: $white-color;
+            background-color: variables.$white-color;
           }
 
           svg {
             cursor: pointer;
-            color: $primary-color;
+            color: variables.$primary-color;
             font-size: 17px;
             font-weight: bold;
           }
@@ -299,7 +299,7 @@ main.app__layout {
       width: 100%;
       height: 100% !important;
       min-height: 100vh !important;
-      background-color: $white-color;
+      background-color: variables.$white-color;
       padding: 1rem 1rem 6rem 1rem;
 
       &::-webkit-scrollbar {
@@ -308,26 +308,26 @@ main.app__layout {
 
       /* Track */
       &::-webkit-scrollbar-track {
-        background: $grey-line;
+        background: variables.$grey-line;
         border-radius: 5px;
       }
 
       /* Handle */
       &::-webkit-scrollbar-thumb {
-        background: $primary-color;
+        background: variables.$primary-color;
       }
 
       /* Handle on hover */
       &::-webkit-scrollbar-thumb:hover {
-        background: $grey-line;
+        background: variables.$grey-line;
       }
 
-      @include respond-below(sm) {
+      @include mixins.respond-below(sm) {
         display: inherit;
         padding: 0.5rem;
         margin-top: 0;
         overflow-y: auto;
-        margin-bottom: calc($mobile-footer-height + 5rem);
+        margin-bottom: calc(variables.$mobile-footer-height + 5rem);
       }
 
       div #reactFlowWrapper1 a {
@@ -348,7 +348,7 @@ main.app__layout {
       }
     }
 
-    @include respond-below(sm) {
+    @include mixins.respond-below(sm) {
       .app__layout_mobile__load {
         display: flex;
       }
@@ -389,18 +389,18 @@ ul {
 
 /* Track */
 #app::-webkit-scrollbar-track {
-  background: $primary-color;
+  background: variables.$primary-color;
   border-radius: 5px;
 }
 
 /* Handle */
 #app::-webkit-scrollbar-thumb {
-  background: $primary-color;
+  background: variables.$primary-color;
 }
 
 /* Handle on hover */
 #app::-webkit-scrollbar-thumb:hover {
-  background: $grey-line;
+  background: variables.$grey-line;
 }
 
 /* 02.TopBar */
@@ -411,16 +411,16 @@ ul {
   right: 0;
   bottom: 0;
   left: 0;
-  height: $topbar-container-height;
+  height: variables.$topbar-container-height;
   z-index: 1999;
 
-  @include respond-below(sm) {
-    height: $topbar-mobile-container-height;
+  @include mixins.respond-below(sm) {
+    height: variables.$topbar-mobile-container-height;
   }
 
   .topbar__content {
     display: flex;
-    background-color: $primary-color;
+    background-color: variables.$primary-color;
     opacity: 1;
     box-sizing: border-box;
     padding: 0.5rem 0.8rem;
@@ -432,7 +432,7 @@ ul {
       height: 100%;
       width: 100%;
 
-      @include respond-below(sm) {
+      @include mixins.respond-below(sm) {
         display: none;
       }
 
@@ -448,11 +448,11 @@ ul {
           justify-content: center;
 
           .topbar__user_avatar {
-            width: $avatar-width;
-            height: $avatar-height;
-            border-radius: $avatar-border-radius;
-            background: $white-color 0% 0% no-repeat padding-box;
-            border: 1px solid $grey-line;
+            width: variables.$avatar-width;
+            height: variables.$avatar-height;
+            border-radius: variables.$avatar-border-radius;
+            background: variables.$white-color 0% 0% no-repeat padding-box;
+            border: 1px solid variables.$grey-line;
             opacity: 1;
             display: flex;
             align-items: center;
@@ -461,19 +461,19 @@ ul {
 
             svg {
               font-size: 24px;
-              color: $primary-color;
+              color: variables.$primary-color;
             }
 
             &:hover {
-              background-color: $secondary-color;
-              border: 1px solid $secondary-color;
-              -webkit-transition: background-color $hover-animation-delay ease-out;
-              -moz-transition: background-color $hover-animation-delay ease-out;
-              -o-transition: background-color $hover-animation-delay ease-out;
-              transition: background-color $hover-animation-delay ease-out;
+              background-color: variables.$secondary-color;
+              border: 1px solid variables.$secondary-color;
+              -webkit-transition: background-color variables.$hover-animation-delay ease-out;
+              -moz-transition: background-color variables.$hover-animation-delay ease-out;
+              -o-transition: background-color variables.$hover-animation-delay ease-out;
+              transition: background-color variables.$hover-animation-delay ease-out;
 
               svg {
-                color: $white-color;
+                color: variables.$white-color;
               }
             }
           }
@@ -482,9 +482,9 @@ ul {
             display: flex;
             flex-direction: column;
             text-align: left;
-            font: normal normal normal 14px/18px $primary-font-family;
+            font: normal normal normal 14px/18px variables.$primary-font-family;
             letter-spacing: 0px;
-            color: $grey-line;
+            color: variables.$grey-line;
             opacity: 1;
             margin-left: 1rem;
             width: 100px;
@@ -505,14 +505,14 @@ ul {
           gap: 1rem;
 
           button {
-            border: 2px solid $white-color;
+            border: 2px solid variables.$white-color;
             border-radius: 5px;
             opacity: 1;
             cursor: pointer;
             background-color: transparent;
             padding: 0.3rem 0.8rem;
-            color: $white-color;
-            font-family: $primary-font-family;
+            color: variables.$white-color;
+            font-family: variables.$primary-font-family;
             font-size: 17px;
             display: flex;
             justify-content: center;
@@ -520,16 +520,16 @@ ul {
 
             svg {
               margin-left: 0.2rem;
-              color: $white-color;
+              color: variables.$white-color;
               font-size: 22px;
             }
 
             &:hover {
-              border: 2px solid $secondary-color;
-              -webkit-transition: border $hover-animation-delay ease-out;
-              -moz-transition: border $hover-animation-delay ease-out;
-              -o-transition: border $hover-animation-delay ease-out;
-              transition: border $hover-animation-delay ease-out;
+              border: 2px solid variables.$secondary-color;
+              -webkit-transition: border variables.$hover-animation-delay ease-out;
+              -moz-transition: border variables.$hover-animation-delay ease-out;
+              -o-transition: border variables.$hover-animation-delay ease-out;
+              transition: border variables.$hover-animation-delay ease-out;
             }
 
             &:focus {
@@ -538,7 +538,7 @@ ul {
           }
 
           svg {
-            color: $white-color;
+            color: variables.$white-color;
             font-size: 22px;
             cursor: pointer;
           }
@@ -558,28 +558,28 @@ ul {
 
         .topbar__mail {
           a {
-            background: $white-color 0% 0% no-repeat padding-box;
+            background: variables.$white-color 0% 0% no-repeat padding-box;
             box-shadow: 0px 3px 5px #10173526;
             border-radius: 5px;
             opacity: 1;
             padding: 0.3rem 1.5rem;
             outline: none;
             text-align: center;
-            font: normal normal normal 16px/22px $primary-font-family;
+            font: normal normal normal 16px/22px variables.$primary-font-family;
             letter-spacing: 0px;
-            color: $primary-color;
+            color: variables.$primary-color;
             border: none;
             cursor: pointer;
             text-decoration: none;
 
             &:hover {
-              background-color: $secondary-color;
-              color: $white-color;
+              background-color: variables.$secondary-color;
+              color: variables.$white-color;
 
-              -webkit-transition: background-color $hover-animation-delay ease-out;
-              -moz-transition: background-color $hover-animation-delay ease-out;
-              -o-transition: background-color $hover-animation-delay ease-out;
-              transition: background-color $hover-animation-delay ease-out;
+              -webkit-transition: background-color variables.$hover-animation-delay ease-out;
+              -moz-transition: background-color variables.$hover-animation-delay ease-out;
+              -o-transition: background-color variables.$hover-animation-delay ease-out;
+              transition: background-color variables.$hover-animation-delay ease-out;
             }
 
             &:focus {
@@ -600,25 +600,25 @@ ul {
             justify-content: center;
             align-items: center;
             cursor: pointer;
-            color: $white-color;
+            color: variables.$white-color;
             background: none;
             border: none;
 
             span.number {
               margin-right: 0.3rem;
               text-align: left;
-              font: normal normal bold 18px/25px $primary-font-family;
+              font: normal normal bold 18px/25px variables.$primary-font-family;
               letter-spacing: 0px;
               opacity: 1;
             }
 
             &:hover {
-              color: $secondary-color;
+              color: variables.$secondary-color;
 
-              -webkit-transition: color $hover-animation-delay ease-out;
-              -moz-transition: color $hover-animation-delay ease-out;
-              -o-transition: color $hover-animation-delay ease-out;
-              transition: color $hover-animation-delay ease-out;
+              -webkit-transition: color variables.$hover-animation-delay ease-out;
+              -moz-transition: color variables.$hover-animation-delay ease-out;
+              -o-transition: color variables.$hover-animation-delay ease-out;
+              transition: color variables.$hover-animation-delay ease-out;
             }
           }
         }
@@ -629,12 +629,12 @@ ul {
       display: none;
       justify-content: space-between;
       align-items: center;
-      color: $white-color;
+      color: variables.$white-color;
       padding: 0.8rem 0.8rem;
       width: 100%;
       height: 100%;
 
-      @include respond-below(sm) {
+      @include mixins.respond-below(sm) {
         display: flex;
       }
 
@@ -660,19 +660,19 @@ ul {
 .sidebar {
   opacity: 1;
   position: fixed;
-  top: $topbar-container-height;
+  top: variables.$topbar-container-height;
   left: 0;
   z-index: 6;
   height: 100%;
 
   .sidebar__menu {
-    background: $primary-color 0% 0% no-repeat padding-box;
-    width: $sidebar-container-width;
-    border-top: 1px solid $grey-line;
+    background: variables.$primary-color 0% 0% no-repeat padding-box;
+    width: variables.$sidebar-container-width;
+    border-top: 1px solid variables.$grey-line;
     overflow-y: auto;
     height: 100%;
 
-    @include respond-below(sm) {
+    @include mixins.respond-below(sm) {
       display: none;
     }
 
@@ -681,11 +681,11 @@ ul {
     }
 
     &::-webkit-scrollbar-thumb {
-      background: $white-color;
+      background: variables.$white-color;
     }
 
     &::-webkit-scrollbar-thumb:hover {
-      background: $white-color;
+      background: variables.$white-color;
     }
 
     .sidebar__menus_items {
@@ -699,14 +699,14 @@ ul {
 
           &.active {
             li {
-              background-color: $white-color;
+              background-color: variables.$white-color;
 
               span.material-icons {
-                color: $primary-color;
+                color: variables.$primary-color;
               }
 
               span.label {
-                color: $primary-color;
+                color: variables.$primary-color;
               }
             }
           }
@@ -721,7 +721,7 @@ ul {
             cursor: pointer;
 
             span.material-icons {
-              color: $white-color;
+              color: variables.$white-color;
               opacity: 1;
               font-size: 32px;
               margin-top: 0.5rem;
@@ -729,28 +729,28 @@ ul {
 
             span.label {
               text-align: center;
-              font: normal normal normal 10px/13px $primary-font-family;
+              font: normal normal normal 10px/13px variables.$primary-font-family;
               letter-spacing: 0px;
-              color: $white-color;
+              color: variables.$white-color;
               margin-bottom: 0.5rem;
               opacity: 1;
             }
 
             &:hover {
               span.material-icons {
-                color: $secondary-color;
-                -webkit-transition: color $menu-animation-delay ease-out;
-                -moz-transition: color $menu-animation-delay ease-out;
-                -o-transition: color $menu-animation-delay ease-out;
-                transition: color $menu-animation-delay ease-out;
+                color: variables.$secondary-color;
+                -webkit-transition: color variables.$menu-animation-delay ease-out;
+                -moz-transition: color variables.$menu-animation-delay ease-out;
+                -o-transition: color variables.$menu-animation-delay ease-out;
+                transition: color variables.$menu-animation-delay ease-out;
               }
 
               span.label {
-                color: $secondary-color;
-                -webkit-transition: color $menu-animation-delay ease-out;
-                -moz-transition: color $menu-animation-delay ease-out;
-                -o-transition: color $menu-animation-delay ease-out;
-                transition: color $menu-animation-delay ease-out;
+                color: variables.$secondary-color;
+                -webkit-transition: color variables.$menu-animation-delay ease-out;
+                -moz-transition: color variables.$menu-animation-delay ease-out;
+                -o-transition: color variables.$menu-animation-delay ease-out;
+                transition: color variables.$menu-animation-delay ease-out;
               }
             }
           }
@@ -759,9 +759,9 @@ ul {
     }
   }
 
-  @include respond-below(sm) {
+  @include mixins.respond-below(sm) {
     position: absolute;
-    top: calc($topbar-mobile-container-height - 5px);
+    top: calc(variables.$topbar-mobile-container-height - 5px);
 
     &.isOpen {
       width: 100%;
@@ -769,7 +769,7 @@ ul {
 
     .sidebar__mobile {
       background-color: white;
-      width: $sidebar-mobile-container-width;
+      width: variables.$sidebar-mobile-container-width;
       height: 100%;
       position: relative;
       top: 0;
@@ -786,7 +786,7 @@ ul {
           margin-bottom: 1.5rem;
 
           .sidebar__user_avatar {
-            background-color: $primary-color;
+            background-color: variables.$primary-color;
             border-radius: 100%;
             display: flex;
             justify-content: center;
@@ -795,7 +795,7 @@ ul {
             height: 40px;
 
             span {
-              color: $white-color;
+              color: variables.$white-color;
             }
           }
 
@@ -813,7 +813,7 @@ ul {
                 sans-serif;
               font-size: 16px;
               line-height: 20px;
-              color: $primary-color;
+              color: variables.$primary-color;
 
               &:nth-child(1) {
                 font-family: 'DIN2014', Arial, sans-serif;
@@ -844,11 +844,11 @@ ul {
                   background-color: #eaeaef;
 
                   span.material-icons {
-                    color: $primary-color;
+                    color: variables.$primary-color;
                   }
 
                   span.label {
-                    color: $primary-color;
+                    color: variables.$primary-color;
                   }
                 }
               }
@@ -862,35 +862,35 @@ ul {
                 border-radius: 5px;
 
                 span.material-icons {
-                  color: $primary-color;
+                  color: variables.$primary-color;
                   opacity: 1;
                   font-size: 24px;
                 }
 
                 span.label {
                   text-align: center;
-                  font: normal normal normal 16px/20px $primary-font-family;
+                  font: normal normal normal 16px/20px variables.$primary-font-family;
                   letter-spacing: 0px;
-                  color: $primary-color;
+                  color: variables.$primary-color;
                   opacity: 1;
                   margin-left: 1rem;
                 }
 
                 &:hover {
                   span.material-icons {
-                    color: $secondary-color;
-                    -webkit-transition: color $menu-animation-delay ease-out;
-                    -moz-transition: color $menu-animation-delay ease-out;
-                    -o-transition: color $menu-animation-delay ease-out;
-                    transition: color $menu-animation-delay ease-out;
+                    color: variables.$secondary-color;
+                    -webkit-transition: color variables.$menu-animation-delay ease-out;
+                    -moz-transition: color variables.$menu-animation-delay ease-out;
+                    -o-transition: color variables.$menu-animation-delay ease-out;
+                    transition: color variables.$menu-animation-delay ease-out;
                   }
 
                   span.label {
-                    color: $secondary-color;
-                    -webkit-transition: color $menu-animation-delay ease-out;
-                    -moz-transition: color $menu-animation-delay ease-out;
-                    -o-transition: color $menu-animation-delay ease-out;
-                    transition: color $menu-animation-delay ease-out;
+                    color: variables.$secondary-color;
+                    -webkit-transition: color variables.$menu-animation-delay ease-out;
+                    -moz-transition: color variables.$menu-animation-delay ease-out;
+                    -o-transition: color variables.$menu-animation-delay ease-out;
+                    transition: color variables.$menu-animation-delay ease-out;
                   }
                 }
               }
@@ -911,7 +911,7 @@ ul {
               align-items: center;
 
               span {
-                color: $primary-color;
+                color: variables.$primary-color;
                 font-weight: bold;
                 width: 24px;
                 height: 24px;
@@ -927,18 +927,18 @@ ul {
 /* 04.Load Container */
 .load__container {
   position: absolute;
-  top: calc($topbar-container-height + 32px);
+  top: calc(variables.$topbar-container-height + 32px);
   width: 0;
   height: max-content;
   border-top: 1px solid var(--grey-line);
-  background-color: $bg-color;
+  background-color: variables.$bg-color;
   opacity: 1;
   left: 0;
   z-index: 1998;
 
   &.openLoadContainer {
-    width: $load-container-width;
-    left: $sidebar-container-width;
+    width: variables.$load-container-width;
+    left: variables.$sidebar-container-width;
     transition: left 0.2s ease-in;
     height: auto;
 
@@ -967,7 +967,7 @@ ul {
           border-radius: 50%;
           text-align: center;
           cursor: pointer;
-          font: normal normal normal 12px/15px $primary-font-family;
+          font: normal normal normal 12px/15px variables.$primary-font-family;
           letter-spacing: 0px;
           color: #16204e;
 
@@ -996,11 +996,11 @@ ul {
           cursor: pointer;
 
           &:nth-child(1) {
-            color: $primary-color;
+            color: variables.$primary-color;
           }
 
           &:nth-child(2) {
-            color: $secondary-color;
+            color: variables.$secondary-color;
           }
         }
       }
@@ -1025,18 +1025,18 @@ ul {
 
       /* Track */
       &::-webkit-scrollbar-track {
-        background: $white-color;
+        background: variables.$white-color;
       }
 
       /* Handle */
       &::-webkit-scrollbar-thumb {
         border-radius: 10px;
-        background: $primary-color;
+        background: variables.$primary-color;
       }
 
       /* Handle on hover */
       &::-webkit-scrollbar-thumb:hover {
-        background: $primary-color;
+        background: variables.$primary-color;
       }
 
       .load__listing_card {
@@ -1050,7 +1050,7 @@ ul {
       }
     }
 
-    @include respond-below(xs) {
+    @include mixins.respond-below(xs) {
       display: none;
     }
   }
@@ -1241,15 +1241,15 @@ ul {
 }
 
 .text-primary {
-  color: $primary-color;
+  color: variables.$primary-color;
 }
 
 .text-secondary {
-  color: $secondary-color;
+  color: variables.$secondary-color;
 }
 
 .text-white {
-  color: $white-color;
+  color: variables.$white-color;
 }
 
 a.btn,
@@ -1285,21 +1285,21 @@ button[type='button'].btn,
 button[type='reset'].btn,
 button[type='submit'].btn {
   &-primary {
-    background-color: $primary-color;
+    background-color: variables.$primary-color;
   }
 
   &-secondary {
-    background-color: $secondary-color;
+    background-color: variables.$secondary-color;
   }
 
   &-primary-light {
     background: #fbfcfe 0% 0% no-repeat padding-box;
-    border: 1px solid $primary-color;
+    border: 1px solid variables.$primary-color;
     color: #16204e;
     font-family: 'DIN2014', Arial, sans-serif;
 
     &:hover {
-      background-color: $primary-color;
+      background-color: variables.$primary-color;
       color: #fbfcfe;
     }
   }
@@ -1366,11 +1366,11 @@ button[type='submit'].btn {
 /* .background */
 
 .bg-primary {
-  background-color: $primary-color;
+  background-color: variables.$primary-color;
 }
 
 .bg-secondary {
-  background-color: $secondary-color;
+  background-color: variables.$secondary-color;
 }
 
 /* Modal */
@@ -1388,11 +1388,11 @@ button[type='submit'].btn {
   opacity: 1;
   z-index: 2005;
 
-  @include respond-above(md) {
+  @include mixins.respond-above(md) {
     width: 75%;
   }
 
-  @include respond-below(sm) {
+  @include mixins.respond-below(sm) {
     width: 95%;
   }
 }
@@ -1438,7 +1438,7 @@ button[type='submit'].btn {
 #sentry-feedback {
   --inset: auto auto 0 0;
 
-  @include respond-below(sm) {
+  @include mixins.respond-below(sm) {
     display: none;
   }
 }

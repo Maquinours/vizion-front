@@ -12,12 +12,12 @@ import { SynopticRequestBusinessQuotationRequestSubQuotationRequestDto } from '.
 import ExpertStudyContext from '../../../../utils/context';
 import { ExpertStudyMonitorNode } from '../../../Flow/components/MonitorNode/MonitorNode';
 import { ExpertStudyRecorderNode } from '../../../Flow/components/RecorderNode/RecorderNode';
-import { ExpertStudyServiceNode } from '../../../Flow/components/ServiceNode/ServiceNode';
+import { ExpertStudyMiscProductNode } from '../../../Flow/components/MiscProductNode/MiscProductNode';
 import { ExpertStudySynopticCameraNode } from '../../../Flow/components/SynopticCameraNode/SynopticCameraNode';
 import { ExpertStudyTransmitterNode } from '../../../Flow/components/TransmitterNode/TransmitterNode';
 import useStore, { RFState } from '../../../Flow/utils/store';
 
-type ProductNode = ExpertStudySynopticCameraNode | ExpertStudyMonitorNode | ExpertStudyRecorderNode | ExpertStudyTransmitterNode | ExpertStudyServiceNode;
+type ProductNode = ExpertStudySynopticCameraNode | ExpertStudyMonitorNode | ExpertStudyRecorderNode | ExpertStudyTransmitterNode | ExpertStudyMiscProductNode;
 
 const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/study/expert');
 
@@ -143,7 +143,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentConfirmQ
         vizeo: true,
         vizeoptik: true,
         synopticList: {
-          version: 2,
+          version: 2.1,
           studyName: getStudyName(),
           installerName: getInstallerName(),
           pages: pages,

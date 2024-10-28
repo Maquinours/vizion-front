@@ -1,4 +1,4 @@
-@import '/src/assets/styles/mixins';
+@use '/src/assets/styles/mixins';
 
 .modal {
   position: relative;
@@ -30,7 +30,7 @@
       align-self: center;
       padding-right: 1rem;
 
-      @include respond-below(sm) {
+      @include mixins.respond-below(sm) {
         text-align: left;
         margin-bottom: 0.3rem;
       }
@@ -70,7 +70,7 @@
         flex-wrap: wrap;
         grid-template-columns: repeat(2, 1fr);
 
-        @include respond-below(md) {
+        @include mixins.respond-below(md) {
           grid-template-columns: repeat(1, 1fr);
         }
       }
@@ -81,7 +81,7 @@
         grid-auto-columns: auto;
         margin-bottom: 0.8rem;
 
-        @include respond-below(md) {
+        @include mixins.respond-below(md) {
           grid-template-columns: repeat(1, 1fr);
         }
 
@@ -101,7 +101,7 @@
             margin-top: 2px;
           }
 
-          @include respond-below(md) {
+          @include mixins.respond-below(md) {
             grid-template-columns: repeat(1, 1fr);
             gap: 1rem 0;
           }
@@ -118,7 +118,7 @@
             width: 150px;
             font: normal normal normal 11px/14px 'DIN2014';
 
-            @include respond-below(md) {
+            @include mixins.respond-below(md) {
               width: 100%;
             }
 
@@ -187,7 +187,7 @@
         cursor: pointer;
         transform: translateY(-50%);
 
-        @include respond-below(md) {
+        @include mixins.respond-below(md) {
           right: -25px;
           transform: translateY(-14%);
         }
@@ -195,7 +195,7 @@
         &:nth-of-type(1) {
           right: 30px;
 
-          @include respond-below(sm) {
+          @include mixins.respond-below(sm) {
             display: none;
           }
         }
@@ -203,7 +203,7 @@
         &:nth-of-type(3) {
           right: -30px;
 
-          @include respond-below(sm) {
+          @include mixins.respond-below(sm) {
             display: none;
           }
         }
@@ -221,7 +221,7 @@
         margin-top: 2px;
       }
 
-      @include respond-below(md) {
+      @include mixins.respond-below(md) {
         grid-template-areas:
           'label label'
           'input input'
@@ -262,7 +262,7 @@
         font: normal normal normal 12px/15px 'DIN2014';
         width: 200px;
 
-        @include respond-below(md) {
+        @include mixins.respond-below(md) {
           width: inherit;
         }
 
@@ -313,7 +313,7 @@
         color: var(--primary-light-color);
         opacity: 1;
 
-        @include respond-below(md) {
+        @include mixins.respond-below(md) {
           width: inherit;
         }
 

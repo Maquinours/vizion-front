@@ -1,4 +1,4 @@
-@import '/src/assets/styles/mixins';
+@use '/src/assets/styles/mixins';
 
 .table_container {
   padding-top: 0.5rem;
@@ -89,7 +89,7 @@
           width: 80%;
         }
 
-        @include respond-below(md) {
+        @include mixins.respond-below(md) {
           div {
             width: 6rem;
           }

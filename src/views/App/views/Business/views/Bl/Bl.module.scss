@@ -1,4 +1,4 @@
-@import '/src/assets/styles/mixins';
+@use '/src/assets/styles/mixins';
 
 .container {
   display: flex;
@@ -6,7 +6,7 @@
   align-items: center;
   flex-direction: column;
 
-  @include respond-below(sm) {
+  @include mixins.respond-below(sm) {
     justify-content: inherit;
     align-items: inherit;
   }

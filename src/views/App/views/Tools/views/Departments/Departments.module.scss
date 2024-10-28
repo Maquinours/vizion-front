@@ -1,4 +1,4 @@
-@import '/src/assets/styles/mixins';
+@use '/src/assets/styles/mixins';
 
 .container {
   width: 100%;
@@ -9,15 +9,16 @@
   align-items: center;
   flex-direction: column;
 
-  @include respond-below(xs) {
+  @include mixins.respond-below(xs) {
     padding: 0;
   }
 
-  @include respond-below(md) {
+  @include mixins.respond-below(md) {
     padding: 1rem;
     padding-left: 0rem;
     padding-right: 0rem;
   }
+
   .content {
     width: 100%;
     max-width: 1000px;
@@ -57,10 +58,12 @@
               border-top-left-radius: 5px;
               width: auto;
             }
+
             &:nth-last-child(1) {
               border-top-right-radius: 5px;
               width: 15%;
             }
+
             &:nth-last-child(2) {
               border-right: 0.5px solid #898fa6;
               border-left: 0.5px solid #898fa6;
@@ -68,6 +71,7 @@
             }
           }
         }
+
         tbody {
           border-left: 1px solid #31385a;
           border-bottom: 1px solid #31385a;

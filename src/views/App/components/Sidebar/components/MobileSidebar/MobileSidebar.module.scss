@@ -1,4 +1,4 @@
-@import '/src/assets/styles/mixins';
+@use '/src/assets/styles/mixins';
 
 .container {
   background-color: white;
@@ -7,7 +7,7 @@
   position: relative;
   top: 0;
 
-  @include respond-above(sm) {
+  @include mixins.respond-above(sm) {
     display: none;
   }
 

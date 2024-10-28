@@ -1,4 +1,4 @@
-@import '/src/assets/styles/mixins';
+@use '/src/assets/styles/mixins';
 
 .container {
   display: flex;
@@ -7,7 +7,7 @@
   height: 100%;
   width: 100%;
 
-  @include respond-below(sm) {
+  @include mixins.respond-below(sm) {
     display: none;
   }
 

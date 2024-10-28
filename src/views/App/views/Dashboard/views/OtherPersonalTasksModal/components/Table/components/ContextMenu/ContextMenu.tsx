@@ -8,6 +8,7 @@ import TaskResponseDto from '../../../../../../../../../../utils/types/TaskRespo
 import { Link, getRouteApi } from '@tanstack/react-router';
 import TaskState from '../../../../../../../../../../utils/enums/TaskState';
 import { useAuthentifiedUserQuery } from '../../../../../../../../utils/functions/getAuthentifiedUser';
+import ProfileResponseDto from '../../../../../../../../../../utils/types/ProfileResponseDto';
 
 const Route = getRouteApi('/app/dashboard/other-personal-tasks/$profileId');
 
@@ -15,11 +16,13 @@ type AppViewDashboardViewOtherPersonalTasksModalViewTableComponentContextMenuCom
   anchor: VirtualElement | undefined;
   setAnchor: (anchor: VirtualElement | undefined) => void;
   task: TaskResponseDto | undefined;
+  profile: ProfileResponseDto;
 }>;
 export default function AppViewDashboardViewOtherPersonalTasksModalViewTableComponentContextMenuComponent({
   anchor,
   setAnchor,
   task,
+  profile,
 }: AppViewDashboardViewOtherPersonalTasksModalViewTableComponentContextMenuComponentProps) {
   const isOpen = Boolean(anchor);
 
@@ -40,44 +43,54 @@ export default function AppViewDashboardViewOtherPersonalTasksModalViewTableComp
                       </Link>
                     </MenuItem>
                   )}
-                  {currentUser.userInfo.roles.includes('ROLE_DIRECTION_VIZEO') && task.state !== TaskState.ARCHIVED && (
-                    <MenuItem>
-                      <Link from={Route.id} to="../../archive-personal-task/$taskId" params={{ taskId: task.id }} search={(old) => old} preload="viewport">
-                        <BsFillCircleFill className={styles.icon} color="#5DC896" />
-                        <span className={styles.text}>Archiver</span>
-                      </Link>
-                    </MenuItem>
-                  )}
-                  {currentUser.userInfo.roles.includes('ROLE_DIRECTION_VIZEO') && [TaskState.CLOSED, TaskState.CREATED].includes(task.state!) && (
-                    <MenuItem>
-                      <Link
-                        from={Route.id}
-                        to="../../update-personal-task-deadline/$taskId"
-                        params={{ taskId: task.id }}
-                        search={(old) => old}
-                        preload="viewport"
-                      >
-                        <MdSchedule className={styles.icon} />
-                        <span className={styles.text}>Repousser</span>
-                      </Link>
-                    </MenuItem>
-                  )}
-                  {currentUser.userInfo.roles.includes('ROLE_DIRECTION_VIZEO') && task.state === TaskState.CREATED && (
-                    <MenuItem>
-                      <Link from={Route.id} to="../../transfer-task/$taskId" params={{ taskId: task.id }} search={(old) => old} preload="viewport">
-                        <IoMdArrowForward className={styles.icon} />
-                        <span className={styles.text}>Transférer à</span>
-                      </Link>
-                    </MenuItem>
-                  )}
-                  {currentUser.userInfo.roles.includes('ROLE_DIRECTION_VIZEO') && task.state === TaskState.CREATED && (
-                    <MenuItem>
-                      <Link from={Route.id} to="../../validate-personal-task/$taskId" params={{ taskId: task.id }} search={(old) => old} preload="viewport">
-                        <BsFillCircleFill className={styles.icon} color="#31385A" />
-                        <span className={styles.text}>En attente</span>
-                      </Link>
-                    </MenuItem>
-                  )}
+                  {currentUser.userInfo.roles.includes('ROLE_DIRECTION_VIZEO') &&
+                    !(
+                      (task.profileId === profile.id && task.state === TaskState.ARCHIVED) ||
+                      (task.senderId === profile.id && task.senderState === TaskState.ARCHIVED)
+                    ) && (
+                      <MenuItem>
+                        <Link from={Route.id} to="../../archive-personal-task/$taskId" params={{ taskId: task.id }} search={(old) => old} preload="viewport">
+                          <BsFillCircleFill className={styles.icon} color="#5DC896" />
+                          <span className={styles.text}>Archiver</span>
+                        </Link>
+                      </MenuItem>
+                    )}
+                  {currentUser.userInfo.roles.includes('ROLE_DIRECTION_VIZEO') &&
+                    ((task.profileId === profile.id && [TaskState.CLOSED, TaskState.CREATED].includes(task.state!)) ||
+                      (task.senderId === profile.id && [TaskState.CLOSED, TaskState.CREATED].includes(task.senderState!))) && (
+                      <MenuItem>
+                        <Link
+                          from={Route.id}
+                          to="../../update-personal-task-deadline/$taskId"
+                          params={{ taskId: task.id }}
+                          search={(old) => old}
+                          preload="viewport"
+                        >
+                          <MdSchedule className={styles.icon} />
+                          <span className={styles.text}>Repousser</span>
+                        </Link>
+                      </MenuItem>
+                    )}
+                  {currentUser.userInfo.roles.includes('ROLE_DIRECTION_VIZEO') &&
+                    ((task.profileId === profile.id && task.state === TaskState.CREATED) ||
+                      (task.senderId === profile.id && task.senderState === TaskState.CREATED)) && (
+                      <MenuItem>
+                        <Link from={Route.id} to="../../transfer-task/$taskId" params={{ taskId: task.id }} search={(old) => old} preload="viewport">
+                          <IoMdArrowForward className={styles.icon} />
+                          <span className={styles.text}>Transférer à</span>
+                        </Link>
+                      </MenuItem>
+                    )}
+                  {currentUser.userInfo.roles.includes('ROLE_DIRECTION_VIZEO') &&
+                    ((task.profileId === profile.id && task.state === TaskState.CREATED) ||
+                      (task.senderId === profile.id && task.senderState === TaskState.CREATED)) && (
+                      <MenuItem>
+                        <Link from={Route.id} to="../../validate-personal-task/$taskId" params={{ taskId: task.id }} search={(old) => old} preload="viewport">
+                          <BsFillCircleFill className={styles.icon} color="#31385A" />
+                          <span className={styles.text}>En attente</span>
+                        </Link>
+                      </MenuItem>
+                    )}
                   <MenuItem>
                     <Link from={Route.id} to="../../personal-task-details/$taskId" params={{ taskId: task.id }} search={(old) => old} preload="viewport">
                       <BsEyeFill className={styles.icon} />

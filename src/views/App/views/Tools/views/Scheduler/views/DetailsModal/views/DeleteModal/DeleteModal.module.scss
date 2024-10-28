@@ -1,4 +1,4 @@
-@import '../../../CreateModal/CreateModal.module.scss';
+@use '../../../CreateModal/CreateModal.module.scss';
 
 .delete_modal {
   @extend .modal;

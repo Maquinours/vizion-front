@@ -1,4 +1,4 @@
-@import '/src/assets/styles/mixins';
+@use '/src/assets/styles/mixins';
 
 .container {
   overflow: hidden;
@@ -13,7 +13,7 @@
     border-left: 2px solid var(--bg-color);
     border-right: 2px solid var(--bg-color);
 
-    @include respond-below(sm) {
+    @include mixins.respond-below(sm) {
       top: var(--topbar-mobile-container-height);
       margin-left: 0;
       width: 100%;
@@ -21,7 +21,7 @@
     }
 
     &.mobile_menu_opened {
-      @include respond-below(sm) {
+      @include mixins.respond-below(sm) {
         width: 100%;
         margin-left: 0;
         left: 0;
@@ -65,7 +65,7 @@
           background: var(--grey-line);
         }
 
-        @include respond-below(sm) {
+        @include mixins.respond-below(sm) {
           display: inherit;
           padding: 0.5rem;
           margin-top: 0;

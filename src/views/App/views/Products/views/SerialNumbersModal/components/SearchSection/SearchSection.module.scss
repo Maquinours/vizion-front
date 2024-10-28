@@ -1,4 +1,4 @@
-@import '/src/assets/styles/mixins';
+@use '/src/assets/styles/mixins';
 
 .search_container {
   form {
@@ -6,7 +6,7 @@
     flex-direction: row;
     gap: 10px;
 
-    @include respond-below(sm) {
+    @include mixins.respond-below(sm) {
       flex-direction: column;
       width: 100%;
     }
@@ -21,7 +21,7 @@
         'error';
       grid-template-columns: repeat(1, 1fr);
 
-      @include respond-below(sm) {
+      @include mixins.respond-below(sm) {
         width: 100%;
       }
 
@@ -43,7 +43,7 @@
         height: 35px;
         width: 250px;
 
-        @include respond-below(md) {
+        @include mixins.respond-below(md) {
           width: inherit;
         }
 

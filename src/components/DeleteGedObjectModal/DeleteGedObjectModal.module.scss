@@ -1,4 +1,5 @@
-@import '../ImportGedFilesModal/ImportGedFilesModal.module.scss';
+@use '../ImportGedFilesModal/ImportGedFilesModal.module.scss';
+@use "/src/assets/styles/mixins";
 
 .delete_modal {
   @extend .modal;
@@ -21,11 +22,11 @@
     }
   }
 
-  @include respond-below(md) {
+  @include mixins.respond-below(md) {
     width: 75%;
   }
 
-  @include respond-below(sm) {
+  @include mixins.respond-below(sm) {
     width: 98%;
   }
 }

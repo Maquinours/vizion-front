@@ -1,15 +1,17 @@
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
+import { ToOptions, useNavigate } from '@tanstack/react-router';
+import { useContext } from 'react';
 import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
 import { toast } from 'react-toastify';
-import { createBusiness } from '../../utils/api/business';
 import { queries } from '../../utils/constants/queryKeys';
 import { businesses } from '../../utils/constants/queryKeys/business';
 import { enterprises } from '../../utils/constants/queryKeys/enterprise';
-import BusinessType from '../../utils/enums/BusinessType';
-import CategoryClient from '../../utils/enums/CategoryClient';
+import { TabsContext } from '../../views/App/components/TabsContainer/utils/contexts/context';
 import styles from './CreateBusinessModal.module.scss';
-import { useNavigate } from '@tanstack/react-router';
+import { createBusiness } from '../../utils/api/business';
+import CategoryClient from '../../utils/enums/CategoryClient';
+import BusinessType from '../../utils/enums/BusinessType';
 
 type CreateBusinessModalComponentProps = Readonly<{
   contactId: string;
@@ -18,6 +20,8 @@ type CreateBusinessModalComponentProps = Readonly<{
 export default function CreateBusinessModalComponent({ contactId, onClose }: CreateBusinessModalComponentProps) {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
+
+  const { getCurrentTab, updateTabRoute } = useContext(TabsContext)!;
 
   const { data: contact } = useSuspenseQuery(queries.profiles.detail(contactId));
 
@@ -60,12 +64,14 @@ export default function CreateBusinessModalComponent({ contactId, onClose }: Cre
         deliveryMode: 'A expédier',
         billAndLock: false,
       }),
-    onSuccess: (data) => {
+    onSuccess: async (data) => {
       queryClient.invalidateQueries({ queryKey: businesses._def });
       queryClient.invalidateQueries({ queryKey: queries['all-businesses']._def });
       queryClient.setQueryData(queries.businesses.detail._ctx.byId(data.id).queryKey, data);
       toast.success('Affaire créée avec succès');
-      navigate({ to: '/app/businesses-rma/business/$businessId', params: { businessId: data.id } });
+      const currentTabId = getCurrentTab()?.id;
+      await navigate({ to: '/app/businesses-rma/business/$businessId', params: { businessId: data.id } });
+      if (currentTabId) updateTabRoute(currentTabId, (tab) => ({ to: tab.id as ToOptions['to'] }));
     },
     onError: (error) => {
       console.error(error);

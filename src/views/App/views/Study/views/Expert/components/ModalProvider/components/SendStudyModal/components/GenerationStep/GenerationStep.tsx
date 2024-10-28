@@ -20,11 +20,11 @@ import AppViewStudyViewExpertViewModalProviderComponentPdfModalComponentShowStep
 import { saveSynopticBusiness } from '../../../../../../../../../../../../utils/api/synoptic';
 import { ExpertStudyMonitorNode } from '../../../../../Flow/components/MonitorNode/MonitorNode';
 import { ExpertStudyTransmitterNode } from '../../../../../Flow/components/TransmitterNode/TransmitterNode';
-import { ExpertStudyServiceNode } from '../../../../../Flow/components/ServiceNode/ServiceNode';
+import { ExpertStudyMiscProductNode } from '../../../../../Flow/components/MiscProductNode/MiscProductNode';
 import { synopticBusinessQueryKeys } from '../../../../../../../../../../../../utils/constants/queryKeys/synoptic';
 import { SynopticRequestBusinessQuotationRequestSubQuotationRequestDto } from '../../../../../../../../../../../../utils/types/SynopticRequestDto';
 
-type ProductNode = ExpertStudySynopticCameraNode | ExpertStudyMonitorNode | ExpertStudyRecorderNode | ExpertStudyTransmitterNode | ExpertStudyServiceNode;
+type ProductNode = ExpertStudySynopticCameraNode | ExpertStudyMonitorNode | ExpertStudyRecorderNode | ExpertStudyTransmitterNode | ExpertStudyMiscProductNode;
 
 const GROUPS = [
   {
@@ -232,7 +232,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentSendStud
         vizeo: true,
         vizeoptik: true,
         synopticList: {
-          version: 2,
+          version: 2.1,
           studyName: getStudyName(),
           installerName: getInstallerName(),
           pages: pages,

@@ -8,7 +8,7 @@ type BusinessBillRequestDto = {
   shippingServicePrice?: number | null;
   vat?: number | null;
   totalAmount?: number | null;
-  totalAmountHt?: number | null;
+  totalAmountHT?: number | null;
   numOrder?: string | null;
   paid?: number | null;
   payment?: number | null;

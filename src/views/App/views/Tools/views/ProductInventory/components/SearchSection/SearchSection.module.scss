@@ -1,11 +1,11 @@
-@import '/src/assets/styles/mixins';
+@use '/src/assets/styles/mixins';
 
 .search_content {
   display: flex;
   justify-content: flex-start;
   gap: 1rem;
 
-  @include respond-below(sm) {
+  @include mixins.respond-below(sm) {
     flex-direction: column;
   }
 
@@ -18,7 +18,7 @@
     height: 30px;
     width: auto;
 
-    @include respond-below(md) {
+    @include mixins.respond-below(md) {
       width: inherit;
     }
 

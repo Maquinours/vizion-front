@@ -1,4 +1,4 @@
-@import '/src/assets/styles/mixins';
+@use '/src/assets/styles/mixins';
 
 .container {
   height: 100%;
@@ -9,7 +9,7 @@
     margin-bottom: 2rem;
 
     .step_progress {
-      @include respond-above(sm) {
+      @include mixins.respond-above(sm) {
         position: relative;
         padding-left: 45px;
         list-style: none;
@@ -92,7 +92,7 @@
         }
       }
 
-      @include respond-below(sm) {
+      @include mixins.respond-below(sm) {
         background: none;
         display: flex;
         justify-content: space-between;

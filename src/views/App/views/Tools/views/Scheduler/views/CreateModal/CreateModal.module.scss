@@ -1,4 +1,4 @@
-@import '/src/assets/styles/mixins';
+@use '/src/assets/styles/mixins';
 
 .modal {
   position: absolute;
@@ -35,7 +35,7 @@
       padding: 1rem 3rem;
       width: 100%;
 
-      @include respond-below(sm) {
+      @include mixins.respond-below(sm) {
         padding: 0.5rem;
       }
 
@@ -110,7 +110,7 @@
               grid-column-start: 2;
               grid-column-end: 3;
 
-              @include respond-below(sm) {
+              @include mixins.respond-below(sm) {
                 grid-column-start: 1;
                 grid-column-end: 3;
               }
@@ -129,7 +129,7 @@
               }
             }
 
-            @include respond-below(sm) {
+            @include mixins.respond-below(sm) {
               grid-template-columns: repeat(1, 1fr);
 
               .title {
@@ -153,7 +153,7 @@
             gap: 1rem;
             align-self: center;
 
-            @include respond-below(sm) {
+            @include mixins.respond-below(sm) {
               grid-template-columns: repeat(1, 1fr);
             }
 
@@ -166,7 +166,7 @@
               opacity: 1;
               width: 100%;
 
-              @include respond-below(sm) {
+              @include mixins.respond-below(sm) {
                 text-align: left;
                 align-self: flex-start;
               }
@@ -238,7 +238,7 @@
             align-self: center;
             grid-template-areas: 'label input';
 
-            @include respond-below(sm) {
+            @include mixins.respond-below(sm) {
               grid-template-columns: repeat(1, 1fr);
               grid-template-areas:
                 'label'
@@ -269,7 +269,7 @@
               opacity: 1;
               width: 100%;
 
-              @include respond-below(sm) {
+              @include mixins.respond-below(sm) {
                 text-align: left;
                 align-self: flex-start;
               }
@@ -383,11 +383,11 @@
     }
   }
 
-  @include respond-below(md) {
+  @include mixins.respond-below(md) {
     width: 75%;
   }
 
-  @include respond-below(sm) {
+  @include mixins.respond-below(sm) {
     width: 95%;
   }
 }

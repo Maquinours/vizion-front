@@ -8,8 +8,11 @@ type FaqResponseDto = {
   accessLevel: FaqAccessLevel;
   archived: boolean;
   products: Array<FaqProductResponseDto> | null;
-  createdDate: Date;
-  modifiedDate: Date | null;
+  assistanceId: string | null;
+  assistanceName: string | null;
+  businessId: string | null;
+  createdDate: string;
+  modifiedDate: string | null;
   createdBy: string | null;
   modifiedBy: string | null;
 };

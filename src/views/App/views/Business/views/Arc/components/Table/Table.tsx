@@ -64,7 +64,7 @@ export default function AppViewBusinessViewArcViewTableComponent() {
         header: 'Remise',
         cell: ({ row: { original } }) =>
           user.userInfo.roles.some((role) => ['ROLE_MEMBRE_VIZEO', 'ROLE_REPRESENTANT_VIZEO'].includes(role)) && (
-            <AmountFormat value={original.reduction} decimalScale={0} displayType="text" />
+            <AmountFormat value={original.reduction} decimalScale={0} suffix="%" displayType="text" />
           ),
       }),
       columnHelper.display({

@@ -4,9 +4,7 @@ import AppViewStudyViewExpertViewFooterComponentPaginationComponent from './comp
 import AppViewStudyViewExpertViewFooterComponentColorsMenuComponent from './components/ColorsMenu/ColorsMenu';
 
 const selector = (state: RFState) => ({
-  currentPage: state.currentPage,
   hasPage: state.pages.length > 0,
-  setCurrentPage: state.setCurrentPage,
   addPage: state.addPage,
   removePage: state.removePage,
   pageType: state.pages.at(state.currentPage)?.type,

@@ -273,6 +273,7 @@ import { Route as AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdEditCu
 import { Route as AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdDeleteRouteImport } from './routes/app/businesses-rma_/business.$businessId_/assistance.$assistanceId/delete/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdCreateLifesheetRouteImport } from './routes/app/businesses-rma_/business.$businessId_/assistance.$assistanceId/create-lifesheet/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdCreateGedDirectoryRouteImport } from './routes/app/businesses-rma_/business.$businessId_/assistance.$assistanceId/create-ged-directory/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdCreateFaqRouteImport } from './routes/app/businesses-rma_/business.$businessId_/assistance.$assistanceId/create-faq/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdQuotationUpdateSubquotationSubquotationIdRouteImport } from './routes/app/businesses-rma_/business.$businessId/quotation/update-subquotation.$subquotationId/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdQuotationUpdateDetailDetailIdRouteImport } from './routes/app/businesses-rma_/business.$businessId/quotation/update-detail.$detailId/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdQuotationPdfSendByEmailRouteImport } from './routes/app/businesses-rma_/business.$businessId/quotation/pdf/send-by-email/route'
@@ -2868,6 +2869,19 @@ const AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdCreateGedDirectory
     ).then((d) => d.Route),
   )
 
+const AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdCreateFaqRouteRoute =
+  AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdCreateFaqRouteImport.update(
+    {
+      path: '/create-faq',
+      getParentRoute: () =>
+        AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdRouteRoute,
+    } as any,
+  ).lazy(() =>
+    import(
+      './routes/app/businesses-rma_/business.$businessId_/assistance.$assistanceId/create-faq/route.lazy'
+    ).then((d) => d.Route),
+  )
+
 const AppBusinessesRmaBusinessBusinessIdQuotationUpdateSubquotationSubquotationIdRouteRoute =
   AppBusinessesRmaBusinessBusinessIdQuotationUpdateSubquotationSubquotationIdRouteImport.update(
     {
@@ -5263,6 +5277,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdQuotationUpdateSubquotationSubquotationIdRouteImport
       parentRoute: typeof AppBusinessesRmaBusinessBusinessIdQuotationRouteImport
     }
+    '/app/businesses-rma/business/$businessId/assistance/$assistanceId/create-faq': {
+      id: '/app/businesses-rma/business/$businessId/assistance/$assistanceId/create-faq'
+      path: '/create-faq'
+      fullPath: '/app/businesses-rma/business/$businessId/assistance/$assistanceId/create-faq'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdCreateFaqRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdRouteImport
+    }
     '/app/businesses-rma/business/$businessId/assistance/$assistanceId/create-ged-directory': {
       id: '/app/businesses-rma/business/$businessId/assistance/$assistanceId/create-ged-directory'
       path: '/create-ged-directory'
@@ -7160,6 +7181,7 @@ const AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdPdfRouteRouteWithC
   )
 
 interface AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdRouteRouteChildren {
+  AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdCreateFaqRouteRoute: typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdCreateFaqRouteRoute
   AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdCreateGedDirectoryRouteRoute: typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdCreateGedDirectoryRouteRoute
   AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdCreateLifesheetRouteRoute: typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdCreateLifesheetRouteRoute
   AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdDeleteRouteRoute: typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdDeleteRouteRoute
@@ -7175,6 +7197,8 @@ interface AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdRouteRouteChil
 
 const AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdRouteRouteChildren: AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdRouteRouteChildren =
   {
+    AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdCreateFaqRouteRoute:
+      AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdCreateFaqRouteRoute,
     AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdCreateGedDirectoryRouteRoute:
       AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdCreateGedDirectoryRouteRoute,
     AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdCreateLifesheetRouteRoute:
@@ -7534,6 +7558,7 @@ export interface FileRoutesByFullPath {
   '/app/businesses-rma/business/$businessId/quotation/pdf/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdQuotationPdfSendByEmailRouteRouteWithChildren
   '/app/businesses-rma/business/$businessId/quotation/update-detail/$detailId': typeof AppBusinessesRmaBusinessBusinessIdQuotationUpdateDetailDetailIdRouteRoute
   '/app/businesses-rma/business/$businessId/quotation/update-subquotation/$subquotationId': typeof AppBusinessesRmaBusinessBusinessIdQuotationUpdateSubquotationSubquotationIdRouteRoute
+  '/app/businesses-rma/business/$businessId/assistance/$assistanceId/create-faq': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdCreateFaqRouteRoute
   '/app/businesses-rma/business/$businessId/assistance/$assistanceId/create-ged-directory': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdCreateGedDirectoryRouteRoute
   '/app/businesses-rma/business/$businessId/assistance/$assistanceId/create-lifesheet': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdCreateLifesheetRouteRoute
   '/app/businesses-rma/business/$businessId/assistance/$assistanceId/delete': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdDeleteRouteRoute
@@ -7836,6 +7861,7 @@ export interface FileRoutesByTo {
   '/app/businesses-rma/business/$businessId/quotation/pdf/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdQuotationPdfSendByEmailRouteRouteWithChildren
   '/app/businesses-rma/business/$businessId/quotation/update-detail/$detailId': typeof AppBusinessesRmaBusinessBusinessIdQuotationUpdateDetailDetailIdRouteRoute
   '/app/businesses-rma/business/$businessId/quotation/update-subquotation/$subquotationId': typeof AppBusinessesRmaBusinessBusinessIdQuotationUpdateSubquotationSubquotationIdRouteRoute
+  '/app/businesses-rma/business/$businessId/assistance/$assistanceId/create-faq': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdCreateFaqRouteRoute
   '/app/businesses-rma/business/$businessId/assistance/$assistanceId/create-ged-directory': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdCreateGedDirectoryRouteRoute
   '/app/businesses-rma/business/$businessId/assistance/$assistanceId/create-lifesheet': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdCreateLifesheetRouteRoute
   '/app/businesses-rma/business/$businessId/assistance/$assistanceId/delete': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdDeleteRouteRoute
@@ -8146,6 +8172,7 @@ export interface FileRoutesById {
   '/app/businesses-rma/business/$businessId/quotation/pdf/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdQuotationPdfSendByEmailRouteRouteWithChildren
   '/app/businesses-rma/business/$businessId/quotation/update-detail/$detailId': typeof AppBusinessesRmaBusinessBusinessIdQuotationUpdateDetailDetailIdRouteRoute
   '/app/businesses-rma/business/$businessId/quotation/update-subquotation/$subquotationId': typeof AppBusinessesRmaBusinessBusinessIdQuotationUpdateSubquotationSubquotationIdRouteRoute
+  '/app/businesses-rma/business/$businessId/assistance/$assistanceId/create-faq': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdCreateFaqRouteRoute
   '/app/businesses-rma/business/$businessId/assistance/$assistanceId/create-ged-directory': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdCreateGedDirectoryRouteRoute
   '/app/businesses-rma/business/$businessId/assistance/$assistanceId/create-lifesheet': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdCreateLifesheetRouteRoute
   '/app/businesses-rma/business/$businessId/assistance/$assistanceId/delete': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdDeleteRouteRoute
@@ -8457,6 +8484,7 @@ export interface FileRouteTypes {
     | '/app/businesses-rma/business/$businessId/quotation/pdf/send-by-email'
     | '/app/businesses-rma/business/$businessId/quotation/update-detail/$detailId'
     | '/app/businesses-rma/business/$businessId/quotation/update-subquotation/$subquotationId'
+    | '/app/businesses-rma/business/$businessId/assistance/$assistanceId/create-faq'
     | '/app/businesses-rma/business/$businessId/assistance/$assistanceId/create-ged-directory'
     | '/app/businesses-rma/business/$businessId/assistance/$assistanceId/create-lifesheet'
     | '/app/businesses-rma/business/$businessId/assistance/$assistanceId/delete'
@@ -8758,6 +8786,7 @@ export interface FileRouteTypes {
     | '/app/businesses-rma/business/$businessId/quotation/pdf/send-by-email'
     | '/app/businesses-rma/business/$businessId/quotation/update-detail/$detailId'
     | '/app/businesses-rma/business/$businessId/quotation/update-subquotation/$subquotationId'
+    | '/app/businesses-rma/business/$businessId/assistance/$assistanceId/create-faq'
     | '/app/businesses-rma/business/$businessId/assistance/$assistanceId/create-ged-directory'
     | '/app/businesses-rma/business/$businessId/assistance/$assistanceId/create-lifesheet'
     | '/app/businesses-rma/business/$businessId/assistance/$assistanceId/delete'
@@ -9066,6 +9095,7 @@ export interface FileRouteTypes {
     | '/app/businesses-rma/business/$businessId/quotation/pdf/send-by-email'
     | '/app/businesses-rma/business/$businessId/quotation/update-detail/$detailId'
     | '/app/businesses-rma/business/$businessId/quotation/update-subquotation/$subquotationId'
+    | '/app/businesses-rma/business/$businessId/assistance/$assistanceId/create-faq'
     | '/app/businesses-rma/business/$businessId/assistance/$assistanceId/create-ged-directory'
     | '/app/businesses-rma/business/$businessId/assistance/$assistanceId/create-lifesheet'
     | '/app/businesses-rma/business/$businessId/assistance/$assistanceId/delete'
@@ -10326,6 +10356,7 @@ export const routeTree = rootRoute
       "filePath": "app/businesses-rma_/business.$businessId_/assistance.$assistanceId/route.ts",
       "parent": "/app",
       "children": [
+        "/app/businesses-rma/business/$businessId/assistance/$assistanceId/create-faq",
         "/app/businesses-rma/business/$businessId/assistance/$assistanceId/create-ged-directory",
         "/app/businesses-rma/business/$businessId/assistance/$assistanceId/create-lifesheet",
         "/app/businesses-rma/business/$businessId/assistance/$assistanceId/delete",
@@ -10630,6 +10661,10 @@ export const routeTree = rootRoute
     "/app/businesses-rma/business/$businessId/quotation/update-subquotation/$subquotationId": {
       "filePath": "app/businesses-rma_/business.$businessId/quotation/update-subquotation.$subquotationId/route.ts",
       "parent": "/app/businesses-rma/business/$businessId/quotation"
+    },
+    "/app/businesses-rma/business/$businessId/assistance/$assistanceId/create-faq": {
+      "filePath": "app/businesses-rma_/business.$businessId_/assistance.$assistanceId/create-faq/route.ts",
+      "parent": "/app/businesses-rma/business/$businessId/assistance/$assistanceId"
     },
     "/app/businesses-rma/business/$businessId/assistance/$assistanceId/create-ged-directory": {
       "filePath": "app/businesses-rma_/business.$businessId_/assistance.$assistanceId/create-ged-directory/route.ts",

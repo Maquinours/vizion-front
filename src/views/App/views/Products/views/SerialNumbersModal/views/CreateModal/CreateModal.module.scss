@@ -1,4 +1,4 @@
-@import '/src/assets/styles/mixins';
+@use '/src/assets/styles/mixins';
 
 .modal {
   position: absolute;
@@ -24,11 +24,11 @@
     justify-content: center;
     align-items: center;
 
-    @include respond-below(md) {
+    @include mixins.respond-below(md) {
       padding: 1rem;
     }
 
-    @include respond-below(xs) {
+    @include mixins.respond-below(xs) {
       padding: 0;
     }
 

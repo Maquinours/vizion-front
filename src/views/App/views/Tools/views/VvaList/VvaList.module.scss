@@ -1,4 +1,4 @@
-@import '/src/assets/styles/mixins';
+@use '/src/assets/styles/mixins';
 
 .container {
   width: 100%;
@@ -10,11 +10,11 @@
   flex-direction: column;
   padding: 4rem 8rem;
 
-  @include respond-below(md) {
+  @include mixins.respond-below(md) {
     padding: 1rem;
   }
 
-  @include respond-below(xs) {
+  @include mixins.respond-below(xs) {
     padding: 0;
   }
 
@@ -130,7 +130,7 @@
         }
       }
 
-      @include respond-below(md) {
+      @include mixins.respond-below(md) {
         overflow-x: auto;
       }
     }

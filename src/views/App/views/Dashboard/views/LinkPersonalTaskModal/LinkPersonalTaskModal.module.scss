@@ -1,4 +1,4 @@
-@import '../CreatePersonalTaskModal/CreatePersonalTaskModal.module.scss';
+@use '../CreatePersonalTaskModal/CreatePersonalTaskModal.module.scss';
 
 .modal_link {
   @extend .modal;
