@@ -10,7 +10,7 @@ import AppViewStudyViewExpertViewFooterComponentPaginationComponentPage from './
 
 const selector = (state: RFState) => ({
   currentPage: state.currentPage,
-  pages: state.pages.map((page) => ({ id: page.id, type: page.type })),
+  pages: state.pages,
   setCurrentPage: state.setCurrentPage,
   pageMove: state.pageMove,
 });

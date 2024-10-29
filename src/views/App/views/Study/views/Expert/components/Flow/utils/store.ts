@@ -94,10 +94,10 @@ export const isExpertStudyPage = (page: unknown): page is ExpertStudyPage => {
     !!page.id &&
     'nodes' in page &&
     Array.isArray(page.nodes) &&
-    page.nodes.every((node) => isExpertStudyNode(node)) &&
+    page.nodes.every(isExpertStudyNode) &&
     'edges' in page &&
     Array.isArray(page.edges) &&
-    page.edges.every((edge) => isEdge(edge)) &&
+    page.edges.every(isEdge) &&
     'viewport' in page &&
     typeof page.viewport === 'object' &&
     !!page.viewport &&
