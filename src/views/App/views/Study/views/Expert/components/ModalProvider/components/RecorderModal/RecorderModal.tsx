@@ -1,7 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import { useReactFlow } from '@xyflow/react';
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useMemo } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import ReactModal from 'react-modal';
 import { v4 as uuidv4 } from 'uuid';
@@ -80,12 +80,14 @@ export default function AppViewStudyViewExpertViewModalProviderComponentRecorder
     select: (products) => products.filter((product) => product.category === 'NVR' && !!product.reference && includedProducts.includes(product.reference)),
   });
 
-  const { getValues, setValue, control, handleSubmit } = useForm({
+  const { getValues, setValue, control, handleSubmit, watch } = useForm({
     resolver: yupResolver(yupSchema),
     defaultValues: {
       models: [],
     },
   });
+
+  const selectedModelsLength = useMemo(() => getValues('models').filter((model) => model.selected).length, [watch('models')]);
 
   const onClose = () => {
     setModal(undefined);
@@ -209,13 +211,18 @@ export default function AppViewStudyViewExpertViewModalProviderComponentRecorder
             </div>
           )}
         />
-        <div className="mt-6 flex items-center justify-center space-x-2">
-          <button type="button" onClick={onClose} className="btn btn-secondary">
-            Annuler
-          </button>
-          <button type="submit" className="btn btn-primary">
-            Valider
-          </button>
+        <div className="mt-6 flex flex-col items-center justify-center gap-y-2">
+          <span className="text-center text-[var(--primary-color)]">
+            {selectedModelsLength} élément{selectedModelsLength > 1 ? 's' : ''} sélectionné{selectedModelsLength > 1 ? 's' : ''}
+          </span>
+          <div className="flex items-center justify-center space-x-2">
+            <button type="button" onClick={onClose} className="btn btn-secondary">
+              Annuler
+            </button>
+            <button type="submit" className="btn btn-primary">
+              Valider
+            </button>
+          </div>
         </div>
       </form>
     </ReactModal>
