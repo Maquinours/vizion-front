@@ -43,18 +43,17 @@ export default function AppViewDashboardViewOtherPersonalTasksModalViewTableComp
                       </Link>
                     </MenuItem>
                   )}
-                  {currentUser.userInfo.roles.includes('ROLE_DIRECTION_VIZEO') &&
-                    !(
-                      (task.profileId === profile.id && task.state === TaskState.ARCHIVED) ||
-                      (task.senderId === profile.id && task.senderState === TaskState.ARCHIVED)
-                    ) && (
-                      <MenuItem>
-                        <Link from={Route.id} to="../../archive-personal-task/$taskId" params={{ taskId: task.id }} search={(old) => old} preload="viewport">
-                          <BsFillCircleFill className={styles.icon} color="#5DC896" />
-                          <span className={styles.text}>Archiver</span>
-                        </Link>
-                      </MenuItem>
-                    )}
+                  {((currentUser.userInfo.roles.includes('ROLE_DIRECTION_VIZEO') &&
+                    [task.state, task.senderState].some((task) => task !== TaskState.ARCHIVED)) ||
+                    (task.profileId === profile.id && task.state !== TaskState.ARCHIVED) ||
+                    (task.senderId === profile.id && task.senderState !== TaskState.ARCHIVED)) && (
+                    <MenuItem>
+                      <Link from={Route.id} to="../../archive-personal-task/$taskId" params={{ taskId: task.id }} search={(old) => old} preload="viewport">
+                        <BsFillCircleFill className={styles.icon} color="#5DC896" />
+                        <span className={styles.text}>Archiver</span>
+                      </Link>
+                    </MenuItem>
+                  )}
                   {currentUser.userInfo.roles.includes('ROLE_DIRECTION_VIZEO') &&
                     ((task.profileId === profile.id && [TaskState.CLOSED, TaskState.CREATED].includes(task.state!)) ||
                       (task.senderId === profile.id && [TaskState.CLOSED, TaskState.CREATED].includes(task.senderState!))) && (
