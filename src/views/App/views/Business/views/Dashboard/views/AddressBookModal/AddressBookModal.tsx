@@ -41,14 +41,14 @@ export default function AppViewBusinessViewDashboardViewAddressBookModalView() {
 
   const onClose = () => {
     navigate({ to: '..', search: (old) => ({ ...old, page: undefined, searchText: undefined }), replace: true, resetScroll: false, ignoreBlocker: true });
-  };
+  }; 
 
   const onSearch = ({ searchText }: yup.InferType<typeof yupSchema>) => {
-    navigate({ search: (old) => ({ ...old, searchText, page: 0 }), replace: true, resetScroll: false });
+    navigate({ search: (old) => ({ ...old, searchText, page: 0 }), replace: true, resetScroll: false, ignoreBlocker: true });
   };
 
   const onReset = () => {
-    navigate({ search: (old) => ({ ...old, searchText: undefined, page: 0 }), replace: true, resetScroll: false });
+    navigate({ search: (old) => ({ ...old, searchText: undefined, page: 0 }), replace: true, resetScroll: false, ignoreBlocker: true });
   };
 
   const onSelectAddress = (address: AddressResponseDto) => {
