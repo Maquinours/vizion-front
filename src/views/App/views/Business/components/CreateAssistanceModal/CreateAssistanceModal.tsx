@@ -31,12 +31,13 @@ export default function AppViewBusinessViewCreateAssistanceModalComponent() {
 
   const { mutate, isPending } = useMutation({
     mutationFn: async () => {
-      const bill = (await queryClient.ensureQueryData(queries['business-bills'].list._ctx.byBusinessId(businessId)))?.find(
+      const bill = (await queryClient.ensureQueryData(queries['business-bills'].list._ctx.byBusinessId(businessId))).find(
         (bill) => bill.type === BillType.FACTURE,
       );
-      const nvrSerialNumbers = (await queryClient.ensureQueryData(queries['business-bps'].detail._ctx.byBusinessId(businessId))).bpDetailsList
-        .flatMap((detail) => detail.bpSerialList)
-        .filter((serial): serial is BusinessBpSerialResponseDto => !!serial && serial.numSerie.startsWith('B011'));
+      const nvrSerialNumbers =
+        (await queryClient.ensureQueryData(queries['business-bps'].detail._ctx.byBusinessId(businessId))).bpDetailsList
+          ?.flatMap((detail) => detail.bpSerialList) // We use the optional chaining operator cause the API can return 200 with no data if the business has no BP
+          .filter((serial): serial is BusinessBpSerialResponseDto => !!serial && serial.numSerie.startsWith('B011')) ?? [];
       const recaps = [];
       if (!!bill?.createdDate) recaps.push({ name: 'Date de facturation', value: formatDateWithSlash(bill.createdDate) });
       if (nvrSerialNumbers.length === 1) {
