@@ -179,7 +179,7 @@ export default function AppViewStudyViewExpertViewFlowComponentMonitorNodeCompon
           </div>
           <div className="flex gap-x-1 border-t-2 border-t-[#1a192b] p-2">
             <label htmlFor="option">Option :</label>
-            <input id="option" type={'checkbox'} checked={data.option ?? false} onChange={onOptionChange} className="flex-auto" />
+            <input id="option" type={'checkbox'} checked={data.option} onChange={onOptionChange} className="flex-auto" />
           </div>
         </div>
       </div>

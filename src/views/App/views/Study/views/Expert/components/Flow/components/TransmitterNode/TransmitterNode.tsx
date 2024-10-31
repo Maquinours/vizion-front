@@ -133,7 +133,7 @@ export default function AppViewStudyViewExpertViewFlowComponentTransmitterNodeCo
           </div>
           <div className="absolute top-[-20px] w-full text-center">
             <div className="absolute right-1 top-[calc(50%-30px)] ml-auto flex h-fit w-fit gap-x-1">
-              {data.option && <span className="rounded-md bg-purple-300 p-[1px] text-center text-sm font-medium text-white">O</span>}
+              {data.option && <span className="rounded-md bg-purple-300 p-[1px] text-center text-sm font-medium text-white">OPTION</span>}
               {quantity !== 0 && (
                 <AmountFormat
                   prefix="x"
