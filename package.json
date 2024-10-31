@@ -87,7 +87,7 @@
     "read-excel-file": "^5.8.6",
     "svg-intersections": "^0.4.0",
     "usehooks-ts": "^3.1.0",
-    "uuid": "^10.0.0",
+    "uuid": "^11.0.2",
     "vite-plugin-svgr": "^4.2.0",
     "yup": "^1.4.0",
     "zod": "^3.23.8",
