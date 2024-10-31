@@ -93,7 +93,7 @@ export default function AppViewStudyViewExpertViewHeaderComponentImportMenuCompo
       const { width, height } = { width: endPosition.x - position.x, height: endPosition.y - position.y };
 
       const node: ExpertStudyBackgroundNode = {
-        id: 'background',
+        id: `background-${uuidv4()}`,
         type: 'background',
         position: position,
         data: {
