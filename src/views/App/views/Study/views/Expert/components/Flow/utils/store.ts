@@ -38,7 +38,7 @@ const defaultSynopticPage = {
 };
 
 const defaultDensityPage = {
-  nodes: [{ id: 'scale', type: 'densityScale', position: { x: 0, y: 0 }, data: { rotation: 0 } } as ExpertStudyDensityScaleNode] as Array<ExpertStudyNode>,
+  nodes: [{ id: uuidv4(), type: 'densityScale', position: { x: 0, y: 0 }, data: { rotation: 0 } } as ExpertStudyDensityScaleNode] as Array<ExpertStudyNode>,
   edges: [] as Array<Edge>,
   viewport: { x: 0, y: 0, zoom: 1 } as Viewport,
   type: 'density' as 'density',

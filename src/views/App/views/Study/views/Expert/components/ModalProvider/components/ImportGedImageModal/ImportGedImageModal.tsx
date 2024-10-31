@@ -123,7 +123,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentImportGe
             const endPosition = screenToFlowPosition({ x: reactFlowRect.x + reactFlowRect.width, y: reactFlowRect.y + reactFlowRect.height });
             const { width, height } = { width: endPosition.x - position.x, height: endPosition.y - position.y };
             const node: ExpertStudyBackgroundNode = {
-              id: 'background',
+              id: `background-${uuidv4()}`,
               type: 'background',
               position: position,
               data: {
