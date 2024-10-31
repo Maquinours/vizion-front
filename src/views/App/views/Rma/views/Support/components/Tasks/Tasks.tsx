@@ -2,7 +2,7 @@ import { getRouteApi } from '@tanstack/react-router';
 import WorkloadsComponent from '../../../../../../../../components/Workloads/Workloads';
 import { WorkloadAssociatedItem } from '../../../../../../../../utils/enums/WorkloadAssociatedItem';
 
-const routeApi = getRouteApi('/app/businesses-rma/rma/$rmaId/support');
+const routeApi = getRouteApi('/app/businesses-rma_/rma/$rmaId/support');
 
 export default function AppViewRmaViewSupportViewTasksComponent() {
   const { rmaId } = routeApi.useParams();

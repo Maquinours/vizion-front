@@ -1,19 +1,19 @@
-import ReactModal from 'react-modal';
-import styles from './DeleteDetailModal.module.scss';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { rmaSupportDetailQueryKeys } from '../../../../../../../../utils/constants/queryKeys/rmaSupportDetail';
-import { deleteRmaSupportDetail } from '../../../../../../../../utils/api/rmaSupportDetail';
-import { toast } from 'react-toastify';
-import { queries } from '../../../../../../../../utils/constants/queryKeys';
+import { getRouteApi } from '@tanstack/react-router';
 import React from 'react';
+import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
+import { toast } from 'react-toastify';
+import { deleteRmaSupportDetail } from '../../../../../../../../utils/api/rmaSupportDetail';
+import { queries } from '../../../../../../../../utils/constants/queryKeys';
+import { rmaSupportDetailQueryKeys } from '../../../../../../../../utils/constants/queryKeys/rmaSupportDetail';
+import styles from './DeleteDetailModal.module.scss';
 
-const routeApi = getRouteApi('/app/businesses-rma/rma/$rmaId/support/delete-detail/$detailId');
+const routeApi = getRouteApi('/app/businesses-rma_/rma/$rmaId/support/delete-detail/$detailId');
 
 export default function AppViewRmaViewSupportViewDeleteDetailModalView() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { detailId } = routeApi.useParams();
 

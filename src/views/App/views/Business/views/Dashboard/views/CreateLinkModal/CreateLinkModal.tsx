@@ -1,13 +1,13 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { getRouteApi } from '@tanstack/react-router';
 import CreateBusinessRmaLinkModalComponent from '../../../../../../../../components/CreateBusinessRmaLinkModal/CreateBusinessRmaLinkModal';
 import { queries } from '../../../../../../../../utils/constants/queryKeys';
 import CategoryBusiness from '../../../../../../../../utils/enums/CategoryBusiness';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/dashboard/create-link');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/dashboard/create-link');
 
 export default function AppViewBusinessViewDashboardViewCreateLinkModalView() {
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { businessId } = routeApi.useParams();
 

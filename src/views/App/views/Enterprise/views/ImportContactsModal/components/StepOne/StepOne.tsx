@@ -6,7 +6,8 @@ import ProfileRequestDto from '../../../../../../../../utils/types/ProfileReques
 import { excelFileToObject } from '../../../../../../../../utils/functions/files';
 import ProfileClient from '../../../../../../../../utils/enums/ProfileClient';
 
-const Route = getRouteApi('/app/enterprises/$enterpriseId/import-contacts');
+const routeApi = getRouteApi('/app/enterprises_/$enterpriseId/import-contacts');
+const routePath = '/app/enterprises/$enterpriseId/import-contacts';
 
 type AppViewEnterpriseViewImportContactsModalViewStepOneComponentProps = Readonly<{
   file: File | undefined;
@@ -20,7 +21,7 @@ export default function AppViewEnterpriseViewImportContactsModalViewStepOneCompo
   setProfiles,
   setStep,
 }: AppViewEnterpriseViewImportContactsModalViewStepOneComponentProps) {
-  const { enterpriseId } = Route.useParams();
+  const { enterpriseId } = routeApi.useParams();
 
   const onDrop = useCallback(
     (files: Array<File>) => {
@@ -82,7 +83,7 @@ export default function AppViewEnterpriseViewImportContactsModalViewStepOneCompo
         </div>
       </div>
       <div className={styles.modal_buttons}>
-        <Link from={Route.id} to={'..'} search={(old) => old} className="btn btn-primary">
+        <Link from={routePath} to=".." search className="btn btn-primary">
           Annuler
         </Link>
         <button className="btn btn-secondary" onClick={() => onSubmit(file!)}>

@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { Link, getRouteApi, useNavigate } from '@tanstack/react-router';
+import { Link, getRouteApi } from '@tanstack/react-router';
 import { isAxiosError } from 'axios';
 import { toast } from 'react-toastify';
 import AmountFormat from '../../../../../../../../components/AmountFormat/AmountFormat';
@@ -7,11 +7,12 @@ import { createBusinessBl } from '../../../../../../../../utils/api/businessBls'
 import { queries } from '../../../../../../../../utils/constants/queryKeys';
 import styles from './Footer.module.scss';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/bp');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/bp');
+const routePath = '/app/businesses-rma/business/$businessId/bp';
 
 export default function AppViewBusinessViewBpViewFooterComponent() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { businessId } = routeApi.useParams();
 
@@ -97,7 +98,7 @@ export default function AppViewBusinessViewBpViewFooterComponent() {
       {!business.archived && (
         <div className={styles.buttons_container}>
           {business.deliveryMode !== 'A disposition' && (
-            <Link from={routeApi.id} to="travel-voucher" search replace resetScroll={false} preload="intent" className="btn btn-primary">
+            <Link from={routePath} to="travel-voucher" search replace resetScroll={false} preload="intent" className="btn btn-primary">
               Éditer BT
             </Link>
           )}

@@ -31,7 +31,8 @@ import AppViewBusinessViewDashboardViewResponsibleComponent from './components/R
 import AppViewBusinessViewDashboardViewTransferDataButtonComponent from './components/TransferDataButton/TransferDataButton';
 import { BusinessDashboardContext } from './utils/contexts/context';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/dashboard');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/dashboard');
+const routePath = '/app/businesses-rma/business/$businessId/dashboard';
 
 const yupSchema = yup.object({
   businessName: yup.string().required('Champs requis.'),
@@ -187,7 +188,7 @@ export default function AppViewBusinessViewDashboardView() {
       <div className={styles.container}>
         <div className={styles.headers_buttons}>
           {(business.state === BusinessState.DEVIS || business.state === BusinessState.CREATED) && !business.archived && (
-            <Link from={routeApi.id} to="delete" search replace resetScroll={false} ignoreBlocker className="btn btn-secondary">
+            <Link from={routePath} to="delete" search replace resetScroll={false} ignoreBlocker className="btn btn-secondary">
               <FaTrash color="#FFF" width={14} height={14} />
               Supprimer cette affaire
             </Link>
@@ -199,7 +200,7 @@ export default function AppViewBusinessViewDashboardView() {
           {!business.archived && (
             <div className={styles.right_buttons}>
               {user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && (
-                <Link from={routeApi.id} to="send-email" search replace resetScroll={false} ignoreBlocker className="btn btn-primary">
+                <Link from={routePath} to="send-email" search replace resetScroll={false} ignoreBlocker className="btn btn-primary">
                   Envoyer un mail
                 </Link>
               )}
@@ -210,7 +211,7 @@ export default function AppViewBusinessViewDashboardView() {
                   {isSavePending ? 'Sauvegarde en cours...' : 'Sauvegarder'}
                 </button>
               )}
-              <Link from={routeApi.id} to="../study" className="btn btn-secondary">
+              <Link from={routePath} to="../study" className="btn btn-secondary">
                 {"Accès à l'étude"}
               </Link>
               <AppViewBusinessViewDashboardViewQuotationButtonComponent />
@@ -242,7 +243,7 @@ export default function AppViewBusinessViewDashboardView() {
                         Représentant : <span className="font-bold text-[var(--primary-color)]">{business.representativeName || 'Aucun'}</span>
                       </span>
                       <Link
-                        from={routeApi.id}
+                        from={routePath}
                         to="update-representative"
                         search
                         replace
@@ -255,7 +256,7 @@ export default function AppViewBusinessViewDashboardView() {
                       </Link>
                     </div>
                   )}
-                  <Link from={routeApi.id} to="address-book" search replace resetScroll={false} preload="intent" ignoreBlocker className="btn btn-primary">
+                  <Link from={routePath} to="address-book" search replace resetScroll={false} preload="intent" ignoreBlocker className="btn btn-primary">
                     Carnet d&apos;adresse
                   </Link>
                 </div>
@@ -266,7 +267,7 @@ export default function AppViewBusinessViewDashboardView() {
                     associatedItemType={WorkloadAssociatedItem.BUSINESS}
                     associatedItemId={business.id}
                     emailLink={(task) => ({
-                      from: routeApi.id,
+                      from: routePath,
                       to: '/app/businesses-rma/business/$businessId/dashboard/task-email/$taskId',
                       params: { taskId: task.id },
                       search: true,
@@ -275,7 +276,7 @@ export default function AppViewBusinessViewDashboardView() {
                       ignoreBlocker: true,
                     })}
                     unlinkLink={(task) => ({
-                      from: routeApi.id,
+                      from: routePath,
                       to: '/app/businesses-rma/business/$businessId/dashboard/unlink-task/$taskId',
                       params: { taskId: task.id },
                       search: true,

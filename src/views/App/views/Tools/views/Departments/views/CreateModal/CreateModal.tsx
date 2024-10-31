@@ -1,14 +1,14 @@
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import ReactModal from 'react-modal';
-import { PulseLoader } from 'react-spinners';
-import styles from './CreateModal.module.scss';
-import * as yup from 'yup';
-import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { getRouteApi } from '@tanstack/react-router';
+import { useForm } from 'react-hook-form';
+import ReactModal from 'react-modal';
+import { PulseLoader } from 'react-spinners';
+import { toast } from 'react-toastify';
+import * as yup from 'yup';
 import { createDepartment } from '../../../../../../../../utils/api/department';
 import { queries } from '../../../../../../../../utils/constants/queryKeys';
-import { toast } from 'react-toastify';
+import styles from './CreateModal.module.scss';
 
 const routeApi = getRouteApi('/app/tools/departments/create');
 
@@ -19,7 +19,7 @@ const yupSchema = yup.object().shape({
 
 export default function AppViewToolsViewDepartmentsViewCreateModalView() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const {
     register,

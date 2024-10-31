@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { getRouteApi } from '@tanstack/react-router';
 import { Controller, useForm } from 'react-hook-form';
 import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
@@ -12,7 +12,7 @@ import { queries } from '../../../../../../../../utils/constants/queryKeys';
 import ProductResponseDto from '../../../../../../../../utils/types/ProductResponseDto';
 import styles from './AddAssociatedProductModal.module.scss';
 
-const routeApi = getRouteApi('/app/products/$productId/manage/add-associated-product');
+const routeApi = getRouteApi('/app/products_/$productId/manage/add-associated-product');
 
 const yupSchema = yup.object().shape({
   associatedProduct: yup.mixed<ProductResponseDto>().required('Veuillez sélectionner un produit'),
@@ -20,7 +20,7 @@ const yupSchema = yup.object().shape({
 
 export default function AppViewProductViewManageViewAddAssociatedProductModalView() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate();
+  const navigate = routeApi.useNavigate();
 
   const { productId } = routeApi.useParams();
 
@@ -35,7 +35,7 @@ export default function AppViewProductViewManageViewAddAssociatedProductModalVie
   });
 
   const onClose = () => {
-    navigate({ from: routeApi.id, to: '..', search: true, replace: true, resetScroll: false });
+    navigate({ to: '..', search: true, replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({

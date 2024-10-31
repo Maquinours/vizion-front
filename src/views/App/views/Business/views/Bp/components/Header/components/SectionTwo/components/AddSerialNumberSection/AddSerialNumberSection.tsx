@@ -11,7 +11,7 @@ import { isAxiosError } from 'axios';
 import { toast } from 'react-toastify';
 import BusinessBpResponseDto from '../../../../../../../../../../../../utils/types/BusinessBpResponseDto';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/bp');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/bp');
 
 const yupSchema = yup.object({
   serialNumber: yup

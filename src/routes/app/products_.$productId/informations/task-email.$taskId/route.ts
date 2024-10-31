@@ -7,10 +7,16 @@ import Page from '../../../../../utils/types/Page';
 import TaskResponseDto from '../../../../../utils/types/TaskResponseDto';
 import { emails } from '../../../../../utils/constants/queryKeys/email';
 
-export const Route = createFileRoute('/app/products/$productId/informations/task-email/$taskId')({
+export const Route = createFileRoute('/app/products_/$productId/informations/task-email/$taskId')({
   beforeLoad: async ({ context: { queryClient } }) => {
     const user = await queryClient.ensureQueryData(users.authentified());
-    if (!user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO')) throw redirect({ from: Route.id, to: '../..', search: (old) => old, replace: true });
+    if (!user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO'))
+      throw redirect({
+        from: Route.fullPath,
+        to: '../..',
+        search: true,
+        replace: true,
+      });
   },
   loader: async ({ context: { queryClient }, params: { taskId } }) => {
     let initialDataKey: QueryKey | undefined = undefined;
@@ -27,7 +33,14 @@ export const Route = createFileRoute('/app/products/$productId/informations/task
       },
       initialDataUpdatedAt: () => (initialDataKey ? queryClient.getQueryState(initialDataKey)?.dataUpdatedAt : undefined),
     });
-    if (!task?.mailId) throw redirect({ from: Route.id, to: '../..', search: true, replace: true, resetScroll: false });
+    if (!task?.mailId)
+      throw redirect({
+        from: Route.fullPath,
+        to: '../..',
+        search: true,
+        replace: true,
+        resetScroll: false,
+      });
     await queryClient.ensureQueryData(emails.detail(task.mailId));
   },
   pendingComponent: LoaderModal,

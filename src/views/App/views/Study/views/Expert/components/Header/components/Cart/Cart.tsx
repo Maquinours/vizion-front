@@ -15,7 +15,7 @@ import useStateStore, { RFState } from '../../../Flow/utils/store';
 import AppViewStudyViewExpertViewHeaderComponentCartComponentDensityTableComponent from './components/DensityTable/DensityTable';
 import AppViewStudyViewExpertViewHeaderComponentCartComponentSynopticTableComponent from './components/SynopticTable/SynopticTable';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/study/expert');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId_/study/expert');
 
 const reactFlowSelector = (state: ReactFlowState) => {
   const nodes = Array.from(state.nodeLookup.values());

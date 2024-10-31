@@ -1,6 +1,8 @@
-import { createLazyFileRoute } from '@tanstack/react-router';
-import AppViewProductViewInformationsViewDeleteGedObjectModalView from '../../../../../views/App/views/Product/views/Informations/views/DeleteGedObjectModal/DeleteGedObjectModal';
+import { createLazyFileRoute } from '@tanstack/react-router'
+import AppViewProductViewInformationsViewDeleteGedObjectModalView from '../../../../../views/App/views/Product/views/Informations/views/DeleteGedObjectModal/DeleteGedObjectModal'
 
-export const Route = createLazyFileRoute('/app/products/$productId/informations/delete-ged-object')({
+export const Route = createLazyFileRoute(
+  '/app/products_/$productId/informations/delete-ged-object',
+)({
   component: AppViewProductViewInformationsViewDeleteGedObjectModalView,
-});
+})

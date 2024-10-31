@@ -1,19 +1,19 @@
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import ReactModal from 'react-modal';
-import { queries } from '../../../../../../../../utils/constants/queryKeys';
-import styles from './DeleteDetailModal.module.scss';
-import { deleteBusinessBpDetail } from '../../../../../../../../utils/api/businessBpDetails';
-import BusinessBpResponseDto from '../../../../../../../../utils/types/BusinessBpResponseDto';
-import { toast } from 'react-toastify';
+import { getRouteApi } from '@tanstack/react-router';
 import React from 'react';
+import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
+import { toast } from 'react-toastify';
+import { deleteBusinessBpDetail } from '../../../../../../../../utils/api/businessBpDetails';
+import { queries } from '../../../../../../../../utils/constants/queryKeys';
+import BusinessBpResponseDto from '../../../../../../../../utils/types/BusinessBpResponseDto';
+import styles from './DeleteDetailModal.module.scss';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/bp/delete-detail/$detailId');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/bp/delete-detail/$detailId');
 
 export default function AppViewBusinessViewBpViewDeleteDetailModalView() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { businessId, detailId } = routeApi.useParams();
 

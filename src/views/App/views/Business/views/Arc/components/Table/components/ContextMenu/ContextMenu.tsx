@@ -1,13 +1,13 @@
 import { ClickAwayListener, Fade, MenuItem, MenuList, Paper, Popper } from '@mui/material';
-import styles from './ContextMenu.module.scss';
 import { VirtualElement } from '@popperjs/core';
+import { Link } from '@tanstack/react-router';
 import React from 'react';
-import BusinessArcDetailsResponseDto from '../../../../../../../../../../utils/types/BusinessArcDetailsResponseDto';
-import { Link, getRouteApi } from '@tanstack/react-router';
-import { HiPencilAlt } from 'react-icons/hi';
 import { FaTrash } from 'react-icons/fa';
+import { HiPencilAlt } from 'react-icons/hi';
+import BusinessArcDetailsResponseDto from '../../../../../../../../../../utils/types/BusinessArcDetailsResponseDto';
+import styles from './ContextMenu.module.scss';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/arc');
+const routePath = '/app/businesses-rma/business/$businessId/arc';
 
 type AppViewBusinessViewArcViewTableComponentContextMenuComponentProps = Readonly<{
   anchorElement: VirtualElement | undefined;
@@ -35,10 +35,10 @@ export default function AppViewBusinessViewArcViewTableComponentContextMenuCompo
                 <MenuList>
                   <MenuItem>
                     <Link
-                      from={routeApi.id}
+                      from={routePath}
                       to="update-detail/$detailId"
                       params={{ detailId: item.id }}
-                      search={(old) => old}
+                      search
                       replace
                       resetScroll={false}
                       preload="viewport"
@@ -50,10 +50,10 @@ export default function AppViewBusinessViewArcViewTableComponentContextMenuCompo
                   </MenuItem>
                   <MenuItem>
                     <Link
-                      from={routeApi.id}
+                      from={routePath}
                       to="delete-detail/$detailId"
                       params={{ detailId: item.id }}
-                      search={(old) => old}
+                      search
                       replace
                       resetScroll={false}
                       preload="viewport"

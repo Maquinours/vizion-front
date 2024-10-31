@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { Link, Outlet, getRouteApi, useNavigate } from '@tanstack/react-router';
+import { Link, Outlet, getRouteApi } from '@tanstack/react-router';
 import { isAxiosError } from 'axios';
 import { useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -44,7 +44,7 @@ const yupSchema = yup.object().shape({
 
 export default function AppViewToolsViewCreditView() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { serialNumber, businessNumber } = routeApi.useSearch();
 

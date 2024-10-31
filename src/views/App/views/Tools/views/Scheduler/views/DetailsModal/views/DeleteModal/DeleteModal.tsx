@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { getRouteApi } from '@tanstack/react-router';
 import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
 import { toast } from 'react-toastify';
@@ -11,14 +11,14 @@ const routeApi = getRouteApi('/app/tools/scheduler/details/$rdvId/delete');
 
 export default function AppViewToolsViewSchedulerViewDetailsModalViewDeleteModalView() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate();
+  const navigate = routeApi.useNavigate();
 
   const { rdvId } = routeApi.useParams();
 
   const { data: rdv } = useSuspenseQuery(queries.rdvs.detail(rdvId));
 
   const onClose = () => {
-    navigate({ from: routeApi.id, to: '..', search: (old) => old, replace: true, resetScroll: false });
+    navigate({ to: '..', search: (old) => old, replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({
@@ -26,7 +26,7 @@ export default function AppViewToolsViewSchedulerViewDetailsModalViewDeleteModal
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queries.rdvs._def });
       toast.success('Rendez-vous supprimé avec succès');
-      navigate({ from: routeApi.id, to: '../../..', search: (old) => old, replace: true, resetScroll: false });
+      navigate({ to: '../../..', search: (old) => old, replace: true, resetScroll: false });
     },
     onError: (error) => {
       console.error(error);

@@ -11,7 +11,7 @@ import { getRouteApi } from '@tanstack/react-router';
 import { createBusinessSubQuotation } from '../../../../../../../../../../../../utils/api/businessSubQuotations';
 import { toast } from 'react-toastify';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/quotation');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/quotation');
 
 enum DataType {
   SUBQUOTATION = 'SUBQUOTATION',

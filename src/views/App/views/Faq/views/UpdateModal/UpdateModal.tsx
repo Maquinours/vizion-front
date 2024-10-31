@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useQuery, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { getRouteApi } from '@tanstack/react-router';
 import { Controller, useForm } from 'react-hook-form';
 import ReactModal from 'react-modal';
 import 'react-multi-email/dist/style.css';
@@ -53,7 +53,7 @@ const levelOptions = [
 
 export default function AppViewFaqViewUpdateModalView() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate();
+  const navigate = routeApi.useNavigate();
 
   const { faqId } = routeApi.useParams();
 
@@ -76,7 +76,7 @@ export default function AppViewFaqViewUpdateModalView() {
   });
 
   const onClose = () => {
-    navigate({ from: routeApi.id, to: '../..', search: (old) => old, replace: true, resetScroll: false });
+    navigate({ to: '../..', search: (old) => old, replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({

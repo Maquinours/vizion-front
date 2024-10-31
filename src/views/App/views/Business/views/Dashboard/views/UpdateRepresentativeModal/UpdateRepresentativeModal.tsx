@@ -1,20 +1,20 @@
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import ReactModal from 'react-modal';
-import styles from './UpdateRepresentativeModal.module.scss';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useQuery, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
+import { getRouteApi } from '@tanstack/react-router';
+import { useEffect } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import ReactModal from 'react-modal';
+import { PulseLoader } from 'react-spinners';
+import { toast } from 'react-toastify';
+import * as yup from 'yup';
+import CustomSelect from '../../../../../../../../components/CustomSelect/CustomSelect';
+import { updateBusiness } from '../../../../../../../../utils/api/business';
 import { queries } from '../../../../../../../../utils/constants/queryKeys';
 import CategoryClient from '../../../../../../../../utils/enums/CategoryClient';
-import CustomSelect from '../../../../../../../../components/CustomSelect/CustomSelect';
-import * as yup from 'yup';
 import EnterpriseResponseDto from '../../../../../../../../utils/types/EnterpriseResponseDto';
-import { Controller, useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { useEffect } from 'react';
-import { updateBusiness } from '../../../../../../../../utils/api/business';
-import { toast } from 'react-toastify';
-import { PulseLoader } from 'react-spinners';
+import styles from './UpdateRepresentativeModal.module.scss';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/dashboard/update-representative');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/dashboard/update-representative');
 
 const yupSchema = yup.object().shape({
   representative: yup.mixed<EnterpriseResponseDto>().nullable(),
@@ -22,7 +22,7 @@ const yupSchema = yup.object().shape({
 
 export default function AppViewBusinessViewDashboardViewUpdateRepresentativeModalView() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { businessId } = routeApi.useParams();
 

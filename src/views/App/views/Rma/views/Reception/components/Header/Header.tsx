@@ -3,7 +3,7 @@ import { Link, getRouteApi } from '@tanstack/react-router';
 import { queries } from '../../../../../../../../utils/constants/queryKeys';
 import styles from './Header.module.scss';
 
-const routeApi = getRouteApi('/app/businesses-rma/rma/$rmaId/reception');
+const routeApi = getRouteApi('/app/businesses-rma_/rma/$rmaId/reception');
 
 export default function AppViewRmaViewReceptionViewHeaderComponent() {
   const { rmaId } = routeApi.useParams();
@@ -13,11 +13,19 @@ export default function AppViewRmaViewReceptionViewHeaderComponent() {
     <div className={styles.header}>
       <div className={styles.buttons_container}>
         {rma.state !== 'ARCHIVE' && (
-          <Link from={routeApi.id} to="create-detail" search replace resetScroll={false} preload="intent" className="btn btn-primary">
+          <Link
+            from="/app/businesses-rma/rma/$rmaId/reception"
+            to="create-detail"
+            search
+            replace
+            resetScroll={false}
+            preload="intent"
+            className="btn btn-primary"
+          >
             Ajouter un article
           </Link>
         )}
-        <Link from={routeApi.id} to="pdf" search replace resetScroll={false} preload="intent" className="btn btn-secondary">
+        <Link from="/app/businesses-rma/rma/$rmaId/reception" to="pdf" search replace resetScroll={false} preload="intent" className="btn btn-secondary">
           Éditer
         </Link>
       </div>

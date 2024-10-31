@@ -1,15 +1,15 @@
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { getRouteApi } from '@tanstack/react-router';
 import UpdateContactPasswordModalComponent from '../../../../../../components/UpdateContactPasswordModal/UpdateContactPasswordModal';
 
-const Route = getRouteApi('/app/enterprises/$enterpriseId/update-contact-password/$contactId');
+const routeApi = getRouteApi('/app/enterprises_/$enterpriseId/update-contact-password/$contactId');
 
 export default function AppViewEnterpriseViewUpdateContactPasswordView() {
-  const navigate = useNavigate();
+  const navigate = routeApi.useNavigate();
 
-  const { contactId } = Route.useParams();
+  const { contactId } = routeApi.useParams();
 
   const onClose = () => {
-    navigate({ from: Route.id, to: '../..', search: (old) => old, replace: true, resetScroll: false });
+    navigate({ to: '../..', search: true, replace: true, resetScroll: false });
   };
 
   return <UpdateContactPasswordModalComponent contactId={contactId} onClose={onClose} />;

@@ -1,17 +1,16 @@
-import { Row, createColumnHelper } from '@tanstack/react-table';
 import { useQuery } from '@tanstack/react-query';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import styles from './AllBusinessTable.module.scss';
-import AllBusinessState from '../../../../../../utils/enums/AllBusinessState';
-import CurrencyFormat from '../../../../../../components/CurrencyFormat/CurrencyFormat';
-import CategoryBusiness from '../../../../../../utils/enums/CategoryBusiness';
-import { formatDateAndHourWithSlash } from '../../../../../../utils/functions/dates';
-import { allBusinesses } from '../../../../../../utils/constants/queryKeys/allBusiness';
+import { Link, getRouteApi } from '@tanstack/react-router';
+import { Row, createColumnHelper } from '@tanstack/react-table';
 import CardComponent from '../../../../../../components/Card/Card';
+import CurrencyFormat from '../../../../../../components/CurrencyFormat/CurrencyFormat';
 import PaginationComponent from '../../../../../../components/Pagination/Pagination';
 import TableComponent from '../../../../../../components/Table/Table';
+import { allBusinesses } from '../../../../../../utils/constants/queryKeys/allBusiness';
+import AllBusinessState from '../../../../../../utils/enums/AllBusinessState';
+import CategoryBusiness from '../../../../../../utils/enums/CategoryBusiness';
+import { formatDateAndHourWithSlash } from '../../../../../../utils/functions/dates';
 import AllBusinessResponseDto from '../../../../../../utils/types/AllBusinessResponseDto';
-import { Link } from '@tanstack/react-router';
+import styles from './AllBusinessTable.module.scss';
 
 const size = 15;
 
@@ -62,7 +61,8 @@ const states = [
   },
 ];
 
-const Route = getRouteApi('/app/enterprises/$enterpriseId');
+const routeApi = getRouteApi('/app/enterprises_/$enterpriseId');
+const routePath = '/app/enterprises/$enterpriseId';
 
 const columnHelper = createColumnHelper<AllBusinessResponseDto>();
 const columns = [
@@ -127,10 +127,10 @@ const columns = [
 ];
 
 export default function AppViewEnterpriseViewAllBusinessTableComponent() {
-  const navigate = useNavigate();
+  const navigate = routeApi.useNavigate();
 
-  const { enterpriseId } = Route.useParams();
-  const { allBusinessPage: page } = Route.useSearch();
+  const { enterpriseId } = routeApi.useParams();
+  const { allBusinessPage: page } = routeApi.useSearch();
 
   const { data, isLoading } = useQuery(allBusinesses.page._ctx.byEnterpriseId({ enterpriseId, page, size }));
 
@@ -155,7 +155,7 @@ export default function AppViewEnterpriseViewAllBusinessTableComponent() {
             <PaginationComponent
               page={page}
               totalPages={data?.totalPages}
-              pageLink={(page) => ({ from: Route.id, search: (old) => ({ ...old, allBusinessPage: page }), replace: true, resetScroll: false })}
+              pageLink={(page) => ({ from: routePath, search: (old) => ({ ...old, allBusinessPage: page }), replace: true, resetScroll: false })}
             />
           </div>
         </div>

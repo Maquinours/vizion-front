@@ -1,16 +1,16 @@
 import { ClickAwayListener, Fade, MenuItem, MenuList, Paper, Popper } from '@mui/material';
-import { MdMailOutline, MdPassword, MdWork } from 'react-icons/md';
-import { useAuthentifiedUserQuery } from '../../../../../../../../utils/functions/getAuthentifiedUser';
 import { VirtualElement } from '@popperjs/core';
-import ProfileResponseDto from '../../../../../../../../../../utils/types/ProfileResponseDto';
+import { Link } from '@tanstack/react-router';
+import React from 'react';
 import { FaTrash } from 'react-icons/fa';
 import { HiPencilAlt } from 'react-icons/hi';
+import { MdMailOutline, MdPassword, MdWork } from 'react-icons/md';
 import CategoryClient from '../../../../../../../../../../utils/enums/CategoryClient';
-import { Link, getRouteApi } from '@tanstack/react-router';
+import ProfileResponseDto from '../../../../../../../../../../utils/types/ProfileResponseDto';
+import { useAuthentifiedUserQuery } from '../../../../../../../../utils/functions/getAuthentifiedUser';
 import styles from './ContextMenu.module.scss';
-import React from 'react';
 
-const Route = getRouteApi('/app/enterprises/$enterpriseId');
+const routePath = '/app/enterprises/$enterpriseId';
 
 type AppViewEnterpriseViewContactsComponentTableComponentContextMenuComponentProps = Readonly<{
   anchorElement: VirtualElement | undefined;
@@ -40,7 +40,7 @@ export default function AppViewEnterpriseViewContactsComponentTableComponentCont
                 <MenuList>
                   <MenuItem>
                     <Link
-                      from={Route.id}
+                      from={routePath}
                       to="./create-contact-business/$contactId"
                       params={{ contactId: profile.id }}
                       search
@@ -55,7 +55,7 @@ export default function AppViewEnterpriseViewContactsComponentTableComponentCont
                   {user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && (
                     <MenuItem>
                       <Link
-                        from={Route.id}
+                        from={routePath}
                         to="./send-email-to-contact/$contactId"
                         params={{ contactId: profile.id }}
                         search
@@ -71,7 +71,7 @@ export default function AppViewEnterpriseViewContactsComponentTableComponentCont
                   {user.profile.id !== profile.id && user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && (
                     <MenuItem>
                       <Link
-                        from={Route.id}
+                        from={routePath}
                         to="./delete-contact/$contactId"
                         params={{ contactId: profile.id }}
                         search
@@ -87,7 +87,7 @@ export default function AppViewEnterpriseViewContactsComponentTableComponentCont
                   {user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && (
                     <MenuItem>
                       <Link
-                        from={Route.id}
+                        from={routePath}
                         to="./update-contact/$contactId"
                         params={{ contactId: profile.id }}
                         search
@@ -104,7 +104,7 @@ export default function AppViewEnterpriseViewContactsComponentTableComponentCont
                     (user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && profile.categoryClient !== CategoryClient.VIZEO)) && (
                     <MenuItem>
                       <Link
-                        from={Route.id}
+                        from={routePath}
                         to="./update-contact-password/$contactId"
                         params={{ contactId: profile.id }}
                         search

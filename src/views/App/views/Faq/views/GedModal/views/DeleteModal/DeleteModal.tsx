@@ -1,11 +1,11 @@
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { getRouteApi } from '@tanstack/react-router';
 import DeleteGedObjectModalComponent from '../../../../../../../../components/DeleteGedObjectModal/DeleteGedObjectModal';
 import FileType from '../../../../../../../../utils/enums/FileType';
 
 const routeApi = getRouteApi('/app/faq/ged/$faqId/delete/$itemRelativePath');
 
 export default function AppViewFaqViewGedModalViewDeleteModalView() {
-  const navigate = useNavigate();
+  const navigate = routeApi.useNavigate();
 
   const { faqId, itemRelativePath } = routeApi.useParams();
 
@@ -14,7 +14,7 @@ export default function AppViewFaqViewGedModalViewDeleteModalView() {
       type={FileType.FAQ}
       id={faqId}
       objectRelativePath={itemRelativePath}
-      onClose={() => navigate({ from: routeApi.id, to: '../..', search: (old) => old, replace: true, resetScroll: false })}
+      onClose={() => navigate({ to: '../..', search: (old) => old, replace: true, resetScroll: false })}
     />
   );
 }

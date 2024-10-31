@@ -12,7 +12,7 @@ import { useEffect } from 'react';
 import AmountFormat from '../../../../../../../../../../components/AmountFormat/AmountFormat';
 import { getRouteApi } from '@tanstack/react-router';
 
-const routeApi = getRouteApi('/app/enterprises/$enterpriseId/address-book/import');
+const routeApi = getRouteApi('/app/enterprises_/$enterpriseId/address-book/import');
 
 const yupSchema = yup.object().shape({
   file: yup.mixed<File>().required('Le fichier est requis'),

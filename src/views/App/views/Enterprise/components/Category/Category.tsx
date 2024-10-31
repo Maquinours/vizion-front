@@ -1,10 +1,10 @@
+import { Link } from '@tanstack/react-router';
 import CardComponent from '../../../../../../components/Card/Card';
+import CategoryClient from '../../../../../../utils/enums/CategoryClient';
 import EnterpriseResponseDto from '../../../../../../utils/types/EnterpriseResponseDto';
 import styles from './Category.module.scss';
-import CategoryClient from '../../../../../../utils/enums/CategoryClient';
-import { Link, getRouteApi } from '@tanstack/react-router';
 
-const Route = getRouteApi('/app/enterprises/$enterpriseId');
+const routePath = '/app/enterprises/$enterpriseId';
 
 type AppViewEnterpriseViewCategoryComponentProps = Readonly<{
   enterprise: EnterpriseResponseDto;
@@ -23,7 +23,7 @@ export default function AppViewEnterpriseViewCategoryComponent({ enterprise }: A
 
         {![CategoryClient.VIZEO, CategoryClient.FOURNISSEUR, CategoryClient.REPRESENTANT].includes(enterprise.category) && (
           <div className={styles.submit_button}>
-            <Link from={Route.id} to="./update-category" search replace resetScroll={false} preload="intent" className="btn btn-primary">
+            <Link from={routePath} to="./update-category" search replace resetScroll={false} preload="intent" className="btn btn-primary">
               Modifier
             </Link>
           </div>

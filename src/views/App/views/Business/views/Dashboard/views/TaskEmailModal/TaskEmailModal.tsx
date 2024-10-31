@@ -1,19 +1,19 @@
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import EmailModalComponent from '../../../../../../../../components/EmailModal/EmailModal';
 import { useSuspenseQuery } from '@tanstack/react-query';
+import { getRouteApi } from '@tanstack/react-router';
+import EmailModalComponent from '../../../../../../../../components/EmailModal/EmailModal';
 import { queries } from '../../../../../../../../utils/constants/queryKeys';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/dashboard/task-email/$taskId');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/dashboard/task-email/$taskId');
 
 export default function AppViewBusinessViewDashboardViewTaskEmailModalView() {
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { taskId } = routeApi.useParams();
 
   const { data: task } = useSuspenseQuery(queries.tasks.detail(taskId));
 
   const onClose = () => {
-    navigate({ to: '../..', search: (old) => old, replace: true, resetScroll: false, ignoreBlocker: true });
+    navigate({ to: '../..', search: true, replace: true, resetScroll: false, ignoreBlocker: true });
   };
 
   return <EmailModalComponent emailId={task.mailId!} onClose={onClose} />;

@@ -1,5 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { getRouteApi } from '@tanstack/react-router';
 import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
@@ -13,7 +13,7 @@ const yupSchema = yup.object({
 });
 
 export default function AppViewProductsViewSearchSectionComponent() {
-  const navigate = useNavigate();
+  const navigate = routeApi.useNavigate();
 
   const { ref, designation } = routeApi.useSearch();
 
@@ -23,7 +23,6 @@ export default function AppViewProductsViewSearchSectionComponent() {
 
   const onSubmit = ({ ref, designation }: yup.InferType<typeof yupSchema>) => {
     navigate({
-      from: routeApi.id,
       search: (old) => ({ ...old, ref: ref?.trim() || undefined, designation: designation?.trim() || undefined, page: undefined }),
       replace: true,
       resetScroll: false,
@@ -33,7 +32,7 @@ export default function AppViewProductsViewSearchSectionComponent() {
   const onReset = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     reset();
-    navigate({ from: routeApi.id, search: (old) => ({ ...old, ref: undefined, designation: undefined, page: undefined }), replace: true, resetScroll: false });
+    navigate({ search: (old) => ({ ...old, ref: undefined, designation: undefined, page: undefined }), replace: true, resetScroll: false });
   };
 
   useEffect(() => {

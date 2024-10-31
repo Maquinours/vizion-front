@@ -10,7 +10,8 @@ import { queries } from '../../../../../../../../utils/constants/queryKeys';
 import ProductResponseDto from '../../../../../../../../utils/types/ProductResponseDto';
 import styles from './AssociatedProducts.module.scss';
 
-const routeApi = getRouteApi('/app/products/$productId/manage');
+const routeApi = getRouteApi('/app/products_/$productId/manage');
+const routePath = '/app/products/$productId/manage';
 
 const columnHelper = createColumnHelper<ProductResponseDto>();
 const columns = [
@@ -32,7 +33,7 @@ const columns = [
     id: 'actions',
     cell: ({ row: { original } }) => (
       <Link
-        from={routeApi.id}
+        from={routePath}
         to="remove-associated-product/$associatedProductId"
         params={{ associatedProductId: original.id }}
         search
@@ -58,7 +59,7 @@ export default function AppViewProductViewManageViewAssociatedProductsComponent(
     <CardComponent title="Produits associés">
       <div className={styles.container}>
         <div className={styles.button_container}>
-          <Link from={routeApi.id} to={'add-associated-product'} search replace resetScroll={false} preload="intent" className="btn btn-primary">
+          <Link from={routePath} to={'add-associated-product'} search replace resetScroll={false} preload="intent" className="btn btn-primary">
             Ajouter un produit associé
           </Link>
           <RefreshButtonComponent className="btn btn-primary" style={{ marginLeft: '0.5rem' }} onRefresh={() => refetch()} isRefreshing={isRefetching} />
@@ -73,7 +74,7 @@ export default function AppViewProductViewManageViewAssociatedProductsComponent(
               page={page}
               totalPages={data?.totalPages}
               pageLink={(page) => ({
-                from: routeApi.id,
+                from: routePath,
                 search: (old) => ({ ...old, associatedProductsPage: page }),
                 params: (old) => old,
                 replace: true,

@@ -12,7 +12,8 @@ import BusinessArcResponseDto from '../../../../../../../../../../utils/types/Bu
 import styles from './SectionTwo.module.scss';
 import UnsavedChangesBlockingModalComponent from '../../../../../../../../../../components/UnsavedChangesBlockingModal/UnsavedChangesBlockingModal';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/arc');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/arc');
+const routePath = '/app/businesses-rma/business/$businessId/arc';
 
 const yupSchema = yup.object({
   documentName: yup.string().required('Le nom du document est requis !!'),
@@ -161,7 +162,7 @@ export default function AppViewBusinessViewArcViewHeaderComponentSectionTwoCompo
               </button>
             )}
             <Link
-              from={routeApi.id}
+              from={routePath}
               search={(prev) => ({ ...prev, hideReferencesPrices: !hideReferencesPrices })}
               replace
               resetScroll={false}

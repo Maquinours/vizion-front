@@ -6,7 +6,7 @@ import AppViewBusinessViewBillViewCreditsModalViewPdfComponent from '../../../..
 import LoaderModal from '../../../../../../../components/LoaderModal/LoaderModal';
 import { formatFileName } from '../../../../../../../utils/functions/files';
 
-export const Route = createFileRoute('/app/businesses-rma/business/$businessId/bill/credits/send-by-email')({
+export const Route = createFileRoute('/app/businesses-rma_/business/$businessId/bill/credits/send-by-email')({
   loaderDeps: ({ search: { page } }) => ({ page }),
   loader: async ({ context: { queryClient }, params: { businessId }, deps: { page } }) => {
     const businessPromise = queryClient.ensureQueryData(queries.businesses.detail._ctx.byId(businessId));
@@ -16,7 +16,13 @@ export const Route = createFileRoute('/app/businesses-rma/business/$businessId/b
     const credits = (await billsPromise).filter((bill) => bill.type === BillType.AVOIR);
 
     const credit = credits.at(page);
-    if (!credit) throw redirect({ from: Route.id, to: '..', search: (old) => ({ ...old, page: 0 }), replace: true });
+    if (!credit)
+      throw redirect({
+        from: Route.fullPath,
+        to: '..',
+        search: (old) => ({ ...old, page: 0 }),
+        replace: true,
+      });
 
     const blob = await pdf(<AppViewBusinessViewBillViewCreditsModalViewPdfComponent credit={credit} business={business} enterprise={enterprise} />).toBlob();
     const file = new File([blob], formatFileName(`Avoir-${credit.number}.pdf`), {

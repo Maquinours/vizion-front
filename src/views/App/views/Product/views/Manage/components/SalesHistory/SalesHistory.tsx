@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { getRouteApi } from '@tanstack/react-router';
 import { createColumnHelper } from '@tanstack/react-table';
 import { fr } from 'date-fns/locale/fr';
 import React, { useEffect } from 'react';
@@ -19,7 +19,8 @@ import styles from './SalesHistory.module.scss';
 
 registerLocale('fr', fr);
 
-const routeApi = getRouteApi('/app/products/$productId/manage');
+const routeApi = getRouteApi('/app/products_/$productId/manage');
+const routePath = '/app/products/$productId/manage';
 
 const sizeOptions = [5, 20, 50, 100, 250, 500, 1000];
 
@@ -37,7 +38,7 @@ const yupSchema = yup.object({
 });
 
 export default function AppViewProductViewManageViewSalesHistoryComponent() {
-  const navigate = useNavigate();
+  const navigate = routeApi.useNavigate();
 
   const { productId } = routeApi.useParams();
   const { salesPage: page, salesSize: size, salesContact: contact, salesDates: dates } = routeApi.useSearch();
@@ -61,7 +62,6 @@ export default function AppViewProductViewManageViewSalesHistoryComponent() {
 
   const onSearch = ({ dates, enterpriseName }: yup.InferType<typeof yupSchema>) => {
     navigate({
-      from: routeApi.id,
       search: (old) => ({ ...old, salesPage: 0, salesContact: enterpriseName, salesDates: dates }),
       replace: true,
       resetScroll: false,
@@ -71,7 +71,6 @@ export default function AppViewProductViewManageViewSalesHistoryComponent() {
   const onReset = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     navigate({
-      from: routeApi.id,
       search: (old) => ({ ...old, salesPage: 0, salesContact: undefined, salesDates: undefined }),
       replace: true,
       resetScroll: false,
@@ -80,7 +79,6 @@ export default function AppViewProductViewManageViewSalesHistoryComponent() {
 
   const onSizeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     navigate({
-      from: routeApi.id,
       search: (old) => ({ ...old, salesPage: 0, salesSize: Number(e.target.value) as 100 | 5 | 20 | 50 | 250 | 500 | 1000 }),
       replace: true,
       resetScroll: false,
@@ -157,7 +155,7 @@ export default function AppViewProductViewManageViewSalesHistoryComponent() {
             <PaginationComponent
               page={page}
               totalPages={data?.data?.totalPages ?? 0}
-              pageLink={(page) => ({ from: routeApi.id, search: (old) => ({ ...old, salesPage: page }), replace: true, resetScroll: false })}
+              pageLink={(page) => ({ from: routePath, search: (old) => ({ ...old, salesPage: page }), replace: true, resetScroll: false })}
             />
           </div>
         </div>

@@ -1,17 +1,12 @@
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { getRouteApi } from '@tanstack/react-router';
 import DeleteContactModalComponent from '../../../../../../components/DeleteContactModal/DeleteContactModal';
 
-const Route = getRouteApi('/app/enterprises/$enterpriseId/delete-contact/$contactId');
+const routeApi = getRouteApi('/app/enterprises_/$enterpriseId/delete-contact/$contactId');
 
 export default function AppViewEnterpriseViewDeleteContactModalView() {
-  const navigate = useNavigate();
+  const navigate = routeApi.useNavigate();
 
-  const { contactId } = Route.useParams();
+  const { contactId } = routeApi.useParams();
 
-  return (
-    <DeleteContactModalComponent
-      contactId={contactId}
-      onClose={() => navigate({ from: Route.id, to: '../..', search: (old) => old, replace: true, resetScroll: false })}
-    />
-  );
+  return <DeleteContactModalComponent contactId={contactId} onClose={() => navigate({ to: '../..', search: true, replace: true, resetScroll: false })} />;
 }

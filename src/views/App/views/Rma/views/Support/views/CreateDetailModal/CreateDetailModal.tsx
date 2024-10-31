@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { getRouteApi } from '@tanstack/react-router';
 import { isAxiosError } from 'axios';
 import { useForm } from 'react-hook-form';
 import ReactModal from 'react-modal';
@@ -12,7 +12,7 @@ import { createRmaSupportDetail } from '../../../../../../../../utils/api/rmaSup
 import { queries } from '../../../../../../../../utils/constants/queryKeys';
 import styles from './CreateDetailModal.module.scss';
 
-const routeApi = getRouteApi('/app/businesses-rma/rma/$rmaId/support/create-detail');
+const routeApi = getRouteApi('/app/businesses-rma_/rma/$rmaId/support/create-detail');
 
 const yupSchema = yup.object().shape({
   productReference: yup.string().required('La référence est requise.'),
@@ -24,7 +24,7 @@ const yupSchema = yup.object().shape({
 
 export default function AppViewRmaViewSupportViewCreateDetailModalView() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { rmaId } = routeApi.useParams();
 
@@ -49,7 +49,7 @@ export default function AppViewRmaViewSupportViewCreateDetailModalView() {
   });
 
   const onClose = () => {
-    navigate({ from: routeApi.id, to: '..', search: true, replace: true, resetScroll: false });
+    navigate({ to: '..', search: true, replace: true, resetScroll: false });
   };
 
   const { mutate: fetchProductBySerialNumber, isPending: isFetchingProductBySerialNumber } = useMutation({

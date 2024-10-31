@@ -1,16 +1,16 @@
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import ReactModal from 'react-modal';
-import styles from './AddDetailModal.module.scss';
-import { Controller, useForm } from 'react-hook-form';
-import CustomSelect from '../../../../../../../../../../components/CustomSelect/CustomSelect';
-import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useQuery } from '@tanstack/react-query';
+import { getRouteApi } from '@tanstack/react-router';
+import { useContext } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import ReactModal from 'react-modal';
+import * as yup from 'yup';
+import CustomSelect from '../../../../../../../../../../components/CustomSelect/CustomSelect';
 import { queries } from '../../../../../../../../../../utils/constants/queryKeys';
 import CategoryClient from '../../../../../../../../../../utils/enums/CategoryClient';
 import ProfileResponseDto from '../../../../../../../../../../utils/types/ProfileResponseDto';
-import { useContext } from 'react';
 import { FormationDetailsContext } from '../../utils/contexts/context';
+import styles from './AddDetailModal.module.scss';
 
 const routeApi = getRouteApi('/app/tools/formations/create');
 
@@ -23,7 +23,7 @@ const yupSchema = yup.object().shape({
 });
 
 export default function AppViewToolsViewFormationsViewCreateModalViewAddDetailModalView() {
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { details, setDetails } = useContext(FormationDetailsContext)!;
 

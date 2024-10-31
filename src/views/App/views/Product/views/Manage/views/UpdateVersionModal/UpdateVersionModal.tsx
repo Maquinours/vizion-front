@@ -1,23 +1,23 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { getRouteApi } from '@tanstack/react-router';
+import { useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
 import { toast } from 'react-toastify';
 import * as yup from 'yup';
+import AmountFormat from '../../../../../../../../components/AmountFormat/AmountFormat';
+import CurrencyFormat from '../../../../../../../../components/CurrencyFormat/CurrencyFormat';
 import { updateProductVersion } from '../../../../../../../../utils/api/productVersion';
 import { queries } from '../../../../../../../../utils/constants/queryKeys';
 import styles from './UpdateVersionModal.module.scss';
-import AmountFormat from '../../../../../../../../components/AmountFormat/AmountFormat';
-import CurrencyFormat from '../../../../../../../../components/CurrencyFormat/CurrencyFormat';
-import { useEffect } from 'react';
 
-const routeApi = getRouteApi('/app/products/$productId/manage/update-version/$versionId');
+const routeApi = getRouteApi('/app/products_/$productId/manage/update-version/$versionId');
 
 export default function AppViewProductViewManageViewUpdateVersionModalView() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate();
+  const navigate = routeApi.useNavigate();
 
   const { productId, versionId } = routeApi.useParams();
 
@@ -63,7 +63,7 @@ export default function AppViewProductViewManageViewUpdateVersionModalView() {
   });
 
   const onClose = () => {
-    navigate({ from: routeApi.id, to: '../..', search: true, replace: true, resetScroll: false });
+    navigate({ to: '../..', search: true, replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({

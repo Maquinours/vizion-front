@@ -1,7 +1,7 @@
 import { getRouteApi } from '@tanstack/react-router';
 import UnlinkWorkloadModalComponent from '../../../../../../../../components/UnlinkWorkloadModal/UnlinkWorkloadModal';
 
-const routeApi = getRouteApi('/app/businesses-rma/rma/$rmaId/support/unlink-task/$taskId');
+const routeApi = getRouteApi('/app/businesses-rma_/rma/$rmaId/support/unlink-task/$taskId');
 
 export default function AppViewRmaViewSupportViewUnlinkTaskModalView() {
   const navigate = routeApi.useNavigate();
@@ -9,7 +9,7 @@ export default function AppViewRmaViewSupportViewUnlinkTaskModalView() {
   const { taskId } = routeApi.useParams();
 
   const onClose = () => {
-    navigate({ from: routeApi.id, to: '../..', search: true, replace: true, resetScroll: false });
+    navigate({ to: '../..', search: true, replace: true, resetScroll: false });
   };
 
   return <UnlinkWorkloadModalComponent taskId={taskId} onClose={onClose} />;

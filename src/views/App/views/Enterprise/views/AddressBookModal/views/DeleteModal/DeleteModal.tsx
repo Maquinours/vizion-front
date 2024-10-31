@@ -1,26 +1,26 @@
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { getRouteApi } from '@tanstack/react-router';
+import React from 'react';
 import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
-import { addresses } from '../../../../../../../../utils/constants/queryKeys/address';
-import { deleteAddress } from '../../../../../../../../utils/api/address';
 import { toast } from 'react-toastify';
-import styles from './DeleteModal.module.scss';
-import React from 'react';
+import { deleteAddress } from '../../../../../../../../utils/api/address';
 import { queries } from '../../../../../../../../utils/constants/queryKeys';
+import { addresses } from '../../../../../../../../utils/constants/queryKeys/address';
+import styles from './DeleteModal.module.scss';
 
-const Route = getRouteApi('/app/enterprises/$enterpriseId/address-book/delete/$addressId');
+const routeApi = getRouteApi('/app/enterprises_/$enterpriseId/address-book/delete/$addressId');
 
 export default function AppViewEnterpriseViewAddressBookModalViewDeleteModalView() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate();
+  const navigate = routeApi.useNavigate();
 
-  const { addressId } = Route.useParams();
+  const { addressId } = routeApi.useParams();
 
   const { data: address } = useSuspenseQuery(queries.address.detail._ctx.byId(addressId));
 
   const onClose = () => {
-    navigate({ from: Route.id, to: '../..', search: (old) => old, replace: true, resetScroll: false });
+    navigate({ to: '../..', search: true, replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({

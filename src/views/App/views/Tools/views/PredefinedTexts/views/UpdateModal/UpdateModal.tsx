@@ -1,15 +1,15 @@
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
+import { getRouteApi } from '@tanstack/react-router';
+import { Controller, useForm } from 'react-hook-form';
 import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
-import { queries } from '../../../../../../../../utils/constants/queryKeys';
-import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
+import { toast } from 'react-toastify';
 import * as yup from 'yup';
-import { Controller, useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import styles from './UpdateModal.module.scss';
 import Quill from '../../../../../../../../components/Quill/Quill';
 import { updatePredefinedText } from '../../../../../../../../utils/api/predefinedText';
-import { toast } from 'react-toastify';
+import { queries } from '../../../../../../../../utils/constants/queryKeys';
+import styles from './UpdateModal.module.scss';
 
 const routeApi = getRouteApi('/app/tools/predefined-texts/update/$predefinedTextId');
 
@@ -20,7 +20,7 @@ const yupSchema = yup.object().shape({
 });
 export default function AppViewToolsViewPredefinedTextsViewUpdateModalView() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { predefinedTextId: id } = routeApi.useParams();
 

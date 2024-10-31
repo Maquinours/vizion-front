@@ -12,7 +12,7 @@ import { queries } from '../../../../../../../../utils/constants/queryKeys';
 import ProductResponseDto from '../../../../../../../../utils/types/ProductResponseDto';
 import styles from './AddNomenclatureDetailModal.module.scss';
 
-const routeApi = getRouteApi('/app/products/$productId/manage/add-nomenclature-detail');
+const routeApi = getRouteApi('/app/products_/$productId/manage/add-nomenclature-detail');
 
 const yupSchema = yup.object().shape({
   product: yup.mixed<ProductResponseDto>().nonNullable().required('Le produit est requis'),

@@ -4,7 +4,7 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 import { queries } from '../../../../../../../../../../../../utils/constants/queryKeys';
 import EnterpriseResponseDto from '../../../../../../../../../../../../utils/types/EnterpriseResponseDto';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/study/expert');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId_/study/expert');
 
 type AppViewStudyViewExpertViewModalProviderComponentSendStudyModalComponentShowStepComponentProps = Readonly<{
   onClose: () => void;

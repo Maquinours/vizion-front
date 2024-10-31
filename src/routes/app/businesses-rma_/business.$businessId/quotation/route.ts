@@ -11,14 +11,26 @@ const searchSchema = z.object({
   hideAddresses: z.boolean().catch(true),
 });
 
-export const Route = createFileRoute('/app/businesses-rma/business/$businessId/quotation')({
-  validateSearch: (data: { hideTotal?: boolean; hideReferences?: boolean; hidePrices?: boolean; hideAddresses?: boolean } & SearchSchemaInput) =>
-    searchSchema.parse(data),
+export const Route = createFileRoute('/app/businesses-rma_/business/$businessId/quotation')({
+  validateSearch: (
+    data: {
+      hideTotal?: boolean;
+      hideReferences?: boolean;
+      hidePrices?: boolean;
+      hideAddresses?: boolean;
+    } & SearchSchemaInput,
+  ) => searchSchema.parse(data),
   loader: async ({ context: { queryClient }, params: { businessId } }) => {
     const business = await queryClient.ensureQueryData(queries.businesses.detail._ctx.byId(businessId));
     const businessState = business.oldState ?? business.state;
     if (!businessState || ![BusinessState.DEVIS, BusinessState.ARC, BusinessState.BP, BusinessState.BL, BusinessState.FACTURE].includes(businessState))
-      throw redirect({ from: Route.id, to: '..', search: true, replace: true, resetScroll: false });
+      throw redirect({
+        from: Route.fullPath,
+        to: '..',
+        search: true,
+        replace: true,
+        resetScroll: false,
+      });
     await queryClient.ensureQueryData(queries['business-quotations'].detail._ctx.byBusinessId(businessId));
   },
 });

@@ -6,13 +6,13 @@ import { queries } from '../../../../../../../../../../utils/constants/queryKeys
 import BusinessState from '../../../../../../../../../../utils/enums/BusinessState';
 import BusinessBpDetailsRequestDto from '../../../../../../../../../../utils/types/BusinessBpDetailsRequestDto';
 import styles from './SectionOne.module.scss';
-import { useNavigate } from '@tanstack/react-router';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/arc');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/arc');
+const routePath = '/app/businesses-rma/business/$businessId/arc';
 
 export default function AppViewBusinessViewArcViewHeaderComponentSectionOneComponent() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { businessId } = routeApi.useParams();
 
@@ -117,7 +117,7 @@ export default function AppViewBusinessViewArcViewHeaderComponentSectionOneCompo
         <span>{business.enterpriseName}</span> / <span>{business.title}</span>
       </div>
       <div>
-        <Link from={routeApi.id} to="pdf" search replace resetScroll={false} preload="intent" ignoreBlocker className="btn btn-primary-light">
+        <Link from={routePath} to="pdf" search replace resetScroll={false} preload="intent" ignoreBlocker className="btn btn-primary-light">
           Éditer
         </Link>
         {!business.archived && (

@@ -11,7 +11,7 @@ import { getRouteApi } from '@tanstack/react-router';
 import { parseStudy } from '../../utils/functions/parse';
 import { toast } from 'react-toastify';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/study/expert');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId_/study/expert');
 
 const yupSchema = yup.object().shape({
   selection: yup.mixed<'synoptic' | 'density'>().required(),

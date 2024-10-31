@@ -5,7 +5,7 @@ import { queries } from '../../../../../../../../utils/constants/queryKeys';
 import { useAuthentifiedUserQuery } from '../../../../../../utils/functions/getAuthentifiedUser';
 import styles from './Responsible.module.scss';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/dashboard');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/dashboard');
 
 export default function AppViewBusinessViewDashboardViewResponsibleComponent() {
   const { businessId } = routeApi.useParams();
@@ -20,7 +20,6 @@ export default function AppViewBusinessViewDashboardViewResponsibleComponent() {
         editLink={
           !business.archived && user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO')
             ? {
-                from: routeApi.id,
                 to: '/app/businesses-rma/business/$businessId/dashboard/update-responsible',
                 search: true,
                 replace: true,

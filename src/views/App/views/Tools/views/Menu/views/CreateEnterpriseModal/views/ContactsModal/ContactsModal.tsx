@@ -1,20 +1,19 @@
-import ReactModal from 'react-modal';
-import styles from './ContactsModal.module.scss';
-import { createColumnHelper } from '@tanstack/react-table';
-import ProfileAgencyRequestDto from '../../../../../../../../../../utils/types/ProfileAgencyRequestDto';
-import { useContext, useMemo } from 'react';
-import { CreateEnterpriseContext } from '../../utils/contexts/context';
-import { MdClose } from 'react-icons/md';
-import TableComponent from '../../../../../../../../../../components/Table/Table';
 import { getRouteApi } from '@tanstack/react-router';
-import { useNavigate } from '@tanstack/react-router';
+import { createColumnHelper } from '@tanstack/react-table';
+import { useContext, useMemo } from 'react';
+import { MdClose } from 'react-icons/md';
+import ReactModal from 'react-modal';
+import TableComponent from '../../../../../../../../../../components/Table/Table';
+import ProfileAgencyRequestDto from '../../../../../../../../../../utils/types/ProfileAgencyRequestDto';
+import { CreateEnterpriseContext } from '../../utils/contexts/context';
+import styles from './ContactsModal.module.scss';
 
 const routeApi = getRouteApi('/app/tools/menu/create-enterprise/contacts');
 
 const columnHelper = createColumnHelper<Omit<ProfileAgencyRequestDto, 'categoryClient'>>();
 
 export default function AppViewToolsViewMenuViewCreateEnterpriseModalViewContactsModalView() {
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { contacts, setContacts } = useContext(CreateEnterpriseContext)!;
 

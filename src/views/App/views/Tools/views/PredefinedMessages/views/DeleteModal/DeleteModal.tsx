@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { getRouteApi } from '@tanstack/react-router';
 import React from 'react';
 import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
@@ -12,14 +12,14 @@ const routeApi = getRouteApi('/app/tools/predefined-messages/delete/$predefinedM
 
 export default function AppViewToolsViewPredefinedMessagesViewDeleteModalView() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { predefinedMessageId } = routeApi.useParams();
 
   const { data: predefinedMessage } = useSuspenseQuery(queries['predefined-message'].detail(predefinedMessageId));
 
   const onClose = () => {
-    navigate({ from: routeApi.id, to: '../..', search: (old) => old, replace: true, resetScroll: false });
+    navigate({ to: '../..', search: (old) => old, replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({

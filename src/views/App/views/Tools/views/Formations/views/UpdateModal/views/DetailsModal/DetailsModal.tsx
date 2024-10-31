@@ -1,12 +1,12 @@
-import ReactModal from 'react-modal';
-import TableComponent from '../../../../../../../../../../components/Table/Table';
+import { getRouteApi } from '@tanstack/react-router';
 import { createColumnHelper } from '@tanstack/react-table';
-import { FormationDetail, UpdateFormationDetailsContext } from '../../utils/contexts/context';
-import { useContext, useMemo } from 'react';
 import { format } from 'date-fns';
 import { fr } from 'date-fns/locale/fr';
+import { useContext, useMemo } from 'react';
 import { FaTrash } from 'react-icons/fa';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import ReactModal from 'react-modal';
+import TableComponent from '../../../../../../../../../../components/Table/Table';
+import { FormationDetail, UpdateFormationDetailsContext } from '../../utils/contexts/context';
 import styles from './DetailsModal.module.scss';
 
 const routeApi = getRouteApi('/app/tools/formations/update/$formationId/details');
@@ -14,7 +14,7 @@ const routeApi = getRouteApi('/app/tools/formations/update/$formationId/details'
 const columnHelper = createColumnHelper<FormationDetail>();
 
 export default function AppViewToolsViewFormationsViewUpdateModalViewDetailsModalView() {
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { details, setDetails } = useContext(UpdateFormationDetailsContext)!;
 

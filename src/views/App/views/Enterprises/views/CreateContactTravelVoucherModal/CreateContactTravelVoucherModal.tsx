@@ -1,17 +1,17 @@
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import AppViewEnterprisesViewCreateContactTravelVoucherModalViewStepOneComponent from './components/StepOne/StepOne';
+import { getRouteApi } from '@tanstack/react-router';
 import { useState } from 'react';
+import AppViewEnterprisesViewCreateContactTravelVoucherModalViewStepOneComponent from './components/StepOne/StepOne';
 import AppViewEnterprisesViewCreateContactTravelVoucherModalViewStepTwoComponent from './components/StepTwo/StepTwo';
 
 const routeApi = getRouteApi('/app/enterprises/create-contact-travel-voucher/$contactId');
 
 export default function AppViewEnterprisesViewCreateContactTravelVoucherModalView() {
-  const navigate = useNavigate();
+  const navigate = routeApi.useNavigate();
 
   const [files, setFiles] = useState<Array<File>>();
 
   const onClose = () => {
-    navigate({ from: routeApi.id, to: '../..', search: (old) => old, replace: true, resetScroll: false });
+    navigate({ to: '../..', search: (old) => old, replace: true, resetScroll: false });
   };
   return (
     <>

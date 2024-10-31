@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { getRouteApi, ToOptions, useNavigate } from '@tanstack/react-router';
+import { getRouteApi, ToOptions } from '@tanstack/react-router';
+import { useContext } from 'react';
 import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
 import { toast } from 'react-toastify';
@@ -7,16 +8,15 @@ import { createTechnicalSupport } from '../../../../../../utils/api/technicalSup
 import { queries } from '../../../../../../utils/constants/queryKeys';
 import BillType from '../../../../../../utils/enums/BillType';
 import { formatDateWithSlash } from '../../../../../../utils/functions/dates';
-import styles from './CreateAssistanceModal.module.scss';
-import { useContext } from 'react';
-import { TabsContext } from '../../../../components/TabsContainer/utils/contexts/context';
 import BusinessBpSerialResponseDto from '../../../../../../utils/types/BusinessBpSerialResponseDto';
+import { TabsContext } from '../../../../components/TabsContainer/utils/contexts/context';
+import styles from './CreateAssistanceModal.module.scss';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId');
 
 export default function AppViewBusinessViewCreateAssistanceModalComponent() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { getCurrentTab, updateTabRoute } = useContext(TabsContext)!;
 

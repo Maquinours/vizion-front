@@ -1,11 +1,11 @@
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { getRouteApi } from '@tanstack/react-router';
 import DeleteGedObjectModalComponent from '../../../../../../components/DeleteGedObjectModal/DeleteGedObjectModal';
 import FileType from '../../../../../../utils/enums/FileType';
 
-const routeApi = getRouteApi('/app/enterprises/$enterpriseId/delete-ged-object/$objectRelativePath');
+const routeApi = getRouteApi('/app/enterprises_/$enterpriseId/delete-ged-object/$objectRelativePath');
 
 export default function AppViewEnterpriseViewDeleteGedObjectModalView() {
-  const navigate = useNavigate();
+  const navigate = routeApi.useNavigate();
 
   const { enterpriseId, objectRelativePath } = routeApi.useParams();
 
@@ -16,9 +16,8 @@ export default function AppViewEnterpriseViewDeleteGedObjectModalView() {
       objectRelativePath={decodeURIComponent(objectRelativePath)}
       onClose={() =>
         navigate({
-          from: routeApi.id,
           to: '../..',
-          search: (old) => old,
+          search: true,
           replace: true,
           resetScroll: false,
         })

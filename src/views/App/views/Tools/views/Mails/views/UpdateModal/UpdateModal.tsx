@@ -1,18 +1,18 @@
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import AppViewToolsViewMailsViewUpdateModalViewFormModalComponent, { UpdateMailFormType } from './components/FormModal/FormModal';
-import { useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useAuthentifiedUserQuery } from '../../../../../../utils/functions/getAuthentifiedUser';
-import AppViewToolsViewMailsViewUpdateModalViewShowModalComponent from './components/ShowModal/ShowModal';
+import { getRouteApi } from '@tanstack/react-router';
+import { useState } from 'react';
+import { toast } from 'react-toastify';
 import { updateMail } from '../../../../../../../../utils/api/mails';
 import { mailQueryKeys } from '../../../../../../../../utils/constants/queryKeys/mails';
-import { toast } from 'react-toastify';
+import { useAuthentifiedUserQuery } from '../../../../../../utils/functions/getAuthentifiedUser';
+import AppViewToolsViewMailsViewUpdateModalViewFormModalComponent, { UpdateMailFormType } from './components/FormModal/FormModal';
+import AppViewToolsViewMailsViewUpdateModalViewShowModalComponent from './components/ShowModal/ShowModal';
 
 const routeApi = getRouteApi('/app/tools/mails/update/$mailId');
 
 export default function AppViewToolsViewMailsViewUpdateModalView() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { data: user } = useAuthentifiedUserQuery();
 

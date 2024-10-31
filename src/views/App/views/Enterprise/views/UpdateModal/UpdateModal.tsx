@@ -1,6 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useQuery, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { getRouteApi } from '@tanstack/react-router';
+import { E164Number } from 'libphonenumber-js';
 import { Controller, useForm } from 'react-hook-form';
 import ReactModal from 'react-modal';
 import PhoneInputWithCountrySelect from 'react-phone-number-input';
@@ -13,7 +14,6 @@ import countries from '../../../../../../utils/constants/countries';
 import { queries } from '../../../../../../utils/constants/queryKeys';
 import { enterprises } from '../../../../../../utils/constants/queryKeys/enterprise';
 import styles from './UpdateModal.module.scss';
-import { E164Number } from 'libphonenumber-js';
 
 const yupSchema = object({
   name: string()
@@ -40,13 +40,13 @@ const yupSchema = object({
   phoneNumber: string().nullable(),
 });
 
-const Route = getRouteApi('/app/enterprises/$enterpriseId/update');
+const routeApi = getRouteApi('/app/enterprises_/$enterpriseId/update');
 
 export default function AppViewEnterpriseViewUpdateModalView() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate();
+  const navigate = routeApi.useNavigate();
 
-  const { enterpriseId } = Route.useParams();
+  const { enterpriseId } = routeApi.useParams();
 
   const { data: enterprise } = useSuspenseQuery(enterprises.detail(enterpriseId));
 
@@ -73,7 +73,7 @@ export default function AppViewEnterpriseViewUpdateModalView() {
   });
 
   const onClose = () => {
-    navigate({ from: Route.id, to: '..', search: (old) => old, replace: true, resetScroll: false });
+    navigate({ to: '..', search: true, replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({

@@ -1,19 +1,19 @@
-import ReactModal from 'react-modal';
-import styles from './DeleteModal.module.scss';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { queries } from '../../../../../../utils/constants/queryKeys';
-import { PulseLoader } from 'react-spinners';
-import { deleteTechnicalSupport } from '../../../../../../utils/api/technicalSupports';
-import { toast } from 'react-toastify';
+import { getRouteApi } from '@tanstack/react-router';
 import React, { useContext } from 'react';
+import ReactModal from 'react-modal';
+import { PulseLoader } from 'react-spinners';
+import { toast } from 'react-toastify';
+import { deleteTechnicalSupport } from '../../../../../../utils/api/technicalSupports';
+import { queries } from '../../../../../../utils/constants/queryKeys';
 import { TabsContext } from '../../../../components/TabsContainer/utils/contexts/context';
+import styles from './DeleteModal.module.scss';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/assistance/$assistanceId/delete');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/delete');
 
 export default function AppViewAssistanceViewDeleteModalView() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { removeTab } = useContext(TabsContext)!;
 
@@ -22,7 +22,7 @@ export default function AppViewAssistanceViewDeleteModalView() {
   const { data: assistance } = useSuspenseQuery(queries['technical-supports'].detail._ctx.byId(assistanceId));
 
   const onClose = () => {
-    navigate({ to: '..', search: (old) => old });
+    navigate({ to: '..', search: true, replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({

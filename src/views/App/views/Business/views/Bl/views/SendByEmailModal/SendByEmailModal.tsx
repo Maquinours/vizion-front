@@ -1,12 +1,12 @@
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import SendEmailModalComponent from '../../../../../../../../components/SendEmailModal/SendEmailModal';
+import { getRouteApi } from '@tanstack/react-router';
 import _ from 'lodash';
 import { useMemo } from 'react';
+import SendEmailModalComponent from '../../../../../../../../components/SendEmailModal/SendEmailModal';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/bl/send-by-email');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/bl/send-by-email');
 
 export default function AppViewBusinessViewBlViewSendByEmailModalView() {
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { business, bl, file } = routeApi.useLoaderData();
 

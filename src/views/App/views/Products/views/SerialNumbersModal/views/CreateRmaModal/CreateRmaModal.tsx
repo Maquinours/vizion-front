@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { getRouteApi } from '@tanstack/react-router';
 import React from 'react';
 import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
@@ -13,14 +13,14 @@ const routeApi = getRouteApi('/app/products/serial-numbers/create-rma/$serialNum
 
 export default function AppViewProductsViewSerialNumbersModalViewCreateRmaModalView() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate();
+  const navigate = routeApi.useNavigate();
 
   const { serialNumberId } = routeApi.useParams();
 
   const { data: serialNumber } = useSuspenseQuery(queries['product-serial-numbers'].detail._ctx.byId(serialNumberId));
 
   const onClose = () => {
-    navigate({ from: routeApi.id, to: '../..', search: (old) => old, replace: true, resetScroll: false });
+    navigate({ to: '../..', search: true, replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({

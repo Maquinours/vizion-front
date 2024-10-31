@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { Link, Outlet, getRouteApi, useNavigate } from '@tanstack/react-router';
+import { Link, Outlet, getRouteApi } from '@tanstack/react-router';
 import ReactModal from 'react-modal';
 import PaginationComponent from '../../../../../../components/Pagination/Pagination';
 import { queries } from '../../../../../../utils/constants/queryKeys';
@@ -12,14 +12,14 @@ const routeApi = getRouteApi('/app/products/serial-numbers');
 const size = 20;
 
 export default function AppViewProductsViewSerialNumbersModalView() {
-  const navigate = useNavigate();
+  const navigate = routeApi.useNavigate();
 
   const { serialNumbersSearch: search, serialNumbersPage: page } = routeApi.useSearch();
 
   const { data, isLoading } = useQuery(queries['product-serial-numbers'].page({ page, size })._ctx.search(search));
 
   const onClose = () => {
-    navigate({ from: routeApi.id, to: '..', search: (old) => ({ ...old, serialNumbersPage: undefined, serialNumbersSearch: undefined }), replace: true });
+    navigate({ to: '..', search: (old) => ({ ...old, serialNumbersPage: undefined, serialNumbersSearch: undefined }), replace: true });
   };
 
   return (

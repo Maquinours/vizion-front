@@ -1,4 +1,4 @@
-import { Link, getRouteApi } from '@tanstack/react-router';
+import { Link } from '@tanstack/react-router';
 import { BsThreeDots } from 'react-icons/bs';
 import { FaPhoneAlt, FaTrash } from 'react-icons/fa';
 import { HiPencilAlt } from 'react-icons/hi';
@@ -6,7 +6,7 @@ import { MdLocationPin, MdMailOutline } from 'react-icons/md';
 import AddressResponseDto from '../../../../../../../../../../utils/types/AddressResponseDto';
 import styles from './Address.module.scss';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/dashboard/address-book');
+const routePath = '/app/businesses-rma/business/$businessId/dashboard/address-book';
 
 type AppViewBusinessViewDashboardViewAddressBookModalViewAddressComponentProps = Readonly<{
   address: AddressResponseDto;
@@ -27,7 +27,7 @@ export default function AppViewBusinessViewDashboardViewAddressBookModalViewAddr
           <div className={styles.header_tooltip}>
             <div>
               <Link
-                from={routeApi.id}
+                from={routePath}
                 to="update/$addressId"
                 search
                 params={{ addressId: address.id }}
@@ -42,7 +42,7 @@ export default function AppViewBusinessViewDashboardViewAddressBookModalViewAddr
                 <span className={styles.text}>Modifier</span>
               </Link>
               <Link
-                from={routeApi.id}
+                from={routePath}
                 to="delete/$addressId"
                 search
                 params={{ addressId: address.id }}

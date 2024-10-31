@@ -4,7 +4,7 @@ import { TabsContext } from '../../../../components/TabsContainer/utils/contexts
 import { getRouteApi } from '@tanstack/react-router';
 import { LifesheetAssociatedItem } from '../../../../../../utils/enums/LifesheetAssociatedItem';
 
-const routeApi = getRouteApi('/app/businesses-rma/rma/$rmaId');
+const routeApi = getRouteApi('/app/businesses-rma_/rma/$rmaId');
 
 export default function AppViewRmaViewBeforeCloseModalView() {
   const navigate = routeApi.useNavigate();
@@ -18,7 +18,7 @@ export default function AppViewRmaViewBeforeCloseModalView() {
   };
 
   const onClose = () => {
-    navigate({ from: routeApi.id, search: (old) => ({ ...old, rmaModal: undefined }), replace: true, resetScroll: false });
+    navigate({ search: (old) => ({ ...old, rmaModal: undefined }), replace: true, resetScroll: false });
   };
 
   return (

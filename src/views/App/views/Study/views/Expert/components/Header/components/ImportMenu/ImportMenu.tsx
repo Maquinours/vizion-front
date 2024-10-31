@@ -15,7 +15,7 @@ import { toast } from 'react-toastify';
 import { parseStudy } from '../../../../utils/functions/parse';
 import { ExpertStudyBackgroundNode } from '../../../Flow/components/BackgroundNode/BackgroundNode';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/study');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId_/study/expert');
 
 const selector = (state: RFState) => ({
   pageType: state.pages[state.currentPage].type,

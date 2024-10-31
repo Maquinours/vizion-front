@@ -2,7 +2,7 @@ import { getRouteApi } from '@tanstack/react-router';
 import GedComponent from '../../../../../../../../components/Ged/Ged';
 import FileType from '../../../../../../../../utils/enums/FileType';
 
-const routeApi = getRouteApi('/app/products/$productId/informations');
+const routeApi = getRouteApi('/app/products_/$productId/informations');
 export default function AppViewProductViewInformationsViewGedComponent() {
   const { productId } = routeApi.useParams();
 

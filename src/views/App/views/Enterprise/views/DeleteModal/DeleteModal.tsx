@@ -1,25 +1,25 @@
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import { enterprises } from '../../../../../../utils/constants/queryKeys/enterprise';
-import { deleteEnterprise } from './utils/api/enterprise';
-import { toast } from 'react-toastify';
+import { getRouteApi } from '@tanstack/react-router';
+import React from 'react';
 import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
+import { toast } from 'react-toastify';
+import { enterprises } from '../../../../../../utils/constants/queryKeys/enterprise';
 import styles from './DeleteModal.module.scss';
-import React from 'react';
+import { deleteEnterprise } from './utils/api/enterprise';
 
-const Route = getRouteApi('/app/enterprises/$enterpriseId/delete');
+const routeApi = getRouteApi('/app/enterprises_/$enterpriseId/delete');
 
 export default function AppViewEnterpriseViewDeleteModalView() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate();
+  const navigate = routeApi.useNavigate();
 
-  const { enterpriseId } = Route.useParams();
+  const { enterpriseId } = routeApi.useParams();
 
   const { data: enterprise } = useSuspenseQuery(enterprises.detail(enterpriseId));
 
   const onClose = () => {
-    navigate({ from: Route.id, to: '..', search: (old) => old, replace: true });
+    navigate({ to: '..', search: true, replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({

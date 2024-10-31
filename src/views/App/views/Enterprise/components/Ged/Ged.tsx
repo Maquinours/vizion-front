@@ -2,7 +2,8 @@ import { getRouteApi } from '@tanstack/react-router';
 import GedComponent from '../../../../../../components/Ged/Ged';
 import FileType from '../../../../../../utils/enums/FileType';
 
-const routeApi = getRouteApi('/app/enterprises/$enterpriseId');
+const routeApi = getRouteApi('/app/enterprises_/$enterpriseId');
+const routePath = '/app/enterprises_/$enterpriseId';
 
 export default function AppViewEnterpriseViewGedComponent() {
   const { enterpriseId } = routeApi.useParams();
@@ -12,28 +13,26 @@ export default function AppViewEnterpriseViewGedComponent() {
       type={FileType.CONTACT}
       id={enterpriseId}
       getCreateDirectoryLink={(data) => ({
-        from: routeApi.id,
+        from: routePath,
         to: '/app/enterprises/$enterpriseId/create-ged-directory',
         search: (old) => ({ ...old, gedObjectRelativePath: data?.relativePath ?? '' }),
-        params: (old) => old,
         replace: true,
         resetScroll: false,
       })}
       getImportFilesLink={(data) => ({
-        from: routeApi.id,
+        from: routePath,
         to: '/app/enterprises/$enterpriseId/import-ged-files',
         search: (old) => ({
           ...old,
           gedObjectRelativePath: data?.relativePath ?? '',
         }),
-        params: (old) => old,
         replace: true,
         resetScroll: false,
       })}
       getDeleteLink={(data) => ({
-        from: routeApi.id,
+        from: routePath,
         to: '/app/enterprises/$enterpriseId/delete-ged-object/$objectRelativePath',
-        search: (old) => old,
+        search: true,
         params: (old) => ({
           ...old,
           objectRelativePath: encodeURIComponent(data.relativePath),
@@ -42,9 +41,9 @@ export default function AppViewEnterpriseViewGedComponent() {
         resetScroll: false,
       })}
       getRenameLink={(data) => ({
-        from: routeApi.id,
+        from: routePath,
         to: '/app/enterprises/$enterpriseId/rename-ged-object/$objectRelativePath',
-        search: (old) => old,
+        search: true,
         params: (old) => ({ ...old, objectRelativePath: encodeURIComponent(data.relativePath) }),
         replace: true,
         resetScroll: false,

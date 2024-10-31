@@ -1,14 +1,14 @@
-import ReactModal from 'react-modal';
-import styles from './UpdateModal.module.scss';
-import * as yup from 'yup';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { queries } from '../../../../../../../../utils/constants/queryKeys';
-import { updateProductFilter } from '../../../../../../../../utils/api/productFilter';
-import { toast } from 'react-toastify';
+import { getRouteApi } from '@tanstack/react-router';
+import { useForm } from 'react-hook-form';
+import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
+import { toast } from 'react-toastify';
+import * as yup from 'yup';
+import { updateProductFilter } from '../../../../../../../../utils/api/productFilter';
+import { queries } from '../../../../../../../../utils/constants/queryKeys';
+import styles from './UpdateModal.module.scss';
 
 const routeApi = getRouteApi('/app/tools/product-filters/update/$productFilterId');
 
@@ -21,7 +21,7 @@ const yupSchema = yup.object().shape({
 
 export default function AppViewToolsViewProductFiltersViewUpdateModalView() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { productFilterId } = routeApi.useParams();
 

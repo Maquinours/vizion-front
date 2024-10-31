@@ -1,15 +1,15 @@
-import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import styles from './UpdateResponsibleModal.module.scss';
-import { useForm } from 'react-hook-form';
-import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
+import { getRouteApi } from '@tanstack/react-router';
+import { useForm } from 'react-hook-form';
+import ReactModal from 'react-modal';
+import { toast } from 'react-toastify';
+import * as yup from 'yup';
 import { updateBusiness } from '../../../../../../../../utils/api/business';
 import { queries } from '../../../../../../../../utils/constants/queryKeys';
-import { toast } from 'react-toastify';
-import ReactModal from 'react-modal';
+import styles from './UpdateResponsibleModal.module.scss';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/dashboard/update-responsible');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/dashboard/update-responsible');
 
 const yupSchema = yup.object({
   name: yup.string().typeError('').required('Champs requis.'),
@@ -19,7 +19,7 @@ const yupSchema = yup.object({
 
 export default function AppViewBusinessViewDashboardViewUpdateResponsibleModalView() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { businessId } = routeApi.useParams();
 
@@ -39,7 +39,7 @@ export default function AppViewBusinessViewDashboardViewUpdateResponsibleModalVi
   });
 
   const onClose = () => {
-    navigate({ to: '..', search: (old) => old, replace: true, resetScroll: false, ignoreBlocker: true });
+    navigate({ to: '..', search: true, replace: true, resetScroll: false, ignoreBlocker: true });
   };
 
   const { mutate } = useMutation({

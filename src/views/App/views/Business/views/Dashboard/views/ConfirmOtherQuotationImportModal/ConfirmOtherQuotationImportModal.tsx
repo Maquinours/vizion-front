@@ -1,18 +1,18 @@
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { Link, getRouteApi, useNavigate } from '@tanstack/react-router';
+import { Link, getRouteApi } from '@tanstack/react-router';
 import ReactModal from 'react-modal';
+import { PulseLoader } from 'react-spinners';
+import { toast } from 'react-toastify';
+import { importBusinessQuotation } from '../../../../../../../../utils/api/businessQuotations';
 import { queries } from '../../../../../../../../utils/constants/queryKeys';
 import BusinessState from '../../../../../../../../utils/enums/BusinessState';
 import styles from './ConfirmOtherQuotationImportModal.module.scss';
-import { importBusinessQuotation } from '../../../../../../../../utils/api/businessQuotations';
-import { toast } from 'react-toastify';
-import { PulseLoader } from 'react-spinners';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/dashboard/confirm-quotation-import/$otherBusinessId');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/dashboard/confirm-quotation-import/$otherBusinessId');
 
 export default function AppViewBusinessViewDashboardViewConfirmOtherQuotationImportModalView() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { businessId, otherBusinessId } = routeApi.useParams();
 
@@ -20,7 +20,7 @@ export default function AppViewBusinessViewDashboardViewConfirmOtherQuotationImp
   const { data: otherBusiness } = useSuspenseQuery(queries.businesses.detail._ctx.byId(otherBusinessId));
 
   const onClose = () => {
-    navigate({ to: '../..', search: (old) => old, replace: true, resetScroll: false, ignoreBlocker: true });
+    navigate({ to: '../..', search: true, replace: true, resetScroll: false, ignoreBlocker: true });
   };
 
   const { mutate, isPending } = useMutation({

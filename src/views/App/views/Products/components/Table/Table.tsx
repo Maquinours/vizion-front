@@ -1,13 +1,13 @@
+import { Link, getRouteApi } from '@tanstack/react-router';
 import { Row, createColumnHelper } from '@tanstack/react-table';
-import TableComponent from '../../../../../../components/Table/Table';
-import ProductResponseDto from '../../../../../../utils/types/ProductResponseDto';
-import { Link, getRouteApi, useNavigate } from '@tanstack/react-router';
-import TableRowExpandButtonComponent from '../../../../../../components/TableRowExpandButton/TableRowExpandButton';
-import CurrencyFormat from '../../../../../../components/CurrencyFormat/CurrencyFormat';
+import { useCallback } from 'react';
 import AmountFormat from '../../../../../../components/AmountFormat/AmountFormat';
+import CurrencyFormat from '../../../../../../components/CurrencyFormat/CurrencyFormat';
+import TableComponent from '../../../../../../components/Table/Table';
+import TableRowExpandButtonComponent from '../../../../../../components/TableRowExpandButton/TableRowExpandButton';
+import ProductResponseDto from '../../../../../../utils/types/ProductResponseDto';
 import styles from './Table.module.scss';
 import AppViewProductsViewTableComponentSubRowComponent from './components/SubRow/SubRow';
-import { useCallback } from 'react';
 
 const routeApi = getRouteApi('/app/products');
 
@@ -61,7 +61,7 @@ type AppViewProductsViewTableComponentProps = Readonly<{
   isLoading: boolean;
 }>;
 export default function AppViewProductsViewTableComponent({ data, isLoading }: AppViewProductsViewTableComponentProps) {
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const onRowClick = useCallback(
     (e: React.MouseEvent, row: Row<ProductResponseDto>) => {

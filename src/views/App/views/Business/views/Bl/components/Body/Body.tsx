@@ -7,7 +7,8 @@ import styles from './Body.module.scss';
 import { useMemo } from 'react';
 import AppViewBusinessViewBlViewBodyComponentPdfComponent from './components/Pdf/Pdf';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/bl');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/bl');
+const routePath = '/app/businesses-rma/business/$businessId/bl';
 
 export default function AppViewBusinessViewBlViewBodyComponent() {
   const { businessId } = routeApi.useParams();
@@ -33,7 +34,7 @@ export default function AppViewBusinessViewBlViewBodyComponent() {
       {!business.archived && (
         <div className={styles.buttons_container}>
           {user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && (
-            <Link from={routeApi.id} to="send-by-email" search={(old) => old} replace resetScroll={false} preload="intent" className="btn btn-secondary">
+            <Link from={routePath} to="send-by-email" search={(old) => old} replace resetScroll={false} preload="intent" className="btn btn-secondary">
               Envoyer par mail
             </Link>
           )}

@@ -1,24 +1,24 @@
 import { yupResolver } from '@hookform/resolvers/yup';
+import { ClickAwayListener } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { getRouteApi } from '@tanstack/react-router';
+import { E164Number } from 'libphonenumber-js';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import ReactDatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 import { Controller, useForm } from 'react-hook-form';
+import { RiArrowDropDownLine, RiArrowDropUpLine } from 'react-icons/ri';
 import PhoneInput from 'react-phone-number-input/input';
+import { Range, getTrackBackground } from 'react-range';
 import * as yup from 'yup';
+import CurrencyFormat from '../../../../../../components/CurrencyFormat/CurrencyFormat';
 import CustomSelect from '../../../../../../components/CustomSelect/CustomSelect';
 import { queries } from '../../../../../../utils/constants/queryKeys';
 import AllBusinessState from '../../../../../../utils/enums/AllBusinessState';
 import CategoryClient from '../../../../../../utils/enums/CategoryClient';
+import { UserRole } from '../../../../../../utils/types/ProfileInfoResponseDto';
 import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthentifiedUser';
 import styles from './SearchSection.module.scss';
-import 'react-datepicker/dist/react-datepicker.css';
-import { Range, getTrackBackground } from 'react-range';
-import { RiArrowDropDownLine, RiArrowDropUpLine } from 'react-icons/ri';
-import CurrencyFormat from '../../../../../../components/CurrencyFormat/CurrencyFormat';
-import { ClickAwayListener } from '@mui/material';
-import { E164Number } from 'libphonenumber-js';
-import { UserRole } from '../../../../../../utils/types/ProfileInfoResponseDto';
 
 const routeApi = getRouteApi('/app/businesses-rma');
 
@@ -127,7 +127,7 @@ const CATEGORY_OPTIONS = [
 ];
 
 export default function AppViewBusinessesRmaViewSearchSectionComponent() {
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { number, numOrder, name, contact, deliverPhoneNumber, zipCode, representative, installer, amounts, enterpriseName, state, dates, excludeds, fuzzy } =
     routeApi.useSearch();

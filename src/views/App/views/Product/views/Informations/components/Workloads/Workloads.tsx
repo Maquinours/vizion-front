@@ -2,7 +2,7 @@ import { getRouteApi } from '@tanstack/react-router';
 import WorkloadsComponent from '../../../../../../../../components/Workloads/Workloads';
 import { WorkloadAssociatedItem } from '../../../../../../../../utils/enums/WorkloadAssociatedItem';
 
-const routeApi = getRouteApi('/app/products/$productId/informations');
+const routeApi = getRouteApi('/app/products_/$productId/informations');
 
 export default function AppViewProductViewInformationsViewWorkloadsComponent() {
   const { productId } = routeApi.useParams();

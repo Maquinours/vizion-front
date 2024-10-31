@@ -1,11 +1,11 @@
+import { Link } from '@tanstack/react-router';
 import { HiPencilAlt } from 'react-icons/hi';
-import styles from './Informations.module.scss';
-import { Link, getRouteApi } from '@tanstack/react-router';
-import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthentifiedUser';
 import CardComponent from '../../../../../../components/Card/Card';
 import EnterpriseResponseDto from '../../../../../../utils/types/EnterpriseResponseDto';
+import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthentifiedUser';
+import styles from './Informations.module.scss';
 
-const Route = getRouteApi('/app/enterprises/$enterpriseId');
+const routePath = '/app/enterprises/$enterpriseId';
 
 type AppViewEnterpriseViewInformationsComponentProps = Readonly<{
   enterprise: EnterpriseResponseDto;
@@ -54,7 +54,7 @@ export default function AppViewEnterpriseViewInformationsComponent({ enterprise 
             {currentUser.userInfo.roles.some(
               (role) => ['ROLE_MEMBRE_VIZEO', 'ROLE_REPRESENTANT'].includes(role) && !currentUser.userInfo.roles.includes('ROLE_STAGIAIRE_VIZEO'),
             ) && (
-              <Link from={Route.id} to="./update-accountability" params={{ enterpriseId: enterprise.id }} search={(old) => old} replace resetScroll={false}>
+              <Link from={routePath} to="./update-accountability" params={{ enterpriseId: enterprise.id }} search replace resetScroll={false}>
                 <HiPencilAlt className={styles.icon} />
               </Link>
             )}

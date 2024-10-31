@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { getRouteApi } from '@tanstack/react-router';
 import { useState } from 'react';
 import ReactModal from 'react-modal';
 import { toast } from 'react-toastify';
@@ -14,12 +14,12 @@ const routeApi = getRouteApi('/app/products/serial-numbers/create');
 
 export default function AppViewProductsViewSerialNumbersModalViewCreateModalView() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate();
+  const navigate = routeApi.useNavigate();
 
   const [requestData, setRequestData] = useState<ProductSerialListRequestDto>();
 
   const onClose = () => {
-    navigate({ from: routeApi.id, to: '..', search: (old) => old, replace: true, resetScroll: false });
+    navigate({ to: '..', search: true, replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({

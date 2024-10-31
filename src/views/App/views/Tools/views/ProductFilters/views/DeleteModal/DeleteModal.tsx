@@ -1,18 +1,18 @@
-import ReactModal from 'react-modal';
-import styles from './DeleteModal.module.scss';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import { PulseLoader } from 'react-spinners';
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
+import { getRouteApi } from '@tanstack/react-router';
+import React from 'react';
+import ReactModal from 'react-modal';
+import { PulseLoader } from 'react-spinners';
+import { toast } from 'react-toastify';
 import { deleteProductFilter } from '../../../../../../../../utils/api/productFilter';
 import { queries } from '../../../../../../../../utils/constants/queryKeys';
-import { toast } from 'react-toastify';
-import React from 'react';
+import styles from './DeleteModal.module.scss';
 
 const routeApi = getRouteApi('/app/tools/product-filters/delete/$productFilterId');
 
 export default function AppViewToolsViewProductFiltersViewDeleteModalView() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { productFilterId } = routeApi.useParams();
 

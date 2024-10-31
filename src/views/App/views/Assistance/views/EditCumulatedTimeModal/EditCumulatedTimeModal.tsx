@@ -1,5 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { getRouteApi } from '@tanstack/react-router';
 import moment from 'moment';
 import React, { useContext, useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
@@ -8,7 +8,7 @@ import * as yup from 'yup';
 import { AssistanceContext } from '../../utils/contexts/context';
 import styles from './EditCumulatedTimeModal.module.scss';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/assistance/$assistanceId/edit-cumulated-time');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/edit-cumulated-time');
 
 const formatNumber = (value: number) => {
   return value.toLocaleString('fr-FR', {
@@ -21,7 +21,7 @@ const yupSchema = yup.object().shape({
 });
 
 export default function AppViewAssistanceViewEditCumulatedTimeModalView() {
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { getValues: getContextValues, setValue: setContextValue, update } = useContext(AssistanceContext)!;
 
@@ -33,7 +33,7 @@ export default function AppViewAssistanceViewEditCumulatedTimeModalView() {
   });
 
   const onClose = () => {
-    navigate({ to: '..', search: (old) => old });
+    navigate({ to: '..', search: true, replace: true, resetScroll: false });
   };
 
   const onSubmit = ({ cumulatedTime }: yup.InferType<typeof yupSchema>) => {

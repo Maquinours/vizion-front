@@ -1,17 +1,17 @@
-import ReactModal from 'react-modal';
-import styles from './UpdateModal.module.scss';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import * as yup from 'yup';
-import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useQuery, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { queries } from '../../../../../../../../utils/constants/queryKeys';
+import { getRouteApi } from '@tanstack/react-router';
+import { useEffect } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import ReactModal from 'react-modal';
+import { toast } from 'react-toastify';
+import * as yup from 'yup';
 import CustomSelect from '../../../../../../../../components/CustomSelect/CustomSelect';
+import { updateShelf } from '../../../../../../../../utils/api/productShelf';
+import { queries } from '../../../../../../../../utils/constants/queryKeys';
 import ProductShelfResponseDto from '../../../../../../../../utils/types/ProductShelfResponseDto';
 import ProductVersionResponseDto from '../../../../../../../../utils/types/ProductVersionResponseDto';
-import { updateShelf } from '../../../../../../../../utils/api/productShelf';
-import { toast } from 'react-toastify';
-import { useEffect } from 'react';
+import styles from './UpdateModal.module.scss';
 
 export const routeApi = getRouteApi('/app/tools/product-inventory/update/$stockId');
 
@@ -24,7 +24,7 @@ const yupSchema = yup.object().shape({
 
 export default function AppViewToolsViewProductInventoryViewUpdateModalView() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { stockId } = routeApi.useParams();
 

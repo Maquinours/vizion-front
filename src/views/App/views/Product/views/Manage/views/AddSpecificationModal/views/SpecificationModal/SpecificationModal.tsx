@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { getRouteApi } from '@tanstack/react-router';
 import { useForm } from 'react-hook-form';
 import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
@@ -8,10 +8,10 @@ import { toast } from 'react-toastify';
 import * as yup from 'yup';
 import { addProductSpecificationToProduct } from '../../../../../../../../../../utils/api/productSpecification';
 import { queries } from '../../../../../../../../../../utils/constants/queryKeys';
-import styles from './SpecificationModal.module.scss';
 import { productSpecificationsQueryKeys } from '../../../../../../../../../../utils/constants/queryKeys/productSpecifications';
+import styles from './SpecificationModal.module.scss';
 
-const routeApi = getRouteApi('/app/products/$productId/manage/add-specification/$filterId');
+const routeApi = getRouteApi('/app/products_/$productId/manage/add-specification/$filterId');
 
 const yupSchema = yup.object().shape(
   {
@@ -51,7 +51,7 @@ const yupSchema = yup.object().shape(
 
 export default function AppViewProductViewManageViewAddSpecificationModalViewSpecificationModalView() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate();
+  const navigate = routeApi.useNavigate();
 
   const { productId, filterId } = routeApi.useParams();
 
@@ -66,7 +66,7 @@ export default function AppViewProductViewManageViewAddSpecificationModalViewSpe
   });
 
   const onClose = () => {
-    navigate({ from: routeApi.id, to: '..', search: true, replace: true, resetScroll: false });
+    navigate({ to: '..', search: true, replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({

@@ -1,18 +1,18 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { createProduct } from '../../../../../../../../utils/api/product';
+import { getRouteApi } from '@tanstack/react-router';
 import { useState } from 'react';
-import AppViewToolsViewMenuViewCreateProductModalViewStepOneComponent, { CreateProductStepOneType } from './components/StepOne/StepOne';
 import ReactModal from 'react-modal';
-import AppViewToolsViewMenuViewCreateProductModalViewStepTwoComponent, { CreateProductStepTwoType } from './components/StepTwo/StepTwo';
-import { queries } from '../../../../../../../../utils/constants/queryKeys';
 import { toast } from 'react-toastify';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { createProduct } from '../../../../../../../../utils/api/product';
+import { queries } from '../../../../../../../../utils/constants/queryKeys';
+import AppViewToolsViewMenuViewCreateProductModalViewStepOneComponent, { CreateProductStepOneType } from './components/StepOne/StepOne';
+import AppViewToolsViewMenuViewCreateProductModalViewStepTwoComponent, { CreateProductStepTwoType } from './components/StepTwo/StepTwo';
 import styles from './CreateProductModal.module.scss';
 
 const routeApi = getRouteApi('/app/tools/menu/create-product');
 
 export default function AppViewToolsMenuViewCreateProductModalView() {
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
   const queryClient = useQueryClient();
 
   const [step, setStep] = useState<0 | 1>(0);

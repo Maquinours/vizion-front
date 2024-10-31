@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { getRouteApi } from '@tanstack/react-router';
 import React from 'react';
 import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
@@ -9,11 +9,11 @@ import { queries } from '../../../../../../../../utils/constants/queryKeys';
 import SerialNumberOperationType from '../../../../../../../../utils/enums/SerialNumberOperationType';
 import styles from './DeleteSerialModal.module.scss';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/bp/delete-serial/$serialId');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/bp/delete-serial/$serialId');
 
 export default function AppViewBusinessViewBpViewDeleteSerialModalView() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { businessId, serialId } = routeApi.useParams();
 

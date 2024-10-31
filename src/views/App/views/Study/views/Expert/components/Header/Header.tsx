@@ -26,7 +26,7 @@ import AppViewStudyViewExpertViewHeaderComponentTransferMenuComponent from './co
 import { saveSynopticBusiness } from '../../../../../../../../utils/api/synoptic';
 import { synopticBusinessQueryKeys } from '../../../../../../../../utils/constants/queryKeys/synoptic';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/study/expert');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId_/study/expert');
 
 const selector = (state: RFState) => ({
   hasPage: state.pages.length > 0,

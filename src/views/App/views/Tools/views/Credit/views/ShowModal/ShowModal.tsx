@@ -1,23 +1,23 @@
 import { PDFViewer } from '@react-pdf/renderer';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import ReactModal from 'react-modal';
-import styles from './ShowModal.module.scss';
-import { ClipLoader } from 'react-spinners';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { createBusinessCredit } from '../../../../../../../../utils/api/businessBill';
-import BillType from '../../../../../../../../utils/enums/BillType';
-import { toast } from 'react-toastify';
-import { queries } from '../../../../../../../../utils/constants/queryKeys';
+import { getRouteApi } from '@tanstack/react-router';
 import { useContext, useMemo } from 'react';
-import { CreditContext } from '../../utils/contexts/context';
+import ReactModal from 'react-modal';
+import { ClipLoader } from 'react-spinners';
+import { toast } from 'react-toastify';
+import { createBusinessCredit } from '../../../../../../../../utils/api/businessBill';
+import { queries } from '../../../../../../../../utils/constants/queryKeys';
+import BillType from '../../../../../../../../utils/enums/BillType';
 import BusinessType from '../../../../../../../../utils/enums/BusinessType';
+import { CreditContext } from '../../utils/contexts/context';
 import AppViewToolsViewCreditsViewShowModalViewPdfComponent from './components/Pdf/Pdf';
+import styles from './ShowModal.module.scss';
 
 const routeApi = getRouteApi('/app/tools/credit/show');
 
 export default function AppViewToolsViewCreditViewShowModalView() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { details, business, shippingServicePrice, items, enterprise, bill } = useContext(CreditContext)!;
 

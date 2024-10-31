@@ -3,7 +3,8 @@ import { useAuthentifiedUserQuery } from '../../../../../../../../../../utils/fu
 import styles from './ButtonsSection.module.scss';
 import AppViewBusinessViewQuotationViewHeaderComponentSectionThreeComponentButtonsSectionComponentExportButton from './components/ExportButton/ExportButton';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/quotation');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/quotation');
+const routePath = '/app/businesses-rma/business/$businessId/quotation';
 
 export default function AppViewBusinessViewQuotationViewHeaderComponentSectionThreeComponentButtonsSectionComponent() {
   const { hideTotal, hideReferences, hidePrices, hideAddresses } = routeApi.useSearch();
@@ -15,7 +16,7 @@ export default function AppViewBusinessViewQuotationViewHeaderComponentSectionTh
       {!user.userInfo.roles.includes('ROLE_CLIENT') && (
         <>
           <Link
-            from={routeApi.id}
+            from={routePath}
             search={(prev) => ({ ...prev, hideTotal: !hideTotal })}
             className="btn btn-primary-light"
             replace
@@ -26,7 +27,7 @@ export default function AppViewBusinessViewQuotationViewHeaderComponentSectionTh
             {hideTotal ? 'Afficher' : 'Masquer'} total
           </Link>
           <Link
-            from={routeApi.id}
+            from={routePath}
             search={(prev) => ({ ...prev, hideReferences: !hideReferences })}
             className="btn btn-primary-light"
             replace
@@ -37,7 +38,7 @@ export default function AppViewBusinessViewQuotationViewHeaderComponentSectionTh
             {hideReferences ? 'Afficher' : 'Masquer'} les références
           </Link>
           <Link
-            from={routeApi.id}
+            from={routePath}
             search={(prev) => ({ ...prev, hidePrices: !hidePrices })}
             className="btn btn-primary-light"
             replace
@@ -48,7 +49,7 @@ export default function AppViewBusinessViewQuotationViewHeaderComponentSectionTh
             {hidePrices ? 'Afficher' : 'Masquer'} les prix
           </Link>
           <Link
-            from={routeApi.id}
+            from={routePath}
             search={(prev) => ({ ...prev, hideAddresses: !hideAddresses })}
             className="btn btn-primary-light"
             replace
@@ -60,7 +61,7 @@ export default function AppViewBusinessViewQuotationViewHeaderComponentSectionTh
           </Link>
         </>
       )}
-      <Link from={routeApi.id} to="pdf" search replace resetScroll={false} preload="intent" ignoreBlocker className="btn btn-primary">
+      <Link from={routePath} to="pdf" search replace resetScroll={false} preload="intent" ignoreBlocker className="btn btn-primary">
         Éditer
       </Link>
       {user.userInfo.roles.includes('ROLE_DIRECTION_VIZEO') && (

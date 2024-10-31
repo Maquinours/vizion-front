@@ -1,5 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useQuery } from '@tanstack/react-query';
+import { getRouteApi } from '@tanstack/react-router';
+import { E164Number } from 'libphonenumber-js';
 import { useContext, useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { CgCopy, CgPassword } from 'react-icons/cg';
@@ -12,10 +14,8 @@ import * as yup from 'yup';
 import { getEmailExists, getIdentifierExists } from '../../../../../../../../../../utils/api/profile';
 import ProfileClient from '../../../../../../../../../../utils/enums/ProfileClient';
 import { checkPassword, generatePassword } from '../../../../../../../../../../utils/functions/passwords';
-import styles from './AddContactModal.module.scss';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
 import { CreateEnterpriseContext } from '../../utils/contexts/context';
-import { E164Number } from 'libphonenumber-js';
+import styles from './AddContactModal.module.scss';
 
 const routeApi = getRouteApi('/app/tools/menu/create-enterprise/add-contact');
 
@@ -91,7 +91,7 @@ const yupSchema = yup.object().shape({
 });
 
 export default function AppViewToolsViewMenuViewCreateEnterpriseModalViewAddContactModalView() {
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);

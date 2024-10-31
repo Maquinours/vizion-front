@@ -1,19 +1,19 @@
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { getRouteApi } from '@tanstack/react-router';
+import React from 'react';
 import ReactModal from 'react-modal';
+import { PulseLoader } from 'react-spinners';
+import { toast } from 'react-toastify';
+import { router } from '../../../../../../../../router';
 import { deletePredefinedText } from '../../../../../../../../utils/api/predefinedText';
 import { queries } from '../../../../../../../../utils/constants/queryKeys';
-import { router } from '../../../../../../../../router';
-import { toast } from 'react-toastify';
-import { PulseLoader } from 'react-spinners';
 import styles from './DeleteModal.module.scss';
-import React from 'react';
 
 const routeApi = getRouteApi('/app/tools/predefined-texts/delete/$predefinedTextId');
 
 export default function AppViewToolsViewPredefinedTextsViewDeleteModalView() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { predefinedTextId } = routeApi.useParams();
 

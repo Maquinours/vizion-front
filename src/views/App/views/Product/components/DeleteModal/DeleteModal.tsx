@@ -6,13 +6,12 @@ import { toast } from 'react-toastify';
 import { deleteProduct } from '../../../../../../utils/api/product';
 import { queries } from '../../../../../../utils/constants/queryKeys';
 import styles from './DeleteModal.module.scss';
-import { useNavigate } from '@tanstack/react-router';
 
-const routeApi = getRouteApi('/app/products/$productId');
+const routeApi = getRouteApi('/app/products_/$productId');
 
 export default function AppViewProductViewDeleteModalComponent() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate();
+  const navigate = routeApi.useNavigate();
 
   const { productId } = routeApi.useParams();
 

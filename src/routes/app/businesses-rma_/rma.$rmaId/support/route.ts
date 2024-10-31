@@ -12,7 +12,7 @@ const searchSchema = z.object({
   lifesheetPage: z.number().min(0).catch(0),
 });
 
-export const Route = createFileRoute('/app/businesses-rma/rma/$rmaId/support')({
+export const Route = createFileRoute('/app/businesses-rma_/rma/$rmaId/support')({
   validateSearch: (data: { lifesheetPage?: number } & SearchSchemaInput) => searchSchema.parse(data),
   loaderDeps: ({ search: { lifesheetPage } }) => ({ lifesheetPage }),
   loader: async ({ context: { queryClient }, params: { rmaId }, deps: { lifesheetPage } }) => {
@@ -20,16 +20,30 @@ export const Route = createFileRoute('/app/businesses-rma/rma/$rmaId/support')({
     if (
       ![AssistanceState.PRISE_EN_CHARGE, AssistanceState.RECEPTION, AssistanceState.ANALYSE_REPARATION_EXPEDITION, AssistanceState.ARCHIVE].includes(rma.state)
     )
-      throw redirect({ from: Route.id, to: '/app/businesses-rma/rma/$rmaId', search: (old) => ({ ...old, lifesheetPage: undefined }), replace: true });
+      throw redirect({
+        from: Route.fullPath,
+        to: '/app/businesses-rma/rma/$rmaId',
+        search: (old) => ({ ...old, lifesheetPage: undefined }),
+        replace: true,
+      });
 
     queryClient.prefetchQuery(
-      lifesheets.page({ page: lifesheetPage, size: 5 })._ctx.byAssociatedItem({ associatedItemType: LifesheetAssociatedItem.RMA, associatedItemId: rmaId }),
+      lifesheets.page({ page: lifesheetPage, size: 5 })._ctx.byAssociatedItem({
+        associatedItemType: LifesheetAssociatedItem.RMA,
+        associatedItemId: rmaId,
+      }),
     );
     queryClient.prefetchQuery(geds.detail._ctx.byTypeAndId(FileType.SAV, rmaId));
     const user = await queryClient.ensureQueryData(queries.user.authentified());
     if (user.userInfo.roles.some((role) => ['ROLE_MEMBRE_VIZEO', 'ROLE_REPRESENTANT'].includes(role)))
       queryClient.prefetchQuery(
-        queries.tasks.page._ctx.byAssociatedItem({ associatedItemType: WorkloadAssociatedItem.RMA, associatedItemId: rmaId }, { page: 0, size: 100 }),
+        queries.tasks.page._ctx.byAssociatedItem(
+          {
+            associatedItemType: WorkloadAssociatedItem.RMA,
+            associatedItemId: rmaId,
+          },
+          { page: 0, size: 100 },
+        ),
       );
   },
 });

@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { getRouteApi } from '@tanstack/react-router';
 import React from 'react';
 import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
@@ -12,14 +12,14 @@ const routeApi = getRouteApi('/app/faq/archive/$faqId');
 
 export default function AppViewFaqViewArchiveModalView() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate();
+  const navigate = routeApi.useNavigate();
 
   const { faqId } = routeApi.useParams();
 
   const { data: faq } = useSuspenseQuery(faqs.detail._ctx.byId(faqId));
 
   const onClose = () => {
-    navigate({ from: routeApi.id, to: '../..', search: (old) => old, replace: true, resetScroll: false });
+    navigate({ to: '../..', search: (old) => old, replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({

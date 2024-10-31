@@ -1,18 +1,18 @@
 import { SpecialZoomLevel, Viewer, Worker } from '@react-pdf-viewer/core';
 import { getFilePlugin } from '@react-pdf-viewer/get-file';
 import { useSuspenseQuery } from '@tanstack/react-query';
-import { Link, getRouteApi, useNavigate } from '@tanstack/react-router';
+import { Link, getRouteApi } from '@tanstack/react-router';
 import ReactModal from 'react-modal';
 import { queries } from '../../../../../../../../utils/constants/queryKeys';
-import styles from './CommercialNoticeModal.module.scss';
 import { formatFileName } from '../../../../../../../../utils/functions/files';
-
+import styles from './CommercialNoticeModal.module.scss';
 import '@react-pdf-viewer/core/lib/styles/index.css';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/quotation/commercial-notice');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/quotation/commercial-notice');
+const routePath = '/app/businesses-rma/business/$businessId/quotation/commercial-notice';
 
 export default function AppViewBusinessViewQuotationViewCommercialNoticeModalView() {
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { businessId } = routeApi.useParams();
 
@@ -59,16 +59,7 @@ export default function AppViewBusinessViewQuotationViewCommercialNoticeModalVie
                 </button>
               )}
             </getFilePluginInstance.Download>
-            <Link
-              from={routeApi.id}
-              to="send-by-email"
-              search={(old) => old}
-              replace
-              resetScroll={false}
-              preload="intent"
-              ignoreBlocker
-              className="btn btn-secondary ml-2"
-            >
+            <Link from={routePath} to="send-by-email" search replace resetScroll={false} preload="intent" ignoreBlocker className="btn btn-secondary ml-2">
               Envoyer par mail
             </Link>
           </div>

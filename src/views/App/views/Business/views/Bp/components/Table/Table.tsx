@@ -16,7 +16,7 @@ import { VirtualElement } from '@popperjs/core';
 import BusinessBpSerialResponseDto from '../../../../../../../../utils/types/BusinessBpSerialResponseDto';
 import AppViewBusinessViewBpViewTableComponentSerialContextMenuComponent from './components/SerialContextMenu/SerialContextMenu';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/bp');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/bp');
 
 const NVR_VERSIONS = [
   {

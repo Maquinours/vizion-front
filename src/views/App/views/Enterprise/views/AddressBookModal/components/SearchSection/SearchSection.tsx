@@ -1,20 +1,20 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { getRouteApi } from '@tanstack/react-router';
 import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import styles from './SearchSection.module.scss';
 
-const Route = getRouteApi('/app/enterprises/$enterpriseId/address-book');
+const routeApi = getRouteApi('/app/enterprises_/$enterpriseId/address-book');
 
 const yupSchema = yup.object({
   search: yup.string(),
 });
 
 export default function AppViewEnterpriseViewAddressBookModalViewSearchSectionComponent() {
-  const navigate = useNavigate({ from: Route.id });
+  const navigate = routeApi.useNavigate();
 
-  const { search } = Route.useSearch();
+  const { search } = routeApi.useSearch();
 
   const { register, setValue, handleSubmit } = useForm({
     resolver: yupResolver(yupSchema),

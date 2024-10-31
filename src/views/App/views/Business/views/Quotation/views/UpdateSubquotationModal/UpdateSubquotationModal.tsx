@@ -1,16 +1,16 @@
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import ReactModal from 'react-modal';
-import styles from './UpdateSubquotationModal.module.scss';
-import * as yup from 'yup';
-import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
+import { getRouteApi } from '@tanstack/react-router';
+import { useForm } from 'react-hook-form';
+import ReactModal from 'react-modal';
+import { PulseLoader } from 'react-spinners';
+import { toast } from 'react-toastify';
+import * as yup from 'yup';
 import { updateBusinessSubQuotation } from '../../../../../../../../utils/api/businessSubQuotations';
 import { queries } from '../../../../../../../../utils/constants/queryKeys';
-import { toast } from 'react-toastify';
-import { PulseLoader } from 'react-spinners';
+import styles from './UpdateSubquotationModal.module.scss';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/quotation/update-subquotation/$subquotationId');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/quotation/update-subquotation/$subquotationId');
 
 const yupSchema = yup.object({
   name: yup.string().required('Le nom est requis'),
@@ -18,7 +18,7 @@ const yupSchema = yup.object({
 
 export default function AppViewBusinessViewQuotationViewUpdateSubquotationModalView() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { businessId, subquotationId } = routeApi.useParams();
 
@@ -37,7 +37,7 @@ export default function AppViewBusinessViewQuotationViewUpdateSubquotationModalV
   });
 
   const onClose = () => {
-    navigate({ to: '../..', search: (old) => old, replace: true, resetScroll: false, ignoreBlocker: true });
+    navigate({ to: '../..', search: true, replace: true, resetScroll: false, ignoreBlocker: true });
   };
 
   const { mutate, isPending } = useMutation({

@@ -21,7 +21,7 @@ type LoadedImage = { key: string; name: string; src: string; loading: false };
 type LoadingImage = { key: string; name: string; loading: true };
 type Image = LoadedImage | LoadingImage;
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/study/expert');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId_/study/expert');
 
 const columnHelper = createColumnHelper<Image>();
 const columns = [

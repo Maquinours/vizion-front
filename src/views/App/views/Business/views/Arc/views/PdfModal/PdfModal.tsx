@@ -1,15 +1,16 @@
-import ReactModal from 'react-modal';
-import styles from './PdfModal.module.scss';
 import { PDFDownloadLink, PDFViewer } from '@react-pdf/renderer';
-import { Link, Outlet, getRouteApi, useNavigate } from '@tanstack/react-router';
-import AppViewBusinessViewArcViewPdfModalViewPdfComponent from './components/Pdf/Pdf';
 import { useSuspenseQuery } from '@tanstack/react-query';
+import { Link, Outlet, getRouteApi } from '@tanstack/react-router';
+import ReactModal from 'react-modal';
 import { queries } from '../../../../../../../../utils/constants/queryKeys';
+import AppViewBusinessViewArcViewPdfModalViewPdfComponent from './components/Pdf/Pdf';
+import styles from './PdfModal.module.scss';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/arc/pdf');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/arc/pdf');
+const routePath = '/app/businesses-rma/business/$businessId/arc/pdf';
 
 export default function AppViewBusinessViewArcViewPdfModalView() {
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { businessId } = routeApi.useParams();
   const { hideReferencesPrices } = routeApi.useSearch();
@@ -18,7 +19,7 @@ export default function AppViewBusinessViewArcViewPdfModalView() {
   const { data: arc } = useSuspenseQuery(queries['business-ARCs'].detail._ctx.byBusinessId(businessId));
 
   const onClose = () => {
-    navigate({ to: '..', search: (old) => old, replace: true, resetScroll: false, ignoreBlocker: true });
+    navigate({ to: '..', search: true, replace: true, resetScroll: false, ignoreBlocker: true });
   };
 
   return (
@@ -44,7 +45,7 @@ export default function AppViewBusinessViewArcViewPdfModalView() {
               {({ loading }) => <button className="btn btn-secondary">{loading ? 'Chargement...' : 'Télécharger'}</button>}
             </PDFDownloadLink>
             <Link
-              from={routeApi.id}
+              from={routePath}
               to="send-by-email"
               search={(old) => old}
               replace

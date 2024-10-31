@@ -11,7 +11,7 @@ import styles from './Nomenclature.module.scss';
 import { useCallback, useState } from 'react';
 import AppViewProductViewManageViewNomenclatureComponentContextMenuComponent from './components/ContextMenu/ContextMenu';
 
-const routeApi = getRouteApi('/app/products/$productId/manage');
+const routeApi = getRouteApi('/app/products_/$productId/manage');
 
 const columnHelper = createColumnHelper<ProductBomDetailsResponseDto>();
 
@@ -62,7 +62,15 @@ export default function AppViewProductViewManageViewNomenclatureComponent() {
       <CardComponent title="Nomenclature">
         <div className={styles.container}>
           <div className={styles.button_container}>
-            <Link from={routeApi.id} to="add-nomenclature-detail" search replace resetScroll={false} preload="intent" className="btn btn-primary">
+            <Link
+              from="/app/products/$productId/manage"
+              to="add-nomenclature-detail"
+              search
+              replace
+              resetScroll={false}
+              preload="intent"
+              className="btn btn-primary"
+            >
               Ajouter un produit constitutif
             </Link>
           </div>

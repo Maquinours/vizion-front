@@ -1,10 +1,10 @@
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { getRouteApi } from '@tanstack/react-router';
 import EmailModalComponent from '../../../../../../../../components/EmailModal/EmailModal';
 
 const routeApi = getRouteApi('/app/tools/emails/$emailId');
 
 export default function AppViewToolsViewEmailsViewEmailModalView() {
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { emailId } = routeApi.useParams();
 

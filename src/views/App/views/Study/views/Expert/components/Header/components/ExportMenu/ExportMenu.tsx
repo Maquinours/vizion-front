@@ -11,7 +11,7 @@ import { synopticBusinessQueryKeys } from '../../../../../../../../../../utils/c
 import { toast } from 'react-toastify';
 import { saveSynopticBusiness } from '../../../../../../../../../../utils/api/synoptic';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/study/expert');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId_/study/expert');
 
 const selector = (state: RFState) => ({
   getPages: state.getPages,

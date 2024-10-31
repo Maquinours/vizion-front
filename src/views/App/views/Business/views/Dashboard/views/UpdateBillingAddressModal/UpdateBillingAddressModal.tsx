@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { getRouteApi } from '@tanstack/react-router';
 import { useForm } from 'react-hook-form';
 import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
@@ -10,7 +10,7 @@ import { updateBusiness } from '../../../../../../../../utils/api/business';
 import { queries } from '../../../../../../../../utils/constants/queryKeys';
 import styles from './UpdateBillingAddressModal.module.scss';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/dashboard/update-billing-address');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/dashboard/update-billing-address');
 
 const yupSchema = yup.object({
   billingCompany: yup.string().required('Champs requis.'),
@@ -31,7 +31,7 @@ const yupSchema = yup.object({
 
 export default function AppViewBusinessViewDashboardViewUpdateBillingAddressModalView() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { businessId } = routeApi.useParams();
 

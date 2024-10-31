@@ -1,13 +1,13 @@
 import { ClickAwayListener, Fade, MenuItem, MenuList, Paper, Popper } from '@mui/material';
-import { Link, getRouteApi } from '@tanstack/react-router';
 import { VirtualElement } from '@popperjs/core';
-import ExternalLinkResponseDto from '../../../../../../../../../../utils/types/ExternalLinkResponseDto';
-import { HiPencilAlt } from 'react-icons/hi';
-import { FaFileImport, FaTrash } from 'react-icons/fa';
-import styles from './ContextMenu.module.scss';
+import { Link } from '@tanstack/react-router';
 import React from 'react';
+import { FaFileImport, FaTrash } from 'react-icons/fa';
+import { HiPencilAlt } from 'react-icons/hi';
+import ExternalLinkResponseDto from '../../../../../../../../../../utils/types/ExternalLinkResponseDto';
+import styles from './ContextMenu.module.scss';
 
-const routeApi = getRouteApi('/app/tools/external-links');
+const routePath = '/app/tools/external-links';
 
 type AppViewToolsViewExternalLinksViewTableComponentContextMenuComponentProps = Readonly<{
   anchorElement: VirtualElement | undefined;
@@ -35,7 +35,7 @@ export default function AppViewToolsViewExternalLinksViewTableComponentContextMe
                 <MenuList>
                   <MenuItem>
                     <Link
-                      from={routeApi.id}
+                      from={routePath}
                       to="./update/$externalLinkId"
                       params={{ externalLinkId: externalLink.id }}
                       replace
@@ -49,7 +49,7 @@ export default function AppViewToolsViewExternalLinksViewTableComponentContextMe
                   </MenuItem>
                   <MenuItem>
                     <Link
-                      from={routeApi.id}
+                      from={routePath}
                       to="./archive/$externalLinkId"
                       params={{ externalLinkId: externalLink.id }}
                       replace
@@ -63,7 +63,7 @@ export default function AppViewToolsViewExternalLinksViewTableComponentContextMe
                   </MenuItem>
                   <MenuItem>
                     <Link
-                      from={routeApi.id}
+                      from={routePath}
                       to="./delete/$externalLinkId"
                       params={{ externalLinkId: externalLink.id }}
                       replace

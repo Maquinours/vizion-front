@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useQuery, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { getRouteApi } from '@tanstack/react-router';
 import { Controller, useForm } from 'react-hook-form';
 import ReactModal from 'react-modal';
 import 'react-multi-email/dist/style.css';
@@ -16,7 +16,7 @@ import FaqAccessLevel from '../../../../../../utils/enums/FaqAccessLevel';
 import ProductResponseDto from '../../../../../../utils/types/ProductResponseDto';
 import styles from './CreateFaqModal.module.scss';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/assistance/$assistanceId/create-faq');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/create-faq');
 
 const levelOptions = [
   {
@@ -54,7 +54,7 @@ const yupSchema = yup.object().shape({
 
 export default function AppViewAssistanceViewCreateFaqModalView() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate();
+  const navigate = routeApi.useNavigate();
 
   const { businessId, assistanceId } = routeApi.useParams();
 
@@ -73,7 +73,7 @@ export default function AppViewAssistanceViewCreateFaqModalView() {
   });
 
   const onClose = () => {
-    navigate({ from: routeApi.id, to: '..', search: true, replace: true, resetScroll: false });
+    navigate({ to: '..', search: true, replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({

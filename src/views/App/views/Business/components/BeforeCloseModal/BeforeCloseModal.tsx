@@ -1,13 +1,13 @@
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { getRouteApi } from '@tanstack/react-router';
+import { useContext } from 'react';
 import CreateLifesheetModalComponent from '../../../../../../components/CreateLifesheetModal/CreateLifesheetModal';
 import { LifesheetAssociatedItem } from '../../../../../../utils/enums/LifesheetAssociatedItem';
-import { useContext } from 'react';
 import { TabsContext } from '../../../../components/TabsContainer/utils/contexts/context';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId');
 
 export default function AppViewBusinessViewBeforeCloseModalComponent() {
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { removeTab } = useContext(TabsContext)!;
 

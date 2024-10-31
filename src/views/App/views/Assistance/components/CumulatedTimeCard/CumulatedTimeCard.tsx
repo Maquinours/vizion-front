@@ -1,14 +1,14 @@
-import { Link, getRouteApi } from '@tanstack/react-router';
+import { Link } from '@tanstack/react-router';
 import moment from 'moment';
 import { useContext, useEffect, useState } from 'react';
 import { Controller } from 'react-hook-form';
+import { toast } from 'react-toastify';
 import CardComponent from '../../../../../../components/Card/Card';
+import TechnicalSupportResponseDto from '../../../../../../utils/types/TechnicalSupportResponseDto';
 import { AssistanceContext } from '../../utils/contexts/context';
 import styles from './CumulatedTimeCard.module.scss';
-import TechnicalSupportResponseDto from '../../../../../../utils/types/TechnicalSupportResponseDto';
-import { toast } from 'react-toastify';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/assistance/$assistanceId');
+const routePath = '/app/businesses-rma/business/$businessId/assistance/$assistanceId';
 
 const amountFormatter = (value: number) => {
   return value.toLocaleString('fr-FR', {
@@ -83,7 +83,7 @@ export default function AppViewAssistanceViewCumulatedTimeCardComponent({ assist
           }}
         />
         <div className={styles.buttons_container}>
-          <Link from={routeApi.id} to="edit-cumulated-time" search replace resetScroll={false} preload="intent">
+          <Link from={routePath} to="edit-cumulated-time" search replace resetScroll={false} preload="intent">
             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
               <g id="Groupe_2701" data-name="Groupe 2701" transform="translate(-1396 -249)">
                 <g id="Ellipse_148" data-name="Ellipse 148" transform="translate(1396 249)" fill="#fff" stroke="#16204e" strokeWidth="1">

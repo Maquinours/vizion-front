@@ -1,19 +1,19 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { getRouteApi } from '@tanstack/react-router';
 import React from 'react';
 import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
 import { toast } from 'react-toastify';
-import { queries } from '../../../../../../../../utils/constants/queryKeys';
-import styles from './RemoveFromBusinessModal.module.scss';
-import SerialNumberOperationType from '../../../../../../../../utils/enums/SerialNumberOperationType';
 import { deleteBusinessBpSerial } from '../../../../../../../../utils/api/businessBpSerials';
+import { queries } from '../../../../../../../../utils/constants/queryKeys';
+import SerialNumberOperationType from '../../../../../../../../utils/enums/SerialNumberOperationType';
+import styles from './RemoveFromBusinessModal.module.scss';
 
 const routeApi = getRouteApi('/app/products/serial-numbers/remove-from-business/$serialNumberId');
 
 export default function AppViewProductsViewSerialNumbersModalViewRemoveFromBusinessModalView() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { serialNumber, business, bp, bpDetail, bpSerialNumber } = routeApi.useLoaderData();
 

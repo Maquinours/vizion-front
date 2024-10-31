@@ -1,18 +1,18 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { getRouteApi } from '@tanstack/react-router';
+import React from 'react';
 import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
-import { deleteExternalLink } from '../../../../../../../../utils/api/externalLink';
-import styles from './DeleteModal.module.scss';
-import React from 'react';
 import { toast } from 'react-toastify';
+import { deleteExternalLink } from '../../../../../../../../utils/api/externalLink';
 import { externalLinks } from '../../../../../../../../utils/constants/queryKeys/externalLink';
+import styles from './DeleteModal.module.scss';
 
 const routeApi = getRouteApi('/app/tools/external-links/delete/$externalLinkId');
 
 export default function AppViewToolsViewExternalLinksViewDeleteModalView() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { externalLinkId } = routeApi.useParams();
 

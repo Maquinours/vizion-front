@@ -14,7 +14,7 @@ import { AutomaticStudyFinalCameraNode } from '../../../../../Flow/components/Fi
 import AppViewStudyViewAutomaticViewFooterComponentStepTwoComponentPdfModalComponentPdfComponent from './components/Pdf/Pdf';
 import { AutomaticStudyNvrNode } from '../../../../../Flow/components/NvrNode/NvrNode';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/study/automatic');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId_/study/automatic');
 
 const getCameraProducts = (state: ReactFlowState, products: Array<ProductResponseDto>) => {
   const nodes = Array.from(state.nodeLookup.values());

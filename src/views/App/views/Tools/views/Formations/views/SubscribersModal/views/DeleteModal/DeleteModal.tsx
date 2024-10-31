@@ -1,18 +1,18 @@
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import ReactModal from 'react-modal';
-import { queries } from '../../../../../../../../../../utils/constants/queryKeys';
-import { PulseLoader } from 'react-spinners';
-import styles from './DeleteModal.module.scss';
-import { deleteFormationSubscription } from '../../../../../../../../../../utils/api/formationSubscriptions';
-import { toast } from 'react-toastify';
+import { getRouteApi } from '@tanstack/react-router';
 import React from 'react';
+import ReactModal from 'react-modal';
+import { PulseLoader } from 'react-spinners';
+import { toast } from 'react-toastify';
+import { deleteFormationSubscription } from '../../../../../../../../../../utils/api/formationSubscriptions';
+import { queries } from '../../../../../../../../../../utils/constants/queryKeys';
+import styles from './DeleteModal.module.scss';
 
 const routeApi = getRouteApi('/app/tools/formations/subscribers/$formationDetailId/delete/$subscriptionId');
 
 export default function AppViewToolsViewFormationsViewSubscribersModalViewDeleteModalView() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { subscriptionId } = routeApi.useParams();
 

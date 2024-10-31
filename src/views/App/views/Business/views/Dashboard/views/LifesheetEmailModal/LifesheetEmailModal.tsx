@@ -3,7 +3,7 @@ import { getRouteApi } from '@tanstack/react-router';
 import { queries } from '../../../../../../../../utils/constants/queryKeys';
 import EmailModalComponent from '../../../../../../../../components/EmailModal/EmailModal';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/dashboard/lifesheet-email/$lifesheetId');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/dashboard/lifesheet-email/$lifesheetId');
 
 export default function AppViewBusinessViewDashboardViewLifesheetEmailModalView() {
   const navigate = routeApi.useNavigate();

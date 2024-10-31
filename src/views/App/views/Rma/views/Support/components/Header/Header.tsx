@@ -1,16 +1,16 @@
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { Link, getRouteApi, useNavigate } from '@tanstack/react-router';
+import { Link, getRouteApi } from '@tanstack/react-router';
 import { toast } from 'react-toastify';
 import { createRmaReception } from '../../../../../../../../utils/api/rmaReception';
 import { queries } from '../../../../../../../../utils/constants/queryKeys';
 import AssistanceState from '../../../../../../../../utils/enums/AssistanceState';
 import styles from './Header.module.scss';
 
-const routeApi = getRouteApi('/app/businesses-rma/rma/$rmaId/support');
+const routeApi = getRouteApi('/app/businesses-rma_/rma/$rmaId/support');
 
 export default function AppViewRmaViewSupportViewHeaderComponent() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { rmaId } = routeApi.useParams();
 
@@ -55,11 +55,19 @@ export default function AppViewRmaViewSupportViewHeaderComponent() {
     <div className={styles.header}>
       <div className={styles.buttons_container}>
         {rma.state !== AssistanceState.ARCHIVE && (
-          <Link from={routeApi.id} to="create-detail" search replace resetScroll={false} preload="intent" className="btn btn-primary">
+          <Link
+            from="/app/businesses-rma/rma/$rmaId/support"
+            to="create-detail"
+            search
+            replace
+            resetScroll={false}
+            preload="intent"
+            className="btn btn-primary"
+          >
             Ajouter un article
           </Link>
         )}
-        <Link from={routeApi.id} to="pdf" search replace resetScroll={false} preload="intent" className="btn btn-secondary">
+        <Link from="/app/businesses-rma/rma/$rmaId/support" to="pdf" search replace resetScroll={false} preload="intent" className="btn btn-secondary">
           Éditer
         </Link>
         <button type="button" disabled={isPending} className="btn btn-secondary" onClick={() => onNextStepButtonClick()}>

@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { getRouteApi } from '@tanstack/react-router';
 import { Controller, useForm } from 'react-hook-form';
 import ReactModal from 'react-modal';
 import 'react-multi-email/dist/style.css';
@@ -54,7 +54,7 @@ const yupSchema = yup.object().shape({
 
 export default function AppViewFaqViewCreateModalView() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate();
+  const navigate = routeApi.useNavigate();
 
   const { data: products, isLoading: isLoadingProducts } = useQuery(queries.product.list);
 
@@ -68,7 +68,7 @@ export default function AppViewFaqViewCreateModalView() {
   });
 
   const onClose = () => {
-    navigate({ from: routeApi.id, to: '..', search: (old) => old, replace: true, resetScroll: false });
+    navigate({ to: '..', search: (old) => old, replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({

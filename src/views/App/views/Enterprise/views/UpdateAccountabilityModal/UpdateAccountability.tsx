@@ -1,24 +1,24 @@
-import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import ReactModal from 'react-modal';
-import { InferType, number, object, string } from 'yup';
-import { toast } from 'react-toastify';
-import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
+import { getRouteApi } from '@tanstack/react-router';
+import { useForm } from 'react-hook-form';
+import ReactModal from 'react-modal';
 import { PropagateLoader } from 'react-spinners';
-import styles from './UpdateAccountability.module.scss';
-import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthentifiedUser';
-import CategoryClient from '../../../../../../utils/enums/CategoryClient';
-import { enterprises } from '../../../../../../utils/constants/queryKeys/enterprise';
+import { toast } from 'react-toastify';
+import { InferType, number, object, string } from 'yup';
 import { updateEnterpriseAccountability } from '../../../../../../utils/api/enterpriseAccountability';
+import { enterprises } from '../../../../../../utils/constants/queryKeys/enterprise';
+import CategoryClient from '../../../../../../utils/enums/CategoryClient';
+import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthentifiedUser';
+import styles from './UpdateAccountability.module.scss';
 
-const Route = getRouteApi('/app/enterprises/$enterpriseId/update-accountability');
+const routeApi = getRouteApi('/app/enterprises_/$enterpriseId/update-accountability');
 
 export default function AppViewEnterpriseViewUpdateAccountabilityModalView() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate();
+  const navigate = routeApi.useNavigate();
 
-  const { enterpriseId } = Route.useParams();
+  const { enterpriseId } = routeApi.useParams();
 
   const { data: currentUser } = useAuthentifiedUserQuery();
 
@@ -64,7 +64,7 @@ export default function AppViewEnterpriseViewUpdateAccountabilityModalView() {
   });
 
   const onClose = () => {
-    navigate({ from: Route.id, to: '..', search: (old) => old, replace: true, resetScroll: false });
+    navigate({ to: '..', search: true, replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({

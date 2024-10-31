@@ -1,14 +1,15 @@
-import { Link, getRouteApi, useNavigate } from '@tanstack/react-router';
-import ReactModal from 'react-modal';
-import styles from './AssistancesModal.module.scss';
 import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
+import { Link, getRouteApi } from '@tanstack/react-router';
+import ReactModal from 'react-modal';
 import { queries } from '../../../../../../utils/constants/queryKeys';
 import CategoryBusiness from '../../../../../../utils/enums/CategoryBusiness';
+import styles from './AssistancesModal.module.scss';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId');
+const routePath = '/app/businesses-rma/business/$businessId';
 
 export default function AppViewBusinessViewAssistancesModalComponent() {
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { businessId } = routeApi.useParams();
   const { businessModal } = routeApi.useSearch();
@@ -43,7 +44,7 @@ export default function AppViewBusinessViewAssistancesModalComponent() {
           </div>
 
           <div className={styles.modal_buttons}>
-            <Link from={routeApi.id} search={(old) => ({ ...old, businessModal: 'create-assistance' })} className="btn btn-secondary">
+            <Link from={routePath} search={(old) => ({ ...old, businessModal: 'create-assistance' })} className="btn btn-secondary">
               Ajouter une assistance
             </Link>
             <button type="reset" className="btn btn-secondary">
