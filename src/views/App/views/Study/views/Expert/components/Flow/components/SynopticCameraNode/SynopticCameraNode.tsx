@@ -148,7 +148,14 @@ export default function AppViewStudyViewExpertViewFlowComponentSynopticCameraNod
               </div>
             </div>
             <div title={title} onContextMenu={onContextMenu}>
-              <img src={image} width={data.size.width} height={data.size.height} style={{ opacity: data.opacity / 100 }} onLoad={onImageLoad} />
+              <img
+                src={image}
+                alt={`Produit ${product.reference}`}
+                width={data.size.width}
+                height={data.size.height}
+                style={{ opacity: data.opacity / 100 }}
+                onLoad={onImageLoad}
+              />
             </div>
           </div>
           {showMenu && (

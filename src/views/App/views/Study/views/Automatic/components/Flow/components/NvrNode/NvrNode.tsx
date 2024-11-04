@@ -374,7 +374,7 @@ export default function AppViewStudyViewAutomaticViewFlowComponentNvrNodeCompone
 
   return (
     <>
-      <img src={`https://bd.vizeo.eu/6-Photos/${data.reference}/PLUG_${data.reference}.png`} className="w-48" />
+      <img src={`https://bd.vizeo.eu/6-Photos/${data.reference}/PLUG_${data.reference}.png`} alt={`Produit ${data.reference}`} className="w-48" />
       {handles.map((handle) => (
         <Handle key={handle.id} {...handle} />
       ))}

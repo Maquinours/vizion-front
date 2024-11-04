@@ -27,7 +27,7 @@ export const excelFileToObject = async (file: File) => {
     const rowData: Record<string, string> = {};
     row.forEach((cell, i) => {
       const label = labels[i];
-      if (!!label) rowData[label] = cell?.toString() ?? '';
+      if (label) rowData[label] = cell?.toString() ?? '';
     });
     data.push(rowData);
   });
@@ -36,11 +36,11 @@ export const excelFileToObject = async (file: File) => {
 };
 
 export const formatFileName = (fileName: string) => {
-  return fileName.replace(/[\/\\?%*:|"<> ]/g, '_');
+  return fileName.replace(/[/\\?%*:|"<> ]/g, '_');
 };
 
 export const pdfUriToBase64Image = async (uri: string): Promise<string> => {
-  let pdf = await PDFJS.getDocument(uri).promise;
+  const pdf = await PDFJS.getDocument(uri).promise;
   const canvas = document.createElement('canvas');
   const page = await pdf.getPage(1); // 1 is first page
   let viewport = page.getViewport({ scale: 1 });
@@ -69,7 +69,7 @@ const fileToBase64 = (file: File): Promise<string> => {
 export const fileToBase64Image = async (file: File, { compress = false }: { compress?: boolean } = {}): Promise<string> => {
   if (file.type.startsWith('image/')) {
     if (compress && ['image/png', 'image/jpeg'].includes(file.type)) {
-      return new Promise(async (resolve, reject) => {
+      return new Promise((resolve, reject) => {
         const image = new Image();
         // We compress the image in webp format to reduce its size
         image.onload = () => {
@@ -83,13 +83,15 @@ export const fileToBase64Image = async (file: File, { compress = false }: { comp
         image.onerror = (error) => {
           reject(error);
         };
-        image.src = await fileToBase64(file);
+        fileToBase64(file).then((base64) => {
+          image.src = base64;
+        });
       });
     } else {
       return await fileToBase64(file);
     }
   } else if (file.type === 'application/pdf') {
-    let pdf = await PDFJS.getDocument(await fileToBase64(file)).promise;
+    const pdf = await PDFJS.getDocument(await fileToBase64(file)).promise;
     const canvas = document.createElement('canvas');
     const page = await pdf.getPage(1); // 1 is first page
     let viewport = page.getViewport({ scale: 1 });

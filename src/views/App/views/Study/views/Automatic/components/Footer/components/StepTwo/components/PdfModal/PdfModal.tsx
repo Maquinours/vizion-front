@@ -93,8 +93,8 @@ export default function AppViewStudyViewAutomaticViewFooterComponentStepTwoCompo
 
     const flux =
       (cameras?.reduce((acc, cam) => {
-        let flux1 = cam.product.specificationProducts?.find((spec) => spec.specification?.name === 'FLUX1')?.value;
-        let flux2 = cam.product.specificationProducts?.find((spec) => spec.specification?.name === 'FLUX2')?.value;
+        const flux1 = cam.product.specificationProducts?.find((spec) => spec.specification?.name === 'FLUX1')?.value;
+        const flux2 = cam.product.specificationProducts?.find((spec) => spec.specification?.name === 'FLUX2')?.value;
         if (!flux1 || !flux2) return acc;
 
         return acc + (flux1 + flux2) * cam.quantity;

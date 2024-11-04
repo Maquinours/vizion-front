@@ -96,7 +96,7 @@ export default function AppViewProductViewUpdateModalComponent() {
         ecoTaxDEEE: stepTwoData.ecoTax,
         publicPrice: stepTwoData.price,
         productCategoryName: stepOneData.category,
-        assistanceTime: Number(stepTwoData.assistanceHour) ?? null,
+        assistanceTime: Number(stepTwoData.assistanceHour) || null,
         vizeo: stepOneData.isVizeo === 'yes',
         virtualQty: stepOneData.isVirtual === 'yes',
         bom: stepOneData.isNomenclature === 'yes',

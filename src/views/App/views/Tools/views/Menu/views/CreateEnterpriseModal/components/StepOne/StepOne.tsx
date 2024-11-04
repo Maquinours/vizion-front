@@ -118,7 +118,7 @@ export default function AppViewToolsViewMenuViewCreateEnterpriseModalViewStepOne
                   placeholder="Enseigne"
                   id="company_signboard"
                   autoCorrect="true"
-                  autoComplete="no"
+                  autoComplete="off"
                 />
                 <p className={styles.errors}>{errors.sign?.message}</p>
               </div>
@@ -147,7 +147,7 @@ export default function AppViewToolsViewMenuViewCreateEnterpriseModalViewStepOne
                   placeholder="Adresse 1"
                   id="company_address_one"
                   autoCorrect="true"
-                  autoComplete="no"
+                  autoComplete="off"
                 />
                 <p className={styles.errors}>{errors.addressLineOne?.message}</p>
               </div>
@@ -163,7 +163,7 @@ export default function AppViewToolsViewMenuViewCreateEnterpriseModalViewStepOne
                   placeholder="Adresse 2"
                   id="company_address_two"
                   autoCorrect="true"
-                  autoComplete="no"
+                  autoComplete="off"
                 />
                 <p className={styles.errors}>{errors.addressLineTwo?.message}</p>
               </div>
@@ -171,7 +171,7 @@ export default function AppViewToolsViewMenuViewCreateEnterpriseModalViewStepOne
                 <label className={styles.required} htmlFor="company_zip_code">
                   <span>*</span>Code Postal :
                 </label>
-                <input {...register('zipCode')} type="text" placeholder="Code Postal" id="company_zip_code" autoCorrect="true" autoComplete="no" />
+                <input {...register('zipCode')} type="text" placeholder="Code Postal" id="company_zip_code" autoCorrect="true" autoComplete="off" />
                 <p className={styles.errors}>{errors.zipCode?.message}</p>
               </div>
               <div className={styles.form_group}>
@@ -186,7 +186,7 @@ export default function AppViewToolsViewMenuViewCreateEnterpriseModalViewStepOne
                   placeholder="Ville"
                   id="company_city"
                   autoCorrect="true"
-                  autoComplete="no"
+                  autoComplete="off"
                 />
                 <p className={styles.errors}>{errors.city?.message}</p>
               </div>
@@ -202,7 +202,7 @@ export default function AppViewToolsViewMenuViewCreateEnterpriseModalViewStepOne
                   placeholder="Mail"
                   id="company_email"
                   autoCorrect="true"
-                  autoComplete="no"
+                  autoComplete="off"
                 />
                 <p className={styles.errors}>{errors.email?.message}</p>
               </div>

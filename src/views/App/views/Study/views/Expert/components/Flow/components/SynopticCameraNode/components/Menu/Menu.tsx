@@ -151,7 +151,11 @@ export default function AppViewStudyViewExpertViewFlowComponentSynopticCameraNod
               {options?.map((option) => (
                 <div key={option.product.id} className="flex items-center justify-center space-x-4">
                   <p className="w-20">{option.product.reference}</p>
-                  <img src={`https://bd.vizeo.eu/6-Photos/${option.product.reference}/${option.product.reference}.png`} className="h-12 w-12" />
+                  <img
+                    src={`https://bd.vizeo.eu/6-Photos/${option.product.reference}/${option.product.reference}.png`}
+                    alt={`Produit ${option.product.reference}`}
+                    className="h-12 w-12"
+                  />
                   <div className="flex items-center justify-center space-x-2">
                     <button
                       type="button"
@@ -172,8 +176,9 @@ export default function AppViewStudyViewExpertViewFlowComponentSynopticCameraNod
           </div>
         )}
         <div className="flex gap-x-1 border-t-2 border-t-[#1a192b] px-2 pb-2">
-          <label>Opacité :</label>
+          <label htmlFor="opacity">Opacité :</label>
           <input
+            id="opacity"
             type={'range'}
             min={10}
             max={100}

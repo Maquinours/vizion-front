@@ -153,17 +153,17 @@ export default function AppViewToolsViewSchedulerViewDetailsModalViewUpdateModal
 
   useEffect(() => {
     setValue('title', rdv.title);
-    if (!!rdv.description) setValue('description', rdv.description);
+    if (rdv.description) setValue('description', rdv.description);
     else resetField('description');
-    if (!!rdv.place) setValue('place', rdv.place);
+    if (rdv.place) setValue('place', rdv.place);
     else resetField('place');
-    if (!!rdv.fullTime) setValue('fullTime', rdv.fullTime);
+    if (rdv.fullTime) setValue('fullTime', rdv.fullTime);
     else resetField('fullTime');
     setValue('dates', [moment(rdv.startDateTime).toDate(), moment(rdv.endDatetime).toDate()]);
   }, [rdv.id]);
 
   useEffect(() => {
-    if (!!memberOptions) setValue('participants', memberOptions?.filter((member) => rdv.infos.some((info) => info.attributeToId === member.id)) ?? []);
+    if (memberOptions) setValue('participants', memberOptions?.filter((member) => rdv.infos.some((info) => info.attributeToId === member.id)) ?? []);
   }, [isLoadingMemberOptions, rdv.id]);
 
   useEffect(() => {

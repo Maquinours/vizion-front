@@ -157,8 +157,8 @@ export default function AppViewStudyViewExpertViewHeaderComponentCartComponentDe
       columnHelper.display({
         id: 'actions',
         cell: ({ row: { original } }) => (
-          <div onClick={() => onNodeSelectClick(original.nodeId)} className="flex w-full justify-center">
-            <button type="button" disabled={original.selected} className="btn btn-primary">
+          <div className="flex w-full justify-center">
+            <button type="button" disabled={original.selected} onClick={() => onNodeSelectClick(original.nodeId)} className="btn btn-primary">
               Sélectionner
             </button>
           </div>

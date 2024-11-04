@@ -127,16 +127,17 @@ export default function AppViewStudyViewExpertViewFlowComponentMiscProductNodeCo
             <p className="h-4 text-sm">{product.reference}</p>
           </div>
           <div ref={nodeRef} className="flex justify-center">
-            <img
-              title={title}
-              src={`https://bd.vizeo.eu/6-Photos/${product.reference}/${product.reference}.webp`}
-              width={data.size.width}
-              height={data.size.height}
-              style={{ opacity: opacity / 100 }}
-              onMouseDown={onMouseDown}
-              onContextMenu={onContextMenu}
-              onLoad={onImageLoad}
-            />
+            <button className="h-fit w-fit" onMouseDown={onMouseDown} onContextMenu={onContextMenu}>
+              <img
+                title={title}
+                src={`https://bd.vizeo.eu/6-Photos/${product.reference}/${product.reference}.webp`}
+                alt={`Produit ${product.reference}`}
+                width={data.size.width}
+                height={data.size.height}
+                style={{ opacity: opacity / 100 }}
+                onLoad={onImageLoad}
+              />
+            </button>
           </div>
         </div>
         {showMenu && (

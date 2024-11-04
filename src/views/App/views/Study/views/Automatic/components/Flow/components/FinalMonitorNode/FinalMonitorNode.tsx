@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { Handle, Node, NodeProps, Position } from '@xyflow/react';
 import { queries } from '../../../../../../../../../../utils/constants/queryKeys';
 
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export type AutomaticStudyFinalMonitorNode = Node<{}, 'tvNode'>;
 export default function AppViewStudyViewAutomaticViewFlowComponentFinalMonitorNodeComponent({ id }: NodeProps) {
   const { data: product } = useQuery({

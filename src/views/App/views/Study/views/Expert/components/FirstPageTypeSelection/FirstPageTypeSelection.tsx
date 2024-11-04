@@ -32,7 +32,7 @@ export default function AppViewStudyViewExpertViewFirstPageTypeSelectionComponen
   const { control, handleSubmit } = useForm({
     resolver: yupResolver(yupSchema),
     defaultValues: {
-      selection: 'synoptic' as 'synoptic',
+      selection: 'synoptic' as const,
     },
   });
 
@@ -61,7 +61,7 @@ export default function AppViewStudyViewExpertViewFirstPageTypeSelectionComponen
         render={({ field: { value, onChange } }) => (
           <div className="flex flex-col gap-y-2">
             <button className="flex cursor-pointer items-center" onClick={() => onChange('synoptic')}>
-              <img className="border-2 border-solid border-black" src={synopticPicture} width={224} height={228} />
+              <img className="border-2 border-solid border-black" src={synopticPicture} alt="Synoptique" width={224} height={228} />
               <label className="w-24 cursor-pointer text-right font-bold text-[#A60DCA]" htmlFor="firstPageModeSelectionSynoptic">
                 Synoptique :
               </label>
@@ -75,7 +75,7 @@ export default function AppViewStudyViewExpertViewFirstPageTypeSelectionComponen
               />
             </button>
             <button className="flex cursor-pointer items-center" onClick={() => onChange('density')}>
-              <img className="border-2 border-solid border-black" src={densityPicture} width={224} height={228} />
+              <img className="border-2 border-solid border-black" src={densityPicture} alt="Calcul de densité" width={224} height={228} />
               <label className="w-24 cursor-pointer text-right font-bold text-[#0D6AE3]" htmlFor="firstPageModeSelectionDensity">
                 Densité :
               </label>

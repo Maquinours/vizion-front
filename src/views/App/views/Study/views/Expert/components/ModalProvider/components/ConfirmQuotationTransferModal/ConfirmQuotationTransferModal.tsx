@@ -74,7 +74,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentConfirmQ
           (node.data.option
             ? 'Options'
             : GROUPS.find((group) => !!product.category && group.categories.includes(product.category))?.name || product.category || 'Autres');
-        if (!!data) data.quantity += quantity;
+        if (data) data.quantity += quantity;
         else
           acc.push({
             product: product,
@@ -84,10 +84,10 @@ export default function AppViewStudyViewExpertViewModalProviderComponentConfirmQ
         if ('options' in node.data)
           for (const option of node.data.options) {
             const data = acc.find((data) => data.product.id === option.id && data.groupName === groupName);
-            if (!!data) data.quantity += option.quantity;
+            if (data) data.quantity += option.quantity;
             else {
               const product = products.find((product) => product.id === option.id);
-              if (!!product) acc.push({ product: product, quantity: option.quantity, groupName: groupName });
+              if (product) acc.push({ product: product, quantity: option.quantity, groupName: groupName });
             }
           }
         return acc;
@@ -185,10 +185,10 @@ export default function AppViewStudyViewExpertViewModalProviderComponentConfirmQ
       className="absolute left-2/4 top-2/4 z-[2005] m-auto h-auto w-auto min-w-[70%] max-w-[1000px] -translate-x-2/4 -translate-y-2/4 rounded-md p-0 opacity-100"
       overlayClassName="Overlay"
     >
-      <h2 className="flex h-10 items-center justify-center rounded-t-md bg-[#16204e] text-white">Transfert des produits dans l'affaire</h2>
+      <h2 className="flex h-10 items-center justify-center rounded-t-md bg-[#16204e] text-white">Transfert des produits dans l&apos;affaire</h2>
       <div className="w-full rounded-b-md bg-white p-2">
         <div className="flex flex-col gap-y-1 p-2 text-center">
-          <span className="text-center">Vous êtes sur le point de transférer les produits de la synoptique vers l'affaire.</span>
+          <span className="text-center">Vous êtes sur le point de transférer les produits de la synoptique vers l&apos;affaire.</span>
           <span className="font-bold text-[var(--secondary-color)]">Si un devis existe déjà, il sera écrasé.</span>
           <span>Voulez-vous continuer ?</span>
         </div>

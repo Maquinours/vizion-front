@@ -1,5 +1,6 @@
 import { Handle, Position, Node } from '@xyflow/react';
 
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export type AutomaticStudyBoxNode = Node<{}, 'boxNode'>;
 export default function AppViewStudyViewAutomaticViewFlowComponentBoxNodeComponent() {
   return (

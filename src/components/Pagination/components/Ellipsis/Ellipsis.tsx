@@ -10,12 +10,13 @@ export default function PaginationComponentEllipsisComponent({ totalPages, chang
   const [step, setStep] = useState<'button' | 'input'>('button');
 
   switch (step) {
-    case 'button':
+    case 'button': {
       const onButtonClick = () => {
         setStep('input');
       };
       return <PaginationComponentEllipsisComponentButtonComponent onClick={onButtonClick} />;
-    case 'input':
+    }
+    case 'input': {
       const onSubmit = ({ page }: { page: number }) => {
         if (!Number.isSafeInteger(page) || page < 0 || page > totalPages) return;
         setStep('button');
@@ -25,6 +26,7 @@ export default function PaginationComponentEllipsisComponent({ totalPages, chang
         setStep('button');
       };
       return <PaginationComponentEllipsisComponentInputComponent onSubmit={onSubmit} onBlur={onInputBlur} />;
+    }
   }
 
   //   return (

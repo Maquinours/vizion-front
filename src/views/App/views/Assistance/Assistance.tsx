@@ -88,7 +88,7 @@ export default function AppViewAssistanceView() {
 
   useEffect(() => {
     setValue('name', assistance.name);
-    if (!!assistance.predefinedTime) setValue('predefinedTime', parseInt(assistance.predefinedTime.split(':')[0]));
+    if (assistance.predefinedTime) setValue('predefinedTime', parseInt(assistance.predefinedTime.split(':')[0]));
     else resetField('predefinedTime');
   }, [assistance.id]);
 

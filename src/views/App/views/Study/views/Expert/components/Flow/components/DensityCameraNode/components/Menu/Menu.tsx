@@ -32,7 +32,7 @@ export default function AppViewStudyViewExpertViewFlowComponentDensityCameraNode
   const [position, setPosition] = useState<{ left: number; top: number }>({ left: 0, top: 0 });
 
   useEffect(() => {
-    if (!!dragButtonRef.current) {
+    if (dragButtonRef.current) {
       const dragSelection = select(dragButtonRef.current);
       let lastMousePosition = { x: 0, y: 0 };
       dragSelection.on('mousedown', (evt) => {
@@ -50,7 +50,7 @@ export default function AppViewStudyViewExpertViewFlowComponentDensityCameraNode
       });
       dragSelection.call(dragDragHandler);
     }
-    if (!!angleButtonRef.current) {
+    if (angleButtonRef.current) {
       const angleSelection = select(angleButtonRef.current);
       const angleDragHandler = drag<HTMLButtonElement, unknown>().on('drag', (evt) => {
         updateNodeData(nodeId, (node) => {
@@ -66,7 +66,7 @@ export default function AppViewStudyViewExpertViewFlowComponentDensityCameraNode
       });
       angleSelection.call(angleDragHandler);
     }
-    if (!!rangeButtonRef.current) {
+    if (rangeButtonRef.current) {
       const rangeSelection = select(rangeButtonRef.current);
       const rangeDragHandler = drag<HTMLButtonElement, unknown>().on('drag', (evt) => {
         updateNodeData(nodeId, (node) => {
@@ -79,7 +79,7 @@ export default function AppViewStudyViewExpertViewFlowComponentDensityCameraNode
       });
       rangeSelection.call(rangeDragHandler);
     }
-    if (!!rotationButtonRef.current) {
+    if (rotationButtonRef.current) {
       const rotationSelection = select(rotationButtonRef.current);
       const rotationDragHandler = drag<HTMLButtonElement, unknown>().on('drag', (evt) => {
         if (!rotationButtonRef.current) return;
@@ -92,7 +92,7 @@ export default function AppViewStudyViewExpertViewFlowComponentDensityCameraNode
       });
       rotationSelection.call(rotationDragHandler);
     }
-    if (!!opacityButtonRef.current) {
+    if (opacityButtonRef.current) {
       const opacitySelection = select(opacityButtonRef.current);
       const opacityDragHandler = drag<HTMLButtonElement, unknown>().on('drag', (evt) => {
         updateNodeData(nodeId, (node) => {

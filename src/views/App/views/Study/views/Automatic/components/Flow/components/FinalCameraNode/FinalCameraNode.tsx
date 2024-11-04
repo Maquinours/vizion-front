@@ -28,6 +28,7 @@ export default function AppViewStudyViewAutomaticViewFlowComponentFinalCameraNod
               <div className="flex h-8 w-8 items-center justify-center rounded-md p-0 text-xs text-black">x{option.qty}</div>
               <img
                 src={`https://bd.vizeo.eu/6-Photos/${option.reference}/${option.reference}.jpg`}
+                alt={`Produit ${option.reference}`}
                 className="h-8 w-8"
                 // style={{
                 //   opacity: !camInfos.optionsIsOption ? '100%' : '60%',
@@ -38,7 +39,12 @@ export default function AppViewStudyViewAutomaticViewFlowComponentFinalCameraNod
         </div>
 
         <div className="px-1 py-1 hover:relative hover:rounded-md hover:border-2 hover:border-blue-900">
-          <img src={`https://bd.vizeo.eu/6-Photos/${data.model.reference}/PLUG_${data.model.reference}.png`} width={data.width} height={data.height} />
+          <img
+            src={`https://bd.vizeo.eu/6-Photos/${data.model.reference}/PLUG_${data.model.reference}.png`}
+            alt={`Produit ${data.model.reference}`}
+            width={data.width}
+            height={data.height}
+          />
         </div>
       </div>
       <Handle

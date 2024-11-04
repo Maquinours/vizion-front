@@ -180,7 +180,7 @@ export default function AppViewToolsViewMenuViewCreateEnterpriseModalViewAddCont
           <div className={styles.form_container}>
             <div className={styles.form__row_one}>
               <div className={styles.form__group}>
-                <label className={styles.form__label}>Civilité :</label>
+                <span className={styles.form__label}>Civilité :</span>
                 <div className={styles.form__radio__group}>
                   <div className={styles.form__radio}>
                     <input type="radio" id="civility-monsieur" {...register('civility')} value="Monsieur" />
@@ -275,7 +275,7 @@ export default function AppViewToolsViewMenuViewCreateEnterpriseModalViewAddCont
                   {...register('email')}
                   id="mail"
                   autoCorrect="true"
-                  autoComplete="no"
+                  autoComplete="off"
                   onBlur={() => refetchEmail()}
                 />
                 <p className={styles.__errors}>
@@ -293,7 +293,7 @@ export default function AppViewToolsViewMenuViewCreateEnterpriseModalViewAddCont
             </div>
             <div className={styles.form__row_one}>
               <div className={styles.form__group}>
-                <label className={styles.form__label}>Expert :</label>
+                <span className={styles.form__label}>Expert :</span>
                 <div className={styles.form__radio__group}>
                   <div className={styles.form__radio}>
                     <input type="radio" id="expert-yes" {...register('expert')} value="yes" />
@@ -325,7 +325,7 @@ export default function AppViewToolsViewMenuViewCreateEnterpriseModalViewAddCont
                   {...register('siteIdentifier')}
                   id="identifiant"
                   autoCorrect="true"
-                  autoComplete="no"
+                  autoComplete="off"
                   style={{ textTransform: 'lowercase' }}
                   onBlur={() => refetchIdentifier()}
                 />
@@ -413,7 +413,7 @@ export default function AppViewToolsViewMenuViewCreateEnterpriseModalViewAddCont
                   {...register('confirmPassword')}
                   id="confirm"
                   autoCorrect="true"
-                  autoComplete="no"
+                  autoComplete="off"
                 />
                 <p className={styles.__errors}>{errors.confirmPassword?.message}</p>
                 {!showConfirmPassword ? (

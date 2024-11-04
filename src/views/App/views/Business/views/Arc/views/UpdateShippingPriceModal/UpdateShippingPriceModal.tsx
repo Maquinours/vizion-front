@@ -79,7 +79,7 @@ export default function AppViewBusinessViewArcViewUpdateShippingPriceModalView()
         isAxiosError(error) &&
         !!error.response &&
         typeof error.response === 'object' &&
-        'message' in error.response?.data &&
+        'message' in error.response.data &&
         error.response?.data.message === 'Numéro de commande requis.'
       )
         message = 'Veuillez saisir un numéro de commande avant de modifier les frais de port';

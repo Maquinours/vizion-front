@@ -38,7 +38,7 @@ export default function AppViewToolsViewCreditsViewSearchSectionComponent({ isLo
       search: (old) => ({
         ...old,
         serialNumber: serialNumber || undefined,
-        businessNumber: !!businessNumber ? (businessNumber.startsWith('VZO ') ? businessNumber : `VZO ${businessNumber}`) : undefined,
+        businessNumber: businessNumber ? (businessNumber.startsWith('VZO ') ? businessNumber : `VZO ${businessNumber}`) : undefined,
       }),
       replace: true,
       resetScroll: false,

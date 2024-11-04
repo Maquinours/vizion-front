@@ -114,10 +114,10 @@ export default function AppViewStudyViewExpertViewModalProviderComponentImportGe
       }
       case 'background': {
         const selection = Object.entries(rowSelection).find(([, isSelected]) => isSelected);
-        if (!!selection) {
+        if (selection) {
           const [key] = selection;
           const item = images.find((image): image is LoadedImage => image.key === key && !image.loading);
-          if (!!item) {
+          if (item) {
             const reactFlowRect = document.querySelector('.react-flow')!.getBoundingClientRect();
             const position = screenToFlowPosition({ x: reactFlowRect.x, y: reactFlowRect.y });
             const endPosition = screenToFlowPosition({ x: reactFlowRect.x + reactFlowRect.width, y: reactFlowRect.y + reactFlowRect.height });

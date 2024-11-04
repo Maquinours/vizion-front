@@ -58,13 +58,13 @@ export default function AppViewProductsViewSerialNumbersModalViewRemoveFromBusin
         <div className={styles.modal_title}>
           <h6>
             Êtes-vous certain.e de vouloir <span style={{ color: 'var(--secondary-color)', fontWeight: 'bold' }}>retirer</span> le numéro de série{' '}
-            <span style={{ color: 'var(--secondary-color)', fontWeight: 'bold' }}>{serialNumber.serialNumber}</span> de l'affaire{' '}
+            <span style={{ color: 'var(--secondary-color)', fontWeight: 'bold' }}>{serialNumber.serialNumber}</span> de l&apos;affaire{' '}
             <span style={{ color: 'var(--secondary-color)', fontWeight: 'bold' }}>{business.numBusiness}</span> ?
           </h6>
         </div>
         <form onSubmit={onSubmit} onReset={onClose}>
           <div className={styles.modal_content}>
-            <p>Cette action irréversible va définitivement retirer le numéro de série de l'affaire.</p>
+            <p>Cette action irréversible va définitivement retirer le numéro de série de l&apos;affaire.</p>
           </div>
 
           <div className={styles.modal_loader}>

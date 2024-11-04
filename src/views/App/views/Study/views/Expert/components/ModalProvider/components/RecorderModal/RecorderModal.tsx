@@ -161,7 +161,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentRecorder
         else if (cams <= 8) return 'HD508PAP';
         else if (cams <= 16) return 'HD516PAP';
       })();
-      if (!!selectedReference) {
+      if (selectedReference) {
         const model = newModels.find((model) => model.product.reference === selectedReference);
         if (model) model.selected = true;
       }
@@ -184,15 +184,19 @@ export default function AppViewStudyViewExpertViewModalProviderComponentRecorder
           render={({ field: { value, onChange } }) => (
             <div className="max-h-[30rem] overflow-y-scroll">
               {value.map((model) => (
-                <div
+                <button
                   key={model.product.id}
+                  type="button"
                   className="mt-4 flex items-center justify-center space-x-4 px-4"
                   onClick={() => onChange(value.map((m) => (m.product.id === model.product.id ? { ...m, selected: !m.selected } : m)))}
                 >
                   <div className="flex h-36 w-[30rem] items-center justify-center rounded-md border border-slate-800 px-2">
                     <div className="flex items-center justify-center space-x-2">
                       <div className="h-16 w-36 rounded-md p-4">
-                        <img src={`https://bd.vizeo.eu/6-Photos/${model.product.reference}/PLUG_${model.product.reference}.png`} />
+                        <img
+                          src={`https://bd.vizeo.eu/6-Photos/${model.product.reference}/PLUG_${model.product.reference}.png`}
+                          alt={`Produit ${model.product.reference}`}
+                        />
                       </div>
                       <p className="first-letter:uppercase">{model.product.shortDescription}</p>
                     </div>
@@ -206,7 +210,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentRecorder
                   <div className="flex items-center justify-center space-x-2">
                     <input type="checkbox" checked={model.selected} readOnly={true} />
                   </div>
-                </div>
+                </button>
               ))}
             </div>
           )}

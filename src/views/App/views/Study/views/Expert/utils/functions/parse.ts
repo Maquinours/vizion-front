@@ -320,15 +320,15 @@ const handleSynopticCameraNode = (node: Node, productId: string) => {
 const handleDensityCameraNode = async (node: Node, productId: string) => {
   const angle = await (async () => {
     const angle = typeof node.data.angle === 'number' ? node.data.angle : undefined;
-    if (!!angle) return angle;
+    if (angle) return angle;
     else {
       const products = await queryClient.ensureQueryData(queries.product.list);
       const product = products.find((product) => product.id === productId);
       if (!product) throw new Error('Impossible de trouver le produit');
       const hAngle = product.specificationProducts?.find((spec) => spec.specification?.name === 'ANGLE H');
       if (!hAngle) throw new Error("Impossible de trouver l'angle H");
-      if (!!hAngle.value) return hAngle.value;
-      else if (!!hAngle.maxValue) return hAngle.maxValue;
+      if (hAngle.value) return hAngle.value;
+      else if (hAngle.maxValue) return hAngle.maxValue;
       else throw new Error("Impossible de trouver l'angle H");
     }
   })();

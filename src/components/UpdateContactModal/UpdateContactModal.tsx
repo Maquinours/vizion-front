@@ -140,7 +140,7 @@ export default function UpdateContactModalComponent({ contactId, onClose }: Upda
 
   useEffect(() => {
     const civility = contact.civility === 'Monsieur' || contact.civility === 'Madame' || contact.civility === 'Service' ? contact.civility : undefined;
-    if (!!civility) setValue('civility', civility);
+    if (civility) setValue('civility', civility);
     else resetField('civility');
     setValue('firstName', contact.firstName);
     setValue('lastName', contact.lastName ?? '');
@@ -149,8 +149,8 @@ export default function UpdateContactModalComponent({ contactId, onClose }: Upda
     setValue('standardPhoneNumber', contact.standardPhoneNumber ? parsePhoneNumber(contact.standardPhoneNumber, { defaultCountry: 'FR' })?.number : undefined);
     setValue('email', contact.email);
     setValue('job', contact.job);
-    setValue('expert', !!contact.expert ? 'yes' : 'no');
-    if (!!contact.profileClient) setValue('profileClient', contact.profileClient);
+    setValue('expert', contact.expert ? 'yes' : 'no');
+    if (contact.profileClient) setValue('profileClient', contact.profileClient);
     else resetField('profileClient');
   }, [contact.id]);
 

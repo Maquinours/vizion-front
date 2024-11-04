@@ -41,7 +41,7 @@ export default function AppViewProductsViewSerialNumbersModalViewTableComponent(
         header: 'Affaire',
         cell: ({ row: { original } }) =>
           !!original.businessNumber &&
-          (!!original.businessId ? (
+          (original.businessId ? (
             <Link to="/app/businesses-rma/business/$businessId" params={{ businessId: original.businessId }}>
               {original.businessNumber}
             </Link>

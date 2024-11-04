@@ -34,7 +34,7 @@ export default function AppViewDashboardViewTaskEmailModalViewAttachmentsCompone
 
   if (attachment.name) {
     const image = (() => {
-      if (isPdfFile(attachment.name)) return <img src={PdfFileImage} width={75} height={75} />;
+      if (isPdfFile(attachment.name)) return <img src={PdfFileImage} alt={`Pièce jointe ${attachment.name}`} width={75} height={75} />;
       if (isImageFile(attachment.name))
         return (
           <img
@@ -44,10 +44,10 @@ export default function AppViewDashboardViewTaskEmailModalViewAttachmentsCompone
             height={200}
           />
         );
-      return <img src={UnknownFileImage} width={75} height={75} />;
+      return <img src={UnknownFileImage} alt={`Pièce jointe ${attachment.name}`} width={75} height={75} />;
     })();
 
-    if (!!copy)
+    if (copy)
       return (
         <button
           onClick={selectFile}

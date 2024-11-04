@@ -64,7 +64,7 @@ export default function CreateBusinessRmaLinkModalComponent({ category, number, 
                       id="associatedAllBusiness"
                       options={options}
                       isLoading={isLoadingOptions}
-                      getOptionLabel={(opt) => `${!!opt.title ? `${opt.title} / ` : ''}${opt.number}`}
+                      getOptionLabel={(opt) => `${opt.title ? `${opt.title} / ` : ''}${opt.number}`}
                       getOptionValue={(opt) => opt.id}
                       value={value}
                       onChange={onChange}

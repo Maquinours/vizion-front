@@ -45,7 +45,7 @@ import { technicalSupports } from './technicalSupports';
 import { turnovers } from './turnovers';
 import { users } from './user';
 
-// @ts-ignore
+// @ts-expect-error(The library has a bug (type instantiation is excessively deep and possibly infinite) and we need to ignore it)
 export const queries = mergeQueryKeys(
   businesses,
   businessQuotations,

@@ -5,6 +5,7 @@ export const externalLinks = createQueryKeys('external-link', {
   page: ({ page, size }: { page: number; size: number }) => ({
     queryKey: [{ page, size }],
     contextQueries: {
+      // eslint-disable-next-line @tanstack/query/exhaustive-deps
       byArchiveState: (archived: boolean) => ({ queryKey: [archived], queryFn: () => getExternalLinksPageByArchiveState(archived, page, size) }),
     },
   }),
