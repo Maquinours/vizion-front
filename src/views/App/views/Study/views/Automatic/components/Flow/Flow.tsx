@@ -34,7 +34,7 @@ const defaultEdgeOptions: DefaultEdgeOptions = { animated: true, type: 'smoothst
 
 type AppViewStudyViewAutomaticViewFlowComponentProps = Readonly<{ step: AutomaticStudyStep }>;
 export default function AppViewStudyViewAutomaticViewFlowComponent({ step }: AppViewStudyViewAutomaticViewFlowComponentProps) {
-  const [nodes, _setNodes, onNodesChange] = useNodesState([]);
+  const [nodes, , onNodesChange] = useNodesState([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
 
   const onConnect: OnConnect = useCallback((connection) => setEdges((eds) => addEdge(connection, eds)), [setEdges]);

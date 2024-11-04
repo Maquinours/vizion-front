@@ -78,7 +78,7 @@ export default function AppViewEnterpriseViewAddressBookModalViewImportModalView
   return (
     <div className={styles.modal_container}>
       <div className={styles.modal_title}>
-        <h6>Import d'adresses</h6>
+        <h6>Import d&apos;adresses</h6>
       </div>
 
       <form onSubmit={handleSubmit((data) => mutate(data))}>
@@ -87,7 +87,7 @@ export default function AppViewEnterpriseViewAddressBookModalViewImportModalView
             <label htmlFor="addresses-files">Téléverser le fichier</label>
             <div {...getRootProps({ className: styles.dropzone })}>
               <input id="addresses-files" {...getInputProps()} />
-              <p>Glissez le fichier d'adresses à importer ici</p>
+              <p>Glissez le fichier d&apos;adresses à importer ici</p>
             </div>
             <Controller
               control={control}

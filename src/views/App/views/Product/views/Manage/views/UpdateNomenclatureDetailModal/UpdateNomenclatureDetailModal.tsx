@@ -41,7 +41,7 @@ export default function AppViewProductViewManageViewUpdateNomenclatureDetailModa
     handleSubmit,
   } = useForm({
     resolver: yupResolver(yupSchema),
-    defaultValues: !!nomenclatureDetail?.qte
+    defaultValues: nomenclatureDetail?.qte
       ? {
           quantity: nomenclatureDetail.qte,
         }

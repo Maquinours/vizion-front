@@ -33,15 +33,15 @@ import DensityColors from './enums/DensityColors';
 const defaultSynopticPage = {
   nodes: [] as Array<ExpertStudyNode>,
   edges: [] as Array<Edge>,
-  viewport: { x: 0, y: 0, zoom: 1 } as Viewport,
-  type: 'synoptic' as 'synoptic',
+  viewport: { x: 0, y: 0, zoom: 1 },
+  type: 'synoptic' as const,
 };
 
 const defaultDensityPage = {
   nodes: [{ id: uuidv4(), type: 'densityScale', position: { x: 0, y: 0 }, data: { rotation: 0 } } as ExpertStudyDensityScaleNode] as Array<ExpertStudyNode>,
   edges: [] as Array<Edge>,
-  viewport: { x: 0, y: 0, zoom: 1 } as Viewport,
-  type: 'density' as 'density',
+  viewport: { x: 0, y: 0, zoom: 1 },
+  type: 'density' as const,
   scale: { virtual: 50, real: 10 },
 };
 

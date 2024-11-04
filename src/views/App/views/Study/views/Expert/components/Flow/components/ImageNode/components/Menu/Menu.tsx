@@ -73,8 +73,8 @@ export default function AppViewStudyViewExpertViewFlowComponentImageNodeComponen
         </div>
         <div>
           <div className="flex gap-x-1 border-t-2 border-t-[#1a192b] px-2 pb-2">
-            <label>Opacité :</label>
-            <input type={'range'} min={10} max={100} value={opacity} onChange={onOpacityChange} className="flex-auto" />
+            <label htmlFor="opacity">Opacité :</label>
+            <input id="opacity" type={'range'} min={10} max={100} value={opacity} onChange={onOpacityChange} className="flex-auto" />
             <p>{opacity}%</p>
           </div>
         </div>

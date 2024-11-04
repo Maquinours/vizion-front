@@ -9,7 +9,6 @@ type TableComponentProps<T> = Readonly<{
   isLoading?: boolean;
   onRowClick?: (e: React.MouseEvent, row: Row<T>) => void;
   onRowContextMenu?: (e: React.MouseEvent, row: Row<T>) => void;
-  onRowMouseOver?: (e: React.MouseEvent, row: Row<T>) => void;
   rowSelection?: RowSelectionState;
   setRowSelection?: React.Dispatch<React.SetStateAction<RowSelectionState>>;
   rowId?: keyof T;
@@ -29,7 +28,6 @@ export default function TableComponent<T>({
   isLoading = false,
   onRowClick,
   onRowContextMenu,
-  onRowMouseOver,
   rowSelection,
   setRowSelection,
   rowId,
@@ -69,7 +67,6 @@ export default function TableComponent<T>({
         data={data}
         onRowClick={onRowClick}
         onRowContextMenu={onRowContextMenu}
-        onRowMouseOver={onRowMouseOver}
         renderSubComponent={renderSubComponent}
         getRowClassName={getRowClassName}
         getRowId={getRowId}

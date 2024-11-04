@@ -75,7 +75,7 @@ export default function AppViewToolsViewCreditView() {
       setItems([]);
     },
     onSuccess: (data) => {
-      if (!!data.bill) {
+      if (data.bill) {
         setBusiness(data.business);
         setBill(data.bill);
         setEnterprise(data.enterprise);

@@ -54,6 +54,7 @@ const columns = [
         <div className="flex flex-col gap-y-1">
           {original.pjList.map((item) => (
             <a
+              key={item.id}
               href={`${PUBLIC_BASE_URL}mail/v1/download-file/${item.name}?ref=${original.id}`}
               target="_blank"
               rel="noopener noreferrer"

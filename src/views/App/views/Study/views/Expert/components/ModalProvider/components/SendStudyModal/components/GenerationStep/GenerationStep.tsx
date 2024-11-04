@@ -163,7 +163,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentSendStud
           (node.data.option
             ? 'Options'
             : GROUPS.find((group) => !!product.category && group.categories.includes(product.category))?.name || product.category || 'Autres');
-        if (!!data) data.quantity += quantity;
+        if (data) data.quantity += quantity;
         else
           acc.push({
             product: product,
@@ -173,10 +173,10 @@ export default function AppViewStudyViewExpertViewModalProviderComponentSendStud
         if ('options' in node.data)
           for (const option of node.data.options) {
             const data = acc.find((data) => data.product.id === option.id && data.groupName === groupName);
-            if (!!data) data.quantity += option.quantity;
+            if (data) data.quantity += option.quantity;
             else {
               const product = products.find((product) => product.id === option.id);
-              if (!!product) acc.push({ product: product, quantity: option.quantity, groupName: groupName });
+              if (product) acc.push({ product: product, quantity: option.quantity, groupName: groupName });
             }
           }
         return acc;
@@ -361,7 +361,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentSendStud
         generateStudyPdf(
           Array.from(data.current.entries())
             .sort(([a], [b]) => a - b)
-            .map(([_, blob]) => blob),
+            .map(([, blob]) => blob),
         );
     };
 

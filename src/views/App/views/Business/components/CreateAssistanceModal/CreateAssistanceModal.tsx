@@ -39,7 +39,7 @@ export default function AppViewBusinessViewCreateAssistanceModalComponent() {
           ?.flatMap((detail) => detail.bpSerialList) // We use the optional chaining operator cause the API can return 200 with no data if the business has no BP
           .filter((serial): serial is BusinessBpSerialResponseDto => !!serial && serial.numSerie.startsWith('B011')) ?? [];
       const recaps = [];
-      if (!!bill?.createdDate) recaps.push({ name: 'Date de facturation', value: formatDateWithSlash(bill.createdDate) });
+      if (bill?.createdDate) recaps.push({ name: 'Date de facturation', value: formatDateWithSlash(bill.createdDate) });
       if (nvrSerialNumbers.length === 1) {
         const nvrSerialNumber = nvrSerialNumbers[0];
         recaps.push({ name: 'S2C', value: nvrSerialNumber.numSerie });
@@ -61,7 +61,7 @@ export default function AppViewBusinessViewCreateAssistanceModalComponent() {
       toast.success("L'assistance a été créée avec succès.");
       const currentTabId = getCurrentTab()?.id;
       await navigate({ to: '/app/businesses-rma/business/$businessId/assistance/$assistanceId', params: { assistanceId: technicalSupport.id } });
-      if (!!currentTabId) updateTabRoute(currentTabId, (tab) => ({ to: tab.id as ToOptions['to'] }));
+      if (currentTabId) updateTabRoute(currentTabId, (tab) => ({ to: tab.id as ToOptions['to'] }));
     },
     onError: (error) => {
       console.error(error);

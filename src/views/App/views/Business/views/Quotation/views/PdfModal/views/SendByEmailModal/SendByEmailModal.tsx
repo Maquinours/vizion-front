@@ -12,10 +12,10 @@ export default function AppViewBusinessViewQuotationViewPdfModalViewSendByEmailM
     navigate({ to: '..', search: true, replace: true, resetScroll: false, ignoreBlocker: true });
   };
 
-  let defaultRecipient = (() => {
+  const defaultRecipient = (() => {
     if (business.enterpriseName === 'DIVERS CLIENTS') {
-      if (!!business.billingEmail) return [business.billingEmail];
-    } else if (!!business.profileEmail) return [business.profileEmail];
+      if (business.billingEmail) return [business.billingEmail];
+    } else if (business.profileEmail) return [business.profileEmail];
   })();
 
   return (

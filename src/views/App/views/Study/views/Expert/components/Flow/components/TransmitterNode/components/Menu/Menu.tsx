@@ -157,7 +157,11 @@ export default function AppViewStudyViewExpertViewFlowComponentTransmitterNodeCo
               <div className="flex h-auto flex-col space-y-1">
                 {options.map((option) => (
                   <div key={option.product.id} className="flex items-center justify-start space-x-4">
-                    <img src={`https://bd.vizeo.eu/6-Photos/${option.product.reference}/${option.product.reference}.jpg`} className="h-6 w-6 object-center" />
+                    <img
+                      src={`https://bd.vizeo.eu/6-Photos/${option.product.reference}/${option.product.reference}.jpg`}
+                      alt={`Produit ${option.product.reference}`}
+                      className="h-6 w-6 object-center"
+                    />
                     <p className="w-20">{option.product.reference}</p>
                     <div className="flex items-center justify-center space-x-2">
                       <button
@@ -182,8 +186,8 @@ export default function AppViewStudyViewExpertViewFlowComponentTransmitterNodeCo
             </div>
           )}
           <div className="flex gap-x-1 border-t-2 border-t-[#1a192b] p-2">
-            <label>Opacité :</label>
-            <input type={'range'} min={10} max={100} value={data.opacity} onChange={onOpacityChange} className="flex-auto" />
+            <label htmlFor="opacity">Opacité :</label>
+            <input id="opacity" type={'range'} min={10} max={100} value={data.opacity} onChange={onOpacityChange} className="flex-auto" />
             <p>{data.opacity}%</p>
           </div>
           <div className="flex gap-x-1 border-t-2 border-t-[#1a192b] p-2">

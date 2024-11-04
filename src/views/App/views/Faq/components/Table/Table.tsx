@@ -55,6 +55,7 @@ export default function AppViewFaqViewTableComponent({ data, isLoading }: AppVie
           <div className="flex flex-col items-center">
             {original.products?.map((product) => (
               <Link
+                key={product.id}
                 to="/app/products/$productId"
                 params={{ productId: product.id }}
                 className="w-fit text-[var(--primary-color)] hover:text-[var(--secondary-color)]"
@@ -85,7 +86,7 @@ export default function AppViewFaqViewTableComponent({ data, isLoading }: AppVie
         header: 'Dernière modification',
         cell: ({ row }) => {
           const profile = profiles?.find((profile) => profile.userId === row.original.modifiedBy);
-          return `${formatDateAndHourWithSlash(row.original.modifiedDate)} ${!!profile ? `(${profile.firstName} ${profile.lastName})` : ''}`.trim();
+          return `${formatDateAndHourWithSlash(row.original.modifiedDate)} ${profile ? `(${profile.firstName} ${profile.lastName})` : ''}`.trim();
         },
       }),
       columnHelper.display({

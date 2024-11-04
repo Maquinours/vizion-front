@@ -33,9 +33,9 @@ export default function AppViewStudyViewAutomaticViewFooterComponentAddMonitorMo
   });
 
   useEffect(() => {
-    if (!!products && !getValues('monitor')) {
+    if (products && !getValues('monitor')) {
       const product = products.find((product) => product.reference === 'MO132');
-      if (!!product) setValue('monitor', product);
+      if (product) setValue('monitor', product);
     }
   }, [isLoadingProducts]);
 
@@ -54,11 +54,11 @@ export default function AppViewStudyViewAutomaticViewFooterComponentAddMonitorMo
           render={({ field: { value, onChange } }) => (
             <div>
               {products?.map((product) => (
-                <div className="mt-4 flex items-center justify-center space-x-4 px-4" onClick={() => onChange(product)}>
+                <button key={product.id} type="button" className="mt-4 flex items-center justify-center space-x-4 px-4" onClick={() => onChange(product)}>
                   <div className="flex w-[30rem] items-center justify-center rounded-md border border-slate-800 px-2">
                     <div className="flex items-center justify-center space-x-2">
                       <div className="w-36 overflow-hidden">
-                        <img src={`https://bd.vizeo.eu/6-Photos/${product.reference}/${product.reference}.png`} />
+                        <img src={`https://bd.vizeo.eu/6-Photos/${product.reference}/${product.reference}.png`} alt={`Produit ${product.reference}`} />
                       </div>
                       <p className="first-letter:uppercase">{product.shortDescription}</p>
                     </div>
@@ -72,7 +72,7 @@ export default function AppViewStudyViewAutomaticViewFooterComponentAddMonitorMo
                   <div className="flex items-center justify-center space-x-2">
                     <input type={'checkbox'} checked={value?.id === product.id} readOnly />
                   </div>
-                </div>
+                </button>
               ))}
             </div>
           )}

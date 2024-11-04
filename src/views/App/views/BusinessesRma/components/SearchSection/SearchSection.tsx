@@ -242,10 +242,10 @@ export default function AppViewBusinessesRmaViewSearchSectionComponent() {
     setValue('installer', installer);
     setValue('enterpriseName', enterpriseName);
     setValue('state', state);
-    if (!!dates) setValue('dates', dates);
+    if (dates) setValue('dates', dates);
     else resetField('dates');
     setValue('excludeds', excludeds);
-    if (!!amounts) setValue('amounts', amounts);
+    if (amounts) setValue('amounts', amounts);
     else resetField('amounts');
     setValue('fuzzy', fuzzy);
   }, [number, numOrder, name, contact, deliverPhoneNumber, zipCode, installer, enterpriseName, state, dates, excludeds, amounts, fuzzy]);
@@ -344,7 +344,7 @@ export default function AppViewBusinessesRmaViewSearchSectionComponent() {
                             values={value}
                             onChange={(values) => onChange(values)}
                             renderTrack={({ props, children }) => (
-                              <div
+                              <button
                                 onMouseDown={props.onMouseDown}
                                 onTouchStart={props.onTouchStart}
                                 style={{
@@ -371,7 +371,7 @@ export default function AppViewBusinessesRmaViewSearchSectionComponent() {
                                 >
                                   {children}
                                 </div>
-                              </div>
+                              </button>
                             )}
                             renderThumb={({ props }) => (
                               <div
@@ -385,6 +385,7 @@ export default function AppViewBusinessesRmaViewSearchSectionComponent() {
                                   justifyContent: 'center',
                                   alignItems: 'center',
                                   borderRadius: '50%',
+                                  filter: 'none',
                                 }}
                               />
                             )}

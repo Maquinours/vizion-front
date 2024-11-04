@@ -22,8 +22,8 @@ export default function AppLayoutTopbarComponentMobileTopbar({ logout }: Readonl
   useEffect(() => {
     (async () => {
       for (const match of matches) {
-        if (!!match.staticData.title) return match.staticData.title;
-        else if (!!match.staticData.getTitle) return match.staticData.getTitle(queryClient, match);
+        if (match.staticData.title) return match.staticData.title;
+        else if (match.staticData.getTitle) return match.staticData.getTitle(queryClient, match);
       }
       return '';
     })().then((title) => setTitle(title));

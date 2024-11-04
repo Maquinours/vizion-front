@@ -32,7 +32,7 @@ export default function AppViewAssistanceViewCumulatedTimeCardComponent({ assist
   };
 
   const startRunning = () => {
-    if (!!runningIntervalId) return;
+    if (runningIntervalId) return;
     startTimer();
     window.sessionStorage.setItem(
       `assistance.${assistance.id}.running_timer.cumulatedTime`,

@@ -110,14 +110,19 @@ export default function AppViewBusinessesRmaViewTableComponentRowTooltipComponen
         {data.length === 0 ? (
           <tr>
             <td colSpan={3} className="p-2 text-center align-middle">
-              L'affaire ne contient aucun produit
+              L&apos;affaire ne contient aucun produit
             </td>
           </tr>
         ) : (
           data.map((detail) => (
             <tr key={detail.id}>
               <td className="p-2 text-center align-middle">
-                <img src={`https://bd.vizeo.eu/6-Photos/${detail.reference}/${detail.reference}.png`} width={32} height={32} />
+                <img
+                  src={`https://bd.vizeo.eu/6-Photos/${detail.reference}/${detail.reference}.png`}
+                  alt={`Produit ${detail.reference}`}
+                  width={32}
+                  height={32}
+                />
               </td>
               <td className="p-2 text-center align-middle">{detail.reference}</td>
               <td className="p-2 text-center align-middle">{detail.quantity}</td>

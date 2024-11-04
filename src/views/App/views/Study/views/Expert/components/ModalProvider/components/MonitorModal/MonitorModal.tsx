@@ -94,15 +94,19 @@ export default function AppViewStudyViewExpertViewModalProviderComponentMonitorM
           render={({ field: { value, onChange } }) => (
             <div>
               {value.map((model) => (
-                <div
+                <button
                   key={model.product.id}
+                  type="button"
                   className="mt-4 flex items-center justify-center space-x-4 px-4"
                   onClick={() => onChange(value.map((m) => (m.product.id === model.product.id ? { ...m, selected: !m.selected } : m)))}
                 >
                   <div className="flex w-[30rem] items-center justify-center rounded-md border border-slate-800 px-2">
                     <div className="flex items-center justify-center space-x-2">
                       <div className="w-36 overflow-hidden">
-                        <img src={`https://bd.vizeo.eu/6-Photos/${model.product.reference}/${model.product.reference}.png`} />
+                        <img
+                          src={`https://bd.vizeo.eu/6-Photos/${model.product.reference}/${model.product.reference}.png`}
+                          alt={`Produit ${model.product.reference}`}
+                        />
                       </div>
                       <p>{model.product.shortDescription}</p>
                     </div>
@@ -116,7 +120,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentMonitorM
                   <div className="flex items-center justify-center space-x-2">
                     <input type={'checkbox'} checked={model.selected} readOnly={true} />
                   </div>
-                </div>
+                </button>
               ))}
             </div>
           )}

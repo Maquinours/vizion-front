@@ -11,9 +11,7 @@ enum Modals {
   Monitor,
 }
 
-type AppViewStudyViewAutomaticViewSidebarComponentProps = Readonly<{}>;
-
-export default function AppViewStudyViewAutomaticViewSidebarComponent({}: AppViewStudyViewAutomaticViewSidebarComponentProps) {
+export default function AppViewStudyViewAutomaticViewSidebarComponent() {
   const [openedModal, setOpenedModal] = useState<Modals>();
   const [densityModalProduct, setDensityModalProduct] = useState<ProductResponseDto>();
 
@@ -110,7 +108,7 @@ export default function AppViewStudyViewAutomaticViewSidebarComponent({}: AppVie
             disabled={button.disabled}
             className="mx-4 grid w-[18rem] grid-cols-3 place-items-center gap-3 rounded-md border border-slate-800 p-2 px-1 shadow-md disabled:cursor-not-allowed disabled:opacity-50"
           >
-            <img src={button.image} className="mr-2 w-[70px]" />
+            <img src={button.image} alt={button.label} className="mr-2 w-[70px]" />
             <p className="text-black-700 w-32 text-sm font-bold">{button.label}</p>
           </button>
         ))}

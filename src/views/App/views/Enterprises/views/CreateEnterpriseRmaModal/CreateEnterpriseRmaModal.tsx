@@ -46,7 +46,7 @@ export default function CreateEnterpriseRmaModal() {
       const currentTabId = getCurrentTab()?.id;
       queryClient.setQueryData(queries.rmas.detail(data.id).queryKey, data);
       await navigate({ to: '/app/businesses-rma/rma/$rmaId', params: { rmaId: data.id } });
-      if (!!currentTabId) updateTabRoute(currentTabId, (tab) => ({ to: tab.id as ToOptions['to'] }));
+      if (currentTabId) updateTabRoute(currentTabId, (tab) => ({ to: tab.id as ToOptions['to'] }));
     },
     onError: (error) => {
       console.error(error);

@@ -118,7 +118,7 @@ export default function AppViewStudyViewExpertViewFlowComponentRecorderNodeCompo
           <div></div>
           <div className="absolute left-full -z-50 ml-[5%] flex h-full flex-row items-center justify-center space-x-2 overflow-hidden p-0 text-xs">
             {options.map((option) => (
-              <div>
+              <div key={option.product.id}>
                 <span className="relative z-[50] -mb-4 mr-2 inline-flex items-center rounded-full bg-amber-300 px-2 py-0.5 text-sm font-medium text-white">
                   {option.quantity}
                 </span>
@@ -149,6 +149,7 @@ export default function AppViewStudyViewExpertViewFlowComponentRecorderNodeCompo
               <img
                 style={{ opacity: data.opacity / 100 }}
                 src={`https://bd.vizeo.eu/6-Photos/${product.reference}/PLUG_${product.reference}.png`}
+                alt={`Produit ${product.reference}`}
                 width={data.size.width}
                 height={data.size.height}
                 onLoad={onImageLoad}

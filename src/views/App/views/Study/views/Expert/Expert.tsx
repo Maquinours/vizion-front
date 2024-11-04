@@ -41,7 +41,7 @@ export default function AppViewStudyViewExpertView() {
 
   useEffect(() => {
     if (getBusinessId() !== businessId) {
-      if (!!synoptic?.synopticList) {
+      if (synoptic?.synopticList) {
         parseStudy(synoptic.synopticList).then((study) => {
           importStudy(study);
         });

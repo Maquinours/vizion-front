@@ -57,8 +57,8 @@ export default function LifesheetComponent({
             .filter((item) => item.trim().length > 0)
             .join('; ');
 
-          const content = parse(DOMPurify.sanitize(`${!!receiver ? `à [${receiver}] - ` : ''}${original.description}`));
-          if (!!original.mailId)
+          const content = parse(DOMPurify.sanitize(`${receiver ? `à [${receiver}] - ` : ''}${original.description}`));
+          if (original.mailId)
             return (
               <Link {...getEmailLink(original)} replace resetScroll={false} preload="intent" className="flex justify-center">
                 {content}

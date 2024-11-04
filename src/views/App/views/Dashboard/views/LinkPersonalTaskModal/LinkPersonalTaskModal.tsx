@@ -117,7 +117,7 @@ export default function AppViewDashboardViewLinkPersonalTaskModalView() {
             <CustomSelect
               placeholder="Sélectionnez une affaire"
               options={businesses}
-              getOptionLabel={(opt) => `${opt.number}${!!opt.title ? ` / ${opt.title}` : ''}`}
+              getOptionLabel={(opt) => `${opt.number}${opt.title ? ` / ${opt.title}` : ''}`}
               getOptionValue={(opt) => opt.id}
               isLoading={isLoadingBusinesses}
               value={value}

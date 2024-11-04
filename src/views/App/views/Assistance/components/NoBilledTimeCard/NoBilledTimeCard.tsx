@@ -32,7 +32,7 @@ export default function AppViewAssistanceViewNoBilledTimeCardComponent({ assista
   };
 
   const startRunning = () => {
-    if (!!runningIntervalId) return;
+    if (runningIntervalId) return;
     startTimer();
     window.sessionStorage.setItem(
       `assistance.${assistance.id}.running_timer.noBilledTime`,

@@ -116,7 +116,7 @@ export default function AppViewAssistanceViewSummaryCardComponent({ assistance }
                 style={{ textDecoration: 'revert', color: 'revert' }}
                 className="btn btn-secondary"
               >
-                Accéder à l'enregistreur
+                Accéder à l&apos;enregistreur
               </a>
             );
           })()}

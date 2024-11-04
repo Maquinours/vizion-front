@@ -22,7 +22,12 @@ const columns = [
     cell: ({ row: { original } }) =>
       'product' in original && (
         <div className="flex justify-center">
-          <img src={`https://bd.vizeo.eu/6-Photos/${original.product.reference}/${original.product.reference}.jpg`} width={48} height={48} />
+          <img
+            src={`https://bd.vizeo.eu/6-Photos/${original.product.reference}/${original.product.reference}.jpg`}
+            alt={`Produit ${original.product.reference}`}
+            width={48}
+            height={48}
+          />
         </div>
       ),
   }),
@@ -81,12 +86,12 @@ const selector = (state: ReactFlowState) => ({
     .reduce((acc: Array<{ id: string; quantity: number }>, node) => {
       const product = acc.find((p) => p.id === node.data.productId);
       const quantity = 'quantity' in node.data && node.data.quantity !== undefined ? node.data.quantity : 1;
-      if (!!product) product.quantity += quantity;
+      if (product) product.quantity += quantity;
       else acc.push({ id: node.data.productId, quantity: quantity });
       if ('options' in node.data) {
         for (const option of node.data.options) {
           const product = acc.find((p) => p.id === option.id);
-          if (!!product) product.quantity += option.quantity;
+          if (product) product.quantity += option.quantity;
           else acc.push({ id: option.id, quantity: option.quantity });
         }
       }
