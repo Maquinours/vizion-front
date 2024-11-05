@@ -3,7 +3,7 @@ import GedComponent from '../../../../../../components/Ged/Ged';
 import FileType from '../../../../../../utils/enums/FileType';
 
 const routeApi = getRouteApi('/app/enterprises_/$enterpriseId');
-const routePath = '/app/enterprises_/$enterpriseId';
+const routePath = '/app/enterprises/$enterpriseId';
 
 export default function AppViewEnterpriseViewGedComponent() {
   const { enterpriseId } = routeApi.useParams();
