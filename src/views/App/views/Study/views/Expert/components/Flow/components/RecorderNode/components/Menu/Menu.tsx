@@ -45,7 +45,7 @@ export default function AppViewStudyViewExpertViewFlowComponentRecorderNodeCompo
 
   const ref = useRef<HTMLDivElement>(null);
 
-  const [isMounted, setIsMounted] = useState(false);
+  const [offset, setOffset] = useState<number | undefined>(undefined);
 
   const quantity = data.quantity ?? 1;
 
@@ -65,22 +65,6 @@ export default function AppViewStudyViewExpertViewFlowComponentRecorderNodeCompo
     }
     return Position.Bottom;
   }, [viewportY, viewportZoom, nodePositionY, nodeHeight]);
-
-  const offset = useMemo(() => {
-    const element = ref.current;
-    if (!element) return;
-    const flowRect = document.querySelector('.react-flow')!.getBoundingClientRect();
-    if (position === Position.Top) {
-      const nodeTop = flowToScreenPosition({ x: 0, y: nodePositionY }).y;
-      const top = nodeTop - element.getBoundingClientRect().height;
-      return Math.min(top - flowRect.top, 10);
-    } else if (position === Position.Bottom) {
-      if (!nodeHeight) return;
-      const nodeBottom = flowToScreenPosition({ x: 0, y: nodePositionY + nodeHeight }).y;
-      const bottom = nodeBottom + element.getBoundingClientRect().height;
-      return Math.min(flowRect.bottom - bottom, 10);
-    }
-  }, [isMounted, position, nodePositionY, nodeHeight]);
 
   const onNodeNameChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const name = e.target.value;
@@ -134,9 +118,23 @@ export default function AppViewStudyViewExpertViewFlowComponentRecorderNodeCompo
   };
 
   useEffect(() => {
-    setIsMounted(true);
-    return () => setIsMounted(false);
-  }, []);
+    const offset = (() => {
+      const element = ref.current;
+      if (!element) return;
+      const flowRect = document.querySelector('.react-flow')!.getBoundingClientRect();
+      if (position === Position.Top) {
+        const nodeTop = flowToScreenPosition({ x: 0, y: nodePositionY }).y;
+        const top = nodeTop - element.getBoundingClientRect().height;
+        return Math.min(top - flowRect.top, 10);
+      } else if (position === Position.Bottom) {
+        if (!nodeHeight) return;
+        const nodeBottom = flowToScreenPosition({ x: 0, y: nodePositionY + nodeHeight }).y;
+        const bottom = nodeBottom + element.getBoundingClientRect().height;
+        return Math.min(flowRect.bottom - bottom, 10);
+      }
+    })();
+    setOffset(offset);
+  }, [position, nodePositionY, nodeHeight]);
 
   const hddSlots = product.specificationProducts?.find((spec) => spec.specification?.name === 'SLOT')?.value ?? 0;
   const totalHddQuantity = options?.filter((opt) => opt.product.reference?.startsWith('DD')).reduce((acc, opt) => acc + opt.quantity, 0) ?? 0;

@@ -26,7 +26,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentHddCalcu
 
   const nodes = useStore(useShallow(getNodes));
 
-  const { control, watch, getValues } = useForm({
+  const { control, watch } = useForm({
     resolver: yupResolver(yupSchema),
     defaultValues: {
       hoursPerDay: 24,
@@ -67,8 +67,9 @@ export default function AppViewStudyViewExpertViewModalProviderComponentHddCalcu
     return { flux, hddSpace };
   }, [nodes, products]);
 
+  const hoursPerDay = watch('hoursPerDay');
+
   const days = useMemo(() => {
-    const hoursPerDay = getValues('hoursPerDay');
     if (flux === 0 || hddSpace === 0) return 0;
 
     return (
@@ -80,7 +81,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentHddCalcu
         1024) / // GB per hour
       hoursPerDay
     );
-  }, [watch('hoursPerDay'), flux, hddSpace]);
+  }, [hoursPerDay, flux, hddSpace]);
 
   const onClose = () => {
     setModal(undefined);

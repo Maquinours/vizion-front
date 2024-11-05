@@ -87,7 +87,9 @@ export default function AppViewStudyViewExpertViewModalProviderComponentRecorder
     },
   });
 
-  const selectedModelsLength = useMemo(() => getValues('models').filter((model) => model.selected).length, [watch('models')]);
+  const models = watch('models');
+
+  const selectedModelsLength = useMemo(() => models.filter((model) => model.selected).length, [models]);
 
   const onClose = () => {
     setModal(undefined);

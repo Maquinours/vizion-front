@@ -45,14 +45,14 @@ export default function AppViewStudyViewAutomaticViewSidebarComponentMonitorSele
     onClose();
   };
 
-  if (isLoadingProducts) return <LoaderModal />;
-
   useEffect(() => {
     if (products && !getValues('monitor')) {
       const product = products.find((product) => product.reference === 'MO132');
       if (product) setValue('monitor', product);
     }
   }, [isLoadingProducts]);
+
+  if (isLoadingProducts) return <LoaderModal />;
 
   return (
     <ReactModal

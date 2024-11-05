@@ -6,6 +6,7 @@ import react from "eslint-plugin-react";
 import globals from "globals";
 import tseslint from 'typescript-eslint';
 import tsParser from '@typescript-eslint/parser';
+import reactCompiler from 'eslint-plugin-react-compiler'
 
 export default tseslint.config(
     eslint.configs.recommended,
@@ -16,6 +17,9 @@ export default tseslint.config(
     react.configs.flat['jsx-runtime'],
     jsxA11Y.flatConfigs.recommended,
     {
+        plugins: {
+            'react-compiler': reactCompiler,
+        },
         languageOptions: {
             globals: {
                 ...globals.browser,
@@ -35,7 +39,8 @@ export default tseslint.config(
         ignores: ["**/dist/", "**/node_modules/"],
         files: ["**/*.ts", "**/*.tsx"],
         rules: {
-            "react/prop-types": "off"
+            "react/prop-types": "off",
+            'react-compiler/react-compiler': 'error',
         }
     }
 )

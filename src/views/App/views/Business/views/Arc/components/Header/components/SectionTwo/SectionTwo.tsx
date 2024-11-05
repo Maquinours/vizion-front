@@ -41,16 +41,16 @@ export default function AppViewBusinessViewArcViewHeaderComponentSectionTwoCompo
     formState: { errors, isDirty },
     watch,
     reset: resetForm,
-    getValues,
     handleSubmit,
   } = useForm({
     resolver: yupResolver(yupSchema),
     defaultValues: formDefaultValues,
   });
 
+  const clientTotalAmountHT = watch('clientTotalAmountHT');
+
   const formWarnings = useMemo(() => {
     const result: { clientTotalAmountHT?: string } = {};
-    const clientTotalAmountHT = getValues('clientTotalAmountHT');
     if (clientTotalAmountHT === undefined) result.clientTotalAmountHT = 'Champs requis';
     else if (isNaN(clientTotalAmountHT)) result.clientTotalAmountHT = 'Entrez un nombre';
     else {
@@ -60,7 +60,7 @@ export default function AppViewBusinessViewArcViewHeaderComponentSectionTwoCompo
         result.clientTotalAmountHT = `Le montant total HT du client diffère de celui de l'ARC, Diff: ${absoluteDiffValue.toFixed(2)} €`;
     }
     return result;
-  }, [watch('clientTotalAmountHT'), arc.totalAmountHT, arc.shippingServicePrice]);
+  }, [clientTotalAmountHT, arc.totalAmountHT, arc.shippingServicePrice]);
 
   const { status, proceed, reset } = useBlocker({
     condition: isDirty,

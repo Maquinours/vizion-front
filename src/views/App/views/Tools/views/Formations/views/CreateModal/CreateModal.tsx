@@ -61,12 +61,14 @@ export default function AppViewToolsViewFormationsViewCreateModalView() {
     },
   });
 
+  const details = watch('details');
+
   const contextValue = useMemo(
     () => ({
-      details: getValues('details'),
+      details: details,
       setDetails: (details: Array<FormationDetail>) => setValue('details', details),
     }),
-    [getValues, setValue, watch('details')],
+    [getValues, setValue, details],
   );
 
   const onClose = () => {

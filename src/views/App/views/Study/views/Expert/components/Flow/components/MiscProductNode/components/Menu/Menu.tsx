@@ -27,7 +27,7 @@ export default function AppViewStudyViewExpertViewFlowComponentMiscProductNodeCo
 
   const ref = useRef<HTMLDivElement>(null);
 
-  const [isMounted, setIsMounted] = useState(false);
+  const [offset, setOffset] = useState<number | undefined>(undefined);
 
   const position = useMemo(() => {
     if (nodeHeight !== undefined) {
@@ -38,22 +38,6 @@ export default function AppViewStudyViewExpertViewFlowComponentMiscProductNodeCo
     }
     return Position.Bottom;
   }, [viewportY, viewportZoom, nodePositionY, nodeHeight]);
-
-  const offset = useMemo(() => {
-    const element = ref.current;
-    if (!element) return;
-    const flowRect = document.querySelector('.react-flow')!.getBoundingClientRect();
-    if (position === Position.Top) {
-      const nodeTop = flowToScreenPosition({ x: 0, y: nodePositionY }).y;
-      const top = nodeTop - element.getBoundingClientRect().height;
-      return Math.min(top - flowRect.top, 10);
-    } else if (position === Position.Bottom) {
-      if (!nodeHeight) return;
-      const nodeBottom = flowToScreenPosition({ x: 0, y: nodePositionY + nodeHeight }).y;
-      const bottom = nodeBottom + element.getBoundingClientRect().height;
-      return Math.min(flowRect.bottom - bottom, 10);
-    }
-  }, [isMounted, position, nodePositionY, nodeHeight]);
 
   const onOpacityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     updateNodeData(nodeId, { opacity: Number(e.target.value) });
@@ -73,9 +57,23 @@ export default function AppViewStudyViewExpertViewFlowComponentMiscProductNodeCo
   };
 
   useEffect(() => {
-    setIsMounted(true);
-    return () => setIsMounted(false);
-  }, []);
+    const offset = (() => {
+      const element = ref.current;
+      if (!element) return;
+      const flowRect = document.querySelector('.react-flow')!.getBoundingClientRect();
+      if (position === Position.Top) {
+        const nodeTop = flowToScreenPosition({ x: 0, y: nodePositionY }).y;
+        const top = nodeTop - element.getBoundingClientRect().height;
+        return Math.min(top - flowRect.top, 10);
+      } else if (position === Position.Bottom) {
+        if (!nodeHeight) return;
+        const nodeBottom = flowToScreenPosition({ x: 0, y: nodePositionY + nodeHeight }).y;
+        const bottom = nodeBottom + element.getBoundingClientRect().height;
+        return Math.min(flowRect.bottom - bottom, 10);
+      }
+    })();
+    setOffset(offset);
+  }, [position, nodePositionY, nodeHeight]);
 
   return (
     <NodeToolbar isVisible position={position} align="center" offset={offset}>

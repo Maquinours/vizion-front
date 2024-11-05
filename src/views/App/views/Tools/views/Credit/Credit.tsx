@@ -91,24 +91,26 @@ export default function AppViewToolsViewCreditView() {
     },
   });
 
-  const { register, watch, getValues } = useForm({
+  const { register, watch } = useForm({
     resolver: yupResolver(yupSchema),
     defaultValues: {
       shippingServicePrice: 0,
     },
   });
 
+  const shippingServicePrice = watch('shippingServicePrice');
+
   const contextValue = useMemo(
     () => ({
       business,
       details,
       setDetails,
-      shippingServicePrice: getValues('shippingServicePrice'),
+      shippingServicePrice: shippingServicePrice,
       items,
       enterprise: details?.billingCompany ?? enterprise,
       bill,
     }),
-    [business, details, setDetails, watch('shippingServicePrice'), items, enterprise, bill],
+    [business, details, setDetails, shippingServicePrice, items, enterprise, bill],
   );
 
   const addLine = () => {
