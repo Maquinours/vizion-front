@@ -61,7 +61,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentConfirmQ
       const synopticPages = pages.filter((page) => page.type === 'synoptic');
       const productNodes = synopticPages.flatMap((page) =>
         page.nodes.filter(
-          (node): node is ProductNode => !!node.type && ['synopticCamera', 'monitor', 'recorder', 'transmitter', 'service'].includes(node.type),
+          (node): node is ProductNode => !!node.type && ['synopticCamera', 'monitor', 'recorder', 'transmitter', 'misc-product'].includes(node.type),
         ),
       );
       const productsData = productNodes.reduce((acc: Array<{ product: ProductResponseDto; quantity: number; groupName: string }>, node) => {
