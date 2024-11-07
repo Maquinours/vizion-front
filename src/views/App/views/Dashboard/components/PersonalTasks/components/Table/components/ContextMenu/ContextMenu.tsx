@@ -39,7 +39,7 @@ export default function AppViewDashboardViewPersonalTasksComponentTableComponent
                         from={Route.id}
                         to="./link-personal-task/$taskId"
                         params={{ taskId: task.id }}
-                        search={(old) => old}
+                        search
                         replace
                         resetScroll={false}
                         preload="viewport"
@@ -55,7 +55,7 @@ export default function AppViewDashboardViewPersonalTasksComponentTableComponent
                         from={Route.id}
                         to="./archive-personal-task/$taskId"
                         params={{ taskId: task.id }}
-                        search={(old) => old}
+                        search
                         replace
                         resetScroll={false}
                         preload="viewport"
@@ -72,7 +72,7 @@ export default function AppViewDashboardViewPersonalTasksComponentTableComponent
                         from={Route.id}
                         to="./update-personal-task-deadline/$taskId"
                         params={{ taskId: task.id }}
-                        search={(old) => old}
+                        search
                         replace
                         resetScroll={false}
                         preload="viewport"
@@ -85,15 +85,7 @@ export default function AppViewDashboardViewPersonalTasksComponentTableComponent
                   {((task.profileId === user.profile.id && task.state === TaskState.CREATED) ||
                     (task.senderId === user.profile.id && task.senderState === TaskState.CREATED)) && (
                     <MenuItem>
-                      <Link
-                        from={Route.id}
-                        to="./transfer-task/$taskId"
-                        params={{ taskId: task.id }}
-                        search={(old) => old}
-                        replace
-                        resetScroll={false}
-                        preload="viewport"
-                      >
+                      <Link from={Route.id} to="./transfer-task/$taskId" params={{ taskId: task.id }} search replace resetScroll={false} preload="viewport">
                         <IoMdArrowForward className={styles.icon} />
                         <span className={styles.text}>Transférer à</span>
                       </Link>
@@ -106,7 +98,7 @@ export default function AppViewDashboardViewPersonalTasksComponentTableComponent
                         from={Route.id}
                         to="./validate-personal-task/$taskId"
                         params={{ taskId: task.id }}
-                        search={(old) => old}
+                        search
                         replace
                         resetScroll={false}
                         preload="viewport"
@@ -121,7 +113,7 @@ export default function AppViewDashboardViewPersonalTasksComponentTableComponent
                       from={Route.id}
                       to="./personal-task-details/$taskId"
                       params={{ taskId: task.id }}
-                      search={(old) => old}
+                      search
                       replace
                       resetScroll={false}
                       preload="viewport"
@@ -131,15 +123,7 @@ export default function AppViewDashboardViewPersonalTasksComponentTableComponent
                     </Link>
                   </MenuItem>
                   <MenuItem>
-                    <Link
-                      from={Route.id}
-                      to="./task-comments/$taskId"
-                      params={{ taskId: task.id }}
-                      search={(old) => old}
-                      replace
-                      resetScroll={false}
-                      preload="viewport"
-                    >
+                    <Link from={Route.id} to="./task-comments/$taskId" params={{ taskId: task.id }} search replace resetScroll={false} preload="viewport">
                       <MdOutlineComment className={styles.icon} />
                       <span className={styles.text}>Commentaires</span>
                     </Link>
