@@ -5,7 +5,7 @@ import { OnValueChange } from 'react-number-format';
 import AmountFormat from '../../../../../../../../../../../../components/AmountFormat/AmountFormat';
 import ProductProductResponseDto from '../../../../../../../../../../../../utils/types/ProductProductResponseDto';
 import ProductResponseDto from '../../../../../../../../../../../../utils/types/ProductResponseDto';
-import { ExpertStudySynopticCameraNode } from '../../SynopticCameraNode';
+import { ExpertStudySynopticCameraNode, ExpertStudySynopticCameraNodeOrientation } from '../../SynopticCameraNode';
 
 type Option = {
   product: ProductProductResponseDto;
@@ -28,7 +28,7 @@ export default function AppViewStudyViewExpertViewFlowComponentSynopticCameraNod
   nodePositionY,
   nodeHeight,
 }: AppViewStudyViewExpertViewFlowComponentSynopticCameraNodeComponentMenuComponentProps) {
-  const { updateNodeData, flowToScreenPosition } = useReactFlow();
+  const { updateNodeData, flowToScreenPosition, getEdges, deleteElements } = useReactFlow();
   const { y: viewportY, zoom: viewportZoom } = useViewport();
 
   const ref = useRef<HTMLDivElement>(null);
@@ -43,6 +43,8 @@ export default function AppViewStudyViewExpertViewFlowComponentSynopticCameraNod
     .sort((a, b) => (a.product.reference ?? '').localeCompare(b.product.reference ?? ''));
 
   const quantity = data.quantity ?? 1;
+
+  const orientation = 'orientation' in data ? data.orientation : undefined;
 
   const position = useMemo(() => {
     if (nodeHeight !== undefined) {
@@ -92,6 +94,17 @@ export default function AppViewStudyViewExpertViewFlowComponentSynopticCameraNod
     updateNodeData(nodeId, { option: e.target.checked });
   };
 
+  const onOrientationChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = parseInt(e.target.value);
+    const orientation = isNaN(value) ? undefined : value;
+    if (orientation !== undefined) {
+      // If the orientation is defined, then the handle will be removed & we then should remove the edges associated to it.
+      const edgesToDelete = getEdges().filter((edge) => edge.target === nodeId || edge.source === nodeId);
+      deleteElements({ edges: edgesToDelete });
+    }
+    updateNodeData(nodeId, { orientation });
+  };
+
   useEffect(() => {
     const offset = (() => {
       const element = ref.current;
@@ -129,6 +142,30 @@ export default function AppViewStudyViewExpertViewFlowComponentSynopticCameraNod
             placeholder="Choisir un nom"
             className="flex-1 rounded-md border border-[#1a192b] p-2"
           />
+        </div>
+        <div className="flex flex-col items-center justify-start gap-y-3 space-x-2 p-2">
+          <p className="flex-1 text-right text-sm">Orientation :</p>
+          <div className="flex w-full flex-1 flex-row justify-between">
+            {[
+              { orientation: undefined, label: 'Plug' },
+              { orientation: ExpertStudySynopticCameraNodeOrientation.LEFT, label: 'Gauche' },
+              { orientation: ExpertStudySynopticCameraNodeOrientation.RIGHT, label: 'Droite' },
+            ].map((data) => (
+              <div key={data.orientation} className="flex flex-row gap-x-1">
+                <label htmlFor={`orientation-${data.orientation}`} className="flex items-center justify-center space-x-2 text-sm">
+                  {data.label}
+                </label>
+                <input
+                  type="radio"
+                  id={`orientation-${data.orientation}`}
+                  name="orientation"
+                  value={data.orientation}
+                  checked={orientation === data.orientation}
+                  onChange={onOrientationChange}
+                />
+              </div>
+            ))}
+          </div>
         </div>
         <div className="flex items-center justify-start space-x-2 border-t-2 border-t-[#1a192b] p-2">
           <p className="flex-1 text-right text-sm">Quantité :</p>

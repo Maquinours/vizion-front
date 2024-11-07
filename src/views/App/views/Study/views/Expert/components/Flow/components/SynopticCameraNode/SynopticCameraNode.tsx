@@ -5,6 +5,12 @@ import React, { ReactEventHandler, useState } from 'react';
 import AmountFormat from '../../../../../../../../../../components/AmountFormat/AmountFormat';
 import { queries } from '../../../../../../../../../../utils/constants/queryKeys';
 import AppViewStudyViewExpertViewFlowComponentSynopticCameraNodeComponentMenuComponent from './components/Menu/Menu';
+import classNames from 'classnames';
+
+export enum ExpertStudySynopticCameraNodeOrientation {
+  RIGHT = 1,
+  LEFT = 2,
+}
 
 export const isExpertStudySynopticCameraNode = (node: Node): node is ExpertStudySynopticCameraNode => {
   return (
@@ -33,7 +39,10 @@ export const isExpertStudySynopticCameraNode = (node: Node): node is ExpertStudy
     'opacity' in node.data &&
     typeof node.data.opacity === 'number' &&
     (!('quantity' in node.data) || typeof node.data.quantity === 'number' || node.data.quantity === undefined) &&
-    (!('option' in node.data) || typeof node.data.option === 'boolean' || node.data.option === undefined)
+    (!('option' in node.data) || typeof node.data.option === 'boolean' || node.data.option === undefined) &&
+    (!('orientation' in node.data) ||
+      (typeof node.data.orientation === 'number' && Object.values(ExpertStudySynopticCameraNodeOrientation).includes(node.data.orientation)) ||
+      node.data.orientation === undefined)
   );
 };
 
@@ -46,6 +55,7 @@ export type ExpertStudySynopticCameraNode = Node<
     opacity: number;
     quantity?: number;
     option?: boolean;
+    orientation?: ExpertStudySynopticCameraNodeOrientation;
   },
   'synopticCamera'
 >;
@@ -97,7 +107,8 @@ export default function AppViewStudyViewExpertViewFlowComponentSynopticCameraNod
 
   if (!product) return;
 
-  const image = `https://bd.vizeo.eu/6-Photos/${product.reference}/${product.category !== 'Autres cameras' ? 'PLUG_' : ''}${product.reference}.png`;
+  const orientation = 'orientation' in data ? data.orientation : undefined;
+  const image = `https://bd.vizeo.eu/6-Photos/${product.reference}/${product.category !== 'Autres cameras' && orientation === undefined ? 'PLUG_' : ''}${product.reference}.png`;
   const name = !data.name || data.name === product.reference ? product.reference : `${data.name} (${product.reference})`;
 
   const quantity = data.quantity ?? 1;
@@ -113,7 +124,7 @@ export default function AppViewStudyViewExpertViewFlowComponentSynopticCameraNod
         onResize={onResize}
         handleStyle={{ width: 10, height: 10, borderRadius: '100%' }}
       />
-      <Handle style={{ height: 10, width: 10, zIndex: 1 }} id="x" type="source" position={Position.Right} />
+      {orientation === undefined && <Handle style={{ height: 10, width: 10, zIndex: 1 }} id="x" type="source" position={Position.Right} />}
       <ClickAwayListener onClickAway={() => setShowMenu(false)} mouseEvent={showMenu ? 'onPointerDown' : false}>
         <div
         //  onContextMenu={onContextMenu}
@@ -154,6 +165,7 @@ export default function AppViewStudyViewExpertViewFlowComponentSynopticCameraNod
                 width={data.size.width}
                 height={data.size.height}
                 style={{ opacity: data.opacity / 100 }}
+                className={classNames({ 'scale-x-[-1]': data.orientation === ExpertStudySynopticCameraNodeOrientation.RIGHT })}
                 onLoad={onImageLoad}
               />
             </div>
