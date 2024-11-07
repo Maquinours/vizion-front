@@ -29,7 +29,7 @@ const reactFlowSelector = (state: ReactFlowState) => {
       | ExpertStudyRecorderNode
       | ExpertStudyTransmitterNode
       | ExpertStudyMiscProductNode
-    > => !!node.type && ['synopticCamera', 'densityCamera', 'monitor', 'recorder', 'transmitter', 'service'].includes(node.type),
+    > => !!node.type && ['synopticCamera', 'densityCamera', 'monitor', 'recorder', 'transmitter', 'misc-product'].includes(node.type),
   );
   const camerasCount = productNodes.reduce(
     (acc, node) => acc + (node.type === 'synopticCamera' ? (node.data.quantity ?? 1) : node.type === 'densityCamera' ? 1 : 0),

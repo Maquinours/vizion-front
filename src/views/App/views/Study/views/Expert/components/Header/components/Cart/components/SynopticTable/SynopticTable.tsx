@@ -81,7 +81,7 @@ const selector = (state: ReactFlowState) => ({
         node,
       ): node is InternalNode<
         ExpertStudySynopticCameraNode | ExpertStudyMonitorNode | ExpertStudyRecorderNode | ExpertStudyTransmitterNode | ExpertStudyMiscProductNode
-      > => !!node.type && ['synopticCamera', 'monitor', 'recorder', 'transmitter', 'service'].includes(node.type),
+      > => !!node.type && ['synopticCamera', 'monitor', 'recorder', 'transmitter', 'misc-product'].includes(node.type),
     )
     .reduce((acc: Array<{ id: string; quantity: number }>, node) => {
       const product = acc.find((p) => p.id === node.data.productId);
