@@ -102,27 +102,25 @@ export default function AppViewStudyViewExpertViewModalProviderComponentConfirmQ
         .map(([groupName, products], index) => ({
           name: groupName,
           orderNum: `${index}`,
-          quotationDetails: products
-            .filter((product) => product.quantity > 0)
-            .map((product) => {
-              const publicUnitPrice = product.product.publicPrice ?? 0;
-              const unitPrice = Number((publicUnitPrice - publicUnitPrice * ((business.reduction ?? 0) / 100)).toFixed(2));
-              const totalPrice = Number((unitPrice * product.quantity).toFixed(2));
-              return {
-                groupName: groupName,
-                productId: product.product.id,
-                productName: product.product.reference,
-                productReference: product.product.reference ?? '',
-                productDesignation: product.product.shortDescription,
-                quantity: product.quantity,
-                reduction: business.reduction ?? 0,
-                taxDEEE: 0,
-                publicUnitPrice: publicUnitPrice,
-                unitPrice: unitPrice,
-                totalPrice: totalPrice,
-                virtualQty: product.product.virtualQty,
-              };
-            }),
+          quotationDetails: products.map((product) => {
+            const publicUnitPrice = product.product.publicPrice ?? 0;
+            const unitPrice = Number((publicUnitPrice - publicUnitPrice * ((business.reduction ?? 0) / 100)).toFixed(2));
+            const totalPrice = Number((unitPrice * product.quantity).toFixed(2));
+            return {
+              groupName: groupName,
+              productId: product.product.id,
+              productName: product.product.reference,
+              productReference: product.product.reference ?? '',
+              productDesignation: product.product.shortDescription,
+              quantity: product.quantity,
+              reduction: business.reduction ?? 0,
+              taxDEEE: 0,
+              publicUnitPrice: publicUnitPrice,
+              unitPrice: unitPrice,
+              totalPrice: totalPrice,
+              virtualQty: product.product.virtualQty,
+            };
+          }),
         }))
         .filter(({ quotationDetails }) => quotationDetails.length > 0);
 
