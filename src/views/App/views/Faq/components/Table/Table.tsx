@@ -71,12 +71,13 @@ export default function AppViewFaqViewTableComponent({ data, isLoading }: AppVie
         cell: ({ row }) => row.original.accessLevel,
       }),
       columnHelper.display({
-        header: 'Assistance',
+        header: 'Concerné',
         cell: ({ row }) =>
           row.original.assistanceId && row.original.businessId ? (
             <Link
               to="/app/businesses-rma/business/$businessId/assistance/$assistanceId"
               params={{ businessId: row.original.businessId, assistanceId: row.original.assistanceId }}
+              className="w-fit text-[var(--primary-color)] hover:text-[var(--secondary-color)]"
             >
               {row.original.assistanceName}
             </Link>
