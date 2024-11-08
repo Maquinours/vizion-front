@@ -45,6 +45,11 @@ export default function AppViewBusinessViewBlViewBodyComponent() {
               {({ loading }) => <button className="btn btn-secondary">{loading ? 'Chargement...' : 'Télécharger'}</button>}
             </PDFDownloadLink>
           )}
+          {user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && (
+            <Link from={routePath} to="update" search replace resetScroll={false} preload="intent" className="btn btn-secondary">
+              Modifier
+            </Link>
+          )}
         </div>
       )}
     </div>

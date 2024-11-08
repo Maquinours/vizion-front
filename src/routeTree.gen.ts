@@ -327,6 +327,8 @@ const AuthForgotPasswordRouteLazyImport = createFileRoute(
 const AuthResetPasswordTokenRouteLazyImport = createFileRoute(
   '/auth/reset-password/$token',
 )()
+const AppBusinessesRmaBusinessBusinessIdBlUpdateRouteLazyImport =
+  createFileRoute('/app/businesses-rma_/business/$businessId/bl/update')()
 
 // Create/Update Routes
 
@@ -2155,6 +2157,17 @@ const AppBusinessesRmaBusinessBusinessIdStudyIndexRoute =
     path: '/',
     getParentRoute: () => AppBusinessesRmaBusinessBusinessIdStudyRouteRoute,
   } as any)
+
+const AppBusinessesRmaBusinessBusinessIdBlUpdateRouteLazyRoute =
+  AppBusinessesRmaBusinessBusinessIdBlUpdateRouteLazyImport.update({
+    id: '/update',
+    path: '/update',
+    getParentRoute: () => AppBusinessesRmaBusinessBusinessIdBlRouteRoute,
+  } as any).lazy(() =>
+    import(
+      './routes/app/businesses-rma_/business.$businessId/bl/update/route.lazy'
+    ).then((d) => d.Route),
+  )
 
 const AppToolsSchedulerDetailsRdvIdUpdateRouteRoute =
   AppToolsSchedulerDetailsRdvIdUpdateRouteImport.update({
@@ -5374,6 +5387,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppToolsSchedulerDetailsRdvIdUpdateRouteImport
       parentRoute: typeof AppToolsSchedulerDetailsRdvIdRouteImport
     }
+    '/app/businesses-rma_/business/$businessId/bl/update': {
+      id: '/app/businesses-rma_/business/$businessId/bl/update'
+      path: '/update'
+      fullPath: '/app/businesses-rma/business/$businessId/bl/update'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdBlUpdateRouteLazyImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdBlRouteImport
+    }
     '/app/businesses-rma_/business/$businessId_/study/': {
       id: '/app/businesses-rma_/business/$businessId_/study/'
       path: '/'
@@ -6926,12 +6946,15 @@ const AppBusinessesRmaBusinessBusinessIdBlSendByEmailRouteRouteWithChildren =
 
 interface AppBusinessesRmaBusinessBusinessIdBlRouteRouteChildren {
   AppBusinessesRmaBusinessBusinessIdBlSendByEmailRouteRoute: typeof AppBusinessesRmaBusinessBusinessIdBlSendByEmailRouteRouteWithChildren
+  AppBusinessesRmaBusinessBusinessIdBlUpdateRouteLazyRoute: typeof AppBusinessesRmaBusinessBusinessIdBlUpdateRouteLazyRoute
 }
 
 const AppBusinessesRmaBusinessBusinessIdBlRouteRouteChildren: AppBusinessesRmaBusinessBusinessIdBlRouteRouteChildren =
   {
     AppBusinessesRmaBusinessBusinessIdBlSendByEmailRouteRoute:
       AppBusinessesRmaBusinessBusinessIdBlSendByEmailRouteRouteWithChildren,
+    AppBusinessesRmaBusinessBusinessIdBlUpdateRouteLazyRoute:
+      AppBusinessesRmaBusinessBusinessIdBlUpdateRouteLazyRoute,
   }
 
 const AppBusinessesRmaBusinessBusinessIdBlRouteRouteWithChildren =
@@ -7835,6 +7858,7 @@ export interface FileRoutesByFullPath {
   '/app/tools/formations/update/$formationId/details': typeof AppToolsFormationsUpdateFormationIdDetailsRouteRoute
   '/app/tools/scheduler/details/$rdvId/delete': typeof AppToolsSchedulerDetailsRdvIdDeleteRouteRoute
   '/app/tools/scheduler/details/$rdvId/update': typeof AppToolsSchedulerDetailsRdvIdUpdateRouteRoute
+  '/app/businesses-rma/business/$businessId/bl/update': typeof AppBusinessesRmaBusinessBusinessIdBlUpdateRouteLazyRoute
   '/app/businesses-rma/business/$businessId/study/': typeof AppBusinessesRmaBusinessBusinessIdStudyIndexRoute
   '/app/businesses-rma/business/$businessId/arc/delete-detail/$detailId': typeof AppBusinessesRmaBusinessBusinessIdArcDeleteDetailDetailIdRouteRoute
   '/app/businesses-rma/business/$businessId/arc/pdf/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdArcPdfSendByEmailRouteRouteWithChildren
@@ -8138,6 +8162,7 @@ export interface FileRoutesByTo {
   '/app/tools/formations/update/$formationId/details': typeof AppToolsFormationsUpdateFormationIdDetailsRouteRoute
   '/app/tools/scheduler/details/$rdvId/delete': typeof AppToolsSchedulerDetailsRdvIdDeleteRouteRoute
   '/app/tools/scheduler/details/$rdvId/update': typeof AppToolsSchedulerDetailsRdvIdUpdateRouteRoute
+  '/app/businesses-rma/business/$businessId/bl/update': typeof AppBusinessesRmaBusinessBusinessIdBlUpdateRouteLazyRoute
   '/app/businesses-rma/business/$businessId/study': typeof AppBusinessesRmaBusinessBusinessIdStudyIndexRoute
   '/app/businesses-rma/business/$businessId/arc/delete-detail/$detailId': typeof AppBusinessesRmaBusinessBusinessIdArcDeleteDetailDetailIdRouteRoute
   '/app/businesses-rma/business/$businessId/arc/pdf/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdArcPdfSendByEmailRouteRouteWithChildren
@@ -8449,6 +8474,7 @@ export interface FileRoutesById {
   '/app/tools/formations/update/$formationId/details': typeof AppToolsFormationsUpdateFormationIdDetailsRouteRoute
   '/app/tools/scheduler/details/$rdvId/delete': typeof AppToolsSchedulerDetailsRdvIdDeleteRouteRoute
   '/app/tools/scheduler/details/$rdvId/update': typeof AppToolsSchedulerDetailsRdvIdUpdateRouteRoute
+  '/app/businesses-rma_/business/$businessId/bl/update': typeof AppBusinessesRmaBusinessBusinessIdBlUpdateRouteLazyRoute
   '/app/businesses-rma_/business/$businessId_/study/': typeof AppBusinessesRmaBusinessBusinessIdStudyIndexRoute
   '/app/businesses-rma_/business/$businessId/arc/delete-detail/$detailId': typeof AppBusinessesRmaBusinessBusinessIdArcDeleteDetailDetailIdRouteRoute
   '/app/businesses-rma_/business/$businessId/arc/pdf/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdArcPdfSendByEmailRouteRouteWithChildren
@@ -8761,6 +8787,7 @@ export interface FileRouteTypes {
     | '/app/tools/formations/update/$formationId/details'
     | '/app/tools/scheduler/details/$rdvId/delete'
     | '/app/tools/scheduler/details/$rdvId/update'
+    | '/app/businesses-rma/business/$businessId/bl/update'
     | '/app/businesses-rma/business/$businessId/study/'
     | '/app/businesses-rma/business/$businessId/arc/delete-detail/$detailId'
     | '/app/businesses-rma/business/$businessId/arc/pdf/send-by-email'
@@ -9063,6 +9090,7 @@ export interface FileRouteTypes {
     | '/app/tools/formations/update/$formationId/details'
     | '/app/tools/scheduler/details/$rdvId/delete'
     | '/app/tools/scheduler/details/$rdvId/update'
+    | '/app/businesses-rma/business/$businessId/bl/update'
     | '/app/businesses-rma/business/$businessId/study'
     | '/app/businesses-rma/business/$businessId/arc/delete-detail/$detailId'
     | '/app/businesses-rma/business/$businessId/arc/pdf/send-by-email'
@@ -9372,6 +9400,7 @@ export interface FileRouteTypes {
     | '/app/tools/formations/update/$formationId/details'
     | '/app/tools/scheduler/details/$rdvId/delete'
     | '/app/tools/scheduler/details/$rdvId/update'
+    | '/app/businesses-rma_/business/$businessId/bl/update'
     | '/app/businesses-rma_/business/$businessId_/study/'
     | '/app/businesses-rma_/business/$businessId/arc/delete-detail/$detailId'
     | '/app/businesses-rma_/business/$businessId/arc/pdf/send-by-email'
@@ -10192,7 +10221,8 @@ export const routeTree = rootRoute
       "filePath": "app/businesses-rma_/business.$businessId/bl/route.ts",
       "parent": "/app/businesses-rma_/business/$businessId",
       "children": [
-        "/app/businesses-rma_/business/$businessId/bl/send-by-email"
+        "/app/businesses-rma_/business/$businessId/bl/send-by-email",
+        "/app/businesses-rma_/business/$businessId/bl/update"
       ]
     },
     "/app/businesses-rma_/business/$businessId/bp": {
@@ -10834,6 +10864,10 @@ export const routeTree = rootRoute
     "/app/tools/scheduler/details/$rdvId/update": {
       "filePath": "app/tools/scheduler/details.$rdvId/update/route.ts",
       "parent": "/app/tools/scheduler/details/$rdvId"
+    },
+    "/app/businesses-rma_/business/$businessId/bl/update": {
+      "filePath": "app/businesses-rma_/business.$businessId/bl/update/route.lazy.ts",
+      "parent": "/app/businesses-rma_/business/$businessId/bl"
     },
     "/app/businesses-rma_/business/$businessId_/study/": {
       "filePath": "app/businesses-rma_/business.$businessId_/study/index.ts",
