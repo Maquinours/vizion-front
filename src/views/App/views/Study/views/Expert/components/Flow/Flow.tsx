@@ -240,7 +240,8 @@ export default function AppViewStudyViewExpertViewFlowComponent() {
         changes[0].position.y = helperLines.snapPosition.y ?? changes[0].position.y;
         setHelperLines({ horizontal: helperLines.horizontal, vertical: helperLines.vertical });
       } else
-        for (const change of changes) if (change.type === 'select' && change.selected && change.id === 'background') changes.splice(changes.indexOf(change), 1); // can't select the background node
+        for (const change of changes)
+          if (change.type === 'select' && change.selected && change.id.startsWith('background')) changes.splice(changes.indexOf(change), 1); // can't select the background node
 
       onNodesChangeStore(changes);
     },

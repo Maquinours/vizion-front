@@ -207,7 +207,6 @@ export default function AppViewToolsViewFormationsViewUpdateModalView() {
                           <h4>Fichiers</h4>
                           <ul>
                             {value.map((file) => {
-                              console.log(file);
                               if (!(file instanceof File))
                                 return (
                                   <li key={file.path}>

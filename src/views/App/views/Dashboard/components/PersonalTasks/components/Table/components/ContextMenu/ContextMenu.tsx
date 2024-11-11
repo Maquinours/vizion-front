@@ -48,10 +48,8 @@ export default function AppViewDashboardViewPersonalTasksComponentTableComponent
                       </Link>
                     </MenuItem>
                   )}
-                  {!(
-                    (task.profileId === user.profile.id && task.state === TaskState.ARCHIVED) ||
-                    (task.senderId === user.profile.id && task.senderState === TaskState.ARCHIVED)
-                  ) && (
+                  {((task.profileId === user.profile.id && task.state !== TaskState.ARCHIVED) ||
+                    (task.senderId === user.profile.id && task.senderState !== TaskState.ARCHIVED)) && (
                     <MenuItem>
                       <Link
                         from={Route.id}
