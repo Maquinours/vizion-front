@@ -1,6 +1,5 @@
 import { Link, getRouteApi } from '@tanstack/react-router';
 import { Row, createColumnHelper } from '@tanstack/react-table';
-import { useCallback } from 'react';
 import AmountFormat from '../../../../../../components/AmountFormat/AmountFormat';
 import CurrencyFormat from '../../../../../../components/CurrencyFormat/CurrencyFormat';
 import TableComponent from '../../../../../../components/Table/Table';
@@ -63,13 +62,10 @@ type AppViewProductsViewTableComponentProps = Readonly<{
 export default function AppViewProductsViewTableComponent({ data, isLoading }: AppViewProductsViewTableComponentProps) {
   const navigate = routeApi.useNavigate();
 
-  const onRowClick = useCallback(
-    (e: React.MouseEvent, row: Row<ProductResponseDto>) => {
-      if (e.metaKey || e.ctrlKey) window.open(`${window.location.origin}/app/products/${row.original.id}`, '_blank');
-      else navigate({ to: '$productId', params: { productId: row.original.id } });
-    },
-    [navigate],
-  );
+  const onRowClick = (e: React.MouseEvent, row: Row<ProductResponseDto>) => {
+    if (e.metaKey || e.ctrlKey) window.open(`${window.location.origin}/app/products/${row.original.id}`, '_blank');
+    else navigate({ to: '$productId', params: { productId: row.original.id } });
+  };
 
   return (
     <div className={styles.table_container}>

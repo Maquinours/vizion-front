@@ -3,7 +3,7 @@ import { ClickAwayListener } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
 import { getRouteApi } from '@tanstack/react-router';
 import { E164Number } from 'libphonenumber-js';
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import ReactDatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { Controller, useForm } from 'react-hook-form';
@@ -156,81 +156,75 @@ export default function AppViewBusinessesRmaViewSearchSectionComponent() {
     [STATE_OPTIONS, user],
   );
 
-  const onSubmit = useCallback(
-    ({
-      number,
-      numOrder,
-      name,
-      contact,
-      deliverPhoneNumber,
-      zipCode,
-      representative,
-      installer,
-      amounts,
-      enterpriseName,
-      state,
-      dates,
-      excludeds,
-      fuzzy,
-    }: yup.InferType<typeof yupSchema>) => {
-      navigate({
-        search: (old) => ({
-          ...old,
-          number: number || undefined,
-          numOrder: numOrder || undefined,
-          name: name || undefined,
-          contact: contact || undefined,
-          deliverPhoneNumber: deliverPhoneNumber || undefined,
-          zipCode: zipCode || undefined,
-          representative: representative || undefined,
-          amounts,
-          installer: installer || undefined,
-          enterpriseName: enterpriseName || undefined,
-          state: state || undefined,
-          dates: dates.every((date) => !!date) ? (dates as Array<Date>) : undefined,
-          excludeds,
-          fuzzy,
-          page: 0,
-          size: state === AllBusinessState.FACTURE ? 200 : old.size,
-        }),
-        state: (prev) => prev,
-        replace: true,
-        resetScroll: false,
-      });
-    },
-    [navigate],
-  );
+  const onSubmit = ({
+    number,
+    numOrder,
+    name,
+    contact,
+    deliverPhoneNumber,
+    zipCode,
+    representative,
+    installer,
+    amounts,
+    enterpriseName,
+    state,
+    dates,
+    excludeds,
+    fuzzy,
+  }: yup.InferType<typeof yupSchema>) => {
+    navigate({
+      search: (old) => ({
+        ...old,
+        number: number || undefined,
+        numOrder: numOrder || undefined,
+        name: name || undefined,
+        contact: contact || undefined,
+        deliverPhoneNumber: deliverPhoneNumber || undefined,
+        zipCode: zipCode || undefined,
+        representative: representative || undefined,
+        amounts,
+        installer: installer || undefined,
+        enterpriseName: enterpriseName || undefined,
+        state: state || undefined,
+        dates: dates.every((date) => !!date) ? (dates as Array<Date>) : undefined,
+        excludeds,
+        fuzzy,
+        page: 0,
+        size: state === AllBusinessState.FACTURE ? 200 : old.size,
+      }),
+      state: (prev) => prev,
+      replace: true,
+      resetScroll: false,
+    });
+  };
 
-  const onReset = useCallback(
-    (e: React.FormEvent<HTMLFormElement>) => {
-      e.preventDefault();
-      reset();
-      navigate({
-        search: (old) => ({
-          ...old,
-          number: undefined,
-          numOrder: undefined,
-          name: undefined,
-          contact: undefined,
-          deliverPhoneNumber: undefined,
-          zipCode: undefined,
-          representative: undefined,
-          installer: undefined,
-          amounts: undefined,
-          enterpriseName: undefined,
-          state: undefined,
-          dates: undefined,
-          excludeds: undefined,
-          fuzzy: undefined,
-          page: undefined,
-          size: undefined,
-        }),
-        replace: true,
-        resetScroll: false,
-      });
-    },
-    [reset, navigate],
-  );
+  const onReset = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    reset();
+    navigate({
+      search: (old) => ({
+        ...old,
+        number: undefined,
+        numOrder: undefined,
+        name: undefined,
+        contact: undefined,
+        deliverPhoneNumber: undefined,
+        zipCode: undefined,
+        representative: undefined,
+        installer: undefined,
+        amounts: undefined,
+        enterpriseName: undefined,
+        state: undefined,
+        dates: undefined,
+        excludeds: undefined,
+        fuzzy: undefined,
+        page: undefined,
+        size: undefined,
+      }),
+      replace: true,
+      resetScroll: false,
+    });
+  };
 
   useEffect(() => {
     setValue('number', number);

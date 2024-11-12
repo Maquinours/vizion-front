@@ -2,15 +2,15 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useQuery } from '@tanstack/react-query';
 import { getRouteApi, useNavigate } from '@tanstack/react-router';
 import { E164Number } from 'libphonenumber-js';
-import React, { useCallback, useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import PhoneInput from 'react-phone-number-input/input';
 import * as yup from 'yup';
 import { enterprises } from '../../../../../../utils/constants/queryKeys/enterprise';
 import CategoryClient from '../../../../../../utils/enums/CategoryClient';
+import { UserRole } from '../../../../../../utils/types/ProfileInfoResponseDto';
 import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthentifiedUser';
 import styles from './SearchSection.module.scss';
-import { UserRole } from '../../../../../../utils/types/ProfileInfoResponseDto';
 
 const Route = getRouteApi('/app/enterprises');
 
@@ -90,53 +90,47 @@ export default function AppViewEnterprisesViewSearchSectionComponent() {
     [user.userInfo.roles],
   );
 
-  const onSubmit = useCallback(
-    ({ enterprise, contact, zipCode, city, phoneNumber, category, representativeId, fuzzy }: yup.InferType<typeof yupSchema>) => {
-      navigate({
-        search: (old) => ({
-          ...old,
-          enterprise: enterprise || undefined,
-          contact: contact || undefined,
-          zipCode: zipCode || undefined,
-          city: city || undefined,
-          phoneNumber: phoneNumber || undefined,
-          category: category || undefined,
-          representativeId: representativeId || undefined,
-          fuzzy,
-          page: undefined,
-          size: undefined,
-        }),
-        replace: true,
-        resetScroll: false,
-      });
-    },
-    [navigate],
-  );
+  const onSubmit = ({ enterprise, contact, zipCode, city, phoneNumber, category, representativeId, fuzzy }: yup.InferType<typeof yupSchema>) => {
+    navigate({
+      search: (old) => ({
+        ...old,
+        enterprise: enterprise || undefined,
+        contact: contact || undefined,
+        zipCode: zipCode || undefined,
+        city: city || undefined,
+        phoneNumber: phoneNumber || undefined,
+        category: category || undefined,
+        representativeId: representativeId || undefined,
+        fuzzy,
+        page: undefined,
+        size: undefined,
+      }),
+      replace: true,
+      resetScroll: false,
+    });
+  };
 
-  const onReset = useCallback(
-    (e: React.FormEvent<HTMLFormElement>) => {
-      e.preventDefault();
-      reset();
-      navigate({
-        search: (old) => ({
-          ...old,
-          enterprise: undefined,
-          contact: undefined,
-          zipCode: undefined,
-          city: undefined,
-          phoneNumber: undefined,
-          category: undefined,
-          representativeId: undefined,
-          fuzzy: undefined,
-          page: undefined,
-          size: undefined,
-        }),
-        replace: true,
-        resetScroll: false,
-      });
-    },
-    [reset, navigate],
-  );
+  const onReset = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    reset();
+    navigate({
+      search: (old) => ({
+        ...old,
+        enterprise: undefined,
+        contact: undefined,
+        zipCode: undefined,
+        city: undefined,
+        phoneNumber: undefined,
+        category: undefined,
+        representativeId: undefined,
+        fuzzy: undefined,
+        page: undefined,
+        size: undefined,
+      }),
+      replace: true,
+      resetScroll: false,
+    });
+  };
 
   useEffect(() => {
     setValue('enterprise', enterprise);

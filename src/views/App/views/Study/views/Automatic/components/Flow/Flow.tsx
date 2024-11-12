@@ -1,25 +1,24 @@
-import { useCallback } from 'react';
 import {
-  ReactFlow,
   Background,
   BackgroundVariant,
   ConnectionMode,
   Controls,
+  DefaultEdgeOptions,
   OnConnect,
   Panel,
+  ReactFlow,
   addEdge,
   useEdgesState,
   useNodesState,
-  DefaultEdgeOptions,
 } from '@xyflow/react';
-import AppViewStudyViewAutomaticViewFlowComponentNvrNodeComponent from './components/NvrNode/NvrNode';
-import AppViewStudyViewAutomaticViewIndependantCameraNode from './components/IndependantCameraNode/IndependantCameraNode';
-import AppViewStudyViewAutomaticViewFlowComponentMonitorNodeComponent from './components/MonitorNode/MonitorNode';
+import classNames from 'classnames';
+import { AutomaticStudyStep } from '../../Automatic';
+import AppViewStudyViewAutomaticViewFlowComponentBoxNodeComponent from './components/BoxNode/BoxNode';
 import AppViewStudyViewAutomaticViewFlowComponentFinalCameraNodeComponent from './components/FinalCameraNode/FinalCameraNode';
 import AppViewStudyViewAutomaticViewFlowComponentFinalMonitorNodeComponent from './components/FinalMonitorNode/FinalMonitorNode';
-import { AutomaticStudyStep } from '../../Automatic';
-import classNames from 'classnames';
-import AppViewStudyViewAutomaticViewFlowComponentBoxNodeComponent from './components/BoxNode/BoxNode';
+import AppViewStudyViewAutomaticViewIndependantCameraNode from './components/IndependantCameraNode/IndependantCameraNode';
+import AppViewStudyViewAutomaticViewFlowComponentMonitorNodeComponent from './components/MonitorNode/MonitorNode';
+import AppViewStudyViewAutomaticViewFlowComponentNvrNodeComponent from './components/NvrNode/NvrNode';
 
 const nodeTypes = {
   nvrNode: AppViewStudyViewAutomaticViewFlowComponentNvrNodeComponent,
@@ -37,7 +36,7 @@ export default function AppViewStudyViewAutomaticViewFlowComponent({ step }: App
   const [nodes, , onNodesChange] = useNodesState([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
 
-  const onConnect: OnConnect = useCallback((connection) => setEdges((eds) => addEdge(connection, eds)), [setEdges]);
+  const onConnect: OnConnect = (connection) => setEdges((eds) => addEdge(connection, eds));
 
   return (
     <div className={`relative z-20 h-[70vh] w-[100%] rounded-md border-2 border-[#1a192b] ${classNames({ 'h-[80vh]': step === AutomaticStudyStep.Two })}`}>

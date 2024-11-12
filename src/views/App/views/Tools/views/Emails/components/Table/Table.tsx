@@ -1,6 +1,5 @@
 import { Link, getRouteApi } from '@tanstack/react-router';
 import { Row, createColumnHelper } from '@tanstack/react-table';
-import { useCallback } from 'react';
 import TableComponent from '../../../../../../../../components/Table/Table';
 import { PUBLIC_BASE_URL } from '../../../../../../../../utils/constants/api';
 import { formatDateAndHourWithSlash } from '../../../../../../../../utils/functions/dates';
@@ -75,13 +74,10 @@ type AppViewToolsViewEmailsViewTableComponentProps = Readonly<{ isLoading: boole
 export default function AppViewToolsViewEmailsViewTableComponent({ isLoading, data }: AppViewToolsViewEmailsViewTableComponentProps) {
   const navigate = routeApi.useNavigate();
 
-  const onRowClick = useCallback(
-    (e: React.MouseEvent, row: Row<MailResponseDto>) => {
-      if (e.metaKey || e.ctrlKey) window.open(`${window.location.origin}/app/tools/emails/${row.original.id}`, '_blank');
-      else navigate({ to: '$emailId', params: { emailId: row.original.id }, search: true, replace: true, resetScroll: false });
-    },
-    [navigate],
-  );
+  const onRowClick = (e: React.MouseEvent, row: Row<MailResponseDto>) => {
+    if (e.metaKey || e.ctrlKey) window.open(`${window.location.origin}/app/tools/emails/${row.original.id}`, '_blank');
+    else navigate({ to: '$emailId', params: { emailId: row.original.id }, search: true, replace: true, resetScroll: false });
+  };
 
   return (
     <div className={styles.table_container}>

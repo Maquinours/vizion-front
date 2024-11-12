@@ -1,15 +1,15 @@
+import { VirtualElement } from '@popperjs/core';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { getRouteApi, Link } from '@tanstack/react-router';
 import { createColumnHelper, Row } from '@tanstack/react-table';
+import { useState } from 'react';
 import CardComponent from '../../../../../../../../components/Card/Card';
 import TableComponent from '../../../../../../../../components/Table/Table';
 import { queries } from '../../../../../../../../utils/constants/queryKeys';
 import { formatDateAndHourWithSlash } from '../../../../../../../../utils/functions/dates';
 import ProductBomDetailsResponseDto from '../../../../../../../../utils/types/ProductBomDetailsResponseDto';
-import { VirtualElement } from '@popperjs/core';
-import styles from './Nomenclature.module.scss';
-import { useCallback, useState } from 'react';
 import AppViewProductViewManageViewNomenclatureComponentContextMenuComponent from './components/ContextMenu/ContextMenu';
+import styles from './Nomenclature.module.scss';
 
 const routeApi = getRouteApi('/app/products_/$productId/manage');
 
@@ -37,7 +37,7 @@ export default function AppViewProductViewManageViewNomenclatureComponent() {
 
   const [contextMenuData, setContextMenuData] = useState<{ anchor: VirtualElement; item: ProductBomDetailsResponseDto }>();
 
-  const onRowContextMenu = useCallback((e: React.MouseEvent, row: Row<ProductBomDetailsResponseDto>) => {
+  const onRowContextMenu = (e: React.MouseEvent, row: Row<ProductBomDetailsResponseDto>) => {
     e.preventDefault();
     setContextMenuData({
       anchor: {
@@ -55,7 +55,7 @@ export default function AppViewProductViewManageViewNomenclatureComponent() {
       },
       item: row.original,
     });
-  }, []);
+  };
 
   return (
     <>

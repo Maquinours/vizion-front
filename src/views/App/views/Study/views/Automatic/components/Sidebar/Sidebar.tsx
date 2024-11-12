@@ -1,6 +1,6 @@
-import { useCallback, useMemo, useState } from 'react';
-import AppViewStudyViewAutomaticViewSidebarComponentCameraSelectionModalComponent from './components/CameraSelectionModal/CameraSelectionModal';
+import { useMemo, useState } from 'react';
 import ProductResponseDto from '../../../../../../../../utils/types/ProductResponseDto';
+import AppViewStudyViewAutomaticViewSidebarComponentCameraSelectionModalComponent from './components/CameraSelectionModal/CameraSelectionModal';
 import AppViewStudyViewAutomaticViewSidebarComponentDensityModalComponent from './components/DensityModal/DentityModal';
 import AppViewStudyViewAutomaticViewSidebarComponentMonitorSelectionModalComponent from './components/MonitorSelectionModal/MonitorSelectionModal';
 
@@ -55,16 +55,15 @@ export default function AppViewStudyViewAutomaticViewSidebarComponent() {
     [setOpenedModal],
   );
 
-  const onCloseModal = useCallback(() => setOpenedModal(undefined), [setOpenedModal]);
-  const openDensityModal = useCallback(
-    (product: ProductResponseDto) => {
-      setDensityModalProduct(product);
-    },
-    [setDensityModalProduct],
-  );
-  const closeDensityModal = useCallback(() => {
+  const onCloseModal = () => {
+    setOpenedModal(undefined);
+  };
+  const openDensityModal = (product: ProductResponseDto) => {
+    setDensityModalProduct(product);
+  };
+  const closeDensityModal = () => {
     setDensityModalProduct(undefined);
-  }, [setDensityModalProduct]);
+  };
 
   const modal = useMemo(() => {
     switch (openedModal) {

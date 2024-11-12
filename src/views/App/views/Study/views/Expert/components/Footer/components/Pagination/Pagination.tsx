@@ -2,7 +2,6 @@ import { DndContext, DragEndEvent, KeyboardSensor, MouseSensor, PointerSensor, T
 import { restrictToHorizontalAxis } from '@dnd-kit/modifiers';
 import { horizontalListSortingStrategy, SortableContext } from '@dnd-kit/sortable';
 import usePagination from '@mui/material/usePagination/usePagination';
-import { useCallback } from 'react';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import { useShallow } from 'zustand/react/shallow';
 import useStore, { RFState } from '../../../Flow/utils/store';
@@ -35,13 +34,10 @@ export default function AppViewStudyViewExpertViewFooterComponentPaginationCompo
     }),
   );
 
-  const handleDragEnd = useCallback(
-    (event: DragEndEvent) => {
-      const { active, over } = event;
-      if (!!over && typeof active.id === 'string' && typeof over.id === 'string' && active.id !== over.id) pageMove(active.id, over.id);
-    },
-    [pageMove],
-  );
+  const handleDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event;
+    if (!!over && typeof active.id === 'string' && typeof over.id === 'string' && active.id !== over.id) pageMove(active.id, over.id);
+  };
 
   return (
     <nav className="w-full">

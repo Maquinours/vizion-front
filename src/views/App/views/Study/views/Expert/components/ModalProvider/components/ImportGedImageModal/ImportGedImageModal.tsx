@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { getRouteApi } from '@tanstack/react-router';
 import { Row, RowSelectionState, createColumnHelper } from '@tanstack/react-table';
 import { useReactFlow } from '@xyflow/react';
-import { useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import { useContext, useEffect, useMemo, useState } from 'react';
 import ReactModal from 'react-modal';
 import { ClipLoader } from 'react-spinners';
 import { v4 as uuidv4 } from 'uuid';
@@ -55,6 +55,8 @@ const columns = [
   }),
 ];
 
+const enableRowSelection = (row: Row<Image>) => !row.original.loading;
+
 // TODO: handle PDF
 
 type AppViewStudyViewExpertViewModalProviderComponentImportGedImageModalComponentProps = Readonly<{
@@ -79,7 +81,6 @@ export default function AppViewStudyViewExpertViewModalProviderComponentImportGe
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
 
   const enableMultiRowSelection = useMemo(() => type !== 'background', [type]);
-  const enableRowSelection = useCallback((row: Row<Image>) => !row.original.loading, []);
 
   const onClose = () => {
     setModal(undefined);

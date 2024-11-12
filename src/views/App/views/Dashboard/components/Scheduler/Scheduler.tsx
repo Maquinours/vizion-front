@@ -1,8 +1,7 @@
 import { useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import { useLocalStorage } from 'usehooks-ts';
-import { useCallback } from 'react';
 import { View, Views } from 'react-big-calendar';
+import { useLocalStorage } from 'usehooks-ts';
 import CardComponent from '../../../../../../components/Card/Card';
 import SchedulerCalendarComponent from '../../../../../../components/SchedulerCalendar/SchedulerCalendar';
 import { queries } from '../../../../../../utils/constants/queryKeys';
@@ -28,38 +27,29 @@ export default function AppViewDashboardViewSchedulerComponent() {
     select: (data) => data.filter((info) => info.attributeToId === user.profile.id),
   });
 
-  const onViewChange = useCallback(
-    (view: View) => {
-      if (view !== Views.DAY && view !== Views.WORK_WEEK) return;
-      navigate({ from: Route.id, search: (old) => ({ ...old, schedulerView: view }), replace: true, resetScroll: false });
-    },
-    [navigate],
-  );
+  const onViewChange = (view: View) => {
+    if (view !== Views.DAY && view !== Views.WORK_WEEK) return;
+    navigate({ from: Route.id, search: (old) => ({ ...old, schedulerView: view }), replace: true, resetScroll: false });
+  };
 
-  const onDateChange = useCallback(
-    (date: Date) => {
-      navigate({ from: Route.id, search: (old) => ({ ...old, schedulerDate: date }), replace: true, resetScroll: false });
-    },
-    [navigate],
-  );
+  const onDateChange = (date: Date) => {
+    navigate({ from: Route.id, search: (old) => ({ ...old, schedulerDate: date }), replace: true, resetScroll: false });
+  };
 
-  const onEventClick = useCallback(
-    (event: RdvUserInfoResponseDto) => {
-      queryClient.setQueryData(
-        queries['rdv-user-infos'].list._ctx.byRdvId(event.rdv!.id).queryKey,
-        data.filter((info) => info.rdv!.id === event.rdv!.id),
-      );
-      navigate({
-        from: Route.id,
-        to: './scheduler-event-details/$eventId',
-        params: { eventId: event.rdv!.id },
-        search: true,
-        replace: true,
-        resetScroll: false,
-      });
-    },
-    [data, navigate, queryClient],
-  );
+  const onEventClick = (event: RdvUserInfoResponseDto) => {
+    queryClient.setQueryData(
+      queries['rdv-user-infos'].list._ctx.byRdvId(event.rdv!.id).queryKey,
+      data.filter((info) => info.rdv!.id === event.rdv!.id),
+    );
+    navigate({
+      from: Route.id,
+      to: './scheduler-event-details/$eventId',
+      params: { eventId: event.rdv!.id },
+      search: true,
+      replace: true,
+      resetScroll: false,
+    });
+  };
 
   return (
     <CardComponent title="Agenda" isMinimized={isMinimized} setMinimized={setMinimized} onReload={refetch} isReloading={isRefetching}>

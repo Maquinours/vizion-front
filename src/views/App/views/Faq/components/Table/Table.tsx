@@ -1,19 +1,19 @@
-import { Row, createColumnHelper } from '@tanstack/react-table';
-import FaqResponseDto from '../../../../../../utils/types/FaqResponseDto';
-import TableRowExpandButtonComponent from '../../../../../../components/TableRowExpandButton/TableRowExpandButton';
-import TableComponent from '../../../../../../components/Table/Table';
-import styles from './Table.module.scss';
-import AppViewFaqViewTableComponentSubRowComponent from './components/SubRowComponent/SubRowComponent';
-import { useCallback, useMemo, useState } from 'react';
 import { VirtualElement } from '@popperjs/core';
-import AppViewFaqViewTableComponentContextMenuComponent from './components/ContextMenu/ContextMenu';
-import parse from 'html-react-parser';
-import DOMPurify from 'dompurify';
-import { Link } from '@tanstack/react-router';
-import { formatDateAndHourWithSlash } from '../../../../../../utils/functions/dates';
 import { useQuery } from '@tanstack/react-query';
-import { queries } from '../../../../../../utils/constants/queryKeys';
+import { Link } from '@tanstack/react-router';
+import { Row, createColumnHelper } from '@tanstack/react-table';
+import DOMPurify from 'dompurify';
+import parse from 'html-react-parser';
 import _ from 'lodash';
+import { useMemo, useState } from 'react';
+import TableComponent from '../../../../../../components/Table/Table';
+import TableRowExpandButtonComponent from '../../../../../../components/TableRowExpandButton/TableRowExpandButton';
+import { queries } from '../../../../../../utils/constants/queryKeys';
+import { formatDateAndHourWithSlash } from '../../../../../../utils/functions/dates';
+import FaqResponseDto from '../../../../../../utils/types/FaqResponseDto';
+import styles from './Table.module.scss';
+import AppViewFaqViewTableComponentContextMenuComponent from './components/ContextMenu/ContextMenu';
+import AppViewFaqViewTableComponentSubRowComponent from './components/SubRowComponent/SubRowComponent';
 
 const columnHelper = createColumnHelper<FaqResponseDto>();
 
@@ -97,7 +97,7 @@ export default function AppViewFaqViewTableComponent({ data, isLoading }: AppVie
     [profiles],
   );
 
-  const onRowContextMenu = useCallback((e: React.MouseEvent, row: Row<FaqResponseDto>) => {
+  const onRowContextMenu = (e: React.MouseEvent, row: Row<FaqResponseDto>) => {
     e.preventDefault();
     setFaq(row.original);
     setContextMenuAnchor({
@@ -113,7 +113,7 @@ export default function AppViewFaqViewTableComponent({ data, isLoading }: AppVie
         toJSON: () => {},
       }),
     });
-  }, []);
+  };
 
   return (
     <>

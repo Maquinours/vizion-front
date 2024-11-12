@@ -1,11 +1,11 @@
-import { Row, createColumnHelper } from '@tanstack/react-table';
-import AmountFormat from '../../../../../../../../../../components/AmountFormat/AmountFormat';
-import AdvancedProductSpecificationProductResponseDto from '../../../../../../../../../../utils/types/AdvancedProductSpecificationProductResponseDto';
-import TableComponent from '../../../../../../../../../../components/Table/Table';
-import styles from './Table.module.scss';
-import { useCallback, useState } from 'react';
 import { VirtualElement } from '@popperjs/core';
+import { Row, createColumnHelper } from '@tanstack/react-table';
+import { useState } from 'react';
+import AmountFormat from '../../../../../../../../../../components/AmountFormat/AmountFormat';
+import TableComponent from '../../../../../../../../../../components/Table/Table';
+import AdvancedProductSpecificationProductResponseDto from '../../../../../../../../../../utils/types/AdvancedProductSpecificationProductResponseDto';
 import AppViewProductViewManageViewSpecificationsComponentTableComponentContextMenuComponent from './ContextMenu/ContextMenu';
+import styles from './Table.module.scss';
 
 const columnHelper = createColumnHelper<AdvancedProductSpecificationProductResponseDto>();
 const columns = [
@@ -35,7 +35,7 @@ export default function AppViewProductViewManageViewSpecificationsComponentTable
   const [productSpecification, setProductSpecification] = useState<AdvancedProductSpecificationProductResponseDto>();
   const [contextMenuAnchor, setContextMenuAnchor] = useState<VirtualElement | undefined>();
 
-  const onRowContextMenu = useCallback((e: React.MouseEvent, row: Row<AdvancedProductSpecificationProductResponseDto>) => {
+  const onRowContextMenu = (e: React.MouseEvent, row: Row<AdvancedProductSpecificationProductResponseDto>) => {
     e.preventDefault();
     setProductSpecification(row.original);
     setContextMenuAnchor({
@@ -51,7 +51,7 @@ export default function AppViewProductViewManageViewSpecificationsComponentTable
         toJSON: () => {},
       }),
     });
-  }, []);
+  };
 
   return (
     <>
