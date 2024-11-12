@@ -39,7 +39,7 @@ export default function AppViewDashboardViewProgressiveInfosComponentTableCompon
                     search={(old) => old}
                     replace
                     resetScroll={false}
-                    preload="viewport"
+                    preload="render"
                   >
                     <MdModeEdit className={styles.icon} />
                     <span className={styles.text}>Modifier</span>
@@ -53,7 +53,7 @@ export default function AppViewDashboardViewProgressiveInfosComponentTableCompon
                     search={(old) => old}
                     replace
                     resetScroll={false}
-                    preload="viewport"
+                    preload="render"
                   >
                     <FaTrash className={styles.icon} />
                     <span className={styles.text}>Supprimer</span>

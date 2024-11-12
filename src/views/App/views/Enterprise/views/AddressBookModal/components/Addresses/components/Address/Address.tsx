@@ -25,13 +25,13 @@ export default function AppViewEnterpriseViewAddressBookModalViewAddressesCompon
           <BsThreeDots color="#F24C52" />
           <div className={styles.header_tooltip}>
             <div>
-              <Link from={routePath} to="update/$addressId" search params={{ addressId: address.id }} replace resetScroll={false} preload="viewport">
+              <Link from={routePath} to="update/$addressId" search params={{ addressId: address.id }} replace resetScroll={false} preload="render">
                 <span className={styles.icon}>
                   <HiPencilAlt width={13} height={13} color={'#16204E'} />
                 </span>
                 <span className={styles.text}>Modifier</span>
               </Link>
-              <Link from={routePath} to="delete/$addressId" search params={{ addressId: address.id }} replace resetScroll={false} preload="viewport">
+              <Link from={routePath} to="delete/$addressId" search params={{ addressId: address.id }} replace resetScroll={false} preload="render">
                 <span className={styles.icon}>
                   <FaTrash width={13} height={13} color={'#16204E'} />
                 </span>

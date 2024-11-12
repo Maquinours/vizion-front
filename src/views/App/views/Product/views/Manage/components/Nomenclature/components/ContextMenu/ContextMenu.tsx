@@ -36,7 +36,7 @@ export default function AppViewProductViewManageViewNomenclatureComponentContext
                       search
                       replace
                       resetScroll={false}
-                      preload="viewport"
+                      preload="render"
                     >
                       <HiPencilAlt className={styles.icon} width={16} height={16} color="#16204E" />
                       <span className={styles.text}>Modifier</span>
@@ -50,7 +50,7 @@ export default function AppViewProductViewManageViewNomenclatureComponentContext
                       search
                       replace
                       resetScroll={false}
-                      preload="viewport"
+                      preload="render"
                     >
                       <FaTrash className={styles.icon} width={16} height={16} color="#16204E" />
                       <span className={styles.text}>Supprimer</span>

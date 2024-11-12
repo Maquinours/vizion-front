@@ -46,7 +46,7 @@ export default function AppViewEnterpriseViewContactsComponentTableComponentCont
                       search
                       replace
                       resetScroll={false}
-                      preload="viewport"
+                      preload="render"
                     >
                       <MdWork width={16} height={16} color={'#16204E'} className={styles.icon} />
                       <span className={styles.text}>Créer une affaire</span>
@@ -61,7 +61,7 @@ export default function AppViewEnterpriseViewContactsComponentTableComponentCont
                         search
                         replace
                         resetScroll={false}
-                        preload="viewport"
+                        preload="render"
                       >
                         <MdMailOutline width={13} height={16} color={'#16204E'} className={styles.icon} />
                         <span className={styles.text}>Envoyer un mail</span>
@@ -77,7 +77,7 @@ export default function AppViewEnterpriseViewContactsComponentTableComponentCont
                         search
                         replace
                         resetScroll={false}
-                        preload="viewport"
+                        preload="render"
                       >
                         <FaTrash width={16} height={16} color={'#16204E'} className={styles.icon} />
                         <span className={styles.text}>Supprimer ce contact</span>
@@ -93,7 +93,7 @@ export default function AppViewEnterpriseViewContactsComponentTableComponentCont
                         search
                         replace
                         resetScroll={false}
-                        preload="viewport"
+                        preload="render"
                       >
                         <HiPencilAlt width={16} height={16} color={'#16204E'} className={styles.icon} />
                         <span className={styles.text}>Modifier ce contact</span>
@@ -110,7 +110,7 @@ export default function AppViewEnterpriseViewContactsComponentTableComponentCont
                         search
                         replace
                         resetScroll={false}
-                        preload="viewport"
+                        preload="render"
                       >
                         <MdPassword width={16} height={16} color={'#16204E'} className={styles.icon} />
                         <span className={styles.text}>Modifier mot de passe</span>

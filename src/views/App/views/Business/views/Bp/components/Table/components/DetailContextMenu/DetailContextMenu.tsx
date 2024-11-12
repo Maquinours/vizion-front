@@ -49,20 +49,20 @@ export default function AppViewBusinessViewBpViewTableComponentDetailContextMenu
                       search={(old) => old}
                       replace
                       resetScroll={false}
-                      preload="viewport"
+                      preload="render"
                     >
                       <HiPencilAlt width={16} height={16} color={'#16204E'} className={styles.icon} />
                       <span className={styles.text}>Modifier le produit</span>
                     </Link>
                   </MenuItem>
                   <MenuItem>
-                    <Link from={routePath} to="add-serial/$detailId" params={{ detailId: item.id }} search replace resetScroll={false} preload="viewport">
+                    <Link from={routePath} to="add-serial/$detailId" params={{ detailId: item.id }} search replace resetScroll={false} preload="render">
                       <HiPencilAlt width={16} height={16} color={'#16204E'} className={styles.icon} />
                       <span className={styles.text}>Entrer numéro de série</span>
                     </Link>
                   </MenuItem>
                   <MenuItem>
-                    <Link from={routePath} to="delete-detail/$detailId" params={{ detailId: item.id }} search replace resetScroll={false} preload="viewport">
+                    <Link from={routePath} to="delete-detail/$detailId" params={{ detailId: item.id }} search replace resetScroll={false} preload="render">
                       <FaTrash width={16} height={16} color={'#16204E'} className={styles.icon} />
                       <span className={styles.text}>Supprimer le produit</span>
                     </Link>
@@ -76,7 +76,7 @@ export default function AppViewBusinessViewBpViewTableComponentDetailContextMenu
                         search
                         replace
                         resetScroll={false}
-                        preload="viewport"
+                        preload="render"
                       >
                         <MdBusinessCenter width={16} height={16} color={'#16204E'} className={styles.icon} />
                         <span className={styles.text}>Créér un RMA</span>

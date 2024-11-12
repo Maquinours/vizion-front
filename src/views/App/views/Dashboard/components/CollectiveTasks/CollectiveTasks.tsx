@@ -47,7 +47,7 @@ export default function AppViewDashboardViewCollectiveTasksComponent() {
               search={(old) => ({ ...old, tasksId: selectedItems.map(({ id }) => id) })}
               replace
               resetScroll={false}
-              preload="viewport"
+              preload="render"
             >
               <FaTrash width={18} height={18} color="#16204E" />
             </Link>

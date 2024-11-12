@@ -34,7 +34,7 @@ export default function AppViewBusinessViewDashboardViewAddressBookModalViewAddr
                 replace
                 resetScroll={false}
                 ignoreBlocker
-                preload="viewport"
+                preload="render"
               >
                 <span className={styles.icon}>
                   <HiPencilAlt width={13} height={13} color={'#16204E'} />
@@ -49,7 +49,7 @@ export default function AppViewBusinessViewDashboardViewAddressBookModalViewAddr
                 replace
                 resetScroll={false}
                 ignoreBlocker
-                preload="viewport"
+                preload="render"
               >
                 <span className={styles.icon}>
                   <FaTrash width={13} height={13} color={'#16204E'} />

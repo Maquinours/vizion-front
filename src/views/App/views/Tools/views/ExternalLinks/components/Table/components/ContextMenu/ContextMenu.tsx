@@ -41,7 +41,7 @@ export default function AppViewToolsViewExternalLinksViewTableComponentContextMe
                       replace
                       resetScroll={false}
                       search
-                      preload="viewport"
+                      preload="render"
                     >
                       <HiPencilAlt className={styles.icon} />
                       <span className={styles.text}>Modifier</span>
@@ -55,7 +55,7 @@ export default function AppViewToolsViewExternalLinksViewTableComponentContextMe
                       replace
                       resetScroll={false}
                       search
-                      preload="viewport"
+                      preload="render"
                     >
                       <FaFileImport className={styles.icon} />
                       <span className={styles.text}>{externalLink.archived ? 'Désarchiver' : 'Archiver'}</span>
@@ -69,7 +69,7 @@ export default function AppViewToolsViewExternalLinksViewTableComponentContextMe
                       replace
                       resetScroll={false}
                       search
-                      preload="viewport"
+                      preload="render"
                     >
                       <FaTrash className={styles.icon} />
                       <span className={styles.text}>Supprimer</span>

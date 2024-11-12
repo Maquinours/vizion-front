@@ -34,13 +34,13 @@ export default function AppViewRmaViewReceptionViewTableComponentContextMenuComp
               {item && (
                 <MenuList>
                   <MenuItem>
-                    <Link from={routeId} to="update-detail/$detailId" params={{ detailId: item.id }} search replace resetScroll={false} preload="viewport">
+                    <Link from={routeId} to="update-detail/$detailId" params={{ detailId: item.id }} search replace resetScroll={false} preload="render">
                       <HiPencilAlt className={styles.icon} />
                       <span className={styles.text}>Modifier la ligne</span>
                     </Link>
                   </MenuItem>
                   <MenuItem>
-                    <Link from={routeId} to="delete-detail/$detailId" params={{ detailId: item.id }} search replace resetScroll={false} preload="viewport">
+                    <Link from={routeId} to="delete-detail/$detailId" params={{ detailId: item.id }} search replace resetScroll={false} preload="render">
                       <FaTrash className={styles.icon} />
                       <span className={styles.text}>Supprimer la ligne</span>
                     </Link>

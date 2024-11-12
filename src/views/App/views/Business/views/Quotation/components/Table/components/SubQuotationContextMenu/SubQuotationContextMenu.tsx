@@ -41,7 +41,7 @@ export default function AppViewBusinessViewQuotationViewTableComponentSubQuotati
                       search
                       replace
                       resetScroll={false}
-                      preload="viewport"
+                      preload="render"
                       ignoreBlocker
                     >
                       <IoMdAddCircleOutline width={16} height={16} color={'#16204E'} className={styles.icon} />
@@ -56,7 +56,7 @@ export default function AppViewBusinessViewQuotationViewTableComponentSubQuotati
                       search
                       replace
                       resetScroll={false}
-                      preload="viewport"
+                      preload="render"
                       ignoreBlocker
                     >
                       <HiPencilAlt width={16} height={16} color={'#16204E'} className={styles.icon} />
@@ -71,7 +71,7 @@ export default function AppViewBusinessViewQuotationViewTableComponentSubQuotati
                       search
                       replace
                       resetScroll={false}
-                      preload="viewport"
+                      preload="render"
                       ignoreBlocker
                     >
                       <FaTrash width={16} height={16} color={'#16204E'} className={styles.icon} />
