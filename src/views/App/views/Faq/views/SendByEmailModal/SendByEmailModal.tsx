@@ -1,12 +1,12 @@
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import SendEmailModalComponent from '../../../../../../components/SendEmailModal/SendEmailModal';
 import { useSuspenseQuery } from '@tanstack/react-query';
+import { getRouteApi } from '@tanstack/react-router';
+import SendEmailModalComponent from '../../../../../../components/SendEmailModal/SendEmailModal';
 import { faqs } from '../../../../../../utils/constants/queryKeys/faq';
 
 const routeApi = getRouteApi('/app/faq/send-by-email/$faqId');
 
 export default function AppViewFaqViewSendByEmailModalView() {
-  const navigate = useNavigate();
+  const navigate = routeApi.useNavigate();
   const { faqId } = routeApi.useParams();
 
   const { data: faq } = useSuspenseQuery(faqs.detail._ctx.byId(faqId));
@@ -14,7 +14,7 @@ export default function AppViewFaqViewSendByEmailModalView() {
   return (
     <SendEmailModalComponent
       isOpen={true}
-      onClose={() => navigate({ from: routeApi.id, to: '../..', search: (old) => old, replace: true, resetScroll: false })}
+      onClose={() => navigate({ to: '../..', search: true, replace: true, resetScroll: false })}
       defaultContent={faq.description}
     />
   );

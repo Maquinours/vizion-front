@@ -1,19 +1,19 @@
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { getRouteApi } from '@tanstack/react-router';
 import React from 'react';
 import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
 import { toast } from 'react-toastify';
 import { deleteProductSpecification } from '../../../../../../../../utils/api/productSpecification';
 import { queries } from '../../../../../../../../utils/constants/queryKeys';
-import styles from './DeleteSpecificationModal.module.scss';
 import { productSpecificationsQueryKeys } from '../../../../../../../../utils/constants/queryKeys/productSpecifications';
+import styles from './DeleteSpecificationModal.module.scss';
 
-const routeApi = getRouteApi('/app/products/$productId/manage/delete-specification/$specificationId');
+const routeApi = getRouteApi('/app/products_/$productId/manage/delete-specification/$specificationId');
 
 export default function AppViewProductViewManageViewDeleteSpecificationModalView() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate();
+  const navigate = routeApi.useNavigate();
 
   const { productId, specificationId } = routeApi.useParams();
 
@@ -22,7 +22,7 @@ export default function AppViewProductViewManageViewDeleteSpecificationModalView
   const { data: productSpec } = useSuspenseQuery(productSpecificationsQueryKeys.detail._ctx.byId({ productId, specificationId }));
 
   const onClose = () => {
-    navigate({ from: routeApi.id, to: '../..', search: true, replace: true, resetScroll: false });
+    navigate({  to: '../..', search: true, replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({

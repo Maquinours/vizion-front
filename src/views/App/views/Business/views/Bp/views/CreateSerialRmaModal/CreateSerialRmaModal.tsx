@@ -1,18 +1,18 @@
-import ReactModal from 'react-modal';
-import styles from './CreateSerialRmaModal.module.scss';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { queries } from '../../../../../../../../utils/constants/queryKeys';
-import { createRmaFromBusiness } from '../../../../../../../../utils/api/rma';
-import CategoryBusiness from '../../../../../../../../utils/enums/CategoryBusiness';
+import { getRouteApi } from '@tanstack/react-router';
+import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
 import { toast } from 'react-toastify';
+import { createRmaFromBusiness } from '../../../../../../../../utils/api/rma';
+import { queries } from '../../../../../../../../utils/constants/queryKeys';
+import CategoryBusiness from '../../../../../../../../utils/enums/CategoryBusiness';
+import styles from './CreateSerialRmaModal.module.scss';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/bp/create-serial-rma/$serialId');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/bp/create-serial-rma/$serialId');
 
 export default function AppViewBusinessViewBpViewCreateSerialRmaModalView() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { businessId, serialId } = routeApi.useParams();
 
@@ -20,7 +20,7 @@ export default function AppViewBusinessViewBpViewCreateSerialRmaModalView() {
   const { data: serialNumber } = useSuspenseQuery(queries['business-bp-serials'].detail._ctx.byId(serialId));
 
   const onClose = () => {
-    navigate({ to: '../..', search: (old) => old, replace: true, resetScroll: false });
+    navigate({ to: '../..', search: true, replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({

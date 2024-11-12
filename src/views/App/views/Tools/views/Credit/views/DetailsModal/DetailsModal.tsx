@@ -1,16 +1,16 @@
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import ReactModal from 'react-modal';
-import styles from './DetailsModal.module.scss';
-import * as yup from 'yup';
-import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import CustomSelect from '../../../../../../../../components/CustomSelect/CustomSelect';
 import { useQuery } from '@tanstack/react-query';
+import { getRouteApi } from '@tanstack/react-router';
+import { useContext } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import ReactModal from 'react-modal';
+import * as yup from 'yup';
+import CustomSelect from '../../../../../../../../components/CustomSelect/CustomSelect';
 import { queries } from '../../../../../../../../utils/constants/queryKeys';
 import EnterpriseResponseDto from '../../../../../../../../utils/types/EnterpriseResponseDto';
 import ProfileResponseDto from '../../../../../../../../utils/types/ProfileResponseDto';
-import { useContext } from 'react';
 import { CreditContext } from '../../utils/contexts/context';
+import styles from './DetailsModal.module.scss';
 
 const routeApi = getRouteApi('/app/tools/credit/details');
 
@@ -31,7 +31,7 @@ const yupSchema = yup.object().shape({
 });
 
 export default function AppViewToolsViewCreditViewDetailsModalView() {
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { setDetails } = useContext(CreditContext)!;
 
@@ -48,7 +48,7 @@ export default function AppViewToolsViewCreditViewDetailsModalView() {
   });
 
   const onClose = () => {
-    navigate({ to: '..', search: (old) => old, replace: true, resetScroll: false });
+    navigate({ to: '..', search: true, replace: true, resetScroll: false });
   };
 
   const onSaveDetails = (data: yup.InferType<typeof yupSchema>) => {

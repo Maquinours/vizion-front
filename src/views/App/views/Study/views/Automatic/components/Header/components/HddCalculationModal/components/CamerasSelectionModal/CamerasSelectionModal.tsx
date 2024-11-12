@@ -95,7 +95,11 @@ export default function AppViewStudyViewAutomaticViewHeaderComponentHddCalculati
                   <div className="shadow-black-800 flex flex-col rounded-t-md border-b-0 p-4 shadow-lg">
                     <div className="flex items-center justify-center space-x-8 text-center">
                       <div className="flex flex-col items-center justify-center space-y-2">
-                        <img src={`https://bd.vizeo.eu/6-Photos/${model.product.reference}/${model.product.reference}.jpg`} className="h-24 w-32" />
+                        <img
+                          src={`https://bd.vizeo.eu/6-Photos/${model.product.reference}/${model.product.reference}.jpg`}
+                          alt={`Produit ${model.product.reference}`}
+                          className="h-24 w-32"
+                        />
                         <div>
                           <p className="font-bold">{model.product.reference}</p>
                           <p className="text-gray-500">Code: {model.product.reference}</p>

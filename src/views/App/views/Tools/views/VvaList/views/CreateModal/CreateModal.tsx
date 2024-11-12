@@ -1,22 +1,22 @@
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import ReactModal from 'react-modal';
-import styles from './CreateModal.module.scss';
-import CurrencyFormat from '../../../../../../../../components/CurrencyFormat/CurrencyFormat';
-import { yearsList } from '../../../../../../../../utils/functions/dates';
-import MONTHS from '../../../../../../../../utils/constants/months';
-import * as yup from 'yup';
-import { Controller, useFieldArray, useForm, useWatch } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { ClipLoader } from 'react-spinners';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { getRouteApi } from '@tanstack/react-router';
 import { createColumnHelper } from '@tanstack/react-table';
-import { FaTrash } from 'react-icons/fa';
 import { useMemo } from 'react';
+import { Controller, useFieldArray, useForm, useWatch } from 'react-hook-form';
+import { FaTrash } from 'react-icons/fa';
+import ReactModal from 'react-modal';
+import { ClipLoader } from 'react-spinners';
+import { toast } from 'react-toastify';
+import * as yup from 'yup';
+import CurrencyFormat from '../../../../../../../../components/CurrencyFormat/CurrencyFormat';
 import TableComponent from '../../../../../../../../components/Table/Table';
 import { createMultipleSalesVva } from '../../../../../../../../utils/api/salesVva';
-import SalesType from '../../../../../../../../utils/enums/SalesType';
+import MONTHS from '../../../../../../../../utils/constants/months';
 import { queries } from '../../../../../../../../utils/constants/queryKeys';
-import { toast } from 'react-toastify';
+import SalesType from '../../../../../../../../utils/enums/SalesType';
+import { yearsList } from '../../../../../../../../utils/functions/dates';
+import styles from './CreateModal.module.scss';
 
 type VvaLine = yup.InferType<typeof yupSchema>['lines'][0];
 
@@ -49,7 +49,7 @@ const yupSchema = yup.object({
 
 export default function AppViewToolsViewVvaListViewCreateModalView() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const {
     register,
@@ -122,7 +122,7 @@ export default function AppViewToolsViewVvaListViewCreateModalView() {
   const totalAmount = lines.reduce((acc, el) => acc + el.amount, 0);
 
   const onClose = () => {
-    navigate({ to: '..', search: (old) => old, replace: true, resetScroll: false });
+    navigate({ to: '..', search: true, replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({

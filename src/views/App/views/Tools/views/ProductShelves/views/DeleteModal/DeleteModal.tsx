@@ -1,25 +1,25 @@
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import ReactModal from 'react-modal';
-import styles from './DeleteModal.module.scss';
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { queries } from '../../../../../../../../utils/constants/queryKeys';
-import { deleteProductShelf } from '../../../../../../../../utils/api/productShelf';
+import { getRouteApi } from '@tanstack/react-router';
+import React from 'react';
+import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
 import { toast } from 'react-toastify';
-import React from 'react';
+import { deleteProductShelf } from '../../../../../../../../utils/api/productShelf';
+import { queries } from '../../../../../../../../utils/constants/queryKeys';
+import styles from './DeleteModal.module.scss';
 
 const routeApi = getRouteApi('/app/tools/product-shelves/delete/$productShelfId');
 
 export default function AppViewToolsViewProductShelvesViewDeleteModalView() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { productShelfId } = routeApi.useParams();
 
   const { data: productShelf } = useSuspenseQuery(queries['product-shelves'].detail._ctx.byId(productShelfId));
 
   const onClose = () => {
-    navigate({ to: '../..', search: (old) => old, replace: true, resetScroll: false });
+    navigate({ to: '../..', search: true, replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({

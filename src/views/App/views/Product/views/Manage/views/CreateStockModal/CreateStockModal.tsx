@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useQuery, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { getRouteApi } from '@tanstack/react-router';
 import { Controller, useForm } from 'react-hook-form';
 import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
@@ -13,7 +13,7 @@ import ProductShelfResponseDto from '../../../../../../../../utils/types/Product
 import ProductVersionResponseDto from '../../../../../../../../utils/types/ProductVersionResponseDto';
 import styles from './CreateStockModal.module.scss';
 
-const routeApi = getRouteApi('/app/products/$productId/manage/create-stock');
+const routeApi = getRouteApi('/app/products_/$productId/manage/create-stock');
 
 const yupSchema = yup.object({
   version: yup.mixed<ProductVersionResponseDto>().required('Le produit est requis.'),
@@ -23,7 +23,7 @@ const yupSchema = yup.object({
 
 export default function AppViewProductViewManageViewCreateStockModalView() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate();
+  const navigate = routeApi.useNavigate();
 
   const { productId } = routeApi.useParams();
 
@@ -43,7 +43,7 @@ export default function AppViewProductViewManageViewCreateStockModalView() {
   });
 
   const onClose = () => {
-    navigate({ from: routeApi.id, to: '..', search: true, replace: true, resetScroll: false });
+    navigate({ to: '..', search: true, replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({

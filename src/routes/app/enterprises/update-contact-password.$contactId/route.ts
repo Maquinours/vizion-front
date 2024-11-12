@@ -18,7 +18,7 @@ export const Route = createFileRoute('/app/enterprises/update-contact-password/$
         (user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && (contact.categoryClient !== CategoryClient.VIZEO || user.profile.id === contact.id))
       )
     )
-      throw redirect({ from: Route.id, to: '../..', search: (old) => old });
+      throw redirect({ from: Route.id, to: '../..', search: true });
   },
   pendingComponent: LoaderModal,
 });

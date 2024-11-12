@@ -1,10 +1,10 @@
-import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useForm } from 'react-hook-form';
-import styles from './SearchSections.module.scss';
-import { PulseLoader } from 'react-spinners';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { getRouteApi } from '@tanstack/react-router';
 import { useEffect } from 'react';
+import { useForm } from 'react-hook-form';
+import { PulseLoader } from 'react-spinners';
+import * as yup from 'yup';
+import styles from './SearchSections.module.scss';
 
 const routeApi = getRouteApi('/app/tools/credit');
 
@@ -20,7 +20,7 @@ type AppViewToolsViewCreditsViewSearchSectionComponentProps = Readonly<{
   isLoading: boolean;
 }>;
 export default function AppViewToolsViewCreditsViewSearchSectionComponent({ isLoading }: AppViewToolsViewCreditsViewSearchSectionComponentProps) {
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { serialNumber, businessNumber } = routeApi.useSearch();
 
@@ -38,7 +38,7 @@ export default function AppViewToolsViewCreditsViewSearchSectionComponent({ isLo
       search: (old) => ({
         ...old,
         serialNumber: serialNumber || undefined,
-        businessNumber: !!businessNumber ? (businessNumber.startsWith('VZO ') ? businessNumber : `VZO ${businessNumber}`) : undefined,
+        businessNumber: businessNumber ? (businessNumber.startsWith('VZO ') ? businessNumber : `VZO ${businessNumber}`) : undefined,
       }),
       replace: true,
       resetScroll: false,

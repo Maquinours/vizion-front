@@ -1,14 +1,14 @@
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { getRouteApi } from '@tanstack/react-router';
 import { useForm } from 'react-hook-form';
 import ReactModal from 'react-modal';
-import * as yup from 'yup';
-import { yupResolver } from '@hookform/resolvers/yup';
-import styles from './CreateModal.module.scss';
 import { PulseLoader } from 'react-spinners';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { createFormationSubscription } from '../../../../../../../../../../utils/api/formationSubscriptions';
 import { toast } from 'react-toastify';
+import * as yup from 'yup';
+import { createFormationSubscription } from '../../../../../../../../../../utils/api/formationSubscriptions';
 import { queries } from '../../../../../../../../../../utils/constants/queryKeys';
+import styles from './CreateModal.module.scss';
 
 const routeApi = getRouteApi('/app/tools/formations/subscribers/$formationDetailId/create');
 
@@ -21,7 +21,7 @@ const yupSchema = yup.object({
 
 export default function AppViewToolsViewFormationsViewSubscribersModalViewCreateModalView() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { formationDetailId } = routeApi.useParams();
 
@@ -34,7 +34,7 @@ export default function AppViewToolsViewFormationsViewSubscribersModalViewCreate
   });
 
   const onClose = () => {
-    navigate({ to: '..', search: (old) => old, replace: true, resetScroll: false });
+    navigate({ to: '..', search: true, replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({

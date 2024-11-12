@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { getRouteApi, ToOptions, useNavigate } from '@tanstack/react-router';
+import { getRouteApi, ToOptions } from '@tanstack/react-router';
+import { useContext } from 'react';
 import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
 import { toast } from 'react-toastify';
@@ -7,16 +8,15 @@ import { createTechnicalSupport } from '../../../../../../utils/api/technicalSup
 import { queries } from '../../../../../../utils/constants/queryKeys';
 import BillType from '../../../../../../utils/enums/BillType';
 import { formatDateWithSlash } from '../../../../../../utils/functions/dates';
-import styles from './CreateAssistanceModal.module.scss';
-import { useContext } from 'react';
-import { TabsContext } from '../../../../components/TabsContainer/utils/contexts/context';
 import BusinessBpSerialResponseDto from '../../../../../../utils/types/BusinessBpSerialResponseDto';
+import { TabsContext } from '../../../../components/TabsContainer/utils/contexts/context';
+import styles from './CreateAssistanceModal.module.scss';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId');
 
 export default function AppViewBusinessViewCreateAssistanceModalComponent() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { getCurrentTab, updateTabRoute } = useContext(TabsContext)!;
 
@@ -39,7 +39,7 @@ export default function AppViewBusinessViewCreateAssistanceModalComponent() {
           ?.flatMap((detail) => detail.bpSerialList) // We use the optional chaining operator cause the API can return 200 with no data if the business has no BP
           .filter((serial): serial is BusinessBpSerialResponseDto => !!serial && serial.numSerie.startsWith('B011')) ?? [];
       const recaps = [];
-      if (!!bill?.createdDate) recaps.push({ name: 'Date de facturation', value: formatDateWithSlash(bill.createdDate) });
+      if (bill?.createdDate) recaps.push({ name: 'Date de facturation', value: formatDateWithSlash(bill.createdDate) });
       if (nvrSerialNumbers.length === 1) {
         const nvrSerialNumber = nvrSerialNumbers[0];
         recaps.push({ name: 'S2C', value: nvrSerialNumber.numSerie });
@@ -61,7 +61,7 @@ export default function AppViewBusinessViewCreateAssistanceModalComponent() {
       toast.success("L'assistance a été créée avec succès.");
       const currentTabId = getCurrentTab()?.id;
       await navigate({ to: '/app/businesses-rma/business/$businessId/assistance/$assistanceId', params: { assistanceId: technicalSupport.id } });
-      if (!!currentTabId) updateTabRoute(currentTabId, (tab) => ({ to: tab.id as ToOptions['to'] }));
+      if (currentTabId) updateTabRoute(currentTabId, (tab) => ({ to: tab.id as ToOptions['to'] }));
     },
     onError: (error) => {
       console.error(error);

@@ -45,7 +45,7 @@ const stepsData: Array<{
   { label: 'Facture', link: '/app/businesses-rma/business/$businessId/bill', clickableStates: [BusinessState.FACTURE] },
 ];
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId');
 
 export default function AppViewBusinessViewSidebarComponent() {
   useLocation(); // We need to use useLocation to trigger a rerender of the links when the user navigates

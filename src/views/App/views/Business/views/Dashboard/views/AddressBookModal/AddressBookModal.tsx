@@ -1,21 +1,22 @@
-import ReactModal from 'react-modal';
-import styles from './AddressBookModal.module.scss';
-import { Link, Outlet, getRouteApi, useNavigate } from '@tanstack/react-router';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
+import { Link, Outlet, getRouteApi } from '@tanstack/react-router';
+import { useContext, useEffect } from 'react';
+import { useForm } from 'react-hook-form';
 import { BsArrowLeft } from 'react-icons/bs';
 import { IoMdAddCircleOutline } from 'react-icons/io';
-import * as yup from 'yup';
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
+import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
-import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
-import { queries } from '../../../../../../../../utils/constants/queryKeys';
+import * as yup from 'yup';
 import PaginationComponent from '../../../../../../../../components/Pagination/Pagination';
-import { useContext, useEffect } from 'react';
-import AppViewBusinessViewDashboardViewAddressBookModalViewAddressComponent from './components/Address/Address';
-import { BusinessDashboardContext } from '../../utils/contexts/context';
+import { queries } from '../../../../../../../../utils/constants/queryKeys';
 import AddressResponseDto from '../../../../../../../../utils/types/AddressResponseDto';
+import { BusinessDashboardContext } from '../../utils/contexts/context';
+import styles from './AddressBookModal.module.scss';
+import AppViewBusinessViewDashboardViewAddressBookModalViewAddressComponent from './components/Address/Address';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/dashboard/address-book');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/dashboard/address-book');
+const routePath = '/app/businesses-rma/business/$businessId/dashboard/address-book';
 
 const size = 9;
 
@@ -24,7 +25,7 @@ const yupSchema = yup.object().shape({
 });
 
 export default function AppViewBusinessViewDashboardViewAddressBookModalView() {
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { setValue: setContextValue } = useContext(BusinessDashboardContext)!;
 
@@ -41,7 +42,7 @@ export default function AppViewBusinessViewDashboardViewAddressBookModalView() {
 
   const onClose = () => {
     navigate({ to: '..', search: (old) => ({ ...old, page: undefined, searchText: undefined }), replace: true, resetScroll: false, ignoreBlocker: true });
-  }; 
+  };
 
   const onSearch = ({ searchText }: yup.InferType<typeof yupSchema>) => {
     navigate({ search: (old) => ({ ...old, searchText, page: 0 }), replace: true, resetScroll: false, ignoreBlocker: true });
@@ -76,7 +77,7 @@ export default function AppViewBusinessViewDashboardViewAddressBookModalView() {
               <BsArrowLeft width="16" height="16" color="#FFF" />
             </button>
             <div className={styles.modal_title}>{"Carnet d'adresse"}</div>
-            <Link from={routeApi.id} to="create" search replace resetScroll={false} preload="intent" ignoreBlocker>
+            <Link from={routePath} to="create" search replace resetScroll={false} preload="intent" ignoreBlocker>
               <IoMdAddCircleOutline width="16" height="16" color="#FFF" />
             </Link>
           </div>

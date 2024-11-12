@@ -1,7 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 import { Link, LinkOptions, useNavigate } from '@tanstack/react-router';
 import { Row, createColumnHelper } from '@tanstack/react-table';
-import React, { useCallback, useMemo } from 'react';
+import classNames from 'classnames';
+import React, { useMemo } from 'react';
 import { FaTrash } from 'react-icons/fa';
 import { queries } from '../../utils/constants/queryKeys';
 import CategoryBusiness from '../../utils/enums/CategoryBusiness';
@@ -10,7 +11,6 @@ import { useAuthentifiedUserQuery } from '../../views/App/utils/functions/getAut
 import CardComponent from '../Card/Card';
 import TableComponent from '../Table/Table';
 import styles from './BusinessRmaLinks.module.scss';
-import classNames from 'classnames';
 
 const columnHelper = createColumnHelper<AllBusinessResponseDto>();
 
@@ -83,18 +83,15 @@ export default function BusinessRmaLinksComponent({ category, number, canCreate,
     [getDeleteLink],
   );
 
-  const onRowClick = useCallback(
-    (e: React.MouseEvent, row: Row<AllBusinessResponseDto>) => {
-      if (row.original.category === CategoryBusiness.AFFAIRE) {
-        if (e.metaKey || e.ctrlKey) window.open(`${window.location.origin}/app/businesses-rma/business/${row.original.businessId}`, '_blank');
-        else navigate({ to: '/app/businesses-rma/business/$businessId', params: { businessId: row.original.businessId } });
-      } else if (row.original.category === CategoryBusiness.RMA) {
-        if (e.metaKey || e.ctrlKey) window.open(`${window.location.origin}/app/businesses-rma/rma/${row.original.businessId}`, '_blank');
-        else navigate({ to: '/app/businesses-rma/rma/$rmaId', params: { rmaId: row.original.businessId } });
-      }
-    },
-    [navigate],
-  );
+  const onRowClick = (e: React.MouseEvent, row: Row<AllBusinessResponseDto>) => {
+    if (row.original.category === CategoryBusiness.AFFAIRE) {
+      if (e.metaKey || e.ctrlKey) window.open(`${window.location.origin}/app/businesses-rma/business/${row.original.businessId}`, '_blank');
+      else navigate({ to: '/app/businesses-rma/business/$businessId', params: { businessId: row.original.businessId } });
+    } else if (row.original.category === CategoryBusiness.RMA) {
+      if (e.metaKey || e.ctrlKey) window.open(`${window.location.origin}/app/businesses-rma/rma/${row.original.businessId}`, '_blank');
+      else navigate({ to: '/app/businesses-rma/rma/$rmaId', params: { rmaId: row.original.businessId } });
+    }
+  };
 
   return (
     <CardComponent title="Liaisons">

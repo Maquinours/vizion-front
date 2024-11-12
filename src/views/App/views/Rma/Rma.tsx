@@ -5,7 +5,7 @@ import { useMemo } from 'react';
 import AppViewRmaViewArchiveModalComponent from './components/ArchiveModal/ArchiveModal';
 import AppViewRmaViewBeforeCloseModalView from './components/BeforeCloseModal/BeforeCloseModal';
 
-const routeApi = getRouteApi('/app/businesses-rma/rma/$rmaId');
+const routeApi = getRouteApi('/app/businesses-rma_/rma/$rmaId');
 
 export default function AppViewRmaView() {
   const { rmaModal } = routeApi.useSearch();

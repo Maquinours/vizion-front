@@ -9,7 +9,7 @@ import { queries } from '../../../../../../utils/constants/queryKeys';
 import styles from './ArchiveModal.module.scss';
 import { useNavigate } from '@tanstack/react-router';
 
-const routeApi = getRouteApi('/app/businesses-rma/rma/$rmaId');
+const routeApi = getRouteApi('/app/businesses-rma_/rma/$rmaId');
 
 export default function AppViewRmaViewArchiveModalComponent() {
   const queryClient = useQueryClient();

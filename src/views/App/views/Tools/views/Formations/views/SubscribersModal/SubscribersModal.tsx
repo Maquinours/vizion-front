@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { Link, Outlet, getRouteApi, useNavigate } from '@tanstack/react-router';
+import { Link, Outlet, getRouteApi } from '@tanstack/react-router';
 import { createColumnHelper } from '@tanstack/react-table';
 import { FaTrash } from 'react-icons/fa';
 import ReactModal from 'react-modal';
@@ -41,7 +41,7 @@ const columns = [
 ];
 
 export default function AppViewToolsViewFormationsViewSubscribersModalView() {
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { formationDetailId } = routeApi.useParams();
 
@@ -59,7 +59,7 @@ export default function AppViewToolsViewFormationsViewSubscribersModalView() {
             <h6>Liste des participants</h6>
           </div>
           <div className={styles.buttons}>
-            <Link from={routeApi.id} to="create" search={(old) => old} replace resetScroll={false} className="btn btn-primary">
+            <Link from={routeApi.id} to="create" search replace resetScroll={false} className="btn btn-primary">
               Ajouter un participant
             </Link>
           </div>

@@ -1,25 +1,25 @@
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import ReactModal from 'react-modal';
-import { ddns } from '../../../../../../../../utils/constants/queryKeys/ddns';
-import { deleteDdns } from '../../../../../../../../utils/api/ddns';
-import { toast } from 'react-toastify';
-import { PulseLoader } from 'react-spinners';
+import { getRouteApi } from '@tanstack/react-router';
 import React from 'react';
+import ReactModal from 'react-modal';
+import { PulseLoader } from 'react-spinners';
+import { toast } from 'react-toastify';
+import { deleteDdns } from '../../../../../../../../utils/api/ddns';
+import { ddns } from '../../../../../../../../utils/constants/queryKeys/ddns';
 import styles from './DeleteModal.module.scss';
 
 const routeApi = getRouteApi('/app/tools/ddns/delete/$ddnsId');
 
 export default function AppViewToolsViewDdnsViewDeleteModalView() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { ddnsId } = routeApi.useParams();
 
   const { data } = useSuspenseQuery(ddns.detail(ddnsId));
 
   const onClose = () => {
-    navigate({ to: '../..', search: (old) => old, replace: true, resetScroll: false });
+    navigate({ to: '../..', search: true, replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({

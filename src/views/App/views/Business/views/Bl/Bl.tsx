@@ -6,7 +6,8 @@ import styles from './Bl.module.scss';
 import AppViewBusinessViewBlViewBodyComponent from './components/Body/Body';
 import AppViewBusinessViewBlViewHeaderComponent from './components/Header/Header';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/bl');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/bl');
+const routePath = '/app/businesses-rma/business/$businessId/bl';
 
 export default function AppViewBusinessViewBlView() {
   const { businessId } = routeApi.useParams();
@@ -23,7 +24,7 @@ export default function AppViewBusinessViewBlView() {
           <PaginationComponent
             page={page}
             totalPages={bls.length}
-            pageLink={(page) => ({ from: routeApi.id, search: (old) => ({ ...old, page }), replace: true, resetScroll: false })}
+            pageLink={(page) => ({ from: routePath, search: (old) => ({ ...old, page }), replace: true, resetScroll: false })}
           />
         </div>
       </div>

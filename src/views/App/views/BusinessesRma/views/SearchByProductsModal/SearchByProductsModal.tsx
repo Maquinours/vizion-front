@@ -127,7 +127,7 @@ export default function AppViewBusinessesRmaViewSearchByProductsModalView() {
   const onRowsSubmit = ({ rows }: yup.InferType<typeof rowsYupSchema>) => {
     navigate({
       to: '..',
-      search: (old) => old,
+      search: true,
       state: {
         qInfos: rows.map((row) => ({
           ref: row.product.reference,
@@ -141,7 +141,7 @@ export default function AppViewBusinessesRmaViewSearchByProductsModalView() {
   };
 
   const onClose = () => {
-    navigate({ to: '..', search: (old) => old, state: (old) => old, replace: true, resetScroll: false });
+    navigate({ to: '..', search: true, state: (old) => old, replace: true, resetScroll: false });
   };
 
   useEffect(() => {

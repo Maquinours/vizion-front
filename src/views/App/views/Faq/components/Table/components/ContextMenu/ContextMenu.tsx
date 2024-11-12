@@ -42,10 +42,11 @@ export default function AppViewFaqViewTableComponentContextMenuComponent({
                         from={routeApi.id}
                         to="./update/$faqId"
                         params={(old) => ({ ...old, faqId: faq.id })}
-                        search={(old) => old}
+                        search
                         replace
                         resetScroll={false}
-                        preload="viewport"
+                        preload="render"
+                        onClick={onClose}
                       >
                         <HiPencilAlt className={styles.icon} width={16} height={16} color="#16204E" />
                         <span className={styles.text}>Modifier</span>
@@ -56,10 +57,11 @@ export default function AppViewFaqViewTableComponentContextMenuComponent({
                         from={routeApi.id}
                         to="./ged/$faqId"
                         params={(old) => ({ ...old, faqId: faq.id })}
-                        search={(old) => old}
+                        search
                         replace
                         resetScroll={false}
-                        preload="viewport"
+                        preload="render"
+                        onClick={onClose}
                       >
                         <FaFile className={styles.icon} width={16} height={16} color="#16204E" />
                         <span className={styles.text}>Accéder à la GED</span>
@@ -71,10 +73,11 @@ export default function AppViewFaqViewTableComponentContextMenuComponent({
                       from={routeApi.id}
                       to="./send-by-email/$faqId"
                       params={(old) => ({ ...old, faqId: faq.id })}
-                      search={(old) => old}
+                      search
                       replace
                       resetScroll={false}
-                      preload="viewport"
+                      preload="render"
+                      onClick={onClose}
                     >
                       <MdMailOutline className={styles.icon} width={16} height={16} color="#16204E" />
                       <span className={styles.text}>Envoyer par mail</span>
@@ -86,10 +89,11 @@ export default function AppViewFaqViewTableComponentContextMenuComponent({
                         from={routeApi.id}
                         to="./archive/$faqId"
                         params={(old) => ({ ...old, faqId: faq.id })}
-                        search={(old) => old}
+                        search
                         replace
                         resetScroll={false}
-                        preload="viewport"
+                        preload="render"
+                        onClick={onClose}
                       >
                         <FaArchive className={styles.icon} width={16} height={16} color="#16204E" />
                         <span className={styles.text}>{faq.archived ? 'Désarchiver' : 'Archiver'}</span>
@@ -100,10 +104,11 @@ export default function AppViewFaqViewTableComponentContextMenuComponent({
                         from={routeApi.id}
                         to="./delete/$faqId"
                         params={(old) => ({ ...old, faqId: faq.id })}
-                        search={(old) => old}
+                        search
                         replace
                         resetScroll={false}
-                        preload="viewport"
+                        preload="render"
+                        onClick={onClose}
                       >
                         <FaTrash className={styles.icon} width={16} height={16} color="#16204E" />
                         <span className={styles.text}>Supprimer</span>

@@ -11,7 +11,8 @@ import { VirtualElement } from '@popperjs/core';
 import React from 'react';
 import BusinessBpDetailsResponseDto from '../../../../../../../../../../utils/types/BusinessBpDetailsResponseDto';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/bp');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/bp');
+const routePath = '/app/businesses-rma/business/$businessId/bp';
 
 type AppViewBusinessViewBpViewTableComponentContextMenuComponentProps = Readonly<{
   anchorElement: VirtualElement | undefined;
@@ -42,13 +43,14 @@ export default function AppViewBusinessViewBpViewTableComponentDetailContextMenu
                 <MenuList>
                   <MenuItem>
                     <Link
-                      from={routeApi.id}
+                      from={routePath}
                       to="update-detail/$detailId"
                       params={{ detailId: item.id }}
-                      search={(old) => old}
+                      search
                       replace
                       resetScroll={false}
-                      preload="viewport"
+                      preload="render"
+                      onClick={onClose}
                     >
                       <HiPencilAlt width={16} height={16} color={'#16204E'} className={styles.icon} />
                       <span className={styles.text}>Modifier le produit</span>
@@ -56,13 +58,14 @@ export default function AppViewBusinessViewBpViewTableComponentDetailContextMenu
                   </MenuItem>
                   <MenuItem>
                     <Link
-                      from={routeApi.id}
+                      from={routePath}
                       to="add-serial/$detailId"
                       params={{ detailId: item.id }}
-                      search={(old) => old}
+                      search
                       replace
                       resetScroll={false}
-                      preload="viewport"
+                      preload="render"
+                      onClick={onClose}
                     >
                       <HiPencilAlt width={16} height={16} color={'#16204E'} className={styles.icon} />
                       <span className={styles.text}>Entrer numéro de série</span>
@@ -70,13 +73,14 @@ export default function AppViewBusinessViewBpViewTableComponentDetailContextMenu
                   </MenuItem>
                   <MenuItem>
                     <Link
-                      from={routeApi.id}
+                      from={routePath}
                       to="delete-detail/$detailId"
                       params={{ detailId: item.id }}
-                      search={(old) => old}
+                      search
                       replace
                       resetScroll={false}
-                      preload="viewport"
+                      preload="render"
+                      onClick={onClose}
                     >
                       <FaTrash width={16} height={16} color={'#16204E'} className={styles.icon} />
                       <span className={styles.text}>Supprimer le produit</span>
@@ -85,13 +89,14 @@ export default function AppViewBusinessViewBpViewTableComponentDetailContextMenu
                   {business.state === BusinessState.FACTURE && (
                     <MenuItem>
                       <Link
-                        from={routeApi.id}
+                        from={routePath}
                         to="create-detail-rma/$detailId"
                         params={{ detailId: item.id }}
-                        search={(old) => old}
+                        search
                         replace
                         resetScroll={false}
-                        preload="viewport"
+                        preload="render"
+                        onClick={onClose}
                       >
                         <MdBusinessCenter width={16} height={16} color={'#16204E'} className={styles.icon} />
                         <span className={styles.text}>Créér un RMA</span>

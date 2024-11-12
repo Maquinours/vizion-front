@@ -1,5 +1,5 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
-import { Link, Outlet, getRouteApi, useNavigate } from '@tanstack/react-router';
+import { Link, Outlet, getRouteApi } from '@tanstack/react-router';
 import moment from 'moment';
 import { FaTrash } from 'react-icons/fa';
 import { HiPencilAlt } from 'react-icons/hi';
@@ -10,14 +10,14 @@ import styles from './DetailsModal.module.scss';
 const routeApi = getRouteApi('/app/tools/scheduler/details/$rdvId');
 
 export default function AppViewToolsViewSchedulerViewDetailsModalView() {
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { rdvId } = routeApi.useParams();
 
   const { data: rdv } = useSuspenseQuery(queries.rdvs.detail(rdvId));
 
   const onClose = () => {
-    navigate({ to: '../..', search: (old) => old, replace: true, resetScroll: false });
+    navigate({ to: '../..', search: true, replace: true, resetScroll: false });
   };
 
   return (

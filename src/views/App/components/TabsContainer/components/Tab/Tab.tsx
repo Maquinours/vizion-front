@@ -27,6 +27,7 @@ export default function AppViewTabsContainerComponentTabComponent({ tab, onClose
     <div ref={setNodeRef} style={style} {...attributes} {...listeners} onContextMenu={(e) => onContextMenu(e, tab)}>
       <Link
         {...tab.route}
+        preload="intent"
         disabled={isDragging}
         className="flex h-8 w-auto max-w-[auto] items-center justify-between gap-x-8 border-r-[1.5px] border-solid border-r-[color:var(--white-color)] bg-[color:var(--bg-color)] px-2 text-left font-[DIN2014] text-sm not-italic leading-[18px] tracking-[0px] text-[color:var(--primary-color)] no-underline"
         activeOptions={{ exact: true, includeSearch: false }}

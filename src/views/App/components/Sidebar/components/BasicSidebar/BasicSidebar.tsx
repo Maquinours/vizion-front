@@ -116,6 +116,7 @@ export default function SidebarComponentBasicSidebarComponent() {
                 className: styles.active,
               }}
               className={styles.item}
+              preload="intent"
             >
               {React.createElement(menu.icon, { className: styles.icon })}
               <span className={styles.label}>{menu.label}</span>

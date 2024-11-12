@@ -1,16 +1,17 @@
 import { PDFDownloadLink, PDFViewer } from '@react-pdf/renderer';
-import ReactModal from 'react-modal';
-import AppViewBusinessViewQuotationViewPdfModalViewPdfComponent from './components/Pdf/Pdf';
-import { Link, Outlet, getRouteApi, useNavigate } from '@tanstack/react-router';
-import styles from './PdfModal.module.scss';
 import { useSuspenseQuery } from '@tanstack/react-query';
+import { Link, Outlet, getRouteApi } from '@tanstack/react-router';
+import ReactModal from 'react-modal';
 import { queries } from '../../../../../../../../utils/constants/queryKeys';
 import { useAuthentifiedUserQuery } from '../../../../../../utils/functions/getAuthentifiedUser';
+import AppViewBusinessViewQuotationViewPdfModalViewPdfComponent from './components/Pdf/Pdf';
+import styles from './PdfModal.module.scss';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/quotation/pdf');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/quotation/pdf');
+const routePath = '/app/businesses-rma/business/$businessId/quotation/pdf';
 
 export default function AppViewBusinessViewQuotationViewPdfModalView() {
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { businessId } = routeApi.useParams();
   const { hideAddresses, hideReferences, hidePrices, hideTotal } = routeApi.useSearch();
@@ -63,7 +64,7 @@ export default function AppViewBusinessViewQuotationViewPdfModalView() {
               {({ loading }) => <button className="btn btn-secondary">{loading ? 'Chargement...' : 'Télécharger'}</button>}
             </PDFDownloadLink>
             {user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && (
-              <Link from={routeApi.id} to="send-by-email" search replace resetScroll={false} preload="intent" ignoreBlocker className="btn btn-secondary">
+              <Link from={routePath} to="send-by-email" search replace resetScroll={false} preload="intent" ignoreBlocker className="btn btn-secondary">
                 Envoyer par mail
               </Link>
             )}

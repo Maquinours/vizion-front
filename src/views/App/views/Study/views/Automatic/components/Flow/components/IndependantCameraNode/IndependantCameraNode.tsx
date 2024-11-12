@@ -77,14 +77,22 @@ export default function AppViewStudyViewAutomaticViewIndependantCameraNode({ id,
               !!option.qty && (
                 <div key={option.reference}>
                   <div className="flex h-4 w-5 items-center justify-center rounded-md p-0 text-xs text-black">{`x${option.qty}`}</div>
-                  <img src={`https://bd.vizeo.eu/6-Photos/${option.reference}/${option.reference}.png`} className="h-8 w-8 opacity-60" />
+                  <img
+                    src={`https://bd.vizeo.eu/6-Photos/${option.reference}/${option.reference}.png`}
+                    alt={`Produit ${option.reference}`}
+                    className="h-8 w-8 opacity-60"
+                  />
                 </div>
               ),
           )}
         </div>
-        <div className="px-1 py-1 hover:relative hover:rounded-md hover:border-2 hover:border-blue-900" onClick={onImageClick}>
-          <img src={`https://bd.vizeo.eu/6-Photos/${data.model.reference}/PLUG_${data.model.reference}.png`} className="h-10 w-10" />
-        </div>
+        <button type="button" className="px-1 py-1 hover:relative hover:rounded-md hover:border-2 hover:border-blue-900" onClick={onImageClick}>
+          <img
+            src={`https://bd.vizeo.eu/6-Photos/${data.model.reference}/PLUG_${data.model.reference}.png`}
+            alt={`Produit ${data.model.reference}`}
+            className="h-10 w-10"
+          />
+        </button>
         {isSettingsOpened && (
           <div className="top-100% absolute z-50 mt-1 h-fit w-[25rem] cursor-default rounded-md border-2 border-[#1a192b] bg-slate-50 px-2">
             <div className="flex items-center justify-between border-b-2 border-b-[#1a192b] p-2">
@@ -113,7 +121,11 @@ export default function AppViewStudyViewAutomaticViewIndependantCameraNode({ id,
                     return (
                       <div key={option.id} className="flex items-center justify-start gap-x-4">
                         <div className="flex w-1/2 items-center justify-end">
-                          <img src={`https://bd.vizeo.eu/6-Photos/${option.reference}/${option.reference}.png`} className="h-12 w-12 object-center" />
+                          <img
+                            src={`https://bd.vizeo.eu/6-Photos/${option.reference}/${option.reference}.png`}
+                            alt={`Produit ${option.reference}`}
+                            className="h-12 w-12 object-center"
+                          />
                           <p>{option.reference}</p>
                         </div>
                         <div className="flex w-1/2 items-center justify-start gap-x-2">

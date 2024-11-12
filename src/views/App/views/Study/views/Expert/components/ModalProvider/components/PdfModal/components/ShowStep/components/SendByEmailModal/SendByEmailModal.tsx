@@ -4,7 +4,7 @@ import LoaderModal from '../../../../../../../../../../../../../../components/Lo
 import SendEmailModalComponent from '../../../../../../../../../../../../../../components/SendEmailModal/SendEmailModal';
 import { queries } from '../../../../../../../../../../../../../../utils/constants/queryKeys';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/study/expert');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId_/study/expert');
 
 type AppViewStudyViewExpertViewModalProviderComponentPdfModalComponentShowStepComponentSendByEmailModalViewProps = Readonly<{
   file: File;

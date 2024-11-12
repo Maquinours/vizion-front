@@ -11,7 +11,7 @@ import { isAxiosError } from 'axios';
 import { toast } from 'react-toastify';
 import BusinessBpResponseDto from '../../../../../../../../../../../../utils/types/BusinessBpResponseDto';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/bp');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/bp');
 
 const yupSchema = yup.object({
   serialNumber: yup
@@ -94,7 +94,7 @@ export default function AppViewBusinessViewBpViewHeaderComponentSectionTwoCompon
       <form onSubmit={handleSubmit((data) => mutate(data))}>
         <div className={styles.form_group}>
           <label htmlFor="serialNumber">Saisir numéro de série</label>
-          <input id="serialNumber" {...register('serialNumber')} autoFocus />
+          <input id="serialNumber" {...register('serialNumber')} />
           <p className={styles.__errors}>{errors.serialNumber?.message}</p>
         </div>
         <div className={styles.button_container}>

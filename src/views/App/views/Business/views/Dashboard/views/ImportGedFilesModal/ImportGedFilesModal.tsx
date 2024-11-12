@@ -1,11 +1,11 @@
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import FileType from '../../../../../../../../utils/enums/FileType';
+import { getRouteApi } from '@tanstack/react-router';
 import ImportGedFilesModalComponent from '../../../../../../../../components/ImportGedFilesModal/ImportGedFilesModal';
+import FileType from '../../../../../../../../utils/enums/FileType';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/dashboard/import-ged-files');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/dashboard/import-ged-files');
 
 export default function AppViewBusinessViewDashboardViewImportGedFilesModalView() {
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { businessId } = routeApi.useParams();
   const { relativePath } = routeApi.useSearch();

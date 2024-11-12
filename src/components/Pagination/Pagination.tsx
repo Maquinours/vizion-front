@@ -25,8 +25,8 @@ export default function PaginationComponent({ page, totalPages = 0, pageLink, on
   });
 
   const changePage = (page: number) => {
-    if (!!onPageChange) onPageChange(page);
-    else if (!!pageLink) {
+    if (onPageChange) onPageChange(page);
+    else if (pageLink) {
       const link = pageLink(page);
       navigate({ to: link.to, params: link.params, search: link.search, state: link.state, replace: link.replace, resetScroll: link.resetScroll });
     }

@@ -1,14 +1,14 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { getRouteApi } from '@tanstack/react-router';
 import { useForm } from 'react-hook-form';
 import ReactModal from 'react-modal';
+import { PulseLoader } from 'react-spinners';
+import { toast } from 'react-toastify';
 import * as yup from 'yup';
 import { updateDepartment } from '../../../../../../../../utils/api/department';
 import { queries } from '../../../../../../../../utils/constants/queryKeys';
-import { toast } from 'react-toastify';
 import styles from './UpdateModal.module.scss';
-import { PulseLoader } from 'react-spinners';
 
 const yupSchema = yup.object().shape({
   name: yup.string().required('Le nom est requis'),
@@ -19,7 +19,7 @@ const routeApi = getRouteApi('/app/tools/departments/update/$departmentId');
 
 export default function AppViewToolsViewDepartmentsViewUpdateModalView() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { departmentId } = routeApi.useParams();
 
@@ -34,7 +34,7 @@ export default function AppViewToolsViewDepartmentsViewUpdateModalView() {
   });
 
   const onClose = () => {
-    navigate({ to: '../..', search: (old) => old, replace: true, resetScroll: false });
+    navigate({ to: '../..', search: true, replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({

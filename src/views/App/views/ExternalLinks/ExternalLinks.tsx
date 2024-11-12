@@ -1,11 +1,10 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
-import ExternalLinkResponseDto from '../../../../utils/types/ExternalLinkResponseDto';
 import { Link, getRouteApi } from '@tanstack/react-router';
-import styles from './ExternalLinks.module.scss';
-import { externalLinks } from '../../../../utils/constants/queryKeys/externalLink';
-import { useCallback } from 'react';
-import parse from 'html-react-parser';
 import DOMPurify from 'dompurify';
+import parse from 'html-react-parser';
+import { externalLinks } from '../../../../utils/constants/queryKeys/externalLink';
+import ExternalLinkResponseDto from '../../../../utils/types/ExternalLinkResponseDto';
+import styles from './ExternalLinks.module.scss';
 
 const routeApi = getRouteApi('/app/external-links');
 
@@ -13,17 +12,17 @@ const page = 0;
 const size = 12;
 const archived = false;
 
+const renderLinkChildren = (item: ExternalLinkResponseDto) => {
+  return (
+    <>
+      <div className={styles.link_card_title}>{item.title}</div>
+      <div className={styles.link_card_content}>{parse(DOMPurify.sanitize(item.description))}</div>
+    </>
+  );
+};
+
 export default function AppViewExternalLinksView() {
   const { data } = useSuspenseQuery(externalLinks.page({ page, size })._ctx.byArchiveState(archived));
-
-  const renderLinkChildren = useCallback((item: ExternalLinkResponseDto) => {
-    return (
-      <>
-        <div className={styles.link_card_title}>{item.title}</div>
-        <div className={styles.link_card_content}>{parse(DOMPurify.sanitize(item.description))}</div>
-      </>
-    );
-  }, []);
 
   return (
     <div className={styles.container}>

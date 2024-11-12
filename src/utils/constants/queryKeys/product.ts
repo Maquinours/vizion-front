@@ -32,10 +32,12 @@ const products = createQueryKeys('product', {
     queryKey: [page, size],
     contextQueries: {
       search: ({ ref, designation }: { ref: string | undefined; designation: string | undefined }) => ({
+        // eslint-disable-next-line @tanstack/query/exhaustive-deps
         queryKey: [ref, designation],
         queryFn: () => (ref || designation ? getProductsPageWithSearch(ref, designation, page, size) : getProductsPage(page, size)),
       }),
       byAssociatedProductId: (associatedProductId: string) => ({
+        // eslint-disable-next-line @tanstack/query/exhaustive-deps
         queryKey: [associatedProductId],
         queryFn: () => getAssociatedProductsPage(associatedProductId, page, size),
       }),

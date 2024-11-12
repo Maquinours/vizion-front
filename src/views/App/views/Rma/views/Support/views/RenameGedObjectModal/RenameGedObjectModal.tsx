@@ -1,11 +1,11 @@
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { getRouteApi } from '@tanstack/react-router';
 import RenameGedObjectModalComponent from '../../../../../../../../components/RenameGedObjectModal/RenameGedObjectModal';
 import FileType from '../../../../../../../../utils/enums/FileType';
 
-const routeApi = getRouteApi('/app/businesses-rma/rma/$rmaId/support/rename-ged-object/$objectRelativePath');
+const routeApi = getRouteApi('/app/businesses-rma_/rma/$rmaId/support/rename-ged-object/$objectRelativePath');
 
 export default function AppViewRmaViewSupportViewRenameGedObjectModalView() {
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { rmaId, objectRelativePath } = routeApi.useParams();
 

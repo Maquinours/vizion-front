@@ -59,12 +59,12 @@ export default function AppViewDashboardViewLinkPersonalTaskModalView() {
   const { data: businesses, isLoading: isLoadingBusinesses } = useQuery(allBusinesses.list);
   const { data: products, isLoading: isLoadingProducts } = useQuery(queries.product.list);
 
-  const { register, control, getValues, watch, handleSubmit } = useForm({
+  const { register, control, watch, handleSubmit } = useForm({
     resolver: yupResolver(yupSchema),
   });
 
   const onClose = () => {
-    navigate({ from: Route.id, to: '../..', search: (old) => old, replace: true, resetScroll: false });
+    navigate({ from: Route.id, to: '../..', search: true, replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({
@@ -106,8 +106,9 @@ export default function AppViewDashboardViewLinkPersonalTaskModalView() {
     },
   });
 
+  const type = watch('type');
+
   const select = useMemo(() => {
-    const type = getValues('type');
     return (
       <>
         <Controller
@@ -117,7 +118,7 @@ export default function AppViewDashboardViewLinkPersonalTaskModalView() {
             <CustomSelect
               placeholder="Sélectionnez une affaire"
               options={businesses}
-              getOptionLabel={(opt) => `${opt.number}${!!opt.title ? ` / ${opt.title}` : ''}`}
+              getOptionLabel={(opt) => `${opt.number}${opt.title ? ` / ${opt.title}` : ''}`}
               getOptionValue={(opt) => opt.id}
               isLoading={isLoadingBusinesses}
               value={value}
@@ -163,7 +164,7 @@ export default function AppViewDashboardViewLinkPersonalTaskModalView() {
         />
       </>
     );
-  }, [watch('type'), businesses, products, isLoadingBusinesses, enterprisesList, isLoadingProducts, isLoadingEnterprises]);
+  }, [type, businesses, products, isLoadingBusinesses, enterprisesList, isLoadingProducts, isLoadingEnterprises]);
 
   return (
     <ReactModal isOpen={true} onRequestClose={onClose} className={styles.modal_link} overlayClassName="Overlay">

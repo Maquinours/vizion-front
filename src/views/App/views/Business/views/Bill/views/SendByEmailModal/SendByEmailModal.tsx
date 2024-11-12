@@ -1,11 +1,11 @@
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import SendEmailModalComponent from '../../../../../../../../components/SendEmailModal/SendEmailModal';
+import { getRouteApi } from '@tanstack/react-router';
 import { useMemo } from 'react';
+import SendEmailModalComponent from '../../../../../../../../components/SendEmailModal/SendEmailModal';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/bill/send-by-email');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/bill/send-by-email');
 
 export default function AppViewBusinessViewBillViewSendByEmailModalView() {
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { business, bill, file, enterprise } = routeApi.useLoaderData();
 
@@ -18,7 +18,7 @@ export default function AppViewBusinessViewBillViewSendByEmailModalView() {
   );
 
   const onClose = () => {
-    navigate({ to: '..', search: (old) => old, replace: true, resetScroll: false });
+    navigate({ to: '..', search: true, replace: true, resetScroll: false });
   };
 
   return (

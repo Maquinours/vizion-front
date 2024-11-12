@@ -1,11 +1,11 @@
+import { VirtualElement } from '@popperjs/core';
 import { Row, createColumnHelper } from '@tanstack/react-table';
+import { useState } from 'react';
+import AmountFormat from '../../../../../../../../../../components/AmountFormat/AmountFormat';
 import TableComponent from '../../../../../../../../../../components/Table/Table';
 import ProductVersionShelfStockResponseDto from '../../../../../../../../../../utils/types/ProductVersionShelfStockResponseDto';
-import AmountFormat from '../../../../../../../../../../components/AmountFormat/AmountFormat';
-import styles from './Table.module.scss';
 import AppViewProductViewManageViewStocksComponentTableComponentContextMenuComponent from './ContextMenu/ContextMenu';
-import { useCallback, useState } from 'react';
-import { VirtualElement } from '@popperjs/core';
+import styles from './Table.module.scss';
 
 const columnHelper = createColumnHelper<ProductVersionShelfStockResponseDto>();
 const columns = [
@@ -45,7 +45,7 @@ export default function AppViewProductViewManageViewStocksComponentTableComponen
   const [contextMenuAnchor, setContextMenuAnchor] = useState<VirtualElement>();
   const [stock, setStock] = useState<ProductVersionShelfStockResponseDto>();
 
-  const onRowContextMenu = useCallback((e: React.MouseEvent, row: Row<ProductVersionShelfStockResponseDto>) => {
+  const onRowContextMenu = (e: React.MouseEvent, row: Row<ProductVersionShelfStockResponseDto>) => {
     e.preventDefault();
     setStock(row.original);
     setContextMenuAnchor({
@@ -61,7 +61,7 @@ export default function AppViewProductViewManageViewStocksComponentTableComponen
         toJSON: () => {},
       }),
     });
-  }, []);
+  };
 
   return (
     <>

@@ -1,27 +1,27 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { getRouteApi } from '@tanstack/react-router';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { AiOutlineSearch } from 'react-icons/ai';
 import * as yup from 'yup';
 
-const Route = getRouteApi('/app/enterprises/$enterpriseId');
+const routeApi = getRouteApi('/app/enterprises_/$enterpriseId');
 
 const yupSchema = yup.object({
   search: yup.string(),
 });
 
 export default function AppViewEnterpriseViewContactsComponentSearchSectionComponent() {
-  const navigate = useNavigate();
+  const navigate = routeApi.useNavigate();
 
-  const { contactsSearch } = Route.useSearch();
+  const { contactsSearch } = routeApi.useSearch();
 
   const { register, setValue, handleSubmit } = useForm({
     resolver: yupResolver(yupSchema),
   });
 
   const onSubmit = ({ search }: yup.InferType<typeof yupSchema>) => {
-    navigate({ from: Route.id, search: (old) => ({ ...old, contactsSearch: search || undefined, page: 0 }), replace: true, resetScroll: false });
+    navigate({ search: (old) => ({ ...old, contactsSearch: search || undefined, page: 0 }), replace: true, resetScroll: false });
   };
 
   useEffect(() => {

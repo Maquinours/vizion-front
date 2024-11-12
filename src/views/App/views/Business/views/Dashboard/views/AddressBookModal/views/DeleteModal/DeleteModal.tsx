@@ -1,25 +1,25 @@
-import ReactModal from 'react-modal';
-import styles from './DeleteModal.module.scss';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { queries } from '../../../../../../../../../../utils/constants/queryKeys';
-import { PulseLoader } from 'react-spinners';
-import { deleteAddress } from '../../../../../../../../../../utils/api/address';
-import { toast } from 'react-toastify';
+import { getRouteApi } from '@tanstack/react-router';
 import React from 'react';
+import ReactModal from 'react-modal';
+import { PulseLoader } from 'react-spinners';
+import { toast } from 'react-toastify';
+import { deleteAddress } from '../../../../../../../../../../utils/api/address';
+import { queries } from '../../../../../../../../../../utils/constants/queryKeys';
+import styles from './DeleteModal.module.scss';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/dashboard/address-book/delete/$addressId');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/dashboard/address-book/delete/$addressId');
 
 export default function AppViewBusinessViewDashboardViewAddressBookModalViewDeleteModalView() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { addressId } = routeApi.useParams();
 
   const { data: address } = useSuspenseQuery(queries.address.detail._ctx.byId(addressId));
 
   const onClose = () => {
-    navigate({ to: '../..', search: (old) => old, replace: true, resetScroll: false, ignoreBlocker: true });
+    navigate({ to: '../..', search: true, replace: true, resetScroll: false, ignoreBlocker: true });
   };
 
   const { mutate, isPending } = useMutation({

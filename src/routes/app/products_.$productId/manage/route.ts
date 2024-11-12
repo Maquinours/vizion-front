@@ -18,7 +18,7 @@ const searchSchema = z.object({
   stockEntriesSize: z.union([z.literal(5), z.literal(10), z.literal(15), z.literal(20), z.literal(25), z.literal(30), z.literal(50), z.literal(100)]).catch(5),
 });
 
-export const Route = createFileRoute('/app/products/$productId/manage')({
+export const Route = createFileRoute('/app/products_/$productId/manage')({
   validateSearch: (
     data: {
       associatedProductsPage?: number;
@@ -36,7 +36,12 @@ export const Route = createFileRoute('/app/products/$productId/manage')({
   beforeLoad: async ({ context: { queryClient } }) => {
     const user = await queryClient.ensureQueryData(users.authentified());
     if (!user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO'))
-      throw redirect({ from: Route.id, to: '../informations', search: { lifesheetPage: 0 }, replace: true });
+      throw redirect({
+        from: Route.fullPath,
+        to: '../informations',
+        search: { lifesheetPage: 0 },
+        replace: true,
+      });
   },
   loaderDeps: ({
     search: {
@@ -106,10 +111,25 @@ export const Route = createFileRoute('/app/products/$productId/manage')({
 
     queryClient.prefetchQuery(queries.product.page({ page: associatedProductsPage, size: associatedProductsSize })._ctx.byAssociatedProductId(productId));
 
-    queryClient.prefetchQuery(queries['product-versions'].page._ctx.byProductId(productId, { page: versionsPage, size: versionsSize }));
+    queryClient.prefetchQuery(
+      queries['product-versions'].page._ctx.byProductId(productId, {
+        page: versionsPage,
+        size: versionsSize,
+      }),
+    );
 
-    queryClient.prefetchQuery(productSpecificationsQueryKeys.page._ctx.byProductId(productId, { page: specificationsPage, size: specificationsSize }));
+    queryClient.prefetchQuery(
+      productSpecificationsQueryKeys.page._ctx.byProductId(productId, {
+        page: specificationsPage,
+        size: specificationsSize,
+      }),
+    );
 
-    queryClient.prefetchQuery(productStockEntriesQueryKeys.page._ctx.byProductId(productId, { page: stockEntriesPage, size: stockEntriesSize }));
+    queryClient.prefetchQuery(
+      productStockEntriesQueryKeys.page._ctx.byProductId(productId, {
+        page: stockEntriesPage,
+        size: stockEntriesSize,
+      }),
+    );
   },
 });

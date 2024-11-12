@@ -1,18 +1,18 @@
-import ReactModal from 'react-modal';
-import styles from './ArchiveModal.module.scss';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { getRouteApi } from '@tanstack/react-router';
+import React from 'react';
+import ReactModal from 'react-modal';
+import { PulseLoader } from 'react-spinners';
+import { toast } from 'react-toastify';
 import { archiveBusiness } from '../../../../../../utils/api/business';
 import { queries } from '../../../../../../utils/constants/queryKeys';
-import { toast } from 'react-toastify';
-import React from 'react';
-import { PulseLoader } from 'react-spinners';
+import styles from './ArchiveModal.module.scss';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId');
 
 export default function AppViewBusinessViewArchiveModalComponent() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { businessId } = routeApi.useParams();
   const { businessModal } = routeApi.useSearch();

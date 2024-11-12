@@ -1,22 +1,22 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useQuery, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { getRouteApi } from '@tanstack/react-router';
 import { format } from 'date-fns';
 import { useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
+import { toast } from 'react-toastify';
 import * as yup from 'yup';
 import AmountFormat from '../../../../../../../../components/AmountFormat/AmountFormat';
 import CurrencyFormat from '../../../../../../../../components/CurrencyFormat/CurrencyFormat';
 import CustomSelect from '../../../../../../../../components/CustomSelect/CustomSelect';
+import { updateBusinessArcDetail } from '../../../../../../../../utils/api/businessArcDetails';
 import { queries } from '../../../../../../../../utils/constants/queryKeys';
 import ProductResponseDto from '../../../../../../../../utils/types/ProductResponseDto';
 import styles from './UpdateDetailModal.module.scss';
-import { updateBusinessArcDetail } from '../../../../../../../../utils/api/businessArcDetails';
-import { toast } from 'react-toastify';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/arc/update-detail/$detailId');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/arc/update-detail/$detailId');
 
 const yupSchema = yup.object({
   product: yup.mixed<ProductResponseDto>().required('La référence est requise.'),
@@ -40,7 +40,7 @@ const yupSchema = yup.object({
 
 export default function AppViewBusinessViewArcViewUpdateDetailModalView() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { businessId, detailId } = routeApi.useParams();
 
@@ -61,7 +61,7 @@ export default function AppViewBusinessViewArcViewUpdateDetailModalView() {
   });
 
   const onClose = () => {
-    navigate({ to: '../..', search: (old) => old, replace: true, resetScroll: false, ignoreBlocker: true });
+    navigate({ to: '../..', search: true, replace: true, resetScroll: false, ignoreBlocker: true });
   };
 
   const onChangeProduct = (product: ProductResponseDto | null) => {

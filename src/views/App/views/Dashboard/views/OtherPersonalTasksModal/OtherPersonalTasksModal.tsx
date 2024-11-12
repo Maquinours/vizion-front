@@ -22,7 +22,7 @@ export default function AppViewDashboardViewOtherPersonalTasksModalView() {
   const { data, refetch, isRefetching, isLoading } = useQuery(queries.tasks.page._ctx.byStateAndProfileId(state, profileId, { page, size }));
 
   const onClose = () => {
-    navigate({ from: Route.id, to: '../..', search: (old) => old, replace: true, resetScroll: false });
+    navigate({ from: Route.id, to: '../..', search: true, replace: true, resetScroll: false });
   };
 
   return (

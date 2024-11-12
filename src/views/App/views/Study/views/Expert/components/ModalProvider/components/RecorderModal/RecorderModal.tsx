@@ -1,7 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import { useReactFlow } from '@xyflow/react';
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useMemo } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import ReactModal from 'react-modal';
 import { v4 as uuidv4 } from 'uuid';
@@ -80,12 +80,16 @@ export default function AppViewStudyViewExpertViewModalProviderComponentRecorder
     select: (products) => products.filter((product) => product.category === 'NVR' && !!product.reference && includedProducts.includes(product.reference)),
   });
 
-  const { getValues, setValue, control, handleSubmit } = useForm({
+  const { getValues, setValue, control, handleSubmit, watch } = useForm({
     resolver: yupResolver(yupSchema),
     defaultValues: {
       models: [],
     },
   });
+
+  const models = watch('models');
+
+  const selectedModelsLength = useMemo(() => models.filter((model) => model.selected).length, [models]);
 
   const onClose = () => {
     setModal(undefined);
@@ -159,7 +163,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentRecorder
         else if (cams <= 8) return 'HD508PAP';
         else if (cams <= 16) return 'HD516PAP';
       })();
-      if (!!selectedReference) {
+      if (selectedReference) {
         const model = newModels.find((model) => model.product.reference === selectedReference);
         if (model) model.selected = true;
       }
@@ -182,15 +186,19 @@ export default function AppViewStudyViewExpertViewModalProviderComponentRecorder
           render={({ field: { value, onChange } }) => (
             <div className="max-h-[30rem] overflow-y-scroll">
               {value.map((model) => (
-                <div
+                <button
                   key={model.product.id}
+                  type="button"
                   className="mt-4 flex items-center justify-center space-x-4 px-4"
                   onClick={() => onChange(value.map((m) => (m.product.id === model.product.id ? { ...m, selected: !m.selected } : m)))}
                 >
                   <div className="flex h-36 w-[30rem] items-center justify-center rounded-md border border-slate-800 px-2">
                     <div className="flex items-center justify-center space-x-2">
                       <div className="h-16 w-36 rounded-md p-4">
-                        <img src={`https://bd.vizeo.eu/6-Photos/${model.product.reference}/PLUG_${model.product.reference}.png`} />
+                        <img
+                          src={`https://bd.vizeo.eu/6-Photos/${model.product.reference}/PLUG_${model.product.reference}.png`}
+                          alt={`Produit ${model.product.reference}`}
+                        />
                       </div>
                       <p className="first-letter:uppercase">{model.product.shortDescription}</p>
                     </div>
@@ -204,18 +212,23 @@ export default function AppViewStudyViewExpertViewModalProviderComponentRecorder
                   <div className="flex items-center justify-center space-x-2">
                     <input type="checkbox" checked={model.selected} readOnly={true} />
                   </div>
-                </div>
+                </button>
               ))}
             </div>
           )}
         />
-        <div className="mt-6 flex items-center justify-center space-x-2">
-          <button type="button" onClick={onClose} className="btn btn-secondary">
-            Annuler
-          </button>
-          <button type="submit" className="btn btn-primary">
-            Valider
-          </button>
+        <div className="mt-6 flex flex-col items-center justify-center gap-y-2">
+          <span className="text-center text-[var(--primary-color)]">
+            {selectedModelsLength} élément{selectedModelsLength > 1 ? 's' : ''} sélectionné{selectedModelsLength > 1 ? 's' : ''}
+          </span>
+          <div className="flex items-center justify-center space-x-2">
+            <button type="button" onClick={onClose} className="btn btn-secondary">
+              Annuler
+            </button>
+            <button type="submit" className="btn btn-primary">
+              Valider
+            </button>
+          </div>
         </div>
       </form>
     </ReactModal>

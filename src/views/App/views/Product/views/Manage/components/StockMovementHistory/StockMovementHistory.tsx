@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { getRouteApi } from '@tanstack/react-router';
 import { createColumnHelper } from '@tanstack/react-table';
 import React from 'react';
 import AmountFormat from '../../../../../../../../components/AmountFormat/AmountFormat';
@@ -12,7 +12,7 @@ import { formatDateAndHourWithSlash } from '../../../../../../../../utils/functi
 import ProductStockEntryResponseDto from '../../../../../../../../utils/types/ProductStockEntryResponseDto';
 import styles from './StockMovementHistory.module.scss';
 
-const routeApi = getRouteApi('/app/products/$productId/manage');
+const routeApi = getRouteApi('/app/products_/$productId/manage');
 
 const sizeOptions = [5, 10, 15, 20, 25, 30, 50, 100];
 
@@ -49,7 +49,7 @@ const columns = [
 ];
 
 export default function AppViewProductViewManageViewStockMovementHistoryComponent() {
-  const navigate = useNavigate();
+  const navigate = routeApi.useNavigate();
 
   const { productId } = routeApi.useParams();
   const { stockEntriesPage: page, stockEntriesSize: size } = routeApi.useSearch();
@@ -58,7 +58,6 @@ export default function AppViewProductViewManageViewStockMovementHistoryComponen
 
   const onSizeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     navigate({
-      from: routeApi.id,
       search: (old) => ({ ...old, stockEntriesPage: 0, stockEntriesSize: Number(e.target.value) as 10 | 100 | 5 | 20 | 50 | 15 | 25 | 30 }),
       replace: true,
       resetScroll: false,
@@ -87,7 +86,12 @@ export default function AppViewProductViewManageViewStockMovementHistoryComponen
             <PaginationComponent
               page={page}
               totalPages={data?.totalPages}
-              pageLink={(page) => ({ from: routeApi.id, search: (old) => ({ ...old, stockEntriesPage: page }), replace: true, resetScroll: false })}
+              pageLink={(page) => ({
+                from: '/app/products/$productId/manage',
+                search: (old) => ({ ...old, stockEntriesPage: page }),
+                replace: true,
+                resetScroll: false,
+              })}
             />
           </div>
         </div>

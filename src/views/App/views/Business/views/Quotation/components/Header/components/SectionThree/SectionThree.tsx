@@ -5,7 +5,7 @@ import AppViewBusinessViewQuotationViewHeaderComponentSectionThreeComponentButto
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { queries } from '../../../../../../../../../../utils/constants/queryKeys';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/quotation');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/quotation');
 
 export default function AppViewBusinessViewQuotationViewHeaderComponentSectionThreeComponent() {
   const { businessId } = routeApi.useParams();

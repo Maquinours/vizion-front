@@ -2,7 +2,7 @@ import { getRouteApi } from '@tanstack/react-router';
 import LifesheetComponent from '../../../../../../../../components/Lifesheet/Lifesheet';
 import { LifesheetAssociatedItem } from '../../../../../../../../utils/enums/LifesheetAssociatedItem';
 
-const routeApi = getRouteApi('/app/businesses-rma/rma/$rmaId/support');
+const routeApi = getRouteApi('/app/businesses-rma_/rma/$rmaId/support');
 
 export default function AppViewRmaViewSupportViewLifesheetComponent() {
   const { rmaId } = routeApi.useParams();

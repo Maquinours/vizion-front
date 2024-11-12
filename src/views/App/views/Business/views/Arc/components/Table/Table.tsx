@@ -12,7 +12,7 @@ import { useAuthentifiedUserQuery } from '../../../../../../utils/functions/getA
 import styles from './Table.module.scss';
 import AppViewBusinessViewArcViewTableComponentContextMenuComponent from './components/ContextMenu/ContextMenu';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/arc');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/arc');
 
 const columnHelper = createColumnHelper<BusinessArcDetailsResponseDto>();
 

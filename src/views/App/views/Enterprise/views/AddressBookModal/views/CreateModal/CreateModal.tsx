@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { getRouteApi } from '@tanstack/react-router';
 import { useForm } from 'react-hook-form';
 import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
@@ -10,7 +10,7 @@ import { createAddress } from '../../../../../../../../utils/api/address';
 import { queries } from '../../../../../../../../utils/constants/queryKeys';
 import styles from './CreateModal.module.scss';
 
-const Route = getRouteApi('/app/enterprises/$enterpriseId/address-book/create');
+const routeApi = getRouteApi('/app/enterprises_/$enterpriseId/address-book/create');
 
 const yupSchema = yup.object({
   enterpriseName: yup.string().required('Champs requis.'),
@@ -32,9 +32,9 @@ const yupSchema = yup.object({
 
 export default function AppViewEnterpriseViewAddressBookModalViewCreateModalView() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate();
+  const navigate = routeApi.useNavigate();
 
-  const { enterpriseId } = Route.useParams();
+  const { enterpriseId } = routeApi.useParams();
 
   const {
     register,
@@ -45,7 +45,7 @@ export default function AppViewEnterpriseViewAddressBookModalViewCreateModalView
   });
 
   const onClose = () => {
-    navigate({ from: Route.id, to: '..', search: (old) => old, replace: true, resetScroll: false });
+    navigate({ to: '..', search: true, replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({

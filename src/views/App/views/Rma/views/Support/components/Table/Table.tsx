@@ -9,7 +9,7 @@ import AppViewRmaViewSupportViewTableComponentContextMenuComponent from './compo
 import React, { useState } from 'react';
 import { VirtualElement } from '@popperjs/core';
 
-const routeApi = getRouteApi('/app/businesses-rma/rma/$rmaId/support');
+const routeApi = getRouteApi('/app/businesses-rma_/rma/$rmaId/support');
 
 const columnHelper = createColumnHelper<AssistanceSupportDetailResponseDto>();
 const columns = [

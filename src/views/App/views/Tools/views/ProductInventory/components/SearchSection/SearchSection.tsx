@@ -1,14 +1,14 @@
-import { useQuery } from '@tanstack/react-query';
-import { queries } from '../../../../../../../../utils/constants/queryKeys';
-import * as yup from 'yup';
-import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import CustomSelect from '../../../../../../../../components/CustomSelect/CustomSelect';
-import ProductVersionResponseDto from '../../../../../../../../utils/types/ProductVersionResponseDto';
-import ProductShelfResponseDto from '../../../../../../../../utils/types/ProductShelfResponseDto';
-import styles from './SearchSection.module.scss';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { useQuery } from '@tanstack/react-query';
+import { getRouteApi } from '@tanstack/react-router';
 import React, { useEffect } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import * as yup from 'yup';
+import CustomSelect from '../../../../../../../../components/CustomSelect/CustomSelect';
+import { queries } from '../../../../../../../../utils/constants/queryKeys';
+import ProductShelfResponseDto from '../../../../../../../../utils/types/ProductShelfResponseDto';
+import ProductVersionResponseDto from '../../../../../../../../utils/types/ProductVersionResponseDto';
+import styles from './SearchSection.module.scss';
 
 const routeApi = getRouteApi('/app/tools/product-inventory');
 
@@ -18,7 +18,7 @@ const yupSchema = yup.object().shape({
 });
 
 export default function AppViewToolsViewProductInventoryViewSearchSectionComponent() {
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { shelfId, versionId } = routeApi.useSearch();
 

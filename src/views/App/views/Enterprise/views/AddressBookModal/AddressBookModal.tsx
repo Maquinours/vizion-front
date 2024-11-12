@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { Outlet, getRouteApi, useNavigate } from '@tanstack/react-router';
+import { Outlet, getRouteApi } from '@tanstack/react-router';
 import ReactModal from 'react-modal';
 import { queries } from '../../../../../../utils/constants/queryKeys';
 import styles from './AddressBookModal.module.scss';
@@ -8,20 +8,20 @@ import AppViewEnterpriseViewAddressBookModalViewHeaderComponent from './componen
 import AppViewEnterpriseViewAddressBookModalViewPaginationComponent from './components/Pagination/Pagination';
 import AppViewEnterpriseViewAddressBookModalViewSearchSectionComponent from './components/SearchSection/SearchSection';
 
-const Route = getRouteApi('/app/enterprises/$enterpriseId/address-book');
+const routeApi = getRouteApi('/app/enterprises_/$enterpriseId/address-book');
 
 const size = 9;
 
 export default function AppViewEnterpriseViewAddressBookModalView() {
-  const navigate = useNavigate();
+  const navigate = routeApi.useNavigate();
 
-  const { enterpriseId } = Route.useParams();
-  const { search, page } = Route.useSearch();
+  const { enterpriseId } = routeApi.useParams();
+  const { search, page } = routeApi.useSearch();
 
   const { data, isLoading } = useQuery(queries.address.page._ctx.searchByEnterpriseId({ enterpriseId, searchText: search }, { page, size }));
 
   const onClose = () => {
-    navigate({ from: Route.id, to: '..', search: (old) => old, replace: true, resetScroll: false });
+    navigate({ to: '..', search: true, replace: true, resetScroll: false });
   };
 
   return (

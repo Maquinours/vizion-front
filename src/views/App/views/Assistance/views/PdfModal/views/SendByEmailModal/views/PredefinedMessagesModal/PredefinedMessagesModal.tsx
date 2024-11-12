@@ -1,7 +1,7 @@
 import { getRouteApi } from '@tanstack/react-router';
 import SendEmailPredefinedMessagesModalComponent from '../../../../../../../../../../components/SendEmailPredefinedMessagesModal/SendEmailPredefinedMessagesModal';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/assistance/$assistanceId/pdf/send-by-email/predefined-messages');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/pdf/send-by-email/predefined-messages');
 
 export default function AppViewAssistanceViewPdfModalViewSendByEmailModalViewPredefinedMessagesModalView() {
   const navigate = routeApi.useNavigate();

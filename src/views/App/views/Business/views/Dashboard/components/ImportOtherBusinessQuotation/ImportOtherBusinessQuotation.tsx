@@ -1,22 +1,22 @@
-import { Controller, useForm } from 'react-hook-form';
-import styles from './ImportOtherBusinessQuotation.module.scss';
-import * as yup from 'yup';
-import BusinessResponseDto from '../../../../../../../../utils/types/BusinessResponseDto';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
+import { getRouteApi } from '@tanstack/react-router';
+import { Controller, useForm } from 'react-hook-form';
+import * as yup from 'yup';
+import CustomSelect from '../../../../../../../../components/CustomSelect/CustomSelect';
 import { queries } from '../../../../../../../../utils/constants/queryKeys';
 import BusinessState from '../../../../../../../../utils/enums/BusinessState';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import CustomSelect from '../../../../../../../../components/CustomSelect/CustomSelect';
-import { yupResolver } from '@hookform/resolvers/yup';
+import BusinessResponseDto from '../../../../../../../../utils/types/BusinessResponseDto';
+import styles from './ImportOtherBusinessQuotation.module.scss';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/dashboard');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/dashboard');
 
 const yupSchema = yup.object().shape({
   fromBusiness: yup.mixed<BusinessResponseDto>().required(),
 });
 
 export default function AppViewBusinessViewDashboardViewImportOtherBusinessQuotationComponent() {
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
   const { businessId } = routeApi.useParams();
 
   const { data: business } = useSuspenseQuery(queries.businesses.detail._ctx.byId(businessId));

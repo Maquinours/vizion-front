@@ -1,18 +1,12 @@
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { getRouteApi } from '@tanstack/react-router';
 import SendEmailModalComponent from '../../../../../../../../components/SendEmailModal/SendEmailModal';
 
-const Route = getRouteApi('/app/enterprises/$enterpriseId/task-email/$taskId/reply');
+const routeApi = getRouteApi('/app/enterprises_/$enterpriseId/task-email/$taskId/reply');
 
 export default function AppViewEnterpriseViewTaskEmailModalViewReplyModalView() {
-  const navigate = useNavigate();
+  const navigate = routeApi.useNavigate();
 
-  const { email } = Route.useLoaderData();
+  const { email } = routeApi.useLoaderData();
 
-  return (
-    <SendEmailModalComponent
-      isOpen
-      onClose={() => navigate({ from: Route.id, to: '..', search: (old) => old, replace: true, resetScroll: false })}
-      emailToReply={email}
-    />
-  );
+  return <SendEmailModalComponent isOpen onClose={() => navigate({ to: '..', search: true, replace: true, resetScroll: false })} emailToReply={email} />;
 }

@@ -8,14 +8,14 @@ export const Route = createFileRoute('/app/')({
       throw redirect({
         from: Route.id,
         to: 'dashboard',
-        search: (old) => old,
+        search: true,
         replace: true,
       });
     else
       throw redirect({
         from: Route.id,
         to: 'businesses-rma',
-        search: (old) => old,
+        search: true,
         replace: true,
       });
   },

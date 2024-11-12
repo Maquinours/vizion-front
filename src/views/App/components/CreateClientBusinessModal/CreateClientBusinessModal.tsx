@@ -85,7 +85,7 @@ export default function AppViewCreateClientBusinessModalComponent() {
       toast.success('Affaire créée avec succès');
       const currentTabId = getCurrentTab()?.id;
       await navigate({ to: '/app/businesses-rma/business/$businessId/study', params: { businessId: business.id } });
-      if (!!currentTabId)
+      if (currentTabId)
         updateTabRoute(currentTabId, (tab) => ({
           search: typeof tab.route.search === 'object' ? { ...tab.route.search, appModal: undefined } : tab.route.search,
         }));

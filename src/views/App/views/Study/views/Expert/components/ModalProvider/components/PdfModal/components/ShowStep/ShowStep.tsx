@@ -15,7 +15,7 @@ import useStore, { RFState } from '../../../../../Flow/utils/store';
 import AppViewStudyViewExpertViewModalProviderComponentPdfModalComponentShowStepComponentPdfComponent from './components/Pdf/Pdf';
 import AppViewStudyViewExpertViewModalProviderComponentPdfModalComponentShowStepComponentSendByEmailModalView from './components/SendByEmailModal/SendByEmailModal';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/study/expert');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId_/study/expert');
 
 const selector = (state: RFState) => ({
   pages: state.pages,

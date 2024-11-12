@@ -1,11 +1,11 @@
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { getRouteApi } from '@tanstack/react-router';
 import DeleteGedObjectModalComponent from '../../../../../../../../components/DeleteGedObjectModal/DeleteGedObjectModal';
 import FileType from '../../../../../../../../utils/enums/FileType';
 
-const routeApi = getRouteApi('/app/businesses-rma/rma/$rmaId/support/delete-ged-object/$relativePath');
+const routeApi = getRouteApi('/app/businesses-rma_/rma/$rmaId/support/delete-ged-object/$relativePath');
 
 export default function AppViewRmaViewSupportViewDeleteGedObjectModalView() {
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { rmaId, relativePath } = routeApi.useParams();
 

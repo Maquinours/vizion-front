@@ -1,9 +1,9 @@
-import { Link, getRouteApi, useNavigate } from '@tanstack/react-router';
-import styles from './Header.module.scss';
-import { useEffect } from 'react';
-import * as yup from 'yup';
-import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { Link, getRouteApi } from '@tanstack/react-router';
+import { useEffect } from 'react';
+import { useForm } from 'react-hook-form';
+import * as yup from 'yup';
+import styles from './Header.module.scss';
 
 const routeApi = getRouteApi('/app/tools/mails');
 
@@ -12,7 +12,7 @@ const yupSchema = yup.object().shape({
 });
 
 export default function AppViewToolsViewMailsViewHeaderComponent() {
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { search } = routeApi.useSearch();
 
@@ -45,7 +45,7 @@ export default function AppViewToolsViewMailsViewHeaderComponent() {
           </button>
         </form>
       </div>
-      <Link from={routeApi.id} to="create" search={(old) => old} replace resetScroll={false} className="btn btn-secondary">
+      <Link from={routeApi.id} to="create" search replace resetScroll={false} className="btn btn-secondary">
         Nouveau courrier
       </Link>
     </div>

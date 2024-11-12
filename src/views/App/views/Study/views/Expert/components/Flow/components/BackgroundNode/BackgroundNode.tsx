@@ -34,6 +34,7 @@ export default function AppViewStudyViewExpertViewFlowComponentBackgroundNodeCom
     <>
       <img
         src={data.image}
+        alt="Importation"
         className="max-w-[inherit] object-contain"
         style={{
           width: data.width * data.scale,

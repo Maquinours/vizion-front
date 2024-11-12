@@ -1,6 +1,8 @@
-import { createLazyFileRoute } from '@tanstack/react-router';
-import AppViewProductViewManageViewCreateStockModalView from '../../../../../views/App/views/Product/views/Manage/views/CreateStockModal/CreateStockModal';
+import { createLazyFileRoute } from '@tanstack/react-router'
+import AppViewProductViewManageViewCreateStockModalView from '../../../../../views/App/views/Product/views/Manage/views/CreateStockModal/CreateStockModal'
 
-export const Route = createLazyFileRoute('/app/products/$productId/manage/create-stock')({
+export const Route = createLazyFileRoute(
+  '/app/products_/$productId/manage/create-stock',
+)({
   component: AppViewProductViewManageViewCreateStockModalView,
-});
+})

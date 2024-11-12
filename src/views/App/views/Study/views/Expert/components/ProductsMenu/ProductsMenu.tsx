@@ -90,7 +90,7 @@ export default function AppViewStudyViewExpertViewProductsMenuComponent() {
               onClick={() => setModal({ type: category.modalId })}
               className="flex h-16 w-full content-between items-center justify-center overflow-hidden rounded-md border border-slate-800 p-2 disabled:cursor-not-allowed disabled:opacity-50"
             >
-              <img src={category.image} className="w-[70px]" />
+              <img src={category.image} alt={`Catégorie ${category.label}`} className="w-[70px]" />
               <p className="text-black-700 w-32 text-sm font-bold">{category.label}</p>
             </button>
           ))}

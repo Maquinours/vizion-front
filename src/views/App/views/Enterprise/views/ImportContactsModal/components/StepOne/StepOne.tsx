@@ -1,12 +1,13 @@
 import { Link, getRouteApi } from '@tanstack/react-router';
-import React, { useCallback } from 'react';
+import React from 'react';
 import { useDropzone } from 'react-dropzone';
-import styles from './StepOne.module.scss';
-import ProfileRequestDto from '../../../../../../../../utils/types/ProfileRequestDto';
-import { excelFileToObject } from '../../../../../../../../utils/functions/files';
 import ProfileClient from '../../../../../../../../utils/enums/ProfileClient';
+import { excelFileToObject } from '../../../../../../../../utils/functions/files';
+import ProfileRequestDto from '../../../../../../../../utils/types/ProfileRequestDto';
+import styles from './StepOne.module.scss';
 
-const Route = getRouteApi('/app/enterprises/$enterpriseId/import-contacts');
+const routeApi = getRouteApi('/app/enterprises_/$enterpriseId/import-contacts');
+const routePath = '/app/enterprises/$enterpriseId/import-contacts';
 
 type AppViewEnterpriseViewImportContactsModalViewStepOneComponentProps = Readonly<{
   file: File | undefined;
@@ -20,14 +21,11 @@ export default function AppViewEnterpriseViewImportContactsModalViewStepOneCompo
   setProfiles,
   setStep,
 }: AppViewEnterpriseViewImportContactsModalViewStepOneComponentProps) {
-  const { enterpriseId } = Route.useParams();
+  const { enterpriseId } = routeApi.useParams();
 
-  const onDrop = useCallback(
-    (files: Array<File>) => {
-      if (files.length === 1) setFile(files[0]);
-    },
-    [setFile],
-  );
+  const onDrop = (files: Array<File>) => {
+    if (files.length === 1) setFile(files[0]);
+  };
 
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
@@ -35,31 +33,28 @@ export default function AppViewEnterpriseViewImportContactsModalViewStepOneCompo
     maxFiles: 1,
   });
 
-  const onSubmit = useCallback(
-    (file: File) => {
-      excelFileToObject(file).then((data) => {
-        setProfiles(
-          data.map((row) => ({
-            lastName: row.Nom ?? '',
-            firstName: row.Prenom,
-            civility: row.Civilité === 'M' ? 'Monsieur' : row.Civilité === 'F' ? 'Madame' : 'Service',
-            email: row.Mail,
-            password: null,
-            phoneNumber: row.Telephone,
-            standardPhoneNumber: row.Portable,
-            landlinePhoneNumber: row.AGENCE,
-            job: row.Fonction,
-            profileClient: ProfileClient[row.Profil as keyof typeof ProfileClient],
-            siteIdentifier: null,
-            enterpriseId,
-            expert: false,
-          })),
-        );
-      });
-      setStep(1);
-    },
-    [enterpriseId, setProfiles, setStep],
-  );
+  const onSubmit = (file: File) => {
+    excelFileToObject(file).then((data) => {
+      setProfiles(
+        data.map((row) => ({
+          lastName: row.Nom ?? '',
+          firstName: row.Prenom,
+          civility: row.Civilité === 'M' ? 'Monsieur' : row.Civilité === 'F' ? 'Madame' : 'Service',
+          email: row.Mail,
+          password: null,
+          phoneNumber: row.Telephone,
+          standardPhoneNumber: row.Portable,
+          landlinePhoneNumber: row.AGENCE,
+          job: row.Fonction,
+          profileClient: ProfileClient[row.Profil as keyof typeof ProfileClient],
+          siteIdentifier: null,
+          enterpriseId,
+          expert: false,
+        })),
+      );
+    });
+    setStep(1);
+  };
 
   return (
     <div className={styles.modal_container}>
@@ -82,7 +77,7 @@ export default function AppViewEnterpriseViewImportContactsModalViewStepOneCompo
         </div>
       </div>
       <div className={styles.modal_buttons}>
-        <Link from={Route.id} to={'..'} search={(old) => old} className="btn btn-primary">
+        <Link from={routePath} to=".." search className="btn btn-primary">
           Annuler
         </Link>
         <button className="btn btn-secondary" onClick={() => onSubmit(file!)}>

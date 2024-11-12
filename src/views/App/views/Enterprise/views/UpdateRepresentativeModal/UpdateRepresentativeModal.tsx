@@ -1,19 +1,20 @@
-import { Link, getRouteApi, useNavigate } from '@tanstack/react-router';
-import * as yup from 'yup';
-import { enterprises } from '../../../../../../utils/constants/queryKeys/enterprise';
-import CategoryClient from '../../../../../../utils/enums/CategoryClient';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useMutation, useQuery, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
+import { Link, getRouteApi } from '@tanstack/react-router';
+import { Controller, useForm } from 'react-hook-form';
 import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
-import { Controller, useForm } from 'react-hook-form';
-import CustomSelect from '../../../../../../components/CustomSelect/CustomSelect';
-import { useMutation, useQuery, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { yupResolver } from '@hookform/resolvers/yup';
-import EnterpriseResponseDto from '../../../../../../utils/types/EnterpriseResponseDto';
 import { toast } from 'react-toastify';
-import styles from './UpdateRepresentativeModal.module.scss';
+import * as yup from 'yup';
+import CustomSelect from '../../../../../../components/CustomSelect/CustomSelect';
 import { updateEnterpriseInfoSup } from '../../../../../../utils/api/enterpriseInfoSup';
+import { enterprises } from '../../../../../../utils/constants/queryKeys/enterprise';
+import CategoryClient from '../../../../../../utils/enums/CategoryClient';
+import EnterpriseResponseDto from '../../../../../../utils/types/EnterpriseResponseDto';
+import styles from './UpdateRepresentativeModal.module.scss';
 
-const Route = getRouteApi('/app/enterprises/$enterpriseId/update-representative');
+const routeApi = getRouteApi('/app/enterprises_/$enterpriseId/update-representative');
+const routePath = '/app/enterprises/$enterpriseId/update-representative';
 
 const yupSchema = yup.object({
   representative: yup.mixed<EnterpriseResponseDto>().nullable(),
@@ -25,9 +26,9 @@ const yupSchema = yup.object({
 
 export default function AppViewEnterpriseViewUpdateRepresentativeModalView() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate();
+  const navigate = routeApi.useNavigate();
 
-  const { enterpriseId } = Route.useParams();
+  const { enterpriseId } = routeApi.useParams();
 
   const { data: enterprise } = useSuspenseQuery(enterprises.detail(enterpriseId));
 
@@ -50,7 +51,7 @@ export default function AppViewEnterpriseViewUpdateRepresentativeModalView() {
   });
 
   const onClose = () => {
-    navigate({ from: Route.id, to: '..', search: (old) => old, replace: true, resetScroll: false });
+    navigate({ to: '..', search: true, replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({
@@ -137,7 +138,7 @@ export default function AppViewEnterpriseViewUpdateRepresentativeModalView() {
               </div>
 
               <div className={styles.form_buttons}>
-                <Link from={Route.id} to=".." search={(old) => old} className="btn btn-primary" disabled={isPending}>
+                <Link from={routePath} to=".." search className="btn btn-primary" disabled={isPending}>
                   Annuler
                 </Link>
                 <button type="submit" className="btn btn-secondary">

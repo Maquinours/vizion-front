@@ -1,9 +1,9 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { getRouteApi } from '@tanstack/react-router';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import styles from './SearchSection.module.scss';
-import { useEffect } from 'react';
 
 const routeApi = getRouteApi('/app/tools/emails');
 
@@ -12,7 +12,7 @@ const yupSchema = yup.object({
 });
 
 export default function AppViewToolsViewEmailsViewSearchSectionComponent() {
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { search } = routeApi.useSearch();
 
@@ -21,12 +21,12 @@ export default function AppViewToolsViewEmailsViewSearchSectionComponent() {
   });
 
   const onSubmit = ({ searchText }: yup.InferType<typeof yupSchema>) => {
-    navigate({ search: (old) => ({ ...old, search: searchText, page: 0 }) });
+    navigate({ search: (old) => ({ ...old, search: searchText, page: 0 }), replace: true, resetScroll: false });
   };
 
   const onReset = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    navigate({ search: (old) => ({ ...old, search: undefined, page: 0 }) });
+    navigate({ search: (old) => ({ ...old, search: undefined, page: 0 }), replace: true, resetScroll: false });
   };
 
   useEffect(() => {

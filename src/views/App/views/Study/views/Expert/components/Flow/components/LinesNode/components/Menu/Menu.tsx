@@ -61,7 +61,7 @@ export default function AppViewStudyViewExpertViewFlowComponentLinesNodeComponen
   };
 
   const onChangeDasharray = () => {
-    updateNodeData(nodeId, { ...data, dasharray: !!dasharray ? 0 : 4 });
+    updateNodeData(nodeId, { ...data, dasharray: dasharray ? 0 : 4 });
   };
 
   const onChangeObstacle = () => {

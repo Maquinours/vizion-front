@@ -24,7 +24,7 @@ export default function AppViewDashboardViewValidatePersonalTaskModalView() {
   const { data: task } = useSuspenseQuery(queries.tasks.detail(taskId));
 
   const onClose = () => {
-    navigate({ from: Route.id, to: '../..', search: (old) => old, replace: true, resetScroll: false });
+    navigate({ from: Route.id, to: '../..', search: true, replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({

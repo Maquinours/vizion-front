@@ -1,22 +1,22 @@
-import { Row, createColumnHelper } from '@tanstack/react-table';
-import TableComponent from '../../../../../../../../components/Table/Table';
-import BusinessBpDetailsResponseDto from '../../../../../../../../utils/types/BusinessBpDetailsResponseDto';
-import React, { useCallback, useMemo, useState } from 'react';
-import TableRowExpandButtonComponent from '../../../../../../../../components/TableRowExpandButton/TableRowExpandButton';
-import AmountFormat from '../../../../../../../../components/AmountFormat/AmountFormat';
-import { BiLinkExternal } from 'react-icons/bi';
-import styles from './Table.module.scss';
-import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
-import { queries } from '../../../../../../../../utils/constants/queryKeys';
-import { useAuthentifiedUserQuery } from '../../../../../../utils/functions/getAuthentifiedUser';
-import { getRouteApi } from '@tanstack/react-router';
-import AppViewBusinessViewBpViewTableComponentSubRowComponent from './components/SubRow/SubRow';
-import AppViewBusinessViewBpViewTableComponentDetailContextMenuComponent from './components/DetailContextMenu/DetailContextMenu';
 import { VirtualElement } from '@popperjs/core';
+import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
+import { getRouteApi } from '@tanstack/react-router';
+import { Row, createColumnHelper } from '@tanstack/react-table';
+import React, { useMemo, useState } from 'react';
+import { BiLinkExternal } from 'react-icons/bi';
+import AmountFormat from '../../../../../../../../components/AmountFormat/AmountFormat';
+import TableComponent from '../../../../../../../../components/Table/Table';
+import TableRowExpandButtonComponent from '../../../../../../../../components/TableRowExpandButton/TableRowExpandButton';
+import { queries } from '../../../../../../../../utils/constants/queryKeys';
+import BusinessBpDetailsResponseDto from '../../../../../../../../utils/types/BusinessBpDetailsResponseDto';
 import BusinessBpSerialResponseDto from '../../../../../../../../utils/types/BusinessBpSerialResponseDto';
+import { useAuthentifiedUserQuery } from '../../../../../../utils/functions/getAuthentifiedUser';
+import AppViewBusinessViewBpViewTableComponentDetailContextMenuComponent from './components/DetailContextMenu/DetailContextMenu';
 import AppViewBusinessViewBpViewTableComponentSerialContextMenuComponent from './components/SerialContextMenu/SerialContextMenu';
+import AppViewBusinessViewBpViewTableComponentSubRowComponent from './components/SubRow/SubRow';
+import styles from './Table.module.scss';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/bp');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/bp');
 
 const NVR_VERSIONS = [
   {
@@ -63,15 +63,12 @@ export default function AppViewBusinessViewBpViewTableComponent() {
   const { data: user } = useAuthentifiedUserQuery();
   const { data: bp } = useSuspenseQuery(queries['business-bps'].detail._ctx.byBusinessId(businessId));
 
-  const onSerialNumberContextMenu = useCallback(
-    (e: React.MouseEvent, serialNumber: BusinessBpSerialResponseDto) => {
-      e.preventDefault();
-      e.stopPropagation();
-      setSerial(serialNumber);
-      setSerialContextMenuAnchor(getAnchor(e));
-    },
-    [setSerial, setSerialContextMenuAnchor],
-  );
+  const onSerialNumberContextMenu = (e: React.MouseEvent, serialNumber: BusinessBpSerialResponseDto) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setSerial(serialNumber);
+    setSerialContextMenuAnchor(getAnchor(e));
+  };
 
   const columns = useMemo(
     () => [

@@ -10,7 +10,7 @@ import { getRouteApi } from '@tanstack/react-router';
 import { toast } from 'react-toastify';
 import { createBusinessArcDetail } from '../../../../../../../../../../utils/api/businessArcDetails';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/arc');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/arc');
 
 const yupSchema = yup.object({
   product: yup.mixed<ProductResponseDto>().required('Le produit est requis'),

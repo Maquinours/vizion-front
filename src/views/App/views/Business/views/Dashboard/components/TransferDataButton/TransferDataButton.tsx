@@ -6,7 +6,7 @@ import styles from './TransferDataButton.module.scss';
 import { UseFormSetValue } from 'react-hook-form';
 import { BusinessDashboardFormType } from '../../Dashboard';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/dashboard');
 
 type AppViewBusinessViewDashboardViewTransferDataButtonComponentProps = Readonly<{
   setValue: UseFormSetValue<BusinessDashboardFormType>;

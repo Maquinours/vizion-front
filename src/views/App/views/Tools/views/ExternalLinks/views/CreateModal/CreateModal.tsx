@@ -1,17 +1,17 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { getRouteApi } from '@tanstack/react-router';
 import { Controller, useForm } from 'react-hook-form';
 import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
+import { toast } from 'react-toastify';
 import * as yup from 'yup';
-import styles from './CreateModal.module.scss';
 import Quill from '../../../../../../../../components/Quill/Quill';
 import { createExternalLink } from '../../../../../../../../utils/api/externalLink';
 import { externalLinks } from '../../../../../../../../utils/constants/queryKeys/externalLink';
-import { toast } from 'react-toastify';
 import FaqAccessLevel from '../../../../../../../../utils/enums/FaqAccessLevel';
 import { isValidUrl } from '../../../../../../../../utils/functions/url';
+import styles from './CreateModal.module.scss';
 
 const routeApi = getRouteApi('/app/tools/external-links/create');
 
@@ -104,7 +104,7 @@ const yupSchema = yup.object().shape({
 
 export default function AppViewToolsViewExternalLinksViewCreateModalView() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate();
+  const navigate = routeApi.useNavigate();
 
   const {
     register,
@@ -119,7 +119,7 @@ export default function AppViewToolsViewExternalLinksViewCreateModalView() {
   });
 
   const onClose = () => {
-    navigate({ from: routeApi.id, to: '..', search: (old) => old, replace: true, resetScroll: false });
+    navigate({ to: '..', search: true, replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({

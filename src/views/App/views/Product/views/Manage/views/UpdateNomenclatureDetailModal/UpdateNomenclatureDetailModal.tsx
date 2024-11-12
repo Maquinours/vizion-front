@@ -11,7 +11,7 @@ import { updateProductNomenclatureDetail } from '../../../../../../../../utils/a
 import { queries } from '../../../../../../../../utils/constants/queryKeys';
 import styles from './UpdateNomenclatureDetail.module.scss';
 
-const routeApi = getRouteApi('/app/products/$productId/manage/update-nomenclature-detail/$nomenclatureDetailId');
+const routeApi = getRouteApi('/app/products_/$productId/manage/update-nomenclature-detail/$nomenclatureDetailId');
 
 const yupSchema = yup.object().shape({
   quantity: yup
@@ -41,7 +41,7 @@ export default function AppViewProductViewManageViewUpdateNomenclatureDetailModa
     handleSubmit,
   } = useForm({
     resolver: yupResolver(yupSchema),
-    defaultValues: !!nomenclatureDetail?.qte
+    defaultValues: nomenclatureDetail?.qte
       ? {
           quantity: nomenclatureDetail.qte,
         }

@@ -6,7 +6,7 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 import { queries } from '../../../../../../utils/constants/queryKeys';
 import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthentifiedUser';
 
-const routeApi = getRouteApi('/app/businesses-rma/rma/$rmaId');
+const routeApi = getRouteApi('/app/businesses-rma_/rma/$rmaId');
 
 const STEPS_DATA: Array<{
   label: string;

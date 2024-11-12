@@ -1,11 +1,11 @@
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { getRouteApi } from '@tanstack/react-router';
 import CreateLifesheetModalComponent from '../../../../../../../../components/CreateLifesheetModal/CreateLifesheetModal';
 import { LifesheetAssociatedItem } from '../../../../../../../../utils/enums/LifesheetAssociatedItem';
 
-const routeApi = getRouteApi('/app/businesses-rma/rma/$rmaId/support');
+const routeApi = getRouteApi('/app/businesses-rma_/rma/$rmaId/support');
 
 export default function AppViewRmaViewSupportViewCreateLifesheetModalView() {
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { rmaId } = routeApi.useParams();
 

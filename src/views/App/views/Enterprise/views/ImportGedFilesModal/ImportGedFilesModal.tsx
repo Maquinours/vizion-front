@@ -1,11 +1,11 @@
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { getRouteApi } from '@tanstack/react-router';
 import ImportGedFilesModalComponent from '../../../../../../components/ImportGedFilesModal/ImportGedFilesModal';
 import FileType from '../../../../../../utils/enums/FileType';
 
-const routeApi = getRouteApi('/app/enterprises/$enterpriseId/import-ged-files');
+const routeApi = getRouteApi('/app/enterprises_/$enterpriseId/import-ged-files');
 
 export default function AppViewEnterpriseViewImportGedFilesModalView() {
-  const navigate = useNavigate();
+  const navigate = routeApi.useNavigate();
 
   const { enterpriseId } = routeApi.useParams();
   const { gedObjectRelativePath } = routeApi.useSearch();
@@ -17,7 +17,6 @@ export default function AppViewEnterpriseViewImportGedFilesModalView() {
       directoryRelativePath={gedObjectRelativePath}
       onClose={() =>
         navigate({
-          from: routeApi.id,
           to: '..',
           search: (old) => ({ ...old, gedObjectRelativePath: undefined }),
           replace: true,

@@ -26,7 +26,7 @@ import AppViewStudyViewExpertViewHeaderComponentTransferMenuComponent from './co
 import { saveSynopticBusiness } from '../../../../../../../../utils/api/synoptic';
 import { synopticBusinessQueryKeys } from '../../../../../../../../utils/constants/queryKeys/synoptic';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/study/expert');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId_/study/expert');
 
 const selector = (state: RFState) => ({
   hasPage: state.pages.length > 0,
@@ -113,7 +113,7 @@ export default function AppViewStudyViewExpertViewHeaderComponent() {
 
       if (freeCamNodes.length > freeRecorderHandles.length) throw new Error("J'ai essayé mais je n'arrive pas à comprendre ce que vous attendez de moi.");
 
-      for (let camNode of freeCamNodes) {
+      for (const camNode of freeCamNodes) {
         addEdges({
           source: recorderNode.id,
           sourceHandle: freeRecorderHandles[0].id,
@@ -299,7 +299,7 @@ export default function AppViewStudyViewExpertViewHeaderComponent() {
               Calcul de disque dur
             </button>
             <button type="button" className="btn btn-primary" onClick={onSendStudyButtonClick}>
-              Envoyer l'étude
+              Envoyer l&apos;étude
             </button>
           </div>
           <div className="flex gap-x-2">

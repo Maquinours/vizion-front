@@ -1,6 +1,6 @@
 import { ClickAwayListener } from '@mui/material';
 import { NodeToolbar, Position, useReactFlow } from '@xyflow/react';
-import { useCallback, useMemo } from 'react';
+import { useMemo } from 'react';
 import { FaTrash } from 'react-icons/fa';
 import { IoIosLock, IoIosUnlock } from 'react-icons/io';
 import { NumberFormatValues, OnValueChange } from 'react-number-format';
@@ -40,34 +40,25 @@ export default function AppViewStudyViewExpertViewFlowComponentBackgroundNodeCom
     updateNodeData(nodeId, { scale: parseFloat(e.target.value) });
   };
 
-  const onScaleValueChange: OnValueChange = useCallback(
-    (v, infos) => {
-      if (infos.source === 'event') updateNodeData(nodeId, { scale: parseInt(v.value) / 100 || 0 });
-    },
-    [updateNodeData, nodeId],
-  );
+  const onScaleValueChange: OnValueChange = (v, infos) => {
+    if (infos.source === 'event') updateNodeData(nodeId, { scale: parseInt(v.value) / 100 || 0 });
+  };
 
   const onOpacityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     updateNodeData(nodeId, { opacity: parseFloat(e.target.value) });
   };
 
-  const onOpacityValueChange: OnValueChange = useCallback(
-    (v, infos) => {
-      if (infos.source === 'event') updateNodeData(nodeId, { opacity: parseInt(v.value) / 100 || 0 });
-    },
-    [updateNodeData, nodeId],
-  );
+  const onOpacityValueChange: OnValueChange = (v, infos) => {
+    if (infos.source === 'event') updateNodeData(nodeId, { opacity: parseInt(v.value) / 100 || 0 });
+  };
 
   const onRotationChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     updateNodeData(nodeId, { rotation: parseFloat(e.target.value) });
   };
 
-  const onRotationValueChange: OnValueChange = useCallback(
-    (v, infos) => {
-      if (infos.source === 'event') updateNodeData(nodeId, { rotation: parseInt(v.value) || 0 });
-    },
-    [updateNodeData, nodeId],
-  );
+  const onRotationValueChange: OnValueChange = (v, infos) => {
+    if (infos.source === 'event') updateNodeData(nodeId, { rotation: parseInt(v.value) || 0 });
+  };
 
   const onDeleteButtonClick = () => {
     deleteElements({ nodes: [{ id: nodeId }] });

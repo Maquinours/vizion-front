@@ -1,20 +1,21 @@
 import { useQuery } from '@tanstack/react-query';
-import { Link, Outlet, getRouteApi, useNavigate } from '@tanstack/react-router';
+import { Link, Outlet, getRouteApi } from '@tanstack/react-router';
 import { createColumnHelper } from '@tanstack/react-table';
 import ReactModal from 'react-modal';
 import TableComponent from '../../../../../../../../components/Table/Table';
+import { queries } from '../../../../../../../../utils/constants/queryKeys';
 import AdvancedProductSpecificationResponseDto from '../../../../../../../../utils/types/AdvancedProductSpecificationResponseDto';
 import styles from './AddSpecificationModal.module.scss';
 
-import { queries } from '../../../../../../../../utils/constants/queryKeys';
-const routeApi = getRouteApi('/app/products/$productId/manage/add-specification');
+const route = '/app/products/$productId/manage/add-specification';
+const routeApi = getRouteApi('/app/products_/$productId/manage/add-specification');
 
 const columnHelper = createColumnHelper<AdvancedProductSpecificationResponseDto>();
 const columns = [
   columnHelper.display({
     header: 'Nom',
     cell: ({ row: { original } }) => (
-      <Link from={routeApi.id} to="$filterId" params={{ filterId: original.id }} search replace resetScroll={false} preload="intent">
+      <Link from={route} to="$filterId" params={{ filterId: original.id }} search replace resetScroll={false} preload="intent">
         {original.name}
       </Link>
     ),
@@ -22,7 +23,7 @@ const columns = [
   columnHelper.display({
     header: 'Description',
     cell: ({ row: { original } }) => (
-      <Link from={routeApi.id} to="$filterId" params={{ filterId: original.id }} search replace resetScroll={false} preload="intent">
+      <Link from={route} to="$filterId" params={{ filterId: original.id }} search replace resetScroll={false} preload="intent">
         {original.type}
       </Link>
     ),
@@ -30,7 +31,7 @@ const columns = [
   columnHelper.display({
     header: 'Unité',
     cell: ({ row: { original } }) => (
-      <Link from={routeApi.id} to="$filterId" params={{ filterId: original.id }} search replace resetScroll={false} preload="intent">
+      <Link from={route} to="$filterId" params={{ filterId: original.id }} search replace resetScroll={false} preload="intent">
         {original.unit}
       </Link>
     ),
@@ -38,12 +39,12 @@ const columns = [
 ];
 
 export default function AppViewProductViewManageViewAddSpecificationModalView() {
-  const navigate = useNavigate();
+  const navigate = routeApi.useNavigate();
 
   const { data, isLoading } = useQuery(queries['product-filter'].list);
 
   const onClose = () => {
-    navigate({ from: routeApi.id, to: '..', search: true, replace: true, resetScroll: false });
+    navigate({ to: '..', search: true, replace: true, resetScroll: false });
   };
 
   return (

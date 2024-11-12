@@ -1,9 +1,9 @@
-import { Link, getRouteApi } from '@tanstack/react-router';
-import { useAuthentifiedUserQuery } from '../../../../../../utils/functions/getAuthentifiedUser';
+import { Link } from '@tanstack/react-router';
 import { MdRefresh } from 'react-icons/md';
+import { useAuthentifiedUserQuery } from '../../../../../../utils/functions/getAuthentifiedUser';
 import styles from './Buttons.module.scss';
 
-const Route = getRouteApi('/app/enterprises/$enterpriseId');
+const routePath = '/app/enterprises/$enterpriseId';
 
 type AppViewEnterpriseViewContactsComponentButtonsComponentProps = Readonly<{
   refetch: () => void;
@@ -14,11 +14,11 @@ export default function AppViewEnterpriseViewContactsComponentButtonsComponent({
   return (
     <div className={styles.buttons}>
       {user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && (
-        <Link from={Route.id} to="./import-contacts" search replace resetScroll={false} preload="intent" className="btn btn-primary">
+        <Link from={routePath} to="./import-contacts" search replace resetScroll={false} preload="intent" className="btn btn-primary">
           Importer des contacts
         </Link>
       )}
-      <Link from={Route.id} to="./create-contact" search replace resetScroll={false} preload="intent" className="btn btn-primary">
+      <Link from={routePath} to="./create-contact" search replace resetScroll={false} preload="intent" className="btn btn-primary">
         Ajouter un contact
       </Link>
 

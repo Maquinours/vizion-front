@@ -4,7 +4,7 @@ import AppViewProductViewUpdateModalComponent from './components/UpdateModal/Upd
 import AppViewProductViewDeleteModalComponent from './components/DeleteModal/DeleteModal';
 import AppViewProductViewTabsComponent from './components/Tabs/Tabs';
 
-const routeApi = getRouteApi('/app/products/$productId');
+const routeApi = getRouteApi('/app/products_/$productId');
 
 export default function AppViewProductView() {
   const { productModal } = routeApi.useSearch();

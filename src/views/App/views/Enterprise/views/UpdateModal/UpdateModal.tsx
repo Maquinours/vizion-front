@@ -1,6 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useQuery, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { getRouteApi } from '@tanstack/react-router';
+import { E164Number } from 'libphonenumber-js';
 import { Controller, useForm } from 'react-hook-form';
 import ReactModal from 'react-modal';
 import PhoneInputWithCountrySelect from 'react-phone-number-input';
@@ -13,9 +14,7 @@ import countries from '../../../../../../utils/constants/countries';
 import { queries } from '../../../../../../utils/constants/queryKeys';
 import { enterprises } from '../../../../../../utils/constants/queryKeys/enterprise';
 import styles from './UpdateModal.module.scss';
-import { E164Number } from 'libphonenumber-js';
 
-const zipCodeRegex = /([A-Z0-9]){5}/;
 const yupSchema = object({
   name: string()
     .required("Le nom de l'entreprise est obligatoire")
@@ -32,10 +31,7 @@ const yupSchema = object({
   city: string()
     .required('La ville est requise')
     .transform((value) => value.toUpperCase()),
-  zipCode: string().max(5, 'Cinq (05) caractères au maximum').required('Le code postal est requis').matches(zipCodeRegex, {
-    message: 'Format invalide (doit contenir 05 caracteres (95012 / 2A256)',
-    excludeEmptyString: true,
-  }),
+  zipCode: string().required('Le code postal est requis'),
   country: string().nullable(),
   email: string()
     .email('Formail de mail invalide')
@@ -44,13 +40,13 @@ const yupSchema = object({
   phoneNumber: string().nullable(),
 });
 
-const Route = getRouteApi('/app/enterprises/$enterpriseId/update');
+const routeApi = getRouteApi('/app/enterprises_/$enterpriseId/update');
 
 export default function AppViewEnterpriseViewUpdateModalView() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate();
+  const navigate = routeApi.useNavigate();
 
-  const { enterpriseId } = Route.useParams();
+  const { enterpriseId } = routeApi.useParams();
 
   const { data: enterprise } = useSuspenseQuery(enterprises.detail(enterpriseId));
 
@@ -77,7 +73,7 @@ export default function AppViewEnterpriseViewUpdateModalView() {
   });
 
   const onClose = () => {
-    navigate({ from: Route.id, to: '..', search: (old) => old, replace: true, resetScroll: false });
+    navigate({ to: '..', search: true, replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({

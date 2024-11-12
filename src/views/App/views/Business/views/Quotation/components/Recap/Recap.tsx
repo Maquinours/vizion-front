@@ -6,7 +6,8 @@ import { queries } from '../../../../../../../../utils/constants/queryKeys';
 import { useAuthentifiedUserQuery } from '../../../../../../utils/functions/getAuthentifiedUser';
 import { HiPencilAlt } from 'react-icons/hi';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/quotation');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/quotation');
+const routePath = '/app/businesses-rma/business/$businessId/quotation';
 
 export default function AppViewBusinessViewQuotationViewRecapComponent() {
   const { businessId } = routeApi.useParams();
@@ -32,7 +33,7 @@ export default function AppViewBusinessViewQuotationViewRecapComponent() {
               <td>
                 {quotation.shippingServicePrice === 0 ? 'Offert' : <CurrencyFormat value={quotation.shippingServicePrice} />}
                 {user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && !business.archived && (
-                  <Link from={routeApi.id} to="update-shipping-price" search replace resetScroll={false} preload="intent" ignoreBlocker>
+                  <Link from={routePath} to="update-shipping-price" search replace resetScroll={false} preload="intent" ignoreBlocker>
                     <HiPencilAlt size={18} />
                   </Link>
                 )}

@@ -1,20 +1,21 @@
-import { Link, getRouteApi, useNavigate } from '@tanstack/react-router';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
+import { Link, getRouteApi } from '@tanstack/react-router';
+import { useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import ReactModal from 'react-modal';
-import CustomSelect from '../../../../../../components/CustomSelect/CustomSelect';
-import { enterpriseCategories } from '../../../../../../utils/constants/enterpriseCategories';
-import CategoryClient from '../../../../../../utils/enums/CategoryClient';
-import * as yup from 'yup';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { useEffect } from 'react';
-import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { enterprises } from '../../../../../../utils/constants/queryKeys/enterprise';
-import { updateEnterprise } from '../../../../../../utils/api/enterprise';
 import { PulseLoader } from 'react-spinners';
-import styles from './UpdateCategoryModal.module.scss';
 import { toast } from 'react-toastify';
+import * as yup from 'yup';
+import CustomSelect from '../../../../../../components/CustomSelect/CustomSelect';
+import { updateEnterprise } from '../../../../../../utils/api/enterprise';
+import { enterpriseCategories } from '../../../../../../utils/constants/enterpriseCategories';
+import { enterprises } from '../../../../../../utils/constants/queryKeys/enterprise';
+import CategoryClient from '../../../../../../utils/enums/CategoryClient';
+import styles from './UpdateCategoryModal.module.scss';
 
-const Route = getRouteApi('/app/enterprises/$enterpriseId/update-category');
+const routeApi = getRouteApi('/app/enterprises_/$enterpriseId/update-category');
+const routePath = '/app/enterprises/$enterpriseId/update-category';
 
 const possibleCategories = enterpriseCategories.filter(
   (category) => ![CategoryClient.VIZEO, CategoryClient.FOURNISSEUR, CategoryClient.REPRESENTANT].includes(category.value),
@@ -31,9 +32,9 @@ const yupSchema = yup.object({
 
 export default function AppViewEnterpriseViewUpdateCategoryModalView() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate();
+  const navigate = routeApi.useNavigate();
 
-  const { enterpriseId } = Route.useParams();
+  const { enterpriseId } = routeApi.useParams();
 
   const { data: enterprise } = useSuspenseQuery(enterprises.detail(enterpriseId));
 
@@ -47,7 +48,7 @@ export default function AppViewEnterpriseViewUpdateCategoryModalView() {
   });
 
   const onClose = () => {
-    navigate({ from: Route.id, to: '..', search: (old) => old, replace: true, resetScroll: false });
+    navigate({ to: '..', search: true, replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({
@@ -110,7 +111,7 @@ export default function AppViewEnterpriseViewUpdateCategoryModalView() {
           </div>
 
           <div className={styles.buttons}>
-            <Link from={Route.id} to={'..'} search={(old) => old} className="btn btn-primary-light">
+            <Link from={routePath} to=".." search className="btn btn-primary-light">
               Annuler
             </Link>
             <button type="submit" className="btn btn-secondary">

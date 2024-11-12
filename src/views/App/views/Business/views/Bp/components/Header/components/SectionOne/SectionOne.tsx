@@ -3,7 +3,7 @@ import { getRouteApi } from '@tanstack/react-router';
 import { queries } from '../../../../../../../../../../utils/constants/queryKeys';
 import styles from './SectionOne.module.scss';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/bp');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/bp');
 
 export default function AppViewBusinessViewBpViewHeaderComponentSectionOneComponent() {
   const { businessId } = routeApi.useParams();

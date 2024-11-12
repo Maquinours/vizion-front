@@ -13,9 +13,8 @@ import EnterpriseResponseDto from '../../../../../../utils/types/EnterpriseRespo
 import styles from './UpdateModal.module.scss';
 import AppViewProductViewUpdateModalComponentStepOneComponent from './components/StepOne/StepOne';
 import AppViewProductViewUpdateModalComponentStepTwoComponent from './components/StepTwo/StepTwo';
-import { useNavigate } from '@tanstack/react-router';
 
-const routeApi = getRouteApi('/app/products/$productId');
+const routeApi = getRouteApi('/app/products_/$productId');
 
 const stepOneYupSchema = yup.object({
   reference: yup.string().required('La référence est requise.'),
@@ -44,7 +43,7 @@ export type UpdateProductStepTwoSchema = yup.InferType<typeof stepTwoYupSchema>;
 
 export default function AppViewProductViewUpdateModalComponent() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate();
+  const navigate = routeApi.useNavigate();
 
   const [step, setStep] = useState<0 | 1>(0);
 
@@ -97,7 +96,7 @@ export default function AppViewProductViewUpdateModalComponent() {
         ecoTaxDEEE: stepTwoData.ecoTax,
         publicPrice: stepTwoData.price,
         productCategoryName: stepOneData.category,
-        assistanceTime: Number(stepTwoData.assistanceHour) ?? null,
+        assistanceTime: Number(stepTwoData.assistanceHour) || null,
         vizeo: stepOneData.isVizeo === 'yes',
         virtualQty: stepOneData.isVirtual === 'yes',
         bom: stepOneData.isNomenclature === 'yes',

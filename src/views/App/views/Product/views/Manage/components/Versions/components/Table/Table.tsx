@@ -1,10 +1,10 @@
-import { Row, createColumnHelper } from '@tanstack/react-table';
-import TableComponent from '../../../../../../../../../../components/Table/Table';
-import ProductVersionResponseDto from '../../../../../../../../../../utils/types/ProductVersionResponseDto';
-import CurrencyFormat from '../../../../../../../../../../components/CurrencyFormat/CurrencyFormat';
-import { formatDateWithSlash } from '../../../../../../../../../../utils/functions/dates';
-import { useCallback, useState } from 'react';
 import { VirtualElement } from '@popperjs/core';
+import { Row, createColumnHelper } from '@tanstack/react-table';
+import { useState } from 'react';
+import CurrencyFormat from '../../../../../../../../../../components/CurrencyFormat/CurrencyFormat';
+import TableComponent from '../../../../../../../../../../components/Table/Table';
+import { formatDateWithSlash } from '../../../../../../../../../../utils/functions/dates';
+import ProductVersionResponseDto from '../../../../../../../../../../utils/types/ProductVersionResponseDto';
 import AppViewProductViewManageViewVersionsComponentTableComponentContextMenuComponent from './components/ContextMenu/ContextMenu';
 import styles from './Table.module.scss';
 
@@ -49,7 +49,7 @@ export default function AppViewProductViewManageViewVersionsComponentTableCompon
   const [productVersion, setProductVersion] = useState<ProductVersionResponseDto>();
   const [contextMenuAnchor, setContextMenuAnchor] = useState<VirtualElement | undefined>();
 
-  const onRowContextMenu = useCallback((e: React.MouseEvent, row: Row<ProductVersionResponseDto>) => {
+  const onRowContextMenu = (e: React.MouseEvent, row: Row<ProductVersionResponseDto>) => {
     e.preventDefault();
     setProductVersion(row.original);
     setContextMenuAnchor({
@@ -65,7 +65,7 @@ export default function AppViewProductViewManageViewVersionsComponentTableCompon
         toJSON: () => {},
       }),
     });
-  }, []);
+  };
 
   return (
     <>

@@ -6,7 +6,7 @@ import { useMemo } from 'react';
 import _ from 'lodash';
 import { formatDateAndHourWithSlash } from '../../../../../../../../utils/functions/dates';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/dashboard');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/dashboard');
 
 export default function AppViewBusinessViewDashboardViewDatesDataComponent() {
   const { businessId } = routeApi.useParams();

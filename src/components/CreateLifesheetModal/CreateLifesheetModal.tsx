@@ -94,7 +94,7 @@ export default function CreateLifesheetModalComponent({
             rmaNumber: (await queryClient.ensureQueryData(queries.rmas.detail(associatedItemId))).number,
           };
           break;
-        case LifesheetAssociatedItem.ASSISTANCE:
+        case LifesheetAssociatedItem.ASSISTANCE: {
           const technicalSupport = await queryClient.ensureQueryData(queries['technical-supports'].detail._ctx.byId(associatedItemId));
           data = {
             technicalSupportId: associatedItemId,
@@ -102,12 +102,15 @@ export default function CreateLifesheetModalComponent({
             businessId: technicalSupport.businessId,
           };
           break;
-        case LifesheetAssociatedItem.BUSINESS:
+        }
+        case LifesheetAssociatedItem.BUSINESS: {
+          const business = await queryClient.ensureQueryData(businesses.detail._ctx.byId(associatedItemId));
           data = {
             businessId: associatedItemId,
-            businessNumber: (await queryClient.ensureQueryData(businesses.detail._ctx.byId(associatedItemId))).numBusiness,
+            businessNumber: `${business.numBusiness} (${business.title})`,
           };
           break;
+        }
       }
       return createLifesheet({
         receiver: receivers.map((receiver) => `${receiver.firstName?.split(' ').at(0)} ${receiver.lastName?.charAt(0)}.`).join('; '),

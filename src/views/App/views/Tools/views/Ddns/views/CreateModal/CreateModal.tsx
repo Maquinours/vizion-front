@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { getRouteApi } from '@tanstack/react-router';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import ReactModal from 'react-modal';
@@ -26,7 +26,7 @@ const yupSchema = yup.object({
 
 export default function AppViewToolsViewDdnsViewCreateModalView() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const {
     register,
@@ -62,7 +62,7 @@ export default function AppViewToolsViewDdnsViewCreateModalView() {
   });
 
   const onClose = () => {
-    navigate({ to: '..', search: (old) => old, replace: true, resetScroll: false });
+    navigate({ to: '..', search: true, replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({

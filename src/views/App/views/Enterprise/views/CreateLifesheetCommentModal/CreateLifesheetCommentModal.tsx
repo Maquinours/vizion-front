@@ -1,19 +1,19 @@
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { getRouteApi } from '@tanstack/react-router';
 import CreateLifesheetModalComponent from '../../../../../../components/CreateLifesheetModal/CreateLifesheetModal';
 import { LifesheetAssociatedItem } from '../../../../../../utils/enums/LifesheetAssociatedItem';
 
-const Route = getRouteApi('/app/enterprises/$enterpriseId/create-lifesheet-comment');
+const routeApi = getRouteApi('/app/enterprises_/$enterpriseId/create-lifesheet-comment');
 
 export default function AppViewEnterpriseViewCreateLifesheetCommentModalView() {
-  const navigate = useNavigate();
+  const navigate = routeApi.useNavigate();
 
-  const { enterpriseId } = Route.useParams();
+  const { enterpriseId } = routeApi.useParams();
 
   return (
     <CreateLifesheetModalComponent
       associatedItemType={LifesheetAssociatedItem.ENTERPRISE}
       associatedItemId={enterpriseId}
-      onClose={() => navigate({ from: Route.id, to: '..', search: (old) => old, replace: true, resetScroll: false })}
+      onClose={() => navigate({ to: '..', search: true, replace: true, resetScroll: false })}
     />
   );
 }

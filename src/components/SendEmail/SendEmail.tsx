@@ -162,7 +162,7 @@ export default function SendEmailComponent({
       <div className={styles.container}>
         <div className={styles.header_container}>
           <div className={styles.header_right}>
-            {!!predefinedMessagesModalLink ? (
+            {predefinedMessagesModalLink ? (
               <Link {...predefinedMessagesModalLink} className="btn btn-primary">
                 Messages prédéfinis
               </Link>
@@ -181,7 +181,7 @@ export default function SendEmailComponent({
         </div>
       </div>
       <LoaderModal isLoading={isPending} />
-      {!!predefinedMessagesModalLink ? (
+      {predefinedMessagesModalLink ? (
         <Outlet />
       ) : (
         isPredefinedMessagesModalOpened && <SendEmailPredefinedMessagesModalComponent onClose={() => setIsPredefinedMessagesModalOpened(false)} />

@@ -1,24 +1,24 @@
-import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import ReactModal from 'react-modal';
-import { updateRmaReceptionDetail } from '../../../../../../../../utils/api/rmaReceptionDetail';
-import { rmaReceptionDetailQueryKey } from '../../../../../../../../utils/constants/queryKeys/rmaReceptionDetail';
-import styles from './UpdateDetailModal.module.scss';
-import * as yup from 'yup';
-import { queries } from '../../../../../../../../utils/constants/queryKeys';
-import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { getProductSerialNumberByNumber } from '../../../../../../../../utils/api/productSerialNumber';
-import { getBusinessBillsByBusinessId } from '../../../../../../../../utils/api/businessBill';
-import BusinessBillResponseDto from '../../../../../../../../utils/types/BusinessBillResponseDto';
-import moment from 'moment';
-import BillType from '../../../../../../../../utils/enums/BillType';
-import { toast } from 'react-toastify';
+import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
+import { getRouteApi } from '@tanstack/react-router';
 import { isAxiosError } from 'axios';
-import { PulseLoader } from 'react-spinners';
+import moment from 'moment';
 import { useEffect } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import ReactModal from 'react-modal';
+import { PulseLoader } from 'react-spinners';
+import { toast } from 'react-toastify';
+import * as yup from 'yup';
+import { getBusinessBillsByBusinessId } from '../../../../../../../../utils/api/businessBill';
+import { getProductSerialNumberByNumber } from '../../../../../../../../utils/api/productSerialNumber';
+import { updateRmaReceptionDetail } from '../../../../../../../../utils/api/rmaReceptionDetail';
+import { queries } from '../../../../../../../../utils/constants/queryKeys';
+import { rmaReceptionDetailQueryKey } from '../../../../../../../../utils/constants/queryKeys/rmaReceptionDetail';
+import BillType from '../../../../../../../../utils/enums/BillType';
+import BusinessBillResponseDto from '../../../../../../../../utils/types/BusinessBillResponseDto';
+import styles from './UpdateDetailModal.module.scss';
 
-const routeApi = getRouteApi('/app/businesses-rma/rma/$rmaId/reception/update-detail/$detailId');
+const routeApi = getRouteApi('/app/businesses-rma_/rma/$rmaId/reception/update-detail/$detailId');
 
 const yupSchema = yup.object().shape({
   productReference: yup.string().required('La référence est requise.'),
@@ -33,7 +33,7 @@ const yupSchema = yup.object().shape({
 
 export default function AppViewRmaViewReceptionViewUpdateDetailModalView() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { rmaId, detailId } = routeApi.useParams();
 

@@ -14,7 +14,7 @@ import { queries } from '../../../../../../utils/constants/queryKeys';
 import { getRouteApi } from '@tanstack/react-router';
 import AssistanceState from '../../../../../../utils/enums/AssistanceState';
 
-const routeApi = getRouteApi('/app/businesses-rma/rma/$rmaId/support');
+const routeApi = getRouteApi('/app/businesses-rma_/rma/$rmaId/support');
 
 export default function AppViewRmaViewSupportView() {
   const { data: authentifiedUser } = useAuthentifiedUserQuery();

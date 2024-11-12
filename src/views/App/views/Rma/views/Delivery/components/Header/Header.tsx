@@ -4,7 +4,7 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 import { queries } from '../../../../../../../../utils/constants/queryKeys';
 import AssistanceState from '../../../../../../../../utils/enums/AssistanceState';
 
-const routeApi = getRouteApi('/app/businesses-rma/rma/$rmaId/delivery');
+const routeApi = getRouteApi('/app/businesses-rma_/rma/$rmaId/delivery');
 
 export default function AppViewRmaViewDeliveryViewHeaderComponent() {
   const { rmaId } = routeApi.useParams();
@@ -15,14 +15,30 @@ export default function AppViewRmaViewDeliveryViewHeaderComponent() {
     <div className={styles.header}>
       <div className={styles.buttons_container}>
         {rma.state !== AssistanceState.ARCHIVE && (
-          <Link from={routeApi.id} to="create-detail" search replace resetScroll={false} preload="intent" className="btn btn-primary">
+          <Link
+            from="/app/businesses-rma/rma/$rmaId/delivery"
+            to="create-detail"
+            search
+            replace
+            resetScroll={false}
+            preload="intent"
+            className="btn btn-primary"
+          >
             Ajouter un article
           </Link>
         )}
-        <Link from={routeApi.id} to="pdf" search replace resetScroll={false} preload="intent" className="btn btn-secondary">
+        <Link from="/app/businesses-rma/rma/$rmaId/delivery" to="pdf" search replace resetScroll={false} preload="intent" className="btn btn-secondary">
           Éditer
         </Link>
-        <Link from={routeApi.id} to="travel-voucher" search replace resetScroll={false} preload="intent" className="btn btn-primary">
+        <Link
+          from="/app/businesses-rma/rma/$rmaId/delivery"
+          to="travel-voucher"
+          search
+          replace
+          resetScroll={false}
+          preload="intent"
+          className="btn btn-primary"
+        >
           Éditer BT
         </Link>
       </div>

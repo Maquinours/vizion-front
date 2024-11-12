@@ -32,7 +32,6 @@ export default function PaginationComponentEllipsisComponentInputComponent({ onS
           allowNegative={false}
           onBlur={onBlur}
           size={3}
-          autoFocus
           className="h-full w-full text-center"
         />
       )}

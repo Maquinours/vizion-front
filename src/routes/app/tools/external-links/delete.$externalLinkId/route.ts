@@ -23,7 +23,7 @@ export const Route = createFileRoute('/app/tools/external-links/delete/$external
       initialDataUpdatedAt: () => (initialDataKey ? queryClient.getQueryState(initialDataKey)?.dataUpdatedAt : undefined),
     });
 
-    if (!externalLink) throw redirect({ from: Route.id, to: '../..', search: (old) => old });
+    if (!externalLink) throw redirect({ from: Route.id, to: '../..', search: true });
   },
   pendingComponent: LoaderModal,
 });

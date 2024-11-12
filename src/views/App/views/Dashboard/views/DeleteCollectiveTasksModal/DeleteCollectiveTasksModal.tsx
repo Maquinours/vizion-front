@@ -17,7 +17,7 @@ export default function AppViewDashboardViewDeleteCollectiveTasksModalView() {
   const { tasksId } = Route.useSearch();
 
   const onClose = () => {
-    navigate({ from: Route.id, to: '..', search: (old) => old, replace: true, resetScroll: false });
+    navigate({ from: Route.id, to: '..', search: true, replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({

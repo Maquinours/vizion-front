@@ -1,4 +1,4 @@
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { getRouteApi } from '@tanstack/react-router';
 import React from 'react';
 import styles from './TypeSelect.module.scss';
 
@@ -16,7 +16,7 @@ const typeOptions = [
 ];
 
 export default function AppViewToolsViewEmailsViewTypeSelectComponent() {
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { spam } = routeApi.useSearch();
 

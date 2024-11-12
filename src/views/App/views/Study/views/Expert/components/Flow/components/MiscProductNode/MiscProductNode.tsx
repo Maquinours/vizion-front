@@ -114,7 +114,7 @@ export default function AppViewStudyViewExpertViewFlowComponentMiscProductNodeCo
           <NodeResizer onResize={onResize} isVisible={selected ?? false} keepAspectRatio handleStyle={{ width: 10, height: 10, borderRadius: '100%' }} />
           <div className="absolute top-[-20px] w-full text-center">
             <div className="absolute right-1 top-[calc(50%-30px)] ml-auto flex h-fit w-fit gap-x-1">
-              {data.option && <span className="rounded-md bg-purple-300 p-[1px] text-center text-sm font-medium text-white">O</span>}
+              {data.option && <span className="rounded-md bg-purple-300 p-[1px] text-center text-sm font-medium text-white">OPTION</span>}
               {quantity !== 0 && (
                 <AmountFormat
                   prefix="x"
@@ -127,16 +127,17 @@ export default function AppViewStudyViewExpertViewFlowComponentMiscProductNodeCo
             <p className="h-4 text-sm">{product.reference}</p>
           </div>
           <div ref={nodeRef} className="flex justify-center">
-            <img
-              title={title}
-              src={`https://bd.vizeo.eu/6-Photos/${product.reference}/${product.reference}.webp`}
-              width={data.size.width}
-              height={data.size.height}
-              style={{ opacity: opacity / 100 }}
-              onMouseDown={onMouseDown}
-              onContextMenu={onContextMenu}
-              onLoad={onImageLoad}
-            />
+            <button className="h-fit w-fit" onMouseDown={onMouseDown} onContextMenu={onContextMenu}>
+              <img
+                title={title}
+                src={`https://bd.vizeo.eu/6-Photos/${product.reference}/${product.reference}.webp`}
+                alt={`Produit ${product.reference}`}
+                width={data.size.width}
+                height={data.size.height}
+                style={{ opacity: opacity / 100 }}
+                onLoad={onImageLoad}
+              />
+            </button>
           </div>
         </div>
         {showMenu && (

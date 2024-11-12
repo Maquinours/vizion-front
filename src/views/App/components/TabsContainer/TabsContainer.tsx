@@ -4,9 +4,9 @@ import { SortableContext, arrayMove, horizontalListSortingStrategy } from '@dnd-
 import { VirtualElement } from '@popperjs/core';
 import { QueryClient, useQueryClient } from '@tanstack/react-query';
 import { ToOptions, ToPathOption, useMatchRoute, useNavigate, useRouterState } from '@tanstack/react-router';
-import { useLocalStorage } from 'usehooks-ts';
 import _ from 'lodash';
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { useLocalStorage } from 'usehooks-ts';
 import { queries } from '../../../../utils/constants/queryKeys';
 import { UserRole } from '../../../../utils/types/ProfileInfoResponseDto';
 import { useAuthentifiedUserQuery } from '../../utils/functions/getAuthentifiedUser';
@@ -111,84 +111,67 @@ export default function AppViewTabsContainerComponent({ children }: AppViewTabsC
     }),
   );
 
-  const removeTabs = useCallback(
-    async (tabsToRemove: Array<Tab>) => {
-      const removedTabs: Array<Tab> = [];
-      const result = tabs.filter((t) => {
-        if (tabsToRemove.some((tab) => tab.id === t.id)) {
-          removedTabs.push(t);
-          return false;
-        }
-        return true;
-      });
-      if (removedTabs.some((tab) => matchRoute({ to: tab.route.to }))) await navigate({ ...(result.at(-1)?.route ?? { to: '/app' }), ignoreBlocker: true });
-      setTabs(result);
-    },
-    [tabs, setTabs, matchRoute, navigate],
-  );
-
-  const getCurrentTab = useCallback(() => tabs.find((tab) => matchRoute({ to: tab.route.to })), [tabs, matchRoute]);
-
-  const updateTabRoute = useCallback(
-    (tabId: string, callback: (tab: Tab) => Tab['route']) =>
-      setTabs((tabs) => tabs.map((tab) => (tab.id === tabId ? { ...tab, route: { ...tab.route, ...callback(tab) } } : tab))),
-    [setTabs],
-  );
-
-  const removeTab = useCallback(
-    (tab?: Tab) => {
-      tab = tab ?? tabs.find((tab) => matchRoute({ to: tab.route.to }));
-      if (tab) removeTabs([tab]);
-    },
-    [tabs, matchRoute, removeTabs],
-  );
-
-  const onCloseTab = useCallback(
-    (e: React.MouseEvent, tab: Tab) => {
-      e.preventDefault();
-      e.stopPropagation();
-      e.nativeEvent.stopImmediatePropagation();
-      if (tab.closeRoute) navigate(tab.closeRoute);
-      else removeTab(tab);
-    },
-    [removeTab],
-  );
-
-  const handleDragEnd = useCallback(
-    (event: DragEndEvent) => {
-      const { active, over } = event;
-      if (!!over && active.id !== over.id) {
-        setTabs((items) => {
-          const oldIndex = items.findIndex(({ id }) => id === active.id);
-          const newIndex = items.findIndex(({ id }) => id === over.id);
-
-          return arrayMove(items, oldIndex, newIndex);
-        });
+  const removeTabs = async (tabsToRemove: Array<Tab>) => {
+    const removedTabs: Array<Tab> = [];
+    const result = tabs.filter((t) => {
+      if (tabsToRemove.some((tab) => tab.id === t.id)) {
+        removedTabs.push(t);
+        return false;
       }
-    },
-    [setTabs],
-  );
+      return true;
+    });
+    if (removedTabs.some((tab) => matchRoute({ to: tab.route.to }))) await navigate({ ...(result.at(-1)?.route ?? { to: '/app' }), ignoreBlocker: true });
+    setTabs(result);
+  };
 
-  const onTabContextMenu = useCallback(
-    (e: React.MouseEvent, tab: Tab) => {
-      e.preventDefault();
-      setSelectedTab(tab);
-      setContextMenuAnchor({
-        getBoundingClientRect: () => ({
-          width: 0,
-          height: 0,
-          x: e.clientX,
-          y: e.clientY,
-          top: e.clientY,
-          right: e.clientX,
-          bottom: e.clientY,
-          left: e.clientX,
-          toJSON: () => {},
-        }),
+  const getCurrentTab = () => tabs.find((tab) => matchRoute({ to: tab.route.to }));
+
+  const updateTabRoute = (tabId: string, callback: (tab: Tab) => Tab['route']) => {
+    setTabs((tabs) => tabs.map((tab) => (tab.id === tabId ? { ...tab, route: { ...tab.route, ...callback(tab) } } : tab)));
+  };
+
+  const removeTab = (tab?: Tab) => {
+    tab = tab ?? tabs.find((tab) => matchRoute({ to: tab.route.to }));
+    if (tab) removeTabs([tab]);
+  };
+
+  const onCloseTab = (e: React.MouseEvent, tab: Tab) => {
+    e.preventDefault();
+    e.stopPropagation();
+    e.nativeEvent.stopImmediatePropagation();
+    if (tab.closeRoute) navigate(tab.closeRoute);
+    else removeTab(tab);
+  };
+
+  const handleDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event;
+    if (!!over && active.id !== over.id) {
+      setTabs((items) => {
+        const oldIndex = items.findIndex(({ id }) => id === active.id);
+        const newIndex = items.findIndex(({ id }) => id === over.id);
+
+        return arrayMove(items, oldIndex, newIndex);
       });
-    },
-    [setSelectedTab, setContextMenuAnchor],
-  );
+    }
+  };
+
+  const onTabContextMenu = (e: React.MouseEvent, tab: Tab) => {
+    e.preventDefault();
+    setSelectedTab(tab);
+    setContextMenuAnchor({
+      getBoundingClientRect: () => ({
+        width: 0,
+        height: 0,
+        x: e.clientX,
+        y: e.clientY,
+        top: e.clientY,
+        right: e.clientX,
+        bottom: e.clientY,
+        left: e.clientX,
+        toJSON: () => {},
+      }),
+    });
+  };
 
   const contextValue = useMemo(() => ({ removeTab, getCurrentTab, updateTabRoute }), [removeTab, getCurrentTab, updateTabRoute]);
 
@@ -241,7 +224,7 @@ export default function AppViewTabsContainerComponent({ children }: AppViewTabsC
           const title = match.staticData.title ?? (match.staticData.getTitle ? await match.staticData.getTitle(queryClient, match) : undefined);
           if (title) {
             const route = matches.at(-1)!;
-            const tabRoute = { to: route.routeId as ToPathOption, params: route.params, search: route.search, state: resolvedLocation.state };
+            const tabRoute = { to: route.fullPath as ToPathOption, params: route.params, search: route.search, state: resolvedLocation.state };
             const tab: Tab = {
               id: match.pathname,
               name: title,

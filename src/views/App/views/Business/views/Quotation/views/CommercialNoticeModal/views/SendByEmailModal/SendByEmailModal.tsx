@@ -1,13 +1,13 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { getRouteApi } from '@tanstack/react-router';
 import SendEmailModalComponent from '../../../../../../../../../../components/SendEmailModal/SendEmailModal';
 import { queries } from '../../../../../../../../../../utils/constants/queryKeys';
 import { useAuthentifiedUserQuery } from '../../../../../../../../utils/functions/getAuthentifiedUser';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/quotation/commercial-notice/send-by-email');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/quotation/commercial-notice/send-by-email');
 
 export default function AppViewBusinessViewQuotationViewCommercialNoticeModalViewSendByEmailModalView() {
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { businessId } = routeApi.useParams();
 
@@ -37,7 +37,7 @@ export default function AppViewBusinessViewQuotationViewCommercialNoticeModalVie
   });
 
   const onClose = () => {
-    navigate({ to: '..', search: (old) => old, replace: true, resetScroll: false, ignoreBlocker: true });
+    navigate({ to: '..', search: true, replace: true, resetScroll: false, ignoreBlocker: true });
   };
 
   return (

@@ -1,24 +1,24 @@
 import { yupResolver } from '@hookform/resolvers/yup';
+import { ClickAwayListener } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { getRouteApi } from '@tanstack/react-router';
+import { E164Number } from 'libphonenumber-js';
+import React, { useEffect, useMemo, useState } from 'react';
 import ReactDatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 import { Controller, useForm } from 'react-hook-form';
+import { RiArrowDropDownLine, RiArrowDropUpLine } from 'react-icons/ri';
 import PhoneInput from 'react-phone-number-input/input';
+import { Range, getTrackBackground } from 'react-range';
 import * as yup from 'yup';
+import CurrencyFormat from '../../../../../../components/CurrencyFormat/CurrencyFormat';
 import CustomSelect from '../../../../../../components/CustomSelect/CustomSelect';
 import { queries } from '../../../../../../utils/constants/queryKeys';
 import AllBusinessState from '../../../../../../utils/enums/AllBusinessState';
 import CategoryClient from '../../../../../../utils/enums/CategoryClient';
+import { UserRole } from '../../../../../../utils/types/ProfileInfoResponseDto';
 import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthentifiedUser';
 import styles from './SearchSection.module.scss';
-import 'react-datepicker/dist/react-datepicker.css';
-import { Range, getTrackBackground } from 'react-range';
-import { RiArrowDropDownLine, RiArrowDropUpLine } from 'react-icons/ri';
-import CurrencyFormat from '../../../../../../components/CurrencyFormat/CurrencyFormat';
-import { ClickAwayListener } from '@mui/material';
-import { E164Number } from 'libphonenumber-js';
-import { UserRole } from '../../../../../../utils/types/ProfileInfoResponseDto';
 
 const routeApi = getRouteApi('/app/businesses-rma');
 
@@ -127,7 +127,7 @@ const CATEGORY_OPTIONS = [
 ];
 
 export default function AppViewBusinessesRmaViewSearchSectionComponent() {
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { number, numOrder, name, contact, deliverPhoneNumber, zipCode, representative, installer, amounts, enterpriseName, state, dates, excludeds, fuzzy } =
     routeApi.useSearch();
@@ -156,81 +156,75 @@ export default function AppViewBusinessesRmaViewSearchSectionComponent() {
     [STATE_OPTIONS, user],
   );
 
-  const onSubmit = useCallback(
-    ({
-      number,
-      numOrder,
-      name,
-      contact,
-      deliverPhoneNumber,
-      zipCode,
-      representative,
-      installer,
-      amounts,
-      enterpriseName,
-      state,
-      dates,
-      excludeds,
-      fuzzy,
-    }: yup.InferType<typeof yupSchema>) => {
-      navigate({
-        search: (old) => ({
-          ...old,
-          number: number || undefined,
-          numOrder: numOrder || undefined,
-          name: name || undefined,
-          contact: contact || undefined,
-          deliverPhoneNumber: deliverPhoneNumber || undefined,
-          zipCode: zipCode || undefined,
-          representative: representative || undefined,
-          amounts,
-          installer: installer || undefined,
-          enterpriseName: enterpriseName || undefined,
-          state: state || undefined,
-          dates: dates.every((date) => !!date) ? (dates as Array<Date>) : undefined,
-          excludeds,
-          fuzzy,
-          page: 0,
-          size: state === AllBusinessState.FACTURE ? 200 : old.size,
-        }),
-        state: (prev) => prev,
-        replace: true,
-        resetScroll: false,
-      });
-    },
-    [navigate],
-  );
+  const onSubmit = ({
+    number,
+    numOrder,
+    name,
+    contact,
+    deliverPhoneNumber,
+    zipCode,
+    representative,
+    installer,
+    amounts,
+    enterpriseName,
+    state,
+    dates,
+    excludeds,
+    fuzzy,
+  }: yup.InferType<typeof yupSchema>) => {
+    navigate({
+      search: (old) => ({
+        ...old,
+        number: number || undefined,
+        numOrder: numOrder || undefined,
+        name: name || undefined,
+        contact: contact || undefined,
+        deliverPhoneNumber: deliverPhoneNumber || undefined,
+        zipCode: zipCode || undefined,
+        representative: representative || undefined,
+        amounts,
+        installer: installer || undefined,
+        enterpriseName: enterpriseName || undefined,
+        state: state || undefined,
+        dates: dates.every((date) => !!date) ? (dates as Array<Date>) : undefined,
+        excludeds,
+        fuzzy,
+        page: 0,
+        size: state === AllBusinessState.FACTURE ? 200 : old.size,
+      }),
+      state: (prev) => prev,
+      replace: true,
+      resetScroll: false,
+    });
+  };
 
-  const onReset = useCallback(
-    (e: React.FormEvent<HTMLFormElement>) => {
-      e.preventDefault();
-      reset();
-      navigate({
-        search: (old) => ({
-          ...old,
-          number: undefined,
-          numOrder: undefined,
-          name: undefined,
-          contact: undefined,
-          deliverPhoneNumber: undefined,
-          zipCode: undefined,
-          representative: undefined,
-          installer: undefined,
-          amounts: undefined,
-          enterpriseName: undefined,
-          state: undefined,
-          dates: undefined,
-          excludeds: undefined,
-          fuzzy: undefined,
-          page: undefined,
-          size: undefined,
-        }),
-        replace: true,
-        resetScroll: false,
-      });
-    },
-    [reset, navigate],
-  );
+  const onReset = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    reset();
+    navigate({
+      search: (old) => ({
+        ...old,
+        number: undefined,
+        numOrder: undefined,
+        name: undefined,
+        contact: undefined,
+        deliverPhoneNumber: undefined,
+        zipCode: undefined,
+        representative: undefined,
+        installer: undefined,
+        amounts: undefined,
+        enterpriseName: undefined,
+        state: undefined,
+        dates: undefined,
+        excludeds: undefined,
+        fuzzy: undefined,
+        page: undefined,
+        size: undefined,
+      }),
+      replace: true,
+      resetScroll: false,
+    });
+  };
 
   useEffect(() => {
     setValue('number', number);
@@ -242,10 +236,10 @@ export default function AppViewBusinessesRmaViewSearchSectionComponent() {
     setValue('installer', installer);
     setValue('enterpriseName', enterpriseName);
     setValue('state', state);
-    if (!!dates) setValue('dates', dates);
+    if (dates) setValue('dates', dates);
     else resetField('dates');
     setValue('excludeds', excludeds);
-    if (!!amounts) setValue('amounts', amounts);
+    if (amounts) setValue('amounts', amounts);
     else resetField('amounts');
     setValue('fuzzy', fuzzy);
   }, [number, numOrder, name, contact, deliverPhoneNumber, zipCode, installer, enterpriseName, state, dates, excludeds, amounts, fuzzy]);
@@ -344,7 +338,7 @@ export default function AppViewBusinessesRmaViewSearchSectionComponent() {
                             values={value}
                             onChange={(values) => onChange(values)}
                             renderTrack={({ props, children }) => (
-                              <div
+                              <button
                                 onMouseDown={props.onMouseDown}
                                 onTouchStart={props.onTouchStart}
                                 style={{
@@ -371,7 +365,7 @@ export default function AppViewBusinessesRmaViewSearchSectionComponent() {
                                 >
                                   {children}
                                 </div>
-                              </div>
+                              </button>
                             )}
                             renderThumb={({ props }) => (
                               <div
@@ -385,6 +379,7 @@ export default function AppViewBusinessesRmaViewSearchSectionComponent() {
                                   justifyContent: 'center',
                                   alignItems: 'center',
                                   borderRadius: '50%',
+                                  filter: 'none',
                                 }}
                               />
                             )}

@@ -79,7 +79,7 @@ export default function AppViewStudyViewAutomaticViewHeaderComponentHddCalculati
 
             <div className="grid-rows grid divide-y" style={{ marginLeft: '30%', marginRight: '30%' }}>
               {config.models.map((model) => (
-                <div className="flex items-center justify-center">
+                <div key={model.product.id} className="flex items-center justify-center">
                   <span className="p-2 text-red-600">{`x${model.quantity}`}</span>
                   <div className="flex items-center p-2">
                     <img
