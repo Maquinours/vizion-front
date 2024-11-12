@@ -41,6 +41,7 @@ export default function AppViewToolsViewDdnsViewTableComponentContextMenuCompone
                       replace
                       resetScroll={false}
                       preload="render"
+                      onClick={onClose}
                     >
                       <FaTrash className={styles.icon} />
                       <span className={styles.text}>Supprimer</span>

@@ -87,6 +87,7 @@ export default function AppViewEnterprisesViewTableComponentContactContextMenu({
                       replace
                       resetScroll={false}
                       preload="render"
+                      onClick={onClose}
                     >
                       <MdWork className={styles.icon} />
                       <span className={styles.text}>Créer une affaire</span>
@@ -102,6 +103,7 @@ export default function AppViewEnterprisesViewTableComponentContactContextMenu({
                         replace
                         resetScroll={false}
                         preload="render"
+                        onClick={onClose}
                       >
                         <MdWork className={styles.icon} />
                         <span className={styles.text}>Créer un RMA</span>
@@ -118,6 +120,7 @@ export default function AppViewEnterprisesViewTableComponentContactContextMenu({
                         replace
                         resetScroll={false}
                         preload="render"
+                        onClick={onClose}
                       >
                         <FaFile className={styles.icon} />
                         <span className={styles.text}>Créer un bon de transport</span>
@@ -132,6 +135,7 @@ export default function AppViewEnterprisesViewTableComponentContactContextMenu({
                         replace
                         resetScroll={false}
                         preload="render"
+                        onClick={onClose}
                       >
                         <IoMdAddCircleOutline className={styles.icon} />
                         <span className={styles.text}>Ajouter un nouveau contact</span>
@@ -147,6 +151,7 @@ export default function AppViewEnterprisesViewTableComponentContactContextMenu({
                           replace
                           resetScroll={false}
                           preload="render"
+                          onClick={onClose}
                         >
                           <MdMailOutline className={styles.icon} />
                           <span className={styles.text}>Envoyer un mail</span>
@@ -163,6 +168,7 @@ export default function AppViewEnterprisesViewTableComponentContactContextMenu({
                       replace
                       resetScroll={false}
                       preload="render"
+                      onClick={onClose}
                     >
                       <HiPencilAlt className={styles.icon} />
                       <span className={styles.text}>Modifier ce contact</span>
@@ -180,6 +186,7 @@ export default function AppViewEnterprisesViewTableComponentContactContextMenu({
                         replace
                         resetScroll={false}
                         preload="render"
+                        onClick={onClose}
                       >
                         <MdPassword className={styles.icon} />
                         <span className={styles.text}>Modifier le mot de passe</span>
@@ -212,6 +219,7 @@ export default function AppViewEnterprisesViewTableComponentContactContextMenu({
                         replace
                         resetScroll={false}
                         preload="render"
+                        onClick={onClose}
                       >
                         <FaTrash className={styles.icon} />
                         <span className={styles.text}>Supprimer ce contact</span>

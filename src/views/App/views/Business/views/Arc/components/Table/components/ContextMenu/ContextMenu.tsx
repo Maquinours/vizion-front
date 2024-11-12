@@ -43,6 +43,7 @@ export default function AppViewBusinessViewArcViewTableComponentContextMenuCompo
                       resetScroll={false}
                       preload="render"
                       ignoreBlocker
+                      onClick={onClose}
                     >
                       <HiPencilAlt width={16} height={16} color={'#16204E'} />
                       <span>Modifier le produit</span>
@@ -58,6 +59,7 @@ export default function AppViewBusinessViewArcViewTableComponentContextMenuCompo
                       resetScroll={false}
                       preload="render"
                       ignoreBlocker
+                      onClick={onClose}
                     >
                       <FaTrash width={16} height={16} color={'#16204E'} />
                       <span>Supprimer le produit</span>

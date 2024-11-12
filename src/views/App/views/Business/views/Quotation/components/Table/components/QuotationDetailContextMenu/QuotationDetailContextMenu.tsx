@@ -43,6 +43,7 @@ export default function AppViewBusinessViewQuotationViewTableComponentQuotationD
                       resetScroll={false}
                       preload="render"
                       ignoreBlocker
+                      onClick={onClose}
                     >
                       <IoMdAddCircleOutline width={16} height={16} color={'#16204E'} className={styles.icon} />
                       <span className={styles.text}>Produits associés</span>
@@ -58,6 +59,7 @@ export default function AppViewBusinessViewQuotationViewTableComponentQuotationD
                       resetScroll={false}
                       preload="render"
                       ignoreBlocker
+                      onClick={onClose}
                     >
                       <HiPencilAlt width={16} height={16} color={'#16204E'} className={styles.icon} />
                       <span className={styles.text}>Modifier</span>
@@ -73,6 +75,7 @@ export default function AppViewBusinessViewQuotationViewTableComponentQuotationD
                       resetScroll={false}
                       preload="render"
                       ignoreBlocker
+                      onClick={onClose}
                     >
                       <FaTrash width={16} height={16} color={'#16204E'} className={styles.icon} />
                       <span className={styles.text}>Supprimer</span>

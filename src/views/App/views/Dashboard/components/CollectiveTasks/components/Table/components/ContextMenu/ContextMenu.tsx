@@ -42,6 +42,7 @@ export default function AppViewDashboardViewCollectiveTasksComponentTableCompone
                       replace
                       resetScroll={false}
                       preload="render"
+                      onClick={onClose}
                     >
                       <IoIosCheckmarkCircleOutline className={styles.icon} />
                       <span className={styles.text}>Je prends en charge</span>
@@ -56,6 +57,7 @@ export default function AppViewDashboardViewCollectiveTasksComponentTableCompone
                       replace
                       resetScroll={false}
                       preload="render"
+                      onClick={onClose}
                     >
                       <IoMdArrowForward className={styles.icon} />
                       <span className={styles.text}>Transférer</span>
@@ -70,6 +72,7 @@ export default function AppViewDashboardViewCollectiveTasksComponentTableCompone
                       replace
                       resetScroll={false}
                       preload="render"
+                      onClick={onClose}
                     >
                       <MdOutlineComment className={styles.icon} />
                       <span className={styles.text}>Commentaires</span>
@@ -84,6 +87,7 @@ export default function AppViewDashboardViewCollectiveTasksComponentTableCompone
                       replace
                       resetScroll={false}
                       preload="render"
+                      onClick={onClose}
                     >
                       <FaTrash className={styles.icon} />
                       <span className={styles.text}>Supprimer</span>

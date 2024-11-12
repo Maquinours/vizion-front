@@ -42,6 +42,7 @@ export default function AppViewProductViewManageViewVersionsComponentTableCompon
                       replace
                       resetScroll={false}
                       preload="render"
+                      onClick={onClose}
                     >
                       <HiPencilAlt className={styles.icon} width={16} height={16} color="#16204E" />
                       <span className={styles.text}>Modifier la version</span>
@@ -56,6 +57,7 @@ export default function AppViewProductViewManageViewVersionsComponentTableCompon
                       replace
                       resetScroll={false}
                       preload="render"
+                      onClick={onClose}
                     >
                       <FaTrash className={styles.icon} width={16} height={16} color="#16204E" />
                       <span className={styles.text}>Supprimer la version</span>

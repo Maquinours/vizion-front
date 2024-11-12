@@ -35,19 +35,46 @@ export default function AppViewProductViewManageViewStocksComponentTableComponen
               {stock && (
                 <MenuList>
                   <MenuItem>
-                    <Link from={routePath} to="stock-history/$stockId" params={{ stockId: stock.id }} search replace resetScroll={false} preload="render">
+                    <Link
+                      from={routePath}
+                      to="stock-history/$stockId"
+                      params={{ stockId: stock.id }}
+                      search
+                      replace
+                      resetScroll={false}
+                      preload="render"
+                      onClick={onClose}
+                    >
                       <MdOutlineInventory className={styles.icon} width={16} height={16} color="#16204E" />
                       <span className={styles.text}>Historique du stock</span>
                     </Link>
                   </MenuItem>
                   <MenuItem>
-                    <Link from={routePath} to="delete-stock/$stockId" params={{ stockId: stock.id }} search replace resetScroll={false} preload="render">
+                    <Link
+                      from={routePath}
+                      to="delete-stock/$stockId"
+                      params={{ stockId: stock.id }}
+                      search
+                      replace
+                      resetScroll={false}
+                      preload="render"
+                      onClick={onClose}
+                    >
                       <FaTrash className={styles.icon} width={16} height={16} color="#16204E" />
                       <span className={styles.text}>Supprimer le stock</span>
                     </Link>
                   </MenuItem>
                   <MenuItem>
-                    <Link from={routePath} to="update-stock/$stockId" params={{ stockId: stock.id }} search replace resetScroll={false} preload="render">
+                    <Link
+                      from={routePath}
+                      to="update-stock/$stockId"
+                      params={{ stockId: stock.id }}
+                      search
+                      replace
+                      resetScroll={false}
+                      preload="render"
+                      onClick={onClose}
+                    >
                       <HiPencilAlt className={styles.icon} width={16} height={16} color="#16204E" />
                       <span className={styles.text}>Modifier le stock</span>
                     </Link>

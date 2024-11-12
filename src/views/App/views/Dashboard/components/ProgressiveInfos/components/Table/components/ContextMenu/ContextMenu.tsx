@@ -40,6 +40,7 @@ export default function AppViewDashboardViewProgressiveInfosComponentTableCompon
                     replace
                     resetScroll={false}
                     preload="render"
+                    onClick={onClose}
                   >
                     <MdModeEdit className={styles.icon} />
                     <span className={styles.text}>Modifier</span>
@@ -54,6 +55,7 @@ export default function AppViewDashboardViewProgressiveInfosComponentTableCompon
                     replace
                     resetScroll={false}
                     preload="render"
+                    onClick={onClose}
                   >
                     <FaTrash className={styles.icon} />
                     <span className={styles.text}>Supprimer</span>
