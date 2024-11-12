@@ -32,6 +32,8 @@ export default function AppViewDashboardViewPersonalTasksComponentTableComponent
 }: AppViewDashboardViewPersonalTasksComponentTableComponentProps) {
   const queryClient = useQueryClient();
 
+  const { personalTaskState: state } = routeApi.useSearch();
+
   const [task, setTask] = useState<TaskResponseDto>();
   const [contextMenuAnchor, setContextMenuAnchor] = useState<VirtualElement>();
 
@@ -205,7 +207,7 @@ export default function AppViewDashboardViewPersonalTasksComponentTableComponent
           rowId={'id'}
           getRowClassName={(row) =>
             classNames({
-              [styles.not_read]: !row.taskOpened,
+              [styles.not_read]: state === TaskState.CREATED && !row.taskOpened,
             })
           }
         />
