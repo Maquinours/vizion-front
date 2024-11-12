@@ -25,17 +25,30 @@ export default function AppViewDashboardViewPersonalTasksComponentTableComponent
 }: AppViewDashboardViewPersonalTasksComponentTableComponentContextMenuComponentProps) {
   const isOpen = Boolean(anchor);
 
+  const onClose = () => {
+    setAnchor(undefined);
+  };
+
   return (
     <Popper open={isOpen} anchorEl={anchor} transition placement="bottom-start">
       {({ TransitionProps }) => (
-        <ClickAwayListener mouseEvent="onMouseUp" onClickAway={() => setAnchor(undefined)}>
+        <ClickAwayListener mouseEvent="onMouseUp" onClickAway={onClose}>
           <Fade {...TransitionProps}>
             <Paper className={styles.menu_container}>
               {task && (
                 <MenuList>
                   {!task.businessId && !task.enterpriseId && !task.productId && !task.rmaId && (
                     <MenuItem>
-                      <Link from={Route.id} to="./link-personal-task/$taskId" params={{ taskId: task.id }} search replace resetScroll={false} preload="render">
+                      <Link
+                        from={Route.id}
+                        to="./link-personal-task/$taskId"
+                        params={{ taskId: task.id }}
+                        search
+                        replace
+                        resetScroll={false}
+                        preload="render"
+                        onClick={onClose}
+                      >
                         <BsLink45Deg className={styles.icon} /> <span className={styles.text}>Relier à</span>
                       </Link>
                     </MenuItem>
@@ -51,6 +64,7 @@ export default function AppViewDashboardViewPersonalTasksComponentTableComponent
                         replace
                         resetScroll={false}
                         preload="render"
+                        onClick={onClose}
                       >
                         <BsFillCircleFill className={styles.icon} color="#5DC896" />
                         <span className={styles.text}>Archiver</span>
@@ -68,6 +82,7 @@ export default function AppViewDashboardViewPersonalTasksComponentTableComponent
                         replace
                         resetScroll={false}
                         preload="render"
+                        onClick={onClose}
                       >
                         <MdSchedule className={styles.icon} />
                         <span className={styles.text}>Repousser</span>
@@ -77,7 +92,16 @@ export default function AppViewDashboardViewPersonalTasksComponentTableComponent
                   {((task.profileId === user.profile.id && task.state === TaskState.CREATED) ||
                     (task.senderId === user.profile.id && task.senderState === TaskState.CREATED)) && (
                     <MenuItem>
-                      <Link from={Route.id} to="./transfer-task/$taskId" params={{ taskId: task.id }} search replace resetScroll={false} preload="render">
+                      <Link
+                        from={Route.id}
+                        to="./transfer-task/$taskId"
+                        params={{ taskId: task.id }}
+                        search
+                        replace
+                        resetScroll={false}
+                        preload="render"
+                        onClick={onClose}
+                      >
                         <IoMdArrowForward className={styles.icon} />
                         <span className={styles.text}>Transférer à</span>
                       </Link>
@@ -94,6 +118,7 @@ export default function AppViewDashboardViewPersonalTasksComponentTableComponent
                         replace
                         resetScroll={false}
                         preload="render"
+                        onClick={onClose}
                       >
                         <BsFillCircleFill className={styles.icon} color="#31385A" />
                         <span className={styles.text}>En attente</span>
@@ -101,13 +126,31 @@ export default function AppViewDashboardViewPersonalTasksComponentTableComponent
                     </MenuItem>
                   )}
                   <MenuItem>
-                    <Link from={Route.id} to="./personal-task-details/$taskId" params={{ taskId: task.id }} search replace resetScroll={false} preload="render">
+                    <Link
+                      from={Route.id}
+                      to="./personal-task-details/$taskId"
+                      params={{ taskId: task.id }}
+                      search
+                      replace
+                      resetScroll={false}
+                      preload="render"
+                      onClick={onClose}
+                    >
                       <BsEyeFill className={styles.icon} />
                       <span className={styles.text}>Ouvrir</span>
                     </Link>
                   </MenuItem>
                   <MenuItem>
-                    <Link from={Route.id} to="./task-comments/$taskId" params={{ taskId: task.id }} search replace resetScroll={false} preload="render">
+                    <Link
+                      from={Route.id}
+                      to="./task-comments/$taskId"
+                      params={{ taskId: task.id }}
+                      search
+                      replace
+                      resetScroll={false}
+                      preload="render"
+                      onClick={onClose}
+                    >
                       <MdOutlineComment className={styles.icon} />
                       <span className={styles.text}>Commentaires</span>
                     </Link>
