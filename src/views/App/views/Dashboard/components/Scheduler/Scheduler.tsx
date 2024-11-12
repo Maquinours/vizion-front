@@ -53,7 +53,7 @@ export default function AppViewDashboardViewSchedulerComponent() {
         from: Route.id,
         to: './scheduler-event-details/$eventId',
         params: { eventId: event.rdv!.id },
-        search: (old) => old,
+        search: true,
         replace: true,
         resetScroll: false,
       });

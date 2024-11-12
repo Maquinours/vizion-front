@@ -59,7 +59,7 @@ export default function AppViewToolsViewFormationsViewSubscribersModalView() {
             <h6>Liste des participants</h6>
           </div>
           <div className={styles.buttons}>
-            <Link from={routeApi.id} to="create" search={(old) => old} replace resetScroll={false} className="btn btn-primary">
+            <Link from={routeApi.id} to="create" search replace resetScroll={false} className="btn btn-primary">
               Ajouter un participant
             </Link>
           </div>

@@ -83,7 +83,7 @@ export default function AppViewEnterprisesViewTableComponentContactContextMenu({
                       from={routeApi.id}
                       to="create-contact-business/$contactId"
                       params={{ contactId: contact.id }}
-                      search={(old) => old}
+                      search
                       replace
                       resetScroll={false}
                       preload="render"
@@ -99,7 +99,7 @@ export default function AppViewEnterprisesViewTableComponentContactContextMenu({
                         from={routeApi.id}
                         to="create-enterprise-rma/$enterpriseId"
                         params={{ enterpriseId: contact.enterprise!.id }}
-                        search={(old) => old}
+                        search
                         replace
                         resetScroll={false}
                         preload="render"
@@ -116,7 +116,7 @@ export default function AppViewEnterprisesViewTableComponentContactContextMenu({
                         from={routeApi.id}
                         to="create-contact-travel-voucher/$contactId"
                         params={{ contactId: contact.id }}
-                        search={(old) => old}
+                        search
                         replace
                         resetScroll={false}
                         preload="render"
@@ -131,7 +131,7 @@ export default function AppViewEnterprisesViewTableComponentContactContextMenu({
                         from={routeApi.id}
                         to="create-contact/$enterpriseId"
                         params={{ enterpriseId: contact.enterprise!.id }}
-                        search={(old) => old}
+                        search
                         replace
                         resetScroll={false}
                         preload="render"
@@ -147,7 +147,7 @@ export default function AppViewEnterprisesViewTableComponentContactContextMenu({
                           from={routeApi.id}
                           to="send-email-to-contact/$contactId"
                           params={{ contactId: contact.id }}
-                          search={(old) => old}
+                          search
                           replace
                           resetScroll={false}
                           preload="render"
@@ -164,7 +164,7 @@ export default function AppViewEnterprisesViewTableComponentContactContextMenu({
                       from={routeApi.id}
                       to="update-contact/$contactId"
                       params={{ contactId: contact.id }}
-                      search={(old) => old}
+                      search
                       replace
                       resetScroll={false}
                       preload="render"
@@ -182,7 +182,7 @@ export default function AppViewEnterprisesViewTableComponentContactContextMenu({
                         from={routeApi.id}
                         to="update-contact-password/$contactId"
                         params={{ contactId: contact.id }}
-                        search={(old) => old}
+                        search
                         replace
                         resetScroll={false}
                         preload="render"
@@ -215,7 +215,7 @@ export default function AppViewEnterprisesViewTableComponentContactContextMenu({
                         from={routeApi.id}
                         to="delete-contact/$contactId"
                         params={{ contactId: contact.id }}
-                        search={(old) => old}
+                        search
                         replace
                         resetScroll={false}
                         preload="render"

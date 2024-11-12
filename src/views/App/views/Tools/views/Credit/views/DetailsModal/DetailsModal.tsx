@@ -48,7 +48,7 @@ export default function AppViewToolsViewCreditViewDetailsModalView() {
   });
 
   const onClose = () => {
-    navigate({ to: '..', search: (old) => old, replace: true, resetScroll: false });
+    navigate({ to: '..', search: true, replace: true, resetScroll: false });
   };
 
   const onSaveDetails = (data: yup.InferType<typeof yupSchema>) => {

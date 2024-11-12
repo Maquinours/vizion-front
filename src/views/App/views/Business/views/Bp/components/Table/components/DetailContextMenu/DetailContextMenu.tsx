@@ -46,7 +46,7 @@ export default function AppViewBusinessViewBpViewTableComponentDetailContextMenu
                       from={routePath}
                       to="update-detail/$detailId"
                       params={{ detailId: item.id }}
-                      search={(old) => old}
+                      search
                       replace
                       resetScroll={false}
                       preload="render"

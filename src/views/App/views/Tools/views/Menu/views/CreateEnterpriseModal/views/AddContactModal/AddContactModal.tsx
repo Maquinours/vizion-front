@@ -158,7 +158,7 @@ export default function AppViewToolsViewMenuViewCreateEnterpriseModalViewAddCont
   };
 
   const onClose = () => {
-    navigate({ to: '..', search: (old) => old, replace: true });
+    navigate({ to: '..', search: true, replace: true });
   };
 
   const onSubmit = (data: yup.InferType<typeof yupSchema>) => {

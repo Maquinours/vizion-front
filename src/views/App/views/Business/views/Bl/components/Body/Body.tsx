@@ -34,7 +34,7 @@ export default function AppViewBusinessViewBlViewBodyComponent() {
       {!business.archived && (
         <div className={styles.buttons_container}>
           {user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && (
-            <Link from={routePath} to="send-by-email" search={(old) => old} replace resetScroll={false} preload="intent" className="btn btn-secondary">
+            <Link from={routePath} to="send-by-email" search replace resetScroll={false} preload="intent" className="btn btn-secondary">
               Envoyer par mail
             </Link>
           )}

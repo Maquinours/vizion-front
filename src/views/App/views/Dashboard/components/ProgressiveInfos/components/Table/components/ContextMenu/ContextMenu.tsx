@@ -36,7 +36,7 @@ export default function AppViewDashboardViewProgressiveInfosComponentTableCompon
                     from={Route.id}
                     to="./update-progressive-info/$progressiveInfoId"
                     params={(old) => ({ ...old, progressiveInfoId: progressiveInfo!.id })}
-                    search={(old) => old}
+                    search
                     replace
                     resetScroll={false}
                     preload="render"
@@ -51,7 +51,7 @@ export default function AppViewDashboardViewProgressiveInfosComponentTableCompon
                     from={Route.id}
                     to="./delete-progressive-info/$progressiveInfoId"
                     params={(old) => ({ ...old, progressiveInfoId: progressiveInfo!.id })}
-                    search={(old) => old}
+                    search
                     replace
                     resetScroll={false}
                     preload="render"

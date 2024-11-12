@@ -8,11 +8,5 @@ export default function AppViewDashboardViewTaskEmailModalViewReplyView() {
 
   const { email } = routeApi.useLoaderData();
 
-  return (
-    <SendEmailModalComponent
-      isOpen={true}
-      onClose={() => navigate({ to: '..', search: (old) => old, replace: true, resetScroll: false })}
-      emailToReply={email}
-    />
-  );
+  return <SendEmailModalComponent isOpen={true} onClose={() => navigate({ to: '..', search: true, replace: true, resetScroll: false })} emailToReply={email} />;
 }

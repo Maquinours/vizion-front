@@ -22,7 +22,7 @@ export default function AppViewToolsViewCreditViewShowModalView() {
   const { details, business, shippingServicePrice, items, enterprise, bill } = useContext(CreditContext)!;
 
   const onClose = () => {
-    navigate({ to: '..', search: (old) => old, replace: true, resetScroll: false });
+    navigate({ to: '..', search: true, replace: true, resetScroll: false });
   };
 
   const totalAmountHT = useMemo(() => items.reduce((acc, curr) => acc + curr.price * curr.quantity, 0), [items]);

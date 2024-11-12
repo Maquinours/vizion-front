@@ -42,7 +42,7 @@ export default function AppViewFaqViewTableComponentContextMenuComponent({
                         from={routeApi.id}
                         to="./update/$faqId"
                         params={(old) => ({ ...old, faqId: faq.id })}
-                        search={(old) => old}
+                        search
                         replace
                         resetScroll={false}
                         preload="render"
@@ -57,7 +57,7 @@ export default function AppViewFaqViewTableComponentContextMenuComponent({
                         from={routeApi.id}
                         to="./ged/$faqId"
                         params={(old) => ({ ...old, faqId: faq.id })}
-                        search={(old) => old}
+                        search
                         replace
                         resetScroll={false}
                         preload="render"
@@ -73,7 +73,7 @@ export default function AppViewFaqViewTableComponentContextMenuComponent({
                       from={routeApi.id}
                       to="./send-by-email/$faqId"
                       params={(old) => ({ ...old, faqId: faq.id })}
-                      search={(old) => old}
+                      search
                       replace
                       resetScroll={false}
                       preload="render"
@@ -89,7 +89,7 @@ export default function AppViewFaqViewTableComponentContextMenuComponent({
                         from={routeApi.id}
                         to="./archive/$faqId"
                         params={(old) => ({ ...old, faqId: faq.id })}
-                        search={(old) => old}
+                        search
                         replace
                         resetScroll={false}
                         preload="render"
@@ -104,7 +104,7 @@ export default function AppViewFaqViewTableComponentContextMenuComponent({
                         from={routeApi.id}
                         to="./delete/$faqId"
                         params={(old) => ({ ...old, faqId: faq.id })}
-                        search={(old) => old}
+                        search
                         replace
                         resetScroll={false}
                         preload="render"

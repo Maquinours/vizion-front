@@ -11,7 +11,7 @@ export const Route = createFileRoute('/app/businesses-rma_/business/$businessId/
       throw redirect({
         from: Route.fullPath,
         to: '..',
-        search: (old) => old,
+        search: true,
         replace: true,
       });
   },

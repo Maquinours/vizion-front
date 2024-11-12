@@ -18,7 +18,7 @@ export default function AppViewToolsViewSchedulerViewDetailsModalViewDeleteModal
   const { data: rdv } = useSuspenseQuery(queries.rdvs.detail(rdvId));
 
   const onClose = () => {
-    navigate({ to: '..', search: (old) => old, replace: true, resetScroll: false });
+    navigate({ to: '..', search: true, replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({
@@ -26,7 +26,7 @@ export default function AppViewToolsViewSchedulerViewDetailsModalViewDeleteModal
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queries.rdvs._def });
       toast.success('Rendez-vous supprimé avec succès');
-      navigate({ to: '../../..', search: (old) => old, replace: true, resetScroll: false });
+      navigate({ to: '../../..', search: true, replace: true, resetScroll: false });
     },
     onError: (error) => {
       console.error(error);

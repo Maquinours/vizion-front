@@ -19,7 +19,7 @@ export default function AppViewToolsViewProductShelvesViewDeleteModalView() {
   const { data: productShelf } = useSuspenseQuery(queries['product-shelves'].detail._ctx.byId(productShelfId));
 
   const onClose = () => {
-    navigate({ to: '../..', search: (old) => old, replace: true, resetScroll: false });
+    navigate({ to: '../..', search: true, replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({

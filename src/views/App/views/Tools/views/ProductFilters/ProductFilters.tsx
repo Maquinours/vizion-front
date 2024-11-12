@@ -35,10 +35,10 @@ const columns = [
     id: 'actions',
     cell: ({ row: { original } }) => (
       <div className={styles.action_buttons}>
-        <Link from={routeApi.id} to="update/$productFilterId" params={{ productFilterId: original.id }} search={(old) => old} replace resetScroll={false}>
+        <Link from={routeApi.id} to="update/$productFilterId" params={{ productFilterId: original.id }} search replace resetScroll={false}>
           <HiPencilAlt color="#31385A" />
         </Link>
-        <Link from={routeApi.id} to="delete/$productFilterId" params={{ productFilterId: original.id }} search={(old) => old} replace resetScroll={false}>
+        <Link from={routeApi.id} to="delete/$productFilterId" params={{ productFilterId: original.id }} search replace resetScroll={false}>
           <FaTrash color="#F24C52" />
         </Link>
       </div>
@@ -56,7 +56,7 @@ export default function AppViewToolsViewProductFiltersView() {
       <div className={styles.container}>
         <div className={styles.content}>
           <div className={styles.buttons_container}>
-            <Link from={routeApi.id} to="create" search={(old) => old} replace resetScroll={false} className="btn btn-secondary">
+            <Link from={routeApi.id} to="create" search replace resetScroll={false} className="btn btn-secondary">
               Ajouter
             </Link>
           </div>

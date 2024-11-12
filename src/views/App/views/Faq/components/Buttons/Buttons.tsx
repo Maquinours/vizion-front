@@ -11,7 +11,7 @@ export default function AppViewFaqViewButtonsComponent() {
   return (
     <div>
       {user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && (
-        <Link from={routeApi.id} to="./create" search={(old) => old} replace resetScroll={false} preload="intent" className="btn btn-secondary">
+        <Link from={routeApi.id} to="./create" search replace resetScroll={false} preload="intent" className="btn btn-secondary">
           Ajouter
         </Link>
       )}

@@ -40,7 +40,7 @@ export default function AppViewDashboardViewTransferCollectiveTaskModalView() {
   const { data: allMembers, isLoading: isLoadingAllMembers } = useSuspenseQuery(queries.profiles.list._ctx.byCategory(CategoryClient.VIZEO));
 
   const onClose = () => {
-    navigate({ from: Route.id, to: '../..', search: (old) => old, replace: true, resetScroll: false });
+    navigate({ from: Route.id, to: '../..', search: true, replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({

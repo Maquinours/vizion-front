@@ -44,16 +44,7 @@ export default function AppViewBusinessViewArcViewPdfModalView() {
             >
               {({ loading }) => <button className="btn btn-secondary">{loading ? 'Chargement...' : 'Télécharger'}</button>}
             </PDFDownloadLink>
-            <Link
-              from={routePath}
-              to="send-by-email"
-              search={(old) => old}
-              replace
-              resetScroll={false}
-              preload="intent"
-              ignoreBlocker
-              className="btn btn-secondary"
-            >
+            <Link from={routePath} to="send-by-email" search replace resetScroll={false} preload="intent" ignoreBlocker className="btn btn-secondary">
               Envoyer par mail
             </Link>
           </div>

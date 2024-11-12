@@ -8,7 +8,5 @@ export default function AppViewEnterprisesViewCreateContactBusinessModalView() {
 
   const { contactId } = routeApi.useParams();
 
-  return (
-    <CreateBusinessModalComponent contactId={contactId} onClose={() => navigate({ to: '../..', search: (old) => old, replace: true, resetScroll: false })} />
-  );
+  return <CreateBusinessModalComponent contactId={contactId} onClose={() => navigate({ to: '../..', search: true, replace: true, resetScroll: false })} />;
 }

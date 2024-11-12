@@ -76,7 +76,7 @@ export default function AppViewProductsViewSerialNumbersModalViewTableComponent(
                 from={routeApi.id}
                 to="delete/$serialNumberId"
                 params={{ serialNumberId: original.id }}
-                search={(old) => old}
+                search
                 replace
                 resetScroll={false}
                 preload="intent"
@@ -90,7 +90,7 @@ export default function AppViewProductsViewSerialNumbersModalViewTableComponent(
                 from={routeApi.id}
                 to="create-rma/$serialNumberId"
                 params={{ serialNumberId: original.id }}
-                search={(old) => old}
+                search
                 replace
                 resetScroll={false}
                 preload="intent"

@@ -28,7 +28,7 @@ export default function AppViewBusinessViewDashboardViewGedComponent() {
       getRenameLink={(data) => ({
         to: '/app/businesses-rma/business/$businessId/dashboard/rename-ged-object/$objectRelativePath',
         params: { objectRelativePath: data.relativePath },
-        search: (old) => old,
+        search: true,
         replace: true,
         resetScroll: false,
         ignoreBlocker: true,
@@ -36,7 +36,7 @@ export default function AppViewBusinessViewDashboardViewGedComponent() {
       getDeleteLink={(data) => ({
         to: '/app/businesses-rma/business/$businessId/dashboard/delete-ged-object/$objectRelativePath',
         params: { objectRelativePath: data.relativePath },
-        search: (old) => old,
+        search: true,
         replace: true,
         resetScroll: false,
         ignoreBlocker: true,

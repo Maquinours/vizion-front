@@ -24,24 +24,10 @@ const columns = [
     header: 'Actions',
     cell: ({ row: { original } }) => (
       <div>
-        <Link
-          from={routeApi.id}
-          to={'./update/$predefinedMessageId'}
-          params={{ predefinedMessageId: original.id }}
-          search={(old) => old}
-          replace
-          resetScroll={false}
-        >
+        <Link from={routeApi.id} to={'./update/$predefinedMessageId'} params={{ predefinedMessageId: original.id }} search replace resetScroll={false}>
           <BiEdit size={25} color="#31385A" />
         </Link>
-        <Link
-          from={routeApi.id}
-          to={'./delete/$predefinedMessageId'}
-          params={{ predefinedMessageId: original.id }}
-          search={(old) => old}
-          replace
-          resetScroll={false}
-        >
+        <Link from={routeApi.id} to={'./delete/$predefinedMessageId'} params={{ predefinedMessageId: original.id }} search replace resetScroll={false}>
           <FaTrash size={25} color="#F24C52" />
         </Link>
       </div>

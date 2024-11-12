@@ -148,7 +148,7 @@ export default function AppViewToolsViewCreditView() {
               <button className="btn btn-primary" onClick={() => addLine()}>
                 Ajouter une ligne
               </button>
-              <Link from={routeApi.id} to="details" search={(old) => old} replace resetScroll={false} className="btn btn-secondary">
+              <Link from={routeApi.id} to="details" search replace resetScroll={false} className="btn btn-secondary">
                 {"Détails de l'avoir"}
               </Link>
             </div>
@@ -163,7 +163,7 @@ export default function AppViewToolsViewCreditView() {
             <button className="btn btn-primary" onClick={onReset}>
               RAZ
             </button>
-            <Link from={routeApi.id} to="show" search={(old) => old} replace resetScroll={false} className="btn btn-primary">
+            <Link from={routeApi.id} to="show" search replace resetScroll={false} className="btn btn-primary">
               Visualiser
             </Link>
           </div>

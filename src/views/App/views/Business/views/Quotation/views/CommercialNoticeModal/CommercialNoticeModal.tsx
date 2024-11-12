@@ -33,7 +33,7 @@ export default function AppViewBusinessViewQuotationViewCommercialNoticeModalVie
   const getFilePluginInstance = getFilePlugin({ fileNameGenerator: () => formatFileName(`Notice_Commerciale_${business.numBusiness}.pdf`) });
 
   const onClose = () => {
-    navigate({ to: '..', search: (old) => old, replace: true, resetScroll: false, ignoreBlocker: true });
+    navigate({ to: '..', search: true, replace: true, resetScroll: false, ignoreBlocker: true });
   };
 
   return (

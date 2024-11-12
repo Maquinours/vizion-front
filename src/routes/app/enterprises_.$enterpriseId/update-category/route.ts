@@ -8,7 +8,7 @@ export const Route = createFileRoute('/app/enterprises_/$enterpriseId/update-cat
     const enterprise = await queryClient.ensureQueryData(enterprises.detail(enterpriseId));
     if ([CategoryClient.VIZEO, CategoryClient.FOURNISSEUR, CategoryClient.REPRESENTANT].includes(enterprise.category)) {
       console.warn('Not allowed to access this route', Route, enterprise);
-      throw redirect({ from: Route.fullPath, to: '..', search: (old) => old });
+      throw redirect({ from: Route.fullPath, to: '..', search: true });
     }
   },
   pendingComponent: LoaderModal,

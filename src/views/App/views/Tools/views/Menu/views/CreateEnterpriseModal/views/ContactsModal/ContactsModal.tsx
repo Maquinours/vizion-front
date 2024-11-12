@@ -57,7 +57,7 @@ export default function AppViewToolsViewMenuViewCreateEnterpriseModalViewContact
   );
 
   const onClose = () => {
-    navigate({ to: '..', search: (old) => old, replace: true });
+    navigate({ to: '..', search: true, replace: true });
   };
 
   return (

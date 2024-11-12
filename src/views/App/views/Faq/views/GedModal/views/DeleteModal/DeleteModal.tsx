@@ -14,7 +14,7 @@ export default function AppViewFaqViewGedModalViewDeleteModalView() {
       type={FileType.FAQ}
       id={faqId}
       objectRelativePath={itemRelativePath}
-      onClose={() => navigate({ to: '../..', search: (old) => old, replace: true, resetScroll: false })}
+      onClose={() => navigate({ to: '../..', search: true, replace: true, resetScroll: false })}
     />
   );
 }

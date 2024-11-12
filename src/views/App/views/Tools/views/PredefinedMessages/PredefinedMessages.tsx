@@ -19,7 +19,7 @@ export default function AppViewToolsViewPredefinedMessagesView() {
       <div className={styles.container}>
         <div className={styles.content}>
           <div className={styles.buttons_container}>
-            <Link from={routeApi.id} to="./create" search={(old) => old} replace resetScroll={false} className="btn btn-secondary">
+            <Link from={routeApi.id} to="./create" search replace resetScroll={false} className="btn btn-secondary">
               Ajouter
             </Link>
           </div>

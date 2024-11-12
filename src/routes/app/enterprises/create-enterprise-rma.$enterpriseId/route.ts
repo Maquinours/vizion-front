@@ -7,7 +7,7 @@ export const Route = createFileRoute('/app/enterprises/create-enterprise-rma/$en
   beforeLoad: async ({ context: { queryClient } }) => {
     const user = await queryClient.ensureQueryData(users.authentified());
     if (!user.userInfo.roles.some((role) => ['ROLE_MEMBRE_VIZEO', 'ROLE_REPRESENTANT'].includes(role)))
-      throw redirect({ from: Route.id, to: '../..', search: (old) => old });
+      throw redirect({ from: Route.id, to: '../..', search: true });
   },
   loader: async ({ context: { queryClient }, params: { enterpriseId } }) => {
     queryClient.ensureQueryData(enterprises.detail(enterpriseId));

@@ -18,7 +18,7 @@ export default function AppViewProductViewInformationsViewLifesheetComponent() {
       createLink={{
         from: routePath,
         to: '/app/products/$productId/informations/create-lifesheet-comment',
-        search: (old) => old,
+        search: true,
         replace: true,
         resetScroll: false,
       }}

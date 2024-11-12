@@ -38,7 +38,7 @@ export default function AppViewDashboardViewCollectiveTasksComponentTableCompone
                       from={Route.id}
                       to="take-collective-task/$taskId"
                       params={{ taskId: task.id }}
-                      search={(old) => old}
+                      search
                       replace
                       resetScroll={false}
                       preload="render"
@@ -53,7 +53,7 @@ export default function AppViewDashboardViewCollectiveTasksComponentTableCompone
                       from={Route.id}
                       to="transfer-task/$taskId"
                       params={{ taskId: task.id }}
-                      search={(old) => old}
+                      search
                       replace
                       resetScroll={false}
                       preload="render"
@@ -68,7 +68,7 @@ export default function AppViewDashboardViewCollectiveTasksComponentTableCompone
                       from={Route.id}
                       to="task-comments/$taskId"
                       params={{ taskId: task.id }}
-                      search={(old) => old}
+                      search
                       replace
                       resetScroll={false}
                       preload="render"
@@ -83,7 +83,7 @@ export default function AppViewDashboardViewCollectiveTasksComponentTableCompone
                       from={Route.id}
                       to="delete-collective-task/$taskId"
                       params={{ taskId: task.id }}
-                      search={(old) => old}
+                      search
                       replace
                       resetScroll={false}
                       preload="render"

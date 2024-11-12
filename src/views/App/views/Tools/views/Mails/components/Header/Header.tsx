@@ -45,7 +45,7 @@ export default function AppViewToolsViewMailsViewHeaderComponent() {
           </button>
         </form>
       </div>
-      <Link from={routeApi.id} to="create" search={(old) => old} replace resetScroll={false} className="btn btn-secondary">
+      <Link from={routeApi.id} to="create" search replace resetScroll={false} className="btn btn-secondary">
         Nouveau courrier
       </Link>
     </div>

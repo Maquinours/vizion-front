@@ -18,7 +18,7 @@ export default function AppViewBusinessViewDashboardViewLifesheetComponent() {
         createLink={{
           from: routePath,
           to: '/app/businesses-rma/business/$businessId/dashboard/create-lifesheet',
-          search: (old) => old,
+          search: true,
           replace: true,
           resetScroll: false,
           ignoreBlocker: true,

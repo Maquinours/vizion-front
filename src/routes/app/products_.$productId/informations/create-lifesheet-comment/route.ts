@@ -9,7 +9,7 @@ export const Route = createFileRoute('/app/products_/$productId/informations/cre
       throw redirect({
         from: Route.fullPath,
         to: '..',
-        search: (old) => old,
+        search: true,
         replace: true,
       });
   },

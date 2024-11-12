@@ -20,7 +20,7 @@ export default function AppViewToolsViewExternalLinksView() {
         <div className={styles.content}>
           <div className={styles.header}>
             <div>
-              <Link from={routeApi.id} to="./create" search={(old) => old} resetScroll={false} replace className="btn btn-secondary">
+              <Link from={routeApi.id} to="./create" search resetScroll={false} replace className="btn btn-secondary">
                 Ajouter
               </Link>
               <Link

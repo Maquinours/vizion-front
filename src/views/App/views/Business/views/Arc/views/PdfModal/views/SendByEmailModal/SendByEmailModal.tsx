@@ -10,7 +10,7 @@ export default function AppViewBusinessViewArcViewPdfModalViewSendByEmailModalVi
   const { business, arc, representative, file } = routeApi.useLoaderData();
 
   const onClose = () => {
-    navigate({ to: '..', search: (old) => old, replace: true, resetScroll: false, ignoreBlocker: true });
+    navigate({ to: '..', search: true, replace: true, resetScroll: false, ignoreBlocker: true });
   };
 
   const recipient = business.profileEmail ?? business.deliverEmail ?? undefined;

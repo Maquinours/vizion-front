@@ -10,9 +10,9 @@ export default function AppViewToolsViewEmailsViewEmailModalView() {
 
   return (
     <EmailModalComponent
-      onClose={() => navigate({ to: '..', search: (old) => old, replace: true, resetScroll: false })}
+      onClose={() => navigate({ to: '..', search: true, replace: true, resetScroll: false })}
       emailId={emailId}
-      replyLink={{ to: '/app/tools/emails/$emailId/reply', params: { emailId }, search: (old) => old, replace: true, resetScroll: false }}
+      replyLink={{ to: '/app/tools/emails/$emailId/reply', params: { emailId }, search: true, replace: true, resetScroll: false }}
     />
   );
 }
