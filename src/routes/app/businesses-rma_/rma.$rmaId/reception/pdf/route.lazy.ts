@@ -1,8 +1,6 @@
-import { createLazyFileRoute } from '@tanstack/react-router'
-import AppViewRmaViewReceptionViewPdfModalView from '../../../../../../views/App/views/Rma/views/Reception/views/PdfModal/PdfModal'
+import { createLazyFileRoute } from '@tanstack/react-router';
+import AppViewRmaViewReceptionViewPdfModalView from '../../../../../../views/App/views/Rma/views/Reception/views/PdfModal/PdfModal';
 
-export const Route = createLazyFileRoute(
-  '/app/businesses-rma_/rma/$rmaId/reception/pdf',
-)({
+export const Route = createLazyFileRoute('/app/businesses-rma_/rma/$rmaId/reception/pdf')({
   component: AppViewRmaViewReceptionViewPdfModalView,
-})
+});

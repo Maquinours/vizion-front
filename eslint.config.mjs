@@ -1,49 +1,49 @@
-import eslint from "@eslint/js";
-import pluginQuery from "@tanstack/eslint-plugin-query";
-import prettierConfig from "eslint-config-prettier";
-import jsxA11Y from "eslint-plugin-jsx-a11y";
-import react from "eslint-plugin-react";
-import globals from "globals";
+import eslint from '@eslint/js';
+import pluginQuery from '@tanstack/eslint-plugin-query';
+import prettierConfig from 'eslint-config-prettier';
+import jsxA11Y from 'eslint-plugin-jsx-a11y';
+import react from 'eslint-plugin-react';
+import globals from 'globals';
 import tseslint from 'typescript-eslint';
 import tsParser from '@typescript-eslint/parser';
-import reactCompiler from 'eslint-plugin-react-compiler'
+import reactCompiler from 'eslint-plugin-react-compiler';
 
 export default tseslint.config(
-    eslint.configs.recommended,
-    ...tseslint.configs.recommended,
-    ...pluginQuery.configs['flat/recommended'],
-    prettierConfig,
-    react.configs.flat.recommended,
-    react.configs.flat['jsx-runtime'],
-    jsxA11Y.flatConfigs.recommended,
-    {
-        plugins: {
-            'react-compiler': reactCompiler,
-        },
-        languageOptions: {
-            globals: {
-                ...globals.browser,
-            },
-            parserOptions: {
-                projectService: true,
-                tsconfigRootDir: import.meta.dirname,
-            },
-            parser: tsParser,
-        },
+  eslint.configs.recommended,
+  ...tseslint.configs.recommended,
+  ...pluginQuery.configs['flat/recommended'],
+  prettierConfig,
+  react.configs.flat.recommended,
+  react.configs.flat['jsx-runtime'],
+  jsxA11Y.flatConfigs.recommended,
+  {
+    plugins: {
+      'react-compiler': reactCompiler,
+    },
+    languageOptions: {
+      globals: {
+        ...globals.browser,
+      },
+      parserOptions: {
+        projectService: true,
+        tsconfigRootDir: import.meta.dirname,
+      },
+      parser: tsParser,
+    },
 
-        settings: {
-            react: {
-                version: "detect",
-            },
-        },
-        ignores: ["**/dist/", "**/node_modules/"],
-        files: ["**/*.ts", "**/*.tsx"],
-        rules: {
-            "react/prop-types": "off",
-            'react-compiler/react-compiler': 'error',
-        }
-    }
-)
+    settings: {
+      react: {
+        version: 'detect',
+      },
+    },
+    ignores: ['**/dist/', '**/node_modules/'],
+    files: ['**/*.ts', '**/*.tsx'],
+    rules: {
+      'react/prop-types': 'off',
+      'react-compiler/react-compiler': 'error',
+    },
+  },
+);
 
 // export default [
 //     ...pluginQuery.configs['flat/recommended'],

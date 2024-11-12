@@ -191,13 +191,13 @@
               }
             }
 
-            &>div:nth-child(2) {
+            & > div:nth-child(2) {
               border: 1px solid #31385a;
               border-radius: 5px;
               background: #f2f3f8 0% 0% no-repeat padding-box;
 
               :nth-child(2) {
-                &>div {
+                & > div {
                   min-height: 50vh;
                   max-height: 60vh;
                   height: 100%;
@@ -242,7 +242,7 @@
             }
           }
 
-          &>div:nth-child(4) {
+          & > div:nth-child(4) {
             height: fit-content;
           }
         }

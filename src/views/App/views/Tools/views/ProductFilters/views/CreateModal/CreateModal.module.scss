@@ -21,7 +21,8 @@
     .form_group {
       margin: 0.5rem 0;
       display: grid;
-      grid-template-areas: 'label'
+      grid-template-areas:
+        'label'
         'input'
         'error';
       grid-template-columns: auto;

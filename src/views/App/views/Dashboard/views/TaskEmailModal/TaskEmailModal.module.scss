@@ -1,6 +1,5 @@
 @use '../CreateCollectiveTaskModal/CreateCollectiveTaskModal.module.scss';
-@use "/src/assets/styles/mixins";
-
+@use '/src/assets/styles/mixins';
 
 .mail_modal {
   @extend .modal;

@@ -103,7 +103,7 @@
                 width: 2%;
                 padding: 0;
 
-                &>div {
+                & > div {
                   position: relative;
                   width: auto;
 
@@ -116,7 +116,7 @@
                     // padding-top: 5px;
                   }
 
-                  &>div {
+                  & > div {
                     display: none;
                     position: absolute;
                     width: 150px;
@@ -163,7 +163,7 @@
                     }
                   }
 
-                  &>div::after {
+                  & > div::after {
                     content: '';
                     position: absolute;
                     top: 13px;
@@ -177,7 +177,7 @@
                   }
 
                   &:hover {
-                    &>div {
+                    & > div {
                       display: initial;
                     }
                   }
@@ -272,7 +272,7 @@
     grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
 
-    &>div {
+    & > div {
       height: fit-content;
     }
 

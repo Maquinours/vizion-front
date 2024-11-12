@@ -22,7 +22,7 @@ export default function AppViewProductViewManageViewDeleteSpecificationModalView
   const { data: productSpec } = useSuspenseQuery(productSpecificationsQueryKeys.detail._ctx.byId({ productId, specificationId }));
 
   const onClose = () => {
-    navigate({  to: '../..', search: true, replace: true, resetScroll: false });
+    navigate({ to: '../..', search: true, replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({
