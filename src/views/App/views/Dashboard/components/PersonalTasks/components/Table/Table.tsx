@@ -18,7 +18,7 @@ import styles from './Table.module.scss';
 import AppViewDashboardViewPersonalTasksComponentPersonalTasksComponentTableComponentContextMenuComponent from './components/ContextMenu/ContextMenu';
 import { markTaskAsRead } from './utils/api/tasks';
 
-const Route = getRouteApi('/app/dashboard');
+const routeApi = getRouteApi('/app/dashboard');
 
 const columnHelper = createColumnHelper<TaskResponseDto>();
 
@@ -64,7 +64,7 @@ export default function AppViewDashboardViewPersonalTasksComponentTableComponent
           if (original.mailId)
             item = (
               <Link
-                from={Route.id}
+                from={routeApi.id}
                 to="task-email/$taskId"
                 params={{ taskId: original.id }}
                 search
