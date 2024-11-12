@@ -1,8 +1,8 @@
 import { NodeToolbar, Position, useReactFlow, useViewport } from '@xyflow/react';
+import { useEffect, useMemo, useState } from 'react';
 import { AiOutlineClose, AiTwotoneSetting } from 'react-icons/ai';
-import AmountFormat from '../../../../../../../../../../../../components/AmountFormat/AmountFormat';
 import { OnValueChange } from 'react-number-format';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import AmountFormat from '../../../../../../../../../../../../components/AmountFormat/AmountFormat';
 import { ExpertStudyMiscProductNode } from '../../MiscProductNode';
 
 type AppViewStudyViewExpertViewFlowComponentMiscProductNodeComponentMenuComponentProps = Readonly<{
@@ -25,7 +25,7 @@ export default function AppViewStudyViewExpertViewFlowComponentMiscProductNodeCo
   const quantity = data.quantity ?? 1;
   const opacity = data.opacity ?? 100;
 
-  const ref = useRef<HTMLDivElement>(null);
+  const [ref, setRef] = useState<HTMLDivElement | null>(null);
 
   const [offset, setOffset] = useState<number | undefined>(undefined);
 
@@ -58,7 +58,7 @@ export default function AppViewStudyViewExpertViewFlowComponentMiscProductNodeCo
 
   useEffect(() => {
     const offset = (() => {
-      const element = ref.current;
+      const element = ref;
       if (!element) return;
       const flowRect = document.querySelector('.react-flow')!.getBoundingClientRect();
       if (position === Position.Top) {
@@ -73,11 +73,11 @@ export default function AppViewStudyViewExpertViewFlowComponentMiscProductNodeCo
       }
     })();
     setOffset(offset);
-  }, [position, nodePositionY, nodeHeight]);
+  }, [ref, position, nodePositionY, nodeHeight]);
 
   return (
     <NodeToolbar isVisible position={position} align="center" offset={offset}>
-      <div ref={ref} className="nopan rounded-md border-2 border-[#1a192b] bg-slate-50 px-2">
+      <div ref={setRef} className="nopan rounded-md border-2 border-[#1a192b] bg-slate-50 px-2">
         <div className="flex items-center justify-between p-2">
           <div className="flex items-center justify-center space-x-2">
             <AiTwotoneSetting className="fill-[#1a192b]" />

@@ -1,11 +1,11 @@
 import { NodeToolbar, Position, useReactFlow, useViewport } from '@xyflow/react';
+import { useEffect, useMemo, useState } from 'react';
 import { AiOutlineClose, AiTwotoneSetting } from 'react-icons/ai';
+import { OnValueChange } from 'react-number-format';
+import AmountFormat from '../../../../../../../../../../../../components/AmountFormat/AmountFormat';
 import ProductProductResponseDto from '../../../../../../../../../../../../utils/types/ProductProductResponseDto';
 import ProductResponseDto from '../../../../../../../../../../../../utils/types/ProductResponseDto';
 import { ExpertStudyMonitorNode } from '../../MonitorNode';
-import { OnValueChange } from 'react-number-format';
-import AmountFormat from '../../../../../../../../../../../../components/AmountFormat/AmountFormat';
-import { useEffect, useMemo, useRef, useState } from 'react';
 
 type Option = {
   product: ProductProductResponseDto;
@@ -33,7 +33,7 @@ export default function AppViewStudyViewExpertViewFlowComponentMonitorNodeCompon
 
   const quantity = data.quantity ?? 1;
 
-  const ref = useRef<HTMLDivElement>(null);
+  const [ref, setRef] = useState<HTMLDivElement | null>(null);
 
   const [offset, setOffset] = useState<number | undefined>(0);
 
@@ -94,7 +94,7 @@ export default function AppViewStudyViewExpertViewFlowComponentMonitorNodeCompon
 
   useEffect(() => {
     const offset = (() => {
-      const element = ref.current;
+      const element = ref;
       if (!element) return;
       const flowRect = document.querySelector('.react-flow')!.getBoundingClientRect();
       if (position === Position.Top) {
@@ -109,11 +109,11 @@ export default function AppViewStudyViewExpertViewFlowComponentMonitorNodeCompon
       }
     })();
     setOffset(offset);
-  }, [position, nodePositionY, nodeHeight]);
+  }, [ref, position, nodePositionY, nodeHeight]);
 
   return (
     <NodeToolbar position={position} align="center" offset={offset}>
-      <div ref={ref} className="nopan rounded-md border-2 border-[#1a192b] bg-slate-50 px-2">
+      <div ref={setRef} className="nopan rounded-md border-2 border-[#1a192b] bg-slate-50 px-2">
         <div className="flex items-center justify-between border-b-2 border-b-[#1a192b] p-2">
           <div className="flex items-center justify-center space-x-2">
             <AiTwotoneSetting className="fill-[#1a192b]" />
