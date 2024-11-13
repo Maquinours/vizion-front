@@ -50,7 +50,7 @@
             table-layout: fixed;
           }
 
-          thead > tr > th {
+          thead>tr>th {
             color: var(--grey-light);
             background-color: var(--primary-color);
             border: 1px solid var(--grey-light);
@@ -60,16 +60,16 @@
             }
           }
 
-          thead > tr > th {
+          thead>tr>th {
             border: 1px solid var(--grey-light);
           }
 
-          tbody > tr > td {
+          tbody>tr>td {
             border: 1px solid var(--primary-color);
           }
 
-          thead > tr > th,
-          tbody > tr > td {
+          thead>tr>th,
+          tbody>tr>td {
             padding: 0.5rem;
 
             &:nth-child(1) {
@@ -87,16 +87,25 @@
             display: block;
 
             tr {
+              display: flex;
+
               td {
-                &:nth-last-child(1) {
-                  width: 0px;
-                  padding: 0px;
+                &:only-child {
+                  width: 100%;
+                }
+
+                &:not(:only-child) {
+                  &:nth-last-child(1) {
+                    width: 0px;
+                    padding: 0px;
+                    border: none;
+                  }
                 }
               }
             }
           }
 
-          tbody > tr > td {
+          tbody>tr>td {
             div {
               color: var(--primary-light);
 
