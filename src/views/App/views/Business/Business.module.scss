@@ -10,14 +10,14 @@
       display: flex;
       justify-content: space-between;
 
-      &>button {
+      & > button {
         span {
           display: flex;
           gap: 5px;
         }
       }
 
-      &>div {
+      & > div {
         display: flex;
         gap: 5px;
       }

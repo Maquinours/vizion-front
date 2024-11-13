@@ -2,7 +2,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useQuery } from '@tanstack/react-query';
 import { getRouteApi } from '@tanstack/react-router';
 import { useContext } from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import { Controller, useForm, useWatch } from 'react-hook-form';
 import ReactModal from 'react-modal';
 import * as yup from 'yup';
 import CustomSelect from '../../../../../../../../components/CustomSelect/CustomSelect';
@@ -40,12 +40,13 @@ export default function AppViewToolsViewCreditViewDetailsModalView() {
   const {
     register,
     control,
-    watch,
     formState: { errors },
     handleSubmit,
   } = useForm({
     resolver: yupResolver(yupSchema),
   });
+
+  const billingCompany = useWatch({ name: 'billingCompany', control });
 
   const onClose = () => {
     navigate({ to: '..', search: true, replace: true, resetScroll: false });
@@ -107,7 +108,7 @@ export default function AppViewToolsViewCreditViewDetailsModalView() {
                 name="billingContact"
                 render={({ field: { onChange, value } }) => (
                   <CustomSelect
-                    options={watch('billingCompany')?.profiles ?? []}
+                    options={billingCompany?.profiles ?? []}
                     getOptionLabel={(opt) => `${opt.firstName} ${opt.lastName}`}
                     getOptionValue={(opt) => opt.id}
                     placeholder="Sélectionnez un contact"

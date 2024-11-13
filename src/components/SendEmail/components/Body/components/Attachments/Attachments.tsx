@@ -6,13 +6,16 @@ import { FaTrash } from 'react-icons/fa';
 import { useContext } from 'react';
 import { SendEmailFormContext } from '../../../../utils/contexts/sendEmail';
 import { formatFileName } from '../../../../../../utils/functions/files';
+import { useWatch } from 'react-hook-form';
 
 export default function SendEmailComponentBodyComponentAttachmentsComponent() {
-  const { watch, setValue } = useContext(SendEmailFormContext)!;
+  const { setValue, control } = useContext(SendEmailFormContext)!;
+
+  const attachments = useWatch({ control, name: 'attachments' });
 
   const onDrop = (acceptedFiles: Array<File>) => {
     setValue('attachments', [
-      ...watch('attachments'),
+      ...attachments,
       ...acceptedFiles.map((file) => ({
         id: uuidv4(),
         file: new File([file], formatFileName(file.name), { type: file.type, lastModified: file.lastModified }),
@@ -35,11 +38,11 @@ export default function SendEmailComponentBodyComponentAttachmentsComponent() {
           </div>
         )}
       </div>
-      {watch('attachments').length > 0 && (
+      {attachments.length > 0 && (
         <div className={styles.selected_files}>
           <h4>Pièces jointes</h4>
           <ul>
-            {watch('attachments').map(({ id, file }) => {
+            {attachments.map(({ id, file }) => {
               let fileSize;
               if (file.size > 1_000_000) fileSize = `${Math.floor(file.size / 1_000_000)} Mo`;
               else if (file.size > 1_000) fileSize = `${Math.floor(file.size / 1_000)} Ko`;
@@ -56,7 +59,7 @@ export default function SendEmailComponentBodyComponentAttachmentsComponent() {
                     onClick={() =>
                       setValue(
                         'attachments',
-                        watch('attachments').filter((f) => f.id !== id),
+                        attachments.filter((f) => f.id !== id),
                       )
                     }
                   >

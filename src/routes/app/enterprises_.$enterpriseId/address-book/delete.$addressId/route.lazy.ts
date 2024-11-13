@@ -1,8 +1,6 @@
-import { createLazyFileRoute } from '@tanstack/react-router'
-import AppViewEnterpriseViewAddressBookModalViewDeleteModalView from '../../../../../views/App/views/Enterprise/views/AddressBookModal/views/DeleteModal/DeleteModal'
+import { createLazyFileRoute } from '@tanstack/react-router';
+import AppViewEnterpriseViewAddressBookModalViewDeleteModalView from '../../../../../views/App/views/Enterprise/views/AddressBookModal/views/DeleteModal/DeleteModal';
 
-export const Route = createLazyFileRoute(
-  '/app/enterprises_/$enterpriseId/address-book/delete/$addressId',
-)({
+export const Route = createLazyFileRoute('/app/enterprises_/$enterpriseId/address-book/delete/$addressId')({
   component: AppViewEnterpriseViewAddressBookModalViewDeleteModalView,
-})
+});

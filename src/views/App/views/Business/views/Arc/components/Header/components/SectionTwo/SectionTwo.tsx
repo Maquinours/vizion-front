@@ -2,7 +2,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import { Link, getRouteApi, useBlocker } from '@tanstack/react-router';
 import { useEffect, useMemo } from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import { Controller, useForm, useWatch } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import * as yup from 'yup';
 import CurrencyFormat from '../../../../../../../../../../components/CurrencyFormat/CurrencyFormat';
@@ -39,7 +39,6 @@ export default function AppViewBusinessViewArcViewHeaderComponentSectionTwoCompo
     register,
     control,
     formState: { errors, isDirty },
-    watch,
     reset: resetForm,
     handleSubmit,
   } = useForm({
@@ -47,7 +46,7 @@ export default function AppViewBusinessViewArcViewHeaderComponentSectionTwoCompo
     defaultValues: formDefaultValues,
   });
 
-  const clientTotalAmountHT = watch('clientTotalAmountHT');
+  const clientTotalAmountHT = useWatch({ control, name: 'clientTotalAmountHT' });
 
   const formWarnings = useMemo(() => {
     const result: { clientTotalAmountHT?: string } = {};

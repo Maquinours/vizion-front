@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Control, Controller, FieldErrors, UseFormGetValues, UseFormResetField, UseFormSetValue, UseFormWatch } from 'react-hook-form';
+import { Control, Controller, FieldErrors, UseFormResetField, UseFormSetValue, useWatch } from 'react-hook-form';
 import { PulseLoader } from 'react-spinners';
 import AmountFormat from '../../../../../../../../components/AmountFormat/AmountFormat';
 import CardComponent from '../../../../../../../../components/Card/Card';
@@ -11,9 +11,7 @@ import styles from './StepTwo.module.scss';
 type AppViewProductViewUpdateModalComponentStepTwoComponentProps = Readonly<{
   product: ProductResponseDto;
   errors: FieldErrors<UpdateProductStepTwoSchema>;
-  watch: UseFormWatch<UpdateProductStepTwoSchema>;
   setValue: UseFormSetValue<UpdateProductStepTwoSchema>;
-  getValues: UseFormGetValues<UpdateProductStepTwoSchema>;
   resetField: UseFormResetField<UpdateProductStepTwoSchema>;
   control: Control<UpdateProductStepTwoSchema>;
   onReset: () => void;
@@ -24,25 +22,28 @@ type AppViewProductViewUpdateModalComponentStepTwoComponentProps = Readonly<{
 export default function AppViewProductViewUpdateModalComponentStepTwoComponent({
   product,
   errors,
-  watch,
   setValue,
-  getValues,
   resetField,
   control,
   onReset,
   onSubmit,
   isPending,
 }: AppViewProductViewUpdateModalComponentStepTwoComponentProps) {
+  const costPriceWatch = useWatch({ control, name: 'costPrice' });
+  const shippingServiceWatch = useWatch({ control, name: 'portOrService' });
+  const taxWatch = useWatch({ control, name: 'tax' });
+  const priceWatch = useWatch({ control, name: 'price' });
+
   useEffect(() => {
-    const costPrice = Number(getValues('costPrice')) || 0;
-    const shippingService = Number(getValues('portOrService')) || 0;
-    const tax = Number(getValues('tax')) || 0;
-    const price = Number(getValues('price')) || 0;
+    const costPrice = Number(costPriceWatch) || 0;
+    const shippingService = Number(shippingServiceWatch) || 0;
+    const tax = Number(taxWatch) || 0;
+    const price = Number(priceWatch) || 0;
 
     const margin = Math.round((1 - (costPrice + shippingService + tax) / price) * 100);
     if (!isNaN(margin) && isFinite(margin)) setValue('margin', margin);
     else resetField('margin');
-  }, [watch('costPrice'), watch('portOrService'), watch('tax'), watch('price')]);
+  }, [costPriceWatch, shippingServiceWatch, taxWatch, priceWatch]);
 
   return (
     <form className={styles.container} onSubmit={onSubmit} onReset={onReset}>

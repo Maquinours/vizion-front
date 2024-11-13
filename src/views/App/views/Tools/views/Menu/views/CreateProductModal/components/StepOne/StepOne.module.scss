@@ -16,7 +16,8 @@
       // grid-template-columns: 20% 80%;
       align-self: center;
       margin-bottom: 1rem;
-      grid-template-areas: 'label input'
+      grid-template-areas:
+        'label input'
         'label error';
       grid-template-columns: 25% 75%;
 

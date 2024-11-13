@@ -89,7 +89,8 @@
           display: grid;
           grid-template-columns: repeat(3, 1fr);
           align-self: center;
-          grid-template-areas: 'input'
+          grid-template-areas:
+            'input'
             'error';
 
           input:nth-child(1) {

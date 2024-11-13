@@ -3,7 +3,7 @@ import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-q
 import { getRouteApi } from '@tanstack/react-router';
 import { createColumnHelper } from '@tanstack/react-table';
 import { useEffect } from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, useWatch } from 'react-hook-form';
 import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
 import { toast } from 'react-toastify';
@@ -49,14 +49,16 @@ export default function AppViewBusinessViewBlViewUpdateModalView() {
     register,
     formState: { errors, isDirty },
     handleSubmit,
+    control,
     reset,
-    watch,
   } = useForm({
     resolver: yupResolver(yupSchema),
     defaultValues: {
       items: [],
     },
   });
+
+  const items = useWatch({ name: 'items', control });
 
   const columns = [
     columnHelper.display({
@@ -102,7 +104,7 @@ export default function AppViewBusinessViewBlViewUpdateModalView() {
   useEffect(() => {
     if (!isDirty)
       reset({
-        items: blDetails?.map((detail) => ({ id: detail.id, productReference: detail.productReference, productDesignation: detail.productDesignation ?? [] })),
+        items: blDetails?.map((detail) => ({ id: detail.id, productReference: detail.productReference, productDesignation: detail.productDesignation })),
       });
   }, [blDetails]);
 
@@ -115,7 +117,7 @@ export default function AppViewBusinessViewBlViewUpdateModalView() {
         <form onSubmit={handleSubmit((data) => mutate(data))} onReset={onClose}>
           <div className={styles.modal_content}>
             <div className={styles.table_container}>
-              <TableComponent columns={columns} data={watch('items')} />
+              <TableComponent columns={columns} data={items} />
             </div>
           </div>
 

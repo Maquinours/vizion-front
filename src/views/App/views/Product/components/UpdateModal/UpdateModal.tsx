@@ -54,7 +54,7 @@ export default function AppViewProductViewUpdateModalComponent() {
   const {
     register: stepOneRegister,
     control: stepOneControl,
-    watch: stepOneWatch,
+    getValues: stepOneGetValues,
     formState: { errors: stepOneErrors },
     setValue: stepOneSetValue,
     handleSubmit: stepOneHandleSubmit,
@@ -64,9 +64,7 @@ export default function AppViewProductViewUpdateModalComponent() {
 
   const {
     formState: { errors: stepTwoErrors },
-    watch: stepTwoWatch,
     setValue: stepTwoSetValue,
-    getValues: stepTwoGetValues,
     resetField: stepTwoResetField,
     control: stepTwoControl,
     handleSubmit: stepTwoHandleSubmit,
@@ -119,7 +117,7 @@ export default function AppViewProductViewUpdateModalComponent() {
 
   const onSubmitStepTwo = stepTwoHandleSubmit((data: UpdateProductStepTwoSchema) => {
     mutate({
-      stepOneData: stepOneWatch(),
+      stepOneData: stepOneGetValues(),
       stepTwoData: data,
     });
   });
@@ -170,9 +168,7 @@ export default function AppViewProductViewUpdateModalComponent() {
           <AppViewProductViewUpdateModalComponentStepTwoComponent
             product={product}
             errors={stepTwoErrors}
-            watch={stepTwoWatch}
             setValue={stepTwoSetValue}
-            getValues={stepTwoGetValues}
             resetField={stepTwoResetField}
             control={stepTwoControl}
             onReset={() => setStep(0)}

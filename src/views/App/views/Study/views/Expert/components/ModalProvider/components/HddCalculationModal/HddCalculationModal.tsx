@@ -2,7 +2,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { InternalNode, ReactFlowState, useStore } from '@xyflow/react';
 import { useContext, useMemo } from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import { Controller, useForm, useWatch } from 'react-hook-form';
 import ReactModal from 'react-modal';
 import * as yup from 'yup';
 import { useShallow } from 'zustand/react/shallow';
@@ -26,7 +26,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentHddCalcu
 
   const nodes = useStore(useShallow(getNodes));
 
-  const { control, watch } = useForm({
+  const { control } = useForm({
     resolver: yupResolver(yupSchema),
     defaultValues: {
       hoursPerDay: 24,
@@ -67,7 +67,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentHddCalcu
     return { flux, hddSpace };
   }, [nodes, products]);
 
-  const hoursPerDay = watch('hoursPerDay');
+  const hoursPerDay = useWatch({ control, name: 'hoursPerDay' });
 
   const days = useMemo(() => {
     if (flux === 0 || hddSpace === 0) return 0;

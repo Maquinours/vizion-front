@@ -39,7 +39,8 @@
           align-self: center;
           // gap:  0 1rem;
           margin-bottom: 0.8rem;
-          grid-template-areas: 'label'
+          grid-template-areas:
+            'label'
             'input'
             'error';
           grid-template-columns: repeat(1, 1fr);

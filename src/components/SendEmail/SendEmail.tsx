@@ -101,7 +101,7 @@ export default function SendEmailComponent({
   const {
     control,
     register,
-    watch,
+    getValues,
     setValue,
     formState: { errors },
     reset,
@@ -155,7 +155,7 @@ export default function SendEmailComponent({
     },
   });
 
-  const contextValue = useMemo(() => ({ control, register, errors, watch, setValue }), [control, register, errors, watch, setValue]);
+  const contextValue = useMemo(() => ({ control, register, errors, getValues, setValue }), [control, register, errors, getValues, setValue]);
 
   return (
     <SendEmailFormContext.Provider value={contextValue}>

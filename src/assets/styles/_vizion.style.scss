@@ -144,9 +144,7 @@ Table of Contents
 
 body {
   height: 100%;
-  font-family: 'DIN2014',
-    Arial,
-    sans-serif;
+  font-family: 'DIN2014', Arial, sans-serif;
   background-color: variables.$white-color;
 
   svg {
@@ -808,9 +806,7 @@ ul {
             text-align: left;
 
             span {
-              font-family: 'DIN2014',
-                Arial,
-                sans-serif;
+              font-family: 'DIN2014', Arial, sans-serif;
               font-size: 16px;
               line-height: 20px;
               color: variables.$primary-color;
@@ -1407,7 +1403,7 @@ button[type='submit'].btn {
   background: rgba(0, 0, 0, 0.25) 0% 0% no-repeat padding-box;
   overflow-y: auto;
 
-  &>div {
+  & > div {
     outline: none;
   }
 

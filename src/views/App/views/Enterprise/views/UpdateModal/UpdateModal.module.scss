@@ -139,9 +139,7 @@
             }
 
             &.required {
-              font-family: 'DIN2014',
-                Arial,
-                sans-serif;
+              font-family: 'DIN2014', Arial, sans-serif;
 
               span {
                 color: var(--secondary-color);
@@ -149,7 +147,7 @@
             }
           }
 
-          &>input {
+          & > input {
             background: var(--grey-color) 0% 0% no-repeat padding-box;
             border: 1px solid var(--primary-color);
             border-radius: 5px;
@@ -194,7 +192,7 @@
             }
           }
 
-          &>select {
+          & > select {
             background: var(--grey-color) 0% 0% no-repeat padding-box;
             border: 1px solid var(--primary-color);
             border-radius: 5px;

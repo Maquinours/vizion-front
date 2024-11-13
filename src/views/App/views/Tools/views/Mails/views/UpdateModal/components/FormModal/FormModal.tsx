@@ -3,7 +3,7 @@ import EnterpriseResponseDto from '../../../../../../../../../../utils/types/Ent
 import ProfileResponseDto from '../../../../../../../../../../utils/types/ProfileResponseDto';
 import { useQuery } from '@tanstack/react-query';
 import { queries } from '../../../../../../../../../../utils/constants/queryKeys';
-import { Controller, useFieldArray, useForm } from 'react-hook-form';
+import { Controller, useFieldArray, useForm, useWatch } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useEffect } from 'react';
 import styles from './FormModal.module.scss';
@@ -44,7 +44,6 @@ export default function AppViewToolsViewMailsViewUpdateModalViewFormModalCompone
   const {
     register,
     control,
-    watch,
     setValue,
     resetField,
     formState: { errors },
@@ -70,7 +69,7 @@ export default function AppViewToolsViewMailsViewUpdateModalViewFormModalCompone
     name: 'sections',
   });
 
-  const enterprise = watch('enterprise');
+  const enterprise = useWatch({ name: 'enterprise', control });
 
   useEffect(() => {
     if (!enterprise) return;

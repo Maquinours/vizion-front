@@ -110,7 +110,7 @@
                 // padding-top: 5px;
               }
 
-              &>div {
+              & > div {
                 display: none;
                 position: absolute;
                 width: auto;
@@ -158,7 +158,7 @@
                 }
               }
 
-              &>div::after {
+              & > div::after {
                 content: '';
                 position: absolute;
                 top: 13px;
@@ -172,7 +172,7 @@
               }
 
               &:hover {
-                &>div {
+                & > div {
                   display: initial;
                 }
               }
@@ -210,7 +210,7 @@
           &:nth-child(10) {
             width: 2%;
 
-            &>div {
+            & > div {
               position: relative;
               width: auto;
 
@@ -228,7 +228,7 @@
                 // padding-top: 5px;
               }
 
-              &>div {
+              & > div {
                 display: none;
                 position: absolute;
                 width: 150px;
@@ -275,7 +275,7 @@
                 }
               }
 
-              &>div::after {
+              & > div::after {
                 content: '';
                 position: absolute;
                 top: 13px;
@@ -289,7 +289,7 @@
               }
 
               &:hover {
-                &>div {
+                & > div {
                   display: initial;
                 }
               }

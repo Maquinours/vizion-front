@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
-import { Controller } from 'react-hook-form';
+import { Controller, useWatch } from 'react-hook-form';
 import CardComponent from '../../../../../../components/Card/Card';
 import { AssistanceContext } from '../../utils/contexts/context';
 import styles from './ExpectedTimeCard.module.scss';
@@ -15,7 +15,9 @@ type AppViewAssistanceViewExpectedTimeCardComponentProps = Readonly<{
   assistance: TechnicalSupportResponseDto;
 }>;
 export default function AppViewAssistanceViewExpectedTimeCardComponent({ assistance }: AppViewAssistanceViewExpectedTimeCardComponentProps) {
-  const { control, getValues, watch, update } = useContext(AssistanceContext)!;
+  const { control, getValues, update } = useContext(AssistanceContext)!;
+  
+  const predefinedTime = useWatch({ control, name: 'predefinedTime' });
 
   const [updateTimeoutId, setUpdateTimeoutId] = useState<ReturnType<typeof setInterval>>();
 
@@ -26,7 +28,7 @@ export default function AppViewAssistanceViewExpectedTimeCardComponent({ assista
         if (`${amountFormatter(getValues('predefinedTime'))}:00:00` !== assistance.predefinedTime) update();
       }, 1000),
     );
-  }, [watch('predefinedTime')]);
+  }, [predefinedTime]);
 
   return (
     <CardComponent title="Temps prévu" className={styles.card}>

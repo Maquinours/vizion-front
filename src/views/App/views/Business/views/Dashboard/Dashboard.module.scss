@@ -15,7 +15,7 @@
       row-gap: 1rem;
     }
 
-    &>button {
+    & > button {
       span {
         display: flex;
         gap: 5px;
@@ -78,7 +78,8 @@
           // grid-template-columns: 20% 80%;
           align-self: center;
           margin-bottom: 0.3rem;
-          grid-template-areas: 'label'
+          grid-template-areas:
+            'label'
             'input'
             'error';
           grid-template-columns: repeat(1, 1fr);
@@ -186,13 +187,14 @@
       .address_sections {
         display: grid;
         gap: 10px;
-        grid-template-areas: 'item1 item1 item1'
+        grid-template-areas:
+          'item1 item1 item1'
           'item2 item3 item3'
           'item2 item4 item4'
           'item2 item5 item5'
           'item6 item5 item5';
 
-        &>div:nth-child(1) {
+        & > div:nth-child(1) {
           grid-area: item1;
 
           grid-column-start: 2;
@@ -216,12 +218,12 @@
             }
           }
 
-          &>div:nth-child(1) {
+          & > div:nth-child(1) {
             align-self: center;
           }
         }
 
-        &>div:nth-child(2) {
+        & > div:nth-child(2) {
           grid-area: item2;
 
           display: grid;
@@ -234,7 +236,7 @@
           }
         }
 
-        &>div:nth-child(3) {
+        & > div:nth-child(3) {
           grid-area: item3;
           display: grid;
           grid-template-columns: 1fr 0px 1fr;
@@ -246,14 +248,14 @@
             grid-column-end: 4;
           }
 
-          &> :nth-child(1) {
+          & > :nth-child(1) {
             :global .cwa__container {
               height: 100%;
             }
           }
         }
 
-        &>div:nth-child(4) {
+        & > div:nth-child(4) {
           grid-area: item4;
           display: grid;
           gap: 0.5rem;
@@ -264,7 +266,7 @@
           }
         }
 
-        &>div:nth-child(5) {
+        & > div:nth-child(5) {
           grid-area: item5;
 
           @include mixins.respond-below(sm) {
@@ -273,7 +275,7 @@
           }
         }
 
-        &>div:nth-child(6) {
+        & > div:nth-child(6) {
           grid-area: item6;
 
           @include mixins.respond-below(sm) {
@@ -425,7 +427,8 @@
           // grid-template-columns: 20% 80%;
           align-self: center;
           margin-bottom: 0.3rem;
-          grid-template-areas: 'label'
+          grid-template-areas:
+            'label'
             'input'
             'error';
           grid-template-columns: repeat(1, 1fr);
@@ -529,7 +532,8 @@
             // grid-template-columns: 20% 80%;
             align-self: center;
             margin-bottom: 0.3rem;
-            grid-template-areas: 'label'
+            grid-template-areas:
+              'label'
               'input'
               'error';
             grid-template-columns: repeat(1, 1fr);

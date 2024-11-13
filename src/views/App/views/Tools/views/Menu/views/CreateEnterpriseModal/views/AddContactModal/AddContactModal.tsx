@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { getRouteApi } from '@tanstack/react-router';
 import { E164Number } from 'libphonenumber-js';
 import { useContext, useEffect, useState } from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import { Controller, useForm, useWatch } from 'react-hook-form';
 import { CgCopy, CgPassword } from 'react-icons/cg';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { MdCheckCircleOutline, MdOutlineCancel } from 'react-icons/md';
@@ -111,7 +111,6 @@ export default function AppViewToolsViewMenuViewCreateEnterpriseModalViewAddCont
   const {
     register,
     control,
-    watch,
     setValue,
     getValues,
     formState: { errors },
@@ -120,8 +119,9 @@ export default function AppViewToolsViewMenuViewCreateEnterpriseModalViewAddCont
     resolver: yupResolver(yupSchema),
   });
 
-  const email = watch('email');
-  const identifier = watch('siteIdentifier');
+  const email = useWatch({ name: 'email', control });
+  const identifier = useWatch({ name: 'siteIdentifier', control });
+  const password = useWatch({ name: 'password', control });
 
   const { data: emailExists, refetch: refetchEmail } = useQuery({
     queryKey: ['email-exists', email],
@@ -167,8 +167,8 @@ export default function AppViewToolsViewMenuViewCreateEnterpriseModalViewAddCont
   };
 
   useEffect(() => {
-    setValidationRules(checkPassword(getValues('password')));
-  }, [watch('password')]);
+    setValidationRules(checkPassword(password));
+  }, [password]);
 
   return (
     <ReactModal isOpen={true} onRequestClose={onClose} className="Modal" overlayClassName="Overlay">

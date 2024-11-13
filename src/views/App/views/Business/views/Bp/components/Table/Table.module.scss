@@ -134,7 +134,7 @@
           }
 
           @include mixins.respond-below(md) {
-            &>div:first-child {
+            & > div:first-child {
               width: 100px;
             }
 
@@ -209,7 +209,7 @@
               }
             }
 
-            &>div::after {
+            & > div::after {
               content: '';
               position: absolute;
               top: 13px;
@@ -223,7 +223,7 @@
             }
 
             &:hover {
-              &>div {
+              & > div {
                 display: initial;
               }
             }

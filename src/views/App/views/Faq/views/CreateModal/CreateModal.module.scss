@@ -58,7 +58,8 @@
               display: grid;
               align-self: center;
               margin-bottom: 0.5rem;
-              grid-template-areas: 'label'
+              grid-template-areas:
+                'label'
                 'input'
                 'error';
               grid-template-columns: repeat(1, 1fr);
@@ -196,13 +197,13 @@
                 margin-bottom: 0.2rem;
               }
 
-              &>div {
+              & > div {
                 border: 1px solid #31385a;
                 border-radius: 5px;
                 background: #f2f3f8 0% 0% no-repeat padding-box;
 
                 :nth-child(2) {
-                  &>div {
+                  & > div {
                     min-height: 25vh;
                     max-height: 30vh;
                     height: 100%;

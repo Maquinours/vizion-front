@@ -91,12 +91,12 @@
       }
 
       .editor {
-        &>div {
+        & > div {
           border: 1px solid #31385a;
           border-radius: 5px;
 
           :nth-child(2) {
-            &>div {
+            & > div {
               min-height: auto;
               max-height: 35vh;
               height: 100%;

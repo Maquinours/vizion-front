@@ -89,7 +89,8 @@
           display: grid;
           grid-template-columns: repeat(3, 1fr);
           align-self: center;
-          grid-template-areas: 'input'
+          grid-template-areas:
+            'input'
             'error';
 
           input:nth-child(1) {
@@ -157,7 +158,8 @@
       align-self: center;
       // gap:  0 1rem;
       margin-bottom: 0.8rem;
-      grid-template-areas: 'label input'
+      grid-template-areas:
+        'label input'
         'label error';
       grid-template-columns: 25% 75%;
 
