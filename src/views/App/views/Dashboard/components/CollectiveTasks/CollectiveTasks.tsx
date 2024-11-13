@@ -49,7 +49,7 @@ export default function AppViewDashboardViewCollectiveTasksComponent() {
               resetScroll={false}
               preload="render"
             >
-              <FaTrash width={18} height={18} color="#16204E" />
+              <FaTrash width={18} height={18} color="#F24C52" />
             </Link>
           </div>
         )}
