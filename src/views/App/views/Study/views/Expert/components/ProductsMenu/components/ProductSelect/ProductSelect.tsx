@@ -1,7 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import { useReactFlow } from '@xyflow/react';
-import { Controller, useForm } from 'react-hook-form';
+import { Controller, useForm, useWatch } from 'react-hook-form';
 import { v4 as uuidv4 } from 'uuid';
 import * as yup from 'yup';
 import { useShallow } from 'zustand/react/shallow';
@@ -36,9 +36,11 @@ export default function AppViewStudyViewExpertViewProductsMenuComponentProductSe
   const { pageType } = useStore(useShallow(selector));
   const { addNodes, screenToFlowPosition } = useReactFlow();
 
-  const { control, reset, handleSubmit, watch, getValues } = useForm({
+  const { control, reset, handleSubmit } = useForm({
     resolver: yupResolver(yupSchema),
   });
+
+  const product = useWatch({ control, name: 'product' });
 
   const { data: products } = useSuspenseQuery({
     ...queries.product.list,
@@ -221,8 +223,8 @@ export default function AppViewStudyViewExpertViewProductsMenuComponentProductSe
   };
 
   useEffect(() => {
-    if (getValues('product')) handleSubmit(onSubmit)();
-  }, [watch('product')]);
+    if (product) handleSubmit(onSubmit)();
+  }, [product]);
 
   return (
     <Controller

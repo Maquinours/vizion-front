@@ -53,7 +53,7 @@ export default function AppViewAssistanceView() {
     return null;
   }, [assistanceModal]);
 
-  const { register, control, getValues, setValue, resetField, watch } = useForm({
+  const { register, control, getValues, setValue, resetField } = useForm({
     resolver: yupResolver(yupSchema),
     defaultValues: {
       cumulatedTime: 0,
@@ -84,7 +84,7 @@ export default function AppViewAssistanceView() {
     },
   });
 
-  const contextValue = useMemo(() => ({ register, control, getValues, setValue, watch, update }), [register, control, getValues, setValue, watch, update]);
+  const contextValue = useMemo(() => ({ register, control, getValues, setValue, update }), [register, control, getValues, setValue, update]);
 
   useEffect(() => {
     setValue('name', assistance.name);

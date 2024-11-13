@@ -2,7 +2,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useQuery, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import { getRouteApi, useNavigate } from '@tanstack/react-router';
 import { useMemo } from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import { Controller, useForm, useWatch } from 'react-hook-form';
 import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
 import { toast } from 'react-toastify';
@@ -59,7 +59,7 @@ export default function AppViewDashboardViewLinkPersonalTaskModalView() {
   const { data: businesses, isLoading: isLoadingBusinesses } = useQuery(allBusinesses.list);
   const { data: products, isLoading: isLoadingProducts } = useQuery(queries.product.list);
 
-  const { register, control, watch, handleSubmit } = useForm({
+  const { register, control, handleSubmit } = useForm({
     resolver: yupResolver(yupSchema),
   });
 
@@ -106,7 +106,7 @@ export default function AppViewDashboardViewLinkPersonalTaskModalView() {
     },
   });
 
-  const type = watch('type');
+  const type = useWatch({ control, name: 'type' });
 
   const select = useMemo(() => {
     return (

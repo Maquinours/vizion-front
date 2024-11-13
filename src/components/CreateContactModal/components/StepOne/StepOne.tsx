@@ -4,7 +4,7 @@ import ProfileResponseDto from '../../../../utils/types/ProfileResponseDto';
 import { toast } from 'react-toastify';
 import { enterprises } from '../../../../utils/constants/queryKeys/enterprise';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { Controller, useForm } from 'react-hook-form';
+import { Controller, useForm, useWatch } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import EnterpriseResponseDto from '../../../../utils/types/EnterpriseResponseDto';
 import { useMemo, useState } from 'react';
@@ -113,7 +113,6 @@ export default function CreateContactModalComponentStepOneComponent({
   const {
     register,
     control,
-    watch,
     setValue,
     handleSubmit,
     formState: { errors },
@@ -121,9 +120,9 @@ export default function CreateContactModalComponentStepOneComponent({
     resolver: yupResolver(yupSchema),
   });
 
-  const pass = watch('password');
-  const email = watch('email');
-  const identifier = watch('siteIdentifier');
+  const pass = useWatch({ name: 'password', control });
+  const email = useWatch({ name: 'email', control });
+  const identifier = useWatch({ name: 'siteIdentifier', control });
 
   const { data: emailExists, refetch: refetchEmail } = useQuery({
     queryKey: ['email-exists', email],

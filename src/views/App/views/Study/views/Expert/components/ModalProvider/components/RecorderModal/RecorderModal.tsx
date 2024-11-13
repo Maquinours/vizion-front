@@ -2,7 +2,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import { useReactFlow } from '@xyflow/react';
 import { useContext, useEffect, useMemo } from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import { Controller, useForm, useWatch } from 'react-hook-form';
 import ReactModal from 'react-modal';
 import { v4 as uuidv4 } from 'uuid';
 import * as yup from 'yup';
@@ -80,14 +80,14 @@ export default function AppViewStudyViewExpertViewModalProviderComponentRecorder
     select: (products) => products.filter((product) => product.category === 'NVR' && !!product.reference && includedProducts.includes(product.reference)),
   });
 
-  const { getValues, setValue, control, handleSubmit, watch } = useForm({
+  const { getValues, setValue, control, handleSubmit } = useForm({
     resolver: yupResolver(yupSchema),
     defaultValues: {
       models: [],
     },
   });
 
-  const models = watch('models');
+  const models = useWatch({ control, name: 'models' });
 
   const selectedModelsLength = useMemo(() => models.filter((model) => model.selected).length, [models]);
 

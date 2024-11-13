@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import { useEffect, useMemo } from 'react';
 import ReactDatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { Controller, useForm } from 'react-hook-form';
+import { Controller, useForm, useWatch } from 'react-hook-form';
 import { MdPerson } from 'react-icons/md';
 import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
@@ -92,8 +92,6 @@ export default function AppViewToolsViewSchedulerViewCreateModalView() {
     register,
     control,
     setValue,
-    getValues,
-    watch,
     formState: { errors },
     handleSubmit,
   } = useForm({
@@ -104,7 +102,7 @@ export default function AppViewToolsViewSchedulerViewCreateModalView() {
     },
   });
 
-  const fullTime = useMemo(() => getValues('fullTime'), [watch('fullTime')]);
+  const fullTime = useWatch({ name: 'fullTime', control });
 
   const places = useMemo(
     () => PLACES.filter((place) => place.allowedRoles === undefined || user.userInfo.roles.some((role) => place.allowedRoles.includes(role))),

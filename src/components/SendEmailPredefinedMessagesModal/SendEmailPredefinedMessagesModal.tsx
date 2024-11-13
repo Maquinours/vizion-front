@@ -20,12 +20,12 @@ type SendEmailPredefinedMessagesModalComponent = Readonly<{
   onClose: () => void;
 }>;
 export default function SendEmailPredefinedMessagesModalComponent({ onClose }: SendEmailPredefinedMessagesModalComponent) {
-  const { watch, setValue } = useContext(SendEmailFormContext)!;
+  const { getValues, setValue } = useContext(SendEmailFormContext)!;
 
   const { data, isLoading } = useQuery(queries['predefined-message'].list);
 
   const onRowClick = (_e: React.MouseEvent, row: Row<PredefinedMessageResponseDto>) => {
-    setValue('content', row.original.description + watch('content'));
+    setValue('content', row.original.description + getValues('content'));
     onClose();
   };
 

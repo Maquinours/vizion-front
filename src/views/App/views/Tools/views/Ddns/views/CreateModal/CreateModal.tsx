@@ -2,7 +2,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { getRouteApi } from '@tanstack/react-router';
 import { useEffect } from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, useWatch } from 'react-hook-form';
 import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
 import { toast } from 'react-toastify';
@@ -31,15 +31,15 @@ export default function AppViewToolsViewDdnsViewCreateModalView() {
   const {
     register,
     formState: { errors },
-    watch,
+    control,
     setValue,
     handleSubmit,
   } = useForm({
     resolver: yupResolver(yupSchema),
   });
 
-  const productSerialNumber = watch('productSerialNumber');
-  const domain = watch('domain');
+  const productSerialNumber = useWatch({ name: 'productSerialNumber', control });
+  const domain = useWatch({ name: 'domain', control });
 
   const { data: user } = useAuthentifiedUserQuery();
 

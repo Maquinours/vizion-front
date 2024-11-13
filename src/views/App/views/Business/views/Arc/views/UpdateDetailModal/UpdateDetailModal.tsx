@@ -3,7 +3,7 @@ import { useMutation, useQuery, useQueryClient, useSuspenseQuery } from '@tansta
 import { getRouteApi } from '@tanstack/react-router';
 import { format } from 'date-fns';
 import { useEffect } from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import { Controller, useForm, useWatch } from 'react-hook-form';
 import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
 import { toast } from 'react-toastify';
@@ -52,7 +52,6 @@ export default function AppViewBusinessViewArcViewUpdateDetailModalView() {
   const {
     register,
     control,
-    watch,
     formState: { errors },
     setValue,
     handleSubmit,
@@ -128,7 +127,7 @@ export default function AppViewBusinessViewArcViewUpdateDetailModalView() {
     if (product) setValue('product', product);
   }, [isLoadingProducts]);
 
-  const availability = watch('availability');
+  const availability = useWatch({ control, name: 'availability' });
 
   return (
     <ReactModal isOpen={true} onRequestClose={onClose} className={styles.modal} overlayClassName="Overlay">

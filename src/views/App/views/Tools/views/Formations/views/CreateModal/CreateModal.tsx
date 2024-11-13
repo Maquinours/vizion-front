@@ -3,7 +3,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { Link, Outlet, getRouteApi } from '@tanstack/react-router';
 import { useMemo } from 'react';
 import { useDropzone } from 'react-dropzone';
-import { Controller, useForm } from 'react-hook-form';
+import { Controller, useForm, useWatch } from 'react-hook-form';
 import { FaTrash } from 'react-icons/fa';
 import { MdAdd } from 'react-icons/md';
 import ReactModal from 'react-modal';
@@ -50,7 +50,6 @@ export default function AppViewToolsViewFormationsViewCreateModalView() {
     control,
     setValue,
     getValues,
-    watch,
     formState: { errors },
     handleSubmit,
   } = useForm({
@@ -61,7 +60,7 @@ export default function AppViewToolsViewFormationsViewCreateModalView() {
     },
   });
 
-  const details = watch('details');
+  const details = useWatch({ name: 'details', control });
 
   const contextValue = useMemo(
     () => ({

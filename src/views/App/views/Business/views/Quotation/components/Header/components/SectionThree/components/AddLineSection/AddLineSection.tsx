@@ -1,4 +1,4 @@
-import { Controller, useForm } from 'react-hook-form';
+import { Controller, useForm, useWatch } from 'react-hook-form';
 import ProductResponseDto from '../../../../../../../../../../../../utils/types/ProductResponseDto';
 import styles from './AddLineSection.module.scss';
 import * as yup from 'yup';
@@ -55,7 +55,6 @@ export default function AppViewBusinessViewQuotationViewHeaderComponentSectionTh
     register,
     control,
     formState: { errors },
-    watch,
     reset,
     handleSubmit,
   } = useForm({
@@ -67,7 +66,7 @@ export default function AppViewBusinessViewQuotationViewHeaderComponentSectionTh
     },
   });
 
-  const dataType = watch('dataType');
+  const dataType = useWatch({ name: 'dataType', control });
 
   const { mutate } = useMutation({
     mutationFn: async ({ dataType, detailProduct, subQuotationName, detailQuantity }: yup.InferType<typeof yupSchema>) => {

@@ -1,12 +1,12 @@
-import { Controller, useForm } from 'react-hook-form';
-import CardComponent from '../../../../../../../../../../components/Card/Card';
-import styles from './StepTwo.module.scss';
-import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useEffect } from 'react';
+import { Controller, useForm, useWatch } from 'react-hook-form';
 import { PulseLoader } from 'react-spinners';
-import { useEffect, useState } from 'react';
-import CurrencyFormat from '../../../../../../../../../../components/CurrencyFormat/CurrencyFormat';
+import * as yup from 'yup';
 import AmountFormat from '../../../../../../../../../../components/AmountFormat/AmountFormat';
+import CardComponent from '../../../../../../../../../../components/Card/Card';
+import CurrencyFormat from '../../../../../../../../../../components/CurrencyFormat/CurrencyFormat';
+import styles from './StepTwo.module.scss';
 
 const assistanceHours = [
   {
@@ -56,13 +56,9 @@ export default function AppViewToolsViewMenuViewCreateProductModalViewStepTwoCom
   onSubmit,
   isPending,
 }: AppViewToolsViewMenuViewCreateProductModalViewStepTwoComponentProps) {
-  const [showMoreHours, setShowMoreHours] = useState(false);
-
   const {
     register,
     control,
-    watch,
-    getValues,
     setValue,
     resetField,
     formState: { errors },
@@ -71,21 +67,24 @@ export default function AppViewToolsViewMenuViewCreateProductModalViewStepTwoCom
     resolver: yupResolver(yupSchema),
   });
 
-  useEffect(() => {
-    if (getValues('assistanceHour') === 'More') setShowMoreHours(true);
-    else setShowMoreHours(false);
-  }, [watch('assistanceHour')]);
+  const costPriceWatch = useWatch({ name: 'costPrice', control });
+  const shippingServiceWatch = useWatch({ name: 'shippingService', control });
+  const taxWatch = useWatch({ name: 'tax', control });
+  const priceWatch = useWatch({ name: 'price', control });
+  const assistanceHour = useWatch({ name: 'assistanceHour', control });
+
+  const showMoreHours = assistanceHour === 'More';
 
   useEffect(() => {
-    const costPrice = Number(getValues('costPrice')) || 0;
-    const shippingService = Number(getValues('shippingService')) || 0;
-    const tax = Number(getValues('tax')) || 0;
-    const price = Number(getValues('price')) || 0;
+    const costPrice = Number(costPriceWatch) || 0;
+    const shippingService = Number(shippingServiceWatch) || 0;
+    const tax = Number(taxWatch) || 0;
+    const price = Number(priceWatch) || 0;
 
     const margin = Math.round((1 - (costPrice + shippingService + tax) / price) * 100);
     if (!isNaN(margin) && isFinite(margin)) setValue('margin', margin);
     else resetField('margin');
-  }, [watch('costPrice'), watch('shippingService'), watch('tax'), watch('price')]);
+  }, [costPriceWatch, shippingServiceWatch, taxWatch, priceWatch]);
 
   if (show)
     return (

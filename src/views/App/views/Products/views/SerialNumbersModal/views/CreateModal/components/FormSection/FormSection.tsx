@@ -1,7 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import { Controller, useForm, useWatch } from 'react-hook-form';
 import * as yup from 'yup';
 import CardComponent from '../../../../../../../../../../components/Card/Card';
 import CustomSelect from '../../../../../../../../../../components/CustomSelect/CustomSelect';
@@ -70,7 +70,6 @@ export default function AppViewProductsViewSerialNumbersModalViewCreateModalView
   const {
     register,
     control,
-    watch,
     reset,
     formState: { errors },
     handleSubmit,
@@ -81,7 +80,7 @@ export default function AppViewProductsViewSerialNumbersModalViewCreateModalView
     },
   });
 
-  const dataType = watch('dataType');
+  const dataType = useWatch({ control, name: 'dataType' });
 
   const onSubmit = (data: yup.InferType<typeof yupSchema>) => {
     if (dataType === DataType.LIST) {

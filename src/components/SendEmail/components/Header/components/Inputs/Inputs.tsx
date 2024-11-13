@@ -1,4 +1,4 @@
-import { Controller } from 'react-hook-form';
+import { Controller, useWatch } from 'react-hook-form';
 import { ReactMultiEmail } from 'react-multi-email';
 import styles from './Inputs.module.scss';
 import 'react-multi-email/dist/style.css';
@@ -15,7 +15,11 @@ const getEmailLabel = (email: string, index: number, removeEmail: (index: number
 );
 
 export default function SendEmailComponentHeaderComponentInputsComponent() {
-  const { control, register, errors, watch } = useContext(SendEmailFormContext)!;
+  const { control, register, errors } = useContext(SendEmailFormContext)!;
+
+  const recipient = useWatch({ control, name: 'recipient' });
+  const cc = useWatch({ control, name: 'cc' });
+  const bcc = useWatch({ control, name: 'bcc' });
 
   return (
     <div className={styles.input_container}>
@@ -25,7 +29,7 @@ export default function SendEmailComponentHeaderComponentInputsComponent() {
           name={'recipient'}
           render={({ field: { onChange, onBlur } }) => (
             <ReactMultiEmail
-              emails={watch('recipient')}
+              emails={recipient}
               className={styles.multi_email}
               placeholder="Destinataires"
               autoComplete="email"
@@ -43,7 +47,7 @@ export default function SendEmailComponentHeaderComponentInputsComponent() {
           name={'cc'}
           render={({ field: { onChange, onBlur } }) => (
             <ReactMultiEmail
-              emails={watch('cc')}
+              emails={cc}
               className={styles.multi_email}
               placeholder="CC"
               autoComplete="email"
@@ -61,7 +65,7 @@ export default function SendEmailComponentHeaderComponentInputsComponent() {
           name={'bcc'}
           render={({ field: { onChange, onBlur } }) => (
             <ReactMultiEmail
-              emails={watch('bcc')}
+              emails={bcc}
               className={styles.multi_email}
               placeholder="CCI"
               autoComplete="email"

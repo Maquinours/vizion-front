@@ -3,7 +3,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { Link, Outlet, getRouteApi } from '@tanstack/react-router';
 import { isAxiosError } from 'axios';
 import { useEffect, useMemo, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, useWatch } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { v4 as uuidv4 } from 'uuid';
 import * as yup from 'yup';
@@ -91,14 +91,14 @@ export default function AppViewToolsViewCreditView() {
     },
   });
 
-  const { register, watch } = useForm({
+  const { register, control } = useForm({
     resolver: yupResolver(yupSchema),
     defaultValues: {
       shippingServicePrice: 0,
     },
   });
 
-  const shippingServicePrice = watch('shippingServicePrice');
+  const shippingServicePrice = useWatch({ name: 'shippingServicePrice', control });
 
   const contextValue = useMemo(
     () => ({

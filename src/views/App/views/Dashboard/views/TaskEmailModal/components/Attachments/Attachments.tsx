@@ -1,4 +1,4 @@
-import { useForm } from 'react-hook-form';
+import { useForm, useWatch } from 'react-hook-form';
 import MailAttachmentResponseDto from '../../../../../../../../utils/types/MailAttachmentResponseDto';
 import MailResponseDto from '../../../../../../../../utils/types/MailResponseDto';
 import TaskResponseDto from '../../../../../../../../utils/types/TaskResponseDto';
@@ -27,13 +27,16 @@ export default function AppViewDashboardViewTaskEmailModalViewAttachmentsCompone
   task,
   email,
 }: AppViewDashboardViewTaskEmailModalViewAttachmentsComponentProps) {
-  const { register, getValues, watch, setValue, handleSubmit } = useForm({
+  const { register, control, setValue, handleSubmit } = useForm({
     resolver: yupResolver(yupSchema),
     defaultValues: {
       copy: false,
       files: [],
     },
   });
+
+  const copy = useWatch({ control, name: 'copy' });
+  const files = useWatch({ control, name: 'files' });
 
   const { mutate } = useMutation({
     mutationFn: ({ files }: TaskEmailCopyYupSchema) => {
@@ -74,14 +77,14 @@ export default function AppViewDashboardViewTaskEmailModalViewAttachmentsCompone
               key={attachment.id}
               email={email}
               attachment={attachment}
-              getValues={getValues}
-              watch={watch}
               setValue={setValue}
+              copy={copy}
+              files={files}
             />
           ))}
         </div>
 
-        {watch('copy') && watch('files').length > 0 && (
+        {copy && files.length > 0 && (
           <div style={{ marginBottom: '1rem', textAlign: 'right' }}>
             <button className="btn btn-secondary" onClick={handleSubmit((data) => mutate(data))}>
               Envoyer dans la GED
