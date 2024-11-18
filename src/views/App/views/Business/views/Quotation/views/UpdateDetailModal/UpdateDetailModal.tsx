@@ -39,9 +39,10 @@ export default function AppViewBusinessViewQuotationViewUpdateDetailModalView() 
   const { data: detail } = useSuspenseQuery(queries['business-quotation-details'].detail._ctx.byId(detailId));
 
   const {
+    reset,
     register,
     control,
-    formState: { errors },
+    formState: { errors, isDirty },
     setValue,
     getValues,
     handleSubmit,
@@ -107,12 +108,15 @@ export default function AppViewBusinessViewQuotationViewUpdateDetailModalView() 
   };
 
   useEffect(() => {
-    setValue('designation', detail.productDesignation);
-    setValue('quantity', detail.quantity ?? 0);
-    setValue('unitPrice', detail.unitPrice ?? 0);
-    setValue('discount', detail.reduction ? detail.reduction : 0);
-    setValue('publicPrice', detail.publicUnitPrice);
-  }, [detail.id]);
+    if (!isDirty)
+      reset({
+        designation: detail.productDesignation,
+        quantity: detail.quantity ?? 0,
+        unitPrice: detail.unitPrice ?? 0,
+        discount: detail.reduction ? detail.reduction : 0,
+        publicPrice: detail.publicUnitPrice,
+      });
+  }, [detail]);
 
   return (
     <ReactModal isOpen={true} onRequestClose={onClose} className={styles.modal} overlayClassName="Overlay">
