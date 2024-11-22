@@ -130,3 +130,10 @@ export const getTasksPageByRmaId = (rmaId: string, { page, size }: { page: numbe
     },
   }).then((res) => res.data);
 };
+
+export const getUnreadTasksCountByProfileId = async (profileId: string) => {
+  return privateInstance<number>({
+    method: 'GET',
+    url: `/workloads/v1/tasks/count-unread/${encodeURIComponent(profileId)}`,
+  }).then((res) => res.data);
+};
