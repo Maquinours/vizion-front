@@ -5,7 +5,7 @@ import { queries } from '../../../../../../../../utils/constants/queryKeys';
 import CardComponent from '../../../../../../../../components/Card/Card';
 import styles from './BillingAddress.module.scss';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/dashboard');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/dashboard');
 
 export default function AppViewBusinessViewDashboardViewBillingAddressComponent() {
   const { businessId } = routeApi.useParams();
@@ -21,7 +21,6 @@ export default function AppViewBusinessViewDashboardViewBillingAddressComponent(
         editLink={
           !business.archived && user.userInfo.roles.includes('ROLE_DIRECTION_VIZEO')
             ? {
-                from: routeApi.id,
                 to: '/app/businesses-rma/business/$businessId/dashboard/update-billing-address',
                 search: true,
                 replace: true,

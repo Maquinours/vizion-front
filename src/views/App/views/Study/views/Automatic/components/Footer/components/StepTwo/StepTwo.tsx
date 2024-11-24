@@ -11,7 +11,7 @@ import { AutomaticStudyStep } from '../../../../Automatic';
 import { AutomaticStudyFinalCameraNode } from '../../../Flow/components/FinalCameraNode/FinalCameraNode';
 import AppViewStudyViewAutomaticViewFooterComponentStepTwoComponentPdfModalComponent from './components/PdfModal/PdfModal';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/study/automatic');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId_/study/automatic');
 
 enum Modals {
   PDF = 1,

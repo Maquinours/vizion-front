@@ -9,7 +9,7 @@ const searchSchema = z.object({
     .catch(''),
 });
 
-export const Route = createFileRoute('/app/enterprises/$enterpriseId/create-ged-directory')({
+export const Route = createFileRoute('/app/enterprises_/$enterpriseId/create-ged-directory')({
   validateSearch: searchSchema,
   pendingComponent: LoaderModal,
 });

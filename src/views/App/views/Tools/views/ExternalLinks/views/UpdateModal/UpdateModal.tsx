@@ -1,17 +1,17 @@
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import ReactModal from 'react-modal';
-import FaqAccessLevel from '../../../../../../../../utils/enums/FaqAccessLevel';
-import * as yup from 'yup';
-import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { externalLinks } from '../../../../../../../../utils/constants/queryKeys/externalLink';
-import { updateExternalLink } from '../../../../../../../../utils/api/externalLink';
-import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
+import { getRouteApi } from '@tanstack/react-router';
+import { Controller, useForm } from 'react-hook-form';
+import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
-import Quill from '../../../../../../../../components/Quill/Quill';
-import styles from './UpdateModal.module.scss';
 import { toast } from 'react-toastify';
+import * as yup from 'yup';
+import Quill from '../../../../../../../../components/Quill/Quill';
+import { updateExternalLink } from '../../../../../../../../utils/api/externalLink';
+import { externalLinks } from '../../../../../../../../utils/constants/queryKeys/externalLink';
+import FaqAccessLevel from '../../../../../../../../utils/enums/FaqAccessLevel';
 import { isValidUrl } from '../../../../../../../../utils/functions/url';
+import styles from './UpdateModal.module.scss';
 
 const routeApi = getRouteApi('/app/tools/external-links/update/$externalLinkId');
 
@@ -104,7 +104,7 @@ const yupSchema = yup.object().shape({
 
 export default function AppViewToolsViewExternalLinksViewUpdateModalView() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { externalLinkId } = routeApi.useParams();
 
@@ -128,7 +128,7 @@ export default function AppViewToolsViewExternalLinksViewUpdateModalView() {
   });
 
   const onClose = () => {
-    navigate({ to: '../..', search: (old) => old, replace: true, resetScroll: false });
+    navigate({ to: '../..', search: true, replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({

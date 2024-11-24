@@ -1,19 +1,18 @@
-import ReactModal from 'react-modal';
-import styles from './UpdateShippingPriceModal.module.scss';
-import * as yup from 'yup';
-import { getRouteApi } from '@tanstack/react-router';
-import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useNavigate } from '@tanstack/react-router';
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
+import { getRouteApi } from '@tanstack/react-router';
+import { useEffect } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import ReactModal from 'react-modal';
+import { PulseLoader } from 'react-spinners';
+import { toast } from 'react-toastify';
+import * as yup from 'yup';
+import CurrencyFormat from '../../../../../../../../components/CurrencyFormat/CurrencyFormat';
 import { updateBusinessQuotation } from '../../../../../../../../utils/api/businessQuotations';
 import { queries } from '../../../../../../../../utils/constants/queryKeys';
-import { toast } from 'react-toastify';
-import { PulseLoader } from 'react-spinners';
-import CurrencyFormat from '../../../../../../../../components/CurrencyFormat/CurrencyFormat';
-import { useEffect } from 'react';
+import styles from './UpdateShippingPriceModal.module.scss';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/quotation/update-shipping-price');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/quotation/update-shipping-price');
 
 const yupSchema = yup.object({
   shippingServicePrice: yup
@@ -26,7 +25,7 @@ const yupSchema = yup.object({
 
 export default function AppViewBusinessViewQuotationViewUpdateShippingPriceModalView() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { businessId } = routeApi.useParams();
 
@@ -42,7 +41,7 @@ export default function AppViewBusinessViewQuotationViewUpdateShippingPriceModal
   });
 
   const onClose = () => {
-    navigate({ to: '..', search: (old) => old, replace: true, resetScroll: false, ignoreBlocker: true });
+    navigate({ to: '..', search: true, replace: true, resetScroll: false, ignoreBlocker: true });
   };
 
   const { mutate, isPending } = useMutation({

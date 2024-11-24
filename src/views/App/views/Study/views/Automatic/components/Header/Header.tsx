@@ -12,7 +12,7 @@ enum Modals {
   HDD_CALCULATION,
 }
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/study/automatic');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId_/study/automatic');
 
 const getNumberOfProducts = (state: ReactFlowState) =>
   Array.from(state.nodeLookup.values()).reduce((acc, node) => {

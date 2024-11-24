@@ -1,20 +1,20 @@
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { getRouteApi, ToOptions, useNavigate } from '@tanstack/react-router';
+import { getRouteApi, ToOptions } from '@tanstack/react-router';
+import { useContext } from 'react';
 import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
 import { toast } from 'react-toastify';
 import { createRma } from '../../../../../../utils/api/rma';
 import { queries } from '../../../../../../utils/constants/queryKeys';
 import { enterprises } from '../../../../../../utils/constants/queryKeys/enterprise';
-import styles from './CreateEnterpriseRmaModal.module.scss';
-import { useContext } from 'react';
 import { TabsContext } from '../../../../components/TabsContainer/utils/contexts/context';
+import styles from './CreateEnterpriseRmaModal.module.scss';
 
 const routeApi = getRouteApi('/app/enterprises/create-enterprise-rma/$enterpriseId');
 
 export default function CreateEnterpriseRmaModal() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate();
+  const navigate = routeApi.useNavigate();
 
   const { enterpriseId } = routeApi.useParams();
 
@@ -23,7 +23,7 @@ export default function CreateEnterpriseRmaModal() {
   const { data: enterprise } = useSuspenseQuery(enterprises.detail(enterpriseId));
 
   const onClose = () => {
-    navigate({ from: routeApi.id, to: '../..', search: (old) => old, replace: true, resetScroll: false });
+    navigate({ to: '../..', search: true, replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({
@@ -46,7 +46,7 @@ export default function CreateEnterpriseRmaModal() {
       const currentTabId = getCurrentTab()?.id;
       queryClient.setQueryData(queries.rmas.detail(data.id).queryKey, data);
       await navigate({ to: '/app/businesses-rma/rma/$rmaId', params: { rmaId: data.id } });
-      if (!!currentTabId) updateTabRoute(currentTabId, (tab) => ({ to: tab.id as ToOptions['to'] }));
+      if (currentTabId) updateTabRoute(currentTabId, (tab) => ({ to: tab.id as ToOptions['to'] }));
     },
     onError: (error) => {
       console.error(error);

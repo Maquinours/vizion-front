@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useQuery, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { getRouteApi } from '@tanstack/react-router';
 import { Controller, useForm } from 'react-hook-form';
 import ReactModal from 'react-modal';
 import 'react-multi-email/dist/style.css';
@@ -16,7 +16,7 @@ import FaqAccessLevel from '../../../../../../utils/enums/FaqAccessLevel';
 import styles from './UpdateModal.module.scss';
 
 const yupSchema = yup.object().shape({
-  title: yup.string().required('Le titre est requis.').max(255, 'Le problème ne peut excéder 255 caractères'),
+  title: yup.string().required('Le titre est requis.').max(255, 'Le problème est trop long.'),
   description: yup.string().required('La description est requise.'),
   level: yup.mixed<FaqAccessLevel>().oneOf(Object.values(FaqAccessLevel)).required('Le niveau est requis'),
   products: yup.array().of(yup.mixed<{ id: string; reference: string | null }>().required()).nullable(),
@@ -53,7 +53,7 @@ const levelOptions = [
 
 export default function AppViewFaqViewUpdateModalView() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate();
+  const navigate = routeApi.useNavigate();
 
   const { faqId } = routeApi.useParams();
 
@@ -76,7 +76,7 @@ export default function AppViewFaqViewUpdateModalView() {
   });
 
   const onClose = () => {
-    navigate({ from: routeApi.id, to: '../..', search: (old) => old, replace: true, resetScroll: false });
+    navigate({ to: '../..', search: true, replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({

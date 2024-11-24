@@ -38,10 +38,11 @@ export default function AppViewDashboardViewCollectiveTasksComponentTableCompone
                       from={Route.id}
                       to="take-collective-task/$taskId"
                       params={{ taskId: task.id }}
-                      search={(old) => old}
+                      search
                       replace
                       resetScroll={false}
-                      preload="viewport"
+                      preload="render"
+                      onClick={onClose}
                     >
                       <IoIosCheckmarkCircleOutline className={styles.icon} />
                       <span className={styles.text}>Je prends en charge</span>
@@ -52,10 +53,11 @@ export default function AppViewDashboardViewCollectiveTasksComponentTableCompone
                       from={Route.id}
                       to="transfer-task/$taskId"
                       params={{ taskId: task.id }}
-                      search={(old) => old}
+                      search
                       replace
                       resetScroll={false}
-                      preload="viewport"
+                      preload="render"
+                      onClick={onClose}
                     >
                       <IoMdArrowForward className={styles.icon} />
                       <span className={styles.text}>Transférer</span>
@@ -66,10 +68,11 @@ export default function AppViewDashboardViewCollectiveTasksComponentTableCompone
                       from={Route.id}
                       to="task-comments/$taskId"
                       params={{ taskId: task.id }}
-                      search={(old) => old}
+                      search
                       replace
                       resetScroll={false}
-                      preload="viewport"
+                      preload="render"
+                      onClick={onClose}
                     >
                       <MdOutlineComment className={styles.icon} />
                       <span className={styles.text}>Commentaires</span>
@@ -80,10 +83,11 @@ export default function AppViewDashboardViewCollectiveTasksComponentTableCompone
                       from={Route.id}
                       to="delete-collective-task/$taskId"
                       params={{ taskId: task.id }}
-                      search={(old) => old}
+                      search
                       replace
                       resetScroll={false}
-                      preload="viewport"
+                      preload="render"
+                      onClick={onClose}
                     >
                       <FaTrash className={styles.icon} />
                       <span className={styles.text}>Supprimer</span>

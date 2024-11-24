@@ -11,7 +11,8 @@ import { queries } from '../../../../../../../../../../utils/constants/queryKeys
 import { toast } from 'react-toastify';
 import BusinessState from '../../../../../../../../../../utils/enums/BusinessState';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/bp');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/bp');
+const routePath = '/app/businesses-rma/business/$businessId/bp';
 
 type AppViewBusinessViewBpViewTableComponentSerialContextMenuComponentProps = Readonly<{
   anchorElement: VirtualElement | undefined;
@@ -61,13 +62,14 @@ export default function AppViewBusinessViewBpViewTableComponentSerialContextMenu
                   </MenuItem>
                   <MenuItem>
                     <Link
-                      from={routeApi.id}
+                      from={routePath}
                       to="delete-serial/$serialId"
                       params={{ serialId: item.id }}
-                      search={(old) => old}
+                      search
                       replace
                       resetScroll={false}
-                      preload="viewport"
+                      preload="render"
+                      onClick={onClose}
                     >
                       <FaTrash width={16} height={16} color={'#16204E'} className={styles.icon} />
                       <span className={styles.text}>Supprimer</span>
@@ -76,13 +78,14 @@ export default function AppViewBusinessViewBpViewTableComponentSerialContextMenu
                   {[BusinessState.FACTURE, BusinessState.BP].includes(business.state!) && (
                     <MenuItem>
                       <Link
-                        from={routeApi.id}
+                        from={routePath}
                         to="create-serial-rma/$serialId"
                         params={{ serialId: item.id }}
-                        search={(old) => old}
+                        search
                         replace
                         resetScroll={false}
-                        preload="viewport"
+                        preload="render"
+                        onClick={onClose}
                       >
                         <MdBusinessCenter width={16} height={16} color={'#16204E'} className={styles.icon} />
                         <span className={styles.text}>Créer un RMA</span>

@@ -1,10 +1,10 @@
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { getRouteApi } from '@tanstack/react-router';
 import SendEmailModalComponent from '../../../../../../../../../../components/SendEmailModal/SendEmailModal';
 
-const routeApi = getRouteApi('/app/businesses-rma/rma/$rmaId/delivery/pdf/send-by-email');
+const routeApi = getRouteApi('/app/businesses-rma_/rma/$rmaId/delivery/pdf/send-by-email');
 
 export default function AppViewRmaViewDeliveryViewPdfModalViewSendByEmailModalView() {
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { rma, file } = routeApi.useLoaderData();
 

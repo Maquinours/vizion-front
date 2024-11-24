@@ -1,12 +1,12 @@
-import { HiPencilAlt } from 'react-icons/hi';
-import { Link, getRouteApi } from '@tanstack/react-router';
+import { Link } from '@tanstack/react-router';
 import moment from 'moment';
-import styles from './Informations.module.scss';
+import { HiPencilAlt } from 'react-icons/hi';
 import { MdSchedule } from 'react-icons/md';
-import { useAuthentifiedUserQuery } from '../../../../../../utils/functions/getAuthentifiedUser';
 import EnterpriseResponseDto from '../../../../../../../../utils/types/EnterpriseResponseDto';
+import { useAuthentifiedUserQuery } from '../../../../../../utils/functions/getAuthentifiedUser';
+import styles from './Informations.module.scss';
 
-const Route = getRouteApi('/app/enterprises/$enterpriseId');
+const routePath = '/app/enterprises/$enterpriseId';
 
 type AppViewEnterpriseViewHeaderComponentInformationsComponentProps = Readonly<{
   enterprise: EnterpriseResponseDto;
@@ -24,7 +24,7 @@ export default function AppViewEnterpriseViewHeaderComponentInformationsComponen
           <span>
             {enterprise.infoSup?.representative?.name ?? 'Aucun représentant'}{' '}
             {currentUser.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && (
-              <Link from={Route.id} to="./update-representative" search replace resetScroll={false} preload="intent">
+              <Link from={routePath} to="./update-representative" search replace resetScroll={false} preload="intent">
                 <HiPencilAlt />
               </Link>
             )}

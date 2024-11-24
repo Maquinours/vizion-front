@@ -1,11 +1,11 @@
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { getRouteApi } from '@tanstack/react-router';
 import CreateGedDirectoryModalComponent from '../../../../../../../../components/CreateGedDirectoryModal/CreateGedDirectoryModal';
 import FileType from '../../../../../../../../utils/enums/FileType';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/dashboard/create-ged-directory');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/dashboard/create-ged-directory');
 
 export default function AppViewBusinessViewDashboardViewCreateGedDirectoryModalView() {
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { businessId } = routeApi.useParams();
   const { relativePath } = routeApi.useSearch();

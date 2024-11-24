@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router';
 import LoaderModal from '../../../../../components/LoaderModal/LoaderModal';
 
-export const Route = createFileRoute('/app/enterprises/$enterpriseId/address-book/create')({
+export const Route = createFileRoute('/app/enterprises_/$enterpriseId/address-book/create')({
   pendingComponent: LoaderModal,
 });

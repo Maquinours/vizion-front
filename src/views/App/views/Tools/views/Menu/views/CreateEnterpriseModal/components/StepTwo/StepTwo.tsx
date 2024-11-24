@@ -102,21 +102,21 @@ export default function AppViewToolsViewMenuViewCreateEnterpriseModalViewStepTwo
               <label className="label" htmlFor="company_email_comptable">
                 Email comptable :
               </label>
-              <input type="email" {...register('accountingEmail')} placeholder="Email" id="company_email_comptable" autoCorrect="true" autoComplete="no" />
+              <input type="email" {...register('accountingEmail')} placeholder="Email" id="company_email_comptable" autoCorrect="true" autoComplete="off" />
               <p className={styles.errors}>{errors.accountingEmail?.message}</p>
             </div>
             <div className={styles.form_group}>
               <label className="label" htmlFor="company_sirenNumber">
                 N° SIREN :
               </label>
-              <input type="number" {...register('siren')} placeholder="N° SIREN" id="company_sirenNumber" autoCorrect="true" autoComplete="no" />
+              <input type="number" {...register('siren')} placeholder="N° SIREN" id="company_sirenNumber" autoCorrect="true" autoComplete="off" />
               <p className={styles.errors}>{errors.siren?.message}</p>
             </div>
             <div className={styles.form_group}>
               <label className="label" htmlFor="company_taxeNumber">
                 N° de TVA :
               </label>
-              <input {...register('tvaNumber')} type="text" placeholder="N° de TVA " id="company_taxeNumber" autoCorrect="true" autoComplete="no" />
+              <input {...register('tvaNumber')} type="text" placeholder="N° de TVA " id="company_taxeNumber" autoCorrect="true" autoComplete="off" />
               <p className={styles.errors}>{errors.tvaNumber?.message}</p>
             </div>
             <div className={styles.form_group}>
@@ -136,7 +136,7 @@ export default function AppViewToolsViewMenuViewCreateEnterpriseModalViewStepTwo
                 placeholder="Numéro de compte comptable"
                 id="company_accounting_account_number"
                 autoCorrect="true"
-                autoComplete="no"
+                autoComplete="off"
               />
               <p className={styles.errors}>{errors.accountNumber?.message}</p>
             </div>
@@ -159,7 +159,7 @@ export default function AppViewToolsViewMenuViewCreateEnterpriseModalViewStepTwo
               <p className={styles.errors}>{errors.representative?.message}</p>
             </div>
             {[0, 1, 2].map((num) => (
-              <div className={styles.form_group}>
+              <div key={num} className={styles.form_group}>
                 <label className="label" htmlFor={`company_relation_${num}`}>
                   En relation avec :
                 </label>
@@ -171,7 +171,7 @@ export default function AppViewToolsViewMenuViewCreateEnterpriseModalViewStepTwo
               <label className="label" htmlFor="company_website">
                 Site internet :
               </label>
-              <input {...register('webSite')} type="tel" placeholder="Site internet" id="company_website" autoCorrect="true" autoComplete="no" />
+              <input {...register('webSite')} type="tel" placeholder="Site internet" id="company_website" autoCorrect="true" autoComplete="off" />
               <p className={styles.errors}>{errors.webSite?.message}</p>
             </div>
           </div>
@@ -181,7 +181,7 @@ export default function AppViewToolsViewMenuViewCreateEnterpriseModalViewStepTwo
           <Link
             from={routeApi.id}
             to="contacts"
-            search={(old) => old}
+            search
             replace
             resetScroll={false}
             style={{
@@ -201,7 +201,7 @@ export default function AppViewToolsViewMenuViewCreateEnterpriseModalViewStepTwo
           <button className="btn btn-primary" onClick={() => goToPreviousStep()}>
             Précédent
           </button>
-          <Link from={routeApi.id} to="add-contact" search={(old) => old} replace resetScroll={false} className="btn btn-secondary">
+          <Link from={routeApi.id} to="add-contact" search replace resetScroll={false} className="btn btn-secondary">
             Ajouter un contact
           </Link>
           <button className="btn btn-secondary" type="submit" onClick={handleSubmit(onSubmit)}>

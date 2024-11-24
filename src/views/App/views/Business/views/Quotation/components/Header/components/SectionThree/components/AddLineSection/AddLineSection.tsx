@@ -1,4 +1,4 @@
-import { Controller, useForm } from 'react-hook-form';
+import { Controller, useForm, useWatch } from 'react-hook-form';
 import ProductResponseDto from '../../../../../../../../../../../../utils/types/ProductResponseDto';
 import styles from './AddLineSection.module.scss';
 import * as yup from 'yup';
@@ -11,7 +11,7 @@ import { getRouteApi } from '@tanstack/react-router';
 import { createBusinessSubQuotation } from '../../../../../../../../../../../../utils/api/businessSubQuotations';
 import { toast } from 'react-toastify';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/quotation');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/quotation');
 
 enum DataType {
   SUBQUOTATION = 'SUBQUOTATION',
@@ -55,7 +55,6 @@ export default function AppViewBusinessViewQuotationViewHeaderComponentSectionTh
     register,
     control,
     formState: { errors },
-    watch,
     reset,
     handleSubmit,
   } = useForm({
@@ -67,7 +66,7 @@ export default function AppViewBusinessViewQuotationViewHeaderComponentSectionTh
     },
   });
 
-  const dataType = watch('dataType');
+  const dataType = useWatch({ name: 'dataType', control });
 
   const { mutate } = useMutation({
     mutationFn: async ({ dataType, detailProduct, subQuotationName, detailQuantity }: yup.InferType<typeof yupSchema>) => {

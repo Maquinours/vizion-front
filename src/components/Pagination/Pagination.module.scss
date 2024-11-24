@@ -3,14 +3,14 @@
   display: flex;
   justify-content: center;
 
-  >.container {
+  > .container {
     display: flex;
     justify-content: center;
     list-style-type: none;
     border: 1px solid var(--primary-color);
     border-radius: 0.375rem;
 
-    >.item {
+    > .item {
       display: flex;
       align-items: center;
       justify-content: center;
@@ -45,8 +45,8 @@
         }
       }
 
-      >a,
-      >button {
+      > a,
+      > button {
         padding: 0.25rem;
         display: flex;
         justify-content: center;

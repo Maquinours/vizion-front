@@ -36,10 +36,11 @@ export default function AppViewDashboardViewProgressiveInfosComponentTableCompon
                     from={Route.id}
                     to="./update-progressive-info/$progressiveInfoId"
                     params={(old) => ({ ...old, progressiveInfoId: progressiveInfo!.id })}
-                    search={(old) => old}
+                    search
                     replace
                     resetScroll={false}
-                    preload="viewport"
+                    preload="render"
+                    onClick={onClose}
                   >
                     <MdModeEdit className={styles.icon} />
                     <span className={styles.text}>Modifier</span>
@@ -50,10 +51,11 @@ export default function AppViewDashboardViewProgressiveInfosComponentTableCompon
                     from={Route.id}
                     to="./delete-progressive-info/$progressiveInfoId"
                     params={(old) => ({ ...old, progressiveInfoId: progressiveInfo!.id })}
-                    search={(old) => old}
+                    search
                     replace
                     resetScroll={false}
-                    preload="viewport"
+                    preload="render"
+                    onClick={onClose}
                   >
                     <FaTrash className={styles.icon} />
                     <span className={styles.text}>Supprimer</span>

@@ -16,6 +16,7 @@ export const enterprises = createQueryKeys('enterprise', {
           profiles: {
             queryKey: null,
             contextQueries: {
+              // eslint-disable-next-line @tanstack/query/exhaustive-deps
               list: { queryKey: null, queryFn: () => getProfilesByCategory(category) },
             },
           },
@@ -31,11 +32,13 @@ export const enterprises = createQueryKeys('enterprise', {
       profiles: {
         queryKey: null,
         contextQueries: {
+          // eslint-disable-next-line @tanstack/query/exhaustive-deps
           list: { queryKey: null, queryFn: () => getProfilesByEnterpriseId(id) },
           page: ({ page, size }: { page: number; size: number }) => ({
             queryKey: [page, size],
             contextQueries: {
               search: (searchText: string) => ({
+                // eslint-disable-next-line @tanstack/query/exhaustive-deps
                 queryKey: [searchText],
                 queryFn: () =>
                   searchText ? getProfilesPageByEnterpriseIdAndSearch(id, searchText, page, size) : getProfilesPageByEnterpriseId(id, page, size),

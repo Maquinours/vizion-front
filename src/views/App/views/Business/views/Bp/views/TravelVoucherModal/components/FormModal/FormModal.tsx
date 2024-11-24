@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useSuspenseQuery } from '@tanstack/react-query';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { getRouteApi } from '@tanstack/react-router';
 import { useForm } from 'react-hook-form';
 import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
@@ -10,7 +10,7 @@ import { queries } from '../../../../../../../../../../utils/constants/queryKeys
 import { generateBusinessBpTravelVoucher } from '../../../../../../../Enterprises/views/CreateContactTravelVoucherModal/components/StepOne/utils/api/travelVoucher';
 import styles from './FormModal.module.scss';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/bp/travel-voucher');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/bp/travel-voucher');
 
 const yupSchema = yup.object().shape({
   businessName: yup.string().required('Champs requis.'),
@@ -35,7 +35,7 @@ export default function AppViewBusinessViewBpViewTravelVoucherModalViewFormModal
   show,
   onGenerated,
 }: AppViewBusinessViewBpViewTravelVoucherModalViewFormModalComponentProps) {
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { businessId } = routeApi.useParams();
 
@@ -65,7 +65,7 @@ export default function AppViewBusinessViewBpViewTravelVoucherModalViewFormModal
   });
 
   const onClose = () => {
-    navigate({ to: '..', search: (old) => old, replace: true, resetScroll: false });
+    navigate({ to: '..', search: true, replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({

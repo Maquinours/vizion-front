@@ -88,6 +88,7 @@ export default function AppViewFooterComponent() {
               <Link
                 key={item.label}
                 {...item.route}
+                preload="intent"
                 activeOptions={{ exact: false, includeSearch: false }}
                 activeProps={{ className: styles.active }}
                 className={styles.item}

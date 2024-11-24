@@ -9,7 +9,7 @@ import { FieldErrors, UseFormRegister } from 'react-hook-form';
 import { BusinessDashboardFormType } from '../../Dashboard';
 import { MdSave } from 'react-icons/md';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/dashboard');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/dashboard');
 
 const deliveryOptions = [
   {

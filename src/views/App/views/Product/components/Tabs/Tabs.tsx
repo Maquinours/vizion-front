@@ -1,8 +1,8 @@
-import { Link, getRouteApi } from '@tanstack/react-router';
+import { Link } from '@tanstack/react-router';
 import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthentifiedUser';
 import styles from './Tabs.module.scss';
 
-const routeApi = getRouteApi('/app/products/$productId');
+const routePath = '/app/products/$productId';
 
 export default function AppViewProductViewTabsComponent() {
   const { data: user } = useAuthentifiedUserQuery();
@@ -11,7 +11,7 @@ export default function AppViewProductViewTabsComponent() {
     return (
       <div className={styles.tabs_buttons_container}>
         <Link
-          from={routeApi.id}
+          from={routePath}
           to={'/app/products/$productId/informations'}
           className="btn"
           activeProps={{ className: 'btn-primary' }}
@@ -22,7 +22,7 @@ export default function AppViewProductViewTabsComponent() {
           Informations
         </Link>
         <Link
-          from={routeApi.id}
+          from={routePath}
           to={'/app/products/$productId/manage'}
           className="btn"
           activeProps={{ className: 'btn-primary' }}

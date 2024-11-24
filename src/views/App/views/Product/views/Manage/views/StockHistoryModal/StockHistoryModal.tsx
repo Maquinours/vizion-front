@@ -1,5 +1,5 @@
 import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { getRouteApi } from '@tanstack/react-router';
 import { createColumnHelper } from '@tanstack/react-table';
 import ReactModal from 'react-modal';
 import AmountFormat from '../../../../../../../../components/AmountFormat/AmountFormat';
@@ -10,7 +10,8 @@ import { formatDateAndHourWithSlash } from '../../../../../../../../utils/functi
 import ProductVersionShelfStockEntryResponseDto from '../../../../../../../../utils/types/ProductVersionShelfStockEntryResponseDto';
 import styles from './StockHistoryModal.module.scss';
 
-const routeApi = getRouteApi('/app/products/$productId/manage/stock-history/$stockId');
+const routeApi = getRouteApi('/app/products_/$productId/manage/stock-history/$stockId');
+const routePath = '/app/products/$productId/manage/stock-history/$stockId';
 
 const size = 5;
 
@@ -29,7 +30,7 @@ const columns = [
 ];
 
 export default function AppViewProductViewManageViewStockHistoryModalView() {
-  const navigate = useNavigate();
+  const navigate = routeApi.useNavigate();
 
   const { stockId } = routeApi.useParams();
   const { stockHistoryPage: page } = routeApi.useSearch();
@@ -39,7 +40,7 @@ export default function AppViewProductViewManageViewStockHistoryModalView() {
   const { data, isLoading } = useQuery(queries['product-version-shelf-stock-entries'].page._ctx.byProductShelfStockId(stockId, { page, size }));
 
   const onClose = () => {
-    navigate({ from: routeApi.id, to: '../..', search: (old) => ({ ...old, stockHistoryPage: undefined }), replace: true, resetScroll: false });
+    navigate({ to: '../..', search: (old) => ({ ...old, stockHistoryPage: undefined }), replace: true, resetScroll: false });
   };
 
   return (
@@ -59,7 +60,7 @@ export default function AppViewProductViewManageViewStockHistoryModalView() {
           <PaginationComponent
             page={page}
             totalPages={data?.totalPages}
-            pageLink={(page) => ({ from: routeApi.id, search: (old) => ({ ...old, stockHistoryPage: page }), params: (old) => old })}
+            pageLink={(page) => ({ from: routePath, search: (old) => ({ ...old, stockHistoryPage: page }), params: (old) => old })}
           />
         </div>
 

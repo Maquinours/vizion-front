@@ -6,7 +6,7 @@ import useStore, { RFState } from '../../utils/store';
 import { useShallow } from 'zustand/react/shallow';
 import moment from 'moment';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/study/expert');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId_/study/expert');
 
 const selector = (state: RFState) => ({
   studyName: state.studyName,

@@ -92,7 +92,9 @@ export default function AppViewStudyViewExpertViewModalProviderComponentServices
             render={({ field: { value, onChange } }) => (
               <div className="flex items-center overflow-auto">
                 {value.map((model) => (
-                  <div
+                  <button
+                    key={model.product.id}
+                    type="button"
                     className="flex w-48 flex-col items-center justify-center space-y-2 border border-[#16204e] bg-slate-200 p-4"
                     onClick={() => onChange(value.map((m) => (m.product.id === model.product.id ? { ...m, selected: !m.selected } : m)))}
                   >
@@ -107,7 +109,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentServices
                     <div className="flex items-center justify-center space-x-2">
                       <input type={'checkbox'} checked={model.selected} readOnly={true} />
                     </div>
-                  </div>
+                  </button>
                 ))}
               </div>
             )}

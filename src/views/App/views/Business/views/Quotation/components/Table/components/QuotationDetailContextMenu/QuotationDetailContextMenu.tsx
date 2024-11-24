@@ -1,13 +1,13 @@
 import { ClickAwayListener, Fade, MenuItem, MenuList, Paper, Popper } from '@mui/material';
 import { VirtualElement } from '@popperjs/core';
+import { Link } from '@tanstack/react-router';
+import { FaTrash } from 'react-icons/fa';
+import { HiPencilAlt } from 'react-icons/hi';
+import { IoMdAddCircleOutline } from 'react-icons/io';
 import BusinessQuotationDetailsResponseDto from '../../../../../../../../../../utils/types/BusinessQuotationDetailsResponseDto';
 import styles from './QuotationDetailContextMenu.module.scss';
-import { Link, getRouteApi } from '@tanstack/react-router';
-import { IoMdAddCircleOutline } from 'react-icons/io';
-import { HiPencilAlt } from 'react-icons/hi';
-import { FaTrash } from 'react-icons/fa';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/quotation');
+const routePath = '/app/businesses-rma/business/$businessId/quotation';
 
 type AppViewBusinessViewQuotationViewTableComponentQuotationDetailContextMenuComponentProps = Readonly<{
   anchorElement: VirtualElement | undefined;
@@ -35,14 +35,15 @@ export default function AppViewBusinessViewQuotationViewTableComponentQuotationD
                 <MenuList>
                   <MenuItem>
                     <Link
-                      from={routeApi.id}
+                      from={routePath}
                       to="create-associated-detail/$detailId"
                       params={{ detailId: item.id }}
-                      search={(old) => old}
+                      search
                       replace
                       resetScroll={false}
-                      preload="viewport"
+                      preload="render"
                       ignoreBlocker
+                      onClick={onClose}
                     >
                       <IoMdAddCircleOutline width={16} height={16} color={'#16204E'} className={styles.icon} />
                       <span className={styles.text}>Produits associés</span>
@@ -50,14 +51,15 @@ export default function AppViewBusinessViewQuotationViewTableComponentQuotationD
                   </MenuItem>
                   <MenuItem>
                     <Link
-                      from={routeApi.id}
+                      from={routePath}
                       to="update-detail/$detailId"
                       params={{ detailId: item.id }}
-                      search={(old) => old}
+                      search
                       replace
                       resetScroll={false}
-                      preload="viewport"
+                      preload="render"
                       ignoreBlocker
+                      onClick={onClose}
                     >
                       <HiPencilAlt width={16} height={16} color={'#16204E'} className={styles.icon} />
                       <span className={styles.text}>Modifier</span>
@@ -65,14 +67,15 @@ export default function AppViewBusinessViewQuotationViewTableComponentQuotationD
                   </MenuItem>
                   <MenuItem>
                     <Link
-                      from={routeApi.id}
+                      from={routePath}
                       to="delete-detail/$detailId"
                       params={{ detailId: item.id }}
-                      search={(old) => old}
+                      search
                       replace
                       resetScroll={false}
-                      preload="viewport"
+                      preload="render"
                       ignoreBlocker
+                      onClick={onClose}
                     >
                       <FaTrash width={16} height={16} color={'#16204E'} className={styles.icon} />
                       <span className={styles.text}>Supprimer</span>

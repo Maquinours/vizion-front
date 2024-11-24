@@ -1,7 +1,9 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useQuery } from '@tanstack/react-query';
+import { getRouteApi } from '@tanstack/react-router';
+import { E164Number } from 'libphonenumber-js';
 import { useContext, useEffect, useState } from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import { Controller, useForm, useWatch } from 'react-hook-form';
 import { CgCopy, CgPassword } from 'react-icons/cg';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { MdCheckCircleOutline, MdOutlineCancel } from 'react-icons/md';
@@ -12,10 +14,8 @@ import * as yup from 'yup';
 import { getEmailExists, getIdentifierExists } from '../../../../../../../../../../utils/api/profile';
 import ProfileClient from '../../../../../../../../../../utils/enums/ProfileClient';
 import { checkPassword, generatePassword } from '../../../../../../../../../../utils/functions/passwords';
-import styles from './AddContactModal.module.scss';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
 import { CreateEnterpriseContext } from '../../utils/contexts/context';
-import { E164Number } from 'libphonenumber-js';
+import styles from './AddContactModal.module.scss';
 
 const routeApi = getRouteApi('/app/tools/menu/create-enterprise/add-contact');
 
@@ -91,7 +91,7 @@ const yupSchema = yup.object().shape({
 });
 
 export default function AppViewToolsViewMenuViewCreateEnterpriseModalViewAddContactModalView() {
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -111,7 +111,6 @@ export default function AppViewToolsViewMenuViewCreateEnterpriseModalViewAddCont
   const {
     register,
     control,
-    watch,
     setValue,
     getValues,
     formState: { errors },
@@ -120,8 +119,9 @@ export default function AppViewToolsViewMenuViewCreateEnterpriseModalViewAddCont
     resolver: yupResolver(yupSchema),
   });
 
-  const email = watch('email');
-  const identifier = watch('siteIdentifier');
+  const email = useWatch({ name: 'email', control });
+  const identifier = useWatch({ name: 'siteIdentifier', control });
+  const password = useWatch({ name: 'password', control });
 
   const { data: emailExists, refetch: refetchEmail } = useQuery({
     queryKey: ['email-exists', email],
@@ -158,7 +158,7 @@ export default function AppViewToolsViewMenuViewCreateEnterpriseModalViewAddCont
   };
 
   const onClose = () => {
-    navigate({ to: '..', search: (old) => old, replace: true });
+    navigate({ to: '..', search: true, replace: true });
   };
 
   const onSubmit = (data: yup.InferType<typeof yupSchema>) => {
@@ -167,8 +167,8 @@ export default function AppViewToolsViewMenuViewCreateEnterpriseModalViewAddCont
   };
 
   useEffect(() => {
-    setValidationRules(checkPassword(getValues('password')));
-  }, [watch('password')]);
+    setValidationRules(checkPassword(password));
+  }, [password]);
 
   return (
     <ReactModal isOpen={true} onRequestClose={onClose} className="Modal" overlayClassName="Overlay">
@@ -180,7 +180,7 @@ export default function AppViewToolsViewMenuViewCreateEnterpriseModalViewAddCont
           <div className={styles.form_container}>
             <div className={styles.form__row_one}>
               <div className={styles.form__group}>
-                <label className={styles.form__label}>Civilité :</label>
+                <span className={styles.form__label}>Civilité :</span>
                 <div className={styles.form__radio__group}>
                   <div className={styles.form__radio}>
                     <input type="radio" id="civility-monsieur" {...register('civility')} value="Monsieur" />
@@ -275,7 +275,7 @@ export default function AppViewToolsViewMenuViewCreateEnterpriseModalViewAddCont
                   {...register('email')}
                   id="mail"
                   autoCorrect="true"
-                  autoComplete="no"
+                  autoComplete="off"
                   onBlur={() => refetchEmail()}
                 />
                 <p className={styles.__errors}>
@@ -293,7 +293,7 @@ export default function AppViewToolsViewMenuViewCreateEnterpriseModalViewAddCont
             </div>
             <div className={styles.form__row_one}>
               <div className={styles.form__group}>
-                <label className={styles.form__label}>Expert :</label>
+                <span className={styles.form__label}>Expert :</span>
                 <div className={styles.form__radio__group}>
                   <div className={styles.form__radio}>
                     <input type="radio" id="expert-yes" {...register('expert')} value="yes" />
@@ -325,7 +325,7 @@ export default function AppViewToolsViewMenuViewCreateEnterpriseModalViewAddCont
                   {...register('siteIdentifier')}
                   id="identifiant"
                   autoCorrect="true"
-                  autoComplete="no"
+                  autoComplete="off"
                   style={{ textTransform: 'lowercase' }}
                   onBlur={() => refetchIdentifier()}
                 />
@@ -413,7 +413,7 @@ export default function AppViewToolsViewMenuViewCreateEnterpriseModalViewAddCont
                   {...register('confirmPassword')}
                   id="confirm"
                   autoCorrect="true"
-                  autoComplete="no"
+                  autoComplete="off"
                 />
                 <p className={styles.__errors}>{errors.confirmPassword?.message}</p>
                 {!showConfirmPassword ? (

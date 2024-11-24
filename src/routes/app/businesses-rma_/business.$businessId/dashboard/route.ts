@@ -5,19 +5,28 @@ import FileType from '../../../../../utils/enums/FileType';
 import { LifesheetAssociatedItem } from '../../../../../utils/enums/LifesheetAssociatedItem';
 import { WorkloadAssociatedItem } from '../../../../../utils/enums/WorkloadAssociatedItem';
 
-export const Route = createFileRoute('/app/businesses-rma/business/$businessId/dashboard')({
-  loaderDeps: () => ({ lifesheetSize: 100, lifesheetPage: 0, tasksPage: 0, tasksSize: 100 }),
+export const Route = createFileRoute('/app/businesses-rma_/business/$businessId/dashboard')({
+  loaderDeps: () => ({
+    lifesheetSize: 100,
+    lifesheetPage: 0,
+    tasksPage: 0,
+    tasksSize: 100,
+  }),
   loader: async ({ context: { queryClient }, params: { businessId }, deps: { lifesheetSize, lifesheetPage, tasksPage, tasksSize } }) => {
     queryClient.ensureQueryData(queries.user.authentified()).then((user) => {
       if (user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO')) {
         queryClient.prefetchQuery(
-          queries.lifesheets
-            .page({ page: lifesheetPage, size: lifesheetSize })
-            ._ctx.byAssociatedItem({ associatedItemType: LifesheetAssociatedItem.BUSINESS, associatedItemId: businessId }),
+          queries.lifesheets.page({ page: lifesheetPage, size: lifesheetSize })._ctx.byAssociatedItem({
+            associatedItemType: LifesheetAssociatedItem.BUSINESS,
+            associatedItemId: businessId,
+          }),
         );
         queryClient.prefetchQuery(
           queries.tasks.page._ctx.byAssociatedItem(
-            { associatedItemType: WorkloadAssociatedItem.BUSINESS, associatedItemId: businessId },
+            {
+              associatedItemType: WorkloadAssociatedItem.BUSINESS,
+              associatedItemId: businessId,
+            },
             { page: tasksPage, size: tasksSize },
           ),
         );

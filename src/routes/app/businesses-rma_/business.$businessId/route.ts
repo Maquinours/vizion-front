@@ -8,7 +8,7 @@ const searchSchema = z.object({
   businessModal: z.enum(['archive', 'assistances', 'create-assistance', 'before-close']).optional().catch(undefined),
 });
 
-export const Route = createFileRoute('/app/businesses-rma/business/$businessId')({
+export const Route = createFileRoute('/app/businesses-rma_/business/$businessId')({
   validateSearch: searchSchema,
   loaderDeps: ({ search: { businessModal } }) => ({
     businessModal,
@@ -27,7 +27,10 @@ export const Route = createFileRoute('/app/businesses-rma/business/$businessId')
 
     if (businessModal === 'assistances') {
       const assistances = await queryClient.ensureQueryData(
-        queries['technical-supports'].list._ctx.byBusinessOrRmaNumber({ categoryBusiness: CategoryBusiness.AFFAIRE, number: business.numBusiness }),
+        queries['technical-supports'].list._ctx.byBusinessOrRmaNumber({
+          categoryBusiness: CategoryBusiness.AFFAIRE,
+          number: business.numBusiness,
+        }),
       );
       if (assistances.length === 0)
         throw redirect({
@@ -44,6 +47,10 @@ export const Route = createFileRoute('/app/businesses-rma/business/$businessId')
       queryClient
         .ensureQueryData(queries.businesses.detail._ctx.byId((match.params as { businessId: string }).businessId))
         .then((business) => `Affaire (${business.numBusiness})`),
-    getCloseTabRoute: (prev) => ({ to: prev.to, params: prev.params, search: { ...prev.search, businessModal: 'before-close' } }),
+    getCloseTabRoute: (prev) => ({
+      to: prev.to,
+      params: prev.params,
+      search: { ...prev.search, businessModal: 'before-close' },
+    }),
   },
 });

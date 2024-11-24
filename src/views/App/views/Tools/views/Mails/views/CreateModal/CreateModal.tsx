@@ -1,18 +1,18 @@
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { getRouteApi } from '@tanstack/react-router';
 import { useState } from 'react';
+import { toast } from 'react-toastify';
+import { createMail } from '../../../../../../../../utils/api/mails';
+import { mailQueryKeys } from '../../../../../../../../utils/constants/queryKeys/mails';
+import { useAuthentifiedUserQuery } from '../../../../../../utils/functions/getAuthentifiedUser';
 import AppViewToolsViewMailsViewCreateModalViewFormModalComponent, { CreateMailFormType } from './components/FormModal/FormModal';
 import AppViewToolsViewMailsViewCreateModalViewShowModalComponent from './components/ShowModal/ShowModal';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { createMail } from '../../../../../../../../utils/api/mails';
-import { useAuthentifiedUserQuery } from '../../../../../../utils/functions/getAuthentifiedUser';
-import { mailQueryKeys } from '../../../../../../../../utils/constants/queryKeys/mails';
-import { toast } from 'react-toastify';
 
 const routeApi = getRouteApi('/app/tools/mails/create');
 
 export default function AppViewToolsViewMailsViewCreateModalView() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { data: user } = useAuthentifiedUserQuery();
 
@@ -25,7 +25,7 @@ export default function AppViewToolsViewMailsViewCreateModalView() {
   };
 
   const onClose = () => {
-    navigate({ to: '..', search: (old) => old, replace: true, resetScroll: false });
+    navigate({ to: '..', search: true, replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({

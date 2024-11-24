@@ -141,16 +141,17 @@ export default function AppViewStudyViewExpertViewFlowComponentImageNodeComponen
             />
           ))}
           <div ref={nodeRef} className="flex justify-center">
-            <img
-              title={title}
-              src={data.image}
-              width={data.size.width}
-              height={data.size.height}
-              style={{ opacity: opacity / 100 }}
-              onMouseDown={onMouseDown}
-              onContextMenu={onContextMenu}
-              onLoad={onImageLoad}
-            />
+            <button className="h-fit w-fit" onMouseDown={onMouseDown} onContextMenu={onContextMenu}>
+              <img
+                title={title}
+                src={data.image}
+                alt="Importation"
+                width={data.size.width}
+                height={data.size.height}
+                style={{ opacity: opacity / 100 }}
+                onLoad={onImageLoad}
+              />
+            </button>
           </div>
         </div>
         {showMenu && (

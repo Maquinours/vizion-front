@@ -1,17 +1,17 @@
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { getRouteApi } from '@tanstack/react-router';
+import { toast } from 'react-toastify';
+import { createBusinessBill } from '../../../../../../../../utils/api/businessBill';
 import { queries } from '../../../../../../../../utils/constants/queryKeys';
 import BusinessState from '../../../../../../../../utils/enums/BusinessState';
-import { createBusinessBill } from '../../../../../../../../utils/api/businessBill';
-import { toast } from 'react-toastify';
-import styles from './Header.module.scss';
 import CategoryClient from '../../../../../../../../utils/enums/CategoryClient';
+import styles from './Header.module.scss';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/bl');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/bl');
 
 export default function AppViewBusinessViewBlViewHeaderComponent() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { businessId } = routeApi.useParams();
 

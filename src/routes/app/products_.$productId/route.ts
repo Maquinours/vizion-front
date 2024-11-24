@@ -11,7 +11,7 @@ const searchSchema = z.object({
   productModal: z.enum(['update', 'delete']).optional().catch(undefined),
 });
 
-export const Route = createFileRoute('/app/products/$productId')({
+export const Route = createFileRoute('/app/products_/$productId')({
   validateSearch: searchSchema,
   loaderDeps: ({ search: { productModal } }) => ({ productModal }),
   loader: async ({ context: { queryClient }, params: { productId }, deps: { productModal } }) => {
@@ -20,14 +20,19 @@ export const Route = createFileRoute('/app/products/$productId')({
       ...queries.product.detail(productId),
       initialData: () => {
         for (const [key, value] of queryClient.getQueriesData<Page<ProductResponseDto>>({ queryKey: queries.product.page._def })) {
-          if (!!value && !value.content)
-            Sentry.captureException(new Error('Product cache error'), {
-              extra: { productPage: value },
+          try {
+            const item = value?.content.find((item) => item.id === productId);
+            if (item) {
+              initialDataKey = key;
+              return item;
+            }
+          } catch (error) {
+            console.error(error, value);
+            Sentry.captureException(error, (scope) => {
+              scope.setTag('type', 'query-cache-error');
+              scope.setExtra('value', value);
+              return scope;
             });
-          const item = value?.content.find((item) => item.id === productId);
-          if (item) {
-            initialDataKey = key;
-            return item;
           }
         }
       },

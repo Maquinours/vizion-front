@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useQuery, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { Controller, useForm } from 'react-hook-form';
+import { Controller, useForm, useWatch } from 'react-hook-form';
 import ReactModal from 'react-modal';
 import PhoneInput, { formatPhoneNumber, parsePhoneNumber } from 'react-phone-number-input/input';
 import { PropagateLoader } from 'react-spinners';
@@ -71,7 +71,6 @@ export default function UpdateContactModalComponent({ contactId, onClose }: Upda
     control,
     setValue,
     resetField,
-    watch,
     formState: { errors },
     handleSubmit,
   } = useForm({
@@ -90,7 +89,7 @@ export default function UpdateContactModalComponent({ contactId, onClose }: Upda
     },
   });
 
-  const email = watch('email');
+  const email = useWatch({ control, name: 'email' });
 
   const { data: emailExists, refetch: refetchEmail } = useQuery({
     queryKey: ['email-exists', email],
@@ -140,7 +139,7 @@ export default function UpdateContactModalComponent({ contactId, onClose }: Upda
 
   useEffect(() => {
     const civility = contact.civility === 'Monsieur' || contact.civility === 'Madame' || contact.civility === 'Service' ? contact.civility : undefined;
-    if (!!civility) setValue('civility', civility);
+    if (civility) setValue('civility', civility);
     else resetField('civility');
     setValue('firstName', contact.firstName);
     setValue('lastName', contact.lastName ?? '');
@@ -149,8 +148,8 @@ export default function UpdateContactModalComponent({ contactId, onClose }: Upda
     setValue('standardPhoneNumber', contact.standardPhoneNumber ? parsePhoneNumber(contact.standardPhoneNumber, { defaultCountry: 'FR' })?.number : undefined);
     setValue('email', contact.email);
     setValue('job', contact.job);
-    setValue('expert', !!contact.expert ? 'yes' : 'no');
-    if (!!contact.profileClient) setValue('profileClient', contact.profileClient);
+    setValue('expert', contact.expert ? 'yes' : 'no');
+    if (contact.profileClient) setValue('profileClient', contact.profileClient);
     else resetField('profileClient');
   }, [contact.id]);
 

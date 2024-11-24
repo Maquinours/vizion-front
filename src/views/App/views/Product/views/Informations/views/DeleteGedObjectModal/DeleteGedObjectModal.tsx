@@ -1,10 +1,10 @@
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { getRouteApi } from '@tanstack/react-router';
 import DeleteGedObjectModalComponent from '../../../../../../../../components/DeleteGedObjectModal/DeleteGedObjectModal';
 import FileType from '../../../../../../../../utils/enums/FileType';
 
-const routeApi = getRouteApi('/app/products/$productId/informations/delete-ged-object');
+const routeApi = getRouteApi('/app/products_/$productId/informations/delete-ged-object');
 export default function AppViewProductViewInformationsViewDeleteGedObjectModalView() {
-  const navigate = useNavigate();
+  const navigate = routeApi.useNavigate();
 
   const { productId } = routeApi.useParams();
   const { gedObjectRelativePath } = routeApi.useSearch();
@@ -14,9 +14,7 @@ export default function AppViewProductViewInformationsViewDeleteGedObjectModalVi
       type={FileType.PRODUIT}
       id={productId}
       objectRelativePath={gedObjectRelativePath}
-      onClose={() =>
-        navigate({ from: routeApi.id, to: '..', search: (old) => ({ ...old, gedObjectRelativePath: undefined }), replace: true, resetScroll: false })
-      }
+      onClose={() => navigate({ to: '..', search: (old) => ({ ...old, gedObjectRelativePath: undefined }), replace: true, resetScroll: false })}
     />
   );
 }

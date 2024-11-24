@@ -5,7 +5,7 @@ import AppViewAssistanceViewPdfModalViewPdfComponent from '../../../../../../../
 import { formatFileName } from '../../../../../../../utils/functions/files';
 import LoaderModal from '../../../../../../../components/LoaderModal/LoaderModal';
 
-export const Route = createFileRoute('/app/businesses-rma/business/$businessId/assistance/$assistanceId/pdf/send-by-email')({
+export const Route = createFileRoute('/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/pdf/send-by-email')({
   loader: async ({ context: { queryClient }, params: { assistanceId } }) => {
     const assistance = await queryClient.ensureQueryData(queries['technical-supports'].detail._ctx.byId(assistanceId));
     const blob = await pdf(<AppViewAssistanceViewPdfModalViewPdfComponent assistance={assistance} />).toBlob();

@@ -1,19 +1,19 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { getRouteApi } from '@tanstack/react-router';
 import SendEmailModalComponent from '../../../../../../../../components/SendEmailModal/SendEmailModal';
 import { queries } from '../../../../../../../../utils/constants/queryKeys';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/dashboard/send-email');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/dashboard/send-email');
 
 export default function AppViewBusinessViewDashboardViewSendEmailModalView() {
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { businessId } = routeApi.useParams();
 
   const { data: business } = useSuspenseQuery(queries.businesses.detail._ctx.byId(businessId));
 
   const onClose = () => {
-    navigate({ to: '..', search: (old) => old, replace: true, resetScroll: false, ignoreBlocker: true });
+    navigate({ to: '..', search: true, replace: true, resetScroll: false, ignoreBlocker: true });
   };
 
   return (

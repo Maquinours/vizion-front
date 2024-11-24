@@ -2,7 +2,7 @@ import { getRouteApi } from '@tanstack/react-router';
 import GedComponent from '../../../../../../../../components/Ged/Ged';
 import FileType from '../../../../../../../../utils/enums/FileType';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/dashboard');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/dashboard');
 
 export default function AppViewBusinessViewDashboardViewGedComponent() {
   const { businessId } = routeApi.useParams();
@@ -28,7 +28,7 @@ export default function AppViewBusinessViewDashboardViewGedComponent() {
       getRenameLink={(data) => ({
         to: '/app/businesses-rma/business/$businessId/dashboard/rename-ged-object/$objectRelativePath',
         params: { objectRelativePath: data.relativePath },
-        search: (old) => old,
+        search: true,
         replace: true,
         resetScroll: false,
         ignoreBlocker: true,
@@ -36,7 +36,7 @@ export default function AppViewBusinessViewDashboardViewGedComponent() {
       getDeleteLink={(data) => ({
         to: '/app/businesses-rma/business/$businessId/dashboard/delete-ged-object/$objectRelativePath',
         params: { objectRelativePath: data.relativePath },
-        search: (old) => old,
+        search: true,
         replace: true,
         resetScroll: false,
         ignoreBlocker: true,

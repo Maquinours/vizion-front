@@ -1,13 +1,13 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { getRouteApi } from '@tanstack/react-router';
 import DeleteBusinessRmaLinkModalComponent from '../../../../../../../../components/DeleteBusinessRmaLinkModal/DeleteBusinessRmaLinkModal';
 import { queries } from '../../../../../../../../utils/constants/queryKeys';
 import CategoryBusiness from '../../../../../../../../utils/enums/CategoryBusiness';
 
-const routeApi = getRouteApi('/app/businesses-rma/rma/$rmaId/support/delete-link/$associatedId');
+const routeApi = getRouteApi('/app/businesses-rma_/rma/$rmaId/support/delete-link/$associatedId');
 
 export default function AppViewRmaViewSupportViewDeleteLinkModalView() {
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { rmaId, associatedId } = routeApi.useParams();
 

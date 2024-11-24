@@ -2,7 +2,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import { Link, getRouteApi, useBlocker } from '@tanstack/react-router';
 import { useEffect, useMemo } from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import { Controller, useForm, useWatch } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import * as yup from 'yup';
 import CurrencyFormat from '../../../../../../../../../../components/CurrencyFormat/CurrencyFormat';
@@ -12,7 +12,8 @@ import BusinessArcResponseDto from '../../../../../../../../../../utils/types/Bu
 import styles from './SectionTwo.module.scss';
 import UnsavedChangesBlockingModalComponent from '../../../../../../../../../../components/UnsavedChangesBlockingModal/UnsavedChangesBlockingModal';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/arc');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/arc');
+const routePath = '/app/businesses-rma/business/$businessId/arc';
 
 const yupSchema = yup.object({
   documentName: yup.string().required('Le nom du document est requis !!'),
@@ -38,18 +39,17 @@ export default function AppViewBusinessViewArcViewHeaderComponentSectionTwoCompo
     register,
     control,
     formState: { errors, isDirty },
-    watch,
     reset: resetForm,
-    getValues,
     handleSubmit,
   } = useForm({
     resolver: yupResolver(yupSchema),
     defaultValues: formDefaultValues,
   });
 
+  const clientTotalAmountHT = useWatch({ control, name: 'clientTotalAmountHT' });
+
   const formWarnings = useMemo(() => {
     const result: { clientTotalAmountHT?: string } = {};
-    const clientTotalAmountHT = getValues('clientTotalAmountHT');
     if (clientTotalAmountHT === undefined) result.clientTotalAmountHT = 'Champs requis';
     else if (isNaN(clientTotalAmountHT)) result.clientTotalAmountHT = 'Entrez un nombre';
     else {
@@ -59,7 +59,7 @@ export default function AppViewBusinessViewArcViewHeaderComponentSectionTwoCompo
         result.clientTotalAmountHT = `Le montant total HT du client diffère de celui de l'ARC, Diff: ${absoluteDiffValue.toFixed(2)} €`;
     }
     return result;
-  }, [watch('clientTotalAmountHT'), arc.totalAmountHT, arc.shippingServicePrice]);
+  }, [clientTotalAmountHT, arc.totalAmountHT, arc.shippingServicePrice]);
 
   const { status, proceed, reset } = useBlocker({
     condition: isDirty,
@@ -161,7 +161,7 @@ export default function AppViewBusinessViewArcViewHeaderComponentSectionTwoCompo
               </button>
             )}
             <Link
-              from={routeApi.id}
+              from={routePath}
               search={(prev) => ({ ...prev, hideReferencesPrices: !hideReferencesPrices })}
               replace
               resetScroll={false}

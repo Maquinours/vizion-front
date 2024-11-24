@@ -10,7 +10,7 @@ import AppViewProductViewInformationsViewInformationsCardComponent from './compo
 import AppViewProductViewInformationsViewLifesheetComponent from './components/Lifesheet/Lifesheet';
 import AppViewProductViewInformationsViewWorkloadsComponent from './components/Workloads/Workloads';
 
-const routeApi = getRouteApi('/app/products/$productId/informations');
+const routeApi = getRouteApi('/app/products_/$productId/informations');
 export default function AppViewProductViewInformationsView() {
   const { productId } = routeApi.useParams();
 

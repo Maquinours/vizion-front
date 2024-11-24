@@ -1,13 +1,13 @@
 import { ClickAwayListener, Fade, MenuItem, MenuList, Paper, Popper } from '@mui/material';
-import { Link, getRouteApi } from '@tanstack/react-router';
 import { VirtualElement } from '@popperjs/core';
+import { Link } from '@tanstack/react-router';
 import React from 'react';
-import AdvancedProductSpecificationProductResponseDto from '../../../../../../../../../../../utils/types/AdvancedProductSpecificationProductResponseDto';
-import { HiPencilAlt } from 'react-icons/hi';
 import { FaTrash } from 'react-icons/fa';
+import { HiPencilAlt } from 'react-icons/hi';
+import AdvancedProductSpecificationProductResponseDto from '../../../../../../../../../../../utils/types/AdvancedProductSpecificationProductResponseDto';
 import styles from './ContextMenu.module.scss';
 
-const routeApi = getRouteApi('/app/products/$productId/manage');
+const routePath = '/app/products/$productId/manage';
 
 type AppViewProductViewManageViewSpecificationsComponentTableComponentContextMenuComponentProps = Readonly<{
   anchorElement: VirtualElement | undefined;
@@ -35,13 +35,14 @@ export default function AppViewProductViewManageViewSpecificationsComponentTable
                 <MenuList>
                   <MenuItem>
                     <Link
-                      from={routeApi.id}
+                      from={routePath}
                       to="update-specification/$specificationId"
                       params={{ specificationId: productSpecification.specification!.id }}
                       search
                       replace
                       resetScroll={false}
-                      preload="viewport"
+                      preload="render"
+                      onClick={onClose}
                     >
                       <HiPencilAlt className={styles.icon} width={16} height={16} color="#16204E" />
                       <span className={styles.text}>Modifier la spécification</span>
@@ -49,13 +50,14 @@ export default function AppViewProductViewManageViewSpecificationsComponentTable
                   </MenuItem>
                   <MenuItem>
                     <Link
-                      from={routeApi.id}
+                      from={routePath}
                       to="delete-specification/$specificationId"
                       params={{ specificationId: productSpecification.specification!.id }}
                       search
                       replace
                       resetScroll={false}
-                      preload="viewport"
+                      preload="render"
+                      onClick={onClose}
                     >
                       <FaTrash className={styles.icon} width={16} height={16} color="#16204E" />
                       <span className={styles.text}>Supprimer la spécification</span>

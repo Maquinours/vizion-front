@@ -5,7 +5,7 @@ import { QueryKey } from '@tanstack/react-query';
 import Page from '../../../../../utils/types/Page';
 import ProductVersionResponseDto from '../../../../../utils/types/ProductVersionResponseDto';
 
-export const Route = createFileRoute('/app/products/$productId/manage/delete-version/$versionId')({
+export const Route = createFileRoute('/app/products_/$productId/manage/delete-version/$versionId')({
   loader: async ({ context: { queryClient }, params: { productId, versionId } }) => {
     let initialDataKey: QueryKey | undefined = undefined;
 

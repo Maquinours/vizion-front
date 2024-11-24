@@ -1,5 +1,5 @@
 @use '../ImportGedFilesModal/ImportGedFilesModal.module.scss';
-@use "/src/assets/styles/mixins";
+@use '/src/assets/styles/mixins';
 
 .delete_modal {
   @extend .modal;

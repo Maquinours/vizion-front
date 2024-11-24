@@ -5,7 +5,7 @@ import { pdf } from '@react-pdf/renderer';
 import LoaderModal from '../../../../../../../components/LoaderModal/LoaderModal';
 import { formatFileName } from '../../../../../../../utils/functions/files';
 
-export const Route = createFileRoute('/app/businesses-rma/business/$businessId/quotation/pdf/send-by-email')({
+export const Route = createFileRoute('/app/businesses-rma_/business/$businessId/quotation/pdf/send-by-email')({
   loaderDeps: ({ search: { hideAddresses, hideReferences, hidePrices, hideTotal } }) => ({ hideAddresses, hideReferences, hidePrices, hideTotal }),
   loader: async ({ context: { queryClient }, params: { businessId }, deps: { hideAddresses, hideReferences, hidePrices, hideTotal } }) => {
     const quotationPromise = queryClient.ensureQueryData(queries['business-quotations'].detail._ctx.byBusinessId(businessId));
@@ -42,7 +42,13 @@ export const Route = createFileRoute('/app/businesses-rma/business/$businessId/q
     const quotationPdfFile = new File([quotationPdfBlob], formatFileName(`Devis-${quotation.number}.pdf`), {
       type: quotationPdfBlob.type,
     });
-    return { business, quotation, representative, commercialNoticeFile, quotationPdfFile };
+    return {
+      business,
+      quotation,
+      representative,
+      commercialNoticeFile,
+      quotationPdfFile,
+    };
   },
   pendingComponent: LoaderModal,
 });

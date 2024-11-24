@@ -1,25 +1,25 @@
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import ReactModal from 'react-modal';
-import styles from './DeleteModal.module.scss';
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { mailQueryKeys } from '../../../../../../../../utils/constants/queryKeys/mails';
-import { deleteMail } from '../../../../../../../../utils/api/mails';
-import { toast } from 'react-toastify';
+import { getRouteApi } from '@tanstack/react-router';
 import React from 'react';
+import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
+import { toast } from 'react-toastify';
+import { deleteMail } from '../../../../../../../../utils/api/mails';
+import { mailQueryKeys } from '../../../../../../../../utils/constants/queryKeys/mails';
+import styles from './DeleteModal.module.scss';
 
 const routeApi = getRouteApi('/app/tools/mails/delete/$mailId');
 
 export default function AppViewToolsViewMailsViewDeleteModalView() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { mailId } = routeApi.useParams();
 
   const { data: mail } = useSuspenseQuery(mailQueryKeys.detail._ctx.byId(mailId));
 
   const onClose = () => {
-    navigate({ to: '../..', search: (old) => old, replace: true, resetScroll: false });
+    navigate({ to: '../..', search: true, replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({

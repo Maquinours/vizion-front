@@ -6,7 +6,8 @@ import CurrencyFormat from '../../../../../../../../components/CurrencyFormat/Cu
 import { useAuthentifiedUserQuery } from '../../../../../../utils/functions/getAuthentifiedUser';
 import { HiPencilAlt } from 'react-icons/hi';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/arc');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/arc');
+const routePath = '/app/businesses-rma/business/$businessId/arc';
 
 export default function AppViewBusinessViewArcViewRecapComponent() {
   const { businessId } = routeApi.useParams();
@@ -32,7 +33,7 @@ export default function AppViewBusinessViewArcViewRecapComponent() {
               <td>
                 {arc.shippingServicePrice === 0 ? 'Offert' : <CurrencyFormat value={arc.shippingServicePrice} />}{' '}
                 {user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && !business.archived && (
-                  <Link from={routeApi.id} to="update-shipping-price" search replace resetScroll={false} ignoreBlocker preload="intent">
+                  <Link from={routePath} to="update-shipping-price" search replace resetScroll={false} ignoreBlocker preload="intent">
                     <HiPencilAlt size={18} color="" />
                   </Link>
                 )}

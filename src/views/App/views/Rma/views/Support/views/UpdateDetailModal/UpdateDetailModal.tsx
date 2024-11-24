@@ -1,20 +1,20 @@
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import ReactModal from 'react-modal';
-import styles from './UpdateDetailModal.module.scss';
-import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { updateRmaSupportDetail } from '../../../../../../../../utils/api/rmaSupportDetail';
-import * as yup from 'yup';
-import { rmaSupportDetailQueryKeys } from '../../../../../../../../utils/constants/queryKeys/rmaSupportDetail';
-import { queries } from '../../../../../../../../utils/constants/queryKeys';
-import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { getProductSerialNumberByNumber } from '../../../../../../../../utils/api/productSerialNumber';
+import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
+import { getRouteApi } from '@tanstack/react-router';
 import { isAxiosError } from 'axios';
-import { toast } from 'react-toastify';
-import { PulseLoader } from 'react-spinners';
 import { useEffect } from 'react';
+import { useForm } from 'react-hook-form';
+import ReactModal from 'react-modal';
+import { PulseLoader } from 'react-spinners';
+import { toast } from 'react-toastify';
+import * as yup from 'yup';
+import { getProductSerialNumberByNumber } from '../../../../../../../../utils/api/productSerialNumber';
+import { updateRmaSupportDetail } from '../../../../../../../../utils/api/rmaSupportDetail';
+import { queries } from '../../../../../../../../utils/constants/queryKeys';
+import { rmaSupportDetailQueryKeys } from '../../../../../../../../utils/constants/queryKeys/rmaSupportDetail';
+import styles from './UpdateDetailModal.module.scss';
 
-const routeApi = getRouteApi('/app/businesses-rma/rma/$rmaId/support/update-detail/$detailId');
+const routeApi = getRouteApi('/app/businesses-rma_/rma/$rmaId/support/update-detail/$detailId');
 
 const yupSchema = yup.object().shape({
   productReference: yup.string().required('La référence est requise.'),
@@ -26,7 +26,7 @@ const yupSchema = yup.object().shape({
 
 export default function AppViewRmaViewSupportViewUpdateDetailModalView() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { rmaId, detailId } = routeApi.useParams();
 

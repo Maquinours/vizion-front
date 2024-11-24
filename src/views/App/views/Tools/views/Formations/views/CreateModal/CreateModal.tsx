@@ -1,23 +1,23 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Link, Outlet, getRouteApi, useNavigate } from '@tanstack/react-router';
-import { Controller, useForm } from 'react-hook-form';
-import ReactModal from 'react-modal';
-import * as yup from 'yup';
-import styles from './CreateModal.module.scss';
-import Quill from '../../../../../../../../components/Quill/Quill';
-import { MdAdd } from 'react-icons/md';
-import { useDropzone } from 'react-dropzone';
-import { FaTrash } from 'react-icons/fa';
-import { PulseLoader } from 'react-spinners';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { createFormation } from '../../../../../../../../utils/api/formations';
-import { uploadFiles } from '../../../../../../../../utils/api/files';
-import UploadedFile from '../../../../../../../../utils/types/UploadedFile';
+import { Link, Outlet, getRouteApi } from '@tanstack/react-router';
 import { useMemo } from 'react';
-import { FormationDetail, FormationDetailsContext } from './utils/contexts/context';
-import { queries } from '../../../../../../../../utils/constants/queryKeys';
+import { useDropzone } from 'react-dropzone';
+import { Controller, useForm, useWatch } from 'react-hook-form';
+import { FaTrash } from 'react-icons/fa';
+import { MdAdd } from 'react-icons/md';
+import ReactModal from 'react-modal';
+import { PulseLoader } from 'react-spinners';
 import { toast } from 'react-toastify';
+import * as yup from 'yup';
+import Quill from '../../../../../../../../components/Quill/Quill';
+import { uploadFiles } from '../../../../../../../../utils/api/files';
+import { createFormation } from '../../../../../../../../utils/api/formations';
+import { queries } from '../../../../../../../../utils/constants/queryKeys';
 import ProfileResponseDto from '../../../../../../../../utils/types/ProfileResponseDto';
+import UploadedFile from '../../../../../../../../utils/types/UploadedFile';
+import styles from './CreateModal.module.scss';
+import { FormationDetail, FormationDetailsContext } from './utils/contexts/context';
 
 const routeApi = getRouteApi('/app/tools/formations/create');
 
@@ -43,14 +43,13 @@ const yupSchema = yup.object().shape({
 
 export default function AppViewToolsViewFormationsViewCreateModalView() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const {
     register,
     control,
     setValue,
     getValues,
-    watch,
     formState: { errors },
     handleSubmit,
   } = useForm({
@@ -61,16 +60,18 @@ export default function AppViewToolsViewFormationsViewCreateModalView() {
     },
   });
 
+  const details = useWatch({ name: 'details', control });
+
   const contextValue = useMemo(
     () => ({
-      details: getValues('details'),
+      details: details,
       setDetails: (details: Array<FormationDetail>) => setValue('details', details),
     }),
-    [getValues, setValue, watch('details')],
+    [getValues, setValue, details],
   );
 
   const onClose = () => {
-    navigate({ to: '..', search: (old) => old, replace: true, resetScroll: false });
+    navigate({ to: '..', search: true, replace: true, resetScroll: false });
   };
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({

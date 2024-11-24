@@ -3,7 +3,7 @@ import { getRouteApi } from '@tanstack/react-router';
 import styles from './ExternalLink.module.scss';
 import { externalLinks } from '../../../../utils/constants/queryKeys/externalLink';
 
-const routeApi = getRouteApi('/app/external-links/$externalLinkId');
+const routeApi = getRouteApi('/app/external-links_/$externalLinkId');
 
 export default function AppViewExternalLinksViewExternalLinkView() {
   const { externalLinkId } = routeApi.useParams();

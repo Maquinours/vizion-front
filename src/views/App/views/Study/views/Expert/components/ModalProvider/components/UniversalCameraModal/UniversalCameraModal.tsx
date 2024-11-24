@@ -142,8 +142,9 @@ export default function AppViewStudyViewExpertViewModalProviderComponentUniversa
             render={({ field: { value, onChange } }) => (
               <div className="flex flex-row">
                 {value.map((model) => (
-                  <div
+                  <button
                     key={model.product.id}
+                    type="button"
                     className="flex flex-col items-center justify-center space-y-2 border-[0.5px] border-[#16204e] bg-slate-200 p-4"
                     onClick={() => onChange(value.map((m) => (m.product.id === model.product.id ? { ...m, selected: !m.selected } : m)))}
                   >
@@ -168,7 +169,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentUniversa
                     <div className="flex items-center justify-center space-x-2">
                       <input className="camselection_input" type="checkbox" checked={model.selected} readOnly={true} />
                     </div>
-                  </div>
+                  </button>
                 ))}
               </div>
             )}

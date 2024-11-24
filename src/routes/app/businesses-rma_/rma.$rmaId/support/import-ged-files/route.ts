@@ -6,7 +6,7 @@ const searchSchema = z.object({
   relativePath: z.string().optional(),
 });
 
-export const Route = createFileRoute('/app/businesses-rma/rma/$rmaId/support/import-ged-files')({
+export const Route = createFileRoute('/app/businesses-rma_/rma/$rmaId/support/import-ged-files')({
   validateSearch: searchSchema,
   pendingComponent: LoaderModal,
 });

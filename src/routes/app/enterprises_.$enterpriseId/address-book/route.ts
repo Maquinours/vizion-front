@@ -8,7 +8,7 @@ const searchSchema = z.object({
   page: z.number().int().min(0).catch(0),
 });
 
-export const Route = createFileRoute('/app/enterprises/$enterpriseId/address-book')({
+export const Route = createFileRoute('/app/enterprises_/$enterpriseId/address-book')({
   validateSearch: (data: { search?: string; page?: number } & SearchSchemaInput) => searchSchema.parse(data),
   loaderDeps: ({ search: { search, page } }) => ({
     search,

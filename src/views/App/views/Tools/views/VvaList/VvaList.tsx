@@ -53,7 +53,7 @@ const columns = [
   columnHelper.display({
     id: 'actions',
     cell: ({ row: { original } }) => (
-      <Link from={routeApi.id} to="delete/$vvaId" params={{ vvaId: original.id }} search={(old) => old} replace className={styles.tooltip}>
+      <Link from={routeApi.id} to="delete/$vvaId" params={{ vvaId: original.id }} search replace className={styles.tooltip}>
         <FaTrash size="18px" color="#F24C52" />
       </Link>
     ),
@@ -70,7 +70,7 @@ export default function AppViewToolsViewVvaListView() {
       <div className={styles.container}>
         <div className={styles.content}>
           <div className={styles.buttons_container}>
-            <Link from={routeApi.id} to="create" search={(old) => old} replace resetScroll={false} className="btn btn-secondary">
+            <Link from={routeApi.id} to="create" search replace resetScroll={false} className="btn btn-secondary">
               Ajouter
             </Link>
           </div>

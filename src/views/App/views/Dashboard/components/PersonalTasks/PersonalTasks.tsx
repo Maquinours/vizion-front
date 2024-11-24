@@ -9,14 +9,14 @@ import AppViewDashboardViewPersonalTasksComponentPaginationComponent from './com
 import AppViewDashboardViewPersonalTasksComponentTableComponent from './components/Table/Table';
 import { useSubscription } from 'react-stomp-hooks';
 
-const Route = getRouteApi('/app/dashboard');
+const routeApi = getRouteApi('/app/dashboard');
 
 const size = 10;
 
 export default function AppViewDashboardViewPersonalTasksComponent() {
   const [isMinimized, setMinimized] = useLocalStorage('preferences.dashboard.personalTasks.minimized', false);
 
-  const { personalTaskState: state, personalTaskPage: page } = Route.useSearch();
+  const { personalTaskState: state, personalTaskPage: page } = routeApi.useSearch();
 
   const { data: user } = useAuthentifiedUserQuery();
 

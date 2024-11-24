@@ -1,18 +1,18 @@
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import ReactModal from 'react-modal';
-import styles from './DeleteDetailModal.module.scss';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { getRouteApi } from '@tanstack/react-router';
+import React from 'react';
+import ReactModal from 'react-modal';
+import { PulseLoader } from 'react-spinners';
+import { toast } from 'react-toastify';
 import { deleteRmaDeliveryDetail } from '../../../../../../../../utils/api/rmaDeliveryDetail';
 import { queries } from '../../../../../../../../utils/constants/queryKeys';
-import { toast } from 'react-toastify';
-import { PulseLoader } from 'react-spinners';
-import React from 'react';
+import styles from './DeleteDetailModal.module.scss';
 
-const routeApi = getRouteApi('/app/businesses-rma/rma/$rmaId/delivery/delete-detail/$detailId');
+const routeApi = getRouteApi('/app/businesses-rma_/rma/$rmaId/delivery/delete-detail/$detailId');
 
 export default function AppViewRmaViewDeliveryViewDeleteDetailModalView() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { detail } = routeApi.useLoaderData();
 

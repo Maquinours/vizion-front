@@ -6,7 +6,7 @@ import AppViewBusinessViewBillViewPdfComponent from '../../../../../../views/App
 import LoaderModal from '../../../../../../components/LoaderModal/LoaderModal';
 import { formatFileName } from '../../../../../../utils/functions/files';
 
-export const Route = createFileRoute('/app/businesses-rma/business/$businessId/bill/send-by-email')({
+export const Route = createFileRoute('/app/businesses-rma_/business/$businessId/bill/send-by-email')({
   loader: async ({ context: { queryClient }, params: { businessId } }) => {
     const businessPromise = queryClient.ensureQueryData(queries.businesses.detail._ctx.byId(businessId));
     const billsPromise = queryClient.ensureQueryData(queries['business-bills'].list._ctx.byBusinessId(businessId));
@@ -15,7 +15,7 @@ export const Route = createFileRoute('/app/businesses-rma/business/$businessId/b
 
     const bill = (await billsPromise).find((bill) => bill.type === BillType.FACTURE);
 
-    if (!bill) throw redirect({ from: Route.id, to: '..', replace: true });
+    if (!bill) throw redirect({ from: Route.fullPath, to: '..', replace: true });
 
     const blob = await pdf(<AppViewBusinessViewBillViewPdfComponent bill={bill} business={business} />).toBlob();
     const file = new File([blob], formatFileName(`${bill.number}.pdf`), {

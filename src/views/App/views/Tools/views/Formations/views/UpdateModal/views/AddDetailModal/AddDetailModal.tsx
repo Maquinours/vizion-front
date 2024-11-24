@@ -1,15 +1,15 @@
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useQuery } from '@tanstack/react-query';
+import { getRouteApi } from '@tanstack/react-router';
+import { useContext } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import ReactModal from 'react-modal';
 import * as yup from 'yup';
-import styles from './AddDetailModal.module.scss';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
 import CustomSelect from '../../../../../../../../../../components/CustomSelect/CustomSelect';
-import { useQuery } from '@tanstack/react-query';
-import CategoryClient from '../../../../../../../../../../utils/enums/CategoryClient';
 import { queries } from '../../../../../../../../../../utils/constants/queryKeys';
-import { useContext } from 'react';
+import CategoryClient from '../../../../../../../../../../utils/enums/CategoryClient';
 import { UpdateFormationDetailsContext } from '../../utils/contexts/context';
+import styles from './AddDetailModal.module.scss';
 
 const routeApi = getRouteApi('/app/tools/formations/update/$formationId/add-detail');
 
@@ -26,7 +26,7 @@ const yupSchema = yup.object().shape({
 });
 
 export default function AppViewToolsViewFormationsViewUpdateModalViewAddDetailModalView() {
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { details, setDetails } = useContext(UpdateFormationDetailsContext)!;
 
@@ -48,7 +48,7 @@ export default function AppViewToolsViewFormationsViewUpdateModalViewAddDetailMo
   });
 
   const onClose = () => {
-    navigate({ to: '..', search: (old) => old, replace: true, resetScroll: false });
+    navigate({ to: '..', search: true, replace: true, resetScroll: false });
   };
 
   const onSubmit = ({ title, formationDate, startTime, endTime, trainers }: yup.InferType<typeof yupSchema>) => {

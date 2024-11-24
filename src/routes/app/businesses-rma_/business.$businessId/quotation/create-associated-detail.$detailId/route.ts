@@ -3,7 +3,7 @@ import { queries } from '../../../../../../utils/constants/queryKeys';
 import BusinessQuotationResponseDto from '../../../../../../utils/types/BusinessQuotationResponseDto';
 import LoaderModal from '../../../../../../components/LoaderModal/LoaderModal';
 
-export const Route = createFileRoute('/app/businesses-rma/business/$businessId/quotation/create-associated-detail/$detailId')({
+export const Route = createFileRoute('/app/businesses-rma_/business/$businessId/quotation/create-associated-detail/$detailId')({
   loader: async ({ context: { queryClient }, params: { businessId, detailId } }) => {
     await queryClient.ensureQueryData({
       ...queries['business-quotation-details'].detail._ctx.byId(detailId),

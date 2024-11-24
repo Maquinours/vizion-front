@@ -4,7 +4,7 @@ import { queries } from '../../../../../../../../../../../../../../utils/constan
 import * as ExcelJS from 'exceljs';
 import { toast } from 'react-toastify';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/quotation');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/quotation');
 
 export default function AppViewBusinessViewQuotationViewHeaderComponentSectionThreeComponentButtonsSectionComponentExportButton() {
   const queryClient = useQueryClient();

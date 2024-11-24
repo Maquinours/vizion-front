@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { getRouteApi } from '@tanstack/react-router';
 import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
 import { toast } from 'react-toastify';
@@ -7,18 +7,18 @@ import { deleteProductVersion } from '../../../../../../../../utils/api/productV
 import { queries } from '../../../../../../../../utils/constants/queryKeys';
 import styles from './DeleteVersionModal.module.scss';
 
-const routeApi = getRouteApi('/app/products/$productId/manage/delete-version/$versionId');
+const routeApi = getRouteApi('/app/products_/$productId/manage/delete-version/$versionId');
 
 export default function AppViewProductViewManageViewDeleteVersionModalView() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate();
+  const navigate = routeApi.useNavigate();
 
   const { versionId } = routeApi.useParams();
 
   const { data: version } = useSuspenseQuery(queries['product-versions'].detail._ctx.byId(versionId));
 
   const onClose = () => {
-    navigate({ from: routeApi.id, to: '../..', search: true, replace: true, resetScroll: false });
+    navigate({ to: '../..', search: true, replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({

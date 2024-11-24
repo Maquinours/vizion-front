@@ -4,7 +4,7 @@ import { getRouteApi, useNavigate } from '@tanstack/react-router';
 import classNames from 'classnames';
 import moment from 'moment';
 import { useEffect, useMemo } from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import { Controller, useForm, useWatch } from 'react-hook-form';
 import { MdPerson } from 'react-icons/md';
 import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
@@ -97,7 +97,6 @@ export default function AppViewToolsViewSchedulerViewDetailsModalViewUpdateModal
     control,
     setValue,
     resetField,
-    watch,
     getValues,
     formState: { errors },
     handleSubmit,
@@ -113,7 +112,7 @@ export default function AppViewToolsViewSchedulerViewDetailsModalViewUpdateModal
     () => PLACES.filter((place) => place.allowedRoles === undefined || user.userInfo.roles.some((role) => place.allowedRoles.includes(role))),
     [],
   );
-  const fullTime = useMemo(() => getValues('fullTime'), [watch('fullTime')]);
+  const fullTime = useWatch({ name: 'fullTime', control });
 
   const onClose = () => {
     navigate({
@@ -153,17 +152,17 @@ export default function AppViewToolsViewSchedulerViewDetailsModalViewUpdateModal
 
   useEffect(() => {
     setValue('title', rdv.title);
-    if (!!rdv.description) setValue('description', rdv.description);
+    if (rdv.description) setValue('description', rdv.description);
     else resetField('description');
-    if (!!rdv.place) setValue('place', rdv.place);
+    if (rdv.place) setValue('place', rdv.place);
     else resetField('place');
-    if (!!rdv.fullTime) setValue('fullTime', rdv.fullTime);
+    if (rdv.fullTime) setValue('fullTime', rdv.fullTime);
     else resetField('fullTime');
     setValue('dates', [moment(rdv.startDateTime).toDate(), moment(rdv.endDatetime).toDate()]);
   }, [rdv.id]);
 
   useEffect(() => {
-    if (!!memberOptions) setValue('participants', memberOptions?.filter((member) => rdv.infos.some((info) => info.attributeToId === member.id)) ?? []);
+    if (memberOptions) setValue('participants', memberOptions?.filter((member) => rdv.infos.some((info) => info.attributeToId === member.id)) ?? []);
   }, [isLoadingMemberOptions, rdv.id]);
 
   useEffect(() => {

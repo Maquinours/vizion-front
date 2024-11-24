@@ -5,7 +5,7 @@ import AddressResponseDto from '../../../../../utils/types/AddressResponseDto';
 import { QueryKey } from '@tanstack/react-query';
 import LoaderModal from '../../../../../components/LoaderModal/LoaderModal';
 
-export const Route = createFileRoute('/app/enterprises/$enterpriseId/address-book/delete/$addressId')({
+export const Route = createFileRoute('/app/enterprises_/$enterpriseId/address-book/delete/$addressId')({
   loader: async ({ context: { queryClient }, params: { addressId } }) => {
     let initialDataKey: QueryKey | undefined = undefined;
     await queryClient.ensureQueryData({

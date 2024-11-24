@@ -40,7 +40,7 @@
         font-size: 16px;
 
         &.reload {
-          &.spin>svg {
+          &.spin > svg {
             animation: spin 0.5s linear infinite;
 
             @keyframes spin {

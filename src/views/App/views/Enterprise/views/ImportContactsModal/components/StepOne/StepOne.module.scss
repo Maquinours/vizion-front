@@ -101,14 +101,14 @@
                 min-width: 180px;
               }
 
-              &>li {
+              & > li {
                 width: 100%;
                 display: grid;
                 grid-template-columns: 40% auto;
                 gap: 1rem;
                 margin-bottom: 0.5rem;
 
-                &> {
+                & > {
                   :nth-child(2) {
                     ul {
                       li {

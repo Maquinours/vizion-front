@@ -25,7 +25,7 @@ const columns = [
   columnHelper.display({
     id: 'actions',
     cell: ({ row: { original } }) => (
-      <Link from={routeApi.id} to="delete/$productShelfId" params={{ productShelfId: original.id }} search={(old) => old} replace resetScroll={false}>
+      <Link from={routeApi.id} to="delete/$productShelfId" params={{ productShelfId: original.id }} search replace resetScroll={false}>
         <FaTrash color="#F24C52" />
       </Link>
     ),
@@ -42,7 +42,7 @@ export default function AppViewToolsViewProductShelvesView() {
       <div className={styles.container}>
         <div className={styles.content}>
           <div className={styles.buttons_container}>
-            <Link from={routeApi.id} to="create" search={(old) => old} replace resetScroll={false} className="btn btn-secondary">
+            <Link from={routeApi.id} to="create" search replace resetScroll={false} className="btn btn-secondary">
               Ajouter
             </Link>
           </div>

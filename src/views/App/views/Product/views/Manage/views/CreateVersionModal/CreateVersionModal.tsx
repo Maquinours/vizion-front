@@ -1,23 +1,23 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import { Controller, useForm } from 'react-hook-form';
+import { getRouteApi } from '@tanstack/react-router';
+import { useEffect } from 'react';
+import { Controller, useForm, useWatch } from 'react-hook-form';
 import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
 import { toast } from 'react-toastify';
 import * as yup from 'yup';
+import AmountFormat from '../../../../../../../../components/AmountFormat/AmountFormat';
+import CurrencyFormat from '../../../../../../../../components/CurrencyFormat/CurrencyFormat';
 import { createProductVersion } from '../../../../../../../../utils/api/productVersion';
 import { queries } from '../../../../../../../../utils/constants/queryKeys';
 import styles from './CreateVersionModal.module.scss';
-import AmountFormat from '../../../../../../../../components/AmountFormat/AmountFormat';
-import CurrencyFormat from '../../../../../../../../components/CurrencyFormat/CurrencyFormat';
-import { useEffect } from 'react';
 
-const routeApi = getRouteApi('/app/products/$productId/manage/create-version');
+const routeApi = getRouteApi('/app/products_/$productId/manage/create-version');
 
 export default function AppViewProductViewManageViewCreateVersionModalView() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate();
+  const navigate = routeApi.useNavigate();
 
   const { productId } = routeApi.useParams();
 
@@ -41,8 +41,6 @@ export default function AppViewProductViewManageViewCreateVersionModalView() {
     register,
     control,
     formState: { errors },
-    watch,
-    getValues,
     setValue,
     resetField,
     handleSubmit,
@@ -60,8 +58,13 @@ export default function AppViewProductViewManageViewCreateVersionModalView() {
     },
   });
 
+  const costPriceWatch = useWatch({ control, name: 'costPrice' });
+  const portOrServiceWatch = useWatch({ control, name: 'portOrService' });
+  const taxWatch = useWatch({ control, name: 'tax' });
+  const priceWatch = useWatch({ control, name: 'price' });
+
   const onClose = () => {
-    navigate({ from: routeApi.id, to: '..', search: true, replace: true, resetScroll: false });
+    navigate({ to: '..', search: true, replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({
@@ -94,15 +97,15 @@ export default function AppViewProductViewManageViewCreateVersionModalView() {
   });
 
   useEffect(() => {
-    const costPrice = Number(getValues('costPrice')) || 0;
-    const shippingService = Number(getValues('portOrService')) || 0;
-    const tax = Number(getValues('tax')) || 0;
-    const price = Number(getValues('price')) || 0;
+    const costPrice = Number(costPriceWatch) || 0;
+    const shippingService = Number(portOrServiceWatch) || 0;
+    const tax = Number(taxWatch) || 0;
+    const price = Number(priceWatch) || 0;
 
     const margin = Math.round((1 - (costPrice + shippingService + tax) / price) * 100);
     if (!isNaN(margin) && isFinite(margin)) setValue('margin', margin);
     else resetField('margin');
-  }, [watch('costPrice'), watch('portOrService'), watch('tax'), watch('price')]);
+  }, [costPriceWatch, portOrServiceWatch, taxWatch, priceWatch]);
 
   return (
     <ReactModal isOpen={true} onRequestClose={onClose} className={styles.modal} overlayClassName="Overlay" shouldCloseOnOverlayClick={!isPending}>

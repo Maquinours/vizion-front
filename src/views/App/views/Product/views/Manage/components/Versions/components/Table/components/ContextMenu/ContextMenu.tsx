@@ -1,13 +1,13 @@
 import { ClickAwayListener, Fade, MenuItem, MenuList, Paper, Popper } from '@mui/material';
 import { VirtualElement } from '@popperjs/core';
-import { Link, getRouteApi } from '@tanstack/react-router';
+import { Link } from '@tanstack/react-router';
 import React from 'react';
 import { FaTrash } from 'react-icons/fa';
 import { HiPencilAlt } from 'react-icons/hi';
-import styles from './ContextMenu.module.scss';
 import ProductVersionResponseDto from '../../../../../../../../../../../../utils/types/ProductVersionResponseDto';
+import styles from './ContextMenu.module.scss';
 
-const routeApi = getRouteApi('/app/products/$productId/manage');
+const routePath = '/app/products/$productId/manage';
 
 type AppViewProductViewManageViewVersionsComponentTableComponentContextMenuComponentProps = Readonly<{
   anchorElement: VirtualElement | undefined;
@@ -35,13 +35,14 @@ export default function AppViewProductViewManageViewVersionsComponentTableCompon
                 <MenuList>
                   <MenuItem>
                     <Link
-                      from={routeApi.id}
+                      from={routePath}
                       to="update-version/$versionId"
                       params={{ versionId: version.id }}
                       search
                       replace
                       resetScroll={false}
-                      preload="viewport"
+                      preload="render"
+                      onClick={onClose}
                     >
                       <HiPencilAlt className={styles.icon} width={16} height={16} color="#16204E" />
                       <span className={styles.text}>Modifier la version</span>
@@ -49,13 +50,14 @@ export default function AppViewProductViewManageViewVersionsComponentTableCompon
                   </MenuItem>
                   <MenuItem>
                     <Link
-                      from={routeApi.id}
+                      from={routePath}
                       to="delete-version/$versionId"
                       params={{ versionId: version.id }}
                       search
                       replace
                       resetScroll={false}
-                      preload="viewport"
+                      preload="render"
+                      onClick={onClose}
                     >
                       <FaTrash className={styles.icon} width={16} height={16} color="#16204E" />
                       <span className={styles.text}>Supprimer la version</span>

@@ -6,7 +6,7 @@ import { queries } from '../../../../../../../../../../utils/constants/queryKeys
 import BusinessQuotationDetailsResponseDto from '../../../../../../../../../../utils/types/BusinessQuotationDetailsResponseDto';
 import { useAuthentifiedUserQuery } from '../../../../../../../../utils/functions/getAuthentifiedUser';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/quotation');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/quotation');
 
 type AppViewBusinessViewQuotationViewTableComponentQuotationDetailRowComponentProps = Readonly<{
   detail: BusinessQuotationDetailsResponseDto;

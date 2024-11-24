@@ -2,7 +2,7 @@ import { getRouteApi } from '@tanstack/react-router';
 import GedComponent from '../../../../../../../../components/Ged/Ged';
 import FileType from '../../../../../../../../utils/enums/FileType';
 
-const routeApi = getRouteApi('/app/businesses-rma/rma/$rmaId/support');
+const routeApi = getRouteApi('/app/businesses-rma_/rma/$rmaId/support');
 
 export default function AppViewRmaViewSupportViewGedComponent() {
   const { rmaId } = routeApi.useParams();

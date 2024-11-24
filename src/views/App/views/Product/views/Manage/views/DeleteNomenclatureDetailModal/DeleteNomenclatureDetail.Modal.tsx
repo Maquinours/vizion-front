@@ -8,7 +8,7 @@ import React from 'react';
 import { deleteProductNomenclatureDetail } from '../../../../../../../../utils/api/productNomenclatures';
 import { toast } from 'react-toastify';
 
-const routeApi = getRouteApi('/app/products/$productId/manage/delete-nomenclature-detail/$nomenclatureDetailId');
+const routeApi = getRouteApi('/app/products_/$productId/manage/delete-nomenclature-detail/$nomenclatureDetailId');
 
 export default function AppViewProductViewManageViewDeleteNomenclatureDetailModalView() {
   const queryClient = useQueryClient();

@@ -10,9 +10,12 @@ const searchSchema = z.object({
   stockHistoryPage: z.number().min(0).catch(0),
 });
 
-export const Route = createFileRoute('/app/products/$productId/manage/stock-history/$stockId')({
+export const Route = createFileRoute('/app/products_/$productId/manage/stock-history/$stockId')({
   validateSearch: (data: { stockHistoryPage?: number } & SearchSchemaInput) => searchSchema.parse(data),
-  loaderDeps: ({ search: { stockHistoryPage } }) => ({ page: stockHistoryPage, size: 5 }),
+  loaderDeps: ({ search: { stockHistoryPage } }) => ({
+    page: stockHistoryPage,
+    size: 5,
+  }),
   loader: async ({ context: { queryClient }, params: { stockId }, deps: { page, size } }) => {
     queryClient.prefetchQuery(queries['product-version-shelf-stock-entries'].page._ctx.byProductShelfStockId(stockId, { page, size }));
 

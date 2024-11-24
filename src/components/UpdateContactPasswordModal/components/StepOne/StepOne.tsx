@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 import * as yup from 'yup';
 import ProfileResponseDto from '../../../../utils/types/ProfileResponseDto';
-import { useForm } from 'react-hook-form';
+import { useForm, useWatch } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { getEmailExists, getIdentifierExists, updateUserCredentials } from '../../../../utils/api/profile';
@@ -47,8 +47,8 @@ export default function UpdateContactPasswordModalComponentStepOneComponent({
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const {
+    control,
     register,
-    watch,
     setValue,
     formState: { errors },
     handleSubmit,
@@ -62,9 +62,9 @@ export default function UpdateContactPasswordModalComponentStepOneComponent({
     },
   });
 
-  const email = watch('mail');
-  const username = watch('siteIdentifier');
-  const password = watch('pass');
+  const email = useWatch({ control, name: 'mail' });
+  const username = useWatch({ control, name: 'siteIdentifier' });
+  const password = useWatch({ control, name: 'pass' });
 
   const { data: emailExists, refetch: refetchEmail } = useQuery({
     queryKey: ['email-exists', email],

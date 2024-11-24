@@ -1,16 +1,16 @@
 import { PDFDownloadLink, PDFViewer } from '@react-pdf/renderer';
-import ReactModal from 'react-modal';
-import styles from './PdfModal.module.scss';
-import AppViewRmaViewSupportViewPdfModalViewPdfComponent from './components/Pdf/Pdf';
-import { Link, Outlet, getRouteApi, useNavigate } from '@tanstack/react-router';
 import { useSuspenseQuery } from '@tanstack/react-query';
+import { Link, Outlet, getRouteApi } from '@tanstack/react-router';
+import ReactModal from 'react-modal';
 import { queries } from '../../../../../../../../utils/constants/queryKeys';
 import { useAuthentifiedUserQuery } from '../../../../../../utils/functions/getAuthentifiedUser';
+import styles from './PdfModal.module.scss';
+import AppViewRmaViewSupportViewPdfModalViewPdfComponent from './components/Pdf/Pdf';
 
-const routeApi = getRouteApi('/app/businesses-rma/rma/$rmaId/support/pdf');
+const routeApi = getRouteApi('/app/businesses-rma_/rma/$rmaId/support/pdf');
 
 export default function AppViewRmaViewSupportViewPdfModalView() {
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { rmaId } = routeApi.useParams();
 
@@ -42,7 +42,15 @@ export default function AppViewRmaViewSupportViewPdfModalView() {
               {({ loading }) => <button className="btn btn-secondary">{loading ? 'Chargement...' : 'Télécharger'}</button>}
             </PDFDownloadLink>
             {authentifiedUser.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && (
-              <Link from={routeApi.id} to="send-by-email" search replace resetScroll={false} preload="intent" className="btn btn-secondary">
+              <Link
+                from="/app/businesses-rma/rma/$rmaId/support/pdf"
+                to="send-by-email"
+                search
+                replace
+                resetScroll={false}
+                preload="intent"
+                className="btn btn-secondary"
+              >
                 Envoyer par mail
               </Link>
             )}

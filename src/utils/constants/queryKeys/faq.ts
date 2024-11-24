@@ -6,6 +6,7 @@ export const faqs = createQueryKeys('faq', {
     queryKey: [page, size],
     contextQueries: {
       byArchiveStateAndSearch: (archived: boolean, searchText: string | undefined) => ({
+        // eslint-disable-next-line @tanstack/query/exhaustive-deps
         queryKey: [archived, searchText],
         queryFn: () => (searchText ? getFaqsPageByArchiveStateWithSearch(archived, searchText, page, size) : getFaqsPageByArchiveState(archived, page, size)),
       }),

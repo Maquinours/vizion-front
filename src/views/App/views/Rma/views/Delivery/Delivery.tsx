@@ -5,7 +5,7 @@ import { queries } from '../../../../../../utils/constants/queryKeys';
 import AppViewRmaViewDeliveryViewHeaderComponent from './components/Header/Header';
 import AppViewRmaViewDeliveryViewTableComponent from './components/Table/Table';
 
-const routeApi = getRouteApi('/app/businesses-rma/rma/$rmaId/delivery');
+const routeApi = getRouteApi('/app/businesses-rma_/rma/$rmaId/delivery');
 
 export default function AppViewRmaViewDeliveryView() {
   const { rmaId } = routeApi.useParams();

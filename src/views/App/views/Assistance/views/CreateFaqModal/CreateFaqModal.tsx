@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useQuery, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { getRouteApi } from '@tanstack/react-router';
 import { Controller, useForm } from 'react-hook-form';
 import ReactModal from 'react-modal';
 import 'react-multi-email/dist/style.css';
@@ -16,7 +16,7 @@ import FaqAccessLevel from '../../../../../../utils/enums/FaqAccessLevel';
 import ProductResponseDto from '../../../../../../utils/types/ProductResponseDto';
 import styles from './CreateFaqModal.module.scss';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/assistance/$assistanceId/create-faq');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/create-faq');
 
 const levelOptions = [
   {
@@ -46,7 +46,7 @@ const levelOptions = [
 ];
 
 const yupSchema = yup.object().shape({
-  title: yup.string().required('Le titre est requis.').max(255, 'Le problème ne peut excéder 255 caractères'),
+  title: yup.string().required('Le titre est requis.').max(255, 'Le problème est trop long.'),
   description: yup.string().required('La description est requise.'),
   level: yup.mixed<FaqAccessLevel>().oneOf(Object.values(FaqAccessLevel)).required('Le niveau est requis'),
   products: yup.array().of(yup.mixed<ProductResponseDto>().required()).nullable(),
@@ -54,10 +54,11 @@ const yupSchema = yup.object().shape({
 
 export default function AppViewAssistanceViewCreateFaqModalView() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate();
+  const navigate = routeApi.useNavigate();
 
   const { businessId, assistanceId } = routeApi.useParams();
 
+  const { data: business } = useSuspenseQuery(queries['businesses'].detail._ctx.byId(businessId));
   const { data: assistance } = useSuspenseQuery(queries['technical-supports'].detail._ctx.byId(assistanceId));
 
   const { data: products, isLoading: isLoadingProducts } = useQuery(queries.product.list);
@@ -72,7 +73,7 @@ export default function AppViewAssistanceViewCreateFaqModalView() {
   });
 
   const onClose = () => {
-    navigate({ from: routeApi.id, to: '..', search: true, replace: true, resetScroll: false });
+    navigate({ to: '..', search: true, replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({
@@ -84,7 +85,7 @@ export default function AppViewAssistanceViewCreateFaqModalView() {
         archived: false,
         productIds: products?.map((product) => product.id),
         assistanceId,
-        assistanceName: assistance.name,
+        assistanceName: `${assistance.name} (${business.numBusiness})`,
         businessId,
       }),
     onSuccess: () => {

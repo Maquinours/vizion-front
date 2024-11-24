@@ -5,7 +5,7 @@ import Page from '../../../../../../../utils/types/Page';
 import AddressResponseDto from '../../../../../../../utils/types/AddressResponseDto';
 import LoaderModal from '../../../../../../../components/LoaderModal/LoaderModal';
 
-export const Route = createFileRoute('/app/businesses-rma/business/$businessId/dashboard/address-book/update/$addressId')({
+export const Route = createFileRoute('/app/businesses-rma_/business/$businessId/dashboard/address-book/update/$addressId')({
   loader: async ({ context: { queryClient }, params: { addressId } }) => {
     let initialDataKey: QueryKey | undefined;
     await queryClient.ensureQueryData({

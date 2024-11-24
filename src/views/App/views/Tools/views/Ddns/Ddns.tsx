@@ -19,7 +19,7 @@ export default function AppViewToolsViewDdnsView() {
     <>
       <div className={styles.container}>
         <div className={styles.button_container}>
-          <Link from={routeApi.id} to="./create" search={(old) => old} replace resetScroll={false} className="btn btn-secondary">
+          <Link from={routeApi.id} to="./create" search replace resetScroll={false} className="btn btn-secondary">
             Ajouter DDNS
           </Link>
         </div>

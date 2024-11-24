@@ -37,7 +37,8 @@ const yupSchema = yup.object().shape({
 
 export type AssistanceFormType = yup.InferType<typeof yupSchema>;
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/assistance/$assistanceId');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId_/assistance/$assistanceId');
+const routePath = '/app/businesses-rma/business/$businessId/assistance/$assistanceId';
 
 export default function AppViewAssistanceView() {
   const queryClient = useQueryClient();
@@ -52,7 +53,7 @@ export default function AppViewAssistanceView() {
     return null;
   }, [assistanceModal]);
 
-  const { register, control, getValues, setValue, resetField, watch } = useForm({
+  const { register, control, getValues, setValue, resetField } = useForm({
     resolver: yupResolver(yupSchema),
     defaultValues: {
       cumulatedTime: 0,
@@ -83,17 +84,17 @@ export default function AppViewAssistanceView() {
     },
   });
 
-  const contextValue = useMemo(() => ({ register, control, getValues, setValue, watch, update }), [register, control, getValues, setValue, watch, update]);
+  const contextValue = useMemo(() => ({ register, control, getValues, setValue, update }), [register, control, getValues, setValue, update]);
 
   useEffect(() => {
     setValue('name', assistance.name);
-    if (!!assistance.predefinedTime) setValue('predefinedTime', parseInt(assistance.predefinedTime.split(':')[0]));
+    if (assistance.predefinedTime) setValue('predefinedTime', parseInt(assistance.predefinedTime.split(':')[0]));
     else resetField('predefinedTime');
   }, [assistance.id]);
 
   return (
     <AssistanceContext.Provider value={contextValue}>
-      <Link from={routeApi.id} to="/app/businesses-rma/business/$businessId" title="Retourner dans l'affaire" className="btn btn-primary mb-2 flex w-fit">
+      <Link from={routePath} to="/app/businesses-rma/business/$businessId" title="Retourner dans l'affaire" className="btn btn-primary mb-2 flex w-fit">
         <TiArrowBack size={16} />
       </Link>
       <div className={styles.container}>

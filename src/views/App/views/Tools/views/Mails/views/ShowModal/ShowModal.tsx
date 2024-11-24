@@ -1,6 +1,6 @@
 import { PDFDownloadLink, PDFViewer } from '@react-pdf/renderer';
 import { useSuspenseQuery } from '@tanstack/react-query';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { getRouteApi } from '@tanstack/react-router';
 import ReactModal from 'react-modal';
 import { mailQueryKeys } from '../../../../../../../../utils/constants/queryKeys/mails';
 import styles from './ShowModal.module.scss';
@@ -9,14 +9,14 @@ import AppViewToolsViewMailsViewShowModalViewPdfComponent from './components/Pdf
 const routeApi = getRouteApi('/app/tools/mails/show/$mailId');
 
 export default function AppViewToolsViewMailsViewShowModalView() {
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { mailId } = routeApi.useParams();
 
   const { data: mail } = useSuspenseQuery(mailQueryKeys.detail._ctx.byId(mailId));
 
   const onClose = () => {
-    navigate({ to: '../..', search: (old) => old, replace: true, resetScroll: false });
+    navigate({ to: '../..', search: true, replace: true, resetScroll: false });
   };
 
   return (

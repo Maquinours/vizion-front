@@ -44,7 +44,8 @@
           align-self: center;
           // gap:  0 1rem;
           margin-bottom: 0.8rem;
-          grid-template-areas: 'label'
+          grid-template-areas:
+            'label'
             'input'
             'error';
           grid-template-columns: repeat(1, 1fr);
@@ -221,7 +222,7 @@
                         flex-direction: column;
                         flex-wrap: wrap;
 
-                        &>div {
+                        & > div {
                           font: normal normal normal 14px/18px 'DIN2014';
 
                           &:nth-child(1) {

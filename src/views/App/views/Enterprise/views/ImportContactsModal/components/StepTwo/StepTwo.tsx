@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { getRouteApi } from '@tanstack/react-router';
 import { createColumnHelper } from '@tanstack/react-table';
 import React from 'react';
 import { PropagateLoader } from 'react-spinners';
@@ -10,7 +10,7 @@ import { queries } from '../../../../../../../../utils/constants/queryKeys';
 import ProfileRequestDto from '../../../../../../../../utils/types/ProfileRequestDto';
 import styles from './StepTwo.module.scss';
 
-const Route = getRouteApi('/app/enterprises/$enterpriseId/import-contacts');
+const routeApi = getRouteApi('/app/enterprises_/$enterpriseId/import-contacts');
 
 const columnHelper = createColumnHelper<ProfileRequestDto>();
 const columns = [
@@ -30,14 +30,14 @@ export default function AppViewEnterpriseViewImportContactsModalViewStepTwoCompo
   setStep,
 }: AppViewEnterpriseViewImportContactsModalViewStepTwoComponentProps) {
   const queryClient = useQueryClient();
-  const navigate = useNavigate();
+  const navigate = routeApi.useNavigate();
 
   const { mutate, isPending } = useMutation({
     mutationFn: () => createProfiles(profiles),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queries.profiles._def });
       toast.success('Les contacts ont été importés avec succès');
-      navigate({ from: Route.id, to: '..', search: (old) => old });
+      navigate({ to: '..', search: true, replace: true, resetScroll: false });
     },
     onError: (error) => {
       console.error(error);

@@ -35,7 +35,7 @@ const GROUPS = [
   { name: 'Affichage', categories: ['Moniteur'] },
 ];
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/study/expert');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId_/study/expert');
 
 const selector = (state: RFState) => ({
   getCurrentPage: state.getCurrentPage,
@@ -147,7 +147,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentSendStud
         queryClient.ensureQueryData(queries.businesses.detail._ctx.byId(businessId)),
       ]);
 
-      const synopticPages = pages.filter((page) => page.type === 'synoptic');
+      const synopticPages = pages.filter((page) => page.type === 'synoptic' && page.nodes.some((node) => node.type === 'recorder'));
       const productNodes = synopticPages.flatMap((page) =>
         page.nodes.filter(
           (node): node is ProductNode => !!node.type && ['synopticCamera', 'monitor', 'recorder', 'transmitter', 'misc-product'].includes(node.type),
@@ -163,7 +163,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentSendStud
           (node.data.option
             ? 'Options'
             : GROUPS.find((group) => !!product.category && group.categories.includes(product.category))?.name || product.category || 'Autres');
-        if (!!data) data.quantity += quantity;
+        if (data) data.quantity += quantity;
         else
           acc.push({
             product: product,
@@ -173,10 +173,10 @@ export default function AppViewStudyViewExpertViewModalProviderComponentSendStud
         if ('options' in node.data)
           for (const option of node.data.options) {
             const data = acc.find((data) => data.product.id === option.id && data.groupName === groupName);
-            if (!!data) data.quantity += option.quantity;
+            if (data) data.quantity += option.quantity;
             else {
               const product = products.find((product) => product.id === option.id);
-              if (!!product) acc.push({ product: product, quantity: option.quantity, groupName: groupName });
+              if (product) acc.push({ product: product, quantity: option.quantity, groupName: groupName });
             }
           }
         return acc;
@@ -191,27 +191,25 @@ export default function AppViewStudyViewExpertViewModalProviderComponentSendStud
         .map(([groupName, products], index) => ({
           name: groupName,
           orderNum: `${index}`,
-          quotationDetails: products
-            .filter((product) => product.quantity > 0)
-            .map((product) => {
-              const publicUnitPrice = product.product.publicPrice ?? 0;
-              const unitPrice = Number((publicUnitPrice - publicUnitPrice * ((business.reduction ?? 0) / 100)).toFixed(2));
-              const totalPrice = Number((unitPrice * product.quantity).toFixed(2));
-              return {
-                groupName: groupName,
-                productId: product.product.id,
-                productName: product.product.reference,
-                productReference: product.product.reference ?? '',
-                productDesignation: product.product.shortDescription,
-                quantity: product.quantity,
-                reduction: business.reduction ?? 0,
-                taxDEEE: 0,
-                publicUnitPrice: publicUnitPrice,
-                unitPrice: unitPrice,
-                totalPrice: totalPrice,
-                virtualQty: product.product.virtualQty,
-              };
-            }),
+          quotationDetails: products.map((product) => {
+            const publicUnitPrice = product.product.publicPrice ?? 0;
+            const unitPrice = Number((publicUnitPrice - publicUnitPrice * ((business.reduction ?? 0) / 100)).toFixed(2));
+            const totalPrice = Number((unitPrice * product.quantity).toFixed(2));
+            return {
+              groupName: groupName,
+              productId: product.product.id,
+              productName: product.product.reference,
+              productReference: product.product.reference ?? '',
+              productDesignation: product.product.shortDescription,
+              quantity: product.quantity,
+              reduction: business.reduction ?? 0,
+              taxDEEE: 0,
+              publicUnitPrice: publicUnitPrice,
+              unitPrice: unitPrice,
+              totalPrice: totalPrice,
+              virtualQty: product.product.virtualQty,
+            };
+          }),
         }))
         .filter(({ quotationDetails }) => quotationDetails.length > 0);
 
@@ -361,7 +359,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentSendStud
         generateStudyPdf(
           Array.from(data.current.entries())
             .sort(([a], [b]) => a - b)
-            .map(([_, blob]) => blob),
+            .map(([, blob]) => blob),
         );
     };
 

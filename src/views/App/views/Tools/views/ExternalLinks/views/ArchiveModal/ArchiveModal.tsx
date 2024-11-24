@@ -1,25 +1,25 @@
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { getRouteApi } from '@tanstack/react-router';
+import React from 'react';
 import ReactModal from 'react-modal';
-import { externalLinks } from '../../../../../../../../utils/constants/queryKeys/externalLink';
-import { updateExternalLink } from '../../../../../../../../utils/api/externalLink';
 import { PulseLoader } from 'react-spinners';
 import { toast } from 'react-toastify';
-import React from 'react';
+import { updateExternalLink } from '../../../../../../../../utils/api/externalLink';
+import { externalLinks } from '../../../../../../../../utils/constants/queryKeys/externalLink';
 import styles from './ArchiveModal.module.scss';
 
 const routeApi = getRouteApi('/app/tools/external-links/archive/$externalLinkId');
 
 export default function AppViewToolsViewExternalLinksViewArchiveModalView() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { externalLinkId } = routeApi.useParams();
 
   const { data: externalLink } = useSuspenseQuery(externalLinks.detail._ctx.byId(externalLinkId));
 
   const onClose = () => {
-    navigate({ to: '../..', search: (old) => old, replace: true, resetScroll: false });
+    navigate({ to: '../..', search: true, replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({

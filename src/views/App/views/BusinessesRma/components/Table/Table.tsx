@@ -1,16 +1,16 @@
 import { Link, getRouteApi, useNavigate } from '@tanstack/react-router';
 import { Row, createColumnHelper } from '@tanstack/react-table';
-import React, { useCallback, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import CurrencyFormat from '../../../../../../components/CurrencyFormat/CurrencyFormat';
 import TableComponent from '../../../../../../components/Table/Table';
 import AllBusinessState from '../../../../../../utils/enums/AllBusinessState';
 import CategoryBusiness from '../../../../../../utils/enums/CategoryBusiness';
+import CategoryClient from '../../../../../../utils/enums/CategoryClient';
 import { formatDateAndHourWithSlash } from '../../../../../../utils/functions/dates';
 import AllBusinessResponseDto from '../../../../../../utils/types/AllBusinessResponseDto';
 import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthentifiedUser';
 import styles from './Table.module.scss';
 import AppViewBusinessesRmaViewTableComponentRowTooltipComponent from './components/RowTooltip/RowTooltip';
-import CategoryClient from '../../../../../../utils/enums/CategoryClient';
 
 const routeApi = getRouteApi('/app/businesses-rma');
 
@@ -237,23 +237,16 @@ export default function AppViewBusinessesRmaViewTableComponent({ data, isLoading
     [state, user],
   );
 
-  const getRowClassName = useCallback(
-    (row: AllBusinessResponseDto) => (row.enterpriseCategory === CategoryClient.FOURNISSEUR ? styles.provider : undefined),
-    [],
-  );
-
-  const onRowClick = useCallback(
-    (e: React.MouseEvent, row: Row<AllBusinessResponseDto>) => {
-      if (row.original.category === CategoryBusiness.AFFAIRE) {
-        if (e.metaKey || e.ctrlKey) window.open(`${window.location.origin}/app/businesses-rma/business/${row.original.businessId}`, '_blank');
-        else navigate({ to: '/app/businesses-rma/business/$businessId', params: { businessId: row.original.businessId } });
-      } else if (row.original.category === CategoryBusiness.RMA) {
-        if (e.metaKey || e.ctrlKey) window.open(`${window.location.origin}/app/businesses-rma/rma/${row.original.businessId}`, '_blank');
-        else navigate({ to: '/app/businesses-rma/rma/$rmaId', params: { rmaId: row.original.businessId } });
-      }
-    },
-    [navigate],
-  );
+  const getRowClassName = (row: AllBusinessResponseDto) => (row.enterpriseCategory === CategoryClient.FOURNISSEUR ? styles.provider : undefined);
+  const onRowClick = (e: React.MouseEvent, row: Row<AllBusinessResponseDto>) => {
+    if (row.original.category === CategoryBusiness.AFFAIRE) {
+      if (e.metaKey || e.ctrlKey) window.open(`${window.location.origin}/app/businesses-rma/business/${row.original.businessId}`, '_blank');
+      else navigate({ to: '/app/businesses-rma/business/$businessId', params: { businessId: row.original.businessId } });
+    } else if (row.original.category === CategoryBusiness.RMA) {
+      if (e.metaKey || e.ctrlKey) window.open(`${window.location.origin}/app/businesses-rma/rma/${row.original.businessId}`, '_blank');
+      else navigate({ to: '/app/businesses-rma/rma/$rmaId', params: { rmaId: row.original.businessId } });
+    }
+  };
 
   return (
     <>

@@ -6,7 +6,7 @@ const searchSchema = z.object({
   relativePath: z.string().optional(),
 });
 
-export const Route = createFileRoute('/app/businesses-rma/business/$businessId/assistance/$assistanceId/create-ged-directory')({
+export const Route = createFileRoute('/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/create-ged-directory')({
   validateSearch: searchSchema,
   pendingComponent: LoaderModal,
 });

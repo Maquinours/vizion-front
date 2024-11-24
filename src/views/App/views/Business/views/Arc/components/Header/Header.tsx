@@ -6,7 +6,7 @@ import { useAuthentifiedUserQuery } from '../../../../../../utils/functions/getA
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { queries } from '../../../../../../../../utils/constants/queryKeys';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/arc');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/arc');
 
 export default function AppViewBusinessViewArcViewHeaderComponent() {
   const { businessId } = routeApi.useParams();

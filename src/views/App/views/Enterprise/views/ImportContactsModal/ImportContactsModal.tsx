@@ -1,22 +1,22 @@
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { getRouteApi } from '@tanstack/react-router';
 import { useState } from 'react';
 import ReactModal from 'react-modal';
+import ProfileRequestDto from '../../../../../../utils/types/ProfileRequestDto';
 import styles from './ImportContactsModal.module.scss';
 import AppViewEnterpriseViewImportContactsModalViewStepOneComponent from './components/StepOne/StepOne';
-import ProfileRequestDto from '../../../../../../utils/types/ProfileRequestDto';
 import AppViewEnterpriseViewImportContactsModalViewStepTwoComponent from './components/StepTwo/StepTwo';
 
-const Route = getRouteApi('/app/enterprises/$enterpriseId/import-contacts');
+const routeApi = getRouteApi('/app/enterprises_/$enterpriseId/import-contacts');
 
 export default function AppViewEnterpriseViewImportContactsModalView() {
-  const navigate = useNavigate();
+  const navigate = routeApi.useNavigate();
 
   const [step, setStep] = useState<0 | 1>(0);
   const [file, setFile] = useState<File>();
   const [profiles, setProfiles] = useState<Array<ProfileRequestDto>>([]);
 
   const onClose = () => {
-    navigate({ from: Route.id, to: '..', search: (old) => old, replace: true, resetScroll: false });
+    navigate({ to: '..', search: true, replace: true, resetScroll: false });
   };
 
   return (

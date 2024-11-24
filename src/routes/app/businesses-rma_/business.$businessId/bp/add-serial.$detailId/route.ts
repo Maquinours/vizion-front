@@ -3,7 +3,7 @@ import { queries } from '../../../../../../utils/constants/queryKeys';
 import BusinessBpResponseDto from '../../../../../../utils/types/BusinessBpResponseDto';
 import LoaderModal from '../../../../../../components/LoaderModal/LoaderModal';
 
-export const Route = createFileRoute('/app/businesses-rma/business/$businessId/bp/add-serial/$detailId')({
+export const Route = createFileRoute('/app/businesses-rma_/business/$businessId/bp/add-serial/$detailId')({
   loader: async ({ context: { queryClient }, params: { businessId, detailId } }) => {
     await queryClient.ensureQueryData({
       ...queries['business-bp-details'].detail._ctx.byId(detailId),

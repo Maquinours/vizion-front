@@ -194,7 +194,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentCameraMo
                     className="grid w-80 grid-cols-3 place-items-center rounded-md border-2 shadow-md"
                     onClick={() => setModal({ type: ExpertStudyModalType.DOME_CAMERAS })}
                   >
-                    <img src={'https://bd.vizeo.eu/6-Photos/DO518HD/DO518HD.jpg'} style={{ width: '70px' }} className="mr-2" />
+                    <img src={'https://bd.vizeo.eu/6-Photos/DO518HD/DO518HD.jpg'} alt="Produit DO518HD" style={{ width: '70px' }} className="mr-2" />
                     <p className="text-black-700 w-32 text-sm font-bold">{'Dôme Motorisé'}</p>
                     <BiShow className="h-5 w-12 font-bold" />
                   </button>

@@ -1,9 +1,9 @@
 import { yupResolver } from '@hookform/resolvers/yup';
+import { getRouteApi } from '@tanstack/react-router';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import styles from './SearchSection.module.scss';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import React, { useEffect } from 'react';
 
 const routeApi = getRouteApi('/app/products/serial-numbers');
 
@@ -12,7 +12,7 @@ const yupSchema = yup.object({
 });
 
 export default function AppViewProductsViewSerialNumbersModalViewSearchSectionComponent() {
-  const navigate = useNavigate();
+  const navigate = routeApi.useNavigate();
 
   const { serialNumbersSearch } = routeApi.useSearch();
 
@@ -22,7 +22,6 @@ export default function AppViewProductsViewSerialNumbersModalViewSearchSectionCo
 
   const onSearch = ({ searchValue }: yup.InferType<typeof yupSchema>) => {
     navigate({
-      from: routeApi.id,
       search: (old) => ({ ...old, serialNumbersSearch: searchValue || undefined, serialNumbersPage: undefined }),
       replace: true,
       resetScroll: false,
@@ -32,7 +31,6 @@ export default function AppViewProductsViewSerialNumbersModalViewSearchSectionCo
   const onReset = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     navigate({
-      from: routeApi.id,
       search: (old) => ({ ...old, serialNumbersSearch: undefined, serialNumbersPage: undefined }),
       replace: true,
       resetScroll: false,

@@ -47,27 +47,27 @@ export default function GedComponentTableComponentContextMenuComponent({
                   )} */}
                   {selectedItem?.dir === true && (
                     <MenuItem>
-                      <Link {...getCreateDirectoryLink(selectedItem)} preload="viewport">
+                      <Link {...getCreateDirectoryLink(selectedItem)} preload="render" onClick={onClose}>
                         <FaFileImport className={styles.icon} />
                         <span className={styles.text}>Nouveau dossier</span>
                       </Link>
                     </MenuItem>
                   )}
                   <MenuItem>
-                    <Link {...getImportFilesLink(selectedItem)} preload="viewport">
+                    <Link {...getImportFilesLink(selectedItem)} preload="render" onClick={onClose}>
                       <FaFileImport className={styles.icon} />
                       <span className={styles.text}>{selectedItem?.dir ? 'Importer un fichier' : 'Ajouter un fichier'}</span>
                     </Link>
                   </MenuItem>
                   <MenuItem>
-                    <Link {...getRenameLink(selectedItem)} preload="viewport">
+                    <Link {...getRenameLink(selectedItem)} preload="render" onClick={onClose}>
                       <MdModeEdit className={styles.icon} />
                       <span className={styles.text}>Renommer le {selectedItem?.dir ? 'dossier' : 'fichier'}</span>
                     </Link>
                   </MenuItem>
                   {isVizeoMember && (
                     <MenuItem>
-                      <Link {...getDeleteLink(selectedItem)} preload="viewport">
+                      <Link {...getDeleteLink(selectedItem)} preload="render" onClick={onClose}>
                         <FaTrash className={styles.icon} />
                         <span className={styles.text}>Supprimer le {selectedItem?.dir ? 'dossier' : 'fichier'}</span>
                       </Link>

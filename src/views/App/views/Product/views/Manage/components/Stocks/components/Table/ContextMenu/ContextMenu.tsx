@@ -1,14 +1,14 @@
 import { ClickAwayListener, Fade, MenuItem, MenuList, Paper, Popper } from '@mui/material';
+import { VirtualElement } from '@popperjs/core';
+import { Link } from '@tanstack/react-router';
+import React from 'react';
 import { FaTrash } from 'react-icons/fa';
 import { HiPencilAlt } from 'react-icons/hi';
 import { MdOutlineInventory } from 'react-icons/md';
-import { VirtualElement } from '@popperjs/core';
-import React from 'react';
 import ProductVersionShelfStockResponseDto from '../../../../../../../../../../../utils/types/ProductVersionShelfStockResponseDto';
 import styles from './ContextMenu.module.scss';
-import { Link, getRouteApi } from '@tanstack/react-router';
 
-const routeApi = getRouteApi('/app/products/$productId/manage');
+const routePath = '/app/products/$productId/manage';
 
 type AppViewProductViewManageViewStocksComponentTableComponentContextMenuComponentProps = Readonly<{
   anchorElement: VirtualElement | undefined;
@@ -35,19 +35,46 @@ export default function AppViewProductViewManageViewStocksComponentTableComponen
               {stock && (
                 <MenuList>
                   <MenuItem>
-                    <Link from={routeApi.id} to="stock-history/$stockId" params={{ stockId: stock.id }} search replace resetScroll={false} preload="viewport">
+                    <Link
+                      from={routePath}
+                      to="stock-history/$stockId"
+                      params={{ stockId: stock.id }}
+                      search
+                      replace
+                      resetScroll={false}
+                      preload="render"
+                      onClick={onClose}
+                    >
                       <MdOutlineInventory className={styles.icon} width={16} height={16} color="#16204E" />
                       <span className={styles.text}>Historique du stock</span>
                     </Link>
                   </MenuItem>
                   <MenuItem>
-                    <Link from={routeApi.id} to="delete-stock/$stockId" params={{ stockId: stock.id }} search replace resetScroll={false} preload="viewport">
+                    <Link
+                      from={routePath}
+                      to="delete-stock/$stockId"
+                      params={{ stockId: stock.id }}
+                      search
+                      replace
+                      resetScroll={false}
+                      preload="render"
+                      onClick={onClose}
+                    >
                       <FaTrash className={styles.icon} width={16} height={16} color="#16204E" />
                       <span className={styles.text}>Supprimer le stock</span>
                     </Link>
                   </MenuItem>
                   <MenuItem>
-                    <Link from={routeApi.id} to="update-stock/$stockId" params={{ stockId: stock.id }} search replace resetScroll={false} preload="viewport">
+                    <Link
+                      from={routePath}
+                      to="update-stock/$stockId"
+                      params={{ stockId: stock.id }}
+                      search
+                      replace
+                      resetScroll={false}
+                      preload="render"
+                      onClick={onClose}
+                    >
                       <HiPencilAlt className={styles.icon} width={16} height={16} color="#16204E" />
                       <span className={styles.text}>Modifier le stock</span>
                     </Link>

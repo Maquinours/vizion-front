@@ -18,7 +18,7 @@ import styles from './Table.module.scss';
 import AppViewDashboardViewPersonalTasksComponentPersonalTasksComponentTableComponentContextMenuComponent from './components/ContextMenu/ContextMenu';
 import { markTaskAsRead } from './utils/api/tasks';
 
-const Route = getRouteApi('/app/dashboard');
+const routeApi = getRouteApi('/app/dashboard');
 
 const columnHelper = createColumnHelper<TaskResponseDto>();
 
@@ -31,6 +31,8 @@ export default function AppViewDashboardViewPersonalTasksComponentTableComponent
   isLoading,
 }: AppViewDashboardViewPersonalTasksComponentTableComponentProps) {
   const queryClient = useQueryClient();
+
+  const { personalTaskState: state } = routeApi.useSearch();
 
   const [task, setTask] = useState<TaskResponseDto>();
   const [contextMenuAnchor, setContextMenuAnchor] = useState<VirtualElement>();
@@ -64,7 +66,7 @@ export default function AppViewDashboardViewPersonalTasksComponentTableComponent
           if (original.mailId)
             item = (
               <Link
-                from={Route.id}
+                from={routeApi.id}
                 to="task-email/$taskId"
                 params={{ taskId: original.id }}
                 search
@@ -111,25 +113,25 @@ export default function AppViewDashboardViewPersonalTasksComponentTableComponent
                 {original.technicalSupportName?.trim() || 'Sans nom'}
               </Link>
             );
-          if (!!original.businessId)
+          if (original.businessId)
             return (
               <Link to="/app/businesses-rma/business/$businessId" params={{ businessId: original.businessId }}>
                 {original.businessNum}
               </Link>
             );
-          if (!!original.rmaId)
+          if (original.rmaId)
             return (
               <Link to="/app/businesses-rma/rma/$rmaId" params={{ rmaId: original.rmaId }}>
                 {original.rmaNum}
               </Link>
             );
-          if (!!original.enterpriseId)
+          if (original.enterpriseId)
             return (
               <Link to="/app/enterprises/$enterpriseId" params={{ enterpriseId: original.enterpriseId }}>
                 {original.enterpriseName}
               </Link>
             );
-          if (!!original.productId)
+          if (original.productId)
             return (
               <Link to="/app/products/$productId" params={{ productId: original.productId }}>
                 {original.reference}
@@ -205,7 +207,7 @@ export default function AppViewDashboardViewPersonalTasksComponentTableComponent
           rowId={'id'}
           getRowClassName={(row) =>
             classNames({
-              [styles.not_read]: !row.taskOpened,
+              [styles.not_read]: state === TaskState.CREATED && !row.taskOpened,
             })
           }
         />

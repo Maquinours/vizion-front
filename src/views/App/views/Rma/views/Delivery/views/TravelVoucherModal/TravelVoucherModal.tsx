@@ -1,17 +1,17 @@
+import { getRouteApi } from '@tanstack/react-router';
 import { useState } from 'react';
-import AppViewRmaViewDeliveryViewTravelVoucherModalViewShowModalComponent from './components/ShowModal/ShowModal';
 import AppViewRmaViewDeliveryViewTravelVoucherModalViewFormModalComponent from './components/FormModal/FormModal';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import AppViewRmaViewDeliveryViewTravelVoucherModalViewShowModalComponent from './components/ShowModal/ShowModal';
 
 enum Step {
   FORM,
   SHOW,
 }
 
-const routeApi = getRouteApi('/app/businesses-rma/rma/$rmaId/delivery/travel-voucher');
+const routeApi = getRouteApi('/app/businesses-rma_/rma/$rmaId/delivery/travel-voucher');
 
 export default function AppViewRmaViewDeliveryViewTravelVoucherModalView() {
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const [step, setStep] = useState<Step>(Step.FORM);
   const [data, setData] = useState<Array<File>>();

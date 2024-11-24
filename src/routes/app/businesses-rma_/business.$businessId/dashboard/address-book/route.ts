@@ -7,7 +7,7 @@ const searchSchema = z.object({
   page: z.number().min(0).catch(0),
 });
 
-export const Route = createFileRoute('/app/businesses-rma/business/$businessId/dashboard/address-book')({
+export const Route = createFileRoute('/app/businesses-rma_/business/$businessId/dashboard/address-book')({
   validateSearch: (data: { searchText?: string; page?: number } & SearchSchemaInput) => searchSchema.parse(data),
   pendingComponent: LoaderModal,
 });

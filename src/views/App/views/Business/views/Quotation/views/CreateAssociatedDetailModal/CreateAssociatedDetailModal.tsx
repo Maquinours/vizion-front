@@ -1,18 +1,18 @@
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import ReactModal from 'react-modal';
-import styles from './CreateAssociatedDetailModal.module.scss';
-import * as yup from 'yup';
-import ProductResponseDto from '../../../../../../../../utils/types/ProductResponseDto';
-import { useMutation, useQuery, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { queries } from '../../../../../../../../utils/constants/queryKeys';
-import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import CustomSelect from '../../../../../../../../components/CustomSelect/CustomSelect';
-import { createBusinessQuotationDetail } from '../../../../../../../../utils/api/businessQuotationDetails';
+import { useMutation, useQuery, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
+import { getRouteApi } from '@tanstack/react-router';
+import { Controller, useForm } from 'react-hook-form';
+import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
 import { toast } from 'react-toastify';
+import * as yup from 'yup';
+import CustomSelect from '../../../../../../../../components/CustomSelect/CustomSelect';
+import { createBusinessQuotationDetail } from '../../../../../../../../utils/api/businessQuotationDetails';
+import { queries } from '../../../../../../../../utils/constants/queryKeys';
+import ProductResponseDto from '../../../../../../../../utils/types/ProductResponseDto';
+import styles from './CreateAssociatedDetailModal.module.scss';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/quotation/create-associated-detail/$detailId');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/quotation/create-associated-detail/$detailId');
 
 const yupSchema = yup.object({
   product: yup.mixed<ProductResponseDto>().required('La référence est requise.'),
@@ -21,7 +21,7 @@ const yupSchema = yup.object({
 
 export default function AppViewBusinessViewQuotationViewCreateAssociatedDetailModalView() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { businessId, detailId } = routeApi.useParams();
 
@@ -44,7 +44,7 @@ export default function AppViewBusinessViewQuotationViewCreateAssociatedDetailMo
   });
 
   const onClose = () => {
-    navigate({ to: '../..', search: (old) => old, replace: true, resetScroll: false, ignoreBlocker: true });
+    navigate({ to: '../..', search: true, replace: true, resetScroll: false, ignoreBlocker: true });
   };
 
   const { mutate, isPending } = useMutation({

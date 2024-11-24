@@ -3,7 +3,8 @@ import { LifesheetAssociatedItem } from '../../../../../../../../utils/enums/Lif
 import styles from './Lifesheet.module.scss';
 import LifesheetComponent from '../../../../../../../../components/Lifesheet/Lifesheet';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/dashboard');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/dashboard');
+const routePath = '/app/businesses-rma/business/$businessId/dashboard';
 
 export default function AppViewBusinessViewDashboardViewLifesheetComponent() {
   const { businessId } = routeApi.useParams();
@@ -15,15 +16,15 @@ export default function AppViewBusinessViewDashboardViewLifesheetComponent() {
         page={0}
         size={100}
         createLink={{
-          from: routeApi.id,
+          from: routePath,
           to: '/app/businesses-rma/business/$businessId/dashboard/create-lifesheet',
-          search: (old) => old,
+          search: true,
           replace: true,
           resetScroll: false,
           ignoreBlocker: true,
         }}
         getEmailLink={(data) => ({
-          from: routeApi.id,
+          from: routePath,
           to: '/app/businesses-rma/business/$businessId/dashboard/lifesheet-email/$lifesheetId',
           params: { lifesheetId: data.id },
           search: true,

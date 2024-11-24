@@ -1,22 +1,22 @@
-import ReactModal from 'react-modal';
-import styles from './AddSerialModal.module.scss';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import * as yup from 'yup';
-import ProductVersionResponseDto from '../../../../../../../../utils/types/ProductVersionResponseDto';
-import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import CustomSelect from '../../../../../../../../components/CustomSelect/CustomSelect';
 import { useMutation, useQuery, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { queries } from '../../../../../../../../utils/constants/queryKeys';
+import { getRouteApi } from '@tanstack/react-router';
 import { useEffect } from 'react';
-import { createBpSerial } from '../../../../../../../../utils/api/businessBpSerials';
-import SerialNumberOperationType from '../../../../../../../../utils/enums/SerialNumberOperationType';
-import BusinessBpResponseDto from '../../../../../../../../utils/types/BusinessBpResponseDto';
-import BusinessBpDetailsResponseDto from '../../../../../../../../utils/types/BusinessBpDetailsResponseDto';
-import { toast } from 'react-toastify';
+import { Controller, useForm } from 'react-hook-form';
+import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
+import { toast } from 'react-toastify';
+import * as yup from 'yup';
+import CustomSelect from '../../../../../../../../components/CustomSelect/CustomSelect';
+import { createBpSerial } from '../../../../../../../../utils/api/businessBpSerials';
+import { queries } from '../../../../../../../../utils/constants/queryKeys';
+import SerialNumberOperationType from '../../../../../../../../utils/enums/SerialNumberOperationType';
+import BusinessBpDetailsResponseDto from '../../../../../../../../utils/types/BusinessBpDetailsResponseDto';
+import BusinessBpResponseDto from '../../../../../../../../utils/types/BusinessBpResponseDto';
+import ProductVersionResponseDto from '../../../../../../../../utils/types/ProductVersionResponseDto';
+import styles from './AddSerialModal.module.scss';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/bp/add-serial/$detailId');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/bp/add-serial/$detailId');
 
 const yupSchema = yup.object().shape({
   productVersion: yup.mixed<ProductVersionResponseDto>().required('Champs requis'),
@@ -25,7 +25,7 @@ const yupSchema = yup.object().shape({
 
 export default function AppViewBusinessViewBpViewAddSerialModalView() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { businessId, detailId } = routeApi.useParams();
 
@@ -46,7 +46,7 @@ export default function AppViewBusinessViewBpViewAddSerialModalView() {
   });
 
   const onClose = () => {
-    navigate({ to: '../..', search: (old) => old, replace: true, resetScroll: false });
+    navigate({ to: '../..', search: true, replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({

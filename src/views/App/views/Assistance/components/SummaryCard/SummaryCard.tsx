@@ -2,7 +2,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { createColumnHelper } from '@tanstack/react-table';
 import { useEffect, useMemo } from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, useWatch } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import * as yup from 'yup';
 import CardComponent from '../../../../../../components/Card/Card';
@@ -39,12 +39,14 @@ export default function AppViewAssistanceViewSummaryCardComponent({ assistance }
   const queryClient = useQueryClient();
   const { data, isLoading } = useQuery(technicalSupportRecapOptionsQueryKeys.list._ctx.byTechnicalSupportId(assistance.id));
 
-  const { register, setValue, getValues, watch, handleSubmit } = useForm({
+  const { control, register, setValue, getValues, handleSubmit } = useForm({
     resolver: yupResolver(yupSchema),
     defaultValues: {
       items: [{ name: '', value: '' }],
     },
   });
+
+  const items = useWatch({ control, name: 'items' });
 
   const columns = useMemo(
     () => [
@@ -95,7 +97,7 @@ export default function AppViewAssistanceViewSummaryCardComponent({ assistance }
     const items = getValues('items');
     const lastItem = items.at(-1);
     if (!lastItem || !!lastItem.name || !!lastItem.value) setValue('items', [...items, { name: '', value: '' }]);
-  }, [JSON.stringify(watch('items'))]);
+  }, [JSON.stringify(items)]);
 
   return (
     <CardComponent title="Récapitulatif" className={styles.card}>
@@ -116,13 +118,13 @@ export default function AppViewAssistanceViewSummaryCardComponent({ assistance }
                 style={{ textDecoration: 'revert', color: 'revert' }}
                 className="btn btn-secondary"
               >
-                Accéder à l'enregistreur
+                Accéder à l&apos;enregistreur
               </a>
             );
           })()}
         </div>
         <div className={styles.table_container}>
-          <TableComponent columns={columns} data={watch('items')} isLoading={isLoading} />
+          <TableComponent columns={columns} data={items} isLoading={isLoading} />
         </div>
       </div>
     </CardComponent>

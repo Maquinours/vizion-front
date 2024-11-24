@@ -4,7 +4,7 @@ import LoaderModal from '../../../../../../components/LoaderModal/LoaderModal';
 import AdvancedProductSpecificationResponseDto from '../../../../../../utils/types/AdvancedProductSpecificationResponseDto';
 import { QueryKey } from '@tanstack/react-query';
 
-export const Route = createFileRoute('/app/products/$productId/manage/add-specification/$filterId')({
+export const Route = createFileRoute('/app/products_/$productId/manage/add-specification/$filterId')({
   loader: async ({ context: { queryClient }, params: { filterId } }) => {
     let initialDataKey: QueryKey | undefined = undefined;
 

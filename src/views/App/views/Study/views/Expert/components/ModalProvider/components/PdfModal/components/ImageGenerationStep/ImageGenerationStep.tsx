@@ -36,7 +36,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentPdfModal
             step: 'SHOW',
             images: Array.from(data.current.entries())
               .sort(([a], [b]) => a - b)
-              .map(([_, blob]) => blob),
+              .map(([, blob]) => blob),
           },
         });
     };

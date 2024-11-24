@@ -1,10 +1,10 @@
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { getRouteApi } from '@tanstack/react-router';
 import CreateLifesheetModalComponent from '../../../../../../../../components/CreateLifesheetModal/CreateLifesheetModal';
 import { LifesheetAssociatedItem } from '../../../../../../../../utils/enums/LifesheetAssociatedItem';
 
-const routeApi = getRouteApi('/app/products/$productId/informations/create-lifesheet-comment');
+const routeApi = getRouteApi('/app/products_/$productId/informations/create-lifesheet-comment');
 export default function AppViewProductViewInformationsViewCreateLifesheetCommentModalView() {
-  const navigate = useNavigate();
+  const navigate = routeApi.useNavigate();
 
   const { productId } = routeApi.useParams();
 
@@ -12,7 +12,7 @@ export default function AppViewProductViewInformationsViewCreateLifesheetComment
     <CreateLifesheetModalComponent
       associatedItemType={LifesheetAssociatedItem.PRODUCT}
       associatedItemId={productId}
-      onClose={() => navigate({ from: routeApi.id, to: '..', search: true, replace: true, resetScroll: false })}
+      onClose={() => navigate({ to: '..', search: true, replace: true, resetScroll: false })}
     />
   );
 }

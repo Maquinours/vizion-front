@@ -1,20 +1,20 @@
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import ReactModal from 'react-modal';
-import * as yup from 'yup';
-import styles from './UpdateShippingPriceModal.module.scss';
-import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
+import { getRouteApi } from '@tanstack/react-router';
+import { isAxiosError } from 'axios';
+import { useEffect } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import ReactModal from 'react-modal';
+import { PulseLoader } from 'react-spinners';
+import { toast } from 'react-toastify';
+import * as yup from 'yup';
+import CurrencyFormat from '../../../../../../../../components/CurrencyFormat/CurrencyFormat';
 import { updateBusinessArc } from '../../../../../../../../utils/api/businessArcs';
 import { queries } from '../../../../../../../../utils/constants/queryKeys';
 import BusinessArcResponseDto from '../../../../../../../../utils/types/BusinessArcResponseDto';
-import { toast } from 'react-toastify';
-import { PulseLoader } from 'react-spinners';
-import CurrencyFormat from '../../../../../../../../components/CurrencyFormat/CurrencyFormat';
-import { useEffect } from 'react';
-import { isAxiosError } from 'axios';
+import styles from './UpdateShippingPriceModal.module.scss';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/arc/update-shipping-price');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/arc/update-shipping-price');
 
 const yupSchema = yup.object({
   shippingServicePrice: yup
@@ -27,7 +27,7 @@ const yupSchema = yup.object({
 
 export default function AppViewBusinessViewArcViewUpdateShippingPriceModalView() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { businessId } = routeApi.useParams();
 
@@ -44,7 +44,7 @@ export default function AppViewBusinessViewArcViewUpdateShippingPriceModalView()
   });
 
   const onClose = () => {
-    navigate({ to: '..', search: (old) => old, replace: true, resetScroll: false, ignoreBlocker: true });
+    navigate({ to: '..', search: true, replace: true, resetScroll: false, ignoreBlocker: true });
   };
 
   const { mutate, isPending } = useMutation({
@@ -79,7 +79,7 @@ export default function AppViewBusinessViewArcViewUpdateShippingPriceModalView()
         isAxiosError(error) &&
         !!error.response &&
         typeof error.response === 'object' &&
-        'message' in error.response?.data &&
+        'message' in error.response.data &&
         error.response?.data.message === 'Numéro de commande requis.'
       )
         message = 'Veuillez saisir un numéro de commande avant de modifier les frais de port';

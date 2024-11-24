@@ -1,13 +1,13 @@
 import { ClickAwayListener, Fade, MenuItem, MenuList, Paper, Popper } from '@mui/material';
+import { VirtualElement } from '@popperjs/core';
+import { Link } from '@tanstack/react-router';
 import { FaTrash } from 'react-icons/fa';
 import { HiPencilAlt } from 'react-icons/hi';
 import { IoMdAddCircleOutline } from 'react-icons/io';
-import styles from './SubQuotationContextMenu.module.scss';
-import { Link, getRouteApi } from '@tanstack/react-router';
-import { VirtualElement } from '@popperjs/core';
 import BusinessSubQuotationResponseDto from '../../../../../../../../../../utils/types/BusinessSubQuotationResponseDto';
+import styles from './SubQuotationContextMenu.module.scss';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/quotation');
+const routePath = '/app/businesses-rma/business/$businessId/quotation';
 
 type AppViewBusinessViewQuotationViewTableComponentSubQuotationContextMenuComponentProps = Readonly<{
   anchorElement: VirtualElement | undefined;
@@ -35,14 +35,15 @@ export default function AppViewBusinessViewQuotationViewTableComponentSubQuotati
                 <MenuList>
                   <MenuItem>
                     <Link
-                      from={routeApi.id}
+                      from={routePath}
                       to="create-detail/$subquotationId"
                       params={{ subquotationId: item.id }}
-                      search={(old) => old}
+                      search
                       replace
                       resetScroll={false}
-                      preload="viewport"
+                      preload="render"
                       ignoreBlocker
+                      onClick={onClose}
                     >
                       <IoMdAddCircleOutline width={16} height={16} color={'#16204E'} className={styles.icon} />
                       <span className={styles.text}>Ajouter un produit</span>
@@ -50,14 +51,15 @@ export default function AppViewBusinessViewQuotationViewTableComponentSubQuotati
                   </MenuItem>
                   <MenuItem>
                     <Link
-                      from={routeApi.id}
+                      from={routePath}
                       to="update-subquotation/$subquotationId"
                       params={{ subquotationId: item.id }}
-                      search={(old) => old}
+                      search
                       replace
                       resetScroll={false}
-                      preload="viewport"
+                      preload="render"
                       ignoreBlocker
+                      onClick={onClose}
                     >
                       <HiPencilAlt width={16} height={16} color={'#16204E'} className={styles.icon} />
                       <span className={styles.text}>Modifier</span>
@@ -65,14 +67,15 @@ export default function AppViewBusinessViewQuotationViewTableComponentSubQuotati
                   </MenuItem>
                   <MenuItem>
                     <Link
-                      from={routeApi.id}
+                      from={routePath}
                       to="delete-subquotation/$subquotationId"
                       params={{ subquotationId: item.id }}
-                      search={(old) => old}
+                      search
                       replace
                       resetScroll={false}
-                      preload="viewport"
+                      preload="render"
                       ignoreBlocker
+                      onClick={onClose}
                     >
                       <FaTrash width={16} height={16} color={'#16204E'} className={styles.icon} />
                       <span className={styles.text}>Supprimer</span>

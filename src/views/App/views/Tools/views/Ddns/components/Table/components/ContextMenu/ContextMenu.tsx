@@ -37,10 +37,11 @@ export default function AppViewToolsViewDdnsViewTableComponentContextMenuCompone
                       from={routeApi.id}
                       to="delete/$ddnsId"
                       params={{ ddnsId: ddns.id }}
-                      search={(old) => old}
+                      search
                       replace
                       resetScroll={false}
-                      preload="viewport"
+                      preload="render"
+                      onClick={onClose}
                     >
                       <FaTrash className={styles.icon} />
                       <span className={styles.text}>Supprimer</span>

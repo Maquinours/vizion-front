@@ -4,7 +4,7 @@ import { queries } from '../../../../../../utils/constants/queryKeys';
 import AllBusinessResponseDto from '../../../../../../utils/types/AllBusinessResponseDto';
 import LoaderModal from '../../../../../../components/LoaderModal/LoaderModal';
 
-export const Route = createFileRoute('/app/businesses-rma/rma/$rmaId/support/delete-link/$associatedId')({
+export const Route = createFileRoute('/app/businesses-rma_/rma/$rmaId/support/delete-link/$associatedId')({
   loader: async ({ context: { queryClient }, params: { associatedId } }) => {
     let initialDataKey: QueryKey | undefined;
 

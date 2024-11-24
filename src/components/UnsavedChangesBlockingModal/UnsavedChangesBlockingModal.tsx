@@ -13,7 +13,7 @@ export default function UnsavedChangesBlockingModalComponent({ proceed, reset, s
     <ReactModal isOpen className={styles.modal} onRequestClose={reset} overlayClassName="Overlay">
       <div className={styles.content}>
         <h1 className={styles.title}>
-          Des modifications n'ont pas été sauvegardées.
+          Des modifications n&apos;ont pas été sauvegardées.
           <br />
           Voulez vous tout de même <span className="text-[var(--secondary-color)]">quitter</span> la page ?
         </h1>

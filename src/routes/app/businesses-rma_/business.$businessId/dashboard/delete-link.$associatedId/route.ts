@@ -4,7 +4,7 @@ import AllBusinessResponseDto from '../../../../../../utils/types/AllBusinessRes
 import { QueryKey } from '@tanstack/react-query';
 import LoaderModal from '../../../../../../components/LoaderModal/LoaderModal';
 
-export const Route = createFileRoute('/app/businesses-rma/business/$businessId/dashboard/delete-link/$associatedId')({
+export const Route = createFileRoute('/app/businesses-rma_/business/$businessId/dashboard/delete-link/$associatedId')({
   loader: async ({ context: { queryClient }, params: { associatedId } }) => {
     let initialDataKey: QueryKey | undefined;
 

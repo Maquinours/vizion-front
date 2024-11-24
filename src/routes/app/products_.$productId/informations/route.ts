@@ -12,7 +12,7 @@ const searchSchema = z.object({
   lifesheetPage: z.number().min(0).catch(0),
 });
 
-export const Route = createFileRoute('/app/products/$productId/informations')({
+export const Route = createFileRoute('/app/products_/$productId/informations')({
   validateSearch: (data: { lifesheetPage?: number } & SearchSchemaInput) => searchSchema.parse(data),
   loaderDeps: ({ search: { lifesheetPage } }) => ({
     lifesheetPage,
@@ -26,14 +26,18 @@ export const Route = createFileRoute('/app/products/$productId/informations')({
         queryClient.prefetchQuery(geds.detail._ctx.byTypeAndId(FileType.PRODUIT, productId));
 
         queryClient.prefetchQuery(
-          lifesheets
-            .page({ page: lifesheetPage, size: lifesheetSize })
-            ._ctx.byAssociatedItem({ associatedItemType: LifesheetAssociatedItem.PRODUCT, associatedItemId: productId }),
+          lifesheets.page({ page: lifesheetPage, size: lifesheetSize })._ctx.byAssociatedItem({
+            associatedItemType: LifesheetAssociatedItem.PRODUCT,
+            associatedItemId: productId,
+          }),
         );
 
         queryClient.prefetchQuery(
           queries.tasks.page._ctx.byAssociatedItem(
-            { associatedItemType: WorkloadAssociatedItem.PRODUCT, associatedItemId: productId },
+            {
+              associatedItemType: WorkloadAssociatedItem.PRODUCT,
+              associatedItemId: productId,
+            },
             { page: workloadsPage, size: workloadsSize },
           ),
         );

@@ -19,9 +19,15 @@ const searchSchema = z.object({
   lifesheetPage: z.number().int().min(0).catch(0),
 });
 
-export const Route = createFileRoute('/app/enterprises/$enterpriseId')({
-  validateSearch: (data: { allBusinessPage?: number; contactsSearch?: string; contactsPage?: number; lifesheetPage?: number } & SearchSchemaInput) =>
-    searchSchema.parse(data),
+export const Route = createFileRoute('/app/enterprises_/$enterpriseId')({
+  validateSearch: (
+    data: {
+      allBusinessPage?: number;
+      contactsSearch?: string;
+      contactsPage?: number;
+      lifesheetPage?: number;
+    } & SearchSchemaInput,
+  ) => searchSchema.parse(data),
   loaderDeps: ({ search: { allBusinessPage, contactsSearch, contactsPage, lifesheetPage } }) => ({
     allBusinessPage,
     contactsSearch,
@@ -50,16 +56,26 @@ export const Route = createFileRoute('/app/enterprises/$enterpriseId')({
       initialDataUpdatedAt: () => (initialDataKey ? queryClient.getQueryState(initialDataKey)?.dataUpdatedAt : undefined),
     });
 
-    queryClient.prefetchQuery(allBusinesses.page._ctx.byEnterpriseId({ enterpriseId, page: allBusinessPage, size: allBusinessSize }));
+    queryClient.prefetchQuery(
+      allBusinesses.page._ctx.byEnterpriseId({
+        enterpriseId,
+        page: allBusinessPage,
+        size: allBusinessSize,
+      }),
+    );
     queryClient.prefetchQuery(queries.profiles.page._ctx.byEnterpriseIdAndSearch(enterpriseId, contactsSearch, { page: contactsPage, size: contactsSize }));
     queryClient.prefetchQuery(
-      lifesheets
-        .page({ page: lifesheetPage, size: lifesheetSize })
-        ._ctx.byAssociatedItem({ associatedItemType: LifesheetAssociatedItem.ENTERPRISE, associatedItemId: enterpriseId }),
+      lifesheets.page({ page: lifesheetPage, size: lifesheetSize })._ctx.byAssociatedItem({
+        associatedItemType: LifesheetAssociatedItem.ENTERPRISE,
+        associatedItemId: enterpriseId,
+      }),
     );
     queryClient.prefetchQuery(
       queries.tasks.page._ctx.byAssociatedItem(
-        { associatedItemType: WorkloadAssociatedItem.ENTERPRISE, associatedItemId: enterpriseId },
+        {
+          associatedItemType: WorkloadAssociatedItem.ENTERPRISE,
+          associatedItemId: enterpriseId,
+        },
         { page: workloadsPage, size: workloadsSize },
       ),
     );

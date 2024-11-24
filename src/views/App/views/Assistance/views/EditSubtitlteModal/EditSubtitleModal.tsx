@@ -1,20 +1,20 @@
-import ReactModal from 'react-modal';
-import styles from './EditSubtitleModal.module.scss';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import * as yup from 'yup';
-import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { getRouteApi } from '@tanstack/react-router';
 import { useContext } from 'react';
+import { useForm } from 'react-hook-form';
+import ReactModal from 'react-modal';
+import * as yup from 'yup';
 import { AssistanceContext } from '../../utils/contexts/context';
+import styles from './EditSubtitleModal.module.scss';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/assistance/$assistanceId/edit-subtitle');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/edit-subtitle');
 
 const yupSchema = yup.object().shape({
   name: yup.string().required('Le nom est requis'),
 });
 
 export default function AppViewAssistanceViewEditSubtitleModalView() {
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { getValues, setValue, update } = useContext(AssistanceContext)!;
 
@@ -26,7 +26,7 @@ export default function AppViewAssistanceViewEditSubtitleModalView() {
   });
 
   const onClose = () => {
-    navigate({ to: '..', search: (old) => old });
+    navigate({ to: '..', search: true, replace: true, resetScroll: false });
   };
 
   const onSubmit = ({ name }: yup.InferType<typeof yupSchema>) => {

@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { getRouteApi } from '@tanstack/react-router';
 import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
 import { toast } from 'react-toastify';
@@ -7,18 +7,18 @@ import { removeAssociatedProduct } from '../../../../../../../../utils/api/produ
 import { queries } from '../../../../../../../../utils/constants/queryKeys';
 import styles from './RemoveAssociatedProductModal.module.scss';
 
-const routeApi = getRouteApi('/app/products/$productId/manage/remove-associated-product/$associatedProductId');
+const routeApi = getRouteApi('/app/products_/$productId/manage/remove-associated-product/$associatedProductId');
 
 export default function AppViewProductViewManageViewRemoveAssociatedProductModal() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate();
+  const navigate = routeApi.useNavigate();
 
   const { productId, associatedProductId } = routeApi.useParams();
 
   const { data: associatedProduct } = useSuspenseQuery(queries.product.detail(associatedProductId));
 
   const onClose = () => {
-    navigate({ from: routeApi.id, to: '../..', search: true, replace: true, resetScroll: false });
+    navigate({ to: '../..', search: true, replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({

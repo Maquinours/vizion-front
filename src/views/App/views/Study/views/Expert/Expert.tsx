@@ -14,7 +14,7 @@ import AppViewStudyViewExpertViewProductsMenuComponent from './components/Produc
 import ExpertStudyContext, { ExpertStudyModal, ExpertStudyPaneClickFunction } from './utils/context';
 import { parseStudy } from './utils/functions/parse';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/study/expert');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId_/study/expert');
 
 const selector = (state: RFState) => ({
   hasPage: state.pages.length > 0,
@@ -41,7 +41,7 @@ export default function AppViewStudyViewExpertView() {
 
   useEffect(() => {
     if (getBusinessId() !== businessId) {
-      if (!!synoptic?.synopticList) {
+      if (synoptic?.synopticList) {
         parseStudy(synoptic.synopticList).then((study) => {
           importStudy(study);
         });

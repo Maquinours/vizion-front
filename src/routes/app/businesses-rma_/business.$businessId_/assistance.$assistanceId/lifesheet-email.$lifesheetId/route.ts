@@ -5,7 +5,7 @@ import { QueryKey } from '@tanstack/react-query';
 import Page from '../../../../../../utils/types/Page';
 import LifeSheetResponseDto from '../../../../../../utils/types/LifeSheetResponseDto';
 
-export const Route = createFileRoute('/app/businesses-rma/business/$businessId/assistance/$assistanceId/lifesheet-email/$lifesheetId')({
+export const Route = createFileRoute('/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/lifesheet-email/$lifesheetId')({
   loader: async ({ context: { queryClient }, params: { lifesheetId } }) => {
     let initialDataKey: QueryKey | undefined = undefined;
     const lifesheet = await queryClient.ensureQueryData({

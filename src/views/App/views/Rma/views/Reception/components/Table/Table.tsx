@@ -9,7 +9,7 @@ import { VirtualElement } from '@popperjs/core';
 import { useState } from 'react';
 import AppViewRmaViewReceptionViewTableComponentContextMenuComponent from './ContextMenu/ContextMenu';
 
-const routeApi = getRouteApi('/app/businesses-rma/rma/$rmaId/reception');
+const routeApi = getRouteApi('/app/businesses-rma_/rma/$rmaId/reception');
 
 const columnHelper = createColumnHelper<AssistanceReceptionDetailResponseDto>();
 const columns = [

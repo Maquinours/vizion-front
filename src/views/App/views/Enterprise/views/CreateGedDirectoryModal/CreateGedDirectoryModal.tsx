@@ -1,11 +1,11 @@
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { getRouteApi } from '@tanstack/react-router';
 import CreateGedDirectoryModalComponent from '../../../../../../components/CreateGedDirectoryModal/CreateGedDirectoryModal';
 import FileType from '../../../../../../utils/enums/FileType';
 
-const routeApi = getRouteApi('/app/enterprises/$enterpriseId/create-ged-directory');
+const routeApi = getRouteApi('/app/enterprises_/$enterpriseId/create-ged-directory');
 
 export default function AppRouteAppEnterpriseViewCreateGedDirectoryModalView() {
-  const navigate = useNavigate();
+  const navigate = routeApi.useNavigate();
 
   const { enterpriseId } = routeApi.useParams();
   const { gedObjectRelativePath } = routeApi.useSearch();
@@ -17,7 +17,6 @@ export default function AppRouteAppEnterpriseViewCreateGedDirectoryModalView() {
       directoryRelativePath={gedObjectRelativePath}
       onClose={() =>
         navigate({
-          from: routeApi.id,
           to: '..',
           search: (old) => ({ ...old, gedObjectRelativePath: undefined }),
           replace: true,

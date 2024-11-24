@@ -1,17 +1,18 @@
-import { Link, getRouteApi, useNavigate } from '@tanstack/react-router';
-import { useAuthentifiedUserQuery } from '../../../../../../../../utils/functions/getAuthentifiedUser';
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
+import { Link, getRouteApi } from '@tanstack/react-router';
+import { toast } from 'react-toastify';
+import { createBusinessArc } from '../../../../../../../../../../utils/api/businessArcs';
 import { queries } from '../../../../../../../../../../utils/constants/queryKeys';
 import BusinessState from '../../../../../../../../../../utils/enums/BusinessState';
-import styles from './SectionOne.module.scss';
-import { createBusinessArc } from '../../../../../../../../../../utils/api/businessArcs';
 import BusinessArcDetailsRequestDto from '../../../../../../../../../../utils/types/BusinessArcDetailsRequestDto';
-import { toast } from 'react-toastify';
+import { useAuthentifiedUserQuery } from '../../../../../../../../utils/functions/getAuthentifiedUser';
+import styles from './SectionOne.module.scss';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/quotation');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/quotation');
+const routePath = '/app/businesses-rma/business/$businessId/quotation';
 
 export default function AppViewBusinessViewQuotationViewHeaderComponentSectionOneComponent() {
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
   const queryClient = useQueryClient();
 
   const { businessId } = routeApi.useParams();
@@ -94,10 +95,10 @@ export default function AppViewBusinessViewQuotationViewHeaderComponentSectionOn
         <span>{business.enterpriseName}</span> / <span>{business.title}</span>
       </div>
       <div className={styles.buttons_container}>
-        <Link from={routeApi.id} to="../study" className="btn btn-secondary">
+        <Link from={routePath} to="../study" className="btn btn-secondary">
           Accès à l&apos;étude
         </Link>
-        <Link from={routeApi.id} to="commercial-notice" search replace resetScroll={false} preload="intent" ignoreBlocker className="btn btn-primary">
+        <Link from={routePath} to="commercial-notice" search replace resetScroll={false} preload="intent" ignoreBlocker className="btn btn-primary">
           Générer les notices commerciales
         </Link>
         {/* {![BusinessState.FACTURE, BusinessState.ARC, BusinessState.BP, BusinessState.BL].includes(business.state!) ||

@@ -1,7 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { queries } from '../../../../../utils/constants/queryKeys';
 
-export const Route = createFileRoute('/app/businesses-rma/business/$businessId/study')({
+export const Route = createFileRoute('/app/businesses-rma_/business/$businessId_/study')({
   staticData: {
     getTitle: (queryClient, match) =>
       queryClient

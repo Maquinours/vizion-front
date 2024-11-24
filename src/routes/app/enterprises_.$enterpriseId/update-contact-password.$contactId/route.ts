@@ -5,7 +5,7 @@ import { QueryKey } from '@tanstack/react-query';
 import Page from '../../../../utils/types/Page';
 import ProfileResponseDto from '../../../../utils/types/ProfileResponseDto';
 
-export const Route = createFileRoute('/app/enterprises/$enterpriseId/update-contact-password/$contactId')({
+export const Route = createFileRoute('/app/enterprises_/$enterpriseId/update-contact-password/$contactId')({
   loader: async ({ context: { queryClient }, params: { contactId } }) => {
     let initialDataKey: QueryKey | undefined = undefined;
 

@@ -1,6 +1,5 @@
 @use '../ImportGedFilesModal/ImportGedFilesModal.module.scss';
-@use "/src/assets/styles/mixins";
-
+@use '/src/assets/styles/mixins';
 
 .directory_modal {
   @extend .modal;
@@ -56,7 +55,8 @@
       display: grid;
       align-self: center;
       margin-bottom: 0.8rem;
-      grid-template-areas: 'label'
+      grid-template-areas:
+        'label'
         'input'
         'error';
 

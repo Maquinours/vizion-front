@@ -6,7 +6,7 @@ const searchSchema = z.object({
   page: z.number().min(0).catch(0),
 });
 
-export const Route = createFileRoute('/app/businesses-rma/business/$businessId/bill/credits')({
+export const Route = createFileRoute('/app/businesses-rma_/business/$businessId/bill/credits')({
   validateSearch: (data: { page?: number } & SearchSchemaInput) => searchSchema.parse(data),
   pendingComponent: LoaderModal,
 });

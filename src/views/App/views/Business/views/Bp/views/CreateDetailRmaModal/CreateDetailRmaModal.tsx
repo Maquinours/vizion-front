@@ -1,26 +1,26 @@
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import ReactModal from 'react-modal';
-import styles from './CreateDetailRmaModal.module.scss';
-import { useMutation, useSuspenseQuery } from '@tanstack/react-query';
-import * as yup from 'yup';
-import { queries } from '../../../../../../../../utils/constants/queryKeys';
-import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import CustomSelect from '../../../../../../../../components/CustomSelect/CustomSelect';
-import BusinessBpSerialResponseDto from '../../../../../../../../utils/types/BusinessBpSerialResponseDto';
-import { createRmaFromBusiness } from '../../../../../../../../utils/api/rma';
-import CategoryBusiness from '../../../../../../../../utils/enums/CategoryBusiness';
-import { toast } from 'react-toastify';
+import { useMutation, useSuspenseQuery } from '@tanstack/react-query';
+import { getRouteApi } from '@tanstack/react-router';
+import { Controller, useForm } from 'react-hook-form';
+import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
+import { toast } from 'react-toastify';
+import * as yup from 'yup';
+import CustomSelect from '../../../../../../../../components/CustomSelect/CustomSelect';
+import { createRmaFromBusiness } from '../../../../../../../../utils/api/rma';
+import { queries } from '../../../../../../../../utils/constants/queryKeys';
+import CategoryBusiness from '../../../../../../../../utils/enums/CategoryBusiness';
+import BusinessBpSerialResponseDto from '../../../../../../../../utils/types/BusinessBpSerialResponseDto';
+import styles from './CreateDetailRmaModal.module.scss';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/bp/create-detail-rma/$detailId');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/bp/create-detail-rma/$detailId');
 
 const yupSchema = yup.object().shape({
   serialNumbers: yup.array().of(yup.mixed<BusinessBpSerialResponseDto>().required()).required(),
 });
 
 export default function AppViewBusinessViewBpViewCreateDetailRmaModalView() {
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { businessId, detailId } = routeApi.useParams();
 
@@ -32,7 +32,7 @@ export default function AppViewBusinessViewBpViewCreateDetailRmaModalView() {
   });
 
   const onClose = () => {
-    navigate({ to: '../..', search: (old) => old, replace: true, resetScroll: false });
+    navigate({ to: '../..', search: true, replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({
@@ -44,7 +44,7 @@ export default function AppViewBusinessViewBpViewCreateDetailRmaModalView() {
       ),
     onSuccess: (rma) => {
       toast.success('Le RMA a été généré avec succès');
-      navigate({ from: routeApi.id, to: '/app/businesses-rma/rma/$rmaId', params: { rmaId: rma.id } });
+      navigate({ to: '/app/businesses-rma/rma/$rmaId', params: { rmaId: rma.id } });
     },
     onError: (error) => {
       console.error(error);

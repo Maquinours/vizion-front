@@ -7,7 +7,8 @@ import { productSpecificationsQueryKeys } from '../../../../../../../../utils/co
 import AppViewProductViewManageViewSpecificationsComponentTableComponent from './components/Table/Table';
 import styles from './Specifications.module.scss';
 
-const routeApi = getRouteApi('/app/products/$productId/manage');
+const routeApi = getRouteApi('/app/products_/$productId/manage');
+const routePath = '/app/products/$productId/manage';
 
 const size = 5;
 
@@ -21,7 +22,7 @@ export default function AppViewProductViewManageViewSpecificationsComponent() {
     <CardComponent title="Caractéristiques">
       <div className={styles.container}>
         <div className={styles.button_container}>
-          <Link from={routeApi.id} to="add-specification" search replace resetScroll={false} preload="intent" className="btn btn-primary">
+          <Link from={routePath} to="add-specification" search replace resetScroll={false} preload="intent" className="btn btn-primary">
             Ajouter des filtres
           </Link>
           <RefreshButtonComponent className="btn btn-primary" style={{ marginLeft: '0.5rem' }} onRefresh={() => refetch()} isRefreshing={isRefetching} />
@@ -33,7 +34,12 @@ export default function AppViewProductViewManageViewSpecificationsComponent() {
             <PaginationComponent
               page={page}
               totalPages={data?.totalPages}
-              pageLink={(page) => ({ from: routeApi.id, search: (old) => ({ ...old, specificationsPage: page }), replace: true, resetScroll: false })}
+              pageLink={(page) => ({
+                from: routePath,
+                search: (old) => ({ ...old, specificationsPage: page }),
+                replace: true,
+                resetScroll: false,
+              })}
             />
           </div>
         </div>

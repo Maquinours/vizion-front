@@ -1,9 +1,9 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { Link, Outlet, getRouteApi, useNavigate } from '@tanstack/react-router';
+import { Link, Outlet, getRouteApi } from '@tanstack/react-router';
 import { useMemo } from 'react';
 import { useDropzone } from 'react-dropzone';
-import { Controller, useForm } from 'react-hook-form';
+import { Controller, useForm, useWatch } from 'react-hook-form';
 import { FaTrash } from 'react-icons/fa';
 import { MdAdd } from 'react-icons/md';
 import ReactModal from 'react-modal';
@@ -13,11 +13,11 @@ import * as yup from 'yup';
 import Quill from '../../../../../../../../components/Quill/Quill';
 import { uploadFiles } from '../../../../../../../../utils/api/files';
 import { updateFormation } from '../../../../../../../../utils/api/formations';
+import { FILE_READ_STORAGE_BASE_URL } from '../../../../../../../../utils/constants/api';
 import { queries } from '../../../../../../../../utils/constants/queryKeys';
 import UploadedFile from '../../../../../../../../utils/types/UploadedFile';
 import styles from './UpdateModal.module.scss';
 import { FormationDetail, UpdateFormationDetailsContext } from './utils/contexts/context';
-import { FILE_READ_STORAGE_BASE_URL } from '../../../../../../../../utils/constants/api';
 
 const routeApi = getRouteApi('/app/tools/formations/update/$formationId');
 
@@ -47,7 +47,7 @@ const yupSchema = yup.object().shape({
 
 export default function AppViewToolsViewFormationsViewUpdateModalView() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { formationId } = routeApi.useParams();
 
@@ -58,7 +58,6 @@ export default function AppViewToolsViewFormationsViewUpdateModalView() {
     control,
     setValue,
     getValues,
-    watch,
     formState: { errors },
     handleSubmit,
   } = useForm({
@@ -85,16 +84,18 @@ export default function AppViewToolsViewFormationsViewUpdateModalView() {
     },
   });
 
+  const details = useWatch({ name: 'details', control });
+
   const contextValue = useMemo(
     () => ({
-      details: getValues('details'),
+      details: details,
       setDetails: (details: Array<FormationDetail>) => setValue('details', details),
     }),
-    [getValues, setValue, watch('details')],
+    [getValues, setValue, details],
   );
 
   const onClose = () => {
-    navigate({ to: '../..', search: (old) => old, replace: true, resetScroll: false });
+    navigate({ to: '../..', search: true, replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({

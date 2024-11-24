@@ -1,18 +1,18 @@
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import { yearsList } from '../../../../../../../../utils/functions/dates';
-import CardComponent from '../../../../../../../../components/Card/Card';
-import styles from './InputsSection.module.scss';
 import { useMutation } from '@tanstack/react-query';
-import { getExcelTurnoversByYear } from '../../../../../../../../utils/api/turnovers';
+import { getRouteApi } from '@tanstack/react-router';
 import fileDownload from 'js-file-download';
 import { toast } from 'react-toastify';
+import CardComponent from '../../../../../../../../components/Card/Card';
+import { getExcelTurnoversByYear } from '../../../../../../../../utils/api/turnovers';
+import { yearsList } from '../../../../../../../../utils/functions/dates';
+import styles from './InputsSection.module.scss';
 
 const routeApi = getRouteApi('/app/tools/global-turnover');
 
 const years = yearsList();
 
 export default function AppViewToolsViewGlobalTurnoverViewInputsSectionComponent() {
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { year } = routeApi.useSearch();
 

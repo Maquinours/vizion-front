@@ -7,10 +7,10 @@ export default function AppViewDashboardViewTaskEmailModalViewFooterComponent() 
   return (
     <div className={styles.modal_footer}>
       <div className={styles.buttons_container}>
-        <Link from={routeApi.id} to="../.." search={(old) => old} replace resetScroll={false} className="btn btn-secondary">
+        <Link from={routeApi.id} to="../.." search replace resetScroll={false} className="btn btn-secondary">
           Fermer
         </Link>
-        <Link from={routeApi.id} to="reply" search={(old) => old} replace resetScroll={false} className="btn btn-primary">
+        <Link from={routeApi.id} to="reply" search replace resetScroll={false} className="btn btn-primary">
           Répondre
         </Link>
       </div>

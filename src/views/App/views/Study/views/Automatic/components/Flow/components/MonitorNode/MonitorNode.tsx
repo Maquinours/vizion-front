@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { MdDelete } from 'react-icons/md';
 import { ClickAwayListener } from '@mui/material';
 
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export type AutomaticStudyMonitorNode = Node<{}, 'automatiqueTvNode'>;
 export default function AppViewStudyViewAutomaticViewFlowComponentMonitorNodeComponent({ id }: NodeProps) {
   const { deleteElements } = useReactFlow();
@@ -22,14 +23,13 @@ export default function AppViewStudyViewAutomaticViewFlowComponentMonitorNodeCom
         <div className="relative">
           <div>
             <div className="text-center">{product.reference}</div>
-            <div onClick={() => setIsSettingsOpened((prev) => !prev)} className="hover:relative hover:rounded-md hover:border-2 hover:border-blue-900">
-              <img
-                src={`https://bd.vizeo.eu/6-Photos/${product.reference}/${product.reference}.png`}
-                style={{
-                  width: '80px',
-                }}
-              />
-            </div>
+            <button
+              type="button"
+              onClick={() => setIsSettingsOpened((prev) => !prev)}
+              className="hover:relative hover:rounded-md hover:border-2 hover:border-blue-900"
+            >
+              <img src={`https://bd.vizeo.eu/6-Photos/${product.reference}/${product.reference}.png`} alt={`Produit ${product.reference}`} className="w-20" />
+            </button>
           </div>
           {isSettingsOpened && (
             <div className="mt-1 text-center">

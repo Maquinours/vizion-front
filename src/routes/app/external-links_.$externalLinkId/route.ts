@@ -5,7 +5,7 @@ import ExternalLinkResponseDto from '../../../utils/types/ExternalLinkResponseDt
 import { QueryKey } from '@tanstack/react-query';
 import { queries } from '../../../utils/constants/queryKeys';
 
-export const Route = createFileRoute('/app/external-links/$externalLinkId')({
+export const Route = createFileRoute('/app/external-links_/$externalLinkId')({
   loader: async ({ context: { queryClient }, params: { externalLinkId } }) => {
     let initialDataKey: QueryKey | undefined = undefined;
     await queryClient.ensureQueryData({

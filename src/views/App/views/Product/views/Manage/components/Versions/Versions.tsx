@@ -7,7 +7,8 @@ import { queries } from '../../../../../../../../utils/constants/queryKeys';
 import styles from './Versions.module.scss';
 import AppViewProductViewManageViewVersionsComponentTableComponent from './components/Table/Table';
 
-const routeApi = getRouteApi('/app/products/$productId/manage');
+const routeApi = getRouteApi('/app/products_/$productId/manage');
+const routePath = '/app/products/$productId/manage';
 
 const size = 5;
 
@@ -21,7 +22,7 @@ export default function AppViewProductViewManageViewVersionsComponent() {
     <CardComponent title="Versions de produit">
       <div className={styles.container}>
         <div className={styles.button_container}>
-          <Link from={routeApi.id} to="create-version" search replace resetScroll={false} preload="intent" className="btn btn-primary">
+          <Link from="/app/products/$productId/manage" to="create-version" search replace resetScroll={false} preload="intent" className="btn btn-primary">
             Ajouter une nouvelle version
           </Link>
           <RefreshButtonComponent className="btn btn-primary" style={{ marginLeft: '0.5rem' }} onRefresh={() => refetch()} isRefreshing={isRefetching} />
@@ -34,7 +35,7 @@ export default function AppViewProductViewManageViewVersionsComponent() {
               page={page}
               totalPages={data?.totalPages}
               pageLink={(page) => ({
-                from: routeApi.id,
+                from: routePath,
                 search: (old) => ({ ...old, versionsPage: page }),
                 replace: true,
                 resetScroll: false,

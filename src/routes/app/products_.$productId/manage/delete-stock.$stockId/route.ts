@@ -5,7 +5,7 @@ import { queries } from '../../../../../utils/constants/queryKeys';
 import Page from '../../../../../utils/types/Page';
 import ProductVersionShelfStockResponseDto from '../../../../../utils/types/ProductVersionShelfStockResponseDto';
 
-export const Route = createFileRoute('/app/products/$productId/manage/delete-stock/$stockId')({
+export const Route = createFileRoute('/app/products_/$productId/manage/delete-stock/$stockId')({
   loader: async ({ context: { queryClient }, params: { stockId } }) => {
     let initialDataKey: QueryKey | undefined = undefined;
 

@@ -1,8 +1,8 @@
 import { NodeToolbar, Position, useReactFlow, useViewport } from '@xyflow/react';
+import { useEffect, useMemo, useState } from 'react';
 import { AiOutlineClose, AiTwotoneSetting } from 'react-icons/ai';
-import AmountFormat from '../../../../../../../../../../../../components/AmountFormat/AmountFormat';
 import { OnValueChange } from 'react-number-format';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import AmountFormat from '../../../../../../../../../../../../components/AmountFormat/AmountFormat';
 import { ExpertStudyMiscProductNode } from '../../MiscProductNode';
 
 type AppViewStudyViewExpertViewFlowComponentMiscProductNodeComponentMenuComponentProps = Readonly<{
@@ -25,9 +25,9 @@ export default function AppViewStudyViewExpertViewFlowComponentMiscProductNodeCo
   const quantity = data.quantity ?? 1;
   const opacity = data.opacity ?? 100;
 
-  const ref = useRef<HTMLDivElement>(null);
+  const [ref, setRef] = useState<HTMLDivElement | null>(null);
 
-  const [isMounted, setIsMounted] = useState(false);
+  const [offset, setOffset] = useState<number | undefined>(undefined);
 
   const position = useMemo(() => {
     if (nodeHeight !== undefined) {
@@ -38,22 +38,6 @@ export default function AppViewStudyViewExpertViewFlowComponentMiscProductNodeCo
     }
     return Position.Bottom;
   }, [viewportY, viewportZoom, nodePositionY, nodeHeight]);
-
-  const offset = useMemo(() => {
-    const element = ref.current;
-    if (!element) return;
-    const flowRect = document.querySelector('.react-flow')!.getBoundingClientRect();
-    if (position === Position.Top) {
-      const nodeTop = flowToScreenPosition({ x: 0, y: nodePositionY }).y;
-      const top = nodeTop - element.getBoundingClientRect().height;
-      return Math.min(top - flowRect.top, 10);
-    } else if (position === Position.Bottom) {
-      if (!nodeHeight) return;
-      const nodeBottom = flowToScreenPosition({ x: 0, y: nodePositionY + nodeHeight }).y;
-      const bottom = nodeBottom + element.getBoundingClientRect().height;
-      return Math.min(flowRect.bottom - bottom, 10);
-    }
-  }, [isMounted, position, nodePositionY, nodeHeight]);
 
   const onOpacityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     updateNodeData(nodeId, { opacity: Number(e.target.value) });
@@ -73,13 +57,27 @@ export default function AppViewStudyViewExpertViewFlowComponentMiscProductNodeCo
   };
 
   useEffect(() => {
-    setIsMounted(true);
-    return () => setIsMounted(false);
-  }, []);
+    const offset = (() => {
+      const element = ref;
+      if (!element) return;
+      const flowRect = document.querySelector('.react-flow')!.getBoundingClientRect();
+      if (position === Position.Top) {
+        const nodeTop = flowToScreenPosition({ x: 0, y: nodePositionY }).y;
+        const top = nodeTop - element.getBoundingClientRect().height;
+        return Math.min(top - flowRect.top, 10);
+      } else if (position === Position.Bottom) {
+        if (!nodeHeight) return;
+        const nodeBottom = flowToScreenPosition({ x: 0, y: nodePositionY + nodeHeight }).y;
+        const bottom = nodeBottom + element.getBoundingClientRect().height;
+        return Math.min(flowRect.bottom - bottom, 10);
+      }
+    })();
+    setOffset(offset);
+  }, [ref, position, nodePositionY, nodeHeight]);
 
   return (
     <NodeToolbar isVisible position={position} align="center" offset={offset}>
-      <div ref={ref} className="nopan rounded-md border-2 border-[#1a192b] bg-slate-50 px-2">
+      <div ref={setRef} className="nopan rounded-md border-2 border-[#1a192b] bg-slate-50 px-2">
         <div className="flex items-center justify-between p-2">
           <div className="flex items-center justify-center space-x-2">
             <AiTwotoneSetting className="fill-[#1a192b]" />
@@ -101,8 +99,8 @@ export default function AppViewStudyViewExpertViewFlowComponentMiscProductNodeCo
             />
           </div>
           <div className="flex gap-x-1 border-t-2 border-t-[#1a192b] p-2">
-            <label>Opacité :</label>
-            <input type="range" min={10} max={100} value={opacity} onChange={onOpacityChange} className="flex-auto" />
+            <label htmlFor="opacity">Opacité :</label>
+            <input id="opacity" type="range" min={10} max={100} value={opacity} onChange={onOpacityChange} className="flex-auto" />
             <p>{opacity}%</p>
           </div>
           <div className="flex gap-x-1 border-t-2 border-t-[#1a192b] p-2">

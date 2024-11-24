@@ -1,19 +1,20 @@
-import { Link, Outlet, getRouteApi, useNavigate } from '@tanstack/react-router';
-import ReactModal from 'react-modal';
-import styles from './CreditsModal.module.scss';
+import { PDFDownloadLink, PDFViewer } from '@react-pdf/renderer';
 import { useSuspenseQuery } from '@tanstack/react-query';
+import { Link, Outlet, getRouteApi } from '@tanstack/react-router';
+import { useMemo } from 'react';
+import ReactModal from 'react-modal';
+import PaginationComponent from '../../../../../../../../components/Pagination/Pagination';
 import { queries } from '../../../../../../../../utils/constants/queryKeys';
 import BillType from '../../../../../../../../utils/enums/BillType';
-import { useMemo } from 'react';
-import { PDFDownloadLink, PDFViewer } from '@react-pdf/renderer';
-import AppViewBusinessViewBillViewCreditsModalViewPdfComponent from './components/Pdf/Pdf';
 import { useAuthentifiedUserQuery } from '../../../../../../utils/functions/getAuthentifiedUser';
-import PaginationComponent from '../../../../../../../../components/Pagination/Pagination';
+import AppViewBusinessViewBillViewCreditsModalViewPdfComponent from './components/Pdf/Pdf';
+import styles from './CreditsModal.module.scss';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/bill/credits');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/bill/credits');
+const routePath = '/app/businesses-rma/business/$businessId/bill/credits';
 
 export default function AppViewBusinessViewBillViewCreditsModalView() {
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { businessId } = routeApi.useParams();
   const { page } = routeApi.useSearch();
@@ -57,15 +58,7 @@ export default function AppViewBusinessViewBillViewCreditsModalView() {
                     {({ loading }) => <button className="btn btn-secondary">{loading ? 'Chargement...' : 'Télécharger'}</button>}
                   </PDFDownloadLink>
                   {user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && (
-                    <Link
-                      from={routeApi.id}
-                      to="send-by-email"
-                      search={(old) => old}
-                      replace
-                      resetScroll={false}
-                      preload="intent"
-                      className="btn btn-secondary"
-                    >
+                    <Link from={routePath} to="send-by-email" search replace resetScroll={false} preload="intent" className="btn btn-secondary">
                       Envoyer par mail
                     </Link>
                   )}

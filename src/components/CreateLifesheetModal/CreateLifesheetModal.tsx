@@ -2,7 +2,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import classNames from 'classnames';
 import { useState } from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import { Controller, useForm, useWatch } from 'react-hook-form';
 import { MdPerson } from 'react-icons/md';
 import { RiArrowDropDownLine, RiArrowDropUpLine } from 'react-icons/ri';
 import ReactModal from 'react-modal';
@@ -60,9 +60,9 @@ export default function CreateLifesheetModalComponent({
   const {
     control,
     setValue,
-    watch,
     formState: { errors },
     handleSubmit,
+    getValues,
   } = useForm({
     resolver: yupResolver(yupSchema),
     defaultValues: {
@@ -70,6 +70,8 @@ export default function CreateLifesheetModalComponent({
       description: '',
     },
   });
+
+  const receivers = useWatch({ name: 'receivers', control });
 
   const { mutate, isPending } = useMutation({
     mutationFn: async ({ receivers, description, deadline }: yup.InferType<typeof yupSchema>) => {
@@ -94,7 +96,7 @@ export default function CreateLifesheetModalComponent({
             rmaNumber: (await queryClient.ensureQueryData(queries.rmas.detail(associatedItemId))).number,
           };
           break;
-        case LifesheetAssociatedItem.ASSISTANCE:
+        case LifesheetAssociatedItem.ASSISTANCE: {
           const technicalSupport = await queryClient.ensureQueryData(queries['technical-supports'].detail._ctx.byId(associatedItemId));
           data = {
             technicalSupportId: associatedItemId,
@@ -102,12 +104,15 @@ export default function CreateLifesheetModalComponent({
             businessId: technicalSupport.businessId,
           };
           break;
-        case LifesheetAssociatedItem.BUSINESS:
+        }
+        case LifesheetAssociatedItem.BUSINESS: {
+          const business = await queryClient.ensureQueryData(businesses.detail._ctx.byId(associatedItemId));
           data = {
             businessId: associatedItemId,
-            businessNumber: (await queryClient.ensureQueryData(businesses.detail._ctx.byId(associatedItemId))).numBusiness,
+            businessNumber: `${business.numBusiness} (${business.title})`,
           };
           break;
+        }
       }
       return createLifesheet({
         receiver: receivers.map((receiver) => `${receiver.firstName?.split(' ').at(0)} ${receiver.lastName?.charAt(0)}.`).join('; '),
@@ -160,7 +165,7 @@ export default function CreateLifesheetModalComponent({
               {showPredefinedTexts && (
                 <div className={styles.text_container}>
                   {predefinedTexts?.map((itm, idx) => (
-                    <button className={styles.text} key={idx} onClick={() => setValue('description', watch('description') + itm.description)}>
+                    <button className={styles.text} key={idx} onClick={() => setValue('description', getValues('description') + itm.description)}>
                       {itm.title}
                     </button>
                   ))}
@@ -186,7 +191,7 @@ export default function CreateLifesheetModalComponent({
 
               <div className={styles.members_section}>
                 {vizeoMembers?.map((itm) => {
-                  const isSelected = watch('receivers').some((receiver) => receiver.id === itm.id);
+                  const isSelected = receivers.some((receiver) => receiver.id === itm.id);
 
                   return (
                     <button
@@ -195,9 +200,7 @@ export default function CreateLifesheetModalComponent({
                       className={classNames(styles.member_card, {
                         [styles.isSelected]: isSelected,
                       })}
-                      onClick={() =>
-                        setValue('receivers', isSelected ? watch('receivers').filter((receiver) => receiver.id !== itm.id) : [...watch('receivers'), itm])
-                      }
+                      onClick={() => setValue('receivers', isSelected ? receivers.filter((receiver) => receiver.id !== itm.id) : [...receivers, itm])}
                     >
                       <MdPerson color="#16204E" height="50" width="50" className={styles.icon} />
                       <div className={styles.avatar}>

@@ -3,7 +3,7 @@ import { queries } from '../../../../../../utils/constants/queryKeys';
 import BusinessArcResponseDto from '../../../../../../utils/types/BusinessArcResponseDto';
 import LoaderModal from '../../../../../../components/LoaderModal/LoaderModal';
 
-export const Route = createFileRoute('/app/businesses-rma/business/$businessId/arc/update-detail/$detailId')({
+export const Route = createFileRoute('/app/businesses-rma_/business/$businessId/arc/update-detail/$detailId')({
   loader: async ({ context: { queryClient }, params: { businessId, detailId } }) => {
     await queryClient.ensureQueryData({
       ...queries['business-arc-details'].detail._ctx.byId(detailId),

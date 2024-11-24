@@ -1,12 +1,12 @@
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import EmailModalComponent from '../../../../../../../../components/EmailModal/EmailModal';
 import { useSuspenseQuery } from '@tanstack/react-query';
+import { getRouteApi } from '@tanstack/react-router';
+import EmailModalComponent from '../../../../../../../../components/EmailModal/EmailModal';
 import { queries } from '../../../../../../../../utils/constants/queryKeys';
 
-const routeApi = getRouteApi('/app/businesses-rma/rma/$rmaId/support/task-email/$taskId');
+const routeApi = getRouteApi('/app/businesses-rma_/rma/$rmaId/support/task-email/$taskId');
 
 export default function AppViewRmaViewSupportViewTaskEmailModalView() {
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { taskId } = routeApi.useParams();
 

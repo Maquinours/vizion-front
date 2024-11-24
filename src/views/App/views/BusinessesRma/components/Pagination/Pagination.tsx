@@ -1,4 +1,4 @@
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { getRouteApi } from '@tanstack/react-router';
 import PaginationComponent from '../../../../../../components/Pagination/Pagination';
 import styles from './Pagination.module.scss';
 
@@ -14,7 +14,7 @@ type AppViewBusinessesRmaViewPaginationComponent = Readonly<{
   size: number;
 }>;
 export default function AppViewBusinessesRmaViewPaginationComponent({ totalPages, page, size }: AppViewBusinessesRmaViewPaginationComponent) {
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
   return (
     <div className={styles.pagination_container}>
       <div />

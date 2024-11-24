@@ -6,7 +6,7 @@ const searchSchema = z.object({
   hideReferencesPrices: z.boolean().catch(false),
 });
 
-export const Route = createFileRoute('/app/businesses-rma/business/$businessId/arc')({
+export const Route = createFileRoute('/app/businesses-rma_/business/$businessId/arc')({
   validateSearch: (data: { hideReferencesPrices?: boolean } & SearchSchemaInput) => searchSchema.parse(data),
   loader: async ({ context: { queryClient }, params: { businessId } }) => {
     queryClient.prefetchQuery(queries['product-stocks'].list._ctx.all);

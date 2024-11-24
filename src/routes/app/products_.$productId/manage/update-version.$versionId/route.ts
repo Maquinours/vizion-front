@@ -5,7 +5,7 @@ import Page from '../../../../../utils/types/Page';
 import ProductVersionResponseDto from '../../../../../utils/types/ProductVersionResponseDto';
 import { QueryKey } from '@tanstack/react-query';
 
-export const Route = createFileRoute('/app/products/$productId/manage/update-version/$versionId')({
+export const Route = createFileRoute('/app/products_/$productId/manage/update-version/$versionId')({
   loader: async ({ context: { queryClient }, params: { productId, versionId } }) => {
     let initialDataKey: QueryKey | undefined = undefined;
     const version = await queryClient.ensureQueryData({

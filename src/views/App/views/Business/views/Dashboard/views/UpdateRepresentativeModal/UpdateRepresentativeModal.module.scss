@@ -62,7 +62,7 @@
             color: var(--primary-light);
           }
 
-          &>p:nth-child(1) {
+          & > p:nth-child(1) {
             grid-area: label;
           }
 

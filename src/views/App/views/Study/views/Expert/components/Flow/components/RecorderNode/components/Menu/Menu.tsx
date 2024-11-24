@@ -1,13 +1,13 @@
 import { useQueryClient } from '@tanstack/react-query';
 import { NodeToolbar, Position, useReactFlow, useViewport } from '@xyflow/react';
+import { useEffect, useMemo, useState } from 'react';
 import { AiOutlineClose, AiTwotoneSetting } from 'react-icons/ai';
+import { OnValueChange } from 'react-number-format';
+import AmountFormat from '../../../../../../../../../../../../components/AmountFormat/AmountFormat';
 import { queries } from '../../../../../../../../../../../../utils/constants/queryKeys';
 import ProductProductResponseDto from '../../../../../../../../../../../../utils/types/ProductProductResponseDto';
 import ProductResponseDto from '../../../../../../../../../../../../utils/types/ProductResponseDto';
 import { ExpertStudyRecorderNode } from '../../RecorderNode';
-import { OnValueChange } from 'react-number-format';
-import AmountFormat from '../../../../../../../../../../../../components/AmountFormat/AmountFormat';
-import { useEffect, useMemo, useRef, useState } from 'react';
 
 const transformProducts = [
   { reference: 'HD504PAP', toReference: 'HD504' },
@@ -43,9 +43,9 @@ export default function AppViewStudyViewExpertViewFlowComponentRecorderNodeCompo
   const { updateNodeData, flowToScreenPosition } = useReactFlow();
   const { y: viewportY, zoom: viewportZoom } = useViewport();
 
-  const ref = useRef<HTMLDivElement>(null);
+  const [ref, setRef] = useState<HTMLDivElement | null>(null);
 
-  const [isMounted, setIsMounted] = useState(false);
+  const [offset, setOffset] = useState<number | undefined>(undefined);
 
   const quantity = data.quantity ?? 1;
 
@@ -65,22 +65,6 @@ export default function AppViewStudyViewExpertViewFlowComponentRecorderNodeCompo
     }
     return Position.Bottom;
   }, [viewportY, viewportZoom, nodePositionY, nodeHeight]);
-
-  const offset = useMemo(() => {
-    const element = ref.current;
-    if (!element) return;
-    const flowRect = document.querySelector('.react-flow')!.getBoundingClientRect();
-    if (position === Position.Top) {
-      const nodeTop = flowToScreenPosition({ x: 0, y: nodePositionY }).y;
-      const top = nodeTop - element.getBoundingClientRect().height;
-      return Math.min(top - flowRect.top, 10);
-    } else if (position === Position.Bottom) {
-      if (!nodeHeight) return;
-      const nodeBottom = flowToScreenPosition({ x: 0, y: nodePositionY + nodeHeight }).y;
-      const bottom = nodeBottom + element.getBoundingClientRect().height;
-      return Math.min(flowRect.bottom - bottom, 10);
-    }
-  }, [isMounted, position, nodePositionY, nodeHeight]);
 
   const onNodeNameChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const name = e.target.value;
@@ -134,16 +118,30 @@ export default function AppViewStudyViewExpertViewFlowComponentRecorderNodeCompo
   };
 
   useEffect(() => {
-    setIsMounted(true);
-    return () => setIsMounted(false);
-  }, []);
+    const offset = (() => {
+      const element = ref;
+      if (!element) return;
+      const flowRect = document.querySelector('.react-flow')!.getBoundingClientRect();
+      if (position === Position.Top) {
+        const nodeTop = flowToScreenPosition({ x: 0, y: nodePositionY }).y;
+        const top = nodeTop - element.getBoundingClientRect().height;
+        return Math.min(top - flowRect.top, 10);
+      } else if (position === Position.Bottom) {
+        if (!nodeHeight) return;
+        const nodeBottom = flowToScreenPosition({ x: 0, y: nodePositionY + nodeHeight }).y;
+        const bottom = nodeBottom + element.getBoundingClientRect().height;
+        return Math.min(flowRect.bottom - bottom, 10);
+      }
+    })();
+    setOffset(offset);
+  }, [ref, position, nodePositionY, nodeHeight]);
 
   const hddSlots = product.specificationProducts?.find((spec) => spec.specification?.name === 'SLOT')?.value ?? 0;
   const totalHddQuantity = options?.filter((opt) => opt.product.reference?.startsWith('DD')).reduce((acc, opt) => acc + opt.quantity, 0) ?? 0;
 
   return (
     <NodeToolbar position={position} align="center" offset={offset}>
-      <div ref={ref} className="nopan rounded-md border-2 border-[#1a192b] bg-slate-50 px-2">
+      <div ref={setRef} className="nopan rounded-md border-2 border-[#1a192b] bg-slate-50 px-2">
         <div className="flex items-center justify-between border-b-2 border-b-[#1a192b] p-2">
           <div className="flex items-center justify-center space-x-2">
             <AiTwotoneSetting className="fill-[#1a192b]" />
@@ -182,7 +180,11 @@ export default function AppViewStudyViewExpertViewFlowComponentRecorderNodeCompo
               <div className="flex h-auto flex-col space-y-1">
                 {options.map((option) => (
                   <div key={option.product.id} className="flex items-center justify-start space-x-4">
-                    <img src={`https://bd.vizeo.eu/6-Photos/${option.product.reference}/${option.product.reference}.jpg`} className="h-6 w-6 object-center" />
+                    <img
+                      src={`https://bd.vizeo.eu/6-Photos/${option.product.reference}/${option.product.reference}.jpg`}
+                      alt={`Produit ${option.product.reference}`}
+                      className="h-6 w-6 object-center"
+                    />
                     <p className="w-20">{option.product.reference}</p>
                     <div className="flex items-center justify-center space-x-2">
                       <button
@@ -207,8 +209,8 @@ export default function AppViewStudyViewExpertViewFlowComponentRecorderNodeCompo
             </div>
           )}
           <div className="flex gap-x-1 border-t-2 border-t-[#1a192b] p-2">
-            <label>Opacité :</label>
-            <input type={'range'} min={10} max={100} value={data.opacity} onChange={onOpacityChange} className="flex-auto" />
+            <label htmlFor="opacity">Opacité :</label>
+            <input id="opacity" type={'range'} min={10} max={100} value={data.opacity} onChange={onOpacityChange} className="flex-auto" />
             <p>{data.opacity}%</p>
           </div>
           <div className="flex gap-x-1 border-t-2 border-t-[#1a192b] p-2">

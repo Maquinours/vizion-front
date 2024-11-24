@@ -8,14 +8,13 @@ import AppViewEnterpriseViewContactsComponentPaginationComponent from './compone
 import AppViewEnterpriseViewContactsComponentSearchSectionComponent from './components/SearchSection/SearchSection';
 import AppViewEnterpriseViewContactsComponentTableComponent from './components/Table/Table';
 
-const Route = getRouteApi('/app/enterprises/$enterpriseId');
+const routeApi = getRouteApi('/app/enterprises_/$enterpriseId');
 
 const size = 5;
 
 export default function AppViewEnterpriseViewContactsComponent() {
-  const { contactsSearch: search, contactsPage: page } = Route.useSearch();
-
-  const { enterpriseId } = Route.useParams();
+  const { contactsSearch: search, contactsPage: page } = routeApi.useSearch();
+  const { enterpriseId } = routeApi.useParams();
 
   const { data, refetch } = useQuery(queries.profiles.page._ctx.byEnterpriseIdAndSearch(enterpriseId, search, { page, size }));
 

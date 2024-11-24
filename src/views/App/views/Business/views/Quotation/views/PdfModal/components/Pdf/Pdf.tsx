@@ -416,6 +416,14 @@ const pageStyles = StyleSheet.create({
   },
 });
 
+const amountFormatter = (value: number) => {
+  return value.toLocaleString('fr-FR');
+};
+
+const currencyFormatter = (value: number) => {
+  return value.toLocaleString('fr-FR', { style: 'currency', currency: 'EUR' });
+};
+
 type AppViewBusinessViewQuotationViewPdfModalViewPdfComponentProps = {
   business: BusinessResponseDto;
   quotation: BusinessQuotationResponseDto;
@@ -535,18 +543,18 @@ export default function AppViewBusinessViewQuotationViewPdfModalViewPdfComponent
                   {subQuotation.quotationDetails!.map((detail) => (
                     <View wrap={false} key={detail.id} style={pageStyles.tableBody}>
                       <Image src={`https://bd.vizeo.eu/6-Photos/${detail.productReference}/MINI_${detail.productReference}.jpg`} style={pageStyles.imageBody} />
-                      <Text style={pageStyles.quantityBody}>{detail.quantity}</Text>
+                      <Text style={pageStyles.quantityBody}>{amountFormatter(detail.quantity ?? 0)}</Text>
                       <Text style={pageStyles.referenceBody}>{hideReferences ? '' : detail.productReference}</Text>
                       <Text style={pageStyles.descriptionBody}>{detail.productDesignation}</Text>
-                      <Text style={pageStyles.priceBody}>{hidePrices ? '' : `${detail.unitPrice} €`}</Text>
-                      <Text style={pageStyles.totalBody}>{hidePrices ? '' : `${detail.totalPrice} €`}</Text>
+                      <Text style={pageStyles.priceBody}>{hidePrices ? '' : currencyFormatter(detail.unitPrice ?? 0)}</Text>
+                      <Text style={pageStyles.totalBody}>{hidePrices ? '' : currencyFormatter(detail.totalPrice ?? 0)}</Text>
                     </View>
                   ))}
 
                   {subQuotation.quotationDetails!.length > 0 && !hideTotal && (
                     <View wrap={false} style={pageStyles.totalContainer}>
                       <Text style={pageStyles.total}>
-                        Total = {subQuotation.quotationDetails?.reduce((acc, detail) => acc + detail.totalPrice!, 0).toFixed(2)} €
+                        Total = {currencyFormatter(subQuotation.quotationDetails?.reduce((acc, detail) => acc + detail.totalPrice!, 0) ?? 0)}
                       </Text>
                     </View>
                   )}
@@ -562,21 +570,23 @@ export default function AppViewBusinessViewQuotationViewPdfModalViewPdfComponent
                   <Text style={pageStyles.recapHeaderText}>
                     TOTAL GÉNÉRAL HT{subQuotations?.some((subQuotation) => subQuotation.name === 'Options') ? ' avec options' : ''}
                   </Text>
-                  <Text style={pageStyles.recapHeaderValue}>{quotation.totalAmountHT} €</Text>
+                  <Text style={pageStyles.recapHeaderValue}>{currencyFormatter(quotation.totalAmountHT ?? 0)}</Text>
                 </View>
                 <View style={pageStyles.recapBody}>
                   <Text style={pageStyles.recapBodyText}>Frais de port</Text>
-                  <Text style={pageStyles.recapBodyValue}>{quotation.shippingServicePrice} €</Text>
-                  <Text style={pageStyles.recapBodyValue}>{quotation.shippingServicePrice > 0 ? `${quotation.shippingServicePrice} €` : 'Offert'}</Text>
+                  <Text style={pageStyles.recapBodyValue}>{currencyFormatter(quotation.shippingServicePrice)}</Text>
+                  <Text style={pageStyles.recapBodyValue}>
+                    {quotation.shippingServicePrice > 0 ? `${currencyFormatter(quotation.shippingServicePrice)}` : 'Offert'}
+                  </Text>
                 </View>
                 <View style={pageStyles.recapBody}>
                   <Text style={pageStyles.recapBodyText}>TVA</Text>
                   <Text style={pageStyles.recapBodyValue}>20%</Text>
-                  <Text style={pageStyles.recapBodyValue}>{((quotation.totalAmountHT! + quotation.shippingServicePrice) * 0.2).toFixed(2)} €</Text>
+                  <Text style={pageStyles.recapBodyValue}>{currencyFormatter((quotation.totalAmountHT! + quotation.shippingServicePrice) * 0.2)}</Text>
                 </View>
                 <View style={pageStyles.recapFooter}>
                   <Text style={pageStyles.recapFooterText}>Total TTC</Text>
-                  <Text style={pageStyles.recapFooterValue}>{quotation.totalAmount!} €</Text>
+                  <Text style={pageStyles.recapFooterValue}>{currencyFormatter(quotation.totalAmount ?? 0)}</Text>
                 </View>
               </View>
             </View>

@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { getRouteApi } from '@tanstack/react-router';
 import { Row, RowSelectionState, createColumnHelper } from '@tanstack/react-table';
 import { useReactFlow } from '@xyflow/react';
-import { useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import { useContext, useEffect, useMemo, useState } from 'react';
 import ReactModal from 'react-modal';
 import { ClipLoader } from 'react-spinners';
 import { v4 as uuidv4 } from 'uuid';
@@ -21,7 +21,7 @@ type LoadedImage = { key: string; name: string; src: string; loading: false };
 type LoadingImage = { key: string; name: string; loading: true };
 type Image = LoadedImage | LoadingImage;
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/study/expert');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId_/study/expert');
 
 const columnHelper = createColumnHelper<Image>();
 const columns = [
@@ -55,6 +55,8 @@ const columns = [
   }),
 ];
 
+const enableRowSelection = (row: Row<Image>) => !row.original.loading;
+
 // TODO: handle PDF
 
 type AppViewStudyViewExpertViewModalProviderComponentImportGedImageModalComponentProps = Readonly<{
@@ -79,7 +81,6 @@ export default function AppViewStudyViewExpertViewModalProviderComponentImportGe
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
 
   const enableMultiRowSelection = useMemo(() => type !== 'background', [type]);
-  const enableRowSelection = useCallback((row: Row<Image>) => !row.original.loading, []);
 
   const onClose = () => {
     setModal(undefined);
@@ -114,10 +115,10 @@ export default function AppViewStudyViewExpertViewModalProviderComponentImportGe
       }
       case 'background': {
         const selection = Object.entries(rowSelection).find(([, isSelected]) => isSelected);
-        if (!!selection) {
+        if (selection) {
           const [key] = selection;
           const item = images.find((image): image is LoadedImage => image.key === key && !image.loading);
-          if (!!item) {
+          if (item) {
             const reactFlowRect = document.querySelector('.react-flow')!.getBoundingClientRect();
             const position = screenToFlowPosition({ x: reactFlowRect.x, y: reactFlowRect.y });
             const endPosition = screenToFlowPosition({ x: reactFlowRect.x + reactFlowRect.width, y: reactFlowRect.y + reactFlowRect.height });

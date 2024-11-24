@@ -17,7 +17,7 @@ import BusinessSubQuotationResponseDto from '../../../../../../../../utils/types
 import AppViewBusinessViewQuotationViewTableComponentQuotationDetailContextMenuComponent from './components/QuotationDetailContextMenu/QuotationDetailContextMenu';
 import BusinessQuotationDetailsResponseDto from '../../../../../../../../utils/types/BusinessQuotationDetailsResponseDto';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/quotation');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/quotation');
 
 const getAnchor = (e: React.MouseEvent) => {
   return {

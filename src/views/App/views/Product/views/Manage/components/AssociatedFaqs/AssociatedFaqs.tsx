@@ -12,7 +12,7 @@ import AppViewProductViewManageViewAssociatedFaqsComponentSubRowComponent from '
 import DOMPurify from 'dompurify';
 import parse from 'html-react-parser';
 
-const routeApi = getRouteApi('/app/products/$productId/manage');
+const routeApi = getRouteApi('/app/products_/$productId/manage');
 
 const columnHelper = createColumnHelper<ProductFaqResponseDto>();
 const columns = [

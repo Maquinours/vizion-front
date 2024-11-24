@@ -12,6 +12,7 @@ export const productSerialNumbers = createQueryKeys('product-serial-numbers', {
     queryKey: [{ page, size }],
     contextQueries: {
       search: (searchText: string | undefined) => ({
+        // eslint-disable-next-line @tanstack/query/exhaustive-deps
         queryKey: [searchText],
         queryFn: () => (searchText ? getProductSerialNumbersPageWithSearch(searchText, page, size) : getProductSerialNumbersPage(page, size)),
       }),

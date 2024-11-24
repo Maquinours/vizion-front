@@ -12,10 +12,10 @@ import AppViewEnterpriseViewLifesheetComponent from './components/Lifesheet/Life
 import AppViewEnterpriseViewWorkloadsComponent from './components/Workloads/Workloads';
 import AppViewEnterpriseViewGedComponent from './components/Ged/Ged';
 
-const Route = getRouteApi('/app/enterprises/$enterpriseId');
+const routeApi = getRouteApi('/app/enterprises_/$enterpriseId');
 
 export default function AppViewEnterpriseView() {
-  const { enterpriseId } = Route.useParams();
+  const { enterpriseId } = routeApi.useParams();
 
   const { data: user } = useAuthentifiedUserQuery();
 

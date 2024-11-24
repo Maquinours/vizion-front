@@ -1,18 +1,18 @@
-import ReactModal from 'react-modal';
-import styles from './CreateDetailModal.module.scss';
-import * as yup from 'yup';
-import ProductResponseDto from '../../../../../../../../utils/types/ProductResponseDto';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useQuery, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { queries } from '../../../../../../../../utils/constants/queryKeys';
+import { getRouteApi } from '@tanstack/react-router';
+import { Controller, useForm } from 'react-hook-form';
+import ReactModal from 'react-modal';
+import { PulseLoader } from 'react-spinners';
+import { toast } from 'react-toastify';
+import * as yup from 'yup';
 import CustomSelect from '../../../../../../../../components/CustomSelect/CustomSelect';
 import { createBusinessQuotationDetail } from '../../../../../../../../utils/api/businessQuotationDetails';
-import { toast } from 'react-toastify';
-import { PulseLoader } from 'react-spinners';
+import { queries } from '../../../../../../../../utils/constants/queryKeys';
+import ProductResponseDto from '../../../../../../../../utils/types/ProductResponseDto';
+import styles from './CreateDetailModal.module.scss';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/quotation/create-detail/$subquotationId');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/quotation/create-detail/$subquotationId');
 
 const yupSchema = yup.object({
   product: yup.mixed<ProductResponseDto>().required('Le produit est requis.'),
@@ -21,7 +21,7 @@ const yupSchema = yup.object({
 
 export default function AppViewBusinessViewQuotationViewCreateDetailModalView() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { businessId, subquotationId } = routeApi.useParams();
 

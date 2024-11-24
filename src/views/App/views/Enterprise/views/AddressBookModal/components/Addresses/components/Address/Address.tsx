@@ -1,4 +1,4 @@
-import { Link, getRouteApi } from '@tanstack/react-router';
+import { Link } from '@tanstack/react-router';
 import { AiOutlineMail } from 'react-icons/ai';
 import { BsThreeDots } from 'react-icons/bs';
 import { FaTrash } from 'react-icons/fa';
@@ -7,7 +7,7 @@ import { MdLocalPhone, MdLocationPin } from 'react-icons/md';
 import AddressResponseDto from '../../../../../../../../../../utils/types/AddressResponseDto';
 import styles from './Address.module.scss';
 
-const routeApi = getRouteApi('/app/enterprises/$enterpriseId/address-book');
+const routePath = '/app/enterprises/$enterpriseId/address-book';
 
 type AppViewEnterpriseViewAddressBookModalViewAddressesComponentPropsAddressComponentProps = Readonly<{
   address: AddressResponseDto;
@@ -25,13 +25,13 @@ export default function AppViewEnterpriseViewAddressBookModalViewAddressesCompon
           <BsThreeDots color="#F24C52" />
           <div className={styles.header_tooltip}>
             <div>
-              <Link from={routeApi.id} to="update/$addressId" search params={{ addressId: address.id }} replace resetScroll={false} preload="viewport">
+              <Link from={routePath} to="update/$addressId" search params={{ addressId: address.id }} replace resetScroll={false} preload="render">
                 <span className={styles.icon}>
                   <HiPencilAlt width={13} height={13} color={'#16204E'} />
                 </span>
                 <span className={styles.text}>Modifier</span>
               </Link>
-              <Link from={routeApi.id} to="delete/$addressId" search params={{ addressId: address.id }} replace resetScroll={false} preload="viewport">
+              <Link from={routePath} to="delete/$addressId" search params={{ addressId: address.id }} replace resetScroll={false} preload="render">
                 <span className={styles.icon}>
                   <FaTrash width={13} height={13} color={'#16204E'} />
                 </span>

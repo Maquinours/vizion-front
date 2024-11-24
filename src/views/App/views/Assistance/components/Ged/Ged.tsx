@@ -27,14 +27,14 @@ export default function AppViewAssistanceViewGedComponent({ assistance }: AppVie
       getRenameLink={(data) => ({
         to: '/app/businesses-rma/business/$businessId/assistance/$assistanceId/rename-ged-object/$objectRelativePath',
         params: (old) => ({ ...old, objectRelativePath: data.relativePath }),
-        search: (old) => old,
+        search: true,
         replace: true,
         resetScroll: false,
       })}
       getDeleteLink={(data) => ({
         to: '/app/businesses-rma/business/$businessId/assistance/$assistanceId/delete-ged-object/$objectRelativePath',
         params: (old) => ({ ...old, objectRelativePath: data.relativePath }),
-        search: (old) => old,
+        search: true,
         replace: true,
         resetScroll: false,
       })}

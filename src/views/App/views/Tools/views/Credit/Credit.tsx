@@ -1,9 +1,9 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { Link, Outlet, getRouteApi, useNavigate } from '@tanstack/react-router';
+import { Link, Outlet, getRouteApi } from '@tanstack/react-router';
 import { isAxiosError } from 'axios';
 import { useEffect, useMemo, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, useWatch } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { v4 as uuidv4 } from 'uuid';
 import * as yup from 'yup';
@@ -44,7 +44,7 @@ const yupSchema = yup.object().shape({
 
 export default function AppViewToolsViewCreditView() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { serialNumber, businessNumber } = routeApi.useSearch();
 
@@ -75,7 +75,7 @@ export default function AppViewToolsViewCreditView() {
       setItems([]);
     },
     onSuccess: (data) => {
-      if (!!data.bill) {
+      if (data.bill) {
         setBusiness(data.business);
         setBill(data.bill);
         setEnterprise(data.enterprise);
@@ -91,24 +91,26 @@ export default function AppViewToolsViewCreditView() {
     },
   });
 
-  const { register, watch, getValues } = useForm({
+  const { register, control } = useForm({
     resolver: yupResolver(yupSchema),
     defaultValues: {
       shippingServicePrice: 0,
     },
   });
 
+  const shippingServicePrice = useWatch({ name: 'shippingServicePrice', control });
+
   const contextValue = useMemo(
     () => ({
       business,
       details,
       setDetails,
-      shippingServicePrice: getValues('shippingServicePrice'),
+      shippingServicePrice: shippingServicePrice,
       items,
       enterprise: details?.billingCompany ?? enterprise,
       bill,
     }),
-    [business, details, setDetails, watch('shippingServicePrice'), items, enterprise, bill],
+    [business, details, setDetails, shippingServicePrice, items, enterprise, bill],
   );
 
   const addLine = () => {
@@ -146,7 +148,7 @@ export default function AppViewToolsViewCreditView() {
               <button className="btn btn-primary" onClick={() => addLine()}>
                 Ajouter une ligne
               </button>
-              <Link from={routeApi.id} to="details" search={(old) => old} replace resetScroll={false} className="btn btn-secondary">
+              <Link from={routeApi.id} to="details" search replace resetScroll={false} className="btn btn-secondary">
                 {"Détails de l'avoir"}
               </Link>
             </div>
@@ -161,7 +163,7 @@ export default function AppViewToolsViewCreditView() {
             <button className="btn btn-primary" onClick={onReset}>
               RAZ
             </button>
-            <Link from={routeApi.id} to="show" search={(old) => old} replace resetScroll={false} className="btn btn-primary">
+            <Link from={routeApi.id} to="show" search replace resetScroll={false} className="btn btn-primary">
               Visualiser
             </Link>
           </div>

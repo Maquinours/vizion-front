@@ -1,16 +1,16 @@
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import styles from './Footer.module.scss';
-import { createRmaDelivery } from '../../../../../../../../utils/api/rmaDelivery';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import { queries } from '../../../../../../../../utils/constants/queryKeys';
+import { getRouteApi } from '@tanstack/react-router';
 import { toast } from 'react-toastify';
+import { createRmaDelivery } from '../../../../../../../../utils/api/rmaDelivery';
+import { queries } from '../../../../../../../../utils/constants/queryKeys';
 import AssistanceState from '../../../../../../../../utils/enums/AssistanceState';
+import styles from './Footer.module.scss';
 
-const routeApi = getRouteApi('/app/businesses-rma/rma/$rmaId/reception');
+const routeApi = getRouteApi('/app/businesses-rma_/rma/$rmaId/reception');
 
 export default function AppViewRmaViewReceptionViewFooterComponent() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { rmaId } = routeApi.useParams();
 

@@ -5,7 +5,7 @@ import AppViewRmaViewSupportViewPdfModalViewPdfComponent from '../../../../../..
 import LoaderModal from '../../../../../../../components/LoaderModal/LoaderModal';
 import { formatFileName } from '../../../../../../../utils/functions/files';
 
-export const Route = createFileRoute('/app/businesses-rma/rma/$rmaId/support/pdf/send-by-email')({
+export const Route = createFileRoute('/app/businesses-rma_/rma/$rmaId/support/pdf/send-by-email')({
   loader: async ({ context: { queryClient }, params: { rmaId } }) => {
     const rma = await queryClient.ensureQueryData(queries.rmas.detail(rmaId));
     const blob = await pdf(<AppViewRmaViewSupportViewPdfModalViewPdfComponent rma={rma} />).toBlob();

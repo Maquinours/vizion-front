@@ -12,7 +12,7 @@ import AssistanceState from '../../../../../../../../utils/enums/AssistanceState
 import { PulseLoader } from 'react-spinners';
 import { toast } from 'react-toastify';
 
-const routeApi = getRouteApi('/app/businesses-rma/rma/$rmaId/support');
+const routeApi = getRouteApi('/app/businesses-rma_/rma/$rmaId/support');
 
 const yupSchema = yup.object().shape({
   addressCompanyName: yup.string().required('Champs requis.'),

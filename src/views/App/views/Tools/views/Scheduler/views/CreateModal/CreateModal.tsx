@@ -1,9 +1,11 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { getRouteApi } from '@tanstack/react-router';
 import classNames from 'classnames';
 import { useEffect, useMemo } from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import ReactDatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import { Controller, useForm, useWatch } from 'react-hook-form';
 import { MdPerson } from 'react-icons/md';
 import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
@@ -15,8 +17,6 @@ import CategoryClient from '../../../../../../../../utils/enums/CategoryClient';
 import ProfileResponseDto from '../../../../../../../../utils/types/ProfileResponseDto';
 import { useAuthentifiedUserQuery } from '../../../../../../utils/functions/getAuthentifiedUser';
 import styles from './CreateModal.module.scss';
-import ReactDatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
 
 const routeApi = getRouteApi('/app/tools/scheduler/create');
 
@@ -80,7 +80,7 @@ const yupSchema = yup.object().shape({
 
 export default function AppViewToolsViewSchedulerViewCreateModalView() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate();
+  const navigate = routeApi.useNavigate();
 
   const { dates, participant } = routeApi.useSearch();
 
@@ -92,8 +92,6 @@ export default function AppViewToolsViewSchedulerViewCreateModalView() {
     register,
     control,
     setValue,
-    getValues,
-    watch,
     formState: { errors },
     handleSubmit,
   } = useForm({
@@ -104,7 +102,7 @@ export default function AppViewToolsViewSchedulerViewCreateModalView() {
     },
   });
 
-  const fullTime = useMemo(() => getValues('fullTime'), [watch('fullTime')]);
+  const fullTime = useWatch({ name: 'fullTime', control });
 
   const places = useMemo(
     () => PLACES.filter((place) => place.allowedRoles === undefined || user.userInfo.roles.some((role) => place.allowedRoles.includes(role))),
@@ -112,7 +110,7 @@ export default function AppViewToolsViewSchedulerViewCreateModalView() {
   );
 
   const onClose = () => {
-    navigate({ from: routeApi.id, to: '..', search: (old) => ({ ...old, dates: undefined, participant: undefined }), replace: true, resetScroll: false });
+    navigate({ to: '..', search: (old) => ({ ...old, dates: undefined, participant: undefined }), replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({

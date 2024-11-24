@@ -1,22 +1,22 @@
-import ReactModal from 'react-modal';
-import styles from './CreateDetailModal.module.scss';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { createRmaReceptionDetail } from '../../../../../../../../utils/api/rmaReceptionDetail';
-import * as yup from 'yup';
-import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { getProductSerialNumberByNumber } from '../../../../../../../../utils/api/productSerialNumber';
-import { getBusinessBillsByBusinessId } from '../../../../../../../../utils/api/businessBill';
-import BusinessBillResponseDto from '../../../../../../../../utils/types/BusinessBillResponseDto';
-import BillType from '../../../../../../../../utils/enums/BillType';
-import { toast } from 'react-toastify';
-import moment from 'moment';
+import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
+import { getRouteApi } from '@tanstack/react-router';
 import { isAxiosError } from 'axios';
+import moment from 'moment';
+import { Controller, useForm } from 'react-hook-form';
+import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
+import { toast } from 'react-toastify';
+import * as yup from 'yup';
+import { getBusinessBillsByBusinessId } from '../../../../../../../../utils/api/businessBill';
+import { getProductSerialNumberByNumber } from '../../../../../../../../utils/api/productSerialNumber';
+import { createRmaReceptionDetail } from '../../../../../../../../utils/api/rmaReceptionDetail';
 import { queries } from '../../../../../../../../utils/constants/queryKeys';
+import BillType from '../../../../../../../../utils/enums/BillType';
+import BusinessBillResponseDto from '../../../../../../../../utils/types/BusinessBillResponseDto';
+import styles from './CreateDetailModal.module.scss';
 
-const routeApi = getRouteApi('/app/businesses-rma/rma/$rmaId/reception/create-detail');
+const routeApi = getRouteApi('/app/businesses-rma_/rma/$rmaId/reception/create-detail');
 
 const yupSchema = yup.object().shape({
   productReference: yup.string().required('La référence est requise.'),
@@ -31,7 +31,7 @@ const yupSchema = yup.object().shape({
 
 export default function AppViewRmaViewReceptionViewCreateDetailModalView() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { rmaId } = routeApi.useParams();
 

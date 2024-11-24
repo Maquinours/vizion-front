@@ -11,7 +11,7 @@ import { toast } from 'react-toastify';
 import UnsavedChangesBlockingModalComponent from '../../../../../../../../../../components/UnsavedChangesBlockingModal/UnsavedChangesBlockingModal';
 import { useEffect, useMemo } from 'react';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/quotation');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/quotation');
 
 const yupSchema = yup.object().shape({
   documentName: yup.string().required('Le nom du document est requis'),

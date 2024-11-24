@@ -1,20 +1,20 @@
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import ReactModal from 'react-modal';
-import * as yup from 'yup';
-import styles from './UpdateDetailModal.module.scss';
-import { useMutation, useQuery, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { queries } from '../../../../../../../../utils/constants/queryKeys';
-import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import CustomSelect from '../../../../../../../../components/CustomSelect/CustomSelect';
-import ProductVersionResponseDto from '../../../../../../../../utils/types/ProductVersionResponseDto';
-import { updateBusinessBpDetail } from '../../../../../../../../utils/api/businessBpDetails';
-import BusinessBpResponseDto from '../../../../../../../../utils/types/BusinessBpResponseDto';
-import { toast } from 'react-toastify';
-import { PulseLoader } from 'react-spinners';
+import { useMutation, useQuery, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
+import { getRouteApi } from '@tanstack/react-router';
 import { useEffect } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import ReactModal from 'react-modal';
+import { PulseLoader } from 'react-spinners';
+import { toast } from 'react-toastify';
+import * as yup from 'yup';
+import CustomSelect from '../../../../../../../../components/CustomSelect/CustomSelect';
+import { updateBusinessBpDetail } from '../../../../../../../../utils/api/businessBpDetails';
+import { queries } from '../../../../../../../../utils/constants/queryKeys';
+import BusinessBpResponseDto from '../../../../../../../../utils/types/BusinessBpResponseDto';
+import ProductVersionResponseDto from '../../../../../../../../utils/types/ProductVersionResponseDto';
+import styles from './UpdateDetailModal.module.scss';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/bp/update-detail/$detailId');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/bp/update-detail/$detailId');
 
 const yupSchema = yup.object().shape({
   quantity: yup.number().typeError('Format invalide').integer('La quantité doit être un nombre entier').required('Le champs est requis'),
@@ -25,7 +25,7 @@ const yupSchema = yup.object().shape({
 
 export default function AppViewBusinessViewBpViewUpdateDetailModalView() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { businessId, detailId } = routeApi.useParams();
 
@@ -44,7 +44,7 @@ export default function AppViewBusinessViewBpViewUpdateDetailModalView() {
   });
 
   const onClose = () => {
-    navigate({ to: '../..', search: (old) => old, replace: true, resetScroll: false });
+    navigate({ to: '../..', search: true, replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({

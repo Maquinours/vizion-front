@@ -5,8 +5,10 @@ import AppViewBusinessViewArcViewPdfModalViewPdfComponent from '../../../../../.
 import LoaderModal from '../../../../../../../components/LoaderModal/LoaderModal';
 import { formatFileName } from '../../../../../../../utils/functions/files';
 
-export const Route = createFileRoute('/app/businesses-rma/business/$businessId/arc/pdf/send-by-email')({
-  loaderDeps: ({ search: { hideReferencesPrices } }) => ({ hideReferencesPrices }),
+export const Route = createFileRoute('/app/businesses-rma_/business/$businessId/arc/pdf/send-by-email')({
+  loaderDeps: ({ search: { hideReferencesPrices } }) => ({
+    hideReferencesPrices,
+  }),
   loader: async ({ context: { queryClient }, params: { businessId }, deps: { hideReferencesPrices } }) => {
     const businessPromise = queryClient.ensureQueryData(queries.businesses.detail._ctx.byId(businessId));
     const arcPromise = queryClient.ensureQueryData(queries['business-ARCs'].detail._ctx.byBusinessId(businessId));

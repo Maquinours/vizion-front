@@ -1,19 +1,19 @@
-import ReactModal from 'react-modal';
-import styles from './DeleteModal.module.scss';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { queries } from '../../../../../../../../utils/constants/queryKeys';
-import { deleteBusiness } from '../../../../../../../../utils/api/business';
-import { toast } from 'react-toastify';
-import { PulseLoader } from 'react-spinners';
+import { getRouteApi } from '@tanstack/react-router';
 import { useContext } from 'react';
+import ReactModal from 'react-modal';
+import { PulseLoader } from 'react-spinners';
+import { toast } from 'react-toastify';
+import { deleteBusiness } from '../../../../../../../../utils/api/business';
+import { queries } from '../../../../../../../../utils/constants/queryKeys';
 import { TabsContext } from '../../../../../../components/TabsContainer/utils/contexts/context';
+import styles from './DeleteModal.module.scss';
 
-const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/dashboard/delete');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/dashboard/delete');
 
 export default function AppViewBusinessViewDashboardViewDeleteModalView() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { removeTab } = useContext(TabsContext)!;
 
@@ -22,7 +22,7 @@ export default function AppViewBusinessViewDashboardViewDeleteModalView() {
   const { data: business } = useSuspenseQuery(queries.businesses.detail._ctx.byId(businessId));
 
   const onClose = () => {
-    navigate({ to: '..', search: (old) => old, replace: true, resetScroll: false, ignoreBlocker: true });
+    navigate({ to: '..', search: true, replace: true, resetScroll: false, ignoreBlocker: true });
   };
 
   const { mutate, isPending } = useMutation({

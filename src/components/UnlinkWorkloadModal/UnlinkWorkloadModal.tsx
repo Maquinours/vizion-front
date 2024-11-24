@@ -60,12 +60,12 @@ export default function UnlinkWorkloadModalComponent({ taskId, onClose }: Unlink
     <ReactModal isOpen onRequestClose={onClose} className={styles.modal} overlayClassName="Overlay">
       <div className={styles.modal_container}>
         <div className={styles.modal_title}>
-          <h6>Dissociation d'un document</h6>
+          <h6>Dissociation d&apos;un document</h6>
         </div>
 
         <form onSubmit={onSubmit} onReset={onClose}>
           <div className={styles.modal_content}>
-            <p>Vous êtes sur le point de dissocier un document d'un élément.</p>
+            <p>Vous êtes sur le point de dissocier un document d&apos;un élément.</p>
             <p>Voulez-vous continuer ?</p>
           </div>
 

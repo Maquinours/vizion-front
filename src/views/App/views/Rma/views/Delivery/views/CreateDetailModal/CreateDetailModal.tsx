@@ -1,22 +1,22 @@
-import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import ReactModal from 'react-modal';
-import * as yup from 'yup';
-import { createRmaDeliveryDetail } from '../../../../../../../../utils/api/rmaDeliveryDetail';
-import styles from './CreateDetailModal.module.scss';
-import { queries } from '../../../../../../../../utils/constants/queryKeys';
-import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { getProductSerialNumberByNumber } from '../../../../../../../../utils/api/productSerialNumber';
-import { getBusinessBillsByBusinessId } from '../../../../../../../../utils/api/businessBill';
-import BusinessBillResponseDto from '../../../../../../../../utils/types/BusinessBillResponseDto';
-import BillType from '../../../../../../../../utils/enums/BillType';
-import moment from 'moment';
-import { toast } from 'react-toastify';
+import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
+import { getRouteApi } from '@tanstack/react-router';
 import { isAxiosError } from 'axios';
+import moment from 'moment';
+import { Controller, useForm } from 'react-hook-form';
+import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
+import { toast } from 'react-toastify';
+import * as yup from 'yup';
+import { getBusinessBillsByBusinessId } from '../../../../../../../../utils/api/businessBill';
+import { getProductSerialNumberByNumber } from '../../../../../../../../utils/api/productSerialNumber';
+import { createRmaDeliveryDetail } from '../../../../../../../../utils/api/rmaDeliveryDetail';
+import { queries } from '../../../../../../../../utils/constants/queryKeys';
+import BillType from '../../../../../../../../utils/enums/BillType';
+import BusinessBillResponseDto from '../../../../../../../../utils/types/BusinessBillResponseDto';
+import styles from './CreateDetailModal.module.scss';
 
-const routeApi = getRouteApi('/app/businesses-rma/rma/$rmaId/delivery/create-detail');
+const routeApi = getRouteApi('/app/businesses-rma_/rma/$rmaId/delivery/create-detail');
 
 const yupSchema = yup.object().shape({
   productReference: yup.string().required('La référence est requise.'),
@@ -33,7 +33,7 @@ const yupSchema = yup.object().shape({
 
 export default function AppViewRmaViewDeliveryViewCreateDetailModal() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate({ from: routeApi.id });
+  const navigate = routeApi.useNavigate();
 
   const { rmaId } = routeApi.useParams();
 

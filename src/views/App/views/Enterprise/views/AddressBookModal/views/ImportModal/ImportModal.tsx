@@ -6,7 +6,7 @@ import styles from './ImportModal.module.scss';
 import AppViewEnterpriseViewAddressBookModalViewImportModalViewStepOneComponent from './components/StepOne/StepOne';
 import AppViewEnterpriseViewAddressBookModalViewImportModalViewStepTwoComponent from './components/StepTwo/StepTwo';
 
-const routeApi = getRouteApi('/app/enterprises/$enterpriseId/address-book/import');
+const routeApi = getRouteApi('/app/enterprises_/$enterpriseId/address-book/import');
 
 enum Step {
   One,
@@ -21,7 +21,7 @@ export default function AppViewEnterpriseViewAddressBookModalViewImportModalView
   const [addresses, setAddresses] = useState<Array<AddressRequestDto>>();
 
   const onClose = () => {
-    navigate({ from: routeApi.id, to: '..', search: (old) => old, replace: true, resetScroll: false });
+    navigate({ to: '..', search: true, replace: true, resetScroll: false });
   };
 
   const onStepOneSubmit = (file: File, addresses: Array<AddressRequestDto>) => {
