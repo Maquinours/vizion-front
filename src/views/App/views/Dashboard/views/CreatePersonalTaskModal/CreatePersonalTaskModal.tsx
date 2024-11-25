@@ -14,6 +14,7 @@ import WorkloadType from '../../../../../../utils/enums/WorkloadType';
 import ProfileResponseDto from '../../../../../../utils/types/ProfileResponseDto';
 import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthentifiedUser';
 import styles from './CreatePersonalTaskModal.module.scss';
+import moment from 'moment';
 
 const Route = getRouteApi('/app/dashboard/create-personal-task');
 
@@ -54,7 +55,7 @@ export default function AppViewDashboardViewCreatePersonalTaskModalView() {
         type: WorkloadType.PERSONELLE,
         profileId: profile.id,
         senderId: user.profile.id,
-        deadline,
+        deadline: moment(deadline).utc(true).toDate(),
         enterpriseName: user.profile.enterprise!.name,
       }),
     onSuccess: () => {
