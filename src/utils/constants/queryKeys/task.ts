@@ -11,6 +11,7 @@ import {
   getTasksPageByProductId,
   getTasksPageByRmaId,
   getUnreadTasksCountByProfileId,
+  getTasksCounts,
 } from '../../api/task';
 
 export const tasks = createQueryKeys('tasks', {
@@ -54,12 +55,21 @@ export const tasks = createQueryKeys('tasks', {
       }),
     },
   },
-  counts: {
+  numbers: {
     queryKey: null,
     contextQueries: {
       unreadsByProfileId: (profileId: string) => ({
         queryKey: [profileId],
         queryFn: () => getUnreadTasksCountByProfileId(profileId),
+      }),
+    },
+  },
+  counts: {
+    queryKey: null,
+    contextQueries: {
+      byProfileId: (profileId: string) => ({
+        queryKey: [profileId],
+        queryFn: () => getTasksCounts(profileId),
       }),
     },
   },

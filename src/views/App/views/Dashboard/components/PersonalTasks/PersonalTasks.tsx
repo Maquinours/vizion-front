@@ -20,22 +20,34 @@ export default function AppViewDashboardViewPersonalTasksComponent() {
 
   const { data: user } = useAuthentifiedUserQuery();
 
-  const { data, refetch, isRefetching, isLoading } = useQuery(queries.tasks.page._ctx.byStateAndProfileId(state, user.profile.id, { page, size }));
+  const {
+    data: pageData,
+    refetch: refetchPage,
+    isRefetching: isRefetchingPage,
+    isLoading: isLoadingPage,
+  } = useQuery(queries.tasks.page._ctx.byStateAndProfileId(state, user.profile.id, { page, size }));
 
-  useSubscription([`/topic/tasks-sender/${user.profile.id}`, `/topic/tasks/${user.profile.id}`], () => refetch());
+  const { data: counts, refetch: refetchCounts, isRefetching: isRefetchingCounts } = useQuery(queries.tasks.counts._ctx.byProfileId(user.profile.id));
+
+  const refetch = () => {
+    refetchPage();
+    refetchCounts();
+  };
+
+  useSubscription([`/topic/tasks-sender/${user.profile.id}`, `/topic/tasks/${user.profile.id}`], refetch);
 
   return (
     <CardComponent
       title="Charges de travail personnelles"
       addLink={{ to: '/app/dashboard/create-personal-task', search: true, replace: true, resetScroll: false, preload: 'intent' }}
-      onReload={() => refetch()}
-      isReloading={isRefetching}
+      onReload={refetch}
+      isReloading={isRefetchingPage || isRefetchingCounts}
       isMinimized={isMinimized}
       setMinimized={setMinimized}
     >
-      <AppViewDashboardViewPersonalTasksComponentHeaderComponent />
-      <AppViewDashboardViewPersonalTasksComponentTableComponent data={data} isLoading={isLoading} />
-      <AppViewDashboardViewPersonalTasksComponentPaginationComponent data={data} />
+      <AppViewDashboardViewPersonalTasksComponentHeaderComponent counts={counts} />
+      <AppViewDashboardViewPersonalTasksComponentTableComponent data={pageData} isLoading={isLoadingPage} />
+      <AppViewDashboardViewPersonalTasksComponentPaginationComponent data={pageData} />
     </CardComponent>
   );
 }

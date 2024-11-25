@@ -4,6 +4,7 @@ import { privateInstance } from '../functions/axios';
 import Page from '../types/Page';
 import TaskRequestDto from '../types/TaskRequestDto';
 import TaskResponseDto from '../types/TaskResponseDto';
+import TasksPageWithCountsResponseDto from '../types/TasksCountsResponseDto';
 
 export const createTask = async (task: TaskRequestDto) => {
   return (
@@ -136,4 +137,13 @@ export const getUnreadTasksCountByProfileId = async (profileId: string) => {
     method: 'GET',
     url: `/workloads/v1/tasks/count-unread/${encodeURIComponent(profileId)}`,
   }).then((res) => res.data);
+};
+
+export const getTasksCounts = async (profileId: string) => {
+  return (
+    await privateInstance<TasksPageWithCountsResponseDto>({
+      method: 'GET',
+      url: `/workloads/v1/tasks/counts-by-profile/${encodeURIComponent(profileId)}`,
+    })
+  ).data;
 };

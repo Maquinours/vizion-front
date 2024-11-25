@@ -19,7 +19,19 @@ export default function AppViewDashboardViewOtherPersonalTasksModalView() {
 
   const { otherPersonalTaskState: state, otherPersonalTaskSize: size, otherPersonalTaskPage: page } = Route.useSearch();
 
-  const { data, refetch, isRefetching, isLoading } = useQuery(queries.tasks.page._ctx.byStateAndProfileId(state, profileId, { page, size }));
+  const {
+    data: pageData,
+    refetch: refetchPage,
+    isRefetching: isRefetchingPage,
+    isLoading: isLoadingPage,
+  } = useQuery(queries.tasks.page._ctx.byStateAndProfileId(state, profileId, { page, size }));
+
+  const { data: counts, refetch: refetchCounts, isRefetching: isRefetchingCounts } = useQuery(queries.tasks.counts._ctx.byProfileId(profileId));
+
+  const refetch = () => {
+    refetchPage();
+    refetchCounts();
+  };
 
   const onClose = () => {
     navigate({ from: Route.id, to: '../..', search: true, replace: true, resetScroll: false });
@@ -29,12 +41,12 @@ export default function AppViewDashboardViewOtherPersonalTasksModalView() {
     <ReactModal isOpen={true} onRequestClose={onClose} className={styles.modal} overlayClassName="Overlay">
       <CardComponent
         title={`Charges de travail personnelles de ${profile?.firstName} ${profile?.lastName}`}
-        onReload={() => refetch()}
-        isReloading={isRefetching}
+        onReload={refetch}
+        isReloading={isRefetchingPage || isRefetchingCounts}
       >
-        <AppViewDashboardViewOtherPersonalTasksModalViewHeaderComponent />
-        <AppViewDashboardViewOtherPersonalTasksModalViewTableComponent data={data} isLoading={isLoading} profile={profile} />
-        <AppViewDashboardViewOtherPersonalTasksModalViewPaginationComponent data={data} />
+        <AppViewDashboardViewOtherPersonalTasksModalViewHeaderComponent counts={counts} />
+        <AppViewDashboardViewOtherPersonalTasksModalViewTableComponent data={pageData} isLoading={isLoadingPage} profile={profile} />
+        <AppViewDashboardViewOtherPersonalTasksModalViewPaginationComponent data={pageData} />
       </CardComponent>
     </ReactModal>
   );

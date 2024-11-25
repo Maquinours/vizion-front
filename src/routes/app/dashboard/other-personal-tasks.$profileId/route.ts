@@ -19,6 +19,7 @@ export const Route = createFileRoute('/app/dashboard/other-personal-tasks/$profi
   }),
   loader: async ({ context: { queryClient }, params: { profileId }, deps: { state, page, size } }) => {
     queryClient.prefetchQuery(queries.tasks.page._ctx.byStateAndProfileId(state, profileId, { page, size }));
+    queryClient.prefetchQuery(queries.tasks.counts._ctx.byProfileId(profileId));
 
     await queryClient.ensureQueryData(queries.profiles.detail(profileId));
   },

@@ -14,7 +14,7 @@ export default function AppViewTitleManagerComponent() {
   const enabled = user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO');
 
   const { data: unreadTasksCount, refetch } = useQuery({
-    ...queries.tasks.counts._ctx.unreadsByProfileId(user.profile.id),
+    ...queries.tasks.numbers._ctx.unreadsByProfileId(user.profile.id),
     enabled: enabled,
   });
 
