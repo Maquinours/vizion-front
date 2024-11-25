@@ -8,6 +8,7 @@ import AppViewProductViewManageViewStocksComponentTableComponent from './compone
 import styles from './Stocks.module.scss';
 
 const routeApi = getRouteApi('/app/products_/$productId/manage');
+const routePath = '/app/products/$productId/manage';
 
 const size = 5;
 
@@ -37,7 +38,7 @@ export default function AppViewProductViewManageViewStocksComponent() {
               page={page}
               totalPages={data?.totalPages}
               pageLink={(page) => ({
-                from: '/app/products_/$productId/manage',
+                from: routePath,
                 search: (old) => ({ ...old, stocksPage: page }),
                 replace: true,
                 resetScroll: false,
