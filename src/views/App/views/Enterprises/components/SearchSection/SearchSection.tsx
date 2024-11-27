@@ -56,6 +56,11 @@ const categoryOptions: Array<{ label: string; value: CategoryClient | ''; allowe
     label: 'Client',
     value: CategoryClient.CLIENT,
   },
+  {
+    label: 'Spécialiste',
+    value: CategoryClient.SPECIALISTE,
+    allowedRoles: ['ROLE_MEMBRE_VIZEO', 'ROLE_REPRESENTANT'],
+  },
 ];
 
 const yupSchema = yup.object({

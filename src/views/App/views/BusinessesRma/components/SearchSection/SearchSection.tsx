@@ -124,6 +124,10 @@ const CATEGORY_OPTIONS = [
     label: 'Client',
     value: CategoryClient.CLIENT,
   },
+  {
+    label: 'Spécialiste',
+    value: CategoryClient.SPECIALISTE,
+  },
 ];
 
 export default function AppViewBusinessesRmaViewSearchSectionComponent() {

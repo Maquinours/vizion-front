@@ -33,4 +33,8 @@ export const enterpriseCategories = [
     label: 'Client',
     value: CategoryClient.CLIENT,
   },
+  {
+    label: 'Spécialiste',
+    value: CategoryClient.SPECIALISTE,
+  },
 ];

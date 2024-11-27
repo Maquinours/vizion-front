@@ -47,6 +47,10 @@ const categoryOptions = [
     label: 'Client',
     value: CategoryClient.CLIENT,
   },
+  {
+    label: 'Spécialiste',
+    value: CategoryClient.SPECIALISTE,
+  },
 ];
 
 const yupSchema = yup.object().shape({
