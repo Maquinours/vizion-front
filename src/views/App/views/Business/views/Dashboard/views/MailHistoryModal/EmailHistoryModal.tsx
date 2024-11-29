@@ -98,7 +98,7 @@ export default function AppViewBusinessViewDashboardViewEmailHistoryModalView() 
   );
 
   const onClose = () => {
-    navigate({ to: '..', search: true, replace: true, resetScroll: false });
+    navigate({ to: '..', search: (old) => ({ ...old, page: undefined }), replace: true, resetScroll: false });
   };
 
   const onRowClick = (e: React.MouseEvent, row: Row<MailResponseDto>) => {
@@ -121,7 +121,7 @@ export default function AppViewBusinessViewDashboardViewEmailHistoryModalView() 
             <PaginationComponent
               page={page}
               totalPages={data?.totalPages}
-              pageLink={(page) => ({ search: (old) => ({ ...old, page }), replace: true, resetScroll: false })}
+              pageLink={(page) => ({ search: (old) => ({ ...old, page }), preload: 'intent', replace: true, resetScroll: false })}
             />
 
             <div className={styles.modal_buttons}>
