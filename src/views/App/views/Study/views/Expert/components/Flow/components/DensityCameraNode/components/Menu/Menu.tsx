@@ -2,7 +2,7 @@ import { NodeToolbar, Position, useReactFlow } from '@xyflow/react';
 import { drag } from 'd3-drag';
 import { select } from 'd3-selection';
 import { useEffect, useRef, useState } from 'react';
-import { MdDragHandle } from 'react-icons/md';
+import { AiOutlineDrag } from 'react-icons/ai';
 import AngleLogo from '../../../../../../../../../../../../assets/images/angle.svg?react';
 import OpacityLogo from '../../../../../../../../../../../../assets/images/opacity.svg?react';
 import RangeLogo from '../../../../../../../../../../../../assets/images/range.svg?react';
@@ -133,7 +133,7 @@ export default function AppViewStudyViewExpertViewFlowComponentDensityCameraNode
     >
       <div className="flex h-fit w-fit flex-col rounded-md bg-green-400">
         <button ref={dragButtonRef} title="Déplacer le menu">
-          <MdDragHandle size={36} />
+          <AiOutlineDrag size={36} />
         </button>
         {isVarifocal && (
           <button ref={angleButtonRef} title="Régler l'angle de la caméra">
