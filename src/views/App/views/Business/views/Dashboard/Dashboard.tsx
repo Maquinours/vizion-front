@@ -200,9 +200,14 @@ export default function AppViewBusinessViewDashboardView() {
           {!business.archived && (
             <div className={styles.right_buttons}>
               {user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && (
-                <Link from={routePath} to="send-email" search replace resetScroll={false} ignoreBlocker className="btn btn-primary">
-                  Envoyer un mail
-                </Link>
+                <>
+                  <Link from={routePath} to="send-email" search replace resetScroll={false} ignoreBlocker preload="intent" className="btn btn-primary">
+                    Envoyer un mail
+                  </Link>
+                  <Link from={routePath} to="email-history" search replace resetScroll={false} ignoreBlocker preload="intent" className="btn btn-primary">
+                    Historique des mails
+                  </Link>
+                </>
               )}
               {(business.state === null ||
                 ![BusinessState.FACTURE, BusinessState.ARC, BusinessState.BP, BusinessState.BL].includes(business.state) ||
