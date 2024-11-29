@@ -95,9 +95,6 @@ importers:
       axios:
         specifier: ^1.7.8
         version: 1.7.8
-      babel-plugin-react-compiler:
-        specifier: 19.0.0-beta-a7bf2bd-20241110
-        version: 19.0.0-beta-a7bf2bd-20241110
       classnames:
         specifier: ^2.5.1
         version: 2.5.1
@@ -161,9 +158,6 @@ importers:
       react-big-calendar:
         specifier: ^1.16.3
         version: 1.16.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      react-compiler-runtime:
-        specifier: 19.0.0-beta-a7bf2bd-20241110
-        version: 19.0.0-beta-a7bf2bd-20241110(react@18.3.1)
       react-datepicker:
         specifier: ^7.5.0
         version: 7.5.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -1900,9 +1894,6 @@ packages:
     resolution: {integrity: sha512-Cg7TFGpIr01vOQNODXOOaGz2NpCU5gl8x1qJFbb6hbZxR7XrcE2vtbAsTAbJ7/xwJtUuJEw8K8Zr/AE0LHlesg==}
     engines: {node: '>=10', npm: '>=6'}
 
-  babel-plugin-react-compiler@19.0.0-beta-a7bf2bd-20241110:
-    resolution: {integrity: sha512-WdxXtLxsV4gh/GlEK4fuFDGkcED0Wb9UJEBB6Uc1SFqRFEmJNFKboW+Z4NUS5gYrPImqrjh4IwHAmgS6ZBg4Cg==}
-
   balanced-match@1.0.2:
     resolution: {integrity: sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==}
 
@@ -3496,11 +3487,6 @@ packages:
     peerDependencies:
       react: ^16.14.0 || ^17 || ^18
       react-dom: ^16.14.0 || ^17 || ^18
-
-  react-compiler-runtime@19.0.0-beta-a7bf2bd-20241110:
-    resolution: {integrity: sha512-cSkrfz2eGcC9UZ/83mLf3aqKKDVjFkWJeA/kiYLwKTNp7B0Lq5M1FQ3vTfgSC027fK5ZutXU/JsCS5KxTwk8Mg==}
-    peerDependencies:
-      react: ^17.0.0 || ^18.0.0 || ^19.0.0
 
   react-datepicker@7.5.0:
     resolution: {integrity: sha512-6MzeamV8cWSOcduwePHfGqY40acuGlS1cG//ePHT6bVbLxWyqngaStenfH03n1wbzOibFggF66kWaBTb1SbTtQ==}
@@ -5967,10 +5953,6 @@ snapshots:
       cosmiconfig: 7.1.0
       resolve: 1.22.8
 
-  babel-plugin-react-compiler@19.0.0-beta-a7bf2bd-20241110:
-    dependencies:
-      '@babel/types': 7.26.0
-
   balanced-match@1.0.2: {}
 
   base64-js@1.5.1: {}
@@ -7633,10 +7615,6 @@ snapshots:
       react-dom: 18.3.1(react@18.3.1)
       react-overlays: 5.2.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       uncontrollable: 7.2.1(react@18.3.1)
-
-  react-compiler-runtime@19.0.0-beta-a7bf2bd-20241110(react@18.3.1):
-    dependencies:
-      react: 18.3.1
 
   react-datepicker@7.5.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
