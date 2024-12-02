@@ -524,10 +524,18 @@ export const parseStudy = async (study: unknown): Promise<{ pages: Array<ExpertS
                         typeof node === 'object' && !!node && 'type' in node && node.type === 'service' ? { ...node, type: 'misc-product' } : node,
                       )
                     : undefined,
+                studyName: 'studyName' in study && typeof study.studyName === 'string' ? study.studyName : undefined,
+                installerName: 'installerName' in study && typeof study.installerName === 'string' ? study.installerName : undefined,
               }))
             : undefined,
       };
-    else if (study.version === 2.1) return { ...study };
+    else if (study.version === 2.1)
+      return {
+        ...study,
+        studyName: 'studyName' in study && typeof study.studyName === 'string' ? study.studyName : undefined,
+        installerName: 'installerName' in study && typeof study.installerName === 'string' ? study.installerName : undefined,
+      };
+    else if (study.version === 2.2) return { ...study };
     else throw new Error('Invalid study version');
   })();
 

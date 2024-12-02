@@ -32,14 +32,12 @@ const GROUPS = [
 
 const selector = (state: RFState) => ({
   getPages: state.getPages,
-  getStudyName: state.getStudyName,
-  getInstallerName: state.getInstallerName,
 });
 
 export default function AppViewStudyViewExpertViewModalProviderComponentConfirmQuotationTransferModalComponent() {
   const queryClient = useQueryClient();
 
-  const { getPages, getStudyName, getInstallerName } = useStore(useShallow(selector));
+  const { getPages } = useStore(useShallow(selector));
 
   const { setModal } = useContext(ExpertStudyContext)!;
 
@@ -143,9 +141,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentConfirmQ
         vizeo: true,
         vizeoptik: true,
         synopticList: {
-          version: 2.1,
-          studyName: getStudyName(),
-          installerName: getInstallerName(),
+          version: 2.2,
           pages: pages,
           flowSize: {
             width: flowRect.width,

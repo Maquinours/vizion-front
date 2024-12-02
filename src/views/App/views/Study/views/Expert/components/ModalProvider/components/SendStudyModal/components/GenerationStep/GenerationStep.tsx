@@ -41,8 +41,6 @@ const selector = (state: RFState) => ({
   getCurrentPage: state.getCurrentPage,
   getPages: state.getPages,
   setCurrentPage: state.setCurrentPage,
-  getStudyName: state.getStudyName,
-  getInstallerName: state.getInstallerName,
 });
 
 type AppViewStudyViewExpertViewModalProviderComponentSendStudyModalComponentImageGenerationStepComponentProps = Readonly<{
@@ -55,7 +53,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentSendStud
 }: AppViewStudyViewExpertViewModalProviderComponentSendStudyModalComponentImageGenerationStepComponentProps) {
   const queryClient = useQueryClient();
 
-  const { getCurrentPage, getPages, setCurrentPage, getStudyName, getInstallerName } = useStore(useShallow(selector));
+  const { getCurrentPage, getPages, setCurrentPage } = useStore(useShallow(selector));
 
   const nodesInitialized = useNodesInitialized();
 
@@ -232,9 +230,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentSendStud
         vizeo: true,
         vizeoptik: true,
         synopticList: {
-          version: 2.1,
-          studyName: getStudyName(),
-          installerName: getInstallerName(),
+          version: 2.2,
           pages: pages,
           flowSize: {
             width: flowRect.width,

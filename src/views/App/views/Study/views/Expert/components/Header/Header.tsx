@@ -31,14 +31,12 @@ const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId_/study/e
 const selector = (state: RFState) => ({
   hasPage: state.pages.length > 0,
   getPages: state.getPages,
-  getStudyName: state.getStudyName,
-  getInstallerName: state.getInstallerName,
 });
 
 export default function AppViewStudyViewExpertViewHeaderComponent() {
   const navigate = routeApi.useNavigate();
 
-  const { hasPage, getPages, getStudyName, getInstallerName } = useStore(useShallow(selector));
+  const { hasPage, getPages } = useStore(useShallow(selector));
 
   const queryClient = useQueryClient();
 
@@ -221,9 +219,7 @@ export default function AppViewStudyViewExpertViewHeaderComponent() {
         vizeoptik: true,
         updateSynoptic: false,
         synopticList: {
-          version: 2.1,
-          studyName: getStudyName(),
-          installerName: getInstallerName(),
+          version: 2.2,
           pages: pages,
           flowSize: {
             width: flowRect.width,
