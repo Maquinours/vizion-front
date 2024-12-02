@@ -13,6 +13,7 @@ import AppViewStudyViewExpertViewModalProviderComponent from './components/Modal
 import AppViewStudyViewExpertViewProductsMenuComponent from './components/ProductsMenu/ProductsMenu';
 import ExpertStudyContext, { ExpertStudyModal, ExpertStudyPaneClickFunction } from './utils/context';
 import { parseStudy } from './utils/functions/parse';
+import { toast } from 'react-toastify';
 
 const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId_/study/expert');
 
@@ -42,9 +43,16 @@ export default function AppViewStudyViewExpertView() {
   useEffect(() => {
     if (getBusinessId() !== businessId) {
       if (synoptic?.synopticList) {
-        parseStudy(synoptic.synopticList).then((study) => {
-          importStudy(study);
-        });
+        (async () => {
+          try {
+            const study = await parseStudy(synoptic.synopticList);
+            importStudy(study);
+          } catch (error) {
+            reset();
+            toast.error("Une erreur est survenue lors de l'importation du synoptique");
+            console.error(error);
+          }
+        })();
       } else {
         reset();
       }
