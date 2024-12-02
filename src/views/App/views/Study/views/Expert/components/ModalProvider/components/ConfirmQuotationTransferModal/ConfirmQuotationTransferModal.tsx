@@ -64,34 +64,36 @@ export default function AppViewStudyViewExpertViewModalProviderComponentConfirmQ
           (node): node is ProductNode => !!node.type && ['synopticCamera', 'monitor', 'recorder', 'transmitter', 'misc-product'].includes(node.type),
         ),
       );
-      const productsData = productNodes.reduce((acc: Array<{ product: ProductResponseDto; quantity: number; groupName: string }>, node) => {
-        const product = products.find((product) => product.id === node.data.productId);
-        if (!product) return acc;
-        const quantity = 'quantity' in node.data && node.data.quantity !== undefined ? node.data.quantity : 1;
-        const data = acc.find((data) => data.product.id === node.data.productId && (!node.data.option || (node.data.option && data.groupName === 'Options')));
-        const groupName =
-          data?.groupName ??
-          (node.data.option
-            ? 'Options'
-            : GROUPS.find((group) => !!product.category && group.categories.includes(product.category))?.name || product.category || 'Autres');
-        if (data) data.quantity += quantity;
-        else
-          acc.push({
-            product: product,
-            quantity: quantity,
-            groupName: groupName,
-          });
-        if ('options' in node.data)
-          for (const option of node.data.options) {
-            const data = acc.find((data) => data.product.id === option.id && data.groupName === groupName);
-            if (data) data.quantity += option.quantity;
-            else {
-              const product = products.find((product) => product.id === option.id);
-              if (product) acc.push({ product: product, quantity: option.quantity, groupName: groupName });
+      const productsData = productNodes
+        .reduce((acc: Array<{ product: ProductResponseDto; quantity: number; groupName: string }>, node) => {
+          const product = products.find((product) => product.id === node.data.productId);
+          if (!product) return acc;
+          const quantity = 'quantity' in node.data && node.data.quantity !== undefined ? node.data.quantity : 1;
+          const data = acc.find((data) => data.product.id === node.data.productId && (!node.data.option || (node.data.option && data.groupName === 'Options')));
+          const groupName =
+            data?.groupName ??
+            (node.data.option
+              ? 'Options'
+              : GROUPS.find((group) => !!product.category && group.categories.includes(product.category))?.name || product.category || 'Autres');
+          if (data) data.quantity += quantity;
+          else
+            acc.push({
+              product: product,
+              quantity: quantity,
+              groupName: groupName,
+            });
+          if ('options' in node.data)
+            for (const option of node.data.options) {
+              const data = acc.find((data) => data.product.id === option.id && data.groupName === groupName);
+              if (data) data.quantity += option.quantity;
+              else {
+                const product = products.find((product) => product.id === option.id);
+                if (product) acc.push({ product: product, quantity: option.quantity, groupName: groupName });
+              }
             }
-          }
-        return acc;
-      }, []);
+          return acc;
+        }, [])
+        .filter((data) => data.quantity > 0);
 
       const subQuotations: Array<SynopticRequestBusinessQuotationRequestSubQuotationRequestDto> = Object.entries(groupBy(productsData, 'groupName'))
         .sort(([a], [b]) => {
