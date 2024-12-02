@@ -12,7 +12,14 @@ export default function AppViewExternalLinksViewExternalLinkView() {
 
   return (
     <div className={styles.container}>
-      <iframe title={externalLink.title} src={externalLink.url!} sandbox={externalLink.type ?? undefined} loading="eager" allowFullScreen />
+      <iframe
+        title={externalLink.title}
+        src={externalLink.url!}
+        sandbox={externalLink.type ?? undefined}
+        loading="eager"
+        allowFullScreen
+        allow="clipboard-read; clipboard-write"
+      />
     </div>
   );
 }
