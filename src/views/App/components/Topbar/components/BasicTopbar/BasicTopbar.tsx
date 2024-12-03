@@ -8,7 +8,7 @@ type AppLayoutTopbarComponentBasicTopbarComponentProps = {
   logout: () => void;
 };
 export default function AppLayoutTopbarComponentBasicTopbarComponent({ logout }: Readonly<AppLayoutTopbarComponentBasicTopbarComponentProps>) {
-  useLocation(); // We need to use useLocation to trigger a rerender of the link when the user navigates
+  const location = useLocation(); // We need to use useLocation to trigger a rerender of the link when the user navigates
   const { data: currentUser } = useAuthentifiedUserQuery();
 
   return (
@@ -38,7 +38,7 @@ export default function AppLayoutTopbarComponentBasicTopbarComponent({ logout }:
         </div>
         {currentUser.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && (
           <div className={styles.email}>
-            <Link to="." search={(old) => ({ ...old, appModal: 'send-email' })} replace preload="intent" resetScroll={false}>
+            <Link to={location.pathname} search={(old) => ({ ...old, appModal: 'send-email' })} replace preload="intent" resetScroll={false}>
               Écrire un mail
             </Link>
           </div>

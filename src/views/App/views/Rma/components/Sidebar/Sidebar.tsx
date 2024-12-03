@@ -1,4 +1,4 @@
-import { Link, getRouteApi } from '@tanstack/react-router';
+import { Link, getRouteApi, useLocation } from '@tanstack/react-router';
 import styles from './Sidebar.module.scss';
 import { ToPathOption } from '@tanstack/react-router';
 import AssistanceState from '../../../../../../utils/enums/AssistanceState';
@@ -31,6 +31,8 @@ const STEPS_DATA: Array<{
 ];
 
 export default function AppViewRmaViewSidebarComponent() {
+  const location = useLocation();
+
   const { data: authentifiedUser } = useAuthentifiedUserQuery();
   const { rmaId } = routeApi.useParams();
   const { data: rma } = useSuspenseQuery(queries.rmas.detail(rmaId));
@@ -55,7 +57,7 @@ export default function AppViewRmaViewSidebarComponent() {
       </div>
       {authentifiedUser.userInfo.roles.find((role) => ['ROLE_VIZEO', 'ROLE_DIRECTION_VIZEO', 'ROLE_STAGIAIRE_VIZEO'].includes(role)) &&
         rma.state !== AssistanceState.ARCHIVE && (
-          <Link to="." search={(old) => ({ ...old, rmaModal: 'archive' })} replace resetScroll={false} className="btn btn-primary">
+          <Link to={location.pathname} search={(old) => ({ ...old, rmaModal: 'archive' })} replace resetScroll={false} className="btn btn-primary">
             Archiver
           </Link>
         )}
