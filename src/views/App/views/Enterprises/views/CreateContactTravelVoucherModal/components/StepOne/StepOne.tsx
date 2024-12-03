@@ -15,16 +15,16 @@ import { generateTravelVoucher } from './utils/api/travelVoucher';
 const routeApi = getRouteApi('/app/enterprises/create-contact-travel-voucher/$contactId');
 
 const yupSchema = yup.object({
-  businessNumber: yup.string().required('Champs requis'),
-  companyName: yup.string().required('Champs requis').max(40, 'Max 40 caratères'),
-  name: yup.string().required('Champs requis').max(40, 'Max 40 caratères'),
-  note: yup.string().nullable(),
-  addressOne: yup.string().required('Champs requis').max(40, 'Max 40 caratères'),
-  addressTwo: yup.string().nullable().max(40, 'Max 40 caratères'),
-  zipCode: yup.string().required('Champs requis'),
-  city: yup.string().required('Champs requis'),
-  phoneNumber: yup.string().nullable(),
-  email: yup.string().email('Email invalide').nullable(),
+  businessNumber: yup.string().required('Champs requis').trim(),
+  companyName: yup.string().required('Champs requis').max(40, 'Max 40 caratères').trim(),
+  name: yup.string().required('Champs requis').max(40, 'Max 40 caratères').trim(),
+  note: yup.string().nullable().trim(),
+  addressOne: yup.string().required('Champs requis').max(40, 'Max 40 caratères').trim(),
+  addressTwo: yup.string().nullable().max(40, 'Max 40 caratères').trim(),
+  zipCode: yup.string().required('Champs requis').trim(),
+  city: yup.string().required('Champs requis').trim(),
+  phoneNumber: yup.string().nullable().trim(),
+  email: yup.string().email('Email invalide').nullable().trim(),
   number: yup.number().typeError('Format invalide').min(1, 'Min 1').required('Champs requis'),
 });
 
