@@ -1,9 +1,10 @@
+import { useContext } from 'react';
 import { Controller, useWatch } from 'react-hook-form';
 import { ReactMultiEmail } from 'react-multi-email';
-import styles from './Inputs.module.scss';
 import 'react-multi-email/dist/style.css';
-import { useContext } from 'react';
 import { SendEmailFormContext } from '../../../../utils/contexts/sendEmail';
+import styles from './Inputs.module.scss';
+import SendEmailComponentHeaderComponentInputsComponentAttachmentLinkFieldComponent from './components/AttachmentLinkField/AttachmentLinkField';
 
 const getEmailLabel = (email: string, index: number, removeEmail: (index: number, isDisabled?: boolean) => void) => (
   <div data-tag key={index}>
@@ -81,6 +82,7 @@ export default function SendEmailComponentHeaderComponentInputsComponent() {
         <input className={styles.input} type="text" placeholder="Objet" {...register('subject')} />
         <p className={styles.__errors}>{errors.subject?.message}</p>
       </div>
+      <SendEmailComponentHeaderComponentInputsComponentAttachmentLinkFieldComponent />
     </div>
   );
 }
