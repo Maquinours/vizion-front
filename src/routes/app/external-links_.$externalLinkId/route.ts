@@ -1,9 +1,9 @@
-import { createFileRoute } from '@tanstack/react-router';
-import { externalLinks } from '../../../utils/constants/queryKeys/externalLink';
-import Page from '../../../utils/types/Page';
-import ExternalLinkResponseDto from '../../../utils/types/ExternalLinkResponseDto';
 import { QueryKey } from '@tanstack/react-query';
+import { createFileRoute } from '@tanstack/react-router';
 import { queries } from '../../../utils/constants/queryKeys';
+import { externalLinks } from '../../../utils/constants/queryKeys/externalLink';
+import ExternalLinkResponseDto from '../../../utils/types/ExternalLinkResponseDto';
+import Page from '../../../utils/types/Page';
 
 export const Route = createFileRoute('/app/external-links_/$externalLinkId')({
   loader: async ({ context: { queryClient }, params: { externalLinkId } }) => {
