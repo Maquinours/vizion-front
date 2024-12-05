@@ -31,6 +31,12 @@ const NVR_VERSIONS = [
     date: new Date('2024-01-15'),
     patchNoteUrl: 'https://bd.vizeo.eu/.index.php?p=5-Firmwares%2F3+-MAJ++2023%2FMAJ+HDXXd_e%2FMAJ+01_2024&view=info.txt',
   },
+  {
+    name: 'V4.7',
+    title: "Version 4.7 de l'enregistreur",
+    date: new Date('2024-11-11'),
+    patchNoteUrl: 'https://bd.vizeo.eu/5-Firmwares/Firmwares/Enregistreurs/HD516/HD516e/info.txt',
+  },
 ].sort((a, b) => b.date.getTime() - a.date.getTime());
 
 const columnHelper = createColumnHelper<BusinessBpDetailsResponseDto>();
