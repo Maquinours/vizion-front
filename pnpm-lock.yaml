@@ -201,8 +201,8 @@ importers:
         specifier: ^5.8.3
         version: 5.8.3(@types/react@18.3.14)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react-spinners:
-        specifier: ^0.14.1
-        version: 0.14.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: ^0.15.0
+        version: 0.15.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react-stomp-hooks:
         specifier: ^3.0.1
         version: 3.0.1(react@18.3.1)
@@ -3587,11 +3587,11 @@ packages:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
       react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
 
-  react-spinners@0.14.1:
-    resolution: {integrity: sha512-2Izq+qgQ08HTofCVEdcAQCXFEYfqTDdfeDQJeo/HHQiQJD4imOicNLhkfN2eh1NYEWVOX4D9ok2lhuDB0z3Aag==}
+  react-spinners@0.15.0:
+    resolution: {integrity: sha512-ZO3/fNB9Qc+kgpG3SfdlMnvTX6LtLmTnOogb3W6sXIaU/kZ1ydEViPfZ06kSOaEsor58C/tzXw2wROGQu3X2pA==}
     peerDependencies:
-      react: ^16.0.0 || ^17.0.0 || ^18.0.0
-      react-dom: ^16.0.0 || ^17.0.0 || ^18.0.0
+      react: ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+      react-dom: ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
 
   react-stomp-hooks@3.0.1:
     resolution: {integrity: sha512-/zCEazDQScvIGTbAcREPsHm1HOjY0nH1m2kK/x0xpt+gCDfUrCrhwd1C8NoB87joR0NTOHRp73g5D7NSpx5IWA==}
@@ -7741,7 +7741,7 @@ snapshots:
       - '@types/react'
       - supports-color
 
-  react-spinners@0.14.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  react-spinners@0.15.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
