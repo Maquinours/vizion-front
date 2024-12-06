@@ -20,6 +20,7 @@ export default function AppViewDashboardViewOtherPersonalTasksModalViewPaginatio
         pageLink={(page) => ({
           from: Route.id,
           search: (old) => ({ ...old, otherPersonalTaskPage: page }),
+          preload: 'intent',
           replace: true,
           resetScroll: false,
         })}

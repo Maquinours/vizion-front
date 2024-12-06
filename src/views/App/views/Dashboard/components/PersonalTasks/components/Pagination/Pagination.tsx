@@ -21,6 +21,7 @@ export default function AppViewDashboardViewPersonalTasksComponentPaginationComp
           from: Route.id,
           to: Route.id,
           search: (old) => ({ ...old, personalTaskPage: page }),
+          preload: 'intent',
           replace: true,
           resetScroll: false,
         })}
