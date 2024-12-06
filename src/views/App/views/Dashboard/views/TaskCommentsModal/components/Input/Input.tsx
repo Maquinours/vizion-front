@@ -12,7 +12,7 @@ import { useAuthentifiedUserQuery } from '../../../../../../utils/functions/getA
 import styles from './Input.module.scss';
 import { createTaskComment } from './utils/api/taskComments';
 
-const Route = getRouteApi('/app/dashboard/task-comments/$taskId');
+const routeApi = getRouteApi('/app/dashboard/task-comments/$taskId');
 
 const yupSchema = yup.object({
   comment: yup.string().required('Le contenu est requis'),
@@ -28,7 +28,7 @@ export default function AppViewDashboardViewTaskCommentsModalViewInputComponent(
     resolver: yupResolver(yupSchema),
   });
 
-  const { taskId } = Route.useParams();
+  const { taskId } = routeApi.useParams();
 
   const { data: currentUser } = useAuthentifiedUserQuery();
 

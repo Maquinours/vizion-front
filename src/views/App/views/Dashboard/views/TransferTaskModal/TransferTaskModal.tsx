@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { getRouteApi } from '@tanstack/react-router';
 import { Controller, useForm } from 'react-hook-form';
 import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
@@ -15,7 +15,7 @@ import ProfileResponseDto from '../../../../../../utils/types/ProfileResponseDto
 import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthentifiedUser';
 import styles from './TransferTaskModal.module.scss';
 
-const Route = getRouteApi('/app/dashboard/transfer-task/$taskId');
+const routeApi = getRouteApi('/app/dashboard/transfer-task/$taskId');
 
 const yupSchema = yup.object({
   profile: yup.mixed<ProfileResponseDto>().required("L'utilisateur est requis"),
@@ -23,9 +23,9 @@ const yupSchema = yup.object({
 
 export default function AppViewDashboardViewTransferCollectiveTaskModalView() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate();
+  const navigate = routeApi.useNavigate();
 
-  const { taskId } = Route.useParams();
+  const { taskId } = routeApi.useParams();
 
   const { data: currentUser } = useAuthentifiedUserQuery();
 
@@ -40,7 +40,7 @@ export default function AppViewDashboardViewTransferCollectiveTaskModalView() {
   const { data: allMembers, isLoading: isLoadingAllMembers } = useSuspenseQuery(queries.profiles.list._ctx.byCategory(CategoryClient.VIZEO));
 
   const onClose = () => {
-    navigate({ from: Route.id, to: '../..', search: true, replace: true, resetScroll: false });
+    navigate({ to: '../..', search: true, replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({

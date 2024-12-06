@@ -1,12 +1,12 @@
 import { ClickAwayListener, Fade, MenuItem, MenuList, Paper, Popper } from '@mui/material';
+import { VirtualElement } from '@popperjs/core';
+import { Link } from '@tanstack/react-router';
 import { FaTrash } from 'react-icons/fa';
 import { MdModeEdit } from 'react-icons/md';
-import { VirtualElement } from '@popperjs/core';
-import styles from './ContextMenu.module.scss';
-import { Link, getRouteApi } from '@tanstack/react-router';
 import ProgressiveInfoResponseDto from '../../../../../../../../../../utils/types/ProgressiveInfoResponseDto';
+import styles from './ContextMenu.module.scss';
 
-const Route = getRouteApi('/app/dashboard');
+const routePath = '/app/dashboard';
 
 type AppViewDashboardViewProgressiveInfosComponentTableComponentContextMenuComponentProps = Readonly<{
   anchor: VirtualElement | undefined;
@@ -33,7 +33,7 @@ export default function AppViewDashboardViewProgressiveInfosComponentTableCompon
               <MenuList>
                 <MenuItem className={styles.menu_item}>
                   <Link
-                    from={Route.id}
+                    from={routePath}
                     to="./update-progressive-info/$progressiveInfoId"
                     params={(old) => ({ ...old, progressiveInfoId: progressiveInfo!.id })}
                     search
@@ -48,7 +48,7 @@ export default function AppViewDashboardViewProgressiveInfosComponentTableCompon
                 </MenuItem>
                 <MenuItem className={styles.menu_item}>
                   <Link
-                    from={Route.id}
+                    from={routePath}
                     to="./delete-progressive-info/$progressiveInfoId"
                     params={(old) => ({ ...old, progressiveInfoId: progressiveInfo!.id })}
                     search

@@ -1,16 +1,16 @@
 import { ClickAwayListener, Fade, MenuItem, MenuList, Paper, Popper } from '@mui/material';
 import { VirtualElement } from '@popperjs/core';
-import { Link, getRouteApi } from '@tanstack/react-router';
+import { Link } from '@tanstack/react-router';
 import { BsEyeFill, BsFillCircleFill, BsLink45Deg } from 'react-icons/bs';
+import { GoUnlink } from 'react-icons/go';
 import { IoMdArrowForward } from 'react-icons/io';
 import { MdOutlineComment, MdSchedule } from 'react-icons/md';
-import { GoUnlink } from 'react-icons/go';
 import TaskState from '../../../../../../../../../../utils/enums/TaskState';
 import ProfileInfoResponseDto from '../../../../../../../../../../utils/types/ProfileInfoResponseDto';
 import TaskResponseDto from '../../../../../../../../../../utils/types/TaskResponseDto';
 import styles from './ContextMenu.module.scss';
 
-const Route = getRouteApi('/app/dashboard');
+const routePath = '/app/dashboard';
 
 type AppViewDashboardViewPersonalTasksComponentTableComponentContextMenuComponentProps = Readonly<{
   anchor: VirtualElement | undefined;
@@ -41,7 +41,7 @@ export default function AppViewDashboardViewPersonalTasksComponentTableComponent
                   {!task.businessId && !task.enterpriseId && !task.productId && !task.rmaId ? (
                     <MenuItem>
                       <Link
-                        from={Route.id}
+                        from={routePath}
                         to="./link-personal-task/$taskId"
                         params={{ taskId: task.id }}
                         search
@@ -57,7 +57,7 @@ export default function AppViewDashboardViewPersonalTasksComponentTableComponent
                     !task.technicalSupportId && (
                       <MenuItem>
                         <Link
-                          from={Route.id}
+                          from={routePath}
                           to="./unlink-personal-task/$taskId"
                           params={{ taskId: task.id }}
                           search
@@ -75,7 +75,7 @@ export default function AppViewDashboardViewPersonalTasksComponentTableComponent
                     (task.senderId === user.profile.id && task.senderState !== TaskState.ARCHIVED)) && (
                     <MenuItem>
                       <Link
-                        from={Route.id}
+                        from={routePath}
                         to="./archive-personal-task/$taskId"
                         params={{ taskId: task.id }}
                         search
@@ -93,7 +93,7 @@ export default function AppViewDashboardViewPersonalTasksComponentTableComponent
                     (task.senderId === user.profile.id && [TaskState.CLOSED, TaskState.CREATED].includes(task.senderState!))) && (
                     <MenuItem>
                       <Link
-                        from={Route.id}
+                        from={routePath}
                         to="./update-personal-task-deadline/$taskId"
                         params={{ taskId: task.id }}
                         search
@@ -111,7 +111,7 @@ export default function AppViewDashboardViewPersonalTasksComponentTableComponent
                     (task.senderId === user.profile.id && task.senderState === TaskState.CREATED)) && (
                     <MenuItem>
                       <Link
-                        from={Route.id}
+                        from={routePath}
                         to="./transfer-task/$taskId"
                         params={{ taskId: task.id }}
                         search
@@ -129,7 +129,7 @@ export default function AppViewDashboardViewPersonalTasksComponentTableComponent
                     (task.senderId === user.profile.id && task.senderState === TaskState.CREATED)) && (
                     <MenuItem>
                       <Link
-                        from={Route.id}
+                        from={routePath}
                         to="./validate-personal-task/$taskId"
                         params={{ taskId: task.id }}
                         search
@@ -145,7 +145,7 @@ export default function AppViewDashboardViewPersonalTasksComponentTableComponent
                   )}
                   <MenuItem>
                     <Link
-                      from={Route.id}
+                      from={routePath}
                       to="./personal-task-details/$taskId"
                       params={{ taskId: task.id }}
                       search
@@ -160,7 +160,7 @@ export default function AppViewDashboardViewPersonalTasksComponentTableComponent
                   </MenuItem>
                   <MenuItem>
                     <Link
-                      from={Route.id}
+                      from={routePath}
                       to="./task-comments/$taskId"
                       params={{ taskId: task.id }}
                       search

@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useQuery, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { getRouteApi } from '@tanstack/react-router';
 import { useMemo } from 'react';
 import { Controller, useForm, useWatch } from 'react-hook-form';
 import ReactModal from 'react-modal';
@@ -26,7 +26,7 @@ enum LinkType {
   ENTERPRISE = 'ENTERPRISE',
 }
 
-const Route = getRouteApi('/app/dashboard/link-personal-task/$taskId');
+const routeApi = getRouteApi('/app/dashboard/link-personal-task/$taskId');
 
 const yupSchema = yup.object({
   type: yup.mixed<LinkType>().required(),
@@ -49,9 +49,9 @@ const yupSchema = yup.object({
 
 export default function AppViewDashboardViewLinkPersonalTaskModalView() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate();
+  const navigate = routeApi.useNavigate();
 
-  const { taskId } = Route.useParams();
+  const { taskId } = routeApi.useParams();
 
   const { data: task } = useSuspenseQuery(queries.tasks.detail(taskId));
 
@@ -64,7 +64,7 @@ export default function AppViewDashboardViewLinkPersonalTaskModalView() {
   });
 
   const onClose = () => {
-    navigate({ from: Route.id, to: '../..', search: true, replace: true, resetScroll: false });
+    navigate({ to: '../..', search: true, replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({

@@ -1,20 +1,20 @@
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
-import ReactSelect from 'react-select';
-import styles from './SearchSection.module.scss';
 import { useSuspenseQuery } from '@tanstack/react-query';
-import YEARS from '../../../../../../../../utils/constants/years';
-import MONTHS from '../../../../../../../../utils/constants/months';
+import { getRouteApi } from '@tanstack/react-router';
+import ReactSelect from 'react-select';
 import CardComponent from '../../../../../../../../components/Card/Card';
+import MONTHS from '../../../../../../../../utils/constants/months';
 import { enterprises } from '../../../../../../../../utils/constants/queryKeys/enterprise';
+import YEARS from '../../../../../../../../utils/constants/years';
 import CategoryClient from '../../../../../../../../utils/enums/CategoryClient';
 import { getAvailableMonthsForYear } from '../../../../../../../../utils/functions/moment';
+import styles from './SearchSection.module.scss';
 
-const Route = getRouteApi('/app/tools/representatives-turnover');
+const routeApi = getRouteApi('/app/tools/representatives-turnover');
 
 export default function RepresentativesTurnoverViewSearchSectionComponent() {
-  const navigate = useNavigate();
+  const navigate = routeApi.useNavigate();
 
-  const { representativeId, year, month } = Route.useSearch();
+  const { representativeId, year, month } = routeApi.useSearch();
 
   const { data: representatives } = useSuspenseQuery(enterprises.list._ctx.byCategory(CategoryClient.REPRESENTANT));
 
@@ -30,7 +30,7 @@ export default function RepresentativesTurnoverViewSearchSectionComponent() {
                 value={representatives?.find((rep) => rep.id === representativeId)}
                 options={representatives}
                 onChange={(opt) => {
-                  navigate({ from: Route.id, search: (old) => ({ ...old, representativeId: opt?.id }), replace: true, resetScroll: false });
+                  navigate({ search: (old) => ({ ...old, representativeId: opt?.id }), replace: true, resetScroll: false });
                 }}
                 placeholder="Sélectionnez un représentant"
                 getOptionLabel={(opt) => opt.name}
@@ -53,7 +53,6 @@ export default function RepresentativesTurnoverViewSearchSectionComponent() {
                 options={YEARS.map((year) => ({ label: year, value: year }))}
                 onChange={(opt) => {
                   navigate({
-                    from: Route.id,
                     search: (old) => ({
                       ...old,
                       year: opt!.value ?? old.year,
@@ -81,7 +80,7 @@ export default function RepresentativesTurnoverViewSearchSectionComponent() {
                 value={{ label: MONTHS.at(month - 1), value: month }}
                 options={getAvailableMonthsForYear(year).map((month, index) => ({ label: month, value: index + 1 }))}
                 onChange={(opt) => {
-                  navigate({ from: Route.id, search: (old) => ({ ...old, month: opt?.value ?? old.month }), replace: true, resetScroll: false });
+                  navigate({ search: (old) => ({ ...old, month: opt?.value ?? old.month }), replace: true, resetScroll: false });
                 }}
                 placeholder="Sélectionnez un mois"
                 theme={(theme) => ({

@@ -6,7 +6,7 @@ import TaskState from '../../../../../../../../../../utils/enums/TaskState';
 import { Link, getRouteApi } from '@tanstack/react-router';
 import TasksCountsResponseDto from '../../../../../../../../../../utils/types/TasksCountsResponseDto';
 
-const Route = getRouteApi('/app/dashboard/other-personal-tasks/$profileId');
+const routeApi = getRouteApi('/app/dashboard/other-personal-tasks/$profileId');
 
 const STATES: Array<{ value: TaskState; color: string; label: string; countField?: 'created' | 'closed' }> = [
   {
@@ -32,7 +32,7 @@ interface Props {
   counts: TasksCountsResponseDto | undefined;
 }
 export default function AppViewDashboardViewOtherPersonalTasksModalViewHeaderComponentTopComponent({ counts }: Readonly<Props>) {
-  const { otherPersonalTaskState: state } = Route.useSearch();
+  const { otherPersonalTaskState: state } = routeApi.useSearch();
 
   return (
     <div className={styles.top_container}>
@@ -40,7 +40,7 @@ export default function AppViewDashboardViewOtherPersonalTasksModalViewHeaderCom
         {STATES.map((item) => (
           <Link
             key={item.value}
-            from={Route.id}
+            from={routeApi.id}
             search={(old) => ({ ...old, otherPersonalTaskState: item.value, otherPersonalTaskPage: 0 })}
             replace
             resetScroll={false}

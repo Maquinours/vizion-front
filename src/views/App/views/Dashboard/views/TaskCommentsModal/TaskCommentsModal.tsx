@@ -1,16 +1,16 @@
+import { getRouteApi } from '@tanstack/react-router';
 import ReactModal from 'react-modal';
 import AppViewDashboardViewTaskCommentsModalViewCommentsComponent from './components/Comments/Comments';
 import AppViewDashboardViewTaskCommentsModalViewInputComponent from './components/Input/Input';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
 import styles from './TaskCommentsModal.module.scss';
 
-const Route = getRouteApi('/app/dashboard/task-comments/$taskId');
+const routeApi = getRouteApi('/app/dashboard/task-comments/$taskId');
 
 export default function AppViewDashboardViewTaskCommentsModalView() {
-  const navigate = useNavigate();
+  const navigate = routeApi.useNavigate();
 
   const onClose = () => {
-    navigate({ from: Route.id, to: '../..', search: true, replace: true, resetScroll: false });
+    navigate({ to: '../..', search: true, replace: true, resetScroll: false });
   };
 
   return (

@@ -1,5 +1,5 @@
 import { VirtualElement } from '@popperjs/core';
-import { Link, getRouteApi } from '@tanstack/react-router';
+import { Link } from '@tanstack/react-router';
 import { Row, RowSelectionState, createColumnHelper } from '@tanstack/react-table';
 import DOMPurify from 'dompurify';
 import parse from 'html-react-parser';
@@ -11,7 +11,7 @@ import TaskResponseDto from '../../../../../../../../utils/types/TaskResponseDto
 import styles from './Table.module.scss';
 import ContextMenu from './components/ContextMenu/ContextMenu';
 
-const Route = getRouteApi('/app/dashboard');
+const routePath = '/app/dashboard';
 
 const columnHelper = createColumnHelper<TaskResponseDto>();
 
@@ -36,7 +36,7 @@ const columns = [
         <div className={styles.content}>
           {original.mailId ? (
             <Link
-              from={Route.id}
+              from={routePath}
               to="task-email/$taskId"
               params={{ taskId: original.id }}
               search

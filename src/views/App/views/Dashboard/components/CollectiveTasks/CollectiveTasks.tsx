@@ -1,18 +1,18 @@
 import { useQuery } from '@tanstack/react-query';
-import { Link, getRouteApi } from '@tanstack/react-router';
+import { Link } from '@tanstack/react-router';
 import { RowSelectionState } from '@tanstack/react-table';
-import { useLocalStorage } from 'usehooks-ts';
 import { useState } from 'react';
 import { FaTrash } from 'react-icons/fa';
+import { useSubscription } from 'react-stomp-hooks';
+import { useLocalStorage } from 'usehooks-ts';
 import CardComponent from '../../../../../../components/Card/Card';
 import { queries } from '../../../../../../utils/constants/queryKeys';
 import WorkloadType from '../../../../../../utils/enums/WorkloadType';
 import TaskResponseDto from '../../../../../../utils/types/TaskResponseDto';
 import styles from './CollectiveTasks.module.scss';
 import Table from './components/Table/Table';
-import { useSubscription } from 'react-stomp-hooks';
 
-const Route = getRouteApi('/app/dashboard');
+const routePath = '/app/dashboard';
 
 export default function AppViewDashboardViewCollectiveTasksComponent() {
   const [isMinimized, setMinimized] = useLocalStorage<boolean>('preferences.dashboard.collectiveTasks.minimized', false);
@@ -42,7 +42,7 @@ export default function AppViewDashboardViewCollectiveTasksComponent() {
         {selectedItems.length > 0 && (
           <div className={styles.header_container}>
             <Link
-              from={Route.id}
+              from={routePath}
               to="./delete-collective-tasks"
               search={(old) => ({ ...old, tasksId: selectedItems.map(({ id }) => id) })}
               replace

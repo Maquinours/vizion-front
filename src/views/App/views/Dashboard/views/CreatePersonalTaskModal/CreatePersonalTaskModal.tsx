@@ -1,6 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { getRouteApi } from '@tanstack/react-router';
+import moment from 'moment';
 import { Controller, useForm } from 'react-hook-form';
 import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
@@ -14,9 +15,8 @@ import WorkloadType from '../../../../../../utils/enums/WorkloadType';
 import ProfileResponseDto from '../../../../../../utils/types/ProfileResponseDto';
 import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthentifiedUser';
 import styles from './CreatePersonalTaskModal.module.scss';
-import moment from 'moment';
 
-const Route = getRouteApi('/app/dashboard/create-personal-task');
+const routeApi = getRouteApi('/app/dashboard/create-personal-task');
 
 const yupSchema = yup.object({
   content: yup.string().required('Ce champ est requis'),
@@ -26,7 +26,7 @@ const yupSchema = yup.object({
 
 export default function AppViewDashboardViewCreatePersonalTaskModalView() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate();
+  const navigate = routeApi.useNavigate();
 
   const { data: user } = useAuthentifiedUserQuery();
 
@@ -43,7 +43,7 @@ export default function AppViewDashboardViewCreatePersonalTaskModalView() {
   });
 
   const onClose = () => {
-    navigate({ from: Route.id, to: '..', search: true, replace: true, resetScroll: false });
+    navigate({ to: '..', search: true, replace: true, resetScroll: false });
   };
 
   const { data: members, isLoading: isLoadingMembers } = useQuery(queries.profiles.list._ctx.byCategory(CategoryClient.VIZEO));

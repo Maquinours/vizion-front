@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { getRouteApi } from '@tanstack/react-router';
 import { useForm } from 'react-hook-form';
 import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
@@ -13,7 +13,7 @@ import TaskResponseDto from '../../../../../../utils/types/TaskResponseDto';
 import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthentifiedUser';
 import styles from './CreateCollectiveTaskModal.module.scss';
 
-const Route = getRouteApi('/app/dashboard/create-collective-task');
+const routeApi = getRouteApi('/app/dashboard/create-collective-task');
 
 const yupSchema = yup.object({
   content: yup.string().required('Le contenu est requis'),
@@ -21,7 +21,7 @@ const yupSchema = yup.object({
 
 export default function DashboardComponentCreateCollectiveTaskModalView() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate();
+  const navigate = routeApi.useNavigate();
 
   const { data: currentUser } = useAuthentifiedUserQuery();
 
@@ -37,7 +37,7 @@ export default function DashboardComponentCreateCollectiveTaskModalView() {
   });
 
   const onClose = () => {
-    navigate({ from: Route.id, to: '..', search: true, replace: true, resetScroll: false });
+    navigate({ to: '..', search: true, replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({

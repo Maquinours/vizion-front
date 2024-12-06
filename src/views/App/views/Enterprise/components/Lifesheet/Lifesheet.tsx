@@ -2,12 +2,12 @@ import { getRouteApi } from '@tanstack/react-router';
 import LifesheetComponent from '../../../../../../components/Lifesheet/Lifesheet';
 import { LifesheetAssociatedItem } from '../../../../../../utils/enums/LifesheetAssociatedItem';
 
-const Route = getRouteApi('/app/enterprises_/$enterpriseId');
+const routeApi = getRouteApi('/app/enterprises_/$enterpriseId');
 const routePath = '/app/enterprises/$enterpriseId';
 
 export default function AppViewEnterpriseViewLifesheetComponent() {
-  const { enterpriseId } = Route.useParams();
-  const { lifesheetPage: page } = Route.useSearch();
+  const { enterpriseId } = routeApi.useParams();
+  const { lifesheetPage: page } = routeApi.useSearch();
 
   return (
     <LifesheetComponent

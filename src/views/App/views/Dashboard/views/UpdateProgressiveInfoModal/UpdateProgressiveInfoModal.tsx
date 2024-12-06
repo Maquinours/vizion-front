@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { getRouteApi } from '@tanstack/react-router';
 import { Controller, useForm } from 'react-hook-form';
 import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
@@ -12,7 +12,7 @@ import ProgressiveInfoResponseDto from '../../../../../../utils/types/Progressiv
 import styles from './UpdateProgressiveInfoModal.module.scss';
 import { updateProgressiveInfo } from './utils/api/progressiveInfo';
 
-const Route = getRouteApi('/app/dashboard/update-progressive-info/$progressiveInfoId');
+const routeApi = getRouteApi('/app/dashboard/update-progressive-info/$progressiveInfoId');
 
 const yupSchema = yup.object({
   content: yup.string().required('Ce champ est requis'),
@@ -20,9 +20,9 @@ const yupSchema = yup.object({
 
 export default function AppViewDashboardViewUpdateProgressiveInfoModalView() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate();
+  const navigate = routeApi.useNavigate();
 
-  const { progressiveInfoId: id } = Route.useParams();
+  const { progressiveInfoId: id } = routeApi.useParams();
 
   const { data: progressiveInfo } = useSuspenseQuery(queries['progressive-infos'].detail(id));
 
@@ -38,7 +38,7 @@ export default function AppViewDashboardViewUpdateProgressiveInfoModalView() {
   });
 
   const onClose = () => {
-    navigate({ from: Route.id, to: '../..', search: true, replace: true, resetScroll: false });
+    navigate({ to: '../..', search: true, replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({

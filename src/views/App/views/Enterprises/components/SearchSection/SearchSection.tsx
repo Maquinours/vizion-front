@@ -12,7 +12,7 @@ import { UserRole } from '../../../../../../utils/types/ProfileInfoResponseDto';
 import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthentifiedUser';
 import styles from './SearchSection.module.scss';
 
-const Route = getRouteApi('/app/enterprises');
+const routeApi = getRouteApi('/app/enterprises');
 
 const categoryOptions: Array<{ label: string; value: CategoryClient | ''; allowedRoles?: Array<UserRole> }> = [
   {
@@ -75,9 +75,9 @@ const yupSchema = yup.object({
 });
 
 export default function AppViewEnterprisesViewSearchSectionComponent() {
-  const navigate = useNavigate({ from: Route.id });
+  const navigate = routeApi.useNavigate();
 
-  const { enterprise, contact, zipCode, city, phoneNumber, category, representativeId, fuzzy } = Route.useSearch();
+  const { enterprise, contact, zipCode, city, phoneNumber, category, representativeId, fuzzy } = routeApi.useSearch();
 
   const { register, control, setValue, reset, handleSubmit } = useForm({
     resolver: yupResolver(yupSchema),

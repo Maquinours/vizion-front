@@ -1,5 +1,5 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
-import { Outlet, getRouteApi, useNavigate } from '@tanstack/react-router';
+import { Outlet, getRouteApi } from '@tanstack/react-router';
 import DOMPurify from 'dompurify';
 import parse from 'html-react-parser';
 import ReactModal from 'react-modal';
@@ -10,12 +10,12 @@ import AppViewDashboardViewTaskEmailModalViewAttachmentsComponent from './compon
 import AppViewDashboardViewTaskEmailModalViewFooterComponent from './components/Footer/Footer';
 import AppViewDashboardViewTaskEmailModalViewInformationsComponent from './components/Informations/Informations';
 
-const Route = getRouteApi('/app/dashboard/task-email/$taskId');
+const routeApi = getRouteApi('/app/dashboard/task-email/$taskId');
 
 export default function AppViewDashboardViewTaskEmailModalView() {
-  const navigate = useNavigate();
+  const navigate = routeApi.useNavigate();
 
-  const { taskId } = Route.useParams();
+  const { taskId } = routeApi.useParams();
 
   const { data: task } = useSuspenseQuery(queries.tasks.detail(taskId));
 
@@ -25,7 +25,7 @@ export default function AppViewDashboardViewTaskEmailModalView() {
     <>
       <ReactModal
         isOpen={true}
-        onRequestClose={() => navigate({ from: Route.id, to: '../..', search: true, replace: true, resetScroll: false })}
+        onRequestClose={() => navigate({ to: '../..', search: true, replace: true, resetScroll: false })}
         className={styles.mail_modal}
         overlayClassName="Overlay"
       >

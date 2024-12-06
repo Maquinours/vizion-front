@@ -16,10 +16,10 @@ import { useAuthentifiedUserQuery } from './utils/functions/getAuthentifiedUser'
 import AppViewSendEmailModalComponent from './components/SendEmailModal/SendEmailModal';
 import AppViewTitleManagerComponent from './components/TitleManager/TitleManager';
 
-const Route = getRouteApi('/app');
+const routeApi = getRouteApi('/app');
 
 export default function AppLayout() {
-  const { mobileSidebar, appModal: modalId } = Route.useSearch();
+  const { mobileSidebar, appModal: modalId } = routeApi.useSearch();
 
   const { data: authentifiedUser } = useAuthentifiedUserQuery();
 

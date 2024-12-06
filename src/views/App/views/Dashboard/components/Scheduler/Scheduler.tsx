@@ -1,5 +1,5 @@
 import { useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { getRouteApi } from '@tanstack/react-router';
 import { View, Views } from 'react-big-calendar';
 import { useLocalStorage } from 'usehooks-ts';
 import CardComponent from '../../../../../../components/Card/Card';
@@ -8,19 +8,19 @@ import { queries } from '../../../../../../utils/constants/queryKeys';
 import RdvUserInfoResponseDto from '../../../../../../utils/types/RdvUserInfoResponseDto';
 import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthentifiedUser';
 
-const Route = getRouteApi('/app/dashboard');
+const routeApi = getRouteApi('/app/dashboard');
 
 const views = [Views.DAY, Views.WORK_WEEK];
 
 export default function AppViewDashboardViewSchedulerComponent() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate();
+  const navigate = routeApi.useNavigate();
 
   const [isMinimized, setMinimized] = useLocalStorage('preferences.dashboard.scheduler.minimized', false);
 
   const { data: user } = useAuthentifiedUserQuery();
 
-  const { schedulerView: view, schedulerDate: date } = Route.useSearch();
+  const { schedulerView: view, schedulerDate: date } = routeApi.useSearch();
 
   const { data, refetch, isRefetching } = useSuspenseQuery({
     ...queries['rdv-user-infos'].list,
@@ -29,11 +29,11 @@ export default function AppViewDashboardViewSchedulerComponent() {
 
   const onViewChange = (view: View) => {
     if (view !== Views.DAY && view !== Views.WORK_WEEK) return;
-    navigate({ from: Route.id, search: (old) => ({ ...old, schedulerView: view }), replace: true, resetScroll: false });
+    navigate({ search: (old) => ({ ...old, schedulerView: view }), replace: true, resetScroll: false });
   };
 
   const onDateChange = (date: Date) => {
-    navigate({ from: Route.id, search: (old) => ({ ...old, schedulerDate: date }), replace: true, resetScroll: false });
+    navigate({ search: (old) => ({ ...old, schedulerDate: date }), replace: true, resetScroll: false });
   };
 
   const onEventClick = (event: RdvUserInfoResponseDto) => {
@@ -42,7 +42,6 @@ export default function AppViewDashboardViewSchedulerComponent() {
       data.filter((info) => info.rdv!.id === event.rdv!.id),
     );
     navigate({
-      from: Route.id,
       to: './scheduler-event-details/$eventId',
       params: { eventId: event.rdv!.id },
       search: true,

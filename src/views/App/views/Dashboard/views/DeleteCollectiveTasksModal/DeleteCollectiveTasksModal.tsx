@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { getRouteApi } from '@tanstack/react-router';
 import React from 'react';
 import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
@@ -8,16 +8,17 @@ import { queries } from '../../../../../../utils/constants/queryKeys';
 import TaskResponseDto from '../../../../../../utils/types/TaskResponseDto';
 import styles from './DeleteCollectiveTasksModal.module.scss';
 import { deleteTasks } from './utils/api/collectiveTasks';
-const Route = getRouteApi('/app/dashboard/delete-collective-tasks');
+
+const routeApi = getRouteApi('/app/dashboard/delete-collective-tasks');
 
 export default function AppViewDashboardViewDeleteCollectiveTasksModalView() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate();
+  const navigate = routeApi.useNavigate();
 
-  const { tasksId } = Route.useSearch();
+  const { tasksId } = routeApi.useSearch();
 
   const onClose = () => {
-    navigate({ from: Route.id, to: '..', search: true, replace: true, resetScroll: false });
+    navigate({ to: '..', search: true, replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({

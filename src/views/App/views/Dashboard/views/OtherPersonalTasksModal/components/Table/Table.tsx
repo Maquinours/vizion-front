@@ -18,7 +18,7 @@ import styles from './Table.module.scss';
 import AppViewDashboardViewPersonalTasksComponentPersonalTasksComponentTableComponentContextMenuComponent from './components/ContextMenu/ContextMenu';
 import ProfileResponseDto from '../../../../../../../../utils/types/ProfileResponseDto';
 
-const Route = getRouteApi('/app/dashboard/other-personal-tasks/$profileId');
+const routePath = '/app/dashboard/other-personal-tasks/$profileId';
 
 const columnHelper = createColumnHelper<TaskResponseDto>();
 
@@ -63,7 +63,7 @@ export default function AppViewDashboardViewOtherPersonalTasksModalViewTableComp
           let item;
           if (original.mailId)
             item = (
-              <Link from={Route.id} to="../../task-email/$taskId" params={{ taskId: original.id }} search replace resetScroll={false} preload="intent">
+              <Link from={routePath} to="../../task-email/$taskId" params={{ taskId: original.id }} search replace resetScroll={false} preload="intent">
                 {parse(DOMPurify.sanitize(original.content ?? ''))}
                 <p className="text-secondary">A : {original.receiver?.to?.toString().split(';').join(' ')}</p>
                 <p>De : {original.name}</p>

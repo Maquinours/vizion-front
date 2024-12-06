@@ -1,13 +1,13 @@
 import { ClickAwayListener, Fade, MenuItem, MenuList, Paper, Popper } from '@mui/material';
-import { IoIosCheckmarkCircleOutline, IoMdArrowForward } from 'react-icons/io';
-import styles from './ContextMenu.module.scss';
-import { MdOutlineComment } from 'react-icons/md';
-import { FaTrash } from 'react-icons/fa';
 import { VirtualElement } from '@popperjs/core';
+import { Link } from '@tanstack/react-router';
+import { FaTrash } from 'react-icons/fa';
+import { IoIosCheckmarkCircleOutline, IoMdArrowForward } from 'react-icons/io';
+import { MdOutlineComment } from 'react-icons/md';
 import TaskResponseDto from '../../../../../../../../../../utils/types/TaskResponseDto';
-import { Link, getRouteApi } from '@tanstack/react-router';
+import styles from './ContextMenu.module.scss';
 
-const Route = getRouteApi('/app/dashboard');
+const routePath = '/app/dashboard';
 
 type AppViewDashboardViewCollectiveTasksComponentTableComponentContextMenuComponentProps = Readonly<{
   anchorElement: VirtualElement | undefined;
@@ -35,7 +35,7 @@ export default function AppViewDashboardViewCollectiveTasksComponentTableCompone
                 <MenuList>
                   <MenuItem>
                     <Link
-                      from={Route.id}
+                      from={routePath}
                       to="take-collective-task/$taskId"
                       params={{ taskId: task.id }}
                       search
@@ -50,7 +50,7 @@ export default function AppViewDashboardViewCollectiveTasksComponentTableCompone
                   </MenuItem>
                   <MenuItem>
                     <Link
-                      from={Route.id}
+                      from={routePath}
                       to="transfer-task/$taskId"
                       params={{ taskId: task.id }}
                       search
@@ -65,7 +65,7 @@ export default function AppViewDashboardViewCollectiveTasksComponentTableCompone
                   </MenuItem>
                   <MenuItem>
                     <Link
-                      from={Route.id}
+                      from={routePath}
                       to="task-comments/$taskId"
                       params={{ taskId: task.id }}
                       search
@@ -80,7 +80,7 @@ export default function AppViewDashboardViewCollectiveTasksComponentTableCompone
                   </MenuItem>
                   <MenuItem>
                     <Link
-                      from={Route.id}
+                      from={routePath}
                       to="delete-collective-task/$taskId"
                       params={{ taskId: task.id }}
                       search
