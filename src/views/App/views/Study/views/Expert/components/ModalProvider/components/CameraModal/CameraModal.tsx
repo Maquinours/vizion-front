@@ -16,7 +16,7 @@ import useStore, { RFState } from '../../../Flow/utils/store';
 import { useShallow } from 'zustand/react/shallow';
 import { ExpertStudyDensityCameraNode } from '../../../Flow/components/DensityCameraNode/DensityCameraNode';
 
-const bestSellers = ['CA10HD', 'CA50HD', 'DA330HD', 'DA450HD'];
+const bestSellers = ['CA10HD', 'DA330HD', 'DA450HD'];
 const includedProducts = [
   'DA330HD',
   'DA430HD',
@@ -28,7 +28,6 @@ const includedProducts = [
   'CA40HD',
   'CA60HD',
   'CA20HD',
-  'CA50HD',
   'CA80HD',
   'DO518HD',
   'DO530HD',
