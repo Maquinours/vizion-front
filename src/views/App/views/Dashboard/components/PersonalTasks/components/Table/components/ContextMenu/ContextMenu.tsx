@@ -4,6 +4,7 @@ import { Link, getRouteApi } from '@tanstack/react-router';
 import { BsEyeFill, BsFillCircleFill, BsLink45Deg } from 'react-icons/bs';
 import { IoMdArrowForward } from 'react-icons/io';
 import { MdOutlineComment, MdSchedule } from 'react-icons/md';
+import { GoUnlink } from 'react-icons/go';
 import TaskState from '../../../../../../../../../../utils/enums/TaskState';
 import ProfileInfoResponseDto from '../../../../../../../../../../utils/types/ProfileInfoResponseDto';
 import TaskResponseDto from '../../../../../../../../../../utils/types/TaskResponseDto';
@@ -37,7 +38,7 @@ export default function AppViewDashboardViewPersonalTasksComponentTableComponent
             <Paper className={styles.menu_container}>
               {task && (
                 <MenuList>
-                  {!task.businessId && !task.enterpriseId && !task.productId && !task.rmaId && (
+                  {!task.businessId && !task.enterpriseId && !task.productId && !task.rmaId ? (
                     <MenuItem>
                       <Link
                         from={Route.id}
@@ -52,6 +53,23 @@ export default function AppViewDashboardViewPersonalTasksComponentTableComponent
                         <BsLink45Deg className={styles.icon} /> <span className={styles.text}>Relier à</span>
                       </Link>
                     </MenuItem>
+                  ) : (
+                    !task.technicalSupportId && (
+                      <MenuItem>
+                        <Link
+                          from={Route.id}
+                          to="./unlink-personal-task/$taskId"
+                          params={{ taskId: task.id }}
+                          search
+                          replace
+                          resetScroll={false}
+                          preload="render"
+                          onClick={onClose}
+                        >
+                          <GoUnlink className={styles.icon} /> <span className={styles.text}>Supprimer la liaison</span>
+                        </Link>
+                      </MenuItem>
+                    )
                   )}
                   {((task.profileId === user.profile.id && task.state !== TaskState.ARCHIVED) ||
                     (task.senderId === user.profile.id && task.senderState !== TaskState.ARCHIVED)) && (

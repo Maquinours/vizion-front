@@ -106,6 +106,7 @@ import { Route as AppEnterprisesCreateContactBusinessContactIdRouteImport } from
 import { Route as AppDashboardValidatePersonalTaskTaskIdRouteImport } from './routes/app/dashboard/validate-personal-task.$taskId/route'
 import { Route as AppDashboardUpdateProgressiveInfoProgressiveInfoIdRouteImport } from './routes/app/dashboard/update-progressive-info.$progressiveInfoId/route'
 import { Route as AppDashboardUpdatePersonalTaskDeadlineTaskIdRouteImport } from './routes/app/dashboard/update-personal-task-deadline.$taskId/route'
+import { Route as AppDashboardUnlinkPersonalTaskTaskIdRouteImport } from './routes/app/dashboard/unlink-personal-task.$taskId/route'
 import { Route as AppDashboardTransferTaskTaskIdRouteImport } from './routes/app/dashboard/transfer-task.$taskId/route'
 import { Route as AppDashboardTaskEmailTaskIdRouteImport } from './routes/app/dashboard/task-email.$taskId/route'
 import { Route as AppDashboardTaskCommentsTaskIdRouteImport } from './routes/app/dashboard/task-comments.$taskId/route'
@@ -1246,6 +1247,17 @@ const AppDashboardUpdatePersonalTaskDeadlineTaskIdRouteRoute =
   } as any).lazy(() =>
     import(
       './routes/app/dashboard/update-personal-task-deadline.$taskId/route.lazy'
+    ).then((d) => d.Route),
+  )
+
+const AppDashboardUnlinkPersonalTaskTaskIdRouteRoute =
+  AppDashboardUnlinkPersonalTaskTaskIdRouteImport.update({
+    id: '/unlink-personal-task/$taskId',
+    path: '/unlink-personal-task/$taskId',
+    getParentRoute: () => AppDashboardRouteRoute,
+  } as any).lazy(() =>
+    import(
+      './routes/app/dashboard/unlink-personal-task.$taskId/route.lazy'
     ).then((d) => d.Route),
   )
 
@@ -4197,6 +4209,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppDashboardTransferTaskTaskIdRouteImport
       parentRoute: typeof AppDashboardRouteImport
     }
+    '/app/dashboard/unlink-personal-task/$taskId': {
+      id: '/app/dashboard/unlink-personal-task/$taskId'
+      path: '/unlink-personal-task/$taskId'
+      fullPath: '/app/dashboard/unlink-personal-task/$taskId'
+      preLoaderRoute: typeof AppDashboardUnlinkPersonalTaskTaskIdRouteImport
+      parentRoute: typeof AppDashboardRouteImport
+    }
     '/app/dashboard/update-personal-task-deadline/$taskId': {
       id: '/app/dashboard/update-personal-task-deadline/$taskId'
       path: '/update-personal-task-deadline/$taskId'
@@ -6014,6 +6033,7 @@ interface AppDashboardRouteRouteChildren {
   AppDashboardTaskCommentsTaskIdRouteRoute: typeof AppDashboardTaskCommentsTaskIdRouteRoute
   AppDashboardTaskEmailTaskIdRouteRoute: typeof AppDashboardTaskEmailTaskIdRouteRouteWithChildren
   AppDashboardTransferTaskTaskIdRouteRoute: typeof AppDashboardTransferTaskTaskIdRouteRoute
+  AppDashboardUnlinkPersonalTaskTaskIdRouteRoute: typeof AppDashboardUnlinkPersonalTaskTaskIdRouteRoute
   AppDashboardUpdatePersonalTaskDeadlineTaskIdRouteRoute: typeof AppDashboardUpdatePersonalTaskDeadlineTaskIdRouteRoute
   AppDashboardUpdateProgressiveInfoProgressiveInfoIdRouteRoute: typeof AppDashboardUpdateProgressiveInfoProgressiveInfoIdRouteRoute
   AppDashboardValidatePersonalTaskTaskIdRouteRoute: typeof AppDashboardValidatePersonalTaskTaskIdRouteRoute
@@ -6050,6 +6070,8 @@ const AppDashboardRouteRouteChildren: AppDashboardRouteRouteChildren = {
     AppDashboardTaskEmailTaskIdRouteRouteWithChildren,
   AppDashboardTransferTaskTaskIdRouteRoute:
     AppDashboardTransferTaskTaskIdRouteRoute,
+  AppDashboardUnlinkPersonalTaskTaskIdRouteRoute:
+    AppDashboardUnlinkPersonalTaskTaskIdRouteRoute,
   AppDashboardUpdatePersonalTaskDeadlineTaskIdRouteRoute:
     AppDashboardUpdatePersonalTaskDeadlineTaskIdRouteRoute,
   AppDashboardUpdateProgressiveInfoProgressiveInfoIdRouteRoute:
@@ -7778,6 +7800,7 @@ export interface FileRoutesByFullPath {
   '/app/dashboard/task-comments/$taskId': typeof AppDashboardTaskCommentsTaskIdRouteRoute
   '/app/dashboard/task-email/$taskId': typeof AppDashboardTaskEmailTaskIdRouteRouteWithChildren
   '/app/dashboard/transfer-task/$taskId': typeof AppDashboardTransferTaskTaskIdRouteRoute
+  '/app/dashboard/unlink-personal-task/$taskId': typeof AppDashboardUnlinkPersonalTaskTaskIdRouteRoute
   '/app/dashboard/update-personal-task-deadline/$taskId': typeof AppDashboardUpdatePersonalTaskDeadlineTaskIdRouteRoute
   '/app/dashboard/update-progressive-info/$progressiveInfoId': typeof AppDashboardUpdateProgressiveInfoProgressiveInfoIdRouteRoute
   '/app/dashboard/validate-personal-task/$taskId': typeof AppDashboardValidatePersonalTaskTaskIdRouteRoute
@@ -8086,6 +8109,7 @@ export interface FileRoutesByTo {
   '/app/dashboard/task-comments/$taskId': typeof AppDashboardTaskCommentsTaskIdRouteRoute
   '/app/dashboard/task-email/$taskId': typeof AppDashboardTaskEmailTaskIdRouteRouteWithChildren
   '/app/dashboard/transfer-task/$taskId': typeof AppDashboardTransferTaskTaskIdRouteRoute
+  '/app/dashboard/unlink-personal-task/$taskId': typeof AppDashboardUnlinkPersonalTaskTaskIdRouteRoute
   '/app/dashboard/update-personal-task-deadline/$taskId': typeof AppDashboardUpdatePersonalTaskDeadlineTaskIdRouteRoute
   '/app/dashboard/update-progressive-info/$progressiveInfoId': typeof AppDashboardUpdateProgressiveInfoProgressiveInfoIdRouteRoute
   '/app/dashboard/validate-personal-task/$taskId': typeof AppDashboardValidatePersonalTaskTaskIdRouteRoute
@@ -8400,6 +8424,7 @@ export interface FileRoutesById {
   '/app/dashboard/task-comments/$taskId': typeof AppDashboardTaskCommentsTaskIdRouteRoute
   '/app/dashboard/task-email/$taskId': typeof AppDashboardTaskEmailTaskIdRouteRouteWithChildren
   '/app/dashboard/transfer-task/$taskId': typeof AppDashboardTransferTaskTaskIdRouteRoute
+  '/app/dashboard/unlink-personal-task/$taskId': typeof AppDashboardUnlinkPersonalTaskTaskIdRouteRoute
   '/app/dashboard/update-personal-task-deadline/$taskId': typeof AppDashboardUpdatePersonalTaskDeadlineTaskIdRouteRoute
   '/app/dashboard/update-progressive-info/$progressiveInfoId': typeof AppDashboardUpdateProgressiveInfoProgressiveInfoIdRouteRoute
   '/app/dashboard/validate-personal-task/$taskId': typeof AppDashboardValidatePersonalTaskTaskIdRouteRoute
@@ -8716,6 +8741,7 @@ export interface FileRouteTypes {
     | '/app/dashboard/task-comments/$taskId'
     | '/app/dashboard/task-email/$taskId'
     | '/app/dashboard/transfer-task/$taskId'
+    | '/app/dashboard/unlink-personal-task/$taskId'
     | '/app/dashboard/update-personal-task-deadline/$taskId'
     | '/app/dashboard/update-progressive-info/$progressiveInfoId'
     | '/app/dashboard/validate-personal-task/$taskId'
@@ -9023,6 +9049,7 @@ export interface FileRouteTypes {
     | '/app/dashboard/task-comments/$taskId'
     | '/app/dashboard/task-email/$taskId'
     | '/app/dashboard/transfer-task/$taskId'
+    | '/app/dashboard/unlink-personal-task/$taskId'
     | '/app/dashboard/update-personal-task-deadline/$taskId'
     | '/app/dashboard/update-progressive-info/$progressiveInfoId'
     | '/app/dashboard/validate-personal-task/$taskId'
@@ -9335,6 +9362,7 @@ export interface FileRouteTypes {
     | '/app/dashboard/task-comments/$taskId'
     | '/app/dashboard/task-email/$taskId'
     | '/app/dashboard/transfer-task/$taskId'
+    | '/app/dashboard/unlink-personal-task/$taskId'
     | '/app/dashboard/update-personal-task-deadline/$taskId'
     | '/app/dashboard/update-progressive-info/$progressiveInfoId'
     | '/app/dashboard/validate-personal-task/$taskId'
@@ -9676,6 +9704,7 @@ export const routeTree = rootRoute
         "/app/dashboard/task-comments/$taskId",
         "/app/dashboard/task-email/$taskId",
         "/app/dashboard/transfer-task/$taskId",
+        "/app/dashboard/unlink-personal-task/$taskId",
         "/app/dashboard/update-personal-task-deadline/$taskId",
         "/app/dashboard/update-progressive-info/$progressiveInfoId",
         "/app/dashboard/validate-personal-task/$taskId"
@@ -10065,6 +10094,10 @@ export const routeTree = rootRoute
     },
     "/app/dashboard/transfer-task/$taskId": {
       "filePath": "app/dashboard/transfer-task.$taskId/route.ts",
+      "parent": "/app/dashboard"
+    },
+    "/app/dashboard/unlink-personal-task/$taskId": {
+      "filePath": "app/dashboard/unlink-personal-task.$taskId/route.ts",
       "parent": "/app/dashboard"
     },
     "/app/dashboard/update-personal-task-deadline/$taskId": {

@@ -9,6 +9,7 @@ import { Link, getRouteApi } from '@tanstack/react-router';
 import TaskState from '../../../../../../../../../../utils/enums/TaskState';
 import { useAuthentifiedUserQuery } from '../../../../../../../../utils/functions/getAuthentifiedUser';
 import ProfileResponseDto from '../../../../../../../../../../utils/types/ProfileResponseDto';
+import { GoUnlink } from 'react-icons/go';
 
 const Route = getRouteApi('/app/dashboard/other-personal-tasks/$profileId');
 
@@ -40,13 +41,31 @@ export default function AppViewDashboardViewOtherPersonalTasksModalViewTableComp
             <Paper className={styles.menu_container}>
               {task && (
                 <MenuList>
-                  {currentUser.userInfo.roles.includes('ROLE_DIRECTION_VIZEO') && !task.businessId && !task.enterpriseId && !task.productId && !task.rmaId && (
-                    <MenuItem>
-                      <Link from={Route.id} to="../../link-personal-task/$taskId" params={{ taskId: task.id }} search preload="render" onClick={onClose}>
-                        <BsLink45Deg className={styles.icon} /> <span className={styles.text}>Relier à</span>
-                      </Link>
-                    </MenuItem>
-                  )}
+                  {currentUser.userInfo.roles.includes('ROLE_DIRECTION_VIZEO') &&
+                    (!task.businessId && !task.enterpriseId && !task.productId && !task.rmaId ? (
+                      <MenuItem>
+                        <Link from={Route.id} to="../../link-personal-task/$taskId" params={{ taskId: task.id }} search preload="render" onClick={onClose}>
+                          <BsLink45Deg className={styles.icon} /> <span className={styles.text}>Relier à</span>
+                        </Link>
+                      </MenuItem>
+                    ) : (
+                      !task.technicalSupportId && (
+                        <MenuItem>
+                          <Link
+                            from={Route.id}
+                            to="../../unlink-personal-task/$taskId"
+                            params={{ taskId: task.id }}
+                            search
+                            replace
+                            resetScroll={false}
+                            preload="render"
+                            onClick={onClose}
+                          >
+                            <GoUnlink className={styles.icon} /> <span className={styles.text}>Supprimer la liaison</span>
+                          </Link>
+                        </MenuItem>
+                      )
+                    ))}
                   {((currentUser.userInfo.roles.includes('ROLE_DIRECTION_VIZEO') &&
                     [task.state, task.senderState].some((task) => task !== TaskState.ARCHIVED)) ||
                     (task.profileId === profile.id && task.state !== TaskState.ARCHIVED) ||
