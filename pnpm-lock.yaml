@@ -33,23 +33,23 @@ importers:
         specifier: ^3.9.1
         version: 3.9.1(react-hook-form@7.53.2(react@18.3.1))
       '@lexical/code':
-        specifier: ^0.20.2
-        version: 0.20.2
+        specifier: ^0.21.0
+        version: 0.21.0
       '@lexical/html':
-        specifier: ^0.20.2
-        version: 0.20.2
+        specifier: ^0.21.0
+        version: 0.21.0
       '@lexical/link':
-        specifier: ^0.20.2
-        version: 0.20.2
+        specifier: ^0.21.0
+        version: 0.21.0
       '@lexical/list':
-        specifier: ^0.20.2
-        version: 0.20.2
+        specifier: ^0.21.0
+        version: 0.21.0
       '@lexical/rich-text':
-        specifier: ^0.20.2
-        version: 0.20.2
+        specifier: ^0.21.0
+        version: 0.21.0
       '@lexical/table':
-        specifier: ^0.20.2
-        version: 0.20.2
+        specifier: ^0.21.0
+        version: 0.21.0
       '@lukemorales/query-key-factory':
         specifier: ^1.3.4
         version: 1.3.4(@tanstack/query-core@5.62.2)(@tanstack/react-query@5.62.2(react@18.3.1))
@@ -135,8 +135,8 @@ importers:
         specifier: ^0.4.12
         version: 0.4.12
       lexical:
-        specifier: ^0.20.2
-        version: 0.20.2
+        specifier: ^0.21.0
+        version: 0.21.0
       libphonenumber-js:
         specifier: ^1.11.16
         version: 1.11.16
@@ -948,32 +948,32 @@ packages:
   '@jridgewell/trace-mapping@0.3.25':
     resolution: {integrity: sha512-vNk6aEwybGtawWmy/PzwnGDOjCkLWSD2wqvjGGAgOAwCGWySYXfYoxt00IJkTF+8Lb57DwOb3Aa0o9CApepiYQ==}
 
-  '@lexical/clipboard@0.20.2':
-    resolution: {integrity: sha512-pdgSmrUhOKo23kYBzzkybKipRebaEglHBlJr0E5B8cDr2f3pWVwr0/eRYxgmm5zzg+ZSNpGIdGvpFxFhKhkc4w==}
+  '@lexical/clipboard@0.21.0':
+    resolution: {integrity: sha512-3lNMlMeUob9fcnRXGVieV/lmPbmet/SVWckNTOwzfKrZ/YW5HiiyJrWviLRVf50dGXTbmBGt7K/2pfPYvWCHFA==}
 
-  '@lexical/code@0.20.2':
-    resolution: {integrity: sha512-+sU6+5MXbwGqdHxKCncFSGpFFgR6iIx86SUEmw+sBOjnFfCXeHJo7FUQKKPI04TvoT3+7eCAwdV2rTKlj2lfsg==}
+  '@lexical/code@0.21.0':
+    resolution: {integrity: sha512-E0DNSFu4I+LMn3ft+UT0Dbntc8ZKjIA0BJj6BDewm0qh3bir40YUf5DkI2lpiFNRF2OpcmmcIxakREeU6avqTA==}
 
-  '@lexical/html@0.20.2':
-    resolution: {integrity: sha512-6+fdqu973wdjsWr64UP/o9X/ON3vOSBupikP3D706kpvbpTjpmUGtucSB9gEXrBas1IfJCCZ6f5g1OSmKFn4wQ==}
+  '@lexical/html@0.21.0':
+    resolution: {integrity: sha512-UGahVsGz8OD7Ya39qwquE+JPStTxCw/uaQrnUNorCM7owtPidO2H+tsilAB3A1GK3ksFGdHeEjBjG0Gf7gOg+Q==}
 
-  '@lexical/link@0.20.2':
-    resolution: {integrity: sha512-tcaVIIbkJujx3SEBGFu/ibRxnRc2kAk9C7oCwrRLrOycASngXWS3jCpIRICsW6jQ8ZlT475GZmcXD0Atf9BqXQ==}
+  '@lexical/link@0.21.0':
+    resolution: {integrity: sha512-/coktIyRXg8rXz/7uxXsSEfSQYxPIx8CmignAXWYhcyYtCWA0fD2mhEhWwVvHH9ofNzvidclRPYKUnrmUm3z3Q==}
 
-  '@lexical/list@0.20.2':
-    resolution: {integrity: sha512-laQaGIsWIMwmwv35OB8D87AtwrguGDFiEh6Ist3N9yI8KA+R2WlJlmSZvu4MYjG3VM5jlfl0U8ADurjZ1NpNzw==}
+  '@lexical/list@0.21.0':
+    resolution: {integrity: sha512-WItGlwwNJCS8b6SO1QPKzArShmD+OXQkLbhBcAh+EfpnkvmCW5T5LqY+OfIRmEN1dhDOnwqCY7mXkivWO8o5tw==}
 
-  '@lexical/rich-text@0.20.2':
-    resolution: {integrity: sha512-YtfPFbG3j9ySPMGDHpVYfHaHlmmNx/hmhEupq1PPkKPcwwGWKDJUsdx3TLrSUSHau1mm06hR7Aacw1FMwnGHGg==}
+  '@lexical/rich-text@0.21.0':
+    resolution: {integrity: sha512-+pvEKUneEkGfWOSTl9jU58N9knePilMLxxOtppCAcgnaCdilOh3n5YyRppXhvmprUe0JaTseCMoik2LP51G/JA==}
 
-  '@lexical/selection@0.20.2':
-    resolution: {integrity: sha512-Ta3fiu9NyY5p2eVwHZboyTTPqm8D9GassNm3inc0xBn4qC+XD3MQLFAoWSzgGaw06bLlHsDGDV/9BbWve8uSZg==}
+  '@lexical/selection@0.21.0':
+    resolution: {integrity: sha512-4u53bc8zlPPF0rnHjsGQExQ1St8NafsDd70/t1FMw7yvoMtUsKdH7+ap00esLkJOMv45unJD7UOzKRqU1X0sEA==}
 
-  '@lexical/table@0.20.2':
-    resolution: {integrity: sha512-m1DxAg4WUJ5FqnlLQtrZeRtigldaFQlutLtIU2+KthHo/4Ah3fBcmM3ZwPEz7W0ALQmLsaUKjwGNkvUy+5qCdw==}
+  '@lexical/table@0.21.0':
+    resolution: {integrity: sha512-JhylAWcf4qKD4FmxMUt3YzH5zg2+baBr4+/haLZL7178hMvUzJwGIiWk+3hD3phzmW3WrP49uFXzM7DMSCkE8w==}
 
-  '@lexical/utils@0.20.2':
-    resolution: {integrity: sha512-xH6eVNQ9ugKp2gPHwXIXoBzorZiXrxq55ORZCvkVJi8BeUoGI0si/4Rq7MyvPoIbunuPdWiVfMYia0RrL+8HRQ==}
+  '@lexical/utils@0.21.0':
+    resolution: {integrity: sha512-YzsNOAiLkCy6R3DuP18gtseDrzgx+30lFyqRvp5M7mckeYgQElwdfG5biNFDLv7BM9GjSzgU5Cunjycsx6Sjqg==}
 
   '@lukemorales/query-key-factory@1.3.4':
     resolution: {integrity: sha512-A3frRDdkmaNNQi6mxIshsDk4chRXWoXa05US8fBo4kci/H+lVmujS6QrwQLLGIkNIRFGjMqp2uKjC4XsLdydRw==}
@@ -2976,8 +2976,8 @@ packages:
     resolution: {integrity: sha512-+bT2uH4E5LGE7h/n3evcS/sQlJXCpIp6ym8OWJ5eV6+67Dsql/LaaT7qJBAt2rzfoa/5QBGBhxDix1dMt2kQKQ==}
     engines: {node: '>= 0.8.0'}
 
-  lexical@0.20.2:
-    resolution: {integrity: sha512-hWWuRcLt99s9B5uuf6RnGWV+zFEJ4mKTlloK4SxSvgESLhyOW9KW1FDnFFCDSmztm5jcPG8Aj6fmY3bo4lTy7w==}
+  lexical@0.21.0:
+    resolution: {integrity: sha512-Dxc5SCG4kB+wF+Rh55ism3SuecOKeOtCtGHFGKd6pj2QKVojtjkxGTQPMt7//2z5rMSue4R+hmRM0pCEZflupA==}
 
   libphonenumber-js@1.11.16:
     resolution: {integrity: sha512-Noyazmt0yOvnG0OeRY45Cd1ur8G7Z0HWVkuCuKe+yysGNxPQwBAODBQQ40j0AIagi9ZWurfmmZWNlpg4h4W+XQ==}
@@ -4780,59 +4780,59 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.0
 
-  '@lexical/clipboard@0.20.2':
+  '@lexical/clipboard@0.21.0':
     dependencies:
-      '@lexical/html': 0.20.2
-      '@lexical/list': 0.20.2
-      '@lexical/selection': 0.20.2
-      '@lexical/utils': 0.20.2
-      lexical: 0.20.2
+      '@lexical/html': 0.21.0
+      '@lexical/list': 0.21.0
+      '@lexical/selection': 0.21.0
+      '@lexical/utils': 0.21.0
+      lexical: 0.21.0
 
-  '@lexical/code@0.20.2':
+  '@lexical/code@0.21.0':
     dependencies:
-      '@lexical/utils': 0.20.2
-      lexical: 0.20.2
+      '@lexical/utils': 0.21.0
+      lexical: 0.21.0
       prismjs: 1.29.0
 
-  '@lexical/html@0.20.2':
+  '@lexical/html@0.21.0':
     dependencies:
-      '@lexical/selection': 0.20.2
-      '@lexical/utils': 0.20.2
-      lexical: 0.20.2
+      '@lexical/selection': 0.21.0
+      '@lexical/utils': 0.21.0
+      lexical: 0.21.0
 
-  '@lexical/link@0.20.2':
+  '@lexical/link@0.21.0':
     dependencies:
-      '@lexical/utils': 0.20.2
-      lexical: 0.20.2
+      '@lexical/utils': 0.21.0
+      lexical: 0.21.0
 
-  '@lexical/list@0.20.2':
+  '@lexical/list@0.21.0':
     dependencies:
-      '@lexical/utils': 0.20.2
-      lexical: 0.20.2
+      '@lexical/utils': 0.21.0
+      lexical: 0.21.0
 
-  '@lexical/rich-text@0.20.2':
+  '@lexical/rich-text@0.21.0':
     dependencies:
-      '@lexical/clipboard': 0.20.2
-      '@lexical/selection': 0.20.2
-      '@lexical/utils': 0.20.2
-      lexical: 0.20.2
+      '@lexical/clipboard': 0.21.0
+      '@lexical/selection': 0.21.0
+      '@lexical/utils': 0.21.0
+      lexical: 0.21.0
 
-  '@lexical/selection@0.20.2':
+  '@lexical/selection@0.21.0':
     dependencies:
-      lexical: 0.20.2
+      lexical: 0.21.0
 
-  '@lexical/table@0.20.2':
+  '@lexical/table@0.21.0':
     dependencies:
-      '@lexical/clipboard': 0.20.2
-      '@lexical/utils': 0.20.2
-      lexical: 0.20.2
+      '@lexical/clipboard': 0.21.0
+      '@lexical/utils': 0.21.0
+      lexical: 0.21.0
 
-  '@lexical/utils@0.20.2':
+  '@lexical/utils@0.21.0':
     dependencies:
-      '@lexical/list': 0.20.2
-      '@lexical/selection': 0.20.2
-      '@lexical/table': 0.20.2
-      lexical: 0.20.2
+      '@lexical/list': 0.21.0
+      '@lexical/selection': 0.21.0
+      '@lexical/table': 0.21.0
+      lexical: 0.21.0
 
   '@lukemorales/query-key-factory@1.3.4(@tanstack/query-core@5.62.2)(@tanstack/react-query@5.62.2(react@18.3.1))':
     dependencies:
@@ -7094,7 +7094,7 @@ snapshots:
       prelude-ls: 1.2.1
       type-check: 0.4.0
 
-  lexical@0.20.2: {}
+  lexical@0.21.0: {}
 
   libphonenumber-js@1.11.16: {}
 
