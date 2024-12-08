@@ -1,18 +1,18 @@
-import { useState } from 'react';
-import { Link, getRouteApi, useNavigate } from '@tanstack/react-router';
-import { object, ref, string } from 'yup';
-import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation } from '@tanstack/react-query';
-import { toast } from 'react-toastify';
-import styles from './ResetPassword.module.scss';
+import { Link, getRouteApi } from '@tanstack/react-router';
+import { isAxiosError } from 'axios';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { MdCheckCircleOutline, MdOutlineCancel } from 'react-icons/md';
 import { PulseLoader } from 'react-spinners';
+import { toast } from 'react-toastify';
+import { object, ref, string } from 'yup';
 import { resetPassword } from './api/password';
-import { isAxiosError } from 'axios';
+import styles from './ResetPassword.module.scss';
 
-const Route = getRouteApi('/auth/reset-password/$token');
+const routeApi = getRouteApi('/auth/reset-password/$token');
 
 const yupSchema = object({
   password: string()
@@ -26,7 +26,7 @@ const yupSchema = object({
 });
 
 export default function ResetPasswordPage() {
-  const navigate = useNavigate();
+  const navigate = routeApi.useNavigate();
 
   const [showPassword, setShowPassword] = useState(false);
   const [showValidationRules, setShowValidationRules] = useState(false);
@@ -38,7 +38,7 @@ export default function ResetPasswordPage() {
     number: false,
   });
 
-  const { token } = Route.useParams();
+  const { token } = routeApi.useParams();
 
   const {
     register,

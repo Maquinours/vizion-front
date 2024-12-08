@@ -10,6 +10,8 @@ import {
   getTasksPageByEnterpriseId,
   getTasksPageByProductId,
   getTasksPageByRmaId,
+  getUnreadTasksCountByProfileId,
+  getTasksCounts,
 } from '../../api/task';
 
 export const tasks = createQueryKeys('tasks', {
@@ -50,6 +52,24 @@ export const tasks = createQueryKeys('tasks', {
               return getTasksPageByRmaId(associatedItemId, { page, size });
           }
         },
+      }),
+    },
+  },
+  numbers: {
+    queryKey: null,
+    contextQueries: {
+      unreadsByProfileId: (profileId: string) => ({
+        queryKey: [profileId],
+        queryFn: () => getUnreadTasksCountByProfileId(profileId),
+      }),
+    },
+  },
+  counts: {
+    queryKey: null,
+    contextQueries: {
+      byProfileId: (profileId: string) => ({
+        queryKey: [profileId],
+        queryFn: () => getTasksCounts(profileId),
       }),
     },
   },

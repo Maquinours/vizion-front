@@ -38,3 +38,15 @@ export const getEmailsPageWithSearch = (types: Array<MailType>, searchText: stri
     },
   }).then((res) => res.data);
 };
+
+export const getEmailsPageByEmailAddresses = (addresses: string[], page: number, size: number) => {
+  return privateInstance<Page<MailResponseDto>>({
+    method: 'GET',
+    url: `/mail/v1/search-by-addresses`,
+    params: {
+      addresses,
+      page,
+      size,
+    },
+  }).then((res) => res.data);
+};

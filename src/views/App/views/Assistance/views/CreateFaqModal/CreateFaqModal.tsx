@@ -24,24 +24,16 @@ const levelOptions = [
     value: undefined,
   },
   {
-    text: 'Publique',
-    value: FaqAccessLevel.PUBLIC,
+    text: 'A valider',
+    value: FaqAccessLevel.ATTENTE,
   },
   {
-    text: 'Interne',
+    text: 'Interne VIZEO',
     value: FaqAccessLevel.INTERNE,
   },
   {
-    text: 'Professionnel',
-    value: FaqAccessLevel.PROFESSIONNEL,
-  },
-  {
-    text: 'Interne IA',
-    value: FaqAccessLevel.INTERNE_IA,
-  },
-  {
-    text: 'Publique IA',
-    value: FaqAccessLevel.PUBLIC_IA,
+    text: 'Externe publique',
+    value: FaqAccessLevel.PUBLIC,
   },
 ];
 

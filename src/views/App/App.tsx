@@ -14,11 +14,12 @@ import AppViewTabsContainerComponent from './components/TabsContainer/TabsContai
 import AppViewTopbarComponent from './components/Topbar/Topbar';
 import { useAuthentifiedUserQuery } from './utils/functions/getAuthentifiedUser';
 import AppViewSendEmailModalComponent from './components/SendEmailModal/SendEmailModal';
+import AppViewTitleManagerComponent from './components/TitleManager/TitleManager';
 
-const Route = getRouteApi('/app');
+const routeApi = getRouteApi('/app');
 
 export default function AppLayout() {
-  const { mobileSidebar, appModal: modalId } = Route.useSearch();
+  const { mobileSidebar, appModal: modalId } = routeApi.useSearch();
 
   const { data: authentifiedUser } = useAuthentifiedUserQuery();
 
@@ -55,6 +56,7 @@ export default function AppLayout() {
     <>
       <AppViewLoadingProgressBarComponent />
       <AppViewChatWebsocketComponent />
+      <AppViewTitleManagerComponent />
       <div className={styles.container}>
         <AppViewTopbarComponent />
         <main className={classNames(styles.content, { [styles.mobile_menu_opened]: mobileSidebar })}>

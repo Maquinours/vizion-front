@@ -4,6 +4,7 @@ enum FaqAccessLevel {
   PROFESSIONNEL = 'PROFESSIONNEL',
   INTERNE_IA = 'INTERNE_IA',
   PUBLIC_IA = 'PUBLIC_IA',
+  ATTENTE = 'ATTENTE',
 }
 
 export default FaqAccessLevel;

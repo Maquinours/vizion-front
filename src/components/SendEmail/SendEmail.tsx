@@ -110,7 +110,12 @@ export default function SendEmailComponent({
     resolver: yupResolver(yupSchema),
     defaultValues: {
       recipient: [...(emailToReply?.sender ? [emailToReply.sender] : []), ...(defaultRecipient ?? [])],
-      cc: defaultCc ?? [],
+      cc: [
+        ...[...(emailToReply?.receiver.split(';') ?? []), ...(emailToReply?.cc?.split(';') ?? [])].filter(
+          (item) => item.toLowerCase() !== user.userInfo.email.toLowerCase(),
+        ),
+        ...(defaultCc ?? []),
+      ],
       bcc: defaultBcc ?? [],
       subject: defaultSubject ?? (emailToReply?.subject ? `Re: ${emailToReply.subject}` : ''),
       content:

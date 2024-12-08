@@ -13,17 +13,17 @@ import styles from './FormModal.module.scss';
 const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/bp/travel-voucher');
 
 const yupSchema = yup.object().shape({
-  businessName: yup.string().required('Champs requis.'),
-  businessInstaller: yup.string().nullable(),
-  businessDeliveryMode: yup.string().nullable(),
-  receiverName: yup.string().required('Champs requis').max(40, 'Max 40 caratères'),
-  receiverCompanyName: yup.string().required('Champs requis').max(40, 'Max 40 caratères'),
-  receiverAddressTwo: yup.string().nullable().max(40, 'Max 40 caratères'),
-  receiverAddressOne: yup.string().required('Champs requis').max(40, 'Max 40 caratères'),
-  receiverZipCode: yup.string().required('Champs requis'),
-  receiverCity: yup.string().required('Champs requis'),
-  receiverPhoneNumber: yup.string().nullable(),
-  receiverEmail: yup.string().email('Email invalide').nullable(),
+  businessName: yup.string().required('Champs requis.').trim(),
+  businessInstaller: yup.string().nullable().trim(),
+  businessDeliveryMode: yup.string().nullable().trim(),
+  receiverName: yup.string().required('Champs requis').max(40, 'Max 40 caratères').trim(),
+  receiverCompanyName: yup.string().required('Champs requis').max(40, 'Max 40 caratères').trim(),
+  receiverAddressTwo: yup.string().nullable().max(40, 'Max 40 caratères').trim(),
+  receiverAddressOne: yup.string().required('Champs requis').max(40, 'Max 40 caratères').trim(),
+  receiverZipCode: yup.string().required('Champs requis').trim(),
+  receiverCity: yup.string().required('Champs requis').trim(),
+  receiverPhoneNumber: yup.string().nullable().trim(),
+  receiverEmail: yup.string().email('Email invalide').nullable().trim(),
   nbreColis: yup.number().typeError('Format invalide').min(1, 'Min 1').required('Champs requis'),
 });
 

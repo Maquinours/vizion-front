@@ -1,5 +1,5 @@
 import { VirtualElement } from '@popperjs/core';
-import { Link, getRouteApi, useNavigate } from '@tanstack/react-router';
+import { Link, getRouteApi } from '@tanstack/react-router';
 import { Row, createColumnHelper } from '@tanstack/react-table';
 import { useMemo, useState } from 'react';
 import TableComponent from '../../../../../../components/Table/Table';
@@ -9,7 +9,7 @@ import AppViewEnterprisesViewTableComponentContactContextMenu from './components
 import AppViewEnterprisesViewTableComponentContactsCellComponent from './components/ContactsCell/ContactsCell';
 import styles from './Table.module.scss';
 
-const Route = getRouteApi('/app/enterprises');
+const routeApi = getRouteApi('/app/enterprises');
 
 const columnHelper = createColumnHelper<EnterpriseResponseDto>();
 
@@ -18,7 +18,7 @@ type AppViewEnterprisesViewTableComponentProps = Readonly<{
   isLoading: boolean;
 }>;
 export default function AppViewEnterprisesViewTableComponent({ data, isLoading }: AppViewEnterprisesViewTableComponentProps) {
-  const navigate = useNavigate({ from: Route.id });
+  const navigate = routeApi.useNavigate();
 
   const [contactContextMenuAnchor, setContactContextMenuAnchor] = useState<VirtualElement>();
   const [contact, setContact] = useState<ProfileResponseDto>();
@@ -47,7 +47,7 @@ export default function AppViewEnterprisesViewTableComponent({ data, isLoading }
         header: 'Entreprise',
         cell: ({ row: { original } }) => (
           <Link
-            from={Route.id}
+            from={routeApi.id}
             to="$enterpriseId"
             params={{ enterpriseId: original.id }}
             onClick={(e) => {

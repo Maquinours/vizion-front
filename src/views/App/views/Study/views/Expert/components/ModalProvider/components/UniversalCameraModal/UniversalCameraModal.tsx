@@ -15,7 +15,7 @@ import useStore, { RFState } from '../../../Flow/utils/store';
 import { useShallow } from 'zustand/react/shallow';
 import { ExpertStudyDensityCameraNode } from '../../../Flow/components/DensityCameraNode/DensityCameraNode';
 
-const includedProducts = ['DA350PAP', 'DO505PAP', 'FE180'];
+const includedProducts = ['DA350PAP', 'DO505PAP', 'FE180', 'CA50HD'];
 
 type Model = {
   product: ProductResponseDto;

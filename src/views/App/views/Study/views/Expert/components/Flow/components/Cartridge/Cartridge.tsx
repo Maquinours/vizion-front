@@ -8,26 +8,32 @@ import moment from 'moment';
 
 const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId_/study/expert');
 
-const selector = (state: RFState) => ({
-  studyName: state.studyName,
-  installerName: state.installerName,
-  pageName: state.pages[state.currentPage].name,
-  currentPage: state.currentPage,
-  pageType: state.pages[state.currentPage]?.type,
-  setStudyName: state.setStudyName,
-  setInstallerName: state.setInstallerName,
-  setPageName: state.setPageName,
-});
+const selector = (state: RFState) => {
+  const page = state.pages[state.currentPage];
+
+  return {
+    pageStudyName: page.studyName,
+    pageInstallerName: page.installerName,
+    pageName: state.pages[state.currentPage].name,
+    currentPage: state.currentPage,
+    pageType: state.pages[state.currentPage]?.type,
+    setPageStudyName: state.setPageStudyName,
+    setPageInstallerName: state.setPageInstallerName,
+    setPageName: state.setPageName,
+  };
+};
 
 export default function AppViewStudyViewExpertViewFlowComponentCartridgeComponent() {
-  const { studyName, installerName, pageName, currentPage, pageType, setStudyName, setInstallerName, setPageName } = useStore(useShallow(selector));
+  const { pageStudyName, pageInstallerName, pageName, currentPage, pageType, setPageStudyName, setPageInstallerName, setPageName } = useStore(
+    useShallow(selector),
+  );
 
   const { businessId } = routeApi.useParams();
 
   const { data: business } = useSuspenseQuery(queries.businesses.detail._ctx.byId(businessId));
 
-  const studyNameValue = studyName ?? business.title ?? '';
-  const installerNameValue = installerName ?? business.installerProfileName ?? '';
+  const studyNameValue = pageStudyName ?? business.title ?? '';
+  const installerNameValue = pageInstallerName ?? business.installerProfileName ?? '';
   const pageNameValue = pageName ?? `Page ${currentPage + 1}`;
 
   return (
@@ -42,7 +48,7 @@ export default function AppViewStudyViewExpertViewFlowComponentCartridgeComponen
                   size={Math.max(studyNameValue.length, 1)}
                   className="bg-transparent text-center"
                   value={studyNameValue}
-                  onChange={(e) => setStudyName(e.target.value)}
+                  onChange={(e) => setPageStudyName(e.target.value)}
                 />
               </p>
             </th>
@@ -65,7 +71,7 @@ export default function AppViewStudyViewExpertViewFlowComponentCartridgeComponen
                   type="text"
                   size={Math.max(installerNameValue.length, 1)}
                   className="bg-transparent text-center"
-                  onChange={(e) => setInstallerName(e.target.value)}
+                  onChange={(e) => setPageInstallerName(e.target.value)}
                   value={installerNameValue}
                 />
               </p>

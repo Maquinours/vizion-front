@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { getRouteApi } from '@tanstack/react-router';
 import React from 'react';
 import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
@@ -9,18 +9,18 @@ import ProgressiveInfoResponseDto from '../../../../../../utils/types/Progressiv
 import styles from './DeleteProgressiveInfoModal.module.scss';
 import { deleteProgressiveInfo } from './utils/api/progressiveInfo';
 
-const Route = getRouteApi('/app/dashboard/delete-progressive-info/$progressiveInfoId');
+const routeApi = getRouteApi('/app/dashboard/delete-progressive-info/$progressiveInfoId');
 
 export default function AppViewDashboardViewDeleteProgressiveInfoModalView() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate();
+  const navigate = routeApi.useNavigate();
 
-  const { progressiveInfoId: id } = Route.useParams();
+  const { progressiveInfoId: id } = routeApi.useParams();
 
   useSuspenseQuery(queries['progressive-infos'].detail(id));
 
   const onClose = () => {
-    navigate({ from: Route.id, to: '../..', search: true, replace: true, resetScroll: false });
+    navigate({ to: '../..', search: true, replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({

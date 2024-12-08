@@ -1,6 +1,6 @@
 import { createQueryKeys } from '@lukemorales/query-key-factory';
 import { getEmailById } from '../../api/email';
-import { getEmailsPage, getEmailsPageByType, getEmailsPageWithSearch } from '../../api/emails';
+import { getEmailsPage, getEmailsPageByEmailAddresses, getEmailsPageByType, getEmailsPageWithSearch } from '../../api/emails';
 import MailType from '../../enums/MailType';
 
 export const emails = createQueryKeys('emails', {
@@ -16,6 +16,10 @@ export const emails = createQueryKeys('emails', {
           if (spam) return getEmailsPageByType(MailType.SPAM, page, size);
           return getEmailsPage(page, size);
         },
+      }),
+      byEmailAddresses: (emailAddresses: string[], { page, size }: { page: number; size: number }) => ({
+        queryKey: [emailAddresses, page, size],
+        queryFn: () => getEmailsPageByEmailAddresses(emailAddresses, page, size),
       }),
     },
   },

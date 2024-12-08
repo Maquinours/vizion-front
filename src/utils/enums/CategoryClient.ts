@@ -8,6 +8,7 @@ enum CategoryClient {
   BUREAU_ETUDE = 'BUREAU_ETUDE',
   FOURNISSEUR = 'FOURNISSEUR',
   CLIENT = 'CLIENT',
+  SPECIALISTE = 'SPECIALISTE',
 }
 
 export default CategoryClient;
