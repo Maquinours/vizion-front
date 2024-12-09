@@ -109,14 +109,14 @@ export default function SendEmailComponent({
   } = useForm({
     resolver: yupResolver(yupSchema),
     defaultValues: {
-      recipient: [...(emailToReply?.sender ? [emailToReply.sender] : []), ...(defaultRecipient ?? [])],
+      recipient: [...(emailToReply?.sender ? [emailToReply.sender] : []), ...(defaultRecipient ?? [])].filter((item) => item.trim().length > 0),
       cc: [
         ...[...(emailToReply?.receiver.split(';') ?? []), ...(emailToReply?.cc?.split(';') ?? [])].filter(
           (item) => item.toLowerCase() !== user.userInfo.email.toLowerCase(),
         ),
         ...(defaultCc ?? []),
-      ],
-      bcc: defaultBcc ?? [],
+      ].filter((item) => item.trim().length > 0),
+      bcc: (defaultBcc ?? []).filter((item) => item.trim().length > 0),
       subject: defaultSubject ?? (emailToReply?.subject ? `Re: ${emailToReply.subject}` : ''),
       content:
         (defaultContent ?? '') +
