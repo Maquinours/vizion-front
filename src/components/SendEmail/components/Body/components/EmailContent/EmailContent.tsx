@@ -1,5 +1,4 @@
 import { Controller } from 'react-hook-form';
-import 'react-quill/dist/quill.snow.css';
 import styles from './EmailContent.module.scss';
 import { useContext } from 'react';
 import { SendEmailFormContext } from '../../../../utils/contexts/sendEmail';

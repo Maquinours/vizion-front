@@ -1,5 +1,5 @@
-import ReactQuill, { ReactQuillProps } from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
+import ReactQuill from 'react-quill-new';
+import 'react-quill-new/dist/quill.snow.css';
 const modules = {
   toolbar: {
     container: [
@@ -21,7 +21,7 @@ const modules = {
   },
 };
 
-type QuillProps = Readonly<ReactQuillProps>;
+type QuillProps = Readonly<ReactQuill.ReactQuillProps>;
 export default function Quill({ ...field }: QuillProps) {
   return <ReactQuill modules={modules} theme="snow" placeholder="Contenu" {...field} />;
 }
