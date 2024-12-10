@@ -30,6 +30,8 @@ export default function AppViewDashboardViewPersonalTasksComponentTableComponent
     setAnchor(undefined);
   };
 
+  const hasLink = !!task?.businessId || !!task?.enterpriseId || !!task?.productId || !!task?.rmaId;
+
   return (
     <Popper open={isOpen} anchorEl={anchor} transition placement="bottom-start">
       {({ TransitionProps }) => (
@@ -38,7 +40,7 @@ export default function AppViewDashboardViewPersonalTasksComponentTableComponent
             <Paper className={styles.menu_container}>
               {task && (
                 <MenuList>
-                  {!task.businessId && !task.enterpriseId && !task.productId && !task.rmaId ? (
+                  {!hasLink && (
                     <MenuItem>
                       <Link
                         from={routePath}
@@ -53,23 +55,6 @@ export default function AppViewDashboardViewPersonalTasksComponentTableComponent
                         <BsLink45Deg className={styles.icon} /> <span className={styles.text}>Relier à</span>
                       </Link>
                     </MenuItem>
-                  ) : (
-                    !task.technicalSupportId && (
-                      <MenuItem>
-                        <Link
-                          from={routePath}
-                          to="./unlink-personal-task/$taskId"
-                          params={{ taskId: task.id }}
-                          search
-                          replace
-                          resetScroll={false}
-                          preload="render"
-                          onClick={onClose}
-                        >
-                          <GoUnlink className={styles.icon} /> <span className={styles.text}>Supprimer la liaison</span>
-                        </Link>
-                      </MenuItem>
-                    )
                   )}
                   {((task.profileId === user.profile.id && task.state !== TaskState.ARCHIVED) ||
                     (task.senderId === user.profile.id && task.senderState !== TaskState.ARCHIVED)) && (
@@ -173,6 +158,22 @@ export default function AppViewDashboardViewPersonalTasksComponentTableComponent
                       <span className={styles.text}>Commentaires</span>
                     </Link>
                   </MenuItem>
+                  {hasLink && !task.technicalSupportId && (
+                    <MenuItem>
+                      <Link
+                        from={routePath}
+                        to="./unlink-personal-task/$taskId"
+                        params={{ taskId: task.id }}
+                        search
+                        replace
+                        resetScroll={false}
+                        preload="render"
+                        onClick={onClose}
+                      >
+                        <GoUnlink className={styles.icon} /> <span className={styles.text}>Supprimer la liaison</span>
+                      </Link>
+                    </MenuItem>
+                  )}
                 </MenuList>
               )}
             </Paper>

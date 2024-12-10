@@ -33,6 +33,8 @@ export default function AppViewDashboardViewOtherPersonalTasksModalViewTableComp
     setAnchor(undefined);
   };
 
+  const hasLink = !!task?.businessId || !!task?.enterpriseId || !!task?.productId || !!task?.rmaId;
+
   return (
     <Popper open={isOpen} anchorEl={anchor} transition placement="bottom-start" className={styles.popper}>
       {({ TransitionProps }) => (
@@ -41,31 +43,13 @@ export default function AppViewDashboardViewOtherPersonalTasksModalViewTableComp
             <Paper className={styles.menu_container}>
               {task && (
                 <MenuList>
-                  {currentUser.userInfo.roles.includes('ROLE_DIRECTION_VIZEO') &&
-                    (!task.businessId && !task.enterpriseId && !task.productId && !task.rmaId ? (
-                      <MenuItem>
-                        <Link from={routePath} to="../../link-personal-task/$taskId" params={{ taskId: task.id }} search preload="render" onClick={onClose}>
-                          <BsLink45Deg className={styles.icon} /> <span className={styles.text}>Relier à</span>
-                        </Link>
-                      </MenuItem>
-                    ) : (
-                      !task.technicalSupportId && (
-                        <MenuItem>
-                          <Link
-                            from={routePath}
-                            to="../../unlink-personal-task/$taskId"
-                            params={{ taskId: task.id }}
-                            search
-                            replace
-                            resetScroll={false}
-                            preload="render"
-                            onClick={onClose}
-                          >
-                            <GoUnlink className={styles.icon} /> <span className={styles.text}>Supprimer la liaison</span>
-                          </Link>
-                        </MenuItem>
-                      )
-                    ))}
+                  {currentUser.userInfo.roles.includes('ROLE_DIRECTION_VIZEO') && !hasLink && (
+                    <MenuItem>
+                      <Link from={routePath} to="../../link-personal-task/$taskId" params={{ taskId: task.id }} search preload="render" onClick={onClose}>
+                        <BsLink45Deg className={styles.icon} /> <span className={styles.text}>Relier à</span>
+                      </Link>
+                    </MenuItem>
+                  )}
                   {((currentUser.userInfo.roles.includes('ROLE_DIRECTION_VIZEO') &&
                     [task.state, task.senderState].some((task) => task !== TaskState.ARCHIVED)) ||
                     (task.profileId === profile.id && task.state !== TaskState.ARCHIVED) ||
@@ -126,6 +110,22 @@ export default function AppViewDashboardViewOtherPersonalTasksModalViewTableComp
                       <span className={styles.text}>Commentaires</span>
                     </Link>
                   </MenuItem>
+                  {hasLink && !task.technicalSupportId && (
+                    <MenuItem>
+                      <Link
+                        from={routePath}
+                        to="../../unlink-personal-task/$taskId"
+                        params={{ taskId: task.id }}
+                        search
+                        replace
+                        resetScroll={false}
+                        preload="render"
+                        onClick={onClose}
+                      >
+                        <GoUnlink className={styles.icon} /> <span className={styles.text}>Supprimer la liaison</span>
+                      </Link>
+                    </MenuItem>
+                  )}
                 </MenuList>
               )}
             </Paper>
