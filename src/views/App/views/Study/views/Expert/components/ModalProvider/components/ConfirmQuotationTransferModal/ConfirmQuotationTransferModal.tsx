@@ -129,7 +129,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentConfirmQ
         0,
       );
       const shippingServicePrice = totalAmountHT < 1200 ? 25 : 0;
-      const vat = Number(((totalAmountHT + shippingServicePrice) * 0.2).toFixed(2));
+      const vat = business.exportTva ? Number(((totalAmountHT + shippingServicePrice) * 0.2).toFixed(2)) : 0; // 20% tax
       const totalAmount = totalAmountHT + shippingServicePrice + vat;
 
       const flowRect = document.querySelector('.react-flow')!.getBoundingClientRect();

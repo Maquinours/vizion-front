@@ -37,7 +37,7 @@ const routePath = '/app/businesses-rma/business/$businessId/dashboard';
 const yupSchema = yup.object({
   businessName: yup.string().required('Champs requis.'),
   businessInstaller: yup.string().nullable(),
-  businessExport: yup.string().required('Champs requis.'),
+  businessExport: yup.boolean().required('Champs requis.'),
   businessDeliveryMode: yup.string().nullable(),
   receiverName: yup.string().nullable(),
   receiverCompanyName: yup.string().nullable(),
@@ -63,7 +63,7 @@ export default function AppViewBusinessViewDashboardView() {
     () => ({
       businessName: business.title ?? '',
       businessInstaller: business.installerProfileName ?? '',
-      businessExport: business.exportTva ? 'yes' : 'no',
+      businessExport: !!business.exportTva,
       businessDeliveryMode: business.deliveryMode ?? null,
       receiverCompanyName: business.deliverAddressCompany ?? '',
       receiverName: business.deliverAddressName ?? '',
@@ -156,7 +156,7 @@ export default function AppViewBusinessViewDashboardView() {
         profileName: business.profileName,
         profileEmail: business.profileEmail,
         profilePhone: business.profilePhone,
-        exportTva: data.businessExport === 'yes',
+        exportTva: data.businessExport,
         billAndLock: false,
         deliveryMode: data.businessDeliveryMode,
         installerProfileId: business.installerProfileId,

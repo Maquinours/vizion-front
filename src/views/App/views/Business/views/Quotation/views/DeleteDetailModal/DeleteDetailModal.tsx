@@ -17,6 +17,7 @@ export default function AppViewBusinessViewQuotationViewDeleteDetailModalView() 
   const { businessId, detailId } = routeApi.useParams();
 
   const { data: quotation } = useSuspenseQuery(queries['business-quotations'].detail._ctx.byBusinessId(businessId));
+  const { data: business } = useSuspenseQuery(queries.businesses.detail._ctx.byId(businessId));
   const { data: detail } = useSuspenseQuery(queries['business-quotation-details'].detail._ctx.byId(detailId));
 
   const onClose = () => {
@@ -27,13 +28,16 @@ export default function AppViewBusinessViewQuotationViewDeleteDetailModalView() 
     mutationFn: () => {
       const totalAmountHT = quotation!.totalAmountHT! - detail!.totalPrice!;
       const shippingServicePrice = totalAmountHT < 1200 ? quotation!.shippingServicePrice : 0;
+      const total = totalAmountHT + shippingServicePrice;
+      const vat = business.exportTva ? total * 0.2 : 0;
+      const totalAmount = total + vat;
 
       return deleteBusinessQuotationDetail(detail.id, {
         quoteId: quotation!.id,
         subQuoteId: quotation.subQuotationList!.find((sub) => sub.quotationDetails?.some((d) => d.id === detail.id))!.id,
         totalAmountHT,
         shippingServicePrice,
-        totalAmount: (totalAmountHT + shippingServicePrice) * 1.2,
+        totalAmount,
       });
     },
     onSuccess: () => {

@@ -74,8 +74,9 @@ export default function AppViewBusinessViewArcViewUpdateDetailModalView() {
       const totalPrice = data.quantity * data.price;
       const totalAmountHT = arc.arcDetailsList?.reduce((acc, d) => acc + (d.id === detail.id ? totalPrice : (d.totalPrice ?? 0)), 0) ?? 0;
       const shippingServicePrice = totalAmountHT < 1200 ? arc.shippingServicePrice : 0;
-      const vat = (totalAmountHT + shippingServicePrice) * 0.2;
-      const totalAmount = totalAmountHT + shippingServicePrice + vat;
+      const total = totalAmountHT + shippingServicePrice;
+      const vat = business.exportTva ? total * 0.2 : 0;
+      const totalAmount = total + vat;
 
       return updateBusinessArcDetail(detail!.id, {
         arcId: arc.id,

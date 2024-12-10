@@ -22,7 +22,7 @@ export default function AppViewBusinessViewDashboardViewQuotationButtonComponent
         number: business.numBusiness,
         documentName: 'Devis',
         shippingServicePrice: 25,
-        vat: 0.2,
+        vat: business.exportTva ? 0.2 : 0,
       }),
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: queries.businesses._def });

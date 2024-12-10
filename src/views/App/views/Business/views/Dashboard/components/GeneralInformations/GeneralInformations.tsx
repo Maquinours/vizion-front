@@ -8,6 +8,7 @@ import { useAuthentifiedUserQuery } from '../../../../../../utils/functions/getA
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
 import { BusinessDashboardFormType } from '../../Dashboard';
 import { MdSave } from 'react-icons/md';
+import classNames from 'classnames';
 
 const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/dashboard');
 
@@ -66,11 +67,9 @@ export default function AppViewBusinessViewDashboardViewGeneralInformationsCompo
           <label htmlFor="businessName">Nom de l&apos; affaire</label>
           <div className={styles.form_input_save}>
             <input {...register('businessName')} id="businessName" placeholder="..." disabled={!isUpdatable} />
-            {isUpdatable && (
-              <button disabled={isSavePending} onClick={onSave}>
-                <MdSave />
-              </button>
-            )}
+            <button disabled={isSavePending} onClick={onSave}>
+              <MdSave />
+            </button>
           </div>
           <p className={styles.__errors}>{errors.businessName?.message}</p>
         </div>
@@ -78,11 +77,9 @@ export default function AppViewBusinessViewDashboardViewGeneralInformationsCompo
           <label htmlFor="businessInstaller">Installateur</label>
           <div className={styles.form_input_save}>
             <input id="businessInstaller" {...register('businessInstaller')} placeholder="..." disabled={!isUpdatable} />
-            {isUpdatable && (
-              <button disabled={isSavePending} onClick={onSave}>
-                <MdSave />
-              </button>
-            )}
+            <button disabled={isSavePending} onClick={onSave}>
+              <MdSave />
+            </button>
           </div>
           <p className={styles.__errors}>{errors.businessInstaller?.message}</p>
         </div>
@@ -91,23 +88,43 @@ export default function AppViewBusinessViewDashboardViewGeneralInformationsCompo
         <div className={styles.form_group}>
           <label htmlFor="businessDeliveryMode">Mode de livraison</label>
           <div className={styles.form_select_save}>
-            <select id="businessDeliveryMode" {...register('businessDeliveryMode')}>
+            <select
+              id="businessDeliveryMode"
+              disabled={
+                !(
+                  (![BusinessState.FACTURE, BusinessState.ARC, BusinessState.BP, BusinessState.BL].includes(business.state!) ||
+                    (user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && business.state === BusinessState.FACTURE)) &&
+                  !business.archived
+                )
+              }
+              {...register('businessDeliveryMode')}
+            >
               {deliveryOptions.map((itm) => (
                 <option key={itm.value} value={itm.value}>
                   {itm.text}
                 </option>
               ))}
             </select>
-            {(![BusinessState.FACTURE, BusinessState.ARC, BusinessState.BP, BusinessState.BL].includes(business.state!) ||
-              (user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && business.state === 'FACTURE')) &&
-              !business.archived && (
-                <button disabled={isSavePending} onClick={onSave}>
-                  <MdSave />
-                </button>
-              )}
+            <button disabled={isSavePending} onClick={onSave}>
+              <MdSave />
+            </button>
           </div>
           <p className={styles.__errors}>{errors.businessDeliveryMode?.message}</p>
         </div>
+        {user.userInfo.roles.includes('ROLE_DIRECTION_VIZEO') && (
+          <div className={styles.form_group}>
+            <label htmlFor="businessExport">Export avec TVA</label>
+            <div className={classNames(styles.form_select_save, 'flex')}>
+              <div className="flex-1 text-center">
+                <input type="checkbox" id="businessExport" disabled={business.state !== BusinessState.CREATED} {...register('businessExport')} />
+              </div>
+              <button disabled={isSavePending} onClick={onSave}>
+                <MdSave />
+              </button>
+            </div>
+            <p className={styles.__errors}>{errors.businessExport?.message}</p>
+          </div>
+        )}
       </div>
     </div>
   );

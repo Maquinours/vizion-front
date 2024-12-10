@@ -30,6 +30,7 @@ export default function AppViewBusinessViewQuotationViewUpdateShippingPriceModal
   const { businessId } = routeApi.useParams();
 
   const { data: quotation } = useSuspenseQuery(queries['business-quotations'].detail._ctx.byBusinessId(businessId));
+  const { data: business } = useSuspenseQuery(queries.businesses.detail._ctx.byId(businessId));
 
   const {
     control,
@@ -48,7 +49,7 @@ export default function AppViewBusinessViewQuotationViewUpdateShippingPriceModal
     mutationFn: ({ shippingServicePrice }: yup.InferType<typeof yupSchema>) => {
       const totalAmountHT = quotation.totalAmountHT ?? 0;
       const total = totalAmountHT + shippingServicePrice;
-      const vat = total * 0.2;
+      const vat = business.exportTva ? total * 0.2 : 0;
       const totalAmount = total + vat;
       return updateBusinessQuotation(quotation.id, {
         businessId: businessId,

@@ -53,6 +53,9 @@ export default function AppViewBusinessViewQuotationViewCreateDetailModalView() 
       const totalPrice = unitPrice * data.quantity;
       const totalAmountHT = quotation.totalAmountHT! + totalPrice;
       const shippingServicePrice = totalAmountHT < 1200 ? quotation.shippingServicePrice : 0;
+      const total = totalAmountHT + shippingServicePrice;
+      const vat = business.exportTva ? total * 0.2 : 0;
+      const totalAmount = total + vat;
       return createBusinessQuotationDetail({
         groupName: subQuotation!.name,
         subQuoteId: subQuotation!.id,
@@ -70,7 +73,7 @@ export default function AppViewBusinessViewQuotationViewCreateDetailModalView() 
         totalPrice,
         taxDEEE: 0,
         totalAmountHT,
-        totalAmount: (totalAmountHT + shippingServicePrice) * 1.2,
+        totalAmount,
         shippingServicePrice,
         virtualQty: data.product.virtualQty,
       });

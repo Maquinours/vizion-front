@@ -17,6 +17,7 @@ export default function AppViewBusinessViewQuotationViewDeleteSubquotationModalV
   const { businessId, subquotationId } = routeApi.useParams();
 
   const { data: quotation } = useSuspenseQuery(queries['business-quotations'].detail._ctx.byBusinessId(businessId));
+  const { data: business } = useSuspenseQuery(queries.businesses.detail._ctx.byId(businessId));
   const { data: subQuotation } = useSuspenseQuery(queries['business-sub-quotations'].detail._ctx.byId(subquotationId));
 
   const onClose = () => {
@@ -30,7 +31,9 @@ export default function AppViewBusinessViewQuotationViewDeleteSubquotationModalV
           ?.filter((sub) => sub.id !== subQuotation!.id)
           .reduce((acc, sub) => acc + (sub.quotationDetails?.reduce((acc, detail) => acc + (detail.totalPrice ?? 0), 0) ?? 0), 0) ?? 0;
       const shippingServicePrice = totalAmountHT < 1200 ? quotation.shippingServicePrice : 0;
-      const totalAmount = (totalAmountHT + shippingServicePrice) * 1.2;
+      const total = totalAmountHT + shippingServicePrice;
+      const vat = business.exportTva ? total * 0.2 : 0;
+      const totalAmount = total + vat;
       return deleteBusinessSubQuotation(subQuotation.id, {
         totalAmountHT,
         shippingServicePrice,
