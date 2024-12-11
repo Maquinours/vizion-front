@@ -57,8 +57,6 @@ const columns = [
 
 const enableRowSelection = (row: Row<Image>) => !row.original.loading;
 
-// TODO: handle PDF
-
 type AppViewStudyViewExpertViewModalProviderComponentImportGedImageModalComponentProps = Readonly<{
   type: 'image' | 'background';
 }>;
