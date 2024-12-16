@@ -282,6 +282,10 @@ const pageStyles = StyleSheet.create({
   },
 });
 
+const amountFormatter = (value: number) => {
+  return value.toLocaleString('fr-FR').replaceAll('\u202f', ' ');
+};
+
 type AppViewBusinessViewBlViewBodyComponentPdfComponent = Readonly<{
   business: BusinessResponseDto;
   bl: BusinessBlResponseDto;
@@ -355,7 +359,7 @@ export default function AppViewBusinessViewBlViewBodyComponentPdfComponent({ bus
             <View style={pageStyles.tableBodyContainer}>
               {bl.blDetailsList.map((item) => (
                 <View key={item.id} style={pageStyles.tableBodyContainerBody}>
-                  <Text style={pageStyles.tableBodyQuantity}>{item.quantityDelivered}</Text>
+                  <Text style={pageStyles.tableBodyQuantity}>{amountFormatter(item.quantityDelivered ?? 0)}</Text>
                   <Text style={pageStyles.tableBodyReference}>{item.productReference}</Text>
                   <Text style={pageStyles.tableBodyDescription}>{item.productDesignation}</Text>
                   <Text style={pageStyles.tableBodyPackage}>{item.packageNumber}</Text>

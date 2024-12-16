@@ -351,11 +351,12 @@ const pageStyles = StyleSheet.create({
   },
 });
 
-const amountFormatter = (amount: number) => {
-  return new Intl.NumberFormat('de-DE', {
-    style: 'currency',
-    currency: 'EUR',
-  }).format(amount);
+const amountFormatter = (value: number) => {
+  return value.toLocaleString('fr-FR').replaceAll('\u202f', ' ');
+};
+
+const currencyFormatter = (value: number) => {
+  return value.toLocaleString('fr-FR', { style: 'currency', currency: 'EUR' }).replaceAll('\u202f', ' ');
 };
 
 type AppViewBusinessViewBillViewPdfComponentProps = Readonly<{
@@ -451,14 +452,14 @@ export default function AppViewBusinessViewBillViewPdfComponent({ business, bill
             <View style={pageStyles.tableBodyContainer}>
               {bill.billDetails.map((item) => (
                 <View key={item.id} style={pageStyles.tableBody}>
-                  <Text style={pageStyles.tableBodyQuantity}>{item.quantity}</Text>
+                  <Text style={pageStyles.tableBodyQuantity}>{amountFormatter(item.quantity)}</Text>
                   <Text style={pageStyles.tableBodyReference}>{item.productReference}</Text>
                   <Text style={pageStyles.tableBodyDesignation}>{item.productDesignation}</Text>
                   <View style={pageStyles.tableBodyEcoTax}>
-                    <Text>{amountFormatter(item.unitPrice ?? 0)}</Text>
-                    {(item.taxDEEE ?? 0) > 0 && <Text style={pageStyles.tableBodyEcoTaxValue}>EcoTaxe : {amountFormatter(item.taxDEEE!)}</Text>}
+                    <Text>{currencyFormatter(item.unitPrice ?? 0)}</Text>
+                    {(item.taxDEEE ?? 0) > 0 && <Text style={pageStyles.tableBodyEcoTaxValue}>EcoTaxe : {currencyFormatter(item.taxDEEE!)}</Text>}
                   </View>
-                  <Text style={pageStyles.tableBodyComment}>{amountFormatter(item.totalPrice ?? 0)}</Text>
+                  <Text style={pageStyles.tableBodyComment}>{currencyFormatter(item.totalPrice ?? 0)}</Text>
                 </View>
               ))}
             </View>
@@ -466,23 +467,23 @@ export default function AppViewBusinessViewBillViewPdfComponent({ business, bill
               <View style={pageStyles.recapTable}>
                 <View style={pageStyles.recapTableContent}>
                   <Text style={pageStyles.recapTableContentText}>Total general HT :</Text>
-                  <Text style={pageStyles.recapTableContentValue}>{amountFormatter(bill.totalAmountHT ?? 0)}</Text>
+                  <Text style={pageStyles.recapTableContentValue}>{currencyFormatter(bill.totalAmountHT ?? 0)}</Text>
                 </View>
                 <View style={pageStyles.recapTableContent}>
                   <Text style={pageStyles.recapTableContentText}>Frais de port :</Text>
-                  <Text style={pageStyles.recapTableContentValue}>{amountFormatter(bill.shippingServicePrice)}</Text>
+                  <Text style={pageStyles.recapTableContentValue}>{currencyFormatter(bill.shippingServicePrice)}</Text>
                 </View>
                 <View style={pageStyles.recapTableContent}>
                   <Text style={pageStyles.recapTableContentText}>Total EcoTaxe :</Text>
-                  <Text style={pageStyles.recapTableContentValue}>{amountFormatter(ecoTax)}</Text>
+                  <Text style={pageStyles.recapTableContentValue}>{currencyFormatter(ecoTax)}</Text>
                 </View>
                 <View style={pageStyles.recapTableContent}>
                   <Text style={pageStyles.recapTableContentText}>Total TVA (Taux de TVA 20.0%) :</Text>
-                  <Text style={pageStyles.recapTableContentValue}>{amountFormatter(bill.vat)}</Text>
+                  <Text style={pageStyles.recapTableContentValue}>{currencyFormatter(bill.vat)}</Text>
                 </View>
                 <View style={pageStyles.recapTableTotal}>
                   <Text style={pageStyles.recapTableTotalText}>Total TTC :</Text>
-                  <Text style={pageStyles.recapTableContentValue}>{amountFormatter(bill.totalAmount ?? 0)}</Text>
+                  <Text style={pageStyles.recapTableContentValue}>{currencyFormatter(bill.totalAmount ?? 0)}</Text>
                 </View>
               </View>
             </View>

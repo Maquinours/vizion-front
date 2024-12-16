@@ -403,6 +403,14 @@ const pageStyles = StyleSheet.create({
   },
 });
 
+const amountFormatter = (value: number) => {
+  return value.toLocaleString('fr-FR').replaceAll('\u202f', ' ');
+};
+
+const currencyFormatter = (value: number) => {
+  return value.toLocaleString('fr-FR', { style: 'currency', currency: 'EUR' }).replaceAll('\u202f', ' ');
+};
+
 type AppViewBusinessViewArcViewPdfModalViewPdfComponent = Readonly<{
   business: BusinessResponseDto;
   arc: BusinessArcResponseDto;
@@ -499,11 +507,11 @@ export default function AppViewBusinessViewArcViewPdfModalViewPdfComponent({
             <View style={pageStyles.tableBodyContainer}>
               {arc.arcDetailsList?.map((item) => (
                 <View key={item.id} style={pageStyles.tableBody} wrap={false}>
-                  <Text style={pageStyles.tableBodyQuantity}>{item.quantity}</Text>
+                  <Text style={pageStyles.tableBodyQuantity}>{amountFormatter(item.quantity)}</Text>
                   <Text style={pageStyles.tableBodyReference}>{hideReferencesPrices ? '' : `${item.productReference}`}</Text>
                   <Text style={pageStyles.tableBodyDescription}>{item.productDesignation}</Text>
-                  <Text style={pageStyles.tableBodyPrice}>{hideReferencesPrices ? '' : `${item.unitPrice} €`}</Text>
-                  <Text style={pageStyles.tableBodyTotal}>{hideReferencesPrices ? '' : `${item.totalPrice} €`}</Text>
+                  <Text style={pageStyles.tableBodyPrice}>{hideReferencesPrices ? '' : currencyFormatter(item.unitPrice)}</Text>
+                  <Text style={pageStyles.tableBodyTotal}>{hideReferencesPrices ? '' : currencyFormatter(item.totalPrice)}</Text>
                   <Text style={pageStyles.tableBodyDispo}>
                     {item.stock ? (
                       <Text style={pageStyles.tableBodyDispoOk}>Oui</Text>
@@ -520,21 +528,21 @@ export default function AppViewBusinessViewArcViewPdfModalViewPdfComponent({
             <View style={pageStyles.recapTable}>
               <View style={pageStyles.recapTableHeader}>
                 <Text style={pageStyles.recapTableHeaderText}>TOTAL GÉNÉRAL HT</Text>
-                <Text style={pageStyles.recapTableHeaderValue}>{arc.totalAmountHT} €</Text>
+                <Text style={pageStyles.recapTableHeaderValue}>{currencyFormatter(arc.totalAmountHT ?? 0)}</Text>
               </View>
               <View style={pageStyles.recapTableBody}>
                 <Text style={pageStyles.recapTableBodyText}>Frais de port</Text>
-                <Text style={pageStyles.recapTableBodyValue}>{arc.shippingServicePrice} €</Text>
-                <Text style={pageStyles.recapTableBodyValue}>{arc.shippingServicePrice === 0 ? 'Offert' : `${arc.shippingServicePrice} €`}</Text>
+                <Text style={pageStyles.recapTableBodyValue}>{currencyFormatter(arc.shippingServicePrice)}</Text>
+                <Text style={pageStyles.recapTableBodyValue}>{arc.shippingServicePrice === 0 ? 'Offert' : currencyFormatter(arc.shippingServicePrice)}</Text>
               </View>
               <View style={pageStyles.recapTableBody}>
                 <Text style={pageStyles.recapTableBodyText}>TVA</Text>
                 <Text style={pageStyles.recapTableBodyValue}>20%</Text>
-                <Text style={pageStyles.recapTableBodyValue}>{(((arc.totalAmountHT ?? 0) + arc.shippingServicePrice) * 0.2).toFixed(2)} €</Text>
+                <Text style={pageStyles.recapTableBodyValue}>{currencyFormatter(((arc.totalAmountHT ?? 0) + arc.shippingServicePrice) * 0.2)}</Text>
               </View>
               <View style={pageStyles.recapTableFooter}>
                 <Text style={pageStyles.recapTableFooterText}>Total TTC</Text>
-                <Text style={pageStyles.recapTableFooterValue}>{(arc.totalAmount ?? 0).toFixed(2)} €</Text>
+                <Text style={pageStyles.recapTableFooterValue}>{currencyFormatter(arc.totalAmount ?? 0)}</Text>
               </View>
             </View>
           </View>
