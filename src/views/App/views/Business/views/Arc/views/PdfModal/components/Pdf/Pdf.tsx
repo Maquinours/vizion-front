@@ -155,15 +155,18 @@ const pageStyles = StyleSheet.create({
     color: '#31385A',
     fontSize: 13,
     fontWeight: 'bold',
+    textAlign: 'center',
   },
   arcDetailContent: {
     color: '#16204E',
     fontSize: 12,
+    textAlign: 'center',
   },
   arcDetailThreeContent: {
     color: '#F24C52',
     fontSize: 12,
     fontWeight: 'bold',
+    textAlign: 'center',
   },
   arcDetailFour: {
     width: '100%',
@@ -246,6 +249,7 @@ const pageStyles = StyleSheet.create({
     fontSize: 10,
     width: '10%',
     textAlign: 'center',
+    borderRight: '1px solid #16204E',
   },
   tableBodyReference: {
     padding: 5,
@@ -253,6 +257,7 @@ const pageStyles = StyleSheet.create({
     fontSize: 10,
     width: '15%',
     textAlign: 'center',
+    borderRight: '1px solid #16204E',
   },
   tableBodyDescription: {
     padding: 5,
@@ -260,6 +265,7 @@ const pageStyles = StyleSheet.create({
     fontSize: 10,
     width: '35%',
     textAlign: 'center',
+    borderRight: '1px solid #16204E',
   },
   tableBodyPrice: {
     padding: 5,
@@ -267,6 +273,7 @@ const pageStyles = StyleSheet.create({
     fontSize: 10,
     width: '15%',
     textAlign: 'center',
+    borderRight: '1px solid #16204E',
   },
   tableBodyTotal: {
     padding: 5,
@@ -274,6 +281,7 @@ const pageStyles = StyleSheet.create({
     fontSize: 10,
     width: '15%',
     textAlign: 'center',
+    borderRight: '1px solid #16204E',
   },
   tableBodyDispo: {
     padding: 5,
@@ -318,12 +326,14 @@ const pageStyles = StyleSheet.create({
     fontSize: 13,
     borderRight: '1px solid white',
     fontWeight: 'bold',
+    textAlign: 'center',
   },
   recapTableHeaderValue: {
     width: '30%',
     padding: 5,
     fontSize: 13,
     fontWeight: 'bold',
+    textAlign: 'center',
   },
   recapTableBody: {
     display: 'flex',
@@ -337,6 +347,7 @@ const pageStyles = StyleSheet.create({
     color: '#16204E',
     borderRight: '1px solid #16204E',
     fontWeight: 'bold',
+    textAlign: 'center',
   },
   recapTableBodyValue: {
     width: '30%',
@@ -344,6 +355,7 @@ const pageStyles = StyleSheet.create({
     fontSize: 13,
     color: '#16204E',
     borderRight: '1px solid #16204E',
+    textAlign: 'center',
   },
   recapTableFooter: {
     display: 'flex',
@@ -357,12 +369,14 @@ const pageStyles = StyleSheet.create({
     fontSize: 13,
     borderRight: '1px solid white',
     fontWeight: 'bold',
+    textAlign: 'center',
   },
   recapTableFooterValue: {
     width: '30%',
     padding: 5,
     fontSize: 13,
     fontWeight: 'bold',
+    textAlign: 'center',
   },
   delay: {
     marginTop: 40,

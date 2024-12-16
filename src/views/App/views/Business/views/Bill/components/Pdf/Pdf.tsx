@@ -152,15 +152,18 @@ const pageStyles = StyleSheet.create({
     color: '#31385A',
     fontSize: 13,
     fontWeight: 'bold',
+    textAlign: 'center',
   },
   billDetailOneContent: {
     color: '#F24C52',
     fontSize: 10,
+    textAlign: 'center',
   },
   billDetailTwoContent: {
     color: '#F24C52',
     fontSize: 10,
     fontWeight: 'bold',
+    textAlign: 'center',
   },
   billDetailFour: {
     width: '100%',
@@ -189,6 +192,7 @@ const pageStyles = StyleSheet.create({
     fontSize: 13,
     width: '10%',
     borderRight: '1px solid white',
+    textAlign: 'center',
   },
   tableHeaderReference: {
     padding: 5,
@@ -196,6 +200,7 @@ const pageStyles = StyleSheet.create({
     fontSize: 13,
     width: '15%',
     borderRight: '1px solid white',
+    textAlign: 'center',
   },
   tableHeaderDesignation: {
     padding: 5,
@@ -203,6 +208,7 @@ const pageStyles = StyleSheet.create({
     fontSize: 13,
     width: '50%',
     borderRight: '1px solid white',
+    textAlign: 'center',
   },
   tableHeaderPackage: {
     padding: 5,
@@ -210,6 +216,7 @@ const pageStyles = StyleSheet.create({
     fontSize: 13,
     width: '15%',
     borderRight: '1px solid white',
+    textAlign: 'center',
   },
   tableHeaderComment: {
     padding: 5,
@@ -218,6 +225,7 @@ const pageStyles = StyleSheet.create({
     width: '10%',
     flex: '100px 1 1',
     borderRight: '1px solid white',
+    textAlign: 'center',
   },
   tableBodyContainer: {
     width: '100%',
@@ -237,6 +245,7 @@ const pageStyles = StyleSheet.create({
     fontSize: 10,
     width: '10%',
     borderRight: '1px solid #16204E',
+    textAlign: 'center',
   },
   tableBodyReference: {
     padding: 5,
@@ -245,6 +254,7 @@ const pageStyles = StyleSheet.create({
     fontSize: 10,
     width: '15%',
     borderRight: '1px solid #16204E',
+    textAlign: 'center',
   },
   tableBodyDesignation: {
     padding: 5,
@@ -252,6 +262,7 @@ const pageStyles = StyleSheet.create({
     fontSize: 10,
     width: '50%',
     borderRight: '1px solid #16204E',
+    textAlign: 'center',
   },
   tableBodyEcoTax: {
     padding: 5,
@@ -261,6 +272,7 @@ const pageStyles = StyleSheet.create({
     borderRight: '1px solid #16204E',
     display: 'flex',
     flexDirection: 'column',
+    textAlign: 'center',
   },
   tableBodyEcoTaxValue: {
     fontSize: 8,

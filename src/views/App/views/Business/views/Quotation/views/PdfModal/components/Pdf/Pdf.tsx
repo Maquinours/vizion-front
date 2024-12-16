@@ -272,6 +272,7 @@ const pageStyles = StyleSheet.create({
     width: '10%',
     objectFit: 'scale-down',
     borderTop: '1px solid #16204E',
+    borderRight: '1px solid #16204E',
   },
   quantityBody: {
     padding: 10,
@@ -280,6 +281,7 @@ const pageStyles = StyleSheet.create({
     fontSize: 12,
     width: '10%',
     borderTop: '1px solid #16204E',
+    borderRight: '1px solid #16204E',
   },
   referenceBody: {
     padding: 10,
@@ -291,6 +293,7 @@ const pageStyles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
+    borderRight: '1px solid #16204E',
   },
   descriptionBody: {
     padding: 10,
@@ -299,6 +302,7 @@ const pageStyles = StyleSheet.create({
     fontSize: 12,
     width: '35%',
     borderTop: '1px solid #16204E',
+    borderRight: '1px solid #16204E',
   },
   priceBody: {
     padding: 10,
@@ -307,6 +311,7 @@ const pageStyles = StyleSheet.create({
     fontSize: 12,
     width: '15%',
     borderTop: '1px solid #16204E',
+    borderRight: '1px solid #16204E',
   },
   totalBody: {
     padding: 10,
@@ -338,12 +343,14 @@ const pageStyles = StyleSheet.create({
     fontSize: 13,
     borderRight: '1px solid white',
     fontWeight: 'bold',
+    textAlign: 'center',
   },
   recapHeaderValue: {
     width: '30%',
     padding: 5,
     fontSize: 13,
     fontWeight: 'bold',
+    textAlign: 'center',
   },
   recapBody: {
     display: 'flex',
@@ -357,6 +364,7 @@ const pageStyles = StyleSheet.create({
     color: '#16204E',
     borderRight: '1px solid #16204E',
     fontWeight: 'bold',
+    textAlign: 'center',
   },
   recapBodyValue: {
     width: '30%',
@@ -364,6 +372,7 @@ const pageStyles = StyleSheet.create({
     fontSize: 13,
     color: '#16204E',
     borderRight: '1px solid #16204E',
+    textAlign: 'center',
   },
   recapFooter: {
     display: 'flex',
@@ -377,12 +386,14 @@ const pageStyles = StyleSheet.create({
     fontSize: 13,
     borderRight: '1px solid white',
     fontWeight: 'bold',
+    textAlign: 'center',
   },
   recapFooterValue: {
     width: '30%',
     padding: 5,
     fontSize: 13,
     fontWeight: 'bold',
+    textAlign: 'center',
   },
   pageTextOne: {
     fontSize: 8,

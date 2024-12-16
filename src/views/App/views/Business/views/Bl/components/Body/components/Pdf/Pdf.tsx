@@ -138,10 +138,12 @@ const pageStyles = StyleSheet.create({
     color: '#31385A',
     fontSize: 13,
     fontWeight: 'bold',
+    textAlign: 'center',
   },
   arcDetailContainerContent: {
     color: '#16204E',
     fontSize: 10,
+    textAlign: 'center',
   },
   arcDetailThreeContainerContent: {
     color: '#F24C52',
@@ -174,6 +176,7 @@ const pageStyles = StyleSheet.create({
     fontSize: 13,
     width: '10%',
     borderRight: '1px solid white',
+    textAlign: 'center',
   },
   tableHeaderContainerReference: {
     padding: 5,
@@ -181,6 +184,7 @@ const pageStyles = StyleSheet.create({
     fontSize: 13,
     width: '15%',
     borderRight: '1px solid white',
+    textAlign: 'center',
   },
   tableHeaderContainerDescription: {
     padding: 5,
@@ -188,6 +192,7 @@ const pageStyles = StyleSheet.create({
     fontSize: 13,
     width: '40%',
     borderRight: '1px solid white',
+    textAlign: 'center',
   },
   tableHeaderContainerPackage: {
     padding: 5,
@@ -195,6 +200,7 @@ const pageStyles = StyleSheet.create({
     fontSize: 13,
     width: '10%',
     borderRight: '1px solid white',
+    textAlign: 'center',
   },
   tableHeaderContainerComment: {
     padding: 5,
@@ -202,6 +208,7 @@ const pageStyles = StyleSheet.create({
     fontSize: 13,
     width: '25%',
     borderRight: '1px solid white',
+    textAlign: 'center',
   },
   tableBodyContainer: {
     width: '100%',
@@ -221,6 +228,7 @@ const pageStyles = StyleSheet.create({
     fontSize: 10,
     width: '10%',
     borderRight: '1px solid #16204E',
+    textAlign: 'center',
   },
   tableBodyReference: {
     padding: 5,
@@ -228,6 +236,7 @@ const pageStyles = StyleSheet.create({
     fontSize: 10,
     width: '15%',
     borderRight: '1px solid #16204E',
+    textAlign: 'center',
   },
   tableBodyDescription: {
     padding: 5,
@@ -235,6 +244,7 @@ const pageStyles = StyleSheet.create({
     fontSize: 10,
     width: '40%',
     borderRight: '1px solid #16204E',
+    textAlign: 'center',
   },
   tableBodyPackage: {
     padding: 5,
@@ -242,12 +252,14 @@ const pageStyles = StyleSheet.create({
     fontSize: 10,
     width: '10%',
     borderRight: '1px solid #16204E',
+    textAlign: 'center',
   },
   tableBodyComment: {
     padding: 5,
     color: '#16204E',
     fontSize: 10,
     width: '25%',
+    textAlign: 'center',
   },
   pageTextOne: {
     fontSize: 8,
@@ -331,7 +343,7 @@ export default function AppViewBusinessViewBlViewBodyComponentPdfComponent({ bus
               <View style={pageStyles.arcDetailOne}>
                 <View style={pageStyles.arcDetailContainer}>
                   <Text style={pageStyles.arcDetailContainerTitle}>N° du BL</Text>
-                  <Text style={pageStyles.arcDetailContainerTitle}>{bl.number}</Text>
+                  <Text style={pageStyles.arcDetailContainerContent}>{bl.number}</Text>
                 </View>
               </View>
               <View style={pageStyles.arcDetailOne}>
