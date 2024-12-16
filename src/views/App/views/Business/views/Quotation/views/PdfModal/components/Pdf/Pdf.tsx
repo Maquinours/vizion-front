@@ -417,11 +417,11 @@ const pageStyles = StyleSheet.create({
 });
 
 const amountFormatter = (value: number) => {
-  return value.toLocaleString('fr-FR');
+  return value.toLocaleString('fr-FR').replaceAll('\u202f', ' ');
 };
 
 const currencyFormatter = (value: number) => {
-  return value.toLocaleString('fr-FR', { style: 'currency', currency: 'EUR' });
+  return value.toLocaleString('fr-FR', { style: 'currency', currency: 'EUR' }).replaceAll('\u202f', ' ');
 };
 
 type AppViewBusinessViewQuotationViewPdfModalViewPdfComponentProps = {
