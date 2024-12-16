@@ -185,13 +185,14 @@ const pageStyles = StyleSheet.create({
     fontFamily: 'Din',
     fontWeight: 'bold',
   },
-  tableHeaderQuantity: { padding: 5, color: 'white', fontSize: 13, width: '10%', borderRight: '1px solid white' },
+  tableHeaderQuantity: { padding: 5, color: 'white', fontSize: 13, width: '10%', borderRight: '1px solid white', textAlign: 'center' },
   tableHeaderReference: {
     padding: 5,
     color: 'white',
     fontSize: 13,
     width: '15%',
     borderRight: '1px solid white',
+    textAlign: 'center',
   },
   tableHeaderDescription: {
     padding: 5,
@@ -199,6 +200,7 @@ const pageStyles = StyleSheet.create({
     fontSize: 13,
     width: '35%',
     borderRight: '1px solid white',
+    textAlign: 'center',
   },
   tableHeaderPrice: {
     padding: 5,
@@ -206,6 +208,7 @@ const pageStyles = StyleSheet.create({
     fontSize: 13,
     width: '15%',
     borderRight: '1px solid white',
+    textAlign: 'center',
   },
   tableHeaderTotal: {
     padding: 5,
@@ -214,6 +217,7 @@ const pageStyles = StyleSheet.create({
     width: '15%',
     flex: '100px 1 1',
     borderRight: '1px solid white',
+    textAlign: 'center',
   },
   tableHeaderDispo: {
     padding: 5,
@@ -221,6 +225,7 @@ const pageStyles = StyleSheet.create({
     fontSize: 13,
     width: '10%',
     borderRight: '1px solid white',
+    textAlign: 'center',
   },
   tableBodyContainer: {
     width: '100%',
@@ -240,48 +245,56 @@ const pageStyles = StyleSheet.create({
     color: '#16204E',
     fontSize: 10,
     width: '10%',
+    textAlign: 'center',
   },
   tableBodyReference: {
     padding: 5,
     color: '#16204E',
     fontSize: 10,
     width: '15%',
+    textAlign: 'center',
   },
   tableBodyDescription: {
     padding: 5,
     color: '#16204E',
     fontSize: 10,
     width: '35%',
+    textAlign: 'center',
   },
   tableBodyPrice: {
     padding: 5,
     color: '#16204E',
     fontSize: 10,
     width: '15%',
+    textAlign: 'center',
   },
   tableBodyTotal: {
     padding: 5,
     color: '#16204E',
     fontSize: 10,
     width: '15%',
+    textAlign: 'center',
   },
   tableBodyDispo: {
     padding: 5,
     color: '#16204E',
     fontSize: 10,
     width: '10%',
+    textAlign: 'center',
   },
   tableBodyDispoOk: {
     width: 10,
     height: 10,
     borderRadius: '50%',
     color: 'green',
+    textAlign: 'center',
   },
   tableBodyDispoNotOk: {
     width: 10,
     height: 10,
     borderRadius: '50%',
     color: '#F24C52',
+    textAlign: 'center',
   },
   recapContainer: {
     marginTop: 10,
@@ -477,7 +490,7 @@ export default function AppViewBusinessViewArcViewPdfModalViewPdfComponent({
             <View style={pageStyles.tableHeaderContainer}>
               <Text style={pageStyles.tableHeaderQuantity}>Qté</Text>
               <Text style={pageStyles.tableHeaderReference}>Référence</Text>
-              <Text style={pageStyles.tableHeaderReference}>Désignation</Text>
+              <Text style={pageStyles.tableHeaderDescription}>Désignation</Text>
               <Text style={pageStyles.tableHeaderPrice}>PU HT</Text>
               <Text style={pageStyles.tableHeaderTotal}>Total</Text>
               <Text style={pageStyles.tableHeaderDispo}>Dispo</Text>
