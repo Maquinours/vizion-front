@@ -183,6 +183,7 @@ const pageStyles = StyleSheet.create({
     fontSize: 13,
     width: '10%',
     borderRight: '1px solid white',
+    textAlign: 'center',
   },
   quantityHeader: {
     padding: 5,
@@ -190,6 +191,7 @@ const pageStyles = StyleSheet.create({
     fontSize: 13,
     width: '10%',
     borderRight: '1px solid white',
+    textAlign: 'center',
   },
   referenceHeader: {
     padding: 5,
@@ -197,6 +199,7 @@ const pageStyles = StyleSheet.create({
     fontSize: 13,
     width: '15%',
     borderRight: '1px solid white',
+    textAlign: 'center',
   },
   descriptionHeader: {
     padding: 5,
@@ -204,6 +207,7 @@ const pageStyles = StyleSheet.create({
     fontSize: 13,
     width: '35%',
     borderRight: '1px solid white',
+    textAlign: 'center',
   },
   priceHeader: {
     padding: 5,
@@ -211,6 +215,7 @@ const pageStyles = StyleSheet.create({
     fontSize: 13,
     width: '15%',
     borderRight: '1px solid white',
+    textAlign: 'center',
   },
   totalHeader: {
     padding: 5,
@@ -219,6 +224,7 @@ const pageStyles = StyleSheet.create({
     width: '15%',
     flex: '100px 1 1',
     borderRight: '1px solid white',
+    textAlign: 'center',
   },
   tableBodyContainer: {
     width: '100%',
@@ -272,7 +278,7 @@ const pageStyles = StyleSheet.create({
     width: '10%',
     objectFit: 'scale-down',
     borderTop: '1px solid #16204E',
-    borderRight: '1px solid #16204E',
+    textAlign: 'center',
   },
   quantityBody: {
     padding: 10,
@@ -281,7 +287,7 @@ const pageStyles = StyleSheet.create({
     fontSize: 12,
     width: '10%',
     borderTop: '1px solid #16204E',
-    borderRight: '1px solid #16204E',
+    textAlign: 'center',
   },
   referenceBody: {
     padding: 10,
@@ -293,7 +299,7 @@ const pageStyles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    borderRight: '1px solid #16204E',
+    textAlign: 'center',
   },
   descriptionBody: {
     padding: 10,
@@ -302,7 +308,7 @@ const pageStyles = StyleSheet.create({
     fontSize: 12,
     width: '35%',
     borderTop: '1px solid #16204E',
-    borderRight: '1px solid #16204E',
+    textAlign: 'center',
   },
   priceBody: {
     padding: 10,
@@ -311,7 +317,7 @@ const pageStyles = StyleSheet.create({
     fontSize: 12,
     width: '15%',
     borderTop: '1px solid #16204E',
-    borderRight: '1px solid #16204E',
+    textAlign: 'center',
   },
   totalBody: {
     padding: 10,
@@ -320,6 +326,7 @@ const pageStyles = StyleSheet.create({
     fontSize: 12,
     width: '15%',
     borderTop: '1px solid #16204E',
+    textAlign: 'center',
   },
   recapContainer: {
     marginTop: 10,
