@@ -155,15 +155,18 @@ const pageStyles = StyleSheet.create({
     color: '#31385A',
     fontSize: 13,
     fontWeight: 'bold',
+    textAlign: 'center',
   },
   arcDetailContent: {
     color: '#16204E',
     fontSize: 12,
+    textAlign: 'center',
   },
   arcDetailThreeContent: {
     color: '#F24C52',
     fontSize: 12,
     fontWeight: 'bold',
+    textAlign: 'center',
   },
   arcDetailFour: {
     width: '100%',
@@ -185,13 +188,14 @@ const pageStyles = StyleSheet.create({
     fontFamily: 'Din',
     fontWeight: 'bold',
   },
-  tableHeaderQuantity: { padding: 5, color: 'white', fontSize: 13, width: '10%', borderRight: '1px solid white' },
+  tableHeaderQuantity: { padding: 5, color: 'white', fontSize: 13, width: '10%', borderRight: '1px solid white', textAlign: 'center' },
   tableHeaderReference: {
     padding: 5,
     color: 'white',
     fontSize: 13,
     width: '15%',
     borderRight: '1px solid white',
+    textAlign: 'center',
   },
   tableHeaderDescription: {
     padding: 5,
@@ -199,6 +203,7 @@ const pageStyles = StyleSheet.create({
     fontSize: 13,
     width: '35%',
     borderRight: '1px solid white',
+    textAlign: 'center',
   },
   tableHeaderPrice: {
     padding: 5,
@@ -206,6 +211,7 @@ const pageStyles = StyleSheet.create({
     fontSize: 13,
     width: '15%',
     borderRight: '1px solid white',
+    textAlign: 'center',
   },
   tableHeaderTotal: {
     padding: 5,
@@ -214,6 +220,7 @@ const pageStyles = StyleSheet.create({
     width: '15%',
     flex: '100px 1 1',
     borderRight: '1px solid white',
+    textAlign: 'center',
   },
   tableHeaderDispo: {
     padding: 5,
@@ -221,6 +228,7 @@ const pageStyles = StyleSheet.create({
     fontSize: 13,
     width: '10%',
     borderRight: '1px solid white',
+    textAlign: 'center',
   },
   tableBodyContainer: {
     width: '100%',
@@ -240,48 +248,61 @@ const pageStyles = StyleSheet.create({
     color: '#16204E',
     fontSize: 10,
     width: '10%',
+    textAlign: 'center',
+    borderRight: '1px solid #16204E',
   },
   tableBodyReference: {
     padding: 5,
     color: '#16204E',
     fontSize: 10,
     width: '15%',
+    textAlign: 'center',
+    borderRight: '1px solid #16204E',
   },
   tableBodyDescription: {
     padding: 5,
     color: '#16204E',
     fontSize: 10,
     width: '35%',
+    textAlign: 'center',
+    borderRight: '1px solid #16204E',
   },
   tableBodyPrice: {
     padding: 5,
     color: '#16204E',
     fontSize: 10,
     width: '15%',
+    textAlign: 'center',
+    borderRight: '1px solid #16204E',
   },
   tableBodyTotal: {
     padding: 5,
     color: '#16204E',
     fontSize: 10,
     width: '15%',
+    textAlign: 'center',
+    borderRight: '1px solid #16204E',
   },
   tableBodyDispo: {
     padding: 5,
     color: '#16204E',
     fontSize: 10,
     width: '10%',
+    textAlign: 'center',
   },
   tableBodyDispoOk: {
     width: 10,
     height: 10,
     borderRadius: '50%',
     color: 'green',
+    textAlign: 'center',
   },
   tableBodyDispoNotOk: {
     width: 10,
     height: 10,
     borderRadius: '50%',
     color: '#F24C52',
+    textAlign: 'center',
   },
   recapContainer: {
     marginTop: 10,
@@ -305,12 +326,14 @@ const pageStyles = StyleSheet.create({
     fontSize: 13,
     borderRight: '1px solid white',
     fontWeight: 'bold',
+    textAlign: 'center',
   },
   recapTableHeaderValue: {
     width: '30%',
     padding: 5,
     fontSize: 13,
     fontWeight: 'bold',
+    textAlign: 'center',
   },
   recapTableBody: {
     display: 'flex',
@@ -324,6 +347,7 @@ const pageStyles = StyleSheet.create({
     color: '#16204E',
     borderRight: '1px solid #16204E',
     fontWeight: 'bold',
+    textAlign: 'center',
   },
   recapTableBodyValue: {
     width: '30%',
@@ -331,6 +355,7 @@ const pageStyles = StyleSheet.create({
     fontSize: 13,
     color: '#16204E',
     borderRight: '1px solid #16204E',
+    textAlign: 'center',
   },
   recapTableFooter: {
     display: 'flex',
@@ -344,12 +369,14 @@ const pageStyles = StyleSheet.create({
     fontSize: 13,
     borderRight: '1px solid white',
     fontWeight: 'bold',
+    textAlign: 'center',
   },
   recapTableFooterValue: {
     width: '30%',
     padding: 5,
     fontSize: 13,
     fontWeight: 'bold',
+    textAlign: 'center',
   },
   delay: {
     marginTop: 40,
@@ -389,6 +416,14 @@ const pageStyles = StyleSheet.create({
     color: '#16204E',
   },
 });
+
+const amountFormatter = (value: number) => {
+  return value.toLocaleString('fr-FR').replaceAll('\u202f', ' ');
+};
+
+const currencyFormatter = (value: number) => {
+  return value.toLocaleString('fr-FR', { style: 'currency', currency: 'EUR' }).replaceAll('\u202f', ' ');
+};
 
 type AppViewBusinessViewArcViewPdfModalViewPdfComponent = Readonly<{
   business: BusinessResponseDto;
@@ -477,7 +512,7 @@ export default function AppViewBusinessViewArcViewPdfModalViewPdfComponent({
             <View style={pageStyles.tableHeaderContainer}>
               <Text style={pageStyles.tableHeaderQuantity}>Qté</Text>
               <Text style={pageStyles.tableHeaderReference}>Référence</Text>
-              <Text style={pageStyles.tableHeaderReference}>Désignation</Text>
+              <Text style={pageStyles.tableHeaderDescription}>Désignation</Text>
               <Text style={pageStyles.tableHeaderPrice}>PU HT</Text>
               <Text style={pageStyles.tableHeaderTotal}>Total</Text>
               <Text style={pageStyles.tableHeaderDispo}>Dispo</Text>
@@ -486,11 +521,11 @@ export default function AppViewBusinessViewArcViewPdfModalViewPdfComponent({
             <View style={pageStyles.tableBodyContainer}>
               {arc.arcDetailsList?.map((item) => (
                 <View key={item.id} style={pageStyles.tableBody} wrap={false}>
-                  <Text style={pageStyles.tableBodyQuantity}>{item.quantity}</Text>
+                  <Text style={pageStyles.tableBodyQuantity}>{amountFormatter(item.quantity)}</Text>
                   <Text style={pageStyles.tableBodyReference}>{hideReferencesPrices ? '' : `${item.productReference}`}</Text>
                   <Text style={pageStyles.tableBodyDescription}>{item.productDesignation}</Text>
-                  <Text style={pageStyles.tableBodyPrice}>{hideReferencesPrices ? '' : `${item.unitPrice} €`}</Text>
-                  <Text style={pageStyles.tableBodyTotal}>{hideReferencesPrices ? '' : `${item.totalPrice} €`}</Text>
+                  <Text style={pageStyles.tableBodyPrice}>{hideReferencesPrices ? '' : currencyFormatter(item.unitPrice)}</Text>
+                  <Text style={pageStyles.tableBodyTotal}>{hideReferencesPrices ? '' : currencyFormatter(item.totalPrice)}</Text>
                   <Text style={pageStyles.tableBodyDispo}>
                     {item.stock ? (
                       <Text style={pageStyles.tableBodyDispoOk}>Oui</Text>
@@ -507,21 +542,21 @@ export default function AppViewBusinessViewArcViewPdfModalViewPdfComponent({
             <View style={pageStyles.recapTable}>
               <View style={pageStyles.recapTableHeader}>
                 <Text style={pageStyles.recapTableHeaderText}>TOTAL GÉNÉRAL HT</Text>
-                <Text style={pageStyles.recapTableHeaderValue}>{arc.totalAmountHT} €</Text>
+                <Text style={pageStyles.recapTableHeaderValue}>{currencyFormatter(arc.totalAmountHT ?? 0)}</Text>
               </View>
               <View style={pageStyles.recapTableBody}>
                 <Text style={pageStyles.recapTableBodyText}>Frais de port</Text>
-                <Text style={pageStyles.recapTableBodyValue}>{arc.shippingServicePrice} €</Text>
-                <Text style={pageStyles.recapTableBodyValue}>{arc.shippingServicePrice === 0 ? 'Offert' : `${arc.shippingServicePrice} €`}</Text>
+                <Text style={pageStyles.recapTableBodyValue}>{currencyFormatter(arc.shippingServicePrice)}</Text>
+                <Text style={pageStyles.recapTableBodyValue}>{arc.shippingServicePrice === 0 ? 'Offert' : currencyFormatter(arc.shippingServicePrice)}</Text>
               </View>
               <View style={pageStyles.recapTableBody}>
                 <Text style={pageStyles.recapTableBodyText}>TVA</Text>
                 <Text style={pageStyles.recapTableBodyValue}>20%</Text>
-                <Text style={pageStyles.recapTableBodyValue}>{(((arc.totalAmountHT ?? 0) + arc.shippingServicePrice) * 0.2).toFixed(2)} €</Text>
+                <Text style={pageStyles.recapTableBodyValue}>{currencyFormatter(((arc.totalAmountHT ?? 0) + arc.shippingServicePrice) * 0.2)}</Text>
               </View>
               <View style={pageStyles.recapTableFooter}>
                 <Text style={pageStyles.recapTableFooterText}>Total TTC</Text>
-                <Text style={pageStyles.recapTableFooterValue}>{(arc.totalAmount ?? 0).toFixed(2)} €</Text>
+                <Text style={pageStyles.recapTableFooterValue}>{currencyFormatter(arc.totalAmount ?? 0)}</Text>
               </View>
             </View>
           </View>

@@ -6,10 +6,10 @@ import { queries } from '../../../../../../../../utils/constants/queryKeys';
 import { useAuthentifiedUserQuery } from '../../../../../../utils/functions/getAuthentifiedUser';
 import styles from './Comments.module.scss';
 
-const Route = getRouteApi('/app/dashboard/task-comments/$taskId');
+const routeApi = getRouteApi('/app/dashboard/task-comments/$taskId');
 
 export default function AppViewDashboardViewTaskCommentsModalViewCommentsComponent() {
-  const { taskId } = Route.useParams();
+  const { taskId } = routeApi.useParams();
 
   const { data: currentUser } = useAuthentifiedUserQuery();
 

@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useQuery } from '@tanstack/react-query';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { getRouteApi } from '@tanstack/react-router';
 import { E164Number } from 'libphonenumber-js';
 import React, { useEffect, useMemo } from 'react';
 import { Controller, useForm } from 'react-hook-form';
@@ -12,7 +12,7 @@ import { UserRole } from '../../../../../../utils/types/ProfileInfoResponseDto';
 import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthentifiedUser';
 import styles from './SearchSection.module.scss';
 
-const Route = getRouteApi('/app/enterprises');
+const routeApi = getRouteApi('/app/enterprises');
 
 const categoryOptions: Array<{ label: string; value: CategoryClient | ''; allowedRoles?: Array<UserRole> }> = [
   {
@@ -56,6 +56,11 @@ const categoryOptions: Array<{ label: string; value: CategoryClient | ''; allowe
     label: 'Client',
     value: CategoryClient.CLIENT,
   },
+  {
+    label: 'Spécialiste',
+    value: CategoryClient.SPECIALISTE,
+    allowedRoles: ['ROLE_MEMBRE_VIZEO', 'ROLE_REPRESENTANT'],
+  },
 ];
 
 const yupSchema = yup.object({
@@ -70,9 +75,9 @@ const yupSchema = yup.object({
 });
 
 export default function AppViewEnterprisesViewSearchSectionComponent() {
-  const navigate = useNavigate({ from: Route.id });
+  const navigate = routeApi.useNavigate();
 
-  const { enterprise, contact, zipCode, city, phoneNumber, category, representativeId, fuzzy } = Route.useSearch();
+  const { enterprise, contact, zipCode, city, phoneNumber, category, representativeId, fuzzy } = routeApi.useSearch();
 
   const { register, control, setValue, reset, handleSubmit } = useForm({
     resolver: yupResolver(yupSchema),

@@ -48,7 +48,7 @@ const stepsData: Array<{
 const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId');
 
 export default function AppViewBusinessViewSidebarComponent() {
-  useLocation(); // We need to use useLocation to trigger a rerender of the links when the user navigates
+  const location = useLocation(); // We need to use useLocation to trigger a rerender of the links when the user navigates
 
   const { businessId } = routeApi.useParams();
 
@@ -81,7 +81,7 @@ export default function AppViewBusinessViewSidebarComponent() {
       <div className={styles.buttons}>
         {user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && business.state !== BusinessState.ARCHIVE && (
           <Link
-            to="."
+            to={location.pathname}
             search={(old) => ({ ...old, businessModal: 'assistances' })}
             replace
             resetScroll={false}
@@ -94,7 +94,7 @@ export default function AppViewBusinessViewSidebarComponent() {
         )}
         {user.userInfo.roles.includes('ROLE_DIRECTION_VIZEO') && business.state !== BusinessState.ARCHIVE && (
           <Link
-            to="."
+            to={location.pathname}
             search={(old) => ({ ...old, businessModal: 'archive' })}
             replace
             resetScroll={false}

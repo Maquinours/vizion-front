@@ -1,11 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
-import { Link, getRouteApi } from '@tanstack/react-router';
+import { Link } from '@tanstack/react-router';
 import { queries } from '../../../../../../../../../../utils/constants/queryKeys';
 import TaskState from '../../../../../../../../../../utils/enums/TaskState';
 import { useAuthentifiedUserQuery } from '../../../../../../../../utils/functions/getAuthentifiedUser';
 import styles from './Users.module.scss';
 
-const Route = getRouteApi('/app/dashboard');
+const routePath = '/app/dashboard';
 
 export default function AppViewDashboardViewPersonalTasksComponentHeaderComponentUsersComponent() {
   const { data: user } = useAuthentifiedUserQuery();
@@ -21,7 +21,7 @@ export default function AppViewDashboardViewPersonalTasksComponentHeaderComponen
         {otherMembers?.map((member) => (
           <Link
             key={member.id}
-            from={Route.id}
+            from={routePath}
             to="./other-personal-tasks/$profileId"
             search={(old) => ({ ...old, otherPersonalTaskState: TaskState.CREATED, otherPersonalTaskSize: 10, otherPersonalTaskPage: 0 })}
             params={{ profileId: member.id }}

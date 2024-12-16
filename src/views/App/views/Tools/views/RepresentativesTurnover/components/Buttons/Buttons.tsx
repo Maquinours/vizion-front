@@ -1,16 +1,16 @@
+import { useQuery } from '@tanstack/react-query';
 import { getRouteApi } from '@tanstack/react-router';
-import { getExcelTurnoversByRepresentativeMonthAndYear } from './utils/api/excelTurnovers';
 import fileDownload from 'js-file-download';
-import styles from './Buttons.module.scss';
 import { toast } from 'react-toastify';
 import { enterprises } from '../../../../../../../../utils/constants/queryKeys/enterprise';
-import { useQuery } from '@tanstack/react-query';
 import CategoryClient from '../../../../../../../../utils/enums/CategoryClient';
+import styles from './Buttons.module.scss';
+import { getExcelTurnoversByRepresentativeMonthAndYear } from './utils/api/excelTurnovers';
 
-const Route = getRouteApi('/app/tools/representatives-turnover');
+const routeApi = getRouteApi('/app/tools/representatives-turnover');
 
 export default function AppViewToolsViewRepresentativesTurnoverViewButtonsComponent() {
-  const { representativeId, year, month } = Route.useSearch();
+  const { representativeId, year, month } = routeApi.useSearch();
 
   const { data: representative } = useQuery({
     ...enterprises.detail(representativeId!),

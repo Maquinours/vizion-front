@@ -9,10 +9,10 @@ import RepresentativesTurnoverViewRecapSectionComponent from './components/Recap
 import RepresentativesTurnoverViewSearchSectionComponent from './components/SearchSection/SearchSection';
 import RepresentativesTurnoverViewTableComponent from './components/Table/Table';
 
-const Route = getRouteApi('/app/tools/representatives-turnover');
+const routeApi = getRouteApi('/app/tools/representatives-turnover');
 
 export default function AppViewToolsViewRepresentativesTurnoverView() {
-  const { representativeId, month, year } = Route.useSearch();
+  const { representativeId, month, year } = routeApi.useSearch();
 
   const { data: representatives } = useSuspenseQuery(enterprises.list._ctx.byCategory(CategoryClient.REPRESENTANT));
 

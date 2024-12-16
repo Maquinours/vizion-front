@@ -80,6 +80,7 @@ const INITIAL_TABS: Array<InitialTab> = [
     },
     allowedRoles: ['ROLE_CLIENT', 'ROLE_DISTRIBUTEUR', 'ROLE_REPRESENTANT'],
   },
+  getExternalLinkInitialTab('VIZIA', ['ROLE_MEMBRE_VIZEO']),
 ];
 
 type AppViewTabsContainerComponentProps = Readonly<{

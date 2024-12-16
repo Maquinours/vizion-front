@@ -4,19 +4,22 @@ import { AiFillTag } from 'react-icons/ai';
 import styles from './Top.module.scss';
 import TaskState from '../../../../../../../../../../utils/enums/TaskState';
 import { Link, getRouteApi } from '@tanstack/react-router';
+import TasksCountsResponseDto from '../../../../../../../../../../utils/types/TasksCountsResponseDto';
 
-const Route = getRouteApi('/app/dashboard/other-personal-tasks/$profileId');
+const routeApi = getRouteApi('/app/dashboard/other-personal-tasks/$profileId');
 
-const STATES = [
+const STATES: Array<{ value: TaskState; color: string; label: string; countField?: 'created' | 'closed' }> = [
   {
     value: TaskState.CREATED,
     color: '#F24C52',
     label: 'Créée',
+    countField: 'created',
   },
   {
     value: TaskState.CLOSED,
     color: '#31385A',
     label: 'En attente',
+    countField: 'closed',
   },
   {
     value: TaskState.ARCHIVED,
@@ -25,8 +28,11 @@ const STATES = [
   },
 ];
 
-export default function AppViewDashboardViewOtherPersonalTasksModalViewHeaderComponentTopComponent() {
-  const { otherPersonalTaskState: state } = Route.useSearch();
+interface Props {
+  counts: TasksCountsResponseDto | undefined;
+}
+export default function AppViewDashboardViewOtherPersonalTasksModalViewHeaderComponentTopComponent({ counts }: Readonly<Props>) {
+  const { otherPersonalTaskState: state } = routeApi.useSearch();
 
   return (
     <div className={styles.top_container}>
@@ -34,14 +40,21 @@ export default function AppViewDashboardViewOtherPersonalTasksModalViewHeaderCom
         {STATES.map((item) => (
           <Link
             key={item.value}
-            from={Route.id}
+            from={routeApi.id}
             search={(old) => ({ ...old, otherPersonalTaskState: item.value, otherPersonalTaskPage: 0 })}
             replace
             resetScroll={false}
             preload="intent"
             className={styles.tag_tooltip}
           >
-            <BsFillCircleFill color={item.color} className={classNames(styles.icon, { [styles.isActive]: item.value === state })} />
+            <div className="flex flex-col items-center">
+              <BsFillCircleFill color={item.color} className={classNames(styles.icon, { [styles.isActive]: item.value === state })} />
+              {counts && item.countField && (
+                <span className={classNames('absolute text-sm text-[var(--white-color)]', { 'leading-[22px]': item.value === state })}>
+                  {counts[item.countField]}
+                </span>
+              )}
+            </div>
             <div className={styles.tag_content}>{item.label}</div>
           </Link>
         ))}

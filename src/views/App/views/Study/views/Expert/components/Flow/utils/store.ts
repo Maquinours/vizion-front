@@ -48,8 +48,6 @@ const defaultDensityPage = {
 const initialState = {
   pages: [{ ...defaultSynopticPage, id: uuidv4() }],
   currentPage: 0,
-  studyName: undefined,
-  installerName: undefined,
   businessId: undefined,
 };
 
@@ -108,6 +106,9 @@ export const isExpertStudyPage = (page: unknown): page is ExpertStudyPage => {
     'zoom' in page.viewport &&
     typeof page.viewport.zoom === 'number' &&
     'type' in page &&
+    (!('name' in page) || typeof page.name === 'string' || typeof page.name === 'undefined') &&
+    (!('studyName' in page) || typeof page.studyName === 'string' || typeof page.studyName === 'undefined') &&
+    (!('installerName' in page) || typeof page.installerName === 'string' || typeof page.installerName === 'undefined') &&
     (page.type === 'synoptic' || page.type === 'density') &&
     (page.type !== 'density' ||
       ('scale' in page &&
@@ -126,6 +127,8 @@ type BasePage = {
   edges: Array<Edge>;
   viewport: Viewport;
   name?: string;
+  studyName?: string;
+  installerName?: string;
 };
 
 export type ExpertStudySynopticPage = BasePage & { type: 'synoptic' };
@@ -136,8 +139,6 @@ export type ExpertStudyPage = ExpertStudySynopticPage | ExpertStudyDensityPage;
 export type RFState = {
   pages: Array<ExpertStudyPage>;
   currentPage: number;
-  studyName: string | undefined;
-  installerName: string | undefined;
   businessId: string | undefined;
   onNodesChange: OnNodesChange<ExpertStudyNode>;
   onEdgesChange: OnEdgesChange;
@@ -149,10 +150,8 @@ export type RFState = {
   getCurrentPage: () => number;
   addPage: (mode: 'synoptic' | 'density', options?: { nodes?: Array<ExpertStudyNode>; viewport?: Viewport }) => void;
   removePage: () => void;
-  getStudyName: () => string | undefined;
-  setStudyName: (studyName: string) => void;
-  getInstallerName: () => string | undefined;
-  setInstallerName: (installerName: string) => void;
+  setPageStudyName: (studyName: string) => void;
+  setPageInstallerName: (installerName: string) => void;
   setPageName: (pageName: string) => void;
   setPageScale: ({ virtual, real }: { virtual?: number; real?: number }) => void;
   getPageType: () => 'synoptic' | 'density';
@@ -160,7 +159,7 @@ export type RFState = {
   getBusinessId: () => string | undefined;
   setBusinessId: (businessId: string) => void;
   reset: () => void;
-  importStudy: (study: { pages: Array<ExpertStudyPage>; studyName?: string; installerName?: string }) => void;
+  importStudy: (study: { pages: Array<ExpertStudyPage> }) => void;
   pageMove: (fromId: string, toId: string) => void;
   setPageColors: (colors: DensityColors) => void;
 };
@@ -204,13 +203,13 @@ const useStore = create<RFState>((set, get) => ({
     set({ currentPage });
   },
   getCurrentPage: () => get().currentPage,
-  getStudyName: () => get().studyName,
-  setStudyName: (studyName: string) => {
-    set({ studyName });
+  setPageStudyName: (studyName: string) => {
+    const currentPage = get().currentPage;
+    set({ pages: get().pages.map((page, index) => (index === currentPage ? { ...page, studyName: studyName } : page)) });
   },
-  getInstallerName: () => get().installerName,
-  setInstallerName: (installerName: string) => {
-    set({ installerName });
+  setPageInstallerName: (installerName: string) => {
+    const currentPage = get().currentPage;
+    set({ pages: get().pages.map((page, index) => (index === currentPage ? { ...page, installerName: installerName } : page)) });
   },
   setPageName: (pageName: string) => {
     const currentPage = get().currentPage;
@@ -252,8 +251,8 @@ const useStore = create<RFState>((set, get) => ({
   reset: () => {
     set(initialState);
   },
-  importStudy: async (study: { pages: Array<ExpertStudyPage>; studyName?: string; installerName?: string }) => {
-    set({ pages: study.pages, studyName: study.studyName, installerName: study.installerName, currentPage: 0 });
+  importStudy: async (study: { pages: Array<ExpertStudyPage> }) => {
+    set({ pages: study.pages, currentPage: 0 });
   },
   pageMove: (fromId: string, toId: string) => {
     const pages = get().pages;

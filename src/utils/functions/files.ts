@@ -1,7 +1,8 @@
 import readXlsxFile from 'read-excel-file';
 import * as PDFJS from 'pdfjs-dist';
+import pdfWorker from 'pdfjs-dist/build/pdf.worker.min.mjs?worker';
 
-PDFJS.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${PDFJS.version}/pdf.worker.js`;
+PDFJS.GlobalWorkerOptions.workerPort = new pdfWorker();
 
 export const getFileExtension = (fileName: string) => {
   return fileName.split('.').at(-1)!.toUpperCase();

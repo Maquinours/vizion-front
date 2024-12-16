@@ -15,7 +15,10 @@ export default function AppViewBusinessViewBlViewSendByEmailModalView() {
   };
 
   const defaultRecipient = useMemo(
-    () => _.uniq([business.billingEmail, business.deliverEmail].filter((email): email is string => !!email).map((email) => email.toLowerCase())),
+    () =>
+      _.uniq(
+        [business.billingEmail, business.deliverEmail, business.profileEmail].filter((email): email is string => !!email).map((email) => email.toLowerCase()),
+      ),
     [],
   );
 

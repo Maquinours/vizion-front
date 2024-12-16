@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { getRouteApi } from '@tanstack/react-router';
 import { useForm } from 'react-hook-form';
 import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
@@ -16,13 +16,13 @@ const yupSchema = yup.object({
   deadline: yup.date().required('La date est requise'),
 });
 
-const Route = getRouteApi('/app/dashboard/update-personal-task-deadline/$taskId');
+const routeApi = getRouteApi('/app/dashboard/update-personal-task-deadline/$taskId');
 
 export default function AppViewDashboardViewUpdatePersonalTaskDeadline() {
-  const navigate = useNavigate();
+  const navigate = routeApi.useNavigate();
   const queryClient = useQueryClient();
 
-  const { taskId } = Route.useParams();
+  const { taskId } = routeApi.useParams();
 
   const { data: task } = useSuspenseQuery(queries.tasks.detail(taskId));
 
@@ -38,7 +38,7 @@ export default function AppViewDashboardViewUpdatePersonalTaskDeadline() {
   });
 
   const onClose = () => {
-    navigate({ from: Route.id, to: '../..', search: true, replace: true, resetScroll: false });
+    navigate({ to: '../..', search: true, replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({

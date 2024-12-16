@@ -11,17 +11,16 @@ import { generateTravelVoucher } from '../../../../../../../Enterprises/views/Cr
 import { toast } from 'react-toastify';
 
 const yupSchema = yup.object().shape({
-  number: yup.string().required('Champs requis'),
-  note: yup.string().nullable(),
-  receiverZipCode: yup.string().required('Champs requis'),
-  receiverCity: yup.string().required('Champs requis'),
-  receiverName: yup.string().required('Champs requis').max(40, 'Max 40 caratères'),
-  receiverCompanyName: yup.string().required('Champs requis').max(40, 'Max 40 caratères'),
-  receiverAddressTwo: yup.string().nullable().max(40, 'Max 40 caratères'),
-  receiverAddressOne: yup.string().required('Champs requis').max(40, 'Max 40 caratères'),
-
-  receiverPhoneNumber: yup.string().nullable(),
-  receiverEmail: yup.string().email('Email invalide').nullable(),
+  number: yup.string().required('Champs requis').trim(),
+  note: yup.string().nullable().trim(),
+  receiverZipCode: yup.string().required('Champs requis').trim(),
+  receiverCity: yup.string().required('Champs requis').trim(),
+  receiverName: yup.string().required('Champs requis').max(40, 'Max 40 caratères').trim(),
+  receiverCompanyName: yup.string().required('Champs requis').max(40, 'Max 40 caratères').trim(),
+  receiverAddressTwo: yup.string().nullable().max(40, 'Max 40 caratères').trim(),
+  receiverAddressOne: yup.string().required('Champs requis').max(40, 'Max 40 caratères').trim(),
+  receiverPhoneNumber: yup.string().nullable().trim(),
+  receiverEmail: yup.string().email('Email invalide').nullable().trim(),
   nbreColis: yup.number().typeError('Format invalide').min(1, 'Min 1').required('Champs requis'),
 });
 

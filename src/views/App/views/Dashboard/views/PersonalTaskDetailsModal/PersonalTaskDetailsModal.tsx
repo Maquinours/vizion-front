@@ -1,23 +1,23 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { getRouteApi } from '@tanstack/react-router';
 import DOMPurify from 'dompurify';
 import parse from 'html-react-parser';
 import ReactModal from 'react-modal';
+import { queries } from '../../../../../../utils/constants/queryKeys';
 import { formatDate } from '../../../../../../utils/functions/dates';
 import styles from './PersonalTaskDetailsModal.module.scss';
-import { queries } from '../../../../../../utils/constants/queryKeys';
 
-const Route = getRouteApi('/app/dashboard/personal-task-details/$taskId');
+const routeApi = getRouteApi('/app/dashboard/personal-task-details/$taskId');
 
 export default function AppViewDashboardViewPersonalTaskDetailsModalView() {
-  const navigate = useNavigate();
+  const navigate = routeApi.useNavigate();
 
-  const { taskId } = Route.useParams();
+  const { taskId } = routeApi.useParams();
 
   const { data: task } = useSuspenseQuery(queries.tasks.detail(taskId));
 
   const onClose = () => {
-    navigate({ from: Route.id, to: '../..', search: true, replace: true, resetScroll: false });
+    navigate({ to: '../..', search: true, replace: true, resetScroll: false });
   };
 
   return (

@@ -1,6 +1,6 @@
 import { VirtualElement } from '@popperjs/core';
 import { useQuery } from '@tanstack/react-query';
-import { Link, getRouteApi } from '@tanstack/react-router';
+import { Link } from '@tanstack/react-router';
 import { Row, createColumnHelper } from '@tanstack/react-table';
 import classNames from 'classnames';
 import DOMPurify from 'dompurify';
@@ -12,13 +12,13 @@ import { queries } from '../../../../../../../../utils/constants/queryKeys';
 import TaskState from '../../../../../../../../utils/enums/TaskState';
 import { formatDate, formatDateWithHour, isDateOutdated } from '../../../../../../../../utils/functions/dates';
 import Page from '../../../../../../../../utils/types/Page';
+import ProfileResponseDto from '../../../../../../../../utils/types/ProfileResponseDto';
 import TaskResponseDto from '../../../../../../../../utils/types/TaskResponseDto';
 import { useAuthentifiedUserQuery } from '../../../../../../utils/functions/getAuthentifiedUser';
 import styles from './Table.module.scss';
 import AppViewDashboardViewPersonalTasksComponentPersonalTasksComponentTableComponentContextMenuComponent from './components/ContextMenu/ContextMenu';
-import ProfileResponseDto from '../../../../../../../../utils/types/ProfileResponseDto';
 
-const Route = getRouteApi('/app/dashboard/other-personal-tasks/$profileId');
+const routePath = '/app/dashboard/other-personal-tasks/$profileId';
 
 const columnHelper = createColumnHelper<TaskResponseDto>();
 
@@ -63,7 +63,7 @@ export default function AppViewDashboardViewOtherPersonalTasksModalViewTableComp
           let item;
           if (original.mailId)
             item = (
-              <Link from={Route.id} to="../../task-email/$taskId" params={{ taskId: original.id }} search replace resetScroll={false} preload="intent">
+              <Link from={routePath} to="../../task-email/$taskId" params={{ taskId: original.id }} search replace resetScroll={false} preload="intent">
                 {parse(DOMPurify.sanitize(original.content ?? ''))}
                 <p className="text-secondary">A : {original.receiver?.to?.toString().split(';').join(' ')}</p>
                 <p>De : {original.name}</p>

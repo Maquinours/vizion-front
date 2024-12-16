@@ -30,6 +30,7 @@ export const Route = createFileRoute('/app/dashboard')({
     queryClient.prefetchQuery(
       queries.tasks.page._ctx.byStateAndProfileId(personalTaskState, user.profile.id, { page: personalTaskPage, size: personalTaskSize }),
     );
+    queryClient.prefetchQuery(queries.tasks.counts._ctx.byProfileId(user.profile.id));
   },
   staticData: {
     title: 'Tableau de bord',

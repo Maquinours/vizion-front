@@ -7,7 +7,7 @@ import { MdGroup, MdGroups, MdSell, MdQuestionAnswer, MdBusinessCenter, MdBuild 
 import { IconType } from 'react-icons/lib';
 import ProfileInfoResponseDto, { UserRole } from '../../../../utils/types/ProfileInfoResponseDto';
 
-const Route = getRouteApi('/app');
+const routeApi = getRouteApi('/app');
 
 type MenuItem = {
   icon: IconType;
@@ -66,7 +66,7 @@ const MENUS: Array<MenuItem> = [
 ];
 
 export default function AppViewFooterComponent() {
-  const { mobileSidebar } = Route.useSearch();
+  const { mobileSidebar } = routeApi.useSearch();
 
   const { data: authentifiedUser } = useAuthentifiedUserQuery();
 

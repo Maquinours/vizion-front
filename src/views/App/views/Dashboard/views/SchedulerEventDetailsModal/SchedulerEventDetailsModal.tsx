@@ -1,16 +1,16 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { getRouteApi } from '@tanstack/react-router';
 import moment from 'moment';
 import ReactModal from 'react-modal';
 import { queries } from '../../../../../../utils/constants/queryKeys';
 import styles from './SchedulerEventDetailsModal.module.scss';
 
-const Route = getRouteApi('/app/dashboard/scheduler-event-details/$eventId');
+const routeApi = getRouteApi('/app/dashboard/scheduler-event-details/$eventId');
 
 export default function AppViewDashboardViewSchedulerEventDetailsModalView() {
-  const navigate = useNavigate();
+  const navigate = routeApi.useNavigate();
 
-  const { eventId } = Route.useParams();
+  const { eventId } = routeApi.useParams();
 
   const { data: event } = useSuspenseQuery({
     ...queries['rdv-user-infos'].list._ctx.byRdvId(eventId),
@@ -21,7 +21,7 @@ export default function AppViewDashboardViewSchedulerEventDetailsModalView() {
   });
 
   const onClose = () => {
-    navigate({ from: Route.id, to: '../..', search: true, replace: true, resetScroll: false });
+    navigate({ to: '../..', search: true, replace: true, resetScroll: false });
   };
 
   return (

@@ -154,6 +154,9 @@ export default function AppViewDashboardViewPersonalTasksComponentTableComponent
       queryClient.setQueriesData<Array<TaskResponseDto>>({ queryKey: queries.tasks.list.queryKey }, (old) => old?.map((t) => (t.id === task.id ? newTask : t)));
       queryClient.setQueriesData<TaskResponseDto>({ queryKey: queries.tasks.detail._def }, (old) => (old?.id === task.id ? newTask : old));
     },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: queries.tasks._def });
+    },
     onError: (error, task) => {
       queryClient.setQueriesData<Page<TaskResponseDto>>({ queryKey: queries.tasks.page.queryKey }, (old) =>
         old ? { ...old, content: old?.content.map((t) => (t.id === task.id ? { ...t, taskOpened: false } : t)) } : old,

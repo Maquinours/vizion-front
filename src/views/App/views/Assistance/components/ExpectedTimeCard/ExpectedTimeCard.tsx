@@ -16,7 +16,7 @@ type AppViewAssistanceViewExpectedTimeCardComponentProps = Readonly<{
 }>;
 export default function AppViewAssistanceViewExpectedTimeCardComponent({ assistance }: AppViewAssistanceViewExpectedTimeCardComponentProps) {
   const { control, getValues, update } = useContext(AssistanceContext)!;
-  
+
   const predefinedTime = useWatch({ control, name: 'predefinedTime' });
 
   const [updateTimeoutId, setUpdateTimeoutId] = useState<ReturnType<typeof setInterval>>();

@@ -1,5 +1,5 @@
 import { useQueryClient } from '@tanstack/react-query';
-import { Link, getRouteApi, useMatches } from '@tanstack/react-router';
+import { Link, getRouteApi, useLocation, useMatches } from '@tanstack/react-router';
 import { useEffect, useState } from 'react';
 import { HiMenuAlt1 } from 'react-icons/hi';
 import { MdClose, MdLogout } from 'react-icons/md';
@@ -11,6 +11,7 @@ type AppLayoutTopbarComponentMobileTopbarProps = {
   logout: () => void;
 };
 export default function AppLayoutTopbarComponentMobileTopbar({ logout }: Readonly<AppLayoutTopbarComponentMobileTopbarProps>) {
+  const location = useLocation();
   const queryClient = useQueryClient();
 
   const [title, setTitle] = useState('');
@@ -32,7 +33,7 @@ export default function AppLayoutTopbarComponentMobileTopbar({ logout }: Readonl
   return (
     <div className={styles.container}>
       <div className={styles.left_menu_icon}>
-        <Link to="." search={{ mobileSidebar: mobileSidebar ? undefined : true }} replace resetScroll={false} ignoreBlocker>
+        <Link to={location.pathname} search={{ mobileSidebar: mobileSidebar ? undefined : true }} replace resetScroll={false} ignoreBlocker>
           {mobileSidebar ? <MdClose /> : <HiMenuAlt1 />}
         </Link>
       </div>

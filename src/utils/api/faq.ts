@@ -15,13 +15,14 @@ export const getFaqsPageByArchiveState = (archived: boolean, page: number, size:
   }).then((res) => res.data);
 };
 
-export const getFaqsPageByArchiveStateWithSearch = (archived: boolean, searchText: string, page: number, size: number) => {
+export const getFaqsPageByArchiveStateWithSearch = (archived: boolean, searchText: string, fuzzy: boolean, page: number, size: number) => {
   return privateInstance<Page<FaqResponseDto>>({
     method: 'GET',
-    url: `product/v1/faq/fuzzy-search-page/${encodeURIComponent(page)}/${encodeURIComponent(size)}`,
+    url: `product/v1/faq/search-page/${encodeURIComponent(page)}/${encodeURIComponent(size)}`,
     params: {
       archived,
       searchText,
+      fuzzy,
     },
   }).then((res) => res.data);
 };

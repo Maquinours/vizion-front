@@ -106,6 +106,7 @@ import { Route as AppEnterprisesCreateContactBusinessContactIdRouteImport } from
 import { Route as AppDashboardValidatePersonalTaskTaskIdRouteImport } from './routes/app/dashboard/validate-personal-task.$taskId/route'
 import { Route as AppDashboardUpdateProgressiveInfoProgressiveInfoIdRouteImport } from './routes/app/dashboard/update-progressive-info.$progressiveInfoId/route'
 import { Route as AppDashboardUpdatePersonalTaskDeadlineTaskIdRouteImport } from './routes/app/dashboard/update-personal-task-deadline.$taskId/route'
+import { Route as AppDashboardUnlinkPersonalTaskTaskIdRouteImport } from './routes/app/dashboard/unlink-personal-task.$taskId/route'
 import { Route as AppDashboardTransferTaskTaskIdRouteImport } from './routes/app/dashboard/transfer-task.$taskId/route'
 import { Route as AppDashboardTaskEmailTaskIdRouteImport } from './routes/app/dashboard/task-email.$taskId/route'
 import { Route as AppDashboardTaskCommentsTaskIdRouteImport } from './routes/app/dashboard/task-comments.$taskId/route'
@@ -236,6 +237,7 @@ import { Route as AppBusinessesRmaBusinessBusinessIdDashboardUpdateRepresentativ
 import { Route as AppBusinessesRmaBusinessBusinessIdDashboardUpdateBillingAddressRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/update-billing-address/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdDashboardSendEmailRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/send-email/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdDashboardImportGedFilesRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/import-ged-files/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/email-history/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdDashboardDeleteRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/delete/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdDashboardCreateLinkRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/create-link/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdDashboardCreateLifesheetRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/create-lifesheet/route'
@@ -287,6 +289,7 @@ import { Route as AppBusinessesRmaBusinessBusinessIdDashboardTaskEmailTaskIdRout
 import { Route as AppBusinessesRmaBusinessBusinessIdDashboardSendEmailPredefinedMessagesRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/send-email/predefined-messages/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdDashboardRenameGedObjectObjectRelativePathRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/rename-ged-object.$objectRelativePath/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdDashboardLifesheetEmailLifesheetIdRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/lifesheet-email.$lifesheetId/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/email-history/$emailId/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdDashboardDeleteLinkAssociatedIdRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/delete-link.$associatedId/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdDashboardDeleteGedObjectObjectRelativePathRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/delete-ged-object.$objectRelativePath/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdDashboardConfirmQuotationImportOtherBusinessIdRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/confirm-quotation-import.$otherBusinessId/route'
@@ -313,6 +316,7 @@ import { Route as AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdLifesh
 import { Route as AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdDeleteGedObjectObjectRelativePathRouteImport } from './routes/app/businesses-rma_/business.$businessId_/assistance.$assistanceId/delete-ged-object.$objectRelativePath/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdQuotationPdfSendByEmailPredefinedMessagesRouteImport } from './routes/app/businesses-rma_/business.$businessId/quotation/pdf/send-by-email/predefined-messages/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdQuotationCommercialNoticeSendByEmailPredefinedMessagesRouteImport } from './routes/app/businesses-rma_/business.$businessId/quotation/commercial-notice/send-by-email/predefined-messages/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdReplyRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/email-history/$emailId/reply/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdDashboardAddressBookUpdateAddressIdRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/address-book/update.$addressId/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdDashboardAddressBookDeleteAddressIdRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/address-book/delete.$addressId/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdBillCreditsSendByEmailPredefinedMessagesRouteImport } from './routes/app/businesses-rma_/business.$businessId/bill/credits/send-by-email/predefined-messages/route'
@@ -1243,6 +1247,17 @@ const AppDashboardUpdatePersonalTaskDeadlineTaskIdRouteRoute =
   } as any).lazy(() =>
     import(
       './routes/app/dashboard/update-personal-task-deadline.$taskId/route.lazy'
+    ).then((d) => d.Route),
+  )
+
+const AppDashboardUnlinkPersonalTaskTaskIdRouteRoute =
+  AppDashboardUnlinkPersonalTaskTaskIdRouteImport.update({
+    id: '/unlink-personal-task/$taskId',
+    path: '/unlink-personal-task/$taskId',
+    getParentRoute: () => AppDashboardRouteRoute,
+  } as any).lazy(() =>
+    import(
+      './routes/app/dashboard/unlink-personal-task.$taskId/route.lazy'
     ).then((d) => d.Route),
   )
 
@@ -2701,6 +2716,17 @@ const AppBusinessesRmaBusinessBusinessIdDashboardImportGedFilesRouteRoute =
     ).then((d) => d.Route),
   )
 
+const AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryRouteRoute =
+  AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryRouteImport.update({
+    id: '/email-history',
+    path: '/email-history',
+    getParentRoute: () => AppBusinessesRmaBusinessBusinessIdDashboardRouteRoute,
+  } as any).lazy(() =>
+    import(
+      './routes/app/businesses-rma_/business.$businessId/dashboard/email-history/route.lazy'
+    ).then((d) => d.Route),
+  )
+
 const AppBusinessesRmaBusinessBusinessIdDashboardDeleteRouteRoute =
   AppBusinessesRmaBusinessBusinessIdDashboardDeleteRouteImport.update({
     id: '/delete',
@@ -3335,6 +3361,20 @@ const AppBusinessesRmaBusinessBusinessIdDashboardLifesheetEmailLifesheetIdRouteR
     ).then((d) => d.Route),
   )
 
+const AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdRouteRoute =
+  AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdRouteImport.update(
+    {
+      id: '/$emailId',
+      path: '/$emailId',
+      getParentRoute: () =>
+        AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryRouteRoute,
+    } as any,
+  ).lazy(() =>
+    import(
+      './routes/app/businesses-rma_/business.$businessId/dashboard/email-history/$emailId/route.lazy'
+    ).then((d) => d.Route),
+  )
+
 const AppBusinessesRmaBusinessBusinessIdDashboardDeleteLinkAssociatedIdRouteRoute =
   AppBusinessesRmaBusinessBusinessIdDashboardDeleteLinkAssociatedIdRouteImport.update(
     {
@@ -3666,6 +3706,20 @@ const AppBusinessesRmaBusinessBusinessIdQuotationCommercialNoticeSendByEmailPred
       getParentRoute: () =>
         AppBusinessesRmaBusinessBusinessIdQuotationCommercialNoticeSendByEmailRouteRoute,
     } as any,
+  )
+
+const AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdReplyRouteRoute =
+  AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdReplyRouteImport.update(
+    {
+      id: '/reply',
+      path: '/reply',
+      getParentRoute: () =>
+        AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdRouteRoute,
+    } as any,
+  ).lazy(() =>
+    import(
+      './routes/app/businesses-rma_/business.$businessId/dashboard/email-history/$emailId/reply/route.lazy'
+    ).then((d) => d.Route),
   )
 
 const AppBusinessesRmaBusinessBusinessIdDashboardAddressBookUpdateAddressIdRouteRoute =
@@ -4153,6 +4207,13 @@ declare module '@tanstack/react-router' {
       path: '/transfer-task/$taskId'
       fullPath: '/app/dashboard/transfer-task/$taskId'
       preLoaderRoute: typeof AppDashboardTransferTaskTaskIdRouteImport
+      parentRoute: typeof AppDashboardRouteImport
+    }
+    '/app/dashboard/unlink-personal-task/$taskId': {
+      id: '/app/dashboard/unlink-personal-task/$taskId'
+      path: '/unlink-personal-task/$taskId'
+      fullPath: '/app/dashboard/unlink-personal-task/$taskId'
+      preLoaderRoute: typeof AppDashboardUnlinkPersonalTaskTaskIdRouteImport
       parentRoute: typeof AppDashboardRouteImport
     }
     '/app/dashboard/update-personal-task-deadline/$taskId': {
@@ -5065,6 +5126,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardDeleteRouteImport
       parentRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardRouteImport
     }
+    '/app/businesses-rma_/business/$businessId/dashboard/email-history': {
+      id: '/app/businesses-rma_/business/$businessId/dashboard/email-history'
+      path: '/email-history'
+      fullPath: '/app/businesses-rma/business/$businessId/dashboard/email-history'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardRouteImport
+    }
     '/app/businesses-rma_/business/$businessId/dashboard/import-ged-files': {
       id: '/app/businesses-rma_/business/$businessId/dashboard/import-ged-files'
       path: '/import-ged-files'
@@ -5513,6 +5581,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardDeleteLinkAssociatedIdRouteImport
       parentRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardRouteImport
     }
+    '/app/businesses-rma_/business/$businessId/dashboard/email-history/$emailId': {
+      id: '/app/businesses-rma_/business/$businessId/dashboard/email-history/$emailId'
+      path: '/$emailId'
+      fullPath: '/app/businesses-rma/business/$businessId/dashboard/email-history/$emailId'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryRouteImport
+    }
     '/app/businesses-rma_/business/$businessId/dashboard/lifesheet-email/$lifesheetId': {
       id: '/app/businesses-rma_/business/$businessId/dashboard/lifesheet-email/$lifesheetId'
       path: '/lifesheet-email/$lifesheetId'
@@ -5821,6 +5896,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardAddressBookUpdateAddressIdRouteImport
       parentRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardAddressBookRouteImport
     }
+    '/app/businesses-rma_/business/$businessId/dashboard/email-history/$emailId/reply': {
+      id: '/app/businesses-rma_/business/$businessId/dashboard/email-history/$emailId/reply'
+      path: '/reply'
+      fullPath: '/app/businesses-rma/business/$businessId/dashboard/email-history/$emailId/reply'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdReplyRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdRouteImport
+    }
     '/app/businesses-rma_/business/$businessId/quotation/commercial-notice/send-by-email/predefined-messages': {
       id: '/app/businesses-rma_/business/$businessId/quotation/commercial-notice/send-by-email/predefined-messages'
       path: '/predefined-messages'
@@ -5951,6 +6033,7 @@ interface AppDashboardRouteRouteChildren {
   AppDashboardTaskCommentsTaskIdRouteRoute: typeof AppDashboardTaskCommentsTaskIdRouteRoute
   AppDashboardTaskEmailTaskIdRouteRoute: typeof AppDashboardTaskEmailTaskIdRouteRouteWithChildren
   AppDashboardTransferTaskTaskIdRouteRoute: typeof AppDashboardTransferTaskTaskIdRouteRoute
+  AppDashboardUnlinkPersonalTaskTaskIdRouteRoute: typeof AppDashboardUnlinkPersonalTaskTaskIdRouteRoute
   AppDashboardUpdatePersonalTaskDeadlineTaskIdRouteRoute: typeof AppDashboardUpdatePersonalTaskDeadlineTaskIdRouteRoute
   AppDashboardUpdateProgressiveInfoProgressiveInfoIdRouteRoute: typeof AppDashboardUpdateProgressiveInfoProgressiveInfoIdRouteRoute
   AppDashboardValidatePersonalTaskTaskIdRouteRoute: typeof AppDashboardValidatePersonalTaskTaskIdRouteRoute
@@ -5987,6 +6070,8 @@ const AppDashboardRouteRouteChildren: AppDashboardRouteRouteChildren = {
     AppDashboardTaskEmailTaskIdRouteRouteWithChildren,
   AppDashboardTransferTaskTaskIdRouteRoute:
     AppDashboardTransferTaskTaskIdRouteRoute,
+  AppDashboardUnlinkPersonalTaskTaskIdRouteRoute:
+    AppDashboardUnlinkPersonalTaskTaskIdRouteRoute,
   AppDashboardUpdatePersonalTaskDeadlineTaskIdRouteRoute:
     AppDashboardUpdatePersonalTaskDeadlineTaskIdRouteRoute,
   AppDashboardUpdateProgressiveInfoProgressiveInfoIdRouteRoute:
@@ -7016,6 +7101,36 @@ const AppBusinessesRmaBusinessBusinessIdDashboardAddressBookRouteRouteWithChildr
     AppBusinessesRmaBusinessBusinessIdDashboardAddressBookRouteRouteChildren,
   )
 
+interface AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdRouteRouteChildren {
+  AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdReplyRouteRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdReplyRouteRoute
+}
+
+const AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdRouteRouteChildren: AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdRouteRouteChildren =
+  {
+    AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdReplyRouteRoute:
+      AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdReplyRouteRoute,
+  }
+
+const AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdRouteRouteWithChildren =
+  AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdRouteRoute._addFileChildren(
+    AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdRouteRouteChildren,
+  )
+
+interface AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryRouteRouteChildren {
+  AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdRouteRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdRouteRouteWithChildren
+}
+
+const AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryRouteRouteChildren: AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryRouteRouteChildren =
+  {
+    AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdRouteRoute:
+      AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdRouteRouteWithChildren,
+  }
+
+const AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryRouteRouteWithChildren =
+  AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryRouteRoute._addFileChildren(
+    AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryRouteRouteChildren,
+  )
+
 interface AppBusinessesRmaBusinessBusinessIdDashboardSendEmailRouteRouteChildren {
   AppBusinessesRmaBusinessBusinessIdDashboardSendEmailPredefinedMessagesRouteRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardSendEmailPredefinedMessagesRouteRoute
 }
@@ -7037,6 +7152,7 @@ interface AppBusinessesRmaBusinessBusinessIdDashboardRouteRouteChildren {
   AppBusinessesRmaBusinessBusinessIdDashboardCreateLifesheetRouteRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardCreateLifesheetRouteRoute
   AppBusinessesRmaBusinessBusinessIdDashboardCreateLinkRouteRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardCreateLinkRouteRoute
   AppBusinessesRmaBusinessBusinessIdDashboardDeleteRouteRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardDeleteRouteRoute
+  AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryRouteRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryRouteRouteWithChildren
   AppBusinessesRmaBusinessBusinessIdDashboardImportGedFilesRouteRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardImportGedFilesRouteRoute
   AppBusinessesRmaBusinessBusinessIdDashboardSendEmailRouteRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardSendEmailRouteRouteWithChildren
   AppBusinessesRmaBusinessBusinessIdDashboardUpdateBillingAddressRouteRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardUpdateBillingAddressRouteRoute
@@ -7063,6 +7179,8 @@ const AppBusinessesRmaBusinessBusinessIdDashboardRouteRouteChildren: AppBusiness
       AppBusinessesRmaBusinessBusinessIdDashboardCreateLinkRouteRoute,
     AppBusinessesRmaBusinessBusinessIdDashboardDeleteRouteRoute:
       AppBusinessesRmaBusinessBusinessIdDashboardDeleteRouteRoute,
+    AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryRouteRoute:
+      AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryRouteRouteWithChildren,
     AppBusinessesRmaBusinessBusinessIdDashboardImportGedFilesRouteRoute:
       AppBusinessesRmaBusinessBusinessIdDashboardImportGedFilesRouteRoute,
     AppBusinessesRmaBusinessBusinessIdDashboardSendEmailRouteRoute:
@@ -7682,6 +7800,7 @@ export interface FileRoutesByFullPath {
   '/app/dashboard/task-comments/$taskId': typeof AppDashboardTaskCommentsTaskIdRouteRoute
   '/app/dashboard/task-email/$taskId': typeof AppDashboardTaskEmailTaskIdRouteRouteWithChildren
   '/app/dashboard/transfer-task/$taskId': typeof AppDashboardTransferTaskTaskIdRouteRoute
+  '/app/dashboard/unlink-personal-task/$taskId': typeof AppDashboardUnlinkPersonalTaskTaskIdRouteRoute
   '/app/dashboard/update-personal-task-deadline/$taskId': typeof AppDashboardUpdatePersonalTaskDeadlineTaskIdRouteRoute
   '/app/dashboard/update-progressive-info/$progressiveInfoId': typeof AppDashboardUpdateProgressiveInfoProgressiveInfoIdRouteRoute
   '/app/dashboard/validate-personal-task/$taskId': typeof AppDashboardValidatePersonalTaskTaskIdRouteRoute
@@ -7812,6 +7931,7 @@ export interface FileRoutesByFullPath {
   '/app/businesses-rma/business/$businessId/dashboard/create-lifesheet': typeof AppBusinessesRmaBusinessBusinessIdDashboardCreateLifesheetRouteRoute
   '/app/businesses-rma/business/$businessId/dashboard/create-link': typeof AppBusinessesRmaBusinessBusinessIdDashboardCreateLinkRouteRoute
   '/app/businesses-rma/business/$businessId/dashboard/delete': typeof AppBusinessesRmaBusinessBusinessIdDashboardDeleteRouteRoute
+  '/app/businesses-rma/business/$businessId/dashboard/email-history': typeof AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryRouteRouteWithChildren
   '/app/businesses-rma/business/$businessId/dashboard/import-ged-files': typeof AppBusinessesRmaBusinessBusinessIdDashboardImportGedFilesRouteRoute
   '/app/businesses-rma/business/$businessId/dashboard/send-email': typeof AppBusinessesRmaBusinessBusinessIdDashboardSendEmailRouteRouteWithChildren
   '/app/businesses-rma/business/$businessId/dashboard/update-billing-address': typeof AppBusinessesRmaBusinessBusinessIdDashboardUpdateBillingAddressRouteRoute
@@ -7876,6 +7996,7 @@ export interface FileRoutesByFullPath {
   '/app/businesses-rma/business/$businessId/dashboard/confirm-quotation-import/$otherBusinessId': typeof AppBusinessesRmaBusinessBusinessIdDashboardConfirmQuotationImportOtherBusinessIdRouteRoute
   '/app/businesses-rma/business/$businessId/dashboard/delete-ged-object/$objectRelativePath': typeof AppBusinessesRmaBusinessBusinessIdDashboardDeleteGedObjectObjectRelativePathRouteRoute
   '/app/businesses-rma/business/$businessId/dashboard/delete-link/$associatedId': typeof AppBusinessesRmaBusinessBusinessIdDashboardDeleteLinkAssociatedIdRouteRoute
+  '/app/businesses-rma/business/$businessId/dashboard/email-history/$emailId': typeof AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdRouteRouteWithChildren
   '/app/businesses-rma/business/$businessId/dashboard/lifesheet-email/$lifesheetId': typeof AppBusinessesRmaBusinessBusinessIdDashboardLifesheetEmailLifesheetIdRouteRoute
   '/app/businesses-rma/business/$businessId/dashboard/rename-ged-object/$objectRelativePath': typeof AppBusinessesRmaBusinessBusinessIdDashboardRenameGedObjectObjectRelativePathRouteRoute
   '/app/businesses-rma/business/$businessId/dashboard/send-email/predefined-messages': typeof AppBusinessesRmaBusinessBusinessIdDashboardSendEmailPredefinedMessagesRouteRoute
@@ -7920,6 +8041,7 @@ export interface FileRoutesByFullPath {
   '/app/businesses-rma/business/$businessId/bill/credits/send-by-email/predefined-messages': typeof AppBusinessesRmaBusinessBusinessIdBillCreditsSendByEmailPredefinedMessagesRouteRoute
   '/app/businesses-rma/business/$businessId/dashboard/address-book/delete/$addressId': typeof AppBusinessesRmaBusinessBusinessIdDashboardAddressBookDeleteAddressIdRouteRoute
   '/app/businesses-rma/business/$businessId/dashboard/address-book/update/$addressId': typeof AppBusinessesRmaBusinessBusinessIdDashboardAddressBookUpdateAddressIdRouteRoute
+  '/app/businesses-rma/business/$businessId/dashboard/email-history/$emailId/reply': typeof AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdReplyRouteRoute
   '/app/businesses-rma/business/$businessId/quotation/commercial-notice/send-by-email/predefined-messages': typeof AppBusinessesRmaBusinessBusinessIdQuotationCommercialNoticeSendByEmailPredefinedMessagesRouteRoute
   '/app/businesses-rma/business/$businessId/quotation/pdf/send-by-email/predefined-messages': typeof AppBusinessesRmaBusinessBusinessIdQuotationPdfSendByEmailPredefinedMessagesRouteRoute
   '/app/businesses-rma/business/$businessId/assistance/$assistanceId/delete-ged-object/$objectRelativePath': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdDeleteGedObjectObjectRelativePathRouteRoute
@@ -7987,6 +8109,7 @@ export interface FileRoutesByTo {
   '/app/dashboard/task-comments/$taskId': typeof AppDashboardTaskCommentsTaskIdRouteRoute
   '/app/dashboard/task-email/$taskId': typeof AppDashboardTaskEmailTaskIdRouteRouteWithChildren
   '/app/dashboard/transfer-task/$taskId': typeof AppDashboardTransferTaskTaskIdRouteRoute
+  '/app/dashboard/unlink-personal-task/$taskId': typeof AppDashboardUnlinkPersonalTaskTaskIdRouteRoute
   '/app/dashboard/update-personal-task-deadline/$taskId': typeof AppDashboardUpdatePersonalTaskDeadlineTaskIdRouteRoute
   '/app/dashboard/update-progressive-info/$progressiveInfoId': typeof AppDashboardUpdateProgressiveInfoProgressiveInfoIdRouteRoute
   '/app/dashboard/validate-personal-task/$taskId': typeof AppDashboardValidatePersonalTaskTaskIdRouteRoute
@@ -8116,6 +8239,7 @@ export interface FileRoutesByTo {
   '/app/businesses-rma/business/$businessId/dashboard/create-lifesheet': typeof AppBusinessesRmaBusinessBusinessIdDashboardCreateLifesheetRouteRoute
   '/app/businesses-rma/business/$businessId/dashboard/create-link': typeof AppBusinessesRmaBusinessBusinessIdDashboardCreateLinkRouteRoute
   '/app/businesses-rma/business/$businessId/dashboard/delete': typeof AppBusinessesRmaBusinessBusinessIdDashboardDeleteRouteRoute
+  '/app/businesses-rma/business/$businessId/dashboard/email-history': typeof AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryRouteRouteWithChildren
   '/app/businesses-rma/business/$businessId/dashboard/import-ged-files': typeof AppBusinessesRmaBusinessBusinessIdDashboardImportGedFilesRouteRoute
   '/app/businesses-rma/business/$businessId/dashboard/send-email': typeof AppBusinessesRmaBusinessBusinessIdDashboardSendEmailRouteRouteWithChildren
   '/app/businesses-rma/business/$businessId/dashboard/update-billing-address': typeof AppBusinessesRmaBusinessBusinessIdDashboardUpdateBillingAddressRouteRoute
@@ -8180,6 +8304,7 @@ export interface FileRoutesByTo {
   '/app/businesses-rma/business/$businessId/dashboard/confirm-quotation-import/$otherBusinessId': typeof AppBusinessesRmaBusinessBusinessIdDashboardConfirmQuotationImportOtherBusinessIdRouteRoute
   '/app/businesses-rma/business/$businessId/dashboard/delete-ged-object/$objectRelativePath': typeof AppBusinessesRmaBusinessBusinessIdDashboardDeleteGedObjectObjectRelativePathRouteRoute
   '/app/businesses-rma/business/$businessId/dashboard/delete-link/$associatedId': typeof AppBusinessesRmaBusinessBusinessIdDashboardDeleteLinkAssociatedIdRouteRoute
+  '/app/businesses-rma/business/$businessId/dashboard/email-history/$emailId': typeof AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdRouteRouteWithChildren
   '/app/businesses-rma/business/$businessId/dashboard/lifesheet-email/$lifesheetId': typeof AppBusinessesRmaBusinessBusinessIdDashboardLifesheetEmailLifesheetIdRouteRoute
   '/app/businesses-rma/business/$businessId/dashboard/rename-ged-object/$objectRelativePath': typeof AppBusinessesRmaBusinessBusinessIdDashboardRenameGedObjectObjectRelativePathRouteRoute
   '/app/businesses-rma/business/$businessId/dashboard/send-email/predefined-messages': typeof AppBusinessesRmaBusinessBusinessIdDashboardSendEmailPredefinedMessagesRouteRoute
@@ -8224,6 +8349,7 @@ export interface FileRoutesByTo {
   '/app/businesses-rma/business/$businessId/bill/credits/send-by-email/predefined-messages': typeof AppBusinessesRmaBusinessBusinessIdBillCreditsSendByEmailPredefinedMessagesRouteRoute
   '/app/businesses-rma/business/$businessId/dashboard/address-book/delete/$addressId': typeof AppBusinessesRmaBusinessBusinessIdDashboardAddressBookDeleteAddressIdRouteRoute
   '/app/businesses-rma/business/$businessId/dashboard/address-book/update/$addressId': typeof AppBusinessesRmaBusinessBusinessIdDashboardAddressBookUpdateAddressIdRouteRoute
+  '/app/businesses-rma/business/$businessId/dashboard/email-history/$emailId/reply': typeof AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdReplyRouteRoute
   '/app/businesses-rma/business/$businessId/quotation/commercial-notice/send-by-email/predefined-messages': typeof AppBusinessesRmaBusinessBusinessIdQuotationCommercialNoticeSendByEmailPredefinedMessagesRouteRoute
   '/app/businesses-rma/business/$businessId/quotation/pdf/send-by-email/predefined-messages': typeof AppBusinessesRmaBusinessBusinessIdQuotationPdfSendByEmailPredefinedMessagesRouteRoute
   '/app/businesses-rma/business/$businessId/assistance/$assistanceId/delete-ged-object/$objectRelativePath': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdDeleteGedObjectObjectRelativePathRouteRoute
@@ -8298,6 +8424,7 @@ export interface FileRoutesById {
   '/app/dashboard/task-comments/$taskId': typeof AppDashboardTaskCommentsTaskIdRouteRoute
   '/app/dashboard/task-email/$taskId': typeof AppDashboardTaskEmailTaskIdRouteRouteWithChildren
   '/app/dashboard/transfer-task/$taskId': typeof AppDashboardTransferTaskTaskIdRouteRoute
+  '/app/dashboard/unlink-personal-task/$taskId': typeof AppDashboardUnlinkPersonalTaskTaskIdRouteRoute
   '/app/dashboard/update-personal-task-deadline/$taskId': typeof AppDashboardUpdatePersonalTaskDeadlineTaskIdRouteRoute
   '/app/dashboard/update-progressive-info/$progressiveInfoId': typeof AppDashboardUpdateProgressiveInfoProgressiveInfoIdRouteRoute
   '/app/dashboard/validate-personal-task/$taskId': typeof AppDashboardValidatePersonalTaskTaskIdRouteRoute
@@ -8428,6 +8555,7 @@ export interface FileRoutesById {
   '/app/businesses-rma_/business/$businessId/dashboard/create-lifesheet': typeof AppBusinessesRmaBusinessBusinessIdDashboardCreateLifesheetRouteRoute
   '/app/businesses-rma_/business/$businessId/dashboard/create-link': typeof AppBusinessesRmaBusinessBusinessIdDashboardCreateLinkRouteRoute
   '/app/businesses-rma_/business/$businessId/dashboard/delete': typeof AppBusinessesRmaBusinessBusinessIdDashboardDeleteRouteRoute
+  '/app/businesses-rma_/business/$businessId/dashboard/email-history': typeof AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryRouteRouteWithChildren
   '/app/businesses-rma_/business/$businessId/dashboard/import-ged-files': typeof AppBusinessesRmaBusinessBusinessIdDashboardImportGedFilesRouteRoute
   '/app/businesses-rma_/business/$businessId/dashboard/send-email': typeof AppBusinessesRmaBusinessBusinessIdDashboardSendEmailRouteRouteWithChildren
   '/app/businesses-rma_/business/$businessId/dashboard/update-billing-address': typeof AppBusinessesRmaBusinessBusinessIdDashboardUpdateBillingAddressRouteRoute
@@ -8492,6 +8620,7 @@ export interface FileRoutesById {
   '/app/businesses-rma_/business/$businessId/dashboard/confirm-quotation-import/$otherBusinessId': typeof AppBusinessesRmaBusinessBusinessIdDashboardConfirmQuotationImportOtherBusinessIdRouteRoute
   '/app/businesses-rma_/business/$businessId/dashboard/delete-ged-object/$objectRelativePath': typeof AppBusinessesRmaBusinessBusinessIdDashboardDeleteGedObjectObjectRelativePathRouteRoute
   '/app/businesses-rma_/business/$businessId/dashboard/delete-link/$associatedId': typeof AppBusinessesRmaBusinessBusinessIdDashboardDeleteLinkAssociatedIdRouteRoute
+  '/app/businesses-rma_/business/$businessId/dashboard/email-history/$emailId': typeof AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdRouteRouteWithChildren
   '/app/businesses-rma_/business/$businessId/dashboard/lifesheet-email/$lifesheetId': typeof AppBusinessesRmaBusinessBusinessIdDashboardLifesheetEmailLifesheetIdRouteRoute
   '/app/businesses-rma_/business/$businessId/dashboard/rename-ged-object/$objectRelativePath': typeof AppBusinessesRmaBusinessBusinessIdDashboardRenameGedObjectObjectRelativePathRouteRoute
   '/app/businesses-rma_/business/$businessId/dashboard/send-email/predefined-messages': typeof AppBusinessesRmaBusinessBusinessIdDashboardSendEmailPredefinedMessagesRouteRoute
@@ -8536,6 +8665,7 @@ export interface FileRoutesById {
   '/app/businesses-rma_/business/$businessId/bill/credits/send-by-email/predefined-messages': typeof AppBusinessesRmaBusinessBusinessIdBillCreditsSendByEmailPredefinedMessagesRouteRoute
   '/app/businesses-rma_/business/$businessId/dashboard/address-book/delete/$addressId': typeof AppBusinessesRmaBusinessBusinessIdDashboardAddressBookDeleteAddressIdRouteRoute
   '/app/businesses-rma_/business/$businessId/dashboard/address-book/update/$addressId': typeof AppBusinessesRmaBusinessBusinessIdDashboardAddressBookUpdateAddressIdRouteRoute
+  '/app/businesses-rma_/business/$businessId/dashboard/email-history/$emailId/reply': typeof AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdReplyRouteRoute
   '/app/businesses-rma_/business/$businessId/quotation/commercial-notice/send-by-email/predefined-messages': typeof AppBusinessesRmaBusinessBusinessIdQuotationCommercialNoticeSendByEmailPredefinedMessagesRouteRoute
   '/app/businesses-rma_/business/$businessId/quotation/pdf/send-by-email/predefined-messages': typeof AppBusinessesRmaBusinessBusinessIdQuotationPdfSendByEmailPredefinedMessagesRouteRoute
   '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/delete-ged-object/$objectRelativePath': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdDeleteGedObjectObjectRelativePathRouteRoute
@@ -8611,6 +8741,7 @@ export interface FileRouteTypes {
     | '/app/dashboard/task-comments/$taskId'
     | '/app/dashboard/task-email/$taskId'
     | '/app/dashboard/transfer-task/$taskId'
+    | '/app/dashboard/unlink-personal-task/$taskId'
     | '/app/dashboard/update-personal-task-deadline/$taskId'
     | '/app/dashboard/update-progressive-info/$progressiveInfoId'
     | '/app/dashboard/validate-personal-task/$taskId'
@@ -8741,6 +8872,7 @@ export interface FileRouteTypes {
     | '/app/businesses-rma/business/$businessId/dashboard/create-lifesheet'
     | '/app/businesses-rma/business/$businessId/dashboard/create-link'
     | '/app/businesses-rma/business/$businessId/dashboard/delete'
+    | '/app/businesses-rma/business/$businessId/dashboard/email-history'
     | '/app/businesses-rma/business/$businessId/dashboard/import-ged-files'
     | '/app/businesses-rma/business/$businessId/dashboard/send-email'
     | '/app/businesses-rma/business/$businessId/dashboard/update-billing-address'
@@ -8805,6 +8937,7 @@ export interface FileRouteTypes {
     | '/app/businesses-rma/business/$businessId/dashboard/confirm-quotation-import/$otherBusinessId'
     | '/app/businesses-rma/business/$businessId/dashboard/delete-ged-object/$objectRelativePath'
     | '/app/businesses-rma/business/$businessId/dashboard/delete-link/$associatedId'
+    | '/app/businesses-rma/business/$businessId/dashboard/email-history/$emailId'
     | '/app/businesses-rma/business/$businessId/dashboard/lifesheet-email/$lifesheetId'
     | '/app/businesses-rma/business/$businessId/dashboard/rename-ged-object/$objectRelativePath'
     | '/app/businesses-rma/business/$businessId/dashboard/send-email/predefined-messages'
@@ -8849,6 +8982,7 @@ export interface FileRouteTypes {
     | '/app/businesses-rma/business/$businessId/bill/credits/send-by-email/predefined-messages'
     | '/app/businesses-rma/business/$businessId/dashboard/address-book/delete/$addressId'
     | '/app/businesses-rma/business/$businessId/dashboard/address-book/update/$addressId'
+    | '/app/businesses-rma/business/$businessId/dashboard/email-history/$emailId/reply'
     | '/app/businesses-rma/business/$businessId/quotation/commercial-notice/send-by-email/predefined-messages'
     | '/app/businesses-rma/business/$businessId/quotation/pdf/send-by-email/predefined-messages'
     | '/app/businesses-rma/business/$businessId/assistance/$assistanceId/delete-ged-object/$objectRelativePath'
@@ -8915,6 +9049,7 @@ export interface FileRouteTypes {
     | '/app/dashboard/task-comments/$taskId'
     | '/app/dashboard/task-email/$taskId'
     | '/app/dashboard/transfer-task/$taskId'
+    | '/app/dashboard/unlink-personal-task/$taskId'
     | '/app/dashboard/update-personal-task-deadline/$taskId'
     | '/app/dashboard/update-progressive-info/$progressiveInfoId'
     | '/app/dashboard/validate-personal-task/$taskId'
@@ -9044,6 +9179,7 @@ export interface FileRouteTypes {
     | '/app/businesses-rma/business/$businessId/dashboard/create-lifesheet'
     | '/app/businesses-rma/business/$businessId/dashboard/create-link'
     | '/app/businesses-rma/business/$businessId/dashboard/delete'
+    | '/app/businesses-rma/business/$businessId/dashboard/email-history'
     | '/app/businesses-rma/business/$businessId/dashboard/import-ged-files'
     | '/app/businesses-rma/business/$businessId/dashboard/send-email'
     | '/app/businesses-rma/business/$businessId/dashboard/update-billing-address'
@@ -9108,6 +9244,7 @@ export interface FileRouteTypes {
     | '/app/businesses-rma/business/$businessId/dashboard/confirm-quotation-import/$otherBusinessId'
     | '/app/businesses-rma/business/$businessId/dashboard/delete-ged-object/$objectRelativePath'
     | '/app/businesses-rma/business/$businessId/dashboard/delete-link/$associatedId'
+    | '/app/businesses-rma/business/$businessId/dashboard/email-history/$emailId'
     | '/app/businesses-rma/business/$businessId/dashboard/lifesheet-email/$lifesheetId'
     | '/app/businesses-rma/business/$businessId/dashboard/rename-ged-object/$objectRelativePath'
     | '/app/businesses-rma/business/$businessId/dashboard/send-email/predefined-messages'
@@ -9152,6 +9289,7 @@ export interface FileRouteTypes {
     | '/app/businesses-rma/business/$businessId/bill/credits/send-by-email/predefined-messages'
     | '/app/businesses-rma/business/$businessId/dashboard/address-book/delete/$addressId'
     | '/app/businesses-rma/business/$businessId/dashboard/address-book/update/$addressId'
+    | '/app/businesses-rma/business/$businessId/dashboard/email-history/$emailId/reply'
     | '/app/businesses-rma/business/$businessId/quotation/commercial-notice/send-by-email/predefined-messages'
     | '/app/businesses-rma/business/$businessId/quotation/pdf/send-by-email/predefined-messages'
     | '/app/businesses-rma/business/$businessId/assistance/$assistanceId/delete-ged-object/$objectRelativePath'
@@ -9224,6 +9362,7 @@ export interface FileRouteTypes {
     | '/app/dashboard/task-comments/$taskId'
     | '/app/dashboard/task-email/$taskId'
     | '/app/dashboard/transfer-task/$taskId'
+    | '/app/dashboard/unlink-personal-task/$taskId'
     | '/app/dashboard/update-personal-task-deadline/$taskId'
     | '/app/dashboard/update-progressive-info/$progressiveInfoId'
     | '/app/dashboard/validate-personal-task/$taskId'
@@ -9354,6 +9493,7 @@ export interface FileRouteTypes {
     | '/app/businesses-rma_/business/$businessId/dashboard/create-lifesheet'
     | '/app/businesses-rma_/business/$businessId/dashboard/create-link'
     | '/app/businesses-rma_/business/$businessId/dashboard/delete'
+    | '/app/businesses-rma_/business/$businessId/dashboard/email-history'
     | '/app/businesses-rma_/business/$businessId/dashboard/import-ged-files'
     | '/app/businesses-rma_/business/$businessId/dashboard/send-email'
     | '/app/businesses-rma_/business/$businessId/dashboard/update-billing-address'
@@ -9418,6 +9558,7 @@ export interface FileRouteTypes {
     | '/app/businesses-rma_/business/$businessId/dashboard/confirm-quotation-import/$otherBusinessId'
     | '/app/businesses-rma_/business/$businessId/dashboard/delete-ged-object/$objectRelativePath'
     | '/app/businesses-rma_/business/$businessId/dashboard/delete-link/$associatedId'
+    | '/app/businesses-rma_/business/$businessId/dashboard/email-history/$emailId'
     | '/app/businesses-rma_/business/$businessId/dashboard/lifesheet-email/$lifesheetId'
     | '/app/businesses-rma_/business/$businessId/dashboard/rename-ged-object/$objectRelativePath'
     | '/app/businesses-rma_/business/$businessId/dashboard/send-email/predefined-messages'
@@ -9462,6 +9603,7 @@ export interface FileRouteTypes {
     | '/app/businesses-rma_/business/$businessId/bill/credits/send-by-email/predefined-messages'
     | '/app/businesses-rma_/business/$businessId/dashboard/address-book/delete/$addressId'
     | '/app/businesses-rma_/business/$businessId/dashboard/address-book/update/$addressId'
+    | '/app/businesses-rma_/business/$businessId/dashboard/email-history/$emailId/reply'
     | '/app/businesses-rma_/business/$businessId/quotation/commercial-notice/send-by-email/predefined-messages'
     | '/app/businesses-rma_/business/$businessId/quotation/pdf/send-by-email/predefined-messages'
     | '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/delete-ged-object/$objectRelativePath'
@@ -9562,6 +9704,7 @@ export const routeTree = rootRoute
         "/app/dashboard/task-comments/$taskId",
         "/app/dashboard/task-email/$taskId",
         "/app/dashboard/transfer-task/$taskId",
+        "/app/dashboard/unlink-personal-task/$taskId",
         "/app/dashboard/update-personal-task-deadline/$taskId",
         "/app/dashboard/update-progressive-info/$progressiveInfoId",
         "/app/dashboard/validate-personal-task/$taskId"
@@ -9953,6 +10096,10 @@ export const routeTree = rootRoute
       "filePath": "app/dashboard/transfer-task.$taskId/route.ts",
       "parent": "/app/dashboard"
     },
+    "/app/dashboard/unlink-personal-task/$taskId": {
+      "filePath": "app/dashboard/unlink-personal-task.$taskId/route.ts",
+      "parent": "/app/dashboard"
+    },
     "/app/dashboard/update-personal-task-deadline/$taskId": {
       "filePath": "app/dashboard/update-personal-task-deadline.$taskId/route.ts",
       "parent": "/app/dashboard"
@@ -10247,6 +10394,7 @@ export const routeTree = rootRoute
         "/app/businesses-rma_/business/$businessId/dashboard/create-lifesheet",
         "/app/businesses-rma_/business/$businessId/dashboard/create-link",
         "/app/businesses-rma_/business/$businessId/dashboard/delete",
+        "/app/businesses-rma_/business/$businessId/dashboard/email-history",
         "/app/businesses-rma_/business/$businessId/dashboard/import-ged-files",
         "/app/businesses-rma_/business/$businessId/dashboard/send-email",
         "/app/businesses-rma_/business/$businessId/dashboard/update-billing-address",
@@ -10646,6 +10794,13 @@ export const routeTree = rootRoute
       "filePath": "app/businesses-rma_/business.$businessId/dashboard/delete/route.ts",
       "parent": "/app/businesses-rma_/business/$businessId/dashboard"
     },
+    "/app/businesses-rma_/business/$businessId/dashboard/email-history": {
+      "filePath": "app/businesses-rma_/business.$businessId/dashboard/email-history/route.ts",
+      "parent": "/app/businesses-rma_/business/$businessId/dashboard",
+      "children": [
+        "/app/businesses-rma_/business/$businessId/dashboard/email-history/$emailId"
+      ]
+    },
     "/app/businesses-rma_/business/$businessId/dashboard/import-ged-files": {
       "filePath": "app/businesses-rma_/business.$businessId/dashboard/import-ged-files/route.ts",
       "parent": "/app/businesses-rma_/business/$businessId/dashboard"
@@ -10943,6 +11098,13 @@ export const routeTree = rootRoute
       "filePath": "app/businesses-rma_/business.$businessId/dashboard/delete-link.$associatedId/route.ts",
       "parent": "/app/businesses-rma_/business/$businessId/dashboard"
     },
+    "/app/businesses-rma_/business/$businessId/dashboard/email-history/$emailId": {
+      "filePath": "app/businesses-rma_/business.$businessId/dashboard/email-history/$emailId/route.ts",
+      "parent": "/app/businesses-rma_/business/$businessId/dashboard/email-history",
+      "children": [
+        "/app/businesses-rma_/business/$businessId/dashboard/email-history/$emailId/reply"
+      ]
+    },
     "/app/businesses-rma_/business/$businessId/dashboard/lifesheet-email/$lifesheetId": {
       "filePath": "app/businesses-rma_/business.$businessId/dashboard/lifesheet-email.$lifesheetId/route.ts",
       "parent": "/app/businesses-rma_/business/$businessId/dashboard"
@@ -11139,6 +11301,10 @@ export const routeTree = rootRoute
     "/app/businesses-rma_/business/$businessId/dashboard/address-book/update/$addressId": {
       "filePath": "app/businesses-rma_/business.$businessId/dashboard/address-book/update.$addressId/route.ts",
       "parent": "/app/businesses-rma_/business/$businessId/dashboard/address-book"
+    },
+    "/app/businesses-rma_/business/$businessId/dashboard/email-history/$emailId/reply": {
+      "filePath": "app/businesses-rma_/business.$businessId/dashboard/email-history/$emailId/reply/route.ts",
+      "parent": "/app/businesses-rma_/business/$businessId/dashboard/email-history/$emailId"
     },
     "/app/businesses-rma_/business/$businessId/quotation/commercial-notice/send-by-email/predefined-messages": {
       "filePath": "app/businesses-rma_/business.$businessId/quotation/commercial-notice/send-by-email/predefined-messages/route.ts",

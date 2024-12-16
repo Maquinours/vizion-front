@@ -10,10 +10,10 @@ import WorkloadType from '../../../../../../utils/enums/WorkloadType';
 import { filterRecursively } from '../../../../../../utils/functions/arrays';
 import styles from './Footer.module.scss';
 
-const Route = getRouteApi('/app');
+const routeApi = getRouteApi('/app');
 
 export default function AppViewBusinessGedModalComponentFooterComponent() {
-  const { businessId } = Route.useSearch();
+  const { businessId } = routeApi.useSearch();
 
   const { data: business } = useSuspenseQuery(businesses.detail._ctx.byId(businessId!));
 
@@ -54,7 +54,7 @@ export default function AppViewBusinessGedModalComponentFooterComponent() {
           </button>
         ) : (
           <Link
-            from={Route.id}
+            from={routeApi.id}
             search={(old) => ({ ...old, appModal: undefined, businessId: undefined })}
             replace
             resetScroll={false}

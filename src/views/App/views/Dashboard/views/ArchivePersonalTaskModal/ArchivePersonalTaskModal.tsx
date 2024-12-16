@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { getRouteApi } from '@tanstack/react-router';
 import React from 'react';
 import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
@@ -10,20 +10,20 @@ import TaskState from '../../../../../../utils/enums/TaskState';
 import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthentifiedUser';
 import styles from './ArchivePersonalTaskModal.module.scss';
 
-const Route = getRouteApi('/app/dashboard/archive-personal-task/$taskId');
+const routeApi = getRouteApi('/app/dashboard/archive-personal-task/$taskId');
 
 export default function AppViewDashboardViewArchivePersonalTaskModalView() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate();
+  const navigate = routeApi.useNavigate();
 
-  const { taskId } = Route.useParams();
+  const { taskId } = routeApi.useParams();
 
   const { data: user } = useAuthentifiedUserQuery();
 
   const { data: task } = useSuspenseQuery(queries.tasks.detail(taskId));
 
   const onClose = () => {
-    navigate({ from: Route.id, to: '../..', search: true, replace: true, resetScroll: false });
+    navigate({ to: '../..', search: true, replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({

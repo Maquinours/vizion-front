@@ -6,12 +6,12 @@ import styles from './Enterprises.module.scss';
 import AppViewEnterprisesViewTableComponent from './components/Table/Table';
 import PaginationComponent from '../../../../components/Pagination/Pagination';
 
-const Route = getRouteApi('/app/enterprises');
+const routeApi = getRouteApi('/app/enterprises');
 
 const size = 20;
 
 export default function AppViewEnterprisesView() {
-  const { enterprise, contact, zipCode, city, phoneNumber, category, representativeId, fuzzy, page } = Route.useSearch();
+  const { enterprise, contact, zipCode, city, phoneNumber, category, representativeId, fuzzy, page } = routeApi.useSearch();
 
   const { data, isLoading } = useQuery({
     ...enterprises.page({ enterprise, contact, zipCode, city, phoneNumber, category, representativeId, fuzzy, page, size }),
@@ -38,7 +38,7 @@ export default function AppViewEnterprisesView() {
           page={page}
           totalPages={data?.totalPages}
           pageLink={(page) => ({
-            from: Route.id,
+            from: routeApi.id,
             search: (old) => ({
               ...old,
               page,

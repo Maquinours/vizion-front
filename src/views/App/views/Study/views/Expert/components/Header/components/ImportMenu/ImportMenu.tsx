@@ -18,11 +18,10 @@ import { ExpertStudyBackgroundNode } from '../../../Flow/components/BackgroundNo
 const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId_/study/expert');
 
 const selector = (state: RFState) => ({
-  pageType: state.pages[state.currentPage].type,
   importStudy: state.importStudy,
 });
 export default function AppViewStudyViewExpertViewHeaderComponentImportMenuComponent() {
-  const { pageType, importStudy } = useStore(useShallow(selector));
+  const { importStudy } = useStore(useShallow(selector));
 
   const { addNodes, screenToFlowPosition, getNodes, deleteElements } = useReactFlow();
   const { setModal } = useContext(ExpertStudyContext)!;
@@ -160,14 +159,12 @@ export default function AppViewStudyViewExpertViewHeaderComponentImportMenuCompo
         onClose={handleClose}
         TransitionComponent={Fade}
       >
-        {pageType === 'density' && [
-          <MenuItem key={0} onClick={onImportBackgroundButtonClick}>
-            <span className="w-full text-left text-sm text-gray-700">Plan à partir de ce PC</span>
-          </MenuItem>,
-          <MenuItem key={1} onClick={onImportGedBackgroundButtonClick}>
-            <span className="w-full text-left text-sm text-gray-700">Plan à partir de la GED</span>
-          </MenuItem>,
-        ]}
+        <MenuItem onClick={onImportBackgroundButtonClick}>
+          <span className="w-full text-left text-sm text-gray-700">Plan à partir de ce PC</span>
+        </MenuItem>
+        <MenuItem onClick={onImportGedBackgroundButtonClick}>
+          <span className="w-full text-left text-sm text-gray-700">Plan à partir de la GED</span>
+        </MenuItem>
         <MenuItem onClick={onImportImageButtonClick}>
           <span className="w-full text-left text-sm text-gray-700">Objet à partir de ce PC</span>
         </MenuItem>

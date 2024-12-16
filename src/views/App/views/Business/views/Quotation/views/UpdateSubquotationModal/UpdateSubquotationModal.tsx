@@ -9,6 +9,7 @@ import * as yup from 'yup';
 import { updateBusinessSubQuotation } from '../../../../../../../../utils/api/businessSubQuotations';
 import { queries } from '../../../../../../../../utils/constants/queryKeys';
 import styles from './UpdateSubquotationModal.module.scss';
+import { useEffect } from 'react';
 
 const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/quotation/update-subquotation/$subquotationId');
 
@@ -26,14 +27,12 @@ export default function AppViewBusinessViewQuotationViewUpdateSubquotationModalV
   const { data: subquotation } = useSuspenseQuery(queries['business-sub-quotations'].detail._ctx.byId(subquotationId));
 
   const {
+    reset,
     register,
-    formState: { errors },
+    formState: { errors, isDirty },
     handleSubmit,
   } = useForm({
     resolver: yupResolver(yupSchema),
-    defaultValues: {
-      name: subquotation.name,
-    },
   });
 
   const onClose = () => {
@@ -44,6 +43,7 @@ export default function AppViewBusinessViewQuotationViewUpdateSubquotationModalV
     mutationFn: ({ name }: yup.InferType<typeof yupSchema>) => updateBusinessSubQuotation(subquotation.id, { quotationId: quotation.id, name }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queries['business-sub-quotations']._def });
+      queryClient.invalidateQueries({ queryKey: queries['business-quotations']._def });
       toast.success('Sous devis modifié avec succès');
       onClose();
     },
@@ -52,6 +52,13 @@ export default function AppViewBusinessViewQuotationViewUpdateSubquotationModalV
       toast.error('Erreur lors de la modification du sous devis');
     },
   });
+
+  useEffect(() => {
+    if (!isDirty)
+      reset({
+        name: subquotation.name,
+      });
+  }, [subquotation]);
 
   return (
     <ReactModal isOpen={true} onRequestClose={onClose} className={styles.modal} overlayClassName="Overlay">

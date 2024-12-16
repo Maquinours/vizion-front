@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { getRouteApi, useNavigate } from '@tanstack/react-router';
+import { getRouteApi } from '@tanstack/react-router';
 import { Controller, useForm } from 'react-hook-form';
 import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
@@ -12,7 +12,7 @@ import ProgressiveInfoResponseDto from '../../../../../../utils/types/Progressiv
 import styles from './CreateProgressiveInfoModal.module.scss';
 import { createProgressiveInfo } from './utils/api/progressiveInfo';
 
-const Route = getRouteApi('/app/dashboard/create-progressive-info');
+const routeApi = getRouteApi('/app/dashboard/create-progressive-info');
 
 const yupSchema = yup.object({
   content: yup.string().required('Ce champ est requis'),
@@ -20,7 +20,7 @@ const yupSchema = yup.object({
 
 export default function AppViewDashboardViewCreateProgressiveInfoModalView() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate();
+  const navigate = routeApi.useNavigate();
 
   const {
     control,
@@ -31,7 +31,7 @@ export default function AppViewDashboardViewCreateProgressiveInfoModalView() {
   });
 
   const onClose = () => {
-    navigate({ from: Route.id, to: '..', search: true, replace: true, resetScroll: false });
+    navigate({ to: '..', search: true, replace: true, resetScroll: false });
   };
 
   const { mutate, isPending } = useMutation({
