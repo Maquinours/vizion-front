@@ -145,12 +145,13 @@ export default function AppViewStudyViewExpertViewModalProviderComponentSendStud
         queryClient.ensureQueryData(queries.businesses.detail._ctx.byId(businessId)),
       ]);
 
-      const synopticPages = pages.filter((page) => page.type === 'synoptic' && page.nodes.some((node) => node.type === 'recorder'));
+      const synopticPages = pages.filter((page) => page.type === 'synoptic' && !page.nodes.some((node) => node.type === 'background'));
       const productNodes = synopticPages.flatMap((page) =>
         page.nodes.filter(
           (node): node is ProductNode => !!node.type && ['synopticCamera', 'monitor', 'recorder', 'transmitter', 'misc-product'].includes(node.type),
         ),
       );
+
       const productsData = productNodes
         .reduce((acc: Array<{ product: ProductResponseDto; quantity: number; groupName: string }>, node) => {
           const product = products.find((product) => product.id === node.data.productId);
@@ -181,6 +182,8 @@ export default function AppViewStudyViewExpertViewModalProviderComponentSendStud
           return acc;
         }, [])
         .filter((data) => data.quantity > 0);
+
+      console.log('productsData', productsData);
 
       const subQuotations: Array<SynopticRequestBusinessQuotationRequestSubQuotationRequestDto> = Object.entries(groupBy(productsData, 'groupName'))
         .sort(([a], [b]) => {

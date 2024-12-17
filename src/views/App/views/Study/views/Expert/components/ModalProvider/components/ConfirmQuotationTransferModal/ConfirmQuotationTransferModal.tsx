@@ -56,7 +56,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentConfirmQ
         queryClient.ensureQueryData(queries.businesses.detail._ctx.byId(businessId)),
       ]);
 
-      const synopticPages = pages.filter((page) => page.type === 'synoptic' && page.nodes.some((node) => node.type === 'recorder'));
+      const synopticPages = pages.filter((page) => page.type === 'synoptic' && !page.nodes.some((node) => node.type === 'background'));
       const productNodes = synopticPages.flatMap((page) =>
         page.nodes.filter(
           (node): node is ProductNode => !!node.type && ['synopticCamera', 'monitor', 'recorder', 'transmitter', 'misc-product'].includes(node.type),
