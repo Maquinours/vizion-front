@@ -183,36 +183,39 @@ export default function AppViewStudyViewExpertViewModalProviderComponentSendStud
         }, [])
         .filter((data) => data.quantity > 0);
 
-      const subQuotations: Array<SynopticRequestBusinessQuotationRequestSubQuotationRequestDto> = Object.entries(groupBy(productsData, 'groupName'))
-        .sort(([a], [b]) => {
-          const aIndex = GROUPS.findIndex((group) => group.name === a);
-          const bIndex = GROUPS.findIndex((group) => group.name === b);
-          return (aIndex === -1 ? Infinity : aIndex) - (bIndex === -1 ? Infinity : bIndex);
-        })
-        .map(([groupName, products], index) => ({
-          name: groupName,
-          orderNum: `${index}`,
-          quotationDetails: products.map((product) => {
-            const publicUnitPrice = product.product.publicPrice ?? 0;
-            const unitPrice = Number((publicUnitPrice - publicUnitPrice * ((business.reduction ?? 0) / 100)).toFixed(2));
-            const totalPrice = Number((unitPrice * product.quantity).toFixed(2));
-            return {
-              groupName: groupName,
-              productId: product.product.id,
-              productName: product.product.reference,
-              productReference: product.product.reference ?? '',
-              productDesignation: product.product.shortDescription,
-              quantity: product.quantity,
-              reduction: business.reduction ?? 0,
-              taxDEEE: 0,
-              publicUnitPrice: publicUnitPrice,
-              unitPrice: unitPrice,
-              totalPrice: totalPrice,
-              virtualQty: product.product.virtualQty,
-            };
-          }),
-        }))
-        .filter(({ quotationDetails }) => quotationDetails.length > 0);
+      const subQuotations: Array<SynopticRequestBusinessQuotationRequestSubQuotationRequestDto> = [
+        { name: 'Default', orderNum: '0', quotationDetails: [] },
+        ...Object.entries(groupBy(productsData, 'groupName'))
+          .sort(([a], [b]) => {
+            const aIndex = GROUPS.findIndex((group) => group.name === a);
+            const bIndex = GROUPS.findIndex((group) => group.name === b);
+            return (aIndex === -1 ? Infinity : aIndex) - (bIndex === -1 ? Infinity : bIndex);
+          })
+          .map(([groupName, products], index) => ({
+            name: groupName,
+            orderNum: `${index + 1}`,
+            quotationDetails: products.map((product) => {
+              const publicUnitPrice = product.product.publicPrice ?? 0;
+              const unitPrice = Number((publicUnitPrice - publicUnitPrice * ((business.reduction ?? 0) / 100)).toFixed(2));
+              const totalPrice = Number((unitPrice * product.quantity).toFixed(2));
+              return {
+                groupName: groupName,
+                productId: product.product.id,
+                productName: product.product.reference,
+                productReference: product.product.reference ?? '',
+                productDesignation: product.product.shortDescription,
+                quantity: product.quantity,
+                reduction: business.reduction ?? 0,
+                taxDEEE: 0,
+                publicUnitPrice: publicUnitPrice,
+                unitPrice: unitPrice,
+                totalPrice: totalPrice,
+                virtualQty: product.product.virtualQty,
+              };
+            }),
+          }))
+          .filter(({ quotationDetails }) => quotationDetails.length > 0),
+      ];
 
       const totalAmountHT = subQuotations.reduce(
         (acc, subQuotation) => acc + (subQuotation.quotationDetails?.reduce((acc, detail) => acc + detail.totalPrice, 0) ?? 0),
