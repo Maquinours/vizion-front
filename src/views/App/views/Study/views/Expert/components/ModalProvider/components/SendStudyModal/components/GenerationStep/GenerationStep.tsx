@@ -183,8 +183,6 @@ export default function AppViewStudyViewExpertViewModalProviderComponentSendStud
         }, [])
         .filter((data) => data.quantity > 0);
 
-      console.log('productsData', productsData);
-
       const subQuotations: Array<SynopticRequestBusinessQuotationRequestSubQuotationRequestDto> = Object.entries(groupBy(productsData, 'groupName'))
         .sort(([a], [b]) => {
           const aIndex = GROUPS.findIndex((group) => group.name === a);
