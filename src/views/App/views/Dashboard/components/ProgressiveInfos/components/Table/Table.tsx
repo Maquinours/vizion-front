@@ -6,8 +6,8 @@ import { VirtualElement } from '@popperjs/core';
 import React, { useState } from 'react';
 import AppViewDashboardViewProgressiveInfosComponentTableComponentContextMenuComponent from './components/ContextMenu/ContextMenu';
 import styles from './Table.module.scss';
-import parse from 'html-react-parser';
 import DOMPurify from 'dompurify';
+import Quill from '../../../../../../../../components/Quill/Quill';
 
 const columnHelper = createColumnHelper<ProgressiveInfoResponseDto>();
 
@@ -18,7 +18,7 @@ const columns = [
     cell: ({ row: { original } }) => (
       <div className={styles.more_content}>
         <div className={styles.more_content_data}>
-          <div className={styles.more_content_data_text}>{parse(DOMPurify.sanitize(original.content ?? ''))}</div>
+          <Quill value={DOMPurify.sanitize(original.content ?? '')} readOnly className={styles.more_content_data_text} />
         </div>
         <div className={styles.date}>
           <p> {original.modifiedDate ? formatDate(original.modifiedDate) : 'Inconnu'}</p>
