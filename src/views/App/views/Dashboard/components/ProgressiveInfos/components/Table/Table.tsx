@@ -1,13 +1,14 @@
-import { Row, createColumnHelper } from '@tanstack/react-table';
-import TableComponent from '../../../../../../../../components/Table/Table';
-import ProgressiveInfoResponseDto from '../../../../../../../../utils/types/ProgressiveInfoResponseDto';
-import { formatDate } from '../../../../../../../../utils/functions/dates';
 import { VirtualElement } from '@popperjs/core';
+import { Row, createColumnHelper } from '@tanstack/react-table';
+import classNames from 'classnames';
+import DOMPurify from 'dompurify';
+import parse from 'html-react-parser';
 import React, { useState } from 'react';
+import TableComponent from '../../../../../../../../components/Table/Table';
+import { formatDate } from '../../../../../../../../utils/functions/dates';
+import ProgressiveInfoResponseDto from '../../../../../../../../utils/types/ProgressiveInfoResponseDto';
 import AppViewDashboardViewProgressiveInfosComponentTableComponentContextMenuComponent from './components/ContextMenu/ContextMenu';
 import styles from './Table.module.scss';
-import DOMPurify from 'dompurify';
-import Quill from '../../../../../../../../components/Quill/Quill';
 
 const columnHelper = createColumnHelper<ProgressiveInfoResponseDto>();
 
@@ -18,7 +19,7 @@ const columns = [
     cell: ({ row: { original } }) => (
       <div className={styles.more_content}>
         <div className={styles.more_content_data}>
-          <Quill value={DOMPurify.sanitize(original.content ?? '')} readOnly className={styles.more_content_data_text} />
+          <div className={classNames('ql-editor', styles.more_content_data_text)}>{parse(DOMPurify.sanitize(original.content ?? ''))}</div>
         </div>
         <div className={styles.date}>
           <p> {original.modifiedDate ? formatDate(original.modifiedDate) : 'Inconnu'}</p>
