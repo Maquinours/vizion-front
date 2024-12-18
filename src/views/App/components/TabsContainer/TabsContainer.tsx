@@ -71,6 +71,7 @@ const INITIAL_TABS: Array<InitialTab> = [
     allowedRoles: ['ROLE_MEMBRE_VIZEO'],
   },
   getExternalLinkInitialTab('bd.vizeo.eu'),
+  getExternalLinkInitialTab('VIZIA', ['ROLE_MEMBRE_VIZEO']),
   getExternalLinkInitialTab('Chat Vizeo', ['ROLE_MEMBRE_VIZEO']),
   getExternalLinkInitialTab('État des mails envoyés', ['ROLE_MEMBRE_VIZEO']),
   {
@@ -80,7 +81,6 @@ const INITIAL_TABS: Array<InitialTab> = [
     },
     allowedRoles: ['ROLE_CLIENT', 'ROLE_DISTRIBUTEUR', 'ROLE_REPRESENTANT'],
   },
-  getExternalLinkInitialTab('VIZIA', ['ROLE_MEMBRE_VIZEO']),
 ];
 
 type AppViewTabsContainerComponentProps = Readonly<{
