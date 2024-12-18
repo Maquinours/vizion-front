@@ -70,6 +70,37 @@
             margin-bottom: 5px;
           }
 
+          :global div.quill {
+            border: 1px solid #31385a;
+            border-radius: 5px;
+
+            .ql-container {
+              height: 20vh;
+              overflow-y: auto;
+              outline: none;
+
+              &::-webkit-scrollbar {
+                width: 3px;
+              }
+
+              /* Track */
+              &::-webkit-scrollbar-track {
+                background: var(--grey-line);
+                border-radius: 5px;
+              }
+
+              /* Handle */
+              &::-webkit-scrollbar-thumb {
+                background: var(--primary-color);
+              }
+
+              /* Handle on hover */
+              &::-webkit-scrollbar-thumb:hover {
+                background: var(--grey-line);
+              }
+            }
+          }
+
           p:nth-child(3) {
             grid-area: error;
             margin-top: 2px;

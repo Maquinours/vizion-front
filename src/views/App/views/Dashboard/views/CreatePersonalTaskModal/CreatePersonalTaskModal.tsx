@@ -15,6 +15,7 @@ import WorkloadType from '../../../../../../utils/enums/WorkloadType';
 import ProfileResponseDto from '../../../../../../utils/types/ProfileResponseDto';
 import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthentifiedUser';
 import styles from './CreatePersonalTaskModal.module.scss';
+import Quill from '../../../../../../components/Quill/Quill';
 
 const routeApi = getRouteApi('/app/dashboard/create-personal-task');
 
@@ -82,7 +83,11 @@ export default function AppViewDashboardViewCreatePersonalTaskModalView() {
               <label className="label" htmlFor="information">
                 Quoi :
               </label>
-              <textarea rows={8} {...register('content')} id="information" autoCorrect="true" autoComplete="no" />
+              <Controller
+                control={control}
+                name="content"
+                render={({ field: { value, onChange, onBlur } }) => <Quill id="information" value={value} onChange={onChange} onBlur={onBlur} />}
+              />
               <p className={styles.errors}>{errors.content?.message}</p>
             </div>
             <div className={styles.form_group}>
