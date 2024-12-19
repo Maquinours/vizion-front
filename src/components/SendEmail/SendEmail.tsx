@@ -111,9 +111,7 @@ export default function SendEmailComponent({
     defaultValues: {
       recipient: [...(emailToReply?.sender ? [emailToReply.sender] : []), ...(defaultRecipient ?? [])].filter((item) => item.trim().length > 0),
       cc: [
-        ...[...(emailToReply?.receiver.split(';') ?? []), ...(emailToReply?.cc?.split(';') ?? [])].filter(
-          (item) => item.toLowerCase() !== user.userInfo.email.toLowerCase(),
-        ),
+        ...[...(emailToReply?.cc?.split(';') ?? [])].filter((item) => item.toLowerCase() !== user.userInfo.email.toLowerCase()),
         ...(defaultCc ?? []),
       ].filter((item) => item.trim().length > 0),
       bcc: (defaultBcc ?? []).filter((item) => item.trim().length > 0),

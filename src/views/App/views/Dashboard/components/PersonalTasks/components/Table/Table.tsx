@@ -117,6 +117,7 @@ export default function AppViewDashboardViewPersonalTasksComponentTableComponent
             return (
               <Link to="/app/businesses-rma/business/$businessId" params={{ businessId: original.businessId }}>
                 {original.businessNum}
+                {original.businessName ? ` (${original.businessName})` : ''}
               </Link>
             );
           if (original.rmaId)
