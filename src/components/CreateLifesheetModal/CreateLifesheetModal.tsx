@@ -77,6 +77,7 @@ export default function CreateLifesheetModalComponent({
     mutationFn: async ({ receivers, description, deadline }: yup.InferType<typeof yupSchema>) => {
       if (description === predefinedTexts?.at(0)?.description) return;
       let data: Partial<LifeSheetRequestDto> = {};
+      let businessName: string | undefined = undefined;
       switch (associatedItemType) {
         case LifesheetAssociatedItem.PRODUCT:
           data = {
@@ -109,8 +110,9 @@ export default function CreateLifesheetModalComponent({
           const business = await queryClient.ensureQueryData(businesses.detail._ctx.byId(associatedItemId));
           data = {
             businessId: associatedItemId,
-            businessNumber: `${business.numBusiness} (${business.title})`,
+            businessNumber: business.numBusiness,
           };
+          businessName = business.title ?? undefined;
           break;
         }
       }
@@ -127,6 +129,7 @@ export default function CreateLifesheetModalComponent({
           enterpriseName: data.enterpriseName,
           productId: data.productId,
           reference: data.productReference,
+          businessName,
         })),
       });
     },
