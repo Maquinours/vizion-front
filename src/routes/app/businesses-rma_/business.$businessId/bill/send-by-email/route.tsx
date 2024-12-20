@@ -24,6 +24,8 @@ export const Route = createFileRoute('/app/businesses-rma_/business/$businessId/
 
     const enterprise = await enterprisePromise;
 
+    queryClient.prefetchQuery(queries['predefined-message'].list);
+
     return { business, bill, file, enterprise };
   },
   pendingComponent: LoaderModal,

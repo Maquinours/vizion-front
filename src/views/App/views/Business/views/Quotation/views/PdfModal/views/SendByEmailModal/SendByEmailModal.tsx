@@ -22,13 +22,6 @@ export default function AppViewBusinessViewQuotationViewPdfModalViewSendByEmailM
     <SendEmailModalComponent
       isOpen={true}
       onClose={onClose}
-      predefinedMessagesModalLink={{
-        to: '/app/businesses-rma/business/$businessId/quotation/pdf/send-by-email/predefined-messages',
-        search: true,
-        replace: true,
-        resetScroll: false,
-        ignoreBlocker: true,
-      }}
       defaultAttachments={[quotationPdfFile, commercialNoticeFile]}
       defaultRecipient={defaultRecipient}
       defaultCc={representative?.profiles

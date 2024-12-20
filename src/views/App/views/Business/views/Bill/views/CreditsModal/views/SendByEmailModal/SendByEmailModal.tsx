@@ -25,12 +25,6 @@ export default function AppViewBusinessViewBillViewCreditsModalViewSendByEmailMo
     <SendEmailModalComponent
       isOpen={true}
       onClose={onClose}
-      predefinedMessagesModalLink={{
-        to: '/app/businesses-rma/business/$businessId/bill/credits/send-by-email/predefined-messages',
-        search: true,
-        replace: true,
-        resetScroll: false,
-      }}
       defaultSubject={`Avoir ${credit.number}`}
       defaultContent="Ci-joint, votre avoir."
       defaultAttachments={[file]}
