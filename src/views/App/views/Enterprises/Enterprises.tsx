@@ -5,6 +5,7 @@ import { Outlet, getRouteApi } from '@tanstack/react-router';
 import styles from './Enterprises.module.scss';
 import AppViewEnterprisesViewTableComponent from './components/Table/Table';
 import PaginationComponent from '../../../../components/Pagination/Pagination';
+import AppViewEnterprisesViewButtonsComponent from './components/Buttons/Buttons';
 
 const routeApi = getRouteApi('/app/enterprises');
 
@@ -32,6 +33,7 @@ export default function AppViewEnterprisesView() {
   return (
     <>
       <div className={styles.container}>
+        <AppViewEnterprisesViewButtonsComponent />
         <AppViewEnterprisesViewSearchSectionComponent />
         <AppViewEnterprisesViewTableComponent data={data?.content} isLoading={isLoading} />
         <PaginationComponent

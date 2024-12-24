@@ -1,20 +1,17 @@
-import { useForm } from 'react-hook-form';
-import CardComponent from '../../../../../../../../../../components/Card/Card';
-import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { PropagateLoader } from 'react-spinners';
 import { useQuery } from '@tanstack/react-query';
-import { queries } from '../../../../../../../../../../utils/constants/queryKeys';
-import CategoryClient from '../../../../../../../../../../utils/enums/CategoryClient';
-import { CreateEnterpriseStepOneDataType } from '../StepOne/StepOne';
 import { useContext, useEffect } from 'react';
+import { useForm } from 'react-hook-form';
+import { PropagateLoader } from 'react-spinners';
+import * as yup from 'yup';
+import { queries } from '../../../../utils/constants/queryKeys';
+import CategoryClient from '../../../../utils/enums/CategoryClient';
+import CardComponent from '../../../Card/Card';
 import { CreateEnterpriseContext } from '../../utils/contexts/context';
-import { Link, getRouteApi } from '@tanstack/react-router';
+import { CreateEnterpriseStepOneDataType } from '../StepOne/StepOne';
 import styles from './StepTwo.module.scss';
 
 const sirenRegex = /\b\d{9}\b/;
-
-const routeApi = getRouteApi('/app/tools/menu/create-enterprise');
 
 const yupSchema = yup.object().shape({
   billingServiceName: yup.string().nullable(),
@@ -46,21 +43,21 @@ const yupSchema = yup.object().shape({
 
 export type CreateEnterpriseStepTwoDataType = yup.InferType<typeof yupSchema>;
 
-type AppViewToolsViewMenuViewCreateEnterpriseModalViewStepTwoComponentProps = Readonly<{
+type CreateEnterpriseModalComponentStepTwoComponentProps = Readonly<{
   stepOneData: CreateEnterpriseStepOneDataType | undefined;
   show: boolean;
   goToPreviousStep: () => void;
   onSubmit: (data: CreateEnterpriseStepTwoDataType) => void;
   isPending: boolean;
 }>;
-export default function AppViewToolsViewMenuViewCreateEnterpriseModalViewStepTwoComponent({
+export default function CreateEnterpriseModalComponentStepTwoComponent({
   stepOneData,
   show,
   goToPreviousStep,
   onSubmit,
   isPending,
-}: AppViewToolsViewMenuViewCreateEnterpriseModalViewStepTwoComponentProps) {
-  const { contacts } = useContext(CreateEnterpriseContext)!;
+}: CreateEnterpriseModalComponentStepTwoComponentProps) {
+  const { contacts, openModal } = useContext(CreateEnterpriseContext)!;
 
   const { data: representatives, isLoading: isLoadingRepresentatives } = useQuery(queries.enterprise.list._ctx.byCategory(CategoryClient.REPRESENTANT));
 
@@ -178,20 +175,9 @@ export default function AppViewToolsViewMenuViewCreateEnterpriseModalViewStepTwo
         </CardComponent>
 
         {contacts.length > 0 && (
-          <Link
-            from={routeApi.id}
-            to="contacts"
-            search
-            replace
-            resetScroll={false}
-            style={{
-              cursor: 'pointer',
-              textDecoration: 'underline',
-              color: 'var(--secondary-color)',
-            }}
-          >
-            {contacts.length} contact ajouté{contacts.length > 1 ? 's' : ''}
-          </Link>
+          <button className="btn btn-secondary" onClick={() => openModal('contacts')}>
+            {contacts.length} contact{contacts.length > 1 ? 's' : ''} ajouté{contacts.length > 1 ? 's' : ''}
+          </button>
         )}
 
         <div className={styles.loader}>
@@ -201,9 +187,9 @@ export default function AppViewToolsViewMenuViewCreateEnterpriseModalViewStepTwo
           <button className="btn btn-primary" onClick={() => goToPreviousStep()}>
             Précédent
           </button>
-          <Link from={routeApi.id} to="add-contact" search replace resetScroll={false} className="btn btn-secondary">
+          <button className="btn btn-secondary" onClick={() => openModal('add-contact')}>
             Ajouter un contact
-          </Link>
+          </button>
           <button className="btn btn-secondary" type="submit" onClick={handleSubmit(onSubmit)}>
             Terminer
           </button>

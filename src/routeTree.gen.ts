@@ -51,6 +51,7 @@ import { Route as AppProductsSerialNumbersRouteImport } from './routes/app/produ
 import { Route as AppFaqCreateRouteImport } from './routes/app/faq/create/route'
 import { Route as AppExternalLinksExternalLinkIdRouteImport } from './routes/app/external-links_.$externalLinkId/route'
 import { Route as AppEnterprisesEnterpriseIdRouteImport } from './routes/app/enterprises_.$enterpriseId/route'
+import { Route as AppEnterprisesCreateRouteImport } from './routes/app/enterprises/create/route'
 import { Route as AppDashboardDeleteCollectiveTasksRouteImport } from './routes/app/dashboard/delete-collective-tasks/route'
 import { Route as AppDashboardCreateProgressiveInfoRouteImport } from './routes/app/dashboard/create-progressive-info/route'
 import { Route as AppDashboardCreatePersonalTaskRouteImport } from './routes/app/dashboard/create-personal-task/route'
@@ -134,8 +135,6 @@ import { Route as AppToolsPredefinedMessagesUpdatePredefinedMessageIdRouteImport
 import { Route as AppToolsPredefinedMessagesDeletePredefinedMessageIdRouteImport } from './routes/app/tools/predefined-messages/delete.$predefinedMessageId/route'
 import { Route as AppToolsNewsUpdateNewsIdRouteImport } from './routes/app/tools/news/update.$newsId/route'
 import { Route as AppToolsNewsDeleteNewsIdRouteImport } from './routes/app/tools/news/delete.$newsId/route'
-import { Route as AppToolsMenuCreateEnterpriseContactsRouteImport } from './routes/app/tools/menu/create-enterprise/contacts/route'
-import { Route as AppToolsMenuCreateEnterpriseAddContactRouteImport } from './routes/app/tools/menu/create-enterprise/add-contact/route'
 import { Route as AppToolsMailsUpdateMailIdRouteImport } from './routes/app/tools/mails/update.$mailId/route'
 import { Route as AppToolsMailsShowMailIdRouteImport } from './routes/app/tools/mails/show.$mailId/route'
 import { Route as AppToolsMailsDeleteMailIdRouteImport } from './routes/app/tools/mails/delete.$mailId/route'
@@ -668,6 +667,14 @@ const AppEnterprisesEnterpriseIdRouteRoute =
       (d) => d.Route,
     ),
   )
+
+const AppEnterprisesCreateRouteRoute = AppEnterprisesCreateRouteImport.update({
+  id: '/create',
+  path: '/create',
+  getParentRoute: () => AppEnterprisesRouteRoute,
+} as any).lazy(() =>
+  import('./routes/app/enterprises/create/route.lazy').then((d) => d.Route),
+)
 
 const AppDashboardDeleteCollectiveTasksRouteRoute =
   AppDashboardDeleteCollectiveTasksRouteImport.update({
@@ -1538,28 +1545,6 @@ const AppToolsNewsDeleteNewsIdRouteRoute =
     import('./routes/app/tools/news/delete.$newsId/route.lazy').then(
       (d) => d.Route,
     ),
-  )
-
-const AppToolsMenuCreateEnterpriseContactsRouteRoute =
-  AppToolsMenuCreateEnterpriseContactsRouteImport.update({
-    id: '/contacts',
-    path: '/contacts',
-    getParentRoute: () => AppToolsMenuCreateEnterpriseRouteRoute,
-  } as any).lazy(() =>
-    import(
-      './routes/app/tools/menu/create-enterprise/contacts/route.lazy'
-    ).then((d) => d.Route),
-  )
-
-const AppToolsMenuCreateEnterpriseAddContactRouteRoute =
-  AppToolsMenuCreateEnterpriseAddContactRouteImport.update({
-    id: '/add-contact',
-    path: '/add-contact',
-    getParentRoute: () => AppToolsMenuCreateEnterpriseRouteRoute,
-  } as any).lazy(() =>
-    import(
-      './routes/app/tools/menu/create-enterprise/add-contact/route.lazy'
-    ).then((d) => d.Route),
   )
 
 const AppToolsMailsUpdateMailIdRouteRoute =
@@ -3786,6 +3771,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppDashboardDeleteCollectiveTasksRouteImport
       parentRoute: typeof AppDashboardRouteImport
     }
+    '/app/enterprises/create': {
+      id: '/app/enterprises/create'
+      path: '/create'
+      fullPath: '/app/enterprises/create'
+      preLoaderRoute: typeof AppEnterprisesCreateRouteImport
+      parentRoute: typeof AppEnterprisesRouteImport
+    }
     '/app/enterprises_/$enterpriseId': {
       id: '/app/enterprises_/$enterpriseId'
       path: '/enterprises/$enterpriseId'
@@ -4786,20 +4778,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/app/tools/mails/update/$mailId'
       preLoaderRoute: typeof AppToolsMailsUpdateMailIdRouteImport
       parentRoute: typeof AppToolsMailsRouteImport
-    }
-    '/app/tools/menu/create-enterprise/add-contact': {
-      id: '/app/tools/menu/create-enterprise/add-contact'
-      path: '/add-contact'
-      fullPath: '/app/tools/menu/create-enterprise/add-contact'
-      preLoaderRoute: typeof AppToolsMenuCreateEnterpriseAddContactRouteImport
-      parentRoute: typeof AppToolsMenuCreateEnterpriseRouteImport
-    }
-    '/app/tools/menu/create-enterprise/contacts': {
-      id: '/app/tools/menu/create-enterprise/contacts'
-      path: '/contacts'
-      fullPath: '/app/tools/menu/create-enterprise/contacts'
-      preLoaderRoute: typeof AppToolsMenuCreateEnterpriseContactsRouteImport
-      parentRoute: typeof AppToolsMenuCreateEnterpriseRouteImport
     }
     '/app/tools/news/delete/$newsId': {
       id: '/app/tools/news/delete/$newsId'
@@ -5864,6 +5842,7 @@ const AppDashboardRouteRouteWithChildren =
   AppDashboardRouteRoute._addFileChildren(AppDashboardRouteRouteChildren)
 
 interface AppEnterprisesRouteRouteChildren {
+  AppEnterprisesCreateRouteRoute: typeof AppEnterprisesCreateRouteRoute
   AppEnterprisesCreateContactBusinessContactIdRouteRoute: typeof AppEnterprisesCreateContactBusinessContactIdRouteRoute
   AppEnterprisesCreateContactTravelVoucherContactIdRouteRoute: typeof AppEnterprisesCreateContactTravelVoucherContactIdRouteRoute
   AppEnterprisesCreateContactEnterpriseIdRouteRoute: typeof AppEnterprisesCreateContactEnterpriseIdRouteRoute
@@ -5875,6 +5854,7 @@ interface AppEnterprisesRouteRouteChildren {
 }
 
 const AppEnterprisesRouteRouteChildren: AppEnterprisesRouteRouteChildren = {
+  AppEnterprisesCreateRouteRoute: AppEnterprisesCreateRouteRoute,
   AppEnterprisesCreateContactBusinessContactIdRouteRoute:
     AppEnterprisesCreateContactBusinessContactIdRouteRoute,
   AppEnterprisesCreateContactTravelVoucherContactIdRouteRoute:
@@ -6170,32 +6150,14 @@ const AppToolsMailsRouteRouteChildren: AppToolsMailsRouteRouteChildren = {
 const AppToolsMailsRouteRouteWithChildren =
   AppToolsMailsRouteRoute._addFileChildren(AppToolsMailsRouteRouteChildren)
 
-interface AppToolsMenuCreateEnterpriseRouteRouteChildren {
-  AppToolsMenuCreateEnterpriseAddContactRouteRoute: typeof AppToolsMenuCreateEnterpriseAddContactRouteRoute
-  AppToolsMenuCreateEnterpriseContactsRouteRoute: typeof AppToolsMenuCreateEnterpriseContactsRouteRoute
-}
-
-const AppToolsMenuCreateEnterpriseRouteRouteChildren: AppToolsMenuCreateEnterpriseRouteRouteChildren =
-  {
-    AppToolsMenuCreateEnterpriseAddContactRouteRoute:
-      AppToolsMenuCreateEnterpriseAddContactRouteRoute,
-    AppToolsMenuCreateEnterpriseContactsRouteRoute:
-      AppToolsMenuCreateEnterpriseContactsRouteRoute,
-  }
-
-const AppToolsMenuCreateEnterpriseRouteRouteWithChildren =
-  AppToolsMenuCreateEnterpriseRouteRoute._addFileChildren(
-    AppToolsMenuCreateEnterpriseRouteRouteChildren,
-  )
-
 interface AppToolsMenuRouteRouteChildren {
-  AppToolsMenuCreateEnterpriseRouteRoute: typeof AppToolsMenuCreateEnterpriseRouteRouteWithChildren
+  AppToolsMenuCreateEnterpriseRouteRoute: typeof AppToolsMenuCreateEnterpriseRouteRoute
   AppToolsMenuCreateProductRouteRoute: typeof AppToolsMenuCreateProductRouteRoute
 }
 
 const AppToolsMenuRouteRouteChildren: AppToolsMenuRouteRouteChildren = {
   AppToolsMenuCreateEnterpriseRouteRoute:
-    AppToolsMenuCreateEnterpriseRouteRouteWithChildren,
+    AppToolsMenuCreateEnterpriseRouteRoute,
   AppToolsMenuCreateProductRouteRoute: AppToolsMenuCreateProductRouteRoute,
 }
 
@@ -7391,6 +7353,7 @@ export interface FileRoutesByFullPath {
   '/app/dashboard/create-personal-task': typeof AppDashboardCreatePersonalTaskRouteRoute
   '/app/dashboard/create-progressive-info': typeof AppDashboardCreateProgressiveInfoRouteRoute
   '/app/dashboard/delete-collective-tasks': typeof AppDashboardDeleteCollectiveTasksRouteRoute
+  '/app/enterprises/create': typeof AppEnterprisesCreateRouteRoute
   '/app/enterprises/$enterpriseId': typeof AppEnterprisesEnterpriseIdRouteRouteWithChildren
   '/app/external-links/$externalLinkId': typeof AppExternalLinksExternalLinkIdRouteRoute
   '/app/faq/create': typeof AppFaqCreateRouteRoute
@@ -7469,7 +7432,7 @@ export interface FileRoutesByFullPath {
   '/app/tools/external-links/create': typeof AppToolsExternalLinksCreateRouteRoute
   '/app/tools/formations/create': typeof AppToolsFormationsCreateRouteRouteWithChildren
   '/app/tools/mails/create': typeof AppToolsMailsCreateRouteRoute
-  '/app/tools/menu/create-enterprise': typeof AppToolsMenuCreateEnterpriseRouteRouteWithChildren
+  '/app/tools/menu/create-enterprise': typeof AppToolsMenuCreateEnterpriseRouteRoute
   '/app/tools/menu/create-product': typeof AppToolsMenuCreateProductRouteRoute
   '/app/tools/news/create': typeof AppToolsNewsCreateRouteRoute
   '/app/tools/predefined-messages/create': typeof AppToolsPredefinedMessagesCreateRouteRoute
@@ -7534,8 +7497,6 @@ export interface FileRoutesByFullPath {
   '/app/tools/mails/delete/$mailId': typeof AppToolsMailsDeleteMailIdRouteRoute
   '/app/tools/mails/show/$mailId': typeof AppToolsMailsShowMailIdRouteRoute
   '/app/tools/mails/update/$mailId': typeof AppToolsMailsUpdateMailIdRouteRoute
-  '/app/tools/menu/create-enterprise/add-contact': typeof AppToolsMenuCreateEnterpriseAddContactRouteRoute
-  '/app/tools/menu/create-enterprise/contacts': typeof AppToolsMenuCreateEnterpriseContactsRouteRoute
   '/app/tools/news/delete/$newsId': typeof AppToolsNewsDeleteNewsIdRouteRoute
   '/app/tools/news/update/$newsId': typeof AppToolsNewsUpdateNewsIdRouteRoute
   '/app/tools/predefined-messages/delete/$predefinedMessageId': typeof AppToolsPredefinedMessagesDeletePredefinedMessageIdRouteRoute
@@ -7693,6 +7654,7 @@ export interface FileRoutesByTo {
   '/app/dashboard/create-personal-task': typeof AppDashboardCreatePersonalTaskRouteRoute
   '/app/dashboard/create-progressive-info': typeof AppDashboardCreateProgressiveInfoRouteRoute
   '/app/dashboard/delete-collective-tasks': typeof AppDashboardDeleteCollectiveTasksRouteRoute
+  '/app/enterprises/create': typeof AppEnterprisesCreateRouteRoute
   '/app/enterprises/$enterpriseId': typeof AppEnterprisesEnterpriseIdRouteRouteWithChildren
   '/app/external-links/$externalLinkId': typeof AppExternalLinksExternalLinkIdRouteRoute
   '/app/faq/create': typeof AppFaqCreateRouteRoute
@@ -7768,7 +7730,7 @@ export interface FileRoutesByTo {
   '/app/tools/external-links/create': typeof AppToolsExternalLinksCreateRouteRoute
   '/app/tools/formations/create': typeof AppToolsFormationsCreateRouteRouteWithChildren
   '/app/tools/mails/create': typeof AppToolsMailsCreateRouteRoute
-  '/app/tools/menu/create-enterprise': typeof AppToolsMenuCreateEnterpriseRouteRouteWithChildren
+  '/app/tools/menu/create-enterprise': typeof AppToolsMenuCreateEnterpriseRouteRoute
   '/app/tools/menu/create-product': typeof AppToolsMenuCreateProductRouteRoute
   '/app/tools/news/create': typeof AppToolsNewsCreateRouteRoute
   '/app/tools/predefined-messages/create': typeof AppToolsPredefinedMessagesCreateRouteRoute
@@ -7832,8 +7794,6 @@ export interface FileRoutesByTo {
   '/app/tools/mails/delete/$mailId': typeof AppToolsMailsDeleteMailIdRouteRoute
   '/app/tools/mails/show/$mailId': typeof AppToolsMailsShowMailIdRouteRoute
   '/app/tools/mails/update/$mailId': typeof AppToolsMailsUpdateMailIdRouteRoute
-  '/app/tools/menu/create-enterprise/add-contact': typeof AppToolsMenuCreateEnterpriseAddContactRouteRoute
-  '/app/tools/menu/create-enterprise/contacts': typeof AppToolsMenuCreateEnterpriseContactsRouteRoute
   '/app/tools/news/delete/$newsId': typeof AppToolsNewsDeleteNewsIdRouteRoute
   '/app/tools/news/update/$newsId': typeof AppToolsNewsUpdateNewsIdRouteRoute
   '/app/tools/predefined-messages/delete/$predefinedMessageId': typeof AppToolsPredefinedMessagesDeletePredefinedMessageIdRouteRoute
@@ -7995,6 +7955,7 @@ export interface FileRoutesById {
   '/app/dashboard/create-personal-task': typeof AppDashboardCreatePersonalTaskRouteRoute
   '/app/dashboard/create-progressive-info': typeof AppDashboardCreateProgressiveInfoRouteRoute
   '/app/dashboard/delete-collective-tasks': typeof AppDashboardDeleteCollectiveTasksRouteRoute
+  '/app/enterprises/create': typeof AppEnterprisesCreateRouteRoute
   '/app/enterprises_/$enterpriseId': typeof AppEnterprisesEnterpriseIdRouteRouteWithChildren
   '/app/external-links_/$externalLinkId': typeof AppExternalLinksExternalLinkIdRouteRoute
   '/app/faq/create': typeof AppFaqCreateRouteRoute
@@ -8073,7 +8034,7 @@ export interface FileRoutesById {
   '/app/tools/external-links/create': typeof AppToolsExternalLinksCreateRouteRoute
   '/app/tools/formations/create': typeof AppToolsFormationsCreateRouteRouteWithChildren
   '/app/tools/mails/create': typeof AppToolsMailsCreateRouteRoute
-  '/app/tools/menu/create-enterprise': typeof AppToolsMenuCreateEnterpriseRouteRouteWithChildren
+  '/app/tools/menu/create-enterprise': typeof AppToolsMenuCreateEnterpriseRouteRoute
   '/app/tools/menu/create-product': typeof AppToolsMenuCreateProductRouteRoute
   '/app/tools/news/create': typeof AppToolsNewsCreateRouteRoute
   '/app/tools/predefined-messages/create': typeof AppToolsPredefinedMessagesCreateRouteRoute
@@ -8138,8 +8099,6 @@ export interface FileRoutesById {
   '/app/tools/mails/delete/$mailId': typeof AppToolsMailsDeleteMailIdRouteRoute
   '/app/tools/mails/show/$mailId': typeof AppToolsMailsShowMailIdRouteRoute
   '/app/tools/mails/update/$mailId': typeof AppToolsMailsUpdateMailIdRouteRoute
-  '/app/tools/menu/create-enterprise/add-contact': typeof AppToolsMenuCreateEnterpriseAddContactRouteRoute
-  '/app/tools/menu/create-enterprise/contacts': typeof AppToolsMenuCreateEnterpriseContactsRouteRoute
   '/app/tools/news/delete/$newsId': typeof AppToolsNewsDeleteNewsIdRouteRoute
   '/app/tools/news/update/$newsId': typeof AppToolsNewsUpdateNewsIdRouteRoute
   '/app/tools/predefined-messages/delete/$predefinedMessageId': typeof AppToolsPredefinedMessagesDeletePredefinedMessageIdRouteRoute
@@ -8302,6 +8261,7 @@ export interface FileRouteTypes {
     | '/app/dashboard/create-personal-task'
     | '/app/dashboard/create-progressive-info'
     | '/app/dashboard/delete-collective-tasks'
+    | '/app/enterprises/create'
     | '/app/enterprises/$enterpriseId'
     | '/app/external-links/$externalLinkId'
     | '/app/faq/create'
@@ -8445,8 +8405,6 @@ export interface FileRouteTypes {
     | '/app/tools/mails/delete/$mailId'
     | '/app/tools/mails/show/$mailId'
     | '/app/tools/mails/update/$mailId'
-    | '/app/tools/menu/create-enterprise/add-contact'
-    | '/app/tools/menu/create-enterprise/contacts'
     | '/app/tools/news/delete/$newsId'
     | '/app/tools/news/update/$newsId'
     | '/app/tools/predefined-messages/delete/$predefinedMessageId'
@@ -8603,6 +8561,7 @@ export interface FileRouteTypes {
     | '/app/dashboard/create-personal-task'
     | '/app/dashboard/create-progressive-info'
     | '/app/dashboard/delete-collective-tasks'
+    | '/app/enterprises/create'
     | '/app/enterprises/$enterpriseId'
     | '/app/external-links/$externalLinkId'
     | '/app/faq/create'
@@ -8742,8 +8701,6 @@ export interface FileRouteTypes {
     | '/app/tools/mails/delete/$mailId'
     | '/app/tools/mails/show/$mailId'
     | '/app/tools/mails/update/$mailId'
-    | '/app/tools/menu/create-enterprise/add-contact'
-    | '/app/tools/menu/create-enterprise/contacts'
     | '/app/tools/news/delete/$newsId'
     | '/app/tools/news/update/$newsId'
     | '/app/tools/predefined-messages/delete/$predefinedMessageId'
@@ -8903,6 +8860,7 @@ export interface FileRouteTypes {
     | '/app/dashboard/create-personal-task'
     | '/app/dashboard/create-progressive-info'
     | '/app/dashboard/delete-collective-tasks'
+    | '/app/enterprises/create'
     | '/app/enterprises_/$enterpriseId'
     | '/app/external-links_/$externalLinkId'
     | '/app/faq/create'
@@ -9046,8 +9004,6 @@ export interface FileRouteTypes {
     | '/app/tools/mails/delete/$mailId'
     | '/app/tools/mails/show/$mailId'
     | '/app/tools/mails/update/$mailId'
-    | '/app/tools/menu/create-enterprise/add-contact'
-    | '/app/tools/menu/create-enterprise/contacts'
     | '/app/tools/news/delete/$newsId'
     | '/app/tools/news/update/$newsId'
     | '/app/tools/predefined-messages/delete/$predefinedMessageId'
@@ -9284,6 +9240,7 @@ export const routeTree = rootRoute
       "filePath": "app/enterprises/route.ts",
       "parent": "/app",
       "children": [
+        "/app/enterprises/create",
         "/app/enterprises/create-contact-business/$contactId",
         "/app/enterprises/create-contact-travel-voucher/$contactId",
         "/app/enterprises/create-contact/$enterpriseId",
@@ -9382,6 +9339,10 @@ export const routeTree = rootRoute
     "/app/dashboard/delete-collective-tasks": {
       "filePath": "app/dashboard/delete-collective-tasks/route.ts",
       "parent": "/app/dashboard"
+    },
+    "/app/enterprises/create": {
+      "filePath": "app/enterprises/create/route.ts",
+      "parent": "/app/enterprises"
     },
     "/app/enterprises_/$enterpriseId": {
       "filePath": "app/enterprises_.$enterpriseId/route.ts",
@@ -9870,11 +9831,7 @@ export const routeTree = rootRoute
     },
     "/app/tools/menu/create-enterprise": {
       "filePath": "app/tools/menu/create-enterprise/route.ts",
-      "parent": "/app/tools/menu",
-      "children": [
-        "/app/tools/menu/create-enterprise/add-contact",
-        "/app/tools/menu/create-enterprise/contacts"
-      ]
+      "parent": "/app/tools/menu"
     },
     "/app/tools/menu/create-product": {
       "filePath": "app/tools/menu/create-product/route.ts",
@@ -10234,14 +10191,6 @@ export const routeTree = rootRoute
     "/app/tools/mails/update/$mailId": {
       "filePath": "app/tools/mails/update.$mailId/route.ts",
       "parent": "/app/tools/mails"
-    },
-    "/app/tools/menu/create-enterprise/add-contact": {
-      "filePath": "app/tools/menu/create-enterprise/add-contact/route.ts",
-      "parent": "/app/tools/menu/create-enterprise"
-    },
-    "/app/tools/menu/create-enterprise/contacts": {
-      "filePath": "app/tools/menu/create-enterprise/contacts/route.ts",
-      "parent": "/app/tools/menu/create-enterprise"
     },
     "/app/tools/news/delete/$newsId": {
       "filePath": "app/tools/news/delete.$newsId/route.ts",

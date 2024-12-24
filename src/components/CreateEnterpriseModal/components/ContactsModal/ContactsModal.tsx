@@ -1,21 +1,18 @@
-import { getRouteApi } from '@tanstack/react-router';
 import { createColumnHelper } from '@tanstack/react-table';
-import { useContext, useMemo } from 'react';
+import { useCallback, useContext, useMemo } from 'react';
 import { MdClose } from 'react-icons/md';
 import ReactModal from 'react-modal';
-import TableComponent from '../../../../../../../../../../components/Table/Table';
-import ProfileAgencyRequestDto from '../../../../../../../../../../utils/types/ProfileAgencyRequestDto';
+import ProfileAgencyRequestDto from '../../../../utils/types/ProfileAgencyRequestDto';
+import TableComponent from '../../../Table/Table';
 import { CreateEnterpriseContext } from '../../utils/contexts/context';
 import styles from './ContactsModal.module.scss';
 
-const routeApi = getRouteApi('/app/tools/menu/create-enterprise/contacts');
-
 const columnHelper = createColumnHelper<Omit<ProfileAgencyRequestDto, 'categoryClient'>>();
 
-export default function AppViewToolsViewMenuViewCreateEnterpriseModalViewContactsModalView() {
-  const navigate = routeApi.useNavigate();
+export default function CreateEnterpriseModalComponentContactsModalComponent() {
+  const { contacts, setContacts, closeModal } = useContext(CreateEnterpriseContext)!;
 
-  const { contacts, setContacts } = useContext(CreateEnterpriseContext)!;
+  const removeContact = useCallback((index: number) => setContacts((prev) => [...prev].filter((_, i) => i !== index)), [setContacts]);
 
   const columns = useMemo(
     () => [
@@ -47,21 +44,17 @@ export default function AppViewToolsViewMenuViewCreateEnterpriseModalViewContact
         header: '',
         id: 'action',
         cell: ({ row: { index } }) => (
-          <button onClick={() => setContacts((prev) => [...prev].filter((_, i) => i !== index))}>
+          <button onClick={() => removeContact(index)}>
             <MdClose />
           </button>
         ),
       }),
     ],
-    [setContacts],
+    [removeContact],
   );
 
-  const onClose = () => {
-    navigate({ to: '..', search: true, replace: true });
-  };
-
   return (
-    <ReactModal isOpen={true} onRequestClose={onClose} className={styles.data_modal} overlayClassName="Overlay">
+    <ReactModal isOpen={true} onRequestClose={closeModal} className={styles.data_modal} overlayClassName="Overlay">
       <div className={styles.modal_container}>
         <div className={styles.modal_title}>
           <h6>Liste des contacts ajoutés</h6>
@@ -74,7 +67,7 @@ export default function AppViewToolsViewMenuViewCreateEnterpriseModalViewContact
         </div>
 
         <div className={styles.modal_buttons}>
-          <button className="btn btn-secondary" onClick={() => onClose()}>
+          <button className="btn btn-secondary" onClick={closeModal}>
             Valider
           </button>
         </div>

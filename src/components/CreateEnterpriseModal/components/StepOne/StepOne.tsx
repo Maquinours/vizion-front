@@ -1,12 +1,12 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Controller, useForm } from 'react-hook-form';
 import * as yup from 'yup';
-import CardComponent from '../../../../../../../../../../components/Card/Card';
-import CategoryClient from '../../../../../../../../../../utils/enums/CategoryClient';
-import countries from '../../../../../../../../../../utils/constants/countries';
 import PhoneInput from 'react-phone-number-input/input';
 import styles from './StepOne.module.scss';
 import { E164Number } from 'libphonenumber-js';
+import CardComponent from '../../../Card/Card';
+import CategoryClient from '../../../../utils/enums/CategoryClient';
+import countries from '../../../../utils/constants/countries';
 
 const zipCodeRegex = /([A-Z0-9]{5})$/;
 
@@ -71,14 +71,11 @@ const yupSchema = yup.object().shape({
 
 export type CreateEnterpriseStepOneDataType = yup.InferType<typeof yupSchema>;
 
-type AppViewToolsViewMenuViewCreateEnterpriseModalViewStepOneComponentProps = Readonly<{
+type CreateEnterpriseModalComponentStepOneComponentProps = Readonly<{
   show: boolean;
   onSubmit: (data: CreateEnterpriseStepOneDataType) => void;
 }>;
-export default function AppViewToolsViewMenuViewCreateEnterpriseModalViewStepOneComponent({
-  show,
-  onSubmit,
-}: AppViewToolsViewMenuViewCreateEnterpriseModalViewStepOneComponentProps) {
+export default function CreateEnterpriseModalComponentStepOneComponent({ show, onSubmit }: CreateEnterpriseModalComponentStepOneComponentProps) {
   const {
     register,
     control,

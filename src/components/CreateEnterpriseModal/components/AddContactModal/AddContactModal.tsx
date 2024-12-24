@@ -1,6 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useQuery } from '@tanstack/react-query';
-import { getRouteApi } from '@tanstack/react-router';
 import { E164Number } from 'libphonenumber-js';
 import { useContext, useEffect, useState } from 'react';
 import { Controller, useForm, useWatch } from 'react-hook-form';
@@ -11,13 +10,11 @@ import ReactModal from 'react-modal';
 import PhoneInput from 'react-phone-number-input/input';
 import { toast } from 'react-toastify';
 import * as yup from 'yup';
-import { getEmailExists, getIdentifierExists } from '../../../../../../../../../../utils/api/profile';
-import ProfileClient from '../../../../../../../../../../utils/enums/ProfileClient';
-import { checkPassword, generatePassword } from '../../../../../../../../../../utils/functions/passwords';
+import { getEmailExists, getIdentifierExists } from '../../../../utils/api/profile';
+import ProfileClient from '../../../../utils/enums/ProfileClient';
+import { checkPassword, generatePassword } from '../../../../utils/functions/passwords';
 import { CreateEnterpriseContext } from '../../utils/contexts/context';
 import styles from './AddContactModal.module.scss';
-
-const routeApi = getRouteApi('/app/tools/menu/create-enterprise/add-contact');
 
 const profileClientOptions = [
   { value: '', text: 'Choisir' },
@@ -90,9 +87,7 @@ const yupSchema = yup.object().shape({
   profileClient: yup.mixed<ProfileClient>().oneOf(Object.values(ProfileClient), 'Champs requis').required('Champs requis'),
 });
 
-export default function AppViewToolsViewMenuViewCreateEnterpriseModalViewAddContactModalView() {
-  const navigate = routeApi.useNavigate();
-
+export default function CreateEnterpriseModalComponentAddContactModalComponent() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [validationRules, setValidationRules] = useState<{
@@ -106,7 +101,7 @@ export default function AppViewToolsViewMenuViewCreateEnterpriseModalViewAddCont
     };
   }>();
 
-  const { setContacts } = useContext(CreateEnterpriseContext)!;
+  const { setContacts, closeModal } = useContext(CreateEnterpriseContext)!;
 
   const {
     register,
@@ -157,13 +152,9 @@ export default function AppViewToolsViewMenuViewCreateEnterpriseModalViewAddCont
         });
   };
 
-  const onClose = () => {
-    navigate({ to: '..', search: true, replace: true });
-  };
-
   const onSubmit = (data: yup.InferType<typeof yupSchema>) => {
     setContacts((prev) => [...prev, { ...data, expert: data.expert === 'yes' }]);
-    onClose();
+    closeModal();
   };
 
   useEffect(() => {
@@ -171,7 +162,7 @@ export default function AppViewToolsViewMenuViewCreateEnterpriseModalViewAddCont
   }, [password]);
 
   return (
-    <ReactModal isOpen={true} onRequestClose={onClose} className="Modal" overlayClassName="Overlay">
+    <ReactModal isOpen={true} onRequestClose={closeModal} className="Modal" overlayClassName="Overlay">
       <div className={styles.modal}>
         <div className={styles.modal_title}>
           <h6>Ajouter un contact</h6>
@@ -425,7 +416,7 @@ export default function AppViewToolsViewMenuViewCreateEnterpriseModalViewAddCont
             </div>
           </div>
           <div className={styles.modal_buttons}>
-            <button className="btn btn-primary-light" onClick={() => onClose()}>
+            <button className="btn btn-primary-light" onClick={closeModal}>
               Annuler
             </button>
             <button className="btn btn-secondary" type="submit">

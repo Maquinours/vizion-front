@@ -1,9 +1,9 @@
 import { getRouteApi } from '@tanstack/react-router';
-import CreateEnterpriseModalComponent from '../../../../../../../../components/CreateEnterpriseModal/CreateEnterpriseModal';
+import CreateEnterpriseModalComponent from '../../../../../../components/CreateEnterpriseModal/CreateEnterpriseModal';
 
-const routeApi = getRouteApi('/app/tools/menu/create-enterprise');
+const routeApi = getRouteApi('/app/enterprises/create');
 
-export default function AppViewToolsViewMenuViewCreateEnterpriseModalView() {
+export default function AppViewEnterprisesViewCreateModalView() {
   const navigate = routeApi.useNavigate();
 
   const onClose = () => {
