@@ -30,7 +30,7 @@ export default function AppViewProductsViewSerialNumbersModalView() {
             <div className={styles.buttons_container}>
               <AppViewProductsViewSerialNumbersModalViewSearchSectionComponent />
               <div className={styles.add_button}>
-                <Link from={routeApi.id} to="create" search replace resetScroll={false} className="btn btn-secondary">
+                <Link from={routeApi.id} to="create" search replace resetScroll={false} preload="intent" className="btn btn-secondary">
                   Ajouter
                 </Link>
               </div>
