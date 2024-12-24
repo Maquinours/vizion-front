@@ -1,11 +1,11 @@
 import { useForm } from 'react-hook-form';
-import CardComponent from '../../../../../../../../../../components/Card/Card';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import styles from './StepOne.module.scss';
 import { useQuery } from '@tanstack/react-query';
-import { queries } from '../../../../../../../../../../utils/constants/queryKeys';
-import EnterpriseResponseDto from '../../../../../../../../../../utils/types/EnterpriseResponseDto';
+import EnterpriseResponseDto from '../../../../utils/types/EnterpriseResponseDto';
+import { queries } from '../../../../utils/constants/queryKeys';
+import CardComponent from '../../../Card/Card';
 
 const categories = [
   {
@@ -71,14 +71,11 @@ const yupSchema = yup.object().shape({
 
 export type CreateProductStepOneType = yup.InferType<typeof yupSchema>;
 
-type AppViewToolsViewMenuViewCreateProductModalViewStepOneComponentProps = Readonly<{
+type CreateProductModalComponentStepOneComponentProps = Readonly<{
   show: boolean;
   onSubmit: (data: CreateProductStepOneType) => void;
 }>;
-export default function AppViewToolsViewMenuViewCreateProductModalViewStepOneComponent({
-  show,
-  onSubmit,
-}: AppViewToolsViewMenuViewCreateProductModalViewStepOneComponentProps) {
+export default function CreateProductModalComponentStepOneComponent({ show, onSubmit }: CreateProductModalComponentStepOneComponentProps) {
   const { data: providers, isLoading: isLoadingProviders } = useQuery(queries.enterprise.list._ctx.providers);
 
   const {

@@ -48,6 +48,7 @@ import { Route as AppToolsDdnsRouteImport } from './routes/app/tools/ddns/route'
 import { Route as AppToolsCreditRouteImport } from './routes/app/tools/credit/route'
 import { Route as AppProductsProductIdRouteImport } from './routes/app/products_.$productId/route'
 import { Route as AppProductsSerialNumbersRouteImport } from './routes/app/products/serial-numbers/route'
+import { Route as AppProductsCreateRouteImport } from './routes/app/products/create/route'
 import { Route as AppFaqCreateRouteImport } from './routes/app/faq/create/route'
 import { Route as AppExternalLinksExternalLinkIdRouteImport } from './routes/app/external-links_.$externalLinkId/route'
 import { Route as AppEnterprisesEnterpriseIdRouteImport } from './routes/app/enterprises_.$enterpriseId/route'
@@ -637,6 +638,14 @@ const AppProductsSerialNumbersRouteRoute =
       (d) => d.Route,
     ),
   )
+
+const AppProductsCreateRouteRoute = AppProductsCreateRouteImport.update({
+  id: '/create',
+  path: '/create',
+  getParentRoute: () => AppProductsRouteRoute,
+} as any).lazy(() =>
+  import('./routes/app/products/create/route.lazy').then((d) => d.Route),
+)
 
 const AppFaqCreateRouteRoute = AppFaqCreateRouteImport.update({
   id: '/create',
@@ -3799,6 +3808,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppFaqCreateRouteImport
       parentRoute: typeof AppFaqRouteImport
     }
+    '/app/products/create': {
+      id: '/app/products/create'
+      path: '/create'
+      fullPath: '/app/products/create'
+      preLoaderRoute: typeof AppProductsCreateRouteImport
+      parentRoute: typeof AppProductsRouteImport
+    }
     '/app/products/serial-numbers': {
       id: '/app/products/serial-numbers'
       path: '/serial-numbers'
@@ -5946,10 +5962,12 @@ const AppProductsSerialNumbersRouteRouteWithChildren =
   )
 
 interface AppProductsRouteRouteChildren {
+  AppProductsCreateRouteRoute: typeof AppProductsCreateRouteRoute
   AppProductsSerialNumbersRouteRoute: typeof AppProductsSerialNumbersRouteRouteWithChildren
 }
 
 const AppProductsRouteRouteChildren: AppProductsRouteRouteChildren = {
+  AppProductsCreateRouteRoute: AppProductsCreateRouteRoute,
   AppProductsSerialNumbersRouteRoute:
     AppProductsSerialNumbersRouteRouteWithChildren,
 }
@@ -7357,6 +7375,7 @@ export interface FileRoutesByFullPath {
   '/app/enterprises/$enterpriseId': typeof AppEnterprisesEnterpriseIdRouteRouteWithChildren
   '/app/external-links/$externalLinkId': typeof AppExternalLinksExternalLinkIdRouteRoute
   '/app/faq/create': typeof AppFaqCreateRouteRoute
+  '/app/products/create': typeof AppProductsCreateRouteRoute
   '/app/products/serial-numbers': typeof AppProductsSerialNumbersRouteRouteWithChildren
   '/app/products/$productId': typeof AppProductsProductIdRouteRouteWithChildren
   '/app/tools/credit': typeof AppToolsCreditRouteRouteWithChildren
@@ -7658,6 +7677,7 @@ export interface FileRoutesByTo {
   '/app/enterprises/$enterpriseId': typeof AppEnterprisesEnterpriseIdRouteRouteWithChildren
   '/app/external-links/$externalLinkId': typeof AppExternalLinksExternalLinkIdRouteRoute
   '/app/faq/create': typeof AppFaqCreateRouteRoute
+  '/app/products/create': typeof AppProductsCreateRouteRoute
   '/app/products/serial-numbers': typeof AppProductsSerialNumbersRouteRouteWithChildren
   '/app/tools/credit': typeof AppToolsCreditRouteRouteWithChildren
   '/app/tools/ddns': typeof AppToolsDdnsRouteRouteWithChildren
@@ -7959,6 +7979,7 @@ export interface FileRoutesById {
   '/app/enterprises_/$enterpriseId': typeof AppEnterprisesEnterpriseIdRouteRouteWithChildren
   '/app/external-links_/$externalLinkId': typeof AppExternalLinksExternalLinkIdRouteRoute
   '/app/faq/create': typeof AppFaqCreateRouteRoute
+  '/app/products/create': typeof AppProductsCreateRouteRoute
   '/app/products/serial-numbers': typeof AppProductsSerialNumbersRouteRouteWithChildren
   '/app/products_/$productId': typeof AppProductsProductIdRouteRouteWithChildren
   '/app/tools/credit': typeof AppToolsCreditRouteRouteWithChildren
@@ -8265,6 +8286,7 @@ export interface FileRouteTypes {
     | '/app/enterprises/$enterpriseId'
     | '/app/external-links/$externalLinkId'
     | '/app/faq/create'
+    | '/app/products/create'
     | '/app/products/serial-numbers'
     | '/app/products/$productId'
     | '/app/tools/credit'
@@ -8565,6 +8587,7 @@ export interface FileRouteTypes {
     | '/app/enterprises/$enterpriseId'
     | '/app/external-links/$externalLinkId'
     | '/app/faq/create'
+    | '/app/products/create'
     | '/app/products/serial-numbers'
     | '/app/tools/credit'
     | '/app/tools/ddns'
@@ -8864,6 +8887,7 @@ export interface FileRouteTypes {
     | '/app/enterprises_/$enterpriseId'
     | '/app/external-links_/$externalLinkId'
     | '/app/faq/create'
+    | '/app/products/create'
     | '/app/products/serial-numbers'
     | '/app/products_/$productId'
     | '/app/tools/credit'
@@ -9271,6 +9295,7 @@ export const routeTree = rootRoute
       "filePath": "app/products/route.ts",
       "parent": "/app",
       "children": [
+        "/app/products/create",
         "/app/products/serial-numbers"
       ]
     },
@@ -9378,6 +9403,10 @@ export const routeTree = rootRoute
     "/app/faq/create": {
       "filePath": "app/faq/create/route.ts",
       "parent": "/app/faq"
+    },
+    "/app/products/create": {
+      "filePath": "app/products/create/route.ts",
+      "parent": "/app/products"
     },
     "/app/products/serial-numbers": {
       "filePath": "app/products/serial-numbers/route.ts",

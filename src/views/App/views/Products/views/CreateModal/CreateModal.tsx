@@ -1,9 +1,9 @@
 import { getRouteApi } from '@tanstack/react-router';
-import CreateProductModalComponent from '../../../../../../../../components/CreateProductModal/CreateProductModal';
+import CreateProductModalComponent from '../../../../../../components/CreateProductModal/CreateProductModal';
 
-const routeApi = getRouteApi('/app/tools/menu/create-product');
+const routeApi = getRouteApi('/app/products/create');
 
-export default function AppViewToolsMenuViewCreateProductModalView() {
+export default function AppViewProductsViewCreateModalView() {
   const navigate = routeApi.useNavigate();
 
   const onClose = () => {

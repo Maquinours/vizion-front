@@ -3,10 +3,10 @@ import { useEffect } from 'react';
 import { Controller, useForm, useWatch } from 'react-hook-form';
 import { PulseLoader } from 'react-spinners';
 import * as yup from 'yup';
-import AmountFormat from '../../../../../../../../../../components/AmountFormat/AmountFormat';
-import CardComponent from '../../../../../../../../../../components/Card/Card';
-import CurrencyFormat from '../../../../../../../../../../components/CurrencyFormat/CurrencyFormat';
 import styles from './StepTwo.module.scss';
+import CardComponent from '../../../Card/Card';
+import CurrencyFormat from '../../../CurrencyFormat/CurrencyFormat';
+import AmountFormat from '../../../AmountFormat/AmountFormat';
 
 const assistanceHours = [
   {
@@ -44,18 +44,18 @@ const yupSchema = yup.object().shape({
 
 export type CreateProductStepTwoType = yup.InferType<typeof yupSchema>;
 
-type AppViewToolsViewMenuViewCreateProductModalViewStepTwoComponentProps = Readonly<{
+type CreateProductModalComponentStepTwoComponentProps = Readonly<{
   show: boolean;
   goToPreviousStep: () => void;
   onSubmit: (data: CreateProductStepTwoType) => void;
   isPending: boolean;
 }>;
-export default function AppViewToolsViewMenuViewCreateProductModalViewStepTwoComponent({
+export default function CreateProductModalComponentStepTwoComponent({
   show,
   goToPreviousStep,
   onSubmit,
   isPending,
-}: AppViewToolsViewMenuViewCreateProductModalViewStepTwoComponentProps) {
+}: CreateProductModalComponentStepTwoComponentProps) {
   const {
     register,
     control,

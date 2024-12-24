@@ -9,6 +9,11 @@ export default function AppViewProductsViewButtonsComponent() {
 
   return (
     <div className={styles.buttons_container}>
+      {user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && (
+        <Link from={routeApi.id} to="create" search replace resetScroll={false} preload="intent" className="btn btn-secondary">
+          Ajouter un produit
+        </Link>
+      )}
       {(user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') || user.profile.expert) && (
         <Link from={routeApi.id} to="serial-numbers" search replace resetScroll={false} preload="intent" className="btn btn-secondary">
           Numéros de série
