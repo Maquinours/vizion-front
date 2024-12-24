@@ -144,10 +144,10 @@ export default function AppViewBusinessViewQuotationViewTableComponent() {
                     ))}
                     {subQuotation.name !== 'Default' && !hideTotal && (
                       <tr>
-                        <td colSpan={9} style={{ textAlign: 'right', width: '84%' }}>
+                        <td colSpan={8} style={{ width: '88%', textAlign: 'right' }}>
                           SOUS TOTAL {subQuotation.name} HT
                         </td>
-                        <td colSpan={1} style={{ textAlign: 'center', width: '16%' }}>
+                        <td colSpan={1} style={{ width: '12%', textAlign: 'center' }}>
                           <CurrencyFormat value={subQuotation.quotationDetails?.reduce((acc, detail) => acc + (detail.totalPrice ?? 0), 0)} />
                         </td>
                       </tr>

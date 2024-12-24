@@ -54,8 +54,8 @@
         }
 
         td {
-          padding: 0 0.5rem;
-          text-align: left;
+          padding: 0.5rem;
+          text-align: center;
           font: normal normal normal 14px/18px 'DIN2014';
           letter-spacing: 0px;
           color: #16204e;
@@ -153,7 +153,7 @@
                 cursor: pointer;
               }
 
-              & > div {
+              &>div {
                 display: none;
                 position: absolute;
                 width: 150px;
@@ -198,7 +198,7 @@
                 }
               }
 
-              & > div::after {
+              &>div::after {
                 content: '';
                 position: absolute;
                 top: 13px;
@@ -212,7 +212,7 @@
               }
 
               &:hover {
-                & > div {
+                &>div {
                   display: initial;
                 }
               }
@@ -250,16 +250,16 @@
     tr {
       th {
         height: 35px;
-        text-align: left;
+        text-align: center;
         font: normal normal normal 14px/18px 'DIN2014';
         letter-spacing: 0px;
         color: #ebeef8;
         opacity: 1;
-        padding: 0.2rem 0.5rem;
+        padding: 0.5rem;
         border-right: 1px solid #686e89;
 
         @include mixins.respond-below(md) {
-          & > div {
+          &>div {
             width: 100px;
           }
         }
@@ -299,13 +299,6 @@
 
         &:nth-child(9) {
           width: 10%;
-          text-align: center;
-        }
-
-        &:nth-child(10) {
-          width: 5%;
-          border-right: none;
-          border-top-right-radius: 5px;
           text-align: center;
         }
 
