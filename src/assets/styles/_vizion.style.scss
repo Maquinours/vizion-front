@@ -481,7 +481,7 @@ button[type='submit'].btn {
   background: rgba(0, 0, 0, 0.25) 0% 0% no-repeat padding-box;
   overflow-y: auto;
 
-  &>div {
+  & > div {
     outline: none;
   }
 
