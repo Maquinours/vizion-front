@@ -84,7 +84,7 @@ export default function AppViewDashboardViewPersonalTasksComponentTableComponent
             const sender = members?.find((member) => member.id === original.senderId);
             item = (
               <>
-                {parse(DOMPurify.sanitize(original.content ?? ''))}
+                <div className="ql-editor">{parse(DOMPurify.sanitize(original.content ?? ''))}</div>
                 <div className={styles.tag}>
                   {original.profileId !== original.senderId && currentUser.profile.id !== original.senderId && (
                     <span>{sender ? `De ${sender.firstName} ${sender.lastName}` : ''} </span>
@@ -117,6 +117,7 @@ export default function AppViewDashboardViewPersonalTasksComponentTableComponent
             return (
               <Link to="/app/businesses-rma/business/$businessId" params={{ businessId: original.businessId }}>
                 {original.businessNum}
+                {original.businessName ? ` (${original.businessName})` : ''}
               </Link>
             );
           if (original.rmaId)

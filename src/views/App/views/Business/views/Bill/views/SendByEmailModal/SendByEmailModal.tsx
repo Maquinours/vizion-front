@@ -25,12 +25,6 @@ export default function AppViewBusinessViewBillViewSendByEmailModalView() {
     <SendEmailModalComponent
       isOpen={true}
       onClose={onClose}
-      predefinedMessagesModalLink={{
-        to: '/app/businesses-rma/business/$businessId/bill/send-by-email/predefined-messages',
-        search: true,
-        replace: true,
-        resetScroll: false,
-      }}
       defaultSubject={`Facture ${bill.number}`}
       defaultContent="Bonjour, <br /> <br />Ci-joint, votre facture."
       defaultAttachments={[file]}

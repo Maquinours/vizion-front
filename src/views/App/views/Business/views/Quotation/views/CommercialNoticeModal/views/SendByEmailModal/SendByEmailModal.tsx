@@ -44,13 +44,6 @@ export default function AppViewBusinessViewQuotationViewCommercialNoticeModalVie
     <SendEmailModalComponent
       isOpen={true}
       onClose={onClose}
-      predefinedMessagesModalLink={{
-        to: '/app/businesses-rma/business/$businessId/quotation/commercial-notice/send-by-email/predefined-messages',
-        search: true,
-        replace: true,
-        resetScroll: false,
-        ignoreBlocker: true,
-      }}
       defaultRecipient={[business.profileEmail!]}
       defaultCc={representative?.profiles.filter((profile) => profile.civility === 'Service').map((service) => service.email!)}
       defaultSubject={`Devis ${business.numBusiness}`}

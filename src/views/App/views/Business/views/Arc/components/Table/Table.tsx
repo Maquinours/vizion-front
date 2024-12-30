@@ -32,7 +32,9 @@ export default function AppViewBusinessViewArcViewTableComponent() {
       columnHelper.display({
         header: 'Image',
         cell: ({ row: { original } }) => (
-          <img src={`https://bd.vizeo.eu/6-Photos/${original.productReference}/MINI_${original.productReference}.jpg`} alt={original.productReference} />
+          <div className="flex h-full w-full items-center justify-center">
+            <img src={`https://bd.vizeo.eu/6-Photos/${original.productReference}/MINI_${original.productReference}.jpg`} alt={original.productReference} />
+          </div>
         ),
       }),
       columnHelper.display({

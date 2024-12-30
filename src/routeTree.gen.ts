@@ -48,9 +48,11 @@ import { Route as AppToolsDdnsRouteImport } from './routes/app/tools/ddns/route'
 import { Route as AppToolsCreditRouteImport } from './routes/app/tools/credit/route'
 import { Route as AppProductsProductIdRouteImport } from './routes/app/products_.$productId/route'
 import { Route as AppProductsSerialNumbersRouteImport } from './routes/app/products/serial-numbers/route'
+import { Route as AppProductsCreateRouteImport } from './routes/app/products/create/route'
 import { Route as AppFaqCreateRouteImport } from './routes/app/faq/create/route'
 import { Route as AppExternalLinksExternalLinkIdRouteImport } from './routes/app/external-links_.$externalLinkId/route'
 import { Route as AppEnterprisesEnterpriseIdRouteImport } from './routes/app/enterprises_.$enterpriseId/route'
+import { Route as AppEnterprisesCreateRouteImport } from './routes/app/enterprises/create/route'
 import { Route as AppDashboardDeleteCollectiveTasksRouteImport } from './routes/app/dashboard/delete-collective-tasks/route'
 import { Route as AppDashboardCreateProgressiveInfoRouteImport } from './routes/app/dashboard/create-progressive-info/route'
 import { Route as AppDashboardCreatePersonalTaskRouteImport } from './routes/app/dashboard/create-personal-task/route'
@@ -134,8 +136,6 @@ import { Route as AppToolsPredefinedMessagesUpdatePredefinedMessageIdRouteImport
 import { Route as AppToolsPredefinedMessagesDeletePredefinedMessageIdRouteImport } from './routes/app/tools/predefined-messages/delete.$predefinedMessageId/route'
 import { Route as AppToolsNewsUpdateNewsIdRouteImport } from './routes/app/tools/news/update.$newsId/route'
 import { Route as AppToolsNewsDeleteNewsIdRouteImport } from './routes/app/tools/news/delete.$newsId/route'
-import { Route as AppToolsMenuCreateEnterpriseContactsRouteImport } from './routes/app/tools/menu/create-enterprise/contacts/route'
-import { Route as AppToolsMenuCreateEnterpriseAddContactRouteImport } from './routes/app/tools/menu/create-enterprise/add-contact/route'
 import { Route as AppToolsMailsUpdateMailIdRouteImport } from './routes/app/tools/mails/update.$mailId/route'
 import { Route as AppToolsMailsShowMailIdRouteImport } from './routes/app/tools/mails/show.$mailId/route'
 import { Route as AppToolsMailsDeleteMailIdRouteImport } from './routes/app/tools/mails/delete.$mailId/route'
@@ -286,7 +286,6 @@ import { Route as AppBusinessesRmaBusinessBusinessIdQuotationCreateAssociatedDet
 import { Route as AppBusinessesRmaBusinessBusinessIdQuotationCommercialNoticeSendByEmailRouteImport } from './routes/app/businesses-rma_/business.$businessId/quotation/commercial-notice/send-by-email/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdDashboardUnlinkTaskTaskIdRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/unlink-task.$taskId/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdDashboardTaskEmailTaskIdRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/task-email.$taskId/route'
-import { Route as AppBusinessesRmaBusinessBusinessIdDashboardSendEmailPredefinedMessagesRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/send-email/predefined-messages/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdDashboardRenameGedObjectObjectRelativePathRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/rename-ged-object.$objectRelativePath/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdDashboardLifesheetEmailLifesheetIdRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/lifesheet-email.$lifesheetId/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/email-history/$emailId/route'
@@ -300,28 +299,19 @@ import { Route as AppBusinessesRmaBusinessBusinessIdBpDeleteDetailDetailIdRouteI
 import { Route as AppBusinessesRmaBusinessBusinessIdBpCreateSerialRmaSerialIdRouteImport } from './routes/app/businesses-rma_/business.$businessId/bp/create-serial-rma.$serialId/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdBpCreateDetailRmaDetailIdRouteImport } from './routes/app/businesses-rma_/business.$businessId/bp/create-detail-rma.$detailId/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdBpAddSerialDetailIdRouteImport } from './routes/app/businesses-rma_/business.$businessId/bp/add-serial.$detailId/route'
-import { Route as AppBusinessesRmaBusinessBusinessIdBlSendByEmailPredefinedMessagesRouteImport } from './routes/app/businesses-rma_/business.$businessId/bl/send-by-email/predefined-messages/route'
-import { Route as AppBusinessesRmaBusinessBusinessIdBillSendByEmailPredefinedMessagesRouteImport } from './routes/app/businesses-rma_/business.$businessId/bill/send-by-email/predefined-messages/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdBillCreditsSendByEmailRouteImport } from './routes/app/businesses-rma_/business.$businessId/bill/credits/send-by-email/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdArcUpdateDetailDetailIdRouteImport } from './routes/app/businesses-rma_/business.$businessId/arc/update-detail.$detailId/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdArcPdfSendByEmailRouteImport } from './routes/app/businesses-rma_/business.$businessId/arc/pdf/send-by-email/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdArcDeleteDetailDetailIdRouteImport } from './routes/app/businesses-rma_/business.$businessId/arc/delete-detail.$detailId/route'
 import { Route as AppBusinessesRmaRmaRmaIdSupportTaskEmailTaskIdReplyRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/support/task-email.$taskId/reply/route'
-import { Route as AppBusinessesRmaRmaRmaIdSupportPdfSendByEmailPredefinedMessagesRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/support/pdf/send-by-email/predefined-messages/route'
-import { Route as AppBusinessesRmaRmaRmaIdReceptionPdfSendByEmailPredefinedMessagesRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/reception/pdf/send-by-email/predefined-messages/route'
-import { Route as AppBusinessesRmaRmaRmaIdDeliveryPdfSendByEmailPredefinedMessagesRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/delivery/pdf/send-by-email/predefined-messages/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdRenameGedObjectObjectRelativePathRouteImport } from './routes/app/businesses-rma_/business.$businessId_/assistance.$assistanceId/rename-ged-object.$objectRelativePath/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdPdfSendByEmailRouteImport } from './routes/app/businesses-rma_/business.$businessId_/assistance.$assistanceId/pdf/send-by-email/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdLifesheetEmailLifesheetIdRouteImport } from './routes/app/businesses-rma_/business.$businessId_/assistance.$assistanceId/lifesheet-email.$lifesheetId/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdDeleteGedObjectObjectRelativePathRouteImport } from './routes/app/businesses-rma_/business.$businessId_/assistance.$assistanceId/delete-ged-object.$objectRelativePath/route'
-import { Route as AppBusinessesRmaBusinessBusinessIdQuotationPdfSendByEmailPredefinedMessagesRouteImport } from './routes/app/businesses-rma_/business.$businessId/quotation/pdf/send-by-email/predefined-messages/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdQuotationCommercialNoticeSendByEmailPredefinedMessagesRouteImport } from './routes/app/businesses-rma_/business.$businessId/quotation/commercial-notice/send-by-email/predefined-messages/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdReplyRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/email-history/$emailId/reply/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdDashboardAddressBookUpdateAddressIdRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/address-book/update.$addressId/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdDashboardAddressBookDeleteAddressIdRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/address-book/delete.$addressId/route'
-import { Route as AppBusinessesRmaBusinessBusinessIdBillCreditsSendByEmailPredefinedMessagesRouteImport } from './routes/app/businesses-rma_/business.$businessId/bill/credits/send-by-email/predefined-messages/route'
-import { Route as AppBusinessesRmaBusinessBusinessIdArcPdfSendByEmailPredefinedMessagesRouteImport } from './routes/app/businesses-rma_/business.$businessId/arc/pdf/send-by-email/predefined-messages/route'
-import { Route as AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdPdfSendByEmailPredefinedMessagesRouteImport } from './routes/app/businesses-rma_/business.$businessId_/assistance.$assistanceId/pdf/send-by-email/predefined-messages/route'
 
 // Create Virtual Routes
 
@@ -649,6 +639,14 @@ const AppProductsSerialNumbersRouteRoute =
     ),
   )
 
+const AppProductsCreateRouteRoute = AppProductsCreateRouteImport.update({
+  id: '/create',
+  path: '/create',
+  getParentRoute: () => AppProductsRouteRoute,
+} as any).lazy(() =>
+  import('./routes/app/products/create/route.lazy').then((d) => d.Route),
+)
+
 const AppFaqCreateRouteRoute = AppFaqCreateRouteImport.update({
   id: '/create',
   path: '/create',
@@ -678,6 +676,14 @@ const AppEnterprisesEnterpriseIdRouteRoute =
       (d) => d.Route,
     ),
   )
+
+const AppEnterprisesCreateRouteRoute = AppEnterprisesCreateRouteImport.update({
+  id: '/create',
+  path: '/create',
+  getParentRoute: () => AppEnterprisesRouteRoute,
+} as any).lazy(() =>
+  import('./routes/app/enterprises/create/route.lazy').then((d) => d.Route),
+)
 
 const AppDashboardDeleteCollectiveTasksRouteRoute =
   AppDashboardDeleteCollectiveTasksRouteImport.update({
@@ -1548,28 +1554,6 @@ const AppToolsNewsDeleteNewsIdRouteRoute =
     import('./routes/app/tools/news/delete.$newsId/route.lazy').then(
       (d) => d.Route,
     ),
-  )
-
-const AppToolsMenuCreateEnterpriseContactsRouteRoute =
-  AppToolsMenuCreateEnterpriseContactsRouteImport.update({
-    id: '/contacts',
-    path: '/contacts',
-    getParentRoute: () => AppToolsMenuCreateEnterpriseRouteRoute,
-  } as any).lazy(() =>
-    import(
-      './routes/app/tools/menu/create-enterprise/contacts/route.lazy'
-    ).then((d) => d.Route),
-  )
-
-const AppToolsMenuCreateEnterpriseAddContactRouteRoute =
-  AppToolsMenuCreateEnterpriseAddContactRouteImport.update({
-    id: '/add-contact',
-    path: '/add-contact',
-    getParentRoute: () => AppToolsMenuCreateEnterpriseRouteRoute,
-  } as any).lazy(() =>
-    import(
-      './routes/app/tools/menu/create-enterprise/add-contact/route.lazy'
-    ).then((d) => d.Route),
   )
 
 const AppToolsMailsUpdateMailIdRouteRoute =
@@ -3319,20 +3303,6 @@ const AppBusinessesRmaBusinessBusinessIdDashboardTaskEmailTaskIdRouteRoute =
     ).then((d) => d.Route),
   )
 
-const AppBusinessesRmaBusinessBusinessIdDashboardSendEmailPredefinedMessagesRouteRoute =
-  AppBusinessesRmaBusinessBusinessIdDashboardSendEmailPredefinedMessagesRouteImport.update(
-    {
-      id: '/predefined-messages',
-      path: '/predefined-messages',
-      getParentRoute: () =>
-        AppBusinessesRmaBusinessBusinessIdDashboardSendEmailRouteRoute,
-    } as any,
-  ).lazy(() =>
-    import(
-      './routes/app/businesses-rma_/business.$businessId/dashboard/send-email/predefined-messages/route.lazy'
-    ).then((d) => d.Route),
-  )
-
 const AppBusinessesRmaBusinessBusinessIdDashboardRenameGedObjectObjectRelativePathRouteRoute =
   AppBusinessesRmaBusinessBusinessIdDashboardRenameGedObjectObjectRelativePathRouteImport.update(
     {
@@ -3501,34 +3471,6 @@ const AppBusinessesRmaBusinessBusinessIdBpAddSerialDetailIdRouteRoute =
     ).then((d) => d.Route),
   )
 
-const AppBusinessesRmaBusinessBusinessIdBlSendByEmailPredefinedMessagesRouteRoute =
-  AppBusinessesRmaBusinessBusinessIdBlSendByEmailPredefinedMessagesRouteImport.update(
-    {
-      id: '/predefined-messages',
-      path: '/predefined-messages',
-      getParentRoute: () =>
-        AppBusinessesRmaBusinessBusinessIdBlSendByEmailRouteRoute,
-    } as any,
-  ).lazy(() =>
-    import(
-      './routes/app/businesses-rma_/business.$businessId/bl/send-by-email/predefined-messages/route.lazy'
-    ).then((d) => d.Route),
-  )
-
-const AppBusinessesRmaBusinessBusinessIdBillSendByEmailPredefinedMessagesRouteRoute =
-  AppBusinessesRmaBusinessBusinessIdBillSendByEmailPredefinedMessagesRouteImport.update(
-    {
-      id: '/predefined-messages',
-      path: '/predefined-messages',
-      getParentRoute: () =>
-        AppBusinessesRmaBusinessBusinessIdBillSendByEmailRouteRoute,
-    } as any,
-  ).lazy(() =>
-    import(
-      './routes/app/businesses-rma_/business.$businessId/bill/send-by-email/predefined-messages/route.lazy'
-    ).then((d) => d.Route),
-  )
-
 const AppBusinessesRmaBusinessBusinessIdBillCreditsSendByEmailRouteRoute =
   AppBusinessesRmaBusinessBusinessIdBillCreditsSendByEmailRouteImport.update({
     id: '/send-by-email',
@@ -3583,48 +3525,6 @@ const AppBusinessesRmaRmaRmaIdSupportTaskEmailTaskIdReplyRouteRoute =
   } as any).lazy(() =>
     import(
       './routes/app/businesses-rma_/rma.$rmaId/support/task-email.$taskId/reply/route.lazy'
-    ).then((d) => d.Route),
-  )
-
-const AppBusinessesRmaRmaRmaIdSupportPdfSendByEmailPredefinedMessagesRouteRoute =
-  AppBusinessesRmaRmaRmaIdSupportPdfSendByEmailPredefinedMessagesRouteImport.update(
-    {
-      id: '/predefined-messages',
-      path: '/predefined-messages',
-      getParentRoute: () =>
-        AppBusinessesRmaRmaRmaIdSupportPdfSendByEmailRouteRoute,
-    } as any,
-  ).lazy(() =>
-    import(
-      './routes/app/businesses-rma_/rma.$rmaId/support/pdf/send-by-email/predefined-messages/route.lazy'
-    ).then((d) => d.Route),
-  )
-
-const AppBusinessesRmaRmaRmaIdReceptionPdfSendByEmailPredefinedMessagesRouteRoute =
-  AppBusinessesRmaRmaRmaIdReceptionPdfSendByEmailPredefinedMessagesRouteImport.update(
-    {
-      id: '/predefined-messages',
-      path: '/predefined-messages',
-      getParentRoute: () =>
-        AppBusinessesRmaRmaRmaIdReceptionPdfSendByEmailRouteRoute,
-    } as any,
-  ).lazy(() =>
-    import(
-      './routes/app/businesses-rma_/rma.$rmaId/reception/pdf/send-by-email/predefined-messages/route.lazy'
-    ).then((d) => d.Route),
-  )
-
-const AppBusinessesRmaRmaRmaIdDeliveryPdfSendByEmailPredefinedMessagesRouteRoute =
-  AppBusinessesRmaRmaRmaIdDeliveryPdfSendByEmailPredefinedMessagesRouteImport.update(
-    {
-      id: '/predefined-messages',
-      path: '/predefined-messages',
-      getParentRoute: () =>
-        AppBusinessesRmaRmaRmaIdDeliveryPdfSendByEmailRouteRoute,
-    } as any,
-  ).lazy(() =>
-    import(
-      './routes/app/businesses-rma_/rma.$rmaId/delivery/pdf/send-by-email/predefined-messages/route.lazy'
     ).then((d) => d.Route),
   )
 
@@ -3684,20 +3584,6 @@ const AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdDeleteGedObjectObj
     ).then((d) => d.Route),
   )
 
-const AppBusinessesRmaBusinessBusinessIdQuotationPdfSendByEmailPredefinedMessagesRouteRoute =
-  AppBusinessesRmaBusinessBusinessIdQuotationPdfSendByEmailPredefinedMessagesRouteImport.update(
-    {
-      id: '/predefined-messages',
-      path: '/predefined-messages',
-      getParentRoute: () =>
-        AppBusinessesRmaBusinessBusinessIdQuotationPdfSendByEmailRouteRoute,
-    } as any,
-  ).lazy(() =>
-    import(
-      './routes/app/businesses-rma_/business.$businessId/quotation/pdf/send-by-email/predefined-messages/route.lazy'
-    ).then((d) => d.Route),
-  )
-
 const AppBusinessesRmaBusinessBusinessIdQuotationCommercialNoticeSendByEmailPredefinedMessagesRouteRoute =
   AppBusinessesRmaBusinessBusinessIdQuotationCommercialNoticeSendByEmailPredefinedMessagesRouteImport.update(
     {
@@ -3747,48 +3633,6 @@ const AppBusinessesRmaBusinessBusinessIdDashboardAddressBookDeleteAddressIdRoute
   ).lazy(() =>
     import(
       './routes/app/businesses-rma_/business.$businessId/dashboard/address-book/delete.$addressId/route.lazy'
-    ).then((d) => d.Route),
-  )
-
-const AppBusinessesRmaBusinessBusinessIdBillCreditsSendByEmailPredefinedMessagesRouteRoute =
-  AppBusinessesRmaBusinessBusinessIdBillCreditsSendByEmailPredefinedMessagesRouteImport.update(
-    {
-      id: '/predefined-messages',
-      path: '/predefined-messages',
-      getParentRoute: () =>
-        AppBusinessesRmaBusinessBusinessIdBillCreditsSendByEmailRouteRoute,
-    } as any,
-  ).lazy(() =>
-    import(
-      './routes/app/businesses-rma_/business.$businessId/bill/credits/send-by-email/predefined-messages/route.lazy'
-    ).then((d) => d.Route),
-  )
-
-const AppBusinessesRmaBusinessBusinessIdArcPdfSendByEmailPredefinedMessagesRouteRoute =
-  AppBusinessesRmaBusinessBusinessIdArcPdfSendByEmailPredefinedMessagesRouteImport.update(
-    {
-      id: '/predefined-messages',
-      path: '/predefined-messages',
-      getParentRoute: () =>
-        AppBusinessesRmaBusinessBusinessIdArcPdfSendByEmailRouteRoute,
-    } as any,
-  ).lazy(() =>
-    import(
-      './routes/app/businesses-rma_/business.$businessId/arc/pdf/send-by-email/predefined-messages/route.lazy'
-    ).then((d) => d.Route),
-  )
-
-const AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdPdfSendByEmailPredefinedMessagesRouteRoute =
-  AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdPdfSendByEmailPredefinedMessagesRouteImport.update(
-    {
-      id: '/predefined-messages',
-      path: '/predefined-messages',
-      getParentRoute: () =>
-        AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdPdfSendByEmailRouteRoute,
-    } as any,
-  ).lazy(() =>
-    import(
-      './routes/app/businesses-rma_/business.$businessId_/assistance.$assistanceId/pdf/send-by-email/predefined-messages/route.lazy'
     ).then((d) => d.Route),
   )
 
@@ -3936,6 +3780,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppDashboardDeleteCollectiveTasksRouteImport
       parentRoute: typeof AppDashboardRouteImport
     }
+    '/app/enterprises/create': {
+      id: '/app/enterprises/create'
+      path: '/create'
+      fullPath: '/app/enterprises/create'
+      preLoaderRoute: typeof AppEnterprisesCreateRouteImport
+      parentRoute: typeof AppEnterprisesRouteImport
+    }
     '/app/enterprises_/$enterpriseId': {
       id: '/app/enterprises_/$enterpriseId'
       path: '/enterprises/$enterpriseId'
@@ -3956,6 +3807,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/app/faq/create'
       preLoaderRoute: typeof AppFaqCreateRouteImport
       parentRoute: typeof AppFaqRouteImport
+    }
+    '/app/products/create': {
+      id: '/app/products/create'
+      path: '/create'
+      fullPath: '/app/products/create'
+      preLoaderRoute: typeof AppProductsCreateRouteImport
+      parentRoute: typeof AppProductsRouteImport
     }
     '/app/products/serial-numbers': {
       id: '/app/products/serial-numbers'
@@ -4937,20 +4795,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppToolsMailsUpdateMailIdRouteImport
       parentRoute: typeof AppToolsMailsRouteImport
     }
-    '/app/tools/menu/create-enterprise/add-contact': {
-      id: '/app/tools/menu/create-enterprise/add-contact'
-      path: '/add-contact'
-      fullPath: '/app/tools/menu/create-enterprise/add-contact'
-      preLoaderRoute: typeof AppToolsMenuCreateEnterpriseAddContactRouteImport
-      parentRoute: typeof AppToolsMenuCreateEnterpriseRouteImport
-    }
-    '/app/tools/menu/create-enterprise/contacts': {
-      id: '/app/tools/menu/create-enterprise/contacts'
-      path: '/contacts'
-      fullPath: '/app/tools/menu/create-enterprise/contacts'
-      preLoaderRoute: typeof AppToolsMenuCreateEnterpriseContactsRouteImport
-      parentRoute: typeof AppToolsMenuCreateEnterpriseRouteImport
-    }
     '/app/tools/news/delete/$newsId': {
       id: '/app/tools/news/delete/$newsId'
       path: '/delete/$newsId'
@@ -5497,20 +5341,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdBillCreditsSendByEmailRouteImport
       parentRoute: typeof AppBusinessesRmaBusinessBusinessIdBillCreditsRouteImport
     }
-    '/app/businesses-rma_/business/$businessId/bill/send-by-email/predefined-messages': {
-      id: '/app/businesses-rma_/business/$businessId/bill/send-by-email/predefined-messages'
-      path: '/predefined-messages'
-      fullPath: '/app/businesses-rma/business/$businessId/bill/send-by-email/predefined-messages'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdBillSendByEmailPredefinedMessagesRouteImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdBillSendByEmailRouteImport
-    }
-    '/app/businesses-rma_/business/$businessId/bl/send-by-email/predefined-messages': {
-      id: '/app/businesses-rma_/business/$businessId/bl/send-by-email/predefined-messages'
-      path: '/predefined-messages'
-      fullPath: '/app/businesses-rma/business/$businessId/bl/send-by-email/predefined-messages'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdBlSendByEmailPredefinedMessagesRouteImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdBlSendByEmailRouteImport
-    }
     '/app/businesses-rma_/business/$businessId/bp/add-serial/$detailId': {
       id: '/app/businesses-rma_/business/$businessId/bp/add-serial/$detailId'
       path: '/add-serial/$detailId'
@@ -5601,13 +5431,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/app/businesses-rma/business/$businessId/dashboard/rename-ged-object/$objectRelativePath'
       preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardRenameGedObjectObjectRelativePathRouteImport
       parentRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardRouteImport
-    }
-    '/app/businesses-rma_/business/$businessId/dashboard/send-email/predefined-messages': {
-      id: '/app/businesses-rma_/business/$businessId/dashboard/send-email/predefined-messages'
-      path: '/predefined-messages'
-      fullPath: '/app/businesses-rma/business/$businessId/dashboard/send-email/predefined-messages'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardSendEmailPredefinedMessagesRouteImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardSendEmailRouteImport
     }
     '/app/businesses-rma_/business/$businessId/dashboard/task-email/$taskId': {
       id: '/app/businesses-rma_/business/$businessId/dashboard/task-email/$taskId'
@@ -5868,20 +5691,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppToolsFormationsSubscribersFormationDetailIdSendEmailSubscriptionIdRouteImport
       parentRoute: typeof AppToolsFormationsSubscribersFormationDetailIdRouteImport
     }
-    '/app/businesses-rma_/business/$businessId/arc/pdf/send-by-email/predefined-messages': {
-      id: '/app/businesses-rma_/business/$businessId/arc/pdf/send-by-email/predefined-messages'
-      path: '/predefined-messages'
-      fullPath: '/app/businesses-rma/business/$businessId/arc/pdf/send-by-email/predefined-messages'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdArcPdfSendByEmailPredefinedMessagesRouteImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdArcPdfSendByEmailRouteImport
-    }
-    '/app/businesses-rma_/business/$businessId/bill/credits/send-by-email/predefined-messages': {
-      id: '/app/businesses-rma_/business/$businessId/bill/credits/send-by-email/predefined-messages'
-      path: '/predefined-messages'
-      fullPath: '/app/businesses-rma/business/$businessId/bill/credits/send-by-email/predefined-messages'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdBillCreditsSendByEmailPredefinedMessagesRouteImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdBillCreditsSendByEmailRouteImport
-    }
     '/app/businesses-rma_/business/$businessId/dashboard/address-book/delete/$addressId': {
       id: '/app/businesses-rma_/business/$businessId/dashboard/address-book/delete/$addressId'
       path: '/delete/$addressId'
@@ -5909,13 +5718,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/app/businesses-rma/business/$businessId/quotation/commercial-notice/send-by-email/predefined-messages'
       preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdQuotationCommercialNoticeSendByEmailPredefinedMessagesRouteImport
       parentRoute: typeof AppBusinessesRmaBusinessBusinessIdQuotationCommercialNoticeSendByEmailRouteImport
-    }
-    '/app/businesses-rma_/business/$businessId/quotation/pdf/send-by-email/predefined-messages': {
-      id: '/app/businesses-rma_/business/$businessId/quotation/pdf/send-by-email/predefined-messages'
-      path: '/predefined-messages'
-      fullPath: '/app/businesses-rma/business/$businessId/quotation/pdf/send-by-email/predefined-messages'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdQuotationPdfSendByEmailPredefinedMessagesRouteImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdQuotationPdfSendByEmailRouteImport
     }
     '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/delete-ged-object/$objectRelativePath': {
       id: '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/delete-ged-object/$objectRelativePath'
@@ -5945,40 +5747,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdRenameGedObjectObjectRelativePathRouteImport
       parentRoute: typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdRouteImport
     }
-    '/app/businesses-rma_/rma/$rmaId/delivery/pdf/send-by-email/predefined-messages': {
-      id: '/app/businesses-rma_/rma/$rmaId/delivery/pdf/send-by-email/predefined-messages'
-      path: '/predefined-messages'
-      fullPath: '/app/businesses-rma/rma/$rmaId/delivery/pdf/send-by-email/predefined-messages'
-      preLoaderRoute: typeof AppBusinessesRmaRmaRmaIdDeliveryPdfSendByEmailPredefinedMessagesRouteImport
-      parentRoute: typeof AppBusinessesRmaRmaRmaIdDeliveryPdfSendByEmailRouteImport
-    }
-    '/app/businesses-rma_/rma/$rmaId/reception/pdf/send-by-email/predefined-messages': {
-      id: '/app/businesses-rma_/rma/$rmaId/reception/pdf/send-by-email/predefined-messages'
-      path: '/predefined-messages'
-      fullPath: '/app/businesses-rma/rma/$rmaId/reception/pdf/send-by-email/predefined-messages'
-      preLoaderRoute: typeof AppBusinessesRmaRmaRmaIdReceptionPdfSendByEmailPredefinedMessagesRouteImport
-      parentRoute: typeof AppBusinessesRmaRmaRmaIdReceptionPdfSendByEmailRouteImport
-    }
-    '/app/businesses-rma_/rma/$rmaId/support/pdf/send-by-email/predefined-messages': {
-      id: '/app/businesses-rma_/rma/$rmaId/support/pdf/send-by-email/predefined-messages'
-      path: '/predefined-messages'
-      fullPath: '/app/businesses-rma/rma/$rmaId/support/pdf/send-by-email/predefined-messages'
-      preLoaderRoute: typeof AppBusinessesRmaRmaRmaIdSupportPdfSendByEmailPredefinedMessagesRouteImport
-      parentRoute: typeof AppBusinessesRmaRmaRmaIdSupportPdfSendByEmailRouteImport
-    }
     '/app/businesses-rma_/rma/$rmaId/support/task-email/$taskId/reply': {
       id: '/app/businesses-rma_/rma/$rmaId/support/task-email/$taskId/reply'
       path: '/reply'
       fullPath: '/app/businesses-rma/rma/$rmaId/support/task-email/$taskId/reply'
       preLoaderRoute: typeof AppBusinessesRmaRmaRmaIdSupportTaskEmailTaskIdReplyRouteImport
       parentRoute: typeof AppBusinessesRmaRmaRmaIdSupportTaskEmailTaskIdRouteImport
-    }
-    '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/pdf/send-by-email/predefined-messages': {
-      id: '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/pdf/send-by-email/predefined-messages'
-      path: '/predefined-messages'
-      fullPath: '/app/businesses-rma/business/$businessId/assistance/$assistanceId/pdf/send-by-email/predefined-messages'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdPdfSendByEmailPredefinedMessagesRouteImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdPdfSendByEmailRouteImport
     }
   }
 }
@@ -6084,6 +5858,7 @@ const AppDashboardRouteRouteWithChildren =
   AppDashboardRouteRoute._addFileChildren(AppDashboardRouteRouteChildren)
 
 interface AppEnterprisesRouteRouteChildren {
+  AppEnterprisesCreateRouteRoute: typeof AppEnterprisesCreateRouteRoute
   AppEnterprisesCreateContactBusinessContactIdRouteRoute: typeof AppEnterprisesCreateContactBusinessContactIdRouteRoute
   AppEnterprisesCreateContactTravelVoucherContactIdRouteRoute: typeof AppEnterprisesCreateContactTravelVoucherContactIdRouteRoute
   AppEnterprisesCreateContactEnterpriseIdRouteRoute: typeof AppEnterprisesCreateContactEnterpriseIdRouteRoute
@@ -6095,6 +5870,7 @@ interface AppEnterprisesRouteRouteChildren {
 }
 
 const AppEnterprisesRouteRouteChildren: AppEnterprisesRouteRouteChildren = {
+  AppEnterprisesCreateRouteRoute: AppEnterprisesCreateRouteRoute,
   AppEnterprisesCreateContactBusinessContactIdRouteRoute:
     AppEnterprisesCreateContactBusinessContactIdRouteRoute,
   AppEnterprisesCreateContactTravelVoucherContactIdRouteRoute:
@@ -6186,10 +5962,12 @@ const AppProductsSerialNumbersRouteRouteWithChildren =
   )
 
 interface AppProductsRouteRouteChildren {
+  AppProductsCreateRouteRoute: typeof AppProductsCreateRouteRoute
   AppProductsSerialNumbersRouteRoute: typeof AppProductsSerialNumbersRouteRouteWithChildren
 }
 
 const AppProductsRouteRouteChildren: AppProductsRouteRouteChildren = {
+  AppProductsCreateRouteRoute: AppProductsCreateRouteRoute,
   AppProductsSerialNumbersRouteRoute:
     AppProductsSerialNumbersRouteRouteWithChildren,
 }
@@ -6390,32 +6168,14 @@ const AppToolsMailsRouteRouteChildren: AppToolsMailsRouteRouteChildren = {
 const AppToolsMailsRouteRouteWithChildren =
   AppToolsMailsRouteRoute._addFileChildren(AppToolsMailsRouteRouteChildren)
 
-interface AppToolsMenuCreateEnterpriseRouteRouteChildren {
-  AppToolsMenuCreateEnterpriseAddContactRouteRoute: typeof AppToolsMenuCreateEnterpriseAddContactRouteRoute
-  AppToolsMenuCreateEnterpriseContactsRouteRoute: typeof AppToolsMenuCreateEnterpriseContactsRouteRoute
-}
-
-const AppToolsMenuCreateEnterpriseRouteRouteChildren: AppToolsMenuCreateEnterpriseRouteRouteChildren =
-  {
-    AppToolsMenuCreateEnterpriseAddContactRouteRoute:
-      AppToolsMenuCreateEnterpriseAddContactRouteRoute,
-    AppToolsMenuCreateEnterpriseContactsRouteRoute:
-      AppToolsMenuCreateEnterpriseContactsRouteRoute,
-  }
-
-const AppToolsMenuCreateEnterpriseRouteRouteWithChildren =
-  AppToolsMenuCreateEnterpriseRouteRoute._addFileChildren(
-    AppToolsMenuCreateEnterpriseRouteRouteChildren,
-  )
-
 interface AppToolsMenuRouteRouteChildren {
-  AppToolsMenuCreateEnterpriseRouteRoute: typeof AppToolsMenuCreateEnterpriseRouteRouteWithChildren
+  AppToolsMenuCreateEnterpriseRouteRoute: typeof AppToolsMenuCreateEnterpriseRouteRoute
   AppToolsMenuCreateProductRouteRoute: typeof AppToolsMenuCreateProductRouteRoute
 }
 
 const AppToolsMenuRouteRouteChildren: AppToolsMenuRouteRouteChildren = {
   AppToolsMenuCreateEnterpriseRouteRoute:
-    AppToolsMenuCreateEnterpriseRouteRouteWithChildren,
+    AppToolsMenuCreateEnterpriseRouteRoute,
   AppToolsMenuCreateProductRouteRoute: AppToolsMenuCreateProductRouteRoute,
 }
 
@@ -6897,29 +6657,14 @@ const AppProductsProductIdRouteRouteWithChildren =
     AppProductsProductIdRouteRouteChildren,
   )
 
-interface AppBusinessesRmaBusinessBusinessIdArcPdfSendByEmailRouteRouteChildren {
-  AppBusinessesRmaBusinessBusinessIdArcPdfSendByEmailPredefinedMessagesRouteRoute: typeof AppBusinessesRmaBusinessBusinessIdArcPdfSendByEmailPredefinedMessagesRouteRoute
-}
-
-const AppBusinessesRmaBusinessBusinessIdArcPdfSendByEmailRouteRouteChildren: AppBusinessesRmaBusinessBusinessIdArcPdfSendByEmailRouteRouteChildren =
-  {
-    AppBusinessesRmaBusinessBusinessIdArcPdfSendByEmailPredefinedMessagesRouteRoute:
-      AppBusinessesRmaBusinessBusinessIdArcPdfSendByEmailPredefinedMessagesRouteRoute,
-  }
-
-const AppBusinessesRmaBusinessBusinessIdArcPdfSendByEmailRouteRouteWithChildren =
-  AppBusinessesRmaBusinessBusinessIdArcPdfSendByEmailRouteRoute._addFileChildren(
-    AppBusinessesRmaBusinessBusinessIdArcPdfSendByEmailRouteRouteChildren,
-  )
-
 interface AppBusinessesRmaBusinessBusinessIdArcPdfRouteRouteChildren {
-  AppBusinessesRmaBusinessBusinessIdArcPdfSendByEmailRouteRoute: typeof AppBusinessesRmaBusinessBusinessIdArcPdfSendByEmailRouteRouteWithChildren
+  AppBusinessesRmaBusinessBusinessIdArcPdfSendByEmailRouteRoute: typeof AppBusinessesRmaBusinessBusinessIdArcPdfSendByEmailRouteRoute
 }
 
 const AppBusinessesRmaBusinessBusinessIdArcPdfRouteRouteChildren: AppBusinessesRmaBusinessBusinessIdArcPdfRouteRouteChildren =
   {
     AppBusinessesRmaBusinessBusinessIdArcPdfSendByEmailRouteRoute:
-      AppBusinessesRmaBusinessBusinessIdArcPdfSendByEmailRouteRouteWithChildren,
+      AppBusinessesRmaBusinessBusinessIdArcPdfSendByEmailRouteRoute,
   }
 
 const AppBusinessesRmaBusinessBusinessIdArcPdfRouteRouteWithChildren =
@@ -6951,29 +6696,14 @@ const AppBusinessesRmaBusinessBusinessIdArcRouteRouteWithChildren =
     AppBusinessesRmaBusinessBusinessIdArcRouteRouteChildren,
   )
 
-interface AppBusinessesRmaBusinessBusinessIdBillCreditsSendByEmailRouteRouteChildren {
-  AppBusinessesRmaBusinessBusinessIdBillCreditsSendByEmailPredefinedMessagesRouteRoute: typeof AppBusinessesRmaBusinessBusinessIdBillCreditsSendByEmailPredefinedMessagesRouteRoute
-}
-
-const AppBusinessesRmaBusinessBusinessIdBillCreditsSendByEmailRouteRouteChildren: AppBusinessesRmaBusinessBusinessIdBillCreditsSendByEmailRouteRouteChildren =
-  {
-    AppBusinessesRmaBusinessBusinessIdBillCreditsSendByEmailPredefinedMessagesRouteRoute:
-      AppBusinessesRmaBusinessBusinessIdBillCreditsSendByEmailPredefinedMessagesRouteRoute,
-  }
-
-const AppBusinessesRmaBusinessBusinessIdBillCreditsSendByEmailRouteRouteWithChildren =
-  AppBusinessesRmaBusinessBusinessIdBillCreditsSendByEmailRouteRoute._addFileChildren(
-    AppBusinessesRmaBusinessBusinessIdBillCreditsSendByEmailRouteRouteChildren,
-  )
-
 interface AppBusinessesRmaBusinessBusinessIdBillCreditsRouteRouteChildren {
-  AppBusinessesRmaBusinessBusinessIdBillCreditsSendByEmailRouteRoute: typeof AppBusinessesRmaBusinessBusinessIdBillCreditsSendByEmailRouteRouteWithChildren
+  AppBusinessesRmaBusinessBusinessIdBillCreditsSendByEmailRouteRoute: typeof AppBusinessesRmaBusinessBusinessIdBillCreditsSendByEmailRouteRoute
 }
 
 const AppBusinessesRmaBusinessBusinessIdBillCreditsRouteRouteChildren: AppBusinessesRmaBusinessBusinessIdBillCreditsRouteRouteChildren =
   {
     AppBusinessesRmaBusinessBusinessIdBillCreditsSendByEmailRouteRoute:
-      AppBusinessesRmaBusinessBusinessIdBillCreditsSendByEmailRouteRouteWithChildren,
+      AppBusinessesRmaBusinessBusinessIdBillCreditsSendByEmailRouteRoute,
   }
 
 const AppBusinessesRmaBusinessBusinessIdBillCreditsRouteRouteWithChildren =
@@ -6981,24 +6711,9 @@ const AppBusinessesRmaBusinessBusinessIdBillCreditsRouteRouteWithChildren =
     AppBusinessesRmaBusinessBusinessIdBillCreditsRouteRouteChildren,
   )
 
-interface AppBusinessesRmaBusinessBusinessIdBillSendByEmailRouteRouteChildren {
-  AppBusinessesRmaBusinessBusinessIdBillSendByEmailPredefinedMessagesRouteRoute: typeof AppBusinessesRmaBusinessBusinessIdBillSendByEmailPredefinedMessagesRouteRoute
-}
-
-const AppBusinessesRmaBusinessBusinessIdBillSendByEmailRouteRouteChildren: AppBusinessesRmaBusinessBusinessIdBillSendByEmailRouteRouteChildren =
-  {
-    AppBusinessesRmaBusinessBusinessIdBillSendByEmailPredefinedMessagesRouteRoute:
-      AppBusinessesRmaBusinessBusinessIdBillSendByEmailPredefinedMessagesRouteRoute,
-  }
-
-const AppBusinessesRmaBusinessBusinessIdBillSendByEmailRouteRouteWithChildren =
-  AppBusinessesRmaBusinessBusinessIdBillSendByEmailRouteRoute._addFileChildren(
-    AppBusinessesRmaBusinessBusinessIdBillSendByEmailRouteRouteChildren,
-  )
-
 interface AppBusinessesRmaBusinessBusinessIdBillRouteRouteChildren {
   AppBusinessesRmaBusinessBusinessIdBillCreditsRouteRoute: typeof AppBusinessesRmaBusinessBusinessIdBillCreditsRouteRouteWithChildren
-  AppBusinessesRmaBusinessBusinessIdBillSendByEmailRouteRoute: typeof AppBusinessesRmaBusinessBusinessIdBillSendByEmailRouteRouteWithChildren
+  AppBusinessesRmaBusinessBusinessIdBillSendByEmailRouteRoute: typeof AppBusinessesRmaBusinessBusinessIdBillSendByEmailRouteRoute
 }
 
 const AppBusinessesRmaBusinessBusinessIdBillRouteRouteChildren: AppBusinessesRmaBusinessBusinessIdBillRouteRouteChildren =
@@ -7006,7 +6721,7 @@ const AppBusinessesRmaBusinessBusinessIdBillRouteRouteChildren: AppBusinessesRma
     AppBusinessesRmaBusinessBusinessIdBillCreditsRouteRoute:
       AppBusinessesRmaBusinessBusinessIdBillCreditsRouteRouteWithChildren,
     AppBusinessesRmaBusinessBusinessIdBillSendByEmailRouteRoute:
-      AppBusinessesRmaBusinessBusinessIdBillSendByEmailRouteRouteWithChildren,
+      AppBusinessesRmaBusinessBusinessIdBillSendByEmailRouteRoute,
   }
 
 const AppBusinessesRmaBusinessBusinessIdBillRouteRouteWithChildren =
@@ -7014,30 +6729,15 @@ const AppBusinessesRmaBusinessBusinessIdBillRouteRouteWithChildren =
     AppBusinessesRmaBusinessBusinessIdBillRouteRouteChildren,
   )
 
-interface AppBusinessesRmaBusinessBusinessIdBlSendByEmailRouteRouteChildren {
-  AppBusinessesRmaBusinessBusinessIdBlSendByEmailPredefinedMessagesRouteRoute: typeof AppBusinessesRmaBusinessBusinessIdBlSendByEmailPredefinedMessagesRouteRoute
-}
-
-const AppBusinessesRmaBusinessBusinessIdBlSendByEmailRouteRouteChildren: AppBusinessesRmaBusinessBusinessIdBlSendByEmailRouteRouteChildren =
-  {
-    AppBusinessesRmaBusinessBusinessIdBlSendByEmailPredefinedMessagesRouteRoute:
-      AppBusinessesRmaBusinessBusinessIdBlSendByEmailPredefinedMessagesRouteRoute,
-  }
-
-const AppBusinessesRmaBusinessBusinessIdBlSendByEmailRouteRouteWithChildren =
-  AppBusinessesRmaBusinessBusinessIdBlSendByEmailRouteRoute._addFileChildren(
-    AppBusinessesRmaBusinessBusinessIdBlSendByEmailRouteRouteChildren,
-  )
-
 interface AppBusinessesRmaBusinessBusinessIdBlRouteRouteChildren {
-  AppBusinessesRmaBusinessBusinessIdBlSendByEmailRouteRoute: typeof AppBusinessesRmaBusinessBusinessIdBlSendByEmailRouteRouteWithChildren
+  AppBusinessesRmaBusinessBusinessIdBlSendByEmailRouteRoute: typeof AppBusinessesRmaBusinessBusinessIdBlSendByEmailRouteRoute
   AppBusinessesRmaBusinessBusinessIdBlUpdateRouteLazyRoute: typeof AppBusinessesRmaBusinessBusinessIdBlUpdateRouteLazyRoute
 }
 
 const AppBusinessesRmaBusinessBusinessIdBlRouteRouteChildren: AppBusinessesRmaBusinessBusinessIdBlRouteRouteChildren =
   {
     AppBusinessesRmaBusinessBusinessIdBlSendByEmailRouteRoute:
-      AppBusinessesRmaBusinessBusinessIdBlSendByEmailRouteRouteWithChildren,
+      AppBusinessesRmaBusinessBusinessIdBlSendByEmailRouteRoute,
     AppBusinessesRmaBusinessBusinessIdBlUpdateRouteLazyRoute:
       AppBusinessesRmaBusinessBusinessIdBlUpdateRouteLazyRoute,
   }
@@ -7131,21 +6831,6 @@ const AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryRouteRouteWithChild
     AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryRouteRouteChildren,
   )
 
-interface AppBusinessesRmaBusinessBusinessIdDashboardSendEmailRouteRouteChildren {
-  AppBusinessesRmaBusinessBusinessIdDashboardSendEmailPredefinedMessagesRouteRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardSendEmailPredefinedMessagesRouteRoute
-}
-
-const AppBusinessesRmaBusinessBusinessIdDashboardSendEmailRouteRouteChildren: AppBusinessesRmaBusinessBusinessIdDashboardSendEmailRouteRouteChildren =
-  {
-    AppBusinessesRmaBusinessBusinessIdDashboardSendEmailPredefinedMessagesRouteRoute:
-      AppBusinessesRmaBusinessBusinessIdDashboardSendEmailPredefinedMessagesRouteRoute,
-  }
-
-const AppBusinessesRmaBusinessBusinessIdDashboardSendEmailRouteRouteWithChildren =
-  AppBusinessesRmaBusinessBusinessIdDashboardSendEmailRouteRoute._addFileChildren(
-    AppBusinessesRmaBusinessBusinessIdDashboardSendEmailRouteRouteChildren,
-  )
-
 interface AppBusinessesRmaBusinessBusinessIdDashboardRouteRouteChildren {
   AppBusinessesRmaBusinessBusinessIdDashboardAddressBookRouteRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardAddressBookRouteRouteWithChildren
   AppBusinessesRmaBusinessBusinessIdDashboardCreateGedDirectoryRouteRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardCreateGedDirectoryRouteRoute
@@ -7154,7 +6839,7 @@ interface AppBusinessesRmaBusinessBusinessIdDashboardRouteRouteChildren {
   AppBusinessesRmaBusinessBusinessIdDashboardDeleteRouteRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardDeleteRouteRoute
   AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryRouteRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryRouteRouteWithChildren
   AppBusinessesRmaBusinessBusinessIdDashboardImportGedFilesRouteRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardImportGedFilesRouteRoute
-  AppBusinessesRmaBusinessBusinessIdDashboardSendEmailRouteRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardSendEmailRouteRouteWithChildren
+  AppBusinessesRmaBusinessBusinessIdDashboardSendEmailRouteRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardSendEmailRouteRoute
   AppBusinessesRmaBusinessBusinessIdDashboardUpdateBillingAddressRouteRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardUpdateBillingAddressRouteRoute
   AppBusinessesRmaBusinessBusinessIdDashboardUpdateRepresentativeRouteRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardUpdateRepresentativeRouteRoute
   AppBusinessesRmaBusinessBusinessIdDashboardUpdateResponsibleRouteRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardUpdateResponsibleRouteRoute
@@ -7184,7 +6869,7 @@ const AppBusinessesRmaBusinessBusinessIdDashboardRouteRouteChildren: AppBusiness
     AppBusinessesRmaBusinessBusinessIdDashboardImportGedFilesRouteRoute:
       AppBusinessesRmaBusinessBusinessIdDashboardImportGedFilesRouteRoute,
     AppBusinessesRmaBusinessBusinessIdDashboardSendEmailRouteRoute:
-      AppBusinessesRmaBusinessBusinessIdDashboardSendEmailRouteRouteWithChildren,
+      AppBusinessesRmaBusinessBusinessIdDashboardSendEmailRouteRoute,
     AppBusinessesRmaBusinessBusinessIdDashboardUpdateBillingAddressRouteRoute:
       AppBusinessesRmaBusinessBusinessIdDashboardUpdateBillingAddressRouteRoute,
     AppBusinessesRmaBusinessBusinessIdDashboardUpdateRepresentativeRouteRoute:
@@ -7242,29 +6927,14 @@ const AppBusinessesRmaBusinessBusinessIdQuotationCommercialNoticeRouteRouteWithC
     AppBusinessesRmaBusinessBusinessIdQuotationCommercialNoticeRouteRouteChildren,
   )
 
-interface AppBusinessesRmaBusinessBusinessIdQuotationPdfSendByEmailRouteRouteChildren {
-  AppBusinessesRmaBusinessBusinessIdQuotationPdfSendByEmailPredefinedMessagesRouteRoute: typeof AppBusinessesRmaBusinessBusinessIdQuotationPdfSendByEmailPredefinedMessagesRouteRoute
-}
-
-const AppBusinessesRmaBusinessBusinessIdQuotationPdfSendByEmailRouteRouteChildren: AppBusinessesRmaBusinessBusinessIdQuotationPdfSendByEmailRouteRouteChildren =
-  {
-    AppBusinessesRmaBusinessBusinessIdQuotationPdfSendByEmailPredefinedMessagesRouteRoute:
-      AppBusinessesRmaBusinessBusinessIdQuotationPdfSendByEmailPredefinedMessagesRouteRoute,
-  }
-
-const AppBusinessesRmaBusinessBusinessIdQuotationPdfSendByEmailRouteRouteWithChildren =
-  AppBusinessesRmaBusinessBusinessIdQuotationPdfSendByEmailRouteRoute._addFileChildren(
-    AppBusinessesRmaBusinessBusinessIdQuotationPdfSendByEmailRouteRouteChildren,
-  )
-
 interface AppBusinessesRmaBusinessBusinessIdQuotationPdfRouteRouteChildren {
-  AppBusinessesRmaBusinessBusinessIdQuotationPdfSendByEmailRouteRoute: typeof AppBusinessesRmaBusinessBusinessIdQuotationPdfSendByEmailRouteRouteWithChildren
+  AppBusinessesRmaBusinessBusinessIdQuotationPdfSendByEmailRouteRoute: typeof AppBusinessesRmaBusinessBusinessIdQuotationPdfSendByEmailRouteRoute
 }
 
 const AppBusinessesRmaBusinessBusinessIdQuotationPdfRouteRouteChildren: AppBusinessesRmaBusinessBusinessIdQuotationPdfRouteRouteChildren =
   {
     AppBusinessesRmaBusinessBusinessIdQuotationPdfSendByEmailRouteRoute:
-      AppBusinessesRmaBusinessBusinessIdQuotationPdfSendByEmailRouteRouteWithChildren,
+      AppBusinessesRmaBusinessBusinessIdQuotationPdfSendByEmailRouteRoute,
   }
 
 const AppBusinessesRmaBusinessBusinessIdQuotationPdfRouteRouteWithChildren =
@@ -7344,29 +7014,14 @@ const AppBusinessesRmaBusinessBusinessIdRouteRouteWithChildren =
     AppBusinessesRmaBusinessBusinessIdRouteRouteChildren,
   )
 
-interface AppBusinessesRmaRmaRmaIdDeliveryPdfSendByEmailRouteRouteChildren {
-  AppBusinessesRmaRmaRmaIdDeliveryPdfSendByEmailPredefinedMessagesRouteRoute: typeof AppBusinessesRmaRmaRmaIdDeliveryPdfSendByEmailPredefinedMessagesRouteRoute
-}
-
-const AppBusinessesRmaRmaRmaIdDeliveryPdfSendByEmailRouteRouteChildren: AppBusinessesRmaRmaRmaIdDeliveryPdfSendByEmailRouteRouteChildren =
-  {
-    AppBusinessesRmaRmaRmaIdDeliveryPdfSendByEmailPredefinedMessagesRouteRoute:
-      AppBusinessesRmaRmaRmaIdDeliveryPdfSendByEmailPredefinedMessagesRouteRoute,
-  }
-
-const AppBusinessesRmaRmaRmaIdDeliveryPdfSendByEmailRouteRouteWithChildren =
-  AppBusinessesRmaRmaRmaIdDeliveryPdfSendByEmailRouteRoute._addFileChildren(
-    AppBusinessesRmaRmaRmaIdDeliveryPdfSendByEmailRouteRouteChildren,
-  )
-
 interface AppBusinessesRmaRmaRmaIdDeliveryPdfRouteRouteChildren {
-  AppBusinessesRmaRmaRmaIdDeliveryPdfSendByEmailRouteRoute: typeof AppBusinessesRmaRmaRmaIdDeliveryPdfSendByEmailRouteRouteWithChildren
+  AppBusinessesRmaRmaRmaIdDeliveryPdfSendByEmailRouteRoute: typeof AppBusinessesRmaRmaRmaIdDeliveryPdfSendByEmailRouteRoute
 }
 
 const AppBusinessesRmaRmaRmaIdDeliveryPdfRouteRouteChildren: AppBusinessesRmaRmaRmaIdDeliveryPdfRouteRouteChildren =
   {
     AppBusinessesRmaRmaRmaIdDeliveryPdfSendByEmailRouteRoute:
-      AppBusinessesRmaRmaRmaIdDeliveryPdfSendByEmailRouteRouteWithChildren,
+      AppBusinessesRmaRmaRmaIdDeliveryPdfSendByEmailRouteRoute,
   }
 
 const AppBusinessesRmaRmaRmaIdDeliveryPdfRouteRouteWithChildren =
@@ -7401,29 +7056,14 @@ const AppBusinessesRmaRmaRmaIdDeliveryRouteRouteWithChildren =
     AppBusinessesRmaRmaRmaIdDeliveryRouteRouteChildren,
   )
 
-interface AppBusinessesRmaRmaRmaIdReceptionPdfSendByEmailRouteRouteChildren {
-  AppBusinessesRmaRmaRmaIdReceptionPdfSendByEmailPredefinedMessagesRouteRoute: typeof AppBusinessesRmaRmaRmaIdReceptionPdfSendByEmailPredefinedMessagesRouteRoute
-}
-
-const AppBusinessesRmaRmaRmaIdReceptionPdfSendByEmailRouteRouteChildren: AppBusinessesRmaRmaRmaIdReceptionPdfSendByEmailRouteRouteChildren =
-  {
-    AppBusinessesRmaRmaRmaIdReceptionPdfSendByEmailPredefinedMessagesRouteRoute:
-      AppBusinessesRmaRmaRmaIdReceptionPdfSendByEmailPredefinedMessagesRouteRoute,
-  }
-
-const AppBusinessesRmaRmaRmaIdReceptionPdfSendByEmailRouteRouteWithChildren =
-  AppBusinessesRmaRmaRmaIdReceptionPdfSendByEmailRouteRoute._addFileChildren(
-    AppBusinessesRmaRmaRmaIdReceptionPdfSendByEmailRouteRouteChildren,
-  )
-
 interface AppBusinessesRmaRmaRmaIdReceptionPdfRouteRouteChildren {
-  AppBusinessesRmaRmaRmaIdReceptionPdfSendByEmailRouteRoute: typeof AppBusinessesRmaRmaRmaIdReceptionPdfSendByEmailRouteRouteWithChildren
+  AppBusinessesRmaRmaRmaIdReceptionPdfSendByEmailRouteRoute: typeof AppBusinessesRmaRmaRmaIdReceptionPdfSendByEmailRouteRoute
 }
 
 const AppBusinessesRmaRmaRmaIdReceptionPdfRouteRouteChildren: AppBusinessesRmaRmaRmaIdReceptionPdfRouteRouteChildren =
   {
     AppBusinessesRmaRmaRmaIdReceptionPdfSendByEmailRouteRoute:
-      AppBusinessesRmaRmaRmaIdReceptionPdfSendByEmailRouteRouteWithChildren,
+      AppBusinessesRmaRmaRmaIdReceptionPdfSendByEmailRouteRoute,
   }
 
 const AppBusinessesRmaRmaRmaIdReceptionPdfRouteRouteWithChildren =
@@ -7455,29 +7095,14 @@ const AppBusinessesRmaRmaRmaIdReceptionRouteRouteWithChildren =
     AppBusinessesRmaRmaRmaIdReceptionRouteRouteChildren,
   )
 
-interface AppBusinessesRmaRmaRmaIdSupportPdfSendByEmailRouteRouteChildren {
-  AppBusinessesRmaRmaRmaIdSupportPdfSendByEmailPredefinedMessagesRouteRoute: typeof AppBusinessesRmaRmaRmaIdSupportPdfSendByEmailPredefinedMessagesRouteRoute
-}
-
-const AppBusinessesRmaRmaRmaIdSupportPdfSendByEmailRouteRouteChildren: AppBusinessesRmaRmaRmaIdSupportPdfSendByEmailRouteRouteChildren =
-  {
-    AppBusinessesRmaRmaRmaIdSupportPdfSendByEmailPredefinedMessagesRouteRoute:
-      AppBusinessesRmaRmaRmaIdSupportPdfSendByEmailPredefinedMessagesRouteRoute,
-  }
-
-const AppBusinessesRmaRmaRmaIdSupportPdfSendByEmailRouteRouteWithChildren =
-  AppBusinessesRmaRmaRmaIdSupportPdfSendByEmailRouteRoute._addFileChildren(
-    AppBusinessesRmaRmaRmaIdSupportPdfSendByEmailRouteRouteChildren,
-  )
-
 interface AppBusinessesRmaRmaRmaIdSupportPdfRouteRouteChildren {
-  AppBusinessesRmaRmaRmaIdSupportPdfSendByEmailRouteRoute: typeof AppBusinessesRmaRmaRmaIdSupportPdfSendByEmailRouteRouteWithChildren
+  AppBusinessesRmaRmaRmaIdSupportPdfSendByEmailRouteRoute: typeof AppBusinessesRmaRmaRmaIdSupportPdfSendByEmailRouteRoute
 }
 
 const AppBusinessesRmaRmaRmaIdSupportPdfRouteRouteChildren: AppBusinessesRmaRmaRmaIdSupportPdfRouteRouteChildren =
   {
     AppBusinessesRmaRmaRmaIdSupportPdfSendByEmailRouteRoute:
-      AppBusinessesRmaRmaRmaIdSupportPdfSendByEmailRouteRouteWithChildren,
+      AppBusinessesRmaRmaRmaIdSupportPdfSendByEmailRouteRoute,
   }
 
 const AppBusinessesRmaRmaRmaIdSupportPdfRouteRouteWithChildren =
@@ -7598,29 +7223,14 @@ const AppBusinessesRmaBusinessBusinessIdStudyRouteRouteWithChildren =
     AppBusinessesRmaBusinessBusinessIdStudyRouteRouteChildren,
   )
 
-interface AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdPdfSendByEmailRouteRouteChildren {
-  AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdPdfSendByEmailPredefinedMessagesRouteRoute: typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdPdfSendByEmailPredefinedMessagesRouteRoute
-}
-
-const AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdPdfSendByEmailRouteRouteChildren: AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdPdfSendByEmailRouteRouteChildren =
-  {
-    AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdPdfSendByEmailPredefinedMessagesRouteRoute:
-      AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdPdfSendByEmailPredefinedMessagesRouteRoute,
-  }
-
-const AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdPdfSendByEmailRouteRouteWithChildren =
-  AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdPdfSendByEmailRouteRoute._addFileChildren(
-    AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdPdfSendByEmailRouteRouteChildren,
-  )
-
 interface AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdPdfRouteRouteChildren {
-  AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdPdfSendByEmailRouteRoute: typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdPdfSendByEmailRouteRouteWithChildren
+  AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdPdfSendByEmailRouteRoute: typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdPdfSendByEmailRouteRoute
 }
 
 const AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdPdfRouteRouteChildren: AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdPdfRouteRouteChildren =
   {
     AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdPdfSendByEmailRouteRoute:
-      AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdPdfSendByEmailRouteRouteWithChildren,
+      AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdPdfSendByEmailRouteRoute,
   }
 
 const AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdPdfRouteRouteWithChildren =
@@ -7761,9 +7371,11 @@ export interface FileRoutesByFullPath {
   '/app/dashboard/create-personal-task': typeof AppDashboardCreatePersonalTaskRouteRoute
   '/app/dashboard/create-progressive-info': typeof AppDashboardCreateProgressiveInfoRouteRoute
   '/app/dashboard/delete-collective-tasks': typeof AppDashboardDeleteCollectiveTasksRouteRoute
+  '/app/enterprises/create': typeof AppEnterprisesCreateRouteRoute
   '/app/enterprises/$enterpriseId': typeof AppEnterprisesEnterpriseIdRouteRouteWithChildren
   '/app/external-links/$externalLinkId': typeof AppExternalLinksExternalLinkIdRouteRoute
   '/app/faq/create': typeof AppFaqCreateRouteRoute
+  '/app/products/create': typeof AppProductsCreateRouteRoute
   '/app/products/serial-numbers': typeof AppProductsSerialNumbersRouteRouteWithChildren
   '/app/products/$productId': typeof AppProductsProductIdRouteRouteWithChildren
   '/app/tools/credit': typeof AppToolsCreditRouteRouteWithChildren
@@ -7839,7 +7451,7 @@ export interface FileRoutesByFullPath {
   '/app/tools/external-links/create': typeof AppToolsExternalLinksCreateRouteRoute
   '/app/tools/formations/create': typeof AppToolsFormationsCreateRouteRouteWithChildren
   '/app/tools/mails/create': typeof AppToolsMailsCreateRouteRoute
-  '/app/tools/menu/create-enterprise': typeof AppToolsMenuCreateEnterpriseRouteRouteWithChildren
+  '/app/tools/menu/create-enterprise': typeof AppToolsMenuCreateEnterpriseRouteRoute
   '/app/tools/menu/create-product': typeof AppToolsMenuCreateProductRouteRoute
   '/app/tools/news/create': typeof AppToolsNewsCreateRouteRoute
   '/app/tools/predefined-messages/create': typeof AppToolsPredefinedMessagesCreateRouteRoute
@@ -7904,8 +7516,6 @@ export interface FileRoutesByFullPath {
   '/app/tools/mails/delete/$mailId': typeof AppToolsMailsDeleteMailIdRouteRoute
   '/app/tools/mails/show/$mailId': typeof AppToolsMailsShowMailIdRouteRoute
   '/app/tools/mails/update/$mailId': typeof AppToolsMailsUpdateMailIdRouteRoute
-  '/app/tools/menu/create-enterprise/add-contact': typeof AppToolsMenuCreateEnterpriseAddContactRouteRoute
-  '/app/tools/menu/create-enterprise/contacts': typeof AppToolsMenuCreateEnterpriseContactsRouteRoute
   '/app/tools/news/delete/$newsId': typeof AppToolsNewsDeleteNewsIdRouteRoute
   '/app/tools/news/update/$newsId': typeof AppToolsNewsUpdateNewsIdRouteRoute
   '/app/tools/predefined-messages/delete/$predefinedMessageId': typeof AppToolsPredefinedMessagesDeletePredefinedMessageIdRouteRoute
@@ -7923,8 +7533,8 @@ export interface FileRoutesByFullPath {
   '/app/businesses-rma/business/$businessId/arc/pdf': typeof AppBusinessesRmaBusinessBusinessIdArcPdfRouteRouteWithChildren
   '/app/businesses-rma/business/$businessId/arc/update-shipping-price': typeof AppBusinessesRmaBusinessBusinessIdArcUpdateShippingPriceRouteRoute
   '/app/businesses-rma/business/$businessId/bill/credits': typeof AppBusinessesRmaBusinessBusinessIdBillCreditsRouteRouteWithChildren
-  '/app/businesses-rma/business/$businessId/bill/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdBillSendByEmailRouteRouteWithChildren
-  '/app/businesses-rma/business/$businessId/bl/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdBlSendByEmailRouteRouteWithChildren
+  '/app/businesses-rma/business/$businessId/bill/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdBillSendByEmailRouteRoute
+  '/app/businesses-rma/business/$businessId/bl/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdBlSendByEmailRouteRoute
   '/app/businesses-rma/business/$businessId/bp/travel-voucher': typeof AppBusinessesRmaBusinessBusinessIdBpTravelVoucherRouteRoute
   '/app/businesses-rma/business/$businessId/dashboard/address-book': typeof AppBusinessesRmaBusinessBusinessIdDashboardAddressBookRouteRouteWithChildren
   '/app/businesses-rma/business/$businessId/dashboard/create-ged-directory': typeof AppBusinessesRmaBusinessBusinessIdDashboardCreateGedDirectoryRouteRoute
@@ -7933,7 +7543,7 @@ export interface FileRoutesByFullPath {
   '/app/businesses-rma/business/$businessId/dashboard/delete': typeof AppBusinessesRmaBusinessBusinessIdDashboardDeleteRouteRoute
   '/app/businesses-rma/business/$businessId/dashboard/email-history': typeof AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryRouteRouteWithChildren
   '/app/businesses-rma/business/$businessId/dashboard/import-ged-files': typeof AppBusinessesRmaBusinessBusinessIdDashboardImportGedFilesRouteRoute
-  '/app/businesses-rma/business/$businessId/dashboard/send-email': typeof AppBusinessesRmaBusinessBusinessIdDashboardSendEmailRouteRouteWithChildren
+  '/app/businesses-rma/business/$businessId/dashboard/send-email': typeof AppBusinessesRmaBusinessBusinessIdDashboardSendEmailRouteRoute
   '/app/businesses-rma/business/$businessId/dashboard/update-billing-address': typeof AppBusinessesRmaBusinessBusinessIdDashboardUpdateBillingAddressRouteRoute
   '/app/businesses-rma/business/$businessId/dashboard/update-representative': typeof AppBusinessesRmaBusinessBusinessIdDashboardUpdateRepresentativeRouteRoute
   '/app/businesses-rma/business/$businessId/dashboard/update-responsible': typeof AppBusinessesRmaBusinessBusinessIdDashboardUpdateResponsibleRouteRoute
@@ -7981,11 +7591,9 @@ export interface FileRoutesByFullPath {
   '/app/businesses-rma/business/$businessId/bl/update': typeof AppBusinessesRmaBusinessBusinessIdBlUpdateRouteLazyRoute
   '/app/businesses-rma/business/$businessId/study/': typeof AppBusinessesRmaBusinessBusinessIdStudyIndexRoute
   '/app/businesses-rma/business/$businessId/arc/delete-detail/$detailId': typeof AppBusinessesRmaBusinessBusinessIdArcDeleteDetailDetailIdRouteRoute
-  '/app/businesses-rma/business/$businessId/arc/pdf/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdArcPdfSendByEmailRouteRouteWithChildren
+  '/app/businesses-rma/business/$businessId/arc/pdf/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdArcPdfSendByEmailRouteRoute
   '/app/businesses-rma/business/$businessId/arc/update-detail/$detailId': typeof AppBusinessesRmaBusinessBusinessIdArcUpdateDetailDetailIdRouteRoute
-  '/app/businesses-rma/business/$businessId/bill/credits/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdBillCreditsSendByEmailRouteRouteWithChildren
-  '/app/businesses-rma/business/$businessId/bill/send-by-email/predefined-messages': typeof AppBusinessesRmaBusinessBusinessIdBillSendByEmailPredefinedMessagesRouteRoute
-  '/app/businesses-rma/business/$businessId/bl/send-by-email/predefined-messages': typeof AppBusinessesRmaBusinessBusinessIdBlSendByEmailPredefinedMessagesRouteRoute
+  '/app/businesses-rma/business/$businessId/bill/credits/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdBillCreditsSendByEmailRouteRoute
   '/app/businesses-rma/business/$businessId/bp/add-serial/$detailId': typeof AppBusinessesRmaBusinessBusinessIdBpAddSerialDetailIdRouteRoute
   '/app/businesses-rma/business/$businessId/bp/create-detail-rma/$detailId': typeof AppBusinessesRmaBusinessBusinessIdBpCreateDetailRmaDetailIdRouteRoute
   '/app/businesses-rma/business/$businessId/bp/create-serial-rma/$serialId': typeof AppBusinessesRmaBusinessBusinessIdBpCreateSerialRmaSerialIdRouteRoute
@@ -7999,7 +7607,6 @@ export interface FileRoutesByFullPath {
   '/app/businesses-rma/business/$businessId/dashboard/email-history/$emailId': typeof AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdRouteRouteWithChildren
   '/app/businesses-rma/business/$businessId/dashboard/lifesheet-email/$lifesheetId': typeof AppBusinessesRmaBusinessBusinessIdDashboardLifesheetEmailLifesheetIdRouteRoute
   '/app/businesses-rma/business/$businessId/dashboard/rename-ged-object/$objectRelativePath': typeof AppBusinessesRmaBusinessBusinessIdDashboardRenameGedObjectObjectRelativePathRouteRoute
-  '/app/businesses-rma/business/$businessId/dashboard/send-email/predefined-messages': typeof AppBusinessesRmaBusinessBusinessIdDashboardSendEmailPredefinedMessagesRouteRoute
   '/app/businesses-rma/business/$businessId/dashboard/task-email/$taskId': typeof AppBusinessesRmaBusinessBusinessIdDashboardTaskEmailTaskIdRouteRoute
   '/app/businesses-rma/business/$businessId/dashboard/unlink-task/$taskId': typeof AppBusinessesRmaBusinessBusinessIdDashboardUnlinkTaskTaskIdRouteRoute
   '/app/businesses-rma/business/$businessId/quotation/commercial-notice/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdQuotationCommercialNoticeSendByEmailRouteRouteWithChildren
@@ -8007,7 +7614,7 @@ export interface FileRoutesByFullPath {
   '/app/businesses-rma/business/$businessId/quotation/create-detail/$subquotationId': typeof AppBusinessesRmaBusinessBusinessIdQuotationCreateDetailSubquotationIdRouteRoute
   '/app/businesses-rma/business/$businessId/quotation/delete-detail/$detailId': typeof AppBusinessesRmaBusinessBusinessIdQuotationDeleteDetailDetailIdRouteRoute
   '/app/businesses-rma/business/$businessId/quotation/delete-subquotation/$subquotationId': typeof AppBusinessesRmaBusinessBusinessIdQuotationDeleteSubquotationSubquotationIdRouteRoute
-  '/app/businesses-rma/business/$businessId/quotation/pdf/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdQuotationPdfSendByEmailRouteRouteWithChildren
+  '/app/businesses-rma/business/$businessId/quotation/pdf/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdQuotationPdfSendByEmailRouteRoute
   '/app/businesses-rma/business/$businessId/quotation/update-detail/$detailId': typeof AppBusinessesRmaBusinessBusinessIdQuotationUpdateDetailDetailIdRouteRoute
   '/app/businesses-rma/business/$businessId/quotation/update-subquotation/$subquotationId': typeof AppBusinessesRmaBusinessBusinessIdQuotationUpdateSubquotationSubquotationIdRouteRoute
   '/app/businesses-rma/business/$businessId/assistance/$assistanceId/create-faq': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdCreateFaqRouteRoute
@@ -8020,16 +7627,16 @@ export interface FileRoutesByFullPath {
   '/app/businesses-rma/business/$businessId/assistance/$assistanceId/import-ged-files': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdImportGedFilesRouteRoute
   '/app/businesses-rma/business/$businessId/assistance/$assistanceId/pdf': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdPdfRouteRouteWithChildren
   '/app/businesses-rma/rma/$rmaId/delivery/delete-detail/$detailId': typeof AppBusinessesRmaRmaRmaIdDeliveryDeleteDetailDetailIdRouteRoute
-  '/app/businesses-rma/rma/$rmaId/delivery/pdf/send-by-email': typeof AppBusinessesRmaRmaRmaIdDeliveryPdfSendByEmailRouteRouteWithChildren
+  '/app/businesses-rma/rma/$rmaId/delivery/pdf/send-by-email': typeof AppBusinessesRmaRmaRmaIdDeliveryPdfSendByEmailRouteRoute
   '/app/businesses-rma/rma/$rmaId/delivery/update-detail/$detailId': typeof AppBusinessesRmaRmaRmaIdDeliveryUpdateDetailDetailIdRouteRoute
   '/app/businesses-rma/rma/$rmaId/reception/delete-detail/$detailId': typeof AppBusinessesRmaRmaRmaIdReceptionDeleteDetailDetailIdRouteRoute
-  '/app/businesses-rma/rma/$rmaId/reception/pdf/send-by-email': typeof AppBusinessesRmaRmaRmaIdReceptionPdfSendByEmailRouteRouteWithChildren
+  '/app/businesses-rma/rma/$rmaId/reception/pdf/send-by-email': typeof AppBusinessesRmaRmaRmaIdReceptionPdfSendByEmailRouteRoute
   '/app/businesses-rma/rma/$rmaId/reception/update-detail/$detailId': typeof AppBusinessesRmaRmaRmaIdReceptionUpdateDetailDetailIdRouteRoute
   '/app/businesses-rma/rma/$rmaId/support/delete-detail/$detailId': typeof AppBusinessesRmaRmaRmaIdSupportDeleteDetailDetailIdRouteRoute
   '/app/businesses-rma/rma/$rmaId/support/delete-ged-object/$relativePath': typeof AppBusinessesRmaRmaRmaIdSupportDeleteGedObjectRelativePathRouteRoute
   '/app/businesses-rma/rma/$rmaId/support/delete-link/$associatedId': typeof AppBusinessesRmaRmaRmaIdSupportDeleteLinkAssociatedIdRouteRoute
   '/app/businesses-rma/rma/$rmaId/support/lifesheet-email/$lifesheetId': typeof AppBusinessesRmaRmaRmaIdSupportLifesheetEmailLifesheetIdRouteRoute
-  '/app/businesses-rma/rma/$rmaId/support/pdf/send-by-email': typeof AppBusinessesRmaRmaRmaIdSupportPdfSendByEmailRouteRouteWithChildren
+  '/app/businesses-rma/rma/$rmaId/support/pdf/send-by-email': typeof AppBusinessesRmaRmaRmaIdSupportPdfSendByEmailRouteRoute
   '/app/businesses-rma/rma/$rmaId/support/rename-ged-object/$objectRelativePath': typeof AppBusinessesRmaRmaRmaIdSupportRenameGedObjectObjectRelativePathRouteRoute
   '/app/businesses-rma/rma/$rmaId/support/task-email/$taskId': typeof AppBusinessesRmaRmaRmaIdSupportTaskEmailTaskIdRouteRouteWithChildren
   '/app/businesses-rma/rma/$rmaId/support/unlink-task/$taskId': typeof AppBusinessesRmaRmaRmaIdSupportUnlinkTaskTaskIdRouteRoute
@@ -8037,22 +7644,15 @@ export interface FileRoutesByFullPath {
   '/app/products/$productId/informations/task-email/$taskId/reply': typeof AppProductsProductIdInformationsTaskEmailTaskIdReplyRouteRoute
   '/app/tools/formations/subscribers/$formationDetailId/delete/$subscriptionId': typeof AppToolsFormationsSubscribersFormationDetailIdDeleteSubscriptionIdRouteRoute
   '/app/tools/formations/subscribers/$formationDetailId/send-email/$subscriptionId': typeof AppToolsFormationsSubscribersFormationDetailIdSendEmailSubscriptionIdRouteRoute
-  '/app/businesses-rma/business/$businessId/arc/pdf/send-by-email/predefined-messages': typeof AppBusinessesRmaBusinessBusinessIdArcPdfSendByEmailPredefinedMessagesRouteRoute
-  '/app/businesses-rma/business/$businessId/bill/credits/send-by-email/predefined-messages': typeof AppBusinessesRmaBusinessBusinessIdBillCreditsSendByEmailPredefinedMessagesRouteRoute
   '/app/businesses-rma/business/$businessId/dashboard/address-book/delete/$addressId': typeof AppBusinessesRmaBusinessBusinessIdDashboardAddressBookDeleteAddressIdRouteRoute
   '/app/businesses-rma/business/$businessId/dashboard/address-book/update/$addressId': typeof AppBusinessesRmaBusinessBusinessIdDashboardAddressBookUpdateAddressIdRouteRoute
   '/app/businesses-rma/business/$businessId/dashboard/email-history/$emailId/reply': typeof AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdReplyRouteRoute
   '/app/businesses-rma/business/$businessId/quotation/commercial-notice/send-by-email/predefined-messages': typeof AppBusinessesRmaBusinessBusinessIdQuotationCommercialNoticeSendByEmailPredefinedMessagesRouteRoute
-  '/app/businesses-rma/business/$businessId/quotation/pdf/send-by-email/predefined-messages': typeof AppBusinessesRmaBusinessBusinessIdQuotationPdfSendByEmailPredefinedMessagesRouteRoute
   '/app/businesses-rma/business/$businessId/assistance/$assistanceId/delete-ged-object/$objectRelativePath': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdDeleteGedObjectObjectRelativePathRouteRoute
   '/app/businesses-rma/business/$businessId/assistance/$assistanceId/lifesheet-email/$lifesheetId': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdLifesheetEmailLifesheetIdRouteRoute
-  '/app/businesses-rma/business/$businessId/assistance/$assistanceId/pdf/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdPdfSendByEmailRouteRouteWithChildren
+  '/app/businesses-rma/business/$businessId/assistance/$assistanceId/pdf/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdPdfSendByEmailRouteRoute
   '/app/businesses-rma/business/$businessId/assistance/$assistanceId/rename-ged-object/$objectRelativePath': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdRenameGedObjectObjectRelativePathRouteRoute
-  '/app/businesses-rma/rma/$rmaId/delivery/pdf/send-by-email/predefined-messages': typeof AppBusinessesRmaRmaRmaIdDeliveryPdfSendByEmailPredefinedMessagesRouteRoute
-  '/app/businesses-rma/rma/$rmaId/reception/pdf/send-by-email/predefined-messages': typeof AppBusinessesRmaRmaRmaIdReceptionPdfSendByEmailPredefinedMessagesRouteRoute
-  '/app/businesses-rma/rma/$rmaId/support/pdf/send-by-email/predefined-messages': typeof AppBusinessesRmaRmaRmaIdSupportPdfSendByEmailPredefinedMessagesRouteRoute
   '/app/businesses-rma/rma/$rmaId/support/task-email/$taskId/reply': typeof AppBusinessesRmaRmaRmaIdSupportTaskEmailTaskIdReplyRouteRoute
-  '/app/businesses-rma/business/$businessId/assistance/$assistanceId/pdf/send-by-email/predefined-messages': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdPdfSendByEmailPredefinedMessagesRouteRoute
 }
 
 export interface FileRoutesByTo {
@@ -8073,9 +7673,11 @@ export interface FileRoutesByTo {
   '/app/dashboard/create-personal-task': typeof AppDashboardCreatePersonalTaskRouteRoute
   '/app/dashboard/create-progressive-info': typeof AppDashboardCreateProgressiveInfoRouteRoute
   '/app/dashboard/delete-collective-tasks': typeof AppDashboardDeleteCollectiveTasksRouteRoute
+  '/app/enterprises/create': typeof AppEnterprisesCreateRouteRoute
   '/app/enterprises/$enterpriseId': typeof AppEnterprisesEnterpriseIdRouteRouteWithChildren
   '/app/external-links/$externalLinkId': typeof AppExternalLinksExternalLinkIdRouteRoute
   '/app/faq/create': typeof AppFaqCreateRouteRoute
+  '/app/products/create': typeof AppProductsCreateRouteRoute
   '/app/products/serial-numbers': typeof AppProductsSerialNumbersRouteRouteWithChildren
   '/app/tools/credit': typeof AppToolsCreditRouteRouteWithChildren
   '/app/tools/ddns': typeof AppToolsDdnsRouteRouteWithChildren
@@ -8148,7 +7750,7 @@ export interface FileRoutesByTo {
   '/app/tools/external-links/create': typeof AppToolsExternalLinksCreateRouteRoute
   '/app/tools/formations/create': typeof AppToolsFormationsCreateRouteRouteWithChildren
   '/app/tools/mails/create': typeof AppToolsMailsCreateRouteRoute
-  '/app/tools/menu/create-enterprise': typeof AppToolsMenuCreateEnterpriseRouteRouteWithChildren
+  '/app/tools/menu/create-enterprise': typeof AppToolsMenuCreateEnterpriseRouteRoute
   '/app/tools/menu/create-product': typeof AppToolsMenuCreateProductRouteRoute
   '/app/tools/news/create': typeof AppToolsNewsCreateRouteRoute
   '/app/tools/predefined-messages/create': typeof AppToolsPredefinedMessagesCreateRouteRoute
@@ -8212,8 +7814,6 @@ export interface FileRoutesByTo {
   '/app/tools/mails/delete/$mailId': typeof AppToolsMailsDeleteMailIdRouteRoute
   '/app/tools/mails/show/$mailId': typeof AppToolsMailsShowMailIdRouteRoute
   '/app/tools/mails/update/$mailId': typeof AppToolsMailsUpdateMailIdRouteRoute
-  '/app/tools/menu/create-enterprise/add-contact': typeof AppToolsMenuCreateEnterpriseAddContactRouteRoute
-  '/app/tools/menu/create-enterprise/contacts': typeof AppToolsMenuCreateEnterpriseContactsRouteRoute
   '/app/tools/news/delete/$newsId': typeof AppToolsNewsDeleteNewsIdRouteRoute
   '/app/tools/news/update/$newsId': typeof AppToolsNewsUpdateNewsIdRouteRoute
   '/app/tools/predefined-messages/delete/$predefinedMessageId': typeof AppToolsPredefinedMessagesDeletePredefinedMessageIdRouteRoute
@@ -8231,8 +7831,8 @@ export interface FileRoutesByTo {
   '/app/businesses-rma/business/$businessId/arc/pdf': typeof AppBusinessesRmaBusinessBusinessIdArcPdfRouteRouteWithChildren
   '/app/businesses-rma/business/$businessId/arc/update-shipping-price': typeof AppBusinessesRmaBusinessBusinessIdArcUpdateShippingPriceRouteRoute
   '/app/businesses-rma/business/$businessId/bill/credits': typeof AppBusinessesRmaBusinessBusinessIdBillCreditsRouteRouteWithChildren
-  '/app/businesses-rma/business/$businessId/bill/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdBillSendByEmailRouteRouteWithChildren
-  '/app/businesses-rma/business/$businessId/bl/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdBlSendByEmailRouteRouteWithChildren
+  '/app/businesses-rma/business/$businessId/bill/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdBillSendByEmailRouteRoute
+  '/app/businesses-rma/business/$businessId/bl/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdBlSendByEmailRouteRoute
   '/app/businesses-rma/business/$businessId/bp/travel-voucher': typeof AppBusinessesRmaBusinessBusinessIdBpTravelVoucherRouteRoute
   '/app/businesses-rma/business/$businessId/dashboard/address-book': typeof AppBusinessesRmaBusinessBusinessIdDashboardAddressBookRouteRouteWithChildren
   '/app/businesses-rma/business/$businessId/dashboard/create-ged-directory': typeof AppBusinessesRmaBusinessBusinessIdDashboardCreateGedDirectoryRouteRoute
@@ -8241,7 +7841,7 @@ export interface FileRoutesByTo {
   '/app/businesses-rma/business/$businessId/dashboard/delete': typeof AppBusinessesRmaBusinessBusinessIdDashboardDeleteRouteRoute
   '/app/businesses-rma/business/$businessId/dashboard/email-history': typeof AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryRouteRouteWithChildren
   '/app/businesses-rma/business/$businessId/dashboard/import-ged-files': typeof AppBusinessesRmaBusinessBusinessIdDashboardImportGedFilesRouteRoute
-  '/app/businesses-rma/business/$businessId/dashboard/send-email': typeof AppBusinessesRmaBusinessBusinessIdDashboardSendEmailRouteRouteWithChildren
+  '/app/businesses-rma/business/$businessId/dashboard/send-email': typeof AppBusinessesRmaBusinessBusinessIdDashboardSendEmailRouteRoute
   '/app/businesses-rma/business/$businessId/dashboard/update-billing-address': typeof AppBusinessesRmaBusinessBusinessIdDashboardUpdateBillingAddressRouteRoute
   '/app/businesses-rma/business/$businessId/dashboard/update-representative': typeof AppBusinessesRmaBusinessBusinessIdDashboardUpdateRepresentativeRouteRoute
   '/app/businesses-rma/business/$businessId/dashboard/update-responsible': typeof AppBusinessesRmaBusinessBusinessIdDashboardUpdateResponsibleRouteRoute
@@ -8289,11 +7889,9 @@ export interface FileRoutesByTo {
   '/app/businesses-rma/business/$businessId/bl/update': typeof AppBusinessesRmaBusinessBusinessIdBlUpdateRouteLazyRoute
   '/app/businesses-rma/business/$businessId/study': typeof AppBusinessesRmaBusinessBusinessIdStudyIndexRoute
   '/app/businesses-rma/business/$businessId/arc/delete-detail/$detailId': typeof AppBusinessesRmaBusinessBusinessIdArcDeleteDetailDetailIdRouteRoute
-  '/app/businesses-rma/business/$businessId/arc/pdf/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdArcPdfSendByEmailRouteRouteWithChildren
+  '/app/businesses-rma/business/$businessId/arc/pdf/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdArcPdfSendByEmailRouteRoute
   '/app/businesses-rma/business/$businessId/arc/update-detail/$detailId': typeof AppBusinessesRmaBusinessBusinessIdArcUpdateDetailDetailIdRouteRoute
-  '/app/businesses-rma/business/$businessId/bill/credits/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdBillCreditsSendByEmailRouteRouteWithChildren
-  '/app/businesses-rma/business/$businessId/bill/send-by-email/predefined-messages': typeof AppBusinessesRmaBusinessBusinessIdBillSendByEmailPredefinedMessagesRouteRoute
-  '/app/businesses-rma/business/$businessId/bl/send-by-email/predefined-messages': typeof AppBusinessesRmaBusinessBusinessIdBlSendByEmailPredefinedMessagesRouteRoute
+  '/app/businesses-rma/business/$businessId/bill/credits/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdBillCreditsSendByEmailRouteRoute
   '/app/businesses-rma/business/$businessId/bp/add-serial/$detailId': typeof AppBusinessesRmaBusinessBusinessIdBpAddSerialDetailIdRouteRoute
   '/app/businesses-rma/business/$businessId/bp/create-detail-rma/$detailId': typeof AppBusinessesRmaBusinessBusinessIdBpCreateDetailRmaDetailIdRouteRoute
   '/app/businesses-rma/business/$businessId/bp/create-serial-rma/$serialId': typeof AppBusinessesRmaBusinessBusinessIdBpCreateSerialRmaSerialIdRouteRoute
@@ -8307,7 +7905,6 @@ export interface FileRoutesByTo {
   '/app/businesses-rma/business/$businessId/dashboard/email-history/$emailId': typeof AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdRouteRouteWithChildren
   '/app/businesses-rma/business/$businessId/dashboard/lifesheet-email/$lifesheetId': typeof AppBusinessesRmaBusinessBusinessIdDashboardLifesheetEmailLifesheetIdRouteRoute
   '/app/businesses-rma/business/$businessId/dashboard/rename-ged-object/$objectRelativePath': typeof AppBusinessesRmaBusinessBusinessIdDashboardRenameGedObjectObjectRelativePathRouteRoute
-  '/app/businesses-rma/business/$businessId/dashboard/send-email/predefined-messages': typeof AppBusinessesRmaBusinessBusinessIdDashboardSendEmailPredefinedMessagesRouteRoute
   '/app/businesses-rma/business/$businessId/dashboard/task-email/$taskId': typeof AppBusinessesRmaBusinessBusinessIdDashboardTaskEmailTaskIdRouteRoute
   '/app/businesses-rma/business/$businessId/dashboard/unlink-task/$taskId': typeof AppBusinessesRmaBusinessBusinessIdDashboardUnlinkTaskTaskIdRouteRoute
   '/app/businesses-rma/business/$businessId/quotation/commercial-notice/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdQuotationCommercialNoticeSendByEmailRouteRouteWithChildren
@@ -8315,7 +7912,7 @@ export interface FileRoutesByTo {
   '/app/businesses-rma/business/$businessId/quotation/create-detail/$subquotationId': typeof AppBusinessesRmaBusinessBusinessIdQuotationCreateDetailSubquotationIdRouteRoute
   '/app/businesses-rma/business/$businessId/quotation/delete-detail/$detailId': typeof AppBusinessesRmaBusinessBusinessIdQuotationDeleteDetailDetailIdRouteRoute
   '/app/businesses-rma/business/$businessId/quotation/delete-subquotation/$subquotationId': typeof AppBusinessesRmaBusinessBusinessIdQuotationDeleteSubquotationSubquotationIdRouteRoute
-  '/app/businesses-rma/business/$businessId/quotation/pdf/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdQuotationPdfSendByEmailRouteRouteWithChildren
+  '/app/businesses-rma/business/$businessId/quotation/pdf/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdQuotationPdfSendByEmailRouteRoute
   '/app/businesses-rma/business/$businessId/quotation/update-detail/$detailId': typeof AppBusinessesRmaBusinessBusinessIdQuotationUpdateDetailDetailIdRouteRoute
   '/app/businesses-rma/business/$businessId/quotation/update-subquotation/$subquotationId': typeof AppBusinessesRmaBusinessBusinessIdQuotationUpdateSubquotationSubquotationIdRouteRoute
   '/app/businesses-rma/business/$businessId/assistance/$assistanceId/create-faq': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdCreateFaqRouteRoute
@@ -8328,16 +7925,16 @@ export interface FileRoutesByTo {
   '/app/businesses-rma/business/$businessId/assistance/$assistanceId/import-ged-files': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdImportGedFilesRouteRoute
   '/app/businesses-rma/business/$businessId/assistance/$assistanceId/pdf': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdPdfRouteRouteWithChildren
   '/app/businesses-rma/rma/$rmaId/delivery/delete-detail/$detailId': typeof AppBusinessesRmaRmaRmaIdDeliveryDeleteDetailDetailIdRouteRoute
-  '/app/businesses-rma/rma/$rmaId/delivery/pdf/send-by-email': typeof AppBusinessesRmaRmaRmaIdDeliveryPdfSendByEmailRouteRouteWithChildren
+  '/app/businesses-rma/rma/$rmaId/delivery/pdf/send-by-email': typeof AppBusinessesRmaRmaRmaIdDeliveryPdfSendByEmailRouteRoute
   '/app/businesses-rma/rma/$rmaId/delivery/update-detail/$detailId': typeof AppBusinessesRmaRmaRmaIdDeliveryUpdateDetailDetailIdRouteRoute
   '/app/businesses-rma/rma/$rmaId/reception/delete-detail/$detailId': typeof AppBusinessesRmaRmaRmaIdReceptionDeleteDetailDetailIdRouteRoute
-  '/app/businesses-rma/rma/$rmaId/reception/pdf/send-by-email': typeof AppBusinessesRmaRmaRmaIdReceptionPdfSendByEmailRouteRouteWithChildren
+  '/app/businesses-rma/rma/$rmaId/reception/pdf/send-by-email': typeof AppBusinessesRmaRmaRmaIdReceptionPdfSendByEmailRouteRoute
   '/app/businesses-rma/rma/$rmaId/reception/update-detail/$detailId': typeof AppBusinessesRmaRmaRmaIdReceptionUpdateDetailDetailIdRouteRoute
   '/app/businesses-rma/rma/$rmaId/support/delete-detail/$detailId': typeof AppBusinessesRmaRmaRmaIdSupportDeleteDetailDetailIdRouteRoute
   '/app/businesses-rma/rma/$rmaId/support/delete-ged-object/$relativePath': typeof AppBusinessesRmaRmaRmaIdSupportDeleteGedObjectRelativePathRouteRoute
   '/app/businesses-rma/rma/$rmaId/support/delete-link/$associatedId': typeof AppBusinessesRmaRmaRmaIdSupportDeleteLinkAssociatedIdRouteRoute
   '/app/businesses-rma/rma/$rmaId/support/lifesheet-email/$lifesheetId': typeof AppBusinessesRmaRmaRmaIdSupportLifesheetEmailLifesheetIdRouteRoute
-  '/app/businesses-rma/rma/$rmaId/support/pdf/send-by-email': typeof AppBusinessesRmaRmaRmaIdSupportPdfSendByEmailRouteRouteWithChildren
+  '/app/businesses-rma/rma/$rmaId/support/pdf/send-by-email': typeof AppBusinessesRmaRmaRmaIdSupportPdfSendByEmailRouteRoute
   '/app/businesses-rma/rma/$rmaId/support/rename-ged-object/$objectRelativePath': typeof AppBusinessesRmaRmaRmaIdSupportRenameGedObjectObjectRelativePathRouteRoute
   '/app/businesses-rma/rma/$rmaId/support/task-email/$taskId': typeof AppBusinessesRmaRmaRmaIdSupportTaskEmailTaskIdRouteRouteWithChildren
   '/app/businesses-rma/rma/$rmaId/support/unlink-task/$taskId': typeof AppBusinessesRmaRmaRmaIdSupportUnlinkTaskTaskIdRouteRoute
@@ -8345,22 +7942,15 @@ export interface FileRoutesByTo {
   '/app/products/$productId/informations/task-email/$taskId/reply': typeof AppProductsProductIdInformationsTaskEmailTaskIdReplyRouteRoute
   '/app/tools/formations/subscribers/$formationDetailId/delete/$subscriptionId': typeof AppToolsFormationsSubscribersFormationDetailIdDeleteSubscriptionIdRouteRoute
   '/app/tools/formations/subscribers/$formationDetailId/send-email/$subscriptionId': typeof AppToolsFormationsSubscribersFormationDetailIdSendEmailSubscriptionIdRouteRoute
-  '/app/businesses-rma/business/$businessId/arc/pdf/send-by-email/predefined-messages': typeof AppBusinessesRmaBusinessBusinessIdArcPdfSendByEmailPredefinedMessagesRouteRoute
-  '/app/businesses-rma/business/$businessId/bill/credits/send-by-email/predefined-messages': typeof AppBusinessesRmaBusinessBusinessIdBillCreditsSendByEmailPredefinedMessagesRouteRoute
   '/app/businesses-rma/business/$businessId/dashboard/address-book/delete/$addressId': typeof AppBusinessesRmaBusinessBusinessIdDashboardAddressBookDeleteAddressIdRouteRoute
   '/app/businesses-rma/business/$businessId/dashboard/address-book/update/$addressId': typeof AppBusinessesRmaBusinessBusinessIdDashboardAddressBookUpdateAddressIdRouteRoute
   '/app/businesses-rma/business/$businessId/dashboard/email-history/$emailId/reply': typeof AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdReplyRouteRoute
   '/app/businesses-rma/business/$businessId/quotation/commercial-notice/send-by-email/predefined-messages': typeof AppBusinessesRmaBusinessBusinessIdQuotationCommercialNoticeSendByEmailPredefinedMessagesRouteRoute
-  '/app/businesses-rma/business/$businessId/quotation/pdf/send-by-email/predefined-messages': typeof AppBusinessesRmaBusinessBusinessIdQuotationPdfSendByEmailPredefinedMessagesRouteRoute
   '/app/businesses-rma/business/$businessId/assistance/$assistanceId/delete-ged-object/$objectRelativePath': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdDeleteGedObjectObjectRelativePathRouteRoute
   '/app/businesses-rma/business/$businessId/assistance/$assistanceId/lifesheet-email/$lifesheetId': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdLifesheetEmailLifesheetIdRouteRoute
-  '/app/businesses-rma/business/$businessId/assistance/$assistanceId/pdf/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdPdfSendByEmailRouteRouteWithChildren
+  '/app/businesses-rma/business/$businessId/assistance/$assistanceId/pdf/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdPdfSendByEmailRouteRoute
   '/app/businesses-rma/business/$businessId/assistance/$assistanceId/rename-ged-object/$objectRelativePath': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdRenameGedObjectObjectRelativePathRouteRoute
-  '/app/businesses-rma/rma/$rmaId/delivery/pdf/send-by-email/predefined-messages': typeof AppBusinessesRmaRmaRmaIdDeliveryPdfSendByEmailPredefinedMessagesRouteRoute
-  '/app/businesses-rma/rma/$rmaId/reception/pdf/send-by-email/predefined-messages': typeof AppBusinessesRmaRmaRmaIdReceptionPdfSendByEmailPredefinedMessagesRouteRoute
-  '/app/businesses-rma/rma/$rmaId/support/pdf/send-by-email/predefined-messages': typeof AppBusinessesRmaRmaRmaIdSupportPdfSendByEmailPredefinedMessagesRouteRoute
   '/app/businesses-rma/rma/$rmaId/support/task-email/$taskId/reply': typeof AppBusinessesRmaRmaRmaIdSupportTaskEmailTaskIdReplyRouteRoute
-  '/app/businesses-rma/business/$businessId/assistance/$assistanceId/pdf/send-by-email/predefined-messages': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdPdfSendByEmailPredefinedMessagesRouteRoute
 }
 
 export interface FileRoutesById {
@@ -8385,9 +7975,11 @@ export interface FileRoutesById {
   '/app/dashboard/create-personal-task': typeof AppDashboardCreatePersonalTaskRouteRoute
   '/app/dashboard/create-progressive-info': typeof AppDashboardCreateProgressiveInfoRouteRoute
   '/app/dashboard/delete-collective-tasks': typeof AppDashboardDeleteCollectiveTasksRouteRoute
+  '/app/enterprises/create': typeof AppEnterprisesCreateRouteRoute
   '/app/enterprises_/$enterpriseId': typeof AppEnterprisesEnterpriseIdRouteRouteWithChildren
   '/app/external-links_/$externalLinkId': typeof AppExternalLinksExternalLinkIdRouteRoute
   '/app/faq/create': typeof AppFaqCreateRouteRoute
+  '/app/products/create': typeof AppProductsCreateRouteRoute
   '/app/products/serial-numbers': typeof AppProductsSerialNumbersRouteRouteWithChildren
   '/app/products_/$productId': typeof AppProductsProductIdRouteRouteWithChildren
   '/app/tools/credit': typeof AppToolsCreditRouteRouteWithChildren
@@ -8463,7 +8055,7 @@ export interface FileRoutesById {
   '/app/tools/external-links/create': typeof AppToolsExternalLinksCreateRouteRoute
   '/app/tools/formations/create': typeof AppToolsFormationsCreateRouteRouteWithChildren
   '/app/tools/mails/create': typeof AppToolsMailsCreateRouteRoute
-  '/app/tools/menu/create-enterprise': typeof AppToolsMenuCreateEnterpriseRouteRouteWithChildren
+  '/app/tools/menu/create-enterprise': typeof AppToolsMenuCreateEnterpriseRouteRoute
   '/app/tools/menu/create-product': typeof AppToolsMenuCreateProductRouteRoute
   '/app/tools/news/create': typeof AppToolsNewsCreateRouteRoute
   '/app/tools/predefined-messages/create': typeof AppToolsPredefinedMessagesCreateRouteRoute
@@ -8528,8 +8120,6 @@ export interface FileRoutesById {
   '/app/tools/mails/delete/$mailId': typeof AppToolsMailsDeleteMailIdRouteRoute
   '/app/tools/mails/show/$mailId': typeof AppToolsMailsShowMailIdRouteRoute
   '/app/tools/mails/update/$mailId': typeof AppToolsMailsUpdateMailIdRouteRoute
-  '/app/tools/menu/create-enterprise/add-contact': typeof AppToolsMenuCreateEnterpriseAddContactRouteRoute
-  '/app/tools/menu/create-enterprise/contacts': typeof AppToolsMenuCreateEnterpriseContactsRouteRoute
   '/app/tools/news/delete/$newsId': typeof AppToolsNewsDeleteNewsIdRouteRoute
   '/app/tools/news/update/$newsId': typeof AppToolsNewsUpdateNewsIdRouteRoute
   '/app/tools/predefined-messages/delete/$predefinedMessageId': typeof AppToolsPredefinedMessagesDeletePredefinedMessageIdRouteRoute
@@ -8547,8 +8137,8 @@ export interface FileRoutesById {
   '/app/businesses-rma_/business/$businessId/arc/pdf': typeof AppBusinessesRmaBusinessBusinessIdArcPdfRouteRouteWithChildren
   '/app/businesses-rma_/business/$businessId/arc/update-shipping-price': typeof AppBusinessesRmaBusinessBusinessIdArcUpdateShippingPriceRouteRoute
   '/app/businesses-rma_/business/$businessId/bill/credits': typeof AppBusinessesRmaBusinessBusinessIdBillCreditsRouteRouteWithChildren
-  '/app/businesses-rma_/business/$businessId/bill/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdBillSendByEmailRouteRouteWithChildren
-  '/app/businesses-rma_/business/$businessId/bl/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdBlSendByEmailRouteRouteWithChildren
+  '/app/businesses-rma_/business/$businessId/bill/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdBillSendByEmailRouteRoute
+  '/app/businesses-rma_/business/$businessId/bl/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdBlSendByEmailRouteRoute
   '/app/businesses-rma_/business/$businessId/bp/travel-voucher': typeof AppBusinessesRmaBusinessBusinessIdBpTravelVoucherRouteRoute
   '/app/businesses-rma_/business/$businessId/dashboard/address-book': typeof AppBusinessesRmaBusinessBusinessIdDashboardAddressBookRouteRouteWithChildren
   '/app/businesses-rma_/business/$businessId/dashboard/create-ged-directory': typeof AppBusinessesRmaBusinessBusinessIdDashboardCreateGedDirectoryRouteRoute
@@ -8557,7 +8147,7 @@ export interface FileRoutesById {
   '/app/businesses-rma_/business/$businessId/dashboard/delete': typeof AppBusinessesRmaBusinessBusinessIdDashboardDeleteRouteRoute
   '/app/businesses-rma_/business/$businessId/dashboard/email-history': typeof AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryRouteRouteWithChildren
   '/app/businesses-rma_/business/$businessId/dashboard/import-ged-files': typeof AppBusinessesRmaBusinessBusinessIdDashboardImportGedFilesRouteRoute
-  '/app/businesses-rma_/business/$businessId/dashboard/send-email': typeof AppBusinessesRmaBusinessBusinessIdDashboardSendEmailRouteRouteWithChildren
+  '/app/businesses-rma_/business/$businessId/dashboard/send-email': typeof AppBusinessesRmaBusinessBusinessIdDashboardSendEmailRouteRoute
   '/app/businesses-rma_/business/$businessId/dashboard/update-billing-address': typeof AppBusinessesRmaBusinessBusinessIdDashboardUpdateBillingAddressRouteRoute
   '/app/businesses-rma_/business/$businessId/dashboard/update-representative': typeof AppBusinessesRmaBusinessBusinessIdDashboardUpdateRepresentativeRouteRoute
   '/app/businesses-rma_/business/$businessId/dashboard/update-responsible': typeof AppBusinessesRmaBusinessBusinessIdDashboardUpdateResponsibleRouteRoute
@@ -8605,11 +8195,9 @@ export interface FileRoutesById {
   '/app/businesses-rma_/business/$businessId/bl/update': typeof AppBusinessesRmaBusinessBusinessIdBlUpdateRouteLazyRoute
   '/app/businesses-rma_/business/$businessId_/study/': typeof AppBusinessesRmaBusinessBusinessIdStudyIndexRoute
   '/app/businesses-rma_/business/$businessId/arc/delete-detail/$detailId': typeof AppBusinessesRmaBusinessBusinessIdArcDeleteDetailDetailIdRouteRoute
-  '/app/businesses-rma_/business/$businessId/arc/pdf/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdArcPdfSendByEmailRouteRouteWithChildren
+  '/app/businesses-rma_/business/$businessId/arc/pdf/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdArcPdfSendByEmailRouteRoute
   '/app/businesses-rma_/business/$businessId/arc/update-detail/$detailId': typeof AppBusinessesRmaBusinessBusinessIdArcUpdateDetailDetailIdRouteRoute
-  '/app/businesses-rma_/business/$businessId/bill/credits/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdBillCreditsSendByEmailRouteRouteWithChildren
-  '/app/businesses-rma_/business/$businessId/bill/send-by-email/predefined-messages': typeof AppBusinessesRmaBusinessBusinessIdBillSendByEmailPredefinedMessagesRouteRoute
-  '/app/businesses-rma_/business/$businessId/bl/send-by-email/predefined-messages': typeof AppBusinessesRmaBusinessBusinessIdBlSendByEmailPredefinedMessagesRouteRoute
+  '/app/businesses-rma_/business/$businessId/bill/credits/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdBillCreditsSendByEmailRouteRoute
   '/app/businesses-rma_/business/$businessId/bp/add-serial/$detailId': typeof AppBusinessesRmaBusinessBusinessIdBpAddSerialDetailIdRouteRoute
   '/app/businesses-rma_/business/$businessId/bp/create-detail-rma/$detailId': typeof AppBusinessesRmaBusinessBusinessIdBpCreateDetailRmaDetailIdRouteRoute
   '/app/businesses-rma_/business/$businessId/bp/create-serial-rma/$serialId': typeof AppBusinessesRmaBusinessBusinessIdBpCreateSerialRmaSerialIdRouteRoute
@@ -8623,7 +8211,6 @@ export interface FileRoutesById {
   '/app/businesses-rma_/business/$businessId/dashboard/email-history/$emailId': typeof AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdRouteRouteWithChildren
   '/app/businesses-rma_/business/$businessId/dashboard/lifesheet-email/$lifesheetId': typeof AppBusinessesRmaBusinessBusinessIdDashboardLifesheetEmailLifesheetIdRouteRoute
   '/app/businesses-rma_/business/$businessId/dashboard/rename-ged-object/$objectRelativePath': typeof AppBusinessesRmaBusinessBusinessIdDashboardRenameGedObjectObjectRelativePathRouteRoute
-  '/app/businesses-rma_/business/$businessId/dashboard/send-email/predefined-messages': typeof AppBusinessesRmaBusinessBusinessIdDashboardSendEmailPredefinedMessagesRouteRoute
   '/app/businesses-rma_/business/$businessId/dashboard/task-email/$taskId': typeof AppBusinessesRmaBusinessBusinessIdDashboardTaskEmailTaskIdRouteRoute
   '/app/businesses-rma_/business/$businessId/dashboard/unlink-task/$taskId': typeof AppBusinessesRmaBusinessBusinessIdDashboardUnlinkTaskTaskIdRouteRoute
   '/app/businesses-rma_/business/$businessId/quotation/commercial-notice/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdQuotationCommercialNoticeSendByEmailRouteRouteWithChildren
@@ -8631,7 +8218,7 @@ export interface FileRoutesById {
   '/app/businesses-rma_/business/$businessId/quotation/create-detail/$subquotationId': typeof AppBusinessesRmaBusinessBusinessIdQuotationCreateDetailSubquotationIdRouteRoute
   '/app/businesses-rma_/business/$businessId/quotation/delete-detail/$detailId': typeof AppBusinessesRmaBusinessBusinessIdQuotationDeleteDetailDetailIdRouteRoute
   '/app/businesses-rma_/business/$businessId/quotation/delete-subquotation/$subquotationId': typeof AppBusinessesRmaBusinessBusinessIdQuotationDeleteSubquotationSubquotationIdRouteRoute
-  '/app/businesses-rma_/business/$businessId/quotation/pdf/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdQuotationPdfSendByEmailRouteRouteWithChildren
+  '/app/businesses-rma_/business/$businessId/quotation/pdf/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdQuotationPdfSendByEmailRouteRoute
   '/app/businesses-rma_/business/$businessId/quotation/update-detail/$detailId': typeof AppBusinessesRmaBusinessBusinessIdQuotationUpdateDetailDetailIdRouteRoute
   '/app/businesses-rma_/business/$businessId/quotation/update-subquotation/$subquotationId': typeof AppBusinessesRmaBusinessBusinessIdQuotationUpdateSubquotationSubquotationIdRouteRoute
   '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/create-faq': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdCreateFaqRouteRoute
@@ -8644,16 +8231,16 @@ export interface FileRoutesById {
   '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/import-ged-files': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdImportGedFilesRouteRoute
   '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/pdf': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdPdfRouteRouteWithChildren
   '/app/businesses-rma_/rma/$rmaId/delivery/delete-detail/$detailId': typeof AppBusinessesRmaRmaRmaIdDeliveryDeleteDetailDetailIdRouteRoute
-  '/app/businesses-rma_/rma/$rmaId/delivery/pdf/send-by-email': typeof AppBusinessesRmaRmaRmaIdDeliveryPdfSendByEmailRouteRouteWithChildren
+  '/app/businesses-rma_/rma/$rmaId/delivery/pdf/send-by-email': typeof AppBusinessesRmaRmaRmaIdDeliveryPdfSendByEmailRouteRoute
   '/app/businesses-rma_/rma/$rmaId/delivery/update-detail/$detailId': typeof AppBusinessesRmaRmaRmaIdDeliveryUpdateDetailDetailIdRouteRoute
   '/app/businesses-rma_/rma/$rmaId/reception/delete-detail/$detailId': typeof AppBusinessesRmaRmaRmaIdReceptionDeleteDetailDetailIdRouteRoute
-  '/app/businesses-rma_/rma/$rmaId/reception/pdf/send-by-email': typeof AppBusinessesRmaRmaRmaIdReceptionPdfSendByEmailRouteRouteWithChildren
+  '/app/businesses-rma_/rma/$rmaId/reception/pdf/send-by-email': typeof AppBusinessesRmaRmaRmaIdReceptionPdfSendByEmailRouteRoute
   '/app/businesses-rma_/rma/$rmaId/reception/update-detail/$detailId': typeof AppBusinessesRmaRmaRmaIdReceptionUpdateDetailDetailIdRouteRoute
   '/app/businesses-rma_/rma/$rmaId/support/delete-detail/$detailId': typeof AppBusinessesRmaRmaRmaIdSupportDeleteDetailDetailIdRouteRoute
   '/app/businesses-rma_/rma/$rmaId/support/delete-ged-object/$relativePath': typeof AppBusinessesRmaRmaRmaIdSupportDeleteGedObjectRelativePathRouteRoute
   '/app/businesses-rma_/rma/$rmaId/support/delete-link/$associatedId': typeof AppBusinessesRmaRmaRmaIdSupportDeleteLinkAssociatedIdRouteRoute
   '/app/businesses-rma_/rma/$rmaId/support/lifesheet-email/$lifesheetId': typeof AppBusinessesRmaRmaRmaIdSupportLifesheetEmailLifesheetIdRouteRoute
-  '/app/businesses-rma_/rma/$rmaId/support/pdf/send-by-email': typeof AppBusinessesRmaRmaRmaIdSupportPdfSendByEmailRouteRouteWithChildren
+  '/app/businesses-rma_/rma/$rmaId/support/pdf/send-by-email': typeof AppBusinessesRmaRmaRmaIdSupportPdfSendByEmailRouteRoute
   '/app/businesses-rma_/rma/$rmaId/support/rename-ged-object/$objectRelativePath': typeof AppBusinessesRmaRmaRmaIdSupportRenameGedObjectObjectRelativePathRouteRoute
   '/app/businesses-rma_/rma/$rmaId/support/task-email/$taskId': typeof AppBusinessesRmaRmaRmaIdSupportTaskEmailTaskIdRouteRouteWithChildren
   '/app/businesses-rma_/rma/$rmaId/support/unlink-task/$taskId': typeof AppBusinessesRmaRmaRmaIdSupportUnlinkTaskTaskIdRouteRoute
@@ -8661,22 +8248,15 @@ export interface FileRoutesById {
   '/app/products_/$productId/informations/task-email/$taskId/reply': typeof AppProductsProductIdInformationsTaskEmailTaskIdReplyRouteRoute
   '/app/tools/formations/subscribers/$formationDetailId/delete/$subscriptionId': typeof AppToolsFormationsSubscribersFormationDetailIdDeleteSubscriptionIdRouteRoute
   '/app/tools/formations/subscribers/$formationDetailId/send-email/$subscriptionId': typeof AppToolsFormationsSubscribersFormationDetailIdSendEmailSubscriptionIdRouteRoute
-  '/app/businesses-rma_/business/$businessId/arc/pdf/send-by-email/predefined-messages': typeof AppBusinessesRmaBusinessBusinessIdArcPdfSendByEmailPredefinedMessagesRouteRoute
-  '/app/businesses-rma_/business/$businessId/bill/credits/send-by-email/predefined-messages': typeof AppBusinessesRmaBusinessBusinessIdBillCreditsSendByEmailPredefinedMessagesRouteRoute
   '/app/businesses-rma_/business/$businessId/dashboard/address-book/delete/$addressId': typeof AppBusinessesRmaBusinessBusinessIdDashboardAddressBookDeleteAddressIdRouteRoute
   '/app/businesses-rma_/business/$businessId/dashboard/address-book/update/$addressId': typeof AppBusinessesRmaBusinessBusinessIdDashboardAddressBookUpdateAddressIdRouteRoute
   '/app/businesses-rma_/business/$businessId/dashboard/email-history/$emailId/reply': typeof AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdReplyRouteRoute
   '/app/businesses-rma_/business/$businessId/quotation/commercial-notice/send-by-email/predefined-messages': typeof AppBusinessesRmaBusinessBusinessIdQuotationCommercialNoticeSendByEmailPredefinedMessagesRouteRoute
-  '/app/businesses-rma_/business/$businessId/quotation/pdf/send-by-email/predefined-messages': typeof AppBusinessesRmaBusinessBusinessIdQuotationPdfSendByEmailPredefinedMessagesRouteRoute
   '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/delete-ged-object/$objectRelativePath': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdDeleteGedObjectObjectRelativePathRouteRoute
   '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/lifesheet-email/$lifesheetId': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdLifesheetEmailLifesheetIdRouteRoute
-  '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/pdf/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdPdfSendByEmailRouteRouteWithChildren
+  '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/pdf/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdPdfSendByEmailRouteRoute
   '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/rename-ged-object/$objectRelativePath': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdRenameGedObjectObjectRelativePathRouteRoute
-  '/app/businesses-rma_/rma/$rmaId/delivery/pdf/send-by-email/predefined-messages': typeof AppBusinessesRmaRmaRmaIdDeliveryPdfSendByEmailPredefinedMessagesRouteRoute
-  '/app/businesses-rma_/rma/$rmaId/reception/pdf/send-by-email/predefined-messages': typeof AppBusinessesRmaRmaRmaIdReceptionPdfSendByEmailPredefinedMessagesRouteRoute
-  '/app/businesses-rma_/rma/$rmaId/support/pdf/send-by-email/predefined-messages': typeof AppBusinessesRmaRmaRmaIdSupportPdfSendByEmailPredefinedMessagesRouteRoute
   '/app/businesses-rma_/rma/$rmaId/support/task-email/$taskId/reply': typeof AppBusinessesRmaRmaRmaIdSupportTaskEmailTaskIdReplyRouteRoute
-  '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/pdf/send-by-email/predefined-messages': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdPdfSendByEmailPredefinedMessagesRouteRoute
 }
 
 export interface FileRouteTypes {
@@ -8702,9 +8282,11 @@ export interface FileRouteTypes {
     | '/app/dashboard/create-personal-task'
     | '/app/dashboard/create-progressive-info'
     | '/app/dashboard/delete-collective-tasks'
+    | '/app/enterprises/create'
     | '/app/enterprises/$enterpriseId'
     | '/app/external-links/$externalLinkId'
     | '/app/faq/create'
+    | '/app/products/create'
     | '/app/products/serial-numbers'
     | '/app/products/$productId'
     | '/app/tools/credit'
@@ -8845,8 +8427,6 @@ export interface FileRouteTypes {
     | '/app/tools/mails/delete/$mailId'
     | '/app/tools/mails/show/$mailId'
     | '/app/tools/mails/update/$mailId'
-    | '/app/tools/menu/create-enterprise/add-contact'
-    | '/app/tools/menu/create-enterprise/contacts'
     | '/app/tools/news/delete/$newsId'
     | '/app/tools/news/update/$newsId'
     | '/app/tools/predefined-messages/delete/$predefinedMessageId'
@@ -8925,8 +8505,6 @@ export interface FileRouteTypes {
     | '/app/businesses-rma/business/$businessId/arc/pdf/send-by-email'
     | '/app/businesses-rma/business/$businessId/arc/update-detail/$detailId'
     | '/app/businesses-rma/business/$businessId/bill/credits/send-by-email'
-    | '/app/businesses-rma/business/$businessId/bill/send-by-email/predefined-messages'
-    | '/app/businesses-rma/business/$businessId/bl/send-by-email/predefined-messages'
     | '/app/businesses-rma/business/$businessId/bp/add-serial/$detailId'
     | '/app/businesses-rma/business/$businessId/bp/create-detail-rma/$detailId'
     | '/app/businesses-rma/business/$businessId/bp/create-serial-rma/$serialId'
@@ -8940,7 +8518,6 @@ export interface FileRouteTypes {
     | '/app/businesses-rma/business/$businessId/dashboard/email-history/$emailId'
     | '/app/businesses-rma/business/$businessId/dashboard/lifesheet-email/$lifesheetId'
     | '/app/businesses-rma/business/$businessId/dashboard/rename-ged-object/$objectRelativePath'
-    | '/app/businesses-rma/business/$businessId/dashboard/send-email/predefined-messages'
     | '/app/businesses-rma/business/$businessId/dashboard/task-email/$taskId'
     | '/app/businesses-rma/business/$businessId/dashboard/unlink-task/$taskId'
     | '/app/businesses-rma/business/$businessId/quotation/commercial-notice/send-by-email'
@@ -8978,22 +8555,15 @@ export interface FileRouteTypes {
     | '/app/products/$productId/informations/task-email/$taskId/reply'
     | '/app/tools/formations/subscribers/$formationDetailId/delete/$subscriptionId'
     | '/app/tools/formations/subscribers/$formationDetailId/send-email/$subscriptionId'
-    | '/app/businesses-rma/business/$businessId/arc/pdf/send-by-email/predefined-messages'
-    | '/app/businesses-rma/business/$businessId/bill/credits/send-by-email/predefined-messages'
     | '/app/businesses-rma/business/$businessId/dashboard/address-book/delete/$addressId'
     | '/app/businesses-rma/business/$businessId/dashboard/address-book/update/$addressId'
     | '/app/businesses-rma/business/$businessId/dashboard/email-history/$emailId/reply'
     | '/app/businesses-rma/business/$businessId/quotation/commercial-notice/send-by-email/predefined-messages'
-    | '/app/businesses-rma/business/$businessId/quotation/pdf/send-by-email/predefined-messages'
     | '/app/businesses-rma/business/$businessId/assistance/$assistanceId/delete-ged-object/$objectRelativePath'
     | '/app/businesses-rma/business/$businessId/assistance/$assistanceId/lifesheet-email/$lifesheetId'
     | '/app/businesses-rma/business/$businessId/assistance/$assistanceId/pdf/send-by-email'
     | '/app/businesses-rma/business/$businessId/assistance/$assistanceId/rename-ged-object/$objectRelativePath'
-    | '/app/businesses-rma/rma/$rmaId/delivery/pdf/send-by-email/predefined-messages'
-    | '/app/businesses-rma/rma/$rmaId/reception/pdf/send-by-email/predefined-messages'
-    | '/app/businesses-rma/rma/$rmaId/support/pdf/send-by-email/predefined-messages'
     | '/app/businesses-rma/rma/$rmaId/support/task-email/$taskId/reply'
-    | '/app/businesses-rma/business/$businessId/assistance/$assistanceId/pdf/send-by-email/predefined-messages'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -9013,9 +8583,11 @@ export interface FileRouteTypes {
     | '/app/dashboard/create-personal-task'
     | '/app/dashboard/create-progressive-info'
     | '/app/dashboard/delete-collective-tasks'
+    | '/app/enterprises/create'
     | '/app/enterprises/$enterpriseId'
     | '/app/external-links/$externalLinkId'
     | '/app/faq/create'
+    | '/app/products/create'
     | '/app/products/serial-numbers'
     | '/app/tools/credit'
     | '/app/tools/ddns'
@@ -9152,8 +8724,6 @@ export interface FileRouteTypes {
     | '/app/tools/mails/delete/$mailId'
     | '/app/tools/mails/show/$mailId'
     | '/app/tools/mails/update/$mailId'
-    | '/app/tools/menu/create-enterprise/add-contact'
-    | '/app/tools/menu/create-enterprise/contacts'
     | '/app/tools/news/delete/$newsId'
     | '/app/tools/news/update/$newsId'
     | '/app/tools/predefined-messages/delete/$predefinedMessageId'
@@ -9232,8 +8802,6 @@ export interface FileRouteTypes {
     | '/app/businesses-rma/business/$businessId/arc/pdf/send-by-email'
     | '/app/businesses-rma/business/$businessId/arc/update-detail/$detailId'
     | '/app/businesses-rma/business/$businessId/bill/credits/send-by-email'
-    | '/app/businesses-rma/business/$businessId/bill/send-by-email/predefined-messages'
-    | '/app/businesses-rma/business/$businessId/bl/send-by-email/predefined-messages'
     | '/app/businesses-rma/business/$businessId/bp/add-serial/$detailId'
     | '/app/businesses-rma/business/$businessId/bp/create-detail-rma/$detailId'
     | '/app/businesses-rma/business/$businessId/bp/create-serial-rma/$serialId'
@@ -9247,7 +8815,6 @@ export interface FileRouteTypes {
     | '/app/businesses-rma/business/$businessId/dashboard/email-history/$emailId'
     | '/app/businesses-rma/business/$businessId/dashboard/lifesheet-email/$lifesheetId'
     | '/app/businesses-rma/business/$businessId/dashboard/rename-ged-object/$objectRelativePath'
-    | '/app/businesses-rma/business/$businessId/dashboard/send-email/predefined-messages'
     | '/app/businesses-rma/business/$businessId/dashboard/task-email/$taskId'
     | '/app/businesses-rma/business/$businessId/dashboard/unlink-task/$taskId'
     | '/app/businesses-rma/business/$businessId/quotation/commercial-notice/send-by-email'
@@ -9285,22 +8852,15 @@ export interface FileRouteTypes {
     | '/app/products/$productId/informations/task-email/$taskId/reply'
     | '/app/tools/formations/subscribers/$formationDetailId/delete/$subscriptionId'
     | '/app/tools/formations/subscribers/$formationDetailId/send-email/$subscriptionId'
-    | '/app/businesses-rma/business/$businessId/arc/pdf/send-by-email/predefined-messages'
-    | '/app/businesses-rma/business/$businessId/bill/credits/send-by-email/predefined-messages'
     | '/app/businesses-rma/business/$businessId/dashboard/address-book/delete/$addressId'
     | '/app/businesses-rma/business/$businessId/dashboard/address-book/update/$addressId'
     | '/app/businesses-rma/business/$businessId/dashboard/email-history/$emailId/reply'
     | '/app/businesses-rma/business/$businessId/quotation/commercial-notice/send-by-email/predefined-messages'
-    | '/app/businesses-rma/business/$businessId/quotation/pdf/send-by-email/predefined-messages'
     | '/app/businesses-rma/business/$businessId/assistance/$assistanceId/delete-ged-object/$objectRelativePath'
     | '/app/businesses-rma/business/$businessId/assistance/$assistanceId/lifesheet-email/$lifesheetId'
     | '/app/businesses-rma/business/$businessId/assistance/$assistanceId/pdf/send-by-email'
     | '/app/businesses-rma/business/$businessId/assistance/$assistanceId/rename-ged-object/$objectRelativePath'
-    | '/app/businesses-rma/rma/$rmaId/delivery/pdf/send-by-email/predefined-messages'
-    | '/app/businesses-rma/rma/$rmaId/reception/pdf/send-by-email/predefined-messages'
-    | '/app/businesses-rma/rma/$rmaId/support/pdf/send-by-email/predefined-messages'
     | '/app/businesses-rma/rma/$rmaId/support/task-email/$taskId/reply'
-    | '/app/businesses-rma/business/$businessId/assistance/$assistanceId/pdf/send-by-email/predefined-messages'
   id:
     | '__root__'
     | '/'
@@ -9323,9 +8883,11 @@ export interface FileRouteTypes {
     | '/app/dashboard/create-personal-task'
     | '/app/dashboard/create-progressive-info'
     | '/app/dashboard/delete-collective-tasks'
+    | '/app/enterprises/create'
     | '/app/enterprises_/$enterpriseId'
     | '/app/external-links_/$externalLinkId'
     | '/app/faq/create'
+    | '/app/products/create'
     | '/app/products/serial-numbers'
     | '/app/products_/$productId'
     | '/app/tools/credit'
@@ -9466,8 +9028,6 @@ export interface FileRouteTypes {
     | '/app/tools/mails/delete/$mailId'
     | '/app/tools/mails/show/$mailId'
     | '/app/tools/mails/update/$mailId'
-    | '/app/tools/menu/create-enterprise/add-contact'
-    | '/app/tools/menu/create-enterprise/contacts'
     | '/app/tools/news/delete/$newsId'
     | '/app/tools/news/update/$newsId'
     | '/app/tools/predefined-messages/delete/$predefinedMessageId'
@@ -9546,8 +9106,6 @@ export interface FileRouteTypes {
     | '/app/businesses-rma_/business/$businessId/arc/pdf/send-by-email'
     | '/app/businesses-rma_/business/$businessId/arc/update-detail/$detailId'
     | '/app/businesses-rma_/business/$businessId/bill/credits/send-by-email'
-    | '/app/businesses-rma_/business/$businessId/bill/send-by-email/predefined-messages'
-    | '/app/businesses-rma_/business/$businessId/bl/send-by-email/predefined-messages'
     | '/app/businesses-rma_/business/$businessId/bp/add-serial/$detailId'
     | '/app/businesses-rma_/business/$businessId/bp/create-detail-rma/$detailId'
     | '/app/businesses-rma_/business/$businessId/bp/create-serial-rma/$serialId'
@@ -9561,7 +9119,6 @@ export interface FileRouteTypes {
     | '/app/businesses-rma_/business/$businessId/dashboard/email-history/$emailId'
     | '/app/businesses-rma_/business/$businessId/dashboard/lifesheet-email/$lifesheetId'
     | '/app/businesses-rma_/business/$businessId/dashboard/rename-ged-object/$objectRelativePath'
-    | '/app/businesses-rma_/business/$businessId/dashboard/send-email/predefined-messages'
     | '/app/businesses-rma_/business/$businessId/dashboard/task-email/$taskId'
     | '/app/businesses-rma_/business/$businessId/dashboard/unlink-task/$taskId'
     | '/app/businesses-rma_/business/$businessId/quotation/commercial-notice/send-by-email'
@@ -9599,22 +9156,15 @@ export interface FileRouteTypes {
     | '/app/products_/$productId/informations/task-email/$taskId/reply'
     | '/app/tools/formations/subscribers/$formationDetailId/delete/$subscriptionId'
     | '/app/tools/formations/subscribers/$formationDetailId/send-email/$subscriptionId'
-    | '/app/businesses-rma_/business/$businessId/arc/pdf/send-by-email/predefined-messages'
-    | '/app/businesses-rma_/business/$businessId/bill/credits/send-by-email/predefined-messages'
     | '/app/businesses-rma_/business/$businessId/dashboard/address-book/delete/$addressId'
     | '/app/businesses-rma_/business/$businessId/dashboard/address-book/update/$addressId'
     | '/app/businesses-rma_/business/$businessId/dashboard/email-history/$emailId/reply'
     | '/app/businesses-rma_/business/$businessId/quotation/commercial-notice/send-by-email/predefined-messages'
-    | '/app/businesses-rma_/business/$businessId/quotation/pdf/send-by-email/predefined-messages'
     | '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/delete-ged-object/$objectRelativePath'
     | '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/lifesheet-email/$lifesheetId'
     | '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/pdf/send-by-email'
     | '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/rename-ged-object/$objectRelativePath'
-    | '/app/businesses-rma_/rma/$rmaId/delivery/pdf/send-by-email/predefined-messages'
-    | '/app/businesses-rma_/rma/$rmaId/reception/pdf/send-by-email/predefined-messages'
-    | '/app/businesses-rma_/rma/$rmaId/support/pdf/send-by-email/predefined-messages'
     | '/app/businesses-rma_/rma/$rmaId/support/task-email/$taskId/reply'
-    | '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/pdf/send-by-email/predefined-messages'
   fileRoutesById: FileRoutesById
 }
 
@@ -9714,6 +9264,7 @@ export const routeTree = rootRoute
       "filePath": "app/enterprises/route.ts",
       "parent": "/app",
       "children": [
+        "/app/enterprises/create",
         "/app/enterprises/create-contact-business/$contactId",
         "/app/enterprises/create-contact-travel-voucher/$contactId",
         "/app/enterprises/create-contact/$enterpriseId",
@@ -9744,6 +9295,7 @@ export const routeTree = rootRoute
       "filePath": "app/products/route.ts",
       "parent": "/app",
       "children": [
+        "/app/products/create",
         "/app/products/serial-numbers"
       ]
     },
@@ -9813,6 +9365,10 @@ export const routeTree = rootRoute
       "filePath": "app/dashboard/delete-collective-tasks/route.ts",
       "parent": "/app/dashboard"
     },
+    "/app/enterprises/create": {
+      "filePath": "app/enterprises/create/route.ts",
+      "parent": "/app/enterprises"
+    },
     "/app/enterprises_/$enterpriseId": {
       "filePath": "app/enterprises_.$enterpriseId/route.ts",
       "parent": "/app",
@@ -9847,6 +9403,10 @@ export const routeTree = rootRoute
     "/app/faq/create": {
       "filePath": "app/faq/create/route.ts",
       "parent": "/app/faq"
+    },
+    "/app/products/create": {
+      "filePath": "app/products/create/route.ts",
+      "parent": "/app/products"
     },
     "/app/products/serial-numbers": {
       "filePath": "app/products/serial-numbers/route.ts",
@@ -10300,11 +9860,7 @@ export const routeTree = rootRoute
     },
     "/app/tools/menu/create-enterprise": {
       "filePath": "app/tools/menu/create-enterprise/route.ts",
-      "parent": "/app/tools/menu",
-      "children": [
-        "/app/tools/menu/create-enterprise/add-contact",
-        "/app/tools/menu/create-enterprise/contacts"
-      ]
+      "parent": "/app/tools/menu"
     },
     "/app/tools/menu/create-product": {
       "filePath": "app/tools/menu/create-product/route.ts",
@@ -10665,14 +10221,6 @@ export const routeTree = rootRoute
       "filePath": "app/tools/mails/update.$mailId/route.ts",
       "parent": "/app/tools/mails"
     },
-    "/app/tools/menu/create-enterprise/add-contact": {
-      "filePath": "app/tools/menu/create-enterprise/add-contact/route.ts",
-      "parent": "/app/tools/menu/create-enterprise"
-    },
-    "/app/tools/menu/create-enterprise/contacts": {
-      "filePath": "app/tools/menu/create-enterprise/contacts/route.ts",
-      "parent": "/app/tools/menu/create-enterprise"
-    },
     "/app/tools/news/delete/$newsId": {
       "filePath": "app/tools/news/delete.$newsId/route.ts",
       "parent": "/app/tools/news"
@@ -10753,17 +10301,11 @@ export const routeTree = rootRoute
     },
     "/app/businesses-rma_/business/$businessId/bill/send-by-email": {
       "filePath": "app/businesses-rma_/business.$businessId/bill/send-by-email/route.tsx",
-      "parent": "/app/businesses-rma_/business/$businessId/bill",
-      "children": [
-        "/app/businesses-rma_/business/$businessId/bill/send-by-email/predefined-messages"
-      ]
+      "parent": "/app/businesses-rma_/business/$businessId/bill"
     },
     "/app/businesses-rma_/business/$businessId/bl/send-by-email": {
       "filePath": "app/businesses-rma_/business.$businessId/bl/send-by-email/route.tsx",
-      "parent": "/app/businesses-rma_/business/$businessId/bl",
-      "children": [
-        "/app/businesses-rma_/business/$businessId/bl/send-by-email/predefined-messages"
-      ]
+      "parent": "/app/businesses-rma_/business/$businessId/bl"
     },
     "/app/businesses-rma_/business/$businessId/bp/travel-voucher": {
       "filePath": "app/businesses-rma_/business.$businessId/bp/travel-voucher/route.ts",
@@ -10807,10 +10349,7 @@ export const routeTree = rootRoute
     },
     "/app/businesses-rma_/business/$businessId/dashboard/send-email": {
       "filePath": "app/businesses-rma_/business.$businessId/dashboard/send-email/route.ts",
-      "parent": "/app/businesses-rma_/business/$businessId/dashboard",
-      "children": [
-        "/app/businesses-rma_/business/$businessId/dashboard/send-email/predefined-messages"
-      ]
+      "parent": "/app/businesses-rma_/business/$businessId/dashboard"
     },
     "/app/businesses-rma_/business/$businessId/dashboard/update-billing-address": {
       "filePath": "app/businesses-rma_/business.$businessId/dashboard/update-billing-address/route.ts",
@@ -11034,10 +10573,7 @@ export const routeTree = rootRoute
     },
     "/app/businesses-rma_/business/$businessId/arc/pdf/send-by-email": {
       "filePath": "app/businesses-rma_/business.$businessId/arc/pdf/send-by-email/route.tsx",
-      "parent": "/app/businesses-rma_/business/$businessId/arc/pdf",
-      "children": [
-        "/app/businesses-rma_/business/$businessId/arc/pdf/send-by-email/predefined-messages"
-      ]
+      "parent": "/app/businesses-rma_/business/$businessId/arc/pdf"
     },
     "/app/businesses-rma_/business/$businessId/arc/update-detail/$detailId": {
       "filePath": "app/businesses-rma_/business.$businessId/arc/update-detail.$detailId/route.ts",
@@ -11045,18 +10581,7 @@ export const routeTree = rootRoute
     },
     "/app/businesses-rma_/business/$businessId/bill/credits/send-by-email": {
       "filePath": "app/businesses-rma_/business.$businessId/bill/credits/send-by-email/route.tsx",
-      "parent": "/app/businesses-rma_/business/$businessId/bill/credits",
-      "children": [
-        "/app/businesses-rma_/business/$businessId/bill/credits/send-by-email/predefined-messages"
-      ]
-    },
-    "/app/businesses-rma_/business/$businessId/bill/send-by-email/predefined-messages": {
-      "filePath": "app/businesses-rma_/business.$businessId/bill/send-by-email/predefined-messages/route.ts",
-      "parent": "/app/businesses-rma_/business/$businessId/bill/send-by-email"
-    },
-    "/app/businesses-rma_/business/$businessId/bl/send-by-email/predefined-messages": {
-      "filePath": "app/businesses-rma_/business.$businessId/bl/send-by-email/predefined-messages/route.ts",
-      "parent": "/app/businesses-rma_/business/$businessId/bl/send-by-email"
+      "parent": "/app/businesses-rma_/business/$businessId/bill/credits"
     },
     "/app/businesses-rma_/business/$businessId/bp/add-serial/$detailId": {
       "filePath": "app/businesses-rma_/business.$businessId/bp/add-serial.$detailId/route.ts",
@@ -11113,10 +10638,6 @@ export const routeTree = rootRoute
       "filePath": "app/businesses-rma_/business.$businessId/dashboard/rename-ged-object.$objectRelativePath/route.ts",
       "parent": "/app/businesses-rma_/business/$businessId/dashboard"
     },
-    "/app/businesses-rma_/business/$businessId/dashboard/send-email/predefined-messages": {
-      "filePath": "app/businesses-rma_/business.$businessId/dashboard/send-email/predefined-messages/route.ts",
-      "parent": "/app/businesses-rma_/business/$businessId/dashboard/send-email"
-    },
     "/app/businesses-rma_/business/$businessId/dashboard/task-email/$taskId": {
       "filePath": "app/businesses-rma_/business.$businessId/dashboard/task-email.$taskId/route.ts",
       "parent": "/app/businesses-rma_/business/$businessId/dashboard"
@@ -11150,10 +10671,7 @@ export const routeTree = rootRoute
     },
     "/app/businesses-rma_/business/$businessId/quotation/pdf/send-by-email": {
       "filePath": "app/businesses-rma_/business.$businessId/quotation/pdf/send-by-email/route.tsx",
-      "parent": "/app/businesses-rma_/business/$businessId/quotation/pdf",
-      "children": [
-        "/app/businesses-rma_/business/$businessId/quotation/pdf/send-by-email/predefined-messages"
-      ]
+      "parent": "/app/businesses-rma_/business/$businessId/quotation/pdf"
     },
     "/app/businesses-rma_/business/$businessId/quotation/update-detail/$detailId": {
       "filePath": "app/businesses-rma_/business.$businessId/quotation/update-detail.$detailId/route.ts",
@@ -11208,10 +10726,7 @@ export const routeTree = rootRoute
     },
     "/app/businesses-rma_/rma/$rmaId/delivery/pdf/send-by-email": {
       "filePath": "app/businesses-rma_/rma.$rmaId/delivery/pdf/send-by-email/route.tsx",
-      "parent": "/app/businesses-rma_/rma/$rmaId/delivery/pdf",
-      "children": [
-        "/app/businesses-rma_/rma/$rmaId/delivery/pdf/send-by-email/predefined-messages"
-      ]
+      "parent": "/app/businesses-rma_/rma/$rmaId/delivery/pdf"
     },
     "/app/businesses-rma_/rma/$rmaId/delivery/update-detail/$detailId": {
       "filePath": "app/businesses-rma_/rma.$rmaId/delivery/update-detail.$detailId/route.ts",
@@ -11223,10 +10738,7 @@ export const routeTree = rootRoute
     },
     "/app/businesses-rma_/rma/$rmaId/reception/pdf/send-by-email": {
       "filePath": "app/businesses-rma_/rma.$rmaId/reception/pdf/send-by-email/route.tsx",
-      "parent": "/app/businesses-rma_/rma/$rmaId/reception/pdf",
-      "children": [
-        "/app/businesses-rma_/rma/$rmaId/reception/pdf/send-by-email/predefined-messages"
-      ]
+      "parent": "/app/businesses-rma_/rma/$rmaId/reception/pdf"
     },
     "/app/businesses-rma_/rma/$rmaId/reception/update-detail/$detailId": {
       "filePath": "app/businesses-rma_/rma.$rmaId/reception/update-detail.$detailId/route.ts",
@@ -11250,10 +10762,7 @@ export const routeTree = rootRoute
     },
     "/app/businesses-rma_/rma/$rmaId/support/pdf/send-by-email": {
       "filePath": "app/businesses-rma_/rma.$rmaId/support/pdf/send-by-email/route.tsx",
-      "parent": "/app/businesses-rma_/rma/$rmaId/support/pdf",
-      "children": [
-        "/app/businesses-rma_/rma/$rmaId/support/pdf/send-by-email/predefined-messages"
-      ]
+      "parent": "/app/businesses-rma_/rma/$rmaId/support/pdf"
     },
     "/app/businesses-rma_/rma/$rmaId/support/rename-ged-object/$objectRelativePath": {
       "filePath": "app/businesses-rma_/rma.$rmaId/support/rename-ged-object.$objectRelativePath/route.ts",
@@ -11286,14 +10795,6 @@ export const routeTree = rootRoute
       "filePath": "app/tools/formations/subscribers.$formationDetailId/send-email.$subscriptionId/route.ts",
       "parent": "/app/tools/formations/subscribers/$formationDetailId"
     },
-    "/app/businesses-rma_/business/$businessId/arc/pdf/send-by-email/predefined-messages": {
-      "filePath": "app/businesses-rma_/business.$businessId/arc/pdf/send-by-email/predefined-messages/route.ts",
-      "parent": "/app/businesses-rma_/business/$businessId/arc/pdf/send-by-email"
-    },
-    "/app/businesses-rma_/business/$businessId/bill/credits/send-by-email/predefined-messages": {
-      "filePath": "app/businesses-rma_/business.$businessId/bill/credits/send-by-email/predefined-messages/route.ts",
-      "parent": "/app/businesses-rma_/business/$businessId/bill/credits/send-by-email"
-    },
     "/app/businesses-rma_/business/$businessId/dashboard/address-book/delete/$addressId": {
       "filePath": "app/businesses-rma_/business.$businessId/dashboard/address-book/delete.$addressId/route.ts",
       "parent": "/app/businesses-rma_/business/$businessId/dashboard/address-book"
@@ -11310,10 +10811,6 @@ export const routeTree = rootRoute
       "filePath": "app/businesses-rma_/business.$businessId/quotation/commercial-notice/send-by-email/predefined-messages/route.ts",
       "parent": "/app/businesses-rma_/business/$businessId/quotation/commercial-notice/send-by-email"
     },
-    "/app/businesses-rma_/business/$businessId/quotation/pdf/send-by-email/predefined-messages": {
-      "filePath": "app/businesses-rma_/business.$businessId/quotation/pdf/send-by-email/predefined-messages/route.ts",
-      "parent": "/app/businesses-rma_/business/$businessId/quotation/pdf/send-by-email"
-    },
     "/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/delete-ged-object/$objectRelativePath": {
       "filePath": "app/businesses-rma_/business.$businessId_/assistance.$assistanceId/delete-ged-object.$objectRelativePath/route.ts",
       "parent": "/app/businesses-rma_/business/$businessId_/assistance/$assistanceId"
@@ -11324,34 +10821,15 @@ export const routeTree = rootRoute
     },
     "/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/pdf/send-by-email": {
       "filePath": "app/businesses-rma_/business.$businessId_/assistance.$assistanceId/pdf/send-by-email/route.tsx",
-      "parent": "/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/pdf",
-      "children": [
-        "/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/pdf/send-by-email/predefined-messages"
-      ]
+      "parent": "/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/pdf"
     },
     "/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/rename-ged-object/$objectRelativePath": {
       "filePath": "app/businesses-rma_/business.$businessId_/assistance.$assistanceId/rename-ged-object.$objectRelativePath/route.ts",
       "parent": "/app/businesses-rma_/business/$businessId_/assistance/$assistanceId"
     },
-    "/app/businesses-rma_/rma/$rmaId/delivery/pdf/send-by-email/predefined-messages": {
-      "filePath": "app/businesses-rma_/rma.$rmaId/delivery/pdf/send-by-email/predefined-messages/route.ts",
-      "parent": "/app/businesses-rma_/rma/$rmaId/delivery/pdf/send-by-email"
-    },
-    "/app/businesses-rma_/rma/$rmaId/reception/pdf/send-by-email/predefined-messages": {
-      "filePath": "app/businesses-rma_/rma.$rmaId/reception/pdf/send-by-email/predefined-messages/route.ts",
-      "parent": "/app/businesses-rma_/rma/$rmaId/reception/pdf/send-by-email"
-    },
-    "/app/businesses-rma_/rma/$rmaId/support/pdf/send-by-email/predefined-messages": {
-      "filePath": "app/businesses-rma_/rma.$rmaId/support/pdf/send-by-email/predefined-messages/route.ts",
-      "parent": "/app/businesses-rma_/rma/$rmaId/support/pdf/send-by-email"
-    },
     "/app/businesses-rma_/rma/$rmaId/support/task-email/$taskId/reply": {
       "filePath": "app/businesses-rma_/rma.$rmaId/support/task-email.$taskId/reply/route.ts",
       "parent": "/app/businesses-rma_/rma/$rmaId/support/task-email/$taskId"
-    },
-    "/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/pdf/send-by-email/predefined-messages": {
-      "filePath": "app/businesses-rma_/business.$businessId_/assistance.$assistanceId/pdf/send-by-email/predefined-messages/route.ts",
-      "parent": "/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/pdf/send-by-email"
     }
   }
 }

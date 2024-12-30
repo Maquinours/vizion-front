@@ -9,7 +9,6 @@ const searchSchema = z.object({
   numOrder: z.string().min(1).optional().catch(undefined),
   name: z.string().min(1).optional().catch(undefined),
   contact: z.string().min(1).optional().catch(undefined),
-  deliverPhoneNumber: z.string().min(1).optional().catch(undefined),
   zipCode: z.string().min(1).optional().catch(undefined),
   representative: z.string().min(1).uuid().optional().catch(undefined),
   installer: z.string().min(1).optional().catch(undefined),
@@ -30,7 +29,6 @@ export const Route = createFileRoute('/app/businesses-rma')({
       numOrder?: string;
       name?: string;
       contact?: string;
-      deliverPhoneNumber?: string;
       zipCode?: string;
       representative?: string;
       installer?: string;
@@ -45,30 +43,12 @@ export const Route = createFileRoute('/app/businesses-rma')({
     } & SearchSchemaInput,
   ) => searchSchema.parse(data),
   loaderDeps: ({
-    search: {
-      number,
-      numOrder,
-      name,
-      contact,
-      deliverPhoneNumber,
-      zipCode,
-      representative,
-      amounts,
-      installer,
-      enterpriseName,
-      state,
-      dates,
-      excludeds,
-      fuzzy,
-      page,
-      size,
-    },
+    search: { number, numOrder, name, contact, zipCode, representative, amounts, installer, enterpriseName, state, dates, excludeds, fuzzy, page, size },
   }) => ({
     number,
     numOrder,
     name,
     contact,
-    deliverPhoneNumber,
     zipCode,
     representative,
     amounts,
@@ -83,24 +63,7 @@ export const Route = createFileRoute('/app/businesses-rma')({
   }),
   loader: ({
     context: { queryClient },
-    deps: {
-      number,
-      numOrder,
-      name,
-      contact,
-      deliverPhoneNumber,
-      zipCode,
-      representative,
-      installer,
-      amounts,
-      enterpriseName,
-      state,
-      dates,
-      excludeds,
-      fuzzy,
-      page,
-      size,
-    },
+    deps: { number, numOrder, name, contact, zipCode, representative, installer, amounts, enterpriseName, state, dates, excludeds, fuzzy, page, size },
     location: {
       state: { qInfos },
     },
@@ -112,7 +75,6 @@ export const Route = createFileRoute('/app/businesses-rma')({
           numOrder,
           title: name,
           contact,
-          deliverPhoneNumber,
           zipCode,
           representativeId: representative,
           installerName: installer,

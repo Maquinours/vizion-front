@@ -3,7 +3,7 @@ import { restrictToHorizontalAxis } from '@dnd-kit/modifiers';
 import { SortableContext, arrayMove, horizontalListSortingStrategy } from '@dnd-kit/sortable';
 import { VirtualElement } from '@popperjs/core';
 import { QueryClient, useQueryClient } from '@tanstack/react-query';
-import { ToOptions, ToPathOption, useMatchRoute, useNavigate, useRouterState } from '@tanstack/react-router';
+import { ToOptions, useMatchRoute, useNavigate, useRouterState } from '@tanstack/react-router';
 import _ from 'lodash';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useLocalStorage } from 'usehooks-ts';
@@ -71,6 +71,7 @@ const INITIAL_TABS: Array<InitialTab> = [
     allowedRoles: ['ROLE_MEMBRE_VIZEO'],
   },
   getExternalLinkInitialTab('bd.vizeo.eu'),
+  getExternalLinkInitialTab('VIZIA', ['ROLE_MEMBRE_VIZEO']),
   getExternalLinkInitialTab('Chat Vizeo', ['ROLE_MEMBRE_VIZEO']),
   getExternalLinkInitialTab('État des mails envoyés', ['ROLE_MEMBRE_VIZEO']),
   {
@@ -80,7 +81,6 @@ const INITIAL_TABS: Array<InitialTab> = [
     },
     allowedRoles: ['ROLE_CLIENT', 'ROLE_DISTRIBUTEUR', 'ROLE_REPRESENTANT'],
   },
-  getExternalLinkInitialTab('VIZIA', ['ROLE_MEMBRE_VIZEO']),
 ];
 
 type AppViewTabsContainerComponentProps = Readonly<{
@@ -225,12 +225,16 @@ export default function AppViewTabsContainerComponent({ children }: AppViewTabsC
           const title = match.staticData.title ?? (match.staticData.getTitle ? await match.staticData.getTitle(queryClient, match) : undefined);
           if (title) {
             const route = matches.at(-1)!;
-            const tabRoute = { to: route.fullPath as ToPathOption, params: route.params, search: route.search, state: resolvedLocation.state };
+            const tabRoute = { to: route.fullPath, params: route.params, search: route.search, state: resolvedLocation.state } as ToOptions;
             const tab: Tab = {
               id: match.pathname,
               name: title,
               route: tabRoute,
-              closeRoute: match.staticData.getCloseTabRoute ? (match.staticData.getCloseTabRoute(tabRoute) as ToOptions) : undefined,
+              closeRoute: match.staticData.getCloseTabRoute
+                ? (match.staticData.getCloseTabRoute(
+                    tabRoute as { to: string; params: { [key: string]: unknown }; search: { [key: string]: unknown } },
+                  ) as ToOptions)
+                : undefined,
             };
             setTabs((tabs: Array<Tab> | null | undefined) => {
               const newTabs = [...(tabs ?? [])];

@@ -28,6 +28,8 @@ export const Route = createFileRoute('/app/businesses-rma_/business/$businessId/
       type: blob.type,
     });
 
+    queryClient.prefetchQuery(queries['predefined-message'].list);
+
     return {
       business,
       arc,

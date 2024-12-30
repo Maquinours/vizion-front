@@ -13,6 +13,8 @@ export const Route = createFileRoute('/app/businesses-rma_/rma/$rmaId/support/pd
       type: blob.type,
     });
 
+    queryClient.prefetchQuery(queries['predefined-message'].list);
+
     return { rma, file };
   },
   pendingComponent: LoaderModal,

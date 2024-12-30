@@ -146,6 +146,7 @@ export default function AppViewStudyViewAutomaticViewFooterComponentStepTwoCompo
             }
             fileName={`Etude VIZEO référence ${business.numBusiness}.pdf`}
           >
+            {/* @ts-expect-error: library type mismatch */}
             {({ loading }) => (
               <button type="button" className="btn btn-primary">
                 {loading ? 'Chargement...' : 'Télécharger'}

@@ -8,6 +8,7 @@ import * as Sentry from '@sentry/react';
 import { fr } from 'date-fns/locale/fr';
 import { registerLocale } from 'react-datepicker';
 import { router } from './router.tsx';
+import 'react-quill-new/dist/quill.snow.css';
 
 moment.locale('fr');
 

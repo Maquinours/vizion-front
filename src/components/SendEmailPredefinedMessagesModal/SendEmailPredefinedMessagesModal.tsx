@@ -9,12 +9,28 @@ import PredefinedMessageResponseDto from '../../utils/types/PredefinedMessageRes
 import { SendEmailFormContext } from '../SendEmail/utils/contexts/sendEmail';
 import TableComponent from '../Table/Table';
 import styles from './SendEmailPredefinedMessagesModal.module.scss';
+import TableRowExpandButtonComponent from '../TableRowExpandButton/TableRowExpandButton';
 
 const columnHelper = createColumnHelper<PredefinedMessageResponseDto>();
 const columns = [
-  columnHelper.display({ header: 'Nom', cell: ({ row: { original } }) => <div>{original.title}</div> }),
-  columnHelper.display({ header: 'Description', cell: ({ row: { original } }) => parse(DOMPurify.sanitize(original.description)) }),
+  columnHelper.display({
+    id: 'expand',
+    cell: ({ row }) => (
+      <div className="text-center">
+        <TableRowExpandButtonComponent row={row} />
+      </div>
+    ),
+  }),
+  columnHelper.display({ header: 'Nom', cell: ({ row: { original } }) => <div className="text-center">{original.title}</div> }),
 ];
+
+const renderSubComponent = (row: Row<PredefinedMessageResponseDto>, onRowClick: (e: React.MouseEvent, row: Row<PredefinedMessageResponseDto>) => void) => (
+  <tr onClick={(e) => onRowClick(e, row)}>
+    <td colSpan={2} className="bg-[#b4cafcab] p-4">
+      {parse(DOMPurify.sanitize(row.original.description))}
+    </td>
+  </tr>
+);
 
 type SendEmailPredefinedMessagesModalComponent = Readonly<{
   onClose: () => void;
@@ -39,7 +55,15 @@ export default function SendEmailPredefinedMessagesModalComponent({ onClose }: S
         </div>
         <div className={styles.modal_content}>
           <div className={styles.table_content}>
-            <TableComponent columns={columns} isLoading={isLoading} data={data} onRowClick={onRowClick} rowId={'id'} />
+            <TableComponent
+              columns={columns}
+              isLoading={isLoading}
+              data={data}
+              onRowClick={onRowClick}
+              rowId={'id'}
+              renderSubComponent={({ row }) => renderSubComponent(row, onRowClick)}
+              getRowCanExpand={() => true}
+            />
           </div>
         </div>
       </div>

@@ -14,12 +14,6 @@ export default function AppViewRmaViewSupportViewPdfModalViewSendByEmailModalVie
 
   return (
     <SendEmailModalComponent
-      predefinedMessagesModalLink={{
-        to: '/app/businesses-rma/rma/$rmaId/support/pdf/send-by-email/predefined-messages',
-        search: true,
-        replace: true,
-        resetScroll: false,
-      }}
       isOpen={true}
       onClose={onClose}
       defaultRecipient={[rma.addressEmail ?? '']}

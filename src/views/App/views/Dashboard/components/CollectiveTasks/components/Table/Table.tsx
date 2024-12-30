@@ -53,7 +53,7 @@ const columns = [
             </Link>
           ) : (
             <div className={styles.default_task}>
-              <button>{original.content}</button>
+              <div className="ql-editor">{parse(DOMPurify.sanitize(original.content ?? ''))}</div>
               <div>
                 <span>{original.name}</span> <span>{formatDateAndHourWithSlash(original.createdDate)}</span>
               </div>

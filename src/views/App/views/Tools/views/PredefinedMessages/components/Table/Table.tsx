@@ -14,7 +14,11 @@ const columnHelper = createColumnHelper<PredefinedMessageResponseDto>();
 const columns = [
   columnHelper.display({
     header: 'Nom',
-    cell: ({ row: { original } }) => original.title,
+    cell: ({ row: { original } }) => (
+      <div className="w-full text-center">
+        <span>{original.title}</span>
+      </div>
+    ),
   }),
   columnHelper.display({
     header: 'Description',

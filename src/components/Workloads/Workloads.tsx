@@ -56,7 +56,7 @@ export default function WorkloadsComponent({ associatedItemType, associatedItemI
               </Link>
             ) : (
               <>
-                {parse(DOMPurify.sanitize(original.content ?? ''))}
+                <div className="ql-editor">{parse(DOMPurify.sanitize(original.content ?? ''))}</div>
                 {original.enterpriseName && <div className={styles.content}>{original.enterpriseName}</div>}
               </>
             )}
