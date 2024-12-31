@@ -1,4 +1,67 @@
 declare module 'aircall-everywhere' {
+  type EventType =
+    | 'incoming_call'
+    | 'call_end_ringtone'
+    | 'outgoing_call'
+    | 'outgoing_answered'
+    | 'call_ended'
+    | 'comment_saved'
+    | 'external_dial'
+    | 'powerdialer_updated'
+    | 'redirect_event';
+
+  interface IncomingCallInfo {
+    from: string;
+    to: string;
+    call_id: number;
+  }
+
+  interface CallEndRingtoneInfo {
+    answer_status: 'answered | disconnected | refused';
+    call_id: number;
+  }
+
+  interface OutgoingCallInfo {
+    from: string;
+    to: string;
+    call_id: number;
+  }
+
+  interface OutgoingAnsweredInfo {
+    call_id: number;
+  }
+
+  interface CallEndedInfo {
+    duration: number;
+    call_id: number;
+  }
+
+  interface CommentSavedInfo {
+    comment: string;
+    call_id: number;
+  }
+
+  interface ExternalDialInfo {
+    phone_number: string;
+  }
+
+  interface RedirectEventInfo {
+    type: 'Zendesk::User' | 'Zendesk::Ticket';
+    id: number;
+  }
+
+  type EventCallbackMap = {
+    incoming_call: (callInfos: IncomingCallInfo) => void;
+    call_end_ringtone: (callInfos: CallEndRingtoneInfo) => void;
+    outgoing_call: (callInfos: OutgoingCallInfo) => void;
+    outgoing_answered: (callInfos: OutgoingAnsweredInfo) => void;
+    call_ended: (callInfos: CallEndedInfo) => void;
+    comment_saved: (callInfos: CommentSavedInfo) => void;
+    external_dial: (callInfos: ExternalDialInfo) => void;
+    powerdialer_updated: () => void;
+    redirect_event: (callInfos: RedirectEventInfo) => void;
+  };
+
   export default class AircallPhone {
     constructor(options: {
       /**
@@ -43,58 +106,12 @@ declare module 'aircall-everywhere' {
 
     isLoggedIn: (callback: (loggedIn: boolean) => void) => void;
 
-    /**
-     * Listening to incoming_call: there is an incoming call, ringing
-     */
-    on: (event: 'incoming_call', callback: (callInfos: { from: string; to: string; call_id: number }) => void) => void;
-    /**
-     * Listening to call_end_ringtone: the ringtone has ended. This event is only triggered for incoming calls.
-     */
-    on: (event: 'call_end_ringtone', callback: (callInfos: { answer_status: 'answered | disconnected | refused'; call_id: number }) => void) => void;
-    /**
-     * Listening to outgoing_call: an outgoing call has started
-     */
-    on: (event: 'outgoing_call', callback: (callInfos: { from: string; to: string; call_id: number }) => void) => void;
-    /**
-     * Listening to outgoing_answered: an outgoing call has been answered
-     */
-    on: (event: 'outgoing_answered', callback: (callInfos: { call_id: number }) => void) => void;
-    /**
-     * Listening to call_ended: a call has been ended
-     */
-    on: (event: 'call_ended', callback: (callInfos: { duration: number; call_id: number }) => void) => void;
-    /**
-     * Listening to comment_saved: a comment has been saved about a call
-     */
-    on: (event: 'comment_saved', callback: (commentInfos: { comment: string; call_id: number }) => void) => void;
-    /**
-     * Listening to external_dial: a dial has been made from outside of the phone (api/extension)
-     */
-    on: (event: 'external_dial', callback: (callInfos: { phone_number: string }) => void) => void;
-    /**
-     * Listening to powerdialer_updated: a powerdialer campaign has been updated (via extension)
-     */
-    on: (event: 'powerdialer_updated', callback: () => void) => void;
-    /**
-     * Listening to redirect_event: event coming from specific CRM settings if it has been enabled in the Aircall Dashboard. Only zendesk and hubspot is supported for now.
-     */
-    on: (event: 'redirect_event', callback: (redirectInfos: { type: 'Zendesk::User' | 'Zendesk::Ticket'; id: number }) => void) => void;
+    on<T extends EventType>(event: T, callback: EventCallbackMap[T]): void;
 
     /**
      * You can remove a listener added by on with this method.
      * @param event event to stop listening to
      */
-    removeListener(
-      event:
-        | 'incoming_call'
-        | 'call_end_ringtone'
-        | 'outgoing_call'
-        | 'outgoing_answered'
-        | 'call_ended'
-        | 'comment_saved'
-        | 'external_dial'
-        | 'powerdialer_updated'
-        | 'redirect_event',
-    ): void;
+    removeListener(event: EventType): void;
   }
 }
