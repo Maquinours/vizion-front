@@ -22,7 +22,36 @@ export default function AppViewAircallIntegrationComponent() {
 
     phone.on('incoming_call', (callInfos) => {
       console.log('incoming_call', callInfos);
+      setShow(true);
     });
+    phone.on('call_end_ringtone', (callInfos) => {
+      console.log('call_end_ringtone', callInfos);
+    });
+    phone.on('outgoing_call', (callInfos) => {
+      console.log('outgoing_call', callInfos);
+    });
+    phone.on('outgoing_answered', (callInfos) => {
+      console.log('outgoing_answered', callInfos);
+    });
+    phone.on('call_ended', (callInfos) => {
+      console.log('call_ended', callInfos);
+    });
+    phone.on('comment_saved', (callInfos) => {
+      console.log('comment_saved', callInfos);
+    });
+    phone.on('redirect_event', (callInfos) => {
+      console.log('redirect_event', callInfos);
+    });
+
+    return () => {
+      phone.removeListener('incoming_call');
+      phone.removeListener('call_end_ringtone');
+      phone.removeListener('outgoing_call');
+      phone.removeListener('outgoing_answered');
+      phone.removeListener('call_ended');
+      phone.removeListener('comment_saved');
+      phone.removeListener('redirect_event');
+    };
   }, []);
 
   const onClick = () => {
