@@ -16,6 +16,7 @@ export default function AppViewAircallIntegrationComponent() {
         // ...
       },
       onLogout: () => {
+        console.log('onLogout');
         // ...
       },
     });
