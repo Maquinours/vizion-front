@@ -150,6 +150,9 @@ export default function AppViewChatWebsocketComponent() {
           sendMessage('ping');
         }, 30000),
       );
+      return () => {
+        clearInterval(pingInterval);
+      };
     }
   }, [readyState]);
 

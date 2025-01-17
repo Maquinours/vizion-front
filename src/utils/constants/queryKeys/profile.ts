@@ -2,6 +2,7 @@ import { createQueryKeys } from '@lukemorales/query-key-factory';
 import CategoryClient from '../../enums/CategoryClient';
 import {
   getProfileById,
+  getProfileByPhoneNumbers,
   getProfilesByCategory,
   getProfilesByEnterpriseId,
   getProfilesByIds,
@@ -10,10 +11,19 @@ import {
 } from '../../api/profile';
 
 export const profiles = createQueryKeys('profiles', {
-  detail: (id: string) => ({
-    queryKey: [id],
-    queryFn: () => getProfileById(id),
-  }),
+  detail: {
+    queryKey: null,
+    contextQueries: {
+      byId: (id: string) => ({
+        queryKey: [id],
+        queryFn: () => getProfileById(id),
+      }),
+      byPhoneNumbers: (phoneNumbers: Array<string>) => ({
+        queryKey: [phoneNumbers],
+        queryFn: () => getProfileByPhoneNumbers(phoneNumbers),
+      }),
+    },
+  },
   list: {
     queryKey: null,
     contextQueries: {

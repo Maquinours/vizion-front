@@ -14,7 +14,7 @@ type DeleteContactModalComponentProps = Readonly<{
 export default function DeleteContactModalComponent({ contactId, onClose }: DeleteContactModalComponentProps) {
   const queryClient = useQueryClient();
 
-  const { data: contact } = useSuspenseQuery(queries.profiles.detail(contactId));
+  const { data: contact } = useSuspenseQuery(queries.profiles.detail._ctx.byId(contactId));
 
   const { mutate, isPending } = useMutation({
     mutationFn: () => deleteProfile(contact),

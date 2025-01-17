@@ -15,7 +15,7 @@ export default function AppViewDashboardViewOtherPersonalTasksModalView() {
 
   const { profileId } = routeApi.useParams();
 
-  const { data: profile } = useSuspenseQuery(queries.profiles.detail(profileId));
+  const { data: profile } = useSuspenseQuery(queries.profiles.detail._ctx.byId(profileId));
 
   const { otherPersonalTaskState: state, otherPersonalTaskSize: size, otherPersonalTaskPage: page } = routeApi.useSearch();
 

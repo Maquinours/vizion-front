@@ -9,7 +9,7 @@ export const Route = createFileRoute('/app/enterprises/delete-contact/$contactId
     if (user.profile.id === contactId) throw redirect({ from: Route.id, to: '../..', search: true });
   },
   loader: async ({ context: { queryClient }, params: { contactId } }) => {
-    queryClient.ensureQueryData(queries.profiles.detail(contactId));
+    queryClient.ensureQueryData(queries.profiles.detail._ctx.byId(contactId));
   },
   pendingComponent: LoaderModal,
 });
