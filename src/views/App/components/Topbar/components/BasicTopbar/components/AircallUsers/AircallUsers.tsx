@@ -11,6 +11,7 @@ export default function AppLayoutTopbarComponentBasicTopbarComponentAircallUsers
     ...aircallQueryKeys.allUsers,
     select: (data) =>
       data.users.filter((user) => user.name.toLowerCase() !== `${currentUser.userInfo.firstName} ${currentUser.userInfo.lastName}`.toLowerCase()),
+    staleTime: Infinity,
   });
 
   return (
@@ -23,7 +24,7 @@ export default function AppLayoutTopbarComponentBasicTopbarComponentAircallUsers
               'bg-red-400': !user.available,
             })}
             data-tooltip-id={`aircall-user-${user.id}`}
-            data-tooltip-content={user.name}
+            data-tooltip-content={`${user.name} - ${user.available ? 'Disponible' : 'Indisponible'}`}
           >
             {user.name
               .split(' ')

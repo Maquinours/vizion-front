@@ -148,11 +148,11 @@ export const getProfilesByIds = (ids: Array<string>) => {
 };
 
 export const getProfileByPhoneNumbers = (phoneNumbers: Array<string>) => {
-  return privateInstance<Array<ProfileResponseDto>>({
+  return privateInstance<ProfileResponseDto>({
     method: 'GET',
     url: `profile/v1/by-phone-numbers`,
     params: {
       phoneNumbers,
     },
-  })
-}
+  }).then((res) => res.data);
+};
