@@ -23,7 +23,6 @@ export default function AppLayoutTopbarComponentBasicTopbarComponentAircallUsers
   return (
     <div className="flex flex-row gap-x-1">
       {users
-        .filter((user) => user.name.toLowerCase() !== `${currentUser.userInfo.firstName} ${currentUser.userInfo.lastName}`.toLowerCase())
         .map((user) => (
           <React.Fragment key={user.id}>
             <div
