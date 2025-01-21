@@ -31,7 +31,7 @@ export default function AppViewEnterpriseViewContactsComponentSearchSectionCompo
   return (
     <div>
       <form onSubmit={handleSubmit(onSubmit)} className="flex gap-x-1">
-        <input type="text" {...register('search')} className="border-[1px] border-solid border-black" />
+        <input type="text" {...register('search')} className="border-[1px] border-solid border-black px-1" />
         <button type="submit" className="btn btn-primary">
           <AiOutlineSearch />
         </button>
