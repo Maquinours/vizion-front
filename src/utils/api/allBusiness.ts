@@ -155,3 +155,17 @@ export const indexAllBusinesses = () => {
     url: `/all-business/v1/all-business-and-rma/index-all`,
   }).then((res) => res.data);
 };
+
+export const getAllBusinessesNotAssociatedByEnterpriseId = (enterpriseId: string) => {
+  return privateInstance<Array<AllBusinessResponseDto>>({
+    method: 'GET',
+    url: `/all-business/v1/all-business-and-rma/all-not-associated-by-enterprise/${encodeURIComponent(enterpriseId)}`,
+  }).then((res) => res.data);
+};
+
+export const relateAllBusinessToEnterprise = (allBusinessId: string, enterpriseId: string) => {
+  return privateInstance<void>({
+    method: 'POST',
+    url: `/all-business/v1/all-business-and-rma/relate-enterprise/${encodeURIComponent(allBusinessId)}/${encodeURIComponent(enterpriseId)}`,
+  }).then((res) => res.data);
+};

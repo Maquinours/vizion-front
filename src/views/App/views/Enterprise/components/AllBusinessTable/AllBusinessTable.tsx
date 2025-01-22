@@ -146,7 +146,10 @@ export default function AppViewEnterpriseViewAllBusinessTableComponent() {
 
   return (
     <div className={styles.container}>
-      <CardComponent title="Affaires en cours">
+      <CardComponent
+        title="Affaires en cours"
+        addLink={{ to: '/app/enterprises/$enterpriseId/relate-business-rma', search: true, replace: true, resetScroll: false }}
+      >
         <div className={styles.card_container}>
           <div className={styles.table_container}>
             <TableComponent columns={columns} isLoading={isLoading} data={data?.content ?? []} rowId="id" onRowClick={onRowClick} />

@@ -90,6 +90,7 @@ import { Route as AppEnterprisesEnterpriseIdUpdateRepresentativeRouteImport } fr
 import { Route as AppEnterprisesEnterpriseIdUpdateCategoryRouteImport } from './routes/app/enterprises_.$enterpriseId/update-category/route'
 import { Route as AppEnterprisesEnterpriseIdUpdateAccountabilityRouteImport } from './routes/app/enterprises_.$enterpriseId/update-accountability/route'
 import { Route as AppEnterprisesEnterpriseIdUpdateRouteImport } from './routes/app/enterprises_.$enterpriseId/update/route'
+import { Route as AppEnterprisesEnterpriseIdRelateBusinessRmaRouteImport } from './routes/app/enterprises_.$enterpriseId/relate-business-rma/route'
 import { Route as AppEnterprisesEnterpriseIdImportGedFilesRouteImport } from './routes/app/enterprises_.$enterpriseId/import-ged-files/route'
 import { Route as AppEnterprisesEnterpriseIdImportContactsRouteImport } from './routes/app/enterprises_.$enterpriseId/import-contacts/route'
 import { Route as AppEnterprisesEnterpriseIdDeleteRouteImport } from './routes/app/enterprises_.$enterpriseId/delete/route'
@@ -1056,6 +1057,17 @@ const AppEnterprisesEnterpriseIdUpdateRouteRoute =
     import('./routes/app/enterprises_.$enterpriseId/update/route.lazy').then(
       (d) => d.Route,
     ),
+  )
+
+const AppEnterprisesEnterpriseIdRelateBusinessRmaRouteRoute =
+  AppEnterprisesEnterpriseIdRelateBusinessRmaRouteImport.update({
+    id: '/relate-business-rma',
+    path: '/relate-business-rma',
+    getParentRoute: () => AppEnterprisesEnterpriseIdRouteRoute,
+  } as any).lazy(() =>
+    import(
+      './routes/app/enterprises_.$enterpriseId/relate-business-rma/route.lazy'
+    ).then((d) => d.Route),
   )
 
 const AppEnterprisesEnterpriseIdImportGedFilesRouteRoute =
@@ -4200,6 +4212,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppEnterprisesEnterpriseIdImportGedFilesRouteImport
       parentRoute: typeof AppEnterprisesEnterpriseIdRouteImport
     }
+    '/app/enterprises_/$enterpriseId/relate-business-rma': {
+      id: '/app/enterprises_/$enterpriseId/relate-business-rma'
+      path: '/relate-business-rma'
+      fullPath: '/app/enterprises/$enterpriseId/relate-business-rma'
+      preLoaderRoute: typeof AppEnterprisesEnterpriseIdRelateBusinessRmaRouteImport
+      parentRoute: typeof AppEnterprisesEnterpriseIdRouteImport
+    }
     '/app/enterprises_/$enterpriseId/update': {
       id: '/app/enterprises_/$enterpriseId/update'
       path: '/update'
@@ -6447,6 +6466,7 @@ interface AppEnterprisesEnterpriseIdRouteRouteChildren {
   AppEnterprisesEnterpriseIdDeleteRouteRoute: typeof AppEnterprisesEnterpriseIdDeleteRouteRoute
   AppEnterprisesEnterpriseIdImportContactsRouteRoute: typeof AppEnterprisesEnterpriseIdImportContactsRouteRoute
   AppEnterprisesEnterpriseIdImportGedFilesRouteRoute: typeof AppEnterprisesEnterpriseIdImportGedFilesRouteRoute
+  AppEnterprisesEnterpriseIdRelateBusinessRmaRouteRoute: typeof AppEnterprisesEnterpriseIdRelateBusinessRmaRouteRoute
   AppEnterprisesEnterpriseIdUpdateRouteRoute: typeof AppEnterprisesEnterpriseIdUpdateRouteRoute
   AppEnterprisesEnterpriseIdUpdateAccountabilityRouteRoute: typeof AppEnterprisesEnterpriseIdUpdateAccountabilityRouteRoute
   AppEnterprisesEnterpriseIdUpdateCategoryRouteRoute: typeof AppEnterprisesEnterpriseIdUpdateCategoryRouteRoute
@@ -6479,6 +6499,8 @@ const AppEnterprisesEnterpriseIdRouteRouteChildren: AppEnterprisesEnterpriseIdRo
       AppEnterprisesEnterpriseIdImportContactsRouteRoute,
     AppEnterprisesEnterpriseIdImportGedFilesRouteRoute:
       AppEnterprisesEnterpriseIdImportGedFilesRouteRoute,
+    AppEnterprisesEnterpriseIdRelateBusinessRmaRouteRoute:
+      AppEnterprisesEnterpriseIdRelateBusinessRmaRouteRoute,
     AppEnterprisesEnterpriseIdUpdateRouteRoute:
       AppEnterprisesEnterpriseIdUpdateRouteRoute,
     AppEnterprisesEnterpriseIdUpdateAccountabilityRouteRoute:
@@ -7431,6 +7453,7 @@ export interface FileRoutesByFullPath {
   '/app/enterprises/$enterpriseId/delete': typeof AppEnterprisesEnterpriseIdDeleteRouteRoute
   '/app/enterprises/$enterpriseId/import-contacts': typeof AppEnterprisesEnterpriseIdImportContactsRouteRoute
   '/app/enterprises/$enterpriseId/import-ged-files': typeof AppEnterprisesEnterpriseIdImportGedFilesRouteRoute
+  '/app/enterprises/$enterpriseId/relate-business-rma': typeof AppEnterprisesEnterpriseIdRelateBusinessRmaRouteRoute
   '/app/enterprises/$enterpriseId/update': typeof AppEnterprisesEnterpriseIdUpdateRouteRoute
   '/app/enterprises/$enterpriseId/update-accountability': typeof AppEnterprisesEnterpriseIdUpdateAccountabilityRouteRoute
   '/app/enterprises/$enterpriseId/update-category': typeof AppEnterprisesEnterpriseIdUpdateCategoryRouteRoute
@@ -7730,6 +7753,7 @@ export interface FileRoutesByTo {
   '/app/enterprises/$enterpriseId/delete': typeof AppEnterprisesEnterpriseIdDeleteRouteRoute
   '/app/enterprises/$enterpriseId/import-contacts': typeof AppEnterprisesEnterpriseIdImportContactsRouteRoute
   '/app/enterprises/$enterpriseId/import-ged-files': typeof AppEnterprisesEnterpriseIdImportGedFilesRouteRoute
+  '/app/enterprises/$enterpriseId/relate-business-rma': typeof AppEnterprisesEnterpriseIdRelateBusinessRmaRouteRoute
   '/app/enterprises/$enterpriseId/update': typeof AppEnterprisesEnterpriseIdUpdateRouteRoute
   '/app/enterprises/$enterpriseId/update-accountability': typeof AppEnterprisesEnterpriseIdUpdateAccountabilityRouteRoute
   '/app/enterprises/$enterpriseId/update-category': typeof AppEnterprisesEnterpriseIdUpdateCategoryRouteRoute
@@ -8035,6 +8059,7 @@ export interface FileRoutesById {
   '/app/enterprises_/$enterpriseId/delete': typeof AppEnterprisesEnterpriseIdDeleteRouteRoute
   '/app/enterprises_/$enterpriseId/import-contacts': typeof AppEnterprisesEnterpriseIdImportContactsRouteRoute
   '/app/enterprises_/$enterpriseId/import-ged-files': typeof AppEnterprisesEnterpriseIdImportGedFilesRouteRoute
+  '/app/enterprises_/$enterpriseId/relate-business-rma': typeof AppEnterprisesEnterpriseIdRelateBusinessRmaRouteRoute
   '/app/enterprises_/$enterpriseId/update': typeof AppEnterprisesEnterpriseIdUpdateRouteRoute
   '/app/enterprises_/$enterpriseId/update-accountability': typeof AppEnterprisesEnterpriseIdUpdateAccountabilityRouteRoute
   '/app/enterprises_/$enterpriseId/update-category': typeof AppEnterprisesEnterpriseIdUpdateCategoryRouteRoute
@@ -8342,6 +8367,7 @@ export interface FileRouteTypes {
     | '/app/enterprises/$enterpriseId/delete'
     | '/app/enterprises/$enterpriseId/import-contacts'
     | '/app/enterprises/$enterpriseId/import-ged-files'
+    | '/app/enterprises/$enterpriseId/relate-business-rma'
     | '/app/enterprises/$enterpriseId/update'
     | '/app/enterprises/$enterpriseId/update-accountability'
     | '/app/enterprises/$enterpriseId/update-category'
@@ -8640,6 +8666,7 @@ export interface FileRouteTypes {
     | '/app/enterprises/$enterpriseId/delete'
     | '/app/enterprises/$enterpriseId/import-contacts'
     | '/app/enterprises/$enterpriseId/import-ged-files'
+    | '/app/enterprises/$enterpriseId/relate-business-rma'
     | '/app/enterprises/$enterpriseId/update'
     | '/app/enterprises/$enterpriseId/update-accountability'
     | '/app/enterprises/$enterpriseId/update-category'
@@ -8943,6 +8970,7 @@ export interface FileRouteTypes {
     | '/app/enterprises_/$enterpriseId/delete'
     | '/app/enterprises_/$enterpriseId/import-contacts'
     | '/app/enterprises_/$enterpriseId/import-ged-files'
+    | '/app/enterprises_/$enterpriseId/relate-business-rma'
     | '/app/enterprises_/$enterpriseId/update'
     | '/app/enterprises_/$enterpriseId/update-accountability'
     | '/app/enterprises_/$enterpriseId/update-category'
@@ -9380,6 +9408,7 @@ export const routeTree = rootRoute
         "/app/enterprises_/$enterpriseId/delete",
         "/app/enterprises_/$enterpriseId/import-contacts",
         "/app/enterprises_/$enterpriseId/import-ged-files",
+        "/app/enterprises_/$enterpriseId/relate-business-rma",
         "/app/enterprises_/$enterpriseId/update",
         "/app/enterprises_/$enterpriseId/update-accountability",
         "/app/enterprises_/$enterpriseId/update-category",
@@ -9736,6 +9765,10 @@ export const routeTree = rootRoute
     },
     "/app/enterprises_/$enterpriseId/import-ged-files": {
       "filePath": "app/enterprises_.$enterpriseId/import-ged-files/route.ts",
+      "parent": "/app/enterprises_/$enterpriseId"
+    },
+    "/app/enterprises_/$enterpriseId/relate-business-rma": {
+      "filePath": "app/enterprises_.$enterpriseId/relate-business-rma/route.ts",
       "parent": "/app/enterprises_/$enterpriseId"
     },
     "/app/enterprises_/$enterpriseId/update": {
