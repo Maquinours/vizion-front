@@ -19,14 +19,16 @@ const columns = [
   columnHelper.display({
     id: 'checker',
     cell: ({ row }) => (
-      <IndeterminateCheckboxComponent
-        {...{
-          checked: row.getIsSelected(),
-          disabled: !row.getCanSelect(),
-          indeterminate: row.getIsSomeSelected(),
-          onChange: row.getToggleSelectedHandler(),
-        }}
-      />
+      <div className="flex h-full w-full items-center justify-center">
+        <IndeterminateCheckboxComponent
+          {...{
+            checked: row.getIsSelected(),
+            disabled: !row.getCanSelect(),
+            indeterminate: row.getIsSomeSelected(),
+            onChange: row.getToggleSelectedHandler(),
+          }}
+        />
+      </div>
     ),
   }),
   columnHelper.display({

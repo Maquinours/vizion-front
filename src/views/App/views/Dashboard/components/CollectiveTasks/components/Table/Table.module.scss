@@ -35,6 +35,16 @@
     position: relative;
     z-index: 1;
 
+    thead>tr>th {
+      &:nth-child(1) {
+        width: 25%;
+      }
+
+      &::nth-child(2) {
+        width: 75%;
+      }
+    }
+
     tbody {
       position: relative;
       z-index: 1;
@@ -50,6 +60,14 @@
             sans-serif;
           min-height: 100px;
           color: var(--primary-light);
+
+          &:nth-child(1) {
+            width: 25%;
+          }
+
+          &::nth-child(2) {
+            width: 75%;
+          }
 
           .more_content {
             display: flex;
@@ -93,7 +111,7 @@
                   font-size: 14px;
                 }
 
-                & > div {
+                &>div {
                   margin-top: 0.3rem;
                   color: var(--primary-color);
                   font-weight: bold;
