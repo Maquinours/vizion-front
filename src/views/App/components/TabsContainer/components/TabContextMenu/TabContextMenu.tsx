@@ -34,7 +34,7 @@ export default function AppViewTabsContainerComponentTabContextMenuComponent({
   };
 
   return (
-    <Popper open={isOpen} anchorEl={anchorElement} transition placement="bottom-start" className="z-[999]">
+    <Popper open={isOpen} anchorEl={anchorElement} transition placement="bottom-start" className="z-999">
       {({ TransitionProps }) => (
         <ClickAwayListener mouseEvent="onMouseUp" onClickAway={onClose}>
           <Fade {...TransitionProps}>

@@ -13,7 +13,7 @@ export default function AppViewStudyViewAutomaticViewSidebarComponentTooMuchProd
       overlayClassName="Overlay"
       onRequestClose={onClose}
     >
-      <div className="fixed inset-0 z-[5003] flex items-center justify-center bg-slate-800/20">
+      <div className="fixed inset-0 z-5003 flex items-center justify-center bg-slate-800/20">
         <div className="relative mx-auto mt-2 flex h-fit w-fit max-w-3xl flex-col space-y-4 rounded-md border border-[#31385a] bg-slate-50 px-2 pb-4 text-[#31385a]">
           <div className="absolute inset-x-0 h-8 bg-[#31385a] text-center text-white">Attention !</div>
           <div className="h-6" />

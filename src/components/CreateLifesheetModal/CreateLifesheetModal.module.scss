@@ -91,12 +91,12 @@
       }
 
       .editor {
-        & > div {
+        &>div {
           border: 1px solid #31385a;
           border-radius: 5px;
 
           :nth-child(2) {
-            & > div {
+            &>div {
               min-height: auto;
               max-height: 35vh;
               height: 100%;
@@ -124,6 +124,19 @@
               }
             }
           }
+        }
+
+        .__errors {
+          text-align: left;
+          font-family: 'DIN2014', Arial, sans-serif;
+          font-style: normal;
+          font-weight: normal;
+          font-variant: normal;
+          font-size: 11px;
+          line-height: 10px;
+          letter-spacing: 0px;
+          color: var(--secondary-color);
+          opacity: 1;
         }
       }
 

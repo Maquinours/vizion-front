@@ -69,7 +69,7 @@ export default function AppViewStudyViewAutomaticViewIndependantCameraNode({ id,
 
   return (
     <ClickAwayListener mouseEvent="onPointerDown" onClickAway={() => setIsSettingsOpened(false)}>
-      <div className="relative z-[100000]">
+      <div className="relative z-100000">
         <p className="mb-1 h-4 text-sm">{data.model.reference ?? ''}</p>
         <div className="absolute -left-[2rem] space-y-2">
           {data.options.map(

@@ -238,7 +238,7 @@
                           flex-direction: column;
                           flex-wrap: wrap;
 
-                          & > div {
+                          &>div {
                             font: normal normal normal 14px/18px 'DIN2014';
 
                             &:nth-child(1) {
@@ -250,6 +250,19 @@
                       }
                     }
                   }
+                }
+
+                .__errors {
+                  text-align: left;
+                  font-family: 'DIN2014', Arial, sans-serif;
+                  font-style: normal;
+                  font-weight: normal;
+                  font-variant: normal;
+                  font-size: 11px;
+                  line-height: 10px;
+                  letter-spacing: 0px;
+                  color: var(--secondary-color);
+                  opacity: 1;
                 }
 
                 /* Track */

@@ -186,7 +186,7 @@ export default function CreateLifesheetModalComponent({
                   <Quill placeholder="Ecrire le message ici" value={value} onChange={onChange} onBlur={onBlur} />
                 )}
               />
-              <p className="__errors">{errors.description?.message}</p>
+              <p className={styles.__errors}>{errors.description?.message}</p>
             </div>
 
             <div className={styles.members_container}>

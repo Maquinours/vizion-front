@@ -70,7 +70,7 @@ export default function AppViewStudyViewAutomaticViewRecapComponent() {
                       <tr key={camera.id}>
                         <td className="whitespace-nowrap px-6 py-3 text-sm">
                           <div className="flex items-center">
-                            <div className="h-12 w-12 flex-shrink-0">
+                            <div className="h-12 w-12 shrink-0">
                               <img className="h-12 w-12" src={`https://bd.vizeo.eu/6-Photos/${camera.reference}/${camera.reference}.png`} alt="Camera" />
                             </div>
                             <div className="ml-2">

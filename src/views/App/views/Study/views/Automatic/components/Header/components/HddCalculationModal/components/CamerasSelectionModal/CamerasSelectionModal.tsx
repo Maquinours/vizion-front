@@ -80,7 +80,7 @@ export default function AppViewStudyViewAutomaticViewHeaderComponentHddCalculati
     <ReactModal
       isOpen
       onRequestClose={onClose}
-      className="absolute left-2/4 top-2/4 z-[2005] m-auto h-auto w-[70%] min-w-[70%] max-w-[1000px] -translate-x-2/4 -translate-y-2/4 rounded-[5px] p-0 opacity-100"
+      className="absolute left-2/4 top-2/4 z-2005 m-auto h-auto w-[70%] min-w-[70%] max-w-[1000px] -translate-x-2/4 -translate-y-2/4 rounded-[5px] p-0 opacity-100"
       overlayClassName="Overlay"
     >
       <form className="mx-auto flex max-h-[750px] max-w-6xl flex-col space-y-2 overflow-auto rounded-md bg-white pb-4" onSubmit={handleSubmit(onSubmit)}>
