@@ -66,8 +66,8 @@ importers:
         specifier: ^3.12.0
         version: 3.12.0(pdfjs-dist@4.10.38)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       '@react-pdf/renderer':
-        specifier: 4.1.5
-        version: 4.1.5(react@19.0.0)
+        specifier: ^4.1.6
+        version: 4.1.6(react@19.0.0)
       '@sentry/react':
         specifier: ^8.51.0
         version: 8.51.0(react@19.0.0)
@@ -1260,8 +1260,8 @@ packages:
   '@react-pdf/render@4.0.2':
     resolution: {integrity: sha512-5QJB9sS0uU5ALTLxrtT073VT1imZhrzuOun+7kvo0nykeAr9I4lv0Shmy8rS4QhpmXn8ASmhd17WjCVm4DcJlw==}
 
-  '@react-pdf/renderer@4.1.5':
-    resolution: {integrity: sha512-SGaaVloGtBNCsgu7TrS9C8QrcMegqEzgaw2Y/DnpZJtru13WgBs+auM9ana58ytQ7PIMB1RYJtFVvYhM1hf/+w==}
+  '@react-pdf/renderer@4.1.6':
+    resolution: {integrity: sha512-hfQ0PsuVqfoYxkYgmkj+HFkylbB1QTpXY1rnlgnzJlrlSoNXjzPrCa/ty8jcHOwYA2lNoazIAoDatBIsc8K5pw==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
 
@@ -5113,7 +5113,7 @@ snapshots:
       parse-svg-path: 0.1.2
       svg-arc-to-cubic-bezier: 3.2.0
 
-  '@react-pdf/renderer@4.1.5(react@19.0.0)':
+  '@react-pdf/renderer@4.1.6(react@19.0.0)':
     dependencies:
       '@babel/runtime': 7.26.7
       '@react-pdf/font': 3.0.1
