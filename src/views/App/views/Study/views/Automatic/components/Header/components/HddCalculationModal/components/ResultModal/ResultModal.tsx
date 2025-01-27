@@ -31,7 +31,7 @@ export default function AppViewStudyViewAutomaticViewHeaderComponentHddCalculati
     <ReactModal
       isOpen
       onRequestClose={onClose}
-      className="absolute left-2/4 top-2/4 z-[2005] m-auto h-auto w-auto min-w-[70%] max-w-[1000px] -translate-x-2/4 -translate-y-2/4 rounded-[5px] p-0 opacity-100"
+      className="absolute left-2/4 top-2/4 z-2005 m-auto h-auto w-auto min-w-[70%] max-w-[1000px] -translate-x-2/4 -translate-y-2/4 rounded-[5px] p-0 opacity-100"
       overlayClassName="Overlay"
     >
       <div className="mx-auto mt-4 flex max-h-[750px] max-w-6xl flex-col space-y-2 overflow-auto rounded-md border-2 border-t-0 border-[#1a192b] bg-white pb-4">
@@ -40,7 +40,7 @@ export default function AppViewStudyViewAutomaticViewHeaderComponentHddCalculati
           <div className="grid-row-2 grid">
             <div className="flex items-center pb-4">
               <span className="pr-4 text-sm font-bold text-[#16204E]">Configuration</span>
-              <div className="h-px flex-grow bg-gray-400"></div>
+              <div className="h-px grow bg-gray-400"></div>
               <button type="button" onClick={onGoToSettings} className="ml-1">
                 <MdEdit className="fill-red-600" />
               </button>
@@ -71,7 +71,7 @@ export default function AppViewStudyViewAutomaticViewHeaderComponentHddCalculati
           <div className="grid-row-2 grid">
             <div className="flex items-center pb-4">
               <span className="pr-4 text-sm font-bold text-[#16204E]">Caméras</span>
-              <div className="h-px flex-grow bg-gray-400"></div>
+              <div className="h-px grow bg-gray-400"></div>
               <button className="ml-1">
                 <MdEdit className="fill-red-600" onClick={onGoToCameras} />
               </button>

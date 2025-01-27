@@ -50,8 +50,9 @@ export default function AppViewBusinessViewArcViewUpdateShippingPriceModalView()
   const { mutate, isPending } = useMutation({
     mutationFn: ({ shippingServicePrice }: yup.InferType<typeof yupSchema>) => {
       const totalAmountHT = arc.arcDetailsList?.reduce((acc, detail) => acc + (detail.totalPrice ?? 0), 0) ?? 0;
-      const vat = (totalAmountHT + shippingServicePrice) * 0.2;
-      const totalAmount = totalAmountHT + shippingServicePrice + vat;
+      const total = totalAmountHT + shippingServicePrice;
+      const vat = business.exportTva ? total * 0.2 : 0;
+      const totalAmount = total + vat;
 
       return updateBusinessArc(arc.id, {
         number: arc.number,

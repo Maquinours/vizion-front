@@ -39,6 +39,7 @@ export default function AppViewToolsViewMailsViewShowModalView() {
             document={<AppViewToolsViewMailsViewShowModalViewPdfComponent mail={mail} />}
             fileName={`${mail.enterpriseName}-${mail.reference}.pdf`}
           >
+            {/* @ts-expect-error: library type mismatch */}
             {({ loading }) => <button className="btn btn-secondary">{loading ? 'Chargement...' : 'Télécharger'}</button>}
           </PDFDownloadLink>
         </div>

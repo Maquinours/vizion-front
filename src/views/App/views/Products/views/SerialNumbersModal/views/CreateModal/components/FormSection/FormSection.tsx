@@ -96,7 +96,7 @@ export default function AppViewProductsViewSerialNumbersModalViewCreateModalView
 
       const list: Array<string> = [];
 
-      for (let i = startNumber; i <= endNumber; i++) list.push(prefix + '0'.repeat(endNumber.toString().length - startNumber.toString().length) + i.toString());
+      for (let i = startNumber; i <= endNumber; i++) list.push(prefix + '0'.repeat(endNumber.toString().length - i.toString().length) + i.toString());
       setRequestData({
         productId: data.productVersion.product!.id,
         productRef: data.productVersion.product!.reference,

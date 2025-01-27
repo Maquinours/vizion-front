@@ -132,7 +132,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentConfirmQ
         0,
       );
       const shippingServicePrice = totalAmountHT < 1200 ? 25 : 0;
-      const vat = Number(((totalAmountHT + shippingServicePrice) * 0.2).toFixed(2));
+      const vat = business.exportTva ? Number(((totalAmountHT + shippingServicePrice) * 0.2).toFixed(2)) : 0; // 20% tax
       const totalAmount = totalAmountHT + shippingServicePrice + vat;
 
       const flowRect = document.querySelector('.react-flow')!.getBoundingClientRect();
@@ -181,7 +181,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentConfirmQ
     <ReactModal
       isOpen
       onRequestClose={onClose}
-      className="absolute left-2/4 top-2/4 z-[2005] m-auto h-auto w-auto min-w-[70%] max-w-[1000px] -translate-x-2/4 -translate-y-2/4 rounded-md p-0 opacity-100"
+      className="absolute left-2/4 top-2/4 z-2005 m-auto h-auto w-auto min-w-[70%] max-w-[1000px] -translate-x-2/4 -translate-y-2/4 rounded-md p-0 opacity-100"
       overlayClassName="Overlay"
     >
       <h2 className="flex h-10 items-center justify-center rounded-t-md bg-[#16204e] text-white">Transfert des produits dans l&apos;affaire</h2>

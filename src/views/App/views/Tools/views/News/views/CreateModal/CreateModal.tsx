@@ -116,7 +116,7 @@ export default function AppViewToolsViewNewsViewCreateModalView() {
                       name="content"
                       render={({ field: { value, onChange, onBlur } }) => <Quill value={value} onChange={onChange} onBlur={onBlur} />}
                     />
-                    <p className="__errors">{errors.content?.message}</p>
+                    <p className={styles.__errors}>{errors.content?.message}</p>
                   </div>
                   <div className={styles.dropzone_container}>
                     <div {...getRootProps({ className: 'dropzone' })}>

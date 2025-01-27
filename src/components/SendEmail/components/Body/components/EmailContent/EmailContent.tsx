@@ -1,9 +1,14 @@
 import { Controller } from 'react-hook-form';
-import 'react-quill/dist/quill.snow.css';
 import styles from './EmailContent.module.scss';
 import { useContext } from 'react';
 import { SendEmailFormContext } from '../../../../utils/contexts/sendEmail';
 import Quill from '../../../../../Quill/Quill';
+
+const modules = {
+  toolbar: {
+    container: [['bold', 'italic', 'underline'], ['link']],
+  },
+};
 
 export default function SendEmailComponentBodyComponentEmailContentComponent() {
   const { control } = useContext(SendEmailFormContext)!;
@@ -12,7 +17,9 @@ export default function SendEmailComponentBodyComponentEmailContentComponent() {
       <Controller
         control={control}
         name="content"
-        render={({ field: { value, onChange, onBlur } }) => <Quill value={value} placeholder="Contenu du mail" onChange={onChange} onBlur={onBlur} />}
+        render={({ field: { value, onChange, onBlur } }) => (
+          <Quill value={value} placeholder="Contenu du mail" onChange={onChange} onBlur={onBlur} modules={modules} />
+        )}
       />
     </div>
   );

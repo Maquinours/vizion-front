@@ -42,6 +42,9 @@ export const Route = createFileRoute('/app/businesses-rma_/business/$businessId/
     const quotationPdfFile = new File([quotationPdfBlob], formatFileName(`Devis-${quotation.number}.pdf`), {
       type: quotationPdfBlob.type,
     });
+
+    queryClient.prefetchQuery(queries['predefined-message'].list);
+
     return {
       business,
       quotation,

@@ -1,7 +1,6 @@
-import { VirtualElement } from '@popperjs/core';
 import { Link, getRouteApi } from '@tanstack/react-router';
 import { Row, createColumnHelper } from '@tanstack/react-table';
-import { useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import TableComponent from '../../../../../../components/Table/Table';
 import EnterpriseResponseDto from '../../../../../../utils/types/EnterpriseResponseDto';
 import ProfileResponseDto from '../../../../../../utils/types/ProfileResponseDto';
@@ -20,26 +19,17 @@ type AppViewEnterprisesViewTableComponentProps = Readonly<{
 export default function AppViewEnterprisesViewTableComponent({ data, isLoading }: AppViewEnterprisesViewTableComponentProps) {
   const navigate = routeApi.useNavigate();
 
-  const [contactContextMenuAnchor, setContactContextMenuAnchor] = useState<VirtualElement>();
+  const [contactContextMenuAnchor, setContactContextMenuAnchor] = useState<HTMLElement>();
   const [contact, setContact] = useState<ProfileResponseDto>();
 
-  const onContactContextMenu = (e: React.MouseEvent, contact: ProfileResponseDto) => {
-    e.preventDefault();
-    setContact(contact);
-    setContactContextMenuAnchor({
-      getBoundingClientRect: () => ({
-        width: 0,
-        height: 0,
-        x: e.clientX,
-        y: e.clientY,
-        top: e.clientY,
-        right: e.clientX,
-        bottom: e.clientY,
-        left: e.clientX,
-        toJSON: () => {},
-      }),
-    });
-  };
+  const onContactContextMenu = useCallback(
+    (e: React.MouseEvent, contact: ProfileResponseDto) => {
+      e.preventDefault();
+      setContact(contact);
+      setContactContextMenuAnchor(e.target as HTMLElement);
+    },
+    [setContact, setContactContextMenuAnchor],
+  );
 
   const columns = useMemo(
     () => [

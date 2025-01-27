@@ -69,13 +69,13 @@ export default function AppViewStudyViewExpertViewHeaderComponentCartComponent()
     <>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex h-[2.5rem] w-36 items-center justify-center space-x-1 rounded-md border border-slate-800 px-4 py-2 text-sm shadow-sm hover:outline hover:outline-offset-[1px] hover:outline-blue-500"
+        className="flex h-[2.5rem] w-36 items-center justify-center space-x-1 rounded-md border border-slate-800 px-4 py-2 text-sm shadow-xs hover:outline hover:outline-offset-[1px] hover:outline-blue-500"
       >
         Étude {productCount} {productCount > 1 ? 'articles' : 'article'}
       </button>
       <div
         className={classNames(
-          'absolute right-0 z-[500] h-full bg-slate-100 text-white shadow-md backdrop-blur transition-all duration-300 ease-in',
+          'absolute right-0 z-500 h-full bg-slate-100 text-white shadow-md backdrop-blur-sm transition-all duration-300 ease-in',
           isOpen ? 'translate-x-0 opacity-100' : 'translate-x-[200%] opacity-0',
         )}
       >
@@ -93,7 +93,7 @@ export default function AppViewStudyViewExpertViewHeaderComponentCartComponent()
                   viewBox="0 0 24 24"
                   strokeWidth={1}
                   stroke="currentColor"
-                  className="stoke-indigo-900 fixed right-4 top-0 z-[900] h-12 w-12 fill-indigo-900"
+                  className="stoke-indigo-900 fixed right-4 top-0 z-900 h-12 w-12 fill-indigo-900"
                 >
                   <path stroke="white" strokeLinecap="round" strokeLinejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>

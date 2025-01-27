@@ -1,7 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { getRouteApi } from '@tanstack/react-router';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
 import { toast } from 'react-toastify';
@@ -12,6 +12,7 @@ import WorkloadType from '../../../../../../utils/enums/WorkloadType';
 import TaskResponseDto from '../../../../../../utils/types/TaskResponseDto';
 import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthentifiedUser';
 import styles from './CreateCollectiveTaskModal.module.scss';
+import Quill from '../../../../../../components/Quill/Quill';
 
 const routeApi = getRouteApi('/app/dashboard/create-collective-task');
 
@@ -26,7 +27,7 @@ export default function DashboardComponentCreateCollectiveTaskModalView() {
   const { data: currentUser } = useAuthentifiedUserQuery();
 
   const {
-    register,
+    control,
     formState: { errors },
     handleSubmit,
   } = useForm({
@@ -75,7 +76,11 @@ export default function DashboardComponentCreateCollectiveTaskModalView() {
               <label className="label" htmlFor="information">
                 Quoi :
               </label>
-              <textarea rows={8} {...register('content')} id="information" autoCorrect="true" autoComplete="no" />
+              <Controller
+                control={control}
+                name="content"
+                render={({ field: { value, onChange, onBlur } }) => <Quill id="information" value={value} onChange={onChange} onBlur={onBlur} />}
+              />
               <p className={styles.__errors}>{errors.content?.message}</p>
             </div>
 

@@ -68,7 +68,7 @@ export default function AppViewStudyViewExpertView() {
           <div className="flex h-full w-full flex-col">
             <AppViewStudyViewExpertViewHeaderComponent />
             <div className="max-h-[calc(100%-48px)]">
-              <div id="flow-parent" className="flex aspect-[1096/775] h-full items-center justify-center border-r border-r-slate-800">
+              <div id="flow-parent" className="flex aspect-1096/775 h-full items-center justify-center border-r border-r-slate-800">
                 {hasPage ? <AppViewStudyViewExpertViewFlowComponent /> : <AppViewStudyViewExpertViewFirstPageTypeSelectionComponent />}
               </div>
             </div>

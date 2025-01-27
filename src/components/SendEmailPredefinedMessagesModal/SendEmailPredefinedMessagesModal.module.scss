@@ -96,7 +96,10 @@
                 color: #16204e;
                 padding-left: 1rem;
                 height: 35px;
-                text-align: left;
+
+                &:nth-child(1) {
+                  width: 10%;
+                }
 
                 @include mixins.respond-below(md) {
                   padding-left: 10px;
@@ -131,11 +134,15 @@
           th {
             height: 38px;
             padding-left: 0.5rem;
-            text-align: left;
+            text-align: center;
             border: none;
             border-right: 1px solid #686e89;
             position: sticky;
             top: 0;
+
+            &:nth-child(1) {
+              width: 10%;
+            }
 
             @include mixins.respond-below(md) {
               padding-left: 10px;

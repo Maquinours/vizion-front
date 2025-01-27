@@ -16,12 +16,6 @@ export default function AppViewRmaViewReceptionViewPdfModalViewSendByEmailModalV
     <SendEmailModalComponent
       isOpen
       onClose={onClose}
-      predefinedMessagesModalLink={{
-        to: '/app/businesses-rma/rma/$rmaId/reception/pdf/send-by-email/predefined-messages',
-        search: true,
-        replace: true,
-        resetScroll: false,
-      }}
       defaultRecipient={rma.addressEmail ? [rma.addressEmail] : undefined}
       defaultSubject={`RMA / Reception ${rma.number}`}
       defaultAttachments={[file]}

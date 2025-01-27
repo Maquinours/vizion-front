@@ -1,22 +1,21 @@
 import { ClickAwayListener, Fade, MenuItem, MenuList, Paper, Popper } from '@mui/material';
-import ProfileResponseDto from '../../../../../../../../utils/types/ProfileResponseDto';
-import { VirtualElement } from '@popperjs/core';
 import { Link, getRouteApi } from '@tanstack/react-router';
-import { useAuthentifiedUserQuery } from '../../../../../../utils/functions/getAuthentifiedUser';
-import { MdMailOutline, MdPassword, MdWork } from 'react-icons/md';
-import styles from './ContactContextMenu.module.scss';
 import { FaCopy, FaFile, FaTrash } from 'react-icons/fa';
-import { IoMdAddCircleOutline } from 'react-icons/io';
 import { HiPencilAlt } from 'react-icons/hi';
-import CategoryClient from '../../../../../../../../utils/enums/CategoryClient';
+import { IoMdAddCircleOutline } from 'react-icons/io';
+import { MdMailOutline, MdPassword, MdWork } from 'react-icons/md';
 import { toast } from 'react-toastify';
+import CategoryClient from '../../../../../../../../utils/enums/CategoryClient';
+import ProfileResponseDto from '../../../../../../../../utils/types/ProfileResponseDto';
+import { useAuthentifiedUserQuery } from '../../../../../../utils/functions/getAuthentifiedUser';
+import styles from './ContactContextMenu.module.scss';
 
 const routeApi = getRouteApi('/app/enterprises');
 
 type AppViewEnterprisesViewTableComponentContactContextMenuProps = Readonly<{
   contact: ProfileResponseDto | undefined;
-  anchorElement: VirtualElement | undefined;
-  setAnchorElement: React.Dispatch<React.SetStateAction<VirtualElement | undefined>>;
+  anchorElement: HTMLElement | undefined;
+  setAnchorElement: React.Dispatch<React.SetStateAction<HTMLElement | undefined>>;
 }>;
 export default function AppViewEnterprisesViewTableComponentContactContextMenu({
   contact,
@@ -71,6 +70,7 @@ export default function AppViewEnterprisesViewTableComponentContactContextMenu({
         e.stopPropagation();
         e.nativeEvent.stopImmediatePropagation();
       }}
+      disablePortal={false}
     >
       {({ TransitionProps }) => (
         <ClickAwayListener mouseEvent="onMouseUp" onClickAway={onClose}>

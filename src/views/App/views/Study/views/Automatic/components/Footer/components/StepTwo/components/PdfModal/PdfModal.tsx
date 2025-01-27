@@ -114,7 +114,7 @@ export default function AppViewStudyViewAutomaticViewFooterComponentStepTwoCompo
     <ReactModal
       isOpen
       onRequestClose={onClose}
-      className="absolute left-2/4 top-2/4 z-[2005] m-auto h-auto -translate-x-2/4 -translate-y-2/4 rounded-[5px] bg-[#fbfcfe] p-0 opacity-100 shadow-[0px_3px_5px_#10173526]"
+      className="absolute left-2/4 top-2/4 z-2005 m-auto h-auto -translate-x-2/4 -translate-y-2/4 rounded-[5px] bg-[#fbfcfe] p-0 opacity-100 shadow-[0px_3px_5px_#10173526]"
       overlayClassName="Overlay"
     >
       <div className="relative mx-auto flex h-fit w-fit flex-col space-y-4 rounded-md border-2 border-t-0 border-[#31385a] bg-slate-50 px-7 py-0 pb-4 text-[#31385a]">
@@ -146,6 +146,7 @@ export default function AppViewStudyViewAutomaticViewFooterComponentStepTwoCompo
             }
             fileName={`Etude VIZEO référence ${business.numBusiness}.pdf`}
           >
+            {/* @ts-expect-error: library type mismatch */}
             {({ loading }) => (
               <button type="button" className="btn btn-primary">
                 {loading ? 'Chargement...' : 'Télécharger'}

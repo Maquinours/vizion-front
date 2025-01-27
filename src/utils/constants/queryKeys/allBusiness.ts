@@ -5,6 +5,7 @@ import {
   getAllBusinesses,
   getAllBusinessesAssociated,
   getAllBusinessesNotAssociated,
+  getAllBusinessesNotAssociatedByEnterpriseId,
   searchAllBusiness,
 } from '../../api/allBusiness';
 import CategoryBusiness from '../../enums/CategoryBusiness';
@@ -24,6 +25,10 @@ export const allBusinesses = createQueryKeys('all-businesses', {
       associated: ({ category, number }: { category: CategoryBusiness; number: string }) => ({
         queryKey: [category, number],
         queryFn: () => getAllBusinessesAssociated({ category, number }),
+      }),
+      notAssociatedByEnterpriseId: (enterpriseId: string) => ({
+        queryKey: [enterpriseId],
+        queryFn: () => getAllBusinessesNotAssociatedByEnterpriseId(enterpriseId),
       }),
     },
   },

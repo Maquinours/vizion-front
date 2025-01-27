@@ -77,7 +77,7 @@ export default function AppViewToolsViewPredefinedTextsViewUpdateModalView() {
                 Ordre
               </label>
               <input id="textOrder" type="number" {...register('orderNum')} />
-              <p className="__errors">{errors.orderNum?.message}</p>
+              <p className={styles.__errors}>{errors.orderNum?.message}</p>
             </div>
             <div className={styles.editor}>
               <label htmlFor="description">Description :</label>

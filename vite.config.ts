@@ -4,6 +4,7 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { TanStackRouterVite } from '@tanstack/router-vite-plugin';
 import svgr from 'vite-plugin-svgr';
+import tailwindcss from '@tailwindcss/vite';
 
 // const ReactCompilerConfig = {
 //   target: '18', // '17' | '18' | '19'
@@ -24,6 +25,7 @@ export default defineConfig({
       org: 'vizeo',
       project: 'vizion-front',
     }),
+    tailwindcss(),
   ],
   preview: {
     port: 3001,

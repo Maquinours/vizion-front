@@ -77,7 +77,7 @@ export default function AppViewStudyViewAutomaticViewFooterComponentStepTwoCompo
       const totalAmountHT = models.reduce((acc, model) => acc + model.quantity * (model.product.publicPrice ?? 0), 0);
       const reductedTotalAmountHT = Number((totalAmountHT - totalAmountHT * (reduction / 100)).toFixed(2));
       const shippingServicePrice = reductedTotalAmountHT > 1200 ? 0 : 25;
-      const vat = Number(((totalAmountHT + shippingServicePrice) * 0.2).toFixed(2)); // 20% tax
+      const vat = business.exportTva ? Number(((totalAmountHT + shippingServicePrice) * 0.2).toFixed(2)) : 0; // 20% tax
       const totalAmount = totalAmountHT + shippingServicePrice + vat;
       const reductedTotalAmount = Number((totalAmount - totalAmount * (reduction / 100)).toFixed(2));
 

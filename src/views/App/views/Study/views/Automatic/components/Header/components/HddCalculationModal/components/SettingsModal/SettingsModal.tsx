@@ -95,7 +95,7 @@ export default function AppViewStudyViewAutomaticViewHeaderComponentHddCalculati
     <ReactModal
       isOpen
       onRequestClose={onClose}
-      className="absolute left-2/4 top-2/4 z-[2005] m-auto h-auto w-auto min-w-[70%] max-w-[1000px] -translate-x-2/4 -translate-y-2/4 rounded-[5px] p-0 opacity-100"
+      className="absolute left-2/4 top-2/4 z-2005 m-auto h-auto w-auto min-w-[70%] max-w-[1000px] -translate-x-2/4 -translate-y-2/4 rounded-[5px] p-0 opacity-100"
       overlayClassName="Overlay"
     >
       <form onSubmit={handleSubmit(onSubmit)} className="mx-auto flex max-h-[750px] flex-col space-y-2 overflow-auto rounded-md bg-white pb-4">
@@ -105,7 +105,7 @@ export default function AppViewStudyViewAutomaticViewHeaderComponentHddCalculati
           <div className="grid-row-3 grid">
             <div className="flex items-center">
               <span className="pr-4 text-sm font-bold text-[#16204E]">Paramétrage personnalisé</span>
-              <div className="h-px flex-grow bg-gray-400"></div>
+              <div className="h-px grow bg-gray-400"></div>
             </div>
             <div className="flex flex-col">
               <label htmlFor="default-range" className="text-center font-bold text-[#16204E]">
@@ -147,7 +147,7 @@ export default function AppViewStudyViewAutomaticViewHeaderComponentHddCalculati
           <div className="grid-row-3 grid">
             <div className="flex items-center">
               <span className="pr-4 text-sm font-bold text-[#16204E]">{"Données d'enregistrement"}</span>
-              <div className="h-px flex-grow bg-gray-400"></div>
+              <div className="h-px grow bg-gray-400"></div>
             </div>
             <div className="flex flex-col">
               <div className="flex justify-center p-2">

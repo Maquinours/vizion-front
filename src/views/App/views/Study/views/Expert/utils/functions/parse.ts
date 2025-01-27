@@ -270,7 +270,7 @@ const handleBackgroundNode = (node: Node) => {
   if (!width || !height || !image) throw new Error('Invalid background node');
 
   const newNode: ExpertStudyBackgroundNode = {
-    id: node.id,
+    id: `background-${uuidv4()}`,
     type: 'background',
     position: { x: node.position.x, y: node.position.y },
     data: {
@@ -281,6 +281,8 @@ const handleBackgroundNode = (node: Node) => {
       width: width,
       height: height,
     },
+    zIndex: -1,
+    draggable: false,
   };
   return newNode;
 };

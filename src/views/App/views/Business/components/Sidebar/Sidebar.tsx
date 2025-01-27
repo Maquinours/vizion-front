@@ -6,6 +6,7 @@ import { queries } from '../../../../../../utils/constants/queryKeys';
 import BusinessState from '../../../../../../utils/enums/BusinessState';
 import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthentifiedUser';
 import styles from './Sidebar.module.scss';
+import classNames from 'classnames';
 
 const stepsData: Array<{
   label: string;
@@ -64,18 +65,21 @@ export default function AppViewBusinessViewSidebarComponent() {
     <div className={styles.container}>
       <div className={styles.wizard}>
         <div className={styles.step_progress}>
-          {stepsData.map((stepData) => (
-            <Link
-              key={stepData.link}
-              to={stepData.link}
-              disabled={!state || !stepData.clickableStates.includes(state)}
-              className={styles.step}
-              activeProps={{ className: styles.isActive }}
-              replace
-            >
-              <strong>{!!windowWidth && windowWidth < 992 && !!stepData.smallLabel ? stepData.smallLabel : stepData.label}</strong>
-            </Link>
-          ))}
+          {stepsData.map((stepData) => {
+            const disabled = !state || !stepData.clickableStates.includes(state);
+            return (
+              <Link
+                key={stepData.link}
+                to={stepData.link}
+                disabled={disabled}
+                className={classNames(styles.step, { [styles.isClickable]: !disabled })}
+                activeProps={{ className: styles.isActive }}
+                replace
+              >
+                <strong>{!!windowWidth && windowWidth < 992 && !!stepData.smallLabel ? stepData.smallLabel : stepData.label}</strong>
+              </Link>
+            );
+          })}
         </div>
       </div>
       <div className={styles.buttons}>

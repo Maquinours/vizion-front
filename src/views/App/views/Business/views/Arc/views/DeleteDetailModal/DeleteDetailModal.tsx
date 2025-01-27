@@ -17,6 +17,7 @@ export default function AppViewBusinessViewArcViewDeleteDetailModalView() {
   const { businessId, detailId } = routeApi.useParams();
 
   const { data: arc } = useSuspenseQuery(queries['business-ARCs'].detail._ctx.byBusinessId(businessId));
+  const { data: business } = useSuspenseQuery(queries.businesses.detail._ctx.byId(businessId));
   const { data: detail } = useSuspenseQuery(queries['business-arc-details'].detail._ctx.byId(detailId));
 
   const onClose = () => {
@@ -27,8 +28,9 @@ export default function AppViewBusinessViewArcViewDeleteDetailModalView() {
     mutationFn: () => {
       const totalAmountHT = arc.arcDetailsList?.reduce((acc, d) => acc + (d.id !== detail.id ? (d.totalPrice ?? 0) : 0), 0) ?? 0;
       const shippingServicePrice = arc.shippingServicePrice === 0 && (arc.totalAmountHT ?? 0) >= 1200 && totalAmountHT < 1200 ? 25 : arc.shippingServicePrice;
-      const vat = (totalAmountHT + shippingServicePrice) * 0.2;
-      const totalAmount = totalAmountHT + shippingServicePrice + vat;
+      const total = totalAmountHT + shippingServicePrice;
+      const vat = business.exportTva ? total * 0.2 : 0;
+      const totalAmount = total + vat;
 
       return deleteBusinessArcDetail(detail.id, {
         totalAmountHT,

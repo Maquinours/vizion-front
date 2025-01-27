@@ -600,7 +600,7 @@ export default function AppViewBusinessViewQuotationViewPdfModalViewPdfComponent
                 <View style={pageStyles.recapBody}>
                   <Text style={pageStyles.recapBodyText}>TVA</Text>
                   <Text style={pageStyles.recapBodyValue}>20%</Text>
-                  <Text style={pageStyles.recapBodyValue}>{currencyFormatter((quotation.totalAmountHT! + quotation.shippingServicePrice) * 0.2)}</Text>
+                  <Text style={pageStyles.recapBodyValue}>{currencyFormatter(quotation.vat)}</Text>
                 </View>
                 <View style={pageStyles.recapFooter}>
                   <Text style={pageStyles.recapFooterText}>Total TTC</Text>

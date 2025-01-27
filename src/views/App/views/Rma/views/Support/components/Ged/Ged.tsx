@@ -32,7 +32,7 @@ export default function AppViewRmaViewSupportViewGedComponent() {
       })}
       getDeleteLink={(object) => ({
         to: '/app/businesses-rma/rma/$rmaId/support/delete-ged-object/$relativePath',
-        params: { objectRelativePath: object.relativePath },
+        params: { relativePath: object.relativePath },
         search: true,
         replace: true,
         resetScroll: false,

@@ -10,7 +10,7 @@ export const Route = createFileRoute('/app/enterprises_/$enterpriseId/update-con
     let initialDataKey: QueryKey | undefined = undefined;
 
     await queryClient.ensureQueryData({
-      ...queries.profiles.detail(contactId),
+      ...queries.profiles.detail._ctx.byId(contactId),
       initialData: () => {
         for (const [key, value] of queryClient.getQueriesData<Page<ProfileResponseDto>>({ queryKey: queries.profiles.page.queryKey })) {
           const item = value?.content.find((item) => item.id === contactId);

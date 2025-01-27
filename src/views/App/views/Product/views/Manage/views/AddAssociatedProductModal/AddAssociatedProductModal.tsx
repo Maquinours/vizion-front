@@ -80,7 +80,7 @@ export default function AppViewProductViewManageViewAddAssociatedProductModalVie
                 )}
               />
             </div>
-            <p className="__errors">{errors.associatedProduct?.message}</p>
+            <p className={styles.__errors}>{errors.associatedProduct?.message}</p>
           </div>
           <div className={styles.loader}>
             <PulseLoader color="#31385A" loading={isPending} size={10} speedMultiplier={0.5} />
