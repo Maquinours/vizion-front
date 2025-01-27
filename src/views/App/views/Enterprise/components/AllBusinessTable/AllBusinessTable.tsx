@@ -11,6 +11,7 @@ import CategoryBusiness from '../../../../../../utils/enums/CategoryBusiness';
 import { formatDateAndHourWithSlash } from '../../../../../../utils/functions/dates';
 import AllBusinessResponseDto from '../../../../../../utils/types/AllBusinessResponseDto';
 import styles from './AllBusinessTable.module.scss';
+import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthentifiedUser';
 
 const size = 15;
 
@@ -132,6 +133,7 @@ export default function AppViewEnterpriseViewAllBusinessTableComponent() {
   const { enterpriseId } = routeApi.useParams();
   const { allBusinessPage: page } = routeApi.useSearch();
 
+  const { data: authentifiedUser } = useAuthentifiedUserQuery();
   const { data, isLoading } = useQuery(allBusinesses.page._ctx.byEnterpriseId({ enterpriseId, page, size }));
 
   const onRowClick = (e: React.MouseEvent, row: Row<AllBusinessResponseDto>) => {
@@ -148,7 +150,11 @@ export default function AppViewEnterpriseViewAllBusinessTableComponent() {
     <div className={styles.container}>
       <CardComponent
         title="Affaires en cours"
-        addLink={{ to: '/app/enterprises/$enterpriseId/relate-business-rma', search: true, replace: true, resetScroll: false }}
+        addLink={
+          authentifiedUser.userInfo.roles.includes('ROLE_MEMBRE_VIZEO')
+            ? { to: '/app/enterprises/$enterpriseId/relate-business-rma', search: true, replace: true, resetScroll: false }
+            : undefined
+        }
       >
         <div className={styles.card_container}>
           <div className={styles.table_container}>
