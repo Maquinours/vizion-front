@@ -170,6 +170,7 @@ import { Route as AppFaqGedFaqIdImportFilesRouteImport } from './routes/app/faq/
 import { Route as AppFaqGedFaqIdCreateDirectoryRouteImport } from './routes/app/faq/ged.$faqId/create-directory/route'
 import { Route as AppEnterprisesEnterpriseIdUpdateContactContactIdRouteImport } from './routes/app/enterprises_.$enterpriseId/update-contact.$contactId/route'
 import { Route as AppEnterprisesEnterpriseIdUpdateContactPasswordContactIdRouteImport } from './routes/app/enterprises_.$enterpriseId/update-contact-password.$contactId/route'
+import { Route as AppEnterprisesEnterpriseIdUnrelateBusinessRmaBusinessRmaIdRouteImport } from './routes/app/enterprises_.$enterpriseId/unrelate-business-rma.$businessRmaId/route'
 import { Route as AppEnterprisesEnterpriseIdUnlinkTaskTaskIdRouteImport } from './routes/app/enterprises_.$enterpriseId/unlink-task.$taskId/route'
 import { Route as AppEnterprisesEnterpriseIdTaskEmailTaskIdRouteImport } from './routes/app/enterprises_.$enterpriseId/task-email.$taskId/route'
 import { Route as AppEnterprisesEnterpriseIdSendEmailToContactContactIdRouteImport } from './routes/app/enterprises_.$enterpriseId/send-email-to-contact.$contactId/route'
@@ -1928,6 +1929,17 @@ const AppEnterprisesEnterpriseIdUpdateContactPasswordContactIdRouteRoute =
   } as any).lazy(() =>
     import(
       './routes/app/enterprises_.$enterpriseId/update-contact-password.$contactId/route.lazy'
+    ).then((d) => d.Route),
+  )
+
+const AppEnterprisesEnterpriseIdUnrelateBusinessRmaBusinessRmaIdRouteRoute =
+  AppEnterprisesEnterpriseIdUnrelateBusinessRmaBusinessRmaIdRouteImport.update({
+    id: '/unrelate-business-rma/$businessRmaId',
+    path: '/unrelate-business-rma/$businessRmaId',
+    getParentRoute: () => AppEnterprisesEnterpriseIdRouteRoute,
+  } as any).lazy(() =>
+    import(
+      './routes/app/enterprises_.$enterpriseId/unrelate-business-rma.$businessRmaId/route.lazy'
     ).then((d) => d.Route),
   )
 
@@ -4583,6 +4595,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppEnterprisesEnterpriseIdUnlinkTaskTaskIdRouteImport
       parentRoute: typeof AppEnterprisesEnterpriseIdRouteImport
     }
+    '/app/enterprises_/$enterpriseId/unrelate-business-rma/$businessRmaId': {
+      id: '/app/enterprises_/$enterpriseId/unrelate-business-rma/$businessRmaId'
+      path: '/unrelate-business-rma/$businessRmaId'
+      fullPath: '/app/enterprises/$enterpriseId/unrelate-business-rma/$businessRmaId'
+      preLoaderRoute: typeof AppEnterprisesEnterpriseIdUnrelateBusinessRmaBusinessRmaIdRouteImport
+      parentRoute: typeof AppEnterprisesEnterpriseIdRouteImport
+    }
     '/app/enterprises_/$enterpriseId/update-contact-password/$contactId': {
       id: '/app/enterprises_/$enterpriseId/update-contact-password/$contactId'
       path: '/update-contact-password/$contactId'
@@ -6479,6 +6498,7 @@ interface AppEnterprisesEnterpriseIdRouteRouteChildren {
   AppEnterprisesEnterpriseIdSendEmailToContactContactIdRouteRoute: typeof AppEnterprisesEnterpriseIdSendEmailToContactContactIdRouteRoute
   AppEnterprisesEnterpriseIdTaskEmailTaskIdRouteRoute: typeof AppEnterprisesEnterpriseIdTaskEmailTaskIdRouteRouteWithChildren
   AppEnterprisesEnterpriseIdUnlinkTaskTaskIdRouteRoute: typeof AppEnterprisesEnterpriseIdUnlinkTaskTaskIdRouteRoute
+  AppEnterprisesEnterpriseIdUnrelateBusinessRmaBusinessRmaIdRouteRoute: typeof AppEnterprisesEnterpriseIdUnrelateBusinessRmaBusinessRmaIdRouteRoute
   AppEnterprisesEnterpriseIdUpdateContactPasswordContactIdRouteRoute: typeof AppEnterprisesEnterpriseIdUpdateContactPasswordContactIdRouteRoute
   AppEnterprisesEnterpriseIdUpdateContactContactIdRouteRoute: typeof AppEnterprisesEnterpriseIdUpdateContactContactIdRouteRoute
 }
@@ -6525,6 +6545,8 @@ const AppEnterprisesEnterpriseIdRouteRouteChildren: AppEnterprisesEnterpriseIdRo
       AppEnterprisesEnterpriseIdTaskEmailTaskIdRouteRouteWithChildren,
     AppEnterprisesEnterpriseIdUnlinkTaskTaskIdRouteRoute:
       AppEnterprisesEnterpriseIdUnlinkTaskTaskIdRouteRoute,
+    AppEnterprisesEnterpriseIdUnrelateBusinessRmaBusinessRmaIdRouteRoute:
+      AppEnterprisesEnterpriseIdUnrelateBusinessRmaBusinessRmaIdRouteRoute,
     AppEnterprisesEnterpriseIdUpdateContactPasswordContactIdRouteRoute:
       AppEnterprisesEnterpriseIdUpdateContactPasswordContactIdRouteRoute,
     AppEnterprisesEnterpriseIdUpdateContactContactIdRouteRoute:
@@ -7506,6 +7528,7 @@ export interface FileRoutesByFullPath {
   '/app/enterprises/$enterpriseId/send-email-to-contact/$contactId': typeof AppEnterprisesEnterpriseIdSendEmailToContactContactIdRouteRoute
   '/app/enterprises/$enterpriseId/task-email/$taskId': typeof AppEnterprisesEnterpriseIdTaskEmailTaskIdRouteRouteWithChildren
   '/app/enterprises/$enterpriseId/unlink-task/$taskId': typeof AppEnterprisesEnterpriseIdUnlinkTaskTaskIdRouteRoute
+  '/app/enterprises/$enterpriseId/unrelate-business-rma/$businessRmaId': typeof AppEnterprisesEnterpriseIdUnrelateBusinessRmaBusinessRmaIdRouteRoute
   '/app/enterprises/$enterpriseId/update-contact-password/$contactId': typeof AppEnterprisesEnterpriseIdUpdateContactPasswordContactIdRouteRoute
   '/app/enterprises/$enterpriseId/update-contact/$contactId': typeof AppEnterprisesEnterpriseIdUpdateContactContactIdRouteRoute
   '/app/faq/ged/$faqId/create-directory': typeof AppFaqGedFaqIdCreateDirectoryRouteRoute
@@ -7805,6 +7828,7 @@ export interface FileRoutesByTo {
   '/app/enterprises/$enterpriseId/send-email-to-contact/$contactId': typeof AppEnterprisesEnterpriseIdSendEmailToContactContactIdRouteRoute
   '/app/enterprises/$enterpriseId/task-email/$taskId': typeof AppEnterprisesEnterpriseIdTaskEmailTaskIdRouteRouteWithChildren
   '/app/enterprises/$enterpriseId/unlink-task/$taskId': typeof AppEnterprisesEnterpriseIdUnlinkTaskTaskIdRouteRoute
+  '/app/enterprises/$enterpriseId/unrelate-business-rma/$businessRmaId': typeof AppEnterprisesEnterpriseIdUnrelateBusinessRmaBusinessRmaIdRouteRoute
   '/app/enterprises/$enterpriseId/update-contact-password/$contactId': typeof AppEnterprisesEnterpriseIdUpdateContactPasswordContactIdRouteRoute
   '/app/enterprises/$enterpriseId/update-contact/$contactId': typeof AppEnterprisesEnterpriseIdUpdateContactContactIdRouteRoute
   '/app/faq/ged/$faqId/create-directory': typeof AppFaqGedFaqIdCreateDirectoryRouteRoute
@@ -8112,6 +8136,7 @@ export interface FileRoutesById {
   '/app/enterprises_/$enterpriseId/send-email-to-contact/$contactId': typeof AppEnterprisesEnterpriseIdSendEmailToContactContactIdRouteRoute
   '/app/enterprises_/$enterpriseId/task-email/$taskId': typeof AppEnterprisesEnterpriseIdTaskEmailTaskIdRouteRouteWithChildren
   '/app/enterprises_/$enterpriseId/unlink-task/$taskId': typeof AppEnterprisesEnterpriseIdUnlinkTaskTaskIdRouteRoute
+  '/app/enterprises_/$enterpriseId/unrelate-business-rma/$businessRmaId': typeof AppEnterprisesEnterpriseIdUnrelateBusinessRmaBusinessRmaIdRouteRoute
   '/app/enterprises_/$enterpriseId/update-contact-password/$contactId': typeof AppEnterprisesEnterpriseIdUpdateContactPasswordContactIdRouteRoute
   '/app/enterprises_/$enterpriseId/update-contact/$contactId': typeof AppEnterprisesEnterpriseIdUpdateContactContactIdRouteRoute
   '/app/faq/ged/$faqId/create-directory': typeof AppFaqGedFaqIdCreateDirectoryRouteRoute
@@ -8420,6 +8445,7 @@ export interface FileRouteTypes {
     | '/app/enterprises/$enterpriseId/send-email-to-contact/$contactId'
     | '/app/enterprises/$enterpriseId/task-email/$taskId'
     | '/app/enterprises/$enterpriseId/unlink-task/$taskId'
+    | '/app/enterprises/$enterpriseId/unrelate-business-rma/$businessRmaId'
     | '/app/enterprises/$enterpriseId/update-contact-password/$contactId'
     | '/app/enterprises/$enterpriseId/update-contact/$contactId'
     | '/app/faq/ged/$faqId/create-directory'
@@ -8718,6 +8744,7 @@ export interface FileRouteTypes {
     | '/app/enterprises/$enterpriseId/send-email-to-contact/$contactId'
     | '/app/enterprises/$enterpriseId/task-email/$taskId'
     | '/app/enterprises/$enterpriseId/unlink-task/$taskId'
+    | '/app/enterprises/$enterpriseId/unrelate-business-rma/$businessRmaId'
     | '/app/enterprises/$enterpriseId/update-contact-password/$contactId'
     | '/app/enterprises/$enterpriseId/update-contact/$contactId'
     | '/app/faq/ged/$faqId/create-directory'
@@ -9023,6 +9050,7 @@ export interface FileRouteTypes {
     | '/app/enterprises_/$enterpriseId/send-email-to-contact/$contactId'
     | '/app/enterprises_/$enterpriseId/task-email/$taskId'
     | '/app/enterprises_/$enterpriseId/unlink-task/$taskId'
+    | '/app/enterprises_/$enterpriseId/unrelate-business-rma/$businessRmaId'
     | '/app/enterprises_/$enterpriseId/update-contact-password/$contactId'
     | '/app/enterprises_/$enterpriseId/update-contact/$contactId'
     | '/app/faq/ged/$faqId/create-directory'
@@ -9421,6 +9449,7 @@ export const routeTree = rootRoute
         "/app/enterprises_/$enterpriseId/send-email-to-contact/$contactId",
         "/app/enterprises_/$enterpriseId/task-email/$taskId",
         "/app/enterprises_/$enterpriseId/unlink-task/$taskId",
+        "/app/enterprises_/$enterpriseId/unrelate-business-rma/$businessRmaId",
         "/app/enterprises_/$enterpriseId/update-contact-password/$contactId",
         "/app/enterprises_/$enterpriseId/update-contact/$contactId"
       ]
@@ -10108,6 +10137,10 @@ export const routeTree = rootRoute
     },
     "/app/enterprises_/$enterpriseId/unlink-task/$taskId": {
       "filePath": "app/enterprises_.$enterpriseId/unlink-task.$taskId/route.ts",
+      "parent": "/app/enterprises_/$enterpriseId"
+    },
+    "/app/enterprises_/$enterpriseId/unrelate-business-rma/$businessRmaId": {
+      "filePath": "app/enterprises_.$enterpriseId/unrelate-business-rma.$businessRmaId/route.ts",
       "parent": "/app/enterprises_/$enterpriseId"
     },
     "/app/enterprises_/$enterpriseId/update-contact-password/$contactId": {

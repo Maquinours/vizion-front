@@ -169,3 +169,10 @@ export const relateAllBusinessToEnterprise = (allBusinessId: string, enterpriseI
     url: `/all-business/v1/all-business-and-rma/relate-enterprise/${encodeURIComponent(allBusinessId)}/${encodeURIComponent(enterpriseId)}`,
   }).then((res) => res.data);
 };
+
+export const unrelateAllBusinessToEnterprise = (allBusinessId: string, enterpriseId: string) => {
+  return privateInstance<void>({
+    method: 'POST',
+    url: `/all-business/v1/all-business-and-rma/unrelate-enterprise/${encodeURIComponent(allBusinessId)}/${encodeURIComponent(enterpriseId)}`,
+  }).then((res) => res.data);
+};

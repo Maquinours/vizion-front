@@ -1,7 +1,7 @@
 import { getRouteApi } from '@tanstack/react-router';
 import ReactModal from 'react-modal';
 import styles from './RelateBusinessRmaModal.module.scss';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { queries } from '../../../../../../utils/constants/queryKeys';
 import { Controller, useForm } from 'react-hook-form';
 import * as yup from 'yup';
@@ -19,6 +19,7 @@ const yupSchema = yup.object().shape({
 });
 
 export default function AppViewEnterpriseViewRelateBusinessRmaModalView() {
+  const queryClient = useQueryClient();
   const navigate = routeApi.useNavigate();
 
   const { enterpriseId } = routeApi.useParams();
@@ -36,6 +37,7 @@ export default function AppViewEnterpriseViewRelateBusinessRmaModalView() {
   const { mutate, isPending } = useMutation({
     mutationFn: ({ associatedBusiness }: yup.InferType<typeof yupSchema>) => relateAllBusinessToEnterprise(associatedBusiness.id, enterpriseId),
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: queries['all-businesses']._def });
       toast.success("L'affaire a bien été ajoutée à l'entreprise");
       onClose();
     },
