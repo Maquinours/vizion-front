@@ -3,7 +3,7 @@ import axios from 'axios';
 import { format } from 'date-fns';
 import * as qs from 'qs';
 import { toast } from 'react-toastify';
-import { AUTH_BASE_URL, AUTH_CLIENT, AUTH_SECRET, PRIVATE_BASE_URL, PUBLIC_BASE_URL } from '../constants/api';
+import { AIRCALL_API_URL, AIRCALL_AUTHORIZATION, AUTH_BASE_URL, AUTH_CLIENT, AUTH_SECRET, PRIVATE_BASE_URL, PUBLIC_BASE_URL } from '../constants/api';
 import { getToken, removeToken } from './token';
 import { router } from '../../router';
 
@@ -33,6 +33,10 @@ export const privateInstance = axios.create({
   paramsSerializer: (params) => qs.stringify(params, { arrayFormat: 'repeat', serializeDate: (date: Date) => format(date, 'yyyy-MM-dd HH:mm:ss') }),
 });
 
+export const aircallInstance = axios.create({
+  baseURL: AIRCALL_API_URL,
+});
+
 privateInstance.interceptors.request.use((config) => {
   const token = getToken();
   if (token) config.headers.Authorization = `${token.token_type} ${token.access_token}`;
@@ -49,3 +53,8 @@ privateInstance.interceptors.response.use(
     } else throw error;
   },
 );
+
+aircallInstance.interceptors.request.use((config) => {
+  config.headers.Authorization = `Basic ${AIRCALL_AUTHORIZATION}`;
+  return config;
+});

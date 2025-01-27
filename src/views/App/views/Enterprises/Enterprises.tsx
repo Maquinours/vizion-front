@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import AppViewEnterprisesViewSearchSectionComponent from './components/SearchSection/SearchSection';
 import { enterprises } from '../../../../utils/constants/queryKeys/enterprise';
 import { Outlet, getRouteApi } from '@tanstack/react-router';
@@ -6,12 +6,17 @@ import styles from './Enterprises.module.scss';
 import AppViewEnterprisesViewTableComponent from './components/Table/Table';
 import PaginationComponent from '../../../../components/Pagination/Pagination';
 import AppViewEnterprisesViewButtonsComponent from './components/Buttons/Buttons';
+import { useEffect } from 'react';
+import { queries } from '../../../../utils/constants/queryKeys';
+import { formatPhoneNumber } from 'react-phone-number-input';
 
 const routeApi = getRouteApi('/app/enterprises');
 
 const size = 20;
 
 export default function AppViewEnterprisesView() {
+  const queryClient = useQueryClient();
+
   const { enterprise, contact, zipCode, city, phoneNumber, category, representativeId, fuzzy, page } = routeApi.useSearch();
 
   const { data, isLoading } = useQuery({
@@ -29,6 +34,14 @@ export default function AppViewEnterprisesView() {
       })),
     }),
   });
+
+  useEffect(() => {
+    if (phoneNumber)
+      queryClient
+        .ensureQueryData(queries.profiles.detail._ctx.byPhoneNumbers([phoneNumber, formatPhoneNumber(phoneNumber)]))
+        .then(console.log)
+        .catch(console.error);
+  }, [phoneNumber]);
 
   return (
     <>

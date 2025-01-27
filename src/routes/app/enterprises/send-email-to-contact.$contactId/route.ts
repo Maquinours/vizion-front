@@ -9,7 +9,7 @@ export const Route = createFileRoute('/app/enterprises/send-email-to-contact/$co
     if (!user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO')) throw redirect({ from: Route.id, to: '../..', search: true });
   },
   loader: async ({ context: { queryClient }, params: { contactId } }) => {
-    const contact = await queryClient.ensureQueryData(queries.profiles.detail(contactId));
+    const contact = await queryClient.ensureQueryData(queries.profiles.detail._ctx.byId(contactId));
     if (!contact.email) throw redirect({ from: Route.id, to: '../..', search: true });
   },
   pendingComponent: LoaderModal,

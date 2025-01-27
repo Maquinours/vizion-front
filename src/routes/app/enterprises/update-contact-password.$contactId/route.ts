@@ -8,7 +8,7 @@ export const Route = createFileRoute('/app/enterprises/update-contact-password/$
   loader: async ({ context: { queryClient }, params: { contactId } }) => {
     const userPromise = queryClient.ensureQueryData(users.authentified());
 
-    const contactPromise = queryClient.ensureQueryData(queries.profiles.detail(contactId));
+    const contactPromise = queryClient.ensureQueryData(queries.profiles.detail._ctx.byId(contactId));
 
     const [user, contact] = await Promise.all([userPromise, contactPromise]);
 

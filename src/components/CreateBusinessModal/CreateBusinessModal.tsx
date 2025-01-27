@@ -23,7 +23,7 @@ export default function CreateBusinessModalComponent({ contactId, onClose }: Cre
 
   const { getCurrentTab, updateTabRoute } = useContext(TabsContext)!;
 
-  const { data: contact } = useSuspenseQuery(queries.profiles.detail(contactId));
+  const { data: contact } = useSuspenseQuery(queries.profiles.detail._ctx.byId(contactId));
 
   const { data: enterprise } = useSuspenseQuery(enterprises.detail(contact.enterprise!.id));
 

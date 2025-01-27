@@ -64,7 +64,7 @@ type UpdateContactModalComponentProps = Readonly<{
 export default function UpdateContactModalComponent({ contactId, onClose }: UpdateContactModalComponentProps) {
   const queryClient = useQueryClient();
 
-  const { data: contact } = useSuspenseQuery(queries.profiles.detail(contactId));
+  const { data: contact } = useSuspenseQuery(queries.profiles.detail._ctx.byId(contactId));
 
   const {
     register,
