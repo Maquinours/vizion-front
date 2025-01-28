@@ -192,7 +192,7 @@ export default function AppViewEnterpriseViewUpdateModalView() {
                       id="company_phone_number"
                       inputClassName={styles.phone_input}
                       placeholder=""
-                      country="fr"
+                      defaultCountry="FR"
                     />
                   )}
                 />

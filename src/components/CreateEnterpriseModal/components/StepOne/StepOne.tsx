@@ -228,7 +228,7 @@ export default function CreateEnterpriseModalComponentStepOneComponent({ show, o
                   control={control}
                   name="phoneNumber"
                   render={({ field: { value, onChange } }) => (
-                    <PhoneInput value={value ? (value as E164Number) : undefined} onChange={onChange} id="company_phone_number" country="FR" placeholder="" />
+                    <PhoneInput value={value ? (value as E164Number) : undefined} onChange={onChange} id="company_phone_number" defaultCountry="FR" placeholder="" />
                   )}
                 />
                 <p className={styles.errors}>{errors.phoneNumber?.message}</p>
