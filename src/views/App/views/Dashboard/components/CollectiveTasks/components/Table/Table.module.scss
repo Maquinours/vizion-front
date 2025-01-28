@@ -35,16 +35,6 @@
     position: relative;
     z-index: 1;
 
-    thead>tr>th {
-      &:nth-child(1) {
-        width: 25%;
-      }
-
-      &::nth-child(2) {
-        width: 75%;
-      }
-    }
-
     tbody {
       position: relative;
       z-index: 1;
@@ -61,12 +51,11 @@
           min-height: 100px;
           color: var(--primary-light);
 
-          &:nth-child(1) {
-            width: 25%;
-          }
-
-          &::nth-child(2) {
-            width: 75%;
+          .checkbox {
+            @include mixins.respond-below(md) {
+              width: 2rem;
+              height: 2rem;
+            }
           }
 
           .more_content {
