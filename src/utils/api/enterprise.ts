@@ -27,7 +27,7 @@ type SearchPaginatedEnterprisesParams = {
   contact?: string;
   zipCode?: string;
   city?: string;
-  phoneNumber?: string;
+  phoneNumbers?: Array<string>;
   representativeId?: string;
   category?: CategoryClient;
   fuzzy: boolean;
@@ -39,7 +39,7 @@ export const searchPaginatedEnterprises = async ({
   contact,
   zipCode,
   city,
-  phoneNumber,
+  phoneNumbers,
   representativeId,
   category,
   fuzzy,
@@ -55,7 +55,7 @@ export const searchPaginatedEnterprises = async ({
         contact,
         zipCode,
         city,
-        phoneNumber,
+        phoneNumbers,
         representativeId,
         category,
         fuzzy,

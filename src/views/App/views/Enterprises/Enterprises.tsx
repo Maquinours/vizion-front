@@ -20,7 +20,18 @@ export default function AppViewEnterprisesView() {
   const { enterprise, contact, zipCode, city, phoneNumber, category, representativeId, fuzzy, page } = routeApi.useSearch();
 
   const { data, isLoading } = useQuery({
-    ...enterprises.page({ enterprise, contact, zipCode, city, phoneNumber, category, representativeId, fuzzy, page, size }),
+    ...enterprises.page({
+      enterprise,
+      contact,
+      zipCode,
+      city,
+      phoneNumbers: phoneNumber ? [phoneNumber, formatPhoneNumber(phoneNumber)] : undefined,
+      category,
+      representativeId,
+      fuzzy,
+      page,
+      size,
+    }),
     select: (data) => ({
       ...data,
       content: data.content.map((enterprise) => ({

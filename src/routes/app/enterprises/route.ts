@@ -4,6 +4,7 @@ import CategoryClient from '../../../utils/enums/CategoryClient';
 import { enterprises } from '../../../utils/constants/queryKeys/enterprise';
 
 import { users } from '../../../utils/constants/queryKeys/user';
+import { formatPhoneNumber } from 'react-phone-number-input';
 const searchSchema = z.object({
   enterprise: z.string().optional().catch(undefined),
   contact: z.string().optional().catch(undefined),
@@ -48,7 +49,20 @@ export const Route = createFileRoute('/app/enterprises')({
   }),
   loader: ({ context: { queryClient }, deps: { enterprise, contact, zipCode, city, phoneNumber, category, representativeId, fuzzy, page } }) => {
     const size = 20;
-    queryClient.prefetchQuery(enterprises.page({ enterprise, contact, zipCode, city, phoneNumber, category, representativeId, fuzzy, page, size }));
+    queryClient.prefetchQuery(
+      enterprises.page({
+        enterprise,
+        contact,
+        zipCode,
+        city,
+        phoneNumbers: phoneNumber ? [phoneNumber, formatPhoneNumber(phoneNumber)] : undefined,
+        category,
+        representativeId,
+        fuzzy,
+        page,
+        size,
+      }),
+    );
     queryClient.prefetchQuery(enterprises.list._ctx.byCategory(CategoryClient.REPRESENTANT));
   },
   staticData: {

@@ -54,7 +54,7 @@ export const enterprises = createQueryKeys('enterprise', {
     contact,
     zipCode,
     city,
-    phoneNumber,
+    phoneNumbers,
     category,
     representativeId,
     fuzzy,
@@ -65,14 +65,14 @@ export const enterprises = createQueryKeys('enterprise', {
     contact?: string;
     zipCode?: string;
     city?: string;
-    phoneNumber?: string;
+    phoneNumbers?: Array<string>;
     representativeId?: string;
     category?: CategoryClient;
     fuzzy: boolean;
     page: number;
     size: number;
   }) => ({
-    queryKey: [{ enterprise, contact, zipCode, city, phoneNumber, category, representativeId, fuzzy, page, size }],
-    queryFn: () => searchPaginatedEnterprises({ enterprise, contact, zipCode, city, phoneNumber, category, representativeId, fuzzy, page, size }),
+    queryKey: [{ enterprise, contact, zipCode, city, phoneNumbers, category, representativeId, fuzzy, page, size }],
+    queryFn: () => searchPaginatedEnterprises({ enterprise, contact, zipCode, city, phoneNumbers, category, representativeId, fuzzy, page, size }),
   }),
 });
