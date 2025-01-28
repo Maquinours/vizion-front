@@ -32,6 +32,7 @@ export default function AppViewAircallIntegrationComponent() {
     {
       onOpen: () => {
         console.log('Aircall websocket connected');
+        queryClient.invalidateQueries({ queryKey: aircallQueryKeys.allUsers.queryKey });
       },
       onClose: () => {
         console.log('Aircall websocket closed');
@@ -87,6 +88,10 @@ export default function AppViewAircallIntegrationComponent() {
               break;
           }
       },
+      retryOnError: true,
+      shouldReconnect: () => true,
+      reconnectAttempts: Infinity,
+      reconnectInterval: (attemptNumber) => Math.min(Math.pow(2, attemptNumber) * 1000, 10000),
     },
     true,
   );
