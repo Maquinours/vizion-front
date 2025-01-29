@@ -36,8 +36,12 @@ export default function CreateEnterpriseModalComponent({ onClose }: CreateEnterp
 
   const { mutate, isPending } = useMutation({
     mutationFn: async (data: CreateEnterpriseStepTwoDataType) => {
-      const departments = await queryClient.ensureQueryData(queries.departments.list);
-      const department = departments.find((item) => [stepOneData!.zipCode.slice(0, 2), stepOneData!.zipCode.slice(0, 3)].includes(item.code));
+      const department = await (async () => {
+        const zipCode = stepOneData!.zipCode;
+        if (!zipCode) return undefined;
+        const departments = await queryClient.ensureQueryData(queries.departments.list);
+        return departments.find((item) => [zipCode.slice(0, 2), zipCode.slice(0, 3)].includes(item.code));
+      })();
 
       return createEnterprise({
         name: stepOneData!.name,

@@ -169,7 +169,7 @@ export default function AppViewEnterprisesViewSearchSectionComponent() {
                 onChange={onChange}
                 onBlur={onBlur}
                 id="phoneNumber"
-                country="FR"
+                defaultCountry="FR"
                 placeholder="Numéro de téléphone"
               />
             )}

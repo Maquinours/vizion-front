@@ -27,6 +27,7 @@ const columns = [
             indeterminate: row.getIsSomeSelected(),
             onChange: row.getToggleSelectedHandler(),
           }}
+          className={styles.checkbox}
         />
       </div>
     ),

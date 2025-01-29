@@ -265,7 +265,7 @@ export default function CreateContactModalComponentStepOneComponent({
                         onChange={onChange}
                         onBlur={onBlur}
                         id="phoneNumber"
-                        country="FR"
+                        defaultCountry="FR"
                         placeholder="Fixe"
                       />
                     )}
@@ -286,7 +286,7 @@ export default function CreateContactModalComponentStepOneComponent({
                         onChange={onChange}
                         onBlur={onBlur}
                         id="standardPhoneNumber"
-                        country="FR"
+                        defaultCountry="FR"
                         placeholder="Portable"
                       />
                     )}

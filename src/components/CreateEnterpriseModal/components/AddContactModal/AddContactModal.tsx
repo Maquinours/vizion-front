@@ -225,7 +225,7 @@ export default function CreateEnterpriseModalComponentAddContactModalComponent()
                         value={value ? (value as E164Number) : undefined}
                         onChange={onChange}
                         id="first_phoneNumber"
-                        country="FR"
+                        defaultCountry="FR"
                         placeholder="Fixe"
                       />
                     )}
@@ -245,7 +245,7 @@ export default function CreateEnterpriseModalComponentAddContactModalComponent()
                         value={value ? (value as E164Number) : undefined}
                         onChange={onChange}
                         id="third_phoneNumber"
-                        country="FR"
+                        defaultCountry="FR"
                         placeholder="Portable"
                       />
                     )}

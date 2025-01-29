@@ -57,10 +57,10 @@ const yupSchema = yup.object().shape({
   name: yup.string().required("Le nom de l'entreprise est requis."),
   sign: yup.string().nullable(),
   category: yup.mixed<CategoryClient>().oneOf(Object.values(CategoryClient), 'La catégorie est requise').required(),
-  addressLineOne: yup.string().required('Veuillez renseigner une adresse'),
+  addressLineOne: yup.string().nullable(),
   addressLineTwo: yup.string().nullable(),
-  city: yup.string().required('La ville est requise'),
-  zipCode: yup.string().required('Le code postal est requis').matches(zipCodeRegex, {
+  city: yup.string().nullable(),
+  zipCode: yup.string().nullable().matches(zipCodeRegex, {
     message: 'Format invalide (doit contenir 05 caracteres (95012 / 2A256)',
     excludeEmptyString: true,
   }),
@@ -138,7 +138,7 @@ export default function CreateEnterpriseModalComponentStepOneComponent({ show, o
               </div>
               <div className={styles.form_group}>
                 <label className={styles.required} htmlFor="company_address_one">
-                  <span className="required">*</span>Adresse 1 :
+                  Adresse 1 :
                 </label>
                 <input
                   {...register('addressLineOne', {
@@ -170,14 +170,14 @@ export default function CreateEnterpriseModalComponentStepOneComponent({ show, o
               </div>
               <div className={styles.form_group}>
                 <label className={styles.required} htmlFor="company_zip_code">
-                  <span>*</span>Code Postal :
+                  Code Postal :
                 </label>
                 <input {...register('zipCode')} type="text" placeholder="Code Postal" id="company_zip_code" autoCorrect="true" autoComplete="off" />
                 <p className={styles.errors}>{errors.zipCode?.message}</p>
               </div>
               <div className={styles.form_group}>
                 <label className={styles.required} htmlFor="company_city">
-                  <span>*</span>Ville :
+                  Ville :
                 </label>
                 <input
                   {...register('city', {
@@ -228,7 +228,13 @@ export default function CreateEnterpriseModalComponentStepOneComponent({ show, o
                   control={control}
                   name="phoneNumber"
                   render={({ field: { value, onChange } }) => (
-                    <PhoneInput value={value ? (value as E164Number) : undefined} onChange={onChange} id="company_phone_number" country="FR" placeholder="" />
+                    <PhoneInput
+                      value={value ? (value as E164Number) : undefined}
+                      onChange={onChange}
+                      id="company_phone_number"
+                      defaultCountry="FR"
+                      placeholder=""
+                    />
                   )}
                 />
                 <p className={styles.errors}>{errors.phoneNumber?.message}</p>

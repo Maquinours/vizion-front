@@ -213,7 +213,7 @@ export default function UpdateContactModalComponent({ contactId, onClose }: Upda
                     control={control}
                     name="phoneNumber"
                     render={({ field: { value, onChange, onBlur } }) => (
-                      <PhoneInput country="FR" international={false} placeholder="Fixe" value={value ?? undefined} onChange={onChange} onBlur={onBlur} />
+                      <PhoneInput defaultCountry="FR" international={false} placeholder="Fixe" value={value ?? undefined} onChange={onChange} onBlur={onBlur} />
                     )}
                   />
                   <p className={styles.__errors}>{errors.phoneNumber?.message}</p>
@@ -227,7 +227,14 @@ export default function UpdateContactModalComponent({ contactId, onClose }: Upda
                     control={control}
                     name="standardPhoneNumber"
                     render={({ field: { value, onChange, onBlur } }) => (
-                      <PhoneInput country="FR" international={false} placeholder="Portable" value={value ?? undefined} onChange={onChange} onBlur={onBlur} />
+                      <PhoneInput
+                        defaultCountry="FR"
+                        international={false}
+                        placeholder="Portable"
+                        value={value ?? undefined}
+                        onChange={onChange}
+                        onBlur={onBlur}
+                      />
                     )}
                   />
                   <p className={styles.__errors}>{errors.standardPhoneNumber?.message}</p>
