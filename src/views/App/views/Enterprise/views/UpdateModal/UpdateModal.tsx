@@ -1,5 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useMutation, useQuery, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
+import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import { getRouteApi } from '@tanstack/react-router';
 import { E164Number } from 'libphonenumber-js';
 import { Controller, useForm } from 'react-hook-form';
@@ -23,15 +23,15 @@ const yupSchema = object({
     .nullable()
     .transform((value) => value?.toUpperCase()),
   addressOne: string()
-    .required('Veuillez renseigner une adresse')
-    .transform((value) => value.toUpperCase()),
+    .nullable()
+    .transform((value) => value?.toUpperCase()),
   addressTwo: string()
     .nullable()
     .transform((value) => value?.toUpperCase()),
   city: string()
-    .required('La ville est requise')
-    .transform((value) => value.toUpperCase()),
-  zipCode: string().required('Le code postal est requis'),
+    .nullable()
+    .transform((value) => value?.toUpperCase()),
+  zipCode: string().nullable(),
   country: string().nullable(),
   email: string()
     .email('Formail de mail invalide')
@@ -49,8 +49,6 @@ export default function AppViewEnterpriseViewUpdateModalView() {
   const { enterpriseId } = routeApi.useParams();
 
   const { data: enterprise } = useSuspenseQuery(enterprises.detail(enterpriseId));
-
-  const { data: departmentsList } = useQuery(queries.departments.list);
 
   const {
     register,
@@ -77,8 +75,13 @@ export default function AppViewEnterpriseViewUpdateModalView() {
   };
 
   const { mutate, isPending } = useMutation({
-    mutationFn: (data: InferType<typeof yupSchema>) => {
-      const department = departmentsList?.find((item) => item.code === data.zipCode.slice(0, 2) || item.code === data.zipCode.slice(0, 3));
+    mutationFn: async (data: InferType<typeof yupSchema>) => {
+      const department = await (async () => {
+        const zipCode = data.zipCode;
+        if (!zipCode) return undefined;
+        const departments = await queryClient.ensureQueryData(queries.departments.list);
+        return departments.find((item) => [zipCode.slice(0, 2), zipCode.slice(0, 3)].includes(item.code));
+      })();
       return updateEnterprise(enterprise, {
         name: data.name,
         sign: data.sign,
