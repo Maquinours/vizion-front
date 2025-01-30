@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute, notFound } from '@tanstack/react-router';
 import { z } from 'zod';
 import { technicalSupportRecapOptionsQueryKeys } from '../../../../../utils/constants/queryKeys/technicalSupportRecapOptions';
 import { lifesheets } from '../../../../../utils/constants/queryKeys/lifesheet';
@@ -13,7 +13,9 @@ const searchSchema = z.object({
 
 export const Route = createFileRoute('/app/businesses-rma_/business/$businessId_/assistance/$assistanceId')({
   validateSearch: searchSchema,
-  loader: async ({ context: { queryClient }, params: { assistanceId } }) => {
+  loader: async ({ context: { queryClient }, params: { assistanceId, businessId } }) => {
+    const assistance = await queryClient.ensureQueryData(queries['technical-supports'].detail._ctx.byId(assistanceId));
+    if(assistance.businessId !== businessId) throw notFound();
     queryClient.prefetchQuery(technicalSupportRecapOptionsQueryKeys.list._ctx.byTechnicalSupportId(assistanceId));
     queryClient.prefetchQuery(
       lifesheets.page({ page: 0, size: 100 })._ctx.byAssociatedItem({
