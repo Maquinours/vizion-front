@@ -103,6 +103,7 @@ export default function CreateLifesheetModalComponent({
             technicalSupportId: associatedItemId,
             technicalSupportName: technicalSupport.name,
             businessId: technicalSupport.businessId,
+            businessNumber: technicalSupport.businessNumber,
           };
           break;
         }
