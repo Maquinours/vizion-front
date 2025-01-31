@@ -20,13 +20,14 @@ const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId_/study/e
 const selector = (state: RFState) => ({
   pages: state.pages,
   showDensityImages: !state.pages.some((page) => page.type === 'density'),
+  hddCalculationHoursPerDay: state.hddCalculationData.hoursPerDay,
 });
 
 type AppViewStudyViewExpertViewModalProviderComponentPdfModalComponentShowStepComponentProps = Readonly<{ images: Array<Blob> }>;
 export default function AppViewStudyViewExpertViewModalProviderComponentPdfModalComponentShowStepComponent({
   images,
 }: AppViewStudyViewExpertViewModalProviderComponentPdfModalComponentShowStepComponentProps) {
-  const { pages, showDensityImages } = useStore(useShallow(selector));
+  const { pages, showDensityImages, hddCalculationHoursPerDay } = useStore(useShallow(selector));
 
   const { setModal } = useContext(ExpertStudyContext)!;
 
@@ -95,8 +96,6 @@ export default function AppViewStudyViewExpertViewModalProviderComponentPdfModal
       return acc + capacity;
     }, 0);
 
-    const HOURS_PER_DAY = 24;
-
     const hddCalculationDays =
       (1024 * hddSpace) /
       (((flux / // Kbps
@@ -104,7 +103,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentPdfModal
         3600) / // KB per hour
         1024 / // MB per hour
         1024) / // GB per hour
-      HOURS_PER_DAY;
+      hddCalculationHoursPerDay;
 
     return { cameras, hddSpace, hddCalculationDays };
   }, [cams, recorders, products]);
@@ -120,7 +119,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentPdfModal
       <ReactModal
         isOpen={true}
         onRequestClose={onClose}
-        className="absolute left-2/4 top-2/4 m-auto h-auto w-auto min-w-72 -translate-x-2/4 -translate-y-2/4 rounded-md opacity-100"
+        className="absolute top-2/4 left-2/4 m-auto h-auto w-auto min-w-72 -translate-x-2/4 -translate-y-2/4 rounded-md opacity-100"
         overlayClassName="Overlay"
       >
         <div className="w-full rounded-md bg-white pb-2">
@@ -133,6 +132,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentPdfModal
               hddCalculationDays={hddCalculationDays}
               business={business}
               showDensityImages={showDensityImages}
+              hddCalculationHoursPerDay={hddCalculationHoursPerDay}
             />
           </PDFViewer>
           <div className="mt-6 flex items-center justify-center space-x-2">
@@ -149,6 +149,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentPdfModal
                   hddCalculationDays={hddCalculationDays}
                   business={business}
                   showDensityImages={showDensityImages}
+                  hddCalculationHoursPerDay={hddCalculationHoursPerDay}
                 />
               }
             >
@@ -165,6 +166,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentPdfModal
                   hddCalculationDays={hddCalculationDays}
                   business={business}
                   showDensityImages={showDensityImages}
+                  hddCalculationHoursPerDay={hddCalculationHoursPerDay}
                 />
               }
             >

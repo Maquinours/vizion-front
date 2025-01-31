@@ -32,12 +32,13 @@ const GROUPS = [
 
 const selector = (state: RFState) => ({
   getPages: state.getPages,
+  getHddCalculationData: state.getHddCalculationData,
 });
 
 export default function AppViewStudyViewExpertViewModalProviderComponentConfirmQuotationTransferModalComponent() {
   const queryClient = useQueryClient();
 
-  const { getPages } = useStore(useShallow(selector));
+  const { getPages, getHddCalculationData } = useStore(useShallow(selector));
 
   const { setModal } = useContext(ExpertStudyContext)!;
 
@@ -50,6 +51,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentConfirmQ
   const { mutate, isPending } = useMutation({
     mutationFn: async () => {
       const pages = getPages();
+      const hddCalculationData = getHddCalculationData();
 
       const [products, business] = await Promise.all([
         queryClient.ensureQueryData({ ...queries.product.list, staleTime: Infinity }),
@@ -144,7 +146,8 @@ export default function AppViewStudyViewExpertViewModalProviderComponentConfirmQ
         vizeo: true,
         vizeoptik: true,
         synopticList: {
-          version: 2.2,
+          version: 2.3,
+          hddCalculationData: hddCalculationData,
           pages: pages,
           flowSize: {
             width: flowRect.width,
@@ -181,7 +184,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentConfirmQ
     <ReactModal
       isOpen
       onRequestClose={onClose}
-      className="absolute left-2/4 top-2/4 z-2005 m-auto h-auto w-auto min-w-[70%] max-w-[1000px] -translate-x-2/4 -translate-y-2/4 rounded-md p-0 opacity-100"
+      className="absolute top-2/4 left-2/4 z-2005 m-auto h-auto w-auto max-w-[1000px] min-w-[70%] -translate-x-2/4 -translate-y-2/4 rounded-md p-0 opacity-100"
       overlayClassName="Overlay"
     >
       <h2 className="flex h-10 items-center justify-center rounded-t-md bg-[#16204e] text-white">Transfert des produits dans l&apos;affaire</h2>
