@@ -61,6 +61,7 @@ export default function AppViewBusinessViewQuotationViewPdfModalView() {
               }
               fileName={`Devis-` + quotation.number + '.pdf'}
             >
+              {/* @ts-expect-error: library type mismatch */}
               {({ loading }) => <button className="btn btn-secondary">{loading ? 'Chargement...' : 'Télécharger'}</button>}
             </PDFDownloadLink>
             {user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && (

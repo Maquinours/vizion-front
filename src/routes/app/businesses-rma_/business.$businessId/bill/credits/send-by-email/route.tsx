@@ -28,6 +28,7 @@ export const Route = createFileRoute('/app/businesses-rma_/business/$businessId/
     const file = new File([blob], formatFileName(`Avoir-${credit.number}.pdf`), {
       type: blob.type,
     });
+    queryClient.prefetchQuery(queries['predefined-message'].list);
     return { enterprise, credit, file, business };
   },
   pendingComponent: LoaderModal,

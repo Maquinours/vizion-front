@@ -1,5 +1,5 @@
 import { Checkbox } from '@mui/material';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { getRouteApi } from '@tanstack/react-router';
 import { Row, RowSelectionState, createColumnHelper } from '@tanstack/react-table';
 import { useReactFlow } from '@xyflow/react';
@@ -12,10 +12,10 @@ import { PUBLIC_BASE_URL } from '../../../../../../../../../../utils/constants/a
 import { queries } from '../../../../../../../../../../utils/constants/queryKeys';
 import FileType from '../../../../../../../../../../utils/enums/FileType';
 import { filterRecursively } from '../../../../../../../../../../utils/functions/arrays';
-import { pdfUriToBase64Image } from '../../../../../../../../../../utils/functions/files';
 import ExpertStudyContext from '../../../../utils/context';
 import { ExpertStudyBackgroundNode } from '../../../Flow/components/BackgroundNode/BackgroundNode';
 import { ExpertStudyImageNode } from '../../../Flow/components/ImageNode/ImageNode';
+import { filesQueryKeys } from '../../../../../../../../../../utils/constants/queryKeys/files';
 
 type LoadedImage = { key: string; name: string; src: string; loading: false };
 type LoadingImage = { key: string; name: string; loading: true };
@@ -63,6 +63,8 @@ type AppViewStudyViewExpertViewModalProviderComponentImportGedImageModalComponen
 export default function AppViewStudyViewExpertViewModalProviderComponentImportGedImageModalComponent({
   type,
 }: AppViewStudyViewExpertViewModalProviderComponentImportGedImageModalComponentProps) {
+  const queryClient = useQueryClient();
+
   const { setModal } = useContext(ExpertStudyContext)!;
   const { addNodes, screenToFlowPosition, getNodes, deleteElements } = useReactFlow();
 
@@ -160,13 +162,8 @@ export default function AppViewStudyViewExpertViewModalProviderComponentImportGe
     const items: Array<Image> = [];
     for (const item of data) {
       switch (item.type) {
-        case 'application/pdf':
-          items.push({
-            key: item.key,
-            name: item.name,
-            loading: true,
-          });
-          pdfUriToBase64Image(`${PUBLIC_BASE_URL}ged/v1/s3/download?filename=${encodeURIComponent(item.key)}`).then((src) => {
+        case 'application/pdf': {
+          const setLoadedImage = (src: string) => {
             setImages((images) => images.map((image) => (image.key === item.key ? { ...image, src: src, loading: false } : image)));
             items.push({
               key: item.key,
@@ -174,8 +171,21 @@ export default function AppViewStudyViewExpertViewModalProviderComponentImportGe
               src: src,
               loading: false,
             });
-          });
+          };
+
+          const uri = `${PUBLIC_BASE_URL}ged/v1/s3/download?filename=${encodeURIComponent(item.key)}`;
+          const src = queryClient.getQueryData<string>(filesQueryKeys.base64._ctx.pdfUriToImage(uri).queryKey);
+          if (src) setLoadedImage(src);
+          else
+            items.push({
+              key: item.key,
+              name: item.name,
+              loading: true,
+            });
+
+          queryClient.fetchQuery(filesQueryKeys.base64._ctx.pdfUriToImage(uri)).then(setLoadedImage);
           break;
+        }
         default:
           items.push({
             key: item.key,
@@ -192,7 +202,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentImportGe
     <ReactModal
       isOpen
       onRequestClose={onClose}
-      className="absolute left-2/4 top-2/4 z-[2005] m-auto h-auto w-auto min-w-[70%] max-w-[1000px] -translate-x-2/4 -translate-y-2/4 rounded-[5px] p-0 opacity-100"
+      className="absolute left-2/4 top-2/4 z-2005 m-auto h-auto w-auto min-w-[70%] max-w-[1000px] -translate-x-2/4 -translate-y-2/4 rounded-[5px] p-0 opacity-100"
       overlayClassName="Overlay"
     >
       <form onSubmit={onValidate} className="w-full rounded-md bg-white pb-2">

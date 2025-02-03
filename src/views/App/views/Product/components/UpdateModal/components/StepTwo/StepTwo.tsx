@@ -58,7 +58,7 @@ export default function AppViewProductViewUpdateModalComponentStepTwoComponent({
                 <AmountFormat id="purchasePrice" displayType="input" value={value} suffix=" $" decimalScale={2} onValueChange={(v) => onChange(v.value)} />
               )}
             />
-            <p className="__errors">{errors.purchasePrice?.message}</p>
+            <p className={styles.__errors}>{errors.purchasePrice?.message}</p>
           </div>
           <div className={styles.form_group}>
             <label htmlFor="costPrice" className={styles.required}>
@@ -71,7 +71,7 @@ export default function AppViewProductViewUpdateModalComponentStepTwoComponent({
                 <CurrencyFormat id="costPrice" displayType="input" value={value} onValueChange={(v) => onChange(v.value)} />
               )}
             />
-            <p className="__errors">{errors.costPrice?.message}</p>
+            <p className={styles.__errors}>{errors.costPrice?.message}</p>
           </div>
           <div className={styles.form_group}>
             <label htmlFor="margin">Marge :</label>
@@ -82,7 +82,7 @@ export default function AppViewProductViewUpdateModalComponentStepTwoComponent({
                 <AmountFormat id="margin" displayType="input" allowNegative placeholder="0.00 %" suffix="%" decimalScale={2} value={value} readOnly />
               )}
             />
-            <p className="__errors">{errors.margin?.message}</p>
+            <p className={styles.__errors}>{errors.margin?.message}</p>
           </div>
           <div className={styles.form_group}>
             <label htmlFor="portOrService">Port / Service :</label>
@@ -93,7 +93,7 @@ export default function AppViewProductViewUpdateModalComponentStepTwoComponent({
                 <CurrencyFormat id="portOrService" displayType="input" value={value} onValueChange={(v) => onChange(v.value)} />
               )}
             />
-            <p className="__errors">{errors.portOrService?.message}</p>
+            <p className={styles.__errors}>{errors.portOrService?.message}</p>
           </div>
           <div className={styles.form_group}>
             <label htmlFor="tax">Taxe / Douane :</label>
@@ -104,7 +104,7 @@ export default function AppViewProductViewUpdateModalComponentStepTwoComponent({
                 <CurrencyFormat id="tax" displayType="input" value={value} onValueChange={(v) => onChange(v.value)} />
               )}
             />
-            <p className="__errors">{errors.tax?.message}</p>
+            <p className={styles.__errors}>{errors.tax?.message}</p>
           </div>
           <div className={styles.form_group}>
             <label htmlFor="price" className={styles.required}>
@@ -117,7 +117,7 @@ export default function AppViewProductViewUpdateModalComponentStepTwoComponent({
                 <CurrencyFormat id="price" displayType="input" value={value} onValueChange={(v) => onChange(v.value)} />
               )}
             />
-            <p className="__errors">{errors.price?.message}</p>
+            <p className={styles.__errors}>{errors.price?.message}</p>
           </div>
           <div className={styles.form_group}>
             <label htmlFor="ecoTax">Ecotaxe DEEE :</label>
@@ -128,7 +128,7 @@ export default function AppViewProductViewUpdateModalComponentStepTwoComponent({
                 <CurrencyFormat id="ecoTax" displayType="input" value={value} onValueChange={(v) => onChange(v.value)} />
               )}
             />
-            <p className="__errors">{errors.ecoTax?.message}</p>
+            <p className={styles.__errors}>{errors.ecoTax?.message}</p>
           </div>
           <div className={styles.form_group}>
             <label htmlFor="productAssistanceHourMore">{"Heures d'assistance"} :</label>

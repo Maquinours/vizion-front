@@ -9,7 +9,7 @@ export const Route = createFileRoute('/app/enterprises/create-contact-travel-vou
     if (!user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO')) throw redirect({ from: Route.id, to: '../..', search: true });
   },
   loader: async ({ context: { queryClient }, params: { contactId } }) => {
-    queryClient.ensureQueryData(queries.profiles.detail(contactId));
+    queryClient.ensureQueryData(queries.profiles.detail._ctx.byId(contactId));
   },
   pendingComponent: LoaderModal,
 });

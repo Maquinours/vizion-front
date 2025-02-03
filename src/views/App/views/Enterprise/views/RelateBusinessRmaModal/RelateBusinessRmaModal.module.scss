@@ -1,0 +1,145 @@
+@use '/src/assets/styles/mixins';
+
+.modal {
+    position: absolute;
+    margin: auto;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 0;
+    width: 30%;
+    height: auto;
+    background: #fbfcfe 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 5px #10173526;
+    border-radius: 5px;
+    opacity: 1;
+    z-index: 2005;
+
+    .modal_container {
+        .modal_title {
+            width: 100%;
+            padding: 0.8rem 0;
+            text-align: center;
+
+            h6 {
+                text-align: center;
+                font: normal normal bold 16px/21px 'DIN2014';
+                color: #16204e;
+            }
+        }
+
+        .modal_form_content {
+            padding: 1rem;
+
+            form {
+                margin-top: 1rem;
+
+                .form_group {
+                    display: grid;
+                    align-self: center;
+                    margin-bottom: 0.8rem;
+                    grid-template-areas:
+                        'label input'
+                        'label error';
+                    grid-template-columns: 20% auto;
+                    column-gap: 10px;
+
+                    label {
+                        justify-self: left;
+                        align-self: center;
+                        font: normal normal normal 14px/18px 'DIN2014';
+                        letter-spacing: 0px;
+                        color: var(--primary-light);
+                    }
+
+                    .form_radio_group {
+                        display: flex;
+                        justify-content: flex-start;
+                        gap: 1rem;
+
+                        .form_radio {
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            gap: 0 0.2rem;
+
+                            input[type='radio'] {
+                                width: inherit;
+                            }
+
+                            label {
+                                font: normal normal normal 14px/18px 'DIN2014';
+                                letter-spacing: 0px;
+                                color: #16204e;
+                                justify-content: center;
+                            }
+                        }
+                    }
+
+                    &>label:nth-child(1) {
+                        grid-area: label;
+                    }
+
+                    .react_select_custom,
+                    input {
+                        grid-area: input;
+                    }
+
+                    p:nth-child(3) {
+                        grid-area: error;
+                        margin-top: 2px;
+                    }
+
+                    input {
+                        background: var(--grey-color) 0% 0% no-repeat padding-box;
+                        border: 1px solid var(--primary-color);
+                        border-radius: 5px;
+                        padding: 0.5rem 0.5rem;
+                        font: normal normal normal 11px/14px 'DIN2014';
+                        outline: none;
+
+                        @include mixins.respond-below(md) {
+                            width: inherit;
+                        }
+
+                        &::placeholder {
+                            text-align: left;
+                            font: normal normal normal 11px/14px 'DIN2014';
+                            letter-spacing: 0px;
+                            color: #9fa5b9;
+                            opacity: 1;
+                        }
+                    }
+                }
+
+                .footer_buttons {
+                    text-align: center;
+                    margin-top: 2rem;
+                    display: flex;
+                    justify-content: space-evenly;
+
+                    button {
+                        padding-left: 2rem;
+                        padding-right: 2rem;
+                    }
+                }
+            }
+        }
+
+        .modal_content {
+            padding: 1rem;
+
+            .footer_buttons {
+                text-align: center;
+                margin-top: 2rem;
+                display: flex;
+                justify-content: space-evenly;
+
+                button {
+                    padding-left: 2rem;
+                    padding-right: 2rem;
+                }
+            }
+        }
+    }
+}

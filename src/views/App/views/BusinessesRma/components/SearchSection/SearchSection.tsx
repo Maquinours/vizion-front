@@ -2,13 +2,11 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { ClickAwayListener } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
 import { getRouteApi } from '@tanstack/react-router';
-import { E164Number } from 'libphonenumber-js';
 import React, { useEffect, useMemo, useState } from 'react';
 import ReactDatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { Controller, useForm } from 'react-hook-form';
 import { RiArrowDropDownLine, RiArrowDropUpLine } from 'react-icons/ri';
-import PhoneInput from 'react-phone-number-input/input';
 import { Range, getTrackBackground } from 'react-range';
 import * as yup from 'yup';
 import CurrencyFormat from '../../../../../../components/CurrencyFormat/CurrencyFormat';
@@ -27,7 +25,6 @@ const yupSchema = yup.object().shape({
   numOrder: yup.string(),
   name: yup.string(),
   contact: yup.string(),
-  deliverPhoneNumber: yup.string(),
   zipCode: yup.string(),
   representative: yup.string(),
   installer: yup.string(),
@@ -133,8 +130,7 @@ const CATEGORY_OPTIONS = [
 export default function AppViewBusinessesRmaViewSearchSectionComponent() {
   const navigate = routeApi.useNavigate();
 
-  const { number, numOrder, name, contact, deliverPhoneNumber, zipCode, representative, installer, amounts, enterpriseName, state, dates, excludeds, fuzzy } =
-    routeApi.useSearch();
+  const { number, numOrder, name, contact, zipCode, representative, installer, amounts, enterpriseName, state, dates, excludeds, fuzzy } = routeApi.useSearch();
 
   const [showAmounts, setShowAmounts] = useState(false);
 
@@ -165,7 +161,6 @@ export default function AppViewBusinessesRmaViewSearchSectionComponent() {
     numOrder,
     name,
     contact,
-    deliverPhoneNumber,
     zipCode,
     representative,
     installer,
@@ -183,7 +178,6 @@ export default function AppViewBusinessesRmaViewSearchSectionComponent() {
         numOrder: numOrder || undefined,
         name: name || undefined,
         contact: contact || undefined,
-        deliverPhoneNumber: deliverPhoneNumber || undefined,
         zipCode: zipCode || undefined,
         representative: representative || undefined,
         amounts,
@@ -212,7 +206,6 @@ export default function AppViewBusinessesRmaViewSearchSectionComponent() {
         numOrder: undefined,
         name: undefined,
         contact: undefined,
-        deliverPhoneNumber: undefined,
         zipCode: undefined,
         representative: undefined,
         installer: undefined,
@@ -235,7 +228,6 @@ export default function AppViewBusinessesRmaViewSearchSectionComponent() {
     setValue('numOrder', numOrder);
     setValue('name', name);
     setValue('contact', contact);
-    setValue('deliverPhoneNumber', deliverPhoneNumber);
     setValue('zipCode', zipCode);
     setValue('installer', installer);
     setValue('enterpriseName', enterpriseName);
@@ -246,7 +238,7 @@ export default function AppViewBusinessesRmaViewSearchSectionComponent() {
     if (amounts) setValue('amounts', amounts);
     else resetField('amounts');
     setValue('fuzzy', fuzzy);
-  }, [number, numOrder, name, contact, deliverPhoneNumber, zipCode, installer, enterpriseName, state, dates, excludeds, amounts, fuzzy]);
+  }, [number, numOrder, name, contact, zipCode, installer, enterpriseName, state, dates, excludeds, amounts, fuzzy]);
 
   useEffect(() => {
     if (representatives) setValue('representative', representatives.find((rep) => rep.id === representative)?.id);
@@ -429,19 +421,6 @@ export default function AppViewBusinessesRmaViewSearchSectionComponent() {
               </option>
             ))}
           </select>
-          <Controller
-            name="deliverPhoneNumber"
-            control={control}
-            render={({ field: { value, onChange } }) => (
-              <PhoneInput
-                value={value ? (value as E164Number) : undefined}
-                onChange={onChange}
-                id="businessDeliverPhoneNumber"
-                country="FR"
-                placeholder="Numéro de téléphone du client"
-              />
-            )}
-          />
         </div>
         <div className={styles.search_buttons}>
           <div className="flex items-center gap-3">

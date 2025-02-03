@@ -76,6 +76,9 @@ export default function AppViewBusinessViewQuotationViewHeaderComponentSectionTh
           const totalPrice = detailQuantity! * unitPrice;
           const totalAmountHT = (quotation!.totalAmountHT ?? 0) + totalPrice;
           const shippingServicePrice = totalAmountHT < 1200 ? quotation!.shippingServicePrice : 0;
+          const total = totalAmountHT + shippingServicePrice;
+          const vat = business.exportTva ? total * 0.2 : 0;
+          const totalAmount = total + vat;
 
           let lastElement = quotation!.subQuotationList?.at(-1);
           if (!lastElement)
@@ -103,7 +106,7 @@ export default function AppViewBusinessViewQuotationViewHeaderComponentSectionTh
             totalPrice,
             taxDEEE: 0,
             totalAmountHT,
-            totalAmount: (totalAmountHT + shippingServicePrice) * 1.2,
+            totalAmount,
             shippingServicePrice,
           });
         }

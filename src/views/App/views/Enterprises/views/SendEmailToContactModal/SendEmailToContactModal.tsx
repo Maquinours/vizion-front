@@ -10,7 +10,7 @@ export default function AppViewEnterprisesViewSendEmailToContactModalView() {
 
   const { contactId } = routeApi.useParams();
 
-  const { data: contact } = useSuspenseQuery(queries.profiles.detail(contactId));
+  const { data: contact } = useSuspenseQuery(queries.profiles.detail._ctx.byId(contactId));
 
   const onClose = () => {
     navigate({ to: '../..', search: true, replace: true, resetScroll: false });

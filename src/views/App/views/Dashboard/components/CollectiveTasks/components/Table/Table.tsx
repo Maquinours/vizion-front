@@ -19,14 +19,17 @@ const columns = [
   columnHelper.display({
     id: 'checker',
     cell: ({ row }) => (
-      <IndeterminateCheckboxComponent
-        {...{
-          checked: row.getIsSelected(),
-          disabled: !row.getCanSelect(),
-          indeterminate: row.getIsSomeSelected(),
-          onChange: row.getToggleSelectedHandler(),
-        }}
-      />
+      <div className="flex h-full w-full items-center justify-center">
+        <IndeterminateCheckboxComponent
+          {...{
+            checked: row.getIsSelected(),
+            disabled: !row.getCanSelect(),
+            indeterminate: row.getIsSomeSelected(),
+            onChange: row.getToggleSelectedHandler(),
+          }}
+          className={styles.checkbox}
+        />
+      </div>
     ),
   }),
   columnHelper.display({
@@ -53,7 +56,7 @@ const columns = [
             </Link>
           ) : (
             <div className={styles.default_task}>
-              <button>{original.content}</button>
+              <div className="ql-editor">{parse(DOMPurify.sanitize(original.content ?? ''))}</div>
               <div>
                 <span>{original.name}</span> <span>{formatDateAndHourWithSlash(original.createdDate)}</span>
               </div>

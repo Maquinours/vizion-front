@@ -12,7 +12,7 @@ export default function AppViewStudyViewAutomaticViewFooterComponentAddMonitorMo
     <ReactModal
       isOpen
       onRequestClose={onClose}
-      className="absolute left-2/4 top-2/4 z-[2005] m-auto h-auto -translate-x-2/4 -translate-y-2/4 rounded-[5px] bg-[#fbfcfe] p-0 opacity-100 shadow-[0px_3px_5px_#10173526]"
+      className="absolute left-2/4 top-2/4 z-2005 m-auto h-auto -translate-x-2/4 -translate-y-2/4 rounded-[5px] bg-[#fbfcfe] p-0 opacity-100 shadow-[0px_3px_5px_#10173526]"
       overlayClassName="Overlay"
     >
       <div className="flex flex-col gap-y-4 p-8">

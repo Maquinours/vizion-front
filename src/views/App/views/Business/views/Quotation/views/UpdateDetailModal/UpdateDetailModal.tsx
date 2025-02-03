@@ -36,6 +36,7 @@ export default function AppViewBusinessViewQuotationViewUpdateDetailModalView() 
 
   const { data: user } = useAuthentifiedUserQuery();
   const { data: quotation } = useSuspenseQuery(queries['business-quotations'].detail._ctx.byBusinessId(businessId));
+  const { data: business } = useSuspenseQuery(queries.businesses.detail._ctx.byId(businessId));
   const { data: detail } = useSuspenseQuery(queries['business-quotation-details'].detail._ctx.byId(detailId));
 
   const {
@@ -59,6 +60,9 @@ export default function AppViewBusinessViewQuotationViewUpdateDetailModalView() 
       const totalPrice = data.unitPrice * data.quantity;
       const totalAmountHT = (quotation.totalAmountHT ?? 0) - (detail.totalPrice ?? 0) + totalPrice;
       const shippingServicePrice = totalAmountHT < 1200 ? quotation.shippingServicePrice : 0;
+      const total = totalAmountHT + shippingServicePrice;
+      const vat = business.exportTva ? total * 0.2 : 0;
+      const totalAmount = total + vat;
 
       return updateBusinessQuotationDetail(detail.id, {
         groupName: detail.groupName,
@@ -77,7 +81,7 @@ export default function AppViewBusinessViewQuotationViewUpdateDetailModalView() 
         totalPrice,
         taxDEEE: 0,
         totalAmountHT,
-        totalAmount: (totalAmountHT + shippingServicePrice) * 1.2,
+        totalAmount,
         shippingServicePrice,
         virtualQty: detail.virtualQty,
       });

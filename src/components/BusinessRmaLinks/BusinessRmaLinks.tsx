@@ -11,6 +11,7 @@ import { useAuthentifiedUserQuery } from '../../views/App/utils/functions/getAut
 import CardComponent from '../Card/Card';
 import TableComponent from '../Table/Table';
 import styles from './BusinessRmaLinks.module.scss';
+import { ReactElement } from 'react';
 
 const columnHelper = createColumnHelper<AllBusinessResponseDto>();
 
@@ -34,7 +35,7 @@ export default function BusinessRmaLinksComponent({ category, number, canCreate,
       columnHelper.display({
         header: "Nom de l'affaire",
         cell: ({ row: { original } }) => {
-          let children: JSX.Element | undefined = undefined;
+          let children: ReactElement | undefined = undefined;
           if (original.category === CategoryBusiness.AFFAIRE)
             children = (
               <Link

@@ -6,7 +6,7 @@ type EnterpriseRequestDto = {
   name: string;
   sign?: string | null;
   category?: string | null;
-  addressLineOne: string;
+  addressLineOne?: string | null;
   addressLineTwo?: string | null;
   zipCode?: string | null;
   city?: string | null;

@@ -2,7 +2,6 @@ import classNames from 'classnames';
 import DOMPurify from 'dompurify';
 import parse from 'html-react-parser';
 import { useContext } from 'react';
-import 'react-quill/dist/quill.snow.css';
 import { Node, NodeProps } from '@xyflow/react';
 import ExpertStudyContext, { ExpertStudyModalType } from '../../../../utils/context';
 

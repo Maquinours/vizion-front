@@ -15,10 +15,10 @@ export default function UpdateContactPasswordModalComponent({ contactId, onClose
 
   const [step, setStep] = useState<0 | 1 | 2>(0);
 
-  const { data: contact } = useSuspenseQuery(queries.profiles.detail(contactId));
+  const { data: contact } = useSuspenseQuery(queries.profiles.detail._ctx.byId(contactId));
 
   const onAfterUpdate = (contact: ProfileResponseDto) => {
-    queryClient.setQueryData(queries.profiles.detail(contactId).queryKey, contact);
+    queryClient.setQueryData(queries.profiles.detail._ctx.byId(contactId).queryKey, contact);
     setStep(1);
   };
 

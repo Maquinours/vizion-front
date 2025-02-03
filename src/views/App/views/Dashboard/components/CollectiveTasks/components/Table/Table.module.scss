@@ -51,6 +51,13 @@
           min-height: 100px;
           color: var(--primary-light);
 
+          .checkbox {
+            @include mixins.respond-below(md) {
+              width: 2rem;
+              height: 2rem;
+            }
+          }
+
           .more_content {
             display: flex;
 
@@ -93,7 +100,7 @@
                   font-size: 14px;
                 }
 
-                & > div {
+                &>div {
                   margin-top: 0.3rem;
                   color: var(--primary-color);
                   font-weight: bold;

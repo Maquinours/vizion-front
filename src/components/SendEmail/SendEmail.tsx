@@ -1,22 +1,21 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useForm } from 'react-hook-form';
-import * as yup from 'yup';
-import SendEmailComponentHeaderComponent from './components/Header/Header';
-import SendEmailComponentBodyComponent from './components/Body/Body';
-import { useAuthentifiedUserQuery } from '../../views/App/utils/functions/getAuthentifiedUser';
-import { generateUserEmailSignature } from '../../utils/functions/user';
-import styles from './SendEmail.module.scss';
-import LoaderModal from '../LoaderModal/LoaderModal';
 import { useMutation } from '@tanstack/react-query';
+import { isAxiosError } from 'axios';
+import React, { useMemo, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
+import * as yup from 'yup';
+import { formatDateWithHour } from '../../utils/functions/dates';
+import { generateUserEmailSignature } from '../../utils/functions/user';
+import MailResponseDto from '../../utils/types/MailResponseDto';
+import { useAuthentifiedUserQuery } from '../../views/App/utils/functions/getAuthentifiedUser';
+import LoaderModal from '../LoaderModal/LoaderModal';
+import SendEmailPredefinedMessagesModalComponent from '../SendEmailPredefinedMessagesModal/SendEmailPredefinedMessagesModal';
+import SendEmailComponentBodyComponent from './components/Body/Body';
+import SendEmailComponentHeaderComponent from './components/Header/Header';
+import styles from './SendEmail.module.scss';
 import { sendEmail } from './utils/api/email';
 import { SendEmailFormContext } from './utils/contexts/sendEmail';
-import React, { useMemo, useState } from 'react';
-import MailResponseDto from '../../utils/types/MailResponseDto';
-import { formatDateWithHour } from '../../utils/functions/dates';
-import { toast } from 'react-toastify';
-import { LinkProps, Outlet, Link } from '@tanstack/react-router';
-import { isAxiosError } from 'axios';
-import SendEmailPredefinedMessagesModalComponent from '../SendEmailPredefinedMessagesModal/SendEmailPredefinedMessagesModal';
 
 const yupSchema = yup.object({
   recipient: yup
@@ -78,7 +77,6 @@ export type SendEmailComponentProps = Readonly<{
     productReference?: string | null;
     technicalAssistanceId?: string | null;
   };
-  predefinedMessagesModalLink?: LinkProps;
   emailToReply?: MailResponseDto;
   onEmailSent?: () => void;
 }>;
@@ -90,7 +88,6 @@ export default function SendEmailComponent({
   defaultContent,
   defaultAttachments,
   lifeSheetInfoDto,
-  predefinedMessagesModalLink,
   emailToReply,
   onEmailSent,
 }: SendEmailComponentProps) {
@@ -165,15 +162,9 @@ export default function SendEmailComponent({
       <div className={styles.container}>
         <div className={styles.header_container}>
           <div className={styles.header_right}>
-            {predefinedMessagesModalLink ? (
-              <Link {...predefinedMessagesModalLink} className="btn btn-primary">
-                Messages prédéfinis
-              </Link>
-            ) : (
-              <button className="btn btn-primary" onClick={() => setIsPredefinedMessagesModalOpened(true)}>
-                Messages prédéfinis
-              </button>
-            )}
+            <button className="btn btn-primary" onClick={() => setIsPredefinedMessagesModalOpened(true)}>
+              Messages prédéfinis
+            </button>
           </div>
         </div>
         <div className={styles.mailbox_container}>
@@ -184,11 +175,7 @@ export default function SendEmailComponent({
         </div>
       </div>
       <LoaderModal isLoading={isPending} />
-      {predefinedMessagesModalLink ? (
-        <Outlet />
-      ) : (
-        isPredefinedMessagesModalOpened && <SendEmailPredefinedMessagesModalComponent onClose={() => setIsPredefinedMessagesModalOpened(false)} />
-      )}
+      {isPredefinedMessagesModalOpened && <SendEmailPredefinedMessagesModalComponent onClose={() => setIsPredefinedMessagesModalOpened(false)} />}
     </SendEmailFormContext.Provider>
   );
 }

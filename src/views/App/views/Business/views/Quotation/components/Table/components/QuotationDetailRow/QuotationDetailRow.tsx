@@ -27,7 +27,9 @@ export default function AppViewBusinessViewQuotationViewTableComponentQuotationD
   return (
     <tr key={detail.id} onContextMenu={(e) => onContextMenu(e, detail)}>
       <td>
-        <img src={`https://bd.vizeo.eu/6-Photos/${detail.productReference}/MINI_${detail.productReference}.jpg`} alt={detail.productReference} />
+        <div className="flex h-full w-full items-center justify-center">
+          <img src={`https://bd.vizeo.eu/6-Photos/${detail.productReference}/MINI_${detail.productReference}.jpg`} alt={detail.productReference} />
+        </div>
       </td>
       <td>{!hideReferences && <p style={{ fontWeight: '900' }}>{detail.productReference}</p>}</td>
       <td>

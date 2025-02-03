@@ -139,6 +139,10 @@ export default function AppViewChatWebsocketComponent() {
           console.error('error while parsing message from chat websocket server', err);
         }
       },
+      retryOnError: true,
+      shouldReconnect: () => true,
+      reconnectAttempts: Infinity,
+      reconnectInterval: (attemptNumber) => Math.min(Math.pow(2, attemptNumber) * 1000, 10000),
     },
     authentifiedUser.userInfo.roles.includes('ROLE_MEMBRE_VIZEO'),
   );
@@ -150,6 +154,9 @@ export default function AppViewChatWebsocketComponent() {
           sendMessage('ping');
         }, 30000),
       );
+      return () => {
+        clearInterval(pingInterval);
+      };
     }
   }, [readyState]);
 

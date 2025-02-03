@@ -4,6 +4,7 @@ import { createColumnHelper } from '@tanstack/react-table';
 import classNames from 'classnames';
 import DOMPurify from 'dompurify';
 import parse from 'html-react-parser';
+import { useMemo } from 'react';
 import { lifesheets } from '../../utils/constants/queryKeys/lifesheet';
 import { LifesheetAssociatedItem } from '../../utils/enums/LifesheetAssociatedItem';
 import { formatDateAndHourWithSlash } from '../../utils/functions/dates';
@@ -13,7 +14,6 @@ import PaginationComponent from '../Pagination/Pagination';
 import RefreshButtonComponent from '../RefreshButton/RefreshButton';
 import TableComponent from '../Table/Table';
 import styles from './Lifesheet.module.scss';
-import { useMemo } from 'react';
 
 const columnHelper = createColumnHelper<LifeSheetResponseDto>();
 
@@ -57,7 +57,7 @@ export default function LifesheetComponent({
             .filter((item) => item.trim().length > 0)
             .join('; ');
 
-          const content = parse(DOMPurify.sanitize(`${receiver ? `à [${receiver}] - ` : ''}${original.description}`));
+          const content = <div className="ql-editor">{parse(DOMPurify.sanitize(`${receiver ? `à [${receiver}] - ` : ''}${original.description}`))}</div>;
           if (original.mailId)
             return (
               <Link {...getEmailLink(original)} replace resetScroll={false} preload="intent" className="flex justify-center">

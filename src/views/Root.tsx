@@ -17,7 +17,7 @@ export default function RootView() {
   return (
     <>
       <ScrollRestoration />
-      <ToastContainer position={'bottom-right'} hideProgressBar={true} theme={'colored'} autoClose={3000} />
+      <ToastContainer position="bottom-right" hideProgressBar={true} theme="colored" autoClose={3000} />
       <Suspense>
         <TanStackRouterDevtools />
       </Suspense>

@@ -19,13 +19,6 @@ export default function AppViewBusinessViewArcViewPdfModalViewSendByEmailModalVi
     <SendEmailModalComponent
       isOpen={true}
       onClose={onClose}
-      predefinedMessagesModalLink={{
-        to: '/app/businesses-rma/business/$businessId/arc/pdf/send-by-email/predefined-messages',
-        search: true,
-        replace: true,
-        resetScroll: false,
-        ignoreBlocker: true,
-      }}
       defaultRecipient={recipient ? [recipient] : undefined}
       defaultCc={representative?.profiles
         .filter(

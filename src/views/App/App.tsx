@@ -15,6 +15,7 @@ import AppViewTopbarComponent from './components/Topbar/Topbar';
 import { useAuthentifiedUserQuery } from './utils/functions/getAuthentifiedUser';
 import AppViewSendEmailModalComponent from './components/SendEmailModal/SendEmailModal';
 import AppViewTitleManagerComponent from './components/TitleManager/TitleManager';
+import AppViewAircallIntegrationComponent from './components/AircallIntegration/AircallIntegration';
 
 const routeApi = getRouteApi('/app');
 
@@ -56,6 +57,7 @@ export default function AppLayout() {
     <>
       <AppViewLoadingProgressBarComponent />
       <AppViewChatWebsocketComponent />
+      <AppViewAircallIntegrationComponent />
       <AppViewTitleManagerComponent />
       <div className={styles.container}>
         <AppViewTopbarComponent />

@@ -9,7 +9,6 @@ export const emails = createQueryKeys('emails', {
     queryKey: null,
     contextQueries: {
       bySpamStateAndSearch: (spam: boolean, searchText: string | undefined, { page, size }: { page: number; size: number }) => ({
-        // eslint-disable-next-line @tanstack/query/exhaustive-deps
         queryKey: [spam, searchText, page, size],
         queryFn: () => {
           if (searchText) return getEmailsPageWithSearch(spam ? [MailType.SPAM] : [MailType.ENVOIE, MailType.RECEPTION], searchText, page, size);
