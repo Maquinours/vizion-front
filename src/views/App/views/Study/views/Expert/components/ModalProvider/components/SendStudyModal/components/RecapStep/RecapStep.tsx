@@ -34,7 +34,6 @@ export default function AppViewStudyViewExpertViewModalProviderComponentSendStud
   const { businessId } = routeApi.useParams();
 
   const { data: business } = useSuspenseQuery(queries.businesses.detail._ctx.byId(businessId));
-  const { data: enterprise } = useSuspenseQuery(queries.enterprise.detail(business.enterpriseId));
   const { data: products } = useSuspenseQuery({ ...queries.product.list, staleTime: Infinity });
 
   const { pages, hddCalculationHoursPerDay } = useStore(useShallow(selector));
@@ -51,10 +50,12 @@ export default function AppViewStudyViewExpertViewModalProviderComponentSendStud
     const { quantity, totalAmountHT, hddSpace, flux } = Object.entries(
       _.groupBy(
         [
-          ...productNodes.map((node) => ({ productId: node.data.productId, quantity: node.data.quantity ?? 1 })),
-          ...productNodes.reduce<Array<{ productId: string; quantity: number }>>(
+          ...productNodes.map((node) => ({ productId: node.data.productId, quantity: node.data.quantity ?? 1, type: node.type })),
+          ...productNodes.reduce<Array<{ productId: string; quantity: number; type: 'option' }>>(
             (acc, node) =>
-              'options' in node.data ? [...acc, ...node.data.options.map((option) => ({ productId: option.id, quantity: option.quantity }))] : acc,
+              'options' in node.data
+                ? [...acc, ...node.data.options.map((option) => ({ productId: option.id, quantity: option.quantity, type: 'option' as const }))]
+                : acc,
             [],
           ),
         ],
@@ -67,12 +68,15 @@ export default function AppViewStudyViewExpertViewModalProviderComponentSendStud
         const productQuantity = productsData.reduce((acc, productData) => acc + productData.quantity, 0);
         const quantity = acc.quantity + productQuantity;
         const totalAmountHT = acc.totalAmountHT + (product.publicPrice ?? 0) * productQuantity * (1 - (business.reduction ?? 0) / 100);
-        const hddSpace = acc.hddSpace + (product.specificationProducts?.find((spec) => spec.specification?.name === 'CAPACITE')?.value ?? 0) * productQuantity;
+        const hddSpace =
+          acc.hddSpace +
+          (product.specificationProducts?.find((spec) => spec.specification?.name === 'CAPACITE')?.value ?? 0) *
+            productsData.reduce((acc, productData) => (productData.type === 'recorder' ? acc + productData.quantity : acc), 0);
         const flux =
           acc.flux +
           ((product.specificationProducts?.find((spec) => spec.specification?.name === 'FLUX1')?.value ?? 0) +
             (product.specificationProducts?.find((spec) => spec.specification?.name === 'FLUX2')?.value ?? 0)) *
-            productQuantity;
+            productsData.reduce((acc, productData) => (productData.type === 'synopticCamera' ? acc + productData.quantity : acc), 0);
         return { quantity, totalAmountHT, hddSpace, flux };
       },
       { quantity: 0, totalAmountHT: 0, hddSpace: 0, flux: 0 },
@@ -94,34 +98,32 @@ export default function AppViewStudyViewExpertViewModalProviderComponentSendStud
     <ReactModal
       isOpen
       onRequestClose={onClose}
-      className="absolute top-2/4 left-2/4 m-auto h-auto w-auto min-w-72 -translate-x-2/4 -translate-y-2/4 rounded-md opacity-100"
+      className="absolute top-2/4 left-2/4 m-auto h-auto w-auto min-w-96 -translate-x-2/4 -translate-y-2/4 rounded-md opacity-100"
       overlayClassName="Overlay"
     >
       <div className="w-full rounded-md bg-white pb-2">
+        <h2 className="flex h-10 items-center justify-center rounded-t-md bg-[var(--primary-color)] text-white">Récapitulatif de l&apos;étude</h2>
         <div className="flex flex-col gap-y-4 p-4 text-[var(--primary-color)]">
-          <div className="flex flex-row">
-            <span className="text-right">Entreprise : </span>
-            <span className="text-left">{enterprise.name}</span>
+          <div className="flex flex-row gap-x-1">
+            <span className="flex-1 text-right">Entreprise :</span> <span className="flex-1 text-left">{business.enterpriseName}</span>
           </div>
-          <div className="flex flex-row">
-            <span className="text-right">Catégorie : </span>
-            <span className="text-left">{enterprise.category}</span>
+          <div className="flex flex-row gap-x-1">
+            <span className="flex-1 text-right">Catégorie :</span> <span className="flex-1 text-left">{business.enterpriseCategory}</span>
           </div>
-          <div className="flex flex-row">
-            <span className="text-right">Remise : </span>
-            <AmountFormat value={business.reduction ?? 0} suffix="%" decimalScale={0} className="text-left" />
+          <div className="flex flex-row gap-x-1">
+            <span className="flex-1 text-right">Remise :</span>
+            <AmountFormat value={business.reduction ?? 0} suffix="%" decimalScale={0} className="flex-1 text-left" />
           </div>
-          <div className="flex flex-row">
-            <span className="text-right">Nombre d&apos;articles : </span>
-            <AmountFormat value={quantity} className="text-left" decimalScale={0} />
+          <div className="flex flex-row gap-x-1">
+            <span className="flex-1 text-right">Nombre d&apos;articles :</span> <AmountFormat value={quantity} className="flex-1 text-left" decimalScale={0} />
           </div>
-          <div className="flex flex-row">
-            <span className="text-right">Temps d&apos;enregistrement : </span>
-            <AmountFormat value={hddCalculationDays} suffix=" jours" decimalScale={2} displayType="text" className="text-left" />
+          <div className="flex flex-row gap-x-1">
+            <span className="flex-1 text-right">Temps d&apos;enregistrement :</span>
+            <AmountFormat value={hddCalculationDays} suffix=" jours" decimalScale={2} displayType="text" className="flex-1 text-left" />
           </div>
-          <div className="flex flex-row">
-            <span className="text-right">Montant total HT : </span>
-            <CurrencyFormat value={totalAmountHT} displayType="text" className="text-left" />
+          <div className="flex flex-row gap-x-1">
+            <span className="flex-1 text-right">Montant total HT :</span>
+            <CurrencyFormat value={totalAmountHT} displayType="text" className="flex-1 text-left" />
           </div>
         </div>
 
