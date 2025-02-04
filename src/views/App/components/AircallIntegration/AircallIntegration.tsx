@@ -1,7 +1,7 @@
 import { useQueryClient } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { formatPhoneNumber } from 'react-phone-number-input';
-import { toast } from 'react-toastify';
+import { toast, ToastContentProps } from 'react-toastify';
 import useWebSocket, { ReadyState } from 'react-use-websocket';
 import { AIRCALL_WEBSOCKET_URL } from '../../../../utils/constants/api';
 import { queries } from '../../../../utils/constants/queryKeys';
@@ -10,6 +10,26 @@ import AircallWebhookResponseDto from '../../../../utils/types/AircallWebhookRes
 import { useNavigate } from '@tanstack/react-router';
 import { isAxiosError } from 'axios';
 import { useAuthentifiedUserQuery } from '../../utils/functions/getAuthentifiedUser';
+import AircallIcon from '../../../../assets/images/aircall-icon.svg?react';
+import ProfileResponseDto from '../../../../utils/types/ProfileResponseDto';
+
+type AircallNewCallToastComponentProps = ToastContentProps<{
+  caller: ProfileResponseDto;
+}>;
+const AircallNewCallToastComponent = ({ data }: AircallNewCallToastComponentProps) => {
+  return (
+    <div className="flex flex-col pl-12">
+      <AircallIcon className="absolute top-1/2 left-2 z-10 grid size-10 -translate-y-1/2 place-items-center rounded-full bg-gradient-to-r text-white shadow-lg" />
+      <p className="font-semibold text-[var(--primary-color)]">
+        {data.caller.firstName} {data.caller.lastName}
+      </p>
+      <p className="text-sm text-zinc-400">
+        Vous avez répondu à l&apos;appel de {data.caller.firstName} {data.caller.lastName}
+        {data.caller.enterprise ? ` de l'entreprise ${data.caller.enterprise.name}` : ''}
+      </p>
+    </div>
+  );
+};
 
 const isCallEvent = (data: AircallWebhookResponseDto<'number' | 'user' | 'contact' | 'call'>): data is AircallWebhookResponseDto<'call'> => {
   return data.resource === 'call';
@@ -65,7 +85,7 @@ export default function AppViewAircallIntegrationComponent() {
                   .ensureQueryData(queries.profiles.detail._ctx.byPhoneNumbers([data.data.raw_digits, formatPhoneNumber(data.data.raw_digits)]))
                   .then((profile) => {
                     if (!profile.enterprise) return;
-                    toast.info(`Vous avez répondu à l'appel de ${profile.firstName} ${profile.lastName} de l'entreprise ${profile.enterprise.name}`);
+                    toast(AircallNewCallToastComponent, { data: { caller: profile }, autoClose: 5_000 });
                     navigate({
                       to: '/app/enterprises/$enterpriseId',
                       params: { enterpriseId: profile.enterprise.id },
