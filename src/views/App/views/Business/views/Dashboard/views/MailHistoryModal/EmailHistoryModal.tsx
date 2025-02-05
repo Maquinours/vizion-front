@@ -1,15 +1,21 @@
-import ReactModal from 'react-modal';
-import styles from './EmailHistoryModal.module.scss';
+import { useQuery } from '@tanstack/react-query';
 import { getRouteApi, Link, Outlet } from '@tanstack/react-router';
-import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
-import { queries } from '../../../../../../../../utils/constants/queryKeys';
-import _ from 'lodash';
-import TableComponent from '../../../../../../../../components/Table/Table';
 import { createColumnHelper, Row } from '@tanstack/react-table';
-import MailResponseDto from '../../../../../../../../utils/types/MailResponseDto';
-import { formatDateAndHourWithSlash } from '../../../../../../../../utils/functions/dates';
-import { PUBLIC_BASE_URL } from '../../../../../../../../utils/constants/api';
+import { useEffect } from 'react';
+import ReactModal from 'react-modal';
+import { ReactMultiEmail } from 'react-multi-email';
+import 'react-multi-email/dist/style.css';
 import PaginationComponent from '../../../../../../../../components/Pagination/Pagination';
+import TableComponent from '../../../../../../../../components/Table/Table';
+import { PUBLIC_BASE_URL } from '../../../../../../../../utils/constants/api';
+import { queries } from '../../../../../../../../utils/constants/queryKeys';
+import { formatDateAndHourWithSlash } from '../../../../../../../../utils/functions/dates';
+import MailResponseDto from '../../../../../../../../utils/types/MailResponseDto';
+import styles from './EmailHistoryModal.module.scss';
+
+import { yupResolver } from '@hookform/resolvers/yup';
+import { Controller, useForm } from 'react-hook-form';
+import * as yup from 'yup';
 
 const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/dashboard/email-history');
 const routePath = '/app/businesses-rma/business/$businessId/dashboard/email-history';
@@ -79,27 +85,46 @@ const columns = [
   }),
 ];
 
+const yupSchema = yup.object().shape({
+  addresses: yup.array().of(yup.string().email("L'email n'est pas valide").required('Veuillez entrer une valeur')).required(),
+});
+
+const getEmailLabel = (email: string, index: number, removeEmail: (index: number, isDisabled?: boolean) => void) => (
+  <div data-tag key={index}>
+    <div data-tag-item>{email}</div>
+    <button type="button" data-tag-handle onClick={() => removeEmail(index)}>
+      ×
+    </button>
+  </div>
+);
+
 export default function AppViewBusinessViewDashboardViewEmailHistoryModalView() {
   const navigate = routeApi.useNavigate();
 
-  const { businessId } = routeApi.useParams();
-
-  const { page } = routeApi.useSearch();
+  const { page, addresses } = routeApi.useSearch();
 
   const { size } = routeApi.useLoaderDeps();
 
-  const { data: business } = useSuspenseQuery(queries.businesses.detail._ctx.byId(businessId));
+  const {
+    control,
+    reset,
+    formState: { isDirty, errors },
+    handleSubmit,
+  } = useForm({
+    resolver: yupResolver(yupSchema),
+    defaultValues: {
+      addresses: [],
+    },
+  });
 
-  const emails = _.uniq(
-    [business.billingEmail, business.deliverEmail, business.profileEmail]
-      .filter((address): address is string => !!address)
-      .map((address) => address.toLowerCase()),
-  );
-
-  const { data, isLoading } = useQuery(queries.emails.page._ctx.byEmailAddresses(emails, { page, size }));
+  const { data, isLoading } = useQuery(queries.emails.page._ctx.byEmailAddresses(addresses ?? [], { page, size }));
 
   const onClose = () => {
-    navigate({ to: '..', search: (old) => ({ ...old, page: undefined }), replace: true, resetScroll: false });
+    navigate({ to: '..', search: (old) => ({ ...old, page: undefined, addresses: undefined }), replace: true, resetScroll: false });
+  };
+
+  const onSubmit = ({ addresses }: yup.InferType<typeof yupSchema>) => {
+    navigate({ search: (old) => ({ ...old, page: undefined, addresses: addresses }), replace: true, resetScroll: false });
   };
 
   const onRowClick = (e: React.MouseEvent, row: Row<MailResponseDto>) => {
@@ -107,6 +132,13 @@ export default function AppViewBusinessViewDashboardViewEmailHistoryModalView() 
       window.open(`${window.location.origin}/app/businesses-rma_/business/$businessId/dashboard/email-history/${row.original.id}`, '_blank');
     else navigate({ to: '$emailId', params: { emailId: row.original.id }, search: true, replace: true, resetScroll: false });
   };
+
+  useEffect(() => {
+    if (!isDirty)
+      reset({
+        addresses: addresses ?? [],
+      });
+  }, [addresses]);
 
   return (
     <>
@@ -116,15 +148,23 @@ export default function AppViewBusinessViewDashboardViewEmailHistoryModalView() 
             <h6>Historique des mails</h6>
           </div>
           <div className={styles.modal_content}>
-            <div className="mb-2 flex flex-row gap-x-1 self-end text-[var(--primary-color)]">
+            <div className="mb-2 flex flex-row items-center gap-x-1 self-end text-[var(--primary-color)]">
               <span className="font-semibold">Adresses recherchées :</span>
-              <div className="flex flex-row gap-x-0.5">
-                {emails.map((email) => (
-                  <span key={email} className="border border-[var(--primary-color)] px-0.5">
-                    {email}
-                  </span>
-                ))}
-              </div>
+              <form onSubmit={handleSubmit(onSubmit)} className="flex flex-row gap-x-2">
+                <div className="flex w-96 flex-col gap-y-1">
+                  <Controller
+                    control={control}
+                    name="addresses"
+                    render={({ field: { value, onChange, onBlur } }) => (
+                      <ReactMultiEmail emails={value} onChange={onChange} onBlur={onBlur} getLabel={getEmailLabel} />
+                    )}
+                  />
+                  <span className="text-[var(--secondary-color)]">{errors.addresses?.message}</span>
+                </div>
+                <button type="submit" className="btn btn-secondary w-fit self-center">
+                  Rechercher
+                </button>
+              </form>
             </div>
             <div className={styles.table_container}>
               <TableComponent columns={columns} data={data?.content} isLoading={isLoading} onRowClick={onRowClick} />
