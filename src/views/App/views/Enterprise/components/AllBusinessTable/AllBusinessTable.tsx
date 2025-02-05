@@ -153,7 +153,15 @@ export default function AppViewEnterpriseViewAllBusinessTableComponent() {
       }),
       columnHelper.display({
         header: 'Client',
-        cell: ({ row: { original } }) => <span className={classNames({ italic: original.enterpriseId !== enterpriseId })}>{original.profileName}</span>,
+        cell: ({ row: { original } }) => {
+          const related = original.enterpriseId !== enterpriseId;
+          return (
+            <span className={classNames({ italic: related })}>
+              {related ? `${original.enterpriseName} / ` : ''}
+              {original.profileName}
+            </span>
+          );
+        },
       }),
       columnHelper.display({
         header: 'Dernière modification',
