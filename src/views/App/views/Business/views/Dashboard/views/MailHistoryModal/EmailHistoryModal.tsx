@@ -90,12 +90,13 @@ export default function AppViewBusinessViewDashboardViewEmailHistoryModalView() 
 
   const { data: business } = useSuspenseQuery(queries.businesses.detail._ctx.byId(businessId));
 
-  const { data, isLoading } = useQuery(
-    queries.emails.page._ctx.byEmailAddresses(
-      _.uniq([business.billingEmail, business.deliverEmail, business.profileEmail].filter((address): address is string => !!address)),
-      { page, size },
-    ),
+  const emails = _.uniq(
+    [business.billingEmail, business.deliverEmail, business.profileEmail]
+      .filter((address): address is string => !!address)
+      .map((address) => address.toLowerCase()),
   );
+
+  const { data, isLoading } = useQuery(queries.emails.page._ctx.byEmailAddresses(emails, { page, size }));
 
   const onClose = () => {
     navigate({ to: '..', search: (old) => ({ ...old, page: undefined }), replace: true, resetScroll: false });
@@ -115,6 +116,16 @@ export default function AppViewBusinessViewDashboardViewEmailHistoryModalView() 
             <h6>Historique des mails</h6>
           </div>
           <div className={styles.modal_content}>
+            <div className="mb-2 flex flex-row gap-x-1 self-end text-[var(--primary-color)]">
+              <span className="font-semibold">Adresses recherchées :</span>
+              <div className="flex flex-row gap-x-0.5">
+                {emails.map((email) => (
+                  <span key={email} className="border border-[var(--primary-color)] px-0.5">
+                    {email}
+                  </span>
+                ))}
+              </div>
+            </div>
             <div className={styles.table_container}>
               <TableComponent columns={columns} data={data?.content} isLoading={isLoading} onRowClick={onRowClick} />
             </div>
