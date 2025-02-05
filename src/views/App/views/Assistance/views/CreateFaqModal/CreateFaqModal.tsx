@@ -3,7 +3,6 @@ import { useMutation, useQuery, useQueryClient, useSuspenseQuery } from '@tansta
 import { getRouteApi } from '@tanstack/react-router';
 import { Controller, useForm } from 'react-hook-form';
 import ReactModal from 'react-modal';
-import 'react-multi-email/dist/style.css';
 import { PulseLoader } from 'react-spinners';
 import { toast } from 'react-toastify';
 import * as yup from 'yup';
