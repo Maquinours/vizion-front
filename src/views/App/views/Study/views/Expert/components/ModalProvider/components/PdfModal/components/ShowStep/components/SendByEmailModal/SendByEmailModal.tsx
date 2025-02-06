@@ -30,7 +30,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentPdfModal
 
   const defaultCc = representative?.profiles.filter((profile) => profile.civility === 'Service' && !!profile.email).map((service) => service.email!);
   const defaultRecipient = business.profileEmail ? [business.profileEmail] : [];
-  const defaultSubject = `Étude ${business.numBusiness}`;
+  const defaultSubject = `Étude ${business.numBusiness}${business.title ? ` ${business.title}` : ''}`;
 
   return (
     <SendEmailModalComponent
