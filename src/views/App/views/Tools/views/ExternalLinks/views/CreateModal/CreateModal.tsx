@@ -9,7 +9,7 @@ import * as yup from 'yup';
 import Quill from '../../../../../../../../components/Quill/Quill';
 import { createExternalLink } from '../../../../../../../../utils/api/externalLink';
 import { externalLinks } from '../../../../../../../../utils/constants/queryKeys/externalLink';
-import FaqAccessLevel from '../../../../../../../../utils/enums/FaqAccessLevel';
+import ToolAccessLevel from '../../../../../../../../utils/enums/ToolAccessLevel';
 import { isValidUrl } from '../../../../../../../../utils/functions/url';
 import styles from './CreateModal.module.scss';
 
@@ -22,15 +22,15 @@ const levelOptions = [
   },
   {
     text: 'Publique',
-    value: FaqAccessLevel.PUBLIC,
+    value: ToolAccessLevel.PUBLIC,
   },
   {
     text: 'Interne',
-    value: FaqAccessLevel.INTERNE,
+    value: ToolAccessLevel.INTERNE,
   },
   {
     text: 'Professionnel',
-    value: FaqAccessLevel.PROFESSIONNEL,
+    value: ToolAccessLevel.PROFESSIONNEL,
   },
 ];
 
@@ -93,7 +93,7 @@ const authorizationTypes = [
 const yupSchema = yup.object().shape({
   title: yup.string().required('Le titre est requis.'),
   description: yup.string().required('La description est requise.'),
-  level: yup.mixed<FaqAccessLevel>().oneOf(Object.values(FaqAccessLevel), 'Le niveau est requis').required('Le niveau est requis'),
+  level: yup.mixed<ToolAccessLevel>().oneOf(Object.values(ToolAccessLevel), 'Le niveau est requis').required('Le niveau est requis'),
   type: yup.string().nullable(),
   url: yup
     .string()

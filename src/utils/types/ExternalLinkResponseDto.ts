@@ -1,4 +1,4 @@
-import FaqAccessLevel from '../enums/FaqAccessLevel';
+import ToolAccessLevel from '../enums/ToolAccessLevel';
 
 type ExternalLinkResponseDto = {
   id: string;
@@ -8,7 +8,7 @@ type ExternalLinkResponseDto = {
   description: string;
   type: string | null;
   targetType: string | null;
-  accessLevel: FaqAccessLevel;
+  accessLevel: ToolAccessLevel;
   archived: boolean;
   createdDate: string;
   modifiedDate: string | null;
