@@ -75,6 +75,7 @@ export default function AppViewAircallIntegrationComponent() {
                 queryClient.prefetchQuery(queries.profiles.detail._ctx.byPhoneNumbers([data.data.raw_digits, formatPhoneNumber(data.data.raw_digits)]));
               break;
             case 'call.answered':
+            case 'call.transferred':
               queryClient.invalidateQueries({ queryKey: aircallQueryKeys.allUsers.queryKey });
               if (
                 data.data.direction === 'inbound' &&
@@ -89,7 +90,7 @@ export default function AppViewAircallIntegrationComponent() {
                     navigate({
                       to: '/app/enterprises/$enterpriseId',
                       params: { enterpriseId: profile.enterprise.id },
-                      search: { contactsSearch: `${profile.firstName ?? ''} ${profile.lastName ?? ''}`.trim() },
+                      search: { contactsSearch: `${profile.firstName ?? ''} ${profile.lastName ?? ''}`.trim(), allBusinessProfileId: profile.id },
                     });
                   })
                   .catch((error) => {
@@ -103,7 +104,6 @@ export default function AppViewAircallIntegrationComponent() {
               break;
             case 'call.ended':
             case 'call.hungup':
-            case 'call.transferred':
               queryClient.invalidateQueries({ queryKey: aircallQueryKeys.allUsers.queryKey });
               break;
           }

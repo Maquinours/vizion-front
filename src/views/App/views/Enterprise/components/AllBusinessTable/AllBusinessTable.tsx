@@ -16,6 +16,7 @@ import classNames from 'classnames';
 import { useMemo, useState } from 'react';
 import { VirtualElement } from '@popperjs/core';
 import AppViewEnterpriseViewAllBusinessTableComponentContextMenuComponent from './components/ContextMenu/ContextMenu';
+import AppViewEnterpriseViewAllBusinessTableComponentSearchSectionComponent from './components/SearchSection/SearchSection';
 
 const size = 15;
 
@@ -75,10 +76,10 @@ export default function AppViewEnterpriseViewAllBusinessTableComponent() {
   const navigate = routeApi.useNavigate();
 
   const { enterpriseId } = routeApi.useParams();
-  const { allBusinessPage: page } = routeApi.useSearch();
+  const { allBusinessPage: page, allBusinessProfileId: contactId } = routeApi.useSearch();
 
   const { data: authentifiedUser } = useAuthentifiedUserQuery();
-  const { data, isLoading } = useQuery(allBusinesses.page._ctx.byEnterpriseId({ enterpriseId, page, size }));
+  const { data, isLoading } = useQuery(allBusinesses.page._ctx.byEnterpriseIdAndPossibleProfileId({ enterpriseId, profileId: contactId, page, size }));
 
   const [selectedItem, setSelectedItem] = useState<AllBusinessResponseDto | undefined>();
   const [contextMenuAnchor, setContextMenuAnchor] = useState<VirtualElement | undefined>();
@@ -205,6 +206,7 @@ export default function AppViewEnterpriseViewAllBusinessTableComponent() {
           }
         >
           <div className={styles.card_container}>
+            <AppViewEnterpriseViewAllBusinessTableComponentSearchSectionComponent />
             <div className={styles.table_container}>
               <TableComponent
                 columns={columns}

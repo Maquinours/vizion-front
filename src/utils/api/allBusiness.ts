@@ -176,3 +176,18 @@ export const unrelateAllBusinessToEnterprise = (allBusinessId: string, enterpris
     url: `/all-business/v1/all-business-and-rma/unrelate-enterprise/${encodeURIComponent(allBusinessId)}/${encodeURIComponent(enterpriseId)}`,
   }).then((res) => res.data);
 };
+
+export const getAllBusinessPageByEnterpriseIdAndProfileId = async (enterpriseId: string, profileId: string, page: number, size: number) => {
+  return (
+    await privateInstance<Page<AllBusinessResponseDto>>({
+      method: 'GET',
+      url: `/all-business/v1/all-business-and-rma/find/enterprise-profile/page`,
+      params: {
+        enterpriseId,
+        profileId,
+        page,
+        size,
+      },
+    })
+  ).data;
+};

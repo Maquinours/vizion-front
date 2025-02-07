@@ -17,6 +17,7 @@ const searchSchema = z.object({
   contactsSearch: z.string().optional().catch(undefined),
   contactsPage: z.number().int().min(0).catch(0),
   lifesheetPage: z.number().int().min(0).catch(0),
+  allBusinessProfileId: z.string().uuid().optional().catch(undefined),
 });
 
 export const Route = createFileRoute('/app/enterprises_/$enterpriseId')({
@@ -26,15 +27,21 @@ export const Route = createFileRoute('/app/enterprises_/$enterpriseId')({
       contactsSearch?: string;
       contactsPage?: number;
       lifesheetPage?: number;
+      allBusinessProfileId?: string;
     } & SearchSchemaInput,
   ) => searchSchema.parse(data),
-  loaderDeps: ({ search: { allBusinessPage, contactsSearch, contactsPage, lifesheetPage } }) => ({
+  loaderDeps: ({ search: { allBusinessPage, contactsSearch, contactsPage, lifesheetPage, allBusinessProfileId } }) => ({
     allBusinessPage,
     contactsSearch,
     contactsPage,
     lifesheetPage,
+    allBusinessProfileId,
   }),
-  loader: async ({ context: { queryClient }, params: { enterpriseId }, deps: { allBusinessPage, contactsSearch, contactsPage, lifesheetPage } }) => {
+  loader: async ({
+    context: { queryClient },
+    params: { enterpriseId },
+    deps: { allBusinessPage, contactsSearch, contactsPage, lifesheetPage, allBusinessProfileId },
+  }) => {
     const allBusinessSize = 15;
     const contactsSize = 5;
     const lifesheetSize = 5;
@@ -57,8 +64,9 @@ export const Route = createFileRoute('/app/enterprises_/$enterpriseId')({
     });
 
     queryClient.prefetchQuery(
-      allBusinesses.page._ctx.byEnterpriseId({
+      allBusinesses.page._ctx.byEnterpriseIdAndPossibleProfileId({
         enterpriseId,
+        profileId: allBusinessProfileId,
         page: allBusinessPage,
         size: allBusinessSize,
       }),
