@@ -18,13 +18,6 @@ export default function AppViewBusinessViewDashboardViewSendEmailModalView() {
       onClose={onClose}
       defaultSubject={`${business.numBusiness} - ${business.title}`}
       defaultRecipient={business.profileEmail ? [business.profileEmail] : undefined}
-      lifeSheetInfoDto={{
-        businessNumber: business.numBusiness,
-        enterpriseName: business.enterpriseName,
-        businessName: business.title ?? undefined,
-        businessId: business.id,
-        enterpriseId: business.enterpriseId,
-      }}
     />
   );
 }
