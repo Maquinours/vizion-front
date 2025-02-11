@@ -12,7 +12,7 @@ export default function AppViewEnterpriseViewEmailHistoryModalViewEmailModalView
     <EmailModalComponent
       onClose={() => navigate({ to: '../..', search: true, replace: true, resetScroll: false })}
       emailId={emailId}
-      replyLink={{ to: '/app/businesses-rma/business/$businessId/dashboard/email-history/$emailId/reply', search: true, replace: true, resetScroll: false }}
+      replyLink={{ to: '/app/enterprises/$enterpriseId/email-history/email/$emailId/reply', search: true, replace: true, resetScroll: false }}
     />
   );
 }
