@@ -1,17 +1,18 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { useEffect, useMemo, useState } from 'react';
+// import { useEffect, useMemo, useState } from 'react';
+import { useNavigate } from '@tanstack/react-router';
+import { isAxiosError } from 'axios';
 import { formatPhoneNumber } from 'react-phone-number-input';
 import { toast, ToastContentProps } from 'react-toastify';
-import useWebSocket, { ReadyState } from 'react-use-websocket';
+import useWebSocket from 'react-use-websocket';
+import AircallIcon from '../../../../assets/images/aircall-icon.svg?react';
 import { AIRCALL_WEBSOCKET_URL } from '../../../../utils/constants/api';
 import { queries } from '../../../../utils/constants/queryKeys';
 import { aircallQueryKeys } from '../../../../utils/constants/queryKeys/aircall';
 import AircallWebhookResponseDto from '../../../../utils/types/AircallWebhookResponseDto';
-import { useNavigate } from '@tanstack/react-router';
-import { isAxiosError } from 'axios';
-import { useAuthentifiedUserQuery } from '../../utils/functions/getAuthentifiedUser';
-import AircallIcon from '../../../../assets/images/aircall-icon.svg?react';
 import ProfileResponseDto from '../../../../utils/types/ProfileResponseDto';
+import { useAuthentifiedUserQuery } from '../../utils/functions/getAuthentifiedUser';
+import { useMemo } from 'react';
 
 type AircallNewCallToastComponentProps = ToastContentProps<{
   caller: ProfileResponseDto;
@@ -45,8 +46,6 @@ export default function AppViewAircallIntegrationComponent() {
 
   const { data: currentUser } = useAuthentifiedUserQuery();
 
-  const [pingInterval, setPingInterval] = useState<ReturnType<typeof setInterval>>();
-
   const { data: users } = useQuery({
     ...aircallQueryKeys.allUsers,
     select: (data) => data.users,
@@ -63,7 +62,7 @@ export default function AppViewAircallIntegrationComponent() {
     [users, currentUser],
   );
 
-  const { sendMessage, readyState } = useWebSocket(
+  useWebSocket(
     AIRCALL_WEBSOCKET_URL,
     {
       onOpen: () => {
@@ -72,15 +71,12 @@ export default function AppViewAircallIntegrationComponent() {
       },
       onClose: () => {
         console.log('Aircall websocket closed');
-        if (pingInterval) {
-          clearInterval(pingInterval);
-          setPingInterval(undefined);
-        }
       },
       onError: (error) => {
         console.log('Aircall websocket error', error);
       },
       onMessage: (message) => {
+        if (message.data === 'pong') return;
         const data = JSON.parse(message.data) as AircallWebhookResponseDto<'number' | 'user' | 'contact' | 'call'>;
         console.log('Aircall websocket message', data);
         if (isUserEvent(data)) queryClient.invalidateQueries({ queryKey: aircallQueryKeys.allUsers.queryKey });
@@ -128,22 +124,15 @@ export default function AppViewAircallIntegrationComponent() {
       shouldReconnect: () => true,
       reconnectAttempts: Infinity,
       reconnectInterval: (attemptNumber) => Math.min(Math.pow(2, attemptNumber) * 1000, 10000),
+      heartbeat: {
+        message: 'ping',
+        interval: 15_000,
+        returnMessage: 'pong',
+        timeout: 60_000,
+      },
     },
     shouldConnect,
   );
-
-  useEffect(() => {
-    if (readyState === ReadyState.OPEN) {
-      setPingInterval(
-        setInterval(() => {
-          sendMessage('ping');
-        }, 30000),
-      );
-      return () => {
-        clearInterval(pingInterval);
-      };
-    }
-  }, [readyState]);
 
   return null;
 }
