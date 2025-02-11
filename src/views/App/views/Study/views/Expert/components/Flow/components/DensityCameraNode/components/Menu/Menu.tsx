@@ -21,6 +21,8 @@ export default function AppViewStudyViewExpertViewFlowComponentDensityCameraNode
 }: AppViewStudyViewExpertViewFlowComponentDensityCameraNodeComponentMenuComponentProps) {
   const { updateNodeData } = useReactFlow<ExpertStudyNode>();
 
+  const [isMounted, setIsMounted] = useState(false);
+
   const dragButtonRef = useRef<HTMLButtonElement>(null);
   const angleButtonRef = useRef<HTMLButtonElement>(null);
   const rangeButtonRef = useRef<HTMLButtonElement>(null);
@@ -31,7 +33,10 @@ export default function AppViewStudyViewExpertViewFlowComponentDensityCameraNode
 
   const [position, setPosition] = useState<{ left: number; top: number }>({ left: 0, top: 0 });
 
+  useEffect(() => setIsMounted(true), []);
+
   useEffect(() => {
+    if (!isMounted) return;
     if (dragButtonRef.current) {
       const dragSelection = select(dragButtonRef.current);
       let lastMousePosition = { x: 0, y: 0 };
@@ -106,7 +111,7 @@ export default function AppViewStudyViewExpertViewFlowComponentDensityCameraNode
       });
       opacitySelection.call(opacityDragHandler);
     }
-  }, [nodeId]);
+  }, [nodeId, isMounted]);
 
   useEffect(() => {
     const nodeToolbar = document.getElementById(`nodetoolbar-${nodeId}`);
