@@ -1,5 +1,5 @@
-import { useQueryClient } from '@tanstack/react-query';
-import { useEffect, useState } from 'react';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useEffect, useMemo, useState } from 'react';
 import { formatPhoneNumber } from 'react-phone-number-input';
 import { toast, ToastContentProps } from 'react-toastify';
 import useWebSocket, { ReadyState } from 'react-use-websocket';
@@ -43,9 +43,25 @@ export default function AppViewAircallIntegrationComponent() {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
 
-  const { data: user } = useAuthentifiedUserQuery();
+  const { data: currentUser } = useAuthentifiedUserQuery();
 
   const [pingInterval, setPingInterval] = useState<ReturnType<typeof setInterval>>();
+
+  const { data: users } = useQuery({
+    ...aircallQueryKeys.allUsers,
+    select: (data) => data.users,
+    staleTime: Infinity,
+    enabled: false,
+  });
+
+  const shouldConnect = useMemo(
+    () =>
+      !users ||
+      users.some(
+        (user) => user.name.trim().toLowerCase() === `${currentUser.userInfo.firstName.trim()} ${currentUser.userInfo.lastName.trim()}`.trim().toLowerCase(),
+      ),
+    [users, currentUser],
+  );
 
   const { sendMessage, readyState } = useWebSocket(
     AIRCALL_WEBSOCKET_URL,
@@ -80,7 +96,7 @@ export default function AppViewAircallIntegrationComponent() {
               if (
                 data.data.direction === 'inbound' &&
                 data.data.user?.name?.toLowerCase().trim() ===
-                  `${user.profile.firstName?.trim() ?? ''} ${user.profile.lastName?.trim() ?? ''}`.toLowerCase().trim()
+                  `${currentUser.profile.firstName?.trim() ?? ''} ${currentUser.profile.lastName?.trim() ?? ''}`.toLowerCase().trim()
               ) {
                 queryClient
                   .ensureQueryData(queries.profiles.detail._ctx.byPhoneNumbers([data.data.raw_digits, formatPhoneNumber(data.data.raw_digits)]))
@@ -113,7 +129,7 @@ export default function AppViewAircallIntegrationComponent() {
       reconnectAttempts: Infinity,
       reconnectInterval: (attemptNumber) => Math.min(Math.pow(2, attemptNumber) * 1000, 10000),
     },
-    true,
+    shouldConnect,
   );
 
   useEffect(() => {
