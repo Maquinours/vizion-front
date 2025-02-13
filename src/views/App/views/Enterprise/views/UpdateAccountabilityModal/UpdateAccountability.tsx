@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import ReactModal from 'react-modal';
 import { PropagateLoader } from 'react-spinners';
 import { toast } from 'react-toastify';
-import yup from 'yup';
+import * as yup from 'yup';
 import { updateEnterpriseAccountability } from '../../../../../../utils/api/enterpriseAccountability';
 import { enterprises } from '../../../../../../utils/constants/queryKeys/enterprise';
 import CategoryClient from '../../../../../../utils/enums/CategoryClient';
