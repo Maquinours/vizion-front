@@ -5,12 +5,13 @@ import { useForm } from 'react-hook-form';
 import ReactModal from 'react-modal';
 import { PropagateLoader } from 'react-spinners';
 import { toast } from 'react-toastify';
-import { InferType, number, object, string } from 'yup';
+import yup from 'yup';
 import { updateEnterpriseAccountability } from '../../../../../../utils/api/enterpriseAccountability';
 import { enterprises } from '../../../../../../utils/constants/queryKeys/enterprise';
 import CategoryClient from '../../../../../../utils/enums/CategoryClient';
 import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthentifiedUser';
 import styles from './UpdateAccountability.module.scss';
+import { useEffect } from 'react';
 
 const routeApi = getRouteApi('/app/enterprises_/$enterpriseId/update-accountability');
 
@@ -24,17 +25,23 @@ export default function AppViewEnterpriseViewUpdateAccountabilityModalView() {
 
   const { data: enterprise } = useSuspenseQuery(enterprises.detail(enterpriseId));
 
-  const yupSchema = object({
-    billingServiceName: string().nullable(),
-    accountingEmail: string().email('Format de mail invalide').nullable(),
-    siren: string()
+  const yupSchema = yup.object({
+    billingServiceName: yup.string().nullable(),
+    accountingEmail: yup.string().email('Format de mail invalide').nullable(),
+    siren: yup
+      .string()
       .matches(/\b\d{9}\b/, {
         message: 'Le numéro SIREN doit exactement avoir 9 caractères.',
         excludeEmptyString: true,
       })
-      .required('Champs requis'),
-    vatNumber: string().nullable(),
-    discount: number()
+      .when('category', {
+        is: (category: CategoryClient | undefined) => !!category && [CategoryClient.DISTRIBUTEUR, CategoryClient.DISTRIBUTEUR_VVA].includes(category),
+        then: (schema) => schema.required('Champs requis'),
+        otherwise: (schema) => schema,
+      }),
+    vatNumber: yup.string().nullable(),
+    discount: yup
+      .number()
       .typeError('Format invalide')
       .min(0, 'Min 0')
       .max(
@@ -44,13 +51,15 @@ export default function AppViewEnterpriseViewUpdateAccountabilityModalView() {
           : 'Max 100',
       )
       .nullable(),
-    accountNumber: string().nullable(),
+    accountNumber: yup.string().nullable(),
+    category: yup.mixed<CategoryClient>().required('La catégorie est requise'),
   });
 
   const {
     register,
     formState: { errors },
     handleSubmit,
+    setValue,
   } = useForm({
     resolver: yupResolver(yupSchema),
     defaultValues: {
@@ -68,7 +77,7 @@ export default function AppViewEnterpriseViewUpdateAccountabilityModalView() {
   };
 
   const { mutate, isPending } = useMutation({
-    mutationFn: (data: InferType<typeof yupSchema>) =>
+    mutationFn: (data: yup.InferType<typeof yupSchema>) =>
       updateEnterpriseAccountability(enterprise.accountability!, {
         billingServiceName: data.billingServiceName,
         tvaNumber: data.vatNumber,
@@ -87,6 +96,10 @@ export default function AppViewEnterpriseViewUpdateAccountabilityModalView() {
       toast.error("Une erreur est survenue lors de la modification de la comptabilité de l'entreprise");
     },
   });
+
+  useEffect(() => {
+    setValue('category', enterprise.category);
+  }, [enterprise.category]);
 
   return (
     <ReactModal isOpen={true} onRequestClose={onClose} className={styles.modal} overlayClassName="Overlay">

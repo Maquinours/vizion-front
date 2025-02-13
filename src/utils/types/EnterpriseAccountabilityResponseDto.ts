@@ -2,7 +2,7 @@ type EnterpriseAccountabilityResponseDto = {
   id: string;
   billingServiceName?: string;
   tvaNumber?: string;
-  siren: string;
+  siren?: string;
   siret?: string;
   discount?: number;
   accountingEmail?: string;
