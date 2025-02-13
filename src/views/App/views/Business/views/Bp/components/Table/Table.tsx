@@ -168,7 +168,9 @@ export default function AppViewBusinessViewBpViewTableComponent() {
       columnHelper.display({
         header: 'Stock',
         cell: ({ row }) => {
-          const stock = stocks?.find((stock) => stock.productId === row.original.productId);
+          const stock = stocks?.find((stock) =>
+            row.original.productId ? stock.productId === row.original.productId : stock.reference === row.original.productReference,
+          );
           return stock && !stock.virtualQty && <AmountFormat value={stock.currentStock} decimalScale={0} />;
         },
       }),
