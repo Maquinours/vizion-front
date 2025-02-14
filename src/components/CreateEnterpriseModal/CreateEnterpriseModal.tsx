@@ -27,7 +27,7 @@ export default function CreateEnterpriseModalComponent({ onClose }: CreateEnterp
   const [step, setStep] = useState<0 | 1>(0);
   const [stepOneData, setStepOneData] = useState<CreateEnterpriseStepOneDataType>();
   const [contacts, setContacts] = useState<Array<Omit<ProfileAgencyRequestDto, 'categoryClient'>>>([]);
-  const [modalId, setModalId] = useState<ModalIds | null>(null);
+  const [modalId, setModalId] = useState<ModalIds | null>('add-contact');
 
   const onSubmitStepOne = (data: CreateEnterpriseStepOneDataType) => {
     setStepOneData(data);
