@@ -1,6 +1,6 @@
 import readXlsxFile from 'read-excel-file';
 import * as PDFJS from 'pdfjs-dist';
-import pdfWorker from 'pdfjs-dist/build/pdf.worker.min.mjs?worker';
+import pdfWorker from 'pdfjs-dist/build/pdf.worker.min.js?worker';
 
 PDFJS.GlobalWorkerOptions.workerPort = new pdfWorker();
 
