@@ -22,7 +22,7 @@ export default function AppViewBusinessesRmaViewTotalSectionComponent({ data }: 
   );
 
   return (
-    <div className={styles.total_container}>
+    <div id='all-business-total-container' className={styles.total_container}>
       <div className={styles._content}>
         <div>TOTAL de la sélection{hasCreditNotes ? ' (dont avoirs)' : ''} :</div>
         <div>
