@@ -1,7 +1,9 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Link, useNavigate } from '@tanstack/react-router';
+import moment from 'moment';
 import { useForm, useWatch } from 'react-hook-form';
 import * as yup from 'yup';
+import AllBusinessState from '../../../../../../../../utils/enums/AllBusinessState';
 
 const yupSchema = yup.object().shape({
   product: yup.string().transform((val) => val || undefined),
@@ -61,7 +63,13 @@ export default function AppLayoutTopbarComponentBasicTopbarComponentSearchFields
           Rechercher
         </button>
       </form>
-      <Link to="/app/businesses-rma" hash="all-business-total-container" className="btn btn-primary-light">
+      <Link
+        to="/app/businesses-rma"
+        hash="all-business-total-container"
+        search={{ dates: [moment().startOf('month').toDate(), moment().endOf('month').toDate()], state: AllBusinessState.FACTURE, size: 400 }}
+        preload="intent"
+        className="btn btn-primary-light"
+      >
         CA mois en cours
       </Link>
     </div>
