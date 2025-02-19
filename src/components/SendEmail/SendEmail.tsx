@@ -1,8 +1,9 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation } from '@tanstack/react-query';
+import { useLocation } from '@tanstack/react-router';
 import { isAxiosError } from 'axios';
-import React, { useMemo, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import React, { useEffect, useMemo, useState } from 'react';
+import { useForm, useWatch } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import * as yup from 'yup';
 import { formatDateWithHour } from '../../utils/functions/dates';
@@ -16,6 +17,33 @@ import SendEmailComponentHeaderComponent from './components/Header/Header';
 import styles from './SendEmail.module.scss';
 import { sendEmail } from './utils/api/email';
 import { SendEmailFormContext } from './utils/contexts/sendEmail';
+
+type Attachment = { id: string; file: File };
+
+type StorageData = {
+  recipient: Array<string>;
+  cc: Array<string>;
+  bcc: Array<string>;
+  subject: string;
+  content: string;
+};
+
+const isStorageData = (value: unknown): value is StorageData =>
+  typeof value === 'object' &&
+  value !== null &&
+  'recipient' in value &&
+  Array.isArray(value.recipient) &&
+  value.recipient.every((item: unknown) => typeof item === 'string') &&
+  'cc' in value &&
+  Array.isArray(value.cc) &&
+  value.cc.every((item: unknown) => typeof item === 'string') &&
+  'bcc' in value &&
+  Array.isArray(value.bcc) &&
+  value.bcc.every((item: unknown) => typeof item === 'string') &&
+  'subject' in value &&
+  typeof value.subject === 'string' &&
+  'content' in value &&
+  typeof value.content === 'string';
 
 const yupSchema = yup.object({
   recipient: yup
@@ -52,7 +80,7 @@ const yupSchema = yup.object({
     .typeError('Format invalide'),
   subject: yup.string().required('Champs requis.'),
   content: yup.string().required('Champs requis'),
-  attachments: yup.array().of(yup.mixed<{ id: string; file: File }>().required()).required('Champs requis'),
+  attachments: yup.array().of(yup.mixed<Attachment>().required()).required('Champs requis'),
 });
 
 export type SendEmailFormSchema = yup.InferType<typeof yupSchema>;
@@ -79,6 +107,7 @@ export type SendEmailComponentProps = Readonly<{
   };
   emailToReply?: MailResponseDto;
   onEmailSent?: () => void;
+  storageKey?: 'global'; // Used to handle storage in global send email modal
 }>;
 export default function SendEmailComponent({
   defaultSubject,
@@ -90,7 +119,10 @@ export default function SendEmailComponent({
   lifeSheetInfoDto,
   emailToReply,
   onEmailSent,
+  storageKey,
 }: SendEmailComponentProps) {
+  const pathname = useLocation({ select: (location) => location.pathname });
+
   const { data: user } = useAuthentifiedUserQuery();
 
   const [isPredefinedMessagesModalOpened, setIsPredefinedMessagesModalOpened] = useState(false);
@@ -123,6 +155,8 @@ export default function SendEmailComponent({
     },
   });
 
+  const watch = useWatch({ control });
+
   const onReset = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     reset();
@@ -143,10 +177,9 @@ export default function SendEmailComponent({
         ...lifeSheetInfoDto,
       }),
     onSuccess: () => {
+      localStorage.removeItem(fullStorageKey);
       toast.success('Email envoyé avec succès.');
-      if (onEmailSent) {
-        onEmailSent();
-      }
+      if (onEmailSent) onEmailSent();
     },
     onError: (error) => {
       if (isAxiosError(error) && error.response?.status === 413) toast.error('La taille des fichiers joints est trop grande.');
@@ -157,27 +190,54 @@ export default function SendEmailComponent({
     },
   });
 
+  const fullStorageKey = `send_email_form_values_${storageKey ?? pathname}`;
   const contextValue = useMemo(() => ({ control, register, errors, getValues, setValue }), [control, register, errors, getValues, setValue]);
 
+  useEffect(() => {
+    const jsonData = sessionStorage.getItem(fullStorageKey);
+    if (!jsonData) return;
+    const data = JSON.parse(jsonData);
+    if (isStorageData(data)) {
+      setValue('recipient', data.recipient);
+      setValue('cc', data.cc);
+      setValue('bcc', data.bcc);
+      setValue('subject', data.subject);
+      setValue('content', data.content);
+    } else sessionStorage.removeItem(fullStorageKey);
+  }, [fullStorageKey]);
+
+  useEffect(() => {
+    const storage: StorageData = {
+      recipient: watch.recipient ?? [],
+      cc: watch.cc ?? [],
+      bcc: watch.bcc ?? [],
+      subject: watch.subject ?? '',
+      content: watch.content ?? '',
+    };
+    sessionStorage.setItem(fullStorageKey, JSON.stringify(storage));
+  }, [watch]);
+
   return (
-    <SendEmailFormContext.Provider value={contextValue}>
-      <div className={styles.container}>
-        <div className={styles.header_container}>
-          <div className={styles.header_right}>
-            <button className="btn btn-primary" onClick={() => setIsPredefinedMessagesModalOpened(true)}>
-              Messages prédéfinis
-            </button>
+    <>
+      <SendEmailFormContext.Provider value={contextValue}>
+        <div className={styles.container}>
+          <div className={styles.header_container}>
+            <div className={styles.header_right}>
+              <button className="btn btn-primary" onClick={() => setIsPredefinedMessagesModalOpened(true)}>
+                Messages prédéfinis
+              </button>
+            </div>
+          </div>
+          <div className={styles.mailbox_container}>
+            <form onSubmit={handleSubmit((data) => mutate(data))} onReset={onReset}>
+              <SendEmailComponentHeaderComponent />
+              <SendEmailComponentBodyComponent />
+            </form>
           </div>
         </div>
-        <div className={styles.mailbox_container}>
-          <form onSubmit={handleSubmit((data) => mutate(data))} onReset={onReset}>
-            <SendEmailComponentHeaderComponent />
-            <SendEmailComponentBodyComponent />
-          </form>
-        </div>
-      </div>
-      <LoaderModal isLoading={isPending} />
-      {isPredefinedMessagesModalOpened && <SendEmailPredefinedMessagesModalComponent onClose={() => setIsPredefinedMessagesModalOpened(false)} />}
-    </SendEmailFormContext.Provider>
+        <LoaderModal isLoading={isPending} />
+        {isPredefinedMessagesModalOpened && <SendEmailPredefinedMessagesModalComponent onClose={() => setIsPredefinedMessagesModalOpened(false)} />}
+      </SendEmailFormContext.Provider>
+    </>
   );
 }

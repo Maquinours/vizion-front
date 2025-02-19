@@ -13,5 +13,5 @@ export default function AppViewSendEmailModalComponent() {
     });
   };
 
-  return <SendEmailModalComponent isOpen onClose={onClose} />;
+  return <SendEmailModalComponent isOpen onClose={onClose} storageKey="global" />;
 }
