@@ -80,7 +80,6 @@ export default function AppViewBusinessViewBillView() {
                   user.profile.categoryClient === 'DISTRIBUTEUR' ||
                   user.profile.categoryClient === 'DISTRIBUTEUR_VVA') && (
                   <PDFDownloadLink document={<AppViewBusinessViewBillViewPdfComponent bill={bill} business={business} />} fileName={`${bill.number}.pdf`}>
-                    {/* @ts-expect-error: library type mismatch */}
                     {({ loading }) => <button className="btn btn-secondary">{loading ? 'Chargement...' : 'Télécharger'}</button>}
                   </PDFDownloadLink>
                 )}
