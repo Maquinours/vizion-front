@@ -1,6 +1,7 @@
 import { Link, getRouteApi, useNavigate } from '@tanstack/react-router';
 import { Row, createColumnHelper } from '@tanstack/react-table';
 import React, { useMemo } from 'react';
+import AllBusinessRowTooltipComponent from '../../../../../../components/AllBusinessRowTooltip/AllBusinessRowTooltip';
 import CurrencyFormat from '../../../../../../components/CurrencyFormat/CurrencyFormat';
 import TableComponent from '../../../../../../components/Table/Table';
 import AllBusinessState from '../../../../../../utils/enums/AllBusinessState';
@@ -10,7 +11,6 @@ import { formatDateAndHourWithSlash } from '../../../../../../utils/functions/da
 import AllBusinessResponseDto from '../../../../../../utils/types/AllBusinessResponseDto';
 import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthentifiedUser';
 import styles from './Table.module.scss';
-import AppViewBusinessesRmaViewTableComponentRowTooltipComponent from './components/RowTooltip/RowTooltip';
 
 const routeApi = getRouteApi('/app/businesses-rma');
 
@@ -253,8 +253,7 @@ export default function AppViewBusinessesRmaViewTableComponent({ data, isLoading
       <div className={styles.table_container}>
         <TableComponent columns={columns} data={data} isLoading={isLoading} onRowClick={onRowClick} getRowClassName={getRowClassName} />
       </div>
-      {!!data && <AppViewBusinessesRmaViewTableComponentRowTooltipComponent items={data} />}
-      {/* {!!tooltipItem && <AppViewBusinessesRmaViewTableComponentRowTooltipComponent item={tooltipItem} />} */}
+      {!!data && <AllBusinessRowTooltipComponent items={data} />}
     </>
   );
 }

@@ -17,6 +17,7 @@ import { useMemo, useState } from 'react';
 import { VirtualElement } from '@popperjs/core';
 import AppViewEnterpriseViewAllBusinessTableComponentContextMenuComponent from './components/ContextMenu/ContextMenu';
 import AppViewEnterpriseViewAllBusinessTableComponentSearchSectionComponent from './components/SearchSection/SearchSection';
+import AllBusinessRowTooltipComponent from '../../../../../../components/AllBusinessRowTooltip/AllBusinessRowTooltip';
 
 const size = 15;
 
@@ -122,6 +123,9 @@ export default function AppViewEnterpriseViewAllBusinessTableComponent() {
           if (original.category === CategoryBusiness.AFFAIRE)
             return (
               <Link
+                data-tooltip-id="business-number-tooltip"
+                data-tooltip-content={original.id}
+                data-tooltip-place="left"
                 to="/app/businesses-rma/business/$businessId"
                 params={{ businessId: original.businessId }}
                 onClick={(e) => {
@@ -135,6 +139,9 @@ export default function AppViewEnterpriseViewAllBusinessTableComponent() {
           else if (original.category === CategoryBusiness.RMA)
             return (
               <Link
+                data-tooltip-id="business-number-tooltip"
+                data-tooltip-content={original.id}
+                data-tooltip-place="left"
                 to="/app/businesses-rma/rma/$rmaId"
                 params={{ rmaId: original.businessId }}
                 onClick={(e) => {
@@ -232,6 +239,7 @@ export default function AppViewEnterpriseViewAllBusinessTableComponent() {
         setAnchorElement={setContextMenuAnchor}
         selectedItem={selectedItem}
       />
+      {!!data && <AllBusinessRowTooltipComponent items={data.content} />}
     </>
   );
 }
