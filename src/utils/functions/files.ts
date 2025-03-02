@@ -58,7 +58,7 @@ export const pdfUriToBase64Image = async (uri: string): Promise<string> => {
   return img;
 };
 
-const fileToBase64 = (file: File): Promise<string> => {
+export const fileToBase64 = (file: File): Promise<string> => {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
@@ -110,3 +110,5 @@ export const fileToBase64Image = async (file: File, { compress = false }: { comp
   }
   throw new Error('File type not supported');
 };
+
+export const base64ToBlob = (base64: string) => fetch(base64).then((res) => res.blob());

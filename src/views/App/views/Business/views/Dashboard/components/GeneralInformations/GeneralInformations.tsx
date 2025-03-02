@@ -113,7 +113,7 @@ export default function AppViewBusinessViewDashboardViewGeneralInformationsCompo
         </div>
         {user.userInfo.roles.includes('ROLE_DIRECTION_VIZEO') && (
           <div className={styles.form_group}>
-            <label htmlFor="businessExport">Export avec TVA</label>
+            <label htmlFor="businessExport">Export sans TVA</label>
             <div className={classNames(styles.form_select_save, 'flex')}>
               <div className="flex-1 text-center">
                 <input type="checkbox" id="businessExport" disabled={business.state !== BusinessState.CREATED} {...register('businessExport')} />

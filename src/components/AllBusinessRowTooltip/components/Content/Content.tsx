@@ -1,17 +1,15 @@
 import { useQuery } from '@tanstack/react-query';
-import AllBusinessResponseDto from '../../../../../../../../../../utils/types/AllBusinessResponseDto';
-import { queries } from '../../../../../../../../../../utils/constants/queryKeys';
-import BusinessQuotationDetailsResponseDto from '../../../../../../../../../../utils/types/BusinessQuotationDetailsResponseDto';
-import AllBusinessState from '../../../../../../../../../../utils/enums/AllBusinessState';
-import BillType from '../../../../../../../../../../utils/enums/BillType';
 import { ClipLoader } from 'react-spinners';
+import AllBusinessResponseDto from '../../../../utils/types/AllBusinessResponseDto';
+import { queries } from '../../../../utils/constants/queryKeys';
+import AllBusinessState from '../../../../utils/enums/AllBusinessState';
+import BillType from '../../../../utils/enums/BillType';
+import BusinessQuotationDetailsResponseDto from '../../../../utils/types/BusinessQuotationDetailsResponseDto';
 
-type AppViewBusinessesRmaViewTableComponentRowTooltipComponentContentComponentProps = Readonly<{
+type AllBusinessRowTooltipComponentContentComponentProps = Readonly<{
   item: AllBusinessResponseDto;
 }>;
-export default function AppViewBusinessesRmaViewTableComponentRowTooltipComponentContentComponent({
-  item,
-}: AppViewBusinessesRmaViewTableComponentRowTooltipComponentContentComponentProps) {
+export default function AllBusinessRowTooltipComponentContentComponent({ item }: AllBusinessRowTooltipComponentContentComponentProps) {
   const { data: quotationData, isLoading: isLoadingQuotation } = useQuery({
     ...queries['business-quotations'].detail._ctx.byBusinessId(item.businessId),
     select: (data) =>

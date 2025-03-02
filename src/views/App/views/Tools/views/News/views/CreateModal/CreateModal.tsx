@@ -61,10 +61,13 @@ export default function AppViewToolsViewNewsViewCreateModalView() {
         subtitle,
         content,
         archived: archive === 'Oui',
-        files: (await uploadFiles(files)).content.reduce((acc: Record<string, UploadedFile>, file, index) => {
-          acc['file' + index] = file;
-          return acc;
-        }, {}),
+        files:
+          files.length > 0
+            ? (await uploadFiles(files)).content.reduce((acc: Record<string, UploadedFile>, file, index) => {
+                acc['file' + index] = file;
+                return acc;
+              }, {})
+            : {},
       }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: news._def });

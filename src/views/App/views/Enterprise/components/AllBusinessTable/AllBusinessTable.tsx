@@ -16,6 +16,8 @@ import classNames from 'classnames';
 import { useMemo, useState } from 'react';
 import { VirtualElement } from '@popperjs/core';
 import AppViewEnterpriseViewAllBusinessTableComponentContextMenuComponent from './components/ContextMenu/ContextMenu';
+import AppViewEnterpriseViewAllBusinessTableComponentSearchSectionComponent from './components/SearchSection/SearchSection';
+import AllBusinessRowTooltipComponent from '../../../../../../components/AllBusinessRowTooltip/AllBusinessRowTooltip';
 
 const size = 15;
 
@@ -75,10 +77,10 @@ export default function AppViewEnterpriseViewAllBusinessTableComponent() {
   const navigate = routeApi.useNavigate();
 
   const { enterpriseId } = routeApi.useParams();
-  const { allBusinessPage: page } = routeApi.useSearch();
+  const { allBusinessPage: page, allBusinessProfileId: contactId } = routeApi.useSearch();
 
   const { data: authentifiedUser } = useAuthentifiedUserQuery();
-  const { data, isLoading } = useQuery(allBusinesses.page._ctx.byEnterpriseId({ enterpriseId, page, size }));
+  const { data, isLoading } = useQuery(allBusinesses.page._ctx.byEnterpriseIdAndPossibleProfileId({ enterpriseId, profileId: contactId, page, size }));
 
   const [selectedItem, setSelectedItem] = useState<AllBusinessResponseDto | undefined>();
   const [contextMenuAnchor, setContextMenuAnchor] = useState<VirtualElement | undefined>();
@@ -121,6 +123,9 @@ export default function AppViewEnterpriseViewAllBusinessTableComponent() {
           if (original.category === CategoryBusiness.AFFAIRE)
             return (
               <Link
+                data-tooltip-id="business-number-tooltip"
+                data-tooltip-content={original.id}
+                data-tooltip-place="left"
                 to="/app/businesses-rma/business/$businessId"
                 params={{ businessId: original.businessId }}
                 onClick={(e) => {
@@ -134,6 +139,9 @@ export default function AppViewEnterpriseViewAllBusinessTableComponent() {
           else if (original.category === CategoryBusiness.RMA)
             return (
               <Link
+                data-tooltip-id="business-number-tooltip"
+                data-tooltip-content={original.id}
+                data-tooltip-place="left"
                 to="/app/businesses-rma/rma/$rmaId"
                 params={{ rmaId: original.businessId }}
                 onClick={(e) => {
@@ -153,7 +161,15 @@ export default function AppViewEnterpriseViewAllBusinessTableComponent() {
       }),
       columnHelper.display({
         header: 'Client',
-        cell: ({ row: { original } }) => <span className={classNames({ italic: original.enterpriseId !== enterpriseId })}>{original.profileName}</span>,
+        cell: ({ row: { original } }) => {
+          const related = original.enterpriseId !== enterpriseId;
+          return (
+            <span className={classNames({ italic: related })}>
+              {related ? `${original.enterpriseName} / ` : ''}
+              {original.profileName}
+            </span>
+          );
+        },
       }),
       columnHelper.display({
         header: 'Dernière modification',
@@ -197,6 +213,7 @@ export default function AppViewEnterpriseViewAllBusinessTableComponent() {
           }
         >
           <div className={styles.card_container}>
+            <AppViewEnterpriseViewAllBusinessTableComponentSearchSectionComponent />
             <div className={styles.table_container}>
               <TableComponent
                 columns={columns}
@@ -222,6 +239,7 @@ export default function AppViewEnterpriseViewAllBusinessTableComponent() {
         setAnchorElement={setContextMenuAnchor}
         selectedItem={selectedItem}
       />
+      {!!data && <AllBusinessRowTooltipComponent items={data.content} />}
     </>
   );
 }

@@ -225,7 +225,7 @@ export default function AppViewTabsContainerComponent({ children }: AppViewTabsC
           const title = match.staticData.title ?? (match.staticData.getTitle ? await match.staticData.getTitle(queryClient, match) : undefined);
           if (title) {
             const route = matches.at(-1)!;
-            const tabRoute = { to: route.fullPath, params: route.params, search: route.search, state: resolvedLocation.state } as ToOptions;
+            const tabRoute = { to: route.fullPath, params: route.params, search: route.search, state: resolvedLocation?.state } as ToOptions;
             const tab: Tab = {
               id: match.pathname,
               name: title,

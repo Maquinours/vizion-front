@@ -42,7 +42,6 @@ export default function AppViewBusinessViewArcViewPdfModalView() {
               document={<AppViewBusinessViewArcViewPdfModalViewPdfComponent business={business} arc={arc} hideReferencesPrices={hideReferencesPrices} />}
               fileName={`ARC-` + arc.number + '.pdf'}
             >
-              {/* @ts-expect-error: library type mismatch */}
               {({ loading }) => <button className="btn btn-secondary">{loading ? 'Chargement...' : 'Télécharger'}</button>}
             </PDFDownloadLink>
             <Link from={routePath} to="send-by-email" search replace resetScroll={false} preload="intent" ignoreBlocker className="btn btn-secondary">

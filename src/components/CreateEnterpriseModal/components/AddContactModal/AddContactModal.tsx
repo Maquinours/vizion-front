@@ -87,7 +87,12 @@ const yupSchema = yup.object().shape({
   profileClient: yup.mixed<ProfileClient>().oneOf(Object.values(ProfileClient), 'Champs requis').required('Champs requis'),
 });
 
-export default function CreateEnterpriseModalComponentAddContactModalComponent() {
+type CreateEnterpriseModalComponentAddContactModalComponentProps = Readonly<{
+  defaultPhoneNumber?: string;
+}>;
+export default function CreateEnterpriseModalComponentAddContactModalComponent({
+  defaultPhoneNumber,
+}: CreateEnterpriseModalComponentAddContactModalComponentProps) {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [validationRules, setValidationRules] = useState<{
@@ -104,11 +109,12 @@ export default function CreateEnterpriseModalComponentAddContactModalComponent()
   const { setContacts, closeModal } = useContext(CreateEnterpriseContext)!;
 
   const {
+    reset,
     register,
     control,
     setValue,
     getValues,
-    formState: { errors },
+    formState: { errors, isDirty },
     handleSubmit,
   } = useForm({
     resolver: yupResolver(yupSchema),
@@ -160,6 +166,10 @@ export default function CreateEnterpriseModalComponentAddContactModalComponent()
   useEffect(() => {
     setValidationRules(checkPassword(password));
   }, [password]);
+
+  useEffect(() => {
+    if (!isDirty) reset({ phoneNumber: defaultPhoneNumber });
+  }, [defaultPhoneNumber]);
 
   return (
     <ReactModal isOpen={true} onRequestClose={closeModal} className="Modal" overlayClassName="Overlay">

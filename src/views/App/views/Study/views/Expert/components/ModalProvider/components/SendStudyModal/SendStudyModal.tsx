@@ -6,6 +6,7 @@ import AppViewStudyViewExpertViewModalProviderComponentSendStudyModalComponentSh
 import useStore, { RFState } from '../../../Flow/utils/store';
 import { useShallow } from 'zustand/react/shallow';
 import AppViewStudyViewExpertViewModalProviderComponentSendStudyModalComponentWarningStepComponent from './components/WarningStep/WarningStep';
+import AppViewStudyViewExpertViewModalProviderComponentSendStudyModalComponentImageRecapStepComponent from './components/RecapStep/RecapStep';
 
 const selector = (state: RFState) => ({
   getPages: state.getPages,
@@ -18,6 +19,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentSendStud
 
   const [stepData, setStepData] = useState<
     | { step: 'WARNING' }
+    | { step: 'RECAP' }
     | { step: 'GENERATION' }
     | { step: 'SHOW'; data: { quotationPdf: File; studyPdf: File; commercialNoticePdf: File | null; representative: EnterpriseResponseDto | undefined } }
   >(() => {
@@ -26,7 +28,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentSendStud
       .flatMap((page) => page.nodes);
     return nodes.some((node) => node.type === 'image' && node.data.image !== 'https://bd.vizeo.eu/6-Photos/BOX/Box.png')
       ? { step: 'WARNING' }
-      : { step: 'GENERATION' };
+      : { step: 'RECAP' };
   });
 
   const onClose = () => {
@@ -37,6 +39,13 @@ export default function AppViewStudyViewExpertViewModalProviderComponentSendStud
     case 'WARNING':
       return (
         <AppViewStudyViewExpertViewModalProviderComponentSendStudyModalComponentWarningStepComponent
+          onClose={onClose}
+          onConfirm={() => setStepData({ step: 'RECAP' })}
+        />
+      );
+    case 'RECAP':
+      return (
+        <AppViewStudyViewExpertViewModalProviderComponentSendStudyModalComponentImageRecapStepComponent
           onClose={onClose}
           onConfirm={() => setStepData({ step: 'GENERATION' })}
         />

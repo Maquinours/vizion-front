@@ -2,6 +2,7 @@ import { createQueryKeys } from '@lukemorales/query-key-factory';
 import {
   getAllBusinessById,
   getAllBusinessPageByEnterpriseId,
+  getAllBusinessPageByEnterpriseIdAndProfileId,
   getAllBusinesses,
   getAllBusinessesAssociated,
   getAllBusinessesNotAssociated,
@@ -35,9 +36,22 @@ export const allBusinesses = createQueryKeys('all-businesses', {
   page: {
     queryKey: null,
     contextQueries: {
-      byEnterpriseId: ({ enterpriseId, page, size }: { enterpriseId: string; page: number; size: number }) => ({
-        queryKey: [{ enterpriseId, page, size }],
-        queryFn: () => getAllBusinessPageByEnterpriseId(enterpriseId, page, size),
+      byEnterpriseIdAndPossibleProfileId: ({
+        enterpriseId,
+        profileId,
+        page,
+        size,
+      }: {
+        enterpriseId: string;
+        profileId?: string;
+        page: number;
+        size: number;
+      }) => ({
+        queryKey: [{ enterpriseId, profileId, page, size }],
+        queryFn: () =>
+          profileId
+            ? getAllBusinessPageByEnterpriseIdAndProfileId(enterpriseId, profileId, page, size)
+            : getAllBusinessPageByEnterpriseId(enterpriseId, page, size),
       }),
       search: (
         searchData: {

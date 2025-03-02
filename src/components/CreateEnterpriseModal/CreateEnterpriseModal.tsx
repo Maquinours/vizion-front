@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from '@tanstack/react-router';
 import { E164Number } from 'libphonenumber-js';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import ReactModal from 'react-modal';
 import { formatPhoneNumber } from 'react-phone-number-input';
 import { toast } from 'react-toastify';
@@ -19,15 +19,17 @@ type ModalIds = 'add-contact' | 'contacts';
 
 interface CreateEnterpriseModalComponentProps {
   onClose: () => void;
+  defaultContactPhoneNumber?: string;
 }
-export default function CreateEnterpriseModalComponent({ onClose }: CreateEnterpriseModalComponentProps) {
+export default function CreateEnterpriseModalComponent({ onClose, defaultContactPhoneNumber }: CreateEnterpriseModalComponentProps) {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
 
   const [step, setStep] = useState<0 | 1>(0);
   const [stepOneData, setStepOneData] = useState<CreateEnterpriseStepOneDataType>();
   const [contacts, setContacts] = useState<Array<Omit<ProfileAgencyRequestDto, 'categoryClient'>>>([]);
-  const [modalId, setModalId] = useState<ModalIds | null>(null);
+  const [modalId, setModalId] = useState<ModalIds | null>('add-contact');
+  const [useDefaultContactPhoneNumber, setUseDefaultContactPhoneNumber] = useState<boolean>(true);
 
   const onSubmitStepOne = (data: CreateEnterpriseStepOneDataType) => {
     setStepOneData(data);
@@ -102,12 +104,18 @@ export default function CreateEnterpriseModalComponent({ onClose }: CreateEnterp
 
   const modal = (() => {
     switch (modalId) {
-      case 'add-contact':
-        return <CreateEnterpriseModalComponentAddContactModalComponent />;
+      case 'add-contact': {
+        const defaultPhoneNumber = useDefaultContactPhoneNumber ? defaultContactPhoneNumber : undefined;
+        return <CreateEnterpriseModalComponentAddContactModalComponent defaultPhoneNumber={defaultPhoneNumber} />;
+      }
       case 'contacts':
         return <CreateEnterpriseModalComponentContactsModalComponent />;
     }
   })();
+
+  useEffect(() => {
+    if (modalId !== 'add-contact') setUseDefaultContactPhoneNumber(false);
+  }, [modalId]);
 
   return (
     <CreateEnterpriseContext.Provider value={contextValue}>
