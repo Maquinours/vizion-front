@@ -293,14 +293,12 @@ const pageStyles = StyleSheet.create({
   tableBodyDispoOk: {
     width: 10,
     height: 10,
-    borderRadius: '50%',
     color: 'green',
     textAlign: 'center',
   },
   tableBodyDispoNotOk: {
     width: 10,
     height: 10,
-    borderRadius: '50%',
     color: '#F24C52',
     textAlign: 'center',
   },
