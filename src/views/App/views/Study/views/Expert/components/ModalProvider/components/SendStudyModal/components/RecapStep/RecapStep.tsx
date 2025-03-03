@@ -71,7 +71,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentSendStud
         const hddSpace =
           acc.hddSpace +
           (product.specificationProducts?.find((spec) => spec.specification?.name === 'CAPACITE')?.value ?? 0) *
-            productsData.reduce((acc, productData) => (productData.type === 'recorder' ? acc + productData.quantity : acc), 0);
+            productsData.reduce((acc, productData) => acc + productData.quantity, 0);
         const flux =
           acc.flux +
           ((product.specificationProducts?.find((spec) => spec.specification?.name === 'FLUX1')?.value ?? 0) +
