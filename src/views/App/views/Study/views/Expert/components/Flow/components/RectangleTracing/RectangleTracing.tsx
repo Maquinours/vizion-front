@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import ExpertStudyContext, { ExpertStudyPaneClickFunctionType } from '../../../../utils/context';
 import { ReactFlowState, useStore, useViewport } from '@xyflow/react';
-import _ from 'lodash';
+import isEqual from 'fast-deep-equal';
 
 const getReactFlowSize = (state: ReactFlowState) => {
   return { width: state.width, height: state.height };
@@ -9,7 +9,7 @@ const getReactFlowSize = (state: ReactFlowState) => {
 
 export default function AppViewStudyViewExpertViewFlowComponentRectangleTracingComponent() {
   const { x, y, zoom } = useViewport();
-  const reactFlowSize = useStore(getReactFlowSize, (a, b) => _.isEqual(a, b));
+  const reactFlowSize = useStore(getReactFlowSize, (a, b) => isEqual(a, b));
   const { paneClickFunction } = useContext(ExpertStudyContext)!;
 
   if (paneClickFunction?.type !== ExpertStudyPaneClickFunctionType.RECTANGLE || !paneClickFunction.data) return;
@@ -32,7 +32,7 @@ export default function AppViewStudyViewExpertViewFlowComponentRectangleTracingC
   };
 
   return (
-    <svg id="rectangle-tracing" className="pointer-events-none absolute left-0 top-0 h-full w-full">
+    <svg id="rectangle-tracing" className="pointer-events-none absolute top-0 left-0 h-full w-full">
       <rect
         x={position.x}
         y={position.y}

@@ -1,13 +1,13 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { createColumnHelper } from '@tanstack/react-table';
 import { ReactFlowState, useReactFlow, useStore } from '@xyflow/react';
-import { isEqual } from 'lodash';
 import { useMemo } from 'react';
 import { NumberFormatValues, SourceInfo } from 'react-number-format';
 import AmountFormat from '../../../../../../../../../../../../components/AmountFormat/AmountFormat';
 import TableComponent from '../../../../../../../../../../../../components/Table/Table';
 import { queries } from '../../../../../../../../../../../../utils/constants/queryKeys';
 import { ExpertStudyDensityCameraNode } from '../../../../../Flow/components/DensityCameraNode/DensityCameraNode';
+import isEqual from 'fast-deep-equal';
 import styles from './DensityTable.module.scss';
 
 type RowData = {

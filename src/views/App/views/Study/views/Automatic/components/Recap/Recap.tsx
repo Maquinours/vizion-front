@@ -1,10 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
 import { InternalNode, ReactFlowState, useStore } from '@xyflow/react';
-import _ from 'lodash';
 import { useMemo } from 'react';
 import { queries } from '../../../../../../../../utils/constants/queryKeys';
 import ProductResponseDto from '../../../../../../../../utils/types/ProductResponseDto';
 import { AutomaticStudyFinalCameraNode } from '../Flow/components/FinalCameraNode/FinalCameraNode';
+import isEqual from 'fast-deep-equal';
 
 const getElements = (state: ReactFlowState, products: Array<ProductResponseDto> | undefined) => {
   const result: Array<{ reference: string; id: string; price: number; quantity: number }> = [];
@@ -39,7 +39,7 @@ export default function AppViewStudyViewAutomaticViewRecapComponent() {
   const { data: products } = useQuery({ ...queries.product.list, staleTime: Infinity });
   const elements = useStore(
     (state) => getElements(state, products),
-    (a, b) => _.isEqual(a, b),
+    (a, b) => isEqual(a, b),
   );
 
   const total = useMemo(() => elements.reduce((acc, element) => acc + element.quantity * element.price, 0), [elements]);
@@ -50,7 +50,7 @@ export default function AppViewStudyViewAutomaticViewRecapComponent() {
         <div className="mt-2 flex w-fit flex-col items-end justify-end backdrop-blur-md">
           <div className="-mx-4 -my-2 w-fit overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
-              <div className="overflow-hidden border-none ring-1 ring-black ring-opacity-5">
+              <div className="ring-opacity-5 overflow-hidden border-none ring-1 ring-black">
                 <table className="min-w-full divide-y divide-gray-500">
                   <thead className="bg-white">
                     <tr>
@@ -68,7 +68,7 @@ export default function AppViewStudyViewAutomaticViewRecapComponent() {
                   <tbody className="divide-y divide-gray-500">
                     {elements?.map((camera) => (
                       <tr key={camera.id}>
-                        <td className="whitespace-nowrap px-6 py-3 text-sm">
+                        <td className="px-6 py-3 text-sm whitespace-nowrap">
                           <div className="flex items-center">
                             <div className="h-12 w-12 shrink-0">
                               <img className="h-12 w-12" src={`https://bd.vizeo.eu/6-Photos/${camera.reference}/${camera.reference}.png`} alt="Camera" />
@@ -79,16 +79,16 @@ export default function AppViewStudyViewAutomaticViewRecapComponent() {
                             </div>
                           </div>
                         </td>
-                        <td className="text-md whitespace-nowrap px-6 py-3 text-black">
+                        <td className="text-md px-6 py-3 whitespace-nowrap text-black">
                           <div className="flex items-center justify-center space-x-2">
                             <div className="px-6 py-1 text-gray-900">{camera.quantity}</div>
                           </div>
                         </td>
-                        <td className="text-md whitespace-nowrap px-6 py-3 text-black">
-                          <span className="text-md inline-flex font-bold leading-5">{`00${camera.price}`}</span>
+                        <td className="text-md px-6 py-3 whitespace-nowrap text-black">
+                          <span className="text-md inline-flex leading-5 font-bold">{`00${camera.price}`}</span>
                         </td>
 
-                        <td className="relative whitespace-nowrap py-3 pl-3 pr-4 text-right text-sm font-medium sm:pr-6"></td>
+                        <td className="relative py-3 pr-4 pl-3 text-right text-sm font-medium whitespace-nowrap sm:pr-6"></td>
                       </tr>
                     ))}
                   </tbody>
