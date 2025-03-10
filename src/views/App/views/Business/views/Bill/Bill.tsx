@@ -42,11 +42,21 @@ export default function AppViewBusinessViewBillView() {
   });
 
   useEffect(() => {
-    if (!!bill && !bill.totalAmountHT) {
-      const toastId = toast.warning("Une erreur est survenue et la facture n'est pas conforme. (Total HT à 0)", { autoClose: false });
-      return () => {
-        toast.dismiss(toastId);
-      };
+    if (!!bill) {
+      const totalAmountHT = bill.billDetails.reduce((acc, item) => acc + item.quantity * (item.unitPrice ?? 0), 0);
+      const vat = business.exportTva ? (totalAmountHT + bill.shippingServicePrice) * 0.2 : 0;
+      const totalAmount = totalAmountHT + bill.shippingServicePrice + vat;
+      console.log({ totalAmountHT, vat, totalAmount });
+      if (totalAmount !== bill.totalAmount)
+        toast.warning(
+          `Le montant total de la facture ne semble pas conforme. Montant total calculé : ${totalAmount.toLocaleString('fr-FR', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+          })}€`,
+          { autoClose: false },
+        );
+      else if (!business.exportTva)
+        toast.warning("Cette facture est catégorisée comme export et n'a donc pas de TVA. Êtes vous sûr de vouloir continuer ?", { autoClose: false });
     }
   }, [bill]);
 
