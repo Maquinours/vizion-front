@@ -43,7 +43,7 @@ export default function AppViewBusinessViewArcViewRecapComponent() {
               <td>TVA</td>
               <td>20%</td>
               <td>
-                <CurrencyFormat value={((arc.totalAmountHT ?? 0) + arc.shippingServicePrice) * 0.2} />
+                <CurrencyFormat value={arc.vat} />
               </td>
             </tr>
             <tr>

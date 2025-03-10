@@ -40,6 +40,7 @@ export default function AppViewBusinessViewQuotationViewDeleteSubquotationModalV
         totalAmount,
         quoteId: quotation.id,
         subQuoteId: subQuotation!.id,
+        vat,
       });
     },
     onSuccess: () => {

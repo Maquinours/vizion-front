@@ -38,6 +38,7 @@ export default function AppViewBusinessViewQuotationViewDeleteDetailModalView() 
         totalAmountHT,
         shippingServicePrice,
         totalAmount,
+        vat,
       });
     },
     onSuccess: () => {

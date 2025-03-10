@@ -3,7 +3,6 @@ import { useMutation, useSuspenseQuery } from '@tanstack/react-query';
 import { getRouteApi } from '@tanstack/react-router';
 import { ReactFlowState, useStore, InternalNode } from '@xyflow/react';
 import { toBlob } from 'html-to-image';
-import _ from 'lodash';
 import { useEffect, useMemo, useState } from 'react';
 import ReactModal from 'react-modal';
 import { toast } from 'react-toastify';
@@ -13,6 +12,7 @@ import ProductResponseDto from '../../../../../../../../../../../../utils/types/
 import { AutomaticStudyFinalCameraNode } from '../../../../../Flow/components/FinalCameraNode/FinalCameraNode';
 import AppViewStudyViewAutomaticViewFooterComponentStepTwoComponentPdfModalComponentPdfComponent from './components/Pdf/Pdf';
 import { AutomaticStudyNvrNode } from '../../../../../Flow/components/NvrNode/NvrNode';
+import isEqual from 'fast-deep-equal';
 
 const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId_/study/automatic');
 
@@ -61,7 +61,7 @@ export default function AppViewStudyViewAutomaticViewFooterComponentStepTwoCompo
 
   const cameras = useStore(
     (state) => getCameraProducts(state, products),
-    (a, b) => _.isEqual(a, b),
+    (a, b) => isEqual(a, b),
   );
   const nvrCapacity = useStore((state) => getNvrCapacity(state, products));
 

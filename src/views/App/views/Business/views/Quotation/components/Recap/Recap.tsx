@@ -43,7 +43,7 @@ export default function AppViewBusinessViewQuotationViewRecapComponent() {
               <td>TVA</td>
               <td>20%</td>
               <td>
-                <CurrencyFormat value={((quotation.totalAmountHT ?? 0) + quotation.shippingServicePrice) * 0.2} />
+                <CurrencyFormat value={quotation.vat} />
               </td>
             </tr>
             <tr>
