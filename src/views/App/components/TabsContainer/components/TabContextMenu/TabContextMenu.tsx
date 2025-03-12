@@ -1,6 +1,7 @@
 import { ClickAwayListener, Fade, MenuItem, MenuList, Paper, Popper } from '@mui/material';
 import { VirtualElement } from '@popperjs/core';
 import { Tab } from '../../TabsContainer';
+import AppViewTabsContainerComponentTabContextMenuComponentBusinessItemsComponent from './components/BusinessItems/BusinessItems';
 import styles from './TabContextMenu.module.scss';
 
 type AppViewTabsContainerComponentTabContextMenuComponentProps = Readonly<{
@@ -47,6 +48,12 @@ export default function AppViewTabsContainerComponentTabContextMenuComponent({
                   <MenuItem onClick={onCloseAllTabs}>
                     <span className={styles.text}>Fermer tous les onglets</span>
                   </MenuItem>
+                  {selectedItem.route.to?.startsWith('/app/businesses-rma/business/$businessId') &&
+                    typeof selectedItem.route.params === 'object' &&
+                    'businessId' in selectedItem.route.params &&
+                    selectedItem.route.params.businessId !== undefined && (
+                      <AppViewTabsContainerComponentTabContextMenuComponentBusinessItemsComponent businessId={selectedItem.route.params.businessId} />
+                    )}
                 </MenuList>
               )}
             </Paper>
