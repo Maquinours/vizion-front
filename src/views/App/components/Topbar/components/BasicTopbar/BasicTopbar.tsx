@@ -4,6 +4,7 @@ import CategoryClient from '../../../../../../utils/enums/CategoryClient';
 import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthentifiedUser';
 import styles from './BasicTopbar.module.scss';
 import AppLayoutTopbarComponentBasicTopbarComponentAircallUsersComponent from './components/AircallUsers/AircallUsers';
+import AppLayoutTopbarComponentBasicTopbarComponentSearchFieldsComponent from './components/SearchFields/SearchFields';
 
 type AppLayoutTopbarComponentBasicTopbarComponentProps = {
   logout: () => void;
@@ -32,6 +33,8 @@ export default function AppLayoutTopbarComponentBasicTopbarComponent({ logout }:
         </div>
         {currentUser.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && <AppLayoutTopbarComponentBasicTopbarComponentAircallUsersComponent />}
       </div>
+
+      {currentUser.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && <AppLayoutTopbarComponentBasicTopbarComponentSearchFieldsComponent />}
 
       <div className={styles.right}>
         <div className={styles.version}>

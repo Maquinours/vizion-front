@@ -2,7 +2,6 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 import { createColumnHelper } from '@tanstack/react-table';
 import { InternalNode, ReactFlowState, useStore } from '@xyflow/react';
 import classNames from 'classnames';
-import { isEqual } from 'lodash';
 import { useMemo } from 'react';
 import AmountFormat from '../../../../../../../../../../../../components/AmountFormat/AmountFormat';
 import CurrencyFormat from '../../../../../../../../../../../../components/CurrencyFormat/CurrencyFormat';
@@ -14,6 +13,7 @@ import { ExpertStudyRecorderNode } from '../../../../../Flow/components/Recorder
 import { ExpertStudyMiscProductNode } from '../../../../../Flow/components/MiscProductNode/MiscProductNode';
 import { ExpertStudySynopticCameraNode } from '../../../../../Flow/components/SynopticCameraNode/SynopticCameraNode';
 import { ExpertStudyTransmitterNode } from '../../../../../Flow/components/TransmitterNode/TransmitterNode';
+import isEqual from 'fast-deep-equal';
 
 const columnHelper = createColumnHelper<{ product: ProductResponseDto; quantity: number } | { quantity: number; price: number }>();
 const columns = [
@@ -36,7 +36,7 @@ const columns = [
     cell: ({ row: { original } }) => (
       <span
         className={classNames(
-          'flex justify-center py-3.5 pl-4 pr-4 text-left text-sm text-black sm:pl-6 md:pl-4',
+          'flex justify-center py-3.5 pr-4 pl-4 text-left text-sm text-black sm:pl-6 md:pl-4',
           'product' in original ? 'font-normal' : 'font-bold',
         )}
       >

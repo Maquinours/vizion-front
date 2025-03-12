@@ -1,26 +1,27 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import { Link, Outlet, getRouteApi } from '@tanstack/react-router';
+import moment from 'moment';
 import { useEffect, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
+import { TiArrowBack } from 'react-icons/ti';
+import { toast } from 'react-toastify';
 import * as yup from 'yup';
+import { updateTechnicalSupport } from '../../../../utils/api/technicalSupports';
 import { queries } from '../../../../utils/constants/queryKeys';
 import styles from './Assistance.module.scss';
+import AppViewAssistanceViewBeforeCloseModalView from './components/BeforeCloseModal/BeforeCloseModal';
 import AppViewAssistanceViewButtonsSectionComponent from './components/ButtonsSection/ButtonsSection';
 import AppViewAssistanceViewCumulatedTimeCardComponent from './components/CumulatedTimeCard/CumulatedTimeCard';
 import AppViewAssistanceViewExpectedTimeCardComponent from './components/ExpectedTimeCard/ExpectedTimeCard';
 import AppViewAssistanceViewGedComponent from './components/Ged/Ged';
 import AppViewAssistanceViewLifesheetComponent from './components/Lifesheet/Lifesheet';
+import AppViewAssistanceViewLinksComponent from './components/Links/Links';
 import AppViewAssistanceViewNoBilledTimeCardComponent from './components/NoBilledTimeCard/NoBilledTimeCard';
 import AppViewAssistanceViewSubTitleCard from './components/SubtitleCard/SubtitleCard';
 import AppViewAssistanceViewSummaryCardComponent from './components/SummaryCard/SummaryCard';
 import AppViewAssistanceViewTitleCardComponent from './components/TitleCard/TitleCard';
 import { AssistanceContext } from './utils/contexts/context';
-import { updateTechnicalSupport } from '../../../../utils/api/technicalSupports';
-import moment from 'moment';
-import { toast } from 'react-toastify';
-import AppViewAssistanceViewBeforeCloseModalView from './components/BeforeCloseModal/BeforeCloseModal';
-import { TiArrowBack } from 'react-icons/ti';
 
 const amountFormatter = (value: number) => {
   return value.toLocaleString('fr-FR', {
@@ -111,7 +112,7 @@ export default function AppViewAssistanceView() {
             <AppViewAssistanceViewNoBilledTimeCardComponent assistance={assistance} />
             <AppViewAssistanceViewSummaryCardComponent assistance={assistance} />
             <AppViewAssistanceViewButtonsSectionComponent />
-            <div className={styles.blank}></div>
+            <AppViewAssistanceViewLinksComponent />
           </div>
         </div>
       </div>

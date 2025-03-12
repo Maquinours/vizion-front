@@ -14,7 +14,7 @@ const categories = [
   },
   {
     value: 'Caméra universelle',
-    text: 'Caméra universelle FULL COLOR',
+    text: 'Caméra conseillée FULL COLOR',
   },
   {
     value: 'Caméra interieure',

@@ -175,7 +175,7 @@ export default function CreateEnterpriseModalComponentStepTwoComponent({
         </CardComponent>
 
         {contacts.length > 0 && (
-          <button className="btn btn-secondary" onClick={() => openModal('contacts')}>
+          <button className="btn btn-secondary mt-4" onClick={() => openModal('contacts')}>
             {contacts.length} contact{contacts.length > 1 ? 's' : ''} ajouté{contacts.length > 1 ? 's' : ''}
           </button>
         )}

@@ -1,5 +1,4 @@
 import { ReactFlowState, useStore as useFlowStore } from '@xyflow/react';
-import { isEqual } from 'lodash';
 import { intersect, shape } from 'svg-intersections';
 import { useShallow } from 'zustand/react/shallow';
 import ProductResponseDto from '../../../../../../../../../../../../utils/types/ProductResponseDto';
@@ -12,6 +11,7 @@ import polarToCartesian from './utils/functions/polarToCartesian';
 import { useContext } from 'react';
 import ExpertStudyContext from '../../../../../../utils/context';
 import DensityColors from '../../../../utils/enums/DensityColors';
+import isEqual from 'fast-deep-equal';
 
 const types: Array<'recognition' | 'reading' | 'identification' | 'full'> = ['recognition', 'reading', 'identification', 'full'];
 

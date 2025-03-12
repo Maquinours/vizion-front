@@ -293,14 +293,12 @@ const pageStyles = StyleSheet.create({
   tableBodyDispoOk: {
     width: 10,
     height: 10,
-    borderRadius: '50%',
     color: 'green',
     textAlign: 'center',
   },
   tableBodyDispoNotOk: {
     width: 10,
     height: 10,
-    borderRadius: '50%',
     color: '#F24C52',
     textAlign: 'center',
   },
@@ -552,7 +550,7 @@ export default function AppViewBusinessViewArcViewPdfModalViewPdfComponent({
               <View style={pageStyles.recapTableBody}>
                 <Text style={pageStyles.recapTableBodyText}>TVA</Text>
                 <Text style={pageStyles.recapTableBodyValue}>20%</Text>
-                <Text style={pageStyles.recapTableBodyValue}>{currencyFormatter(((arc.totalAmountHT ?? 0) + arc.shippingServicePrice) * 0.2)}</Text>
+                <Text style={pageStyles.recapTableBodyValue}>{currencyFormatter(arc.vat)}</Text>
               </View>
               <View style={pageStyles.recapTableFooter}>
                 <Text style={pageStyles.recapTableFooterText}>Total TTC</Text>

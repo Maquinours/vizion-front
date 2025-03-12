@@ -3,8 +3,14 @@ import { queries } from '../../../../utils/constants/queryKeys';
 import CategoryClient from '../../../../utils/enums/CategoryClient';
 import LoaderModal from '../../../../components/LoaderModal/LoaderModal';
 import { users } from '../../../../utils/constants/queryKeys/user';
+import { z } from 'zod';
+
+const searchSchema = z.object({
+  defaultContactPhoneNumber: z.string().optional().catch(undefined),
+});
 
 export const Route = createFileRoute('/app/enterprises/create')({
+  validateSearch: searchSchema,
   beforeLoad: async ({ context: { queryClient } }) => {
     const user = await queryClient.ensureQueryData(users.authentified());
     if (!user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO')) throw redirect({ from: Route.fullPath, to: '..', search: true, replace: true });

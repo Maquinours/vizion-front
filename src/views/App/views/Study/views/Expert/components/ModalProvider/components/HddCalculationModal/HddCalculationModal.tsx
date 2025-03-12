@@ -1,37 +1,32 @@
-import { yupResolver } from '@hookform/resolvers/yup';
 import { useSuspenseQuery } from '@tanstack/react-query';
-import { InternalNode, ReactFlowState, useStore } from '@xyflow/react';
-import { useContext, useMemo } from 'react';
-import { Controller, useForm, useWatch } from 'react-hook-form';
+import { InternalNode, ReactFlowState, useStore as useReactFlowStore } from '@xyflow/react';
+import React, { useContext, useMemo } from 'react';
 import ReactModal from 'react-modal';
-import * as yup from 'yup';
 import { useShallow } from 'zustand/react/shallow';
 import AmountFormat from '../../../../../../../../../../components/AmountFormat/AmountFormat';
 import { queries } from '../../../../../../../../../../utils/constants/queryKeys';
 import ExpertStudyContext from '../../../../utils/context';
 import { ExpertStudyRecorderNode } from '../../../Flow/components/RecorderNode/RecorderNode';
 import { ExpertStudySynopticCameraNode } from '../../../Flow/components/SynopticCameraNode/SynopticCameraNode';
-
-const yupSchema = yup.object().shape({
-  hoursPerDay: yup.number().required().min(1).max(24),
-});
+import useStore, { RFState } from '../../../Flow/utils/store';
 
 const getNodes = (state: ReactFlowState) => {
   return Array.from(state.nodeLookup.values());
 };
+
+const selector = (state: RFState) => ({
+  hoursPerDay: state.hddCalculationData.hoursPerDay,
+  setHoursPerDay: state.setHddCalculationHoursPerDay,
+});
+
 export default function AppViewStudyViewExpertViewModalProviderComponentHddCalculationModalComponent() {
   const { setModal } = useContext(ExpertStudyContext)!;
 
   const { data: products } = useSuspenseQuery({ ...queries.product.list, staleTime: Infinity });
 
-  const nodes = useStore(useShallow(getNodes));
+  const nodes = useReactFlowStore(useShallow(getNodes));
 
-  const { control } = useForm({
-    resolver: yupResolver(yupSchema),
-    defaultValues: {
-      hoursPerDay: 24,
-    },
-  });
+  const { hoursPerDay, setHoursPerDay } = useStore(useShallow(selector));
 
   const { flux, hddSpace } = useMemo(() => {
     const cameraNodesData = nodes
@@ -67,8 +62,6 @@ export default function AppViewStudyViewExpertViewModalProviderComponentHddCalcu
     return { flux, hddSpace };
   }, [nodes, products]);
 
-  const hoursPerDay = useWatch({ control, name: 'hoursPerDay' });
-
   const days = useMemo(() => {
     if (flux === 0 || hddSpace === 0) return 0;
 
@@ -83,6 +76,10 @@ export default function AppViewStudyViewExpertViewModalProviderComponentHddCalcu
     );
   }, [hoursPerDay, flux, hddSpace]);
 
+  const onChangeHoursPerDay = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setHoursPerDay(Number(e.target.value));
+  };
+
   const onClose = () => {
     setModal(undefined);
   };
@@ -91,13 +88,13 @@ export default function AppViewStudyViewExpertViewModalProviderComponentHddCalcu
     <ReactModal
       isOpen
       onRequestClose={onClose}
-      className="absolute left-2/4 top-2/4 z-2005 m-auto h-auto w-auto min-w-[70%] max-w-[1000px] -translate-x-2/4 -translate-y-2/4 rounded-[5px] p-0 opacity-100"
+      className="absolute top-2/4 left-2/4 z-2005 m-auto h-auto w-auto max-w-[1000px] min-w-[70%] -translate-x-2/4 -translate-y-2/4 rounded-[5px] p-0 opacity-100"
       overlayClassName="Overlay"
     >
       <div className="mx-auto flex max-h-[750px] flex-col space-y-2 overflow-auto rounded-md bg-white pb-4">
         <h1 className="flex h-8 w-full items-center justify-center rounded-t-md bg-[#16204e] text-white">Paramétrage</h1>
 
-        <div className="grid grid-rows-1 gap-4 p-4 pl-5 pr-5">
+        <div className="grid grid-rows-1 gap-4 p-4 pr-5 pl-5">
           <div className="grid-row-3 grid">
             <div className="flex items-center">
               <span className="pr-4 text-sm font-bold text-[#16204E]">Paramétrage personnalisé</span>
@@ -107,34 +104,28 @@ export default function AppViewStudyViewExpertViewModalProviderComponentHddCalcu
               <label htmlFor="default-range" className="text-center font-bold text-[#16204E]">
                 {"Temps d'enregistrement par jour"}
               </label>
-              <Controller
-                control={control}
-                name="hoursPerDay"
-                render={({ field: { value, onChange } }) => (
-                  <div className="w-full p-3">
-                    <ul className="mb-4 flex w-full justify-between px-[10px]">
-                      <li className="relative flex justify-center">
-                        <span className="absolute">1H</span>
-                      </li>
-                      <li className="relative flex justify-center">
-                        <span className="absolute">{value}H</span>
-                      </li>
-                      <li className="relative flex justify-center">
-                        <span className="absolute">24H</span>
-                      </li>
-                    </ul>
-                    <input
-                      id="default-range"
-                      type="range"
-                      min={1}
-                      max={24}
-                      value={value}
-                      onChange={(e) => onChange(e.target.value)}
-                      className="h-2 w-full cursor-pointer rounded-lg bg-red-600 dark:bg-gray-700"
-                    />
-                  </div>
-                )}
-              />
+              <div className="w-full p-3">
+                <ul className="mb-4 flex w-full justify-between px-[10px]">
+                  <li className="relative flex justify-center">
+                    <span className="absolute">1H</span>
+                  </li>
+                  <li className="relative flex justify-center">
+                    <span className="absolute">{hoursPerDay}H</span>
+                  </li>
+                  <li className="relative flex justify-center">
+                    <span className="absolute">24H</span>
+                  </li>
+                </ul>
+                <input
+                  id="default-range"
+                  type="range"
+                  min={1}
+                  max={24}
+                  value={hoursPerDay}
+                  onChange={onChangeHoursPerDay}
+                  className="h-2 w-full cursor-pointer rounded-lg bg-red-600 dark:bg-gray-700"
+                />
+              </div>
             </div>
           </div>
           <div className="grid-row-3 grid">

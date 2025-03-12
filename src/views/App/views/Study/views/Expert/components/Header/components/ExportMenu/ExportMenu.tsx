@@ -15,12 +15,13 @@ const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId_/study/e
 
 const selector = (state: RFState) => ({
   getPages: state.getPages,
+  getHddCalculationData: state.getHddCalculationData,
 });
 
 export default function AppViewStudyViewExpertViewHeaderComponentExportMenuComponent() {
   const queryClient = useQueryClient();
 
-  const { getPages } = useStore(useShallow(selector));
+  const { getPages, getHddCalculationData } = useStore(useShallow(selector));
   const { setModal } = useContext(ExpertStudyContext)!;
 
   const { businessId } = routeApi.useParams();
@@ -38,6 +39,7 @@ export default function AppViewStudyViewExpertViewHeaderComponentExportMenuCompo
   const { mutate: saveSynopticBusinessMutate } = useMutation({
     mutationFn: async () => {
       const pages = getPages();
+      const hddCalculationData = getHddCalculationData();
       const business = await queryClient.ensureQueryData(queries.businesses.detail._ctx.byId(businessId));
       const flowRect = document.querySelector('.react-flow')!.getBoundingClientRect();
 
@@ -49,7 +51,8 @@ export default function AppViewStudyViewExpertViewHeaderComponentExportMenuCompo
         vizeoptik: true,
         updateSynoptic: false,
         synopticList: {
-          version: 2.2,
+          version: 2.3,
+          hddCalculationData: hddCalculationData,
           pages: pages,
           flowSize: {
             width: flowRect.width,

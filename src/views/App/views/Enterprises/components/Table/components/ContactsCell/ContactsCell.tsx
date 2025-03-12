@@ -22,26 +22,31 @@ export default function AppViewEnterprisesViewTableComponentContactsCellComponen
   };
 
   return (
-    <button type="button" className="h-fit w-fit cursor-default" onClick={onClick}>
-      <table className={styles.container}>
+    <button type="button" className="h-fit w-full cursor-default" onClick={onClick}>
+      <div className={styles.container}>
         {original.profiles.length > 1 && !isOpen ? (
-          <tr onClick={() => setIsOpen(true)}>
-            <td colSpan={2} className="w-[90%] p-1">
+          <div className="flex flex-row" onClick={() => setIsOpen(true)}>
+            <div className="flex-1 text-right">
               <span>{original.profiles.length} contacts</span>
-            </td>
-            <td className="w-[10%] p-1">
+            </div>
+            <div>
               <IoMdArrowDropright />
-            </td>
-          </tr>
+            </div>
+          </div>
         ) : (
           original.profiles.map((contact, index, arr) => {
             const isDropDownItem = index === 0 && arr.length > 1;
             return (
-              <tr key={contact.id} onContextMenu={(e) => onContactContextMenu(e, contact)} onClick={() => isDropDownItem && setIsOpen(false)}>
-                <td className="w-[45%] p-1">
+              <div
+                key={contact.id}
+                onContextMenu={(e) => onContactContextMenu(e, contact)}
+                onClick={() => isDropDownItem && setIsOpen(false)}
+                className="flex flex-row"
+              >
+                <div className="w-[45%] p-1">
                   <span>{contact.landlinePhoneNumber}</span>
-                </td>
-                <td className="w-[45%] p-1">
+                </div>
+                <div className="w-[45%] p-1">
                   {contact.standardPhoneNumber ? (
                     <a
                       href={`tel:${contact.standardPhoneNumber}`}
@@ -58,13 +63,13 @@ export default function AppViewEnterprisesViewTableComponentContactsCellComponen
                       {contact.firstName} {contact.lastName}
                     </span>
                   )}
-                </td>
-                <td className="w-[10%] p-1">{isDropDownItem && <IoMdArrowDropdown />}</td>
-              </tr>
+                </div>
+                <div className="w-[10%] p-1">{isDropDownItem && <IoMdArrowDropdown />}</div>
+              </div>
             );
           })
         )}
-      </table>
+      </div>
     </button>
   );
 }

@@ -39,7 +39,6 @@ export default function AppViewRmaViewDeliveryViewPdfModalView() {
               Modifier
             </button>
             <PDFDownloadLink document={<AppViewRmaViewDeliveryViewPdfModalViewPdfComponent rma={rma} />} fileName={`RMA_${rma.number}.pdf`}>
-              {/* @ts-expect-error: library type mismatch */}
               {({ loading }) => <button className="btn btn-secondary">{loading ? 'Chargement...' : 'Télécharger'}</button>}
             </PDFDownloadLink>
             {user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && (

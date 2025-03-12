@@ -63,7 +63,7 @@ export default function AppViewBusinessViewDashboardView() {
     () => ({
       businessName: business.title ?? '',
       businessInstaller: business.installerProfileName ?? '',
-      businessExport: !!business.exportTva,
+      businessExport: !business.exportTva,
       businessDeliveryMode: business.deliveryMode ?? null,
       receiverCompanyName: business.deliverAddressCompany ?? '',
       receiverName: business.deliverAddressName ?? '',
@@ -156,7 +156,7 @@ export default function AppViewBusinessViewDashboardView() {
         profileName: business.profileName,
         profileEmail: business.profileEmail,
         profilePhone: business.profilePhone,
-        exportTva: data.businessExport,
+        exportTva: !data.businessExport,
         billAndLock: false,
         deliveryMode: data.businessDeliveryMode,
         installerProfileId: business.installerProfileId,

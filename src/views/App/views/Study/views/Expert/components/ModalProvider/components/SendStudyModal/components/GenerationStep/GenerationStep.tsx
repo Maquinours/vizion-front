@@ -8,21 +8,21 @@ import { useEffect, useRef, useState } from 'react';
 import { toast } from 'react-toastify';
 import { useShallow } from 'zustand/react/shallow';
 import LoaderModal from '../../../../../../../../../../../../components/LoaderModal/LoaderModal';
+import { saveSynopticBusiness } from '../../../../../../../../../../../../utils/api/synoptic';
 import { queries } from '../../../../../../../../../../../../utils/constants/queryKeys';
+import { synopticBusinessQueryKeys } from '../../../../../../../../../../../../utils/constants/queryKeys/synoptic';
 import { formatFileName } from '../../../../../../../../../../../../utils/functions/files';
 import EnterpriseResponseDto from '../../../../../../../../../../../../utils/types/EnterpriseResponseDto';
 import ProductResponseDto from '../../../../../../../../../../../../utils/types/ProductResponseDto';
+import { SynopticRequestBusinessQuotationRequestSubQuotationRequestDto } from '../../../../../../../../../../../../utils/types/SynopticRequestDto';
 import AppViewBusinessViewQuotationViewPdfModalViewPdfComponent from '../../../../../../../../../Business/views/Quotation/views/PdfModal/components/Pdf/Pdf';
+import { ExpertStudyMiscProductNode } from '../../../../../Flow/components/MiscProductNode/MiscProductNode';
+import { ExpertStudyMonitorNode } from '../../../../../Flow/components/MonitorNode/MonitorNode';
 import { ExpertStudyRecorderNode } from '../../../../../Flow/components/RecorderNode/RecorderNode';
 import { ExpertStudySynopticCameraNode } from '../../../../../Flow/components/SynopticCameraNode/SynopticCameraNode';
+import { ExpertStudyTransmitterNode } from '../../../../../Flow/components/TransmitterNode/TransmitterNode';
 import useStore, { RFState } from '../../../../../Flow/utils/store';
 import AppViewStudyViewExpertViewModalProviderComponentPdfModalComponentShowStepComponentPdfComponent from '../../../PdfModal/components/ShowStep/components/Pdf/Pdf';
-import { saveSynopticBusiness } from '../../../../../../../../../../../../utils/api/synoptic';
-import { ExpertStudyMonitorNode } from '../../../../../Flow/components/MonitorNode/MonitorNode';
-import { ExpertStudyTransmitterNode } from '../../../../../Flow/components/TransmitterNode/TransmitterNode';
-import { ExpertStudyMiscProductNode } from '../../../../../Flow/components/MiscProductNode/MiscProductNode';
-import { synopticBusinessQueryKeys } from '../../../../../../../../../../../../utils/constants/queryKeys/synoptic';
-import { SynopticRequestBusinessQuotationRequestSubQuotationRequestDto } from '../../../../../../../../../../../../utils/types/SynopticRequestDto';
 
 type ProductNode = ExpertStudySynopticCameraNode | ExpertStudyMonitorNode | ExpertStudyRecorderNode | ExpertStudyTransmitterNode | ExpertStudyMiscProductNode;
 
@@ -41,6 +41,8 @@ const selector = (state: RFState) => ({
   getCurrentPage: state.getCurrentPage,
   getPages: state.getPages,
   setCurrentPage: state.setCurrentPage,
+  getHddCalculationHoursPerDay: state.getHddCalculationHoursPerDay,
+  getHddCalculationData: state.getHddCalculationData,
 });
 
 type AppViewStudyViewExpertViewModalProviderComponentSendStudyModalComponentImageGenerationStepComponentProps = Readonly<{
@@ -53,7 +55,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentSendStud
 }: AppViewStudyViewExpertViewModalProviderComponentSendStudyModalComponentImageGenerationStepComponentProps) {
   const queryClient = useQueryClient();
 
-  const { getCurrentPage, getPages, setCurrentPage } = useStore(useShallow(selector));
+  const { getCurrentPage, getPages, setCurrentPage, getHddCalculationHoursPerDay, getHddCalculationData } = useStore(useShallow(selector));
 
   const nodesInitialized = useNodesInitialized();
 
@@ -139,6 +141,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentSendStud
   const { mutate: saveSynopticBusinessWithQuotation } = useMutation({
     mutationFn: async () => {
       const pages = getPages();
+      const hddCalculationData = getHddCalculationData();
 
       const [products, business] = await Promise.all([
         queryClient.ensureQueryData(queries.product.list),
@@ -234,7 +237,8 @@ export default function AppViewStudyViewExpertViewModalProviderComponentSendStud
         vizeo: true,
         vizeoptik: true,
         synopticList: {
-          version: 2.2,
+          version: 2.3,
+          hddCalculationData: hddCalculationData,
           pages: pages,
           flowSize: {
             width: flowRect.width,
@@ -314,7 +318,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentSendStud
           return acc + capacity;
         }, 0);
 
-      const HOURS_PER_DAY = 24;
+      const hoursPerDay = getHddCalculationHoursPerDay();
 
       const hddCalculationDays =
         (1024 * hddSpace) /
@@ -323,7 +327,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentSendStud
           3600) / // KB per hour
           1024 / // MB per hour
           1024) / // GB per hour
-        HOURS_PER_DAY;
+        hoursPerDay;
 
       const showDensityImages = !pages.some((page) => page.type === 'density');
 
@@ -335,6 +339,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentSendStud
           hddCalculationDays={hddCalculationDays}
           business={business}
           showDensityImages={showDensityImages}
+          hddCalculationHoursPerDay={hoursPerDay}
         />,
       ).toBlob();
     },

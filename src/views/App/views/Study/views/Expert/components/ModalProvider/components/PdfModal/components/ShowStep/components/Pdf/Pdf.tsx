@@ -203,6 +203,7 @@ type AppViewStudyViewExpertViewModalProviderComponentPdfModalComponentShowStepCo
   cameras: Array<{ product: ProductResponseDto; quantity: number }>;
   hddSpace: number;
   hddCalculationDays: number;
+  hddCalculationHoursPerDay: number;
   business: BusinessResponseDto;
   showDensityImages: boolean;
 }>;
@@ -211,6 +212,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentPdfModal
   cameras,
   hddSpace,
   hddCalculationDays,
+  hddCalculationHoursPerDay,
   business,
   showDensityImages,
 }: AppViewStudyViewExpertViewModalProviderComponentPdfModalComponentShowStepComponentPdfComponentProps) {
@@ -293,7 +295,9 @@ export default function AppViewStudyViewExpertViewModalProviderComponentPdfModal
 
                   <View style={hddCalculationPageStyle.configurationBody}>
                     <View style={hddCalculationPageStyle.configurationSection}>
-                      <Text style={hddCalculationPageStyle.configurationValue}>24h/24</Text>
+                      <Text style={hddCalculationPageStyle.configurationValue}>
+                        {hddCalculationHoursPerDay.toLocaleString('fr-FR', { minimumIntegerDigits: 2 })}h/24
+                      </Text>
                       <Text style={hddCalculationPageStyle.configurationPurpose}>{"D'enregistrement par jour"}</Text>
                     </View>
                   </View>
@@ -306,7 +310,6 @@ export default function AppViewStudyViewExpertViewModalProviderComponentPdfModal
                   <Text style={hddCalculationPageStyle.disclaimerLineImportant}>* </Text>
                   <Text>Calcul avec les paramètres au maximum</Text>
                 </View>
-                <Text>- 24h/24</Text>
                 <Text>- 25 images par seconde (temps réel)</Text>
                 <Text>- 2 flux vidéo par canal</Text>
                 <Text>Dans un usage normal, vous pouvez estimer 2 à 3 fois ce temps.</Text>

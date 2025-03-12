@@ -1,8 +1,9 @@
 import { ClickAwayListener, Fade, MenuItem, MenuList, Paper, Popper } from '@mui/material';
 import { VirtualElement } from '@popperjs/core';
 import { Link } from '@tanstack/react-router';
+import { isValidPhoneNumber, parsePhoneNumberWithError } from 'libphonenumber-js';
 import React from 'react';
-import { FaTrash } from 'react-icons/fa';
+import { FaHistory, FaPhoneAlt, FaTrash } from 'react-icons/fa';
 import { HiPencilAlt } from 'react-icons/hi';
 import { MdMailOutline, MdPassword, MdWork } from 'react-icons/md';
 import CategoryClient from '../../../../../../../../../../utils/enums/CategoryClient';
@@ -119,6 +120,35 @@ export default function AppViewEnterpriseViewContactsComponentTableComponentCont
                       >
                         <MdPassword width={16} height={16} color={'#16204E'} className={styles.icon} />
                         <span className={styles.text}>Modifier mot de passe</span>
+                      </Link>
+                    </MenuItem>
+                  )}
+                  {[profile.phoneNumber, profile.standardPhoneNumber]
+                    .filter((phoneNumber): phoneNumber is string => !!phoneNumber && isValidPhoneNumber(phoneNumber, 'FR'))
+                    .map((phoneNumber, index) => {
+                      const number = parsePhoneNumberWithError(phoneNumber, 'FR');
+                      return (
+                        <MenuItem key={index}>
+                          <a href={`tel:${number.number}`} onClick={onClose}>
+                            <FaPhoneAlt width={16} height={16} color={'#16204E'} className={styles.icon} />
+                            <span className={styles.text}>Appeler le {number.formatNational()}</span>
+                          </a>
+                        </MenuItem>
+                      );
+                    })}
+                  {profile.email && (
+                    <MenuItem>
+                      <Link
+                        from={routePath}
+                        to="email-history"
+                        search={(old) => ({ ...old, addresses: [profile.email!.toLowerCase()] })}
+                        replace
+                        resetScroll={false}
+                        preload="render"
+                        onClick={onClose}
+                      >
+                        <FaHistory width={16} height={16} color={'#16204E'} className={styles.icon} />
+                        <span className={styles.text}>Historique des mails</span>
                       </Link>
                     </MenuItem>
                   )}

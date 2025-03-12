@@ -1,14 +1,14 @@
-import _ from 'lodash';
 import { useContext } from 'react';
 import { ReactFlowState, useStore, useViewport } from '@xyflow/react';
 import ExpertStudyContext, { ExpertStudyPaneClickFunctionType } from '../../../../utils/context';
+import isEqual from 'fast-deep-equal';
 
 const getReactFlowSize = (state: ReactFlowState) => {
   return { width: state.width, height: state.height };
 };
 export default function AppViewStudyViewExpertViewFlowComponentLinesTracingComponent() {
   const { x, y, zoom } = useViewport();
-  const reactFlowSize = useStore(getReactFlowSize, (a, b) => _.isEqual(a, b));
+  const reactFlowSize = useStore(getReactFlowSize, (a, b) => isEqual(a, b));
   const { paneClickFunction } = useContext(ExpertStudyContext)!;
 
   if (paneClickFunction?.type !== ExpertStudyPaneClickFunctionType.LINES || !paneClickFunction.data) return;
@@ -19,7 +19,7 @@ export default function AppViewStudyViewExpertViewFlowComponentLinesTracingCompo
   const cursorFinalPosition = { x: x + cursorPosition.x * zoom, y: y + cursorPosition.y * zoom };
 
   return (
-    <svg className="pointer-events-none absolute left-0 top-0 z-10 h-full w-full">
+    <svg className="pointer-events-none absolute top-0 left-0 z-10 h-full w-full">
       {[...finalPositions, cursorFinalPosition].map((position, index, arr) => {
         if (index === 0) return;
         const previousPosition = arr[index - 1];

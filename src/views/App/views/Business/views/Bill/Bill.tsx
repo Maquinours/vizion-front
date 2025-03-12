@@ -1,14 +1,15 @@
+import { PDFDownloadLink, PDFViewer } from '@react-pdf/renderer';
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { queries } from '../../../../../../utils/constants/queryKeys';
 import { Link, Outlet, getRouteApi } from '@tanstack/react-router';
+import { floor } from 'lodash';
+import { useEffect, useMemo } from 'react';
+import { toast } from 'react-toastify';
+import { reloadBusinessBill } from '../../../../../../utils/api/businessBill';
+import { queries } from '../../../../../../utils/constants/queryKeys';
+import BillType from '../../../../../../utils/enums/BillType';
 import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthentifiedUser';
 import styles from './Bill.module.scss';
-import { useEffect, useMemo } from 'react';
-import BillType from '../../../../../../utils/enums/BillType';
-import { PDFDownloadLink, PDFViewer } from '@react-pdf/renderer';
 import AppViewBusinessViewBillViewPdfComponent from './components/Pdf/Pdf';
-import { reloadBusinessBill } from '../../../../../../utils/api/businessBill';
-import { toast } from 'react-toastify';
 
 const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/bill');
 const routePath = '/app/businesses-rma/business/$businessId/bill';
@@ -42,11 +43,27 @@ export default function AppViewBusinessViewBillView() {
   });
 
   useEffect(() => {
-    if (!!bill && !bill.totalAmountHT) {
-      const toastId = toast.warning("Une erreur est survenue et la facture n'est pas conforme. (Total HT à 0)", { autoClose: false });
-      return () => {
-        toast.dismiss(toastId);
-      };
+    if (!!bill) {
+      const totalAmountHT = floor(
+        bill.billDetails.reduce((acc, item) => acc + item.quantity * (item.unitPrice ?? 0), 0),
+        2,
+      );
+      const vat = floor(business.exportTva ? (totalAmountHT + bill.shippingServicePrice) * 0.2 : 0, 2);
+      const totalAmount = floor(totalAmountHT + bill.shippingServicePrice + vat, 2);
+      if (totalAmountHT !== bill.totalAmountHT)
+        toast.warning(`Le montant total HT de la facture ne semble pas conforme. Montant total HT calculé : ${totalAmountHT.toLocaleString('fr-FR')}€`, {
+          autoClose: false,
+        });
+      else if (vat !== bill.vat)
+        toast.warning(`Le montant de la TVA ne semble pas conforme. Montant TVA calculé : ${vat.toLocaleString('fr-FR')}€`, {
+          autoClose: false,
+        });
+      else if (totalAmount !== bill.totalAmount)
+        toast.warning(`Le montant total de la facture ne semble pas conforme. Montant total calculé : ${totalAmount.toLocaleString('fr-FR')}€`, {
+          autoClose: false,
+        });
+      else if (!business.exportTva)
+        toast.warning("Cette facture est catégorisée comme export et n'a donc pas de TVA. Êtes vous sûr de vouloir continuer ?", { autoClose: false });
     }
   }, [bill]);
 
@@ -80,7 +97,6 @@ export default function AppViewBusinessViewBillView() {
                   user.profile.categoryClient === 'DISTRIBUTEUR' ||
                   user.profile.categoryClient === 'DISTRIBUTEUR_VVA') && (
                   <PDFDownloadLink document={<AppViewBusinessViewBillViewPdfComponent bill={bill} business={business} />} fileName={`${bill.number}.pdf`}>
-                    {/* @ts-expect-error: library type mismatch */}
                     {({ loading }) => <button className="btn btn-secondary">{loading ? 'Chargement...' : 'Télécharger'}</button>}
                   </PDFDownloadLink>
                 )}

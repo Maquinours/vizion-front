@@ -46,6 +46,7 @@ const defaultDensityPage = {
 };
 
 const initialState = {
+  hddCalculationData: { hoursPerDay: 24 },
   pages: [{ ...defaultSynopticPage, id: uuidv4() }],
   currentPage: 0,
   businessId: undefined,
@@ -136,10 +137,15 @@ export type ExpertStudyDensityPage = BasePage & { type: 'density'; scale: { virt
 
 export type ExpertStudyPage = ExpertStudySynopticPage | ExpertStudyDensityPage;
 
+type HddCalculationData = {
+  hoursPerDay: number;
+};
+
 export type RFState = {
   pages: Array<ExpertStudyPage>;
   currentPage: number;
   businessId: string | undefined;
+  hddCalculationData: HddCalculationData;
   onNodesChange: OnNodesChange<ExpertStudyNode>;
   onEdgesChange: OnEdgesChange;
   setViewport: (viewport: Viewport) => void;
@@ -162,6 +168,9 @@ export type RFState = {
   importStudy: (study: { pages: Array<ExpertStudyPage> }) => void;
   pageMove: (fromId: string, toId: string) => void;
   setPageColors: (colors: DensityColors) => void;
+  setHddCalculationHoursPerDay: (hoursPerDay: number) => void;
+  getHddCalculationHoursPerDay: () => number;
+  getHddCalculationData: () => HddCalculationData;
 };
 
 // this is our useStore hook that we can use in our components to get parts of the store and call actions
@@ -269,6 +278,12 @@ const useStore = create<RFState>((set, get) => ({
     const currentPage = get().currentPage;
     set({ pages: pages.map((page, index) => (index === currentPage && page.type === 'density' ? { ...page, colors } : page)) });
   },
+  setHddCalculationHoursPerDay: (hoursPerDay: number) => {
+    if (hoursPerDay < 1 || hoursPerDay > 24) throw new Error(`hddCalculationData.hoursPerDay must be between 1 and 24. Value given: ${hoursPerDay}`);
+    set({ hddCalculationData: { hoursPerDay } });
+  },
+  getHddCalculationHoursPerDay: () => get().hddCalculationData.hoursPerDay,
+  getHddCalculationData: () => get().hddCalculationData,
 }));
 
 export default useStore;

@@ -1,4 +1,4 @@
-import BusinessSubQuotationRequestDto from './BusinessSubQuotationRequestDto';
+import BusinessSubQuotationWithDetailsRequestDto from './BusinessSubQuotationWithDetailsRequestDto';
 
 type BusinessQuotationRequestDto = {
   businessId?: string | null;
@@ -8,7 +8,7 @@ type BusinessQuotationRequestDto = {
   vat?: number | null;
   totalAmount?: number | null;
   totalAmountHT?: number | null;
-  subQuotationList?: BusinessSubQuotationRequestDto[] | null;
+  subQuotationList?: BusinessSubQuotationWithDetailsRequestDto[] | null;
   bom?: boolean | null;
 };
 

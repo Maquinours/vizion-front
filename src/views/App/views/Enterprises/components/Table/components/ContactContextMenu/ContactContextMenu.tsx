@@ -1,6 +1,7 @@
 import { ClickAwayListener, Fade, MenuItem, MenuList, Paper, Popper } from '@mui/material';
 import { Link, getRouteApi } from '@tanstack/react-router';
-import { FaCopy, FaFile, FaTrash } from 'react-icons/fa';
+import { isValidPhoneNumber, parsePhoneNumberWithError } from 'libphonenumber-js';
+import { FaCopy, FaFile, FaPhoneAlt, FaTrash } from 'react-icons/fa';
 import { HiPencilAlt } from 'react-icons/hi';
 import { IoMdAddCircleOutline } from 'react-icons/io';
 import { MdMailOutline, MdPassword, MdWork } from 'react-icons/md';
@@ -226,6 +227,19 @@ export default function AppViewEnterprisesViewTableComponentContactContextMenu({
                       </Link>
                     </MenuItem>
                   )}
+                  {[contact.phoneNumber, contact.standardPhoneNumber]
+                    .filter((phoneNumber): phoneNumber is string => !!phoneNumber && isValidPhoneNumber(phoneNumber, 'FR'))
+                    .map((phoneNumber, index) => {
+                      const number = parsePhoneNumberWithError(phoneNumber, 'FR');
+                      return (
+                        <MenuItem key={index}>
+                          <a href={`tel:${number.number}`} onClick={onClose}>
+                            <FaPhoneAlt className={styles.icon} />
+                            <span className={styles.text}>Appeler le {number.formatNational()}</span>
+                          </a>
+                        </MenuItem>
+                      );
+                    })}
                 </MenuList>
               )}
             </Paper>

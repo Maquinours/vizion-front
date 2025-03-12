@@ -31,12 +31,13 @@ const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId_/study/e
 const selector = (state: RFState) => ({
   hasPage: state.pages.length > 0,
   getPages: state.getPages,
+  getHddCalculationData: state.getHddCalculationData,
 });
 
 export default function AppViewStudyViewExpertViewHeaderComponent() {
   const navigate = routeApi.useNavigate();
 
-  const { hasPage, getPages } = useStore(useShallow(selector));
+  const { hasPage, getPages, getHddCalculationData } = useStore(useShallow(selector));
 
   const queryClient = useQueryClient();
 
@@ -208,6 +209,7 @@ export default function AppViewStudyViewExpertViewHeaderComponent() {
   const { mutate: saveSynopticBusinessMutate, isPending: isSavingSynopticBusiness } = useMutation({
     mutationFn: async () => {
       const pages = getPages();
+      const hddCalculationData = getHddCalculationData();
       const business = await queryClient.ensureQueryData(queries.businesses.detail._ctx.byId(businessId));
       const flowRect = document.querySelector('.react-flow')!.getBoundingClientRect();
 
@@ -219,7 +221,8 @@ export default function AppViewStudyViewExpertViewHeaderComponent() {
         vizeoptik: true,
         updateSynoptic: false,
         synopticList: {
-          version: 2.2,
+          version: 2.3,
+          hddCalculationData: hddCalculationData,
           pages: pages,
           flowSize: {
             width: flowRect.width,

@@ -72,7 +72,7 @@ export default function AppViewToolsViewNewsViewUpdateModalView() {
         files: (
           [
             ...files.filter((file) => !(file instanceof File)),
-            ...(await uploadFiles(files.filter((file) => file instanceof File) as File[])).content,
+            ...(files.length > 0 ? (await uploadFiles(files.filter((file) => file instanceof File) as File[])).content : []),
           ] as Array<UploadedFile>
         ).reduce((acc: Record<string, UploadedFile>, file, index) => {
           acc['file' + index] = file;

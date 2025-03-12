@@ -32,7 +32,7 @@ const categories: Array<{
   },
   {
     modalId: ExpertStudyModalType.UNIVERSAL_CAMERAS,
-    label: 'Caméras Universelles FULL COLOR',
+    label: 'Caméras FULL COLOR',
     image: 'https://bd.vizeo.eu/6-Photos/DA350PAP/DA350PAP.png',
     pageTypes: ['synoptic', 'density'],
   },

@@ -9,6 +9,9 @@ export default function AppViewEnterpriseViewHeaderComponentButtonsComponent() {
 
   return (
     <div className={styles.container}>
+      <Link from={routePath} to="email-history" search replace resetScroll={false} preload="intent" className="btn btn-primary">
+        Historique des mails
+      </Link>
       <Link
         from={routePath}
         to="./address-book"
