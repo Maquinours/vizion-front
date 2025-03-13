@@ -1,7 +1,6 @@
 import { PDFDownloadLink, PDFViewer } from '@react-pdf/renderer';
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import { Link, Outlet, getRouteApi } from '@tanstack/react-router';
-import { floor } from 'lodash';
 import { useEffect, useMemo } from 'react';
 import { toast } from 'react-toastify';
 import { reloadBusinessBill } from '../../../../../../utils/api/businessBill';
@@ -44,12 +43,11 @@ export default function AppViewBusinessViewBillView() {
 
   useEffect(() => {
     if (!!bill) {
-      const totalAmountHT = floor(
-        bill.billDetails.reduce((acc, item) => acc + item.quantity * (item.unitPrice ?? 0), 0),
-        2,
+      const totalAmountHT = Number(
+        bill.billDetails.reduce((acc, item) => acc + item.quantity * (item.unitPrice ?? 0), 0).toFixed(2)
       );
-      const vat = floor(business.exportTva ? (totalAmountHT + bill.shippingServicePrice) * 0.2 : 0, 2);
-      const totalAmount = floor(totalAmountHT + bill.shippingServicePrice + vat, 2);
+      const vat = Number((business.exportTva ? (totalAmountHT + bill.shippingServicePrice) * 0.2 : 0).toFixed(2));
+      const totalAmount = Number((totalAmountHT + bill.shippingServicePrice + vat).toFixed(2));
       if (totalAmountHT !== bill.totalAmountHT)
         toast.warning(`Le montant total HT de la facture ne semble pas conforme. Montant total HT calculé : ${totalAmountHT.toLocaleString('fr-FR')}€`, {
           autoClose: false,
