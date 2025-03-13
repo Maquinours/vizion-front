@@ -32,10 +32,8 @@ export default function AppViewBusinessViewQuotationViewPdfModalViewSendByEmailM
       defaultContent={`Bonjour <br /><br /><p>Suite à votre demande, ci-joint le devis ainsi que les documents avec :</p> <br /><ul><li>Offre de prix HT pour vous</li><li>Dossier technique pour votre client</li><li>Notices commerciales pour votre client</li></ul>`}
       lifeSheetInfoDto={{
         businessNumber: business.numBusiness,
-        enterpriseName: business.enterpriseName,
         businessName: business.title ?? '',
         businessId: business.id,
-        enterpriseId: business.enterpriseId,
       }}
     />
   );
