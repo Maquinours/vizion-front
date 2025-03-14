@@ -59,10 +59,10 @@ export default function AppViewBusinessViewQuotationViewUpdateDetailModalView() 
     mutationFn: (data: yup.InferType<typeof yupSchema>) => {
       const totalPrice = data.unitPrice * data.quantity;
       const totalAmountHT =
-        quotation.subQuotationList
+        (quotation.subQuotationList
           ?.flatMap((subQuotation) => subQuotation.quotationDetails)
           .filter((d) => d !== null && d.id !== detail.id)
-          .reduce((acc, detail) => acc + (detail?.totalPrice ?? 0), 0) ?? 0 + totalPrice;
+          .reduce((acc, detail) => acc + (detail?.totalPrice ?? 0), 0) ?? 0) + totalPrice;
       const shippingServicePrice = totalAmountHT < 1200 ? quotation.shippingServicePrice : 0;
       const total = totalAmountHT + shippingServicePrice;
       const vat = business.exportTva ? total * 0.2 : 0;
