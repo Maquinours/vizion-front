@@ -51,11 +51,9 @@ export default function AppViewBusinessViewQuotationViewCommercialNoticeModalVie
       defaultAttachments={[commercialNoticeFile]}
       lifeSheetInfoDto={{
         businessNumber: business.numBusiness,
-        enterpriseName: business.enterpriseName,
         author: `${user.userInfo.firstName} ${user.userInfo.lastName.charAt(0)}.`,
         businessName: business.title ?? '',
         businessId: business.id,
-        enterpriseId: business.enterpriseId,
       }}
     />
   );

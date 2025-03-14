@@ -129,7 +129,7 @@ export default function AppViewStudyViewExpertViewFlowComponentSynopticCameraNod
       <div ref={setRef} className="nopan rounded-md border-2 border-[#1a192b] bg-slate-50 px-2 text-center">
         <div className="flex items-center justify-between border-b-2 border-b-[#1a192b] p-2">
           <AiTwotoneSetting className="fill-[#1a192b]" />
-          <p className="text-sm font-bold text-[#1a192b]">Paramètrage de votre produit {product.reference}</p>
+          <p className="text-sm font-bold text-[#1a192b]">Paramétrage de votre produit {product.reference}</p>
           <AiOutlineClose className="fill-[#1a192b]" onClick={onClose} />
         </div>
         <div className="flex items-center justify-start space-x-2 p-2">

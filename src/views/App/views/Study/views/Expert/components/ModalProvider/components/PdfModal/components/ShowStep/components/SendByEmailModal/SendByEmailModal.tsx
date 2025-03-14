@@ -42,10 +42,8 @@ export default function AppViewStudyViewExpertViewModalProviderComponentPdfModal
       defaultAttachments={[file]}
       lifeSheetInfoDto={{
         businessNumber: business.numBusiness,
-        enterpriseName: business.enterpriseName,
         businessName: business.title,
         businessId: business.id,
-        enterpriseId: business.enterpriseId,
       }}
     />
   );

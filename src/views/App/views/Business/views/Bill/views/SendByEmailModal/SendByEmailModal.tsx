@@ -31,10 +31,8 @@ export default function AppViewBusinessViewBillViewSendByEmailModalView() {
       defaultRecipient={defaultRecipient}
       lifeSheetInfoDto={{
         businessNumber: business.numBusiness,
-        enterpriseName: business.enterpriseName,
         businessName: business.title ?? undefined,
         businessId: business.id,
-        enterpriseId: business.enterpriseId,
       }}
     />
   );

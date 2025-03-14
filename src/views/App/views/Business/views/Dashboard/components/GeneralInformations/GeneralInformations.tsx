@@ -92,7 +92,7 @@ export default function AppViewBusinessViewDashboardViewGeneralInformationsCompo
               id="businessDeliveryMode"
               disabled={
                 !(
-                  (![BusinessState.FACTURE, BusinessState.ARC, BusinessState.BP, BusinessState.BL].includes(business.state!) ||
+                  (![BusinessState.FACTURE, BusinessState.BL].includes(business.state!) ||
                     (user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && business.state === BusinessState.FACTURE)) &&
                   !business.archived
                 )

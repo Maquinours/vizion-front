@@ -47,7 +47,8 @@ export default function AppViewBusinessViewQuotationViewUpdateShippingPriceModal
 
   const { mutate, isPending } = useMutation({
     mutationFn: ({ shippingServicePrice }: yup.InferType<typeof yupSchema>) => {
-      const totalAmountHT = quotation.totalAmountHT ?? 0;
+      const totalAmountHT =
+        quotation.subQuotationList?.flatMap((subQuotation) => subQuotation.quotationDetails).reduce((acc, detail) => acc + (detail?.totalPrice ?? 0), 0) ?? 0;
       const total = totalAmountHT + shippingServicePrice;
       const vat = business.exportTva ? total * 0.2 : 0;
       const totalAmount = total + vat;
@@ -104,7 +105,7 @@ export default function AppViewBusinessViewQuotationViewUpdateShippingPriceModal
               Annuler
             </button>
             <button type="submit" className="btn btn-secondary" onClick={handleSubmit((data) => mutate(data))}>
-              Sauvegarder
+              Modifier
             </button>
           </div>
         </form>

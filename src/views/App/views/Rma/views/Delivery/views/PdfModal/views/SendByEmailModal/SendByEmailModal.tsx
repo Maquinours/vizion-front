@@ -21,9 +21,7 @@ export default function AppViewRmaViewDeliveryViewPdfModalViewSendByEmailModalVi
       defaultAttachments={[file]}
       lifeSheetInfoDto={{
         rmaNumber: rma.number,
-        enterpriseName: rma.enterpriseName,
         rmaId: rma.id,
-        enterpriseId: rma.enterpriseId,
       }}
     />
   );

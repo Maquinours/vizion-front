@@ -72,9 +72,13 @@ export default function AppViewBusinessViewQuotationViewHeaderComponentSectionTh
     mutationFn: async ({ dataType, detailProduct, subQuotationName, detailQuantity }: yup.InferType<typeof yupSchema>) => {
       switch (dataType) {
         case DataType.DETAIL: {
-          const unitPrice = detailProduct!.publicPrice ? detailProduct!.publicPrice * (1 - (business.reduction ?? 0) / 100) : 0;
-          const totalPrice = detailQuantity! * unitPrice;
-          const totalAmountHT = (quotation!.totalAmountHT ?? 0) + totalPrice;
+          if (!detailProduct) throw new Error('Le produit est requis');
+          if (!detailQuantity) throw new Error('La quantité est requise');
+          const unitPrice = detailProduct.publicPrice ? detailProduct.publicPrice * (1 - (business.reduction ?? 0) / 100) : 0;
+          const totalPrice = detailQuantity * unitPrice;
+          const totalAmountHT =
+            (quotation.subQuotationList?.flatMap((subQuotation) => subQuotation.quotationDetails).reduce((acc, detail) => acc + (detail?.totalPrice ?? 0), 0) ??
+              0) + totalPrice;
           const shippingServicePrice = totalAmountHT < 1200 ? quotation!.shippingServicePrice : 0;
           const total = totalAmountHT + shippingServicePrice;
           const vat = business.exportTva ? total * 0.2 : 0;
@@ -90,17 +94,17 @@ export default function AppViewBusinessViewQuotationViewHeaderComponentSectionTh
           return createBusinessQuotationDetail({
             groupName: lastElement.name,
             subQuoteId: lastElement.id,
-            quoteId: quotation!.id,
-            numDetails: quotation!.number,
-            productId: detailProduct!.id,
-            productReference: detailProduct!.reference ?? '',
-            quantity: detailQuantity!,
-            productDesignation: detailProduct!.shortDescription,
-            productDescription: detailProduct!.description ?? detailProduct!.shortDescription,
-            productName: detailProduct!.reference,
-            publicUnitPrice: detailProduct!.publicPrice ?? 0,
-            virtualQty: detailProduct!.virtualQty,
-            bom: detailProduct!.bom,
+            quoteId: quotation.id,
+            numDetails: quotation.number,
+            productId: detailProduct.id,
+            productReference: detailProduct.reference ?? '',
+            quantity: detailQuantity,
+            productDesignation: detailProduct.shortDescription,
+            productDescription: detailProduct.description ?? detailProduct.shortDescription,
+            productName: detailProduct.reference,
+            publicUnitPrice: detailProduct.publicPrice ?? 0,
+            virtualQty: detailProduct.virtualQty,
+            bom: detailProduct.bom,
             unitPrice,
             reduction: business.reduction,
             totalPrice,
@@ -108,10 +112,11 @@ export default function AppViewBusinessViewQuotationViewHeaderComponentSectionTh
             totalAmountHT,
             totalAmount,
             shippingServicePrice,
+            vat,
           });
         }
         case DataType.SUBQUOTATION: {
-          return createBusinessSubQuotation({ name: subQuotationName, quotationId: quotation!.id });
+          return createBusinessSubQuotation({ name: subQuotationName, quotationId: quotation.id });
         }
       }
     },
