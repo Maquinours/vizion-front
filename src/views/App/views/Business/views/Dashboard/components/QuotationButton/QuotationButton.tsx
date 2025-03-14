@@ -16,14 +16,21 @@ export default function AppViewBusinessViewDashboardViewQuotationButtonComponent
   const { data: business } = useSuspenseQuery(queries.businesses.detail._ctx.byId(businessId));
 
   const { mutate, isPending } = useMutation({
-    mutationFn: () =>
-      createBusinessQuotation({
+    mutationFn: () => {
+      const totalAmountHT = 0;
+      const shippingServicePrice = 25;
+      const vat = 25 * 0.2;
+      const totalAmount = totalAmountHT + shippingServicePrice + vat;
+      return createBusinessQuotation({
         businessId: business.id,
         number: business.numBusiness,
         documentName: 'Devis',
-        shippingServicePrice: 25,
-        vat: business.exportTva ? 0.2 : 0,
-      }),
+        totalAmountHT,
+        shippingServicePrice,
+        vat,
+        totalAmount,
+      });
+    },
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: queries.businesses._def });
       queryClient.invalidateQueries({ queryKey: queries['all-businesses']._def });

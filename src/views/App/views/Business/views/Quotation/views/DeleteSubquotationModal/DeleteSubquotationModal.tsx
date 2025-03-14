@@ -29,7 +29,8 @@ export default function AppViewBusinessViewQuotationViewDeleteSubquotationModalV
       const totalAmountHT =
         quotation.subQuotationList
           ?.filter((sub) => sub.id !== subQuotation!.id)
-          .reduce((acc, sub) => acc + (sub.quotationDetails?.reduce((acc, detail) => acc + (detail.totalPrice ?? 0), 0) ?? 0), 0) ?? 0;
+          .flatMap((sub) => sub.quotationDetails)
+          .reduce((acc, detail) => acc + (detail?.totalPrice ?? 0), 0) ?? 0;
       const shippingServicePrice = totalAmountHT < 1200 ? quotation.shippingServicePrice : 0;
       const total = totalAmountHT + shippingServicePrice;
       const vat = business.exportTva ? total * 0.2 : 0;
