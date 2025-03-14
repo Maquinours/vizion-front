@@ -107,7 +107,16 @@ export default function AppViewStudyViewExpertViewFlowComponentRecorderNodeCompo
   const onQuantityChange: OnValueChange = (v, info) => {
     if (v.floatValue !== undefined && info.source === 'event') {
       const quantity = v.floatValue;
-      const data: { quantity: number; opacity?: number } = { quantity: quantity };
+      const maxHddSlots = hddSlots * quantity;
+      const data: { quantity: number; opacity?: number; options?: Array<{ id: string; quantity: number }> } = {
+        quantity: quantity,
+        options: options
+          ?.map((opt) => {
+            const isHdd = opt.product.reference?.startsWith('DD');
+            return { id: opt.product.id, quantity: isHdd && hddSlots !== 0 ? Math.min(maxHddSlots, opt.quantity) : opt.quantity };
+          })
+          .filter((opt) => opt.quantity > 0),
+      };
       if (quantity === 0) data.opacity = 50;
       updateNodeData(nodeId, data);
     }
@@ -198,7 +207,7 @@ export default function AppViewStudyViewExpertViewFlowComponentRecorderNodeCompo
                       <button
                         onClick={() => onOptionIncrementQuantity(option)}
                         className="bg-[#16204e] px-2 text-white disabled:bg-[#676A83]"
-                        disabled={option.product.reference?.startsWith('DD') && hddSlots !== 0 && totalHddQuantity === hddSlots}
+                        disabled={option.product.reference?.startsWith('DD') && hddSlots !== 0 && totalHddQuantity === hddSlots * quantity}
                       >
                         +
                       </button>
