@@ -104,7 +104,7 @@ export default function AppViewBusinessViewQuotationViewUpdateShippingPriceModal
               Annuler
             </button>
             <button type="submit" className="btn btn-secondary" onClick={handleSubmit((data) => mutate(data))}>
-              Sauvegarder
+              Modifier
             </button>
           </div>
         </form>
