@@ -11,6 +11,7 @@ import Page from '../../../../../../utils/types/Page';
 import TaskResponseDto from '../../../../../../utils/types/TaskResponseDto';
 import styles from './UpdatePersonalTaskDeadline.module.scss';
 import { updateTaskDeadline } from './utils/api/personalTask';
+import moment from 'moment';
 
 const yupSchema = yup.object({
   deadline: yup.date().required('La date est requise'),
@@ -42,7 +43,7 @@ export default function AppViewDashboardViewUpdatePersonalTaskDeadline() {
   };
 
   const { mutate, isPending } = useMutation({
-    mutationFn: ({ deadline }: yup.InferType<typeof yupSchema>) => updateTaskDeadline(task.id, deadline),
+    mutationFn: ({ deadline }: yup.InferType<typeof yupSchema>) => updateTaskDeadline(task.id, moment(deadline).utc(true).toDate()),
     onSuccess: (data) => {
       toast.success(`Tâche repoussée avec succès`);
       queryClient.setQueriesData<TaskResponseDto>({ queryKey: queries.tasks.detail._def }, (old) => (old?.id === data.id ? data : old));
