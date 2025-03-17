@@ -123,7 +123,7 @@ export default function AppViewBusinessViewArcViewUpdateShippingPriceModalView()
               Annuler
             </button>
             <button type="submit" disabled={isPending} className="btn btn-secondary">
-              Ajouter
+              Modifier
             </button>
           </div>
         </form>
