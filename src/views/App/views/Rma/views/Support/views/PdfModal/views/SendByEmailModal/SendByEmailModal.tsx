@@ -20,9 +20,7 @@ export default function AppViewRmaViewSupportViewPdfModalViewSendByEmailModalVie
       defaultSubject={`RMA / Prise en charge ${rma.number}`}
       lifeSheetInfoDto={{
         rmaNumber: rma.number,
-        enterpriseName: rma.enterpriseName,
         rmaId: rma.id,
-        enterpriseId: rma.enterpriseId,
       }}
       defaultAttachments={[file]}
     />

@@ -16,6 +16,7 @@ type BusinessQuotationDetailsRequestDto = {
   taxDEEE?: number | null;
   totalAmount?: number | null;
   totalAmountHT?: number | null;
+  vat?: number | null;
   shippingServicePrice?: number | null;
   virtualQty?: boolean | null;
   bom?: boolean | null;
