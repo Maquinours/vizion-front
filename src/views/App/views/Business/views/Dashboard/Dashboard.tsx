@@ -225,13 +225,33 @@ export default function AppViewBusinessViewDashboardView() {
         </div>
         <AppViewBusinessViewDashboardViewDatesDataComponent />
 
-        <div
-          className={classNames(styles.content_grid, {
-            [styles.two_grid]: user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO'),
-            [styles.unique_grid]: !user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO'),
-          })}
-        >
-          {user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && <AppViewBusinessViewDashboardViewLifesheetComponent />}
+        <div className={classNames(styles.content_grid, styles.two_grid)}>
+          <div className="gap-y flex flex-col gap-y-2">
+            <BusinessRmaLinksComponent
+              category={CategoryBusiness.AFFAIRE}
+              number={business.numBusiness}
+              canCreate={user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO')}
+              createLink={{
+                to: '/app/businesses-rma/business/$businessId/dashboard/create-link',
+                search: true,
+                replace: true,
+                resetScroll: false,
+                ignoreBlocker: true,
+                preload: 'intent',
+              }}
+              getDeleteLink={(data) => ({
+                to: '/app/businesses-rma/business/$businessId/dashboard/delete-link/$associatedId',
+                params: { associatedId: data.id },
+                search: true,
+                replace: true,
+                resetScroll: false,
+                ignoreBlocker: true,
+                preload: 'intent',
+              })}
+              className="flex-1"
+            />
+            {user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && <AppViewBusinessViewDashboardViewLifesheetComponent />}
+          </div>
           <div className={styles.second_grid}>
             <AppViewBusinessViewDashboardViewGeneralInformationsComponent register={register} errors={errors} onSave={onSave} isSavePending={isSavePending} />
             <div className={styles.address_sections}>
@@ -291,29 +311,6 @@ export default function AppViewBusinessViewDashboardView() {
                     })}
                   />
                 )}
-                <BusinessRmaLinksComponent
-                  category={CategoryBusiness.AFFAIRE}
-                  number={business.numBusiness}
-                  canCreate={user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO')}
-                  createLink={{
-                    to: '/app/businesses-rma/business/$businessId/dashboard/create-link',
-                    search: true,
-                    replace: true,
-                    resetScroll: false,
-                    ignoreBlocker: true,
-                    preload: 'intent',
-                  }}
-                  getDeleteLink={(data) => ({
-                    to: '/app/businesses-rma/business/$businessId/dashboard/delete-link/$associatedId',
-                    params: { associatedId: data.id },
-                    search: true,
-                    replace: true,
-                    resetScroll: false,
-                    ignoreBlocker: true,
-                    preload: 'intent',
-                  })}
-                  className="min-h-[60vh]"
-                />
               </div>
               <div className="h-fit">
                 <AppViewBusinessViewDashboardViewBillingAddressComponent />
