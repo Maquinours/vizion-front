@@ -16,6 +16,9 @@ export default function AppViewBusinessesRmaView() {
 
   const qInfos = useRouterState({ select: (state) => state.location.state.qInfos });
 
+  const [minAmount, maxAmount] = [amounts?.at(0), amounts?.at(1)];
+  const [startDate, endDate] = [dates?.at(0), dates?.at(1)];
+
   const { data, isLoading } = useQuery(
     queries['all-businesses'].page._ctx.search(
       {
@@ -26,12 +29,12 @@ export default function AppViewBusinessesRmaView() {
         zipCode,
         representativeId: representative,
         installerName: installer,
-        minAmount: amounts?.at(0),
-        maxAmount: amounts?.at(1),
+        minAmount,
+        maxAmount,
         enterpriseName,
         state,
-        startDate: dates?.at(0),
-        endDate: dates?.at(1),
+        startDate,
+        endDate,
         excludedList: excludeds,
         fuzzy,
         qInfos,
@@ -45,9 +48,9 @@ export default function AppViewBusinessesRmaView() {
       <div className={styles.container}>
         <AppViewBusinessesRmaViewButtonsSectionComponent />
         <AppViewBusinessesRmaViewSearchSectionComponent />
-        <AppViewBusinessesRmaViewTableComponent data={data?.content} isLoading={isLoading} />
+        <AppViewBusinessesRmaViewTableComponent data={data?.content} isLoading={isLoading} startDate={startDate} endDate={endDate} />
         <AppViewBusinessesRmaViewPaginationComponent totalPages={data?.totalPages} page={page} size={size} />
-        <AppViewBusinessesRmaViewTotalSectionComponent data={data?.content} />
+        <AppViewBusinessesRmaViewTotalSectionComponent data={data?.content} startDate={startDate} endDate={endDate} />
       </div>
       <Outlet />
     </>
