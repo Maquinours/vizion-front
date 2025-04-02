@@ -184,7 +184,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentSendStud
             }
           return acc;
         }, [])
-        .filter((data) => data.quantity > 0);
+        .filter((data) => data.quantity > 0 || data.groupName === 'Options');
 
       const subQuotations: Array<SynopticRequestBusinessQuotationRequestSubQuotationRequestDto> = [
         { name: 'Default', orderNum: '0', quotationDetails: [] },
