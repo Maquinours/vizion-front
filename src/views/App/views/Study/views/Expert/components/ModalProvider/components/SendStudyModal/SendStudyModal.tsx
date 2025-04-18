@@ -21,7 +21,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentSendStud
     | { step: 'WARNING' }
     | { step: 'RECAP' }
     | { step: 'GENERATION' }
-    | { step: 'SHOW'; data: { quotationPdf: File; studyPdf: File; commercialNoticePdf: File | null; representative: EnterpriseResponseDto | undefined } }
+    | { step: 'SHOW'; data: { quotationPdf: File; studyPdf: File; representative: EnterpriseResponseDto | undefined } }
   >(() => {
     const nodes = getPages()
       .filter((page) => page.type === 'synoptic')
@@ -63,7 +63,6 @@ export default function AppViewStudyViewExpertViewModalProviderComponentSendStud
           onClose={onClose}
           quotationPdf={stepData.data.quotationPdf}
           studyPdf={stepData.data.studyPdf}
-          commercialNoticePdf={stepData.data.commercialNoticePdf}
           representative={stepData.data.representative}
         />
       );

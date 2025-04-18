@@ -23,6 +23,7 @@ import { ExpertStudySynopticCameraNode } from '../../../../../Flow/components/Sy
 import { ExpertStudyTransmitterNode } from '../../../../../Flow/components/TransmitterNode/TransmitterNode';
 import useStore, { RFState } from '../../../../../Flow/utils/store';
 import AppViewStudyViewExpertViewModalProviderComponentPdfModalComponentShowStepComponentPdfComponent from '../../../PdfModal/components/ShowStep/components/Pdf/Pdf';
+import PDFMerger from 'pdf-merger-js';
 
 type ProductNode = ExpertStudySynopticCameraNode | ExpertStudyMonitorNode | ExpertStudyRecorderNode | ExpertStudyTransmitterNode | ExpertStudyMiscProductNode;
 
@@ -70,6 +71,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentSendStud
   const [quotationPdf, setQuotationPdf] = useState<File>();
   const [representative, setRepresentative] = useState<EnterpriseResponseDto>();
   const [commercialNoticePdf, setCommercialNoticePdf] = useState<File | null>();
+  const [finalStudyPdf, setFinalStudyPdf] = useState<File>();
 
   const { mutate: generateQuotationPdf } = useMutation({
     mutationFn: async () => {
@@ -390,14 +392,31 @@ export default function AppViewStudyViewExpertViewModalProviderComponentSendStud
   }, [nodesInitialized]);
 
   useEffect(() => {
+    if (!studyPdf || commercialNoticePdf == undefined) return;
+    if (commercialNoticePdf === null) {
+      setFinalStudyPdf(studyPdf);
+      return;
+    }
+    const merger = new PDFMerger();
+    (async () => {
+      await merger.add(await studyPdf.bytes());
+      await merger.add(await commercialNoticePdf.bytes());
+      const result = await merger.saveAsBuffer();
+
+      setFinalStudyPdf(new File([result], formatFileName(`${business.numBusiness.replace(' ', '')}-${business.title ?? ''}.pdf`), { type: 'application/pdf' }));
+    })();
+  }, [studyPdf, commercialNoticePdf]);
+
+  useEffect(() => {
     saveSynopticBusinessWithQuotation();
     fetchRepresentative();
   }, []);
 
   useEffect(() => {
-    if (!!studyPdf && !!quotationPdf && commercialNoticePdf !== undefined && !isFetchingRepresentative)
-      onGenerated({ studyPdf, quotationPdf, commercialNoticePdf, representative });
-  }, [studyPdf, quotationPdf, commercialNoticePdf, isFetchingRepresentative]);
+    console.log({ finalStudyPdf, quotationPdf, commercialNoticePdf, isFetchingRepresentative });
+    if (!!finalStudyPdf && !!quotationPdf && commercialNoticePdf !== undefined && !isFetchingRepresentative)
+      onGenerated({ studyPdf: finalStudyPdf, quotationPdf, commercialNoticePdf, representative });
+  }, [finalStudyPdf, quotationPdf, commercialNoticePdf, isFetchingRepresentative]);
 
   return <LoaderModal />;
 }
