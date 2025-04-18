@@ -7,6 +7,7 @@ import BusinessState from '../../../../../../../../utils/enums/BusinessState';
 import styles from './BusinessItems.module.scss';
 import AppViewTabsContainerComponentTabContextMenuComponentBusinessItemsComponentBusinessAssistanceItemsComponent from './components/BusinessAssistancesItems/BusinessAssistancesItems';
 import BusinessResponseDto from '../../../../../../../../utils/types/BusinessResponseDto';
+import classNames from 'classnames';
 
 type ItemProps = Readonly<{
   business: BusinessResponseDto;
@@ -20,7 +21,7 @@ function DashboardItem({ business }: ItemProps) {
   });
 
   return (
-    <MenuItem key="dashboard" disabled={!!match}>
+    <MenuItem key="dashboard" disabled={!!match} className={styles.item}>
       <Link
         to="/app/businesses-rma/business/$businessId/dashboard"
         params={{ businessId: business.id }}
@@ -42,7 +43,7 @@ function QuotationItem({ business }: ItemProps) {
   });
 
   return (
-    <MenuItem key="quotation" disabled={!!match}>
+    <MenuItem key="quotation" disabled={!!match} className={styles.item}>
       <Link to="/app/businesses-rma/business/$businessId/quotation" params={{ businessId: business.id }} preload="intent" className="flex h-full w-full">
         <span className={styles.text}>Devis</span>
       </Link>
@@ -58,7 +59,7 @@ function ArcItem({ business }: ItemProps) {
   });
 
   return (
-    <MenuItem key="arc" disabled={!!match}>
+    <MenuItem key="arc" disabled={!!match} className={styles.item}>
       <Link to="/app/businesses-rma/business/$businessId/arc" params={{ businessId: business.id }} preload="intent" className="flex h-full w-full">
         <span className={styles.text}>ARC</span>
       </Link>
@@ -74,7 +75,7 @@ function BpItem({ business }: ItemProps) {
   });
 
   return (
-    <MenuItem key="bp" disabled={!!match}>
+    <MenuItem key="bp" disabled={!!match} className={styles.item}>
       <Link to="/app/businesses-rma/business/$businessId/bp" params={{ businessId: business.id }} preload="intent" className="flex h-full w-full">
         <span className={styles.text}>BP</span>
       </Link>
@@ -90,7 +91,7 @@ function BlItem({ business }: ItemProps) {
   });
 
   return (
-    <MenuItem key="bl" disabled={!!match}>
+    <MenuItem key="bl" disabled={!!match} className={styles.item}>
       <Link to="/app/businesses-rma/business/$businessId/bl" params={{ businessId: business.id }} preload="intent" className="flex h-full w-full">
         <span className={styles.text}>BL</span>
       </Link>
@@ -106,7 +107,7 @@ function BillItem({ business }: ItemProps) {
   });
 
   return (
-    <MenuItem key="bill" disabled={!!match}>
+    <MenuItem key="bill" disabled={!!match} className={styles.item}>
       <Link to="/app/businesses-rma/business/$businessId/bill" params={{ businessId: business.id }} preload="intent" className="flex h-full w-full">
         <span className={styles.text}>Facture</span>
       </Link>
@@ -122,7 +123,7 @@ function StudyItem({ business }: ItemProps) {
   });
 
   return (
-    <MenuItem key="study" disabled={!!match}>
+    <MenuItem key="study" disabled={!!match} className={styles.item}>
       <Link to="/app/businesses-rma/business/$businessId/study" params={{ businessId: business.id }} preload="intent" className="flex h-full w-full">
         <span className={styles.text}>Synoptique</span>
       </Link>
@@ -132,7 +133,7 @@ function StudyItem({ business }: ItemProps) {
 
 function Separator() {
   return (
-    <MenuItem disabled>
+    <MenuItem disabled className={styles.item}>
       <div className="flex w-full flex-col justify-center">
         <span className="h-0 w-full border-b border-b-[var(--primary-color)] py-0.5"></span>
         <span className="h-0 py-0.5"></span>
@@ -152,7 +153,7 @@ export default function AppViewTabsContainerComponentTabContextMenuComponentBusi
 
   if (isLoadingBusiness)
     return (
-      <MenuItem className={styles.loader}>
+      <MenuItem className={classNames(styles.item, styles.loader)}>
         <BeatLoader size={8} color="#16204e" speedMultiplier={0.5} />
       </MenuItem>
     );

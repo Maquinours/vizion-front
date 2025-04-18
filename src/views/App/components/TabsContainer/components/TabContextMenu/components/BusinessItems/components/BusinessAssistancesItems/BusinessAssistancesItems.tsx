@@ -8,10 +8,11 @@ import { Link } from '@tanstack/react-router';
 import styles from './BusinessAssistancesItems.module.scss';
 import TechnicalSupportResponseDto from '../../../../../../../../../../utils/types/TechnicalSupportResponseDto';
 import { useMatch } from '@tanstack/react-router';
+import classNames from 'classnames';
 
 function Separator() {
   return (
-    <MenuItem disabled>
+    <MenuItem disabled className={styles.item}>
       <div className="flex w-full flex-col justify-center">
         <span className="h-0 w-full border-b border-b-[var(--primary-color)] py-0.5"></span>
         <span className="h-0 py-0.5"></span>
@@ -32,7 +33,7 @@ function AssistanceItem({ business, assistance }: AssistanceItemProps) {
   });
 
   return (
-    <MenuItem key={assistance.id} disabled={!!match}>
+    <MenuItem key={assistance.id} disabled={!!match} className={styles.item}>
       <Link
         to="/app/businesses-rma/business/$businessId/assistance/$assistanceId"
         params={{ businessId: business.id, assistanceId: assistance.id }}
@@ -57,7 +58,7 @@ export default function AppViewTabsContainerComponentTabContextMenuComponentBusi
 
   if (isLoadingAssistances)
     return (
-      <MenuItem className={styles.loader}>
+      <MenuItem className={classNames(styles.item, styles.loader)}>
         <BeatLoader size={8} color="#16204e" speedMultiplier={0.5} />
       </MenuItem>
     );
