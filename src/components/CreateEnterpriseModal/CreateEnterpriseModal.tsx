@@ -14,6 +14,7 @@ import CreateEnterpriseModalComponentStepOneComponent, { CreateEnterpriseStepOne
 import CreateEnterpriseModalComponentStepTwoComponent, { CreateEnterpriseStepTwoDataType } from './components/StepTwo/StepTwo';
 import styles from './CreateEnterpriseModal.module.scss';
 import { CreateEnterpriseContext } from './utils/contexts/context';
+import { isAxiosError } from 'axios';
 
 type ModalIds = 'add-contact' | 'contacts';
 
@@ -84,8 +85,11 @@ export default function CreateEnterpriseModalComponent({ onClose, defaultContact
       navigate({ to: '/app/enterprises' });
     },
     onError: (error) => {
-      console.error(error);
-      toast.error("Une erreur est survenue lors de la création de l'entreprise");
+      if (isAxiosError(error) && error.response?.data?.message === "Ce nom d'entreprise est déjà utilisé.") toast.error(error.response?.data?.message);
+      else {
+        console.error(error);
+        toast.error("Une erreur est survenue lors de la création de l'entreprise");
+      }
     },
   });
 
