@@ -21,7 +21,7 @@ export default function AppViewEnterpriseViewCategoryComponent({ enterprise }: A
           </div>
         </div>
 
-        {![CategoryClient.VIZEO, CategoryClient.FOURNISSEUR, CategoryClient.REPRESENTANT].includes(enterprise.category) && (
+        {![CategoryClient.VIZEO, CategoryClient.FOURNISSEUR].includes(enterprise.category) && (
           <div className={styles.submit_button}>
             <Link from={routePath} to="./update-category" search replace resetScroll={false} preload="intent" className="btn btn-primary">
               Modifier
