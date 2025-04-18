@@ -1,6 +1,7 @@
 import { createQueryKeys } from '@lukemorales/query-key-factory';
 import CategoryClient from '../../enums/CategoryClient';
 import {
+  getAllProfiles,
   getProfileById,
   getProfileByPhoneNumbers,
   getProfilesByCategory,
@@ -26,6 +27,7 @@ export const profiles = createQueryKeys('profiles', {
   },
   list: {
     queryKey: null,
+    queryFn: getAllProfiles,
     contextQueries: {
       byEnterpriseId: (enterpriseId: string) => ({
         queryKey: [enterpriseId],

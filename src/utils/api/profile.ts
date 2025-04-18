@@ -156,3 +156,10 @@ export const getProfileByPhoneNumbers = (phoneNumbers: Array<string>) => {
     },
   }).then((res) => res.data);
 };
+
+export const getAllProfiles = () => {
+  return privateInstance<Array<ProfileResponseDto>>({
+    method: 'GET',
+    url: `profile/v1/all`,
+  }).then((res) => res.data);
+};

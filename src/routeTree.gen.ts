@@ -248,6 +248,7 @@ import { Route as AppBusinessesRmaBusinessBusinessIdDashboardCreateLifesheetRout
 import { Route as AppBusinessesRmaBusinessBusinessIdDashboardCreateGedDirectoryRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/create-ged-directory/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdDashboardAddressBookRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/address-book/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdBpTravelVoucherRouteImport } from './routes/app/businesses-rma_/business.$businessId/bp/travel-voucher/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdBlUpdateRouteImport } from './routes/app/businesses-rma_/business.$businessId/bl/update/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdBlSendByEmailRouteImport } from './routes/app/businesses-rma_/business.$businessId/bl/send-by-email/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdBillSendByEmailRouteImport } from './routes/app/businesses-rma_/business.$businessId/bill/send-by-email/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdBillCreditsRouteImport } from './routes/app/businesses-rma_/business.$businessId/bill/credits/route'
@@ -305,6 +306,7 @@ import { Route as AppBusinessesRmaBusinessBusinessIdBpDeleteDetailDetailIdRouteI
 import { Route as AppBusinessesRmaBusinessBusinessIdBpCreateSerialRmaSerialIdRouteImport } from './routes/app/businesses-rma_/business.$businessId/bp/create-serial-rma.$serialId/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdBpCreateDetailRmaDetailIdRouteImport } from './routes/app/businesses-rma_/business.$businessId/bp/create-detail-rma.$detailId/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdBpAddSerialDetailIdRouteImport } from './routes/app/businesses-rma_/business.$businessId/bp/add-serial.$detailId/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdBlUpdateNewRouteImport } from './routes/app/businesses-rma_/business.$businessId/bl/update/new/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdBillCreditsSendByEmailRouteImport } from './routes/app/businesses-rma_/business.$businessId/bill/credits/send-by-email/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdArcUpdateDetailDetailIdRouteImport } from './routes/app/businesses-rma_/business.$businessId/arc/update-detail.$detailId/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdArcPdfSendByEmailRouteImport } from './routes/app/businesses-rma_/business.$businessId/arc/pdf/send-by-email/route'
@@ -328,8 +330,6 @@ const AuthForgotPasswordRouteLazyImport = createFileRoute(
 const AuthResetPasswordTokenRouteLazyImport = createFileRoute(
   '/auth/reset-password/$token',
 )()
-const AppBusinessesRmaBusinessBusinessIdBlUpdateRouteLazyImport =
-  createFileRoute('/app/businesses-rma_/business/$businessId/bl/update')()
 
 // Create/Update Routes
 
@@ -2197,17 +2197,6 @@ const AppBusinessesRmaBusinessBusinessIdStudyIndexRoute =
     getParentRoute: () => AppBusinessesRmaBusinessBusinessIdStudyRouteRoute,
   } as any)
 
-const AppBusinessesRmaBusinessBusinessIdBlUpdateRouteLazyRoute =
-  AppBusinessesRmaBusinessBusinessIdBlUpdateRouteLazyImport.update({
-    id: '/update',
-    path: '/update',
-    getParentRoute: () => AppBusinessesRmaBusinessBusinessIdBlRouteRoute,
-  } as any).lazy(() =>
-    import(
-      './routes/app/businesses-rma_/business.$businessId/bl/update/route.lazy'
-    ).then((d) => d.Route),
-  )
-
 const AppToolsSchedulerDetailsRdvIdUpdateRouteRoute =
   AppToolsSchedulerDetailsRdvIdUpdateRouteImport.update({
     id: '/update',
@@ -2828,6 +2817,17 @@ const AppBusinessesRmaBusinessBusinessIdBpTravelVoucherRouteRoute =
   } as any).lazy(() =>
     import(
       './routes/app/businesses-rma_/business.$businessId/bp/travel-voucher/route.lazy'
+    ).then((d) => d.Route),
+  )
+
+const AppBusinessesRmaBusinessBusinessIdBlUpdateRouteRoute =
+  AppBusinessesRmaBusinessBusinessIdBlUpdateRouteImport.update({
+    id: '/update',
+    path: '/update',
+    getParentRoute: () => AppBusinessesRmaBusinessBusinessIdBlRouteRoute,
+  } as any).lazy(() =>
+    import(
+      './routes/app/businesses-rma_/business.$businessId/bl/update/route.lazy'
     ).then((d) => d.Route),
   )
 
@@ -3545,6 +3545,17 @@ const AppBusinessesRmaBusinessBusinessIdBpAddSerialDetailIdRouteRoute =
   } as any).lazy(() =>
     import(
       './routes/app/businesses-rma_/business.$businessId/bp/add-serial.$detailId/route.lazy'
+    ).then((d) => d.Route),
+  )
+
+const AppBusinessesRmaBusinessBusinessIdBlUpdateNewRouteRoute =
+  AppBusinessesRmaBusinessBusinessIdBlUpdateNewRouteImport.update({
+    id: '/new',
+    path: '/new',
+    getParentRoute: () => AppBusinessesRmaBusinessBusinessIdBlUpdateRouteRoute,
+  } as any).lazy(() =>
+    import(
+      './routes/app/businesses-rma_/business.$businessId/bl/update/new/route.lazy'
     ).then((d) => d.Route),
   )
 
@@ -5040,6 +5051,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdBlSendByEmailRouteImport
       parentRoute: typeof AppBusinessesRmaBusinessBusinessIdBlRouteImport
     }
+    '/app/businesses-rma_/business/$businessId/bl/update': {
+      id: '/app/businesses-rma_/business/$businessId/bl/update'
+      path: '/update'
+      fullPath: '/app/businesses-rma/business/$businessId/bl/update'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdBlUpdateRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdBlRouteImport
+    }
     '/app/businesses-rma_/business/$businessId/bp/travel-voucher': {
       id: '/app/businesses-rma_/business/$businessId/bp/travel-voucher'
       path: '/travel-voucher'
@@ -5418,13 +5436,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppToolsSchedulerDetailsRdvIdUpdateRouteImport
       parentRoute: typeof AppToolsSchedulerDetailsRdvIdRouteImport
     }
-    '/app/businesses-rma_/business/$businessId/bl/update': {
-      id: '/app/businesses-rma_/business/$businessId/bl/update'
-      path: '/update'
-      fullPath: '/app/businesses-rma/business/$businessId/bl/update'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdBlUpdateRouteLazyImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdBlRouteImport
-    }
     '/app/businesses-rma_/business/$businessId_/study/': {
       id: '/app/businesses-rma_/business/$businessId_/study/'
       path: '/'
@@ -5459,6 +5470,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/app/businesses-rma/business/$businessId/bill/credits/send-by-email'
       preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdBillCreditsSendByEmailRouteImport
       parentRoute: typeof AppBusinessesRmaBusinessBusinessIdBillCreditsRouteImport
+    }
+    '/app/businesses-rma_/business/$businessId/bl/update/new': {
+      id: '/app/businesses-rma_/business/$businessId/bl/update/new'
+      path: '/new'
+      fullPath: '/app/businesses-rma/business/$businessId/bl/update/new'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdBlUpdateNewRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdBlUpdateRouteImport
     }
     '/app/businesses-rma_/business/$businessId/bp/add-serial/$detailId': {
       id: '/app/businesses-rma_/business/$businessId/bp/add-serial/$detailId'
@@ -6908,17 +6926,32 @@ const AppBusinessesRmaBusinessBusinessIdBillRouteRouteWithChildren =
     AppBusinessesRmaBusinessBusinessIdBillRouteRouteChildren,
   )
 
+interface AppBusinessesRmaBusinessBusinessIdBlUpdateRouteRouteChildren {
+  AppBusinessesRmaBusinessBusinessIdBlUpdateNewRouteRoute: typeof AppBusinessesRmaBusinessBusinessIdBlUpdateNewRouteRoute
+}
+
+const AppBusinessesRmaBusinessBusinessIdBlUpdateRouteRouteChildren: AppBusinessesRmaBusinessBusinessIdBlUpdateRouteRouteChildren =
+  {
+    AppBusinessesRmaBusinessBusinessIdBlUpdateNewRouteRoute:
+      AppBusinessesRmaBusinessBusinessIdBlUpdateNewRouteRoute,
+  }
+
+const AppBusinessesRmaBusinessBusinessIdBlUpdateRouteRouteWithChildren =
+  AppBusinessesRmaBusinessBusinessIdBlUpdateRouteRoute._addFileChildren(
+    AppBusinessesRmaBusinessBusinessIdBlUpdateRouteRouteChildren,
+  )
+
 interface AppBusinessesRmaBusinessBusinessIdBlRouteRouteChildren {
   AppBusinessesRmaBusinessBusinessIdBlSendByEmailRouteRoute: typeof AppBusinessesRmaBusinessBusinessIdBlSendByEmailRouteRoute
-  AppBusinessesRmaBusinessBusinessIdBlUpdateRouteLazyRoute: typeof AppBusinessesRmaBusinessBusinessIdBlUpdateRouteLazyRoute
+  AppBusinessesRmaBusinessBusinessIdBlUpdateRouteRoute: typeof AppBusinessesRmaBusinessBusinessIdBlUpdateRouteRouteWithChildren
 }
 
 const AppBusinessesRmaBusinessBusinessIdBlRouteRouteChildren: AppBusinessesRmaBusinessBusinessIdBlRouteRouteChildren =
   {
     AppBusinessesRmaBusinessBusinessIdBlSendByEmailRouteRoute:
       AppBusinessesRmaBusinessBusinessIdBlSendByEmailRouteRoute,
-    AppBusinessesRmaBusinessBusinessIdBlUpdateRouteLazyRoute:
-      AppBusinessesRmaBusinessBusinessIdBlUpdateRouteLazyRoute,
+    AppBusinessesRmaBusinessBusinessIdBlUpdateRouteRoute:
+      AppBusinessesRmaBusinessBusinessIdBlUpdateRouteRouteWithChildren,
   }
 
 const AppBusinessesRmaBusinessBusinessIdBlRouteRouteWithChildren =
@@ -7723,6 +7756,7 @@ export interface FileRoutesByFullPath {
   '/app/businesses-rma/business/$businessId/bill/credits': typeof AppBusinessesRmaBusinessBusinessIdBillCreditsRouteRouteWithChildren
   '/app/businesses-rma/business/$businessId/bill/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdBillSendByEmailRouteRoute
   '/app/businesses-rma/business/$businessId/bl/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdBlSendByEmailRouteRoute
+  '/app/businesses-rma/business/$businessId/bl/update': typeof AppBusinessesRmaBusinessBusinessIdBlUpdateRouteRouteWithChildren
   '/app/businesses-rma/business/$businessId/bp/travel-voucher': typeof AppBusinessesRmaBusinessBusinessIdBpTravelVoucherRouteRoute
   '/app/businesses-rma/business/$businessId/dashboard/address-book': typeof AppBusinessesRmaBusinessBusinessIdDashboardAddressBookRouteRouteWithChildren
   '/app/businesses-rma/business/$businessId/dashboard/create-ged-directory': typeof AppBusinessesRmaBusinessBusinessIdDashboardCreateGedDirectoryRouteRoute
@@ -7777,12 +7811,12 @@ export interface FileRoutesByFullPath {
   '/app/tools/formations/update/$formationId/details': typeof AppToolsFormationsUpdateFormationIdDetailsRouteRoute
   '/app/tools/scheduler/details/$rdvId/delete': typeof AppToolsSchedulerDetailsRdvIdDeleteRouteRoute
   '/app/tools/scheduler/details/$rdvId/update': typeof AppToolsSchedulerDetailsRdvIdUpdateRouteRoute
-  '/app/businesses-rma/business/$businessId/bl/update': typeof AppBusinessesRmaBusinessBusinessIdBlUpdateRouteLazyRoute
   '/app/businesses-rma/business/$businessId/study/': typeof AppBusinessesRmaBusinessBusinessIdStudyIndexRoute
   '/app/businesses-rma/business/$businessId/arc/delete-detail/$detailId': typeof AppBusinessesRmaBusinessBusinessIdArcDeleteDetailDetailIdRouteRoute
   '/app/businesses-rma/business/$businessId/arc/pdf/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdArcPdfSendByEmailRouteRoute
   '/app/businesses-rma/business/$businessId/arc/update-detail/$detailId': typeof AppBusinessesRmaBusinessBusinessIdArcUpdateDetailDetailIdRouteRoute
   '/app/businesses-rma/business/$businessId/bill/credits/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdBillCreditsSendByEmailRouteRoute
+  '/app/businesses-rma/business/$businessId/bl/update/new': typeof AppBusinessesRmaBusinessBusinessIdBlUpdateNewRouteRoute
   '/app/businesses-rma/business/$businessId/bp/add-serial/$detailId': typeof AppBusinessesRmaBusinessBusinessIdBpAddSerialDetailIdRouteRoute
   '/app/businesses-rma/business/$businessId/bp/create-detail-rma/$detailId': typeof AppBusinessesRmaBusinessBusinessIdBpCreateDetailRmaDetailIdRouteRoute
   '/app/businesses-rma/business/$businessId/bp/create-serial-rma/$serialId': typeof AppBusinessesRmaBusinessBusinessIdBpCreateSerialRmaSerialIdRouteRoute
@@ -8028,6 +8062,7 @@ export interface FileRoutesByTo {
   '/app/businesses-rma/business/$businessId/bill/credits': typeof AppBusinessesRmaBusinessBusinessIdBillCreditsRouteRouteWithChildren
   '/app/businesses-rma/business/$businessId/bill/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdBillSendByEmailRouteRoute
   '/app/businesses-rma/business/$businessId/bl/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdBlSendByEmailRouteRoute
+  '/app/businesses-rma/business/$businessId/bl/update': typeof AppBusinessesRmaBusinessBusinessIdBlUpdateRouteRouteWithChildren
   '/app/businesses-rma/business/$businessId/bp/travel-voucher': typeof AppBusinessesRmaBusinessBusinessIdBpTravelVoucherRouteRoute
   '/app/businesses-rma/business/$businessId/dashboard/address-book': typeof AppBusinessesRmaBusinessBusinessIdDashboardAddressBookRouteRouteWithChildren
   '/app/businesses-rma/business/$businessId/dashboard/create-ged-directory': typeof AppBusinessesRmaBusinessBusinessIdDashboardCreateGedDirectoryRouteRoute
@@ -8082,12 +8117,12 @@ export interface FileRoutesByTo {
   '/app/tools/formations/update/$formationId/details': typeof AppToolsFormationsUpdateFormationIdDetailsRouteRoute
   '/app/tools/scheduler/details/$rdvId/delete': typeof AppToolsSchedulerDetailsRdvIdDeleteRouteRoute
   '/app/tools/scheduler/details/$rdvId/update': typeof AppToolsSchedulerDetailsRdvIdUpdateRouteRoute
-  '/app/businesses-rma/business/$businessId/bl/update': typeof AppBusinessesRmaBusinessBusinessIdBlUpdateRouteLazyRoute
   '/app/businesses-rma/business/$businessId/study': typeof AppBusinessesRmaBusinessBusinessIdStudyIndexRoute
   '/app/businesses-rma/business/$businessId/arc/delete-detail/$detailId': typeof AppBusinessesRmaBusinessBusinessIdArcDeleteDetailDetailIdRouteRoute
   '/app/businesses-rma/business/$businessId/arc/pdf/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdArcPdfSendByEmailRouteRoute
   '/app/businesses-rma/business/$businessId/arc/update-detail/$detailId': typeof AppBusinessesRmaBusinessBusinessIdArcUpdateDetailDetailIdRouteRoute
   '/app/businesses-rma/business/$businessId/bill/credits/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdBillCreditsSendByEmailRouteRoute
+  '/app/businesses-rma/business/$businessId/bl/update/new': typeof AppBusinessesRmaBusinessBusinessIdBlUpdateNewRouteRoute
   '/app/businesses-rma/business/$businessId/bp/add-serial/$detailId': typeof AppBusinessesRmaBusinessBusinessIdBpAddSerialDetailIdRouteRoute
   '/app/businesses-rma/business/$businessId/bp/create-detail-rma/$detailId': typeof AppBusinessesRmaBusinessBusinessIdBpCreateDetailRmaDetailIdRouteRoute
   '/app/businesses-rma/business/$businessId/bp/create-serial-rma/$serialId': typeof AppBusinessesRmaBusinessBusinessIdBpCreateSerialRmaSerialIdRouteRoute
@@ -8341,6 +8376,7 @@ export interface FileRoutesById {
   '/app/businesses-rma_/business/$businessId/bill/credits': typeof AppBusinessesRmaBusinessBusinessIdBillCreditsRouteRouteWithChildren
   '/app/businesses-rma_/business/$businessId/bill/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdBillSendByEmailRouteRoute
   '/app/businesses-rma_/business/$businessId/bl/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdBlSendByEmailRouteRoute
+  '/app/businesses-rma_/business/$businessId/bl/update': typeof AppBusinessesRmaBusinessBusinessIdBlUpdateRouteRouteWithChildren
   '/app/businesses-rma_/business/$businessId/bp/travel-voucher': typeof AppBusinessesRmaBusinessBusinessIdBpTravelVoucherRouteRoute
   '/app/businesses-rma_/business/$businessId/dashboard/address-book': typeof AppBusinessesRmaBusinessBusinessIdDashboardAddressBookRouteRouteWithChildren
   '/app/businesses-rma_/business/$businessId/dashboard/create-ged-directory': typeof AppBusinessesRmaBusinessBusinessIdDashboardCreateGedDirectoryRouteRoute
@@ -8395,12 +8431,12 @@ export interface FileRoutesById {
   '/app/tools/formations/update/$formationId/details': typeof AppToolsFormationsUpdateFormationIdDetailsRouteRoute
   '/app/tools/scheduler/details/$rdvId/delete': typeof AppToolsSchedulerDetailsRdvIdDeleteRouteRoute
   '/app/tools/scheduler/details/$rdvId/update': typeof AppToolsSchedulerDetailsRdvIdUpdateRouteRoute
-  '/app/businesses-rma_/business/$businessId/bl/update': typeof AppBusinessesRmaBusinessBusinessIdBlUpdateRouteLazyRoute
   '/app/businesses-rma_/business/$businessId_/study/': typeof AppBusinessesRmaBusinessBusinessIdStudyIndexRoute
   '/app/businesses-rma_/business/$businessId/arc/delete-detail/$detailId': typeof AppBusinessesRmaBusinessBusinessIdArcDeleteDetailDetailIdRouteRoute
   '/app/businesses-rma_/business/$businessId/arc/pdf/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdArcPdfSendByEmailRouteRoute
   '/app/businesses-rma_/business/$businessId/arc/update-detail/$detailId': typeof AppBusinessesRmaBusinessBusinessIdArcUpdateDetailDetailIdRouteRoute
   '/app/businesses-rma_/business/$businessId/bill/credits/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdBillCreditsSendByEmailRouteRoute
+  '/app/businesses-rma_/business/$businessId/bl/update/new': typeof AppBusinessesRmaBusinessBusinessIdBlUpdateNewRouteRoute
   '/app/businesses-rma_/business/$businessId/bp/add-serial/$detailId': typeof AppBusinessesRmaBusinessBusinessIdBpAddSerialDetailIdRouteRoute
   '/app/businesses-rma_/business/$businessId/bp/create-detail-rma/$detailId': typeof AppBusinessesRmaBusinessBusinessIdBpCreateDetailRmaDetailIdRouteRoute
   '/app/businesses-rma_/business/$businessId/bp/create-serial-rma/$serialId': typeof AppBusinessesRmaBusinessBusinessIdBpCreateSerialRmaSerialIdRouteRoute
@@ -8655,6 +8691,7 @@ export interface FileRouteTypes {
     | '/app/businesses-rma/business/$businessId/bill/credits'
     | '/app/businesses-rma/business/$businessId/bill/send-by-email'
     | '/app/businesses-rma/business/$businessId/bl/send-by-email'
+    | '/app/businesses-rma/business/$businessId/bl/update'
     | '/app/businesses-rma/business/$businessId/bp/travel-voucher'
     | '/app/businesses-rma/business/$businessId/dashboard/address-book'
     | '/app/businesses-rma/business/$businessId/dashboard/create-ged-directory'
@@ -8709,12 +8746,12 @@ export interface FileRouteTypes {
     | '/app/tools/formations/update/$formationId/details'
     | '/app/tools/scheduler/details/$rdvId/delete'
     | '/app/tools/scheduler/details/$rdvId/update'
-    | '/app/businesses-rma/business/$businessId/bl/update'
     | '/app/businesses-rma/business/$businessId/study/'
     | '/app/businesses-rma/business/$businessId/arc/delete-detail/$detailId'
     | '/app/businesses-rma/business/$businessId/arc/pdf/send-by-email'
     | '/app/businesses-rma/business/$businessId/arc/update-detail/$detailId'
     | '/app/businesses-rma/business/$businessId/bill/credits/send-by-email'
+    | '/app/businesses-rma/business/$businessId/bl/update/new'
     | '/app/businesses-rma/business/$businessId/bp/add-serial/$detailId'
     | '/app/businesses-rma/business/$businessId/bp/create-detail-rma/$detailId'
     | '/app/businesses-rma/business/$businessId/bp/create-serial-rma/$serialId'
@@ -8959,6 +8996,7 @@ export interface FileRouteTypes {
     | '/app/businesses-rma/business/$businessId/bill/credits'
     | '/app/businesses-rma/business/$businessId/bill/send-by-email'
     | '/app/businesses-rma/business/$businessId/bl/send-by-email'
+    | '/app/businesses-rma/business/$businessId/bl/update'
     | '/app/businesses-rma/business/$businessId/bp/travel-voucher'
     | '/app/businesses-rma/business/$businessId/dashboard/address-book'
     | '/app/businesses-rma/business/$businessId/dashboard/create-ged-directory'
@@ -9013,12 +9051,12 @@ export interface FileRouteTypes {
     | '/app/tools/formations/update/$formationId/details'
     | '/app/tools/scheduler/details/$rdvId/delete'
     | '/app/tools/scheduler/details/$rdvId/update'
-    | '/app/businesses-rma/business/$businessId/bl/update'
     | '/app/businesses-rma/business/$businessId/study'
     | '/app/businesses-rma/business/$businessId/arc/delete-detail/$detailId'
     | '/app/businesses-rma/business/$businessId/arc/pdf/send-by-email'
     | '/app/businesses-rma/business/$businessId/arc/update-detail/$detailId'
     | '/app/businesses-rma/business/$businessId/bill/credits/send-by-email'
+    | '/app/businesses-rma/business/$businessId/bl/update/new'
     | '/app/businesses-rma/business/$businessId/bp/add-serial/$detailId'
     | '/app/businesses-rma/business/$businessId/bp/create-detail-rma/$detailId'
     | '/app/businesses-rma/business/$businessId/bp/create-serial-rma/$serialId'
@@ -9270,6 +9308,7 @@ export interface FileRouteTypes {
     | '/app/businesses-rma_/business/$businessId/bill/credits'
     | '/app/businesses-rma_/business/$businessId/bill/send-by-email'
     | '/app/businesses-rma_/business/$businessId/bl/send-by-email'
+    | '/app/businesses-rma_/business/$businessId/bl/update'
     | '/app/businesses-rma_/business/$businessId/bp/travel-voucher'
     | '/app/businesses-rma_/business/$businessId/dashboard/address-book'
     | '/app/businesses-rma_/business/$businessId/dashboard/create-ged-directory'
@@ -9324,12 +9363,12 @@ export interface FileRouteTypes {
     | '/app/tools/formations/update/$formationId/details'
     | '/app/tools/scheduler/details/$rdvId/delete'
     | '/app/tools/scheduler/details/$rdvId/update'
-    | '/app/businesses-rma_/business/$businessId/bl/update'
     | '/app/businesses-rma_/business/$businessId_/study/'
     | '/app/businesses-rma_/business/$businessId/arc/delete-detail/$detailId'
     | '/app/businesses-rma_/business/$businessId/arc/pdf/send-by-email'
     | '/app/businesses-rma_/business/$businessId/arc/update-detail/$detailId'
     | '/app/businesses-rma_/business/$businessId/bill/credits/send-by-email'
+    | '/app/businesses-rma_/business/$businessId/bl/update/new'
     | '/app/businesses-rma_/business/$businessId/bp/add-serial/$detailId'
     | '/app/businesses-rma_/business/$businessId/bp/create-detail-rma/$detailId'
     | '/app/businesses-rma_/business/$businessId/bp/create-serial-rma/$serialId'
@@ -10552,6 +10591,13 @@ export const routeTree = rootRoute
       "filePath": "app/businesses-rma_/business.$businessId/bl/send-by-email/route.tsx",
       "parent": "/app/businesses-rma_/business/$businessId/bl"
     },
+    "/app/businesses-rma_/business/$businessId/bl/update": {
+      "filePath": "app/businesses-rma_/business.$businessId/bl/update/route.ts",
+      "parent": "/app/businesses-rma_/business/$businessId/bl",
+      "children": [
+        "/app/businesses-rma_/business/$businessId/bl/update/new"
+      ]
+    },
     "/app/businesses-rma_/business/$businessId/bp/travel-voucher": {
       "filePath": "app/businesses-rma_/business.$businessId/bp/travel-voucher/route.ts",
       "parent": "/app/businesses-rma_/business/$businessId/bp"
@@ -10813,10 +10859,6 @@ export const routeTree = rootRoute
       "filePath": "app/tools/scheduler/details.$rdvId/update/route.ts",
       "parent": "/app/tools/scheduler/details/$rdvId"
     },
-    "/app/businesses-rma_/business/$businessId/bl/update": {
-      "filePath": "app/businesses-rma_/business.$businessId/bl/update/route.lazy.ts",
-      "parent": "/app/businesses-rma_/business/$businessId/bl"
-    },
     "/app/businesses-rma_/business/$businessId_/study/": {
       "filePath": "app/businesses-rma_/business.$businessId_/study/index.ts",
       "parent": "/app/businesses-rma_/business/$businessId_/study"
@@ -10836,6 +10878,10 @@ export const routeTree = rootRoute
     "/app/businesses-rma_/business/$businessId/bill/credits/send-by-email": {
       "filePath": "app/businesses-rma_/business.$businessId/bill/credits/send-by-email/route.tsx",
       "parent": "/app/businesses-rma_/business/$businessId/bill/credits"
+    },
+    "/app/businesses-rma_/business/$businessId/bl/update/new": {
+      "filePath": "app/businesses-rma_/business.$businessId/bl/update/new/route.ts",
+      "parent": "/app/businesses-rma_/business/$businessId/bl/update"
     },
     "/app/businesses-rma_/business/$businessId/bp/add-serial/$detailId": {
       "filePath": "app/businesses-rma_/business.$businessId/bp/add-serial.$detailId/route.ts",

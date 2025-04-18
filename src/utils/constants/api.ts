@@ -1,7 +1,7 @@
 import { toBase64 } from 'js-base64';
 
 export const PUBLIC_BASE_URL = 'https://open-services-vizion.vizeo.eu/';
-export const PRIVATE_BASE_URL = 'https://services-vizion.vizeo.eu';
+export const PRIVATE_BASE_URL = 'https://test-services-vizion.vizeo.eu';
 export const AUTH_BASE_URL = 'https://auth-vizion.vizeo.eu/auth/realms/vizion-realm/protocol/openid-connect';
 export const FILE_STORAGE_BASE_URL = 'https://storage-vizion.vizeo.eu/api/uploads';
 export const FILE_READ_STORAGE_BASE_URL = 'https://storage-vizion.vizeo.eu/uploads';
