@@ -307,14 +307,15 @@ export default function AppViewStudyViewExpertViewModalProviderComponentSendStud
         .reduce((acc, node) => {
           const product = products.find((product) => product.id === node.data.productId);
           const capacity =
-            (product?.specificationProducts?.find((spec) => spec.specification?.name === 'CAPACITE')?.value ?? 0) +
-            node.data.options.reduce((acc, option) => {
-              const capacity =
-                (products.find((product) => product.id === option.id)?.specificationProducts?.find((spec) => spec.specification?.name === 'CAPACITE')?.value ??
-                  0) * option.quantity;
+            ((product?.specificationProducts?.find((spec) => spec.specification?.name === 'CAPACITE')?.value ?? 0) +
+              node.data.options.reduce((acc, option) => {
+                const capacity =
+                  (products.find((product) => product.id === option.id)?.specificationProducts?.find((spec) => spec.specification?.name === 'CAPACITE')
+                    ?.value ?? 0) * option.quantity;
 
-              return acc + capacity;
-            }, 0);
+                return acc + capacity;
+              }, 0)) *
+            (node.data.quantity ?? 1);
           return acc + capacity;
         }, 0);
 
