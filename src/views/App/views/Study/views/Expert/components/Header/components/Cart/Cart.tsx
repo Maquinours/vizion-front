@@ -32,7 +32,7 @@ const reactFlowSelector = (state: ReactFlowState) => {
     > => !!node.type && ['synopticCamera', 'densityCamera', 'monitor', 'recorder', 'transmitter', 'misc-product'].includes(node.type),
   );
   const camerasCount = productNodes.reduce(
-    (acc, node) => acc + (node.type === 'synopticCamera' ? (node.data.quantity ?? 1) : node.type === 'densityCamera' ? 1 : 0),
+    (acc, node) => acc + (node.type === 'synopticCamera' ? ('quantity' in node.data ? (node.data.quantity ?? 1) : 1) : node.type === 'densityCamera' ? 1 : 0),
     0,
   );
 
@@ -79,7 +79,7 @@ export default function AppViewStudyViewExpertViewHeaderComponentCartComponent()
           isOpen ? 'translate-x-0 opacity-100' : 'translate-x-[200%] opacity-0',
         )}
       >
-        <div className="h-full w-[40rem] overflow-y-auto overflow-x-hidden pb-4">
+        <div className="h-full w-[40rem] overflow-x-hidden overflow-y-auto pb-4">
           <div className="mt-8 flex h-full flex-col">
             <div className="">
               <p className="pl-6 text-black">
@@ -93,7 +93,7 @@ export default function AppViewStudyViewExpertViewHeaderComponentCartComponent()
                   viewBox="0 0 24 24"
                   strokeWidth={1}
                   stroke="currentColor"
-                  className="stoke-indigo-900 fixed right-4 top-0 z-900 h-12 w-12 fill-indigo-900"
+                  className="stoke-indigo-900 fixed top-0 right-4 z-900 h-12 w-12 fill-indigo-900"
                 >
                   <path stroke="white" strokeLinecap="round" strokeLinejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>

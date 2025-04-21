@@ -43,7 +43,7 @@ export default function AppViewStudyViewExpertViewFooterComponentPaginationCompo
     <nav className="w-full">
       <DndContext modifiers={[restrictToHorizontalAxis]} onDragEnd={handleDragEnd} sensors={sensors}>
         <SortableContext items={pages} strategy={horizontalListSortingStrategy}>
-          <ul className="center flex h-8 w-full list-none gap-1">
+          <ul className="center flex h-8 w-fit list-none gap-1">
             {items.map(({ page, type, selected, disabled }, index) => {
               switch (type) {
                 case 'start-ellipsis':

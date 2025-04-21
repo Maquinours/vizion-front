@@ -1,9 +1,10 @@
 @use '../../../../assets/styles/mixins';
 
 .container {
-  position: sticky;
+  position: fixed;
   z-index: 500;
   top: var(--topbar-container-height);
+  width: 100%;
 
   @include mixins.respond-below(sm) {
     display: none;

@@ -77,6 +77,7 @@ export default function AppViewBusinessViewQuotationViewCreateDetailModalView() 
         totalAmountHT,
         totalAmount,
         shippingServicePrice,
+        vat,
         virtualQty: data.product.virtualQty,
       });
     },
