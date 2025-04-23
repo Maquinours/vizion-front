@@ -8,21 +8,20 @@ import { toast } from 'react-toastify';
 import LoaderModal from '../../../../../../../../../../../../components/LoaderModal/LoaderModal';
 
 const selector = (state: RFState) => ({
-  getCurrentPage: state.getCurrentPage,
+  currentPage: state.currentPage,
   getPages: state.getPages,
   setCurrentPage: state.setCurrentPage,
 });
 export default function AppViewStudyViewExpertViewModalProviderComponentPdfModalComponentImageGenerationStepComponent() {
   const { setModal } = useContext(ExpertStudyContext)!;
 
-  const { getCurrentPage, getPages, setCurrentPage } = useStore(useShallow(selector));
+  const { currentPage, getPages, setCurrentPage } = useStore(useShallow(selector));
   const nodesInitialized = useNodesInitialized();
 
   const data = useRef<Map<number, Blob>>(new Map());
 
   useEffect(() => {
     const pages = getPages();
-    const currentPage = getCurrentPage();
 
     const next = () => {
       const next = Array.from({ length: pages.length }, (_, index) => index).find(
@@ -57,7 +56,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentPdfModal
           setModal(undefined);
         });
     }
-  }, [nodesInitialized]);
+  }, [currentPage, nodesInitialized]);
 
   return <LoaderModal />;
 }
