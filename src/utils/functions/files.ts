@@ -112,3 +112,17 @@ export const fileToBase64Image = async (file: File, { compress = false }: { comp
 };
 
 export const base64ToBlob = (base64: string) => fetch(base64).then((res) => res.blob());
+
+export const imageUriToBase64 = async (url: string): Promise<string> => {
+  const data = await fetch(url);
+  const blob = await data.blob();
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(blob);
+    reader.onloadend = () => {
+      const base64data = reader.result;
+      resolve(base64data as string);
+    };
+    reader.onerror = reject;
+  });
+};

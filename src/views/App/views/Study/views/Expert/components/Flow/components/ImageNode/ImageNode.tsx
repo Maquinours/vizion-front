@@ -2,6 +2,9 @@ import { ClickAwayListener } from '@mui/material';
 import { Handle, Node, NodeProps, NodeResizer, OnResize, Position, ReactFlowState, useReactFlow, useStore, useUpdateNodeInternals } from '@xyflow/react';
 import { ReactEventHandler, useRef, useState } from 'react';
 import AppViewStudyViewExpertViewFlowComponentImageNodeComponentMenuComponent from './components/Menu/Menu';
+import { useQuery } from '@tanstack/react-query';
+import { filesQueryKeys } from '../../../../../../../../../../utils/constants/queryKeys/files';
+import { isValidUrl } from '../../../../../../../../../../utils/functions/url';
 
 export const isExpertStudyImageNode = (node: Node): node is ExpertStudyImageNode => {
   return (
@@ -66,6 +69,8 @@ export default function AppViewStudyViewExpertViewFlowComponentImageNodeComponen
   const isConnectable = useStore(getIsConnectable);
   const { setNodes, updateNodeData } = useReactFlow();
   const updateNodeInternals = useUpdateNodeInternals();
+
+  const { data: image } = useQuery({ ...filesQueryKeys.base64._ctx.fromUri(data.image), staleTime: Infinity, enabled: isValidUrl(data.image) });
 
   const onResize: OnResize = (_event, params) => {
     updateNodeData(id, { size: { width: params.width, height: params.height } });
@@ -144,7 +149,7 @@ export default function AppViewStudyViewExpertViewFlowComponentImageNodeComponen
             <button className="h-fit w-fit" onMouseDown={onMouseDown} onContextMenu={onContextMenu}>
               <img
                 title={title}
-                src={data.image}
+                src={image ?? data.image}
                 alt="Importation"
                 width={data.size.width}
                 height={data.size.height}
