@@ -39,7 +39,7 @@ const GROUPS = [
 const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId_/study/expert');
 
 const selector = (state: RFState) => ({
-  getCurrentPage: state.getCurrentPage,
+  currentPage: state.currentPage,
   getPages: state.getPages,
   setCurrentPage: state.setCurrentPage,
   getHddCalculationHoursPerDay: state.getHddCalculationHoursPerDay,
@@ -56,7 +56,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentSendStud
 }: AppViewStudyViewExpertViewModalProviderComponentSendStudyModalComponentImageGenerationStepComponentProps) {
   const queryClient = useQueryClient();
 
-  const { getCurrentPage, getPages, setCurrentPage, getHddCalculationHoursPerDay, getHddCalculationData } = useStore(useShallow(selector));
+  const { currentPage, getPages, setCurrentPage, getHddCalculationHoursPerDay, getHddCalculationData } = useStore(useShallow(selector));
 
   const nodesInitialized = useNodesInitialized();
 
@@ -358,7 +358,6 @@ export default function AppViewStudyViewExpertViewModalProviderComponentSendStud
 
   useEffect(() => {
     const pages = getPages();
-    const currentPage = getCurrentPage();
 
     const next = () => {
       const next = Array.from({ length: pages.length }, (_, index) => index).find(
@@ -389,7 +388,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentSendStud
           onClose();
         });
     }
-  }, [nodesInitialized]);
+  }, [nodesInitialized, currentPage]);
 
   useEffect(() => {
     if (!studyPdf || commercialNoticePdf == undefined) return;
