@@ -2,16 +2,21 @@ import { ClickAwayListener, Fade, MenuItem, MenuList, Paper, Popper } from '@mui
 import { VirtualElement } from '@popperjs/core';
 import { FaPhoneAlt } from 'react-icons/fa';
 import styles from './ContextMenu.module.scss';
+import { MdGroups } from 'react-icons/md';
+import { Link } from '@tanstack/react-router';
+import ProfileResponseDto from '../../../../../../../../../../utils/types/ProfileResponseDto';
 
 type AppViewDashboardViewCallsHistoryComponentTableComponentContextMenuComponentProps = Readonly<{
   anchorElement: VirtualElement | undefined;
   setAnchorElement: React.Dispatch<React.SetStateAction<VirtualElement | undefined>>;
   number: string | undefined;
+  profile: ProfileResponseDto | undefined;
 }>;
 export default function AppViewDashboardViewCallsHistoryComponentTableComponentContextMenuComponent({
   anchorElement,
   setAnchorElement,
   number,
+  profile,
 }: AppViewDashboardViewCallsHistoryComponentTableComponentContextMenuComponentProps) {
   const isOpen = Boolean(anchorElement);
 
@@ -33,6 +38,14 @@ export default function AppViewDashboardViewCallsHistoryComponentTableComponentC
                       <span className={styles.text}>Appeler le {number}</span>
                     </a>
                   </MenuItem>
+                  {profile && (
+                    <MenuItem>
+                      <Link to="/app/enterprises/$enterpriseId" params={{ enterpriseId: profile.enterprise!.id }} onClick={onClose}>
+                        <MdGroups width={16} height={16} color={'#16204E'} className={styles.icon} />
+                        <span className={styles.text}>Accéder à l'entreprise</span>
+                      </Link>
+                    </MenuItem>
+                  )}
                 </MenuList>
               )}
             </Paper>
