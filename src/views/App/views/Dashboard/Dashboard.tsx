@@ -8,6 +8,7 @@ import AppViewDashboardViewSchedulerComponent from './components/Scheduler/Sched
 import Masonry from 'react-masonry-css';
 import { StompSessionProvider } from 'react-stomp-hooks';
 import { WEBSOCKET_URL } from '../../../../utils/constants/api';
+import AppViewDashboardViewCallsHistoryComponent from './components/CallsHistory/CallsHistory';
 
 const breakpointColumnsObj = {
   default: 3,
@@ -25,7 +26,7 @@ export default function AppViewDashboardView() {
           <AppViewDashboardViewPersonalTasksComponent />
           <AppViewDashboardViewProgressiveInfosComponent />
           <AppViewDashboardViewLatestConnectionsComponent />
-          <></>
+          <AppViewDashboardViewCallsHistoryComponent />
           <AppViewDashboardViewSchedulerComponent />
         </Masonry>
       </StompSessionProvider>

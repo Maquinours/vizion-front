@@ -1,8 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { Link, LinkOptions, useNavigate } from '@tanstack/react-router';
 import { Row, createColumnHelper } from '@tanstack/react-table';
-import classNames from 'classnames';
-import React, { useMemo } from 'react';
+import React, { ReactElement, useMemo } from 'react';
 import { FaTrash } from 'react-icons/fa';
 import { queries } from '../../utils/constants/queryKeys';
 import CategoryBusiness from '../../utils/enums/CategoryBusiness';
@@ -11,7 +10,6 @@ import { useAuthentifiedUserQuery } from '../../views/App/utils/functions/getAut
 import CardComponent from '../Card/Card';
 import TableComponent from '../Table/Table';
 import styles from './BusinessRmaLinks.module.scss';
-import { ReactElement } from 'react';
 
 const columnHelper = createColumnHelper<AllBusinessResponseDto>();
 
@@ -95,8 +93,8 @@ export default function BusinessRmaLinksComponent({ category, number, canCreate,
   };
 
   return (
-    <CardComponent title="Liaisons">
-      <div className={classNames(styles.container, className)}>
+    <CardComponent title="Liaisons" className={className}>
+      <div className={styles.container}>
         <div className={styles.buttons_container}>
           {canCreate && user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && (
             <Link {...createLink} className="btn btn-primary">

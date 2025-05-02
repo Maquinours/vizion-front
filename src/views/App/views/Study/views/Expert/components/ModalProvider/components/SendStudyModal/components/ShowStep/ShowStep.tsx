@@ -10,14 +10,12 @@ type AppViewStudyViewExpertViewModalProviderComponentSendStudyModalComponentShow
   onClose: () => void;
   studyPdf: File;
   quotationPdf: File;
-  commercialNoticePdf: File | null;
   representative: EnterpriseResponseDto | undefined;
 }>;
 export default function AppViewStudyViewExpertViewModalProviderComponentSendStudyModalComponentShowStepComponent({
   onClose,
   studyPdf,
   quotationPdf,
-  commercialNoticePdf,
   representative,
 }: AppViewStudyViewExpertViewModalProviderComponentSendStudyModalComponentShowStepComponentProps) {
   const { businessId } = routeApi.useParams();
@@ -27,8 +25,8 @@ export default function AppViewStudyViewExpertViewModalProviderComponentSendStud
   const defaultCc = representative?.profiles.filter((profile) => profile.civility === 'Service' && !!profile.email).map((service) => service.email!);
   const defaultRecipient = business.profileEmail ? [business.profileEmail] : [];
   const defaultSubject = `Étude ${business.numBusiness}${business.title ? ` ${business.title}` : ''}`;
-  const defaultAttachments = [studyPdf, quotationPdf, commercialNoticePdf].filter((file): file is File => !!file);
-  const defaultContent = `Bonjour <br /><p>Suite a votre demande, ci joint votre dossier complet avec :</p> <br /><ul><li>Offre de prix HT pour vous</li><li>Dossier technique pour votre client</li>${commercialNoticePdf ? `<li>Notices commerciales pour votre client</li>` : ''}</ul>`;
+  const defaultAttachments = [studyPdf, quotationPdf].filter((file): file is File => !!file);
+  const defaultContent = `Bonjour <br /><p>Suite a votre demande, ci joint votre dossier complet avec :</p> <br /><ul><li>Offre de prix HT pour vous</li><li>Dossier technique pour votre client</li></ul>`;
 
   return (
     <SendEmailModalComponent

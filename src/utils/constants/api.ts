@@ -16,4 +16,3 @@ export const AIRCALL_API_URL = 'https://api.aircall.io/v1';
 const AIRCALL_API_ID = '72c97b58603af07b9e590c8732ca112d';
 const AIRCALL_API_TOKEN = 'c3fd0fcb44337bba75a15c7e44e80188';
 export const AIRCALL_AUTHORIZATION = toBase64(`${AIRCALL_API_ID}:${AIRCALL_API_TOKEN}`);
- 

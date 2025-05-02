@@ -54,6 +54,11 @@ export default function LoginPage() {
     },
   });
 
+  const onSubmit = (data: InferType<typeof yupSchema>) => {
+    if (data.username.toUpperCase().startsWith('B011')) window.location.replace(`https://myvizeo.fr/webproxy/home?id=${data.username}`);
+    else mutate(data);
+  };
+
   return (
     <div className={styles.card_section}>
       <div className={styles.card}>
@@ -62,7 +67,7 @@ export default function LoginPage() {
             <p>Connexion à Vizion</p>
           </div>
           <div className={styles.input_sections}>
-            <form className={styles.form} onSubmit={handleSubmit((data) => mutate(data))}>
+            <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
               <div className={styles.form_group}>
                 <span>
                   <MdPerson />

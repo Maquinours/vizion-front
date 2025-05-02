@@ -23,6 +23,7 @@ import { ExpertStudySynopticCameraNode } from '../../../../../Flow/components/Sy
 import { ExpertStudyTransmitterNode } from '../../../../../Flow/components/TransmitterNode/TransmitterNode';
 import useStore, { RFState } from '../../../../../Flow/utils/store';
 import AppViewStudyViewExpertViewModalProviderComponentPdfModalComponentShowStepComponentPdfComponent from '../../../PdfModal/components/ShowStep/components/Pdf/Pdf';
+import PDFMerger from 'pdf-merger-js';
 
 type ProductNode = ExpertStudySynopticCameraNode | ExpertStudyMonitorNode | ExpertStudyRecorderNode | ExpertStudyTransmitterNode | ExpertStudyMiscProductNode;
 
@@ -38,7 +39,7 @@ const GROUPS = [
 const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId_/study/expert');
 
 const selector = (state: RFState) => ({
-  getCurrentPage: state.getCurrentPage,
+  currentPage: state.currentPage,
   getPages: state.getPages,
   setCurrentPage: state.setCurrentPage,
   getHddCalculationHoursPerDay: state.getHddCalculationHoursPerDay,
@@ -55,7 +56,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentSendStud
 }: AppViewStudyViewExpertViewModalProviderComponentSendStudyModalComponentImageGenerationStepComponentProps) {
   const queryClient = useQueryClient();
 
-  const { getCurrentPage, getPages, setCurrentPage, getHddCalculationHoursPerDay, getHddCalculationData } = useStore(useShallow(selector));
+  const { currentPage, getPages, setCurrentPage, getHddCalculationHoursPerDay, getHddCalculationData } = useStore(useShallow(selector));
 
   const nodesInitialized = useNodesInitialized();
 
@@ -70,6 +71,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentSendStud
   const [quotationPdf, setQuotationPdf] = useState<File>();
   const [representative, setRepresentative] = useState<EnterpriseResponseDto>();
   const [commercialNoticePdf, setCommercialNoticePdf] = useState<File | null>();
+  const [finalStudyPdf, setFinalStudyPdf] = useState<File>();
 
   const { mutate: generateQuotationPdf } = useMutation({
     mutationFn: async () => {
@@ -184,7 +186,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentSendStud
             }
           return acc;
         }, [])
-        .filter((data) => data.quantity > 0);
+        .filter((data) => data.quantity > 0 || data.groupName === 'Options');
 
       const subQuotations: Array<SynopticRequestBusinessQuotationRequestSubQuotationRequestDto> = [
         { name: 'Default', orderNum: '0', quotationDetails: [] },
@@ -307,14 +309,15 @@ export default function AppViewStudyViewExpertViewModalProviderComponentSendStud
         .reduce((acc, node) => {
           const product = products.find((product) => product.id === node.data.productId);
           const capacity =
-            (product?.specificationProducts?.find((spec) => spec.specification?.name === 'CAPACITE')?.value ?? 0) +
-            node.data.options.reduce((acc, option) => {
-              const capacity =
-                (products.find((product) => product.id === option.id)?.specificationProducts?.find((spec) => spec.specification?.name === 'CAPACITE')?.value ??
-                  0) * option.quantity;
+            ((product?.specificationProducts?.find((spec) => spec.specification?.name === 'CAPACITE')?.value ?? 0) +
+              node.data.options.reduce((acc, option) => {
+                const capacity =
+                  (products.find((product) => product.id === option.id)?.specificationProducts?.find((spec) => spec.specification?.name === 'CAPACITE')
+                    ?.value ?? 0) * option.quantity;
 
-              return acc + capacity;
-            }, 0);
+                return acc + capacity;
+              }, 0)) *
+            (node.data.quantity ?? 1);
           return acc + capacity;
         }, 0);
 
@@ -355,7 +358,6 @@ export default function AppViewStudyViewExpertViewModalProviderComponentSendStud
 
   useEffect(() => {
     const pages = getPages();
-    const currentPage = getCurrentPage();
 
     const next = () => {
       const next = Array.from({ length: pages.length }, (_, index) => index).find(
@@ -386,7 +388,23 @@ export default function AppViewStudyViewExpertViewModalProviderComponentSendStud
           onClose();
         });
     }
-  }, [nodesInitialized]);
+  }, [nodesInitialized, currentPage]);
+
+  useEffect(() => {
+    if (!studyPdf || commercialNoticePdf == undefined) return;
+    if (commercialNoticePdf === null) {
+      setFinalStudyPdf(studyPdf);
+      return;
+    }
+    const merger = new PDFMerger();
+    (async () => {
+      await merger.add(await studyPdf.bytes());
+      await merger.add(await commercialNoticePdf.bytes());
+      const result = await merger.saveAsBuffer();
+
+      setFinalStudyPdf(new File([result], formatFileName(`${business.numBusiness.replace(' ', '')}-${business.title ?? ''}.pdf`), { type: 'application/pdf' }));
+    })();
+  }, [studyPdf, commercialNoticePdf]);
 
   useEffect(() => {
     saveSynopticBusinessWithQuotation();
@@ -394,9 +412,10 @@ export default function AppViewStudyViewExpertViewModalProviderComponentSendStud
   }, []);
 
   useEffect(() => {
-    if (!!studyPdf && !!quotationPdf && commercialNoticePdf !== undefined && !isFetchingRepresentative)
-      onGenerated({ studyPdf, quotationPdf, commercialNoticePdf, representative });
-  }, [studyPdf, quotationPdf, commercialNoticePdf, isFetchingRepresentative]);
+    console.log({ finalStudyPdf, quotationPdf, commercialNoticePdf, isFetchingRepresentative });
+    if (!!finalStudyPdf && !!quotationPdf && commercialNoticePdf !== undefined && !isFetchingRepresentative)
+      onGenerated({ studyPdf: finalStudyPdf, quotationPdf, commercialNoticePdf, representative });
+  }, [finalStudyPdf, quotationPdf, commercialNoticePdf, isFetchingRepresentative]);
 
   return <LoaderModal />;
 }

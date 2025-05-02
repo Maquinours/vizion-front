@@ -12,14 +12,26 @@ const searchSchema = z.object({
   personalTaskPage: z.number().int().min(0).default(0),
   schedulerView: z.enum([Views.DAY, Views.WORK_WEEK]).catch(Views.DAY),
   schedulerDate: z.coerce.date().catch(new Date()),
+  callsHistoryDates: z.array(z.coerce.date()).length(2).optional().catch(undefined),
+  callsHistoryProfileId: z.string().uuid().optional().catch(undefined),
+  callsHistoryPage: z.number().int().min(0).default(0),
 });
 
 export const Route = createFileRoute('/app/dashboard')({
   validateSearch: (
-    data: { personalTaskState?: TaskState; personalTaskPage?: number; schedulerView?: 'day' | 'work_week'; schedulerDate?: Date } & SearchSchemaInput,
+    data: {
+      personalTaskState?: TaskState;
+      personalTaskPage?: number;
+      schedulerView?: 'day' | 'work_week';
+      schedulerDate?: Date;
+      callsHistoryDates?: Array<Date>;
+      callsHistoryProfileId?: string;
+      callsHistoryPage?: number;
+    } & SearchSchemaInput,
   ) => searchSchema.parse(data),
   loaderDeps: ({ search: { personalTaskState, personalTaskPage } }) => ({ personalTaskState, personalTaskPage, personalTaskSize: 10 }),
   loader: async ({ context: { queryClient }, deps: { personalTaskState, personalTaskPage, personalTaskSize } }) => {
+    // TODO: load aircalls
     const user = await queryClient.ensureQueryData(users.authentified());
     if (!user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO')) throw redirect({ from: Route.id, to: '..' });
 

@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { getRouteApi } from '@tanstack/react-router';
+import { getRouteApi, Outlet } from '@tanstack/react-router';
 import { createColumnHelper } from '@tanstack/react-table';
 import { useEffect } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
@@ -109,32 +109,35 @@ export default function AppViewBusinessViewBlViewUpdateModalView() {
   }, [blDetails]);
 
   return (
-    <ReactModal isOpen onRequestClose={onClose} className={styles.modal} overlayClassName="Overlay" shouldCloseOnOverlayClick={!isPending}>
-      <div className={styles.modal_container}>
-        <div className={styles.modal_title}>
-          <h6>Modification des détails du bon de livraison</h6>
-        </div>
-        <form onSubmit={handleSubmit((data) => mutate(data))} onReset={onClose}>
-          <div className={styles.modal_content}>
-            <div className={styles.table_container}>
-              <TableComponent columns={columns} data={items} />
+    <>
+      <ReactModal isOpen onRequestClose={onClose} className={styles.modal} overlayClassName="Overlay" shouldCloseOnOverlayClick={!isPending}>
+        <div className={styles.modal_container}>
+          <div className={styles.modal_title}>
+            <h6>Modification des détails du bon de livraison</h6>
+          </div>
+          <form onSubmit={handleSubmit((data) => mutate(data))} onReset={onClose}>
+            <div className={styles.modal_content}>
+              <div className={styles.table_container}>
+                <TableComponent columns={columns} data={items} />
+              </div>
             </div>
-          </div>
 
-          <div className={styles.modal_loader}>
-            <PulseLoader color="#31385A" loading={isPending} className="" size={10} speedMultiplier={0.5} />
-          </div>
+            <div className={styles.modal_loader}>
+              <PulseLoader color="#31385A" loading={isPending} className="" size={10} speedMultiplier={0.5} />
+            </div>
 
-          <div className={styles.modal_buttons}>
-            <button type="reset" className="btn btn-primary-light">
-              Annuler
-            </button>
-            <button type="submit" disabled={isPending} className="btn btn-secondary">
-              Modifier
-            </button>
-          </div>
-        </form>
-      </div>
-    </ReactModal>
+            <div className={styles.modal_buttons}>
+              <button type="reset" className="btn btn-primary-light">
+                Annuler
+              </button>
+              <button type="submit" disabled={isPending} className="btn btn-secondary">
+                Modifier
+              </button>
+            </div>
+          </form>
+        </div>
+      </ReactModal>
+      <Outlet />
+    </>
   );
 }

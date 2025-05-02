@@ -11,6 +11,7 @@ import { formatDateAndHourWithSlash } from '../../../../../../utils/functions/da
 import AllBusinessResponseDto from '../../../../../../utils/types/AllBusinessResponseDto';
 import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthentifiedUser';
 import styles from './Table.module.scss';
+import moment from 'moment';
 
 const routeApi = getRouteApi('/app/businesses-rma');
 
@@ -66,8 +67,10 @@ const STATES = [
 type AppViewBusinessesRmaViewTableComponent = Readonly<{
   data: Array<AllBusinessResponseDto> | undefined;
   isLoading: boolean;
+  startDate: Date | undefined;
+  endDate: Date | undefined;
 }>;
-export default function AppViewBusinessesRmaViewTableComponent({ data, isLoading }: AppViewBusinessesRmaViewTableComponent) {
+export default function AppViewBusinessesRmaViewTableComponent({ data, isLoading, startDate, endDate }: AppViewBusinessesRmaViewTableComponent) {
   const navigate = useNavigate();
 
   const { state } = routeApi.useSearch();
@@ -181,16 +184,39 @@ export default function AppViewBusinessesRmaViewTableComponent({ data, isLoading
       }),
       columnHelper.display({
         header: 'Montant HT',
-        cell: ({ row: { original } }) =>
-          original.category === CategoryBusiness.AFFAIRE ? (
-            <>
-              <CurrencyFormat value={original.totalHt} />
-
-              {original.creditNotes?.map((num, idx) => <CurrencyFormat key={idx} value={num?.totalAmountHT} prefix="-" allowNegative={false} />)}
-            </>
-          ) : (
-            'SAV'
-          ),
+        cell: ({ row: { original } }) => {
+          if (original.category === CategoryBusiness.AFFAIRE) {
+            const isCounted =
+              startDate === undefined ||
+              endDate === undefined ||
+              original.billDate === null ||
+              moment(original.billDate).isBetween(startDate, endDate, 'day', '[]');
+            return (
+              <>
+                <CurrencyFormat value={original.totalHt} prefix={isCounted ? undefined : '('} suffix={isCounted ? undefined : ')'} />
+                {original.creditNotes?.map((num, idx) => {
+                  const isCounted =
+                    startDate === undefined ||
+                    endDate === undefined ||
+                    num.createdDate === null ||
+                    moment(num.createdDate).isBetween(startDate, endDate, 'day', '[]');
+                  return (
+                    <>
+                      {' '}
+                      <CurrencyFormat
+                        key={idx}
+                        value={num?.totalAmountHT}
+                        prefix={`${isCounted ? '' : '('}-`}
+                        suffix={isCounted ? undefined : ')'}
+                        allowNegative={false}
+                      />
+                    </>
+                  );
+                })}
+              </>
+            );
+          } else return 'SAV';
+        },
       }),
       columnHelper.display({
         header: 'Nr Commande',
@@ -234,7 +260,7 @@ export default function AppViewBusinessesRmaViewTableComponent({ data, isLoading
         id: 'scrollbar_compensator',
       }),
     ],
-    [state, user],
+    [state, user, startDate, endDate],
   );
 
   const getRowClassName = (row: AllBusinessResponseDto) => (row.enterpriseCategory === CategoryClient.FOURNISSEUR ? styles.provider : undefined);
