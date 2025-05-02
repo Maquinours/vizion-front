@@ -11,6 +11,7 @@ import { useCallback, useMemo, useState } from 'react';
 import { isAxiosError } from 'axios';
 import { VirtualElement } from '@popperjs/core';
 import AppViewDashboardViewCallsHistoryComponentTableComponentContextMenuComponent from './components/ContextMenu/ContextMenu';
+import ProfileResponseDto from '../../../../../../../../utils/types/ProfileResponseDto';
 
 const columnHelper = createColumnHelper<AircallCallResponseDto>();
 
@@ -33,6 +34,7 @@ export default function AppViewDashboardViewCallsHistoryComponentTableComponent(
 
   const [contextMenuAnchor, setContextMenuAnchor] = useState<VirtualElement>();
   const [number, setNumber] = useState<string>();
+  const [profile, setProfile] = useState<ProfileResponseDto>();
 
   const getProfileFromPhoneNumber = useCallback(
     (phoneNumber: string) => {
@@ -42,9 +44,10 @@ export default function AppViewDashboardViewCallsHistoryComponentTableComponent(
   );
 
   const onCellContextMenu = useCallback(
-    (event: React.MouseEvent<HTMLDivElement, MouseEvent>, number: string) => {
+    (event: React.MouseEvent<HTMLDivElement, MouseEvent>, number: string, profile: ProfileResponseDto | undefined) => {
       event.preventDefault();
       setNumber(number);
+      setProfile(profile);
       setContextMenuAnchor({
         getBoundingClientRect: () => ({
           width: 0,
@@ -72,12 +75,12 @@ export default function AppViewDashboardViewCallsHistoryComponentTableComponent(
         header: 'De',
         cell: ({ row: { original } }) => {
           if (original.direction === 'inbound') {
+            const profile = getProfileFromPhoneNumber(original.raw_digits);
             const result = (() => {
-              const profile = getProfileFromPhoneNumber(original.raw_digits);
               if (profile) return `${profile.enterprise?.name ?? ''} / ${profile.firstName ?? ''} ${profile.lastName ?? ''}`;
               else return `Inconnu ${original.raw_digits}`;
             })();
-            return <div onContextMenu={(e) => onCellContextMenu(e, original.raw_digits)}>{result}</div>;
+            return <div onContextMenu={(e) => onCellContextMenu(e, original.raw_digits, profile)}>{result}</div>;
           } else if (original.direction === 'outbound') return original.user?.name;
         },
       }),
@@ -86,12 +89,12 @@ export default function AppViewDashboardViewCallsHistoryComponentTableComponent(
         cell: ({ row: { original } }) => {
           if (original.direction === 'inbound') return original.user?.name ?? <b>Non répondu</b>;
           else if (original.direction === 'outbound') {
+            const profile = getProfileFromPhoneNumber(original.raw_digits);
             const result = (() => {
-              const profile = getProfileFromPhoneNumber(original.raw_digits);
               if (profile) return `${profile.enterprise?.name ?? ''} / ${profile.firstName ?? ''} ${profile.lastName ?? ''}`;
               else return `Inconnu ${original.raw_digits}`;
             })();
-            return <div onContextMenu={(e) => onCellContextMenu(e, original.raw_digits)}>{result}</div>;
+            return <div onContextMenu={(e) => onCellContextMenu(e, original.raw_digits, profile)}>{result}</div>;
           }
         },
       }),
@@ -108,6 +111,7 @@ export default function AppViewDashboardViewCallsHistoryComponentTableComponent(
         anchorElement={contextMenuAnchor}
         setAnchorElement={setContextMenuAnchor}
         number={number}
+        profile={profile}
       />
     </>
   );
