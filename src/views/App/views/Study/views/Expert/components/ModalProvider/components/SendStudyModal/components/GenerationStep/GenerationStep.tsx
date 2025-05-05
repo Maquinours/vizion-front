@@ -398,8 +398,9 @@ export default function AppViewStudyViewExpertViewModalProviderComponentSendStud
     }
     const merger = new PDFMerger();
     (async () => {
-      await merger.add(await studyPdf.bytes());
-      await merger.add(await commercialNoticePdf.bytes());
+      console.log('studyPdf', studyPdf);
+      await merger.add(new Uint8Array(await studyPdf.arrayBuffer()));
+      await merger.add(new Uint8Array(await commercialNoticePdf.arrayBuffer()));
       const result = await merger.saveAsBuffer();
 
       setFinalStudyPdf(new File([result], formatFileName(`${business.numBusiness.replace(' ', '')}-${business.title ?? ''}.pdf`), { type: 'application/pdf' }));
