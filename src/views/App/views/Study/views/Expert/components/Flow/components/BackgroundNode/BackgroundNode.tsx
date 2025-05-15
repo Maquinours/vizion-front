@@ -1,6 +1,9 @@
 import { Node, NodeProps } from '@xyflow/react';
 import { useState } from 'react';
 import AppViewStudyViewExpertViewFlowComponentBackgroundNodeComponentMenuComponent from './components/Menu/Menu';
+import { isValidUrl } from '../../../../../../../../../../utils/functions/url';
+import { useQuery } from '@tanstack/react-query';
+import { filesQueryKeys } from '../../../../../../../../../../utils/constants/queryKeys/files';
 
 export const isExpertStudyBackgroundNode = (node: Node): node is ExpertStudyBackgroundNode => {
   return (
@@ -24,6 +27,8 @@ export type ExpertStudyBackgroundNode = Node<{ image: string; width: number; hei
 export default function AppViewStudyViewExpertViewFlowComponentBackgroundNodeComponent({ id, data, draggable }: NodeProps<ExpertStudyBackgroundNode>) {
   const [menuPosition, setMenuPosition] = useState<{ top: number; left: number }>();
 
+  const { data: image } = useQuery({ ...filesQueryKeys.base64._ctx.fromUri(data.image), staleTime: Infinity, enabled: isValidUrl(data.image) });
+
   const onContextMenu = (e: React.MouseEvent) => {
     e.preventDefault();
     const rect = document.querySelector('.react-flow')!.getBoundingClientRect();
@@ -33,7 +38,7 @@ export default function AppViewStudyViewExpertViewFlowComponentBackgroundNodeCom
   return (
     <>
       <img
-        src={data.image}
+        src={image ?? data.image}
         alt="Importation"
         className="max-w-[inherit] object-contain"
         style={{
