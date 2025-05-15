@@ -98,12 +98,26 @@ export default function AppViewAircallIntegrationComponent() {
                   .ensureQueryData(queries.profiles.detail._ctx.byPhoneNumbers([data.data.raw_digits, formatPhoneNumber(data.data.raw_digits)]))
                   .then((profile) => {
                     if (!profile.enterprise) return;
+                    const enterprise = profile.enterprise;
                     toast(AircallNewCallToastComponent, { data: { caller: profile }, autoClose: 5_000 });
-                    navigate({
-                      to: '/app/enterprises/$enterpriseId',
-                      params: { enterpriseId: profile.enterprise.id },
-                      search: { contactsSearch: `${profile.firstName ?? ''} ${profile.lastName ?? ''}`.trim(), allBusinessProfileId: profile.id },
-                    });
+                    queryClient
+                      .ensureQueryData(
+                        queries['all-businesses'].page._ctx.byEnterpriseIdAndPossibleProfileId({ enterpriseId: enterprise.id, page: 0, size: 15 }),
+                      )
+                      .then((allBusinesses) => {
+                        navigate({
+                          to: '/app/enterprises/$enterpriseId',
+                          params: { enterpriseId: enterprise.id },
+                          search: {
+                            contactsSearch: `${profile.firstName ?? ''} ${profile.lastName ?? ''}`.trim(),
+                            allBusinessProfileId: allBusinesses.totalElements > 15 ? profile.id : undefined, // We filter by the profile only if there is less or equal than 15 businesses
+                          },
+                        });
+                      })
+                      .catch((error) => {
+                        toast.error(`Erreur lors de la récupération des affaires de l'entreprise ${profile.enterprise?.name}`);
+                        console.log(`error lo ading allBusinesses from enterprise ${profile.enterprise?.name}`, error);
+                      });
                   })
                   .catch((error) => {
                     if (isAxiosError(error) && error.response?.status === 404) {
