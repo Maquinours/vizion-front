@@ -115,8 +115,8 @@ export default function AppViewAircallIntegrationComponent() {
                         });
                       })
                       .catch((error) => {
-                        toast.error(`Erreur lors de la récupération des affaires de l'entreprise ${profile.enterprise?.name}`);
-                        console.log(`error lo ading allBusinesses from enterprise ${profile.enterprise?.name}`, error);
+                        toast.error(`Erreur lors de la récupération des affaires de l'entreprise ${enterprise.name}`);
+                        console.log(`error loading allBusinesses from enterprise ${.enterprise.name}`, error);
                       });
                   })
                   .catch((error) => {
