@@ -122,7 +122,7 @@ export default function AppViewAircallIntegrationComponent() {
                   .catch((error) => {
                     if (isAxiosError(error) && error.response?.status === 404) {
                       toast.info(`Aucun profil trouvé pour le numéro appelant ${data.data.raw_digits}`);
-                      navigate({ to: '/app/enterprises' });
+                      // navigate({ to: '/app/enterprises' });
                     } else toast.error(`Erreur lors de la récupération du profil avec le numéro appelant ${data.data.raw_digits}`);
                     console.log(`error fetching profile with phone number ${data.data.raw_digits}`, error);
                   });
