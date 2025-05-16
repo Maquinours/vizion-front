@@ -40,6 +40,15 @@ export const Route = createFileRoute('/app/businesses-rma_/business/$businessId'
           resetScroll: false,
           ignoreBlocker: true,
         });
+      else if (assistances.length === 1 && [business.state, business.oldState].includes(BusinessState.FACTURE))
+        throw redirect({
+          from: Route.fullPath,
+          to: './assistance/$assistanceId',
+          params: { assistanceId: assistances[0].id },
+          replace: true,
+          resetScroll: false,
+          ignoreBlocker: true,
+        });
     } else if (businessModal === 'create-assistance') queryClient.prefetchQuery(queries['business-bills'].list._ctx.byBusinessId(businessId));
   },
   staticData: {
