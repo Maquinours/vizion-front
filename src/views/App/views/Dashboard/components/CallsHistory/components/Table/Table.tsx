@@ -1,47 +1,28 @@
-import { createColumnHelper } from '@tanstack/react-table';
-import TableComponent from '../../../../../../../../components/Table/Table';
-import AircallCallResponseDto from '../../../../../../../../utils/types/AircallCallResponseDto';
-import { formatDateAndHourWithSlash } from '../../../../../../../../utils/functions/dates';
-import styles from './Table.module.scss';
-import { useQueries } from '@tanstack/react-query';
-import _ from 'lodash';
-import { queries } from '../../../../../../../../utils/constants/queryKeys';
-import { formatPhoneNumber } from 'react-phone-number-input';
-import { useCallback, useMemo, useState } from 'react';
-import { isAxiosError } from 'axios';
 import { VirtualElement } from '@popperjs/core';
-import AppViewDashboardViewCallsHistoryComponentTableComponentContextMenuComponent from './components/ContextMenu/ContextMenu';
+import { createColumnHelper } from '@tanstack/react-table';
+import { useCallback, useMemo, useState } from 'react';
+import TableComponent from '../../../../../../../../components/Table/Table';
+import { formatDateAndHourWithSlash } from '../../../../../../../../utils/functions/dates';
+import AircallCallResponseDto from '../../../../../../../../utils/types/AircallCallResponseDto';
 import ProfileResponseDto from '../../../../../../../../utils/types/ProfileResponseDto';
+import AppViewDashboardViewCallsHistoryComponentTableComponentContextMenuComponent from './components/ContextMenu/ContextMenu';
+import styles from './Table.module.scss';
 
 const columnHelper = createColumnHelper<AircallCallResponseDto>();
 
 interface AppViewDashboardViewCallsHistoryComponentTableComponentProps {
   data: Array<AircallCallResponseDto> | undefined;
   isLoading: boolean;
+  getProfileFromPhoneNumber: (phoneNumber: string) => ProfileResponseDto | undefined;
 }
 export default function AppViewDashboardViewCallsHistoryComponentTableComponent({
   data,
+  getProfileFromPhoneNumber,
   isLoading,
 }: AppViewDashboardViewCallsHistoryComponentTableComponentProps) {
-  const uniquePhoneNumbers = _.uniq(data?.map((call) => call.raw_digits) || []);
-  const results = useQueries({
-    queries: uniquePhoneNumbers.map((phoneNumber) => ({
-      ...queries.profiles.detail._ctx.byPhoneNumbers([phoneNumber, formatPhoneNumber(phoneNumber)]),
-      staleTime: Infinity,
-      retry: (_failureCount: unknown, error: unknown) => !(isAxiosError(error) && error.response?.status === 404),
-    })),
-  });
-
   const [contextMenuAnchor, setContextMenuAnchor] = useState<VirtualElement>();
   const [number, setNumber] = useState<string>();
   const [profile, setProfile] = useState<ProfileResponseDto>();
-
-  const getProfileFromPhoneNumber = useCallback(
-    (phoneNumber: string) => {
-      return results.at(uniquePhoneNumbers.indexOf(phoneNumber))?.data;
-    },
-    [results],
-  );
 
   const onCellContextMenu = useCallback(
     (event: React.MouseEvent<HTMLDivElement, MouseEvent>, number: string, profile: ProfileResponseDto | undefined) => {
@@ -99,7 +80,7 @@ export default function AppViewDashboardViewCallsHistoryComponentTableComponent(
         },
       }),
     ],
-    [results],
+    [getProfileFromPhoneNumber],
   );
 
   return (
