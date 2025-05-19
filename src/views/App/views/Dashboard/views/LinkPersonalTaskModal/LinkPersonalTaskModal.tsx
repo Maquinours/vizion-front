@@ -61,6 +61,9 @@ export default function AppViewDashboardViewLinkPersonalTaskModalView() {
 
   const { register, control, handleSubmit } = useForm({
     resolver: yupResolver(yupSchema),
+    defaultValues: {
+      type: LinkType.BUSINESS,
+    },
   });
 
   const onClose = () => {
