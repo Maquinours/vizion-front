@@ -95,6 +95,9 @@ importers:
       '@xyflow/react':
         specifier: ^12.6.0
         version: 12.6.0(@types/react@19.1.2)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      aircall-everywhere:
+        specifier: ^2.0.4
+        version: 2.0.4
       axios:
         specifier: ^1.8.4
         version: 1.8.4
@@ -1763,6 +1766,10 @@ packages:
   agent-base@6.0.2:
     resolution: {integrity: sha512-RZNwNclF7+MS/8bDg70amg32dyeZGZxiDuQmZxKLAlQjr3jGyLx+4Kkk58UO7D2QdgFIQCovuSuZESne6RG6XQ==}
     engines: {node: '>= 6.0.0'}
+
+  aircall-everywhere@2.0.4:
+    resolution: {integrity: sha512-AqGlv8PZ2E3BABEGnIpGVmf9MpSaKNMMSdi4uYWMG0uSoJw9c1BUoPgfjrGcq8UH4m9qiDzgkfqd8DaJq1k0Ww==}
+    engines: {node: '>=16.0.0'}
 
   ajv@6.12.6:
     resolution: {integrity: sha512-j3fVLgvTo527anyYyJOGTYJbG+vnnQYvE0m5mmkc1TK+nxAppkCLMIL0aZ4dblVCNoGShhm+kzE4ZUykBoMg4g==}
@@ -5789,6 +5796,8 @@ snapshots:
       debug: 4.4.0
     transitivePeerDependencies:
       - supports-color
+
+  aircall-everywhere@2.0.4: {}
 
   ajv@6.12.6:
     dependencies:

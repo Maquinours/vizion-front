@@ -16,6 +16,7 @@ import { useAuthentifiedUserQuery } from './utils/functions/getAuthentifiedUser'
 import AppViewSendEmailModalComponent from './components/SendEmailModal/SendEmailModal';
 import AppViewTitleManagerComponent from './components/TitleManager/TitleManager';
 import AppViewAircallIntegrationComponent from './components/AircallIntegration/AircallIntegration';
+import AppViewAircallWorkspaceComponent from './components/AircallWorkspace/AircallWorkspace';
 
 const routeApi = getRouteApi('/app');
 
@@ -58,22 +59,24 @@ export default function AppLayout() {
       <AppViewLoadingProgressBarComponent />
       <AppViewChatWebsocketComponent />
       <AppViewAircallIntegrationComponent />
-      <AppViewTitleManagerComponent />
-      <div className={styles.container}>
-        <AppViewTopbarComponent />
-        <main className={classNames(styles.content, { [styles.mobile_menu_opened]: mobileSidebar })}>
-          <div className={styles.wrapper}>
-            <AppViewTabsContainerComponent>
-              <div className={styles.outlet_container}>
-                <Outlet />
-              </div>
-              {modal}
-            </AppViewTabsContainerComponent>
-          </div>
-        </main>
-        <AppViewSidebarComponent />
-        <AppViewFooterComponent />
-      </div>
+      <AppViewAircallWorkspaceComponent>
+        <AppViewTitleManagerComponent />
+        <div className={styles.container}>
+          <AppViewTopbarComponent />
+          <main className={classNames(styles.content, { [styles.mobile_menu_opened]: mobileSidebar })}>
+            <div className={styles.wrapper}>
+              <AppViewTabsContainerComponent>
+                <div className={styles.outlet_container}>
+                  <Outlet />
+                </div>
+                {modal}
+              </AppViewTabsContainerComponent>
+            </div>
+          </main>
+          <AppViewSidebarComponent />
+          <AppViewFooterComponent />
+        </div>
+      </AppViewAircallWorkspaceComponent>
     </>
   );
 }

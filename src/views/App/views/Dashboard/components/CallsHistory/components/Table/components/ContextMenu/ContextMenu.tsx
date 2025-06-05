@@ -5,6 +5,8 @@ import styles from './ContextMenu.module.scss';
 import { MdGroups } from 'react-icons/md';
 import { Link } from '@tanstack/react-router';
 import ProfileResponseDto from '../../../../../../../../../../utils/types/ProfileResponseDto';
+import { useContext } from 'react';
+import { AircallWorkspaceContext } from '../../../../../../../../components/AircallWorkspace/utils/context';
 
 type AppViewDashboardViewCallsHistoryComponentTableComponentContextMenuComponentProps = Readonly<{
   anchorElement: VirtualElement | undefined;
@@ -20,8 +22,19 @@ export default function AppViewDashboardViewCallsHistoryComponentTableComponentC
 }: AppViewDashboardViewCallsHistoryComponentTableComponentContextMenuComponentProps) {
   const isOpen = Boolean(anchorElement);
 
+  const { dialNumber } = useContext(AircallWorkspaceContext)!;
+
   const onClose = () => {
     setAnchorElement(undefined);
+  };
+
+  const onCallNumber = () => {
+    if (number) {
+      dialNumber(number).catch(() => {
+        window.location.href = `tel:${number}`;
+      });
+    }
+    onClose();
   };
 
   return (
@@ -33,10 +46,10 @@ export default function AppViewDashboardViewCallsHistoryComponentTableComponentC
               {number && (
                 <MenuList>
                   <MenuItem>
-                    <a href={`tel:${number}`} onClick={onClose}>
+                    <button onClick={onCallNumber}>
                       <FaPhoneAlt width={16} height={16} color={'#16204E'} className={styles.icon} />
                       <span className={styles.text}>Appeler le {number}</span>
-                    </a>
+                    </button>
                   </MenuItem>
                   {profile && (
                     <MenuItem>

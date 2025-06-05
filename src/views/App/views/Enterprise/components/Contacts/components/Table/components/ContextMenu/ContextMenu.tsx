@@ -2,7 +2,7 @@ import { ClickAwayListener, Fade, MenuItem, MenuList, Paper, Popper } from '@mui
 import { VirtualElement } from '@popperjs/core';
 import { Link } from '@tanstack/react-router';
 import { isValidPhoneNumber, parsePhoneNumberWithError } from 'libphonenumber-js';
-import React from 'react';
+import React, { useContext } from 'react';
 import { FaHistory, FaPhoneAlt, FaTrash } from 'react-icons/fa';
 import { HiPencilAlt } from 'react-icons/hi';
 import { MdMailOutline, MdPassword, MdWork } from 'react-icons/md';
@@ -10,6 +10,7 @@ import CategoryClient from '../../../../../../../../../../utils/enums/CategoryCl
 import ProfileResponseDto from '../../../../../../../../../../utils/types/ProfileResponseDto';
 import { useAuthentifiedUserQuery } from '../../../../../../../../utils/functions/getAuthentifiedUser';
 import styles from './ContextMenu.module.scss';
+import { AircallWorkspaceContext } from '../../../../../../../../components/AircallWorkspace/utils/context';
 
 const routePath = '/app/enterprises/$enterpriseId';
 
@@ -25,10 +26,21 @@ export default function AppViewEnterpriseViewContactsComponentTableComponentCont
 }: AppViewEnterpriseViewContactsComponentTableComponentContextMenuComponentProps) {
   const { data: user } = useAuthentifiedUserQuery();
 
+  const { dialNumber } = useContext(AircallWorkspaceContext)!;
+
   const isOpen = !!anchorElement;
 
   const onClose = () => {
     setAnchorElement(undefined);
+  };
+
+  const onCallNumber = (number: string) => {
+    if (number) {
+      dialNumber(number).catch(() => {
+        window.location.href = `tel:${number}`;
+      });
+    }
+    onClose();
   };
 
   return (
@@ -129,10 +141,10 @@ export default function AppViewEnterpriseViewContactsComponentTableComponentCont
                       const number = parsePhoneNumberWithError(phoneNumber, 'FR');
                       return (
                         <MenuItem key={index}>
-                          <a href={`tel:${number.number}`} onClick={onClose}>
+                          <button onClick={() => onCallNumber(number.number)}>
                             <FaPhoneAlt width={16} height={16} color={'#16204E'} className={styles.icon} />
                             <span className={styles.text}>Appeler le {number.formatNational()}</span>
-                          </a>
+                          </button>
                         </MenuItem>
                       );
                     })}
