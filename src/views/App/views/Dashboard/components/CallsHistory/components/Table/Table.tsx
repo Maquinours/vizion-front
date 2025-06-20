@@ -7,6 +7,7 @@ import AircallCallResponseDto from '../../../../../../../../utils/types/AircallC
 import ProfileResponseDto from '../../../../../../../../utils/types/ProfileResponseDto';
 import AppViewDashboardViewCallsHistoryComponentTableComponentContextMenuComponent from './components/ContextMenu/ContextMenu';
 import styles from './Table.module.scss';
+import AircallContactResponseDto from '../../../../../../../../utils/types/AircallContactResponseDto';
 
 const columnHelper = createColumnHelper<AircallCallResponseDto>();
 
@@ -21,14 +22,21 @@ export default function AppViewDashboardViewCallsHistoryComponentTableComponent(
   isLoading,
 }: AppViewDashboardViewCallsHistoryComponentTableComponentProps) {
   const [contextMenuAnchor, setContextMenuAnchor] = useState<VirtualElement>();
-  const [number, setNumber] = useState<string>();
-  const [profile, setProfile] = useState<ProfileResponseDto>();
+  const [contextMenuData, setContextMenuData] = useState<{
+    number: string;
+    contact: AircallContactResponseDto | null;
+    profile: ProfileResponseDto | undefined;
+  }>();
 
   const onCellContextMenu = useCallback(
-    (event: React.MouseEvent<HTMLDivElement, MouseEvent>, number: string, profile: ProfileResponseDto | undefined) => {
+    (
+      event: React.MouseEvent<HTMLDivElement, MouseEvent>,
+      number: string,
+      contact: AircallContactResponseDto | null,
+      profile: ProfileResponseDto | undefined,
+    ) => {
       event.preventDefault();
-      setNumber(number);
-      setProfile(profile);
+      setContextMenuData({ number, contact, profile });
       setContextMenuAnchor({
         getBoundingClientRect: () => ({
           width: 0,
@@ -43,7 +51,7 @@ export default function AppViewDashboardViewCallsHistoryComponentTableComponent(
         }),
       });
     },
-    [setNumber, setContextMenuAnchor],
+    [setContextMenuData, setContextMenuAnchor],
   );
 
   const columns = useMemo(
@@ -59,9 +67,10 @@ export default function AppViewDashboardViewCallsHistoryComponentTableComponent(
             const profile = getProfileFromPhoneNumber(original.raw_digits);
             const result = (() => {
               if (profile) return `${profile.enterprise?.name ?? ''} / ${profile.firstName ?? ''} ${profile.lastName ?? ''}`;
+              else if (original.contact?.information) return `${original.contact.information}`;
               else return `Inconnu ${original.raw_digits}`;
             })();
-            return <div onContextMenu={(e) => onCellContextMenu(e, original.raw_digits, profile)}>{result}</div>;
+            return <div onContextMenu={(e) => onCellContextMenu(e, original.raw_digits, original.contact, profile)}>{result}</div>;
           } else if (original.direction === 'outbound') return original.user?.name;
         },
       }),
@@ -73,14 +82,15 @@ export default function AppViewDashboardViewCallsHistoryComponentTableComponent(
             const profile = getProfileFromPhoneNumber(original.raw_digits);
             const result = (() => {
               if (profile) return `${profile.enterprise?.name ?? ''} / ${profile.firstName ?? ''} ${profile.lastName ?? ''}`;
+              else if (original.contact?.information) return `${original.contact.information}`;
               else return `Inconnu ${original.raw_digits}`;
             })();
-            return <div onContextMenu={(e) => onCellContextMenu(e, original.raw_digits, profile)}>{result}</div>;
+            return <div onContextMenu={(e) => onCellContextMenu(e, original.raw_digits, original.contact, profile)}>{result}</div>;
           }
         },
       }),
     ],
-    [getProfileFromPhoneNumber],
+    [getProfileFromPhoneNumber, onCellContextMenu],
   );
 
   return (
@@ -91,8 +101,7 @@ export default function AppViewDashboardViewCallsHistoryComponentTableComponent(
       <AppViewDashboardViewCallsHistoryComponentTableComponentContextMenuComponent
         anchorElement={contextMenuAnchor}
         setAnchorElement={setContextMenuAnchor}
-        number={number}
-        profile={profile}
+        data={contextMenuData}
       />
     </>
   );

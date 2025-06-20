@@ -35,7 +35,7 @@ export default function AppViewDashboardViewCallsHistoryComponent() {
     refetch: refetchCalls,
     isRefetching,
   } = useQuery({
-    ...aircallQueryKeys.calls._ctx.search({ from: dates?.at(0), to: dates?.at(1), phoneNumber, page: page + 1 }),
+    ...aircallQueryKeys.calls._ctx.search({ from: dates?.at(0), to: dates?.at(1), phoneNumber, page: page + 1, fetchContact: true }),
     enabled: !!profileId && isLoadingProfiles ? false : true,
   });
 

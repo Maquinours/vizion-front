@@ -25,7 +25,7 @@ export default interface AircallCallResponseDto {
   cost: string;
   number: AircallNumberResponseDto;
   user: AircallUserResponseDto;
-  contact: AircallContactResponseDto;
+  contact: AircallContactResponseDto | null;
   assigned_to: AircallUserResponseDto;
   teams: Array<AircallTeamResponseDto>;
   transferred_by: AircallUserResponseDto;

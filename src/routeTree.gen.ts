@@ -110,6 +110,7 @@ import { Route as AppEnterprisesCreateContactBusinessContactIdRouteImport } from
 import { Route as AppDashboardValidatePersonalTaskTaskIdRouteImport } from './routes/app/dashboard/validate-personal-task.$taskId/route'
 import { Route as AppDashboardUpdateProgressiveInfoProgressiveInfoIdRouteImport } from './routes/app/dashboard/update-progressive-info.$progressiveInfoId/route'
 import { Route as AppDashboardUpdatePersonalTaskDeadlineTaskIdRouteImport } from './routes/app/dashboard/update-personal-task-deadline.$taskId/route'
+import { Route as AppDashboardUpdateAircallContactContactIdRouteImport } from './routes/app/dashboard/update-aircall-contact.$contactId/route'
 import { Route as AppDashboardUnlinkPersonalTaskTaskIdRouteImport } from './routes/app/dashboard/unlink-personal-task.$taskId/route'
 import { Route as AppDashboardTransferTaskTaskIdRouteImport } from './routes/app/dashboard/transfer-task.$taskId/route'
 import { Route as AppDashboardTaskEmailTaskIdRouteImport } from './routes/app/dashboard/task-email.$taskId/route'
@@ -121,6 +122,7 @@ import { Route as AppDashboardOtherPersonalTasksProfileIdRouteImport } from './r
 import { Route as AppDashboardLinkPersonalTaskTaskIdRouteImport } from './routes/app/dashboard/link-personal-task.$taskId/route'
 import { Route as AppDashboardDeleteProgressiveInfoProgressiveInfoIdRouteImport } from './routes/app/dashboard/delete-progressive-info.$progressiveInfoId/route'
 import { Route as AppDashboardDeleteCollectiveTaskTaskIdRouteImport } from './routes/app/dashboard/delete-collective-task.$taskId/route'
+import { Route as AppDashboardCreateAircallContactNumberRouteImport } from './routes/app/dashboard/create-aircall-contact.$number/route'
 import { Route as AppDashboardArchivePersonalTaskTaskIdRouteImport } from './routes/app/dashboard/archive-personal-task.$taskId/route'
 import { Route as AppBusinessesRmaRmaRmaIdRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdRouteImport } from './routes/app/businesses-rma_/business.$businessId/route'
@@ -1285,6 +1287,17 @@ const AppDashboardUpdatePersonalTaskDeadlineTaskIdRouteRoute =
     ).then((d) => d.Route),
   )
 
+const AppDashboardUpdateAircallContactContactIdRouteRoute =
+  AppDashboardUpdateAircallContactContactIdRouteImport.update({
+    id: '/update-aircall-contact/$contactId',
+    path: '/update-aircall-contact/$contactId',
+    getParentRoute: () => AppDashboardRouteRoute,
+  } as any).lazy(() =>
+    import(
+      './routes/app/dashboard/update-aircall-contact.$contactId/route.lazy'
+    ).then((d) => d.Route),
+  )
+
 const AppDashboardUnlinkPersonalTaskTaskIdRouteRoute =
   AppDashboardUnlinkPersonalTaskTaskIdRouteImport.update({
     id: '/unlink-personal-task/$taskId',
@@ -1403,6 +1416,17 @@ const AppDashboardDeleteCollectiveTaskTaskIdRouteRoute =
   } as any).lazy(() =>
     import(
       './routes/app/dashboard/delete-collective-task.$taskId/route.lazy'
+    ).then((d) => d.Route),
+  )
+
+const AppDashboardCreateAircallContactNumberRouteRoute =
+  AppDashboardCreateAircallContactNumberRouteImport.update({
+    id: '/create-aircall-contact/$number',
+    path: '/create-aircall-contact/$number',
+    getParentRoute: () => AppDashboardRouteRoute,
+  } as any).lazy(() =>
+    import(
+      './routes/app/dashboard/create-aircall-contact.$number/route.lazy'
     ).then((d) => d.Route),
   )
 
@@ -4099,6 +4123,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppDashboardArchivePersonalTaskTaskIdRouteImport
       parentRoute: typeof AppDashboardRouteImport
     }
+    '/app/dashboard/create-aircall-contact/$number': {
+      id: '/app/dashboard/create-aircall-contact/$number'
+      path: '/create-aircall-contact/$number'
+      fullPath: '/app/dashboard/create-aircall-contact/$number'
+      preLoaderRoute: typeof AppDashboardCreateAircallContactNumberRouteImport
+      parentRoute: typeof AppDashboardRouteImport
+    }
     '/app/dashboard/delete-collective-task/$taskId': {
       id: '/app/dashboard/delete-collective-task/$taskId'
       path: '/delete-collective-task/$taskId'
@@ -4174,6 +4205,13 @@ declare module '@tanstack/react-router' {
       path: '/unlink-personal-task/$taskId'
       fullPath: '/app/dashboard/unlink-personal-task/$taskId'
       preLoaderRoute: typeof AppDashboardUnlinkPersonalTaskTaskIdRouteImport
+      parentRoute: typeof AppDashboardRouteImport
+    }
+    '/app/dashboard/update-aircall-contact/$contactId': {
+      id: '/app/dashboard/update-aircall-contact/$contactId'
+      path: '/update-aircall-contact/$contactId'
+      fullPath: '/app/dashboard/update-aircall-contact/$contactId'
+      preLoaderRoute: typeof AppDashboardUpdateAircallContactContactIdRouteImport
       parentRoute: typeof AppDashboardRouteImport
     }
     '/app/dashboard/update-personal-task-deadline/$taskId': {
@@ -5955,6 +5993,7 @@ interface AppDashboardRouteRouteChildren {
   AppDashboardCreateProgressiveInfoRouteRoute: typeof AppDashboardCreateProgressiveInfoRouteRoute
   AppDashboardDeleteCollectiveTasksRouteRoute: typeof AppDashboardDeleteCollectiveTasksRouteRoute
   AppDashboardArchivePersonalTaskTaskIdRouteRoute: typeof AppDashboardArchivePersonalTaskTaskIdRouteRoute
+  AppDashboardCreateAircallContactNumberRouteRoute: typeof AppDashboardCreateAircallContactNumberRouteRoute
   AppDashboardDeleteCollectiveTaskTaskIdRouteRoute: typeof AppDashboardDeleteCollectiveTaskTaskIdRouteRoute
   AppDashboardDeleteProgressiveInfoProgressiveInfoIdRouteRoute: typeof AppDashboardDeleteProgressiveInfoProgressiveInfoIdRouteRoute
   AppDashboardLinkPersonalTaskTaskIdRouteRoute: typeof AppDashboardLinkPersonalTaskTaskIdRouteRoute
@@ -5966,6 +6005,7 @@ interface AppDashboardRouteRouteChildren {
   AppDashboardTaskEmailTaskIdRouteRoute: typeof AppDashboardTaskEmailTaskIdRouteRouteWithChildren
   AppDashboardTransferTaskTaskIdRouteRoute: typeof AppDashboardTransferTaskTaskIdRouteRoute
   AppDashboardUnlinkPersonalTaskTaskIdRouteRoute: typeof AppDashboardUnlinkPersonalTaskTaskIdRouteRoute
+  AppDashboardUpdateAircallContactContactIdRouteRoute: typeof AppDashboardUpdateAircallContactContactIdRouteRoute
   AppDashboardUpdatePersonalTaskDeadlineTaskIdRouteRoute: typeof AppDashboardUpdatePersonalTaskDeadlineTaskIdRouteRoute
   AppDashboardUpdateProgressiveInfoProgressiveInfoIdRouteRoute: typeof AppDashboardUpdateProgressiveInfoProgressiveInfoIdRouteRoute
   AppDashboardValidatePersonalTaskTaskIdRouteRoute: typeof AppDashboardValidatePersonalTaskTaskIdRouteRoute
@@ -5982,6 +6022,8 @@ const AppDashboardRouteRouteChildren: AppDashboardRouteRouteChildren = {
     AppDashboardDeleteCollectiveTasksRouteRoute,
   AppDashboardArchivePersonalTaskTaskIdRouteRoute:
     AppDashboardArchivePersonalTaskTaskIdRouteRoute,
+  AppDashboardCreateAircallContactNumberRouteRoute:
+    AppDashboardCreateAircallContactNumberRouteRoute,
   AppDashboardDeleteCollectiveTaskTaskIdRouteRoute:
     AppDashboardDeleteCollectiveTaskTaskIdRouteRoute,
   AppDashboardDeleteProgressiveInfoProgressiveInfoIdRouteRoute:
@@ -6004,6 +6046,8 @@ const AppDashboardRouteRouteChildren: AppDashboardRouteRouteChildren = {
     AppDashboardTransferTaskTaskIdRouteRoute,
   AppDashboardUnlinkPersonalTaskTaskIdRouteRoute:
     AppDashboardUnlinkPersonalTaskTaskIdRouteRoute,
+  AppDashboardUpdateAircallContactContactIdRouteRoute:
+    AppDashboardUpdateAircallContactContactIdRouteRoute,
   AppDashboardUpdatePersonalTaskDeadlineTaskIdRouteRoute:
     AppDashboardUpdatePersonalTaskDeadlineTaskIdRouteRoute,
   AppDashboardUpdateProgressiveInfoProgressiveInfoIdRouteRoute:
@@ -7620,6 +7664,7 @@ export interface FileRoutesByFullPath {
   '/app/businesses-rma/business/$businessId': typeof AppBusinessesRmaBusinessBusinessIdRouteRouteWithChildren
   '/app/businesses-rma/rma/$rmaId': typeof AppBusinessesRmaRmaRmaIdRouteRouteWithChildren
   '/app/dashboard/archive-personal-task/$taskId': typeof AppDashboardArchivePersonalTaskTaskIdRouteRoute
+  '/app/dashboard/create-aircall-contact/$number': typeof AppDashboardCreateAircallContactNumberRouteRoute
   '/app/dashboard/delete-collective-task/$taskId': typeof AppDashboardDeleteCollectiveTaskTaskIdRouteRoute
   '/app/dashboard/delete-progressive-info/$progressiveInfoId': typeof AppDashboardDeleteProgressiveInfoProgressiveInfoIdRouteRoute
   '/app/dashboard/link-personal-task/$taskId': typeof AppDashboardLinkPersonalTaskTaskIdRouteRoute
@@ -7631,6 +7676,7 @@ export interface FileRoutesByFullPath {
   '/app/dashboard/task-email/$taskId': typeof AppDashboardTaskEmailTaskIdRouteRouteWithChildren
   '/app/dashboard/transfer-task/$taskId': typeof AppDashboardTransferTaskTaskIdRouteRoute
   '/app/dashboard/unlink-personal-task/$taskId': typeof AppDashboardUnlinkPersonalTaskTaskIdRouteRoute
+  '/app/dashboard/update-aircall-contact/$contactId': typeof AppDashboardUpdateAircallContactContactIdRouteRoute
   '/app/dashboard/update-personal-task-deadline/$taskId': typeof AppDashboardUpdatePersonalTaskDeadlineTaskIdRouteRoute
   '/app/dashboard/update-progressive-info/$progressiveInfoId': typeof AppDashboardUpdateProgressiveInfoProgressiveInfoIdRouteRoute
   '/app/dashboard/validate-personal-task/$taskId': typeof AppDashboardValidatePersonalTaskTaskIdRouteRoute
@@ -7927,6 +7973,7 @@ export interface FileRoutesByTo {
   '/auth/reset-password/$token': typeof AuthResetPasswordTokenRouteLazyRoute
   '/app/tools': typeof AppToolsIndexRoute
   '/app/dashboard/archive-personal-task/$taskId': typeof AppDashboardArchivePersonalTaskTaskIdRouteRoute
+  '/app/dashboard/create-aircall-contact/$number': typeof AppDashboardCreateAircallContactNumberRouteRoute
   '/app/dashboard/delete-collective-task/$taskId': typeof AppDashboardDeleteCollectiveTaskTaskIdRouteRoute
   '/app/dashboard/delete-progressive-info/$progressiveInfoId': typeof AppDashboardDeleteProgressiveInfoProgressiveInfoIdRouteRoute
   '/app/dashboard/link-personal-task/$taskId': typeof AppDashboardLinkPersonalTaskTaskIdRouteRoute
@@ -7938,6 +7985,7 @@ export interface FileRoutesByTo {
   '/app/dashboard/task-email/$taskId': typeof AppDashboardTaskEmailTaskIdRouteRouteWithChildren
   '/app/dashboard/transfer-task/$taskId': typeof AppDashboardTransferTaskTaskIdRouteRoute
   '/app/dashboard/unlink-personal-task/$taskId': typeof AppDashboardUnlinkPersonalTaskTaskIdRouteRoute
+  '/app/dashboard/update-aircall-contact/$contactId': typeof AppDashboardUpdateAircallContactContactIdRouteRoute
   '/app/dashboard/update-personal-task-deadline/$taskId': typeof AppDashboardUpdatePersonalTaskDeadlineTaskIdRouteRoute
   '/app/dashboard/update-progressive-info/$progressiveInfoId': typeof AppDashboardUpdateProgressiveInfoProgressiveInfoIdRouteRoute
   '/app/dashboard/validate-personal-task/$taskId': typeof AppDashboardValidatePersonalTaskTaskIdRouteRoute
@@ -8240,6 +8288,7 @@ export interface FileRoutesById {
   '/app/businesses-rma_/business/$businessId': typeof AppBusinessesRmaBusinessBusinessIdRouteRouteWithChildren
   '/app/businesses-rma_/rma/$rmaId': typeof AppBusinessesRmaRmaRmaIdRouteRouteWithChildren
   '/app/dashboard/archive-personal-task/$taskId': typeof AppDashboardArchivePersonalTaskTaskIdRouteRoute
+  '/app/dashboard/create-aircall-contact/$number': typeof AppDashboardCreateAircallContactNumberRouteRoute
   '/app/dashboard/delete-collective-task/$taskId': typeof AppDashboardDeleteCollectiveTaskTaskIdRouteRoute
   '/app/dashboard/delete-progressive-info/$progressiveInfoId': typeof AppDashboardDeleteProgressiveInfoProgressiveInfoIdRouteRoute
   '/app/dashboard/link-personal-task/$taskId': typeof AppDashboardLinkPersonalTaskTaskIdRouteRoute
@@ -8251,6 +8300,7 @@ export interface FileRoutesById {
   '/app/dashboard/task-email/$taskId': typeof AppDashboardTaskEmailTaskIdRouteRouteWithChildren
   '/app/dashboard/transfer-task/$taskId': typeof AppDashboardTransferTaskTaskIdRouteRoute
   '/app/dashboard/unlink-personal-task/$taskId': typeof AppDashboardUnlinkPersonalTaskTaskIdRouteRoute
+  '/app/dashboard/update-aircall-contact/$contactId': typeof AppDashboardUpdateAircallContactContactIdRouteRoute
   '/app/dashboard/update-personal-task-deadline/$taskId': typeof AppDashboardUpdatePersonalTaskDeadlineTaskIdRouteRoute
   '/app/dashboard/update-progressive-info/$progressiveInfoId': typeof AppDashboardUpdateProgressiveInfoProgressiveInfoIdRouteRoute
   '/app/dashboard/validate-personal-task/$taskId': typeof AppDashboardValidatePersonalTaskTaskIdRouteRoute
@@ -8555,6 +8605,7 @@ export interface FileRouteTypes {
     | '/app/businesses-rma/business/$businessId'
     | '/app/businesses-rma/rma/$rmaId'
     | '/app/dashboard/archive-personal-task/$taskId'
+    | '/app/dashboard/create-aircall-contact/$number'
     | '/app/dashboard/delete-collective-task/$taskId'
     | '/app/dashboard/delete-progressive-info/$progressiveInfoId'
     | '/app/dashboard/link-personal-task/$taskId'
@@ -8566,6 +8617,7 @@ export interface FileRouteTypes {
     | '/app/dashboard/task-email/$taskId'
     | '/app/dashboard/transfer-task/$taskId'
     | '/app/dashboard/unlink-personal-task/$taskId'
+    | '/app/dashboard/update-aircall-contact/$contactId'
     | '/app/dashboard/update-personal-task-deadline/$taskId'
     | '/app/dashboard/update-progressive-info/$progressiveInfoId'
     | '/app/dashboard/validate-personal-task/$taskId'
@@ -8861,6 +8913,7 @@ export interface FileRouteTypes {
     | '/auth/reset-password/$token'
     | '/app/tools'
     | '/app/dashboard/archive-personal-task/$taskId'
+    | '/app/dashboard/create-aircall-contact/$number'
     | '/app/dashboard/delete-collective-task/$taskId'
     | '/app/dashboard/delete-progressive-info/$progressiveInfoId'
     | '/app/dashboard/link-personal-task/$taskId'
@@ -8872,6 +8925,7 @@ export interface FileRouteTypes {
     | '/app/dashboard/task-email/$taskId'
     | '/app/dashboard/transfer-task/$taskId'
     | '/app/dashboard/unlink-personal-task/$taskId'
+    | '/app/dashboard/update-aircall-contact/$contactId'
     | '/app/dashboard/update-personal-task-deadline/$taskId'
     | '/app/dashboard/update-progressive-info/$progressiveInfoId'
     | '/app/dashboard/validate-personal-task/$taskId'
@@ -9172,6 +9226,7 @@ export interface FileRouteTypes {
     | '/app/businesses-rma_/business/$businessId'
     | '/app/businesses-rma_/rma/$rmaId'
     | '/app/dashboard/archive-personal-task/$taskId'
+    | '/app/dashboard/create-aircall-contact/$number'
     | '/app/dashboard/delete-collective-task/$taskId'
     | '/app/dashboard/delete-progressive-info/$progressiveInfoId'
     | '/app/dashboard/link-personal-task/$taskId'
@@ -9183,6 +9238,7 @@ export interface FileRouteTypes {
     | '/app/dashboard/task-email/$taskId'
     | '/app/dashboard/transfer-task/$taskId'
     | '/app/dashboard/unlink-personal-task/$taskId'
+    | '/app/dashboard/update-aircall-contact/$contactId'
     | '/app/dashboard/update-personal-task-deadline/$taskId'
     | '/app/dashboard/update-progressive-info/$progressiveInfoId'
     | '/app/dashboard/validate-personal-task/$taskId'
@@ -9510,6 +9566,7 @@ export const routeTree = rootRoute
         "/app/dashboard/create-progressive-info",
         "/app/dashboard/delete-collective-tasks",
         "/app/dashboard/archive-personal-task/$taskId",
+        "/app/dashboard/create-aircall-contact/$number",
         "/app/dashboard/delete-collective-task/$taskId",
         "/app/dashboard/delete-progressive-info/$progressiveInfoId",
         "/app/dashboard/link-personal-task/$taskId",
@@ -9521,6 +9578,7 @@ export const routeTree = rootRoute
         "/app/dashboard/task-email/$taskId",
         "/app/dashboard/transfer-task/$taskId",
         "/app/dashboard/unlink-personal-task/$taskId",
+        "/app/dashboard/update-aircall-contact/$contactId",
         "/app/dashboard/update-personal-task-deadline/$taskId",
         "/app/dashboard/update-progressive-info/$progressiveInfoId",
         "/app/dashboard/validate-personal-task/$taskId"
@@ -9882,6 +9940,10 @@ export const routeTree = rootRoute
       "filePath": "app/dashboard/archive-personal-task.$taskId/route.ts",
       "parent": "/app/dashboard"
     },
+    "/app/dashboard/create-aircall-contact/$number": {
+      "filePath": "app/dashboard/create-aircall-contact.$number/route.ts",
+      "parent": "/app/dashboard"
+    },
     "/app/dashboard/delete-collective-task/$taskId": {
       "filePath": "app/dashboard/delete-collective-task.$taskId/route.ts",
       "parent": "/app/dashboard"
@@ -9927,6 +9989,10 @@ export const routeTree = rootRoute
     },
     "/app/dashboard/unlink-personal-task/$taskId": {
       "filePath": "app/dashboard/unlink-personal-task.$taskId/route.ts",
+      "parent": "/app/dashboard"
+    },
+    "/app/dashboard/update-aircall-contact/$contactId": {
+      "filePath": "app/dashboard/update-aircall-contact.$contactId/route.ts",
       "parent": "/app/dashboard"
     },
     "/app/dashboard/update-personal-task-deadline/$taskId": {
