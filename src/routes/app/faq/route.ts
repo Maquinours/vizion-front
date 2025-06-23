@@ -1,9 +1,12 @@
 import { SearchSchemaInput, createFileRoute } from '@tanstack/react-router';
 import { z } from 'zod';
 import { faqs } from '../../../utils/constants/queryKeys/faq';
+import FaqAccessLevel from '../../../utils/enums/FaqAccessLevel';
 
 const searchSchema = z.object({
   search: z.string().optional().catch(undefined),
+  productId: z.string().uuid().optional().catch(undefined),
+  accessLevel: z.nativeEnum(FaqAccessLevel).optional().catch(undefined),
   page: z.number().catch(0),
   archived: z.boolean().catch(false),
   fuzzy: z.boolean().catch(false),
@@ -11,9 +14,9 @@ const searchSchema = z.object({
 
 export const Route = createFileRoute('/app/faq')({
   validateSearch: (data: { search?: string; page?: number; archived?: boolean } & SearchSchemaInput) => searchSchema.parse(data),
-  loaderDeps: ({ search: { search, page, archived, fuzzy } }) => ({ search, page, size: 15, archived, fuzzy }),
-  loader: ({ context: { queryClient }, deps: { search, page, size, archived, fuzzy } }) => {
-    queryClient.ensureQueryData(faqs.page({ page, size })._ctx.byArchiveStateAndSearch(archived, search, fuzzy));
+  loaderDeps: ({ search: { search, productId, accessLevel, page, archived, fuzzy } }) => ({ search, productId, accessLevel, page, size: 15, archived, fuzzy }),
+  loader: ({ context: { queryClient }, deps: { search, productId, accessLevel, page, size, archived, fuzzy } }) => {
+    queryClient.ensureQueryData(faqs.page({ page, size })._ctx.byArchiveStateAndSearch(archived, search, productId, accessLevel, fuzzy));
   },
   staticData: {
     title: 'FAQ',

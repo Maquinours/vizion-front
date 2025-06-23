@@ -14,7 +14,7 @@ export const faqs = createQueryKeys('faq', {
         fuzzy: boolean,
       ) => ({
         // eslint-disable-next-line @tanstack/query/exhaustive-deps
-        queryKey: [archived, searchText, fuzzy],
+        queryKey: [archived, searchText, productId, accessLevel, fuzzy],
         queryFn: () => getFaqsPageByArchiveStateWithSearch(archived, searchText, productId, accessLevel, fuzzy, page, size),
       }),
     },
