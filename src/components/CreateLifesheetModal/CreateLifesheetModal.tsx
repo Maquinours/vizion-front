@@ -24,6 +24,8 @@ import styles from './CreateLifesheetModal.module.scss';
 import ReactDatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import moment from 'moment';
+import { updateAllBusinessModifyDate } from '../../utils/api/allBusiness';
+import CategoryBusiness from '../../utils/enums/CategoryBusiness';
 
 const yupSchema = yup.object({
   description: yup.string().required('Ce champ est requis'),
@@ -75,7 +77,23 @@ export default function CreateLifesheetModalComponent({
 
   const { mutate, isPending } = useMutation({
     mutationFn: async ({ receivers, description, deadline }: yup.InferType<typeof yupSchema>) => {
-      if (description === predefinedTexts?.at(0)?.description) return;
+      // If the description is the same as the first predefined text, we ignore it, but we update the modify date if it's business or RMA.
+      if (predefinedTexts && description.trim() === predefinedTexts[0]?.description.trim()) {
+        switch (associatedItemType) {
+          case LifesheetAssociatedItem.BUSINESS: {
+            const business = await queryClient.ensureQueryData(businesses.detail._ctx.byId(associatedItemId));
+            await updateAllBusinessModifyDate(CategoryBusiness.AFFAIRE, business.numBusiness, currentUser.userInfo.id);
+            break;
+          }
+          case LifesheetAssociatedItem.RMA: {
+            const rma = await queryClient.ensureQueryData(queries.rmas.detail(associatedItemId));
+            await updateAllBusinessModifyDate(CategoryBusiness.RMA, rma.number, currentUser.userInfo.id);
+            break;
+          }
+        }
+        return;
+      }
+
       let data: Partial<LifeSheetRequestDto> = {};
       let businessName: string | undefined = undefined;
       switch (associatedItemType) {
