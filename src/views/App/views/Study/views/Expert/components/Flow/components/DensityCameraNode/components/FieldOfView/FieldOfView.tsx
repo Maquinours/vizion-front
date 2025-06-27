@@ -40,12 +40,13 @@ const isSvgIn = (
   return lineToCheck.y1 > y1 && lineToCheck.y1 < y2 && lineToCheck.y2 > y3 && lineToCheck.y2 < y4;
 };
 
-const selector = (state: RFState) => {
+const selector = (state: RFState, nodeId: string) => {
   const page = state.pages[state.currentPage];
   const scale = page?.type === 'density' ? page.scale : undefined;
   return {
     scale: scale ? scale.virtual / scale.real : undefined,
     densityColors: page?.type === 'density' ? page.colors : undefined,
+    camIndex: page?.nodes.filter((node) => node.type === 'densityCamera').findIndex((node) => node.id === nodeId),
   };
 };
 
@@ -83,7 +84,7 @@ export default function AppViewStudyViewExpertViewFlowComponentDensityCameraNode
   product,
   nodePosition,
 }: AppViewStudyViewExpertViewFlowComponentDensityCameraNodeComponentFieldOfViewComponentProps) {
-  const { scale, densityColors } = useStore(useShallow(selector));
+  const { scale, densityColors, camIndex } = useStore(useShallow((state) => selector(state, nodeId)));
   const { obstacles } = useFlowStore(flowSelector, (a, b) => isEqual(a, b));
   const { paneClickFunction } = useContext(ExpertStudyContext)!;
 
@@ -103,6 +104,8 @@ export default function AppViewStudyViewExpertViewFlowComponentDensityCameraNode
       pir: pir?.value ?? undefined,
     };
   })();
+
+  const name = data.name?.trim() ?? `CAM${camIndex + 1}`;
 
   const maxRange = scale * data.range;
 
@@ -209,6 +212,7 @@ export default function AppViewStudyViewExpertViewFlowComponentDensityCameraNode
       </g>
       {!selected && (
         <AppViewStudyViewExpertViewFlowComponentDensityCameraNodeComponentFieldOfViewComponentTextComponent
+          name={name}
           product={product}
           maxRange={maxRange}
           svgHeight={svgHeight}

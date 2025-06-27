@@ -114,8 +114,13 @@ export default function AppViewStudyViewExpertViewHeaderComponentCartComponentDe
     () => [
       columnHelper.display({
         header: 'Nom',
-        cell: ({ row: { original } }) => (
-          <input type="text" value={original.name} onChange={(e) => onNodeNameChange(e, original.nodeId)} className="flex w-full bg-inherit p-2 text-center" />
+        cell: ({ row: { original, index } }) => (
+          <input
+            type="text"
+            value={original.name ?? `CAM${index + 1}`}
+            onChange={(e) => onNodeNameChange(e, original.nodeId)}
+            className="flex w-full bg-inherit p-2 text-center"
+          />
         ),
       }),
       columnHelper.display({
