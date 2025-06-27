@@ -1,7 +1,7 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { createColumnHelper } from '@tanstack/react-table';
 import { ReactFlowState, useReactFlow, useStore } from '@xyflow/react';
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import { NumberFormatValues, SourceInfo } from 'react-number-format';
 import AmountFormat from '../../../../../../../../../../../../components/AmountFormat/AmountFormat';
 import TableComponent from '../../../../../../../../../../../../components/Table/Table';
@@ -86,20 +86,29 @@ export default function AppViewStudyViewExpertViewHeaderComponentCartComponentDe
       .filter((item): item is RowData => !!item);
   }, [productNodes, products]);
 
-  const onNodeNameChange = (e: React.ChangeEvent<HTMLInputElement>, nodeId: string) => {
-    updateNodeData(nodeId, { name: e.target.value });
-  };
+  const onNodeNameChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>, nodeId: string) => {
+      updateNodeData(nodeId, { name: e.target.value });
+    },
+    [updateNodeData],
+  );
 
-  const onNodeAngleChange = (v: NumberFormatValues, source: SourceInfo, nodeId: string) => {
-    if (source.source === 'prop') return;
-    updateNodeData(nodeId, { angle: Number(v.value) });
-  };
+  const onNodeAngleChange = useCallback(
+    (v: NumberFormatValues, source: SourceInfo, nodeId: string) => {
+      if (source.source === 'prop') return;
+      updateNodeData(nodeId, { angle: Number(v.value) });
+    },
+    [updateNodeData],
+  );
 
-  const onNodeSelectClick = (nodeId: string) => {
-    setNodes((nds) =>
-      nds.map((node) => (node.id === nodeId && !node.selected ? { ...node, selected: true } : node.selected ? { ...node, selected: false } : node)),
-    );
-  };
+  const onNodeSelectClick = useCallback(
+    (nodeId: string) => {
+      setNodes((nds) =>
+        nds.map((node) => (node.id === nodeId && !node.selected ? { ...node, selected: true } : node.selected ? { ...node, selected: false } : node)),
+      );
+    },
+    [setNodes],
+  );
 
   const columns = useMemo(
     () => [
