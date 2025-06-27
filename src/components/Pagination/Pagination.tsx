@@ -1,6 +1,6 @@
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import styles from './Pagination.module.scss';
-import usePagination from '@mui/material/usePagination/usePagination';
+import usePagination from '@mui/material/usePagination';
 import classNames from 'classnames';
 import { Link, LinkProps, useNavigate } from '@tanstack/react-router';
 import PaginationComponentEllipsisComponent from './components/Ellipsis/Ellipsis';
