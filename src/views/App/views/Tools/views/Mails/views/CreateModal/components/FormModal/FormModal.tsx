@@ -49,6 +49,8 @@ export default function AppViewToolsViewMailsViewCreateModalViewFormModalCompone
     resolver: yupResolver(yupSchema),
     defaultValues: {
       sections: [{ content: '' }],
+      enterprise: undefined,
+      contact: undefined,
     },
   });
 
@@ -61,6 +63,7 @@ export default function AppViewToolsViewMailsViewCreateModalViewFormModalCompone
     name: 'sections',
   });
 
+  const enterpriseId = useWatch({ name: 'enterprise.id', control });
   const enterprise = useWatch({ name: 'enterprise', control });
 
   useEffect(() => {
@@ -71,7 +74,7 @@ export default function AppViewToolsViewMailsViewCreateModalViewFormModalCompone
     setValue('addressTwo', enterprise.addressLineTwo);
     setValue('zipCode', enterprise.zipCode);
     setValue('city', enterprise.city ?? '');
-  }, [enterprise]);
+  }, [enterpriseId]);
 
   return (
     <ReactModal isOpen={show} onRequestClose={onClose} className={styles.modal} overlayClassName="Overlay">
@@ -98,7 +101,7 @@ export default function AppViewToolsViewMailsViewCreateModalViewFormModalCompone
                         getOptionLabel={(opt) => opt.name}
                         getOptionValue={(opt) => opt.id}
                         placeholder="Sélectionnez une entreprise"
-                        value={value}
+                        value={value ?? null}
                         onChange={onChange}
                       />
                     )}
@@ -116,8 +119,8 @@ export default function AppViewToolsViewMailsViewCreateModalViewFormModalCompone
                       options={enterprise?.profiles}
                       getOptionLabel={(opt) => `${opt.firstName} ${opt.lastName}`}
                       getOptionValue={(opt) => opt.id}
-                      placeholder="Sélectionnez une entreprise"
-                      value={value}
+                      placeholder="Sélectionnez un contact"
+                      value={value ?? null}
                       onChange={onChange}
                     />
                   )}

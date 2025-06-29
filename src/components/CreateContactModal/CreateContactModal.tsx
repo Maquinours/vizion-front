@@ -19,7 +19,8 @@ export default function CreateContactModalComponent({ onClose, enterpriseId }: C
 
   const onAfterCreation = (contact: ProfileResponseDto) => {
     setContact(contact);
-    setStep(1);
+    // setStep(1);
+    onClose();
   };
 
   const onConfirmStepTwo = () => {

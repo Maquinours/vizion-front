@@ -10,436 +10,417 @@
 
 import { createFileRoute } from '@tanstack/react-router'
 
-// Import Routes
+import { Route as rootRouteImport } from './routes/__root'
+import { Route as AuthRouteRouteImport } from './routes/auth/route'
+import { Route as AppRouteRouteImport } from './routes/app/route'
+import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthIndexRouteImport } from './routes/auth/index'
+import { Route as AppIndexRouteImport } from './routes/app/index'
+import { Route as AuthLoginRouteRouteImport } from './routes/auth/login/route'
+import { Route as AppToolsRouteRouteImport } from './routes/app/tools/route'
+import { Route as AppProductsRouteRouteImport } from './routes/app/products/route'
+import { Route as AppFaqRouteRouteImport } from './routes/app/faq/route'
+import { Route as AppExternalLinksRouteRouteImport } from './routes/app/external-links/route'
+import { Route as AppEnterprisesRouteRouteImport } from './routes/app/enterprises/route'
+import { Route as AppDashboardRouteRouteImport } from './routes/app/dashboard/route'
+import { Route as AppBusinessesRmaRouteRouteImport } from './routes/app/businesses-rma/route'
+import { Route as AppToolsIndexRouteImport } from './routes/app/tools/index'
+import { Route as AppToolsVvaRouteRouteImport } from './routes/app/tools/vva/route'
+import { Route as AppToolsSchedulerRouteRouteImport } from './routes/app/tools/scheduler/route'
+import { Route as AppToolsRepresentativesTurnoverRouteRouteImport } from './routes/app/tools/representatives-turnover/route'
+import { Route as AppToolsRepresentativesMapRouteRouteImport } from './routes/app/tools/representatives-map/route'
+import { Route as AppToolsProductShelvesRouteRouteImport } from './routes/app/tools/product-shelves/route'
+import { Route as AppToolsProductInventoryRouteRouteImport } from './routes/app/tools/product-inventory/route'
+import { Route as AppToolsProductFiltersRouteRouteImport } from './routes/app/tools/product-filters/route'
+import { Route as AppToolsPredefinedTextsRouteRouteImport } from './routes/app/tools/predefined-texts/route'
+import { Route as AppToolsPredefinedMessagesRouteRouteImport } from './routes/app/tools/predefined-messages/route'
+import { Route as AppToolsNewsRouteRouteImport } from './routes/app/tools/news/route'
+import { Route as AppToolsMenuRouteRouteImport } from './routes/app/tools/menu/route'
+import { Route as AppToolsMailsRouteRouteImport } from './routes/app/tools/mails/route'
+import { Route as AppToolsGlobalTurnoverRouteRouteImport } from './routes/app/tools/global-turnover/route'
+import { Route as AppToolsFormationsRouteRouteImport } from './routes/app/tools/formations/route'
+import { Route as AppToolsExternalLinksRouteRouteImport } from './routes/app/tools/external-links/route'
+import { Route as AppToolsEmailsRouteRouteImport } from './routes/app/tools/emails/route'
+import { Route as AppToolsDepartmentsRouteRouteImport } from './routes/app/tools/departments/route'
+import { Route as AppToolsDdnsRouteRouteImport } from './routes/app/tools/ddns/route'
+import { Route as AppToolsCreditRouteRouteImport } from './routes/app/tools/credit/route'
+import { Route as AppProductsProductIdRouteRouteImport } from './routes/app/products_.$productId/route'
+import { Route as AppProductsSerialNumbersRouteRouteImport } from './routes/app/products/serial-numbers/route'
+import { Route as AppProductsCreateRouteRouteImport } from './routes/app/products/create/route'
+import { Route as AppFaqCreateRouteRouteImport } from './routes/app/faq/create/route'
+import { Route as AppExternalLinksExternalLinkIdRouteRouteImport } from './routes/app/external-links_.$externalLinkId/route'
+import { Route as AppEnterprisesEnterpriseIdRouteRouteImport } from './routes/app/enterprises_.$enterpriseId/route'
+import { Route as AppEnterprisesCreateRouteRouteImport } from './routes/app/enterprises/create/route'
+import { Route as AppDashboardDeleteCollectiveTasksRouteRouteImport } from './routes/app/dashboard/delete-collective-tasks/route'
+import { Route as AppDashboardCreateProgressiveInfoRouteRouteImport } from './routes/app/dashboard/create-progressive-info/route'
+import { Route as AppDashboardCreatePersonalTaskRouteRouteImport } from './routes/app/dashboard/create-personal-task/route'
+import { Route as AppDashboardCreateCollectiveTaskRouteRouteImport } from './routes/app/dashboard/create-collective-task/route'
+import { Route as AppBusinessesRmaSearchByProductsRouteRouteImport } from './routes/app/businesses-rma/search-by-products/route'
+import { Route as AppBusinessesRmaRepresentativeTurnoverRouteRouteImport } from './routes/app/businesses-rma/representative-turnover/route'
+import { Route as AppProductsProductIdIndexRouteImport } from './routes/app/products_.$productId/index'
+import { Route as AppToolsVvaCreateRouteRouteImport } from './routes/app/tools/vva/create/route'
+import { Route as AppToolsSchedulerCreateRouteRouteImport } from './routes/app/tools/scheduler/create/route'
+import { Route as AppToolsProductShelvesCreateRouteRouteImport } from './routes/app/tools/product-shelves/create/route'
+import { Route as AppToolsProductInventoryValidateQuantitiesRouteRouteImport } from './routes/app/tools/product-inventory/validate-quantities/route'
+import { Route as AppToolsProductFiltersCreateRouteRouteImport } from './routes/app/tools/product-filters/create/route'
+import { Route as AppToolsPredefinedTextsCreateRouteRouteImport } from './routes/app/tools/predefined-texts/create/route'
+import { Route as AppToolsPredefinedMessagesCreateRouteRouteImport } from './routes/app/tools/predefined-messages/create/route'
+import { Route as AppToolsNewsCreateRouteRouteImport } from './routes/app/tools/news/create/route'
+import { Route as AppToolsMenuCreateProductRouteRouteImport } from './routes/app/tools/menu/create-product/route'
+import { Route as AppToolsMenuCreateEnterpriseRouteRouteImport } from './routes/app/tools/menu/create-enterprise/route'
+import { Route as AppToolsMailsCreateRouteRouteImport } from './routes/app/tools/mails/create/route'
+import { Route as AppToolsFormationsCreateRouteRouteImport } from './routes/app/tools/formations/create/route'
+import { Route as AppToolsExternalLinksCreateRouteRouteImport } from './routes/app/tools/external-links/create/route'
+import { Route as AppToolsEmailsEmailIdRouteRouteImport } from './routes/app/tools/emails/$emailId/route'
+import { Route as AppToolsDepartmentsCreateRouteRouteImport } from './routes/app/tools/departments/create/route'
+import { Route as AppToolsDdnsCreateRouteRouteImport } from './routes/app/tools/ddns/create/route'
+import { Route as AppToolsCreditShowRouteRouteImport } from './routes/app/tools/credit/show/route'
+import { Route as AppToolsCreditDetailsRouteRouteImport } from './routes/app/tools/credit/details/route'
+import { Route as AppProductsProductIdManageRouteRouteImport } from './routes/app/products_.$productId/manage/route'
+import { Route as AppProductsProductIdInformationsRouteRouteImport } from './routes/app/products_.$productId/informations/route'
+import { Route as AppProductsSerialNumbersCreateRouteRouteImport } from './routes/app/products/serial-numbers/create/route'
+import { Route as AppFaqUpdateFaqIdRouteRouteImport } from './routes/app/faq/update.$faqId/route'
+import { Route as AppFaqSendByEmailFaqIdRouteRouteImport } from './routes/app/faq/send-by-email.$faqId/route'
+import { Route as AppFaqGedFaqIdRouteRouteImport } from './routes/app/faq/ged.$faqId/route'
+import { Route as AppFaqDeleteFaqIdRouteRouteImport } from './routes/app/faq/delete.$faqId/route'
+import { Route as AppFaqArchiveFaqIdRouteRouteImport } from './routes/app/faq/archive.$faqId/route'
+import { Route as AppEnterprisesEnterpriseIdUpdateRepresentativeRouteRouteImport } from './routes/app/enterprises_.$enterpriseId/update-representative/route'
+import { Route as AppEnterprisesEnterpriseIdUpdateCategoryRouteRouteImport } from './routes/app/enterprises_.$enterpriseId/update-category/route'
+import { Route as AppEnterprisesEnterpriseIdUpdateAccountabilityRouteRouteImport } from './routes/app/enterprises_.$enterpriseId/update-accountability/route'
+import { Route as AppEnterprisesEnterpriseIdUpdateRouteRouteImport } from './routes/app/enterprises_.$enterpriseId/update/route'
+import { Route as AppEnterprisesEnterpriseIdRelateBusinessRmaRouteRouteImport } from './routes/app/enterprises_.$enterpriseId/relate-business-rma/route'
+import { Route as AppEnterprisesEnterpriseIdImportGedFilesRouteRouteImport } from './routes/app/enterprises_.$enterpriseId/import-ged-files/route'
+import { Route as AppEnterprisesEnterpriseIdImportContactsRouteRouteImport } from './routes/app/enterprises_.$enterpriseId/import-contacts/route'
+import { Route as AppEnterprisesEnterpriseIdEmailHistoryRouteRouteImport } from './routes/app/enterprises_.$enterpriseId/email-history/route'
+import { Route as AppEnterprisesEnterpriseIdDeleteRouteRouteImport } from './routes/app/enterprises_.$enterpriseId/delete/route'
+import { Route as AppEnterprisesEnterpriseIdCreateLifesheetCommentRouteRouteImport } from './routes/app/enterprises_.$enterpriseId/create-lifesheet-comment/route'
+import { Route as AppEnterprisesEnterpriseIdCreateGedDirectoryRouteRouteImport } from './routes/app/enterprises_.$enterpriseId/create-ged-directory/route'
+import { Route as AppEnterprisesEnterpriseIdCreateContactRouteRouteImport } from './routes/app/enterprises_.$enterpriseId/create-contact/route'
+import { Route as AppEnterprisesEnterpriseIdAddressBookRouteRouteImport } from './routes/app/enterprises_.$enterpriseId/address-book/route'
+import { Route as AppEnterprisesUpdateContactContactIdRouteRouteImport } from './routes/app/enterprises/update-contact.$contactId/route'
+import { Route as AppEnterprisesUpdateContactPasswordContactIdRouteRouteImport } from './routes/app/enterprises/update-contact-password.$contactId/route'
+import { Route as AppEnterprisesSendEmailToContactContactIdRouteRouteImport } from './routes/app/enterprises/send-email-to-contact.$contactId/route'
+import { Route as AppEnterprisesDeleteContactContactIdRouteRouteImport } from './routes/app/enterprises/delete-contact.$contactId/route'
+import { Route as AppEnterprisesCreateEnterpriseRmaEnterpriseIdRouteRouteImport } from './routes/app/enterprises/create-enterprise-rma.$enterpriseId/route'
+import { Route as AppEnterprisesCreateContactEnterpriseIdRouteRouteImport } from './routes/app/enterprises/create-contact.$enterpriseId/route'
+import { Route as AppEnterprisesCreateContactTravelVoucherContactIdRouteRouteImport } from './routes/app/enterprises/create-contact-travel-voucher.$contactId/route'
+import { Route as AppEnterprisesCreateContactBusinessContactIdRouteRouteImport } from './routes/app/enterprises/create-contact-business.$contactId/route'
+import { Route as AppDashboardValidatePersonalTaskTaskIdRouteRouteImport } from './routes/app/dashboard/validate-personal-task.$taskId/route'
+import { Route as AppDashboardUpdateProgressiveInfoProgressiveInfoIdRouteRouteImport } from './routes/app/dashboard/update-progressive-info.$progressiveInfoId/route'
+import { Route as AppDashboardUpdatePersonalTaskDeadlineTaskIdRouteRouteImport } from './routes/app/dashboard/update-personal-task-deadline.$taskId/route'
+import { Route as AppDashboardUpdateAircallContactContactIdRouteRouteImport } from './routes/app/dashboard/update-aircall-contact.$contactId/route'
+import { Route as AppDashboardUnlinkPersonalTaskTaskIdRouteRouteImport } from './routes/app/dashboard/unlink-personal-task.$taskId/route'
+import { Route as AppDashboardTransferTaskTaskIdRouteRouteImport } from './routes/app/dashboard/transfer-task.$taskId/route'
+import { Route as AppDashboardTaskEmailTaskIdRouteRouteImport } from './routes/app/dashboard/task-email.$taskId/route'
+import { Route as AppDashboardTaskCommentsTaskIdRouteRouteImport } from './routes/app/dashboard/task-comments.$taskId/route'
+import { Route as AppDashboardTakeCollectiveTaskTaskIdRouteRouteImport } from './routes/app/dashboard/take-collective-task.$taskId/route'
+import { Route as AppDashboardSchedulerEventDetailsEventIdRouteRouteImport } from './routes/app/dashboard/scheduler-event-details.$eventId/route'
+import { Route as AppDashboardPersonalTaskDetailsTaskIdRouteRouteImport } from './routes/app/dashboard/personal-task-details.$taskId/route'
+import { Route as AppDashboardOtherPersonalTasksProfileIdRouteRouteImport } from './routes/app/dashboard/other-personal-tasks.$profileId/route'
+import { Route as AppDashboardLinkPersonalTaskTaskIdRouteRouteImport } from './routes/app/dashboard/link-personal-task.$taskId/route'
+import { Route as AppDashboardDeleteProgressiveInfoProgressiveInfoIdRouteRouteImport } from './routes/app/dashboard/delete-progressive-info.$progressiveInfoId/route'
+import { Route as AppDashboardDeleteCollectiveTaskTaskIdRouteRouteImport } from './routes/app/dashboard/delete-collective-task.$taskId/route'
+import { Route as AppDashboardCreateAircallContactNumberRouteRouteImport } from './routes/app/dashboard/create-aircall-contact.$number/route'
+import { Route as AppDashboardArchivePersonalTaskTaskIdRouteRouteImport } from './routes/app/dashboard/archive-personal-task.$taskId/route'
+import { Route as AppBusinessesRmaRmaRmaIdRouteRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId/route'
+import { Route as AppBusinessesRmaRmaRmaIdIndexRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/index'
+import { Route as AppBusinessesRmaBusinessBusinessIdIndexRouteImport } from './routes/app/businesses-rma_/business.$businessId/index'
+import { Route as AppToolsVvaDeleteVvaIdRouteRouteImport } from './routes/app/tools/vva/delete.$vvaId/route'
+import { Route as AppToolsSchedulerDetailsRdvIdRouteRouteImport } from './routes/app/tools/scheduler/details.$rdvId/route'
+import { Route as AppToolsProductShelvesDeleteProductShelfIdRouteRouteImport } from './routes/app/tools/product-shelves/delete.$productShelfId/route'
+import { Route as AppToolsProductInventoryUpdateStockIdRouteRouteImport } from './routes/app/tools/product-inventory/update.$stockId/route'
+import { Route as AppToolsProductFiltersUpdateProductFilterIdRouteRouteImport } from './routes/app/tools/product-filters/update.$productFilterId/route'
+import { Route as AppToolsProductFiltersDeleteProductFilterIdRouteRouteImport } from './routes/app/tools/product-filters/delete.$productFilterId/route'
+import { Route as AppToolsPredefinedTextsUpdatePredefinedTextIdRouteRouteImport } from './routes/app/tools/predefined-texts/update.$predefinedTextId/route'
+import { Route as AppToolsPredefinedTextsDeletePredefinedTextIdRouteRouteImport } from './routes/app/tools/predefined-texts/delete.$predefinedTextId/route'
+import { Route as AppToolsPredefinedMessagesUpdatePredefinedMessageIdRouteRouteImport } from './routes/app/tools/predefined-messages/update.$predefinedMessageId/route'
+import { Route as AppToolsPredefinedMessagesDeletePredefinedMessageIdRouteRouteImport } from './routes/app/tools/predefined-messages/delete.$predefinedMessageId/route'
+import { Route as AppToolsNewsUpdateNewsIdRouteRouteImport } from './routes/app/tools/news/update.$newsId/route'
+import { Route as AppToolsNewsDeleteNewsIdRouteRouteImport } from './routes/app/tools/news/delete.$newsId/route'
+import { Route as AppToolsMailsUpdateMailIdRouteRouteImport } from './routes/app/tools/mails/update.$mailId/route'
+import { Route as AppToolsMailsShowMailIdRouteRouteImport } from './routes/app/tools/mails/show.$mailId/route'
+import { Route as AppToolsMailsDeleteMailIdRouteRouteImport } from './routes/app/tools/mails/delete.$mailId/route'
+import { Route as AppToolsFormationsUpdateFormationIdRouteRouteImport } from './routes/app/tools/formations/update.$formationId/route'
+import { Route as AppToolsFormationsSubscribersFormationDetailIdRouteRouteImport } from './routes/app/tools/formations/subscribers.$formationDetailId/route'
+import { Route as AppToolsFormationsDeleteFormationIdRouteRouteImport } from './routes/app/tools/formations/delete.$formationId/route'
+import { Route as AppToolsFormationsCreateDetailsRouteRouteImport } from './routes/app/tools/formations/create/details/route'
+import { Route as AppToolsFormationsCreateAddDetailRouteRouteImport } from './routes/app/tools/formations/create/add-detail/route'
+import { Route as AppToolsExternalLinksUpdateExternalLinkIdRouteRouteImport } from './routes/app/tools/external-links/update.$externalLinkId/route'
+import { Route as AppToolsExternalLinksDeleteExternalLinkIdRouteRouteImport } from './routes/app/tools/external-links/delete.$externalLinkId/route'
+import { Route as AppToolsExternalLinksArchiveExternalLinkIdRouteRouteImport } from './routes/app/tools/external-links/archive.$externalLinkId/route'
+import { Route as AppToolsEmailsEmailIdReplyRouteRouteImport } from './routes/app/tools/emails/$emailId/reply/route'
+import { Route as AppToolsDepartmentsUpdateDepartmentIdRouteRouteImport } from './routes/app/tools/departments/update.$departmentId/route'
+import { Route as AppToolsDepartmentsDeleteDepartmentIdRouteRouteImport } from './routes/app/tools/departments/delete.$departmentId/route'
+import { Route as AppToolsDdnsDeleteDdnsIdRouteRouteImport } from './routes/app/tools/ddns/delete.$ddnsId/route'
+import { Route as AppProductsProductIdManageCreateVersionRouteRouteImport } from './routes/app/products_.$productId/manage/create-version/route'
+import { Route as AppProductsProductIdManageCreateStockRouteRouteImport } from './routes/app/products_.$productId/manage/create-stock/route'
+import { Route as AppProductsProductIdManageAddSpecificationRouteRouteImport } from './routes/app/products_.$productId/manage/add-specification/route'
+import { Route as AppProductsProductIdManageAddNomenclatureDetailRouteRouteImport } from './routes/app/products_.$productId/manage/add-nomenclature-detail/route'
+import { Route as AppProductsProductIdManageAddAssociatedProductRouteRouteImport } from './routes/app/products_.$productId/manage/add-associated-product/route'
+import { Route as AppProductsProductIdInformationsRenameGedObjectRouteRouteImport } from './routes/app/products_.$productId/informations/rename-ged-object/route'
+import { Route as AppProductsProductIdInformationsImportGedFilesRouteRouteImport } from './routes/app/products_.$productId/informations/import-ged-files/route'
+import { Route as AppProductsProductIdInformationsDeleteGedObjectRouteRouteImport } from './routes/app/products_.$productId/informations/delete-ged-object/route'
+import { Route as AppProductsProductIdInformationsCreateLifesheetCommentRouteRouteImport } from './routes/app/products_.$productId/informations/create-lifesheet-comment/route'
+import { Route as AppProductsProductIdInformationsCreateGedDirectoryRouteRouteImport } from './routes/app/products_.$productId/informations/create-ged-directory/route'
+import { Route as AppProductsSerialNumbersUpdateSerialNumberIdRouteRouteImport } from './routes/app/products/serial-numbers/update.$serialNumberId/route'
+import { Route as AppProductsSerialNumbersRemoveFromBusinessSerialNumberIdRouteRouteImport } from './routes/app/products/serial-numbers/remove-from-business.$serialNumberId/route'
+import { Route as AppProductsSerialNumbersDeleteSerialNumberIdRouteRouteImport } from './routes/app/products/serial-numbers/delete.$serialNumberId/route'
+import { Route as AppProductsSerialNumbersCreateRmaSerialNumberIdRouteRouteImport } from './routes/app/products/serial-numbers/create-rma.$serialNumberId/route'
+import { Route as AppFaqGedFaqIdImportFilesRouteRouteImport } from './routes/app/faq/ged.$faqId/import-files/route'
+import { Route as AppFaqGedFaqIdCreateDirectoryRouteRouteImport } from './routes/app/faq/ged.$faqId/create-directory/route'
+import { Route as AppEnterprisesEnterpriseIdUpdateContactContactIdRouteRouteImport } from './routes/app/enterprises_.$enterpriseId/update-contact.$contactId/route'
+import { Route as AppEnterprisesEnterpriseIdUpdateContactPasswordContactIdRouteRouteImport } from './routes/app/enterprises_.$enterpriseId/update-contact-password.$contactId/route'
+import { Route as AppEnterprisesEnterpriseIdUnrelateBusinessRmaBusinessRmaIdRouteRouteImport } from './routes/app/enterprises_.$enterpriseId/unrelate-business-rma.$businessRmaId/route'
+import { Route as AppEnterprisesEnterpriseIdUnlinkTaskTaskIdRouteRouteImport } from './routes/app/enterprises_.$enterpriseId/unlink-task.$taskId/route'
+import { Route as AppEnterprisesEnterpriseIdTaskEmailTaskIdRouteRouteImport } from './routes/app/enterprises_.$enterpriseId/task-email.$taskId/route'
+import { Route as AppEnterprisesEnterpriseIdSendEmailToContactContactIdRouteRouteImport } from './routes/app/enterprises_.$enterpriseId/send-email-to-contact.$contactId/route'
+import { Route as AppEnterprisesEnterpriseIdRenameGedObjectObjectRelativePathRouteRouteImport } from './routes/app/enterprises_.$enterpriseId/rename-ged-object.$objectRelativePath/route'
+import { Route as AppEnterprisesEnterpriseIdLifesheetEmailLifesheetIdRouteRouteImport } from './routes/app/enterprises_.$enterpriseId/lifesheet-email.$lifesheetId/route'
+import { Route as AppEnterprisesEnterpriseIdDeleteGedObjectObjectRelativePathRouteRouteImport } from './routes/app/enterprises_.$enterpriseId/delete-ged-object.$objectRelativePath/route'
+import { Route as AppEnterprisesEnterpriseIdDeleteContactContactIdRouteRouteImport } from './routes/app/enterprises_.$enterpriseId/delete-contact.$contactId/route'
+import { Route as AppEnterprisesEnterpriseIdCreateContactBusinessContactIdRouteRouteImport } from './routes/app/enterprises_.$enterpriseId/create-contact-business.$contactId/route'
+import { Route as AppEnterprisesEnterpriseIdAddressBookImportRouteRouteImport } from './routes/app/enterprises_.$enterpriseId/address-book/import/route'
+import { Route as AppEnterprisesEnterpriseIdAddressBookCreateRouteRouteImport } from './routes/app/enterprises_.$enterpriseId/address-book/create/route'
+import { Route as AppDashboardTaskEmailTaskIdReplyRouteRouteImport } from './routes/app/dashboard/task-email.$taskId/reply/route'
+import { Route as AppBusinessesRmaRmaRmaIdSupportRouteRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/support/route'
+import { Route as AppBusinessesRmaRmaRmaIdReceptionRouteRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/reception/route'
+import { Route as AppBusinessesRmaRmaRmaIdDeliveryRouteRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/delivery/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdStudyRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId_/study/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdQuotationRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId/quotation/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdDashboardRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdBpRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId/bp/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdBlRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId/bl/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdBillRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId/bill/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdArcRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId/arc/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdStudyIndexRouteImport } from './routes/app/businesses-rma_/business.$businessId_/study/index'
+import { Route as AppToolsSchedulerDetailsRdvIdUpdateRouteRouteImport } from './routes/app/tools/scheduler/details.$rdvId/update/route'
+import { Route as AppToolsSchedulerDetailsRdvIdDeleteRouteRouteImport } from './routes/app/tools/scheduler/details.$rdvId/delete/route'
+import { Route as AppToolsFormationsUpdateFormationIdDetailsRouteRouteImport } from './routes/app/tools/formations/update.$formationId/details/route'
+import { Route as AppToolsFormationsUpdateFormationIdAddDetailRouteRouteImport } from './routes/app/tools/formations/update.$formationId/add-detail/route'
+import { Route as AppToolsFormationsSubscribersFormationDetailIdCreateRouteRouteImport } from './routes/app/tools/formations/subscribers.$formationDetailId/create/route'
+import { Route as AppProductsProductIdManageUpdateVersionVersionIdRouteRouteImport } from './routes/app/products_.$productId/manage/update-version.$versionId/route'
+import { Route as AppProductsProductIdManageUpdateStockStockIdRouteRouteImport } from './routes/app/products_.$productId/manage/update-stock.$stockId/route'
+import { Route as AppProductsProductIdManageUpdateSpecificationSpecificationIdRouteRouteImport } from './routes/app/products_.$productId/manage/update-specification.$specificationId/route'
+import { Route as AppProductsProductIdManageUpdateNomenclatureDetailNomenclatureDetailIdRouteRouteImport } from './routes/app/products_.$productId/manage/update-nomenclature-detail.$nomenclatureDetailId/route'
+import { Route as AppProductsProductIdManageStockHistoryStockIdRouteRouteImport } from './routes/app/products_.$productId/manage/stock-history.$stockId/route'
+import { Route as AppProductsProductIdManageRemoveAssociatedProductAssociatedProductIdRouteRouteImport } from './routes/app/products_.$productId/manage/remove-associated-product.$associatedProductId/route'
+import { Route as AppProductsProductIdManageDeleteVersionVersionIdRouteRouteImport } from './routes/app/products_.$productId/manage/delete-version.$versionId/route'
+import { Route as AppProductsProductIdManageDeleteStockStockIdRouteRouteImport } from './routes/app/products_.$productId/manage/delete-stock.$stockId/route'
+import { Route as AppProductsProductIdManageDeleteSpecificationSpecificationIdRouteRouteImport } from './routes/app/products_.$productId/manage/delete-specification.$specificationId/route'
+import { Route as AppProductsProductIdManageDeleteNomenclatureDetailNomenclatureDetailIdRouteRouteImport } from './routes/app/products_.$productId/manage/delete-nomenclature-detail.$nomenclatureDetailId/route'
+import { Route as AppProductsProductIdManageAddSpecificationFilterIdRouteRouteImport } from './routes/app/products_.$productId/manage/add-specification/$filterId/route'
+import { Route as AppProductsProductIdInformationsUnlinkTaskTaskIdRouteRouteImport } from './routes/app/products_.$productId/informations/unlink-task.$taskId/route'
+import { Route as AppProductsProductIdInformationsTaskEmailTaskIdRouteRouteImport } from './routes/app/products_.$productId/informations/task-email.$taskId/route'
+import { Route as AppProductsProductIdInformationsLifesheetEmailLifesheetIdRouteRouteImport } from './routes/app/products_.$productId/informations/lifesheet-email.$lifesheetId/route'
+import { Route as AppFaqGedFaqIdRenameItemRelativePathRouteRouteImport } from './routes/app/faq/ged.$faqId/rename.$itemRelativePath/route'
+import { Route as AppFaqGedFaqIdDeleteItemRelativePathRouteRouteImport } from './routes/app/faq/ged.$faqId/delete.$itemRelativePath/route'
+import { Route as AppEnterprisesEnterpriseIdTaskEmailTaskIdReplyRouteRouteImport } from './routes/app/enterprises_.$enterpriseId/task-email.$taskId/reply/route'
+import { Route as AppEnterprisesEnterpriseIdEmailHistoryEmailEmailIdRouteRouteImport } from './routes/app/enterprises_.$enterpriseId/email-history/email.$emailId/route'
+import { Route as AppEnterprisesEnterpriseIdAddressBookUpdateAddressIdRouteRouteImport } from './routes/app/enterprises_.$enterpriseId/address-book/update.$addressId/route'
+import { Route as AppEnterprisesEnterpriseIdAddressBookDeleteAddressIdRouteRouteImport } from './routes/app/enterprises_.$enterpriseId/address-book/delete.$addressId/route'
+import { Route as AppBusinessesRmaRmaRmaIdSupportPdfRouteRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/support/pdf/route'
+import { Route as AppBusinessesRmaRmaRmaIdSupportImportGedFilesRouteRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/support/import-ged-files/route'
+import { Route as AppBusinessesRmaRmaRmaIdSupportCreateLinkRouteRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/support/create-link/route'
+import { Route as AppBusinessesRmaRmaRmaIdSupportCreateLifesheetRouteRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/support/create-lifesheet/route'
+import { Route as AppBusinessesRmaRmaRmaIdSupportCreateGedDirectoryRouteRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/support/create-ged-directory/route'
+import { Route as AppBusinessesRmaRmaRmaIdSupportCreateDetailRouteRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/support/create-detail/route'
+import { Route as AppBusinessesRmaRmaRmaIdReceptionPdfRouteRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/reception/pdf/route'
+import { Route as AppBusinessesRmaRmaRmaIdReceptionCreateDetailRouteRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/reception/create-detail/route'
+import { Route as AppBusinessesRmaRmaRmaIdDeliveryTravelVoucherRouteRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/delivery/travel-voucher/route'
+import { Route as AppBusinessesRmaRmaRmaIdDeliveryPdfRouteRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/delivery/pdf/route'
+import { Route as AppBusinessesRmaRmaRmaIdDeliveryCreateDetailRouteRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/delivery/create-detail/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdStudyExpertRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId_/study/expert/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdStudyAutomaticRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId_/study/automatic/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId_/assistance.$assistanceId/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdQuotationUpdateShippingPriceRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId/quotation/update-shipping-price/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdQuotationPdfRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId/quotation/pdf/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdQuotationCommercialNoticeRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId/quotation/commercial-notice/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdDashboardUpdateResponsibleRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/update-responsible/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdDashboardUpdateRepresentativeRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/update-representative/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdDashboardUpdateBillingAddressRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/update-billing-address/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdDashboardSendEmailRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/send-email/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdDashboardImportGedFilesRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/import-ged-files/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/email-history/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdDashboardDeleteRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/delete/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdDashboardCreateLinkRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/create-link/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdDashboardCreateLifesheetRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/create-lifesheet/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdDashboardCreateGedDirectoryRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/create-ged-directory/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdDashboardAddressBookRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/address-book/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdBpTravelVoucherRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId/bp/travel-voucher/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdBlUpdateRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId/bl/update/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdBlSendByEmailRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId/bl/send-by-email/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdBillSendByEmailRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId/bill/send-by-email/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdBillCreditsRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId/bill/credits/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdArcUpdateShippingPriceRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId/arc/update-shipping-price/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdArcPdfRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId/arc/pdf/route'
+import { Route as AppToolsFormationsSubscribersFormationDetailIdSendEmailSubscriptionIdRouteRouteImport } from './routes/app/tools/formations/subscribers.$formationDetailId/send-email.$subscriptionId/route'
+import { Route as AppToolsFormationsSubscribersFormationDetailIdDeleteSubscriptionIdRouteRouteImport } from './routes/app/tools/formations/subscribers.$formationDetailId/delete.$subscriptionId/route'
+import { Route as AppProductsProductIdInformationsTaskEmailTaskIdReplyRouteRouteImport } from './routes/app/products_.$productId/informations/task-email.$taskId/reply/route'
+import { Route as AppEnterprisesEnterpriseIdEmailHistoryEmailEmailIdReplyRouteRouteImport } from './routes/app/enterprises_.$enterpriseId/email-history/email.$emailId/reply/route'
+import { Route as AppBusinessesRmaRmaRmaIdSupportUpdateDetailDetailIdRouteRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/support/update-detail.$detailId/route'
+import { Route as AppBusinessesRmaRmaRmaIdSupportUnlinkTaskTaskIdRouteRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/support/unlink-task.$taskId/route'
+import { Route as AppBusinessesRmaRmaRmaIdSupportTaskEmailTaskIdRouteRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/support/task-email.$taskId/route'
+import { Route as AppBusinessesRmaRmaRmaIdSupportRenameGedObjectObjectRelativePathRouteRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/support/rename-ged-object.$objectRelativePath/route'
+import { Route as AppBusinessesRmaRmaRmaIdSupportPdfSendByEmailRouteRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/support/pdf/send-by-email/route'
+import { Route as AppBusinessesRmaRmaRmaIdSupportLifesheetEmailLifesheetIdRouteRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/support/lifesheet-email.$lifesheetId/route'
+import { Route as AppBusinessesRmaRmaRmaIdSupportDeleteLinkAssociatedIdRouteRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/support/delete-link.$associatedId/route'
+import { Route as AppBusinessesRmaRmaRmaIdSupportDeleteGedObjectRelativePathRouteRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/support/delete-ged-object.$relativePath/route'
+import { Route as AppBusinessesRmaRmaRmaIdSupportDeleteDetailDetailIdRouteRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/support/delete-detail.$detailId/route'
+import { Route as AppBusinessesRmaRmaRmaIdReceptionUpdateDetailDetailIdRouteRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/reception/update-detail.$detailId/route'
+import { Route as AppBusinessesRmaRmaRmaIdReceptionPdfSendByEmailRouteRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/reception/pdf/send-by-email/route'
+import { Route as AppBusinessesRmaRmaRmaIdReceptionDeleteDetailDetailIdRouteRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/reception/delete-detail.$detailId/route'
+import { Route as AppBusinessesRmaRmaRmaIdDeliveryUpdateDetailDetailIdRouteRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/delivery/update-detail.$detailId/route'
+import { Route as AppBusinessesRmaRmaRmaIdDeliveryPdfSendByEmailRouteRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/delivery/pdf/send-by-email/route'
+import { Route as AppBusinessesRmaRmaRmaIdDeliveryDeleteDetailDetailIdRouteRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/delivery/delete-detail.$detailId/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdPdfRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId_/assistance.$assistanceId/pdf/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdImportGedFilesRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId_/assistance.$assistanceId/import-ged-files/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdEditSubtitleRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId_/assistance.$assistanceId/edit-subtitle/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdEditNoBilledTimeRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId_/assistance.$assistanceId/edit-no-billed-time/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdEditCumulatedTimeRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId_/assistance.$assistanceId/edit-cumulated-time/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdDeleteRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId_/assistance.$assistanceId/delete/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdCreateLinkRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId_/assistance.$assistanceId/create-link/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdCreateLifesheetRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId_/assistance.$assistanceId/create-lifesheet/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdCreateGedDirectoryRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId_/assistance.$assistanceId/create-ged-directory/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdCreateFaqRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId_/assistance.$assistanceId/create-faq/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdQuotationUpdateSubquotationSubquotationIdRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId/quotation/update-subquotation.$subquotationId/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdQuotationUpdateDetailDetailIdRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId/quotation/update-detail.$detailId/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdQuotationPdfSendByEmailRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId/quotation/pdf/send-by-email/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdQuotationDeleteSubquotationSubquotationIdRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId/quotation/delete-subquotation.$subquotationId/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdQuotationDeleteDetailDetailIdRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId/quotation/delete-detail.$detailId/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdQuotationCreateDetailSubquotationIdRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId/quotation/create-detail.$subquotationId/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdQuotationCreateAssociatedDetailDetailIdRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId/quotation/create-associated-detail.$detailId/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdQuotationCommercialNoticeSendByEmailRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId/quotation/commercial-notice/send-by-email/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdDashboardUnlinkTaskTaskIdRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/unlink-task.$taskId/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdDashboardTaskEmailTaskIdRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/task-email.$taskId/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdDashboardRenameGedObjectObjectRelativePathRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/rename-ged-object.$objectRelativePath/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdDashboardLifesheetEmailLifesheetIdRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/lifesheet-email.$lifesheetId/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/email-history/$emailId/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdDashboardDeleteLinkAssociatedIdRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/delete-link.$associatedId/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdDashboardDeleteGedObjectObjectRelativePathRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/delete-ged-object.$objectRelativePath/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdDashboardConfirmQuotationImportOtherBusinessIdRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/confirm-quotation-import.$otherBusinessId/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdDashboardAddressBookCreateRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/address-book/create/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdBpUpdateDetailDetailIdRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId/bp/update-detail.$detailId/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdBpDeleteSerialSerialIdRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId/bp/delete-serial.$serialId/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdBpDeleteDetailDetailIdRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId/bp/delete-detail.$detailId/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdBpCreateSerialRmaSerialIdRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId/bp/create-serial-rma.$serialId/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdBpCreateDetailRmaDetailIdRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId/bp/create-detail-rma.$detailId/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdBpAddSerialDetailIdRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId/bp/add-serial.$detailId/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdBlUpdateNewRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId/bl/update/new/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdBillCreditsSendByEmailRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId/bill/credits/send-by-email/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdArcUpdateDetailDetailIdRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId/arc/update-detail.$detailId/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdArcPdfSendByEmailRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId/arc/pdf/send-by-email/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdArcDeleteDetailDetailIdRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId/arc/delete-detail.$detailId/route'
+import { Route as AppBusinessesRmaRmaRmaIdSupportTaskEmailTaskIdReplyRouteRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/support/task-email.$taskId/reply/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdRenameGedObjectObjectRelativePathRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId_/assistance.$assistanceId/rename-ged-object.$objectRelativePath/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdPdfSendByEmailRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId_/assistance.$assistanceId/pdf/send-by-email/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdLifesheetEmailLifesheetIdRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId_/assistance.$assistanceId/lifesheet-email.$lifesheetId/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdDeleteLinkAssociatedIdRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId_/assistance.$assistanceId/delete-link.$associatedId/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdDeleteGedObjectObjectRelativePathRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId_/assistance.$assistanceId/delete-ged-object.$objectRelativePath/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdQuotationCommercialNoticeSendByEmailPredefinedMessagesRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId/quotation/commercial-notice/send-by-email/predefined-messages/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdReplyRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/email-history/$emailId/reply/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdDashboardAddressBookUpdateAddressIdRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/address-book/update.$addressId/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdDashboardAddressBookDeleteAddressIdRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/address-book/delete.$addressId/route'
 
-import { Route as rootRoute } from './routes/__root'
-import { Route as AuthRouteImport } from './routes/auth/route'
-import { Route as AppRouteImport } from './routes/app/route'
-import { Route as IndexImport } from './routes/index'
-import { Route as AuthIndexImport } from './routes/auth/index'
-import { Route as AppIndexImport } from './routes/app/index'
-import { Route as AuthLoginRouteImport } from './routes/auth/login/route'
-import { Route as AppToolsRouteImport } from './routes/app/tools/route'
-import { Route as AppProductsRouteImport } from './routes/app/products/route'
-import { Route as AppFaqRouteImport } from './routes/app/faq/route'
-import { Route as AppExternalLinksRouteImport } from './routes/app/external-links/route'
-import { Route as AppEnterprisesRouteImport } from './routes/app/enterprises/route'
-import { Route as AppDashboardRouteImport } from './routes/app/dashboard/route'
-import { Route as AppBusinessesRmaRouteImport } from './routes/app/businesses-rma/route'
-import { Route as AppToolsIndexImport } from './routes/app/tools/index'
-import { Route as AppToolsVvaRouteImport } from './routes/app/tools/vva/route'
-import { Route as AppToolsSchedulerRouteImport } from './routes/app/tools/scheduler/route'
-import { Route as AppToolsRepresentativesTurnoverRouteImport } from './routes/app/tools/representatives-turnover/route'
-import { Route as AppToolsRepresentativesMapRouteImport } from './routes/app/tools/representatives-map/route'
-import { Route as AppToolsProductShelvesRouteImport } from './routes/app/tools/product-shelves/route'
-import { Route as AppToolsProductInventoryRouteImport } from './routes/app/tools/product-inventory/route'
-import { Route as AppToolsProductFiltersRouteImport } from './routes/app/tools/product-filters/route'
-import { Route as AppToolsPredefinedTextsRouteImport } from './routes/app/tools/predefined-texts/route'
-import { Route as AppToolsPredefinedMessagesRouteImport } from './routes/app/tools/predefined-messages/route'
-import { Route as AppToolsNewsRouteImport } from './routes/app/tools/news/route'
-import { Route as AppToolsMenuRouteImport } from './routes/app/tools/menu/route'
-import { Route as AppToolsMailsRouteImport } from './routes/app/tools/mails/route'
-import { Route as AppToolsGlobalTurnoverRouteImport } from './routes/app/tools/global-turnover/route'
-import { Route as AppToolsFormationsRouteImport } from './routes/app/tools/formations/route'
-import { Route as AppToolsExternalLinksRouteImport } from './routes/app/tools/external-links/route'
-import { Route as AppToolsEmailsRouteImport } from './routes/app/tools/emails/route'
-import { Route as AppToolsDepartmentsRouteImport } from './routes/app/tools/departments/route'
-import { Route as AppToolsDdnsRouteImport } from './routes/app/tools/ddns/route'
-import { Route as AppToolsCreditRouteImport } from './routes/app/tools/credit/route'
-import { Route as AppProductsProductIdRouteImport } from './routes/app/products_.$productId/route'
-import { Route as AppProductsSerialNumbersRouteImport } from './routes/app/products/serial-numbers/route'
-import { Route as AppProductsCreateRouteImport } from './routes/app/products/create/route'
-import { Route as AppFaqCreateRouteImport } from './routes/app/faq/create/route'
-import { Route as AppExternalLinksExternalLinkIdRouteImport } from './routes/app/external-links_.$externalLinkId/route'
-import { Route as AppEnterprisesEnterpriseIdRouteImport } from './routes/app/enterprises_.$enterpriseId/route'
-import { Route as AppEnterprisesCreateRouteImport } from './routes/app/enterprises/create/route'
-import { Route as AppDashboardDeleteCollectiveTasksRouteImport } from './routes/app/dashboard/delete-collective-tasks/route'
-import { Route as AppDashboardCreateProgressiveInfoRouteImport } from './routes/app/dashboard/create-progressive-info/route'
-import { Route as AppDashboardCreatePersonalTaskRouteImport } from './routes/app/dashboard/create-personal-task/route'
-import { Route as AppDashboardCreateCollectiveTaskRouteImport } from './routes/app/dashboard/create-collective-task/route'
-import { Route as AppBusinessesRmaSearchByProductsRouteImport } from './routes/app/businesses-rma/search-by-products/route'
-import { Route as AppBusinessesRmaRepresentativeTurnoverRouteImport } from './routes/app/businesses-rma/representative-turnover/route'
-import { Route as AppProductsProductIdIndexImport } from './routes/app/products_.$productId/index'
-import { Route as AppToolsVvaCreateRouteImport } from './routes/app/tools/vva/create/route'
-import { Route as AppToolsSchedulerCreateRouteImport } from './routes/app/tools/scheduler/create/route'
-import { Route as AppToolsProductShelvesCreateRouteImport } from './routes/app/tools/product-shelves/create/route'
-import { Route as AppToolsProductInventoryValidateQuantitiesRouteImport } from './routes/app/tools/product-inventory/validate-quantities/route'
-import { Route as AppToolsProductFiltersCreateRouteImport } from './routes/app/tools/product-filters/create/route'
-import { Route as AppToolsPredefinedTextsCreateRouteImport } from './routes/app/tools/predefined-texts/create/route'
-import { Route as AppToolsPredefinedMessagesCreateRouteImport } from './routes/app/tools/predefined-messages/create/route'
-import { Route as AppToolsNewsCreateRouteImport } from './routes/app/tools/news/create/route'
-import { Route as AppToolsMenuCreateProductRouteImport } from './routes/app/tools/menu/create-product/route'
-import { Route as AppToolsMenuCreateEnterpriseRouteImport } from './routes/app/tools/menu/create-enterprise/route'
-import { Route as AppToolsMailsCreateRouteImport } from './routes/app/tools/mails/create/route'
-import { Route as AppToolsFormationsCreateRouteImport } from './routes/app/tools/formations/create/route'
-import { Route as AppToolsExternalLinksCreateRouteImport } from './routes/app/tools/external-links/create/route'
-import { Route as AppToolsEmailsEmailIdRouteImport } from './routes/app/tools/emails/$emailId/route'
-import { Route as AppToolsDepartmentsCreateRouteImport } from './routes/app/tools/departments/create/route'
-import { Route as AppToolsDdnsCreateRouteImport } from './routes/app/tools/ddns/create/route'
-import { Route as AppToolsCreditShowRouteImport } from './routes/app/tools/credit/show/route'
-import { Route as AppToolsCreditDetailsRouteImport } from './routes/app/tools/credit/details/route'
-import { Route as AppProductsProductIdManageRouteImport } from './routes/app/products_.$productId/manage/route'
-import { Route as AppProductsProductIdInformationsRouteImport } from './routes/app/products_.$productId/informations/route'
-import { Route as AppProductsSerialNumbersCreateRouteImport } from './routes/app/products/serial-numbers/create/route'
-import { Route as AppFaqUpdateFaqIdRouteImport } from './routes/app/faq/update.$faqId/route'
-import { Route as AppFaqSendByEmailFaqIdRouteImport } from './routes/app/faq/send-by-email.$faqId/route'
-import { Route as AppFaqGedFaqIdRouteImport } from './routes/app/faq/ged.$faqId/route'
-import { Route as AppFaqDeleteFaqIdRouteImport } from './routes/app/faq/delete.$faqId/route'
-import { Route as AppFaqArchiveFaqIdRouteImport } from './routes/app/faq/archive.$faqId/route'
-import { Route as AppEnterprisesEnterpriseIdUpdateRepresentativeRouteImport } from './routes/app/enterprises_.$enterpriseId/update-representative/route'
-import { Route as AppEnterprisesEnterpriseIdUpdateCategoryRouteImport } from './routes/app/enterprises_.$enterpriseId/update-category/route'
-import { Route as AppEnterprisesEnterpriseIdUpdateAccountabilityRouteImport } from './routes/app/enterprises_.$enterpriseId/update-accountability/route'
-import { Route as AppEnterprisesEnterpriseIdUpdateRouteImport } from './routes/app/enterprises_.$enterpriseId/update/route'
-import { Route as AppEnterprisesEnterpriseIdRelateBusinessRmaRouteImport } from './routes/app/enterprises_.$enterpriseId/relate-business-rma/route'
-import { Route as AppEnterprisesEnterpriseIdImportGedFilesRouteImport } from './routes/app/enterprises_.$enterpriseId/import-ged-files/route'
-import { Route as AppEnterprisesEnterpriseIdImportContactsRouteImport } from './routes/app/enterprises_.$enterpriseId/import-contacts/route'
-import { Route as AppEnterprisesEnterpriseIdEmailHistoryRouteImport } from './routes/app/enterprises_.$enterpriseId/email-history/route'
-import { Route as AppEnterprisesEnterpriseIdDeleteRouteImport } from './routes/app/enterprises_.$enterpriseId/delete/route'
-import { Route as AppEnterprisesEnterpriseIdCreateLifesheetCommentRouteImport } from './routes/app/enterprises_.$enterpriseId/create-lifesheet-comment/route'
-import { Route as AppEnterprisesEnterpriseIdCreateGedDirectoryRouteImport } from './routes/app/enterprises_.$enterpriseId/create-ged-directory/route'
-import { Route as AppEnterprisesEnterpriseIdCreateContactRouteImport } from './routes/app/enterprises_.$enterpriseId/create-contact/route'
-import { Route as AppEnterprisesEnterpriseIdAddressBookRouteImport } from './routes/app/enterprises_.$enterpriseId/address-book/route'
-import { Route as AppEnterprisesUpdateContactContactIdRouteImport } from './routes/app/enterprises/update-contact.$contactId/route'
-import { Route as AppEnterprisesUpdateContactPasswordContactIdRouteImport } from './routes/app/enterprises/update-contact-password.$contactId/route'
-import { Route as AppEnterprisesSendEmailToContactContactIdRouteImport } from './routes/app/enterprises/send-email-to-contact.$contactId/route'
-import { Route as AppEnterprisesDeleteContactContactIdRouteImport } from './routes/app/enterprises/delete-contact.$contactId/route'
-import { Route as AppEnterprisesCreateEnterpriseRmaEnterpriseIdRouteImport } from './routes/app/enterprises/create-enterprise-rma.$enterpriseId/route'
-import { Route as AppEnterprisesCreateContactEnterpriseIdRouteImport } from './routes/app/enterprises/create-contact.$enterpriseId/route'
-import { Route as AppEnterprisesCreateContactTravelVoucherContactIdRouteImport } from './routes/app/enterprises/create-contact-travel-voucher.$contactId/route'
-import { Route as AppEnterprisesCreateContactBusinessContactIdRouteImport } from './routes/app/enterprises/create-contact-business.$contactId/route'
-import { Route as AppDashboardValidatePersonalTaskTaskIdRouteImport } from './routes/app/dashboard/validate-personal-task.$taskId/route'
-import { Route as AppDashboardUpdateProgressiveInfoProgressiveInfoIdRouteImport } from './routes/app/dashboard/update-progressive-info.$progressiveInfoId/route'
-import { Route as AppDashboardUpdatePersonalTaskDeadlineTaskIdRouteImport } from './routes/app/dashboard/update-personal-task-deadline.$taskId/route'
-import { Route as AppDashboardUnlinkPersonalTaskTaskIdRouteImport } from './routes/app/dashboard/unlink-personal-task.$taskId/route'
-import { Route as AppDashboardTransferTaskTaskIdRouteImport } from './routes/app/dashboard/transfer-task.$taskId/route'
-import { Route as AppDashboardTaskEmailTaskIdRouteImport } from './routes/app/dashboard/task-email.$taskId/route'
-import { Route as AppDashboardTaskCommentsTaskIdRouteImport } from './routes/app/dashboard/task-comments.$taskId/route'
-import { Route as AppDashboardTakeCollectiveTaskTaskIdRouteImport } from './routes/app/dashboard/take-collective-task.$taskId/route'
-import { Route as AppDashboardSchedulerEventDetailsEventIdRouteImport } from './routes/app/dashboard/scheduler-event-details.$eventId/route'
-import { Route as AppDashboardPersonalTaskDetailsTaskIdRouteImport } from './routes/app/dashboard/personal-task-details.$taskId/route'
-import { Route as AppDashboardOtherPersonalTasksProfileIdRouteImport } from './routes/app/dashboard/other-personal-tasks.$profileId/route'
-import { Route as AppDashboardLinkPersonalTaskTaskIdRouteImport } from './routes/app/dashboard/link-personal-task.$taskId/route'
-import { Route as AppDashboardDeleteProgressiveInfoProgressiveInfoIdRouteImport } from './routes/app/dashboard/delete-progressive-info.$progressiveInfoId/route'
-import { Route as AppDashboardDeleteCollectiveTaskTaskIdRouteImport } from './routes/app/dashboard/delete-collective-task.$taskId/route'
-import { Route as AppDashboardArchivePersonalTaskTaskIdRouteImport } from './routes/app/dashboard/archive-personal-task.$taskId/route'
-import { Route as AppBusinessesRmaRmaRmaIdRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/route'
-import { Route as AppBusinessesRmaBusinessBusinessIdRouteImport } from './routes/app/businesses-rma_/business.$businessId/route'
-import { Route as AppBusinessesRmaRmaRmaIdIndexImport } from './routes/app/businesses-rma_/rma.$rmaId/index'
-import { Route as AppBusinessesRmaBusinessBusinessIdIndexImport } from './routes/app/businesses-rma_/business.$businessId/index'
-import { Route as AppToolsVvaDeleteVvaIdRouteImport } from './routes/app/tools/vva/delete.$vvaId/route'
-import { Route as AppToolsSchedulerDetailsRdvIdRouteImport } from './routes/app/tools/scheduler/details.$rdvId/route'
-import { Route as AppToolsProductShelvesDeleteProductShelfIdRouteImport } from './routes/app/tools/product-shelves/delete.$productShelfId/route'
-import { Route as AppToolsProductInventoryUpdateStockIdRouteImport } from './routes/app/tools/product-inventory/update.$stockId/route'
-import { Route as AppToolsProductFiltersUpdateProductFilterIdRouteImport } from './routes/app/tools/product-filters/update.$productFilterId/route'
-import { Route as AppToolsProductFiltersDeleteProductFilterIdRouteImport } from './routes/app/tools/product-filters/delete.$productFilterId/route'
-import { Route as AppToolsPredefinedTextsUpdatePredefinedTextIdRouteImport } from './routes/app/tools/predefined-texts/update.$predefinedTextId/route'
-import { Route as AppToolsPredefinedTextsDeletePredefinedTextIdRouteImport } from './routes/app/tools/predefined-texts/delete.$predefinedTextId/route'
-import { Route as AppToolsPredefinedMessagesUpdatePredefinedMessageIdRouteImport } from './routes/app/tools/predefined-messages/update.$predefinedMessageId/route'
-import { Route as AppToolsPredefinedMessagesDeletePredefinedMessageIdRouteImport } from './routes/app/tools/predefined-messages/delete.$predefinedMessageId/route'
-import { Route as AppToolsNewsUpdateNewsIdRouteImport } from './routes/app/tools/news/update.$newsId/route'
-import { Route as AppToolsNewsDeleteNewsIdRouteImport } from './routes/app/tools/news/delete.$newsId/route'
-import { Route as AppToolsMailsUpdateMailIdRouteImport } from './routes/app/tools/mails/update.$mailId/route'
-import { Route as AppToolsMailsShowMailIdRouteImport } from './routes/app/tools/mails/show.$mailId/route'
-import { Route as AppToolsMailsDeleteMailIdRouteImport } from './routes/app/tools/mails/delete.$mailId/route'
-import { Route as AppToolsFormationsUpdateFormationIdRouteImport } from './routes/app/tools/formations/update.$formationId/route'
-import { Route as AppToolsFormationsSubscribersFormationDetailIdRouteImport } from './routes/app/tools/formations/subscribers.$formationDetailId/route'
-import { Route as AppToolsFormationsDeleteFormationIdRouteImport } from './routes/app/tools/formations/delete.$formationId/route'
-import { Route as AppToolsFormationsCreateDetailsRouteImport } from './routes/app/tools/formations/create/details/route'
-import { Route as AppToolsFormationsCreateAddDetailRouteImport } from './routes/app/tools/formations/create/add-detail/route'
-import { Route as AppToolsExternalLinksUpdateExternalLinkIdRouteImport } from './routes/app/tools/external-links/update.$externalLinkId/route'
-import { Route as AppToolsExternalLinksDeleteExternalLinkIdRouteImport } from './routes/app/tools/external-links/delete.$externalLinkId/route'
-import { Route as AppToolsExternalLinksArchiveExternalLinkIdRouteImport } from './routes/app/tools/external-links/archive.$externalLinkId/route'
-import { Route as AppToolsEmailsEmailIdReplyRouteImport } from './routes/app/tools/emails/$emailId/reply/route'
-import { Route as AppToolsDepartmentsUpdateDepartmentIdRouteImport } from './routes/app/tools/departments/update.$departmentId/route'
-import { Route as AppToolsDepartmentsDeleteDepartmentIdRouteImport } from './routes/app/tools/departments/delete.$departmentId/route'
-import { Route as AppToolsDdnsDeleteDdnsIdRouteImport } from './routes/app/tools/ddns/delete.$ddnsId/route'
-import { Route as AppProductsProductIdManageCreateVersionRouteImport } from './routes/app/products_.$productId/manage/create-version/route'
-import { Route as AppProductsProductIdManageCreateStockRouteImport } from './routes/app/products_.$productId/manage/create-stock/route'
-import { Route as AppProductsProductIdManageAddSpecificationRouteImport } from './routes/app/products_.$productId/manage/add-specification/route'
-import { Route as AppProductsProductIdManageAddNomenclatureDetailRouteImport } from './routes/app/products_.$productId/manage/add-nomenclature-detail/route'
-import { Route as AppProductsProductIdManageAddAssociatedProductRouteImport } from './routes/app/products_.$productId/manage/add-associated-product/route'
-import { Route as AppProductsProductIdInformationsRenameGedObjectRouteImport } from './routes/app/products_.$productId/informations/rename-ged-object/route'
-import { Route as AppProductsProductIdInformationsImportGedFilesRouteImport } from './routes/app/products_.$productId/informations/import-ged-files/route'
-import { Route as AppProductsProductIdInformationsDeleteGedObjectRouteImport } from './routes/app/products_.$productId/informations/delete-ged-object/route'
-import { Route as AppProductsProductIdInformationsCreateLifesheetCommentRouteImport } from './routes/app/products_.$productId/informations/create-lifesheet-comment/route'
-import { Route as AppProductsProductIdInformationsCreateGedDirectoryRouteImport } from './routes/app/products_.$productId/informations/create-ged-directory/route'
-import { Route as AppProductsSerialNumbersUpdateSerialNumberIdRouteImport } from './routes/app/products/serial-numbers/update.$serialNumberId/route'
-import { Route as AppProductsSerialNumbersRemoveFromBusinessSerialNumberIdRouteImport } from './routes/app/products/serial-numbers/remove-from-business.$serialNumberId/route'
-import { Route as AppProductsSerialNumbersDeleteSerialNumberIdRouteImport } from './routes/app/products/serial-numbers/delete.$serialNumberId/route'
-import { Route as AppProductsSerialNumbersCreateRmaSerialNumberIdRouteImport } from './routes/app/products/serial-numbers/create-rma.$serialNumberId/route'
-import { Route as AppFaqGedFaqIdImportFilesRouteImport } from './routes/app/faq/ged.$faqId/import-files/route'
-import { Route as AppFaqGedFaqIdCreateDirectoryRouteImport } from './routes/app/faq/ged.$faqId/create-directory/route'
-import { Route as AppEnterprisesEnterpriseIdUpdateContactContactIdRouteImport } from './routes/app/enterprises_.$enterpriseId/update-contact.$contactId/route'
-import { Route as AppEnterprisesEnterpriseIdUpdateContactPasswordContactIdRouteImport } from './routes/app/enterprises_.$enterpriseId/update-contact-password.$contactId/route'
-import { Route as AppEnterprisesEnterpriseIdUnrelateBusinessRmaBusinessRmaIdRouteImport } from './routes/app/enterprises_.$enterpriseId/unrelate-business-rma.$businessRmaId/route'
-import { Route as AppEnterprisesEnterpriseIdUnlinkTaskTaskIdRouteImport } from './routes/app/enterprises_.$enterpriseId/unlink-task.$taskId/route'
-import { Route as AppEnterprisesEnterpriseIdTaskEmailTaskIdRouteImport } from './routes/app/enterprises_.$enterpriseId/task-email.$taskId/route'
-import { Route as AppEnterprisesEnterpriseIdSendEmailToContactContactIdRouteImport } from './routes/app/enterprises_.$enterpriseId/send-email-to-contact.$contactId/route'
-import { Route as AppEnterprisesEnterpriseIdRenameGedObjectObjectRelativePathRouteImport } from './routes/app/enterprises_.$enterpriseId/rename-ged-object.$objectRelativePath/route'
-import { Route as AppEnterprisesEnterpriseIdLifesheetEmailLifesheetIdRouteImport } from './routes/app/enterprises_.$enterpriseId/lifesheet-email.$lifesheetId/route'
-import { Route as AppEnterprisesEnterpriseIdDeleteGedObjectObjectRelativePathRouteImport } from './routes/app/enterprises_.$enterpriseId/delete-ged-object.$objectRelativePath/route'
-import { Route as AppEnterprisesEnterpriseIdDeleteContactContactIdRouteImport } from './routes/app/enterprises_.$enterpriseId/delete-contact.$contactId/route'
-import { Route as AppEnterprisesEnterpriseIdCreateContactBusinessContactIdRouteImport } from './routes/app/enterprises_.$enterpriseId/create-contact-business.$contactId/route'
-import { Route as AppEnterprisesEnterpriseIdAddressBookImportRouteImport } from './routes/app/enterprises_.$enterpriseId/address-book/import/route'
-import { Route as AppEnterprisesEnterpriseIdAddressBookCreateRouteImport } from './routes/app/enterprises_.$enterpriseId/address-book/create/route'
-import { Route as AppDashboardTaskEmailTaskIdReplyRouteImport } from './routes/app/dashboard/task-email.$taskId/reply/route'
-import { Route as AppBusinessesRmaRmaRmaIdSupportRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/support/route'
-import { Route as AppBusinessesRmaRmaRmaIdReceptionRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/reception/route'
-import { Route as AppBusinessesRmaRmaRmaIdDeliveryRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/delivery/route'
-import { Route as AppBusinessesRmaBusinessBusinessIdStudyRouteImport } from './routes/app/businesses-rma_/business.$businessId_/study/route'
-import { Route as AppBusinessesRmaBusinessBusinessIdQuotationRouteImport } from './routes/app/businesses-rma_/business.$businessId/quotation/route'
-import { Route as AppBusinessesRmaBusinessBusinessIdDashboardRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/route'
-import { Route as AppBusinessesRmaBusinessBusinessIdBpRouteImport } from './routes/app/businesses-rma_/business.$businessId/bp/route'
-import { Route as AppBusinessesRmaBusinessBusinessIdBlRouteImport } from './routes/app/businesses-rma_/business.$businessId/bl/route'
-import { Route as AppBusinessesRmaBusinessBusinessIdBillRouteImport } from './routes/app/businesses-rma_/business.$businessId/bill/route'
-import { Route as AppBusinessesRmaBusinessBusinessIdArcRouteImport } from './routes/app/businesses-rma_/business.$businessId/arc/route'
-import { Route as AppBusinessesRmaBusinessBusinessIdStudyIndexImport } from './routes/app/businesses-rma_/business.$businessId_/study/index'
-import { Route as AppToolsSchedulerDetailsRdvIdUpdateRouteImport } from './routes/app/tools/scheduler/details.$rdvId/update/route'
-import { Route as AppToolsSchedulerDetailsRdvIdDeleteRouteImport } from './routes/app/tools/scheduler/details.$rdvId/delete/route'
-import { Route as AppToolsFormationsUpdateFormationIdDetailsRouteImport } from './routes/app/tools/formations/update.$formationId/details/route'
-import { Route as AppToolsFormationsUpdateFormationIdAddDetailRouteImport } from './routes/app/tools/formations/update.$formationId/add-detail/route'
-import { Route as AppToolsFormationsSubscribersFormationDetailIdCreateRouteImport } from './routes/app/tools/formations/subscribers.$formationDetailId/create/route'
-import { Route as AppProductsProductIdManageUpdateVersionVersionIdRouteImport } from './routes/app/products_.$productId/manage/update-version.$versionId/route'
-import { Route as AppProductsProductIdManageUpdateStockStockIdRouteImport } from './routes/app/products_.$productId/manage/update-stock.$stockId/route'
-import { Route as AppProductsProductIdManageUpdateSpecificationSpecificationIdRouteImport } from './routes/app/products_.$productId/manage/update-specification.$specificationId/route'
-import { Route as AppProductsProductIdManageUpdateNomenclatureDetailNomenclatureDetailIdRouteImport } from './routes/app/products_.$productId/manage/update-nomenclature-detail.$nomenclatureDetailId/route'
-import { Route as AppProductsProductIdManageStockHistoryStockIdRouteImport } from './routes/app/products_.$productId/manage/stock-history.$stockId/route'
-import { Route as AppProductsProductIdManageRemoveAssociatedProductAssociatedProductIdRouteImport } from './routes/app/products_.$productId/manage/remove-associated-product.$associatedProductId/route'
-import { Route as AppProductsProductIdManageDeleteVersionVersionIdRouteImport } from './routes/app/products_.$productId/manage/delete-version.$versionId/route'
-import { Route as AppProductsProductIdManageDeleteStockStockIdRouteImport } from './routes/app/products_.$productId/manage/delete-stock.$stockId/route'
-import { Route as AppProductsProductIdManageDeleteSpecificationSpecificationIdRouteImport } from './routes/app/products_.$productId/manage/delete-specification.$specificationId/route'
-import { Route as AppProductsProductIdManageDeleteNomenclatureDetailNomenclatureDetailIdRouteImport } from './routes/app/products_.$productId/manage/delete-nomenclature-detail.$nomenclatureDetailId/route'
-import { Route as AppProductsProductIdManageAddSpecificationFilterIdRouteImport } from './routes/app/products_.$productId/manage/add-specification/$filterId/route'
-import { Route as AppProductsProductIdInformationsUnlinkTaskTaskIdRouteImport } from './routes/app/products_.$productId/informations/unlink-task.$taskId/route'
-import { Route as AppProductsProductIdInformationsTaskEmailTaskIdRouteImport } from './routes/app/products_.$productId/informations/task-email.$taskId/route'
-import { Route as AppProductsProductIdInformationsLifesheetEmailLifesheetIdRouteImport } from './routes/app/products_.$productId/informations/lifesheet-email.$lifesheetId/route'
-import { Route as AppFaqGedFaqIdRenameItemRelativePathRouteImport } from './routes/app/faq/ged.$faqId/rename.$itemRelativePath/route'
-import { Route as AppFaqGedFaqIdDeleteItemRelativePathRouteImport } from './routes/app/faq/ged.$faqId/delete.$itemRelativePath/route'
-import { Route as AppEnterprisesEnterpriseIdTaskEmailTaskIdReplyRouteImport } from './routes/app/enterprises_.$enterpriseId/task-email.$taskId/reply/route'
-import { Route as AppEnterprisesEnterpriseIdEmailHistoryEmailEmailIdRouteImport } from './routes/app/enterprises_.$enterpriseId/email-history/email.$emailId/route'
-import { Route as AppEnterprisesEnterpriseIdAddressBookUpdateAddressIdRouteImport } from './routes/app/enterprises_.$enterpriseId/address-book/update.$addressId/route'
-import { Route as AppEnterprisesEnterpriseIdAddressBookDeleteAddressIdRouteImport } from './routes/app/enterprises_.$enterpriseId/address-book/delete.$addressId/route'
-import { Route as AppBusinessesRmaRmaRmaIdSupportPdfRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/support/pdf/route'
-import { Route as AppBusinessesRmaRmaRmaIdSupportImportGedFilesRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/support/import-ged-files/route'
-import { Route as AppBusinessesRmaRmaRmaIdSupportCreateLinkRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/support/create-link/route'
-import { Route as AppBusinessesRmaRmaRmaIdSupportCreateLifesheetRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/support/create-lifesheet/route'
-import { Route as AppBusinessesRmaRmaRmaIdSupportCreateGedDirectoryRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/support/create-ged-directory/route'
-import { Route as AppBusinessesRmaRmaRmaIdSupportCreateDetailRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/support/create-detail/route'
-import { Route as AppBusinessesRmaRmaRmaIdReceptionPdfRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/reception/pdf/route'
-import { Route as AppBusinessesRmaRmaRmaIdReceptionCreateDetailRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/reception/create-detail/route'
-import { Route as AppBusinessesRmaRmaRmaIdDeliveryTravelVoucherRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/delivery/travel-voucher/route'
-import { Route as AppBusinessesRmaRmaRmaIdDeliveryPdfRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/delivery/pdf/route'
-import { Route as AppBusinessesRmaRmaRmaIdDeliveryCreateDetailRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/delivery/create-detail/route'
-import { Route as AppBusinessesRmaBusinessBusinessIdStudyExpertRouteImport } from './routes/app/businesses-rma_/business.$businessId_/study/expert/route'
-import { Route as AppBusinessesRmaBusinessBusinessIdStudyAutomaticRouteImport } from './routes/app/businesses-rma_/business.$businessId_/study/automatic/route'
-import { Route as AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdRouteImport } from './routes/app/businesses-rma_/business.$businessId_/assistance.$assistanceId/route'
-import { Route as AppBusinessesRmaBusinessBusinessIdQuotationUpdateShippingPriceRouteImport } from './routes/app/businesses-rma_/business.$businessId/quotation/update-shipping-price/route'
-import { Route as AppBusinessesRmaBusinessBusinessIdQuotationPdfRouteImport } from './routes/app/businesses-rma_/business.$businessId/quotation/pdf/route'
-import { Route as AppBusinessesRmaBusinessBusinessIdQuotationCommercialNoticeRouteImport } from './routes/app/businesses-rma_/business.$businessId/quotation/commercial-notice/route'
-import { Route as AppBusinessesRmaBusinessBusinessIdDashboardUpdateResponsibleRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/update-responsible/route'
-import { Route as AppBusinessesRmaBusinessBusinessIdDashboardUpdateRepresentativeRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/update-representative/route'
-import { Route as AppBusinessesRmaBusinessBusinessIdDashboardUpdateBillingAddressRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/update-billing-address/route'
-import { Route as AppBusinessesRmaBusinessBusinessIdDashboardSendEmailRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/send-email/route'
-import { Route as AppBusinessesRmaBusinessBusinessIdDashboardImportGedFilesRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/import-ged-files/route'
-import { Route as AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/email-history/route'
-import { Route as AppBusinessesRmaBusinessBusinessIdDashboardDeleteRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/delete/route'
-import { Route as AppBusinessesRmaBusinessBusinessIdDashboardCreateLinkRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/create-link/route'
-import { Route as AppBusinessesRmaBusinessBusinessIdDashboardCreateLifesheetRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/create-lifesheet/route'
-import { Route as AppBusinessesRmaBusinessBusinessIdDashboardCreateGedDirectoryRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/create-ged-directory/route'
-import { Route as AppBusinessesRmaBusinessBusinessIdDashboardAddressBookRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/address-book/route'
-import { Route as AppBusinessesRmaBusinessBusinessIdBpTravelVoucherRouteImport } from './routes/app/businesses-rma_/business.$businessId/bp/travel-voucher/route'
-import { Route as AppBusinessesRmaBusinessBusinessIdBlUpdateRouteImport } from './routes/app/businesses-rma_/business.$businessId/bl/update/route'
-import { Route as AppBusinessesRmaBusinessBusinessIdBlSendByEmailRouteImport } from './routes/app/businesses-rma_/business.$businessId/bl/send-by-email/route'
-import { Route as AppBusinessesRmaBusinessBusinessIdBillSendByEmailRouteImport } from './routes/app/businesses-rma_/business.$businessId/bill/send-by-email/route'
-import { Route as AppBusinessesRmaBusinessBusinessIdBillCreditsRouteImport } from './routes/app/businesses-rma_/business.$businessId/bill/credits/route'
-import { Route as AppBusinessesRmaBusinessBusinessIdArcUpdateShippingPriceRouteImport } from './routes/app/businesses-rma_/business.$businessId/arc/update-shipping-price/route'
-import { Route as AppBusinessesRmaBusinessBusinessIdArcPdfRouteImport } from './routes/app/businesses-rma_/business.$businessId/arc/pdf/route'
-import { Route as AppToolsFormationsSubscribersFormationDetailIdSendEmailSubscriptionIdRouteImport } from './routes/app/tools/formations/subscribers.$formationDetailId/send-email.$subscriptionId/route'
-import { Route as AppToolsFormationsSubscribersFormationDetailIdDeleteSubscriptionIdRouteImport } from './routes/app/tools/formations/subscribers.$formationDetailId/delete.$subscriptionId/route'
-import { Route as AppProductsProductIdInformationsTaskEmailTaskIdReplyRouteImport } from './routes/app/products_.$productId/informations/task-email.$taskId/reply/route'
-import { Route as AppEnterprisesEnterpriseIdEmailHistoryEmailEmailIdReplyRouteImport } from './routes/app/enterprises_.$enterpriseId/email-history/email.$emailId/reply/route'
-import { Route as AppBusinessesRmaRmaRmaIdSupportUpdateDetailDetailIdRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/support/update-detail.$detailId/route'
-import { Route as AppBusinessesRmaRmaRmaIdSupportUnlinkTaskTaskIdRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/support/unlink-task.$taskId/route'
-import { Route as AppBusinessesRmaRmaRmaIdSupportTaskEmailTaskIdRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/support/task-email.$taskId/route'
-import { Route as AppBusinessesRmaRmaRmaIdSupportRenameGedObjectObjectRelativePathRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/support/rename-ged-object.$objectRelativePath/route'
-import { Route as AppBusinessesRmaRmaRmaIdSupportPdfSendByEmailRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/support/pdf/send-by-email/route'
-import { Route as AppBusinessesRmaRmaRmaIdSupportLifesheetEmailLifesheetIdRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/support/lifesheet-email.$lifesheetId/route'
-import { Route as AppBusinessesRmaRmaRmaIdSupportDeleteLinkAssociatedIdRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/support/delete-link.$associatedId/route'
-import { Route as AppBusinessesRmaRmaRmaIdSupportDeleteGedObjectRelativePathRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/support/delete-ged-object.$relativePath/route'
-import { Route as AppBusinessesRmaRmaRmaIdSupportDeleteDetailDetailIdRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/support/delete-detail.$detailId/route'
-import { Route as AppBusinessesRmaRmaRmaIdReceptionUpdateDetailDetailIdRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/reception/update-detail.$detailId/route'
-import { Route as AppBusinessesRmaRmaRmaIdReceptionPdfSendByEmailRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/reception/pdf/send-by-email/route'
-import { Route as AppBusinessesRmaRmaRmaIdReceptionDeleteDetailDetailIdRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/reception/delete-detail.$detailId/route'
-import { Route as AppBusinessesRmaRmaRmaIdDeliveryUpdateDetailDetailIdRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/delivery/update-detail.$detailId/route'
-import { Route as AppBusinessesRmaRmaRmaIdDeliveryPdfSendByEmailRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/delivery/pdf/send-by-email/route'
-import { Route as AppBusinessesRmaRmaRmaIdDeliveryDeleteDetailDetailIdRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/delivery/delete-detail.$detailId/route'
-import { Route as AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdPdfRouteImport } from './routes/app/businesses-rma_/business.$businessId_/assistance.$assistanceId/pdf/route'
-import { Route as AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdImportGedFilesRouteImport } from './routes/app/businesses-rma_/business.$businessId_/assistance.$assistanceId/import-ged-files/route'
-import { Route as AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdEditSubtitleRouteImport } from './routes/app/businesses-rma_/business.$businessId_/assistance.$assistanceId/edit-subtitle/route'
-import { Route as AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdEditNoBilledTimeRouteImport } from './routes/app/businesses-rma_/business.$businessId_/assistance.$assistanceId/edit-no-billed-time/route'
-import { Route as AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdEditCumulatedTimeRouteImport } from './routes/app/businesses-rma_/business.$businessId_/assistance.$assistanceId/edit-cumulated-time/route'
-import { Route as AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdDeleteRouteImport } from './routes/app/businesses-rma_/business.$businessId_/assistance.$assistanceId/delete/route'
-import { Route as AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdCreateLinkRouteImport } from './routes/app/businesses-rma_/business.$businessId_/assistance.$assistanceId/create-link/route'
-import { Route as AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdCreateLifesheetRouteImport } from './routes/app/businesses-rma_/business.$businessId_/assistance.$assistanceId/create-lifesheet/route'
-import { Route as AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdCreateGedDirectoryRouteImport } from './routes/app/businesses-rma_/business.$businessId_/assistance.$assistanceId/create-ged-directory/route'
-import { Route as AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdCreateFaqRouteImport } from './routes/app/businesses-rma_/business.$businessId_/assistance.$assistanceId/create-faq/route'
-import { Route as AppBusinessesRmaBusinessBusinessIdQuotationUpdateSubquotationSubquotationIdRouteImport } from './routes/app/businesses-rma_/business.$businessId/quotation/update-subquotation.$subquotationId/route'
-import { Route as AppBusinessesRmaBusinessBusinessIdQuotationUpdateDetailDetailIdRouteImport } from './routes/app/businesses-rma_/business.$businessId/quotation/update-detail.$detailId/route'
-import { Route as AppBusinessesRmaBusinessBusinessIdQuotationPdfSendByEmailRouteImport } from './routes/app/businesses-rma_/business.$businessId/quotation/pdf/send-by-email/route'
-import { Route as AppBusinessesRmaBusinessBusinessIdQuotationDeleteSubquotationSubquotationIdRouteImport } from './routes/app/businesses-rma_/business.$businessId/quotation/delete-subquotation.$subquotationId/route'
-import { Route as AppBusinessesRmaBusinessBusinessIdQuotationDeleteDetailDetailIdRouteImport } from './routes/app/businesses-rma_/business.$businessId/quotation/delete-detail.$detailId/route'
-import { Route as AppBusinessesRmaBusinessBusinessIdQuotationCreateDetailSubquotationIdRouteImport } from './routes/app/businesses-rma_/business.$businessId/quotation/create-detail.$subquotationId/route'
-import { Route as AppBusinessesRmaBusinessBusinessIdQuotationCreateAssociatedDetailDetailIdRouteImport } from './routes/app/businesses-rma_/business.$businessId/quotation/create-associated-detail.$detailId/route'
-import { Route as AppBusinessesRmaBusinessBusinessIdQuotationCommercialNoticeSendByEmailRouteImport } from './routes/app/businesses-rma_/business.$businessId/quotation/commercial-notice/send-by-email/route'
-import { Route as AppBusinessesRmaBusinessBusinessIdDashboardUnlinkTaskTaskIdRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/unlink-task.$taskId/route'
-import { Route as AppBusinessesRmaBusinessBusinessIdDashboardTaskEmailTaskIdRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/task-email.$taskId/route'
-import { Route as AppBusinessesRmaBusinessBusinessIdDashboardRenameGedObjectObjectRelativePathRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/rename-ged-object.$objectRelativePath/route'
-import { Route as AppBusinessesRmaBusinessBusinessIdDashboardLifesheetEmailLifesheetIdRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/lifesheet-email.$lifesheetId/route'
-import { Route as AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/email-history/$emailId/route'
-import { Route as AppBusinessesRmaBusinessBusinessIdDashboardDeleteLinkAssociatedIdRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/delete-link.$associatedId/route'
-import { Route as AppBusinessesRmaBusinessBusinessIdDashboardDeleteGedObjectObjectRelativePathRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/delete-ged-object.$objectRelativePath/route'
-import { Route as AppBusinessesRmaBusinessBusinessIdDashboardConfirmQuotationImportOtherBusinessIdRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/confirm-quotation-import.$otherBusinessId/route'
-import { Route as AppBusinessesRmaBusinessBusinessIdDashboardAddressBookCreateRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/address-book/create/route'
-import { Route as AppBusinessesRmaBusinessBusinessIdBpUpdateDetailDetailIdRouteImport } from './routes/app/businesses-rma_/business.$businessId/bp/update-detail.$detailId/route'
-import { Route as AppBusinessesRmaBusinessBusinessIdBpDeleteSerialSerialIdRouteImport } from './routes/app/businesses-rma_/business.$businessId/bp/delete-serial.$serialId/route'
-import { Route as AppBusinessesRmaBusinessBusinessIdBpDeleteDetailDetailIdRouteImport } from './routes/app/businesses-rma_/business.$businessId/bp/delete-detail.$detailId/route'
-import { Route as AppBusinessesRmaBusinessBusinessIdBpCreateSerialRmaSerialIdRouteImport } from './routes/app/businesses-rma_/business.$businessId/bp/create-serial-rma.$serialId/route'
-import { Route as AppBusinessesRmaBusinessBusinessIdBpCreateDetailRmaDetailIdRouteImport } from './routes/app/businesses-rma_/business.$businessId/bp/create-detail-rma.$detailId/route'
-import { Route as AppBusinessesRmaBusinessBusinessIdBpAddSerialDetailIdRouteImport } from './routes/app/businesses-rma_/business.$businessId/bp/add-serial.$detailId/route'
-import { Route as AppBusinessesRmaBusinessBusinessIdBlUpdateNewRouteImport } from './routes/app/businesses-rma_/business.$businessId/bl/update/new/route'
-import { Route as AppBusinessesRmaBusinessBusinessIdBillCreditsSendByEmailRouteImport } from './routes/app/businesses-rma_/business.$businessId/bill/credits/send-by-email/route'
-import { Route as AppBusinessesRmaBusinessBusinessIdArcUpdateDetailDetailIdRouteImport } from './routes/app/businesses-rma_/business.$businessId/arc/update-detail.$detailId/route'
-import { Route as AppBusinessesRmaBusinessBusinessIdArcPdfSendByEmailRouteImport } from './routes/app/businesses-rma_/business.$businessId/arc/pdf/send-by-email/route'
-import { Route as AppBusinessesRmaBusinessBusinessIdArcDeleteDetailDetailIdRouteImport } from './routes/app/businesses-rma_/business.$businessId/arc/delete-detail.$detailId/route'
-import { Route as AppBusinessesRmaRmaRmaIdSupportTaskEmailTaskIdReplyRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/support/task-email.$taskId/reply/route'
-import { Route as AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdRenameGedObjectObjectRelativePathRouteImport } from './routes/app/businesses-rma_/business.$businessId_/assistance.$assistanceId/rename-ged-object.$objectRelativePath/route'
-import { Route as AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdPdfSendByEmailRouteImport } from './routes/app/businesses-rma_/business.$businessId_/assistance.$assistanceId/pdf/send-by-email/route'
-import { Route as AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdLifesheetEmailLifesheetIdRouteImport } from './routes/app/businesses-rma_/business.$businessId_/assistance.$assistanceId/lifesheet-email.$lifesheetId/route'
-import { Route as AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdDeleteLinkAssociatedIdRouteImport } from './routes/app/businesses-rma_/business.$businessId_/assistance.$assistanceId/delete-link.$associatedId/route'
-import { Route as AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdDeleteGedObjectObjectRelativePathRouteImport } from './routes/app/businesses-rma_/business.$businessId_/assistance.$assistanceId/delete-ged-object.$objectRelativePath/route'
-import { Route as AppBusinessesRmaBusinessBusinessIdQuotationCommercialNoticeSendByEmailPredefinedMessagesRouteImport } from './routes/app/businesses-rma_/business.$businessId/quotation/commercial-notice/send-by-email/predefined-messages/route'
-import { Route as AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdReplyRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/email-history/$emailId/reply/route'
-import { Route as AppBusinessesRmaBusinessBusinessIdDashboardAddressBookUpdateAddressIdRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/address-book/update.$addressId/route'
-import { Route as AppBusinessesRmaBusinessBusinessIdDashboardAddressBookDeleteAddressIdRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/address-book/delete.$addressId/route'
-
-// Create Virtual Routes
-
-const AuthForgotPasswordRouteLazyImport = createFileRoute(
+const AuthForgotPasswordRouteLazyRouteImport = createFileRoute(
   '/auth/forgot-password',
 )()
-const AuthResetPasswordTokenRouteLazyImport = createFileRoute(
+const AuthResetPasswordTokenRouteLazyRouteImport = createFileRoute(
   '/auth/reset-password/$token',
 )()
 
-// Create/Update Routes
-
-const AuthRouteRoute = AuthRouteImport.update({
+const AuthRouteRoute = AuthRouteRouteImport.update({
   id: '/auth',
   path: '/auth',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRouteImport,
 } as any).lazy(() => import('./routes/auth/route.lazy').then((d) => d.Route))
-
-const AppRouteRoute = AppRouteImport.update({
+const AppRouteRoute = AppRouteRouteImport.update({
   id: '/app',
   path: '/app',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRouteImport,
 } as any).lazy(() => import('./routes/app/route.lazy').then((d) => d.Route))
-
-const IndexRoute = IndexImport.update({
+const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-
-const AuthIndexRoute = AuthIndexImport.update({
+const AuthIndexRoute = AuthIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => AuthRouteRoute,
 } as any)
-
-const AppIndexRoute = AppIndexImport.update({
+const AppIndexRoute = AppIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => AppRouteRoute,
 } as any)
-
 const AuthForgotPasswordRouteLazyRoute =
-  AuthForgotPasswordRouteLazyImport.update({
+  AuthForgotPasswordRouteLazyRouteImport.update({
     id: '/forgot-password',
     path: '/forgot-password',
     getParentRoute: () => AuthRouteRoute,
   } as any).lazy(() =>
     import('./routes/auth/forgot-password/route.lazy').then((d) => d.Route),
   )
-
-const AuthLoginRouteRoute = AuthLoginRouteImport.update({
+const AuthLoginRouteRoute = AuthLoginRouteRouteImport.update({
   id: '/login',
   path: '/login',
   getParentRoute: () => AuthRouteRoute,
 } as any).lazy(() =>
   import('./routes/auth/login/route.lazy').then((d) => d.Route),
 )
-
-const AppToolsRouteRoute = AppToolsRouteImport.update({
+const AppToolsRouteRoute = AppToolsRouteRouteImport.update({
   id: '/tools',
   path: '/tools',
   getParentRoute: () => AppRouteRoute,
 } as any)
-
-const AppProductsRouteRoute = AppProductsRouteImport.update({
+const AppProductsRouteRoute = AppProductsRouteRouteImport.update({
   id: '/products',
   path: '/products',
   getParentRoute: () => AppRouteRoute,
 } as any).lazy(() =>
   import('./routes/app/products/route.lazy').then((d) => d.Route),
 )
-
-const AppFaqRouteRoute = AppFaqRouteImport.update({
+const AppFaqRouteRoute = AppFaqRouteRouteImport.update({
   id: '/faq',
   path: '/faq',
   getParentRoute: () => AppRouteRoute,
 } as any).lazy(() => import('./routes/app/faq/route.lazy').then((d) => d.Route))
-
-const AppExternalLinksRouteRoute = AppExternalLinksRouteImport.update({
+const AppExternalLinksRouteRoute = AppExternalLinksRouteRouteImport.update({
   id: '/external-links',
   path: '/external-links',
   getParentRoute: () => AppRouteRoute,
 } as any).lazy(() =>
   import('./routes/app/external-links/route.lazy').then((d) => d.Route),
 )
-
-const AppEnterprisesRouteRoute = AppEnterprisesRouteImport.update({
+const AppEnterprisesRouteRoute = AppEnterprisesRouteRouteImport.update({
   id: '/enterprises',
   path: '/enterprises',
   getParentRoute: () => AppRouteRoute,
 } as any).lazy(() =>
   import('./routes/app/enterprises/route.lazy').then((d) => d.Route),
 )
-
-const AppDashboardRouteRoute = AppDashboardRouteImport.update({
+const AppDashboardRouteRoute = AppDashboardRouteRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
   getParentRoute: () => AppRouteRoute,
 } as any).lazy(() =>
   import('./routes/app/dashboard/route.lazy').then((d) => d.Route),
 )
-
-const AppBusinessesRmaRouteRoute = AppBusinessesRmaRouteImport.update({
+const AppBusinessesRmaRouteRoute = AppBusinessesRmaRouteRouteImport.update({
   id: '/businesses-rma',
   path: '/businesses-rma',
   getParentRoute: () => AppRouteRoute,
 } as any).lazy(() =>
   import('./routes/app/businesses-rma/route.lazy').then((d) => d.Route),
 )
-
-const AppToolsIndexRoute = AppToolsIndexImport.update({
+const AppToolsIndexRoute = AppToolsIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => AppToolsRouteRoute,
 } as any)
-
 const AuthResetPasswordTokenRouteLazyRoute =
-  AuthResetPasswordTokenRouteLazyImport.update({
+  AuthResetPasswordTokenRouteLazyRouteImport.update({
     id: '/reset-password/$token',
     path: '/reset-password/$token',
     getParentRoute: () => AuthRouteRoute,
@@ -448,25 +429,22 @@ const AuthResetPasswordTokenRouteLazyRoute =
       (d) => d.Route,
     ),
   )
-
-const AppToolsVvaRouteRoute = AppToolsVvaRouteImport.update({
+const AppToolsVvaRouteRoute = AppToolsVvaRouteRouteImport.update({
   id: '/vva',
   path: '/vva',
   getParentRoute: () => AppToolsRouteRoute,
 } as any).lazy(() =>
   import('./routes/app/tools/vva/route.lazy').then((d) => d.Route),
 )
-
-const AppToolsSchedulerRouteRoute = AppToolsSchedulerRouteImport.update({
+const AppToolsSchedulerRouteRoute = AppToolsSchedulerRouteRouteImport.update({
   id: '/scheduler',
   path: '/scheduler',
   getParentRoute: () => AppToolsRouteRoute,
 } as any).lazy(() =>
   import('./routes/app/tools/scheduler/route.lazy').then((d) => d.Route),
 )
-
 const AppToolsRepresentativesTurnoverRouteRoute =
-  AppToolsRepresentativesTurnoverRouteImport.update({
+  AppToolsRepresentativesTurnoverRouteRouteImport.update({
     id: '/representatives-turnover',
     path: '/representatives-turnover',
     getParentRoute: () => AppToolsRouteRoute,
@@ -475,9 +453,8 @@ const AppToolsRepresentativesTurnoverRouteRoute =
       (d) => d.Route,
     ),
   )
-
 const AppToolsRepresentativesMapRouteRoute =
-  AppToolsRepresentativesMapRouteImport.update({
+  AppToolsRepresentativesMapRouteRouteImport.update({
     id: '/representatives-map',
     path: '/representatives-map',
     getParentRoute: () => AppToolsRouteRoute,
@@ -486,9 +463,8 @@ const AppToolsRepresentativesMapRouteRoute =
       (d) => d.Route,
     ),
   )
-
 const AppToolsProductShelvesRouteRoute =
-  AppToolsProductShelvesRouteImport.update({
+  AppToolsProductShelvesRouteRouteImport.update({
     id: '/product-shelves',
     path: '/product-shelves',
     getParentRoute: () => AppToolsRouteRoute,
@@ -497,9 +473,8 @@ const AppToolsProductShelvesRouteRoute =
       (d) => d.Route,
     ),
   )
-
 const AppToolsProductInventoryRouteRoute =
-  AppToolsProductInventoryRouteImport.update({
+  AppToolsProductInventoryRouteRouteImport.update({
     id: '/product-inventory',
     path: '/product-inventory',
     getParentRoute: () => AppToolsRouteRoute,
@@ -508,9 +483,8 @@ const AppToolsProductInventoryRouteRoute =
       (d) => d.Route,
     ),
   )
-
 const AppToolsProductFiltersRouteRoute =
-  AppToolsProductFiltersRouteImport.update({
+  AppToolsProductFiltersRouteRouteImport.update({
     id: '/product-filters',
     path: '/product-filters',
     getParentRoute: () => AppToolsRouteRoute,
@@ -519,9 +493,8 @@ const AppToolsProductFiltersRouteRoute =
       (d) => d.Route,
     ),
   )
-
 const AppToolsPredefinedTextsRouteRoute =
-  AppToolsPredefinedTextsRouteImport.update({
+  AppToolsPredefinedTextsRouteRouteImport.update({
     id: '/predefined-texts',
     path: '/predefined-texts',
     getParentRoute: () => AppToolsRouteRoute,
@@ -530,9 +503,8 @@ const AppToolsPredefinedTextsRouteRoute =
       (d) => d.Route,
     ),
   )
-
 const AppToolsPredefinedMessagesRouteRoute =
-  AppToolsPredefinedMessagesRouteImport.update({
+  AppToolsPredefinedMessagesRouteRouteImport.update({
     id: '/predefined-messages',
     path: '/predefined-messages',
     getParentRoute: () => AppToolsRouteRoute,
@@ -541,33 +513,29 @@ const AppToolsPredefinedMessagesRouteRoute =
       (d) => d.Route,
     ),
   )
-
-const AppToolsNewsRouteRoute = AppToolsNewsRouteImport.update({
+const AppToolsNewsRouteRoute = AppToolsNewsRouteRouteImport.update({
   id: '/news',
   path: '/news',
   getParentRoute: () => AppToolsRouteRoute,
 } as any).lazy(() =>
   import('./routes/app/tools/news/route.lazy').then((d) => d.Route),
 )
-
-const AppToolsMenuRouteRoute = AppToolsMenuRouteImport.update({
+const AppToolsMenuRouteRoute = AppToolsMenuRouteRouteImport.update({
   id: '/menu',
   path: '/menu',
   getParentRoute: () => AppToolsRouteRoute,
 } as any).lazy(() =>
   import('./routes/app/tools/menu/route.lazy').then((d) => d.Route),
 )
-
-const AppToolsMailsRouteRoute = AppToolsMailsRouteImport.update({
+const AppToolsMailsRouteRoute = AppToolsMailsRouteRouteImport.update({
   id: '/mails',
   path: '/mails',
   getParentRoute: () => AppToolsRouteRoute,
 } as any).lazy(() =>
   import('./routes/app/tools/mails/route.lazy').then((d) => d.Route),
 )
-
 const AppToolsGlobalTurnoverRouteRoute =
-  AppToolsGlobalTurnoverRouteImport.update({
+  AppToolsGlobalTurnoverRouteRouteImport.update({
     id: '/global-turnover',
     path: '/global-turnover',
     getParentRoute: () => AppToolsRouteRoute,
@@ -576,67 +544,60 @@ const AppToolsGlobalTurnoverRouteRoute =
       (d) => d.Route,
     ),
   )
-
-const AppToolsFormationsRouteRoute = AppToolsFormationsRouteImport.update({
+const AppToolsFormationsRouteRoute = AppToolsFormationsRouteRouteImport.update({
   id: '/formations',
   path: '/formations',
   getParentRoute: () => AppToolsRouteRoute,
 } as any).lazy(() =>
   import('./routes/app/tools/formations/route.lazy').then((d) => d.Route),
 )
-
-const AppToolsExternalLinksRouteRoute = AppToolsExternalLinksRouteImport.update(
-  {
+const AppToolsExternalLinksRouteRoute =
+  AppToolsExternalLinksRouteRouteImport.update({
     id: '/external-links',
     path: '/external-links',
     getParentRoute: () => AppToolsRouteRoute,
-  } as any,
-).lazy(() =>
-  import('./routes/app/tools/external-links/route.lazy').then((d) => d.Route),
-)
-
-const AppToolsEmailsRouteRoute = AppToolsEmailsRouteImport.update({
+  } as any).lazy(() =>
+    import('./routes/app/tools/external-links/route.lazy').then((d) => d.Route),
+  )
+const AppToolsEmailsRouteRoute = AppToolsEmailsRouteRouteImport.update({
   id: '/emails',
   path: '/emails',
   getParentRoute: () => AppToolsRouteRoute,
 } as any).lazy(() =>
   import('./routes/app/tools/emails/route.lazy').then((d) => d.Route),
 )
-
-const AppToolsDepartmentsRouteRoute = AppToolsDepartmentsRouteImport.update({
-  id: '/departments',
-  path: '/departments',
-  getParentRoute: () => AppToolsRouteRoute,
-} as any).lazy(() =>
-  import('./routes/app/tools/departments/route.lazy').then((d) => d.Route),
-)
-
-const AppToolsDdnsRouteRoute = AppToolsDdnsRouteImport.update({
+const AppToolsDepartmentsRouteRoute =
+  AppToolsDepartmentsRouteRouteImport.update({
+    id: '/departments',
+    path: '/departments',
+    getParentRoute: () => AppToolsRouteRoute,
+  } as any).lazy(() =>
+    import('./routes/app/tools/departments/route.lazy').then((d) => d.Route),
+  )
+const AppToolsDdnsRouteRoute = AppToolsDdnsRouteRouteImport.update({
   id: '/ddns',
   path: '/ddns',
   getParentRoute: () => AppToolsRouteRoute,
 } as any).lazy(() =>
   import('./routes/app/tools/ddns/route.lazy').then((d) => d.Route),
 )
-
-const AppToolsCreditRouteRoute = AppToolsCreditRouteImport.update({
+const AppToolsCreditRouteRoute = AppToolsCreditRouteRouteImport.update({
   id: '/credit',
   path: '/credit',
   getParentRoute: () => AppToolsRouteRoute,
 } as any).lazy(() =>
   import('./routes/app/tools/credit/route.lazy').then((d) => d.Route),
 )
-
-const AppProductsProductIdRouteRoute = AppProductsProductIdRouteImport.update({
-  id: '/products_/$productId',
-  path: '/products/$productId',
-  getParentRoute: () => AppRouteRoute,
-} as any).lazy(() =>
-  import('./routes/app/products_.$productId/route.lazy').then((d) => d.Route),
-)
-
+const AppProductsProductIdRouteRoute =
+  AppProductsProductIdRouteRouteImport.update({
+    id: '/products_/$productId',
+    path: '/products/$productId',
+    getParentRoute: () => AppRouteRoute,
+  } as any).lazy(() =>
+    import('./routes/app/products_.$productId/route.lazy').then((d) => d.Route),
+  )
 const AppProductsSerialNumbersRouteRoute =
-  AppProductsSerialNumbersRouteImport.update({
+  AppProductsSerialNumbersRouteRouteImport.update({
     id: '/serial-numbers',
     path: '/serial-numbers',
     getParentRoute: () => AppProductsRouteRoute,
@@ -645,25 +606,22 @@ const AppProductsSerialNumbersRouteRoute =
       (d) => d.Route,
     ),
   )
-
-const AppProductsCreateRouteRoute = AppProductsCreateRouteImport.update({
+const AppProductsCreateRouteRoute = AppProductsCreateRouteRouteImport.update({
   id: '/create',
   path: '/create',
   getParentRoute: () => AppProductsRouteRoute,
 } as any).lazy(() =>
   import('./routes/app/products/create/route.lazy').then((d) => d.Route),
 )
-
-const AppFaqCreateRouteRoute = AppFaqCreateRouteImport.update({
+const AppFaqCreateRouteRoute = AppFaqCreateRouteRouteImport.update({
   id: '/create',
   path: '/create',
   getParentRoute: () => AppFaqRouteRoute,
 } as any).lazy(() =>
   import('./routes/app/faq/create/route.lazy').then((d) => d.Route),
 )
-
 const AppExternalLinksExternalLinkIdRouteRoute =
-  AppExternalLinksExternalLinkIdRouteImport.update({
+  AppExternalLinksExternalLinkIdRouteRouteImport.update({
     id: '/external-links_/$externalLinkId',
     path: '/external-links/$externalLinkId',
     getParentRoute: () => AppRouteRoute,
@@ -672,9 +630,8 @@ const AppExternalLinksExternalLinkIdRouteRoute =
       (d) => d.Route,
     ),
   )
-
 const AppEnterprisesEnterpriseIdRouteRoute =
-  AppEnterprisesEnterpriseIdRouteImport.update({
+  AppEnterprisesEnterpriseIdRouteRouteImport.update({
     id: '/enterprises_/$enterpriseId',
     path: '/enterprises/$enterpriseId',
     getParentRoute: () => AppRouteRoute,
@@ -683,17 +640,16 @@ const AppEnterprisesEnterpriseIdRouteRoute =
       (d) => d.Route,
     ),
   )
-
-const AppEnterprisesCreateRouteRoute = AppEnterprisesCreateRouteImport.update({
-  id: '/create',
-  path: '/create',
-  getParentRoute: () => AppEnterprisesRouteRoute,
-} as any).lazy(() =>
-  import('./routes/app/enterprises/create/route.lazy').then((d) => d.Route),
-)
-
+const AppEnterprisesCreateRouteRoute =
+  AppEnterprisesCreateRouteRouteImport.update({
+    id: '/create',
+    path: '/create',
+    getParentRoute: () => AppEnterprisesRouteRoute,
+  } as any).lazy(() =>
+    import('./routes/app/enterprises/create/route.lazy').then((d) => d.Route),
+  )
 const AppDashboardDeleteCollectiveTasksRouteRoute =
-  AppDashboardDeleteCollectiveTasksRouteImport.update({
+  AppDashboardDeleteCollectiveTasksRouteRouteImport.update({
     id: '/delete-collective-tasks',
     path: '/delete-collective-tasks',
     getParentRoute: () => AppDashboardRouteRoute,
@@ -702,9 +658,8 @@ const AppDashboardDeleteCollectiveTasksRouteRoute =
       (d) => d.Route,
     ),
   )
-
 const AppDashboardCreateProgressiveInfoRouteRoute =
-  AppDashboardCreateProgressiveInfoRouteImport.update({
+  AppDashboardCreateProgressiveInfoRouteRouteImport.update({
     id: '/create-progressive-info',
     path: '/create-progressive-info',
     getParentRoute: () => AppDashboardRouteRoute,
@@ -713,9 +668,8 @@ const AppDashboardCreateProgressiveInfoRouteRoute =
       (d) => d.Route,
     ),
   )
-
 const AppDashboardCreatePersonalTaskRouteRoute =
-  AppDashboardCreatePersonalTaskRouteImport.update({
+  AppDashboardCreatePersonalTaskRouteRouteImport.update({
     id: '/create-personal-task',
     path: '/create-personal-task',
     getParentRoute: () => AppDashboardRouteRoute,
@@ -724,9 +678,8 @@ const AppDashboardCreatePersonalTaskRouteRoute =
       (d) => d.Route,
     ),
   )
-
 const AppDashboardCreateCollectiveTaskRouteRoute =
-  AppDashboardCreateCollectiveTaskRouteImport.update({
+  AppDashboardCreateCollectiveTaskRouteRouteImport.update({
     id: '/create-collective-task',
     path: '/create-collective-task',
     getParentRoute: () => AppDashboardRouteRoute,
@@ -735,9 +688,8 @@ const AppDashboardCreateCollectiveTaskRouteRoute =
       (d) => d.Route,
     ),
   )
-
 const AppBusinessesRmaSearchByProductsRouteRoute =
-  AppBusinessesRmaSearchByProductsRouteImport.update({
+  AppBusinessesRmaSearchByProductsRouteRouteImport.update({
     id: '/search-by-products',
     path: '/search-by-products',
     getParentRoute: () => AppBusinessesRmaRouteRoute,
@@ -746,9 +698,8 @@ const AppBusinessesRmaSearchByProductsRouteRoute =
       (d) => d.Route,
     ),
   )
-
 const AppBusinessesRmaRepresentativeTurnoverRouteRoute =
-  AppBusinessesRmaRepresentativeTurnoverRouteImport.update({
+  AppBusinessesRmaRepresentativeTurnoverRouteRouteImport.update({
     id: '/representative-turnover',
     path: '/representative-turnover',
     getParentRoute: () => AppBusinessesRmaRouteRoute,
@@ -757,23 +708,21 @@ const AppBusinessesRmaRepresentativeTurnoverRouteRoute =
       './routes/app/businesses-rma/representative-turnover/route.lazy'
     ).then((d) => d.Route),
   )
-
-const AppProductsProductIdIndexRoute = AppProductsProductIdIndexImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => AppProductsProductIdRouteRoute,
-} as any)
-
-const AppToolsVvaCreateRouteRoute = AppToolsVvaCreateRouteImport.update({
+const AppProductsProductIdIndexRoute =
+  AppProductsProductIdIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AppProductsProductIdRouteRoute,
+  } as any)
+const AppToolsVvaCreateRouteRoute = AppToolsVvaCreateRouteRouteImport.update({
   id: '/create',
   path: '/create',
   getParentRoute: () => AppToolsVvaRouteRoute,
 } as any).lazy(() =>
   import('./routes/app/tools/vva/create/route.lazy').then((d) => d.Route),
 )
-
 const AppToolsSchedulerCreateRouteRoute =
-  AppToolsSchedulerCreateRouteImport.update({
+  AppToolsSchedulerCreateRouteRouteImport.update({
     id: '/create',
     path: '/create',
     getParentRoute: () => AppToolsSchedulerRouteRoute,
@@ -782,9 +731,8 @@ const AppToolsSchedulerCreateRouteRoute =
       (d) => d.Route,
     ),
   )
-
 const AppToolsProductShelvesCreateRouteRoute =
-  AppToolsProductShelvesCreateRouteImport.update({
+  AppToolsProductShelvesCreateRouteRouteImport.update({
     id: '/create',
     path: '/create',
     getParentRoute: () => AppToolsProductShelvesRouteRoute,
@@ -793,9 +741,8 @@ const AppToolsProductShelvesCreateRouteRoute =
       (d) => d.Route,
     ),
   )
-
 const AppToolsProductInventoryValidateQuantitiesRouteRoute =
-  AppToolsProductInventoryValidateQuantitiesRouteImport.update({
+  AppToolsProductInventoryValidateQuantitiesRouteRouteImport.update({
     id: '/validate-quantities',
     path: '/validate-quantities',
     getParentRoute: () => AppToolsProductInventoryRouteRoute,
@@ -804,9 +751,8 @@ const AppToolsProductInventoryValidateQuantitiesRouteRoute =
       './routes/app/tools/product-inventory/validate-quantities/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppToolsProductFiltersCreateRouteRoute =
-  AppToolsProductFiltersCreateRouteImport.update({
+  AppToolsProductFiltersCreateRouteRouteImport.update({
     id: '/create',
     path: '/create',
     getParentRoute: () => AppToolsProductFiltersRouteRoute,
@@ -815,9 +761,8 @@ const AppToolsProductFiltersCreateRouteRoute =
       (d) => d.Route,
     ),
   )
-
 const AppToolsPredefinedTextsCreateRouteRoute =
-  AppToolsPredefinedTextsCreateRouteImport.update({
+  AppToolsPredefinedTextsCreateRouteRouteImport.update({
     id: '/create',
     path: '/create',
     getParentRoute: () => AppToolsPredefinedTextsRouteRoute,
@@ -826,9 +771,8 @@ const AppToolsPredefinedTextsCreateRouteRoute =
       (d) => d.Route,
     ),
   )
-
 const AppToolsPredefinedMessagesCreateRouteRoute =
-  AppToolsPredefinedMessagesCreateRouteImport.update({
+  AppToolsPredefinedMessagesCreateRouteRouteImport.update({
     id: '/create',
     path: '/create',
     getParentRoute: () => AppToolsPredefinedMessagesRouteRoute,
@@ -837,17 +781,15 @@ const AppToolsPredefinedMessagesCreateRouteRoute =
       (d) => d.Route,
     ),
   )
-
-const AppToolsNewsCreateRouteRoute = AppToolsNewsCreateRouteImport.update({
+const AppToolsNewsCreateRouteRoute = AppToolsNewsCreateRouteRouteImport.update({
   id: '/create',
   path: '/create',
   getParentRoute: () => AppToolsNewsRouteRoute,
 } as any).lazy(() =>
   import('./routes/app/tools/news/create/route.lazy').then((d) => d.Route),
 )
-
 const AppToolsMenuCreateProductRouteRoute =
-  AppToolsMenuCreateProductRouteImport.update({
+  AppToolsMenuCreateProductRouteRouteImport.update({
     id: '/create-product',
     path: '/create-product',
     getParentRoute: () => AppToolsMenuRouteRoute,
@@ -856,9 +798,8 @@ const AppToolsMenuCreateProductRouteRoute =
       (d) => d.Route,
     ),
   )
-
 const AppToolsMenuCreateEnterpriseRouteRoute =
-  AppToolsMenuCreateEnterpriseRouteImport.update({
+  AppToolsMenuCreateEnterpriseRouteRouteImport.update({
     id: '/create-enterprise',
     path: '/create-enterprise',
     getParentRoute: () => AppToolsMenuRouteRoute,
@@ -867,17 +808,16 @@ const AppToolsMenuCreateEnterpriseRouteRoute =
       (d) => d.Route,
     ),
   )
-
-const AppToolsMailsCreateRouteRoute = AppToolsMailsCreateRouteImport.update({
-  id: '/create',
-  path: '/create',
-  getParentRoute: () => AppToolsMailsRouteRoute,
-} as any).lazy(() =>
-  import('./routes/app/tools/mails/create/route.lazy').then((d) => d.Route),
-)
-
+const AppToolsMailsCreateRouteRoute =
+  AppToolsMailsCreateRouteRouteImport.update({
+    id: '/create',
+    path: '/create',
+    getParentRoute: () => AppToolsMailsRouteRoute,
+  } as any).lazy(() =>
+    import('./routes/app/tools/mails/create/route.lazy').then((d) => d.Route),
+  )
 const AppToolsFormationsCreateRouteRoute =
-  AppToolsFormationsCreateRouteImport.update({
+  AppToolsFormationsCreateRouteRouteImport.update({
     id: '/create',
     path: '/create',
     getParentRoute: () => AppToolsFormationsRouteRoute,
@@ -886,9 +826,8 @@ const AppToolsFormationsCreateRouteRoute =
       (d) => d.Route,
     ),
   )
-
 const AppToolsExternalLinksCreateRouteRoute =
-  AppToolsExternalLinksCreateRouteImport.update({
+  AppToolsExternalLinksCreateRouteRouteImport.update({
     id: '/create',
     path: '/create',
     getParentRoute: () => AppToolsExternalLinksRouteRoute,
@@ -897,19 +836,18 @@ const AppToolsExternalLinksCreateRouteRoute =
       (d) => d.Route,
     ),
   )
-
-const AppToolsEmailsEmailIdRouteRoute = AppToolsEmailsEmailIdRouteImport.update(
-  {
+const AppToolsEmailsEmailIdRouteRoute =
+  AppToolsEmailsEmailIdRouteRouteImport.update({
     id: '/$emailId',
     path: '/$emailId',
     getParentRoute: () => AppToolsEmailsRouteRoute,
-  } as any,
-).lazy(() =>
-  import('./routes/app/tools/emails/$emailId/route.lazy').then((d) => d.Route),
-)
-
+  } as any).lazy(() =>
+    import('./routes/app/tools/emails/$emailId/route.lazy').then(
+      (d) => d.Route,
+    ),
+  )
 const AppToolsDepartmentsCreateRouteRoute =
-  AppToolsDepartmentsCreateRouteImport.update({
+  AppToolsDepartmentsCreateRouteRouteImport.update({
     id: '/create',
     path: '/create',
     getParentRoute: () => AppToolsDepartmentsRouteRoute,
@@ -918,35 +856,30 @@ const AppToolsDepartmentsCreateRouteRoute =
       (d) => d.Route,
     ),
   )
-
-const AppToolsDdnsCreateRouteRoute = AppToolsDdnsCreateRouteImport.update({
+const AppToolsDdnsCreateRouteRoute = AppToolsDdnsCreateRouteRouteImport.update({
   id: '/create',
   path: '/create',
   getParentRoute: () => AppToolsDdnsRouteRoute,
 } as any).lazy(() =>
   import('./routes/app/tools/ddns/create/route.lazy').then((d) => d.Route),
 )
-
-const AppToolsCreditShowRouteRoute = AppToolsCreditShowRouteImport.update({
+const AppToolsCreditShowRouteRoute = AppToolsCreditShowRouteRouteImport.update({
   id: '/show',
   path: '/show',
   getParentRoute: () => AppToolsCreditRouteRoute,
 } as any).lazy(() =>
   import('./routes/app/tools/credit/show/route.lazy').then((d) => d.Route),
 )
-
-const AppToolsCreditDetailsRouteRoute = AppToolsCreditDetailsRouteImport.update(
-  {
+const AppToolsCreditDetailsRouteRoute =
+  AppToolsCreditDetailsRouteRouteImport.update({
     id: '/details',
     path: '/details',
     getParentRoute: () => AppToolsCreditRouteRoute,
-  } as any,
-).lazy(() =>
-  import('./routes/app/tools/credit/details/route.lazy').then((d) => d.Route),
-)
-
+  } as any).lazy(() =>
+    import('./routes/app/tools/credit/details/route.lazy').then((d) => d.Route),
+  )
 const AppProductsProductIdManageRouteRoute =
-  AppProductsProductIdManageRouteImport.update({
+  AppProductsProductIdManageRouteRouteImport.update({
     id: '/manage',
     path: '/manage',
     getParentRoute: () => AppProductsProductIdRouteRoute,
@@ -955,9 +888,8 @@ const AppProductsProductIdManageRouteRoute =
       (d) => d.Route,
     ),
   )
-
 const AppProductsProductIdInformationsRouteRoute =
-  AppProductsProductIdInformationsRouteImport.update({
+  AppProductsProductIdInformationsRouteRouteImport.update({
     id: '/informations',
     path: '/informations',
     getParentRoute: () => AppProductsProductIdRouteRoute,
@@ -966,9 +898,8 @@ const AppProductsProductIdInformationsRouteRoute =
       (d) => d.Route,
     ),
   )
-
 const AppProductsSerialNumbersCreateRouteRoute =
-  AppProductsSerialNumbersCreateRouteImport.update({
+  AppProductsSerialNumbersCreateRouteRouteImport.update({
     id: '/create',
     path: '/create',
     getParentRoute: () => AppProductsSerialNumbersRouteRoute,
@@ -977,17 +908,15 @@ const AppProductsSerialNumbersCreateRouteRoute =
       (d) => d.Route,
     ),
   )
-
-const AppFaqUpdateFaqIdRouteRoute = AppFaqUpdateFaqIdRouteImport.update({
+const AppFaqUpdateFaqIdRouteRoute = AppFaqUpdateFaqIdRouteRouteImport.update({
   id: '/update/$faqId',
   path: '/update/$faqId',
   getParentRoute: () => AppFaqRouteRoute,
 } as any).lazy(() =>
   import('./routes/app/faq/update.$faqId/route.lazy').then((d) => d.Route),
 )
-
 const AppFaqSendByEmailFaqIdRouteRoute =
-  AppFaqSendByEmailFaqIdRouteImport.update({
+  AppFaqSendByEmailFaqIdRouteRouteImport.update({
     id: '/send-by-email/$faqId',
     path: '/send-by-email/$faqId',
     getParentRoute: () => AppFaqRouteRoute,
@@ -996,33 +925,29 @@ const AppFaqSendByEmailFaqIdRouteRoute =
       (d) => d.Route,
     ),
   )
-
-const AppFaqGedFaqIdRouteRoute = AppFaqGedFaqIdRouteImport.update({
+const AppFaqGedFaqIdRouteRoute = AppFaqGedFaqIdRouteRouteImport.update({
   id: '/ged/$faqId',
   path: '/ged/$faqId',
   getParentRoute: () => AppFaqRouteRoute,
 } as any).lazy(() =>
   import('./routes/app/faq/ged.$faqId/route.lazy').then((d) => d.Route),
 )
-
-const AppFaqDeleteFaqIdRouteRoute = AppFaqDeleteFaqIdRouteImport.update({
+const AppFaqDeleteFaqIdRouteRoute = AppFaqDeleteFaqIdRouteRouteImport.update({
   id: '/delete/$faqId',
   path: '/delete/$faqId',
   getParentRoute: () => AppFaqRouteRoute,
 } as any).lazy(() =>
   import('./routes/app/faq/delete.$faqId/route.lazy').then((d) => d.Route),
 )
-
-const AppFaqArchiveFaqIdRouteRoute = AppFaqArchiveFaqIdRouteImport.update({
+const AppFaqArchiveFaqIdRouteRoute = AppFaqArchiveFaqIdRouteRouteImport.update({
   id: '/archive/$faqId',
   path: '/archive/$faqId',
   getParentRoute: () => AppFaqRouteRoute,
 } as any).lazy(() =>
   import('./routes/app/faq/archive.$faqId/route.lazy').then((d) => d.Route),
 )
-
 const AppEnterprisesEnterpriseIdUpdateRepresentativeRouteRoute =
-  AppEnterprisesEnterpriseIdUpdateRepresentativeRouteImport.update({
+  AppEnterprisesEnterpriseIdUpdateRepresentativeRouteRouteImport.update({
     id: '/update-representative',
     path: '/update-representative',
     getParentRoute: () => AppEnterprisesEnterpriseIdRouteRoute,
@@ -1031,9 +956,8 @@ const AppEnterprisesEnterpriseIdUpdateRepresentativeRouteRoute =
       './routes/app/enterprises_.$enterpriseId/update-representative/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppEnterprisesEnterpriseIdUpdateCategoryRouteRoute =
-  AppEnterprisesEnterpriseIdUpdateCategoryRouteImport.update({
+  AppEnterprisesEnterpriseIdUpdateCategoryRouteRouteImport.update({
     id: '/update-category',
     path: '/update-category',
     getParentRoute: () => AppEnterprisesEnterpriseIdRouteRoute,
@@ -1042,9 +966,8 @@ const AppEnterprisesEnterpriseIdUpdateCategoryRouteRoute =
       './routes/app/enterprises_.$enterpriseId/update-category/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppEnterprisesEnterpriseIdUpdateAccountabilityRouteRoute =
-  AppEnterprisesEnterpriseIdUpdateAccountabilityRouteImport.update({
+  AppEnterprisesEnterpriseIdUpdateAccountabilityRouteRouteImport.update({
     id: '/update-accountability',
     path: '/update-accountability',
     getParentRoute: () => AppEnterprisesEnterpriseIdRouteRoute,
@@ -1053,9 +976,8 @@ const AppEnterprisesEnterpriseIdUpdateAccountabilityRouteRoute =
       './routes/app/enterprises_.$enterpriseId/update-accountability/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppEnterprisesEnterpriseIdUpdateRouteRoute =
-  AppEnterprisesEnterpriseIdUpdateRouteImport.update({
+  AppEnterprisesEnterpriseIdUpdateRouteRouteImport.update({
     id: '/update',
     path: '/update',
     getParentRoute: () => AppEnterprisesEnterpriseIdRouteRoute,
@@ -1064,9 +986,8 @@ const AppEnterprisesEnterpriseIdUpdateRouteRoute =
       (d) => d.Route,
     ),
   )
-
 const AppEnterprisesEnterpriseIdRelateBusinessRmaRouteRoute =
-  AppEnterprisesEnterpriseIdRelateBusinessRmaRouteImport.update({
+  AppEnterprisesEnterpriseIdRelateBusinessRmaRouteRouteImport.update({
     id: '/relate-business-rma',
     path: '/relate-business-rma',
     getParentRoute: () => AppEnterprisesEnterpriseIdRouteRoute,
@@ -1075,9 +996,8 @@ const AppEnterprisesEnterpriseIdRelateBusinessRmaRouteRoute =
       './routes/app/enterprises_.$enterpriseId/relate-business-rma/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppEnterprisesEnterpriseIdImportGedFilesRouteRoute =
-  AppEnterprisesEnterpriseIdImportGedFilesRouteImport.update({
+  AppEnterprisesEnterpriseIdImportGedFilesRouteRouteImport.update({
     id: '/import-ged-files',
     path: '/import-ged-files',
     getParentRoute: () => AppEnterprisesEnterpriseIdRouteRoute,
@@ -1086,9 +1006,8 @@ const AppEnterprisesEnterpriseIdImportGedFilesRouteRoute =
       './routes/app/enterprises_.$enterpriseId/import-ged-files/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppEnterprisesEnterpriseIdImportContactsRouteRoute =
-  AppEnterprisesEnterpriseIdImportContactsRouteImport.update({
+  AppEnterprisesEnterpriseIdImportContactsRouteRouteImport.update({
     id: '/import-contacts',
     path: '/import-contacts',
     getParentRoute: () => AppEnterprisesEnterpriseIdRouteRoute,
@@ -1097,9 +1016,8 @@ const AppEnterprisesEnterpriseIdImportContactsRouteRoute =
       './routes/app/enterprises_.$enterpriseId/import-contacts/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppEnterprisesEnterpriseIdEmailHistoryRouteRoute =
-  AppEnterprisesEnterpriseIdEmailHistoryRouteImport.update({
+  AppEnterprisesEnterpriseIdEmailHistoryRouteRouteImport.update({
     id: '/email-history',
     path: '/email-history',
     getParentRoute: () => AppEnterprisesEnterpriseIdRouteRoute,
@@ -1108,9 +1026,8 @@ const AppEnterprisesEnterpriseIdEmailHistoryRouteRoute =
       './routes/app/enterprises_.$enterpriseId/email-history/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppEnterprisesEnterpriseIdDeleteRouteRoute =
-  AppEnterprisesEnterpriseIdDeleteRouteImport.update({
+  AppEnterprisesEnterpriseIdDeleteRouteRouteImport.update({
     id: '/delete',
     path: '/delete',
     getParentRoute: () => AppEnterprisesEnterpriseIdRouteRoute,
@@ -1119,9 +1036,8 @@ const AppEnterprisesEnterpriseIdDeleteRouteRoute =
       (d) => d.Route,
     ),
   )
-
 const AppEnterprisesEnterpriseIdCreateLifesheetCommentRouteRoute =
-  AppEnterprisesEnterpriseIdCreateLifesheetCommentRouteImport.update({
+  AppEnterprisesEnterpriseIdCreateLifesheetCommentRouteRouteImport.update({
     id: '/create-lifesheet-comment',
     path: '/create-lifesheet-comment',
     getParentRoute: () => AppEnterprisesEnterpriseIdRouteRoute,
@@ -1130,9 +1046,8 @@ const AppEnterprisesEnterpriseIdCreateLifesheetCommentRouteRoute =
       './routes/app/enterprises_.$enterpriseId/create-lifesheet-comment/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppEnterprisesEnterpriseIdCreateGedDirectoryRouteRoute =
-  AppEnterprisesEnterpriseIdCreateGedDirectoryRouteImport.update({
+  AppEnterprisesEnterpriseIdCreateGedDirectoryRouteRouteImport.update({
     id: '/create-ged-directory',
     path: '/create-ged-directory',
     getParentRoute: () => AppEnterprisesEnterpriseIdRouteRoute,
@@ -1141,9 +1056,8 @@ const AppEnterprisesEnterpriseIdCreateGedDirectoryRouteRoute =
       './routes/app/enterprises_.$enterpriseId/create-ged-directory/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppEnterprisesEnterpriseIdCreateContactRouteRoute =
-  AppEnterprisesEnterpriseIdCreateContactRouteImport.update({
+  AppEnterprisesEnterpriseIdCreateContactRouteRouteImport.update({
     id: '/create-contact',
     path: '/create-contact',
     getParentRoute: () => AppEnterprisesEnterpriseIdRouteRoute,
@@ -1152,9 +1066,8 @@ const AppEnterprisesEnterpriseIdCreateContactRouteRoute =
       './routes/app/enterprises_.$enterpriseId/create-contact/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppEnterprisesEnterpriseIdAddressBookRouteRoute =
-  AppEnterprisesEnterpriseIdAddressBookRouteImport.update({
+  AppEnterprisesEnterpriseIdAddressBookRouteRouteImport.update({
     id: '/address-book',
     path: '/address-book',
     getParentRoute: () => AppEnterprisesEnterpriseIdRouteRoute,
@@ -1163,9 +1076,8 @@ const AppEnterprisesEnterpriseIdAddressBookRouteRoute =
       './routes/app/enterprises_.$enterpriseId/address-book/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppEnterprisesUpdateContactContactIdRouteRoute =
-  AppEnterprisesUpdateContactContactIdRouteImport.update({
+  AppEnterprisesUpdateContactContactIdRouteRouteImport.update({
     id: '/update-contact/$contactId',
     path: '/update-contact/$contactId',
     getParentRoute: () => AppEnterprisesRouteRoute,
@@ -1174,9 +1086,8 @@ const AppEnterprisesUpdateContactContactIdRouteRoute =
       './routes/app/enterprises/update-contact.$contactId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppEnterprisesUpdateContactPasswordContactIdRouteRoute =
-  AppEnterprisesUpdateContactPasswordContactIdRouteImport.update({
+  AppEnterprisesUpdateContactPasswordContactIdRouteRouteImport.update({
     id: '/update-contact-password/$contactId',
     path: '/update-contact-password/$contactId',
     getParentRoute: () => AppEnterprisesRouteRoute,
@@ -1185,9 +1096,8 @@ const AppEnterprisesUpdateContactPasswordContactIdRouteRoute =
       './routes/app/enterprises/update-contact-password.$contactId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppEnterprisesSendEmailToContactContactIdRouteRoute =
-  AppEnterprisesSendEmailToContactContactIdRouteImport.update({
+  AppEnterprisesSendEmailToContactContactIdRouteRouteImport.update({
     id: '/send-email-to-contact/$contactId',
     path: '/send-email-to-contact/$contactId',
     getParentRoute: () => AppEnterprisesRouteRoute,
@@ -1196,9 +1106,8 @@ const AppEnterprisesSendEmailToContactContactIdRouteRoute =
       './routes/app/enterprises/send-email-to-contact.$contactId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppEnterprisesDeleteContactContactIdRouteRoute =
-  AppEnterprisesDeleteContactContactIdRouteImport.update({
+  AppEnterprisesDeleteContactContactIdRouteRouteImport.update({
     id: '/delete-contact/$contactId',
     path: '/delete-contact/$contactId',
     getParentRoute: () => AppEnterprisesRouteRoute,
@@ -1207,9 +1116,8 @@ const AppEnterprisesDeleteContactContactIdRouteRoute =
       './routes/app/enterprises/delete-contact.$contactId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppEnterprisesCreateEnterpriseRmaEnterpriseIdRouteRoute =
-  AppEnterprisesCreateEnterpriseRmaEnterpriseIdRouteImport.update({
+  AppEnterprisesCreateEnterpriseRmaEnterpriseIdRouteRouteImport.update({
     id: '/create-enterprise-rma/$enterpriseId',
     path: '/create-enterprise-rma/$enterpriseId',
     getParentRoute: () => AppEnterprisesRouteRoute,
@@ -1218,9 +1126,8 @@ const AppEnterprisesCreateEnterpriseRmaEnterpriseIdRouteRoute =
       './routes/app/enterprises/create-enterprise-rma.$enterpriseId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppEnterprisesCreateContactEnterpriseIdRouteRoute =
-  AppEnterprisesCreateContactEnterpriseIdRouteImport.update({
+  AppEnterprisesCreateContactEnterpriseIdRouteRouteImport.update({
     id: '/create-contact/$enterpriseId',
     path: '/create-contact/$enterpriseId',
     getParentRoute: () => AppEnterprisesRouteRoute,
@@ -1229,9 +1136,8 @@ const AppEnterprisesCreateContactEnterpriseIdRouteRoute =
       './routes/app/enterprises/create-contact.$enterpriseId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppEnterprisesCreateContactTravelVoucherContactIdRouteRoute =
-  AppEnterprisesCreateContactTravelVoucherContactIdRouteImport.update({
+  AppEnterprisesCreateContactTravelVoucherContactIdRouteRouteImport.update({
     id: '/create-contact-travel-voucher/$contactId',
     path: '/create-contact-travel-voucher/$contactId',
     getParentRoute: () => AppEnterprisesRouteRoute,
@@ -1240,9 +1146,8 @@ const AppEnterprisesCreateContactTravelVoucherContactIdRouteRoute =
       './routes/app/enterprises/create-contact-travel-voucher.$contactId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppEnterprisesCreateContactBusinessContactIdRouteRoute =
-  AppEnterprisesCreateContactBusinessContactIdRouteImport.update({
+  AppEnterprisesCreateContactBusinessContactIdRouteRouteImport.update({
     id: '/create-contact-business/$contactId',
     path: '/create-contact-business/$contactId',
     getParentRoute: () => AppEnterprisesRouteRoute,
@@ -1251,9 +1156,8 @@ const AppEnterprisesCreateContactBusinessContactIdRouteRoute =
       './routes/app/enterprises/create-contact-business.$contactId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppDashboardValidatePersonalTaskTaskIdRouteRoute =
-  AppDashboardValidatePersonalTaskTaskIdRouteImport.update({
+  AppDashboardValidatePersonalTaskTaskIdRouteRouteImport.update({
     id: '/validate-personal-task/$taskId',
     path: '/validate-personal-task/$taskId',
     getParentRoute: () => AppDashboardRouteRoute,
@@ -1262,9 +1166,8 @@ const AppDashboardValidatePersonalTaskTaskIdRouteRoute =
       './routes/app/dashboard/validate-personal-task.$taskId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppDashboardUpdateProgressiveInfoProgressiveInfoIdRouteRoute =
-  AppDashboardUpdateProgressiveInfoProgressiveInfoIdRouteImport.update({
+  AppDashboardUpdateProgressiveInfoProgressiveInfoIdRouteRouteImport.update({
     id: '/update-progressive-info/$progressiveInfoId',
     path: '/update-progressive-info/$progressiveInfoId',
     getParentRoute: () => AppDashboardRouteRoute,
@@ -1273,9 +1176,8 @@ const AppDashboardUpdateProgressiveInfoProgressiveInfoIdRouteRoute =
       './routes/app/dashboard/update-progressive-info.$progressiveInfoId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppDashboardUpdatePersonalTaskDeadlineTaskIdRouteRoute =
-  AppDashboardUpdatePersonalTaskDeadlineTaskIdRouteImport.update({
+  AppDashboardUpdatePersonalTaskDeadlineTaskIdRouteRouteImport.update({
     id: '/update-personal-task-deadline/$taskId',
     path: '/update-personal-task-deadline/$taskId',
     getParentRoute: () => AppDashboardRouteRoute,
@@ -1284,9 +1186,18 @@ const AppDashboardUpdatePersonalTaskDeadlineTaskIdRouteRoute =
       './routes/app/dashboard/update-personal-task-deadline.$taskId/route.lazy'
     ).then((d) => d.Route),
   )
-
+const AppDashboardUpdateAircallContactContactIdRouteRoute =
+  AppDashboardUpdateAircallContactContactIdRouteRouteImport.update({
+    id: '/update-aircall-contact/$contactId',
+    path: '/update-aircall-contact/$contactId',
+    getParentRoute: () => AppDashboardRouteRoute,
+  } as any).lazy(() =>
+    import(
+      './routes/app/dashboard/update-aircall-contact.$contactId/route.lazy'
+    ).then((d) => d.Route),
+  )
 const AppDashboardUnlinkPersonalTaskTaskIdRouteRoute =
-  AppDashboardUnlinkPersonalTaskTaskIdRouteImport.update({
+  AppDashboardUnlinkPersonalTaskTaskIdRouteRouteImport.update({
     id: '/unlink-personal-task/$taskId',
     path: '/unlink-personal-task/$taskId',
     getParentRoute: () => AppDashboardRouteRoute,
@@ -1295,9 +1206,8 @@ const AppDashboardUnlinkPersonalTaskTaskIdRouteRoute =
       './routes/app/dashboard/unlink-personal-task.$taskId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppDashboardTransferTaskTaskIdRouteRoute =
-  AppDashboardTransferTaskTaskIdRouteImport.update({
+  AppDashboardTransferTaskTaskIdRouteRouteImport.update({
     id: '/transfer-task/$taskId',
     path: '/transfer-task/$taskId',
     getParentRoute: () => AppDashboardRouteRoute,
@@ -1306,9 +1216,8 @@ const AppDashboardTransferTaskTaskIdRouteRoute =
       (d) => d.Route,
     ),
   )
-
 const AppDashboardTaskEmailTaskIdRouteRoute =
-  AppDashboardTaskEmailTaskIdRouteImport.update({
+  AppDashboardTaskEmailTaskIdRouteRouteImport.update({
     id: '/task-email/$taskId',
     path: '/task-email/$taskId',
     getParentRoute: () => AppDashboardRouteRoute,
@@ -1317,9 +1226,8 @@ const AppDashboardTaskEmailTaskIdRouteRoute =
       (d) => d.Route,
     ),
   )
-
 const AppDashboardTaskCommentsTaskIdRouteRoute =
-  AppDashboardTaskCommentsTaskIdRouteImport.update({
+  AppDashboardTaskCommentsTaskIdRouteRouteImport.update({
     id: '/task-comments/$taskId',
     path: '/task-comments/$taskId',
     getParentRoute: () => AppDashboardRouteRoute,
@@ -1328,9 +1236,8 @@ const AppDashboardTaskCommentsTaskIdRouteRoute =
       (d) => d.Route,
     ),
   )
-
 const AppDashboardTakeCollectiveTaskTaskIdRouteRoute =
-  AppDashboardTakeCollectiveTaskTaskIdRouteImport.update({
+  AppDashboardTakeCollectiveTaskTaskIdRouteRouteImport.update({
     id: '/take-collective-task/$taskId',
     path: '/take-collective-task/$taskId',
     getParentRoute: () => AppDashboardRouteRoute,
@@ -1339,9 +1246,8 @@ const AppDashboardTakeCollectiveTaskTaskIdRouteRoute =
       './routes/app/dashboard/take-collective-task.$taskId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppDashboardSchedulerEventDetailsEventIdRouteRoute =
-  AppDashboardSchedulerEventDetailsEventIdRouteImport.update({
+  AppDashboardSchedulerEventDetailsEventIdRouteRouteImport.update({
     id: '/scheduler-event-details/$eventId',
     path: '/scheduler-event-details/$eventId',
     getParentRoute: () => AppDashboardRouteRoute,
@@ -1350,9 +1256,8 @@ const AppDashboardSchedulerEventDetailsEventIdRouteRoute =
       './routes/app/dashboard/scheduler-event-details.$eventId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppDashboardPersonalTaskDetailsTaskIdRouteRoute =
-  AppDashboardPersonalTaskDetailsTaskIdRouteImport.update({
+  AppDashboardPersonalTaskDetailsTaskIdRouteRouteImport.update({
     id: '/personal-task-details/$taskId',
     path: '/personal-task-details/$taskId',
     getParentRoute: () => AppDashboardRouteRoute,
@@ -1361,9 +1266,8 @@ const AppDashboardPersonalTaskDetailsTaskIdRouteRoute =
       './routes/app/dashboard/personal-task-details.$taskId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppDashboardOtherPersonalTasksProfileIdRouteRoute =
-  AppDashboardOtherPersonalTasksProfileIdRouteImport.update({
+  AppDashboardOtherPersonalTasksProfileIdRouteRouteImport.update({
     id: '/other-personal-tasks/$profileId',
     path: '/other-personal-tasks/$profileId',
     getParentRoute: () => AppDashboardRouteRoute,
@@ -1372,9 +1276,8 @@ const AppDashboardOtherPersonalTasksProfileIdRouteRoute =
       './routes/app/dashboard/other-personal-tasks.$profileId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppDashboardLinkPersonalTaskTaskIdRouteRoute =
-  AppDashboardLinkPersonalTaskTaskIdRouteImport.update({
+  AppDashboardLinkPersonalTaskTaskIdRouteRouteImport.update({
     id: '/link-personal-task/$taskId',
     path: '/link-personal-task/$taskId',
     getParentRoute: () => AppDashboardRouteRoute,
@@ -1383,9 +1286,8 @@ const AppDashboardLinkPersonalTaskTaskIdRouteRoute =
       (d) => d.Route,
     ),
   )
-
 const AppDashboardDeleteProgressiveInfoProgressiveInfoIdRouteRoute =
-  AppDashboardDeleteProgressiveInfoProgressiveInfoIdRouteImport.update({
+  AppDashboardDeleteProgressiveInfoProgressiveInfoIdRouteRouteImport.update({
     id: '/delete-progressive-info/$progressiveInfoId',
     path: '/delete-progressive-info/$progressiveInfoId',
     getParentRoute: () => AppDashboardRouteRoute,
@@ -1394,9 +1296,8 @@ const AppDashboardDeleteProgressiveInfoProgressiveInfoIdRouteRoute =
       './routes/app/dashboard/delete-progressive-info.$progressiveInfoId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppDashboardDeleteCollectiveTaskTaskIdRouteRoute =
-  AppDashboardDeleteCollectiveTaskTaskIdRouteImport.update({
+  AppDashboardDeleteCollectiveTaskTaskIdRouteRouteImport.update({
     id: '/delete-collective-task/$taskId',
     path: '/delete-collective-task/$taskId',
     getParentRoute: () => AppDashboardRouteRoute,
@@ -1405,9 +1306,18 @@ const AppDashboardDeleteCollectiveTaskTaskIdRouteRoute =
       './routes/app/dashboard/delete-collective-task.$taskId/route.lazy'
     ).then((d) => d.Route),
   )
-
+const AppDashboardCreateAircallContactNumberRouteRoute =
+  AppDashboardCreateAircallContactNumberRouteRouteImport.update({
+    id: '/create-aircall-contact/$number',
+    path: '/create-aircall-contact/$number',
+    getParentRoute: () => AppDashboardRouteRoute,
+  } as any).lazy(() =>
+    import(
+      './routes/app/dashboard/create-aircall-contact.$number/route.lazy'
+    ).then((d) => d.Route),
+  )
 const AppDashboardArchivePersonalTaskTaskIdRouteRoute =
-  AppDashboardArchivePersonalTaskTaskIdRouteImport.update({
+  AppDashboardArchivePersonalTaskTaskIdRouteRouteImport.update({
     id: '/archive-personal-task/$taskId',
     path: '/archive-personal-task/$taskId',
     getParentRoute: () => AppDashboardRouteRoute,
@@ -1416,9 +1326,8 @@ const AppDashboardArchivePersonalTaskTaskIdRouteRoute =
       './routes/app/dashboard/archive-personal-task.$taskId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaRmaRmaIdRouteRoute =
-  AppBusinessesRmaRmaRmaIdRouteImport.update({
+  AppBusinessesRmaRmaRmaIdRouteRouteImport.update({
     id: '/businesses-rma_/rma/$rmaId',
     path: '/businesses-rma/rma/$rmaId',
     getParentRoute: () => AppRouteRoute,
@@ -1427,9 +1336,8 @@ const AppBusinessesRmaRmaRmaIdRouteRoute =
       (d) => d.Route,
     ),
   )
-
 const AppBusinessesRmaBusinessBusinessIdRouteRoute =
-  AppBusinessesRmaBusinessBusinessIdRouteImport.update({
+  AppBusinessesRmaBusinessBusinessIdRouteRouteImport.update({
     id: '/businesses-rma_/business/$businessId',
     path: '/businesses-rma/business/$businessId',
     getParentRoute: () => AppRouteRoute,
@@ -1438,23 +1346,20 @@ const AppBusinessesRmaBusinessBusinessIdRouteRoute =
       (d) => d.Route,
     ),
   )
-
 const AppBusinessesRmaRmaRmaIdIndexRoute =
-  AppBusinessesRmaRmaRmaIdIndexImport.update({
+  AppBusinessesRmaRmaRmaIdIndexRouteImport.update({
     id: '/',
     path: '/',
     getParentRoute: () => AppBusinessesRmaRmaRmaIdRouteRoute,
   } as any)
-
 const AppBusinessesRmaBusinessBusinessIdIndexRoute =
-  AppBusinessesRmaBusinessBusinessIdIndexImport.update({
+  AppBusinessesRmaBusinessBusinessIdIndexRouteImport.update({
     id: '/',
     path: '/',
     getParentRoute: () => AppBusinessesRmaBusinessBusinessIdRouteRoute,
   } as any)
-
 const AppToolsVvaDeleteVvaIdRouteRoute =
-  AppToolsVvaDeleteVvaIdRouteImport.update({
+  AppToolsVvaDeleteVvaIdRouteRouteImport.update({
     id: '/delete/$vvaId',
     path: '/delete/$vvaId',
     getParentRoute: () => AppToolsVvaRouteRoute,
@@ -1463,9 +1368,8 @@ const AppToolsVvaDeleteVvaIdRouteRoute =
       (d) => d.Route,
     ),
   )
-
 const AppToolsSchedulerDetailsRdvIdRouteRoute =
-  AppToolsSchedulerDetailsRdvIdRouteImport.update({
+  AppToolsSchedulerDetailsRdvIdRouteRouteImport.update({
     id: '/details/$rdvId',
     path: '/details/$rdvId',
     getParentRoute: () => AppToolsSchedulerRouteRoute,
@@ -1474,9 +1378,8 @@ const AppToolsSchedulerDetailsRdvIdRouteRoute =
       (d) => d.Route,
     ),
   )
-
 const AppToolsProductShelvesDeleteProductShelfIdRouteRoute =
-  AppToolsProductShelvesDeleteProductShelfIdRouteImport.update({
+  AppToolsProductShelvesDeleteProductShelfIdRouteRouteImport.update({
     id: '/delete/$productShelfId',
     path: '/delete/$productShelfId',
     getParentRoute: () => AppToolsProductShelvesRouteRoute,
@@ -1485,9 +1388,8 @@ const AppToolsProductShelvesDeleteProductShelfIdRouteRoute =
       './routes/app/tools/product-shelves/delete.$productShelfId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppToolsProductInventoryUpdateStockIdRouteRoute =
-  AppToolsProductInventoryUpdateStockIdRouteImport.update({
+  AppToolsProductInventoryUpdateStockIdRouteRouteImport.update({
     id: '/update/$stockId',
     path: '/update/$stockId',
     getParentRoute: () => AppToolsProductInventoryRouteRoute,
@@ -1496,9 +1398,8 @@ const AppToolsProductInventoryUpdateStockIdRouteRoute =
       './routes/app/tools/product-inventory/update.$stockId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppToolsProductFiltersUpdateProductFilterIdRouteRoute =
-  AppToolsProductFiltersUpdateProductFilterIdRouteImport.update({
+  AppToolsProductFiltersUpdateProductFilterIdRouteRouteImport.update({
     id: '/update/$productFilterId',
     path: '/update/$productFilterId',
     getParentRoute: () => AppToolsProductFiltersRouteRoute,
@@ -1507,9 +1408,8 @@ const AppToolsProductFiltersUpdateProductFilterIdRouteRoute =
       './routes/app/tools/product-filters/update.$productFilterId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppToolsProductFiltersDeleteProductFilterIdRouteRoute =
-  AppToolsProductFiltersDeleteProductFilterIdRouteImport.update({
+  AppToolsProductFiltersDeleteProductFilterIdRouteRouteImport.update({
     id: '/delete/$productFilterId',
     path: '/delete/$productFilterId',
     getParentRoute: () => AppToolsProductFiltersRouteRoute,
@@ -1518,9 +1418,8 @@ const AppToolsProductFiltersDeleteProductFilterIdRouteRoute =
       './routes/app/tools/product-filters/delete.$productFilterId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppToolsPredefinedTextsUpdatePredefinedTextIdRouteRoute =
-  AppToolsPredefinedTextsUpdatePredefinedTextIdRouteImport.update({
+  AppToolsPredefinedTextsUpdatePredefinedTextIdRouteRouteImport.update({
     id: '/update/$predefinedTextId',
     path: '/update/$predefinedTextId',
     getParentRoute: () => AppToolsPredefinedTextsRouteRoute,
@@ -1529,9 +1428,8 @@ const AppToolsPredefinedTextsUpdatePredefinedTextIdRouteRoute =
       './routes/app/tools/predefined-texts/update.$predefinedTextId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppToolsPredefinedTextsDeletePredefinedTextIdRouteRoute =
-  AppToolsPredefinedTextsDeletePredefinedTextIdRouteImport.update({
+  AppToolsPredefinedTextsDeletePredefinedTextIdRouteRouteImport.update({
     id: '/delete/$predefinedTextId',
     path: '/delete/$predefinedTextId',
     getParentRoute: () => AppToolsPredefinedTextsRouteRoute,
@@ -1540,9 +1438,8 @@ const AppToolsPredefinedTextsDeletePredefinedTextIdRouteRoute =
       './routes/app/tools/predefined-texts/delete.$predefinedTextId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppToolsPredefinedMessagesUpdatePredefinedMessageIdRouteRoute =
-  AppToolsPredefinedMessagesUpdatePredefinedMessageIdRouteImport.update({
+  AppToolsPredefinedMessagesUpdatePredefinedMessageIdRouteRouteImport.update({
     id: '/update/$predefinedMessageId',
     path: '/update/$predefinedMessageId',
     getParentRoute: () => AppToolsPredefinedMessagesRouteRoute,
@@ -1551,9 +1448,8 @@ const AppToolsPredefinedMessagesUpdatePredefinedMessageIdRouteRoute =
       './routes/app/tools/predefined-messages/update.$predefinedMessageId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppToolsPredefinedMessagesDeletePredefinedMessageIdRouteRoute =
-  AppToolsPredefinedMessagesDeletePredefinedMessageIdRouteImport.update({
+  AppToolsPredefinedMessagesDeletePredefinedMessageIdRouteRouteImport.update({
     id: '/delete/$predefinedMessageId',
     path: '/delete/$predefinedMessageId',
     getParentRoute: () => AppToolsPredefinedMessagesRouteRoute,
@@ -1562,9 +1458,8 @@ const AppToolsPredefinedMessagesDeletePredefinedMessageIdRouteRoute =
       './routes/app/tools/predefined-messages/delete.$predefinedMessageId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppToolsNewsUpdateNewsIdRouteRoute =
-  AppToolsNewsUpdateNewsIdRouteImport.update({
+  AppToolsNewsUpdateNewsIdRouteRouteImport.update({
     id: '/update/$newsId',
     path: '/update/$newsId',
     getParentRoute: () => AppToolsNewsRouteRoute,
@@ -1573,9 +1468,8 @@ const AppToolsNewsUpdateNewsIdRouteRoute =
       (d) => d.Route,
     ),
   )
-
 const AppToolsNewsDeleteNewsIdRouteRoute =
-  AppToolsNewsDeleteNewsIdRouteImport.update({
+  AppToolsNewsDeleteNewsIdRouteRouteImport.update({
     id: '/delete/$newsId',
     path: '/delete/$newsId',
     getParentRoute: () => AppToolsNewsRouteRoute,
@@ -1584,9 +1478,8 @@ const AppToolsNewsDeleteNewsIdRouteRoute =
       (d) => d.Route,
     ),
   )
-
 const AppToolsMailsUpdateMailIdRouteRoute =
-  AppToolsMailsUpdateMailIdRouteImport.update({
+  AppToolsMailsUpdateMailIdRouteRouteImport.update({
     id: '/update/$mailId',
     path: '/update/$mailId',
     getParentRoute: () => AppToolsMailsRouteRoute,
@@ -1595,9 +1488,8 @@ const AppToolsMailsUpdateMailIdRouteRoute =
       (d) => d.Route,
     ),
   )
-
 const AppToolsMailsShowMailIdRouteRoute =
-  AppToolsMailsShowMailIdRouteImport.update({
+  AppToolsMailsShowMailIdRouteRouteImport.update({
     id: '/show/$mailId',
     path: '/show/$mailId',
     getParentRoute: () => AppToolsMailsRouteRoute,
@@ -1606,9 +1498,8 @@ const AppToolsMailsShowMailIdRouteRoute =
       (d) => d.Route,
     ),
   )
-
 const AppToolsMailsDeleteMailIdRouteRoute =
-  AppToolsMailsDeleteMailIdRouteImport.update({
+  AppToolsMailsDeleteMailIdRouteRouteImport.update({
     id: '/delete/$mailId',
     path: '/delete/$mailId',
     getParentRoute: () => AppToolsMailsRouteRoute,
@@ -1617,9 +1508,8 @@ const AppToolsMailsDeleteMailIdRouteRoute =
       (d) => d.Route,
     ),
   )
-
 const AppToolsFormationsUpdateFormationIdRouteRoute =
-  AppToolsFormationsUpdateFormationIdRouteImport.update({
+  AppToolsFormationsUpdateFormationIdRouteRouteImport.update({
     id: '/update/$formationId',
     path: '/update/$formationId',
     getParentRoute: () => AppToolsFormationsRouteRoute,
@@ -1628,9 +1518,8 @@ const AppToolsFormationsUpdateFormationIdRouteRoute =
       (d) => d.Route,
     ),
   )
-
 const AppToolsFormationsSubscribersFormationDetailIdRouteRoute =
-  AppToolsFormationsSubscribersFormationDetailIdRouteImport.update({
+  AppToolsFormationsSubscribersFormationDetailIdRouteRouteImport.update({
     id: '/subscribers/$formationDetailId',
     path: '/subscribers/$formationDetailId',
     getParentRoute: () => AppToolsFormationsRouteRoute,
@@ -1639,9 +1528,8 @@ const AppToolsFormationsSubscribersFormationDetailIdRouteRoute =
       './routes/app/tools/formations/subscribers.$formationDetailId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppToolsFormationsDeleteFormationIdRouteRoute =
-  AppToolsFormationsDeleteFormationIdRouteImport.update({
+  AppToolsFormationsDeleteFormationIdRouteRouteImport.update({
     id: '/delete/$formationId',
     path: '/delete/$formationId',
     getParentRoute: () => AppToolsFormationsRouteRoute,
@@ -1650,9 +1538,8 @@ const AppToolsFormationsDeleteFormationIdRouteRoute =
       (d) => d.Route,
     ),
   )
-
 const AppToolsFormationsCreateDetailsRouteRoute =
-  AppToolsFormationsCreateDetailsRouteImport.update({
+  AppToolsFormationsCreateDetailsRouteRouteImport.update({
     id: '/details',
     path: '/details',
     getParentRoute: () => AppToolsFormationsCreateRouteRoute,
@@ -1661,9 +1548,8 @@ const AppToolsFormationsCreateDetailsRouteRoute =
       (d) => d.Route,
     ),
   )
-
 const AppToolsFormationsCreateAddDetailRouteRoute =
-  AppToolsFormationsCreateAddDetailRouteImport.update({
+  AppToolsFormationsCreateAddDetailRouteRouteImport.update({
     id: '/add-detail',
     path: '/add-detail',
     getParentRoute: () => AppToolsFormationsCreateRouteRoute,
@@ -1672,9 +1558,8 @@ const AppToolsFormationsCreateAddDetailRouteRoute =
       (d) => d.Route,
     ),
   )
-
 const AppToolsExternalLinksUpdateExternalLinkIdRouteRoute =
-  AppToolsExternalLinksUpdateExternalLinkIdRouteImport.update({
+  AppToolsExternalLinksUpdateExternalLinkIdRouteRouteImport.update({
     id: '/update/$externalLinkId',
     path: '/update/$externalLinkId',
     getParentRoute: () => AppToolsExternalLinksRouteRoute,
@@ -1683,9 +1568,8 @@ const AppToolsExternalLinksUpdateExternalLinkIdRouteRoute =
       './routes/app/tools/external-links/update.$externalLinkId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppToolsExternalLinksDeleteExternalLinkIdRouteRoute =
-  AppToolsExternalLinksDeleteExternalLinkIdRouteImport.update({
+  AppToolsExternalLinksDeleteExternalLinkIdRouteRouteImport.update({
     id: '/delete/$externalLinkId',
     path: '/delete/$externalLinkId',
     getParentRoute: () => AppToolsExternalLinksRouteRoute,
@@ -1694,9 +1578,8 @@ const AppToolsExternalLinksDeleteExternalLinkIdRouteRoute =
       './routes/app/tools/external-links/delete.$externalLinkId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppToolsExternalLinksArchiveExternalLinkIdRouteRoute =
-  AppToolsExternalLinksArchiveExternalLinkIdRouteImport.update({
+  AppToolsExternalLinksArchiveExternalLinkIdRouteRouteImport.update({
     id: '/archive/$externalLinkId',
     path: '/archive/$externalLinkId',
     getParentRoute: () => AppToolsExternalLinksRouteRoute,
@@ -1705,9 +1588,8 @@ const AppToolsExternalLinksArchiveExternalLinkIdRouteRoute =
       './routes/app/tools/external-links/archive.$externalLinkId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppToolsEmailsEmailIdReplyRouteRoute =
-  AppToolsEmailsEmailIdReplyRouteImport.update({
+  AppToolsEmailsEmailIdReplyRouteRouteImport.update({
     id: '/reply',
     path: '/reply',
     getParentRoute: () => AppToolsEmailsEmailIdRouteRoute,
@@ -1716,9 +1598,8 @@ const AppToolsEmailsEmailIdReplyRouteRoute =
       (d) => d.Route,
     ),
   )
-
 const AppToolsDepartmentsUpdateDepartmentIdRouteRoute =
-  AppToolsDepartmentsUpdateDepartmentIdRouteImport.update({
+  AppToolsDepartmentsUpdateDepartmentIdRouteRouteImport.update({
     id: '/update/$departmentId',
     path: '/update/$departmentId',
     getParentRoute: () => AppToolsDepartmentsRouteRoute,
@@ -1727,9 +1608,8 @@ const AppToolsDepartmentsUpdateDepartmentIdRouteRoute =
       './routes/app/tools/departments/update.$departmentId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppToolsDepartmentsDeleteDepartmentIdRouteRoute =
-  AppToolsDepartmentsDeleteDepartmentIdRouteImport.update({
+  AppToolsDepartmentsDeleteDepartmentIdRouteRouteImport.update({
     id: '/delete/$departmentId',
     path: '/delete/$departmentId',
     getParentRoute: () => AppToolsDepartmentsRouteRoute,
@@ -1738,9 +1618,8 @@ const AppToolsDepartmentsDeleteDepartmentIdRouteRoute =
       './routes/app/tools/departments/delete.$departmentId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppToolsDdnsDeleteDdnsIdRouteRoute =
-  AppToolsDdnsDeleteDdnsIdRouteImport.update({
+  AppToolsDdnsDeleteDdnsIdRouteRouteImport.update({
     id: '/delete/$ddnsId',
     path: '/delete/$ddnsId',
     getParentRoute: () => AppToolsDdnsRouteRoute,
@@ -1749,9 +1628,8 @@ const AppToolsDdnsDeleteDdnsIdRouteRoute =
       (d) => d.Route,
     ),
   )
-
 const AppProductsProductIdManageCreateVersionRouteRoute =
-  AppProductsProductIdManageCreateVersionRouteImport.update({
+  AppProductsProductIdManageCreateVersionRouteRouteImport.update({
     id: '/create-version',
     path: '/create-version',
     getParentRoute: () => AppProductsProductIdManageRouteRoute,
@@ -1760,9 +1638,8 @@ const AppProductsProductIdManageCreateVersionRouteRoute =
       './routes/app/products_.$productId/manage/create-version/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppProductsProductIdManageCreateStockRouteRoute =
-  AppProductsProductIdManageCreateStockRouteImport.update({
+  AppProductsProductIdManageCreateStockRouteRouteImport.update({
     id: '/create-stock',
     path: '/create-stock',
     getParentRoute: () => AppProductsProductIdManageRouteRoute,
@@ -1771,9 +1648,8 @@ const AppProductsProductIdManageCreateStockRouteRoute =
       './routes/app/products_.$productId/manage/create-stock/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppProductsProductIdManageAddSpecificationRouteRoute =
-  AppProductsProductIdManageAddSpecificationRouteImport.update({
+  AppProductsProductIdManageAddSpecificationRouteRouteImport.update({
     id: '/add-specification',
     path: '/add-specification',
     getParentRoute: () => AppProductsProductIdManageRouteRoute,
@@ -1782,9 +1658,8 @@ const AppProductsProductIdManageAddSpecificationRouteRoute =
       './routes/app/products_.$productId/manage/add-specification/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppProductsProductIdManageAddNomenclatureDetailRouteRoute =
-  AppProductsProductIdManageAddNomenclatureDetailRouteImport.update({
+  AppProductsProductIdManageAddNomenclatureDetailRouteRouteImport.update({
     id: '/add-nomenclature-detail',
     path: '/add-nomenclature-detail',
     getParentRoute: () => AppProductsProductIdManageRouteRoute,
@@ -1793,9 +1668,8 @@ const AppProductsProductIdManageAddNomenclatureDetailRouteRoute =
       './routes/app/products_.$productId/manage/add-nomenclature-detail/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppProductsProductIdManageAddAssociatedProductRouteRoute =
-  AppProductsProductIdManageAddAssociatedProductRouteImport.update({
+  AppProductsProductIdManageAddAssociatedProductRouteRouteImport.update({
     id: '/add-associated-product',
     path: '/add-associated-product',
     getParentRoute: () => AppProductsProductIdManageRouteRoute,
@@ -1804,9 +1678,8 @@ const AppProductsProductIdManageAddAssociatedProductRouteRoute =
       './routes/app/products_.$productId/manage/add-associated-product/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppProductsProductIdInformationsRenameGedObjectRouteRoute =
-  AppProductsProductIdInformationsRenameGedObjectRouteImport.update({
+  AppProductsProductIdInformationsRenameGedObjectRouteRouteImport.update({
     id: '/rename-ged-object',
     path: '/rename-ged-object',
     getParentRoute: () => AppProductsProductIdInformationsRouteRoute,
@@ -1815,9 +1688,8 @@ const AppProductsProductIdInformationsRenameGedObjectRouteRoute =
       './routes/app/products_.$productId/informations/rename-ged-object/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppProductsProductIdInformationsImportGedFilesRouteRoute =
-  AppProductsProductIdInformationsImportGedFilesRouteImport.update({
+  AppProductsProductIdInformationsImportGedFilesRouteRouteImport.update({
     id: '/import-ged-files',
     path: '/import-ged-files',
     getParentRoute: () => AppProductsProductIdInformationsRouteRoute,
@@ -1826,9 +1698,8 @@ const AppProductsProductIdInformationsImportGedFilesRouteRoute =
       './routes/app/products_.$productId/informations/import-ged-files/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppProductsProductIdInformationsDeleteGedObjectRouteRoute =
-  AppProductsProductIdInformationsDeleteGedObjectRouteImport.update({
+  AppProductsProductIdInformationsDeleteGedObjectRouteRouteImport.update({
     id: '/delete-ged-object',
     path: '/delete-ged-object',
     getParentRoute: () => AppProductsProductIdInformationsRouteRoute,
@@ -1837,20 +1708,20 @@ const AppProductsProductIdInformationsDeleteGedObjectRouteRoute =
       './routes/app/products_.$productId/informations/delete-ged-object/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppProductsProductIdInformationsCreateLifesheetCommentRouteRoute =
-  AppProductsProductIdInformationsCreateLifesheetCommentRouteImport.update({
-    id: '/create-lifesheet-comment',
-    path: '/create-lifesheet-comment',
-    getParentRoute: () => AppProductsProductIdInformationsRouteRoute,
-  } as any).lazy(() =>
+  AppProductsProductIdInformationsCreateLifesheetCommentRouteRouteImport.update(
+    {
+      id: '/create-lifesheet-comment',
+      path: '/create-lifesheet-comment',
+      getParentRoute: () => AppProductsProductIdInformationsRouteRoute,
+    } as any,
+  ).lazy(() =>
     import(
       './routes/app/products_.$productId/informations/create-lifesheet-comment/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppProductsProductIdInformationsCreateGedDirectoryRouteRoute =
-  AppProductsProductIdInformationsCreateGedDirectoryRouteImport.update({
+  AppProductsProductIdInformationsCreateGedDirectoryRouteRouteImport.update({
     id: '/create-ged-directory',
     path: '/create-ged-directory',
     getParentRoute: () => AppProductsProductIdInformationsRouteRoute,
@@ -1859,9 +1730,8 @@ const AppProductsProductIdInformationsCreateGedDirectoryRouteRoute =
       './routes/app/products_.$productId/informations/create-ged-directory/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppProductsSerialNumbersUpdateSerialNumberIdRouteRoute =
-  AppProductsSerialNumbersUpdateSerialNumberIdRouteImport.update({
+  AppProductsSerialNumbersUpdateSerialNumberIdRouteRouteImport.update({
     id: '/update/$serialNumberId',
     path: '/update/$serialNumberId',
     getParentRoute: () => AppProductsSerialNumbersRouteRoute,
@@ -1870,20 +1740,20 @@ const AppProductsSerialNumbersUpdateSerialNumberIdRouteRoute =
       './routes/app/products/serial-numbers/update.$serialNumberId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppProductsSerialNumbersRemoveFromBusinessSerialNumberIdRouteRoute =
-  AppProductsSerialNumbersRemoveFromBusinessSerialNumberIdRouteImport.update({
-    id: '/remove-from-business/$serialNumberId',
-    path: '/remove-from-business/$serialNumberId',
-    getParentRoute: () => AppProductsSerialNumbersRouteRoute,
-  } as any).lazy(() =>
+  AppProductsSerialNumbersRemoveFromBusinessSerialNumberIdRouteRouteImport.update(
+    {
+      id: '/remove-from-business/$serialNumberId',
+      path: '/remove-from-business/$serialNumberId',
+      getParentRoute: () => AppProductsSerialNumbersRouteRoute,
+    } as any,
+  ).lazy(() =>
     import(
       './routes/app/products/serial-numbers/remove-from-business.$serialNumberId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppProductsSerialNumbersDeleteSerialNumberIdRouteRoute =
-  AppProductsSerialNumbersDeleteSerialNumberIdRouteImport.update({
+  AppProductsSerialNumbersDeleteSerialNumberIdRouteRouteImport.update({
     id: '/delete/$serialNumberId',
     path: '/delete/$serialNumberId',
     getParentRoute: () => AppProductsSerialNumbersRouteRoute,
@@ -1892,9 +1762,8 @@ const AppProductsSerialNumbersDeleteSerialNumberIdRouteRoute =
       './routes/app/products/serial-numbers/delete.$serialNumberId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppProductsSerialNumbersCreateRmaSerialNumberIdRouteRoute =
-  AppProductsSerialNumbersCreateRmaSerialNumberIdRouteImport.update({
+  AppProductsSerialNumbersCreateRmaSerialNumberIdRouteRouteImport.update({
     id: '/create-rma/$serialNumberId',
     path: '/create-rma/$serialNumberId',
     getParentRoute: () => AppProductsSerialNumbersRouteRoute,
@@ -1903,9 +1772,8 @@ const AppProductsSerialNumbersCreateRmaSerialNumberIdRouteRoute =
       './routes/app/products/serial-numbers/create-rma.$serialNumberId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppFaqGedFaqIdImportFilesRouteRoute =
-  AppFaqGedFaqIdImportFilesRouteImport.update({
+  AppFaqGedFaqIdImportFilesRouteRouteImport.update({
     id: '/import-files',
     path: '/import-files',
     getParentRoute: () => AppFaqGedFaqIdRouteRoute,
@@ -1914,9 +1782,8 @@ const AppFaqGedFaqIdImportFilesRouteRoute =
       (d) => d.Route,
     ),
   )
-
 const AppFaqGedFaqIdCreateDirectoryRouteRoute =
-  AppFaqGedFaqIdCreateDirectoryRouteImport.update({
+  AppFaqGedFaqIdCreateDirectoryRouteRouteImport.update({
     id: '/create-directory',
     path: '/create-directory',
     getParentRoute: () => AppFaqGedFaqIdRouteRoute,
@@ -1925,9 +1792,8 @@ const AppFaqGedFaqIdCreateDirectoryRouteRoute =
       (d) => d.Route,
     ),
   )
-
 const AppEnterprisesEnterpriseIdUpdateContactContactIdRouteRoute =
-  AppEnterprisesEnterpriseIdUpdateContactContactIdRouteImport.update({
+  AppEnterprisesEnterpriseIdUpdateContactContactIdRouteRouteImport.update({
     id: '/update-contact/$contactId',
     path: '/update-contact/$contactId',
     getParentRoute: () => AppEnterprisesEnterpriseIdRouteRoute,
@@ -1936,31 +1802,32 @@ const AppEnterprisesEnterpriseIdUpdateContactContactIdRouteRoute =
       './routes/app/enterprises_.$enterpriseId/update-contact.$contactId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppEnterprisesEnterpriseIdUpdateContactPasswordContactIdRouteRoute =
-  AppEnterprisesEnterpriseIdUpdateContactPasswordContactIdRouteImport.update({
-    id: '/update-contact-password/$contactId',
-    path: '/update-contact-password/$contactId',
-    getParentRoute: () => AppEnterprisesEnterpriseIdRouteRoute,
-  } as any).lazy(() =>
+  AppEnterprisesEnterpriseIdUpdateContactPasswordContactIdRouteRouteImport.update(
+    {
+      id: '/update-contact-password/$contactId',
+      path: '/update-contact-password/$contactId',
+      getParentRoute: () => AppEnterprisesEnterpriseIdRouteRoute,
+    } as any,
+  ).lazy(() =>
     import(
       './routes/app/enterprises_.$enterpriseId/update-contact-password.$contactId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppEnterprisesEnterpriseIdUnrelateBusinessRmaBusinessRmaIdRouteRoute =
-  AppEnterprisesEnterpriseIdUnrelateBusinessRmaBusinessRmaIdRouteImport.update({
-    id: '/unrelate-business-rma/$businessRmaId',
-    path: '/unrelate-business-rma/$businessRmaId',
-    getParentRoute: () => AppEnterprisesEnterpriseIdRouteRoute,
-  } as any).lazy(() =>
+  AppEnterprisesEnterpriseIdUnrelateBusinessRmaBusinessRmaIdRouteRouteImport.update(
+    {
+      id: '/unrelate-business-rma/$businessRmaId',
+      path: '/unrelate-business-rma/$businessRmaId',
+      getParentRoute: () => AppEnterprisesEnterpriseIdRouteRoute,
+    } as any,
+  ).lazy(() =>
     import(
       './routes/app/enterprises_.$enterpriseId/unrelate-business-rma.$businessRmaId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppEnterprisesEnterpriseIdUnlinkTaskTaskIdRouteRoute =
-  AppEnterprisesEnterpriseIdUnlinkTaskTaskIdRouteImport.update({
+  AppEnterprisesEnterpriseIdUnlinkTaskTaskIdRouteRouteImport.update({
     id: '/unlink-task/$taskId',
     path: '/unlink-task/$taskId',
     getParentRoute: () => AppEnterprisesEnterpriseIdRouteRoute,
@@ -1969,9 +1836,8 @@ const AppEnterprisesEnterpriseIdUnlinkTaskTaskIdRouteRoute =
       './routes/app/enterprises_.$enterpriseId/unlink-task.$taskId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppEnterprisesEnterpriseIdTaskEmailTaskIdRouteRoute =
-  AppEnterprisesEnterpriseIdTaskEmailTaskIdRouteImport.update({
+  AppEnterprisesEnterpriseIdTaskEmailTaskIdRouteRouteImport.update({
     id: '/task-email/$taskId',
     path: '/task-email/$taskId',
     getParentRoute: () => AppEnterprisesEnterpriseIdRouteRoute,
@@ -1980,9 +1846,8 @@ const AppEnterprisesEnterpriseIdTaskEmailTaskIdRouteRoute =
       './routes/app/enterprises_.$enterpriseId/task-email.$taskId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppEnterprisesEnterpriseIdSendEmailToContactContactIdRouteRoute =
-  AppEnterprisesEnterpriseIdSendEmailToContactContactIdRouteImport.update({
+  AppEnterprisesEnterpriseIdSendEmailToContactContactIdRouteRouteImport.update({
     id: '/send-email-to-contact/$contactId',
     path: '/send-email-to-contact/$contactId',
     getParentRoute: () => AppEnterprisesEnterpriseIdRouteRoute,
@@ -1991,9 +1856,8 @@ const AppEnterprisesEnterpriseIdSendEmailToContactContactIdRouteRoute =
       './routes/app/enterprises_.$enterpriseId/send-email-to-contact.$contactId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppEnterprisesEnterpriseIdRenameGedObjectObjectRelativePathRouteRoute =
-  AppEnterprisesEnterpriseIdRenameGedObjectObjectRelativePathRouteImport.update(
+  AppEnterprisesEnterpriseIdRenameGedObjectObjectRelativePathRouteRouteImport.update(
     {
       id: '/rename-ged-object/$objectRelativePath',
       path: '/rename-ged-object/$objectRelativePath',
@@ -2004,9 +1868,8 @@ const AppEnterprisesEnterpriseIdRenameGedObjectObjectRelativePathRouteRoute =
       './routes/app/enterprises_.$enterpriseId/rename-ged-object.$objectRelativePath/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppEnterprisesEnterpriseIdLifesheetEmailLifesheetIdRouteRoute =
-  AppEnterprisesEnterpriseIdLifesheetEmailLifesheetIdRouteImport.update({
+  AppEnterprisesEnterpriseIdLifesheetEmailLifesheetIdRouteRouteImport.update({
     id: '/lifesheet-email/$lifesheetId',
     path: '/lifesheet-email/$lifesheetId',
     getParentRoute: () => AppEnterprisesEnterpriseIdRouteRoute,
@@ -2015,9 +1878,8 @@ const AppEnterprisesEnterpriseIdLifesheetEmailLifesheetIdRouteRoute =
       './routes/app/enterprises_.$enterpriseId/lifesheet-email.$lifesheetId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppEnterprisesEnterpriseIdDeleteGedObjectObjectRelativePathRouteRoute =
-  AppEnterprisesEnterpriseIdDeleteGedObjectObjectRelativePathRouteImport.update(
+  AppEnterprisesEnterpriseIdDeleteGedObjectObjectRelativePathRouteRouteImport.update(
     {
       id: '/delete-ged-object/$objectRelativePath',
       path: '/delete-ged-object/$objectRelativePath',
@@ -2028,9 +1890,8 @@ const AppEnterprisesEnterpriseIdDeleteGedObjectObjectRelativePathRouteRoute =
       './routes/app/enterprises_.$enterpriseId/delete-ged-object.$objectRelativePath/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppEnterprisesEnterpriseIdDeleteContactContactIdRouteRoute =
-  AppEnterprisesEnterpriseIdDeleteContactContactIdRouteImport.update({
+  AppEnterprisesEnterpriseIdDeleteContactContactIdRouteRouteImport.update({
     id: '/delete-contact/$contactId',
     path: '/delete-contact/$contactId',
     getParentRoute: () => AppEnterprisesEnterpriseIdRouteRoute,
@@ -2039,20 +1900,20 @@ const AppEnterprisesEnterpriseIdDeleteContactContactIdRouteRoute =
       './routes/app/enterprises_.$enterpriseId/delete-contact.$contactId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppEnterprisesEnterpriseIdCreateContactBusinessContactIdRouteRoute =
-  AppEnterprisesEnterpriseIdCreateContactBusinessContactIdRouteImport.update({
-    id: '/create-contact-business/$contactId',
-    path: '/create-contact-business/$contactId',
-    getParentRoute: () => AppEnterprisesEnterpriseIdRouteRoute,
-  } as any).lazy(() =>
+  AppEnterprisesEnterpriseIdCreateContactBusinessContactIdRouteRouteImport.update(
+    {
+      id: '/create-contact-business/$contactId',
+      path: '/create-contact-business/$contactId',
+      getParentRoute: () => AppEnterprisesEnterpriseIdRouteRoute,
+    } as any,
+  ).lazy(() =>
     import(
       './routes/app/enterprises_.$enterpriseId/create-contact-business.$contactId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppEnterprisesEnterpriseIdAddressBookImportRouteRoute =
-  AppEnterprisesEnterpriseIdAddressBookImportRouteImport.update({
+  AppEnterprisesEnterpriseIdAddressBookImportRouteRouteImport.update({
     id: '/import',
     path: '/import',
     getParentRoute: () => AppEnterprisesEnterpriseIdAddressBookRouteRoute,
@@ -2061,9 +1922,8 @@ const AppEnterprisesEnterpriseIdAddressBookImportRouteRoute =
       './routes/app/enterprises_.$enterpriseId/address-book/import/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppEnterprisesEnterpriseIdAddressBookCreateRouteRoute =
-  AppEnterprisesEnterpriseIdAddressBookCreateRouteImport.update({
+  AppEnterprisesEnterpriseIdAddressBookCreateRouteRouteImport.update({
     id: '/create',
     path: '/create',
     getParentRoute: () => AppEnterprisesEnterpriseIdAddressBookRouteRoute,
@@ -2072,9 +1932,8 @@ const AppEnterprisesEnterpriseIdAddressBookCreateRouteRoute =
       './routes/app/enterprises_.$enterpriseId/address-book/create/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppDashboardTaskEmailTaskIdReplyRouteRoute =
-  AppDashboardTaskEmailTaskIdReplyRouteImport.update({
+  AppDashboardTaskEmailTaskIdReplyRouteRouteImport.update({
     id: '/reply',
     path: '/reply',
     getParentRoute: () => AppDashboardTaskEmailTaskIdRouteRoute,
@@ -2083,9 +1942,8 @@ const AppDashboardTaskEmailTaskIdReplyRouteRoute =
       (d) => d.Route,
     ),
   )
-
 const AppBusinessesRmaRmaRmaIdSupportRouteRoute =
-  AppBusinessesRmaRmaRmaIdSupportRouteImport.update({
+  AppBusinessesRmaRmaRmaIdSupportRouteRouteImport.update({
     id: '/support',
     path: '/support',
     getParentRoute: () => AppBusinessesRmaRmaRmaIdRouteRoute,
@@ -2094,9 +1952,8 @@ const AppBusinessesRmaRmaRmaIdSupportRouteRoute =
       (d) => d.Route,
     ),
   )
-
 const AppBusinessesRmaRmaRmaIdReceptionRouteRoute =
-  AppBusinessesRmaRmaRmaIdReceptionRouteImport.update({
+  AppBusinessesRmaRmaRmaIdReceptionRouteRouteImport.update({
     id: '/reception',
     path: '/reception',
     getParentRoute: () => AppBusinessesRmaRmaRmaIdRouteRoute,
@@ -2105,9 +1962,8 @@ const AppBusinessesRmaRmaRmaIdReceptionRouteRoute =
       (d) => d.Route,
     ),
   )
-
 const AppBusinessesRmaRmaRmaIdDeliveryRouteRoute =
-  AppBusinessesRmaRmaRmaIdDeliveryRouteImport.update({
+  AppBusinessesRmaRmaRmaIdDeliveryRouteRouteImport.update({
     id: '/delivery',
     path: '/delivery',
     getParentRoute: () => AppBusinessesRmaRmaRmaIdRouteRoute,
@@ -2116,16 +1972,14 @@ const AppBusinessesRmaRmaRmaIdDeliveryRouteRoute =
       (d) => d.Route,
     ),
   )
-
 const AppBusinessesRmaBusinessBusinessIdStudyRouteRoute =
-  AppBusinessesRmaBusinessBusinessIdStudyRouteImport.update({
+  AppBusinessesRmaBusinessBusinessIdStudyRouteRouteImport.update({
     id: '/businesses-rma_/business/$businessId_/study',
     path: '/businesses-rma/business/$businessId/study',
     getParentRoute: () => AppRouteRoute,
   } as any)
-
 const AppBusinessesRmaBusinessBusinessIdQuotationRouteRoute =
-  AppBusinessesRmaBusinessBusinessIdQuotationRouteImport.update({
+  AppBusinessesRmaBusinessBusinessIdQuotationRouteRouteImport.update({
     id: '/quotation',
     path: '/quotation',
     getParentRoute: () => AppBusinessesRmaBusinessBusinessIdRouteRoute,
@@ -2134,9 +1988,8 @@ const AppBusinessesRmaBusinessBusinessIdQuotationRouteRoute =
       './routes/app/businesses-rma_/business.$businessId/quotation/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaBusinessBusinessIdDashboardRouteRoute =
-  AppBusinessesRmaBusinessBusinessIdDashboardRouteImport.update({
+  AppBusinessesRmaBusinessBusinessIdDashboardRouteRouteImport.update({
     id: '/dashboard',
     path: '/dashboard',
     getParentRoute: () => AppBusinessesRmaBusinessBusinessIdRouteRoute,
@@ -2145,9 +1998,8 @@ const AppBusinessesRmaBusinessBusinessIdDashboardRouteRoute =
       './routes/app/businesses-rma_/business.$businessId/dashboard/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaBusinessBusinessIdBpRouteRoute =
-  AppBusinessesRmaBusinessBusinessIdBpRouteImport.update({
+  AppBusinessesRmaBusinessBusinessIdBpRouteRouteImport.update({
     id: '/bp',
     path: '/bp',
     getParentRoute: () => AppBusinessesRmaBusinessBusinessIdRouteRoute,
@@ -2156,9 +2008,8 @@ const AppBusinessesRmaBusinessBusinessIdBpRouteRoute =
       './routes/app/businesses-rma_/business.$businessId/bp/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaBusinessBusinessIdBlRouteRoute =
-  AppBusinessesRmaBusinessBusinessIdBlRouteImport.update({
+  AppBusinessesRmaBusinessBusinessIdBlRouteRouteImport.update({
     id: '/bl',
     path: '/bl',
     getParentRoute: () => AppBusinessesRmaBusinessBusinessIdRouteRoute,
@@ -2167,9 +2018,8 @@ const AppBusinessesRmaBusinessBusinessIdBlRouteRoute =
       './routes/app/businesses-rma_/business.$businessId/bl/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaBusinessBusinessIdBillRouteRoute =
-  AppBusinessesRmaBusinessBusinessIdBillRouteImport.update({
+  AppBusinessesRmaBusinessBusinessIdBillRouteRouteImport.update({
     id: '/bill',
     path: '/bill',
     getParentRoute: () => AppBusinessesRmaBusinessBusinessIdRouteRoute,
@@ -2178,9 +2028,8 @@ const AppBusinessesRmaBusinessBusinessIdBillRouteRoute =
       './routes/app/businesses-rma_/business.$businessId/bill/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaBusinessBusinessIdArcRouteRoute =
-  AppBusinessesRmaBusinessBusinessIdArcRouteImport.update({
+  AppBusinessesRmaBusinessBusinessIdArcRouteRouteImport.update({
     id: '/arc',
     path: '/arc',
     getParentRoute: () => AppBusinessesRmaBusinessBusinessIdRouteRoute,
@@ -2189,16 +2038,14 @@ const AppBusinessesRmaBusinessBusinessIdArcRouteRoute =
       './routes/app/businesses-rma_/business.$businessId/arc/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaBusinessBusinessIdStudyIndexRoute =
-  AppBusinessesRmaBusinessBusinessIdStudyIndexImport.update({
+  AppBusinessesRmaBusinessBusinessIdStudyIndexRouteImport.update({
     id: '/',
     path: '/',
     getParentRoute: () => AppBusinessesRmaBusinessBusinessIdStudyRouteRoute,
   } as any)
-
 const AppToolsSchedulerDetailsRdvIdUpdateRouteRoute =
-  AppToolsSchedulerDetailsRdvIdUpdateRouteImport.update({
+  AppToolsSchedulerDetailsRdvIdUpdateRouteRouteImport.update({
     id: '/update',
     path: '/update',
     getParentRoute: () => AppToolsSchedulerDetailsRdvIdRouteRoute,
@@ -2207,9 +2054,8 @@ const AppToolsSchedulerDetailsRdvIdUpdateRouteRoute =
       './routes/app/tools/scheduler/details.$rdvId/update/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppToolsSchedulerDetailsRdvIdDeleteRouteRoute =
-  AppToolsSchedulerDetailsRdvIdDeleteRouteImport.update({
+  AppToolsSchedulerDetailsRdvIdDeleteRouteRouteImport.update({
     id: '/delete',
     path: '/delete',
     getParentRoute: () => AppToolsSchedulerDetailsRdvIdRouteRoute,
@@ -2218,9 +2064,8 @@ const AppToolsSchedulerDetailsRdvIdDeleteRouteRoute =
       './routes/app/tools/scheduler/details.$rdvId/delete/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppToolsFormationsUpdateFormationIdDetailsRouteRoute =
-  AppToolsFormationsUpdateFormationIdDetailsRouteImport.update({
+  AppToolsFormationsUpdateFormationIdDetailsRouteRouteImport.update({
     id: '/details',
     path: '/details',
     getParentRoute: () => AppToolsFormationsUpdateFormationIdRouteRoute,
@@ -2229,9 +2074,8 @@ const AppToolsFormationsUpdateFormationIdDetailsRouteRoute =
       './routes/app/tools/formations/update.$formationId/details/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppToolsFormationsUpdateFormationIdAddDetailRouteRoute =
-  AppToolsFormationsUpdateFormationIdAddDetailRouteImport.update({
+  AppToolsFormationsUpdateFormationIdAddDetailRouteRouteImport.update({
     id: '/add-detail',
     path: '/add-detail',
     getParentRoute: () => AppToolsFormationsUpdateFormationIdRouteRoute,
@@ -2240,9 +2084,8 @@ const AppToolsFormationsUpdateFormationIdAddDetailRouteRoute =
       './routes/app/tools/formations/update.$formationId/add-detail/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppToolsFormationsSubscribersFormationDetailIdCreateRouteRoute =
-  AppToolsFormationsSubscribersFormationDetailIdCreateRouteImport.update({
+  AppToolsFormationsSubscribersFormationDetailIdCreateRouteRouteImport.update({
     id: '/create',
     path: '/create',
     getParentRoute: () =>
@@ -2252,9 +2095,8 @@ const AppToolsFormationsSubscribersFormationDetailIdCreateRouteRoute =
       './routes/app/tools/formations/subscribers.$formationDetailId/create/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppProductsProductIdManageUpdateVersionVersionIdRouteRoute =
-  AppProductsProductIdManageUpdateVersionVersionIdRouteImport.update({
+  AppProductsProductIdManageUpdateVersionVersionIdRouteRouteImport.update({
     id: '/update-version/$versionId',
     path: '/update-version/$versionId',
     getParentRoute: () => AppProductsProductIdManageRouteRoute,
@@ -2263,9 +2105,8 @@ const AppProductsProductIdManageUpdateVersionVersionIdRouteRoute =
       './routes/app/products_.$productId/manage/update-version.$versionId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppProductsProductIdManageUpdateStockStockIdRouteRoute =
-  AppProductsProductIdManageUpdateStockStockIdRouteImport.update({
+  AppProductsProductIdManageUpdateStockStockIdRouteRouteImport.update({
     id: '/update-stock/$stockId',
     path: '/update-stock/$stockId',
     getParentRoute: () => AppProductsProductIdManageRouteRoute,
@@ -2274,9 +2115,8 @@ const AppProductsProductIdManageUpdateStockStockIdRouteRoute =
       './routes/app/products_.$productId/manage/update-stock.$stockId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppProductsProductIdManageUpdateSpecificationSpecificationIdRouteRoute =
-  AppProductsProductIdManageUpdateSpecificationSpecificationIdRouteImport.update(
+  AppProductsProductIdManageUpdateSpecificationSpecificationIdRouteRouteImport.update(
     {
       id: '/update-specification/$specificationId',
       path: '/update-specification/$specificationId',
@@ -2287,9 +2127,8 @@ const AppProductsProductIdManageUpdateSpecificationSpecificationIdRouteRoute =
       './routes/app/products_.$productId/manage/update-specification.$specificationId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppProductsProductIdManageUpdateNomenclatureDetailNomenclatureDetailIdRouteRoute =
-  AppProductsProductIdManageUpdateNomenclatureDetailNomenclatureDetailIdRouteImport.update(
+  AppProductsProductIdManageUpdateNomenclatureDetailNomenclatureDetailIdRouteRouteImport.update(
     {
       id: '/update-nomenclature-detail/$nomenclatureDetailId',
       path: '/update-nomenclature-detail/$nomenclatureDetailId',
@@ -2300,9 +2139,8 @@ const AppProductsProductIdManageUpdateNomenclatureDetailNomenclatureDetailIdRout
       './routes/app/products_.$productId/manage/update-nomenclature-detail.$nomenclatureDetailId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppProductsProductIdManageStockHistoryStockIdRouteRoute =
-  AppProductsProductIdManageStockHistoryStockIdRouteImport.update({
+  AppProductsProductIdManageStockHistoryStockIdRouteRouteImport.update({
     id: '/stock-history/$stockId',
     path: '/stock-history/$stockId',
     getParentRoute: () => AppProductsProductIdManageRouteRoute,
@@ -2311,9 +2149,8 @@ const AppProductsProductIdManageStockHistoryStockIdRouteRoute =
       './routes/app/products_.$productId/manage/stock-history.$stockId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppProductsProductIdManageRemoveAssociatedProductAssociatedProductIdRouteRoute =
-  AppProductsProductIdManageRemoveAssociatedProductAssociatedProductIdRouteImport.update(
+  AppProductsProductIdManageRemoveAssociatedProductAssociatedProductIdRouteRouteImport.update(
     {
       id: '/remove-associated-product/$associatedProductId',
       path: '/remove-associated-product/$associatedProductId',
@@ -2324,9 +2161,8 @@ const AppProductsProductIdManageRemoveAssociatedProductAssociatedProductIdRouteR
       './routes/app/products_.$productId/manage/remove-associated-product.$associatedProductId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppProductsProductIdManageDeleteVersionVersionIdRouteRoute =
-  AppProductsProductIdManageDeleteVersionVersionIdRouteImport.update({
+  AppProductsProductIdManageDeleteVersionVersionIdRouteRouteImport.update({
     id: '/delete-version/$versionId',
     path: '/delete-version/$versionId',
     getParentRoute: () => AppProductsProductIdManageRouteRoute,
@@ -2335,9 +2171,8 @@ const AppProductsProductIdManageDeleteVersionVersionIdRouteRoute =
       './routes/app/products_.$productId/manage/delete-version.$versionId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppProductsProductIdManageDeleteStockStockIdRouteRoute =
-  AppProductsProductIdManageDeleteStockStockIdRouteImport.update({
+  AppProductsProductIdManageDeleteStockStockIdRouteRouteImport.update({
     id: '/delete-stock/$stockId',
     path: '/delete-stock/$stockId',
     getParentRoute: () => AppProductsProductIdManageRouteRoute,
@@ -2346,9 +2181,8 @@ const AppProductsProductIdManageDeleteStockStockIdRouteRoute =
       './routes/app/products_.$productId/manage/delete-stock.$stockId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppProductsProductIdManageDeleteSpecificationSpecificationIdRouteRoute =
-  AppProductsProductIdManageDeleteSpecificationSpecificationIdRouteImport.update(
+  AppProductsProductIdManageDeleteSpecificationSpecificationIdRouteRouteImport.update(
     {
       id: '/delete-specification/$specificationId',
       path: '/delete-specification/$specificationId',
@@ -2359,9 +2193,8 @@ const AppProductsProductIdManageDeleteSpecificationSpecificationIdRouteRoute =
       './routes/app/products_.$productId/manage/delete-specification.$specificationId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppProductsProductIdManageDeleteNomenclatureDetailNomenclatureDetailIdRouteRoute =
-  AppProductsProductIdManageDeleteNomenclatureDetailNomenclatureDetailIdRouteImport.update(
+  AppProductsProductIdManageDeleteNomenclatureDetailNomenclatureDetailIdRouteRouteImport.update(
     {
       id: '/delete-nomenclature-detail/$nomenclatureDetailId',
       path: '/delete-nomenclature-detail/$nomenclatureDetailId',
@@ -2372,9 +2205,8 @@ const AppProductsProductIdManageDeleteNomenclatureDetailNomenclatureDetailIdRout
       './routes/app/products_.$productId/manage/delete-nomenclature-detail.$nomenclatureDetailId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppProductsProductIdManageAddSpecificationFilterIdRouteRoute =
-  AppProductsProductIdManageAddSpecificationFilterIdRouteImport.update({
+  AppProductsProductIdManageAddSpecificationFilterIdRouteRouteImport.update({
     id: '/$filterId',
     path: '/$filterId',
     getParentRoute: () => AppProductsProductIdManageAddSpecificationRouteRoute,
@@ -2383,9 +2215,8 @@ const AppProductsProductIdManageAddSpecificationFilterIdRouteRoute =
       './routes/app/products_.$productId/manage/add-specification/$filterId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppProductsProductIdInformationsUnlinkTaskTaskIdRouteRoute =
-  AppProductsProductIdInformationsUnlinkTaskTaskIdRouteImport.update({
+  AppProductsProductIdInformationsUnlinkTaskTaskIdRouteRouteImport.update({
     id: '/unlink-task/$taskId',
     path: '/unlink-task/$taskId',
     getParentRoute: () => AppProductsProductIdInformationsRouteRoute,
@@ -2394,9 +2225,8 @@ const AppProductsProductIdInformationsUnlinkTaskTaskIdRouteRoute =
       './routes/app/products_.$productId/informations/unlink-task.$taskId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppProductsProductIdInformationsTaskEmailTaskIdRouteRoute =
-  AppProductsProductIdInformationsTaskEmailTaskIdRouteImport.update({
+  AppProductsProductIdInformationsTaskEmailTaskIdRouteRouteImport.update({
     id: '/task-email/$taskId',
     path: '/task-email/$taskId',
     getParentRoute: () => AppProductsProductIdInformationsRouteRoute,
@@ -2405,20 +2235,20 @@ const AppProductsProductIdInformationsTaskEmailTaskIdRouteRoute =
       './routes/app/products_.$productId/informations/task-email.$taskId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppProductsProductIdInformationsLifesheetEmailLifesheetIdRouteRoute =
-  AppProductsProductIdInformationsLifesheetEmailLifesheetIdRouteImport.update({
-    id: '/lifesheet-email/$lifesheetId',
-    path: '/lifesheet-email/$lifesheetId',
-    getParentRoute: () => AppProductsProductIdInformationsRouteRoute,
-  } as any).lazy(() =>
+  AppProductsProductIdInformationsLifesheetEmailLifesheetIdRouteRouteImport.update(
+    {
+      id: '/lifesheet-email/$lifesheetId',
+      path: '/lifesheet-email/$lifesheetId',
+      getParentRoute: () => AppProductsProductIdInformationsRouteRoute,
+    } as any,
+  ).lazy(() =>
     import(
       './routes/app/products_.$productId/informations/lifesheet-email.$lifesheetId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppFaqGedFaqIdRenameItemRelativePathRouteRoute =
-  AppFaqGedFaqIdRenameItemRelativePathRouteImport.update({
+  AppFaqGedFaqIdRenameItemRelativePathRouteRouteImport.update({
     id: '/rename/$itemRelativePath',
     path: '/rename/$itemRelativePath',
     getParentRoute: () => AppFaqGedFaqIdRouteRoute,
@@ -2427,9 +2257,8 @@ const AppFaqGedFaqIdRenameItemRelativePathRouteRoute =
       './routes/app/faq/ged.$faqId/rename.$itemRelativePath/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppFaqGedFaqIdDeleteItemRelativePathRouteRoute =
-  AppFaqGedFaqIdDeleteItemRelativePathRouteImport.update({
+  AppFaqGedFaqIdDeleteItemRelativePathRouteRouteImport.update({
     id: '/delete/$itemRelativePath',
     path: '/delete/$itemRelativePath',
     getParentRoute: () => AppFaqGedFaqIdRouteRoute,
@@ -2438,9 +2267,8 @@ const AppFaqGedFaqIdDeleteItemRelativePathRouteRoute =
       './routes/app/faq/ged.$faqId/delete.$itemRelativePath/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppEnterprisesEnterpriseIdTaskEmailTaskIdReplyRouteRoute =
-  AppEnterprisesEnterpriseIdTaskEmailTaskIdReplyRouteImport.update({
+  AppEnterprisesEnterpriseIdTaskEmailTaskIdReplyRouteRouteImport.update({
     id: '/reply',
     path: '/reply',
     getParentRoute: () => AppEnterprisesEnterpriseIdTaskEmailTaskIdRouteRoute,
@@ -2449,9 +2277,8 @@ const AppEnterprisesEnterpriseIdTaskEmailTaskIdReplyRouteRoute =
       './routes/app/enterprises_.$enterpriseId/task-email.$taskId/reply/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppEnterprisesEnterpriseIdEmailHistoryEmailEmailIdRouteRoute =
-  AppEnterprisesEnterpriseIdEmailHistoryEmailEmailIdRouteImport.update({
+  AppEnterprisesEnterpriseIdEmailHistoryEmailEmailIdRouteRouteImport.update({
     id: '/email/$emailId',
     path: '/email/$emailId',
     getParentRoute: () => AppEnterprisesEnterpriseIdEmailHistoryRouteRoute,
@@ -2460,9 +2287,8 @@ const AppEnterprisesEnterpriseIdEmailHistoryEmailEmailIdRouteRoute =
       './routes/app/enterprises_.$enterpriseId/email-history/email.$emailId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppEnterprisesEnterpriseIdAddressBookUpdateAddressIdRouteRoute =
-  AppEnterprisesEnterpriseIdAddressBookUpdateAddressIdRouteImport.update({
+  AppEnterprisesEnterpriseIdAddressBookUpdateAddressIdRouteRouteImport.update({
     id: '/update/$addressId',
     path: '/update/$addressId',
     getParentRoute: () => AppEnterprisesEnterpriseIdAddressBookRouteRoute,
@@ -2471,9 +2297,8 @@ const AppEnterprisesEnterpriseIdAddressBookUpdateAddressIdRouteRoute =
       './routes/app/enterprises_.$enterpriseId/address-book/update.$addressId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppEnterprisesEnterpriseIdAddressBookDeleteAddressIdRouteRoute =
-  AppEnterprisesEnterpriseIdAddressBookDeleteAddressIdRouteImport.update({
+  AppEnterprisesEnterpriseIdAddressBookDeleteAddressIdRouteRouteImport.update({
     id: '/delete/$addressId',
     path: '/delete/$addressId',
     getParentRoute: () => AppEnterprisesEnterpriseIdAddressBookRouteRoute,
@@ -2482,9 +2307,8 @@ const AppEnterprisesEnterpriseIdAddressBookDeleteAddressIdRouteRoute =
       './routes/app/enterprises_.$enterpriseId/address-book/delete.$addressId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaRmaRmaIdSupportPdfRouteRoute =
-  AppBusinessesRmaRmaRmaIdSupportPdfRouteImport.update({
+  AppBusinessesRmaRmaRmaIdSupportPdfRouteRouteImport.update({
     id: '/pdf',
     path: '/pdf',
     getParentRoute: () => AppBusinessesRmaRmaRmaIdSupportRouteRoute,
@@ -2493,9 +2317,8 @@ const AppBusinessesRmaRmaRmaIdSupportPdfRouteRoute =
       './routes/app/businesses-rma_/rma.$rmaId/support/pdf/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaRmaRmaIdSupportImportGedFilesRouteRoute =
-  AppBusinessesRmaRmaRmaIdSupportImportGedFilesRouteImport.update({
+  AppBusinessesRmaRmaRmaIdSupportImportGedFilesRouteRouteImport.update({
     id: '/import-ged-files',
     path: '/import-ged-files',
     getParentRoute: () => AppBusinessesRmaRmaRmaIdSupportRouteRoute,
@@ -2504,9 +2327,8 @@ const AppBusinessesRmaRmaRmaIdSupportImportGedFilesRouteRoute =
       './routes/app/businesses-rma_/rma.$rmaId/support/import-ged-files/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaRmaRmaIdSupportCreateLinkRouteRoute =
-  AppBusinessesRmaRmaRmaIdSupportCreateLinkRouteImport.update({
+  AppBusinessesRmaRmaRmaIdSupportCreateLinkRouteRouteImport.update({
     id: '/create-link',
     path: '/create-link',
     getParentRoute: () => AppBusinessesRmaRmaRmaIdSupportRouteRoute,
@@ -2515,9 +2337,8 @@ const AppBusinessesRmaRmaRmaIdSupportCreateLinkRouteRoute =
       './routes/app/businesses-rma_/rma.$rmaId/support/create-link/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaRmaRmaIdSupportCreateLifesheetRouteRoute =
-  AppBusinessesRmaRmaRmaIdSupportCreateLifesheetRouteImport.update({
+  AppBusinessesRmaRmaRmaIdSupportCreateLifesheetRouteRouteImport.update({
     id: '/create-lifesheet',
     path: '/create-lifesheet',
     getParentRoute: () => AppBusinessesRmaRmaRmaIdSupportRouteRoute,
@@ -2526,9 +2347,8 @@ const AppBusinessesRmaRmaRmaIdSupportCreateLifesheetRouteRoute =
       './routes/app/businesses-rma_/rma.$rmaId/support/create-lifesheet/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaRmaRmaIdSupportCreateGedDirectoryRouteRoute =
-  AppBusinessesRmaRmaRmaIdSupportCreateGedDirectoryRouteImport.update({
+  AppBusinessesRmaRmaRmaIdSupportCreateGedDirectoryRouteRouteImport.update({
     id: '/create-ged-directory',
     path: '/create-ged-directory',
     getParentRoute: () => AppBusinessesRmaRmaRmaIdSupportRouteRoute,
@@ -2537,9 +2357,8 @@ const AppBusinessesRmaRmaRmaIdSupportCreateGedDirectoryRouteRoute =
       './routes/app/businesses-rma_/rma.$rmaId/support/create-ged-directory/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaRmaRmaIdSupportCreateDetailRouteRoute =
-  AppBusinessesRmaRmaRmaIdSupportCreateDetailRouteImport.update({
+  AppBusinessesRmaRmaRmaIdSupportCreateDetailRouteRouteImport.update({
     id: '/create-detail',
     path: '/create-detail',
     getParentRoute: () => AppBusinessesRmaRmaRmaIdSupportRouteRoute,
@@ -2548,9 +2367,8 @@ const AppBusinessesRmaRmaRmaIdSupportCreateDetailRouteRoute =
       './routes/app/businesses-rma_/rma.$rmaId/support/create-detail/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaRmaRmaIdReceptionPdfRouteRoute =
-  AppBusinessesRmaRmaRmaIdReceptionPdfRouteImport.update({
+  AppBusinessesRmaRmaRmaIdReceptionPdfRouteRouteImport.update({
     id: '/pdf',
     path: '/pdf',
     getParentRoute: () => AppBusinessesRmaRmaRmaIdReceptionRouteRoute,
@@ -2559,9 +2377,8 @@ const AppBusinessesRmaRmaRmaIdReceptionPdfRouteRoute =
       './routes/app/businesses-rma_/rma.$rmaId/reception/pdf/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaRmaRmaIdReceptionCreateDetailRouteRoute =
-  AppBusinessesRmaRmaRmaIdReceptionCreateDetailRouteImport.update({
+  AppBusinessesRmaRmaRmaIdReceptionCreateDetailRouteRouteImport.update({
     id: '/create-detail',
     path: '/create-detail',
     getParentRoute: () => AppBusinessesRmaRmaRmaIdReceptionRouteRoute,
@@ -2570,9 +2387,8 @@ const AppBusinessesRmaRmaRmaIdReceptionCreateDetailRouteRoute =
       './routes/app/businesses-rma_/rma.$rmaId/reception/create-detail/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaRmaRmaIdDeliveryTravelVoucherRouteRoute =
-  AppBusinessesRmaRmaRmaIdDeliveryTravelVoucherRouteImport.update({
+  AppBusinessesRmaRmaRmaIdDeliveryTravelVoucherRouteRouteImport.update({
     id: '/travel-voucher',
     path: '/travel-voucher',
     getParentRoute: () => AppBusinessesRmaRmaRmaIdDeliveryRouteRoute,
@@ -2581,9 +2397,8 @@ const AppBusinessesRmaRmaRmaIdDeliveryTravelVoucherRouteRoute =
       './routes/app/businesses-rma_/rma.$rmaId/delivery/travel-voucher/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaRmaRmaIdDeliveryPdfRouteRoute =
-  AppBusinessesRmaRmaRmaIdDeliveryPdfRouteImport.update({
+  AppBusinessesRmaRmaRmaIdDeliveryPdfRouteRouteImport.update({
     id: '/pdf',
     path: '/pdf',
     getParentRoute: () => AppBusinessesRmaRmaRmaIdDeliveryRouteRoute,
@@ -2592,9 +2407,8 @@ const AppBusinessesRmaRmaRmaIdDeliveryPdfRouteRoute =
       './routes/app/businesses-rma_/rma.$rmaId/delivery/pdf/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaRmaRmaIdDeliveryCreateDetailRouteRoute =
-  AppBusinessesRmaRmaRmaIdDeliveryCreateDetailRouteImport.update({
+  AppBusinessesRmaRmaRmaIdDeliveryCreateDetailRouteRouteImport.update({
     id: '/create-detail',
     path: '/create-detail',
     getParentRoute: () => AppBusinessesRmaRmaRmaIdDeliveryRouteRoute,
@@ -2603,9 +2417,8 @@ const AppBusinessesRmaRmaRmaIdDeliveryCreateDetailRouteRoute =
       './routes/app/businesses-rma_/rma.$rmaId/delivery/create-detail/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaBusinessBusinessIdStudyExpertRouteRoute =
-  AppBusinessesRmaBusinessBusinessIdStudyExpertRouteImport.update({
+  AppBusinessesRmaBusinessBusinessIdStudyExpertRouteRouteImport.update({
     id: '/expert',
     path: '/expert',
     getParentRoute: () => AppBusinessesRmaBusinessBusinessIdStudyRouteRoute,
@@ -2614,9 +2427,8 @@ const AppBusinessesRmaBusinessBusinessIdStudyExpertRouteRoute =
       './routes/app/businesses-rma_/business.$businessId_/study/expert/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaBusinessBusinessIdStudyAutomaticRouteRoute =
-  AppBusinessesRmaBusinessBusinessIdStudyAutomaticRouteImport.update({
+  AppBusinessesRmaBusinessBusinessIdStudyAutomaticRouteRouteImport.update({
     id: '/automatic',
     path: '/automatic',
     getParentRoute: () => AppBusinessesRmaBusinessBusinessIdStudyRouteRoute,
@@ -2625,20 +2437,20 @@ const AppBusinessesRmaBusinessBusinessIdStudyAutomaticRouteRoute =
       './routes/app/businesses-rma_/business.$businessId_/study/automatic/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdRouteRoute =
-  AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdRouteImport.update({
-    id: '/businesses-rma_/business/$businessId_/assistance/$assistanceId',
-    path: '/businesses-rma/business/$businessId/assistance/$assistanceId',
-    getParentRoute: () => AppRouteRoute,
-  } as any).lazy(() =>
+  AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdRouteRouteImport.update(
+    {
+      id: '/businesses-rma_/business/$businessId_/assistance/$assistanceId',
+      path: '/businesses-rma/business/$businessId/assistance/$assistanceId',
+      getParentRoute: () => AppRouteRoute,
+    } as any,
+  ).lazy(() =>
     import(
       './routes/app/businesses-rma_/business.$businessId_/assistance.$assistanceId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaBusinessBusinessIdQuotationUpdateShippingPriceRouteRoute =
-  AppBusinessesRmaBusinessBusinessIdQuotationUpdateShippingPriceRouteImport.update(
+  AppBusinessesRmaBusinessBusinessIdQuotationUpdateShippingPriceRouteRouteImport.update(
     {
       id: '/update-shipping-price',
       path: '/update-shipping-price',
@@ -2650,9 +2462,8 @@ const AppBusinessesRmaBusinessBusinessIdQuotationUpdateShippingPriceRouteRoute =
       './routes/app/businesses-rma_/business.$businessId/quotation/update-shipping-price/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaBusinessBusinessIdQuotationPdfRouteRoute =
-  AppBusinessesRmaBusinessBusinessIdQuotationPdfRouteImport.update({
+  AppBusinessesRmaBusinessBusinessIdQuotationPdfRouteRouteImport.update({
     id: '/pdf',
     path: '/pdf',
     getParentRoute: () => AppBusinessesRmaBusinessBusinessIdQuotationRouteRoute,
@@ -2661,9 +2472,8 @@ const AppBusinessesRmaBusinessBusinessIdQuotationPdfRouteRoute =
       './routes/app/businesses-rma_/business.$businessId/quotation/pdf/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaBusinessBusinessIdQuotationCommercialNoticeRouteRoute =
-  AppBusinessesRmaBusinessBusinessIdQuotationCommercialNoticeRouteImport.update(
+  AppBusinessesRmaBusinessBusinessIdQuotationCommercialNoticeRouteRouteImport.update(
     {
       id: '/commercial-notice',
       path: '/commercial-notice',
@@ -2675,9 +2485,8 @@ const AppBusinessesRmaBusinessBusinessIdQuotationCommercialNoticeRouteRoute =
       './routes/app/businesses-rma_/business.$businessId/quotation/commercial-notice/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaBusinessBusinessIdDashboardUpdateResponsibleRouteRoute =
-  AppBusinessesRmaBusinessBusinessIdDashboardUpdateResponsibleRouteImport.update(
+  AppBusinessesRmaBusinessBusinessIdDashboardUpdateResponsibleRouteRouteImport.update(
     {
       id: '/update-responsible',
       path: '/update-responsible',
@@ -2689,9 +2498,8 @@ const AppBusinessesRmaBusinessBusinessIdDashboardUpdateResponsibleRouteRoute =
       './routes/app/businesses-rma_/business.$businessId/dashboard/update-responsible/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaBusinessBusinessIdDashboardUpdateRepresentativeRouteRoute =
-  AppBusinessesRmaBusinessBusinessIdDashboardUpdateRepresentativeRouteImport.update(
+  AppBusinessesRmaBusinessBusinessIdDashboardUpdateRepresentativeRouteRouteImport.update(
     {
       id: '/update-representative',
       path: '/update-representative',
@@ -2703,9 +2511,8 @@ const AppBusinessesRmaBusinessBusinessIdDashboardUpdateRepresentativeRouteRoute 
       './routes/app/businesses-rma_/business.$businessId/dashboard/update-representative/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaBusinessBusinessIdDashboardUpdateBillingAddressRouteRoute =
-  AppBusinessesRmaBusinessBusinessIdDashboardUpdateBillingAddressRouteImport.update(
+  AppBusinessesRmaBusinessBusinessIdDashboardUpdateBillingAddressRouteRouteImport.update(
     {
       id: '/update-billing-address',
       path: '/update-billing-address',
@@ -2717,9 +2524,8 @@ const AppBusinessesRmaBusinessBusinessIdDashboardUpdateBillingAddressRouteRoute 
       './routes/app/businesses-rma_/business.$businessId/dashboard/update-billing-address/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaBusinessBusinessIdDashboardSendEmailRouteRoute =
-  AppBusinessesRmaBusinessBusinessIdDashboardSendEmailRouteImport.update({
+  AppBusinessesRmaBusinessBusinessIdDashboardSendEmailRouteRouteImport.update({
     id: '/send-email',
     path: '/send-email',
     getParentRoute: () => AppBusinessesRmaBusinessBusinessIdDashboardRouteRoute,
@@ -2728,31 +2534,34 @@ const AppBusinessesRmaBusinessBusinessIdDashboardSendEmailRouteRoute =
       './routes/app/businesses-rma_/business.$businessId/dashboard/send-email/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaBusinessBusinessIdDashboardImportGedFilesRouteRoute =
-  AppBusinessesRmaBusinessBusinessIdDashboardImportGedFilesRouteImport.update({
-    id: '/import-ged-files',
-    path: '/import-ged-files',
-    getParentRoute: () => AppBusinessesRmaBusinessBusinessIdDashboardRouteRoute,
-  } as any).lazy(() =>
+  AppBusinessesRmaBusinessBusinessIdDashboardImportGedFilesRouteRouteImport.update(
+    {
+      id: '/import-ged-files',
+      path: '/import-ged-files',
+      getParentRoute: () =>
+        AppBusinessesRmaBusinessBusinessIdDashboardRouteRoute,
+    } as any,
+  ).lazy(() =>
     import(
       './routes/app/businesses-rma_/business.$businessId/dashboard/import-ged-files/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryRouteRoute =
-  AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryRouteImport.update({
-    id: '/email-history',
-    path: '/email-history',
-    getParentRoute: () => AppBusinessesRmaBusinessBusinessIdDashboardRouteRoute,
-  } as any).lazy(() =>
+  AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryRouteRouteImport.update(
+    {
+      id: '/email-history',
+      path: '/email-history',
+      getParentRoute: () =>
+        AppBusinessesRmaBusinessBusinessIdDashboardRouteRoute,
+    } as any,
+  ).lazy(() =>
     import(
       './routes/app/businesses-rma_/business.$businessId/dashboard/email-history/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaBusinessBusinessIdDashboardDeleteRouteRoute =
-  AppBusinessesRmaBusinessBusinessIdDashboardDeleteRouteImport.update({
+  AppBusinessesRmaBusinessBusinessIdDashboardDeleteRouteRouteImport.update({
     id: '/delete',
     path: '/delete',
     getParentRoute: () => AppBusinessesRmaBusinessBusinessIdDashboardRouteRoute,
@@ -2761,9 +2570,8 @@ const AppBusinessesRmaBusinessBusinessIdDashboardDeleteRouteRoute =
       './routes/app/businesses-rma_/business.$businessId/dashboard/delete/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaBusinessBusinessIdDashboardCreateLinkRouteRoute =
-  AppBusinessesRmaBusinessBusinessIdDashboardCreateLinkRouteImport.update({
+  AppBusinessesRmaBusinessBusinessIdDashboardCreateLinkRouteRouteImport.update({
     id: '/create-link',
     path: '/create-link',
     getParentRoute: () => AppBusinessesRmaBusinessBusinessIdDashboardRouteRoute,
@@ -2772,20 +2580,21 @@ const AppBusinessesRmaBusinessBusinessIdDashboardCreateLinkRouteRoute =
       './routes/app/businesses-rma_/business.$businessId/dashboard/create-link/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaBusinessBusinessIdDashboardCreateLifesheetRouteRoute =
-  AppBusinessesRmaBusinessBusinessIdDashboardCreateLifesheetRouteImport.update({
-    id: '/create-lifesheet',
-    path: '/create-lifesheet',
-    getParentRoute: () => AppBusinessesRmaBusinessBusinessIdDashboardRouteRoute,
-  } as any).lazy(() =>
+  AppBusinessesRmaBusinessBusinessIdDashboardCreateLifesheetRouteRouteImport.update(
+    {
+      id: '/create-lifesheet',
+      path: '/create-lifesheet',
+      getParentRoute: () =>
+        AppBusinessesRmaBusinessBusinessIdDashboardRouteRoute,
+    } as any,
+  ).lazy(() =>
     import(
       './routes/app/businesses-rma_/business.$businessId/dashboard/create-lifesheet/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaBusinessBusinessIdDashboardCreateGedDirectoryRouteRoute =
-  AppBusinessesRmaBusinessBusinessIdDashboardCreateGedDirectoryRouteImport.update(
+  AppBusinessesRmaBusinessBusinessIdDashboardCreateGedDirectoryRouteRouteImport.update(
     {
       id: '/create-ged-directory',
       path: '/create-ged-directory',
@@ -2797,20 +2606,21 @@ const AppBusinessesRmaBusinessBusinessIdDashboardCreateGedDirectoryRouteRoute =
       './routes/app/businesses-rma_/business.$businessId/dashboard/create-ged-directory/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaBusinessBusinessIdDashboardAddressBookRouteRoute =
-  AppBusinessesRmaBusinessBusinessIdDashboardAddressBookRouteImport.update({
-    id: '/address-book',
-    path: '/address-book',
-    getParentRoute: () => AppBusinessesRmaBusinessBusinessIdDashboardRouteRoute,
-  } as any).lazy(() =>
+  AppBusinessesRmaBusinessBusinessIdDashboardAddressBookRouteRouteImport.update(
+    {
+      id: '/address-book',
+      path: '/address-book',
+      getParentRoute: () =>
+        AppBusinessesRmaBusinessBusinessIdDashboardRouteRoute,
+    } as any,
+  ).lazy(() =>
     import(
       './routes/app/businesses-rma_/business.$businessId/dashboard/address-book/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaBusinessBusinessIdBpTravelVoucherRouteRoute =
-  AppBusinessesRmaBusinessBusinessIdBpTravelVoucherRouteImport.update({
+  AppBusinessesRmaBusinessBusinessIdBpTravelVoucherRouteRouteImport.update({
     id: '/travel-voucher',
     path: '/travel-voucher',
     getParentRoute: () => AppBusinessesRmaBusinessBusinessIdBpRouteRoute,
@@ -2819,9 +2629,8 @@ const AppBusinessesRmaBusinessBusinessIdBpTravelVoucherRouteRoute =
       './routes/app/businesses-rma_/business.$businessId/bp/travel-voucher/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaBusinessBusinessIdBlUpdateRouteRoute =
-  AppBusinessesRmaBusinessBusinessIdBlUpdateRouteImport.update({
+  AppBusinessesRmaBusinessBusinessIdBlUpdateRouteRouteImport.update({
     id: '/update',
     path: '/update',
     getParentRoute: () => AppBusinessesRmaBusinessBusinessIdBlRouteRoute,
@@ -2830,9 +2639,8 @@ const AppBusinessesRmaBusinessBusinessIdBlUpdateRouteRoute =
       './routes/app/businesses-rma_/business.$businessId/bl/update/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaBusinessBusinessIdBlSendByEmailRouteRoute =
-  AppBusinessesRmaBusinessBusinessIdBlSendByEmailRouteImport.update({
+  AppBusinessesRmaBusinessBusinessIdBlSendByEmailRouteRouteImport.update({
     id: '/send-by-email',
     path: '/send-by-email',
     getParentRoute: () => AppBusinessesRmaBusinessBusinessIdBlRouteRoute,
@@ -2841,9 +2649,8 @@ const AppBusinessesRmaBusinessBusinessIdBlSendByEmailRouteRoute =
       './routes/app/businesses-rma_/business.$businessId/bl/send-by-email/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaBusinessBusinessIdBillSendByEmailRouteRoute =
-  AppBusinessesRmaBusinessBusinessIdBillSendByEmailRouteImport.update({
+  AppBusinessesRmaBusinessBusinessIdBillSendByEmailRouteRouteImport.update({
     id: '/send-by-email',
     path: '/send-by-email',
     getParentRoute: () => AppBusinessesRmaBusinessBusinessIdBillRouteRoute,
@@ -2852,9 +2659,8 @@ const AppBusinessesRmaBusinessBusinessIdBillSendByEmailRouteRoute =
       './routes/app/businesses-rma_/business.$businessId/bill/send-by-email/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaBusinessBusinessIdBillCreditsRouteRoute =
-  AppBusinessesRmaBusinessBusinessIdBillCreditsRouteImport.update({
+  AppBusinessesRmaBusinessBusinessIdBillCreditsRouteRouteImport.update({
     id: '/credits',
     path: '/credits',
     getParentRoute: () => AppBusinessesRmaBusinessBusinessIdBillRouteRoute,
@@ -2863,20 +2669,20 @@ const AppBusinessesRmaBusinessBusinessIdBillCreditsRouteRoute =
       './routes/app/businesses-rma_/business.$businessId/bill/credits/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaBusinessBusinessIdArcUpdateShippingPriceRouteRoute =
-  AppBusinessesRmaBusinessBusinessIdArcUpdateShippingPriceRouteImport.update({
-    id: '/update-shipping-price',
-    path: '/update-shipping-price',
-    getParentRoute: () => AppBusinessesRmaBusinessBusinessIdArcRouteRoute,
-  } as any).lazy(() =>
+  AppBusinessesRmaBusinessBusinessIdArcUpdateShippingPriceRouteRouteImport.update(
+    {
+      id: '/update-shipping-price',
+      path: '/update-shipping-price',
+      getParentRoute: () => AppBusinessesRmaBusinessBusinessIdArcRouteRoute,
+    } as any,
+  ).lazy(() =>
     import(
       './routes/app/businesses-rma_/business.$businessId/arc/update-shipping-price/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaBusinessBusinessIdArcPdfRouteRoute =
-  AppBusinessesRmaBusinessBusinessIdArcPdfRouteImport.update({
+  AppBusinessesRmaBusinessBusinessIdArcPdfRouteRouteImport.update({
     id: '/pdf',
     path: '/pdf',
     getParentRoute: () => AppBusinessesRmaBusinessBusinessIdArcRouteRoute,
@@ -2885,9 +2691,8 @@ const AppBusinessesRmaBusinessBusinessIdArcPdfRouteRoute =
       './routes/app/businesses-rma_/business.$businessId/arc/pdf/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppToolsFormationsSubscribersFormationDetailIdSendEmailSubscriptionIdRouteRoute =
-  AppToolsFormationsSubscribersFormationDetailIdSendEmailSubscriptionIdRouteImport.update(
+  AppToolsFormationsSubscribersFormationDetailIdSendEmailSubscriptionIdRouteRouteImport.update(
     {
       id: '/send-email/$subscriptionId',
       path: '/send-email/$subscriptionId',
@@ -2899,9 +2704,8 @@ const AppToolsFormationsSubscribersFormationDetailIdSendEmailSubscriptionIdRoute
       './routes/app/tools/formations/subscribers.$formationDetailId/send-email.$subscriptionId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppToolsFormationsSubscribersFormationDetailIdDeleteSubscriptionIdRouteRoute =
-  AppToolsFormationsSubscribersFormationDetailIdDeleteSubscriptionIdRouteImport.update(
+  AppToolsFormationsSubscribersFormationDetailIdDeleteSubscriptionIdRouteRouteImport.update(
     {
       id: '/delete/$subscriptionId',
       path: '/delete/$subscriptionId',
@@ -2913,9 +2717,8 @@ const AppToolsFormationsSubscribersFormationDetailIdDeleteSubscriptionIdRouteRou
       './routes/app/tools/formations/subscribers.$formationDetailId/delete.$subscriptionId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppProductsProductIdInformationsTaskEmailTaskIdReplyRouteRoute =
-  AppProductsProductIdInformationsTaskEmailTaskIdReplyRouteImport.update({
+  AppProductsProductIdInformationsTaskEmailTaskIdReplyRouteRouteImport.update({
     id: '/reply',
     path: '/reply',
     getParentRoute: () =>
@@ -2925,21 +2728,21 @@ const AppProductsProductIdInformationsTaskEmailTaskIdReplyRouteRoute =
       './routes/app/products_.$productId/informations/task-email.$taskId/reply/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppEnterprisesEnterpriseIdEmailHistoryEmailEmailIdReplyRouteRoute =
-  AppEnterprisesEnterpriseIdEmailHistoryEmailEmailIdReplyRouteImport.update({
-    id: '/reply',
-    path: '/reply',
-    getParentRoute: () =>
-      AppEnterprisesEnterpriseIdEmailHistoryEmailEmailIdRouteRoute,
-  } as any).lazy(() =>
+  AppEnterprisesEnterpriseIdEmailHistoryEmailEmailIdReplyRouteRouteImport.update(
+    {
+      id: '/reply',
+      path: '/reply',
+      getParentRoute: () =>
+        AppEnterprisesEnterpriseIdEmailHistoryEmailEmailIdRouteRoute,
+    } as any,
+  ).lazy(() =>
     import(
       './routes/app/enterprises_.$enterpriseId/email-history/email.$emailId/reply/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaRmaRmaIdSupportUpdateDetailDetailIdRouteRoute =
-  AppBusinessesRmaRmaRmaIdSupportUpdateDetailDetailIdRouteImport.update({
+  AppBusinessesRmaRmaRmaIdSupportUpdateDetailDetailIdRouteRouteImport.update({
     id: '/update-detail/$detailId',
     path: '/update-detail/$detailId',
     getParentRoute: () => AppBusinessesRmaRmaRmaIdSupportRouteRoute,
@@ -2948,9 +2751,8 @@ const AppBusinessesRmaRmaRmaIdSupportUpdateDetailDetailIdRouteRoute =
       './routes/app/businesses-rma_/rma.$rmaId/support/update-detail.$detailId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaRmaRmaIdSupportUnlinkTaskTaskIdRouteRoute =
-  AppBusinessesRmaRmaRmaIdSupportUnlinkTaskTaskIdRouteImport.update({
+  AppBusinessesRmaRmaRmaIdSupportUnlinkTaskTaskIdRouteRouteImport.update({
     id: '/unlink-task/$taskId',
     path: '/unlink-task/$taskId',
     getParentRoute: () => AppBusinessesRmaRmaRmaIdSupportRouteRoute,
@@ -2959,9 +2761,8 @@ const AppBusinessesRmaRmaRmaIdSupportUnlinkTaskTaskIdRouteRoute =
       './routes/app/businesses-rma_/rma.$rmaId/support/unlink-task.$taskId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaRmaRmaIdSupportTaskEmailTaskIdRouteRoute =
-  AppBusinessesRmaRmaRmaIdSupportTaskEmailTaskIdRouteImport.update({
+  AppBusinessesRmaRmaRmaIdSupportTaskEmailTaskIdRouteRouteImport.update({
     id: '/task-email/$taskId',
     path: '/task-email/$taskId',
     getParentRoute: () => AppBusinessesRmaRmaRmaIdSupportRouteRoute,
@@ -2970,9 +2771,8 @@ const AppBusinessesRmaRmaRmaIdSupportTaskEmailTaskIdRouteRoute =
       './routes/app/businesses-rma_/rma.$rmaId/support/task-email.$taskId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaRmaRmaIdSupportRenameGedObjectObjectRelativePathRouteRoute =
-  AppBusinessesRmaRmaRmaIdSupportRenameGedObjectObjectRelativePathRouteImport.update(
+  AppBusinessesRmaRmaRmaIdSupportRenameGedObjectObjectRelativePathRouteRouteImport.update(
     {
       id: '/rename-ged-object/$objectRelativePath',
       path: '/rename-ged-object/$objectRelativePath',
@@ -2983,9 +2783,8 @@ const AppBusinessesRmaRmaRmaIdSupportRenameGedObjectObjectRelativePathRouteRoute
       './routes/app/businesses-rma_/rma.$rmaId/support/rename-ged-object.$objectRelativePath/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaRmaRmaIdSupportPdfSendByEmailRouteRoute =
-  AppBusinessesRmaRmaRmaIdSupportPdfSendByEmailRouteImport.update({
+  AppBusinessesRmaRmaRmaIdSupportPdfSendByEmailRouteRouteImport.update({
     id: '/send-by-email',
     path: '/send-by-email',
     getParentRoute: () => AppBusinessesRmaRmaRmaIdSupportPdfRouteRoute,
@@ -2994,20 +2793,20 @@ const AppBusinessesRmaRmaRmaIdSupportPdfSendByEmailRouteRoute =
       './routes/app/businesses-rma_/rma.$rmaId/support/pdf/send-by-email/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaRmaRmaIdSupportLifesheetEmailLifesheetIdRouteRoute =
-  AppBusinessesRmaRmaRmaIdSupportLifesheetEmailLifesheetIdRouteImport.update({
-    id: '/lifesheet-email/$lifesheetId',
-    path: '/lifesheet-email/$lifesheetId',
-    getParentRoute: () => AppBusinessesRmaRmaRmaIdSupportRouteRoute,
-  } as any).lazy(() =>
+  AppBusinessesRmaRmaRmaIdSupportLifesheetEmailLifesheetIdRouteRouteImport.update(
+    {
+      id: '/lifesheet-email/$lifesheetId',
+      path: '/lifesheet-email/$lifesheetId',
+      getParentRoute: () => AppBusinessesRmaRmaRmaIdSupportRouteRoute,
+    } as any,
+  ).lazy(() =>
     import(
       './routes/app/businesses-rma_/rma.$rmaId/support/lifesheet-email.$lifesheetId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaRmaRmaIdSupportDeleteLinkAssociatedIdRouteRoute =
-  AppBusinessesRmaRmaRmaIdSupportDeleteLinkAssociatedIdRouteImport.update({
+  AppBusinessesRmaRmaRmaIdSupportDeleteLinkAssociatedIdRouteRouteImport.update({
     id: '/delete-link/$associatedId',
     path: '/delete-link/$associatedId',
     getParentRoute: () => AppBusinessesRmaRmaRmaIdSupportRouteRoute,
@@ -3016,20 +2815,20 @@ const AppBusinessesRmaRmaRmaIdSupportDeleteLinkAssociatedIdRouteRoute =
       './routes/app/businesses-rma_/rma.$rmaId/support/delete-link.$associatedId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaRmaRmaIdSupportDeleteGedObjectRelativePathRouteRoute =
-  AppBusinessesRmaRmaRmaIdSupportDeleteGedObjectRelativePathRouteImport.update({
-    id: '/delete-ged-object/$relativePath',
-    path: '/delete-ged-object/$relativePath',
-    getParentRoute: () => AppBusinessesRmaRmaRmaIdSupportRouteRoute,
-  } as any).lazy(() =>
+  AppBusinessesRmaRmaRmaIdSupportDeleteGedObjectRelativePathRouteRouteImport.update(
+    {
+      id: '/delete-ged-object/$relativePath',
+      path: '/delete-ged-object/$relativePath',
+      getParentRoute: () => AppBusinessesRmaRmaRmaIdSupportRouteRoute,
+    } as any,
+  ).lazy(() =>
     import(
       './routes/app/businesses-rma_/rma.$rmaId/support/delete-ged-object.$relativePath/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaRmaRmaIdSupportDeleteDetailDetailIdRouteRoute =
-  AppBusinessesRmaRmaRmaIdSupportDeleteDetailDetailIdRouteImport.update({
+  AppBusinessesRmaRmaRmaIdSupportDeleteDetailDetailIdRouteRouteImport.update({
     id: '/delete-detail/$detailId',
     path: '/delete-detail/$detailId',
     getParentRoute: () => AppBusinessesRmaRmaRmaIdSupportRouteRoute,
@@ -3038,9 +2837,8 @@ const AppBusinessesRmaRmaRmaIdSupportDeleteDetailDetailIdRouteRoute =
       './routes/app/businesses-rma_/rma.$rmaId/support/delete-detail.$detailId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaRmaRmaIdReceptionUpdateDetailDetailIdRouteRoute =
-  AppBusinessesRmaRmaRmaIdReceptionUpdateDetailDetailIdRouteImport.update({
+  AppBusinessesRmaRmaRmaIdReceptionUpdateDetailDetailIdRouteRouteImport.update({
     id: '/update-detail/$detailId',
     path: '/update-detail/$detailId',
     getParentRoute: () => AppBusinessesRmaRmaRmaIdReceptionRouteRoute,
@@ -3049,9 +2847,8 @@ const AppBusinessesRmaRmaRmaIdReceptionUpdateDetailDetailIdRouteRoute =
       './routes/app/businesses-rma_/rma.$rmaId/reception/update-detail.$detailId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaRmaRmaIdReceptionPdfSendByEmailRouteRoute =
-  AppBusinessesRmaRmaRmaIdReceptionPdfSendByEmailRouteImport.update({
+  AppBusinessesRmaRmaRmaIdReceptionPdfSendByEmailRouteRouteImport.update({
     id: '/send-by-email',
     path: '/send-by-email',
     getParentRoute: () => AppBusinessesRmaRmaRmaIdReceptionPdfRouteRoute,
@@ -3060,9 +2857,8 @@ const AppBusinessesRmaRmaRmaIdReceptionPdfSendByEmailRouteRoute =
       './routes/app/businesses-rma_/rma.$rmaId/reception/pdf/send-by-email/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaRmaRmaIdReceptionDeleteDetailDetailIdRouteRoute =
-  AppBusinessesRmaRmaRmaIdReceptionDeleteDetailDetailIdRouteImport.update({
+  AppBusinessesRmaRmaRmaIdReceptionDeleteDetailDetailIdRouteRouteImport.update({
     id: '/delete-detail/$detailId',
     path: '/delete-detail/$detailId',
     getParentRoute: () => AppBusinessesRmaRmaRmaIdReceptionRouteRoute,
@@ -3071,9 +2867,8 @@ const AppBusinessesRmaRmaRmaIdReceptionDeleteDetailDetailIdRouteRoute =
       './routes/app/businesses-rma_/rma.$rmaId/reception/delete-detail.$detailId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaRmaRmaIdDeliveryUpdateDetailDetailIdRouteRoute =
-  AppBusinessesRmaRmaRmaIdDeliveryUpdateDetailDetailIdRouteImport.update({
+  AppBusinessesRmaRmaRmaIdDeliveryUpdateDetailDetailIdRouteRouteImport.update({
     id: '/update-detail/$detailId',
     path: '/update-detail/$detailId',
     getParentRoute: () => AppBusinessesRmaRmaRmaIdDeliveryRouteRoute,
@@ -3082,9 +2877,8 @@ const AppBusinessesRmaRmaRmaIdDeliveryUpdateDetailDetailIdRouteRoute =
       './routes/app/businesses-rma_/rma.$rmaId/delivery/update-detail.$detailId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaRmaRmaIdDeliveryPdfSendByEmailRouteRoute =
-  AppBusinessesRmaRmaRmaIdDeliveryPdfSendByEmailRouteImport.update({
+  AppBusinessesRmaRmaRmaIdDeliveryPdfSendByEmailRouteRouteImport.update({
     id: '/send-by-email',
     path: '/send-by-email',
     getParentRoute: () => AppBusinessesRmaRmaRmaIdDeliveryPdfRouteRoute,
@@ -3093,9 +2887,8 @@ const AppBusinessesRmaRmaRmaIdDeliveryPdfSendByEmailRouteRoute =
       './routes/app/businesses-rma_/rma.$rmaId/delivery/pdf/send-by-email/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaRmaRmaIdDeliveryDeleteDetailDetailIdRouteRoute =
-  AppBusinessesRmaRmaRmaIdDeliveryDeleteDetailDetailIdRouteImport.update({
+  AppBusinessesRmaRmaRmaIdDeliveryDeleteDetailDetailIdRouteRouteImport.update({
     id: '/delete-detail/$detailId',
     path: '/delete-detail/$detailId',
     getParentRoute: () => AppBusinessesRmaRmaRmaIdDeliveryRouteRoute,
@@ -3104,9 +2897,8 @@ const AppBusinessesRmaRmaRmaIdDeliveryDeleteDetailDetailIdRouteRoute =
       './routes/app/businesses-rma_/rma.$rmaId/delivery/delete-detail.$detailId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdPdfRouteRoute =
-  AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdPdfRouteImport.update(
+  AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdPdfRouteRouteImport.update(
     {
       id: '/pdf',
       path: '/pdf',
@@ -3118,9 +2910,8 @@ const AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdPdfRouteRoute =
       './routes/app/businesses-rma_/business.$businessId_/assistance.$assistanceId/pdf/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdImportGedFilesRouteRoute =
-  AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdImportGedFilesRouteImport.update(
+  AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdImportGedFilesRouteRouteImport.update(
     {
       id: '/import-ged-files',
       path: '/import-ged-files',
@@ -3132,9 +2923,8 @@ const AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdImportGedFilesRout
       './routes/app/businesses-rma_/business.$businessId_/assistance.$assistanceId/import-ged-files/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdEditSubtitleRouteRoute =
-  AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdEditSubtitleRouteImport.update(
+  AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdEditSubtitleRouteRouteImport.update(
     {
       id: '/edit-subtitle',
       path: '/edit-subtitle',
@@ -3146,9 +2936,8 @@ const AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdEditSubtitleRouteR
       './routes/app/businesses-rma_/business.$businessId_/assistance.$assistanceId/edit-subtitle/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdEditNoBilledTimeRouteRoute =
-  AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdEditNoBilledTimeRouteImport.update(
+  AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdEditNoBilledTimeRouteRouteImport.update(
     {
       id: '/edit-no-billed-time',
       path: '/edit-no-billed-time',
@@ -3160,9 +2949,8 @@ const AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdEditNoBilledTimeRo
       './routes/app/businesses-rma_/business.$businessId_/assistance.$assistanceId/edit-no-billed-time/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdEditCumulatedTimeRouteRoute =
-  AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdEditCumulatedTimeRouteImport.update(
+  AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdEditCumulatedTimeRouteRouteImport.update(
     {
       id: '/edit-cumulated-time',
       path: '/edit-cumulated-time',
@@ -3174,9 +2962,8 @@ const AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdEditCumulatedTimeR
       './routes/app/businesses-rma_/business.$businessId_/assistance.$assistanceId/edit-cumulated-time/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdDeleteRouteRoute =
-  AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdDeleteRouteImport.update(
+  AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdDeleteRouteRouteImport.update(
     {
       id: '/delete',
       path: '/delete',
@@ -3188,9 +2975,8 @@ const AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdDeleteRouteRoute =
       './routes/app/businesses-rma_/business.$businessId_/assistance.$assistanceId/delete/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdCreateLinkRouteRoute =
-  AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdCreateLinkRouteImport.update(
+  AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdCreateLinkRouteRouteImport.update(
     {
       id: '/create-link',
       path: '/create-link',
@@ -3202,9 +2988,8 @@ const AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdCreateLinkRouteRou
       './routes/app/businesses-rma_/business.$businessId_/assistance.$assistanceId/create-link/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdCreateLifesheetRouteRoute =
-  AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdCreateLifesheetRouteImport.update(
+  AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdCreateLifesheetRouteRouteImport.update(
     {
       id: '/create-lifesheet',
       path: '/create-lifesheet',
@@ -3216,9 +3001,8 @@ const AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdCreateLifesheetRou
       './routes/app/businesses-rma_/business.$businessId_/assistance.$assistanceId/create-lifesheet/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdCreateGedDirectoryRouteRoute =
-  AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdCreateGedDirectoryRouteImport.update(
+  AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdCreateGedDirectoryRouteRouteImport.update(
     {
       id: '/create-ged-directory',
       path: '/create-ged-directory',
@@ -3230,9 +3014,8 @@ const AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdCreateGedDirectory
       './routes/app/businesses-rma_/business.$businessId_/assistance.$assistanceId/create-ged-directory/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdCreateFaqRouteRoute =
-  AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdCreateFaqRouteImport.update(
+  AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdCreateFaqRouteRouteImport.update(
     {
       id: '/create-faq',
       path: '/create-faq',
@@ -3244,9 +3027,8 @@ const AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdCreateFaqRouteRout
       './routes/app/businesses-rma_/business.$businessId_/assistance.$assistanceId/create-faq/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaBusinessBusinessIdQuotationUpdateSubquotationSubquotationIdRouteRoute =
-  AppBusinessesRmaBusinessBusinessIdQuotationUpdateSubquotationSubquotationIdRouteImport.update(
+  AppBusinessesRmaBusinessBusinessIdQuotationUpdateSubquotationSubquotationIdRouteRouteImport.update(
     {
       id: '/update-subquotation/$subquotationId',
       path: '/update-subquotation/$subquotationId',
@@ -3258,9 +3040,8 @@ const AppBusinessesRmaBusinessBusinessIdQuotationUpdateSubquotationSubquotationI
       './routes/app/businesses-rma_/business.$businessId/quotation/update-subquotation.$subquotationId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaBusinessBusinessIdQuotationUpdateDetailDetailIdRouteRoute =
-  AppBusinessesRmaBusinessBusinessIdQuotationUpdateDetailDetailIdRouteImport.update(
+  AppBusinessesRmaBusinessBusinessIdQuotationUpdateDetailDetailIdRouteRouteImport.update(
     {
       id: '/update-detail/$detailId',
       path: '/update-detail/$detailId',
@@ -3272,21 +3053,21 @@ const AppBusinessesRmaBusinessBusinessIdQuotationUpdateDetailDetailIdRouteRoute 
       './routes/app/businesses-rma_/business.$businessId/quotation/update-detail.$detailId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaBusinessBusinessIdQuotationPdfSendByEmailRouteRoute =
-  AppBusinessesRmaBusinessBusinessIdQuotationPdfSendByEmailRouteImport.update({
-    id: '/send-by-email',
-    path: '/send-by-email',
-    getParentRoute: () =>
-      AppBusinessesRmaBusinessBusinessIdQuotationPdfRouteRoute,
-  } as any).lazy(() =>
+  AppBusinessesRmaBusinessBusinessIdQuotationPdfSendByEmailRouteRouteImport.update(
+    {
+      id: '/send-by-email',
+      path: '/send-by-email',
+      getParentRoute: () =>
+        AppBusinessesRmaBusinessBusinessIdQuotationPdfRouteRoute,
+    } as any,
+  ).lazy(() =>
     import(
       './routes/app/businesses-rma_/business.$businessId/quotation/pdf/send-by-email/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaBusinessBusinessIdQuotationDeleteSubquotationSubquotationIdRouteRoute =
-  AppBusinessesRmaBusinessBusinessIdQuotationDeleteSubquotationSubquotationIdRouteImport.update(
+  AppBusinessesRmaBusinessBusinessIdQuotationDeleteSubquotationSubquotationIdRouteRouteImport.update(
     {
       id: '/delete-subquotation/$subquotationId',
       path: '/delete-subquotation/$subquotationId',
@@ -3298,9 +3079,8 @@ const AppBusinessesRmaBusinessBusinessIdQuotationDeleteSubquotationSubquotationI
       './routes/app/businesses-rma_/business.$businessId/quotation/delete-subquotation.$subquotationId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaBusinessBusinessIdQuotationDeleteDetailDetailIdRouteRoute =
-  AppBusinessesRmaBusinessBusinessIdQuotationDeleteDetailDetailIdRouteImport.update(
+  AppBusinessesRmaBusinessBusinessIdQuotationDeleteDetailDetailIdRouteRouteImport.update(
     {
       id: '/delete-detail/$detailId',
       path: '/delete-detail/$detailId',
@@ -3312,9 +3092,8 @@ const AppBusinessesRmaBusinessBusinessIdQuotationDeleteDetailDetailIdRouteRoute 
       './routes/app/businesses-rma_/business.$businessId/quotation/delete-detail.$detailId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaBusinessBusinessIdQuotationCreateDetailSubquotationIdRouteRoute =
-  AppBusinessesRmaBusinessBusinessIdQuotationCreateDetailSubquotationIdRouteImport.update(
+  AppBusinessesRmaBusinessBusinessIdQuotationCreateDetailSubquotationIdRouteRouteImport.update(
     {
       id: '/create-detail/$subquotationId',
       path: '/create-detail/$subquotationId',
@@ -3326,9 +3105,8 @@ const AppBusinessesRmaBusinessBusinessIdQuotationCreateDetailSubquotationIdRoute
       './routes/app/businesses-rma_/business.$businessId/quotation/create-detail.$subquotationId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaBusinessBusinessIdQuotationCreateAssociatedDetailDetailIdRouteRoute =
-  AppBusinessesRmaBusinessBusinessIdQuotationCreateAssociatedDetailDetailIdRouteImport.update(
+  AppBusinessesRmaBusinessBusinessIdQuotationCreateAssociatedDetailDetailIdRouteRouteImport.update(
     {
       id: '/create-associated-detail/$detailId',
       path: '/create-associated-detail/$detailId',
@@ -3340,9 +3118,8 @@ const AppBusinessesRmaBusinessBusinessIdQuotationCreateAssociatedDetailDetailIdR
       './routes/app/businesses-rma_/business.$businessId/quotation/create-associated-detail.$detailId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaBusinessBusinessIdQuotationCommercialNoticeSendByEmailRouteRoute =
-  AppBusinessesRmaBusinessBusinessIdQuotationCommercialNoticeSendByEmailRouteImport.update(
+  AppBusinessesRmaBusinessBusinessIdQuotationCommercialNoticeSendByEmailRouteRouteImport.update(
     {
       id: '/send-by-email',
       path: '/send-by-email',
@@ -3354,9 +3131,8 @@ const AppBusinessesRmaBusinessBusinessIdQuotationCommercialNoticeSendByEmailRout
       './routes/app/businesses-rma_/business.$businessId/quotation/commercial-notice/send-by-email/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaBusinessBusinessIdDashboardUnlinkTaskTaskIdRouteRoute =
-  AppBusinessesRmaBusinessBusinessIdDashboardUnlinkTaskTaskIdRouteImport.update(
+  AppBusinessesRmaBusinessBusinessIdDashboardUnlinkTaskTaskIdRouteRouteImport.update(
     {
       id: '/unlink-task/$taskId',
       path: '/unlink-task/$taskId',
@@ -3368,20 +3144,21 @@ const AppBusinessesRmaBusinessBusinessIdDashboardUnlinkTaskTaskIdRouteRoute =
       './routes/app/businesses-rma_/business.$businessId/dashboard/unlink-task.$taskId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaBusinessBusinessIdDashboardTaskEmailTaskIdRouteRoute =
-  AppBusinessesRmaBusinessBusinessIdDashboardTaskEmailTaskIdRouteImport.update({
-    id: '/task-email/$taskId',
-    path: '/task-email/$taskId',
-    getParentRoute: () => AppBusinessesRmaBusinessBusinessIdDashboardRouteRoute,
-  } as any).lazy(() =>
+  AppBusinessesRmaBusinessBusinessIdDashboardTaskEmailTaskIdRouteRouteImport.update(
+    {
+      id: '/task-email/$taskId',
+      path: '/task-email/$taskId',
+      getParentRoute: () =>
+        AppBusinessesRmaBusinessBusinessIdDashboardRouteRoute,
+    } as any,
+  ).lazy(() =>
     import(
       './routes/app/businesses-rma_/business.$businessId/dashboard/task-email.$taskId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaBusinessBusinessIdDashboardRenameGedObjectObjectRelativePathRouteRoute =
-  AppBusinessesRmaBusinessBusinessIdDashboardRenameGedObjectObjectRelativePathRouteImport.update(
+  AppBusinessesRmaBusinessBusinessIdDashboardRenameGedObjectObjectRelativePathRouteRouteImport.update(
     {
       id: '/rename-ged-object/$objectRelativePath',
       path: '/rename-ged-object/$objectRelativePath',
@@ -3393,9 +3170,8 @@ const AppBusinessesRmaBusinessBusinessIdDashboardRenameGedObjectObjectRelativePa
       './routes/app/businesses-rma_/business.$businessId/dashboard/rename-ged-object.$objectRelativePath/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaBusinessBusinessIdDashboardLifesheetEmailLifesheetIdRouteRoute =
-  AppBusinessesRmaBusinessBusinessIdDashboardLifesheetEmailLifesheetIdRouteImport.update(
+  AppBusinessesRmaBusinessBusinessIdDashboardLifesheetEmailLifesheetIdRouteRouteImport.update(
     {
       id: '/lifesheet-email/$lifesheetId',
       path: '/lifesheet-email/$lifesheetId',
@@ -3407,9 +3183,8 @@ const AppBusinessesRmaBusinessBusinessIdDashboardLifesheetEmailLifesheetIdRouteR
       './routes/app/businesses-rma_/business.$businessId/dashboard/lifesheet-email.$lifesheetId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdRouteRoute =
-  AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdRouteImport.update(
+  AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdRouteRouteImport.update(
     {
       id: '/$emailId',
       path: '/$emailId',
@@ -3421,9 +3196,8 @@ const AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdRouteRoute =
       './routes/app/businesses-rma_/business.$businessId/dashboard/email-history/$emailId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaBusinessBusinessIdDashboardDeleteLinkAssociatedIdRouteRoute =
-  AppBusinessesRmaBusinessBusinessIdDashboardDeleteLinkAssociatedIdRouteImport.update(
+  AppBusinessesRmaBusinessBusinessIdDashboardDeleteLinkAssociatedIdRouteRouteImport.update(
     {
       id: '/delete-link/$associatedId',
       path: '/delete-link/$associatedId',
@@ -3435,9 +3209,8 @@ const AppBusinessesRmaBusinessBusinessIdDashboardDeleteLinkAssociatedIdRouteRout
       './routes/app/businesses-rma_/business.$businessId/dashboard/delete-link.$associatedId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaBusinessBusinessIdDashboardDeleteGedObjectObjectRelativePathRouteRoute =
-  AppBusinessesRmaBusinessBusinessIdDashboardDeleteGedObjectObjectRelativePathRouteImport.update(
+  AppBusinessesRmaBusinessBusinessIdDashboardDeleteGedObjectObjectRelativePathRouteRouteImport.update(
     {
       id: '/delete-ged-object/$objectRelativePath',
       path: '/delete-ged-object/$objectRelativePath',
@@ -3449,9 +3222,8 @@ const AppBusinessesRmaBusinessBusinessIdDashboardDeleteGedObjectObjectRelativePa
       './routes/app/businesses-rma_/business.$businessId/dashboard/delete-ged-object.$objectRelativePath/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaBusinessBusinessIdDashboardConfirmQuotationImportOtherBusinessIdRouteRoute =
-  AppBusinessesRmaBusinessBusinessIdDashboardConfirmQuotationImportOtherBusinessIdRouteImport.update(
+  AppBusinessesRmaBusinessBusinessIdDashboardConfirmQuotationImportOtherBusinessIdRouteRouteImport.update(
     {
       id: '/confirm-quotation-import/$otherBusinessId',
       path: '/confirm-quotation-import/$otherBusinessId',
@@ -3463,9 +3235,8 @@ const AppBusinessesRmaBusinessBusinessIdDashboardConfirmQuotationImportOtherBusi
       './routes/app/businesses-rma_/business.$businessId/dashboard/confirm-quotation-import.$otherBusinessId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaBusinessBusinessIdDashboardAddressBookCreateRouteRoute =
-  AppBusinessesRmaBusinessBusinessIdDashboardAddressBookCreateRouteImport.update(
+  AppBusinessesRmaBusinessBusinessIdDashboardAddressBookCreateRouteRouteImport.update(
     {
       id: '/create',
       path: '/create',
@@ -3477,42 +3248,44 @@ const AppBusinessesRmaBusinessBusinessIdDashboardAddressBookCreateRouteRoute =
       './routes/app/businesses-rma_/business.$businessId/dashboard/address-book/create/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaBusinessBusinessIdBpUpdateDetailDetailIdRouteRoute =
-  AppBusinessesRmaBusinessBusinessIdBpUpdateDetailDetailIdRouteImport.update({
-    id: '/update-detail/$detailId',
-    path: '/update-detail/$detailId',
-    getParentRoute: () => AppBusinessesRmaBusinessBusinessIdBpRouteRoute,
-  } as any).lazy(() =>
+  AppBusinessesRmaBusinessBusinessIdBpUpdateDetailDetailIdRouteRouteImport.update(
+    {
+      id: '/update-detail/$detailId',
+      path: '/update-detail/$detailId',
+      getParentRoute: () => AppBusinessesRmaBusinessBusinessIdBpRouteRoute,
+    } as any,
+  ).lazy(() =>
     import(
       './routes/app/businesses-rma_/business.$businessId/bp/update-detail.$detailId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaBusinessBusinessIdBpDeleteSerialSerialIdRouteRoute =
-  AppBusinessesRmaBusinessBusinessIdBpDeleteSerialSerialIdRouteImport.update({
-    id: '/delete-serial/$serialId',
-    path: '/delete-serial/$serialId',
-    getParentRoute: () => AppBusinessesRmaBusinessBusinessIdBpRouteRoute,
-  } as any).lazy(() =>
+  AppBusinessesRmaBusinessBusinessIdBpDeleteSerialSerialIdRouteRouteImport.update(
+    {
+      id: '/delete-serial/$serialId',
+      path: '/delete-serial/$serialId',
+      getParentRoute: () => AppBusinessesRmaBusinessBusinessIdBpRouteRoute,
+    } as any,
+  ).lazy(() =>
     import(
       './routes/app/businesses-rma_/business.$businessId/bp/delete-serial.$serialId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaBusinessBusinessIdBpDeleteDetailDetailIdRouteRoute =
-  AppBusinessesRmaBusinessBusinessIdBpDeleteDetailDetailIdRouteImport.update({
-    id: '/delete-detail/$detailId',
-    path: '/delete-detail/$detailId',
-    getParentRoute: () => AppBusinessesRmaBusinessBusinessIdBpRouteRoute,
-  } as any).lazy(() =>
+  AppBusinessesRmaBusinessBusinessIdBpDeleteDetailDetailIdRouteRouteImport.update(
+    {
+      id: '/delete-detail/$detailId',
+      path: '/delete-detail/$detailId',
+      getParentRoute: () => AppBusinessesRmaBusinessBusinessIdBpRouteRoute,
+    } as any,
+  ).lazy(() =>
     import(
       './routes/app/businesses-rma_/business.$businessId/bp/delete-detail.$detailId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaBusinessBusinessIdBpCreateSerialRmaSerialIdRouteRoute =
-  AppBusinessesRmaBusinessBusinessIdBpCreateSerialRmaSerialIdRouteImport.update(
+  AppBusinessesRmaBusinessBusinessIdBpCreateSerialRmaSerialIdRouteRouteImport.update(
     {
       id: '/create-serial-rma/$serialId',
       path: '/create-serial-rma/$serialId',
@@ -3523,9 +3296,8 @@ const AppBusinessesRmaBusinessBusinessIdBpCreateSerialRmaSerialIdRouteRoute =
       './routes/app/businesses-rma_/business.$businessId/bp/create-serial-rma.$serialId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaBusinessBusinessIdBpCreateDetailRmaDetailIdRouteRoute =
-  AppBusinessesRmaBusinessBusinessIdBpCreateDetailRmaDetailIdRouteImport.update(
+  AppBusinessesRmaBusinessBusinessIdBpCreateDetailRmaDetailIdRouteRouteImport.update(
     {
       id: '/create-detail-rma/$detailId',
       path: '/create-detail-rma/$detailId',
@@ -3536,9 +3308,8 @@ const AppBusinessesRmaBusinessBusinessIdBpCreateDetailRmaDetailIdRouteRoute =
       './routes/app/businesses-rma_/business.$businessId/bp/create-detail-rma.$detailId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaBusinessBusinessIdBpAddSerialDetailIdRouteRoute =
-  AppBusinessesRmaBusinessBusinessIdBpAddSerialDetailIdRouteImport.update({
+  AppBusinessesRmaBusinessBusinessIdBpAddSerialDetailIdRouteRouteImport.update({
     id: '/add-serial/$detailId',
     path: '/add-serial/$detailId',
     getParentRoute: () => AppBusinessesRmaBusinessBusinessIdBpRouteRoute,
@@ -3547,9 +3318,8 @@ const AppBusinessesRmaBusinessBusinessIdBpAddSerialDetailIdRouteRoute =
       './routes/app/businesses-rma_/business.$businessId/bp/add-serial.$detailId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaBusinessBusinessIdBlUpdateNewRouteRoute =
-  AppBusinessesRmaBusinessBusinessIdBlUpdateNewRouteImport.update({
+  AppBusinessesRmaBusinessBusinessIdBlUpdateNewRouteRouteImport.update({
     id: '/new',
     path: '/new',
     getParentRoute: () => AppBusinessesRmaBusinessBusinessIdBlUpdateRouteRoute,
@@ -3558,32 +3328,33 @@ const AppBusinessesRmaBusinessBusinessIdBlUpdateNewRouteRoute =
       './routes/app/businesses-rma_/business.$businessId/bl/update/new/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaBusinessBusinessIdBillCreditsSendByEmailRouteRoute =
-  AppBusinessesRmaBusinessBusinessIdBillCreditsSendByEmailRouteImport.update({
-    id: '/send-by-email',
-    path: '/send-by-email',
-    getParentRoute: () =>
-      AppBusinessesRmaBusinessBusinessIdBillCreditsRouteRoute,
-  } as any).lazy(() =>
+  AppBusinessesRmaBusinessBusinessIdBillCreditsSendByEmailRouteRouteImport.update(
+    {
+      id: '/send-by-email',
+      path: '/send-by-email',
+      getParentRoute: () =>
+        AppBusinessesRmaBusinessBusinessIdBillCreditsRouteRoute,
+    } as any,
+  ).lazy(() =>
     import(
       './routes/app/businesses-rma_/business.$businessId/bill/credits/send-by-email/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaBusinessBusinessIdArcUpdateDetailDetailIdRouteRoute =
-  AppBusinessesRmaBusinessBusinessIdArcUpdateDetailDetailIdRouteImport.update({
-    id: '/update-detail/$detailId',
-    path: '/update-detail/$detailId',
-    getParentRoute: () => AppBusinessesRmaBusinessBusinessIdArcRouteRoute,
-  } as any).lazy(() =>
+  AppBusinessesRmaBusinessBusinessIdArcUpdateDetailDetailIdRouteRouteImport.update(
+    {
+      id: '/update-detail/$detailId',
+      path: '/update-detail/$detailId',
+      getParentRoute: () => AppBusinessesRmaBusinessBusinessIdArcRouteRoute,
+    } as any,
+  ).lazy(() =>
     import(
       './routes/app/businesses-rma_/business.$businessId/arc/update-detail.$detailId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaBusinessBusinessIdArcPdfSendByEmailRouteRoute =
-  AppBusinessesRmaBusinessBusinessIdArcPdfSendByEmailRouteImport.update({
+  AppBusinessesRmaBusinessBusinessIdArcPdfSendByEmailRouteRouteImport.update({
     id: '/send-by-email',
     path: '/send-by-email',
     getParentRoute: () => AppBusinessesRmaBusinessBusinessIdArcPdfRouteRoute,
@@ -3592,20 +3363,20 @@ const AppBusinessesRmaBusinessBusinessIdArcPdfSendByEmailRouteRoute =
       './routes/app/businesses-rma_/business.$businessId/arc/pdf/send-by-email/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaBusinessBusinessIdArcDeleteDetailDetailIdRouteRoute =
-  AppBusinessesRmaBusinessBusinessIdArcDeleteDetailDetailIdRouteImport.update({
-    id: '/delete-detail/$detailId',
-    path: '/delete-detail/$detailId',
-    getParentRoute: () => AppBusinessesRmaBusinessBusinessIdArcRouteRoute,
-  } as any).lazy(() =>
+  AppBusinessesRmaBusinessBusinessIdArcDeleteDetailDetailIdRouteRouteImport.update(
+    {
+      id: '/delete-detail/$detailId',
+      path: '/delete-detail/$detailId',
+      getParentRoute: () => AppBusinessesRmaBusinessBusinessIdArcRouteRoute,
+    } as any,
+  ).lazy(() =>
     import(
       './routes/app/businesses-rma_/business.$businessId/arc/delete-detail.$detailId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaRmaRmaIdSupportTaskEmailTaskIdReplyRouteRoute =
-  AppBusinessesRmaRmaRmaIdSupportTaskEmailTaskIdReplyRouteImport.update({
+  AppBusinessesRmaRmaRmaIdSupportTaskEmailTaskIdReplyRouteRouteImport.update({
     id: '/reply',
     path: '/reply',
     getParentRoute: () =>
@@ -3615,9 +3386,8 @@ const AppBusinessesRmaRmaRmaIdSupportTaskEmailTaskIdReplyRouteRoute =
       './routes/app/businesses-rma_/rma.$rmaId/support/task-email.$taskId/reply/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdRenameGedObjectObjectRelativePathRouteRoute =
-  AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdRenameGedObjectObjectRelativePathRouteImport.update(
+  AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdRenameGedObjectObjectRelativePathRouteRouteImport.update(
     {
       id: '/rename-ged-object/$objectRelativePath',
       path: '/rename-ged-object/$objectRelativePath',
@@ -3629,9 +3399,8 @@ const AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdRenameGedObjectObj
       './routes/app/businesses-rma_/business.$businessId_/assistance.$assistanceId/rename-ged-object.$objectRelativePath/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdPdfSendByEmailRouteRoute =
-  AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdPdfSendByEmailRouteImport.update(
+  AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdPdfSendByEmailRouteRouteImport.update(
     {
       id: '/send-by-email',
       path: '/send-by-email',
@@ -3643,9 +3412,8 @@ const AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdPdfSendByEmailRout
       './routes/app/businesses-rma_/business.$businessId_/assistance.$assistanceId/pdf/send-by-email/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdLifesheetEmailLifesheetIdRouteRoute =
-  AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdLifesheetEmailLifesheetIdRouteImport.update(
+  AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdLifesheetEmailLifesheetIdRouteRouteImport.update(
     {
       id: '/lifesheet-email/$lifesheetId',
       path: '/lifesheet-email/$lifesheetId',
@@ -3657,9 +3425,8 @@ const AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdLifesheetEmailLife
       './routes/app/businesses-rma_/business.$businessId_/assistance.$assistanceId/lifesheet-email.$lifesheetId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdDeleteLinkAssociatedIdRouteRoute =
-  AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdDeleteLinkAssociatedIdRouteImport.update(
+  AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdDeleteLinkAssociatedIdRouteRouteImport.update(
     {
       id: '/delete-link/$associatedId',
       path: '/delete-link/$associatedId',
@@ -3671,9 +3438,8 @@ const AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdDeleteLinkAssociat
       './routes/app/businesses-rma_/business.$businessId_/assistance.$assistanceId/delete-link.$associatedId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdDeleteGedObjectObjectRelativePathRouteRoute =
-  AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdDeleteGedObjectObjectRelativePathRouteImport.update(
+  AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdDeleteGedObjectObjectRelativePathRouteRouteImport.update(
     {
       id: '/delete-ged-object/$objectRelativePath',
       path: '/delete-ged-object/$objectRelativePath',
@@ -3685,9 +3451,8 @@ const AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdDeleteGedObjectObj
       './routes/app/businesses-rma_/business.$businessId_/assistance.$assistanceId/delete-ged-object.$objectRelativePath/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaBusinessBusinessIdQuotationCommercialNoticeSendByEmailPredefinedMessagesRouteRoute =
-  AppBusinessesRmaBusinessBusinessIdQuotationCommercialNoticeSendByEmailPredefinedMessagesRouteImport.update(
+  AppBusinessesRmaBusinessBusinessIdQuotationCommercialNoticeSendByEmailPredefinedMessagesRouteRouteImport.update(
     {
       id: '/predefined-messages',
       path: '/predefined-messages',
@@ -3695,9 +3460,8 @@ const AppBusinessesRmaBusinessBusinessIdQuotationCommercialNoticeSendByEmailPred
         AppBusinessesRmaBusinessBusinessIdQuotationCommercialNoticeSendByEmailRouteRoute,
     } as any,
   )
-
 const AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdReplyRouteRoute =
-  AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdReplyRouteImport.update(
+  AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdReplyRouteRouteImport.update(
     {
       id: '/reply',
       path: '/reply',
@@ -3709,9 +3473,8 @@ const AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdReplyRouteRo
       './routes/app/businesses-rma_/business.$businessId/dashboard/email-history/$emailId/reply/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaBusinessBusinessIdDashboardAddressBookUpdateAddressIdRouteRoute =
-  AppBusinessesRmaBusinessBusinessIdDashboardAddressBookUpdateAddressIdRouteImport.update(
+  AppBusinessesRmaBusinessBusinessIdDashboardAddressBookUpdateAddressIdRouteRouteImport.update(
     {
       id: '/update/$addressId',
       path: '/update/$addressId',
@@ -3723,9 +3486,8 @@ const AppBusinessesRmaBusinessBusinessIdDashboardAddressBookUpdateAddressIdRoute
       './routes/app/businesses-rma_/business.$businessId/dashboard/address-book/update.$addressId/route.lazy'
     ).then((d) => d.Route),
   )
-
 const AppBusinessesRmaBusinessBusinessIdDashboardAddressBookDeleteAddressIdRouteRoute =
-  AppBusinessesRmaBusinessBusinessIdDashboardAddressBookDeleteAddressIdRouteImport.update(
+  AppBusinessesRmaBusinessBusinessIdDashboardAddressBookDeleteAddressIdRouteRouteImport.update(
     {
       id: '/delete/$addressId',
       path: '/delete/$addressId',
@@ -3738,2184 +3500,4074 @@ const AppBusinessesRmaBusinessBusinessIdDashboardAddressBookDeleteAddressIdRoute
     ).then((d) => d.Route),
   )
 
-// Populate the FileRoutesByPath interface
+export interface FileRoutesByFullPath {
+  '/': typeof IndexRoute
+  '/app': typeof AppRouteRouteWithChildren
+  '/auth': typeof AuthRouteRouteWithChildren
+  '/app/businesses-rma': typeof AppBusinessesRmaRouteRouteWithChildren
+  '/app/dashboard': typeof AppDashboardRouteRouteWithChildren
+  '/app/enterprises': typeof AppEnterprisesRouteRouteWithChildren
+  '/app/external-links': typeof AppExternalLinksRouteRoute
+  '/app/faq': typeof AppFaqRouteRouteWithChildren
+  '/app/products': typeof AppProductsRouteRouteWithChildren
+  '/app/tools': typeof AppToolsRouteRouteWithChildren
+  '/auth/login': typeof AuthLoginRouteRoute
+  '/auth/forgot-password': typeof AuthForgotPasswordRouteLazyRoute
+  '/app/': typeof AppIndexRoute
+  '/auth/': typeof AuthIndexRoute
+  '/app/businesses-rma/representative-turnover': typeof AppBusinessesRmaRepresentativeTurnoverRouteRoute
+  '/app/businesses-rma/search-by-products': typeof AppBusinessesRmaSearchByProductsRouteRoute
+  '/app/dashboard/create-collective-task': typeof AppDashboardCreateCollectiveTaskRouteRoute
+  '/app/dashboard/create-personal-task': typeof AppDashboardCreatePersonalTaskRouteRoute
+  '/app/dashboard/create-progressive-info': typeof AppDashboardCreateProgressiveInfoRouteRoute
+  '/app/dashboard/delete-collective-tasks': typeof AppDashboardDeleteCollectiveTasksRouteRoute
+  '/app/enterprises/create': typeof AppEnterprisesCreateRouteRoute
+  '/app/enterprises/$enterpriseId': typeof AppEnterprisesEnterpriseIdRouteRouteWithChildren
+  '/app/external-links/$externalLinkId': typeof AppExternalLinksExternalLinkIdRouteRoute
+  '/app/faq/create': typeof AppFaqCreateRouteRoute
+  '/app/products/create': typeof AppProductsCreateRouteRoute
+  '/app/products/serial-numbers': typeof AppProductsSerialNumbersRouteRouteWithChildren
+  '/app/products/$productId': typeof AppProductsProductIdRouteRouteWithChildren
+  '/app/tools/credit': typeof AppToolsCreditRouteRouteWithChildren
+  '/app/tools/ddns': typeof AppToolsDdnsRouteRouteWithChildren
+  '/app/tools/departments': typeof AppToolsDepartmentsRouteRouteWithChildren
+  '/app/tools/emails': typeof AppToolsEmailsRouteRouteWithChildren
+  '/app/tools/external-links': typeof AppToolsExternalLinksRouteRouteWithChildren
+  '/app/tools/formations': typeof AppToolsFormationsRouteRouteWithChildren
+  '/app/tools/global-turnover': typeof AppToolsGlobalTurnoverRouteRoute
+  '/app/tools/mails': typeof AppToolsMailsRouteRouteWithChildren
+  '/app/tools/menu': typeof AppToolsMenuRouteRouteWithChildren
+  '/app/tools/news': typeof AppToolsNewsRouteRouteWithChildren
+  '/app/tools/predefined-messages': typeof AppToolsPredefinedMessagesRouteRouteWithChildren
+  '/app/tools/predefined-texts': typeof AppToolsPredefinedTextsRouteRouteWithChildren
+  '/app/tools/product-filters': typeof AppToolsProductFiltersRouteRouteWithChildren
+  '/app/tools/product-inventory': typeof AppToolsProductInventoryRouteRouteWithChildren
+  '/app/tools/product-shelves': typeof AppToolsProductShelvesRouteRouteWithChildren
+  '/app/tools/representatives-map': typeof AppToolsRepresentativesMapRouteRoute
+  '/app/tools/representatives-turnover': typeof AppToolsRepresentativesTurnoverRouteRoute
+  '/app/tools/scheduler': typeof AppToolsSchedulerRouteRouteWithChildren
+  '/app/tools/vva': typeof AppToolsVvaRouteRouteWithChildren
+  '/auth/reset-password/$token': typeof AuthResetPasswordTokenRouteLazyRoute
+  '/app/tools/': typeof AppToolsIndexRoute
+  '/app/businesses-rma/business/$businessId': typeof AppBusinessesRmaBusinessBusinessIdRouteRouteWithChildren
+  '/app/businesses-rma/rma/$rmaId': typeof AppBusinessesRmaRmaRmaIdRouteRouteWithChildren
+  '/app/dashboard/archive-personal-task/$taskId': typeof AppDashboardArchivePersonalTaskTaskIdRouteRoute
+  '/app/dashboard/create-aircall-contact/$number': typeof AppDashboardCreateAircallContactNumberRouteRoute
+  '/app/dashboard/delete-collective-task/$taskId': typeof AppDashboardDeleteCollectiveTaskTaskIdRouteRoute
+  '/app/dashboard/delete-progressive-info/$progressiveInfoId': typeof AppDashboardDeleteProgressiveInfoProgressiveInfoIdRouteRoute
+  '/app/dashboard/link-personal-task/$taskId': typeof AppDashboardLinkPersonalTaskTaskIdRouteRoute
+  '/app/dashboard/other-personal-tasks/$profileId': typeof AppDashboardOtherPersonalTasksProfileIdRouteRoute
+  '/app/dashboard/personal-task-details/$taskId': typeof AppDashboardPersonalTaskDetailsTaskIdRouteRoute
+  '/app/dashboard/scheduler-event-details/$eventId': typeof AppDashboardSchedulerEventDetailsEventIdRouteRoute
+  '/app/dashboard/take-collective-task/$taskId': typeof AppDashboardTakeCollectiveTaskTaskIdRouteRoute
+  '/app/dashboard/task-comments/$taskId': typeof AppDashboardTaskCommentsTaskIdRouteRoute
+  '/app/dashboard/task-email/$taskId': typeof AppDashboardTaskEmailTaskIdRouteRouteWithChildren
+  '/app/dashboard/transfer-task/$taskId': typeof AppDashboardTransferTaskTaskIdRouteRoute
+  '/app/dashboard/unlink-personal-task/$taskId': typeof AppDashboardUnlinkPersonalTaskTaskIdRouteRoute
+  '/app/dashboard/update-aircall-contact/$contactId': typeof AppDashboardUpdateAircallContactContactIdRouteRoute
+  '/app/dashboard/update-personal-task-deadline/$taskId': typeof AppDashboardUpdatePersonalTaskDeadlineTaskIdRouteRoute
+  '/app/dashboard/update-progressive-info/$progressiveInfoId': typeof AppDashboardUpdateProgressiveInfoProgressiveInfoIdRouteRoute
+  '/app/dashboard/validate-personal-task/$taskId': typeof AppDashboardValidatePersonalTaskTaskIdRouteRoute
+  '/app/enterprises/create-contact-business/$contactId': typeof AppEnterprisesCreateContactBusinessContactIdRouteRoute
+  '/app/enterprises/create-contact-travel-voucher/$contactId': typeof AppEnterprisesCreateContactTravelVoucherContactIdRouteRoute
+  '/app/enterprises/create-contact/$enterpriseId': typeof AppEnterprisesCreateContactEnterpriseIdRouteRoute
+  '/app/enterprises/create-enterprise-rma/$enterpriseId': typeof AppEnterprisesCreateEnterpriseRmaEnterpriseIdRouteRoute
+  '/app/enterprises/delete-contact/$contactId': typeof AppEnterprisesDeleteContactContactIdRouteRoute
+  '/app/enterprises/send-email-to-contact/$contactId': typeof AppEnterprisesSendEmailToContactContactIdRouteRoute
+  '/app/enterprises/update-contact-password/$contactId': typeof AppEnterprisesUpdateContactPasswordContactIdRouteRoute
+  '/app/enterprises/update-contact/$contactId': typeof AppEnterprisesUpdateContactContactIdRouteRoute
+  '/app/enterprises/$enterpriseId/address-book': typeof AppEnterprisesEnterpriseIdAddressBookRouteRouteWithChildren
+  '/app/enterprises/$enterpriseId/create-contact': typeof AppEnterprisesEnterpriseIdCreateContactRouteRoute
+  '/app/enterprises/$enterpriseId/create-ged-directory': typeof AppEnterprisesEnterpriseIdCreateGedDirectoryRouteRoute
+  '/app/enterprises/$enterpriseId/create-lifesheet-comment': typeof AppEnterprisesEnterpriseIdCreateLifesheetCommentRouteRoute
+  '/app/enterprises/$enterpriseId/delete': typeof AppEnterprisesEnterpriseIdDeleteRouteRoute
+  '/app/enterprises/$enterpriseId/email-history': typeof AppEnterprisesEnterpriseIdEmailHistoryRouteRouteWithChildren
+  '/app/enterprises/$enterpriseId/import-contacts': typeof AppEnterprisesEnterpriseIdImportContactsRouteRoute
+  '/app/enterprises/$enterpriseId/import-ged-files': typeof AppEnterprisesEnterpriseIdImportGedFilesRouteRoute
+  '/app/enterprises/$enterpriseId/relate-business-rma': typeof AppEnterprisesEnterpriseIdRelateBusinessRmaRouteRoute
+  '/app/enterprises/$enterpriseId/update': typeof AppEnterprisesEnterpriseIdUpdateRouteRoute
+  '/app/enterprises/$enterpriseId/update-accountability': typeof AppEnterprisesEnterpriseIdUpdateAccountabilityRouteRoute
+  '/app/enterprises/$enterpriseId/update-category': typeof AppEnterprisesEnterpriseIdUpdateCategoryRouteRoute
+  '/app/enterprises/$enterpriseId/update-representative': typeof AppEnterprisesEnterpriseIdUpdateRepresentativeRouteRoute
+  '/app/faq/archive/$faqId': typeof AppFaqArchiveFaqIdRouteRoute
+  '/app/faq/delete/$faqId': typeof AppFaqDeleteFaqIdRouteRoute
+  '/app/faq/ged/$faqId': typeof AppFaqGedFaqIdRouteRouteWithChildren
+  '/app/faq/send-by-email/$faqId': typeof AppFaqSendByEmailFaqIdRouteRoute
+  '/app/faq/update/$faqId': typeof AppFaqUpdateFaqIdRouteRoute
+  '/app/products/serial-numbers/create': typeof AppProductsSerialNumbersCreateRouteRoute
+  '/app/products/$productId/informations': typeof AppProductsProductIdInformationsRouteRouteWithChildren
+  '/app/products/$productId/manage': typeof AppProductsProductIdManageRouteRouteWithChildren
+  '/app/tools/credit/details': typeof AppToolsCreditDetailsRouteRoute
+  '/app/tools/credit/show': typeof AppToolsCreditShowRouteRoute
+  '/app/tools/ddns/create': typeof AppToolsDdnsCreateRouteRoute
+  '/app/tools/departments/create': typeof AppToolsDepartmentsCreateRouteRoute
+  '/app/tools/emails/$emailId': typeof AppToolsEmailsEmailIdRouteRouteWithChildren
+  '/app/tools/external-links/create': typeof AppToolsExternalLinksCreateRouteRoute
+  '/app/tools/formations/create': typeof AppToolsFormationsCreateRouteRouteWithChildren
+  '/app/tools/mails/create': typeof AppToolsMailsCreateRouteRoute
+  '/app/tools/menu/create-enterprise': typeof AppToolsMenuCreateEnterpriseRouteRoute
+  '/app/tools/menu/create-product': typeof AppToolsMenuCreateProductRouteRoute
+  '/app/tools/news/create': typeof AppToolsNewsCreateRouteRoute
+  '/app/tools/predefined-messages/create': typeof AppToolsPredefinedMessagesCreateRouteRoute
+  '/app/tools/predefined-texts/create': typeof AppToolsPredefinedTextsCreateRouteRoute
+  '/app/tools/product-filters/create': typeof AppToolsProductFiltersCreateRouteRoute
+  '/app/tools/product-inventory/validate-quantities': typeof AppToolsProductInventoryValidateQuantitiesRouteRoute
+  '/app/tools/product-shelves/create': typeof AppToolsProductShelvesCreateRouteRoute
+  '/app/tools/scheduler/create': typeof AppToolsSchedulerCreateRouteRoute
+  '/app/tools/vva/create': typeof AppToolsVvaCreateRouteRoute
+  '/app/products/$productId/': typeof AppProductsProductIdIndexRoute
+  '/app/businesses-rma/business/$businessId/arc': typeof AppBusinessesRmaBusinessBusinessIdArcRouteRouteWithChildren
+  '/app/businesses-rma/business/$businessId/bill': typeof AppBusinessesRmaBusinessBusinessIdBillRouteRouteWithChildren
+  '/app/businesses-rma/business/$businessId/bl': typeof AppBusinessesRmaBusinessBusinessIdBlRouteRouteWithChildren
+  '/app/businesses-rma/business/$businessId/bp': typeof AppBusinessesRmaBusinessBusinessIdBpRouteRouteWithChildren
+  '/app/businesses-rma/business/$businessId/dashboard': typeof AppBusinessesRmaBusinessBusinessIdDashboardRouteRouteWithChildren
+  '/app/businesses-rma/business/$businessId/quotation': typeof AppBusinessesRmaBusinessBusinessIdQuotationRouteRouteWithChildren
+  '/app/businesses-rma/business/$businessId/study': typeof AppBusinessesRmaBusinessBusinessIdStudyRouteRouteWithChildren
+  '/app/businesses-rma/rma/$rmaId/delivery': typeof AppBusinessesRmaRmaRmaIdDeliveryRouteRouteWithChildren
+  '/app/businesses-rma/rma/$rmaId/reception': typeof AppBusinessesRmaRmaRmaIdReceptionRouteRouteWithChildren
+  '/app/businesses-rma/rma/$rmaId/support': typeof AppBusinessesRmaRmaRmaIdSupportRouteRouteWithChildren
+  '/app/dashboard/task-email/$taskId/reply': typeof AppDashboardTaskEmailTaskIdReplyRouteRoute
+  '/app/enterprises/$enterpriseId/address-book/create': typeof AppEnterprisesEnterpriseIdAddressBookCreateRouteRoute
+  '/app/enterprises/$enterpriseId/address-book/import': typeof AppEnterprisesEnterpriseIdAddressBookImportRouteRoute
+  '/app/enterprises/$enterpriseId/create-contact-business/$contactId': typeof AppEnterprisesEnterpriseIdCreateContactBusinessContactIdRouteRoute
+  '/app/enterprises/$enterpriseId/delete-contact/$contactId': typeof AppEnterprisesEnterpriseIdDeleteContactContactIdRouteRoute
+  '/app/enterprises/$enterpriseId/delete-ged-object/$objectRelativePath': typeof AppEnterprisesEnterpriseIdDeleteGedObjectObjectRelativePathRouteRoute
+  '/app/enterprises/$enterpriseId/lifesheet-email/$lifesheetId': typeof AppEnterprisesEnterpriseIdLifesheetEmailLifesheetIdRouteRoute
+  '/app/enterprises/$enterpriseId/rename-ged-object/$objectRelativePath': typeof AppEnterprisesEnterpriseIdRenameGedObjectObjectRelativePathRouteRoute
+  '/app/enterprises/$enterpriseId/send-email-to-contact/$contactId': typeof AppEnterprisesEnterpriseIdSendEmailToContactContactIdRouteRoute
+  '/app/enterprises/$enterpriseId/task-email/$taskId': typeof AppEnterprisesEnterpriseIdTaskEmailTaskIdRouteRouteWithChildren
+  '/app/enterprises/$enterpriseId/unlink-task/$taskId': typeof AppEnterprisesEnterpriseIdUnlinkTaskTaskIdRouteRoute
+  '/app/enterprises/$enterpriseId/unrelate-business-rma/$businessRmaId': typeof AppEnterprisesEnterpriseIdUnrelateBusinessRmaBusinessRmaIdRouteRoute
+  '/app/enterprises/$enterpriseId/update-contact-password/$contactId': typeof AppEnterprisesEnterpriseIdUpdateContactPasswordContactIdRouteRoute
+  '/app/enterprises/$enterpriseId/update-contact/$contactId': typeof AppEnterprisesEnterpriseIdUpdateContactContactIdRouteRoute
+  '/app/faq/ged/$faqId/create-directory': typeof AppFaqGedFaqIdCreateDirectoryRouteRoute
+  '/app/faq/ged/$faqId/import-files': typeof AppFaqGedFaqIdImportFilesRouteRoute
+  '/app/products/serial-numbers/create-rma/$serialNumberId': typeof AppProductsSerialNumbersCreateRmaSerialNumberIdRouteRoute
+  '/app/products/serial-numbers/delete/$serialNumberId': typeof AppProductsSerialNumbersDeleteSerialNumberIdRouteRoute
+  '/app/products/serial-numbers/remove-from-business/$serialNumberId': typeof AppProductsSerialNumbersRemoveFromBusinessSerialNumberIdRouteRoute
+  '/app/products/serial-numbers/update/$serialNumberId': typeof AppProductsSerialNumbersUpdateSerialNumberIdRouteRoute
+  '/app/products/$productId/informations/create-ged-directory': typeof AppProductsProductIdInformationsCreateGedDirectoryRouteRoute
+  '/app/products/$productId/informations/create-lifesheet-comment': typeof AppProductsProductIdInformationsCreateLifesheetCommentRouteRoute
+  '/app/products/$productId/informations/delete-ged-object': typeof AppProductsProductIdInformationsDeleteGedObjectRouteRoute
+  '/app/products/$productId/informations/import-ged-files': typeof AppProductsProductIdInformationsImportGedFilesRouteRoute
+  '/app/products/$productId/informations/rename-ged-object': typeof AppProductsProductIdInformationsRenameGedObjectRouteRoute
+  '/app/products/$productId/manage/add-associated-product': typeof AppProductsProductIdManageAddAssociatedProductRouteRoute
+  '/app/products/$productId/manage/add-nomenclature-detail': typeof AppProductsProductIdManageAddNomenclatureDetailRouteRoute
+  '/app/products/$productId/manage/add-specification': typeof AppProductsProductIdManageAddSpecificationRouteRouteWithChildren
+  '/app/products/$productId/manage/create-stock': typeof AppProductsProductIdManageCreateStockRouteRoute
+  '/app/products/$productId/manage/create-version': typeof AppProductsProductIdManageCreateVersionRouteRoute
+  '/app/tools/ddns/delete/$ddnsId': typeof AppToolsDdnsDeleteDdnsIdRouteRoute
+  '/app/tools/departments/delete/$departmentId': typeof AppToolsDepartmentsDeleteDepartmentIdRouteRoute
+  '/app/tools/departments/update/$departmentId': typeof AppToolsDepartmentsUpdateDepartmentIdRouteRoute
+  '/app/tools/emails/$emailId/reply': typeof AppToolsEmailsEmailIdReplyRouteRoute
+  '/app/tools/external-links/archive/$externalLinkId': typeof AppToolsExternalLinksArchiveExternalLinkIdRouteRoute
+  '/app/tools/external-links/delete/$externalLinkId': typeof AppToolsExternalLinksDeleteExternalLinkIdRouteRoute
+  '/app/tools/external-links/update/$externalLinkId': typeof AppToolsExternalLinksUpdateExternalLinkIdRouteRoute
+  '/app/tools/formations/create/add-detail': typeof AppToolsFormationsCreateAddDetailRouteRoute
+  '/app/tools/formations/create/details': typeof AppToolsFormationsCreateDetailsRouteRoute
+  '/app/tools/formations/delete/$formationId': typeof AppToolsFormationsDeleteFormationIdRouteRoute
+  '/app/tools/formations/subscribers/$formationDetailId': typeof AppToolsFormationsSubscribersFormationDetailIdRouteRouteWithChildren
+  '/app/tools/formations/update/$formationId': typeof AppToolsFormationsUpdateFormationIdRouteRouteWithChildren
+  '/app/tools/mails/delete/$mailId': typeof AppToolsMailsDeleteMailIdRouteRoute
+  '/app/tools/mails/show/$mailId': typeof AppToolsMailsShowMailIdRouteRoute
+  '/app/tools/mails/update/$mailId': typeof AppToolsMailsUpdateMailIdRouteRoute
+  '/app/tools/news/delete/$newsId': typeof AppToolsNewsDeleteNewsIdRouteRoute
+  '/app/tools/news/update/$newsId': typeof AppToolsNewsUpdateNewsIdRouteRoute
+  '/app/tools/predefined-messages/delete/$predefinedMessageId': typeof AppToolsPredefinedMessagesDeletePredefinedMessageIdRouteRoute
+  '/app/tools/predefined-messages/update/$predefinedMessageId': typeof AppToolsPredefinedMessagesUpdatePredefinedMessageIdRouteRoute
+  '/app/tools/predefined-texts/delete/$predefinedTextId': typeof AppToolsPredefinedTextsDeletePredefinedTextIdRouteRoute
+  '/app/tools/predefined-texts/update/$predefinedTextId': typeof AppToolsPredefinedTextsUpdatePredefinedTextIdRouteRoute
+  '/app/tools/product-filters/delete/$productFilterId': typeof AppToolsProductFiltersDeleteProductFilterIdRouteRoute
+  '/app/tools/product-filters/update/$productFilterId': typeof AppToolsProductFiltersUpdateProductFilterIdRouteRoute
+  '/app/tools/product-inventory/update/$stockId': typeof AppToolsProductInventoryUpdateStockIdRouteRoute
+  '/app/tools/product-shelves/delete/$productShelfId': typeof AppToolsProductShelvesDeleteProductShelfIdRouteRoute
+  '/app/tools/scheduler/details/$rdvId': typeof AppToolsSchedulerDetailsRdvIdRouteRouteWithChildren
+  '/app/tools/vva/delete/$vvaId': typeof AppToolsVvaDeleteVvaIdRouteRoute
+  '/app/businesses-rma/business/$businessId/': typeof AppBusinessesRmaBusinessBusinessIdIndexRoute
+  '/app/businesses-rma/rma/$rmaId/': typeof AppBusinessesRmaRmaRmaIdIndexRoute
+  '/app/businesses-rma/business/$businessId/arc/pdf': typeof AppBusinessesRmaBusinessBusinessIdArcPdfRouteRouteWithChildren
+  '/app/businesses-rma/business/$businessId/arc/update-shipping-price': typeof AppBusinessesRmaBusinessBusinessIdArcUpdateShippingPriceRouteRoute
+  '/app/businesses-rma/business/$businessId/bill/credits': typeof AppBusinessesRmaBusinessBusinessIdBillCreditsRouteRouteWithChildren
+  '/app/businesses-rma/business/$businessId/bill/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdBillSendByEmailRouteRoute
+  '/app/businesses-rma/business/$businessId/bl/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdBlSendByEmailRouteRoute
+  '/app/businesses-rma/business/$businessId/bl/update': typeof AppBusinessesRmaBusinessBusinessIdBlUpdateRouteRouteWithChildren
+  '/app/businesses-rma/business/$businessId/bp/travel-voucher': typeof AppBusinessesRmaBusinessBusinessIdBpTravelVoucherRouteRoute
+  '/app/businesses-rma/business/$businessId/dashboard/address-book': typeof AppBusinessesRmaBusinessBusinessIdDashboardAddressBookRouteRouteWithChildren
+  '/app/businesses-rma/business/$businessId/dashboard/create-ged-directory': typeof AppBusinessesRmaBusinessBusinessIdDashboardCreateGedDirectoryRouteRoute
+  '/app/businesses-rma/business/$businessId/dashboard/create-lifesheet': typeof AppBusinessesRmaBusinessBusinessIdDashboardCreateLifesheetRouteRoute
+  '/app/businesses-rma/business/$businessId/dashboard/create-link': typeof AppBusinessesRmaBusinessBusinessIdDashboardCreateLinkRouteRoute
+  '/app/businesses-rma/business/$businessId/dashboard/delete': typeof AppBusinessesRmaBusinessBusinessIdDashboardDeleteRouteRoute
+  '/app/businesses-rma/business/$businessId/dashboard/email-history': typeof AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryRouteRouteWithChildren
+  '/app/businesses-rma/business/$businessId/dashboard/import-ged-files': typeof AppBusinessesRmaBusinessBusinessIdDashboardImportGedFilesRouteRoute
+  '/app/businesses-rma/business/$businessId/dashboard/send-email': typeof AppBusinessesRmaBusinessBusinessIdDashboardSendEmailRouteRoute
+  '/app/businesses-rma/business/$businessId/dashboard/update-billing-address': typeof AppBusinessesRmaBusinessBusinessIdDashboardUpdateBillingAddressRouteRoute
+  '/app/businesses-rma/business/$businessId/dashboard/update-representative': typeof AppBusinessesRmaBusinessBusinessIdDashboardUpdateRepresentativeRouteRoute
+  '/app/businesses-rma/business/$businessId/dashboard/update-responsible': typeof AppBusinessesRmaBusinessBusinessIdDashboardUpdateResponsibleRouteRoute
+  '/app/businesses-rma/business/$businessId/quotation/commercial-notice': typeof AppBusinessesRmaBusinessBusinessIdQuotationCommercialNoticeRouteRouteWithChildren
+  '/app/businesses-rma/business/$businessId/quotation/pdf': typeof AppBusinessesRmaBusinessBusinessIdQuotationPdfRouteRouteWithChildren
+  '/app/businesses-rma/business/$businessId/quotation/update-shipping-price': typeof AppBusinessesRmaBusinessBusinessIdQuotationUpdateShippingPriceRouteRoute
+  '/app/businesses-rma/business/$businessId/assistance/$assistanceId': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdRouteRouteWithChildren
+  '/app/businesses-rma/business/$businessId/study/automatic': typeof AppBusinessesRmaBusinessBusinessIdStudyAutomaticRouteRoute
+  '/app/businesses-rma/business/$businessId/study/expert': typeof AppBusinessesRmaBusinessBusinessIdStudyExpertRouteRoute
+  '/app/businesses-rma/rma/$rmaId/delivery/create-detail': typeof AppBusinessesRmaRmaRmaIdDeliveryCreateDetailRouteRoute
+  '/app/businesses-rma/rma/$rmaId/delivery/pdf': typeof AppBusinessesRmaRmaRmaIdDeliveryPdfRouteRouteWithChildren
+  '/app/businesses-rma/rma/$rmaId/delivery/travel-voucher': typeof AppBusinessesRmaRmaRmaIdDeliveryTravelVoucherRouteRoute
+  '/app/businesses-rma/rma/$rmaId/reception/create-detail': typeof AppBusinessesRmaRmaRmaIdReceptionCreateDetailRouteRoute
+  '/app/businesses-rma/rma/$rmaId/reception/pdf': typeof AppBusinessesRmaRmaRmaIdReceptionPdfRouteRouteWithChildren
+  '/app/businesses-rma/rma/$rmaId/support/create-detail': typeof AppBusinessesRmaRmaRmaIdSupportCreateDetailRouteRoute
+  '/app/businesses-rma/rma/$rmaId/support/create-ged-directory': typeof AppBusinessesRmaRmaRmaIdSupportCreateGedDirectoryRouteRoute
+  '/app/businesses-rma/rma/$rmaId/support/create-lifesheet': typeof AppBusinessesRmaRmaRmaIdSupportCreateLifesheetRouteRoute
+  '/app/businesses-rma/rma/$rmaId/support/create-link': typeof AppBusinessesRmaRmaRmaIdSupportCreateLinkRouteRoute
+  '/app/businesses-rma/rma/$rmaId/support/import-ged-files': typeof AppBusinessesRmaRmaRmaIdSupportImportGedFilesRouteRoute
+  '/app/businesses-rma/rma/$rmaId/support/pdf': typeof AppBusinessesRmaRmaRmaIdSupportPdfRouteRouteWithChildren
+  '/app/enterprises/$enterpriseId/address-book/delete/$addressId': typeof AppEnterprisesEnterpriseIdAddressBookDeleteAddressIdRouteRoute
+  '/app/enterprises/$enterpriseId/address-book/update/$addressId': typeof AppEnterprisesEnterpriseIdAddressBookUpdateAddressIdRouteRoute
+  '/app/enterprises/$enterpriseId/email-history/email/$emailId': typeof AppEnterprisesEnterpriseIdEmailHistoryEmailEmailIdRouteRouteWithChildren
+  '/app/enterprises/$enterpriseId/task-email/$taskId/reply': typeof AppEnterprisesEnterpriseIdTaskEmailTaskIdReplyRouteRoute
+  '/app/faq/ged/$faqId/delete/$itemRelativePath': typeof AppFaqGedFaqIdDeleteItemRelativePathRouteRoute
+  '/app/faq/ged/$faqId/rename/$itemRelativePath': typeof AppFaqGedFaqIdRenameItemRelativePathRouteRoute
+  '/app/products/$productId/informations/lifesheet-email/$lifesheetId': typeof AppProductsProductIdInformationsLifesheetEmailLifesheetIdRouteRoute
+  '/app/products/$productId/informations/task-email/$taskId': typeof AppProductsProductIdInformationsTaskEmailTaskIdRouteRouteWithChildren
+  '/app/products/$productId/informations/unlink-task/$taskId': typeof AppProductsProductIdInformationsUnlinkTaskTaskIdRouteRoute
+  '/app/products/$productId/manage/add-specification/$filterId': typeof AppProductsProductIdManageAddSpecificationFilterIdRouteRoute
+  '/app/products/$productId/manage/delete-nomenclature-detail/$nomenclatureDetailId': typeof AppProductsProductIdManageDeleteNomenclatureDetailNomenclatureDetailIdRouteRoute
+  '/app/products/$productId/manage/delete-specification/$specificationId': typeof AppProductsProductIdManageDeleteSpecificationSpecificationIdRouteRoute
+  '/app/products/$productId/manage/delete-stock/$stockId': typeof AppProductsProductIdManageDeleteStockStockIdRouteRoute
+  '/app/products/$productId/manage/delete-version/$versionId': typeof AppProductsProductIdManageDeleteVersionVersionIdRouteRoute
+  '/app/products/$productId/manage/remove-associated-product/$associatedProductId': typeof AppProductsProductIdManageRemoveAssociatedProductAssociatedProductIdRouteRoute
+  '/app/products/$productId/manage/stock-history/$stockId': typeof AppProductsProductIdManageStockHistoryStockIdRouteRoute
+  '/app/products/$productId/manage/update-nomenclature-detail/$nomenclatureDetailId': typeof AppProductsProductIdManageUpdateNomenclatureDetailNomenclatureDetailIdRouteRoute
+  '/app/products/$productId/manage/update-specification/$specificationId': typeof AppProductsProductIdManageUpdateSpecificationSpecificationIdRouteRoute
+  '/app/products/$productId/manage/update-stock/$stockId': typeof AppProductsProductIdManageUpdateStockStockIdRouteRoute
+  '/app/products/$productId/manage/update-version/$versionId': typeof AppProductsProductIdManageUpdateVersionVersionIdRouteRoute
+  '/app/tools/formations/subscribers/$formationDetailId/create': typeof AppToolsFormationsSubscribersFormationDetailIdCreateRouteRoute
+  '/app/tools/formations/update/$formationId/add-detail': typeof AppToolsFormationsUpdateFormationIdAddDetailRouteRoute
+  '/app/tools/formations/update/$formationId/details': typeof AppToolsFormationsUpdateFormationIdDetailsRouteRoute
+  '/app/tools/scheduler/details/$rdvId/delete': typeof AppToolsSchedulerDetailsRdvIdDeleteRouteRoute
+  '/app/tools/scheduler/details/$rdvId/update': typeof AppToolsSchedulerDetailsRdvIdUpdateRouteRoute
+  '/app/businesses-rma/business/$businessId/study/': typeof AppBusinessesRmaBusinessBusinessIdStudyIndexRoute
+  '/app/businesses-rma/business/$businessId/arc/delete-detail/$detailId': typeof AppBusinessesRmaBusinessBusinessIdArcDeleteDetailDetailIdRouteRoute
+  '/app/businesses-rma/business/$businessId/arc/pdf/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdArcPdfSendByEmailRouteRoute
+  '/app/businesses-rma/business/$businessId/arc/update-detail/$detailId': typeof AppBusinessesRmaBusinessBusinessIdArcUpdateDetailDetailIdRouteRoute
+  '/app/businesses-rma/business/$businessId/bill/credits/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdBillCreditsSendByEmailRouteRoute
+  '/app/businesses-rma/business/$businessId/bl/update/new': typeof AppBusinessesRmaBusinessBusinessIdBlUpdateNewRouteRoute
+  '/app/businesses-rma/business/$businessId/bp/add-serial/$detailId': typeof AppBusinessesRmaBusinessBusinessIdBpAddSerialDetailIdRouteRoute
+  '/app/businesses-rma/business/$businessId/bp/create-detail-rma/$detailId': typeof AppBusinessesRmaBusinessBusinessIdBpCreateDetailRmaDetailIdRouteRoute
+  '/app/businesses-rma/business/$businessId/bp/create-serial-rma/$serialId': typeof AppBusinessesRmaBusinessBusinessIdBpCreateSerialRmaSerialIdRouteRoute
+  '/app/businesses-rma/business/$businessId/bp/delete-detail/$detailId': typeof AppBusinessesRmaBusinessBusinessIdBpDeleteDetailDetailIdRouteRoute
+  '/app/businesses-rma/business/$businessId/bp/delete-serial/$serialId': typeof AppBusinessesRmaBusinessBusinessIdBpDeleteSerialSerialIdRouteRoute
+  '/app/businesses-rma/business/$businessId/bp/update-detail/$detailId': typeof AppBusinessesRmaBusinessBusinessIdBpUpdateDetailDetailIdRouteRoute
+  '/app/businesses-rma/business/$businessId/dashboard/address-book/create': typeof AppBusinessesRmaBusinessBusinessIdDashboardAddressBookCreateRouteRoute
+  '/app/businesses-rma/business/$businessId/dashboard/confirm-quotation-import/$otherBusinessId': typeof AppBusinessesRmaBusinessBusinessIdDashboardConfirmQuotationImportOtherBusinessIdRouteRoute
+  '/app/businesses-rma/business/$businessId/dashboard/delete-ged-object/$objectRelativePath': typeof AppBusinessesRmaBusinessBusinessIdDashboardDeleteGedObjectObjectRelativePathRouteRoute
+  '/app/businesses-rma/business/$businessId/dashboard/delete-link/$associatedId': typeof AppBusinessesRmaBusinessBusinessIdDashboardDeleteLinkAssociatedIdRouteRoute
+  '/app/businesses-rma/business/$businessId/dashboard/email-history/$emailId': typeof AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdRouteRouteWithChildren
+  '/app/businesses-rma/business/$businessId/dashboard/lifesheet-email/$lifesheetId': typeof AppBusinessesRmaBusinessBusinessIdDashboardLifesheetEmailLifesheetIdRouteRoute
+  '/app/businesses-rma/business/$businessId/dashboard/rename-ged-object/$objectRelativePath': typeof AppBusinessesRmaBusinessBusinessIdDashboardRenameGedObjectObjectRelativePathRouteRoute
+  '/app/businesses-rma/business/$businessId/dashboard/task-email/$taskId': typeof AppBusinessesRmaBusinessBusinessIdDashboardTaskEmailTaskIdRouteRoute
+  '/app/businesses-rma/business/$businessId/dashboard/unlink-task/$taskId': typeof AppBusinessesRmaBusinessBusinessIdDashboardUnlinkTaskTaskIdRouteRoute
+  '/app/businesses-rma/business/$businessId/quotation/commercial-notice/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdQuotationCommercialNoticeSendByEmailRouteRouteWithChildren
+  '/app/businesses-rma/business/$businessId/quotation/create-associated-detail/$detailId': typeof AppBusinessesRmaBusinessBusinessIdQuotationCreateAssociatedDetailDetailIdRouteRoute
+  '/app/businesses-rma/business/$businessId/quotation/create-detail/$subquotationId': typeof AppBusinessesRmaBusinessBusinessIdQuotationCreateDetailSubquotationIdRouteRoute
+  '/app/businesses-rma/business/$businessId/quotation/delete-detail/$detailId': typeof AppBusinessesRmaBusinessBusinessIdQuotationDeleteDetailDetailIdRouteRoute
+  '/app/businesses-rma/business/$businessId/quotation/delete-subquotation/$subquotationId': typeof AppBusinessesRmaBusinessBusinessIdQuotationDeleteSubquotationSubquotationIdRouteRoute
+  '/app/businesses-rma/business/$businessId/quotation/pdf/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdQuotationPdfSendByEmailRouteRoute
+  '/app/businesses-rma/business/$businessId/quotation/update-detail/$detailId': typeof AppBusinessesRmaBusinessBusinessIdQuotationUpdateDetailDetailIdRouteRoute
+  '/app/businesses-rma/business/$businessId/quotation/update-subquotation/$subquotationId': typeof AppBusinessesRmaBusinessBusinessIdQuotationUpdateSubquotationSubquotationIdRouteRoute
+  '/app/businesses-rma/business/$businessId/assistance/$assistanceId/create-faq': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdCreateFaqRouteRoute
+  '/app/businesses-rma/business/$businessId/assistance/$assistanceId/create-ged-directory': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdCreateGedDirectoryRouteRoute
+  '/app/businesses-rma/business/$businessId/assistance/$assistanceId/create-lifesheet': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdCreateLifesheetRouteRoute
+  '/app/businesses-rma/business/$businessId/assistance/$assistanceId/create-link': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdCreateLinkRouteRoute
+  '/app/businesses-rma/business/$businessId/assistance/$assistanceId/delete': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdDeleteRouteRoute
+  '/app/businesses-rma/business/$businessId/assistance/$assistanceId/edit-cumulated-time': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdEditCumulatedTimeRouteRoute
+  '/app/businesses-rma/business/$businessId/assistance/$assistanceId/edit-no-billed-time': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdEditNoBilledTimeRouteRoute
+  '/app/businesses-rma/business/$businessId/assistance/$assistanceId/edit-subtitle': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdEditSubtitleRouteRoute
+  '/app/businesses-rma/business/$businessId/assistance/$assistanceId/import-ged-files': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdImportGedFilesRouteRoute
+  '/app/businesses-rma/business/$businessId/assistance/$assistanceId/pdf': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdPdfRouteRouteWithChildren
+  '/app/businesses-rma/rma/$rmaId/delivery/delete-detail/$detailId': typeof AppBusinessesRmaRmaRmaIdDeliveryDeleteDetailDetailIdRouteRoute
+  '/app/businesses-rma/rma/$rmaId/delivery/pdf/send-by-email': typeof AppBusinessesRmaRmaRmaIdDeliveryPdfSendByEmailRouteRoute
+  '/app/businesses-rma/rma/$rmaId/delivery/update-detail/$detailId': typeof AppBusinessesRmaRmaRmaIdDeliveryUpdateDetailDetailIdRouteRoute
+  '/app/businesses-rma/rma/$rmaId/reception/delete-detail/$detailId': typeof AppBusinessesRmaRmaRmaIdReceptionDeleteDetailDetailIdRouteRoute
+  '/app/businesses-rma/rma/$rmaId/reception/pdf/send-by-email': typeof AppBusinessesRmaRmaRmaIdReceptionPdfSendByEmailRouteRoute
+  '/app/businesses-rma/rma/$rmaId/reception/update-detail/$detailId': typeof AppBusinessesRmaRmaRmaIdReceptionUpdateDetailDetailIdRouteRoute
+  '/app/businesses-rma/rma/$rmaId/support/delete-detail/$detailId': typeof AppBusinessesRmaRmaRmaIdSupportDeleteDetailDetailIdRouteRoute
+  '/app/businesses-rma/rma/$rmaId/support/delete-ged-object/$relativePath': typeof AppBusinessesRmaRmaRmaIdSupportDeleteGedObjectRelativePathRouteRoute
+  '/app/businesses-rma/rma/$rmaId/support/delete-link/$associatedId': typeof AppBusinessesRmaRmaRmaIdSupportDeleteLinkAssociatedIdRouteRoute
+  '/app/businesses-rma/rma/$rmaId/support/lifesheet-email/$lifesheetId': typeof AppBusinessesRmaRmaRmaIdSupportLifesheetEmailLifesheetIdRouteRoute
+  '/app/businesses-rma/rma/$rmaId/support/pdf/send-by-email': typeof AppBusinessesRmaRmaRmaIdSupportPdfSendByEmailRouteRoute
+  '/app/businesses-rma/rma/$rmaId/support/rename-ged-object/$objectRelativePath': typeof AppBusinessesRmaRmaRmaIdSupportRenameGedObjectObjectRelativePathRouteRoute
+  '/app/businesses-rma/rma/$rmaId/support/task-email/$taskId': typeof AppBusinessesRmaRmaRmaIdSupportTaskEmailTaskIdRouteRouteWithChildren
+  '/app/businesses-rma/rma/$rmaId/support/unlink-task/$taskId': typeof AppBusinessesRmaRmaRmaIdSupportUnlinkTaskTaskIdRouteRoute
+  '/app/businesses-rma/rma/$rmaId/support/update-detail/$detailId': typeof AppBusinessesRmaRmaRmaIdSupportUpdateDetailDetailIdRouteRoute
+  '/app/enterprises/$enterpriseId/email-history/email/$emailId/reply': typeof AppEnterprisesEnterpriseIdEmailHistoryEmailEmailIdReplyRouteRoute
+  '/app/products/$productId/informations/task-email/$taskId/reply': typeof AppProductsProductIdInformationsTaskEmailTaskIdReplyRouteRoute
+  '/app/tools/formations/subscribers/$formationDetailId/delete/$subscriptionId': typeof AppToolsFormationsSubscribersFormationDetailIdDeleteSubscriptionIdRouteRoute
+  '/app/tools/formations/subscribers/$formationDetailId/send-email/$subscriptionId': typeof AppToolsFormationsSubscribersFormationDetailIdSendEmailSubscriptionIdRouteRoute
+  '/app/businesses-rma/business/$businessId/dashboard/address-book/delete/$addressId': typeof AppBusinessesRmaBusinessBusinessIdDashboardAddressBookDeleteAddressIdRouteRoute
+  '/app/businesses-rma/business/$businessId/dashboard/address-book/update/$addressId': typeof AppBusinessesRmaBusinessBusinessIdDashboardAddressBookUpdateAddressIdRouteRoute
+  '/app/businesses-rma/business/$businessId/dashboard/email-history/$emailId/reply': typeof AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdReplyRouteRoute
+  '/app/businesses-rma/business/$businessId/quotation/commercial-notice/send-by-email/predefined-messages': typeof AppBusinessesRmaBusinessBusinessIdQuotationCommercialNoticeSendByEmailPredefinedMessagesRouteRoute
+  '/app/businesses-rma/business/$businessId/assistance/$assistanceId/delete-ged-object/$objectRelativePath': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdDeleteGedObjectObjectRelativePathRouteRoute
+  '/app/businesses-rma/business/$businessId/assistance/$assistanceId/delete-link/$associatedId': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdDeleteLinkAssociatedIdRouteRoute
+  '/app/businesses-rma/business/$businessId/assistance/$assistanceId/lifesheet-email/$lifesheetId': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdLifesheetEmailLifesheetIdRouteRoute
+  '/app/businesses-rma/business/$businessId/assistance/$assistanceId/pdf/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdPdfSendByEmailRouteRoute
+  '/app/businesses-rma/business/$businessId/assistance/$assistanceId/rename-ged-object/$objectRelativePath': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdRenameGedObjectObjectRelativePathRouteRoute
+  '/app/businesses-rma/rma/$rmaId/support/task-email/$taskId/reply': typeof AppBusinessesRmaRmaRmaIdSupportTaskEmailTaskIdReplyRouteRoute
+}
+export interface FileRoutesByTo {
+  '/': typeof IndexRoute
+  '/app/businesses-rma': typeof AppBusinessesRmaRouteRouteWithChildren
+  '/app/dashboard': typeof AppDashboardRouteRouteWithChildren
+  '/app/enterprises': typeof AppEnterprisesRouteRouteWithChildren
+  '/app/external-links': typeof AppExternalLinksRouteRoute
+  '/app/faq': typeof AppFaqRouteRouteWithChildren
+  '/app/products': typeof AppProductsRouteRouteWithChildren
+  '/auth/login': typeof AuthLoginRouteRoute
+  '/auth/forgot-password': typeof AuthForgotPasswordRouteLazyRoute
+  '/app': typeof AppIndexRoute
+  '/auth': typeof AuthIndexRoute
+  '/app/businesses-rma/representative-turnover': typeof AppBusinessesRmaRepresentativeTurnoverRouteRoute
+  '/app/businesses-rma/search-by-products': typeof AppBusinessesRmaSearchByProductsRouteRoute
+  '/app/dashboard/create-collective-task': typeof AppDashboardCreateCollectiveTaskRouteRoute
+  '/app/dashboard/create-personal-task': typeof AppDashboardCreatePersonalTaskRouteRoute
+  '/app/dashboard/create-progressive-info': typeof AppDashboardCreateProgressiveInfoRouteRoute
+  '/app/dashboard/delete-collective-tasks': typeof AppDashboardDeleteCollectiveTasksRouteRoute
+  '/app/enterprises/create': typeof AppEnterprisesCreateRouteRoute
+  '/app/enterprises/$enterpriseId': typeof AppEnterprisesEnterpriseIdRouteRouteWithChildren
+  '/app/external-links/$externalLinkId': typeof AppExternalLinksExternalLinkIdRouteRoute
+  '/app/faq/create': typeof AppFaqCreateRouteRoute
+  '/app/products/create': typeof AppProductsCreateRouteRoute
+  '/app/products/serial-numbers': typeof AppProductsSerialNumbersRouteRouteWithChildren
+  '/app/tools/credit': typeof AppToolsCreditRouteRouteWithChildren
+  '/app/tools/ddns': typeof AppToolsDdnsRouteRouteWithChildren
+  '/app/tools/departments': typeof AppToolsDepartmentsRouteRouteWithChildren
+  '/app/tools/emails': typeof AppToolsEmailsRouteRouteWithChildren
+  '/app/tools/external-links': typeof AppToolsExternalLinksRouteRouteWithChildren
+  '/app/tools/formations': typeof AppToolsFormationsRouteRouteWithChildren
+  '/app/tools/global-turnover': typeof AppToolsGlobalTurnoverRouteRoute
+  '/app/tools/mails': typeof AppToolsMailsRouteRouteWithChildren
+  '/app/tools/menu': typeof AppToolsMenuRouteRouteWithChildren
+  '/app/tools/news': typeof AppToolsNewsRouteRouteWithChildren
+  '/app/tools/predefined-messages': typeof AppToolsPredefinedMessagesRouteRouteWithChildren
+  '/app/tools/predefined-texts': typeof AppToolsPredefinedTextsRouteRouteWithChildren
+  '/app/tools/product-filters': typeof AppToolsProductFiltersRouteRouteWithChildren
+  '/app/tools/product-inventory': typeof AppToolsProductInventoryRouteRouteWithChildren
+  '/app/tools/product-shelves': typeof AppToolsProductShelvesRouteRouteWithChildren
+  '/app/tools/representatives-map': typeof AppToolsRepresentativesMapRouteRoute
+  '/app/tools/representatives-turnover': typeof AppToolsRepresentativesTurnoverRouteRoute
+  '/app/tools/scheduler': typeof AppToolsSchedulerRouteRouteWithChildren
+  '/app/tools/vva': typeof AppToolsVvaRouteRouteWithChildren
+  '/auth/reset-password/$token': typeof AuthResetPasswordTokenRouteLazyRoute
+  '/app/tools': typeof AppToolsIndexRoute
+  '/app/dashboard/archive-personal-task/$taskId': typeof AppDashboardArchivePersonalTaskTaskIdRouteRoute
+  '/app/dashboard/create-aircall-contact/$number': typeof AppDashboardCreateAircallContactNumberRouteRoute
+  '/app/dashboard/delete-collective-task/$taskId': typeof AppDashboardDeleteCollectiveTaskTaskIdRouteRoute
+  '/app/dashboard/delete-progressive-info/$progressiveInfoId': typeof AppDashboardDeleteProgressiveInfoProgressiveInfoIdRouteRoute
+  '/app/dashboard/link-personal-task/$taskId': typeof AppDashboardLinkPersonalTaskTaskIdRouteRoute
+  '/app/dashboard/other-personal-tasks/$profileId': typeof AppDashboardOtherPersonalTasksProfileIdRouteRoute
+  '/app/dashboard/personal-task-details/$taskId': typeof AppDashboardPersonalTaskDetailsTaskIdRouteRoute
+  '/app/dashboard/scheduler-event-details/$eventId': typeof AppDashboardSchedulerEventDetailsEventIdRouteRoute
+  '/app/dashboard/take-collective-task/$taskId': typeof AppDashboardTakeCollectiveTaskTaskIdRouteRoute
+  '/app/dashboard/task-comments/$taskId': typeof AppDashboardTaskCommentsTaskIdRouteRoute
+  '/app/dashboard/task-email/$taskId': typeof AppDashboardTaskEmailTaskIdRouteRouteWithChildren
+  '/app/dashboard/transfer-task/$taskId': typeof AppDashboardTransferTaskTaskIdRouteRoute
+  '/app/dashboard/unlink-personal-task/$taskId': typeof AppDashboardUnlinkPersonalTaskTaskIdRouteRoute
+  '/app/dashboard/update-aircall-contact/$contactId': typeof AppDashboardUpdateAircallContactContactIdRouteRoute
+  '/app/dashboard/update-personal-task-deadline/$taskId': typeof AppDashboardUpdatePersonalTaskDeadlineTaskIdRouteRoute
+  '/app/dashboard/update-progressive-info/$progressiveInfoId': typeof AppDashboardUpdateProgressiveInfoProgressiveInfoIdRouteRoute
+  '/app/dashboard/validate-personal-task/$taskId': typeof AppDashboardValidatePersonalTaskTaskIdRouteRoute
+  '/app/enterprises/create-contact-business/$contactId': typeof AppEnterprisesCreateContactBusinessContactIdRouteRoute
+  '/app/enterprises/create-contact-travel-voucher/$contactId': typeof AppEnterprisesCreateContactTravelVoucherContactIdRouteRoute
+  '/app/enterprises/create-contact/$enterpriseId': typeof AppEnterprisesCreateContactEnterpriseIdRouteRoute
+  '/app/enterprises/create-enterprise-rma/$enterpriseId': typeof AppEnterprisesCreateEnterpriseRmaEnterpriseIdRouteRoute
+  '/app/enterprises/delete-contact/$contactId': typeof AppEnterprisesDeleteContactContactIdRouteRoute
+  '/app/enterprises/send-email-to-contact/$contactId': typeof AppEnterprisesSendEmailToContactContactIdRouteRoute
+  '/app/enterprises/update-contact-password/$contactId': typeof AppEnterprisesUpdateContactPasswordContactIdRouteRoute
+  '/app/enterprises/update-contact/$contactId': typeof AppEnterprisesUpdateContactContactIdRouteRoute
+  '/app/enterprises/$enterpriseId/address-book': typeof AppEnterprisesEnterpriseIdAddressBookRouteRouteWithChildren
+  '/app/enterprises/$enterpriseId/create-contact': typeof AppEnterprisesEnterpriseIdCreateContactRouteRoute
+  '/app/enterprises/$enterpriseId/create-ged-directory': typeof AppEnterprisesEnterpriseIdCreateGedDirectoryRouteRoute
+  '/app/enterprises/$enterpriseId/create-lifesheet-comment': typeof AppEnterprisesEnterpriseIdCreateLifesheetCommentRouteRoute
+  '/app/enterprises/$enterpriseId/delete': typeof AppEnterprisesEnterpriseIdDeleteRouteRoute
+  '/app/enterprises/$enterpriseId/email-history': typeof AppEnterprisesEnterpriseIdEmailHistoryRouteRouteWithChildren
+  '/app/enterprises/$enterpriseId/import-contacts': typeof AppEnterprisesEnterpriseIdImportContactsRouteRoute
+  '/app/enterprises/$enterpriseId/import-ged-files': typeof AppEnterprisesEnterpriseIdImportGedFilesRouteRoute
+  '/app/enterprises/$enterpriseId/relate-business-rma': typeof AppEnterprisesEnterpriseIdRelateBusinessRmaRouteRoute
+  '/app/enterprises/$enterpriseId/update': typeof AppEnterprisesEnterpriseIdUpdateRouteRoute
+  '/app/enterprises/$enterpriseId/update-accountability': typeof AppEnterprisesEnterpriseIdUpdateAccountabilityRouteRoute
+  '/app/enterprises/$enterpriseId/update-category': typeof AppEnterprisesEnterpriseIdUpdateCategoryRouteRoute
+  '/app/enterprises/$enterpriseId/update-representative': typeof AppEnterprisesEnterpriseIdUpdateRepresentativeRouteRoute
+  '/app/faq/archive/$faqId': typeof AppFaqArchiveFaqIdRouteRoute
+  '/app/faq/delete/$faqId': typeof AppFaqDeleteFaqIdRouteRoute
+  '/app/faq/ged/$faqId': typeof AppFaqGedFaqIdRouteRouteWithChildren
+  '/app/faq/send-by-email/$faqId': typeof AppFaqSendByEmailFaqIdRouteRoute
+  '/app/faq/update/$faqId': typeof AppFaqUpdateFaqIdRouteRoute
+  '/app/products/serial-numbers/create': typeof AppProductsSerialNumbersCreateRouteRoute
+  '/app/products/$productId/informations': typeof AppProductsProductIdInformationsRouteRouteWithChildren
+  '/app/products/$productId/manage': typeof AppProductsProductIdManageRouteRouteWithChildren
+  '/app/tools/credit/details': typeof AppToolsCreditDetailsRouteRoute
+  '/app/tools/credit/show': typeof AppToolsCreditShowRouteRoute
+  '/app/tools/ddns/create': typeof AppToolsDdnsCreateRouteRoute
+  '/app/tools/departments/create': typeof AppToolsDepartmentsCreateRouteRoute
+  '/app/tools/emails/$emailId': typeof AppToolsEmailsEmailIdRouteRouteWithChildren
+  '/app/tools/external-links/create': typeof AppToolsExternalLinksCreateRouteRoute
+  '/app/tools/formations/create': typeof AppToolsFormationsCreateRouteRouteWithChildren
+  '/app/tools/mails/create': typeof AppToolsMailsCreateRouteRoute
+  '/app/tools/menu/create-enterprise': typeof AppToolsMenuCreateEnterpriseRouteRoute
+  '/app/tools/menu/create-product': typeof AppToolsMenuCreateProductRouteRoute
+  '/app/tools/news/create': typeof AppToolsNewsCreateRouteRoute
+  '/app/tools/predefined-messages/create': typeof AppToolsPredefinedMessagesCreateRouteRoute
+  '/app/tools/predefined-texts/create': typeof AppToolsPredefinedTextsCreateRouteRoute
+  '/app/tools/product-filters/create': typeof AppToolsProductFiltersCreateRouteRoute
+  '/app/tools/product-inventory/validate-quantities': typeof AppToolsProductInventoryValidateQuantitiesRouteRoute
+  '/app/tools/product-shelves/create': typeof AppToolsProductShelvesCreateRouteRoute
+  '/app/tools/scheduler/create': typeof AppToolsSchedulerCreateRouteRoute
+  '/app/tools/vva/create': typeof AppToolsVvaCreateRouteRoute
+  '/app/products/$productId': typeof AppProductsProductIdIndexRoute
+  '/app/businesses-rma/business/$businessId/arc': typeof AppBusinessesRmaBusinessBusinessIdArcRouteRouteWithChildren
+  '/app/businesses-rma/business/$businessId/bill': typeof AppBusinessesRmaBusinessBusinessIdBillRouteRouteWithChildren
+  '/app/businesses-rma/business/$businessId/bl': typeof AppBusinessesRmaBusinessBusinessIdBlRouteRouteWithChildren
+  '/app/businesses-rma/business/$businessId/bp': typeof AppBusinessesRmaBusinessBusinessIdBpRouteRouteWithChildren
+  '/app/businesses-rma/business/$businessId/dashboard': typeof AppBusinessesRmaBusinessBusinessIdDashboardRouteRouteWithChildren
+  '/app/businesses-rma/business/$businessId/quotation': typeof AppBusinessesRmaBusinessBusinessIdQuotationRouteRouteWithChildren
+  '/app/businesses-rma/rma/$rmaId/delivery': typeof AppBusinessesRmaRmaRmaIdDeliveryRouteRouteWithChildren
+  '/app/businesses-rma/rma/$rmaId/reception': typeof AppBusinessesRmaRmaRmaIdReceptionRouteRouteWithChildren
+  '/app/businesses-rma/rma/$rmaId/support': typeof AppBusinessesRmaRmaRmaIdSupportRouteRouteWithChildren
+  '/app/dashboard/task-email/$taskId/reply': typeof AppDashboardTaskEmailTaskIdReplyRouteRoute
+  '/app/enterprises/$enterpriseId/address-book/create': typeof AppEnterprisesEnterpriseIdAddressBookCreateRouteRoute
+  '/app/enterprises/$enterpriseId/address-book/import': typeof AppEnterprisesEnterpriseIdAddressBookImportRouteRoute
+  '/app/enterprises/$enterpriseId/create-contact-business/$contactId': typeof AppEnterprisesEnterpriseIdCreateContactBusinessContactIdRouteRoute
+  '/app/enterprises/$enterpriseId/delete-contact/$contactId': typeof AppEnterprisesEnterpriseIdDeleteContactContactIdRouteRoute
+  '/app/enterprises/$enterpriseId/delete-ged-object/$objectRelativePath': typeof AppEnterprisesEnterpriseIdDeleteGedObjectObjectRelativePathRouteRoute
+  '/app/enterprises/$enterpriseId/lifesheet-email/$lifesheetId': typeof AppEnterprisesEnterpriseIdLifesheetEmailLifesheetIdRouteRoute
+  '/app/enterprises/$enterpriseId/rename-ged-object/$objectRelativePath': typeof AppEnterprisesEnterpriseIdRenameGedObjectObjectRelativePathRouteRoute
+  '/app/enterprises/$enterpriseId/send-email-to-contact/$contactId': typeof AppEnterprisesEnterpriseIdSendEmailToContactContactIdRouteRoute
+  '/app/enterprises/$enterpriseId/task-email/$taskId': typeof AppEnterprisesEnterpriseIdTaskEmailTaskIdRouteRouteWithChildren
+  '/app/enterprises/$enterpriseId/unlink-task/$taskId': typeof AppEnterprisesEnterpriseIdUnlinkTaskTaskIdRouteRoute
+  '/app/enterprises/$enterpriseId/unrelate-business-rma/$businessRmaId': typeof AppEnterprisesEnterpriseIdUnrelateBusinessRmaBusinessRmaIdRouteRoute
+  '/app/enterprises/$enterpriseId/update-contact-password/$contactId': typeof AppEnterprisesEnterpriseIdUpdateContactPasswordContactIdRouteRoute
+  '/app/enterprises/$enterpriseId/update-contact/$contactId': typeof AppEnterprisesEnterpriseIdUpdateContactContactIdRouteRoute
+  '/app/faq/ged/$faqId/create-directory': typeof AppFaqGedFaqIdCreateDirectoryRouteRoute
+  '/app/faq/ged/$faqId/import-files': typeof AppFaqGedFaqIdImportFilesRouteRoute
+  '/app/products/serial-numbers/create-rma/$serialNumberId': typeof AppProductsSerialNumbersCreateRmaSerialNumberIdRouteRoute
+  '/app/products/serial-numbers/delete/$serialNumberId': typeof AppProductsSerialNumbersDeleteSerialNumberIdRouteRoute
+  '/app/products/serial-numbers/remove-from-business/$serialNumberId': typeof AppProductsSerialNumbersRemoveFromBusinessSerialNumberIdRouteRoute
+  '/app/products/serial-numbers/update/$serialNumberId': typeof AppProductsSerialNumbersUpdateSerialNumberIdRouteRoute
+  '/app/products/$productId/informations/create-ged-directory': typeof AppProductsProductIdInformationsCreateGedDirectoryRouteRoute
+  '/app/products/$productId/informations/create-lifesheet-comment': typeof AppProductsProductIdInformationsCreateLifesheetCommentRouteRoute
+  '/app/products/$productId/informations/delete-ged-object': typeof AppProductsProductIdInformationsDeleteGedObjectRouteRoute
+  '/app/products/$productId/informations/import-ged-files': typeof AppProductsProductIdInformationsImportGedFilesRouteRoute
+  '/app/products/$productId/informations/rename-ged-object': typeof AppProductsProductIdInformationsRenameGedObjectRouteRoute
+  '/app/products/$productId/manage/add-associated-product': typeof AppProductsProductIdManageAddAssociatedProductRouteRoute
+  '/app/products/$productId/manage/add-nomenclature-detail': typeof AppProductsProductIdManageAddNomenclatureDetailRouteRoute
+  '/app/products/$productId/manage/add-specification': typeof AppProductsProductIdManageAddSpecificationRouteRouteWithChildren
+  '/app/products/$productId/manage/create-stock': typeof AppProductsProductIdManageCreateStockRouteRoute
+  '/app/products/$productId/manage/create-version': typeof AppProductsProductIdManageCreateVersionRouteRoute
+  '/app/tools/ddns/delete/$ddnsId': typeof AppToolsDdnsDeleteDdnsIdRouteRoute
+  '/app/tools/departments/delete/$departmentId': typeof AppToolsDepartmentsDeleteDepartmentIdRouteRoute
+  '/app/tools/departments/update/$departmentId': typeof AppToolsDepartmentsUpdateDepartmentIdRouteRoute
+  '/app/tools/emails/$emailId/reply': typeof AppToolsEmailsEmailIdReplyRouteRoute
+  '/app/tools/external-links/archive/$externalLinkId': typeof AppToolsExternalLinksArchiveExternalLinkIdRouteRoute
+  '/app/tools/external-links/delete/$externalLinkId': typeof AppToolsExternalLinksDeleteExternalLinkIdRouteRoute
+  '/app/tools/external-links/update/$externalLinkId': typeof AppToolsExternalLinksUpdateExternalLinkIdRouteRoute
+  '/app/tools/formations/create/add-detail': typeof AppToolsFormationsCreateAddDetailRouteRoute
+  '/app/tools/formations/create/details': typeof AppToolsFormationsCreateDetailsRouteRoute
+  '/app/tools/formations/delete/$formationId': typeof AppToolsFormationsDeleteFormationIdRouteRoute
+  '/app/tools/formations/subscribers/$formationDetailId': typeof AppToolsFormationsSubscribersFormationDetailIdRouteRouteWithChildren
+  '/app/tools/formations/update/$formationId': typeof AppToolsFormationsUpdateFormationIdRouteRouteWithChildren
+  '/app/tools/mails/delete/$mailId': typeof AppToolsMailsDeleteMailIdRouteRoute
+  '/app/tools/mails/show/$mailId': typeof AppToolsMailsShowMailIdRouteRoute
+  '/app/tools/mails/update/$mailId': typeof AppToolsMailsUpdateMailIdRouteRoute
+  '/app/tools/news/delete/$newsId': typeof AppToolsNewsDeleteNewsIdRouteRoute
+  '/app/tools/news/update/$newsId': typeof AppToolsNewsUpdateNewsIdRouteRoute
+  '/app/tools/predefined-messages/delete/$predefinedMessageId': typeof AppToolsPredefinedMessagesDeletePredefinedMessageIdRouteRoute
+  '/app/tools/predefined-messages/update/$predefinedMessageId': typeof AppToolsPredefinedMessagesUpdatePredefinedMessageIdRouteRoute
+  '/app/tools/predefined-texts/delete/$predefinedTextId': typeof AppToolsPredefinedTextsDeletePredefinedTextIdRouteRoute
+  '/app/tools/predefined-texts/update/$predefinedTextId': typeof AppToolsPredefinedTextsUpdatePredefinedTextIdRouteRoute
+  '/app/tools/product-filters/delete/$productFilterId': typeof AppToolsProductFiltersDeleteProductFilterIdRouteRoute
+  '/app/tools/product-filters/update/$productFilterId': typeof AppToolsProductFiltersUpdateProductFilterIdRouteRoute
+  '/app/tools/product-inventory/update/$stockId': typeof AppToolsProductInventoryUpdateStockIdRouteRoute
+  '/app/tools/product-shelves/delete/$productShelfId': typeof AppToolsProductShelvesDeleteProductShelfIdRouteRoute
+  '/app/tools/scheduler/details/$rdvId': typeof AppToolsSchedulerDetailsRdvIdRouteRouteWithChildren
+  '/app/tools/vva/delete/$vvaId': typeof AppToolsVvaDeleteVvaIdRouteRoute
+  '/app/businesses-rma/business/$businessId': typeof AppBusinessesRmaBusinessBusinessIdIndexRoute
+  '/app/businesses-rma/rma/$rmaId': typeof AppBusinessesRmaRmaRmaIdIndexRoute
+  '/app/businesses-rma/business/$businessId/arc/pdf': typeof AppBusinessesRmaBusinessBusinessIdArcPdfRouteRouteWithChildren
+  '/app/businesses-rma/business/$businessId/arc/update-shipping-price': typeof AppBusinessesRmaBusinessBusinessIdArcUpdateShippingPriceRouteRoute
+  '/app/businesses-rma/business/$businessId/bill/credits': typeof AppBusinessesRmaBusinessBusinessIdBillCreditsRouteRouteWithChildren
+  '/app/businesses-rma/business/$businessId/bill/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdBillSendByEmailRouteRoute
+  '/app/businesses-rma/business/$businessId/bl/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdBlSendByEmailRouteRoute
+  '/app/businesses-rma/business/$businessId/bl/update': typeof AppBusinessesRmaBusinessBusinessIdBlUpdateRouteRouteWithChildren
+  '/app/businesses-rma/business/$businessId/bp/travel-voucher': typeof AppBusinessesRmaBusinessBusinessIdBpTravelVoucherRouteRoute
+  '/app/businesses-rma/business/$businessId/dashboard/address-book': typeof AppBusinessesRmaBusinessBusinessIdDashboardAddressBookRouteRouteWithChildren
+  '/app/businesses-rma/business/$businessId/dashboard/create-ged-directory': typeof AppBusinessesRmaBusinessBusinessIdDashboardCreateGedDirectoryRouteRoute
+  '/app/businesses-rma/business/$businessId/dashboard/create-lifesheet': typeof AppBusinessesRmaBusinessBusinessIdDashboardCreateLifesheetRouteRoute
+  '/app/businesses-rma/business/$businessId/dashboard/create-link': typeof AppBusinessesRmaBusinessBusinessIdDashboardCreateLinkRouteRoute
+  '/app/businesses-rma/business/$businessId/dashboard/delete': typeof AppBusinessesRmaBusinessBusinessIdDashboardDeleteRouteRoute
+  '/app/businesses-rma/business/$businessId/dashboard/email-history': typeof AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryRouteRouteWithChildren
+  '/app/businesses-rma/business/$businessId/dashboard/import-ged-files': typeof AppBusinessesRmaBusinessBusinessIdDashboardImportGedFilesRouteRoute
+  '/app/businesses-rma/business/$businessId/dashboard/send-email': typeof AppBusinessesRmaBusinessBusinessIdDashboardSendEmailRouteRoute
+  '/app/businesses-rma/business/$businessId/dashboard/update-billing-address': typeof AppBusinessesRmaBusinessBusinessIdDashboardUpdateBillingAddressRouteRoute
+  '/app/businesses-rma/business/$businessId/dashboard/update-representative': typeof AppBusinessesRmaBusinessBusinessIdDashboardUpdateRepresentativeRouteRoute
+  '/app/businesses-rma/business/$businessId/dashboard/update-responsible': typeof AppBusinessesRmaBusinessBusinessIdDashboardUpdateResponsibleRouteRoute
+  '/app/businesses-rma/business/$businessId/quotation/commercial-notice': typeof AppBusinessesRmaBusinessBusinessIdQuotationCommercialNoticeRouteRouteWithChildren
+  '/app/businesses-rma/business/$businessId/quotation/pdf': typeof AppBusinessesRmaBusinessBusinessIdQuotationPdfRouteRouteWithChildren
+  '/app/businesses-rma/business/$businessId/quotation/update-shipping-price': typeof AppBusinessesRmaBusinessBusinessIdQuotationUpdateShippingPriceRouteRoute
+  '/app/businesses-rma/business/$businessId/assistance/$assistanceId': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdRouteRouteWithChildren
+  '/app/businesses-rma/business/$businessId/study/automatic': typeof AppBusinessesRmaBusinessBusinessIdStudyAutomaticRouteRoute
+  '/app/businesses-rma/business/$businessId/study/expert': typeof AppBusinessesRmaBusinessBusinessIdStudyExpertRouteRoute
+  '/app/businesses-rma/rma/$rmaId/delivery/create-detail': typeof AppBusinessesRmaRmaRmaIdDeliveryCreateDetailRouteRoute
+  '/app/businesses-rma/rma/$rmaId/delivery/pdf': typeof AppBusinessesRmaRmaRmaIdDeliveryPdfRouteRouteWithChildren
+  '/app/businesses-rma/rma/$rmaId/delivery/travel-voucher': typeof AppBusinessesRmaRmaRmaIdDeliveryTravelVoucherRouteRoute
+  '/app/businesses-rma/rma/$rmaId/reception/create-detail': typeof AppBusinessesRmaRmaRmaIdReceptionCreateDetailRouteRoute
+  '/app/businesses-rma/rma/$rmaId/reception/pdf': typeof AppBusinessesRmaRmaRmaIdReceptionPdfRouteRouteWithChildren
+  '/app/businesses-rma/rma/$rmaId/support/create-detail': typeof AppBusinessesRmaRmaRmaIdSupportCreateDetailRouteRoute
+  '/app/businesses-rma/rma/$rmaId/support/create-ged-directory': typeof AppBusinessesRmaRmaRmaIdSupportCreateGedDirectoryRouteRoute
+  '/app/businesses-rma/rma/$rmaId/support/create-lifesheet': typeof AppBusinessesRmaRmaRmaIdSupportCreateLifesheetRouteRoute
+  '/app/businesses-rma/rma/$rmaId/support/create-link': typeof AppBusinessesRmaRmaRmaIdSupportCreateLinkRouteRoute
+  '/app/businesses-rma/rma/$rmaId/support/import-ged-files': typeof AppBusinessesRmaRmaRmaIdSupportImportGedFilesRouteRoute
+  '/app/businesses-rma/rma/$rmaId/support/pdf': typeof AppBusinessesRmaRmaRmaIdSupportPdfRouteRouteWithChildren
+  '/app/enterprises/$enterpriseId/address-book/delete/$addressId': typeof AppEnterprisesEnterpriseIdAddressBookDeleteAddressIdRouteRoute
+  '/app/enterprises/$enterpriseId/address-book/update/$addressId': typeof AppEnterprisesEnterpriseIdAddressBookUpdateAddressIdRouteRoute
+  '/app/enterprises/$enterpriseId/email-history/email/$emailId': typeof AppEnterprisesEnterpriseIdEmailHistoryEmailEmailIdRouteRouteWithChildren
+  '/app/enterprises/$enterpriseId/task-email/$taskId/reply': typeof AppEnterprisesEnterpriseIdTaskEmailTaskIdReplyRouteRoute
+  '/app/faq/ged/$faqId/delete/$itemRelativePath': typeof AppFaqGedFaqIdDeleteItemRelativePathRouteRoute
+  '/app/faq/ged/$faqId/rename/$itemRelativePath': typeof AppFaqGedFaqIdRenameItemRelativePathRouteRoute
+  '/app/products/$productId/informations/lifesheet-email/$lifesheetId': typeof AppProductsProductIdInformationsLifesheetEmailLifesheetIdRouteRoute
+  '/app/products/$productId/informations/task-email/$taskId': typeof AppProductsProductIdInformationsTaskEmailTaskIdRouteRouteWithChildren
+  '/app/products/$productId/informations/unlink-task/$taskId': typeof AppProductsProductIdInformationsUnlinkTaskTaskIdRouteRoute
+  '/app/products/$productId/manage/add-specification/$filterId': typeof AppProductsProductIdManageAddSpecificationFilterIdRouteRoute
+  '/app/products/$productId/manage/delete-nomenclature-detail/$nomenclatureDetailId': typeof AppProductsProductIdManageDeleteNomenclatureDetailNomenclatureDetailIdRouteRoute
+  '/app/products/$productId/manage/delete-specification/$specificationId': typeof AppProductsProductIdManageDeleteSpecificationSpecificationIdRouteRoute
+  '/app/products/$productId/manage/delete-stock/$stockId': typeof AppProductsProductIdManageDeleteStockStockIdRouteRoute
+  '/app/products/$productId/manage/delete-version/$versionId': typeof AppProductsProductIdManageDeleteVersionVersionIdRouteRoute
+  '/app/products/$productId/manage/remove-associated-product/$associatedProductId': typeof AppProductsProductIdManageRemoveAssociatedProductAssociatedProductIdRouteRoute
+  '/app/products/$productId/manage/stock-history/$stockId': typeof AppProductsProductIdManageStockHistoryStockIdRouteRoute
+  '/app/products/$productId/manage/update-nomenclature-detail/$nomenclatureDetailId': typeof AppProductsProductIdManageUpdateNomenclatureDetailNomenclatureDetailIdRouteRoute
+  '/app/products/$productId/manage/update-specification/$specificationId': typeof AppProductsProductIdManageUpdateSpecificationSpecificationIdRouteRoute
+  '/app/products/$productId/manage/update-stock/$stockId': typeof AppProductsProductIdManageUpdateStockStockIdRouteRoute
+  '/app/products/$productId/manage/update-version/$versionId': typeof AppProductsProductIdManageUpdateVersionVersionIdRouteRoute
+  '/app/tools/formations/subscribers/$formationDetailId/create': typeof AppToolsFormationsSubscribersFormationDetailIdCreateRouteRoute
+  '/app/tools/formations/update/$formationId/add-detail': typeof AppToolsFormationsUpdateFormationIdAddDetailRouteRoute
+  '/app/tools/formations/update/$formationId/details': typeof AppToolsFormationsUpdateFormationIdDetailsRouteRoute
+  '/app/tools/scheduler/details/$rdvId/delete': typeof AppToolsSchedulerDetailsRdvIdDeleteRouteRoute
+  '/app/tools/scheduler/details/$rdvId/update': typeof AppToolsSchedulerDetailsRdvIdUpdateRouteRoute
+  '/app/businesses-rma/business/$businessId/study': typeof AppBusinessesRmaBusinessBusinessIdStudyIndexRoute
+  '/app/businesses-rma/business/$businessId/arc/delete-detail/$detailId': typeof AppBusinessesRmaBusinessBusinessIdArcDeleteDetailDetailIdRouteRoute
+  '/app/businesses-rma/business/$businessId/arc/pdf/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdArcPdfSendByEmailRouteRoute
+  '/app/businesses-rma/business/$businessId/arc/update-detail/$detailId': typeof AppBusinessesRmaBusinessBusinessIdArcUpdateDetailDetailIdRouteRoute
+  '/app/businesses-rma/business/$businessId/bill/credits/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdBillCreditsSendByEmailRouteRoute
+  '/app/businesses-rma/business/$businessId/bl/update/new': typeof AppBusinessesRmaBusinessBusinessIdBlUpdateNewRouteRoute
+  '/app/businesses-rma/business/$businessId/bp/add-serial/$detailId': typeof AppBusinessesRmaBusinessBusinessIdBpAddSerialDetailIdRouteRoute
+  '/app/businesses-rma/business/$businessId/bp/create-detail-rma/$detailId': typeof AppBusinessesRmaBusinessBusinessIdBpCreateDetailRmaDetailIdRouteRoute
+  '/app/businesses-rma/business/$businessId/bp/create-serial-rma/$serialId': typeof AppBusinessesRmaBusinessBusinessIdBpCreateSerialRmaSerialIdRouteRoute
+  '/app/businesses-rma/business/$businessId/bp/delete-detail/$detailId': typeof AppBusinessesRmaBusinessBusinessIdBpDeleteDetailDetailIdRouteRoute
+  '/app/businesses-rma/business/$businessId/bp/delete-serial/$serialId': typeof AppBusinessesRmaBusinessBusinessIdBpDeleteSerialSerialIdRouteRoute
+  '/app/businesses-rma/business/$businessId/bp/update-detail/$detailId': typeof AppBusinessesRmaBusinessBusinessIdBpUpdateDetailDetailIdRouteRoute
+  '/app/businesses-rma/business/$businessId/dashboard/address-book/create': typeof AppBusinessesRmaBusinessBusinessIdDashboardAddressBookCreateRouteRoute
+  '/app/businesses-rma/business/$businessId/dashboard/confirm-quotation-import/$otherBusinessId': typeof AppBusinessesRmaBusinessBusinessIdDashboardConfirmQuotationImportOtherBusinessIdRouteRoute
+  '/app/businesses-rma/business/$businessId/dashboard/delete-ged-object/$objectRelativePath': typeof AppBusinessesRmaBusinessBusinessIdDashboardDeleteGedObjectObjectRelativePathRouteRoute
+  '/app/businesses-rma/business/$businessId/dashboard/delete-link/$associatedId': typeof AppBusinessesRmaBusinessBusinessIdDashboardDeleteLinkAssociatedIdRouteRoute
+  '/app/businesses-rma/business/$businessId/dashboard/email-history/$emailId': typeof AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdRouteRouteWithChildren
+  '/app/businesses-rma/business/$businessId/dashboard/lifesheet-email/$lifesheetId': typeof AppBusinessesRmaBusinessBusinessIdDashboardLifesheetEmailLifesheetIdRouteRoute
+  '/app/businesses-rma/business/$businessId/dashboard/rename-ged-object/$objectRelativePath': typeof AppBusinessesRmaBusinessBusinessIdDashboardRenameGedObjectObjectRelativePathRouteRoute
+  '/app/businesses-rma/business/$businessId/dashboard/task-email/$taskId': typeof AppBusinessesRmaBusinessBusinessIdDashboardTaskEmailTaskIdRouteRoute
+  '/app/businesses-rma/business/$businessId/dashboard/unlink-task/$taskId': typeof AppBusinessesRmaBusinessBusinessIdDashboardUnlinkTaskTaskIdRouteRoute
+  '/app/businesses-rma/business/$businessId/quotation/commercial-notice/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdQuotationCommercialNoticeSendByEmailRouteRouteWithChildren
+  '/app/businesses-rma/business/$businessId/quotation/create-associated-detail/$detailId': typeof AppBusinessesRmaBusinessBusinessIdQuotationCreateAssociatedDetailDetailIdRouteRoute
+  '/app/businesses-rma/business/$businessId/quotation/create-detail/$subquotationId': typeof AppBusinessesRmaBusinessBusinessIdQuotationCreateDetailSubquotationIdRouteRoute
+  '/app/businesses-rma/business/$businessId/quotation/delete-detail/$detailId': typeof AppBusinessesRmaBusinessBusinessIdQuotationDeleteDetailDetailIdRouteRoute
+  '/app/businesses-rma/business/$businessId/quotation/delete-subquotation/$subquotationId': typeof AppBusinessesRmaBusinessBusinessIdQuotationDeleteSubquotationSubquotationIdRouteRoute
+  '/app/businesses-rma/business/$businessId/quotation/pdf/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdQuotationPdfSendByEmailRouteRoute
+  '/app/businesses-rma/business/$businessId/quotation/update-detail/$detailId': typeof AppBusinessesRmaBusinessBusinessIdQuotationUpdateDetailDetailIdRouteRoute
+  '/app/businesses-rma/business/$businessId/quotation/update-subquotation/$subquotationId': typeof AppBusinessesRmaBusinessBusinessIdQuotationUpdateSubquotationSubquotationIdRouteRoute
+  '/app/businesses-rma/business/$businessId/assistance/$assistanceId/create-faq': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdCreateFaqRouteRoute
+  '/app/businesses-rma/business/$businessId/assistance/$assistanceId/create-ged-directory': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdCreateGedDirectoryRouteRoute
+  '/app/businesses-rma/business/$businessId/assistance/$assistanceId/create-lifesheet': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdCreateLifesheetRouteRoute
+  '/app/businesses-rma/business/$businessId/assistance/$assistanceId/create-link': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdCreateLinkRouteRoute
+  '/app/businesses-rma/business/$businessId/assistance/$assistanceId/delete': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdDeleteRouteRoute
+  '/app/businesses-rma/business/$businessId/assistance/$assistanceId/edit-cumulated-time': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdEditCumulatedTimeRouteRoute
+  '/app/businesses-rma/business/$businessId/assistance/$assistanceId/edit-no-billed-time': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdEditNoBilledTimeRouteRoute
+  '/app/businesses-rma/business/$businessId/assistance/$assistanceId/edit-subtitle': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdEditSubtitleRouteRoute
+  '/app/businesses-rma/business/$businessId/assistance/$assistanceId/import-ged-files': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdImportGedFilesRouteRoute
+  '/app/businesses-rma/business/$businessId/assistance/$assistanceId/pdf': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdPdfRouteRouteWithChildren
+  '/app/businesses-rma/rma/$rmaId/delivery/delete-detail/$detailId': typeof AppBusinessesRmaRmaRmaIdDeliveryDeleteDetailDetailIdRouteRoute
+  '/app/businesses-rma/rma/$rmaId/delivery/pdf/send-by-email': typeof AppBusinessesRmaRmaRmaIdDeliveryPdfSendByEmailRouteRoute
+  '/app/businesses-rma/rma/$rmaId/delivery/update-detail/$detailId': typeof AppBusinessesRmaRmaRmaIdDeliveryUpdateDetailDetailIdRouteRoute
+  '/app/businesses-rma/rma/$rmaId/reception/delete-detail/$detailId': typeof AppBusinessesRmaRmaRmaIdReceptionDeleteDetailDetailIdRouteRoute
+  '/app/businesses-rma/rma/$rmaId/reception/pdf/send-by-email': typeof AppBusinessesRmaRmaRmaIdReceptionPdfSendByEmailRouteRoute
+  '/app/businesses-rma/rma/$rmaId/reception/update-detail/$detailId': typeof AppBusinessesRmaRmaRmaIdReceptionUpdateDetailDetailIdRouteRoute
+  '/app/businesses-rma/rma/$rmaId/support/delete-detail/$detailId': typeof AppBusinessesRmaRmaRmaIdSupportDeleteDetailDetailIdRouteRoute
+  '/app/businesses-rma/rma/$rmaId/support/delete-ged-object/$relativePath': typeof AppBusinessesRmaRmaRmaIdSupportDeleteGedObjectRelativePathRouteRoute
+  '/app/businesses-rma/rma/$rmaId/support/delete-link/$associatedId': typeof AppBusinessesRmaRmaRmaIdSupportDeleteLinkAssociatedIdRouteRoute
+  '/app/businesses-rma/rma/$rmaId/support/lifesheet-email/$lifesheetId': typeof AppBusinessesRmaRmaRmaIdSupportLifesheetEmailLifesheetIdRouteRoute
+  '/app/businesses-rma/rma/$rmaId/support/pdf/send-by-email': typeof AppBusinessesRmaRmaRmaIdSupportPdfSendByEmailRouteRoute
+  '/app/businesses-rma/rma/$rmaId/support/rename-ged-object/$objectRelativePath': typeof AppBusinessesRmaRmaRmaIdSupportRenameGedObjectObjectRelativePathRouteRoute
+  '/app/businesses-rma/rma/$rmaId/support/task-email/$taskId': typeof AppBusinessesRmaRmaRmaIdSupportTaskEmailTaskIdRouteRouteWithChildren
+  '/app/businesses-rma/rma/$rmaId/support/unlink-task/$taskId': typeof AppBusinessesRmaRmaRmaIdSupportUnlinkTaskTaskIdRouteRoute
+  '/app/businesses-rma/rma/$rmaId/support/update-detail/$detailId': typeof AppBusinessesRmaRmaRmaIdSupportUpdateDetailDetailIdRouteRoute
+  '/app/enterprises/$enterpriseId/email-history/email/$emailId/reply': typeof AppEnterprisesEnterpriseIdEmailHistoryEmailEmailIdReplyRouteRoute
+  '/app/products/$productId/informations/task-email/$taskId/reply': typeof AppProductsProductIdInformationsTaskEmailTaskIdReplyRouteRoute
+  '/app/tools/formations/subscribers/$formationDetailId/delete/$subscriptionId': typeof AppToolsFormationsSubscribersFormationDetailIdDeleteSubscriptionIdRouteRoute
+  '/app/tools/formations/subscribers/$formationDetailId/send-email/$subscriptionId': typeof AppToolsFormationsSubscribersFormationDetailIdSendEmailSubscriptionIdRouteRoute
+  '/app/businesses-rma/business/$businessId/dashboard/address-book/delete/$addressId': typeof AppBusinessesRmaBusinessBusinessIdDashboardAddressBookDeleteAddressIdRouteRoute
+  '/app/businesses-rma/business/$businessId/dashboard/address-book/update/$addressId': typeof AppBusinessesRmaBusinessBusinessIdDashboardAddressBookUpdateAddressIdRouteRoute
+  '/app/businesses-rma/business/$businessId/dashboard/email-history/$emailId/reply': typeof AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdReplyRouteRoute
+  '/app/businesses-rma/business/$businessId/quotation/commercial-notice/send-by-email/predefined-messages': typeof AppBusinessesRmaBusinessBusinessIdQuotationCommercialNoticeSendByEmailPredefinedMessagesRouteRoute
+  '/app/businesses-rma/business/$businessId/assistance/$assistanceId/delete-ged-object/$objectRelativePath': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdDeleteGedObjectObjectRelativePathRouteRoute
+  '/app/businesses-rma/business/$businessId/assistance/$assistanceId/delete-link/$associatedId': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdDeleteLinkAssociatedIdRouteRoute
+  '/app/businesses-rma/business/$businessId/assistance/$assistanceId/lifesheet-email/$lifesheetId': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdLifesheetEmailLifesheetIdRouteRoute
+  '/app/businesses-rma/business/$businessId/assistance/$assistanceId/pdf/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdPdfSendByEmailRouteRoute
+  '/app/businesses-rma/business/$businessId/assistance/$assistanceId/rename-ged-object/$objectRelativePath': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdRenameGedObjectObjectRelativePathRouteRoute
+  '/app/businesses-rma/rma/$rmaId/support/task-email/$taskId/reply': typeof AppBusinessesRmaRmaRmaIdSupportTaskEmailTaskIdReplyRouteRoute
+}
+export interface FileRoutesById {
+  __root__: typeof rootRouteImport
+  '/': typeof IndexRoute
+  '/app': typeof AppRouteRouteWithChildren
+  '/auth': typeof AuthRouteRouteWithChildren
+  '/app/businesses-rma': typeof AppBusinessesRmaRouteRouteWithChildren
+  '/app/dashboard': typeof AppDashboardRouteRouteWithChildren
+  '/app/enterprises': typeof AppEnterprisesRouteRouteWithChildren
+  '/app/external-links': typeof AppExternalLinksRouteRoute
+  '/app/faq': typeof AppFaqRouteRouteWithChildren
+  '/app/products': typeof AppProductsRouteRouteWithChildren
+  '/app/tools': typeof AppToolsRouteRouteWithChildren
+  '/auth/login': typeof AuthLoginRouteRoute
+  '/auth/forgot-password': typeof AuthForgotPasswordRouteLazyRoute
+  '/app/': typeof AppIndexRoute
+  '/auth/': typeof AuthIndexRoute
+  '/app/businesses-rma/representative-turnover': typeof AppBusinessesRmaRepresentativeTurnoverRouteRoute
+  '/app/businesses-rma/search-by-products': typeof AppBusinessesRmaSearchByProductsRouteRoute
+  '/app/dashboard/create-collective-task': typeof AppDashboardCreateCollectiveTaskRouteRoute
+  '/app/dashboard/create-personal-task': typeof AppDashboardCreatePersonalTaskRouteRoute
+  '/app/dashboard/create-progressive-info': typeof AppDashboardCreateProgressiveInfoRouteRoute
+  '/app/dashboard/delete-collective-tasks': typeof AppDashboardDeleteCollectiveTasksRouteRoute
+  '/app/enterprises/create': typeof AppEnterprisesCreateRouteRoute
+  '/app/enterprises_/$enterpriseId': typeof AppEnterprisesEnterpriseIdRouteRouteWithChildren
+  '/app/external-links_/$externalLinkId': typeof AppExternalLinksExternalLinkIdRouteRoute
+  '/app/faq/create': typeof AppFaqCreateRouteRoute
+  '/app/products/create': typeof AppProductsCreateRouteRoute
+  '/app/products/serial-numbers': typeof AppProductsSerialNumbersRouteRouteWithChildren
+  '/app/products_/$productId': typeof AppProductsProductIdRouteRouteWithChildren
+  '/app/tools/credit': typeof AppToolsCreditRouteRouteWithChildren
+  '/app/tools/ddns': typeof AppToolsDdnsRouteRouteWithChildren
+  '/app/tools/departments': typeof AppToolsDepartmentsRouteRouteWithChildren
+  '/app/tools/emails': typeof AppToolsEmailsRouteRouteWithChildren
+  '/app/tools/external-links': typeof AppToolsExternalLinksRouteRouteWithChildren
+  '/app/tools/formations': typeof AppToolsFormationsRouteRouteWithChildren
+  '/app/tools/global-turnover': typeof AppToolsGlobalTurnoverRouteRoute
+  '/app/tools/mails': typeof AppToolsMailsRouteRouteWithChildren
+  '/app/tools/menu': typeof AppToolsMenuRouteRouteWithChildren
+  '/app/tools/news': typeof AppToolsNewsRouteRouteWithChildren
+  '/app/tools/predefined-messages': typeof AppToolsPredefinedMessagesRouteRouteWithChildren
+  '/app/tools/predefined-texts': typeof AppToolsPredefinedTextsRouteRouteWithChildren
+  '/app/tools/product-filters': typeof AppToolsProductFiltersRouteRouteWithChildren
+  '/app/tools/product-inventory': typeof AppToolsProductInventoryRouteRouteWithChildren
+  '/app/tools/product-shelves': typeof AppToolsProductShelvesRouteRouteWithChildren
+  '/app/tools/representatives-map': typeof AppToolsRepresentativesMapRouteRoute
+  '/app/tools/representatives-turnover': typeof AppToolsRepresentativesTurnoverRouteRoute
+  '/app/tools/scheduler': typeof AppToolsSchedulerRouteRouteWithChildren
+  '/app/tools/vva': typeof AppToolsVvaRouteRouteWithChildren
+  '/auth/reset-password/$token': typeof AuthResetPasswordTokenRouteLazyRoute
+  '/app/tools/': typeof AppToolsIndexRoute
+  '/app/businesses-rma_/business/$businessId': typeof AppBusinessesRmaBusinessBusinessIdRouteRouteWithChildren
+  '/app/businesses-rma_/rma/$rmaId': typeof AppBusinessesRmaRmaRmaIdRouteRouteWithChildren
+  '/app/dashboard/archive-personal-task/$taskId': typeof AppDashboardArchivePersonalTaskTaskIdRouteRoute
+  '/app/dashboard/create-aircall-contact/$number': typeof AppDashboardCreateAircallContactNumberRouteRoute
+  '/app/dashboard/delete-collective-task/$taskId': typeof AppDashboardDeleteCollectiveTaskTaskIdRouteRoute
+  '/app/dashboard/delete-progressive-info/$progressiveInfoId': typeof AppDashboardDeleteProgressiveInfoProgressiveInfoIdRouteRoute
+  '/app/dashboard/link-personal-task/$taskId': typeof AppDashboardLinkPersonalTaskTaskIdRouteRoute
+  '/app/dashboard/other-personal-tasks/$profileId': typeof AppDashboardOtherPersonalTasksProfileIdRouteRoute
+  '/app/dashboard/personal-task-details/$taskId': typeof AppDashboardPersonalTaskDetailsTaskIdRouteRoute
+  '/app/dashboard/scheduler-event-details/$eventId': typeof AppDashboardSchedulerEventDetailsEventIdRouteRoute
+  '/app/dashboard/take-collective-task/$taskId': typeof AppDashboardTakeCollectiveTaskTaskIdRouteRoute
+  '/app/dashboard/task-comments/$taskId': typeof AppDashboardTaskCommentsTaskIdRouteRoute
+  '/app/dashboard/task-email/$taskId': typeof AppDashboardTaskEmailTaskIdRouteRouteWithChildren
+  '/app/dashboard/transfer-task/$taskId': typeof AppDashboardTransferTaskTaskIdRouteRoute
+  '/app/dashboard/unlink-personal-task/$taskId': typeof AppDashboardUnlinkPersonalTaskTaskIdRouteRoute
+  '/app/dashboard/update-aircall-contact/$contactId': typeof AppDashboardUpdateAircallContactContactIdRouteRoute
+  '/app/dashboard/update-personal-task-deadline/$taskId': typeof AppDashboardUpdatePersonalTaskDeadlineTaskIdRouteRoute
+  '/app/dashboard/update-progressive-info/$progressiveInfoId': typeof AppDashboardUpdateProgressiveInfoProgressiveInfoIdRouteRoute
+  '/app/dashboard/validate-personal-task/$taskId': typeof AppDashboardValidatePersonalTaskTaskIdRouteRoute
+  '/app/enterprises/create-contact-business/$contactId': typeof AppEnterprisesCreateContactBusinessContactIdRouteRoute
+  '/app/enterprises/create-contact-travel-voucher/$contactId': typeof AppEnterprisesCreateContactTravelVoucherContactIdRouteRoute
+  '/app/enterprises/create-contact/$enterpriseId': typeof AppEnterprisesCreateContactEnterpriseIdRouteRoute
+  '/app/enterprises/create-enterprise-rma/$enterpriseId': typeof AppEnterprisesCreateEnterpriseRmaEnterpriseIdRouteRoute
+  '/app/enterprises/delete-contact/$contactId': typeof AppEnterprisesDeleteContactContactIdRouteRoute
+  '/app/enterprises/send-email-to-contact/$contactId': typeof AppEnterprisesSendEmailToContactContactIdRouteRoute
+  '/app/enterprises/update-contact-password/$contactId': typeof AppEnterprisesUpdateContactPasswordContactIdRouteRoute
+  '/app/enterprises/update-contact/$contactId': typeof AppEnterprisesUpdateContactContactIdRouteRoute
+  '/app/enterprises_/$enterpriseId/address-book': typeof AppEnterprisesEnterpriseIdAddressBookRouteRouteWithChildren
+  '/app/enterprises_/$enterpriseId/create-contact': typeof AppEnterprisesEnterpriseIdCreateContactRouteRoute
+  '/app/enterprises_/$enterpriseId/create-ged-directory': typeof AppEnterprisesEnterpriseIdCreateGedDirectoryRouteRoute
+  '/app/enterprises_/$enterpriseId/create-lifesheet-comment': typeof AppEnterprisesEnterpriseIdCreateLifesheetCommentRouteRoute
+  '/app/enterprises_/$enterpriseId/delete': typeof AppEnterprisesEnterpriseIdDeleteRouteRoute
+  '/app/enterprises_/$enterpriseId/email-history': typeof AppEnterprisesEnterpriseIdEmailHistoryRouteRouteWithChildren
+  '/app/enterprises_/$enterpriseId/import-contacts': typeof AppEnterprisesEnterpriseIdImportContactsRouteRoute
+  '/app/enterprises_/$enterpriseId/import-ged-files': typeof AppEnterprisesEnterpriseIdImportGedFilesRouteRoute
+  '/app/enterprises_/$enterpriseId/relate-business-rma': typeof AppEnterprisesEnterpriseIdRelateBusinessRmaRouteRoute
+  '/app/enterprises_/$enterpriseId/update': typeof AppEnterprisesEnterpriseIdUpdateRouteRoute
+  '/app/enterprises_/$enterpriseId/update-accountability': typeof AppEnterprisesEnterpriseIdUpdateAccountabilityRouteRoute
+  '/app/enterprises_/$enterpriseId/update-category': typeof AppEnterprisesEnterpriseIdUpdateCategoryRouteRoute
+  '/app/enterprises_/$enterpriseId/update-representative': typeof AppEnterprisesEnterpriseIdUpdateRepresentativeRouteRoute
+  '/app/faq/archive/$faqId': typeof AppFaqArchiveFaqIdRouteRoute
+  '/app/faq/delete/$faqId': typeof AppFaqDeleteFaqIdRouteRoute
+  '/app/faq/ged/$faqId': typeof AppFaqGedFaqIdRouteRouteWithChildren
+  '/app/faq/send-by-email/$faqId': typeof AppFaqSendByEmailFaqIdRouteRoute
+  '/app/faq/update/$faqId': typeof AppFaqUpdateFaqIdRouteRoute
+  '/app/products/serial-numbers/create': typeof AppProductsSerialNumbersCreateRouteRoute
+  '/app/products_/$productId/informations': typeof AppProductsProductIdInformationsRouteRouteWithChildren
+  '/app/products_/$productId/manage': typeof AppProductsProductIdManageRouteRouteWithChildren
+  '/app/tools/credit/details': typeof AppToolsCreditDetailsRouteRoute
+  '/app/tools/credit/show': typeof AppToolsCreditShowRouteRoute
+  '/app/tools/ddns/create': typeof AppToolsDdnsCreateRouteRoute
+  '/app/tools/departments/create': typeof AppToolsDepartmentsCreateRouteRoute
+  '/app/tools/emails/$emailId': typeof AppToolsEmailsEmailIdRouteRouteWithChildren
+  '/app/tools/external-links/create': typeof AppToolsExternalLinksCreateRouteRoute
+  '/app/tools/formations/create': typeof AppToolsFormationsCreateRouteRouteWithChildren
+  '/app/tools/mails/create': typeof AppToolsMailsCreateRouteRoute
+  '/app/tools/menu/create-enterprise': typeof AppToolsMenuCreateEnterpriseRouteRoute
+  '/app/tools/menu/create-product': typeof AppToolsMenuCreateProductRouteRoute
+  '/app/tools/news/create': typeof AppToolsNewsCreateRouteRoute
+  '/app/tools/predefined-messages/create': typeof AppToolsPredefinedMessagesCreateRouteRoute
+  '/app/tools/predefined-texts/create': typeof AppToolsPredefinedTextsCreateRouteRoute
+  '/app/tools/product-filters/create': typeof AppToolsProductFiltersCreateRouteRoute
+  '/app/tools/product-inventory/validate-quantities': typeof AppToolsProductInventoryValidateQuantitiesRouteRoute
+  '/app/tools/product-shelves/create': typeof AppToolsProductShelvesCreateRouteRoute
+  '/app/tools/scheduler/create': typeof AppToolsSchedulerCreateRouteRoute
+  '/app/tools/vva/create': typeof AppToolsVvaCreateRouteRoute
+  '/app/products_/$productId/': typeof AppProductsProductIdIndexRoute
+  '/app/businesses-rma_/business/$businessId/arc': typeof AppBusinessesRmaBusinessBusinessIdArcRouteRouteWithChildren
+  '/app/businesses-rma_/business/$businessId/bill': typeof AppBusinessesRmaBusinessBusinessIdBillRouteRouteWithChildren
+  '/app/businesses-rma_/business/$businessId/bl': typeof AppBusinessesRmaBusinessBusinessIdBlRouteRouteWithChildren
+  '/app/businesses-rma_/business/$businessId/bp': typeof AppBusinessesRmaBusinessBusinessIdBpRouteRouteWithChildren
+  '/app/businesses-rma_/business/$businessId/dashboard': typeof AppBusinessesRmaBusinessBusinessIdDashboardRouteRouteWithChildren
+  '/app/businesses-rma_/business/$businessId/quotation': typeof AppBusinessesRmaBusinessBusinessIdQuotationRouteRouteWithChildren
+  '/app/businesses-rma_/business/$businessId_/study': typeof AppBusinessesRmaBusinessBusinessIdStudyRouteRouteWithChildren
+  '/app/businesses-rma_/rma/$rmaId/delivery': typeof AppBusinessesRmaRmaRmaIdDeliveryRouteRouteWithChildren
+  '/app/businesses-rma_/rma/$rmaId/reception': typeof AppBusinessesRmaRmaRmaIdReceptionRouteRouteWithChildren
+  '/app/businesses-rma_/rma/$rmaId/support': typeof AppBusinessesRmaRmaRmaIdSupportRouteRouteWithChildren
+  '/app/dashboard/task-email/$taskId/reply': typeof AppDashboardTaskEmailTaskIdReplyRouteRoute
+  '/app/enterprises_/$enterpriseId/address-book/create': typeof AppEnterprisesEnterpriseIdAddressBookCreateRouteRoute
+  '/app/enterprises_/$enterpriseId/address-book/import': typeof AppEnterprisesEnterpriseIdAddressBookImportRouteRoute
+  '/app/enterprises_/$enterpriseId/create-contact-business/$contactId': typeof AppEnterprisesEnterpriseIdCreateContactBusinessContactIdRouteRoute
+  '/app/enterprises_/$enterpriseId/delete-contact/$contactId': typeof AppEnterprisesEnterpriseIdDeleteContactContactIdRouteRoute
+  '/app/enterprises_/$enterpriseId/delete-ged-object/$objectRelativePath': typeof AppEnterprisesEnterpriseIdDeleteGedObjectObjectRelativePathRouteRoute
+  '/app/enterprises_/$enterpriseId/lifesheet-email/$lifesheetId': typeof AppEnterprisesEnterpriseIdLifesheetEmailLifesheetIdRouteRoute
+  '/app/enterprises_/$enterpriseId/rename-ged-object/$objectRelativePath': typeof AppEnterprisesEnterpriseIdRenameGedObjectObjectRelativePathRouteRoute
+  '/app/enterprises_/$enterpriseId/send-email-to-contact/$contactId': typeof AppEnterprisesEnterpriseIdSendEmailToContactContactIdRouteRoute
+  '/app/enterprises_/$enterpriseId/task-email/$taskId': typeof AppEnterprisesEnterpriseIdTaskEmailTaskIdRouteRouteWithChildren
+  '/app/enterprises_/$enterpriseId/unlink-task/$taskId': typeof AppEnterprisesEnterpriseIdUnlinkTaskTaskIdRouteRoute
+  '/app/enterprises_/$enterpriseId/unrelate-business-rma/$businessRmaId': typeof AppEnterprisesEnterpriseIdUnrelateBusinessRmaBusinessRmaIdRouteRoute
+  '/app/enterprises_/$enterpriseId/update-contact-password/$contactId': typeof AppEnterprisesEnterpriseIdUpdateContactPasswordContactIdRouteRoute
+  '/app/enterprises_/$enterpriseId/update-contact/$contactId': typeof AppEnterprisesEnterpriseIdUpdateContactContactIdRouteRoute
+  '/app/faq/ged/$faqId/create-directory': typeof AppFaqGedFaqIdCreateDirectoryRouteRoute
+  '/app/faq/ged/$faqId/import-files': typeof AppFaqGedFaqIdImportFilesRouteRoute
+  '/app/products/serial-numbers/create-rma/$serialNumberId': typeof AppProductsSerialNumbersCreateRmaSerialNumberIdRouteRoute
+  '/app/products/serial-numbers/delete/$serialNumberId': typeof AppProductsSerialNumbersDeleteSerialNumberIdRouteRoute
+  '/app/products/serial-numbers/remove-from-business/$serialNumberId': typeof AppProductsSerialNumbersRemoveFromBusinessSerialNumberIdRouteRoute
+  '/app/products/serial-numbers/update/$serialNumberId': typeof AppProductsSerialNumbersUpdateSerialNumberIdRouteRoute
+  '/app/products_/$productId/informations/create-ged-directory': typeof AppProductsProductIdInformationsCreateGedDirectoryRouteRoute
+  '/app/products_/$productId/informations/create-lifesheet-comment': typeof AppProductsProductIdInformationsCreateLifesheetCommentRouteRoute
+  '/app/products_/$productId/informations/delete-ged-object': typeof AppProductsProductIdInformationsDeleteGedObjectRouteRoute
+  '/app/products_/$productId/informations/import-ged-files': typeof AppProductsProductIdInformationsImportGedFilesRouteRoute
+  '/app/products_/$productId/informations/rename-ged-object': typeof AppProductsProductIdInformationsRenameGedObjectRouteRoute
+  '/app/products_/$productId/manage/add-associated-product': typeof AppProductsProductIdManageAddAssociatedProductRouteRoute
+  '/app/products_/$productId/manage/add-nomenclature-detail': typeof AppProductsProductIdManageAddNomenclatureDetailRouteRoute
+  '/app/products_/$productId/manage/add-specification': typeof AppProductsProductIdManageAddSpecificationRouteRouteWithChildren
+  '/app/products_/$productId/manage/create-stock': typeof AppProductsProductIdManageCreateStockRouteRoute
+  '/app/products_/$productId/manage/create-version': typeof AppProductsProductIdManageCreateVersionRouteRoute
+  '/app/tools/ddns/delete/$ddnsId': typeof AppToolsDdnsDeleteDdnsIdRouteRoute
+  '/app/tools/departments/delete/$departmentId': typeof AppToolsDepartmentsDeleteDepartmentIdRouteRoute
+  '/app/tools/departments/update/$departmentId': typeof AppToolsDepartmentsUpdateDepartmentIdRouteRoute
+  '/app/tools/emails/$emailId/reply': typeof AppToolsEmailsEmailIdReplyRouteRoute
+  '/app/tools/external-links/archive/$externalLinkId': typeof AppToolsExternalLinksArchiveExternalLinkIdRouteRoute
+  '/app/tools/external-links/delete/$externalLinkId': typeof AppToolsExternalLinksDeleteExternalLinkIdRouteRoute
+  '/app/tools/external-links/update/$externalLinkId': typeof AppToolsExternalLinksUpdateExternalLinkIdRouteRoute
+  '/app/tools/formations/create/add-detail': typeof AppToolsFormationsCreateAddDetailRouteRoute
+  '/app/tools/formations/create/details': typeof AppToolsFormationsCreateDetailsRouteRoute
+  '/app/tools/formations/delete/$formationId': typeof AppToolsFormationsDeleteFormationIdRouteRoute
+  '/app/tools/formations/subscribers/$formationDetailId': typeof AppToolsFormationsSubscribersFormationDetailIdRouteRouteWithChildren
+  '/app/tools/formations/update/$formationId': typeof AppToolsFormationsUpdateFormationIdRouteRouteWithChildren
+  '/app/tools/mails/delete/$mailId': typeof AppToolsMailsDeleteMailIdRouteRoute
+  '/app/tools/mails/show/$mailId': typeof AppToolsMailsShowMailIdRouteRoute
+  '/app/tools/mails/update/$mailId': typeof AppToolsMailsUpdateMailIdRouteRoute
+  '/app/tools/news/delete/$newsId': typeof AppToolsNewsDeleteNewsIdRouteRoute
+  '/app/tools/news/update/$newsId': typeof AppToolsNewsUpdateNewsIdRouteRoute
+  '/app/tools/predefined-messages/delete/$predefinedMessageId': typeof AppToolsPredefinedMessagesDeletePredefinedMessageIdRouteRoute
+  '/app/tools/predefined-messages/update/$predefinedMessageId': typeof AppToolsPredefinedMessagesUpdatePredefinedMessageIdRouteRoute
+  '/app/tools/predefined-texts/delete/$predefinedTextId': typeof AppToolsPredefinedTextsDeletePredefinedTextIdRouteRoute
+  '/app/tools/predefined-texts/update/$predefinedTextId': typeof AppToolsPredefinedTextsUpdatePredefinedTextIdRouteRoute
+  '/app/tools/product-filters/delete/$productFilterId': typeof AppToolsProductFiltersDeleteProductFilterIdRouteRoute
+  '/app/tools/product-filters/update/$productFilterId': typeof AppToolsProductFiltersUpdateProductFilterIdRouteRoute
+  '/app/tools/product-inventory/update/$stockId': typeof AppToolsProductInventoryUpdateStockIdRouteRoute
+  '/app/tools/product-shelves/delete/$productShelfId': typeof AppToolsProductShelvesDeleteProductShelfIdRouteRoute
+  '/app/tools/scheduler/details/$rdvId': typeof AppToolsSchedulerDetailsRdvIdRouteRouteWithChildren
+  '/app/tools/vva/delete/$vvaId': typeof AppToolsVvaDeleteVvaIdRouteRoute
+  '/app/businesses-rma_/business/$businessId/': typeof AppBusinessesRmaBusinessBusinessIdIndexRoute
+  '/app/businesses-rma_/rma/$rmaId/': typeof AppBusinessesRmaRmaRmaIdIndexRoute
+  '/app/businesses-rma_/business/$businessId/arc/pdf': typeof AppBusinessesRmaBusinessBusinessIdArcPdfRouteRouteWithChildren
+  '/app/businesses-rma_/business/$businessId/arc/update-shipping-price': typeof AppBusinessesRmaBusinessBusinessIdArcUpdateShippingPriceRouteRoute
+  '/app/businesses-rma_/business/$businessId/bill/credits': typeof AppBusinessesRmaBusinessBusinessIdBillCreditsRouteRouteWithChildren
+  '/app/businesses-rma_/business/$businessId/bill/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdBillSendByEmailRouteRoute
+  '/app/businesses-rma_/business/$businessId/bl/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdBlSendByEmailRouteRoute
+  '/app/businesses-rma_/business/$businessId/bl/update': typeof AppBusinessesRmaBusinessBusinessIdBlUpdateRouteRouteWithChildren
+  '/app/businesses-rma_/business/$businessId/bp/travel-voucher': typeof AppBusinessesRmaBusinessBusinessIdBpTravelVoucherRouteRoute
+  '/app/businesses-rma_/business/$businessId/dashboard/address-book': typeof AppBusinessesRmaBusinessBusinessIdDashboardAddressBookRouteRouteWithChildren
+  '/app/businesses-rma_/business/$businessId/dashboard/create-ged-directory': typeof AppBusinessesRmaBusinessBusinessIdDashboardCreateGedDirectoryRouteRoute
+  '/app/businesses-rma_/business/$businessId/dashboard/create-lifesheet': typeof AppBusinessesRmaBusinessBusinessIdDashboardCreateLifesheetRouteRoute
+  '/app/businesses-rma_/business/$businessId/dashboard/create-link': typeof AppBusinessesRmaBusinessBusinessIdDashboardCreateLinkRouteRoute
+  '/app/businesses-rma_/business/$businessId/dashboard/delete': typeof AppBusinessesRmaBusinessBusinessIdDashboardDeleteRouteRoute
+  '/app/businesses-rma_/business/$businessId/dashboard/email-history': typeof AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryRouteRouteWithChildren
+  '/app/businesses-rma_/business/$businessId/dashboard/import-ged-files': typeof AppBusinessesRmaBusinessBusinessIdDashboardImportGedFilesRouteRoute
+  '/app/businesses-rma_/business/$businessId/dashboard/send-email': typeof AppBusinessesRmaBusinessBusinessIdDashboardSendEmailRouteRoute
+  '/app/businesses-rma_/business/$businessId/dashboard/update-billing-address': typeof AppBusinessesRmaBusinessBusinessIdDashboardUpdateBillingAddressRouteRoute
+  '/app/businesses-rma_/business/$businessId/dashboard/update-representative': typeof AppBusinessesRmaBusinessBusinessIdDashboardUpdateRepresentativeRouteRoute
+  '/app/businesses-rma_/business/$businessId/dashboard/update-responsible': typeof AppBusinessesRmaBusinessBusinessIdDashboardUpdateResponsibleRouteRoute
+  '/app/businesses-rma_/business/$businessId/quotation/commercial-notice': typeof AppBusinessesRmaBusinessBusinessIdQuotationCommercialNoticeRouteRouteWithChildren
+  '/app/businesses-rma_/business/$businessId/quotation/pdf': typeof AppBusinessesRmaBusinessBusinessIdQuotationPdfRouteRouteWithChildren
+  '/app/businesses-rma_/business/$businessId/quotation/update-shipping-price': typeof AppBusinessesRmaBusinessBusinessIdQuotationUpdateShippingPriceRouteRoute
+  '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdRouteRouteWithChildren
+  '/app/businesses-rma_/business/$businessId_/study/automatic': typeof AppBusinessesRmaBusinessBusinessIdStudyAutomaticRouteRoute
+  '/app/businesses-rma_/business/$businessId_/study/expert': typeof AppBusinessesRmaBusinessBusinessIdStudyExpertRouteRoute
+  '/app/businesses-rma_/rma/$rmaId/delivery/create-detail': typeof AppBusinessesRmaRmaRmaIdDeliveryCreateDetailRouteRoute
+  '/app/businesses-rma_/rma/$rmaId/delivery/pdf': typeof AppBusinessesRmaRmaRmaIdDeliveryPdfRouteRouteWithChildren
+  '/app/businesses-rma_/rma/$rmaId/delivery/travel-voucher': typeof AppBusinessesRmaRmaRmaIdDeliveryTravelVoucherRouteRoute
+  '/app/businesses-rma_/rma/$rmaId/reception/create-detail': typeof AppBusinessesRmaRmaRmaIdReceptionCreateDetailRouteRoute
+  '/app/businesses-rma_/rma/$rmaId/reception/pdf': typeof AppBusinessesRmaRmaRmaIdReceptionPdfRouteRouteWithChildren
+  '/app/businesses-rma_/rma/$rmaId/support/create-detail': typeof AppBusinessesRmaRmaRmaIdSupportCreateDetailRouteRoute
+  '/app/businesses-rma_/rma/$rmaId/support/create-ged-directory': typeof AppBusinessesRmaRmaRmaIdSupportCreateGedDirectoryRouteRoute
+  '/app/businesses-rma_/rma/$rmaId/support/create-lifesheet': typeof AppBusinessesRmaRmaRmaIdSupportCreateLifesheetRouteRoute
+  '/app/businesses-rma_/rma/$rmaId/support/create-link': typeof AppBusinessesRmaRmaRmaIdSupportCreateLinkRouteRoute
+  '/app/businesses-rma_/rma/$rmaId/support/import-ged-files': typeof AppBusinessesRmaRmaRmaIdSupportImportGedFilesRouteRoute
+  '/app/businesses-rma_/rma/$rmaId/support/pdf': typeof AppBusinessesRmaRmaRmaIdSupportPdfRouteRouteWithChildren
+  '/app/enterprises_/$enterpriseId/address-book/delete/$addressId': typeof AppEnterprisesEnterpriseIdAddressBookDeleteAddressIdRouteRoute
+  '/app/enterprises_/$enterpriseId/address-book/update/$addressId': typeof AppEnterprisesEnterpriseIdAddressBookUpdateAddressIdRouteRoute
+  '/app/enterprises_/$enterpriseId/email-history/email/$emailId': typeof AppEnterprisesEnterpriseIdEmailHistoryEmailEmailIdRouteRouteWithChildren
+  '/app/enterprises_/$enterpriseId/task-email/$taskId/reply': typeof AppEnterprisesEnterpriseIdTaskEmailTaskIdReplyRouteRoute
+  '/app/faq/ged/$faqId/delete/$itemRelativePath': typeof AppFaqGedFaqIdDeleteItemRelativePathRouteRoute
+  '/app/faq/ged/$faqId/rename/$itemRelativePath': typeof AppFaqGedFaqIdRenameItemRelativePathRouteRoute
+  '/app/products_/$productId/informations/lifesheet-email/$lifesheetId': typeof AppProductsProductIdInformationsLifesheetEmailLifesheetIdRouteRoute
+  '/app/products_/$productId/informations/task-email/$taskId': typeof AppProductsProductIdInformationsTaskEmailTaskIdRouteRouteWithChildren
+  '/app/products_/$productId/informations/unlink-task/$taskId': typeof AppProductsProductIdInformationsUnlinkTaskTaskIdRouteRoute
+  '/app/products_/$productId/manage/add-specification/$filterId': typeof AppProductsProductIdManageAddSpecificationFilterIdRouteRoute
+  '/app/products_/$productId/manage/delete-nomenclature-detail/$nomenclatureDetailId': typeof AppProductsProductIdManageDeleteNomenclatureDetailNomenclatureDetailIdRouteRoute
+  '/app/products_/$productId/manage/delete-specification/$specificationId': typeof AppProductsProductIdManageDeleteSpecificationSpecificationIdRouteRoute
+  '/app/products_/$productId/manage/delete-stock/$stockId': typeof AppProductsProductIdManageDeleteStockStockIdRouteRoute
+  '/app/products_/$productId/manage/delete-version/$versionId': typeof AppProductsProductIdManageDeleteVersionVersionIdRouteRoute
+  '/app/products_/$productId/manage/remove-associated-product/$associatedProductId': typeof AppProductsProductIdManageRemoveAssociatedProductAssociatedProductIdRouteRoute
+  '/app/products_/$productId/manage/stock-history/$stockId': typeof AppProductsProductIdManageStockHistoryStockIdRouteRoute
+  '/app/products_/$productId/manage/update-nomenclature-detail/$nomenclatureDetailId': typeof AppProductsProductIdManageUpdateNomenclatureDetailNomenclatureDetailIdRouteRoute
+  '/app/products_/$productId/manage/update-specification/$specificationId': typeof AppProductsProductIdManageUpdateSpecificationSpecificationIdRouteRoute
+  '/app/products_/$productId/manage/update-stock/$stockId': typeof AppProductsProductIdManageUpdateStockStockIdRouteRoute
+  '/app/products_/$productId/manage/update-version/$versionId': typeof AppProductsProductIdManageUpdateVersionVersionIdRouteRoute
+  '/app/tools/formations/subscribers/$formationDetailId/create': typeof AppToolsFormationsSubscribersFormationDetailIdCreateRouteRoute
+  '/app/tools/formations/update/$formationId/add-detail': typeof AppToolsFormationsUpdateFormationIdAddDetailRouteRoute
+  '/app/tools/formations/update/$formationId/details': typeof AppToolsFormationsUpdateFormationIdDetailsRouteRoute
+  '/app/tools/scheduler/details/$rdvId/delete': typeof AppToolsSchedulerDetailsRdvIdDeleteRouteRoute
+  '/app/tools/scheduler/details/$rdvId/update': typeof AppToolsSchedulerDetailsRdvIdUpdateRouteRoute
+  '/app/businesses-rma_/business/$businessId_/study/': typeof AppBusinessesRmaBusinessBusinessIdStudyIndexRoute
+  '/app/businesses-rma_/business/$businessId/arc/delete-detail/$detailId': typeof AppBusinessesRmaBusinessBusinessIdArcDeleteDetailDetailIdRouteRoute
+  '/app/businesses-rma_/business/$businessId/arc/pdf/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdArcPdfSendByEmailRouteRoute
+  '/app/businesses-rma_/business/$businessId/arc/update-detail/$detailId': typeof AppBusinessesRmaBusinessBusinessIdArcUpdateDetailDetailIdRouteRoute
+  '/app/businesses-rma_/business/$businessId/bill/credits/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdBillCreditsSendByEmailRouteRoute
+  '/app/businesses-rma_/business/$businessId/bl/update/new': typeof AppBusinessesRmaBusinessBusinessIdBlUpdateNewRouteRoute
+  '/app/businesses-rma_/business/$businessId/bp/add-serial/$detailId': typeof AppBusinessesRmaBusinessBusinessIdBpAddSerialDetailIdRouteRoute
+  '/app/businesses-rma_/business/$businessId/bp/create-detail-rma/$detailId': typeof AppBusinessesRmaBusinessBusinessIdBpCreateDetailRmaDetailIdRouteRoute
+  '/app/businesses-rma_/business/$businessId/bp/create-serial-rma/$serialId': typeof AppBusinessesRmaBusinessBusinessIdBpCreateSerialRmaSerialIdRouteRoute
+  '/app/businesses-rma_/business/$businessId/bp/delete-detail/$detailId': typeof AppBusinessesRmaBusinessBusinessIdBpDeleteDetailDetailIdRouteRoute
+  '/app/businesses-rma_/business/$businessId/bp/delete-serial/$serialId': typeof AppBusinessesRmaBusinessBusinessIdBpDeleteSerialSerialIdRouteRoute
+  '/app/businesses-rma_/business/$businessId/bp/update-detail/$detailId': typeof AppBusinessesRmaBusinessBusinessIdBpUpdateDetailDetailIdRouteRoute
+  '/app/businesses-rma_/business/$businessId/dashboard/address-book/create': typeof AppBusinessesRmaBusinessBusinessIdDashboardAddressBookCreateRouteRoute
+  '/app/businesses-rma_/business/$businessId/dashboard/confirm-quotation-import/$otherBusinessId': typeof AppBusinessesRmaBusinessBusinessIdDashboardConfirmQuotationImportOtherBusinessIdRouteRoute
+  '/app/businesses-rma_/business/$businessId/dashboard/delete-ged-object/$objectRelativePath': typeof AppBusinessesRmaBusinessBusinessIdDashboardDeleteGedObjectObjectRelativePathRouteRoute
+  '/app/businesses-rma_/business/$businessId/dashboard/delete-link/$associatedId': typeof AppBusinessesRmaBusinessBusinessIdDashboardDeleteLinkAssociatedIdRouteRoute
+  '/app/businesses-rma_/business/$businessId/dashboard/email-history/$emailId': typeof AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdRouteRouteWithChildren
+  '/app/businesses-rma_/business/$businessId/dashboard/lifesheet-email/$lifesheetId': typeof AppBusinessesRmaBusinessBusinessIdDashboardLifesheetEmailLifesheetIdRouteRoute
+  '/app/businesses-rma_/business/$businessId/dashboard/rename-ged-object/$objectRelativePath': typeof AppBusinessesRmaBusinessBusinessIdDashboardRenameGedObjectObjectRelativePathRouteRoute
+  '/app/businesses-rma_/business/$businessId/dashboard/task-email/$taskId': typeof AppBusinessesRmaBusinessBusinessIdDashboardTaskEmailTaskIdRouteRoute
+  '/app/businesses-rma_/business/$businessId/dashboard/unlink-task/$taskId': typeof AppBusinessesRmaBusinessBusinessIdDashboardUnlinkTaskTaskIdRouteRoute
+  '/app/businesses-rma_/business/$businessId/quotation/commercial-notice/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdQuotationCommercialNoticeSendByEmailRouteRouteWithChildren
+  '/app/businesses-rma_/business/$businessId/quotation/create-associated-detail/$detailId': typeof AppBusinessesRmaBusinessBusinessIdQuotationCreateAssociatedDetailDetailIdRouteRoute
+  '/app/businesses-rma_/business/$businessId/quotation/create-detail/$subquotationId': typeof AppBusinessesRmaBusinessBusinessIdQuotationCreateDetailSubquotationIdRouteRoute
+  '/app/businesses-rma_/business/$businessId/quotation/delete-detail/$detailId': typeof AppBusinessesRmaBusinessBusinessIdQuotationDeleteDetailDetailIdRouteRoute
+  '/app/businesses-rma_/business/$businessId/quotation/delete-subquotation/$subquotationId': typeof AppBusinessesRmaBusinessBusinessIdQuotationDeleteSubquotationSubquotationIdRouteRoute
+  '/app/businesses-rma_/business/$businessId/quotation/pdf/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdQuotationPdfSendByEmailRouteRoute
+  '/app/businesses-rma_/business/$businessId/quotation/update-detail/$detailId': typeof AppBusinessesRmaBusinessBusinessIdQuotationUpdateDetailDetailIdRouteRoute
+  '/app/businesses-rma_/business/$businessId/quotation/update-subquotation/$subquotationId': typeof AppBusinessesRmaBusinessBusinessIdQuotationUpdateSubquotationSubquotationIdRouteRoute
+  '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/create-faq': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdCreateFaqRouteRoute
+  '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/create-ged-directory': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdCreateGedDirectoryRouteRoute
+  '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/create-lifesheet': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdCreateLifesheetRouteRoute
+  '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/create-link': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdCreateLinkRouteRoute
+  '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/delete': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdDeleteRouteRoute
+  '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/edit-cumulated-time': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdEditCumulatedTimeRouteRoute
+  '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/edit-no-billed-time': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdEditNoBilledTimeRouteRoute
+  '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/edit-subtitle': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdEditSubtitleRouteRoute
+  '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/import-ged-files': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdImportGedFilesRouteRoute
+  '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/pdf': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdPdfRouteRouteWithChildren
+  '/app/businesses-rma_/rma/$rmaId/delivery/delete-detail/$detailId': typeof AppBusinessesRmaRmaRmaIdDeliveryDeleteDetailDetailIdRouteRoute
+  '/app/businesses-rma_/rma/$rmaId/delivery/pdf/send-by-email': typeof AppBusinessesRmaRmaRmaIdDeliveryPdfSendByEmailRouteRoute
+  '/app/businesses-rma_/rma/$rmaId/delivery/update-detail/$detailId': typeof AppBusinessesRmaRmaRmaIdDeliveryUpdateDetailDetailIdRouteRoute
+  '/app/businesses-rma_/rma/$rmaId/reception/delete-detail/$detailId': typeof AppBusinessesRmaRmaRmaIdReceptionDeleteDetailDetailIdRouteRoute
+  '/app/businesses-rma_/rma/$rmaId/reception/pdf/send-by-email': typeof AppBusinessesRmaRmaRmaIdReceptionPdfSendByEmailRouteRoute
+  '/app/businesses-rma_/rma/$rmaId/reception/update-detail/$detailId': typeof AppBusinessesRmaRmaRmaIdReceptionUpdateDetailDetailIdRouteRoute
+  '/app/businesses-rma_/rma/$rmaId/support/delete-detail/$detailId': typeof AppBusinessesRmaRmaRmaIdSupportDeleteDetailDetailIdRouteRoute
+  '/app/businesses-rma_/rma/$rmaId/support/delete-ged-object/$relativePath': typeof AppBusinessesRmaRmaRmaIdSupportDeleteGedObjectRelativePathRouteRoute
+  '/app/businesses-rma_/rma/$rmaId/support/delete-link/$associatedId': typeof AppBusinessesRmaRmaRmaIdSupportDeleteLinkAssociatedIdRouteRoute
+  '/app/businesses-rma_/rma/$rmaId/support/lifesheet-email/$lifesheetId': typeof AppBusinessesRmaRmaRmaIdSupportLifesheetEmailLifesheetIdRouteRoute
+  '/app/businesses-rma_/rma/$rmaId/support/pdf/send-by-email': typeof AppBusinessesRmaRmaRmaIdSupportPdfSendByEmailRouteRoute
+  '/app/businesses-rma_/rma/$rmaId/support/rename-ged-object/$objectRelativePath': typeof AppBusinessesRmaRmaRmaIdSupportRenameGedObjectObjectRelativePathRouteRoute
+  '/app/businesses-rma_/rma/$rmaId/support/task-email/$taskId': typeof AppBusinessesRmaRmaRmaIdSupportTaskEmailTaskIdRouteRouteWithChildren
+  '/app/businesses-rma_/rma/$rmaId/support/unlink-task/$taskId': typeof AppBusinessesRmaRmaRmaIdSupportUnlinkTaskTaskIdRouteRoute
+  '/app/businesses-rma_/rma/$rmaId/support/update-detail/$detailId': typeof AppBusinessesRmaRmaRmaIdSupportUpdateDetailDetailIdRouteRoute
+  '/app/enterprises_/$enterpriseId/email-history/email/$emailId/reply': typeof AppEnterprisesEnterpriseIdEmailHistoryEmailEmailIdReplyRouteRoute
+  '/app/products_/$productId/informations/task-email/$taskId/reply': typeof AppProductsProductIdInformationsTaskEmailTaskIdReplyRouteRoute
+  '/app/tools/formations/subscribers/$formationDetailId/delete/$subscriptionId': typeof AppToolsFormationsSubscribersFormationDetailIdDeleteSubscriptionIdRouteRoute
+  '/app/tools/formations/subscribers/$formationDetailId/send-email/$subscriptionId': typeof AppToolsFormationsSubscribersFormationDetailIdSendEmailSubscriptionIdRouteRoute
+  '/app/businesses-rma_/business/$businessId/dashboard/address-book/delete/$addressId': typeof AppBusinessesRmaBusinessBusinessIdDashboardAddressBookDeleteAddressIdRouteRoute
+  '/app/businesses-rma_/business/$businessId/dashboard/address-book/update/$addressId': typeof AppBusinessesRmaBusinessBusinessIdDashboardAddressBookUpdateAddressIdRouteRoute
+  '/app/businesses-rma_/business/$businessId/dashboard/email-history/$emailId/reply': typeof AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdReplyRouteRoute
+  '/app/businesses-rma_/business/$businessId/quotation/commercial-notice/send-by-email/predefined-messages': typeof AppBusinessesRmaBusinessBusinessIdQuotationCommercialNoticeSendByEmailPredefinedMessagesRouteRoute
+  '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/delete-ged-object/$objectRelativePath': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdDeleteGedObjectObjectRelativePathRouteRoute
+  '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/delete-link/$associatedId': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdDeleteLinkAssociatedIdRouteRoute
+  '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/lifesheet-email/$lifesheetId': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdLifesheetEmailLifesheetIdRouteRoute
+  '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/pdf/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdPdfSendByEmailRouteRoute
+  '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/rename-ged-object/$objectRelativePath': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdRenameGedObjectObjectRelativePathRouteRoute
+  '/app/businesses-rma_/rma/$rmaId/support/task-email/$taskId/reply': typeof AppBusinessesRmaRmaRmaIdSupportTaskEmailTaskIdReplyRouteRoute
+}
+export interface FileRouteTypes {
+  fileRoutesByFullPath: FileRoutesByFullPath
+  fullPaths:
+    | '/'
+    | '/app'
+    | '/auth'
+    | '/app/businesses-rma'
+    | '/app/dashboard'
+    | '/app/enterprises'
+    | '/app/external-links'
+    | '/app/faq'
+    | '/app/products'
+    | '/app/tools'
+    | '/auth/login'
+    | '/auth/forgot-password'
+    | '/app/'
+    | '/auth/'
+    | '/app/businesses-rma/representative-turnover'
+    | '/app/businesses-rma/search-by-products'
+    | '/app/dashboard/create-collective-task'
+    | '/app/dashboard/create-personal-task'
+    | '/app/dashboard/create-progressive-info'
+    | '/app/dashboard/delete-collective-tasks'
+    | '/app/enterprises/create'
+    | '/app/enterprises/$enterpriseId'
+    | '/app/external-links/$externalLinkId'
+    | '/app/faq/create'
+    | '/app/products/create'
+    | '/app/products/serial-numbers'
+    | '/app/products/$productId'
+    | '/app/tools/credit'
+    | '/app/tools/ddns'
+    | '/app/tools/departments'
+    | '/app/tools/emails'
+    | '/app/tools/external-links'
+    | '/app/tools/formations'
+    | '/app/tools/global-turnover'
+    | '/app/tools/mails'
+    | '/app/tools/menu'
+    | '/app/tools/news'
+    | '/app/tools/predefined-messages'
+    | '/app/tools/predefined-texts'
+    | '/app/tools/product-filters'
+    | '/app/tools/product-inventory'
+    | '/app/tools/product-shelves'
+    | '/app/tools/representatives-map'
+    | '/app/tools/representatives-turnover'
+    | '/app/tools/scheduler'
+    | '/app/tools/vva'
+    | '/auth/reset-password/$token'
+    | '/app/tools/'
+    | '/app/businesses-rma/business/$businessId'
+    | '/app/businesses-rma/rma/$rmaId'
+    | '/app/dashboard/archive-personal-task/$taskId'
+    | '/app/dashboard/create-aircall-contact/$number'
+    | '/app/dashboard/delete-collective-task/$taskId'
+    | '/app/dashboard/delete-progressive-info/$progressiveInfoId'
+    | '/app/dashboard/link-personal-task/$taskId'
+    | '/app/dashboard/other-personal-tasks/$profileId'
+    | '/app/dashboard/personal-task-details/$taskId'
+    | '/app/dashboard/scheduler-event-details/$eventId'
+    | '/app/dashboard/take-collective-task/$taskId'
+    | '/app/dashboard/task-comments/$taskId'
+    | '/app/dashboard/task-email/$taskId'
+    | '/app/dashboard/transfer-task/$taskId'
+    | '/app/dashboard/unlink-personal-task/$taskId'
+    | '/app/dashboard/update-aircall-contact/$contactId'
+    | '/app/dashboard/update-personal-task-deadline/$taskId'
+    | '/app/dashboard/update-progressive-info/$progressiveInfoId'
+    | '/app/dashboard/validate-personal-task/$taskId'
+    | '/app/enterprises/create-contact-business/$contactId'
+    | '/app/enterprises/create-contact-travel-voucher/$contactId'
+    | '/app/enterprises/create-contact/$enterpriseId'
+    | '/app/enterprises/create-enterprise-rma/$enterpriseId'
+    | '/app/enterprises/delete-contact/$contactId'
+    | '/app/enterprises/send-email-to-contact/$contactId'
+    | '/app/enterprises/update-contact-password/$contactId'
+    | '/app/enterprises/update-contact/$contactId'
+    | '/app/enterprises/$enterpriseId/address-book'
+    | '/app/enterprises/$enterpriseId/create-contact'
+    | '/app/enterprises/$enterpriseId/create-ged-directory'
+    | '/app/enterprises/$enterpriseId/create-lifesheet-comment'
+    | '/app/enterprises/$enterpriseId/delete'
+    | '/app/enterprises/$enterpriseId/email-history'
+    | '/app/enterprises/$enterpriseId/import-contacts'
+    | '/app/enterprises/$enterpriseId/import-ged-files'
+    | '/app/enterprises/$enterpriseId/relate-business-rma'
+    | '/app/enterprises/$enterpriseId/update'
+    | '/app/enterprises/$enterpriseId/update-accountability'
+    | '/app/enterprises/$enterpriseId/update-category'
+    | '/app/enterprises/$enterpriseId/update-representative'
+    | '/app/faq/archive/$faqId'
+    | '/app/faq/delete/$faqId'
+    | '/app/faq/ged/$faqId'
+    | '/app/faq/send-by-email/$faqId'
+    | '/app/faq/update/$faqId'
+    | '/app/products/serial-numbers/create'
+    | '/app/products/$productId/informations'
+    | '/app/products/$productId/manage'
+    | '/app/tools/credit/details'
+    | '/app/tools/credit/show'
+    | '/app/tools/ddns/create'
+    | '/app/tools/departments/create'
+    | '/app/tools/emails/$emailId'
+    | '/app/tools/external-links/create'
+    | '/app/tools/formations/create'
+    | '/app/tools/mails/create'
+    | '/app/tools/menu/create-enterprise'
+    | '/app/tools/menu/create-product'
+    | '/app/tools/news/create'
+    | '/app/tools/predefined-messages/create'
+    | '/app/tools/predefined-texts/create'
+    | '/app/tools/product-filters/create'
+    | '/app/tools/product-inventory/validate-quantities'
+    | '/app/tools/product-shelves/create'
+    | '/app/tools/scheduler/create'
+    | '/app/tools/vva/create'
+    | '/app/products/$productId/'
+    | '/app/businesses-rma/business/$businessId/arc'
+    | '/app/businesses-rma/business/$businessId/bill'
+    | '/app/businesses-rma/business/$businessId/bl'
+    | '/app/businesses-rma/business/$businessId/bp'
+    | '/app/businesses-rma/business/$businessId/dashboard'
+    | '/app/businesses-rma/business/$businessId/quotation'
+    | '/app/businesses-rma/business/$businessId/study'
+    | '/app/businesses-rma/rma/$rmaId/delivery'
+    | '/app/businesses-rma/rma/$rmaId/reception'
+    | '/app/businesses-rma/rma/$rmaId/support'
+    | '/app/dashboard/task-email/$taskId/reply'
+    | '/app/enterprises/$enterpriseId/address-book/create'
+    | '/app/enterprises/$enterpriseId/address-book/import'
+    | '/app/enterprises/$enterpriseId/create-contact-business/$contactId'
+    | '/app/enterprises/$enterpriseId/delete-contact/$contactId'
+    | '/app/enterprises/$enterpriseId/delete-ged-object/$objectRelativePath'
+    | '/app/enterprises/$enterpriseId/lifesheet-email/$lifesheetId'
+    | '/app/enterprises/$enterpriseId/rename-ged-object/$objectRelativePath'
+    | '/app/enterprises/$enterpriseId/send-email-to-contact/$contactId'
+    | '/app/enterprises/$enterpriseId/task-email/$taskId'
+    | '/app/enterprises/$enterpriseId/unlink-task/$taskId'
+    | '/app/enterprises/$enterpriseId/unrelate-business-rma/$businessRmaId'
+    | '/app/enterprises/$enterpriseId/update-contact-password/$contactId'
+    | '/app/enterprises/$enterpriseId/update-contact/$contactId'
+    | '/app/faq/ged/$faqId/create-directory'
+    | '/app/faq/ged/$faqId/import-files'
+    | '/app/products/serial-numbers/create-rma/$serialNumberId'
+    | '/app/products/serial-numbers/delete/$serialNumberId'
+    | '/app/products/serial-numbers/remove-from-business/$serialNumberId'
+    | '/app/products/serial-numbers/update/$serialNumberId'
+    | '/app/products/$productId/informations/create-ged-directory'
+    | '/app/products/$productId/informations/create-lifesheet-comment'
+    | '/app/products/$productId/informations/delete-ged-object'
+    | '/app/products/$productId/informations/import-ged-files'
+    | '/app/products/$productId/informations/rename-ged-object'
+    | '/app/products/$productId/manage/add-associated-product'
+    | '/app/products/$productId/manage/add-nomenclature-detail'
+    | '/app/products/$productId/manage/add-specification'
+    | '/app/products/$productId/manage/create-stock'
+    | '/app/products/$productId/manage/create-version'
+    | '/app/tools/ddns/delete/$ddnsId'
+    | '/app/tools/departments/delete/$departmentId'
+    | '/app/tools/departments/update/$departmentId'
+    | '/app/tools/emails/$emailId/reply'
+    | '/app/tools/external-links/archive/$externalLinkId'
+    | '/app/tools/external-links/delete/$externalLinkId'
+    | '/app/tools/external-links/update/$externalLinkId'
+    | '/app/tools/formations/create/add-detail'
+    | '/app/tools/formations/create/details'
+    | '/app/tools/formations/delete/$formationId'
+    | '/app/tools/formations/subscribers/$formationDetailId'
+    | '/app/tools/formations/update/$formationId'
+    | '/app/tools/mails/delete/$mailId'
+    | '/app/tools/mails/show/$mailId'
+    | '/app/tools/mails/update/$mailId'
+    | '/app/tools/news/delete/$newsId'
+    | '/app/tools/news/update/$newsId'
+    | '/app/tools/predefined-messages/delete/$predefinedMessageId'
+    | '/app/tools/predefined-messages/update/$predefinedMessageId'
+    | '/app/tools/predefined-texts/delete/$predefinedTextId'
+    | '/app/tools/predefined-texts/update/$predefinedTextId'
+    | '/app/tools/product-filters/delete/$productFilterId'
+    | '/app/tools/product-filters/update/$productFilterId'
+    | '/app/tools/product-inventory/update/$stockId'
+    | '/app/tools/product-shelves/delete/$productShelfId'
+    | '/app/tools/scheduler/details/$rdvId'
+    | '/app/tools/vva/delete/$vvaId'
+    | '/app/businesses-rma/business/$businessId/'
+    | '/app/businesses-rma/rma/$rmaId/'
+    | '/app/businesses-rma/business/$businessId/arc/pdf'
+    | '/app/businesses-rma/business/$businessId/arc/update-shipping-price'
+    | '/app/businesses-rma/business/$businessId/bill/credits'
+    | '/app/businesses-rma/business/$businessId/bill/send-by-email'
+    | '/app/businesses-rma/business/$businessId/bl/send-by-email'
+    | '/app/businesses-rma/business/$businessId/bl/update'
+    | '/app/businesses-rma/business/$businessId/bp/travel-voucher'
+    | '/app/businesses-rma/business/$businessId/dashboard/address-book'
+    | '/app/businesses-rma/business/$businessId/dashboard/create-ged-directory'
+    | '/app/businesses-rma/business/$businessId/dashboard/create-lifesheet'
+    | '/app/businesses-rma/business/$businessId/dashboard/create-link'
+    | '/app/businesses-rma/business/$businessId/dashboard/delete'
+    | '/app/businesses-rma/business/$businessId/dashboard/email-history'
+    | '/app/businesses-rma/business/$businessId/dashboard/import-ged-files'
+    | '/app/businesses-rma/business/$businessId/dashboard/send-email'
+    | '/app/businesses-rma/business/$businessId/dashboard/update-billing-address'
+    | '/app/businesses-rma/business/$businessId/dashboard/update-representative'
+    | '/app/businesses-rma/business/$businessId/dashboard/update-responsible'
+    | '/app/businesses-rma/business/$businessId/quotation/commercial-notice'
+    | '/app/businesses-rma/business/$businessId/quotation/pdf'
+    | '/app/businesses-rma/business/$businessId/quotation/update-shipping-price'
+    | '/app/businesses-rma/business/$businessId/assistance/$assistanceId'
+    | '/app/businesses-rma/business/$businessId/study/automatic'
+    | '/app/businesses-rma/business/$businessId/study/expert'
+    | '/app/businesses-rma/rma/$rmaId/delivery/create-detail'
+    | '/app/businesses-rma/rma/$rmaId/delivery/pdf'
+    | '/app/businesses-rma/rma/$rmaId/delivery/travel-voucher'
+    | '/app/businesses-rma/rma/$rmaId/reception/create-detail'
+    | '/app/businesses-rma/rma/$rmaId/reception/pdf'
+    | '/app/businesses-rma/rma/$rmaId/support/create-detail'
+    | '/app/businesses-rma/rma/$rmaId/support/create-ged-directory'
+    | '/app/businesses-rma/rma/$rmaId/support/create-lifesheet'
+    | '/app/businesses-rma/rma/$rmaId/support/create-link'
+    | '/app/businesses-rma/rma/$rmaId/support/import-ged-files'
+    | '/app/businesses-rma/rma/$rmaId/support/pdf'
+    | '/app/enterprises/$enterpriseId/address-book/delete/$addressId'
+    | '/app/enterprises/$enterpriseId/address-book/update/$addressId'
+    | '/app/enterprises/$enterpriseId/email-history/email/$emailId'
+    | '/app/enterprises/$enterpriseId/task-email/$taskId/reply'
+    | '/app/faq/ged/$faqId/delete/$itemRelativePath'
+    | '/app/faq/ged/$faqId/rename/$itemRelativePath'
+    | '/app/products/$productId/informations/lifesheet-email/$lifesheetId'
+    | '/app/products/$productId/informations/task-email/$taskId'
+    | '/app/products/$productId/informations/unlink-task/$taskId'
+    | '/app/products/$productId/manage/add-specification/$filterId'
+    | '/app/products/$productId/manage/delete-nomenclature-detail/$nomenclatureDetailId'
+    | '/app/products/$productId/manage/delete-specification/$specificationId'
+    | '/app/products/$productId/manage/delete-stock/$stockId'
+    | '/app/products/$productId/manage/delete-version/$versionId'
+    | '/app/products/$productId/manage/remove-associated-product/$associatedProductId'
+    | '/app/products/$productId/manage/stock-history/$stockId'
+    | '/app/products/$productId/manage/update-nomenclature-detail/$nomenclatureDetailId'
+    | '/app/products/$productId/manage/update-specification/$specificationId'
+    | '/app/products/$productId/manage/update-stock/$stockId'
+    | '/app/products/$productId/manage/update-version/$versionId'
+    | '/app/tools/formations/subscribers/$formationDetailId/create'
+    | '/app/tools/formations/update/$formationId/add-detail'
+    | '/app/tools/formations/update/$formationId/details'
+    | '/app/tools/scheduler/details/$rdvId/delete'
+    | '/app/tools/scheduler/details/$rdvId/update'
+    | '/app/businesses-rma/business/$businessId/study/'
+    | '/app/businesses-rma/business/$businessId/arc/delete-detail/$detailId'
+    | '/app/businesses-rma/business/$businessId/arc/pdf/send-by-email'
+    | '/app/businesses-rma/business/$businessId/arc/update-detail/$detailId'
+    | '/app/businesses-rma/business/$businessId/bill/credits/send-by-email'
+    | '/app/businesses-rma/business/$businessId/bl/update/new'
+    | '/app/businesses-rma/business/$businessId/bp/add-serial/$detailId'
+    | '/app/businesses-rma/business/$businessId/bp/create-detail-rma/$detailId'
+    | '/app/businesses-rma/business/$businessId/bp/create-serial-rma/$serialId'
+    | '/app/businesses-rma/business/$businessId/bp/delete-detail/$detailId'
+    | '/app/businesses-rma/business/$businessId/bp/delete-serial/$serialId'
+    | '/app/businesses-rma/business/$businessId/bp/update-detail/$detailId'
+    | '/app/businesses-rma/business/$businessId/dashboard/address-book/create'
+    | '/app/businesses-rma/business/$businessId/dashboard/confirm-quotation-import/$otherBusinessId'
+    | '/app/businesses-rma/business/$businessId/dashboard/delete-ged-object/$objectRelativePath'
+    | '/app/businesses-rma/business/$businessId/dashboard/delete-link/$associatedId'
+    | '/app/businesses-rma/business/$businessId/dashboard/email-history/$emailId'
+    | '/app/businesses-rma/business/$businessId/dashboard/lifesheet-email/$lifesheetId'
+    | '/app/businesses-rma/business/$businessId/dashboard/rename-ged-object/$objectRelativePath'
+    | '/app/businesses-rma/business/$businessId/dashboard/task-email/$taskId'
+    | '/app/businesses-rma/business/$businessId/dashboard/unlink-task/$taskId'
+    | '/app/businesses-rma/business/$businessId/quotation/commercial-notice/send-by-email'
+    | '/app/businesses-rma/business/$businessId/quotation/create-associated-detail/$detailId'
+    | '/app/businesses-rma/business/$businessId/quotation/create-detail/$subquotationId'
+    | '/app/businesses-rma/business/$businessId/quotation/delete-detail/$detailId'
+    | '/app/businesses-rma/business/$businessId/quotation/delete-subquotation/$subquotationId'
+    | '/app/businesses-rma/business/$businessId/quotation/pdf/send-by-email'
+    | '/app/businesses-rma/business/$businessId/quotation/update-detail/$detailId'
+    | '/app/businesses-rma/business/$businessId/quotation/update-subquotation/$subquotationId'
+    | '/app/businesses-rma/business/$businessId/assistance/$assistanceId/create-faq'
+    | '/app/businesses-rma/business/$businessId/assistance/$assistanceId/create-ged-directory'
+    | '/app/businesses-rma/business/$businessId/assistance/$assistanceId/create-lifesheet'
+    | '/app/businesses-rma/business/$businessId/assistance/$assistanceId/create-link'
+    | '/app/businesses-rma/business/$businessId/assistance/$assistanceId/delete'
+    | '/app/businesses-rma/business/$businessId/assistance/$assistanceId/edit-cumulated-time'
+    | '/app/businesses-rma/business/$businessId/assistance/$assistanceId/edit-no-billed-time'
+    | '/app/businesses-rma/business/$businessId/assistance/$assistanceId/edit-subtitle'
+    | '/app/businesses-rma/business/$businessId/assistance/$assistanceId/import-ged-files'
+    | '/app/businesses-rma/business/$businessId/assistance/$assistanceId/pdf'
+    | '/app/businesses-rma/rma/$rmaId/delivery/delete-detail/$detailId'
+    | '/app/businesses-rma/rma/$rmaId/delivery/pdf/send-by-email'
+    | '/app/businesses-rma/rma/$rmaId/delivery/update-detail/$detailId'
+    | '/app/businesses-rma/rma/$rmaId/reception/delete-detail/$detailId'
+    | '/app/businesses-rma/rma/$rmaId/reception/pdf/send-by-email'
+    | '/app/businesses-rma/rma/$rmaId/reception/update-detail/$detailId'
+    | '/app/businesses-rma/rma/$rmaId/support/delete-detail/$detailId'
+    | '/app/businesses-rma/rma/$rmaId/support/delete-ged-object/$relativePath'
+    | '/app/businesses-rma/rma/$rmaId/support/delete-link/$associatedId'
+    | '/app/businesses-rma/rma/$rmaId/support/lifesheet-email/$lifesheetId'
+    | '/app/businesses-rma/rma/$rmaId/support/pdf/send-by-email'
+    | '/app/businesses-rma/rma/$rmaId/support/rename-ged-object/$objectRelativePath'
+    | '/app/businesses-rma/rma/$rmaId/support/task-email/$taskId'
+    | '/app/businesses-rma/rma/$rmaId/support/unlink-task/$taskId'
+    | '/app/businesses-rma/rma/$rmaId/support/update-detail/$detailId'
+    | '/app/enterprises/$enterpriseId/email-history/email/$emailId/reply'
+    | '/app/products/$productId/informations/task-email/$taskId/reply'
+    | '/app/tools/formations/subscribers/$formationDetailId/delete/$subscriptionId'
+    | '/app/tools/formations/subscribers/$formationDetailId/send-email/$subscriptionId'
+    | '/app/businesses-rma/business/$businessId/dashboard/address-book/delete/$addressId'
+    | '/app/businesses-rma/business/$businessId/dashboard/address-book/update/$addressId'
+    | '/app/businesses-rma/business/$businessId/dashboard/email-history/$emailId/reply'
+    | '/app/businesses-rma/business/$businessId/quotation/commercial-notice/send-by-email/predefined-messages'
+    | '/app/businesses-rma/business/$businessId/assistance/$assistanceId/delete-ged-object/$objectRelativePath'
+    | '/app/businesses-rma/business/$businessId/assistance/$assistanceId/delete-link/$associatedId'
+    | '/app/businesses-rma/business/$businessId/assistance/$assistanceId/lifesheet-email/$lifesheetId'
+    | '/app/businesses-rma/business/$businessId/assistance/$assistanceId/pdf/send-by-email'
+    | '/app/businesses-rma/business/$businessId/assistance/$assistanceId/rename-ged-object/$objectRelativePath'
+    | '/app/businesses-rma/rma/$rmaId/support/task-email/$taskId/reply'
+  fileRoutesByTo: FileRoutesByTo
+  to:
+    | '/'
+    | '/app/businesses-rma'
+    | '/app/dashboard'
+    | '/app/enterprises'
+    | '/app/external-links'
+    | '/app/faq'
+    | '/app/products'
+    | '/auth/login'
+    | '/auth/forgot-password'
+    | '/app'
+    | '/auth'
+    | '/app/businesses-rma/representative-turnover'
+    | '/app/businesses-rma/search-by-products'
+    | '/app/dashboard/create-collective-task'
+    | '/app/dashboard/create-personal-task'
+    | '/app/dashboard/create-progressive-info'
+    | '/app/dashboard/delete-collective-tasks'
+    | '/app/enterprises/create'
+    | '/app/enterprises/$enterpriseId'
+    | '/app/external-links/$externalLinkId'
+    | '/app/faq/create'
+    | '/app/products/create'
+    | '/app/products/serial-numbers'
+    | '/app/tools/credit'
+    | '/app/tools/ddns'
+    | '/app/tools/departments'
+    | '/app/tools/emails'
+    | '/app/tools/external-links'
+    | '/app/tools/formations'
+    | '/app/tools/global-turnover'
+    | '/app/tools/mails'
+    | '/app/tools/menu'
+    | '/app/tools/news'
+    | '/app/tools/predefined-messages'
+    | '/app/tools/predefined-texts'
+    | '/app/tools/product-filters'
+    | '/app/tools/product-inventory'
+    | '/app/tools/product-shelves'
+    | '/app/tools/representatives-map'
+    | '/app/tools/representatives-turnover'
+    | '/app/tools/scheduler'
+    | '/app/tools/vva'
+    | '/auth/reset-password/$token'
+    | '/app/tools'
+    | '/app/dashboard/archive-personal-task/$taskId'
+    | '/app/dashboard/create-aircall-contact/$number'
+    | '/app/dashboard/delete-collective-task/$taskId'
+    | '/app/dashboard/delete-progressive-info/$progressiveInfoId'
+    | '/app/dashboard/link-personal-task/$taskId'
+    | '/app/dashboard/other-personal-tasks/$profileId'
+    | '/app/dashboard/personal-task-details/$taskId'
+    | '/app/dashboard/scheduler-event-details/$eventId'
+    | '/app/dashboard/take-collective-task/$taskId'
+    | '/app/dashboard/task-comments/$taskId'
+    | '/app/dashboard/task-email/$taskId'
+    | '/app/dashboard/transfer-task/$taskId'
+    | '/app/dashboard/unlink-personal-task/$taskId'
+    | '/app/dashboard/update-aircall-contact/$contactId'
+    | '/app/dashboard/update-personal-task-deadline/$taskId'
+    | '/app/dashboard/update-progressive-info/$progressiveInfoId'
+    | '/app/dashboard/validate-personal-task/$taskId'
+    | '/app/enterprises/create-contact-business/$contactId'
+    | '/app/enterprises/create-contact-travel-voucher/$contactId'
+    | '/app/enterprises/create-contact/$enterpriseId'
+    | '/app/enterprises/create-enterprise-rma/$enterpriseId'
+    | '/app/enterprises/delete-contact/$contactId'
+    | '/app/enterprises/send-email-to-contact/$contactId'
+    | '/app/enterprises/update-contact-password/$contactId'
+    | '/app/enterprises/update-contact/$contactId'
+    | '/app/enterprises/$enterpriseId/address-book'
+    | '/app/enterprises/$enterpriseId/create-contact'
+    | '/app/enterprises/$enterpriseId/create-ged-directory'
+    | '/app/enterprises/$enterpriseId/create-lifesheet-comment'
+    | '/app/enterprises/$enterpriseId/delete'
+    | '/app/enterprises/$enterpriseId/email-history'
+    | '/app/enterprises/$enterpriseId/import-contacts'
+    | '/app/enterprises/$enterpriseId/import-ged-files'
+    | '/app/enterprises/$enterpriseId/relate-business-rma'
+    | '/app/enterprises/$enterpriseId/update'
+    | '/app/enterprises/$enterpriseId/update-accountability'
+    | '/app/enterprises/$enterpriseId/update-category'
+    | '/app/enterprises/$enterpriseId/update-representative'
+    | '/app/faq/archive/$faqId'
+    | '/app/faq/delete/$faqId'
+    | '/app/faq/ged/$faqId'
+    | '/app/faq/send-by-email/$faqId'
+    | '/app/faq/update/$faqId'
+    | '/app/products/serial-numbers/create'
+    | '/app/products/$productId/informations'
+    | '/app/products/$productId/manage'
+    | '/app/tools/credit/details'
+    | '/app/tools/credit/show'
+    | '/app/tools/ddns/create'
+    | '/app/tools/departments/create'
+    | '/app/tools/emails/$emailId'
+    | '/app/tools/external-links/create'
+    | '/app/tools/formations/create'
+    | '/app/tools/mails/create'
+    | '/app/tools/menu/create-enterprise'
+    | '/app/tools/menu/create-product'
+    | '/app/tools/news/create'
+    | '/app/tools/predefined-messages/create'
+    | '/app/tools/predefined-texts/create'
+    | '/app/tools/product-filters/create'
+    | '/app/tools/product-inventory/validate-quantities'
+    | '/app/tools/product-shelves/create'
+    | '/app/tools/scheduler/create'
+    | '/app/tools/vva/create'
+    | '/app/products/$productId'
+    | '/app/businesses-rma/business/$businessId/arc'
+    | '/app/businesses-rma/business/$businessId/bill'
+    | '/app/businesses-rma/business/$businessId/bl'
+    | '/app/businesses-rma/business/$businessId/bp'
+    | '/app/businesses-rma/business/$businessId/dashboard'
+    | '/app/businesses-rma/business/$businessId/quotation'
+    | '/app/businesses-rma/rma/$rmaId/delivery'
+    | '/app/businesses-rma/rma/$rmaId/reception'
+    | '/app/businesses-rma/rma/$rmaId/support'
+    | '/app/dashboard/task-email/$taskId/reply'
+    | '/app/enterprises/$enterpriseId/address-book/create'
+    | '/app/enterprises/$enterpriseId/address-book/import'
+    | '/app/enterprises/$enterpriseId/create-contact-business/$contactId'
+    | '/app/enterprises/$enterpriseId/delete-contact/$contactId'
+    | '/app/enterprises/$enterpriseId/delete-ged-object/$objectRelativePath'
+    | '/app/enterprises/$enterpriseId/lifesheet-email/$lifesheetId'
+    | '/app/enterprises/$enterpriseId/rename-ged-object/$objectRelativePath'
+    | '/app/enterprises/$enterpriseId/send-email-to-contact/$contactId'
+    | '/app/enterprises/$enterpriseId/task-email/$taskId'
+    | '/app/enterprises/$enterpriseId/unlink-task/$taskId'
+    | '/app/enterprises/$enterpriseId/unrelate-business-rma/$businessRmaId'
+    | '/app/enterprises/$enterpriseId/update-contact-password/$contactId'
+    | '/app/enterprises/$enterpriseId/update-contact/$contactId'
+    | '/app/faq/ged/$faqId/create-directory'
+    | '/app/faq/ged/$faqId/import-files'
+    | '/app/products/serial-numbers/create-rma/$serialNumberId'
+    | '/app/products/serial-numbers/delete/$serialNumberId'
+    | '/app/products/serial-numbers/remove-from-business/$serialNumberId'
+    | '/app/products/serial-numbers/update/$serialNumberId'
+    | '/app/products/$productId/informations/create-ged-directory'
+    | '/app/products/$productId/informations/create-lifesheet-comment'
+    | '/app/products/$productId/informations/delete-ged-object'
+    | '/app/products/$productId/informations/import-ged-files'
+    | '/app/products/$productId/informations/rename-ged-object'
+    | '/app/products/$productId/manage/add-associated-product'
+    | '/app/products/$productId/manage/add-nomenclature-detail'
+    | '/app/products/$productId/manage/add-specification'
+    | '/app/products/$productId/manage/create-stock'
+    | '/app/products/$productId/manage/create-version'
+    | '/app/tools/ddns/delete/$ddnsId'
+    | '/app/tools/departments/delete/$departmentId'
+    | '/app/tools/departments/update/$departmentId'
+    | '/app/tools/emails/$emailId/reply'
+    | '/app/tools/external-links/archive/$externalLinkId'
+    | '/app/tools/external-links/delete/$externalLinkId'
+    | '/app/tools/external-links/update/$externalLinkId'
+    | '/app/tools/formations/create/add-detail'
+    | '/app/tools/formations/create/details'
+    | '/app/tools/formations/delete/$formationId'
+    | '/app/tools/formations/subscribers/$formationDetailId'
+    | '/app/tools/formations/update/$formationId'
+    | '/app/tools/mails/delete/$mailId'
+    | '/app/tools/mails/show/$mailId'
+    | '/app/tools/mails/update/$mailId'
+    | '/app/tools/news/delete/$newsId'
+    | '/app/tools/news/update/$newsId'
+    | '/app/tools/predefined-messages/delete/$predefinedMessageId'
+    | '/app/tools/predefined-messages/update/$predefinedMessageId'
+    | '/app/tools/predefined-texts/delete/$predefinedTextId'
+    | '/app/tools/predefined-texts/update/$predefinedTextId'
+    | '/app/tools/product-filters/delete/$productFilterId'
+    | '/app/tools/product-filters/update/$productFilterId'
+    | '/app/tools/product-inventory/update/$stockId'
+    | '/app/tools/product-shelves/delete/$productShelfId'
+    | '/app/tools/scheduler/details/$rdvId'
+    | '/app/tools/vva/delete/$vvaId'
+    | '/app/businesses-rma/business/$businessId'
+    | '/app/businesses-rma/rma/$rmaId'
+    | '/app/businesses-rma/business/$businessId/arc/pdf'
+    | '/app/businesses-rma/business/$businessId/arc/update-shipping-price'
+    | '/app/businesses-rma/business/$businessId/bill/credits'
+    | '/app/businesses-rma/business/$businessId/bill/send-by-email'
+    | '/app/businesses-rma/business/$businessId/bl/send-by-email'
+    | '/app/businesses-rma/business/$businessId/bl/update'
+    | '/app/businesses-rma/business/$businessId/bp/travel-voucher'
+    | '/app/businesses-rma/business/$businessId/dashboard/address-book'
+    | '/app/businesses-rma/business/$businessId/dashboard/create-ged-directory'
+    | '/app/businesses-rma/business/$businessId/dashboard/create-lifesheet'
+    | '/app/businesses-rma/business/$businessId/dashboard/create-link'
+    | '/app/businesses-rma/business/$businessId/dashboard/delete'
+    | '/app/businesses-rma/business/$businessId/dashboard/email-history'
+    | '/app/businesses-rma/business/$businessId/dashboard/import-ged-files'
+    | '/app/businesses-rma/business/$businessId/dashboard/send-email'
+    | '/app/businesses-rma/business/$businessId/dashboard/update-billing-address'
+    | '/app/businesses-rma/business/$businessId/dashboard/update-representative'
+    | '/app/businesses-rma/business/$businessId/dashboard/update-responsible'
+    | '/app/businesses-rma/business/$businessId/quotation/commercial-notice'
+    | '/app/businesses-rma/business/$businessId/quotation/pdf'
+    | '/app/businesses-rma/business/$businessId/quotation/update-shipping-price'
+    | '/app/businesses-rma/business/$businessId/assistance/$assistanceId'
+    | '/app/businesses-rma/business/$businessId/study/automatic'
+    | '/app/businesses-rma/business/$businessId/study/expert'
+    | '/app/businesses-rma/rma/$rmaId/delivery/create-detail'
+    | '/app/businesses-rma/rma/$rmaId/delivery/pdf'
+    | '/app/businesses-rma/rma/$rmaId/delivery/travel-voucher'
+    | '/app/businesses-rma/rma/$rmaId/reception/create-detail'
+    | '/app/businesses-rma/rma/$rmaId/reception/pdf'
+    | '/app/businesses-rma/rma/$rmaId/support/create-detail'
+    | '/app/businesses-rma/rma/$rmaId/support/create-ged-directory'
+    | '/app/businesses-rma/rma/$rmaId/support/create-lifesheet'
+    | '/app/businesses-rma/rma/$rmaId/support/create-link'
+    | '/app/businesses-rma/rma/$rmaId/support/import-ged-files'
+    | '/app/businesses-rma/rma/$rmaId/support/pdf'
+    | '/app/enterprises/$enterpriseId/address-book/delete/$addressId'
+    | '/app/enterprises/$enterpriseId/address-book/update/$addressId'
+    | '/app/enterprises/$enterpriseId/email-history/email/$emailId'
+    | '/app/enterprises/$enterpriseId/task-email/$taskId/reply'
+    | '/app/faq/ged/$faqId/delete/$itemRelativePath'
+    | '/app/faq/ged/$faqId/rename/$itemRelativePath'
+    | '/app/products/$productId/informations/lifesheet-email/$lifesheetId'
+    | '/app/products/$productId/informations/task-email/$taskId'
+    | '/app/products/$productId/informations/unlink-task/$taskId'
+    | '/app/products/$productId/manage/add-specification/$filterId'
+    | '/app/products/$productId/manage/delete-nomenclature-detail/$nomenclatureDetailId'
+    | '/app/products/$productId/manage/delete-specification/$specificationId'
+    | '/app/products/$productId/manage/delete-stock/$stockId'
+    | '/app/products/$productId/manage/delete-version/$versionId'
+    | '/app/products/$productId/manage/remove-associated-product/$associatedProductId'
+    | '/app/products/$productId/manage/stock-history/$stockId'
+    | '/app/products/$productId/manage/update-nomenclature-detail/$nomenclatureDetailId'
+    | '/app/products/$productId/manage/update-specification/$specificationId'
+    | '/app/products/$productId/manage/update-stock/$stockId'
+    | '/app/products/$productId/manage/update-version/$versionId'
+    | '/app/tools/formations/subscribers/$formationDetailId/create'
+    | '/app/tools/formations/update/$formationId/add-detail'
+    | '/app/tools/formations/update/$formationId/details'
+    | '/app/tools/scheduler/details/$rdvId/delete'
+    | '/app/tools/scheduler/details/$rdvId/update'
+    | '/app/businesses-rma/business/$businessId/study'
+    | '/app/businesses-rma/business/$businessId/arc/delete-detail/$detailId'
+    | '/app/businesses-rma/business/$businessId/arc/pdf/send-by-email'
+    | '/app/businesses-rma/business/$businessId/arc/update-detail/$detailId'
+    | '/app/businesses-rma/business/$businessId/bill/credits/send-by-email'
+    | '/app/businesses-rma/business/$businessId/bl/update/new'
+    | '/app/businesses-rma/business/$businessId/bp/add-serial/$detailId'
+    | '/app/businesses-rma/business/$businessId/bp/create-detail-rma/$detailId'
+    | '/app/businesses-rma/business/$businessId/bp/create-serial-rma/$serialId'
+    | '/app/businesses-rma/business/$businessId/bp/delete-detail/$detailId'
+    | '/app/businesses-rma/business/$businessId/bp/delete-serial/$serialId'
+    | '/app/businesses-rma/business/$businessId/bp/update-detail/$detailId'
+    | '/app/businesses-rma/business/$businessId/dashboard/address-book/create'
+    | '/app/businesses-rma/business/$businessId/dashboard/confirm-quotation-import/$otherBusinessId'
+    | '/app/businesses-rma/business/$businessId/dashboard/delete-ged-object/$objectRelativePath'
+    | '/app/businesses-rma/business/$businessId/dashboard/delete-link/$associatedId'
+    | '/app/businesses-rma/business/$businessId/dashboard/email-history/$emailId'
+    | '/app/businesses-rma/business/$businessId/dashboard/lifesheet-email/$lifesheetId'
+    | '/app/businesses-rma/business/$businessId/dashboard/rename-ged-object/$objectRelativePath'
+    | '/app/businesses-rma/business/$businessId/dashboard/task-email/$taskId'
+    | '/app/businesses-rma/business/$businessId/dashboard/unlink-task/$taskId'
+    | '/app/businesses-rma/business/$businessId/quotation/commercial-notice/send-by-email'
+    | '/app/businesses-rma/business/$businessId/quotation/create-associated-detail/$detailId'
+    | '/app/businesses-rma/business/$businessId/quotation/create-detail/$subquotationId'
+    | '/app/businesses-rma/business/$businessId/quotation/delete-detail/$detailId'
+    | '/app/businesses-rma/business/$businessId/quotation/delete-subquotation/$subquotationId'
+    | '/app/businesses-rma/business/$businessId/quotation/pdf/send-by-email'
+    | '/app/businesses-rma/business/$businessId/quotation/update-detail/$detailId'
+    | '/app/businesses-rma/business/$businessId/quotation/update-subquotation/$subquotationId'
+    | '/app/businesses-rma/business/$businessId/assistance/$assistanceId/create-faq'
+    | '/app/businesses-rma/business/$businessId/assistance/$assistanceId/create-ged-directory'
+    | '/app/businesses-rma/business/$businessId/assistance/$assistanceId/create-lifesheet'
+    | '/app/businesses-rma/business/$businessId/assistance/$assistanceId/create-link'
+    | '/app/businesses-rma/business/$businessId/assistance/$assistanceId/delete'
+    | '/app/businesses-rma/business/$businessId/assistance/$assistanceId/edit-cumulated-time'
+    | '/app/businesses-rma/business/$businessId/assistance/$assistanceId/edit-no-billed-time'
+    | '/app/businesses-rma/business/$businessId/assistance/$assistanceId/edit-subtitle'
+    | '/app/businesses-rma/business/$businessId/assistance/$assistanceId/import-ged-files'
+    | '/app/businesses-rma/business/$businessId/assistance/$assistanceId/pdf'
+    | '/app/businesses-rma/rma/$rmaId/delivery/delete-detail/$detailId'
+    | '/app/businesses-rma/rma/$rmaId/delivery/pdf/send-by-email'
+    | '/app/businesses-rma/rma/$rmaId/delivery/update-detail/$detailId'
+    | '/app/businesses-rma/rma/$rmaId/reception/delete-detail/$detailId'
+    | '/app/businesses-rma/rma/$rmaId/reception/pdf/send-by-email'
+    | '/app/businesses-rma/rma/$rmaId/reception/update-detail/$detailId'
+    | '/app/businesses-rma/rma/$rmaId/support/delete-detail/$detailId'
+    | '/app/businesses-rma/rma/$rmaId/support/delete-ged-object/$relativePath'
+    | '/app/businesses-rma/rma/$rmaId/support/delete-link/$associatedId'
+    | '/app/businesses-rma/rma/$rmaId/support/lifesheet-email/$lifesheetId'
+    | '/app/businesses-rma/rma/$rmaId/support/pdf/send-by-email'
+    | '/app/businesses-rma/rma/$rmaId/support/rename-ged-object/$objectRelativePath'
+    | '/app/businesses-rma/rma/$rmaId/support/task-email/$taskId'
+    | '/app/businesses-rma/rma/$rmaId/support/unlink-task/$taskId'
+    | '/app/businesses-rma/rma/$rmaId/support/update-detail/$detailId'
+    | '/app/enterprises/$enterpriseId/email-history/email/$emailId/reply'
+    | '/app/products/$productId/informations/task-email/$taskId/reply'
+    | '/app/tools/formations/subscribers/$formationDetailId/delete/$subscriptionId'
+    | '/app/tools/formations/subscribers/$formationDetailId/send-email/$subscriptionId'
+    | '/app/businesses-rma/business/$businessId/dashboard/address-book/delete/$addressId'
+    | '/app/businesses-rma/business/$businessId/dashboard/address-book/update/$addressId'
+    | '/app/businesses-rma/business/$businessId/dashboard/email-history/$emailId/reply'
+    | '/app/businesses-rma/business/$businessId/quotation/commercial-notice/send-by-email/predefined-messages'
+    | '/app/businesses-rma/business/$businessId/assistance/$assistanceId/delete-ged-object/$objectRelativePath'
+    | '/app/businesses-rma/business/$businessId/assistance/$assistanceId/delete-link/$associatedId'
+    | '/app/businesses-rma/business/$businessId/assistance/$assistanceId/lifesheet-email/$lifesheetId'
+    | '/app/businesses-rma/business/$businessId/assistance/$assistanceId/pdf/send-by-email'
+    | '/app/businesses-rma/business/$businessId/assistance/$assistanceId/rename-ged-object/$objectRelativePath'
+    | '/app/businesses-rma/rma/$rmaId/support/task-email/$taskId/reply'
+  id:
+    | '__root__'
+    | '/'
+    | '/app'
+    | '/auth'
+    | '/app/businesses-rma'
+    | '/app/dashboard'
+    | '/app/enterprises'
+    | '/app/external-links'
+    | '/app/faq'
+    | '/app/products'
+    | '/app/tools'
+    | '/auth/login'
+    | '/auth/forgot-password'
+    | '/app/'
+    | '/auth/'
+    | '/app/businesses-rma/representative-turnover'
+    | '/app/businesses-rma/search-by-products'
+    | '/app/dashboard/create-collective-task'
+    | '/app/dashboard/create-personal-task'
+    | '/app/dashboard/create-progressive-info'
+    | '/app/dashboard/delete-collective-tasks'
+    | '/app/enterprises/create'
+    | '/app/enterprises_/$enterpriseId'
+    | '/app/external-links_/$externalLinkId'
+    | '/app/faq/create'
+    | '/app/products/create'
+    | '/app/products/serial-numbers'
+    | '/app/products_/$productId'
+    | '/app/tools/credit'
+    | '/app/tools/ddns'
+    | '/app/tools/departments'
+    | '/app/tools/emails'
+    | '/app/tools/external-links'
+    | '/app/tools/formations'
+    | '/app/tools/global-turnover'
+    | '/app/tools/mails'
+    | '/app/tools/menu'
+    | '/app/tools/news'
+    | '/app/tools/predefined-messages'
+    | '/app/tools/predefined-texts'
+    | '/app/tools/product-filters'
+    | '/app/tools/product-inventory'
+    | '/app/tools/product-shelves'
+    | '/app/tools/representatives-map'
+    | '/app/tools/representatives-turnover'
+    | '/app/tools/scheduler'
+    | '/app/tools/vva'
+    | '/auth/reset-password/$token'
+    | '/app/tools/'
+    | '/app/businesses-rma_/business/$businessId'
+    | '/app/businesses-rma_/rma/$rmaId'
+    | '/app/dashboard/archive-personal-task/$taskId'
+    | '/app/dashboard/create-aircall-contact/$number'
+    | '/app/dashboard/delete-collective-task/$taskId'
+    | '/app/dashboard/delete-progressive-info/$progressiveInfoId'
+    | '/app/dashboard/link-personal-task/$taskId'
+    | '/app/dashboard/other-personal-tasks/$profileId'
+    | '/app/dashboard/personal-task-details/$taskId'
+    | '/app/dashboard/scheduler-event-details/$eventId'
+    | '/app/dashboard/take-collective-task/$taskId'
+    | '/app/dashboard/task-comments/$taskId'
+    | '/app/dashboard/task-email/$taskId'
+    | '/app/dashboard/transfer-task/$taskId'
+    | '/app/dashboard/unlink-personal-task/$taskId'
+    | '/app/dashboard/update-aircall-contact/$contactId'
+    | '/app/dashboard/update-personal-task-deadline/$taskId'
+    | '/app/dashboard/update-progressive-info/$progressiveInfoId'
+    | '/app/dashboard/validate-personal-task/$taskId'
+    | '/app/enterprises/create-contact-business/$contactId'
+    | '/app/enterprises/create-contact-travel-voucher/$contactId'
+    | '/app/enterprises/create-contact/$enterpriseId'
+    | '/app/enterprises/create-enterprise-rma/$enterpriseId'
+    | '/app/enterprises/delete-contact/$contactId'
+    | '/app/enterprises/send-email-to-contact/$contactId'
+    | '/app/enterprises/update-contact-password/$contactId'
+    | '/app/enterprises/update-contact/$contactId'
+    | '/app/enterprises_/$enterpriseId/address-book'
+    | '/app/enterprises_/$enterpriseId/create-contact'
+    | '/app/enterprises_/$enterpriseId/create-ged-directory'
+    | '/app/enterprises_/$enterpriseId/create-lifesheet-comment'
+    | '/app/enterprises_/$enterpriseId/delete'
+    | '/app/enterprises_/$enterpriseId/email-history'
+    | '/app/enterprises_/$enterpriseId/import-contacts'
+    | '/app/enterprises_/$enterpriseId/import-ged-files'
+    | '/app/enterprises_/$enterpriseId/relate-business-rma'
+    | '/app/enterprises_/$enterpriseId/update'
+    | '/app/enterprises_/$enterpriseId/update-accountability'
+    | '/app/enterprises_/$enterpriseId/update-category'
+    | '/app/enterprises_/$enterpriseId/update-representative'
+    | '/app/faq/archive/$faqId'
+    | '/app/faq/delete/$faqId'
+    | '/app/faq/ged/$faqId'
+    | '/app/faq/send-by-email/$faqId'
+    | '/app/faq/update/$faqId'
+    | '/app/products/serial-numbers/create'
+    | '/app/products_/$productId/informations'
+    | '/app/products_/$productId/manage'
+    | '/app/tools/credit/details'
+    | '/app/tools/credit/show'
+    | '/app/tools/ddns/create'
+    | '/app/tools/departments/create'
+    | '/app/tools/emails/$emailId'
+    | '/app/tools/external-links/create'
+    | '/app/tools/formations/create'
+    | '/app/tools/mails/create'
+    | '/app/tools/menu/create-enterprise'
+    | '/app/tools/menu/create-product'
+    | '/app/tools/news/create'
+    | '/app/tools/predefined-messages/create'
+    | '/app/tools/predefined-texts/create'
+    | '/app/tools/product-filters/create'
+    | '/app/tools/product-inventory/validate-quantities'
+    | '/app/tools/product-shelves/create'
+    | '/app/tools/scheduler/create'
+    | '/app/tools/vva/create'
+    | '/app/products_/$productId/'
+    | '/app/businesses-rma_/business/$businessId/arc'
+    | '/app/businesses-rma_/business/$businessId/bill'
+    | '/app/businesses-rma_/business/$businessId/bl'
+    | '/app/businesses-rma_/business/$businessId/bp'
+    | '/app/businesses-rma_/business/$businessId/dashboard'
+    | '/app/businesses-rma_/business/$businessId/quotation'
+    | '/app/businesses-rma_/business/$businessId_/study'
+    | '/app/businesses-rma_/rma/$rmaId/delivery'
+    | '/app/businesses-rma_/rma/$rmaId/reception'
+    | '/app/businesses-rma_/rma/$rmaId/support'
+    | '/app/dashboard/task-email/$taskId/reply'
+    | '/app/enterprises_/$enterpriseId/address-book/create'
+    | '/app/enterprises_/$enterpriseId/address-book/import'
+    | '/app/enterprises_/$enterpriseId/create-contact-business/$contactId'
+    | '/app/enterprises_/$enterpriseId/delete-contact/$contactId'
+    | '/app/enterprises_/$enterpriseId/delete-ged-object/$objectRelativePath'
+    | '/app/enterprises_/$enterpriseId/lifesheet-email/$lifesheetId'
+    | '/app/enterprises_/$enterpriseId/rename-ged-object/$objectRelativePath'
+    | '/app/enterprises_/$enterpriseId/send-email-to-contact/$contactId'
+    | '/app/enterprises_/$enterpriseId/task-email/$taskId'
+    | '/app/enterprises_/$enterpriseId/unlink-task/$taskId'
+    | '/app/enterprises_/$enterpriseId/unrelate-business-rma/$businessRmaId'
+    | '/app/enterprises_/$enterpriseId/update-contact-password/$contactId'
+    | '/app/enterprises_/$enterpriseId/update-contact/$contactId'
+    | '/app/faq/ged/$faqId/create-directory'
+    | '/app/faq/ged/$faqId/import-files'
+    | '/app/products/serial-numbers/create-rma/$serialNumberId'
+    | '/app/products/serial-numbers/delete/$serialNumberId'
+    | '/app/products/serial-numbers/remove-from-business/$serialNumberId'
+    | '/app/products/serial-numbers/update/$serialNumberId'
+    | '/app/products_/$productId/informations/create-ged-directory'
+    | '/app/products_/$productId/informations/create-lifesheet-comment'
+    | '/app/products_/$productId/informations/delete-ged-object'
+    | '/app/products_/$productId/informations/import-ged-files'
+    | '/app/products_/$productId/informations/rename-ged-object'
+    | '/app/products_/$productId/manage/add-associated-product'
+    | '/app/products_/$productId/manage/add-nomenclature-detail'
+    | '/app/products_/$productId/manage/add-specification'
+    | '/app/products_/$productId/manage/create-stock'
+    | '/app/products_/$productId/manage/create-version'
+    | '/app/tools/ddns/delete/$ddnsId'
+    | '/app/tools/departments/delete/$departmentId'
+    | '/app/tools/departments/update/$departmentId'
+    | '/app/tools/emails/$emailId/reply'
+    | '/app/tools/external-links/archive/$externalLinkId'
+    | '/app/tools/external-links/delete/$externalLinkId'
+    | '/app/tools/external-links/update/$externalLinkId'
+    | '/app/tools/formations/create/add-detail'
+    | '/app/tools/formations/create/details'
+    | '/app/tools/formations/delete/$formationId'
+    | '/app/tools/formations/subscribers/$formationDetailId'
+    | '/app/tools/formations/update/$formationId'
+    | '/app/tools/mails/delete/$mailId'
+    | '/app/tools/mails/show/$mailId'
+    | '/app/tools/mails/update/$mailId'
+    | '/app/tools/news/delete/$newsId'
+    | '/app/tools/news/update/$newsId'
+    | '/app/tools/predefined-messages/delete/$predefinedMessageId'
+    | '/app/tools/predefined-messages/update/$predefinedMessageId'
+    | '/app/tools/predefined-texts/delete/$predefinedTextId'
+    | '/app/tools/predefined-texts/update/$predefinedTextId'
+    | '/app/tools/product-filters/delete/$productFilterId'
+    | '/app/tools/product-filters/update/$productFilterId'
+    | '/app/tools/product-inventory/update/$stockId'
+    | '/app/tools/product-shelves/delete/$productShelfId'
+    | '/app/tools/scheduler/details/$rdvId'
+    | '/app/tools/vva/delete/$vvaId'
+    | '/app/businesses-rma_/business/$businessId/'
+    | '/app/businesses-rma_/rma/$rmaId/'
+    | '/app/businesses-rma_/business/$businessId/arc/pdf'
+    | '/app/businesses-rma_/business/$businessId/arc/update-shipping-price'
+    | '/app/businesses-rma_/business/$businessId/bill/credits'
+    | '/app/businesses-rma_/business/$businessId/bill/send-by-email'
+    | '/app/businesses-rma_/business/$businessId/bl/send-by-email'
+    | '/app/businesses-rma_/business/$businessId/bl/update'
+    | '/app/businesses-rma_/business/$businessId/bp/travel-voucher'
+    | '/app/businesses-rma_/business/$businessId/dashboard/address-book'
+    | '/app/businesses-rma_/business/$businessId/dashboard/create-ged-directory'
+    | '/app/businesses-rma_/business/$businessId/dashboard/create-lifesheet'
+    | '/app/businesses-rma_/business/$businessId/dashboard/create-link'
+    | '/app/businesses-rma_/business/$businessId/dashboard/delete'
+    | '/app/businesses-rma_/business/$businessId/dashboard/email-history'
+    | '/app/businesses-rma_/business/$businessId/dashboard/import-ged-files'
+    | '/app/businesses-rma_/business/$businessId/dashboard/send-email'
+    | '/app/businesses-rma_/business/$businessId/dashboard/update-billing-address'
+    | '/app/businesses-rma_/business/$businessId/dashboard/update-representative'
+    | '/app/businesses-rma_/business/$businessId/dashboard/update-responsible'
+    | '/app/businesses-rma_/business/$businessId/quotation/commercial-notice'
+    | '/app/businesses-rma_/business/$businessId/quotation/pdf'
+    | '/app/businesses-rma_/business/$businessId/quotation/update-shipping-price'
+    | '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId'
+    | '/app/businesses-rma_/business/$businessId_/study/automatic'
+    | '/app/businesses-rma_/business/$businessId_/study/expert'
+    | '/app/businesses-rma_/rma/$rmaId/delivery/create-detail'
+    | '/app/businesses-rma_/rma/$rmaId/delivery/pdf'
+    | '/app/businesses-rma_/rma/$rmaId/delivery/travel-voucher'
+    | '/app/businesses-rma_/rma/$rmaId/reception/create-detail'
+    | '/app/businesses-rma_/rma/$rmaId/reception/pdf'
+    | '/app/businesses-rma_/rma/$rmaId/support/create-detail'
+    | '/app/businesses-rma_/rma/$rmaId/support/create-ged-directory'
+    | '/app/businesses-rma_/rma/$rmaId/support/create-lifesheet'
+    | '/app/businesses-rma_/rma/$rmaId/support/create-link'
+    | '/app/businesses-rma_/rma/$rmaId/support/import-ged-files'
+    | '/app/businesses-rma_/rma/$rmaId/support/pdf'
+    | '/app/enterprises_/$enterpriseId/address-book/delete/$addressId'
+    | '/app/enterprises_/$enterpriseId/address-book/update/$addressId'
+    | '/app/enterprises_/$enterpriseId/email-history/email/$emailId'
+    | '/app/enterprises_/$enterpriseId/task-email/$taskId/reply'
+    | '/app/faq/ged/$faqId/delete/$itemRelativePath'
+    | '/app/faq/ged/$faqId/rename/$itemRelativePath'
+    | '/app/products_/$productId/informations/lifesheet-email/$lifesheetId'
+    | '/app/products_/$productId/informations/task-email/$taskId'
+    | '/app/products_/$productId/informations/unlink-task/$taskId'
+    | '/app/products_/$productId/manage/add-specification/$filterId'
+    | '/app/products_/$productId/manage/delete-nomenclature-detail/$nomenclatureDetailId'
+    | '/app/products_/$productId/manage/delete-specification/$specificationId'
+    | '/app/products_/$productId/manage/delete-stock/$stockId'
+    | '/app/products_/$productId/manage/delete-version/$versionId'
+    | '/app/products_/$productId/manage/remove-associated-product/$associatedProductId'
+    | '/app/products_/$productId/manage/stock-history/$stockId'
+    | '/app/products_/$productId/manage/update-nomenclature-detail/$nomenclatureDetailId'
+    | '/app/products_/$productId/manage/update-specification/$specificationId'
+    | '/app/products_/$productId/manage/update-stock/$stockId'
+    | '/app/products_/$productId/manage/update-version/$versionId'
+    | '/app/tools/formations/subscribers/$formationDetailId/create'
+    | '/app/tools/formations/update/$formationId/add-detail'
+    | '/app/tools/formations/update/$formationId/details'
+    | '/app/tools/scheduler/details/$rdvId/delete'
+    | '/app/tools/scheduler/details/$rdvId/update'
+    | '/app/businesses-rma_/business/$businessId_/study/'
+    | '/app/businesses-rma_/business/$businessId/arc/delete-detail/$detailId'
+    | '/app/businesses-rma_/business/$businessId/arc/pdf/send-by-email'
+    | '/app/businesses-rma_/business/$businessId/arc/update-detail/$detailId'
+    | '/app/businesses-rma_/business/$businessId/bill/credits/send-by-email'
+    | '/app/businesses-rma_/business/$businessId/bl/update/new'
+    | '/app/businesses-rma_/business/$businessId/bp/add-serial/$detailId'
+    | '/app/businesses-rma_/business/$businessId/bp/create-detail-rma/$detailId'
+    | '/app/businesses-rma_/business/$businessId/bp/create-serial-rma/$serialId'
+    | '/app/businesses-rma_/business/$businessId/bp/delete-detail/$detailId'
+    | '/app/businesses-rma_/business/$businessId/bp/delete-serial/$serialId'
+    | '/app/businesses-rma_/business/$businessId/bp/update-detail/$detailId'
+    | '/app/businesses-rma_/business/$businessId/dashboard/address-book/create'
+    | '/app/businesses-rma_/business/$businessId/dashboard/confirm-quotation-import/$otherBusinessId'
+    | '/app/businesses-rma_/business/$businessId/dashboard/delete-ged-object/$objectRelativePath'
+    | '/app/businesses-rma_/business/$businessId/dashboard/delete-link/$associatedId'
+    | '/app/businesses-rma_/business/$businessId/dashboard/email-history/$emailId'
+    | '/app/businesses-rma_/business/$businessId/dashboard/lifesheet-email/$lifesheetId'
+    | '/app/businesses-rma_/business/$businessId/dashboard/rename-ged-object/$objectRelativePath'
+    | '/app/businesses-rma_/business/$businessId/dashboard/task-email/$taskId'
+    | '/app/businesses-rma_/business/$businessId/dashboard/unlink-task/$taskId'
+    | '/app/businesses-rma_/business/$businessId/quotation/commercial-notice/send-by-email'
+    | '/app/businesses-rma_/business/$businessId/quotation/create-associated-detail/$detailId'
+    | '/app/businesses-rma_/business/$businessId/quotation/create-detail/$subquotationId'
+    | '/app/businesses-rma_/business/$businessId/quotation/delete-detail/$detailId'
+    | '/app/businesses-rma_/business/$businessId/quotation/delete-subquotation/$subquotationId'
+    | '/app/businesses-rma_/business/$businessId/quotation/pdf/send-by-email'
+    | '/app/businesses-rma_/business/$businessId/quotation/update-detail/$detailId'
+    | '/app/businesses-rma_/business/$businessId/quotation/update-subquotation/$subquotationId'
+    | '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/create-faq'
+    | '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/create-ged-directory'
+    | '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/create-lifesheet'
+    | '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/create-link'
+    | '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/delete'
+    | '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/edit-cumulated-time'
+    | '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/edit-no-billed-time'
+    | '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/edit-subtitle'
+    | '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/import-ged-files'
+    | '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/pdf'
+    | '/app/businesses-rma_/rma/$rmaId/delivery/delete-detail/$detailId'
+    | '/app/businesses-rma_/rma/$rmaId/delivery/pdf/send-by-email'
+    | '/app/businesses-rma_/rma/$rmaId/delivery/update-detail/$detailId'
+    | '/app/businesses-rma_/rma/$rmaId/reception/delete-detail/$detailId'
+    | '/app/businesses-rma_/rma/$rmaId/reception/pdf/send-by-email'
+    | '/app/businesses-rma_/rma/$rmaId/reception/update-detail/$detailId'
+    | '/app/businesses-rma_/rma/$rmaId/support/delete-detail/$detailId'
+    | '/app/businesses-rma_/rma/$rmaId/support/delete-ged-object/$relativePath'
+    | '/app/businesses-rma_/rma/$rmaId/support/delete-link/$associatedId'
+    | '/app/businesses-rma_/rma/$rmaId/support/lifesheet-email/$lifesheetId'
+    | '/app/businesses-rma_/rma/$rmaId/support/pdf/send-by-email'
+    | '/app/businesses-rma_/rma/$rmaId/support/rename-ged-object/$objectRelativePath'
+    | '/app/businesses-rma_/rma/$rmaId/support/task-email/$taskId'
+    | '/app/businesses-rma_/rma/$rmaId/support/unlink-task/$taskId'
+    | '/app/businesses-rma_/rma/$rmaId/support/update-detail/$detailId'
+    | '/app/enterprises_/$enterpriseId/email-history/email/$emailId/reply'
+    | '/app/products_/$productId/informations/task-email/$taskId/reply'
+    | '/app/tools/formations/subscribers/$formationDetailId/delete/$subscriptionId'
+    | '/app/tools/formations/subscribers/$formationDetailId/send-email/$subscriptionId'
+    | '/app/businesses-rma_/business/$businessId/dashboard/address-book/delete/$addressId'
+    | '/app/businesses-rma_/business/$businessId/dashboard/address-book/update/$addressId'
+    | '/app/businesses-rma_/business/$businessId/dashboard/email-history/$emailId/reply'
+    | '/app/businesses-rma_/business/$businessId/quotation/commercial-notice/send-by-email/predefined-messages'
+    | '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/delete-ged-object/$objectRelativePath'
+    | '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/delete-link/$associatedId'
+    | '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/lifesheet-email/$lifesheetId'
+    | '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/pdf/send-by-email'
+    | '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/rename-ged-object/$objectRelativePath'
+    | '/app/businesses-rma_/rma/$rmaId/support/task-email/$taskId/reply'
+  fileRoutesById: FileRoutesById
+}
+export interface RootRouteChildren {
+  IndexRoute: typeof IndexRoute
+  AppRouteRoute: typeof AppRouteRouteWithChildren
+  AuthRouteRoute: typeof AuthRouteRouteWithChildren
+}
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexImport
-      parentRoute: typeof rootRoute
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/app': {
       id: '/app'
       path: '/app'
       fullPath: '/app'
-      preLoaderRoute: typeof AppRouteImport
-      parentRoute: typeof rootRoute
+      preLoaderRoute: typeof AppRouteRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/auth': {
-      id: '/auth'
-      path: '/auth'
-      fullPath: '/auth'
-      preLoaderRoute: typeof AuthRouteImport
-      parentRoute: typeof rootRoute
-    }
-    '/app/businesses-rma': {
-      id: '/app/businesses-rma'
-      path: '/businesses-rma'
-      fullPath: '/app/businesses-rma'
-      preLoaderRoute: typeof AppBusinessesRmaRouteImport
-      parentRoute: typeof AppRouteImport
-    }
-    '/app/dashboard': {
-      id: '/app/dashboard'
-      path: '/dashboard'
-      fullPath: '/app/dashboard'
-      preLoaderRoute: typeof AppDashboardRouteImport
-      parentRoute: typeof AppRouteImport
-    }
-    '/app/enterprises': {
-      id: '/app/enterprises'
-      path: '/enterprises'
-      fullPath: '/app/enterprises'
-      preLoaderRoute: typeof AppEnterprisesRouteImport
-      parentRoute: typeof AppRouteImport
-    }
-    '/app/external-links': {
-      id: '/app/external-links'
-      path: '/external-links'
-      fullPath: '/app/external-links'
-      preLoaderRoute: typeof AppExternalLinksRouteImport
-      parentRoute: typeof AppRouteImport
-    }
-    '/app/faq': {
-      id: '/app/faq'
-      path: '/faq'
-      fullPath: '/app/faq'
-      preLoaderRoute: typeof AppFaqRouteImport
-      parentRoute: typeof AppRouteImport
-    }
-    '/app/products': {
-      id: '/app/products'
-      path: '/products'
-      fullPath: '/app/products'
-      preLoaderRoute: typeof AppProductsRouteImport
-      parentRoute: typeof AppRouteImport
-    }
-    '/app/tools': {
-      id: '/app/tools'
-      path: '/tools'
-      fullPath: '/app/tools'
-      preLoaderRoute: typeof AppToolsRouteImport
-      parentRoute: typeof AppRouteImport
-    }
-    '/auth/login': {
-      id: '/auth/login'
-      path: '/login'
-      fullPath: '/auth/login'
-      preLoaderRoute: typeof AuthLoginRouteImport
-      parentRoute: typeof AuthRouteImport
-    }
-    '/auth/forgot-password': {
-      id: '/auth/forgot-password'
-      path: '/forgot-password'
-      fullPath: '/auth/forgot-password'
-      preLoaderRoute: typeof AuthForgotPasswordRouteLazyImport
-      parentRoute: typeof AuthRouteImport
-    }
-    '/app/': {
-      id: '/app/'
+    '/': {
+      id: '/'
       path: '/'
-      fullPath: '/app/'
-      preLoaderRoute: typeof AppIndexImport
-      parentRoute: typeof AppRouteImport
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/auth/': {
       id: '/auth/'
       path: '/'
       fullPath: '/auth/'
-      preLoaderRoute: typeof AuthIndexImport
-      parentRoute: typeof AuthRouteImport
+      preLoaderRoute: typeof AuthIndexRouteImport
+      parentRoute: typeof AuthRouteRoute
     }
-    '/app/businesses-rma/representative-turnover': {
-      id: '/app/businesses-rma/representative-turnover'
-      path: '/representative-turnover'
-      fullPath: '/app/businesses-rma/representative-turnover'
-      preLoaderRoute: typeof AppBusinessesRmaRepresentativeTurnoverRouteImport
-      parentRoute: typeof AppBusinessesRmaRouteImport
+    '/app/': {
+      id: '/app/'
+      path: '/'
+      fullPath: '/app/'
+      preLoaderRoute: typeof AppIndexRouteImport
+      parentRoute: typeof AppRouteRoute
     }
-    '/app/businesses-rma/search-by-products': {
-      id: '/app/businesses-rma/search-by-products'
-      path: '/search-by-products'
-      fullPath: '/app/businesses-rma/search-by-products'
-      preLoaderRoute: typeof AppBusinessesRmaSearchByProductsRouteImport
-      parentRoute: typeof AppBusinessesRmaRouteImport
+    '/auth/forgot-password': {
+      id: '/auth/forgot-password'
+      path: '/forgot-password'
+      fullPath: '/auth/forgot-password'
+      preLoaderRoute: typeof AuthForgotPasswordRouteLazyRouteImport
+      parentRoute: typeof AuthRouteRoute
     }
-    '/app/dashboard/create-collective-task': {
-      id: '/app/dashboard/create-collective-task'
-      path: '/create-collective-task'
-      fullPath: '/app/dashboard/create-collective-task'
-      preLoaderRoute: typeof AppDashboardCreateCollectiveTaskRouteImport
-      parentRoute: typeof AppDashboardRouteImport
+    '/auth/login': {
+      id: '/auth/login'
+      path: '/login'
+      fullPath: '/auth/login'
+      preLoaderRoute: typeof AuthLoginRouteRouteImport
+      parentRoute: typeof AuthRouteRoute
     }
-    '/app/dashboard/create-personal-task': {
-      id: '/app/dashboard/create-personal-task'
-      path: '/create-personal-task'
-      fullPath: '/app/dashboard/create-personal-task'
-      preLoaderRoute: typeof AppDashboardCreatePersonalTaskRouteImport
-      parentRoute: typeof AppDashboardRouteImport
+    '/app/tools': {
+      id: '/app/tools'
+      path: '/tools'
+      fullPath: '/app/tools'
+      preLoaderRoute: typeof AppToolsRouteRouteImport
+      parentRoute: typeof AppRouteRoute
     }
-    '/app/dashboard/create-progressive-info': {
-      id: '/app/dashboard/create-progressive-info'
-      path: '/create-progressive-info'
-      fullPath: '/app/dashboard/create-progressive-info'
-      preLoaderRoute: typeof AppDashboardCreateProgressiveInfoRouteImport
-      parentRoute: typeof AppDashboardRouteImport
+    '/app/products': {
+      id: '/app/products'
+      path: '/products'
+      fullPath: '/app/products'
+      preLoaderRoute: typeof AppProductsRouteRouteImport
+      parentRoute: typeof AppRouteRoute
     }
-    '/app/dashboard/delete-collective-tasks': {
-      id: '/app/dashboard/delete-collective-tasks'
-      path: '/delete-collective-tasks'
-      fullPath: '/app/dashboard/delete-collective-tasks'
-      preLoaderRoute: typeof AppDashboardDeleteCollectiveTasksRouteImport
-      parentRoute: typeof AppDashboardRouteImport
+    '/app/faq': {
+      id: '/app/faq'
+      path: '/faq'
+      fullPath: '/app/faq'
+      preLoaderRoute: typeof AppFaqRouteRouteImport
+      parentRoute: typeof AppRouteRoute
     }
-    '/app/enterprises/create': {
-      id: '/app/enterprises/create'
-      path: '/create'
-      fullPath: '/app/enterprises/create'
-      preLoaderRoute: typeof AppEnterprisesCreateRouteImport
-      parentRoute: typeof AppEnterprisesRouteImport
-    }
-    '/app/enterprises_/$enterpriseId': {
-      id: '/app/enterprises_/$enterpriseId'
-      path: '/enterprises/$enterpriseId'
-      fullPath: '/app/enterprises/$enterpriseId'
-      preLoaderRoute: typeof AppEnterprisesEnterpriseIdRouteImport
-      parentRoute: typeof AppRouteImport
-    }
-    '/app/external-links_/$externalLinkId': {
-      id: '/app/external-links_/$externalLinkId'
-      path: '/external-links/$externalLinkId'
-      fullPath: '/app/external-links/$externalLinkId'
-      preLoaderRoute: typeof AppExternalLinksExternalLinkIdRouteImport
-      parentRoute: typeof AppRouteImport
-    }
-    '/app/faq/create': {
-      id: '/app/faq/create'
-      path: '/create'
-      fullPath: '/app/faq/create'
-      preLoaderRoute: typeof AppFaqCreateRouteImport
-      parentRoute: typeof AppFaqRouteImport
-    }
-    '/app/products/create': {
-      id: '/app/products/create'
-      path: '/create'
-      fullPath: '/app/products/create'
-      preLoaderRoute: typeof AppProductsCreateRouteImport
-      parentRoute: typeof AppProductsRouteImport
-    }
-    '/app/products/serial-numbers': {
-      id: '/app/products/serial-numbers'
-      path: '/serial-numbers'
-      fullPath: '/app/products/serial-numbers'
-      preLoaderRoute: typeof AppProductsSerialNumbersRouteImport
-      parentRoute: typeof AppProductsRouteImport
-    }
-    '/app/products_/$productId': {
-      id: '/app/products_/$productId'
-      path: '/products/$productId'
-      fullPath: '/app/products/$productId'
-      preLoaderRoute: typeof AppProductsProductIdRouteImport
-      parentRoute: typeof AppRouteImport
-    }
-    '/app/tools/credit': {
-      id: '/app/tools/credit'
-      path: '/credit'
-      fullPath: '/app/tools/credit'
-      preLoaderRoute: typeof AppToolsCreditRouteImport
-      parentRoute: typeof AppToolsRouteImport
-    }
-    '/app/tools/ddns': {
-      id: '/app/tools/ddns'
-      path: '/ddns'
-      fullPath: '/app/tools/ddns'
-      preLoaderRoute: typeof AppToolsDdnsRouteImport
-      parentRoute: typeof AppToolsRouteImport
-    }
-    '/app/tools/departments': {
-      id: '/app/tools/departments'
-      path: '/departments'
-      fullPath: '/app/tools/departments'
-      preLoaderRoute: typeof AppToolsDepartmentsRouteImport
-      parentRoute: typeof AppToolsRouteImport
-    }
-    '/app/tools/emails': {
-      id: '/app/tools/emails'
-      path: '/emails'
-      fullPath: '/app/tools/emails'
-      preLoaderRoute: typeof AppToolsEmailsRouteImport
-      parentRoute: typeof AppToolsRouteImport
-    }
-    '/app/tools/external-links': {
-      id: '/app/tools/external-links'
+    '/app/external-links': {
+      id: '/app/external-links'
       path: '/external-links'
-      fullPath: '/app/tools/external-links'
-      preLoaderRoute: typeof AppToolsExternalLinksRouteImport
-      parentRoute: typeof AppToolsRouteImport
+      fullPath: '/app/external-links'
+      preLoaderRoute: typeof AppExternalLinksRouteRouteImport
+      parentRoute: typeof AppRouteRoute
     }
-    '/app/tools/formations': {
-      id: '/app/tools/formations'
-      path: '/formations'
-      fullPath: '/app/tools/formations'
-      preLoaderRoute: typeof AppToolsFormationsRouteImport
-      parentRoute: typeof AppToolsRouteImport
+    '/app/enterprises': {
+      id: '/app/enterprises'
+      path: '/enterprises'
+      fullPath: '/app/enterprises'
+      preLoaderRoute: typeof AppEnterprisesRouteRouteImport
+      parentRoute: typeof AppRouteRoute
     }
-    '/app/tools/global-turnover': {
-      id: '/app/tools/global-turnover'
-      path: '/global-turnover'
-      fullPath: '/app/tools/global-turnover'
-      preLoaderRoute: typeof AppToolsGlobalTurnoverRouteImport
-      parentRoute: typeof AppToolsRouteImport
+    '/app/dashboard': {
+      id: '/app/dashboard'
+      path: '/dashboard'
+      fullPath: '/app/dashboard'
+      preLoaderRoute: typeof AppDashboardRouteRouteImport
+      parentRoute: typeof AppRouteRoute
     }
-    '/app/tools/mails': {
-      id: '/app/tools/mails'
-      path: '/mails'
-      fullPath: '/app/tools/mails'
-      preLoaderRoute: typeof AppToolsMailsRouteImport
-      parentRoute: typeof AppToolsRouteImport
-    }
-    '/app/tools/menu': {
-      id: '/app/tools/menu'
-      path: '/menu'
-      fullPath: '/app/tools/menu'
-      preLoaderRoute: typeof AppToolsMenuRouteImport
-      parentRoute: typeof AppToolsRouteImport
-    }
-    '/app/tools/news': {
-      id: '/app/tools/news'
-      path: '/news'
-      fullPath: '/app/tools/news'
-      preLoaderRoute: typeof AppToolsNewsRouteImport
-      parentRoute: typeof AppToolsRouteImport
-    }
-    '/app/tools/predefined-messages': {
-      id: '/app/tools/predefined-messages'
-      path: '/predefined-messages'
-      fullPath: '/app/tools/predefined-messages'
-      preLoaderRoute: typeof AppToolsPredefinedMessagesRouteImport
-      parentRoute: typeof AppToolsRouteImport
-    }
-    '/app/tools/predefined-texts': {
-      id: '/app/tools/predefined-texts'
-      path: '/predefined-texts'
-      fullPath: '/app/tools/predefined-texts'
-      preLoaderRoute: typeof AppToolsPredefinedTextsRouteImport
-      parentRoute: typeof AppToolsRouteImport
-    }
-    '/app/tools/product-filters': {
-      id: '/app/tools/product-filters'
-      path: '/product-filters'
-      fullPath: '/app/tools/product-filters'
-      preLoaderRoute: typeof AppToolsProductFiltersRouteImport
-      parentRoute: typeof AppToolsRouteImport
-    }
-    '/app/tools/product-inventory': {
-      id: '/app/tools/product-inventory'
-      path: '/product-inventory'
-      fullPath: '/app/tools/product-inventory'
-      preLoaderRoute: typeof AppToolsProductInventoryRouteImport
-      parentRoute: typeof AppToolsRouteImport
-    }
-    '/app/tools/product-shelves': {
-      id: '/app/tools/product-shelves'
-      path: '/product-shelves'
-      fullPath: '/app/tools/product-shelves'
-      preLoaderRoute: typeof AppToolsProductShelvesRouteImport
-      parentRoute: typeof AppToolsRouteImport
-    }
-    '/app/tools/representatives-map': {
-      id: '/app/tools/representatives-map'
-      path: '/representatives-map'
-      fullPath: '/app/tools/representatives-map'
-      preLoaderRoute: typeof AppToolsRepresentativesMapRouteImport
-      parentRoute: typeof AppToolsRouteImport
-    }
-    '/app/tools/representatives-turnover': {
-      id: '/app/tools/representatives-turnover'
-      path: '/representatives-turnover'
-      fullPath: '/app/tools/representatives-turnover'
-      preLoaderRoute: typeof AppToolsRepresentativesTurnoverRouteImport
-      parentRoute: typeof AppToolsRouteImport
-    }
-    '/app/tools/scheduler': {
-      id: '/app/tools/scheduler'
-      path: '/scheduler'
-      fullPath: '/app/tools/scheduler'
-      preLoaderRoute: typeof AppToolsSchedulerRouteImport
-      parentRoute: typeof AppToolsRouteImport
-    }
-    '/app/tools/vva': {
-      id: '/app/tools/vva'
-      path: '/vva'
-      fullPath: '/app/tools/vva'
-      preLoaderRoute: typeof AppToolsVvaRouteImport
-      parentRoute: typeof AppToolsRouteImport
-    }
-    '/auth/reset-password/$token': {
-      id: '/auth/reset-password/$token'
-      path: '/reset-password/$token'
-      fullPath: '/auth/reset-password/$token'
-      preLoaderRoute: typeof AuthResetPasswordTokenRouteLazyImport
-      parentRoute: typeof AuthRouteImport
+    '/app/businesses-rma': {
+      id: '/app/businesses-rma'
+      path: '/businesses-rma'
+      fullPath: '/app/businesses-rma'
+      preLoaderRoute: typeof AppBusinessesRmaRouteRouteImport
+      parentRoute: typeof AppRouteRoute
     }
     '/app/tools/': {
       id: '/app/tools/'
       path: '/'
       fullPath: '/app/tools/'
-      preLoaderRoute: typeof AppToolsIndexImport
-      parentRoute: typeof AppToolsRouteImport
+      preLoaderRoute: typeof AppToolsIndexRouteImport
+      parentRoute: typeof AppToolsRouteRoute
     }
-    '/app/businesses-rma_/business/$businessId': {
-      id: '/app/businesses-rma_/business/$businessId'
-      path: '/businesses-rma/business/$businessId'
-      fullPath: '/app/businesses-rma/business/$businessId'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdRouteImport
-      parentRoute: typeof AppRouteImport
+    '/auth/reset-password/$token': {
+      id: '/auth/reset-password/$token'
+      path: '/reset-password/$token'
+      fullPath: '/auth/reset-password/$token'
+      preLoaderRoute: typeof AuthResetPasswordTokenRouteLazyRouteImport
+      parentRoute: typeof AuthRouteRoute
     }
-    '/app/businesses-rma_/rma/$rmaId': {
-      id: '/app/businesses-rma_/rma/$rmaId'
-      path: '/businesses-rma/rma/$rmaId'
-      fullPath: '/app/businesses-rma/rma/$rmaId'
-      preLoaderRoute: typeof AppBusinessesRmaRmaRmaIdRouteImport
-      parentRoute: typeof AppRouteImport
+    '/app/tools/vva': {
+      id: '/app/tools/vva'
+      path: '/vva'
+      fullPath: '/app/tools/vva'
+      preLoaderRoute: typeof AppToolsVvaRouteRouteImport
+      parentRoute: typeof AppToolsRouteRoute
     }
-    '/app/dashboard/archive-personal-task/$taskId': {
-      id: '/app/dashboard/archive-personal-task/$taskId'
-      path: '/archive-personal-task/$taskId'
-      fullPath: '/app/dashboard/archive-personal-task/$taskId'
-      preLoaderRoute: typeof AppDashboardArchivePersonalTaskTaskIdRouteImport
-      parentRoute: typeof AppDashboardRouteImport
+    '/app/tools/scheduler': {
+      id: '/app/tools/scheduler'
+      path: '/scheduler'
+      fullPath: '/app/tools/scheduler'
+      preLoaderRoute: typeof AppToolsSchedulerRouteRouteImport
+      parentRoute: typeof AppToolsRouteRoute
     }
-    '/app/dashboard/delete-collective-task/$taskId': {
-      id: '/app/dashboard/delete-collective-task/$taskId'
-      path: '/delete-collective-task/$taskId'
-      fullPath: '/app/dashboard/delete-collective-task/$taskId'
-      preLoaderRoute: typeof AppDashboardDeleteCollectiveTaskTaskIdRouteImport
-      parentRoute: typeof AppDashboardRouteImport
+    '/app/tools/representatives-turnover': {
+      id: '/app/tools/representatives-turnover'
+      path: '/representatives-turnover'
+      fullPath: '/app/tools/representatives-turnover'
+      preLoaderRoute: typeof AppToolsRepresentativesTurnoverRouteRouteImport
+      parentRoute: typeof AppToolsRouteRoute
     }
-    '/app/dashboard/delete-progressive-info/$progressiveInfoId': {
-      id: '/app/dashboard/delete-progressive-info/$progressiveInfoId'
-      path: '/delete-progressive-info/$progressiveInfoId'
-      fullPath: '/app/dashboard/delete-progressive-info/$progressiveInfoId'
-      preLoaderRoute: typeof AppDashboardDeleteProgressiveInfoProgressiveInfoIdRouteImport
-      parentRoute: typeof AppDashboardRouteImport
+    '/app/tools/representatives-map': {
+      id: '/app/tools/representatives-map'
+      path: '/representatives-map'
+      fullPath: '/app/tools/representatives-map'
+      preLoaderRoute: typeof AppToolsRepresentativesMapRouteRouteImport
+      parentRoute: typeof AppToolsRouteRoute
     }
-    '/app/dashboard/link-personal-task/$taskId': {
-      id: '/app/dashboard/link-personal-task/$taskId'
-      path: '/link-personal-task/$taskId'
-      fullPath: '/app/dashboard/link-personal-task/$taskId'
-      preLoaderRoute: typeof AppDashboardLinkPersonalTaskTaskIdRouteImport
-      parentRoute: typeof AppDashboardRouteImport
+    '/app/tools/product-shelves': {
+      id: '/app/tools/product-shelves'
+      path: '/product-shelves'
+      fullPath: '/app/tools/product-shelves'
+      preLoaderRoute: typeof AppToolsProductShelvesRouteRouteImport
+      parentRoute: typeof AppToolsRouteRoute
     }
-    '/app/dashboard/other-personal-tasks/$profileId': {
-      id: '/app/dashboard/other-personal-tasks/$profileId'
-      path: '/other-personal-tasks/$profileId'
-      fullPath: '/app/dashboard/other-personal-tasks/$profileId'
-      preLoaderRoute: typeof AppDashboardOtherPersonalTasksProfileIdRouteImport
-      parentRoute: typeof AppDashboardRouteImport
+    '/app/tools/product-inventory': {
+      id: '/app/tools/product-inventory'
+      path: '/product-inventory'
+      fullPath: '/app/tools/product-inventory'
+      preLoaderRoute: typeof AppToolsProductInventoryRouteRouteImport
+      parentRoute: typeof AppToolsRouteRoute
     }
-    '/app/dashboard/personal-task-details/$taskId': {
-      id: '/app/dashboard/personal-task-details/$taskId'
-      path: '/personal-task-details/$taskId'
-      fullPath: '/app/dashboard/personal-task-details/$taskId'
-      preLoaderRoute: typeof AppDashboardPersonalTaskDetailsTaskIdRouteImport
-      parentRoute: typeof AppDashboardRouteImport
+    '/app/tools/product-filters': {
+      id: '/app/tools/product-filters'
+      path: '/product-filters'
+      fullPath: '/app/tools/product-filters'
+      preLoaderRoute: typeof AppToolsProductFiltersRouteRouteImport
+      parentRoute: typeof AppToolsRouteRoute
     }
-    '/app/dashboard/scheduler-event-details/$eventId': {
-      id: '/app/dashboard/scheduler-event-details/$eventId'
-      path: '/scheduler-event-details/$eventId'
-      fullPath: '/app/dashboard/scheduler-event-details/$eventId'
-      preLoaderRoute: typeof AppDashboardSchedulerEventDetailsEventIdRouteImport
-      parentRoute: typeof AppDashboardRouteImport
+    '/app/tools/predefined-texts': {
+      id: '/app/tools/predefined-texts'
+      path: '/predefined-texts'
+      fullPath: '/app/tools/predefined-texts'
+      preLoaderRoute: typeof AppToolsPredefinedTextsRouteRouteImport
+      parentRoute: typeof AppToolsRouteRoute
     }
-    '/app/dashboard/take-collective-task/$taskId': {
-      id: '/app/dashboard/take-collective-task/$taskId'
-      path: '/take-collective-task/$taskId'
-      fullPath: '/app/dashboard/take-collective-task/$taskId'
-      preLoaderRoute: typeof AppDashboardTakeCollectiveTaskTaskIdRouteImport
-      parentRoute: typeof AppDashboardRouteImport
+    '/app/tools/predefined-messages': {
+      id: '/app/tools/predefined-messages'
+      path: '/predefined-messages'
+      fullPath: '/app/tools/predefined-messages'
+      preLoaderRoute: typeof AppToolsPredefinedMessagesRouteRouteImport
+      parentRoute: typeof AppToolsRouteRoute
     }
-    '/app/dashboard/task-comments/$taskId': {
-      id: '/app/dashboard/task-comments/$taskId'
-      path: '/task-comments/$taskId'
-      fullPath: '/app/dashboard/task-comments/$taskId'
-      preLoaderRoute: typeof AppDashboardTaskCommentsTaskIdRouteImport
-      parentRoute: typeof AppDashboardRouteImport
+    '/app/tools/news': {
+      id: '/app/tools/news'
+      path: '/news'
+      fullPath: '/app/tools/news'
+      preLoaderRoute: typeof AppToolsNewsRouteRouteImport
+      parentRoute: typeof AppToolsRouteRoute
     }
-    '/app/dashboard/task-email/$taskId': {
-      id: '/app/dashboard/task-email/$taskId'
-      path: '/task-email/$taskId'
-      fullPath: '/app/dashboard/task-email/$taskId'
-      preLoaderRoute: typeof AppDashboardTaskEmailTaskIdRouteImport
-      parentRoute: typeof AppDashboardRouteImport
+    '/app/tools/menu': {
+      id: '/app/tools/menu'
+      path: '/menu'
+      fullPath: '/app/tools/menu'
+      preLoaderRoute: typeof AppToolsMenuRouteRouteImport
+      parentRoute: typeof AppToolsRouteRoute
     }
-    '/app/dashboard/transfer-task/$taskId': {
-      id: '/app/dashboard/transfer-task/$taskId'
-      path: '/transfer-task/$taskId'
-      fullPath: '/app/dashboard/transfer-task/$taskId'
-      preLoaderRoute: typeof AppDashboardTransferTaskTaskIdRouteImport
-      parentRoute: typeof AppDashboardRouteImport
+    '/app/tools/mails': {
+      id: '/app/tools/mails'
+      path: '/mails'
+      fullPath: '/app/tools/mails'
+      preLoaderRoute: typeof AppToolsMailsRouteRouteImport
+      parentRoute: typeof AppToolsRouteRoute
     }
-    '/app/dashboard/unlink-personal-task/$taskId': {
-      id: '/app/dashboard/unlink-personal-task/$taskId'
-      path: '/unlink-personal-task/$taskId'
-      fullPath: '/app/dashboard/unlink-personal-task/$taskId'
-      preLoaderRoute: typeof AppDashboardUnlinkPersonalTaskTaskIdRouteImport
-      parentRoute: typeof AppDashboardRouteImport
+    '/app/tools/global-turnover': {
+      id: '/app/tools/global-turnover'
+      path: '/global-turnover'
+      fullPath: '/app/tools/global-turnover'
+      preLoaderRoute: typeof AppToolsGlobalTurnoverRouteRouteImport
+      parentRoute: typeof AppToolsRouteRoute
     }
-    '/app/dashboard/update-personal-task-deadline/$taskId': {
-      id: '/app/dashboard/update-personal-task-deadline/$taskId'
-      path: '/update-personal-task-deadline/$taskId'
-      fullPath: '/app/dashboard/update-personal-task-deadline/$taskId'
-      preLoaderRoute: typeof AppDashboardUpdatePersonalTaskDeadlineTaskIdRouteImport
-      parentRoute: typeof AppDashboardRouteImport
+    '/app/tools/formations': {
+      id: '/app/tools/formations'
+      path: '/formations'
+      fullPath: '/app/tools/formations'
+      preLoaderRoute: typeof AppToolsFormationsRouteRouteImport
+      parentRoute: typeof AppToolsRouteRoute
     }
-    '/app/dashboard/update-progressive-info/$progressiveInfoId': {
-      id: '/app/dashboard/update-progressive-info/$progressiveInfoId'
-      path: '/update-progressive-info/$progressiveInfoId'
-      fullPath: '/app/dashboard/update-progressive-info/$progressiveInfoId'
-      preLoaderRoute: typeof AppDashboardUpdateProgressiveInfoProgressiveInfoIdRouteImport
-      parentRoute: typeof AppDashboardRouteImport
+    '/app/tools/external-links': {
+      id: '/app/tools/external-links'
+      path: '/external-links'
+      fullPath: '/app/tools/external-links'
+      preLoaderRoute: typeof AppToolsExternalLinksRouteRouteImport
+      parentRoute: typeof AppToolsRouteRoute
     }
-    '/app/dashboard/validate-personal-task/$taskId': {
-      id: '/app/dashboard/validate-personal-task/$taskId'
-      path: '/validate-personal-task/$taskId'
-      fullPath: '/app/dashboard/validate-personal-task/$taskId'
-      preLoaderRoute: typeof AppDashboardValidatePersonalTaskTaskIdRouteImport
-      parentRoute: typeof AppDashboardRouteImport
+    '/app/tools/emails': {
+      id: '/app/tools/emails'
+      path: '/emails'
+      fullPath: '/app/tools/emails'
+      preLoaderRoute: typeof AppToolsEmailsRouteRouteImport
+      parentRoute: typeof AppToolsRouteRoute
     }
-    '/app/enterprises/create-contact-business/$contactId': {
-      id: '/app/enterprises/create-contact-business/$contactId'
-      path: '/create-contact-business/$contactId'
-      fullPath: '/app/enterprises/create-contact-business/$contactId'
-      preLoaderRoute: typeof AppEnterprisesCreateContactBusinessContactIdRouteImport
-      parentRoute: typeof AppEnterprisesRouteImport
+    '/app/tools/departments': {
+      id: '/app/tools/departments'
+      path: '/departments'
+      fullPath: '/app/tools/departments'
+      preLoaderRoute: typeof AppToolsDepartmentsRouteRouteImport
+      parentRoute: typeof AppToolsRouteRoute
     }
-    '/app/enterprises/create-contact-travel-voucher/$contactId': {
-      id: '/app/enterprises/create-contact-travel-voucher/$contactId'
-      path: '/create-contact-travel-voucher/$contactId'
-      fullPath: '/app/enterprises/create-contact-travel-voucher/$contactId'
-      preLoaderRoute: typeof AppEnterprisesCreateContactTravelVoucherContactIdRouteImport
-      parentRoute: typeof AppEnterprisesRouteImport
+    '/app/tools/ddns': {
+      id: '/app/tools/ddns'
+      path: '/ddns'
+      fullPath: '/app/tools/ddns'
+      preLoaderRoute: typeof AppToolsDdnsRouteRouteImport
+      parentRoute: typeof AppToolsRouteRoute
     }
-    '/app/enterprises/create-contact/$enterpriseId': {
-      id: '/app/enterprises/create-contact/$enterpriseId'
-      path: '/create-contact/$enterpriseId'
-      fullPath: '/app/enterprises/create-contact/$enterpriseId'
-      preLoaderRoute: typeof AppEnterprisesCreateContactEnterpriseIdRouteImport
-      parentRoute: typeof AppEnterprisesRouteImport
+    '/app/tools/credit': {
+      id: '/app/tools/credit'
+      path: '/credit'
+      fullPath: '/app/tools/credit'
+      preLoaderRoute: typeof AppToolsCreditRouteRouteImport
+      parentRoute: typeof AppToolsRouteRoute
     }
-    '/app/enterprises/create-enterprise-rma/$enterpriseId': {
-      id: '/app/enterprises/create-enterprise-rma/$enterpriseId'
-      path: '/create-enterprise-rma/$enterpriseId'
-      fullPath: '/app/enterprises/create-enterprise-rma/$enterpriseId'
-      preLoaderRoute: typeof AppEnterprisesCreateEnterpriseRmaEnterpriseIdRouteImport
-      parentRoute: typeof AppEnterprisesRouteImport
+    '/app/products_/$productId': {
+      id: '/app/products_/$productId'
+      path: '/products/$productId'
+      fullPath: '/app/products/$productId'
+      preLoaderRoute: typeof AppProductsProductIdRouteRouteImport
+      parentRoute: typeof AppRouteRoute
     }
-    '/app/enterprises/delete-contact/$contactId': {
-      id: '/app/enterprises/delete-contact/$contactId'
-      path: '/delete-contact/$contactId'
-      fullPath: '/app/enterprises/delete-contact/$contactId'
-      preLoaderRoute: typeof AppEnterprisesDeleteContactContactIdRouteImport
-      parentRoute: typeof AppEnterprisesRouteImport
+    '/app/products/serial-numbers': {
+      id: '/app/products/serial-numbers'
+      path: '/serial-numbers'
+      fullPath: '/app/products/serial-numbers'
+      preLoaderRoute: typeof AppProductsSerialNumbersRouteRouteImport
+      parentRoute: typeof AppProductsRouteRoute
     }
-    '/app/enterprises/send-email-to-contact/$contactId': {
-      id: '/app/enterprises/send-email-to-contact/$contactId'
-      path: '/send-email-to-contact/$contactId'
-      fullPath: '/app/enterprises/send-email-to-contact/$contactId'
-      preLoaderRoute: typeof AppEnterprisesSendEmailToContactContactIdRouteImport
-      parentRoute: typeof AppEnterprisesRouteImport
-    }
-    '/app/enterprises/update-contact-password/$contactId': {
-      id: '/app/enterprises/update-contact-password/$contactId'
-      path: '/update-contact-password/$contactId'
-      fullPath: '/app/enterprises/update-contact-password/$contactId'
-      preLoaderRoute: typeof AppEnterprisesUpdateContactPasswordContactIdRouteImport
-      parentRoute: typeof AppEnterprisesRouteImport
-    }
-    '/app/enterprises/update-contact/$contactId': {
-      id: '/app/enterprises/update-contact/$contactId'
-      path: '/update-contact/$contactId'
-      fullPath: '/app/enterprises/update-contact/$contactId'
-      preLoaderRoute: typeof AppEnterprisesUpdateContactContactIdRouteImport
-      parentRoute: typeof AppEnterprisesRouteImport
-    }
-    '/app/enterprises_/$enterpriseId/address-book': {
-      id: '/app/enterprises_/$enterpriseId/address-book'
-      path: '/address-book'
-      fullPath: '/app/enterprises/$enterpriseId/address-book'
-      preLoaderRoute: typeof AppEnterprisesEnterpriseIdAddressBookRouteImport
-      parentRoute: typeof AppEnterprisesEnterpriseIdRouteImport
-    }
-    '/app/enterprises_/$enterpriseId/create-contact': {
-      id: '/app/enterprises_/$enterpriseId/create-contact'
-      path: '/create-contact'
-      fullPath: '/app/enterprises/$enterpriseId/create-contact'
-      preLoaderRoute: typeof AppEnterprisesEnterpriseIdCreateContactRouteImport
-      parentRoute: typeof AppEnterprisesEnterpriseIdRouteImport
-    }
-    '/app/enterprises_/$enterpriseId/create-ged-directory': {
-      id: '/app/enterprises_/$enterpriseId/create-ged-directory'
-      path: '/create-ged-directory'
-      fullPath: '/app/enterprises/$enterpriseId/create-ged-directory'
-      preLoaderRoute: typeof AppEnterprisesEnterpriseIdCreateGedDirectoryRouteImport
-      parentRoute: typeof AppEnterprisesEnterpriseIdRouteImport
-    }
-    '/app/enterprises_/$enterpriseId/create-lifesheet-comment': {
-      id: '/app/enterprises_/$enterpriseId/create-lifesheet-comment'
-      path: '/create-lifesheet-comment'
-      fullPath: '/app/enterprises/$enterpriseId/create-lifesheet-comment'
-      preLoaderRoute: typeof AppEnterprisesEnterpriseIdCreateLifesheetCommentRouteImport
-      parentRoute: typeof AppEnterprisesEnterpriseIdRouteImport
-    }
-    '/app/enterprises_/$enterpriseId/delete': {
-      id: '/app/enterprises_/$enterpriseId/delete'
-      path: '/delete'
-      fullPath: '/app/enterprises/$enterpriseId/delete'
-      preLoaderRoute: typeof AppEnterprisesEnterpriseIdDeleteRouteImport
-      parentRoute: typeof AppEnterprisesEnterpriseIdRouteImport
-    }
-    '/app/enterprises_/$enterpriseId/email-history': {
-      id: '/app/enterprises_/$enterpriseId/email-history'
-      path: '/email-history'
-      fullPath: '/app/enterprises/$enterpriseId/email-history'
-      preLoaderRoute: typeof AppEnterprisesEnterpriseIdEmailHistoryRouteImport
-      parentRoute: typeof AppEnterprisesEnterpriseIdRouteImport
-    }
-    '/app/enterprises_/$enterpriseId/import-contacts': {
-      id: '/app/enterprises_/$enterpriseId/import-contacts'
-      path: '/import-contacts'
-      fullPath: '/app/enterprises/$enterpriseId/import-contacts'
-      preLoaderRoute: typeof AppEnterprisesEnterpriseIdImportContactsRouteImport
-      parentRoute: typeof AppEnterprisesEnterpriseIdRouteImport
-    }
-    '/app/enterprises_/$enterpriseId/import-ged-files': {
-      id: '/app/enterprises_/$enterpriseId/import-ged-files'
-      path: '/import-ged-files'
-      fullPath: '/app/enterprises/$enterpriseId/import-ged-files'
-      preLoaderRoute: typeof AppEnterprisesEnterpriseIdImportGedFilesRouteImport
-      parentRoute: typeof AppEnterprisesEnterpriseIdRouteImport
-    }
-    '/app/enterprises_/$enterpriseId/relate-business-rma': {
-      id: '/app/enterprises_/$enterpriseId/relate-business-rma'
-      path: '/relate-business-rma'
-      fullPath: '/app/enterprises/$enterpriseId/relate-business-rma'
-      preLoaderRoute: typeof AppEnterprisesEnterpriseIdRelateBusinessRmaRouteImport
-      parentRoute: typeof AppEnterprisesEnterpriseIdRouteImport
-    }
-    '/app/enterprises_/$enterpriseId/update': {
-      id: '/app/enterprises_/$enterpriseId/update'
-      path: '/update'
-      fullPath: '/app/enterprises/$enterpriseId/update'
-      preLoaderRoute: typeof AppEnterprisesEnterpriseIdUpdateRouteImport
-      parentRoute: typeof AppEnterprisesEnterpriseIdRouteImport
-    }
-    '/app/enterprises_/$enterpriseId/update-accountability': {
-      id: '/app/enterprises_/$enterpriseId/update-accountability'
-      path: '/update-accountability'
-      fullPath: '/app/enterprises/$enterpriseId/update-accountability'
-      preLoaderRoute: typeof AppEnterprisesEnterpriseIdUpdateAccountabilityRouteImport
-      parentRoute: typeof AppEnterprisesEnterpriseIdRouteImport
-    }
-    '/app/enterprises_/$enterpriseId/update-category': {
-      id: '/app/enterprises_/$enterpriseId/update-category'
-      path: '/update-category'
-      fullPath: '/app/enterprises/$enterpriseId/update-category'
-      preLoaderRoute: typeof AppEnterprisesEnterpriseIdUpdateCategoryRouteImport
-      parentRoute: typeof AppEnterprisesEnterpriseIdRouteImport
-    }
-    '/app/enterprises_/$enterpriseId/update-representative': {
-      id: '/app/enterprises_/$enterpriseId/update-representative'
-      path: '/update-representative'
-      fullPath: '/app/enterprises/$enterpriseId/update-representative'
-      preLoaderRoute: typeof AppEnterprisesEnterpriseIdUpdateRepresentativeRouteImport
-      parentRoute: typeof AppEnterprisesEnterpriseIdRouteImport
-    }
-    '/app/faq/archive/$faqId': {
-      id: '/app/faq/archive/$faqId'
-      path: '/archive/$faqId'
-      fullPath: '/app/faq/archive/$faqId'
-      preLoaderRoute: typeof AppFaqArchiveFaqIdRouteImport
-      parentRoute: typeof AppFaqRouteImport
-    }
-    '/app/faq/delete/$faqId': {
-      id: '/app/faq/delete/$faqId'
-      path: '/delete/$faqId'
-      fullPath: '/app/faq/delete/$faqId'
-      preLoaderRoute: typeof AppFaqDeleteFaqIdRouteImport
-      parentRoute: typeof AppFaqRouteImport
-    }
-    '/app/faq/ged/$faqId': {
-      id: '/app/faq/ged/$faqId'
-      path: '/ged/$faqId'
-      fullPath: '/app/faq/ged/$faqId'
-      preLoaderRoute: typeof AppFaqGedFaqIdRouteImport
-      parentRoute: typeof AppFaqRouteImport
-    }
-    '/app/faq/send-by-email/$faqId': {
-      id: '/app/faq/send-by-email/$faqId'
-      path: '/send-by-email/$faqId'
-      fullPath: '/app/faq/send-by-email/$faqId'
-      preLoaderRoute: typeof AppFaqSendByEmailFaqIdRouteImport
-      parentRoute: typeof AppFaqRouteImport
-    }
-    '/app/faq/update/$faqId': {
-      id: '/app/faq/update/$faqId'
-      path: '/update/$faqId'
-      fullPath: '/app/faq/update/$faqId'
-      preLoaderRoute: typeof AppFaqUpdateFaqIdRouteImport
-      parentRoute: typeof AppFaqRouteImport
-    }
-    '/app/products/serial-numbers/create': {
-      id: '/app/products/serial-numbers/create'
+    '/app/products/create': {
+      id: '/app/products/create'
       path: '/create'
-      fullPath: '/app/products/serial-numbers/create'
-      preLoaderRoute: typeof AppProductsSerialNumbersCreateRouteImport
-      parentRoute: typeof AppProductsSerialNumbersRouteImport
+      fullPath: '/app/products/create'
+      preLoaderRoute: typeof AppProductsCreateRouteRouteImport
+      parentRoute: typeof AppProductsRouteRoute
     }
-    '/app/products_/$productId/informations': {
-      id: '/app/products_/$productId/informations'
-      path: '/informations'
-      fullPath: '/app/products/$productId/informations'
-      preLoaderRoute: typeof AppProductsProductIdInformationsRouteImport
-      parentRoute: typeof AppProductsProductIdRouteImport
-    }
-    '/app/products_/$productId/manage': {
-      id: '/app/products_/$productId/manage'
-      path: '/manage'
-      fullPath: '/app/products/$productId/manage'
-      preLoaderRoute: typeof AppProductsProductIdManageRouteImport
-      parentRoute: typeof AppProductsProductIdRouteImport
-    }
-    '/app/tools/credit/details': {
-      id: '/app/tools/credit/details'
-      path: '/details'
-      fullPath: '/app/tools/credit/details'
-      preLoaderRoute: typeof AppToolsCreditDetailsRouteImport
-      parentRoute: typeof AppToolsCreditRouteImport
-    }
-    '/app/tools/credit/show': {
-      id: '/app/tools/credit/show'
-      path: '/show'
-      fullPath: '/app/tools/credit/show'
-      preLoaderRoute: typeof AppToolsCreditShowRouteImport
-      parentRoute: typeof AppToolsCreditRouteImport
-    }
-    '/app/tools/ddns/create': {
-      id: '/app/tools/ddns/create'
+    '/app/faq/create': {
+      id: '/app/faq/create'
       path: '/create'
-      fullPath: '/app/tools/ddns/create'
-      preLoaderRoute: typeof AppToolsDdnsCreateRouteImport
-      parentRoute: typeof AppToolsDdnsRouteImport
+      fullPath: '/app/faq/create'
+      preLoaderRoute: typeof AppFaqCreateRouteRouteImport
+      parentRoute: typeof AppFaqRouteRoute
     }
-    '/app/tools/departments/create': {
-      id: '/app/tools/departments/create'
+    '/app/external-links_/$externalLinkId': {
+      id: '/app/external-links_/$externalLinkId'
+      path: '/external-links/$externalLinkId'
+      fullPath: '/app/external-links/$externalLinkId'
+      preLoaderRoute: typeof AppExternalLinksExternalLinkIdRouteRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
+    '/app/enterprises_/$enterpriseId': {
+      id: '/app/enterprises_/$enterpriseId'
+      path: '/enterprises/$enterpriseId'
+      fullPath: '/app/enterprises/$enterpriseId'
+      preLoaderRoute: typeof AppEnterprisesEnterpriseIdRouteRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
+    '/app/enterprises/create': {
+      id: '/app/enterprises/create'
       path: '/create'
-      fullPath: '/app/tools/departments/create'
-      preLoaderRoute: typeof AppToolsDepartmentsCreateRouteImport
-      parentRoute: typeof AppToolsDepartmentsRouteImport
+      fullPath: '/app/enterprises/create'
+      preLoaderRoute: typeof AppEnterprisesCreateRouteRouteImport
+      parentRoute: typeof AppEnterprisesRouteRoute
     }
-    '/app/tools/emails/$emailId': {
-      id: '/app/tools/emails/$emailId'
-      path: '/$emailId'
-      fullPath: '/app/tools/emails/$emailId'
-      preLoaderRoute: typeof AppToolsEmailsEmailIdRouteImport
-      parentRoute: typeof AppToolsEmailsRouteImport
+    '/app/dashboard/delete-collective-tasks': {
+      id: '/app/dashboard/delete-collective-tasks'
+      path: '/delete-collective-tasks'
+      fullPath: '/app/dashboard/delete-collective-tasks'
+      preLoaderRoute: typeof AppDashboardDeleteCollectiveTasksRouteRouteImport
+      parentRoute: typeof AppDashboardRouteRoute
     }
-    '/app/tools/external-links/create': {
-      id: '/app/tools/external-links/create'
-      path: '/create'
-      fullPath: '/app/tools/external-links/create'
-      preLoaderRoute: typeof AppToolsExternalLinksCreateRouteImport
-      parentRoute: typeof AppToolsExternalLinksRouteImport
+    '/app/dashboard/create-progressive-info': {
+      id: '/app/dashboard/create-progressive-info'
+      path: '/create-progressive-info'
+      fullPath: '/app/dashboard/create-progressive-info'
+      preLoaderRoute: typeof AppDashboardCreateProgressiveInfoRouteRouteImport
+      parentRoute: typeof AppDashboardRouteRoute
     }
-    '/app/tools/formations/create': {
-      id: '/app/tools/formations/create'
-      path: '/create'
-      fullPath: '/app/tools/formations/create'
-      preLoaderRoute: typeof AppToolsFormationsCreateRouteImport
-      parentRoute: typeof AppToolsFormationsRouteImport
+    '/app/dashboard/create-personal-task': {
+      id: '/app/dashboard/create-personal-task'
+      path: '/create-personal-task'
+      fullPath: '/app/dashboard/create-personal-task'
+      preLoaderRoute: typeof AppDashboardCreatePersonalTaskRouteRouteImport
+      parentRoute: typeof AppDashboardRouteRoute
     }
-    '/app/tools/mails/create': {
-      id: '/app/tools/mails/create'
-      path: '/create'
-      fullPath: '/app/tools/mails/create'
-      preLoaderRoute: typeof AppToolsMailsCreateRouteImport
-      parentRoute: typeof AppToolsMailsRouteImport
+    '/app/dashboard/create-collective-task': {
+      id: '/app/dashboard/create-collective-task'
+      path: '/create-collective-task'
+      fullPath: '/app/dashboard/create-collective-task'
+      preLoaderRoute: typeof AppDashboardCreateCollectiveTaskRouteRouteImport
+      parentRoute: typeof AppDashboardRouteRoute
     }
-    '/app/tools/menu/create-enterprise': {
-      id: '/app/tools/menu/create-enterprise'
-      path: '/create-enterprise'
-      fullPath: '/app/tools/menu/create-enterprise'
-      preLoaderRoute: typeof AppToolsMenuCreateEnterpriseRouteImport
-      parentRoute: typeof AppToolsMenuRouteImport
+    '/app/businesses-rma/search-by-products': {
+      id: '/app/businesses-rma/search-by-products'
+      path: '/search-by-products'
+      fullPath: '/app/businesses-rma/search-by-products'
+      preLoaderRoute: typeof AppBusinessesRmaSearchByProductsRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaRouteRoute
     }
-    '/app/tools/menu/create-product': {
-      id: '/app/tools/menu/create-product'
-      path: '/create-product'
-      fullPath: '/app/tools/menu/create-product'
-      preLoaderRoute: typeof AppToolsMenuCreateProductRouteImport
-      parentRoute: typeof AppToolsMenuRouteImport
-    }
-    '/app/tools/news/create': {
-      id: '/app/tools/news/create'
-      path: '/create'
-      fullPath: '/app/tools/news/create'
-      preLoaderRoute: typeof AppToolsNewsCreateRouteImport
-      parentRoute: typeof AppToolsNewsRouteImport
-    }
-    '/app/tools/predefined-messages/create': {
-      id: '/app/tools/predefined-messages/create'
-      path: '/create'
-      fullPath: '/app/tools/predefined-messages/create'
-      preLoaderRoute: typeof AppToolsPredefinedMessagesCreateRouteImport
-      parentRoute: typeof AppToolsPredefinedMessagesRouteImport
-    }
-    '/app/tools/predefined-texts/create': {
-      id: '/app/tools/predefined-texts/create'
-      path: '/create'
-      fullPath: '/app/tools/predefined-texts/create'
-      preLoaderRoute: typeof AppToolsPredefinedTextsCreateRouteImport
-      parentRoute: typeof AppToolsPredefinedTextsRouteImport
-    }
-    '/app/tools/product-filters/create': {
-      id: '/app/tools/product-filters/create'
-      path: '/create'
-      fullPath: '/app/tools/product-filters/create'
-      preLoaderRoute: typeof AppToolsProductFiltersCreateRouteImport
-      parentRoute: typeof AppToolsProductFiltersRouteImport
-    }
-    '/app/tools/product-inventory/validate-quantities': {
-      id: '/app/tools/product-inventory/validate-quantities'
-      path: '/validate-quantities'
-      fullPath: '/app/tools/product-inventory/validate-quantities'
-      preLoaderRoute: typeof AppToolsProductInventoryValidateQuantitiesRouteImport
-      parentRoute: typeof AppToolsProductInventoryRouteImport
-    }
-    '/app/tools/product-shelves/create': {
-      id: '/app/tools/product-shelves/create'
-      path: '/create'
-      fullPath: '/app/tools/product-shelves/create'
-      preLoaderRoute: typeof AppToolsProductShelvesCreateRouteImport
-      parentRoute: typeof AppToolsProductShelvesRouteImport
-    }
-    '/app/tools/scheduler/create': {
-      id: '/app/tools/scheduler/create'
-      path: '/create'
-      fullPath: '/app/tools/scheduler/create'
-      preLoaderRoute: typeof AppToolsSchedulerCreateRouteImport
-      parentRoute: typeof AppToolsSchedulerRouteImport
-    }
-    '/app/tools/vva/create': {
-      id: '/app/tools/vva/create'
-      path: '/create'
-      fullPath: '/app/tools/vva/create'
-      preLoaderRoute: typeof AppToolsVvaCreateRouteImport
-      parentRoute: typeof AppToolsVvaRouteImport
+    '/app/businesses-rma/representative-turnover': {
+      id: '/app/businesses-rma/representative-turnover'
+      path: '/representative-turnover'
+      fullPath: '/app/businesses-rma/representative-turnover'
+      preLoaderRoute: typeof AppBusinessesRmaRepresentativeTurnoverRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaRouteRoute
     }
     '/app/products_/$productId/': {
       id: '/app/products_/$productId/'
       path: '/'
       fullPath: '/app/products/$productId/'
-      preLoaderRoute: typeof AppProductsProductIdIndexImport
-      parentRoute: typeof AppProductsProductIdRouteImport
+      preLoaderRoute: typeof AppProductsProductIdIndexRouteImport
+      parentRoute: typeof AppProductsProductIdRouteRoute
     }
-    '/app/businesses-rma_/business/$businessId/arc': {
-      id: '/app/businesses-rma_/business/$businessId/arc'
-      path: '/arc'
-      fullPath: '/app/businesses-rma/business/$businessId/arc'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdArcRouteImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdRouteImport
-    }
-    '/app/businesses-rma_/business/$businessId/bill': {
-      id: '/app/businesses-rma_/business/$businessId/bill'
-      path: '/bill'
-      fullPath: '/app/businesses-rma/business/$businessId/bill'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdBillRouteImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdRouteImport
-    }
-    '/app/businesses-rma_/business/$businessId/bl': {
-      id: '/app/businesses-rma_/business/$businessId/bl'
-      path: '/bl'
-      fullPath: '/app/businesses-rma/business/$businessId/bl'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdBlRouteImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdRouteImport
-    }
-    '/app/businesses-rma_/business/$businessId/bp': {
-      id: '/app/businesses-rma_/business/$businessId/bp'
-      path: '/bp'
-      fullPath: '/app/businesses-rma/business/$businessId/bp'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdBpRouteImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdRouteImport
-    }
-    '/app/businesses-rma_/business/$businessId/dashboard': {
-      id: '/app/businesses-rma_/business/$businessId/dashboard'
-      path: '/dashboard'
-      fullPath: '/app/businesses-rma/business/$businessId/dashboard'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardRouteImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdRouteImport
-    }
-    '/app/businesses-rma_/business/$businessId/quotation': {
-      id: '/app/businesses-rma_/business/$businessId/quotation'
-      path: '/quotation'
-      fullPath: '/app/businesses-rma/business/$businessId/quotation'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdQuotationRouteImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdRouteImport
-    }
-    '/app/businesses-rma_/business/$businessId_/study': {
-      id: '/app/businesses-rma_/business/$businessId_/study'
-      path: '/businesses-rma/business/$businessId/study'
-      fullPath: '/app/businesses-rma/business/$businessId/study'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdStudyRouteImport
-      parentRoute: typeof AppRouteImport
-    }
-    '/app/businesses-rma_/rma/$rmaId/delivery': {
-      id: '/app/businesses-rma_/rma/$rmaId/delivery'
-      path: '/delivery'
-      fullPath: '/app/businesses-rma/rma/$rmaId/delivery'
-      preLoaderRoute: typeof AppBusinessesRmaRmaRmaIdDeliveryRouteImport
-      parentRoute: typeof AppBusinessesRmaRmaRmaIdRouteImport
-    }
-    '/app/businesses-rma_/rma/$rmaId/reception': {
-      id: '/app/businesses-rma_/rma/$rmaId/reception'
-      path: '/reception'
-      fullPath: '/app/businesses-rma/rma/$rmaId/reception'
-      preLoaderRoute: typeof AppBusinessesRmaRmaRmaIdReceptionRouteImport
-      parentRoute: typeof AppBusinessesRmaRmaRmaIdRouteImport
-    }
-    '/app/businesses-rma_/rma/$rmaId/support': {
-      id: '/app/businesses-rma_/rma/$rmaId/support'
-      path: '/support'
-      fullPath: '/app/businesses-rma/rma/$rmaId/support'
-      preLoaderRoute: typeof AppBusinessesRmaRmaRmaIdSupportRouteImport
-      parentRoute: typeof AppBusinessesRmaRmaRmaIdRouteImport
-    }
-    '/app/dashboard/task-email/$taskId/reply': {
-      id: '/app/dashboard/task-email/$taskId/reply'
-      path: '/reply'
-      fullPath: '/app/dashboard/task-email/$taskId/reply'
-      preLoaderRoute: typeof AppDashboardTaskEmailTaskIdReplyRouteImport
-      parentRoute: typeof AppDashboardTaskEmailTaskIdRouteImport
-    }
-    '/app/enterprises_/$enterpriseId/address-book/create': {
-      id: '/app/enterprises_/$enterpriseId/address-book/create'
+    '/app/tools/vva/create': {
+      id: '/app/tools/vva/create'
       path: '/create'
-      fullPath: '/app/enterprises/$enterpriseId/address-book/create'
-      preLoaderRoute: typeof AppEnterprisesEnterpriseIdAddressBookCreateRouteImport
-      parentRoute: typeof AppEnterprisesEnterpriseIdAddressBookRouteImport
+      fullPath: '/app/tools/vva/create'
+      preLoaderRoute: typeof AppToolsVvaCreateRouteRouteImport
+      parentRoute: typeof AppToolsVvaRouteRoute
     }
-    '/app/enterprises_/$enterpriseId/address-book/import': {
-      id: '/app/enterprises_/$enterpriseId/address-book/import'
-      path: '/import'
-      fullPath: '/app/enterprises/$enterpriseId/address-book/import'
-      preLoaderRoute: typeof AppEnterprisesEnterpriseIdAddressBookImportRouteImport
-      parentRoute: typeof AppEnterprisesEnterpriseIdAddressBookRouteImport
+    '/app/tools/scheduler/create': {
+      id: '/app/tools/scheduler/create'
+      path: '/create'
+      fullPath: '/app/tools/scheduler/create'
+      preLoaderRoute: typeof AppToolsSchedulerCreateRouteRouteImport
+      parentRoute: typeof AppToolsSchedulerRouteRoute
     }
-    '/app/enterprises_/$enterpriseId/create-contact-business/$contactId': {
-      id: '/app/enterprises_/$enterpriseId/create-contact-business/$contactId'
-      path: '/create-contact-business/$contactId'
-      fullPath: '/app/enterprises/$enterpriseId/create-contact-business/$contactId'
-      preLoaderRoute: typeof AppEnterprisesEnterpriseIdCreateContactBusinessContactIdRouteImport
-      parentRoute: typeof AppEnterprisesEnterpriseIdRouteImport
+    '/app/tools/product-shelves/create': {
+      id: '/app/tools/product-shelves/create'
+      path: '/create'
+      fullPath: '/app/tools/product-shelves/create'
+      preLoaderRoute: typeof AppToolsProductShelvesCreateRouteRouteImport
+      parentRoute: typeof AppToolsProductShelvesRouteRoute
     }
-    '/app/enterprises_/$enterpriseId/delete-contact/$contactId': {
-      id: '/app/enterprises_/$enterpriseId/delete-contact/$contactId'
-      path: '/delete-contact/$contactId'
-      fullPath: '/app/enterprises/$enterpriseId/delete-contact/$contactId'
-      preLoaderRoute: typeof AppEnterprisesEnterpriseIdDeleteContactContactIdRouteImport
-      parentRoute: typeof AppEnterprisesEnterpriseIdRouteImport
+    '/app/tools/product-inventory/validate-quantities': {
+      id: '/app/tools/product-inventory/validate-quantities'
+      path: '/validate-quantities'
+      fullPath: '/app/tools/product-inventory/validate-quantities'
+      preLoaderRoute: typeof AppToolsProductInventoryValidateQuantitiesRouteRouteImport
+      parentRoute: typeof AppToolsProductInventoryRouteRoute
     }
-    '/app/enterprises_/$enterpriseId/delete-ged-object/$objectRelativePath': {
-      id: '/app/enterprises_/$enterpriseId/delete-ged-object/$objectRelativePath'
-      path: '/delete-ged-object/$objectRelativePath'
-      fullPath: '/app/enterprises/$enterpriseId/delete-ged-object/$objectRelativePath'
-      preLoaderRoute: typeof AppEnterprisesEnterpriseIdDeleteGedObjectObjectRelativePathRouteImport
-      parentRoute: typeof AppEnterprisesEnterpriseIdRouteImport
+    '/app/tools/product-filters/create': {
+      id: '/app/tools/product-filters/create'
+      path: '/create'
+      fullPath: '/app/tools/product-filters/create'
+      preLoaderRoute: typeof AppToolsProductFiltersCreateRouteRouteImport
+      parentRoute: typeof AppToolsProductFiltersRouteRoute
     }
-    '/app/enterprises_/$enterpriseId/lifesheet-email/$lifesheetId': {
-      id: '/app/enterprises_/$enterpriseId/lifesheet-email/$lifesheetId'
-      path: '/lifesheet-email/$lifesheetId'
-      fullPath: '/app/enterprises/$enterpriseId/lifesheet-email/$lifesheetId'
-      preLoaderRoute: typeof AppEnterprisesEnterpriseIdLifesheetEmailLifesheetIdRouteImport
-      parentRoute: typeof AppEnterprisesEnterpriseIdRouteImport
+    '/app/tools/predefined-texts/create': {
+      id: '/app/tools/predefined-texts/create'
+      path: '/create'
+      fullPath: '/app/tools/predefined-texts/create'
+      preLoaderRoute: typeof AppToolsPredefinedTextsCreateRouteRouteImport
+      parentRoute: typeof AppToolsPredefinedTextsRouteRoute
     }
-    '/app/enterprises_/$enterpriseId/rename-ged-object/$objectRelativePath': {
-      id: '/app/enterprises_/$enterpriseId/rename-ged-object/$objectRelativePath'
-      path: '/rename-ged-object/$objectRelativePath'
-      fullPath: '/app/enterprises/$enterpriseId/rename-ged-object/$objectRelativePath'
-      preLoaderRoute: typeof AppEnterprisesEnterpriseIdRenameGedObjectObjectRelativePathRouteImport
-      parentRoute: typeof AppEnterprisesEnterpriseIdRouteImport
+    '/app/tools/predefined-messages/create': {
+      id: '/app/tools/predefined-messages/create'
+      path: '/create'
+      fullPath: '/app/tools/predefined-messages/create'
+      preLoaderRoute: typeof AppToolsPredefinedMessagesCreateRouteRouteImport
+      parentRoute: typeof AppToolsPredefinedMessagesRouteRoute
     }
-    '/app/enterprises_/$enterpriseId/send-email-to-contact/$contactId': {
-      id: '/app/enterprises_/$enterpriseId/send-email-to-contact/$contactId'
-      path: '/send-email-to-contact/$contactId'
-      fullPath: '/app/enterprises/$enterpriseId/send-email-to-contact/$contactId'
-      preLoaderRoute: typeof AppEnterprisesEnterpriseIdSendEmailToContactContactIdRouteImport
-      parentRoute: typeof AppEnterprisesEnterpriseIdRouteImport
+    '/app/tools/news/create': {
+      id: '/app/tools/news/create'
+      path: '/create'
+      fullPath: '/app/tools/news/create'
+      preLoaderRoute: typeof AppToolsNewsCreateRouteRouteImport
+      parentRoute: typeof AppToolsNewsRouteRoute
     }
-    '/app/enterprises_/$enterpriseId/task-email/$taskId': {
-      id: '/app/enterprises_/$enterpriseId/task-email/$taskId'
-      path: '/task-email/$taskId'
-      fullPath: '/app/enterprises/$enterpriseId/task-email/$taskId'
-      preLoaderRoute: typeof AppEnterprisesEnterpriseIdTaskEmailTaskIdRouteImport
-      parentRoute: typeof AppEnterprisesEnterpriseIdRouteImport
+    '/app/tools/menu/create-product': {
+      id: '/app/tools/menu/create-product'
+      path: '/create-product'
+      fullPath: '/app/tools/menu/create-product'
+      preLoaderRoute: typeof AppToolsMenuCreateProductRouteRouteImport
+      parentRoute: typeof AppToolsMenuRouteRoute
     }
-    '/app/enterprises_/$enterpriseId/unlink-task/$taskId': {
-      id: '/app/enterprises_/$enterpriseId/unlink-task/$taskId'
-      path: '/unlink-task/$taskId'
-      fullPath: '/app/enterprises/$enterpriseId/unlink-task/$taskId'
-      preLoaderRoute: typeof AppEnterprisesEnterpriseIdUnlinkTaskTaskIdRouteImport
-      parentRoute: typeof AppEnterprisesEnterpriseIdRouteImport
+    '/app/tools/menu/create-enterprise': {
+      id: '/app/tools/menu/create-enterprise'
+      path: '/create-enterprise'
+      fullPath: '/app/tools/menu/create-enterprise'
+      preLoaderRoute: typeof AppToolsMenuCreateEnterpriseRouteRouteImport
+      parentRoute: typeof AppToolsMenuRouteRoute
     }
-    '/app/enterprises_/$enterpriseId/unrelate-business-rma/$businessRmaId': {
-      id: '/app/enterprises_/$enterpriseId/unrelate-business-rma/$businessRmaId'
-      path: '/unrelate-business-rma/$businessRmaId'
-      fullPath: '/app/enterprises/$enterpriseId/unrelate-business-rma/$businessRmaId'
-      preLoaderRoute: typeof AppEnterprisesEnterpriseIdUnrelateBusinessRmaBusinessRmaIdRouteImport
-      parentRoute: typeof AppEnterprisesEnterpriseIdRouteImport
+    '/app/tools/mails/create': {
+      id: '/app/tools/mails/create'
+      path: '/create'
+      fullPath: '/app/tools/mails/create'
+      preLoaderRoute: typeof AppToolsMailsCreateRouteRouteImport
+      parentRoute: typeof AppToolsMailsRouteRoute
     }
-    '/app/enterprises_/$enterpriseId/update-contact-password/$contactId': {
-      id: '/app/enterprises_/$enterpriseId/update-contact-password/$contactId'
-      path: '/update-contact-password/$contactId'
-      fullPath: '/app/enterprises/$enterpriseId/update-contact-password/$contactId'
-      preLoaderRoute: typeof AppEnterprisesEnterpriseIdUpdateContactPasswordContactIdRouteImport
-      parentRoute: typeof AppEnterprisesEnterpriseIdRouteImport
+    '/app/tools/formations/create': {
+      id: '/app/tools/formations/create'
+      path: '/create'
+      fullPath: '/app/tools/formations/create'
+      preLoaderRoute: typeof AppToolsFormationsCreateRouteRouteImport
+      parentRoute: typeof AppToolsFormationsRouteRoute
     }
-    '/app/enterprises_/$enterpriseId/update-contact/$contactId': {
-      id: '/app/enterprises_/$enterpriseId/update-contact/$contactId'
-      path: '/update-contact/$contactId'
-      fullPath: '/app/enterprises/$enterpriseId/update-contact/$contactId'
-      preLoaderRoute: typeof AppEnterprisesEnterpriseIdUpdateContactContactIdRouteImport
-      parentRoute: typeof AppEnterprisesEnterpriseIdRouteImport
+    '/app/tools/external-links/create': {
+      id: '/app/tools/external-links/create'
+      path: '/create'
+      fullPath: '/app/tools/external-links/create'
+      preLoaderRoute: typeof AppToolsExternalLinksCreateRouteRouteImport
+      parentRoute: typeof AppToolsExternalLinksRouteRoute
     }
-    '/app/faq/ged/$faqId/create-directory': {
-      id: '/app/faq/ged/$faqId/create-directory'
-      path: '/create-directory'
-      fullPath: '/app/faq/ged/$faqId/create-directory'
-      preLoaderRoute: typeof AppFaqGedFaqIdCreateDirectoryRouteImport
-      parentRoute: typeof AppFaqGedFaqIdRouteImport
+    '/app/tools/emails/$emailId': {
+      id: '/app/tools/emails/$emailId'
+      path: '/$emailId'
+      fullPath: '/app/tools/emails/$emailId'
+      preLoaderRoute: typeof AppToolsEmailsEmailIdRouteRouteImport
+      parentRoute: typeof AppToolsEmailsRouteRoute
     }
-    '/app/faq/ged/$faqId/import-files': {
-      id: '/app/faq/ged/$faqId/import-files'
-      path: '/import-files'
-      fullPath: '/app/faq/ged/$faqId/import-files'
-      preLoaderRoute: typeof AppFaqGedFaqIdImportFilesRouteImport
-      parentRoute: typeof AppFaqGedFaqIdRouteImport
+    '/app/tools/departments/create': {
+      id: '/app/tools/departments/create'
+      path: '/create'
+      fullPath: '/app/tools/departments/create'
+      preLoaderRoute: typeof AppToolsDepartmentsCreateRouteRouteImport
+      parentRoute: typeof AppToolsDepartmentsRouteRoute
     }
-    '/app/products/serial-numbers/create-rma/$serialNumberId': {
-      id: '/app/products/serial-numbers/create-rma/$serialNumberId'
-      path: '/create-rma/$serialNumberId'
-      fullPath: '/app/products/serial-numbers/create-rma/$serialNumberId'
-      preLoaderRoute: typeof AppProductsSerialNumbersCreateRmaSerialNumberIdRouteImport
-      parentRoute: typeof AppProductsSerialNumbersRouteImport
+    '/app/tools/ddns/create': {
+      id: '/app/tools/ddns/create'
+      path: '/create'
+      fullPath: '/app/tools/ddns/create'
+      preLoaderRoute: typeof AppToolsDdnsCreateRouteRouteImport
+      parentRoute: typeof AppToolsDdnsRouteRoute
     }
-    '/app/products/serial-numbers/delete/$serialNumberId': {
-      id: '/app/products/serial-numbers/delete/$serialNumberId'
-      path: '/delete/$serialNumberId'
-      fullPath: '/app/products/serial-numbers/delete/$serialNumberId'
-      preLoaderRoute: typeof AppProductsSerialNumbersDeleteSerialNumberIdRouteImport
-      parentRoute: typeof AppProductsSerialNumbersRouteImport
+    '/app/tools/credit/show': {
+      id: '/app/tools/credit/show'
+      path: '/show'
+      fullPath: '/app/tools/credit/show'
+      preLoaderRoute: typeof AppToolsCreditShowRouteRouteImport
+      parentRoute: typeof AppToolsCreditRouteRoute
     }
-    '/app/products/serial-numbers/remove-from-business/$serialNumberId': {
-      id: '/app/products/serial-numbers/remove-from-business/$serialNumberId'
-      path: '/remove-from-business/$serialNumberId'
-      fullPath: '/app/products/serial-numbers/remove-from-business/$serialNumberId'
-      preLoaderRoute: typeof AppProductsSerialNumbersRemoveFromBusinessSerialNumberIdRouteImport
-      parentRoute: typeof AppProductsSerialNumbersRouteImport
-    }
-    '/app/products/serial-numbers/update/$serialNumberId': {
-      id: '/app/products/serial-numbers/update/$serialNumberId'
-      path: '/update/$serialNumberId'
-      fullPath: '/app/products/serial-numbers/update/$serialNumberId'
-      preLoaderRoute: typeof AppProductsSerialNumbersUpdateSerialNumberIdRouteImport
-      parentRoute: typeof AppProductsSerialNumbersRouteImport
-    }
-    '/app/products_/$productId/informations/create-ged-directory': {
-      id: '/app/products_/$productId/informations/create-ged-directory'
-      path: '/create-ged-directory'
-      fullPath: '/app/products/$productId/informations/create-ged-directory'
-      preLoaderRoute: typeof AppProductsProductIdInformationsCreateGedDirectoryRouteImport
-      parentRoute: typeof AppProductsProductIdInformationsRouteImport
-    }
-    '/app/products_/$productId/informations/create-lifesheet-comment': {
-      id: '/app/products_/$productId/informations/create-lifesheet-comment'
-      path: '/create-lifesheet-comment'
-      fullPath: '/app/products/$productId/informations/create-lifesheet-comment'
-      preLoaderRoute: typeof AppProductsProductIdInformationsCreateLifesheetCommentRouteImport
-      parentRoute: typeof AppProductsProductIdInformationsRouteImport
-    }
-    '/app/products_/$productId/informations/delete-ged-object': {
-      id: '/app/products_/$productId/informations/delete-ged-object'
-      path: '/delete-ged-object'
-      fullPath: '/app/products/$productId/informations/delete-ged-object'
-      preLoaderRoute: typeof AppProductsProductIdInformationsDeleteGedObjectRouteImport
-      parentRoute: typeof AppProductsProductIdInformationsRouteImport
-    }
-    '/app/products_/$productId/informations/import-ged-files': {
-      id: '/app/products_/$productId/informations/import-ged-files'
-      path: '/import-ged-files'
-      fullPath: '/app/products/$productId/informations/import-ged-files'
-      preLoaderRoute: typeof AppProductsProductIdInformationsImportGedFilesRouteImport
-      parentRoute: typeof AppProductsProductIdInformationsRouteImport
-    }
-    '/app/products_/$productId/informations/rename-ged-object': {
-      id: '/app/products_/$productId/informations/rename-ged-object'
-      path: '/rename-ged-object'
-      fullPath: '/app/products/$productId/informations/rename-ged-object'
-      preLoaderRoute: typeof AppProductsProductIdInformationsRenameGedObjectRouteImport
-      parentRoute: typeof AppProductsProductIdInformationsRouteImport
-    }
-    '/app/products_/$productId/manage/add-associated-product': {
-      id: '/app/products_/$productId/manage/add-associated-product'
-      path: '/add-associated-product'
-      fullPath: '/app/products/$productId/manage/add-associated-product'
-      preLoaderRoute: typeof AppProductsProductIdManageAddAssociatedProductRouteImport
-      parentRoute: typeof AppProductsProductIdManageRouteImport
-    }
-    '/app/products_/$productId/manage/add-nomenclature-detail': {
-      id: '/app/products_/$productId/manage/add-nomenclature-detail'
-      path: '/add-nomenclature-detail'
-      fullPath: '/app/products/$productId/manage/add-nomenclature-detail'
-      preLoaderRoute: typeof AppProductsProductIdManageAddNomenclatureDetailRouteImport
-      parentRoute: typeof AppProductsProductIdManageRouteImport
-    }
-    '/app/products_/$productId/manage/add-specification': {
-      id: '/app/products_/$productId/manage/add-specification'
-      path: '/add-specification'
-      fullPath: '/app/products/$productId/manage/add-specification'
-      preLoaderRoute: typeof AppProductsProductIdManageAddSpecificationRouteImport
-      parentRoute: typeof AppProductsProductIdManageRouteImport
-    }
-    '/app/products_/$productId/manage/create-stock': {
-      id: '/app/products_/$productId/manage/create-stock'
-      path: '/create-stock'
-      fullPath: '/app/products/$productId/manage/create-stock'
-      preLoaderRoute: typeof AppProductsProductIdManageCreateStockRouteImport
-      parentRoute: typeof AppProductsProductIdManageRouteImport
-    }
-    '/app/products_/$productId/manage/create-version': {
-      id: '/app/products_/$productId/manage/create-version'
-      path: '/create-version'
-      fullPath: '/app/products/$productId/manage/create-version'
-      preLoaderRoute: typeof AppProductsProductIdManageCreateVersionRouteImport
-      parentRoute: typeof AppProductsProductIdManageRouteImport
-    }
-    '/app/tools/ddns/delete/$ddnsId': {
-      id: '/app/tools/ddns/delete/$ddnsId'
-      path: '/delete/$ddnsId'
-      fullPath: '/app/tools/ddns/delete/$ddnsId'
-      preLoaderRoute: typeof AppToolsDdnsDeleteDdnsIdRouteImport
-      parentRoute: typeof AppToolsDdnsRouteImport
-    }
-    '/app/tools/departments/delete/$departmentId': {
-      id: '/app/tools/departments/delete/$departmentId'
-      path: '/delete/$departmentId'
-      fullPath: '/app/tools/departments/delete/$departmentId'
-      preLoaderRoute: typeof AppToolsDepartmentsDeleteDepartmentIdRouteImport
-      parentRoute: typeof AppToolsDepartmentsRouteImport
-    }
-    '/app/tools/departments/update/$departmentId': {
-      id: '/app/tools/departments/update/$departmentId'
-      path: '/update/$departmentId'
-      fullPath: '/app/tools/departments/update/$departmentId'
-      preLoaderRoute: typeof AppToolsDepartmentsUpdateDepartmentIdRouteImport
-      parentRoute: typeof AppToolsDepartmentsRouteImport
-    }
-    '/app/tools/emails/$emailId/reply': {
-      id: '/app/tools/emails/$emailId/reply'
-      path: '/reply'
-      fullPath: '/app/tools/emails/$emailId/reply'
-      preLoaderRoute: typeof AppToolsEmailsEmailIdReplyRouteImport
-      parentRoute: typeof AppToolsEmailsEmailIdRouteImport
-    }
-    '/app/tools/external-links/archive/$externalLinkId': {
-      id: '/app/tools/external-links/archive/$externalLinkId'
-      path: '/archive/$externalLinkId'
-      fullPath: '/app/tools/external-links/archive/$externalLinkId'
-      preLoaderRoute: typeof AppToolsExternalLinksArchiveExternalLinkIdRouteImport
-      parentRoute: typeof AppToolsExternalLinksRouteImport
-    }
-    '/app/tools/external-links/delete/$externalLinkId': {
-      id: '/app/tools/external-links/delete/$externalLinkId'
-      path: '/delete/$externalLinkId'
-      fullPath: '/app/tools/external-links/delete/$externalLinkId'
-      preLoaderRoute: typeof AppToolsExternalLinksDeleteExternalLinkIdRouteImport
-      parentRoute: typeof AppToolsExternalLinksRouteImport
-    }
-    '/app/tools/external-links/update/$externalLinkId': {
-      id: '/app/tools/external-links/update/$externalLinkId'
-      path: '/update/$externalLinkId'
-      fullPath: '/app/tools/external-links/update/$externalLinkId'
-      preLoaderRoute: typeof AppToolsExternalLinksUpdateExternalLinkIdRouteImport
-      parentRoute: typeof AppToolsExternalLinksRouteImport
-    }
-    '/app/tools/formations/create/add-detail': {
-      id: '/app/tools/formations/create/add-detail'
-      path: '/add-detail'
-      fullPath: '/app/tools/formations/create/add-detail'
-      preLoaderRoute: typeof AppToolsFormationsCreateAddDetailRouteImport
-      parentRoute: typeof AppToolsFormationsCreateRouteImport
-    }
-    '/app/tools/formations/create/details': {
-      id: '/app/tools/formations/create/details'
+    '/app/tools/credit/details': {
+      id: '/app/tools/credit/details'
       path: '/details'
-      fullPath: '/app/tools/formations/create/details'
-      preLoaderRoute: typeof AppToolsFormationsCreateDetailsRouteImport
-      parentRoute: typeof AppToolsFormationsCreateRouteImport
+      fullPath: '/app/tools/credit/details'
+      preLoaderRoute: typeof AppToolsCreditDetailsRouteRouteImport
+      parentRoute: typeof AppToolsCreditRouteRoute
     }
-    '/app/tools/formations/delete/$formationId': {
-      id: '/app/tools/formations/delete/$formationId'
-      path: '/delete/$formationId'
-      fullPath: '/app/tools/formations/delete/$formationId'
-      preLoaderRoute: typeof AppToolsFormationsDeleteFormationIdRouteImport
-      parentRoute: typeof AppToolsFormationsRouteImport
+    '/app/products_/$productId/manage': {
+      id: '/app/products_/$productId/manage'
+      path: '/manage'
+      fullPath: '/app/products/$productId/manage'
+      preLoaderRoute: typeof AppProductsProductIdManageRouteRouteImport
+      parentRoute: typeof AppProductsProductIdRouteRoute
     }
-    '/app/tools/formations/subscribers/$formationDetailId': {
-      id: '/app/tools/formations/subscribers/$formationDetailId'
-      path: '/subscribers/$formationDetailId'
-      fullPath: '/app/tools/formations/subscribers/$formationDetailId'
-      preLoaderRoute: typeof AppToolsFormationsSubscribersFormationDetailIdRouteImport
-      parentRoute: typeof AppToolsFormationsRouteImport
+    '/app/products_/$productId/informations': {
+      id: '/app/products_/$productId/informations'
+      path: '/informations'
+      fullPath: '/app/products/$productId/informations'
+      preLoaderRoute: typeof AppProductsProductIdInformationsRouteRouteImport
+      parentRoute: typeof AppProductsProductIdRouteRoute
     }
-    '/app/tools/formations/update/$formationId': {
-      id: '/app/tools/formations/update/$formationId'
-      path: '/update/$formationId'
-      fullPath: '/app/tools/formations/update/$formationId'
-      preLoaderRoute: typeof AppToolsFormationsUpdateFormationIdRouteImport
-      parentRoute: typeof AppToolsFormationsRouteImport
+    '/app/products/serial-numbers/create': {
+      id: '/app/products/serial-numbers/create'
+      path: '/create'
+      fullPath: '/app/products/serial-numbers/create'
+      preLoaderRoute: typeof AppProductsSerialNumbersCreateRouteRouteImport
+      parentRoute: typeof AppProductsSerialNumbersRouteRoute
     }
-    '/app/tools/mails/delete/$mailId': {
-      id: '/app/tools/mails/delete/$mailId'
-      path: '/delete/$mailId'
-      fullPath: '/app/tools/mails/delete/$mailId'
-      preLoaderRoute: typeof AppToolsMailsDeleteMailIdRouteImport
-      parentRoute: typeof AppToolsMailsRouteImport
+    '/app/faq/update/$faqId': {
+      id: '/app/faq/update/$faqId'
+      path: '/update/$faqId'
+      fullPath: '/app/faq/update/$faqId'
+      preLoaderRoute: typeof AppFaqUpdateFaqIdRouteRouteImport
+      parentRoute: typeof AppFaqRouteRoute
     }
-    '/app/tools/mails/show/$mailId': {
-      id: '/app/tools/mails/show/$mailId'
-      path: '/show/$mailId'
-      fullPath: '/app/tools/mails/show/$mailId'
-      preLoaderRoute: typeof AppToolsMailsShowMailIdRouteImport
-      parentRoute: typeof AppToolsMailsRouteImport
+    '/app/faq/send-by-email/$faqId': {
+      id: '/app/faq/send-by-email/$faqId'
+      path: '/send-by-email/$faqId'
+      fullPath: '/app/faq/send-by-email/$faqId'
+      preLoaderRoute: typeof AppFaqSendByEmailFaqIdRouteRouteImport
+      parentRoute: typeof AppFaqRouteRoute
     }
-    '/app/tools/mails/update/$mailId': {
-      id: '/app/tools/mails/update/$mailId'
-      path: '/update/$mailId'
-      fullPath: '/app/tools/mails/update/$mailId'
-      preLoaderRoute: typeof AppToolsMailsUpdateMailIdRouteImport
-      parentRoute: typeof AppToolsMailsRouteImport
+    '/app/faq/ged/$faqId': {
+      id: '/app/faq/ged/$faqId'
+      path: '/ged/$faqId'
+      fullPath: '/app/faq/ged/$faqId'
+      preLoaderRoute: typeof AppFaqGedFaqIdRouteRouteImport
+      parentRoute: typeof AppFaqRouteRoute
     }
-    '/app/tools/news/delete/$newsId': {
-      id: '/app/tools/news/delete/$newsId'
-      path: '/delete/$newsId'
-      fullPath: '/app/tools/news/delete/$newsId'
-      preLoaderRoute: typeof AppToolsNewsDeleteNewsIdRouteImport
-      parentRoute: typeof AppToolsNewsRouteImport
+    '/app/faq/delete/$faqId': {
+      id: '/app/faq/delete/$faqId'
+      path: '/delete/$faqId'
+      fullPath: '/app/faq/delete/$faqId'
+      preLoaderRoute: typeof AppFaqDeleteFaqIdRouteRouteImport
+      parentRoute: typeof AppFaqRouteRoute
     }
-    '/app/tools/news/update/$newsId': {
-      id: '/app/tools/news/update/$newsId'
-      path: '/update/$newsId'
-      fullPath: '/app/tools/news/update/$newsId'
-      preLoaderRoute: typeof AppToolsNewsUpdateNewsIdRouteImport
-      parentRoute: typeof AppToolsNewsRouteImport
+    '/app/faq/archive/$faqId': {
+      id: '/app/faq/archive/$faqId'
+      path: '/archive/$faqId'
+      fullPath: '/app/faq/archive/$faqId'
+      preLoaderRoute: typeof AppFaqArchiveFaqIdRouteRouteImport
+      parentRoute: typeof AppFaqRouteRoute
     }
-    '/app/tools/predefined-messages/delete/$predefinedMessageId': {
-      id: '/app/tools/predefined-messages/delete/$predefinedMessageId'
-      path: '/delete/$predefinedMessageId'
-      fullPath: '/app/tools/predefined-messages/delete/$predefinedMessageId'
-      preLoaderRoute: typeof AppToolsPredefinedMessagesDeletePredefinedMessageIdRouteImport
-      parentRoute: typeof AppToolsPredefinedMessagesRouteImport
+    '/app/enterprises_/$enterpriseId/update-representative': {
+      id: '/app/enterprises_/$enterpriseId/update-representative'
+      path: '/update-representative'
+      fullPath: '/app/enterprises/$enterpriseId/update-representative'
+      preLoaderRoute: typeof AppEnterprisesEnterpriseIdUpdateRepresentativeRouteRouteImport
+      parentRoute: typeof AppEnterprisesEnterpriseIdRouteRoute
     }
-    '/app/tools/predefined-messages/update/$predefinedMessageId': {
-      id: '/app/tools/predefined-messages/update/$predefinedMessageId'
-      path: '/update/$predefinedMessageId'
-      fullPath: '/app/tools/predefined-messages/update/$predefinedMessageId'
-      preLoaderRoute: typeof AppToolsPredefinedMessagesUpdatePredefinedMessageIdRouteImport
-      parentRoute: typeof AppToolsPredefinedMessagesRouteImport
+    '/app/enterprises_/$enterpriseId/update-category': {
+      id: '/app/enterprises_/$enterpriseId/update-category'
+      path: '/update-category'
+      fullPath: '/app/enterprises/$enterpriseId/update-category'
+      preLoaderRoute: typeof AppEnterprisesEnterpriseIdUpdateCategoryRouteRouteImport
+      parentRoute: typeof AppEnterprisesEnterpriseIdRouteRoute
     }
-    '/app/tools/predefined-texts/delete/$predefinedTextId': {
-      id: '/app/tools/predefined-texts/delete/$predefinedTextId'
-      path: '/delete/$predefinedTextId'
-      fullPath: '/app/tools/predefined-texts/delete/$predefinedTextId'
-      preLoaderRoute: typeof AppToolsPredefinedTextsDeletePredefinedTextIdRouteImport
-      parentRoute: typeof AppToolsPredefinedTextsRouteImport
+    '/app/enterprises_/$enterpriseId/update-accountability': {
+      id: '/app/enterprises_/$enterpriseId/update-accountability'
+      path: '/update-accountability'
+      fullPath: '/app/enterprises/$enterpriseId/update-accountability'
+      preLoaderRoute: typeof AppEnterprisesEnterpriseIdUpdateAccountabilityRouteRouteImport
+      parentRoute: typeof AppEnterprisesEnterpriseIdRouteRoute
     }
-    '/app/tools/predefined-texts/update/$predefinedTextId': {
-      id: '/app/tools/predefined-texts/update/$predefinedTextId'
-      path: '/update/$predefinedTextId'
-      fullPath: '/app/tools/predefined-texts/update/$predefinedTextId'
-      preLoaderRoute: typeof AppToolsPredefinedTextsUpdatePredefinedTextIdRouteImport
-      parentRoute: typeof AppToolsPredefinedTextsRouteImport
+    '/app/enterprises_/$enterpriseId/update': {
+      id: '/app/enterprises_/$enterpriseId/update'
+      path: '/update'
+      fullPath: '/app/enterprises/$enterpriseId/update'
+      preLoaderRoute: typeof AppEnterprisesEnterpriseIdUpdateRouteRouteImport
+      parentRoute: typeof AppEnterprisesEnterpriseIdRouteRoute
     }
-    '/app/tools/product-filters/delete/$productFilterId': {
-      id: '/app/tools/product-filters/delete/$productFilterId'
-      path: '/delete/$productFilterId'
-      fullPath: '/app/tools/product-filters/delete/$productFilterId'
-      preLoaderRoute: typeof AppToolsProductFiltersDeleteProductFilterIdRouteImport
-      parentRoute: typeof AppToolsProductFiltersRouteImport
+    '/app/enterprises_/$enterpriseId/relate-business-rma': {
+      id: '/app/enterprises_/$enterpriseId/relate-business-rma'
+      path: '/relate-business-rma'
+      fullPath: '/app/enterprises/$enterpriseId/relate-business-rma'
+      preLoaderRoute: typeof AppEnterprisesEnterpriseIdRelateBusinessRmaRouteRouteImport
+      parentRoute: typeof AppEnterprisesEnterpriseIdRouteRoute
     }
-    '/app/tools/product-filters/update/$productFilterId': {
-      id: '/app/tools/product-filters/update/$productFilterId'
-      path: '/update/$productFilterId'
-      fullPath: '/app/tools/product-filters/update/$productFilterId'
-      preLoaderRoute: typeof AppToolsProductFiltersUpdateProductFilterIdRouteImport
-      parentRoute: typeof AppToolsProductFiltersRouteImport
+    '/app/enterprises_/$enterpriseId/import-ged-files': {
+      id: '/app/enterprises_/$enterpriseId/import-ged-files'
+      path: '/import-ged-files'
+      fullPath: '/app/enterprises/$enterpriseId/import-ged-files'
+      preLoaderRoute: typeof AppEnterprisesEnterpriseIdImportGedFilesRouteRouteImport
+      parentRoute: typeof AppEnterprisesEnterpriseIdRouteRoute
     }
-    '/app/tools/product-inventory/update/$stockId': {
-      id: '/app/tools/product-inventory/update/$stockId'
-      path: '/update/$stockId'
-      fullPath: '/app/tools/product-inventory/update/$stockId'
-      preLoaderRoute: typeof AppToolsProductInventoryUpdateStockIdRouteImport
-      parentRoute: typeof AppToolsProductInventoryRouteImport
+    '/app/enterprises_/$enterpriseId/import-contacts': {
+      id: '/app/enterprises_/$enterpriseId/import-contacts'
+      path: '/import-contacts'
+      fullPath: '/app/enterprises/$enterpriseId/import-contacts'
+      preLoaderRoute: typeof AppEnterprisesEnterpriseIdImportContactsRouteRouteImport
+      parentRoute: typeof AppEnterprisesEnterpriseIdRouteRoute
     }
-    '/app/tools/product-shelves/delete/$productShelfId': {
-      id: '/app/tools/product-shelves/delete/$productShelfId'
-      path: '/delete/$productShelfId'
-      fullPath: '/app/tools/product-shelves/delete/$productShelfId'
-      preLoaderRoute: typeof AppToolsProductShelvesDeleteProductShelfIdRouteImport
-      parentRoute: typeof AppToolsProductShelvesRouteImport
+    '/app/enterprises_/$enterpriseId/email-history': {
+      id: '/app/enterprises_/$enterpriseId/email-history'
+      path: '/email-history'
+      fullPath: '/app/enterprises/$enterpriseId/email-history'
+      preLoaderRoute: typeof AppEnterprisesEnterpriseIdEmailHistoryRouteRouteImport
+      parentRoute: typeof AppEnterprisesEnterpriseIdRouteRoute
     }
-    '/app/tools/scheduler/details/$rdvId': {
-      id: '/app/tools/scheduler/details/$rdvId'
-      path: '/details/$rdvId'
-      fullPath: '/app/tools/scheduler/details/$rdvId'
-      preLoaderRoute: typeof AppToolsSchedulerDetailsRdvIdRouteImport
-      parentRoute: typeof AppToolsSchedulerRouteImport
+    '/app/enterprises_/$enterpriseId/delete': {
+      id: '/app/enterprises_/$enterpriseId/delete'
+      path: '/delete'
+      fullPath: '/app/enterprises/$enterpriseId/delete'
+      preLoaderRoute: typeof AppEnterprisesEnterpriseIdDeleteRouteRouteImport
+      parentRoute: typeof AppEnterprisesEnterpriseIdRouteRoute
     }
-    '/app/tools/vva/delete/$vvaId': {
-      id: '/app/tools/vva/delete/$vvaId'
-      path: '/delete/$vvaId'
-      fullPath: '/app/tools/vva/delete/$vvaId'
-      preLoaderRoute: typeof AppToolsVvaDeleteVvaIdRouteImport
-      parentRoute: typeof AppToolsVvaRouteImport
+    '/app/enterprises_/$enterpriseId/create-lifesheet-comment': {
+      id: '/app/enterprises_/$enterpriseId/create-lifesheet-comment'
+      path: '/create-lifesheet-comment'
+      fullPath: '/app/enterprises/$enterpriseId/create-lifesheet-comment'
+      preLoaderRoute: typeof AppEnterprisesEnterpriseIdCreateLifesheetCommentRouteRouteImport
+      parentRoute: typeof AppEnterprisesEnterpriseIdRouteRoute
     }
-    '/app/businesses-rma_/business/$businessId/': {
-      id: '/app/businesses-rma_/business/$businessId/'
-      path: '/'
-      fullPath: '/app/businesses-rma/business/$businessId/'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdIndexImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdRouteImport
+    '/app/enterprises_/$enterpriseId/create-ged-directory': {
+      id: '/app/enterprises_/$enterpriseId/create-ged-directory'
+      path: '/create-ged-directory'
+      fullPath: '/app/enterprises/$enterpriseId/create-ged-directory'
+      preLoaderRoute: typeof AppEnterprisesEnterpriseIdCreateGedDirectoryRouteRouteImport
+      parentRoute: typeof AppEnterprisesEnterpriseIdRouteRoute
+    }
+    '/app/enterprises_/$enterpriseId/create-contact': {
+      id: '/app/enterprises_/$enterpriseId/create-contact'
+      path: '/create-contact'
+      fullPath: '/app/enterprises/$enterpriseId/create-contact'
+      preLoaderRoute: typeof AppEnterprisesEnterpriseIdCreateContactRouteRouteImport
+      parentRoute: typeof AppEnterprisesEnterpriseIdRouteRoute
+    }
+    '/app/enterprises_/$enterpriseId/address-book': {
+      id: '/app/enterprises_/$enterpriseId/address-book'
+      path: '/address-book'
+      fullPath: '/app/enterprises/$enterpriseId/address-book'
+      preLoaderRoute: typeof AppEnterprisesEnterpriseIdAddressBookRouteRouteImport
+      parentRoute: typeof AppEnterprisesEnterpriseIdRouteRoute
+    }
+    '/app/enterprises/update-contact/$contactId': {
+      id: '/app/enterprises/update-contact/$contactId'
+      path: '/update-contact/$contactId'
+      fullPath: '/app/enterprises/update-contact/$contactId'
+      preLoaderRoute: typeof AppEnterprisesUpdateContactContactIdRouteRouteImport
+      parentRoute: typeof AppEnterprisesRouteRoute
+    }
+    '/app/enterprises/update-contact-password/$contactId': {
+      id: '/app/enterprises/update-contact-password/$contactId'
+      path: '/update-contact-password/$contactId'
+      fullPath: '/app/enterprises/update-contact-password/$contactId'
+      preLoaderRoute: typeof AppEnterprisesUpdateContactPasswordContactIdRouteRouteImport
+      parentRoute: typeof AppEnterprisesRouteRoute
+    }
+    '/app/enterprises/send-email-to-contact/$contactId': {
+      id: '/app/enterprises/send-email-to-contact/$contactId'
+      path: '/send-email-to-contact/$contactId'
+      fullPath: '/app/enterprises/send-email-to-contact/$contactId'
+      preLoaderRoute: typeof AppEnterprisesSendEmailToContactContactIdRouteRouteImport
+      parentRoute: typeof AppEnterprisesRouteRoute
+    }
+    '/app/enterprises/delete-contact/$contactId': {
+      id: '/app/enterprises/delete-contact/$contactId'
+      path: '/delete-contact/$contactId'
+      fullPath: '/app/enterprises/delete-contact/$contactId'
+      preLoaderRoute: typeof AppEnterprisesDeleteContactContactIdRouteRouteImport
+      parentRoute: typeof AppEnterprisesRouteRoute
+    }
+    '/app/enterprises/create-enterprise-rma/$enterpriseId': {
+      id: '/app/enterprises/create-enterprise-rma/$enterpriseId'
+      path: '/create-enterprise-rma/$enterpriseId'
+      fullPath: '/app/enterprises/create-enterprise-rma/$enterpriseId'
+      preLoaderRoute: typeof AppEnterprisesCreateEnterpriseRmaEnterpriseIdRouteRouteImport
+      parentRoute: typeof AppEnterprisesRouteRoute
+    }
+    '/app/enterprises/create-contact/$enterpriseId': {
+      id: '/app/enterprises/create-contact/$enterpriseId'
+      path: '/create-contact/$enterpriseId'
+      fullPath: '/app/enterprises/create-contact/$enterpriseId'
+      preLoaderRoute: typeof AppEnterprisesCreateContactEnterpriseIdRouteRouteImport
+      parentRoute: typeof AppEnterprisesRouteRoute
+    }
+    '/app/enterprises/create-contact-travel-voucher/$contactId': {
+      id: '/app/enterprises/create-contact-travel-voucher/$contactId'
+      path: '/create-contact-travel-voucher/$contactId'
+      fullPath: '/app/enterprises/create-contact-travel-voucher/$contactId'
+      preLoaderRoute: typeof AppEnterprisesCreateContactTravelVoucherContactIdRouteRouteImport
+      parentRoute: typeof AppEnterprisesRouteRoute
+    }
+    '/app/enterprises/create-contact-business/$contactId': {
+      id: '/app/enterprises/create-contact-business/$contactId'
+      path: '/create-contact-business/$contactId'
+      fullPath: '/app/enterprises/create-contact-business/$contactId'
+      preLoaderRoute: typeof AppEnterprisesCreateContactBusinessContactIdRouteRouteImport
+      parentRoute: typeof AppEnterprisesRouteRoute
+    }
+    '/app/dashboard/validate-personal-task/$taskId': {
+      id: '/app/dashboard/validate-personal-task/$taskId'
+      path: '/validate-personal-task/$taskId'
+      fullPath: '/app/dashboard/validate-personal-task/$taskId'
+      preLoaderRoute: typeof AppDashboardValidatePersonalTaskTaskIdRouteRouteImport
+      parentRoute: typeof AppDashboardRouteRoute
+    }
+    '/app/dashboard/update-progressive-info/$progressiveInfoId': {
+      id: '/app/dashboard/update-progressive-info/$progressiveInfoId'
+      path: '/update-progressive-info/$progressiveInfoId'
+      fullPath: '/app/dashboard/update-progressive-info/$progressiveInfoId'
+      preLoaderRoute: typeof AppDashboardUpdateProgressiveInfoProgressiveInfoIdRouteRouteImport
+      parentRoute: typeof AppDashboardRouteRoute
+    }
+    '/app/dashboard/update-personal-task-deadline/$taskId': {
+      id: '/app/dashboard/update-personal-task-deadline/$taskId'
+      path: '/update-personal-task-deadline/$taskId'
+      fullPath: '/app/dashboard/update-personal-task-deadline/$taskId'
+      preLoaderRoute: typeof AppDashboardUpdatePersonalTaskDeadlineTaskIdRouteRouteImport
+      parentRoute: typeof AppDashboardRouteRoute
+    }
+    '/app/dashboard/update-aircall-contact/$contactId': {
+      id: '/app/dashboard/update-aircall-contact/$contactId'
+      path: '/update-aircall-contact/$contactId'
+      fullPath: '/app/dashboard/update-aircall-contact/$contactId'
+      preLoaderRoute: typeof AppDashboardUpdateAircallContactContactIdRouteRouteImport
+      parentRoute: typeof AppDashboardRouteRoute
+    }
+    '/app/dashboard/unlink-personal-task/$taskId': {
+      id: '/app/dashboard/unlink-personal-task/$taskId'
+      path: '/unlink-personal-task/$taskId'
+      fullPath: '/app/dashboard/unlink-personal-task/$taskId'
+      preLoaderRoute: typeof AppDashboardUnlinkPersonalTaskTaskIdRouteRouteImport
+      parentRoute: typeof AppDashboardRouteRoute
+    }
+    '/app/dashboard/transfer-task/$taskId': {
+      id: '/app/dashboard/transfer-task/$taskId'
+      path: '/transfer-task/$taskId'
+      fullPath: '/app/dashboard/transfer-task/$taskId'
+      preLoaderRoute: typeof AppDashboardTransferTaskTaskIdRouteRouteImport
+      parentRoute: typeof AppDashboardRouteRoute
+    }
+    '/app/dashboard/task-email/$taskId': {
+      id: '/app/dashboard/task-email/$taskId'
+      path: '/task-email/$taskId'
+      fullPath: '/app/dashboard/task-email/$taskId'
+      preLoaderRoute: typeof AppDashboardTaskEmailTaskIdRouteRouteImport
+      parentRoute: typeof AppDashboardRouteRoute
+    }
+    '/app/dashboard/task-comments/$taskId': {
+      id: '/app/dashboard/task-comments/$taskId'
+      path: '/task-comments/$taskId'
+      fullPath: '/app/dashboard/task-comments/$taskId'
+      preLoaderRoute: typeof AppDashboardTaskCommentsTaskIdRouteRouteImport
+      parentRoute: typeof AppDashboardRouteRoute
+    }
+    '/app/dashboard/take-collective-task/$taskId': {
+      id: '/app/dashboard/take-collective-task/$taskId'
+      path: '/take-collective-task/$taskId'
+      fullPath: '/app/dashboard/take-collective-task/$taskId'
+      preLoaderRoute: typeof AppDashboardTakeCollectiveTaskTaskIdRouteRouteImport
+      parentRoute: typeof AppDashboardRouteRoute
+    }
+    '/app/dashboard/scheduler-event-details/$eventId': {
+      id: '/app/dashboard/scheduler-event-details/$eventId'
+      path: '/scheduler-event-details/$eventId'
+      fullPath: '/app/dashboard/scheduler-event-details/$eventId'
+      preLoaderRoute: typeof AppDashboardSchedulerEventDetailsEventIdRouteRouteImport
+      parentRoute: typeof AppDashboardRouteRoute
+    }
+    '/app/dashboard/personal-task-details/$taskId': {
+      id: '/app/dashboard/personal-task-details/$taskId'
+      path: '/personal-task-details/$taskId'
+      fullPath: '/app/dashboard/personal-task-details/$taskId'
+      preLoaderRoute: typeof AppDashboardPersonalTaskDetailsTaskIdRouteRouteImport
+      parentRoute: typeof AppDashboardRouteRoute
+    }
+    '/app/dashboard/other-personal-tasks/$profileId': {
+      id: '/app/dashboard/other-personal-tasks/$profileId'
+      path: '/other-personal-tasks/$profileId'
+      fullPath: '/app/dashboard/other-personal-tasks/$profileId'
+      preLoaderRoute: typeof AppDashboardOtherPersonalTasksProfileIdRouteRouteImport
+      parentRoute: typeof AppDashboardRouteRoute
+    }
+    '/app/dashboard/link-personal-task/$taskId': {
+      id: '/app/dashboard/link-personal-task/$taskId'
+      path: '/link-personal-task/$taskId'
+      fullPath: '/app/dashboard/link-personal-task/$taskId'
+      preLoaderRoute: typeof AppDashboardLinkPersonalTaskTaskIdRouteRouteImport
+      parentRoute: typeof AppDashboardRouteRoute
+    }
+    '/app/dashboard/delete-progressive-info/$progressiveInfoId': {
+      id: '/app/dashboard/delete-progressive-info/$progressiveInfoId'
+      path: '/delete-progressive-info/$progressiveInfoId'
+      fullPath: '/app/dashboard/delete-progressive-info/$progressiveInfoId'
+      preLoaderRoute: typeof AppDashboardDeleteProgressiveInfoProgressiveInfoIdRouteRouteImport
+      parentRoute: typeof AppDashboardRouteRoute
+    }
+    '/app/dashboard/delete-collective-task/$taskId': {
+      id: '/app/dashboard/delete-collective-task/$taskId'
+      path: '/delete-collective-task/$taskId'
+      fullPath: '/app/dashboard/delete-collective-task/$taskId'
+      preLoaderRoute: typeof AppDashboardDeleteCollectiveTaskTaskIdRouteRouteImport
+      parentRoute: typeof AppDashboardRouteRoute
+    }
+    '/app/dashboard/create-aircall-contact/$number': {
+      id: '/app/dashboard/create-aircall-contact/$number'
+      path: '/create-aircall-contact/$number'
+      fullPath: '/app/dashboard/create-aircall-contact/$number'
+      preLoaderRoute: typeof AppDashboardCreateAircallContactNumberRouteRouteImport
+      parentRoute: typeof AppDashboardRouteRoute
+    }
+    '/app/dashboard/archive-personal-task/$taskId': {
+      id: '/app/dashboard/archive-personal-task/$taskId'
+      path: '/archive-personal-task/$taskId'
+      fullPath: '/app/dashboard/archive-personal-task/$taskId'
+      preLoaderRoute: typeof AppDashboardArchivePersonalTaskTaskIdRouteRouteImport
+      parentRoute: typeof AppDashboardRouteRoute
+    }
+    '/app/businesses-rma_/rma/$rmaId': {
+      id: '/app/businesses-rma_/rma/$rmaId'
+      path: '/businesses-rma/rma/$rmaId'
+      fullPath: '/app/businesses-rma/rma/$rmaId'
+      preLoaderRoute: typeof AppBusinessesRmaRmaRmaIdRouteRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
+    '/app/businesses-rma_/business/$businessId': {
+      id: '/app/businesses-rma_/business/$businessId'
+      path: '/businesses-rma/business/$businessId'
+      fullPath: '/app/businesses-rma/business/$businessId'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdRouteRouteImport
+      parentRoute: typeof AppRouteRoute
     }
     '/app/businesses-rma_/rma/$rmaId/': {
       id: '/app/businesses-rma_/rma/$rmaId/'
       path: '/'
       fullPath: '/app/businesses-rma/rma/$rmaId/'
-      preLoaderRoute: typeof AppBusinessesRmaRmaRmaIdIndexImport
-      parentRoute: typeof AppBusinessesRmaRmaRmaIdRouteImport
+      preLoaderRoute: typeof AppBusinessesRmaRmaRmaIdIndexRouteImport
+      parentRoute: typeof AppBusinessesRmaRmaRmaIdRouteRoute
     }
-    '/app/businesses-rma_/business/$businessId/arc/pdf': {
-      id: '/app/businesses-rma_/business/$businessId/arc/pdf'
-      path: '/pdf'
-      fullPath: '/app/businesses-rma/business/$businessId/arc/pdf'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdArcPdfRouteImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdArcRouteImport
+    '/app/businesses-rma_/business/$businessId/': {
+      id: '/app/businesses-rma_/business/$businessId/'
+      path: '/'
+      fullPath: '/app/businesses-rma/business/$businessId/'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdIndexRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdRouteRoute
     }
-    '/app/businesses-rma_/business/$businessId/arc/update-shipping-price': {
-      id: '/app/businesses-rma_/business/$businessId/arc/update-shipping-price'
-      path: '/update-shipping-price'
-      fullPath: '/app/businesses-rma/business/$businessId/arc/update-shipping-price'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdArcUpdateShippingPriceRouteImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdArcRouteImport
+    '/app/tools/vva/delete/$vvaId': {
+      id: '/app/tools/vva/delete/$vvaId'
+      path: '/delete/$vvaId'
+      fullPath: '/app/tools/vva/delete/$vvaId'
+      preLoaderRoute: typeof AppToolsVvaDeleteVvaIdRouteRouteImport
+      parentRoute: typeof AppToolsVvaRouteRoute
     }
-    '/app/businesses-rma_/business/$businessId/bill/credits': {
-      id: '/app/businesses-rma_/business/$businessId/bill/credits'
-      path: '/credits'
-      fullPath: '/app/businesses-rma/business/$businessId/bill/credits'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdBillCreditsRouteImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdBillRouteImport
+    '/app/tools/scheduler/details/$rdvId': {
+      id: '/app/tools/scheduler/details/$rdvId'
+      path: '/details/$rdvId'
+      fullPath: '/app/tools/scheduler/details/$rdvId'
+      preLoaderRoute: typeof AppToolsSchedulerDetailsRdvIdRouteRouteImport
+      parentRoute: typeof AppToolsSchedulerRouteRoute
     }
-    '/app/businesses-rma_/business/$businessId/bill/send-by-email': {
-      id: '/app/businesses-rma_/business/$businessId/bill/send-by-email'
-      path: '/send-by-email'
-      fullPath: '/app/businesses-rma/business/$businessId/bill/send-by-email'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdBillSendByEmailRouteImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdBillRouteImport
+    '/app/tools/product-shelves/delete/$productShelfId': {
+      id: '/app/tools/product-shelves/delete/$productShelfId'
+      path: '/delete/$productShelfId'
+      fullPath: '/app/tools/product-shelves/delete/$productShelfId'
+      preLoaderRoute: typeof AppToolsProductShelvesDeleteProductShelfIdRouteRouteImport
+      parentRoute: typeof AppToolsProductShelvesRouteRoute
     }
-    '/app/businesses-rma_/business/$businessId/bl/send-by-email': {
-      id: '/app/businesses-rma_/business/$businessId/bl/send-by-email'
-      path: '/send-by-email'
-      fullPath: '/app/businesses-rma/business/$businessId/bl/send-by-email'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdBlSendByEmailRouteImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdBlRouteImport
+    '/app/tools/product-inventory/update/$stockId': {
+      id: '/app/tools/product-inventory/update/$stockId'
+      path: '/update/$stockId'
+      fullPath: '/app/tools/product-inventory/update/$stockId'
+      preLoaderRoute: typeof AppToolsProductInventoryUpdateStockIdRouteRouteImport
+      parentRoute: typeof AppToolsProductInventoryRouteRoute
     }
-    '/app/businesses-rma_/business/$businessId/bl/update': {
-      id: '/app/businesses-rma_/business/$businessId/bl/update'
-      path: '/update'
-      fullPath: '/app/businesses-rma/business/$businessId/bl/update'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdBlUpdateRouteImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdBlRouteImport
+    '/app/tools/product-filters/update/$productFilterId': {
+      id: '/app/tools/product-filters/update/$productFilterId'
+      path: '/update/$productFilterId'
+      fullPath: '/app/tools/product-filters/update/$productFilterId'
+      preLoaderRoute: typeof AppToolsProductFiltersUpdateProductFilterIdRouteRouteImport
+      parentRoute: typeof AppToolsProductFiltersRouteRoute
     }
-    '/app/businesses-rma_/business/$businessId/bp/travel-voucher': {
-      id: '/app/businesses-rma_/business/$businessId/bp/travel-voucher'
-      path: '/travel-voucher'
-      fullPath: '/app/businesses-rma/business/$businessId/bp/travel-voucher'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdBpTravelVoucherRouteImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdBpRouteImport
+    '/app/tools/product-filters/delete/$productFilterId': {
+      id: '/app/tools/product-filters/delete/$productFilterId'
+      path: '/delete/$productFilterId'
+      fullPath: '/app/tools/product-filters/delete/$productFilterId'
+      preLoaderRoute: typeof AppToolsProductFiltersDeleteProductFilterIdRouteRouteImport
+      parentRoute: typeof AppToolsProductFiltersRouteRoute
     }
-    '/app/businesses-rma_/business/$businessId/dashboard/address-book': {
-      id: '/app/businesses-rma_/business/$businessId/dashboard/address-book'
-      path: '/address-book'
-      fullPath: '/app/businesses-rma/business/$businessId/dashboard/address-book'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardAddressBookRouteImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardRouteImport
+    '/app/tools/predefined-texts/update/$predefinedTextId': {
+      id: '/app/tools/predefined-texts/update/$predefinedTextId'
+      path: '/update/$predefinedTextId'
+      fullPath: '/app/tools/predefined-texts/update/$predefinedTextId'
+      preLoaderRoute: typeof AppToolsPredefinedTextsUpdatePredefinedTextIdRouteRouteImport
+      parentRoute: typeof AppToolsPredefinedTextsRouteRoute
     }
-    '/app/businesses-rma_/business/$businessId/dashboard/create-ged-directory': {
-      id: '/app/businesses-rma_/business/$businessId/dashboard/create-ged-directory'
-      path: '/create-ged-directory'
-      fullPath: '/app/businesses-rma/business/$businessId/dashboard/create-ged-directory'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardCreateGedDirectoryRouteImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardRouteImport
+    '/app/tools/predefined-texts/delete/$predefinedTextId': {
+      id: '/app/tools/predefined-texts/delete/$predefinedTextId'
+      path: '/delete/$predefinedTextId'
+      fullPath: '/app/tools/predefined-texts/delete/$predefinedTextId'
+      preLoaderRoute: typeof AppToolsPredefinedTextsDeletePredefinedTextIdRouteRouteImport
+      parentRoute: typeof AppToolsPredefinedTextsRouteRoute
     }
-    '/app/businesses-rma_/business/$businessId/dashboard/create-lifesheet': {
-      id: '/app/businesses-rma_/business/$businessId/dashboard/create-lifesheet'
-      path: '/create-lifesheet'
-      fullPath: '/app/businesses-rma/business/$businessId/dashboard/create-lifesheet'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardCreateLifesheetRouteImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardRouteImport
+    '/app/tools/predefined-messages/update/$predefinedMessageId': {
+      id: '/app/tools/predefined-messages/update/$predefinedMessageId'
+      path: '/update/$predefinedMessageId'
+      fullPath: '/app/tools/predefined-messages/update/$predefinedMessageId'
+      preLoaderRoute: typeof AppToolsPredefinedMessagesUpdatePredefinedMessageIdRouteRouteImport
+      parentRoute: typeof AppToolsPredefinedMessagesRouteRoute
     }
-    '/app/businesses-rma_/business/$businessId/dashboard/create-link': {
-      id: '/app/businesses-rma_/business/$businessId/dashboard/create-link'
-      path: '/create-link'
-      fullPath: '/app/businesses-rma/business/$businessId/dashboard/create-link'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardCreateLinkRouteImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardRouteImport
+    '/app/tools/predefined-messages/delete/$predefinedMessageId': {
+      id: '/app/tools/predefined-messages/delete/$predefinedMessageId'
+      path: '/delete/$predefinedMessageId'
+      fullPath: '/app/tools/predefined-messages/delete/$predefinedMessageId'
+      preLoaderRoute: typeof AppToolsPredefinedMessagesDeletePredefinedMessageIdRouteRouteImport
+      parentRoute: typeof AppToolsPredefinedMessagesRouteRoute
     }
-    '/app/businesses-rma_/business/$businessId/dashboard/delete': {
-      id: '/app/businesses-rma_/business/$businessId/dashboard/delete'
-      path: '/delete'
-      fullPath: '/app/businesses-rma/business/$businessId/dashboard/delete'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardDeleteRouteImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardRouteImport
+    '/app/tools/news/update/$newsId': {
+      id: '/app/tools/news/update/$newsId'
+      path: '/update/$newsId'
+      fullPath: '/app/tools/news/update/$newsId'
+      preLoaderRoute: typeof AppToolsNewsUpdateNewsIdRouteRouteImport
+      parentRoute: typeof AppToolsNewsRouteRoute
     }
-    '/app/businesses-rma_/business/$businessId/dashboard/email-history': {
-      id: '/app/businesses-rma_/business/$businessId/dashboard/email-history'
-      path: '/email-history'
-      fullPath: '/app/businesses-rma/business/$businessId/dashboard/email-history'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryRouteImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardRouteImport
+    '/app/tools/news/delete/$newsId': {
+      id: '/app/tools/news/delete/$newsId'
+      path: '/delete/$newsId'
+      fullPath: '/app/tools/news/delete/$newsId'
+      preLoaderRoute: typeof AppToolsNewsDeleteNewsIdRouteRouteImport
+      parentRoute: typeof AppToolsNewsRouteRoute
     }
-    '/app/businesses-rma_/business/$businessId/dashboard/import-ged-files': {
-      id: '/app/businesses-rma_/business/$businessId/dashboard/import-ged-files'
-      path: '/import-ged-files'
-      fullPath: '/app/businesses-rma/business/$businessId/dashboard/import-ged-files'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardImportGedFilesRouteImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardRouteImport
+    '/app/tools/mails/update/$mailId': {
+      id: '/app/tools/mails/update/$mailId'
+      path: '/update/$mailId'
+      fullPath: '/app/tools/mails/update/$mailId'
+      preLoaderRoute: typeof AppToolsMailsUpdateMailIdRouteRouteImport
+      parentRoute: typeof AppToolsMailsRouteRoute
     }
-    '/app/businesses-rma_/business/$businessId/dashboard/send-email': {
-      id: '/app/businesses-rma_/business/$businessId/dashboard/send-email'
-      path: '/send-email'
-      fullPath: '/app/businesses-rma/business/$businessId/dashboard/send-email'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardSendEmailRouteImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardRouteImport
+    '/app/tools/mails/show/$mailId': {
+      id: '/app/tools/mails/show/$mailId'
+      path: '/show/$mailId'
+      fullPath: '/app/tools/mails/show/$mailId'
+      preLoaderRoute: typeof AppToolsMailsShowMailIdRouteRouteImport
+      parentRoute: typeof AppToolsMailsRouteRoute
     }
-    '/app/businesses-rma_/business/$businessId/dashboard/update-billing-address': {
-      id: '/app/businesses-rma_/business/$businessId/dashboard/update-billing-address'
-      path: '/update-billing-address'
-      fullPath: '/app/businesses-rma/business/$businessId/dashboard/update-billing-address'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardUpdateBillingAddressRouteImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardRouteImport
+    '/app/tools/mails/delete/$mailId': {
+      id: '/app/tools/mails/delete/$mailId'
+      path: '/delete/$mailId'
+      fullPath: '/app/tools/mails/delete/$mailId'
+      preLoaderRoute: typeof AppToolsMailsDeleteMailIdRouteRouteImport
+      parentRoute: typeof AppToolsMailsRouteRoute
     }
-    '/app/businesses-rma_/business/$businessId/dashboard/update-representative': {
-      id: '/app/businesses-rma_/business/$businessId/dashboard/update-representative'
-      path: '/update-representative'
-      fullPath: '/app/businesses-rma/business/$businessId/dashboard/update-representative'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardUpdateRepresentativeRouteImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardRouteImport
+    '/app/tools/formations/update/$formationId': {
+      id: '/app/tools/formations/update/$formationId'
+      path: '/update/$formationId'
+      fullPath: '/app/tools/formations/update/$formationId'
+      preLoaderRoute: typeof AppToolsFormationsUpdateFormationIdRouteRouteImport
+      parentRoute: typeof AppToolsFormationsRouteRoute
     }
-    '/app/businesses-rma_/business/$businessId/dashboard/update-responsible': {
-      id: '/app/businesses-rma_/business/$businessId/dashboard/update-responsible'
-      path: '/update-responsible'
-      fullPath: '/app/businesses-rma/business/$businessId/dashboard/update-responsible'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardUpdateResponsibleRouteImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardRouteImport
+    '/app/tools/formations/subscribers/$formationDetailId': {
+      id: '/app/tools/formations/subscribers/$formationDetailId'
+      path: '/subscribers/$formationDetailId'
+      fullPath: '/app/tools/formations/subscribers/$formationDetailId'
+      preLoaderRoute: typeof AppToolsFormationsSubscribersFormationDetailIdRouteRouteImport
+      parentRoute: typeof AppToolsFormationsRouteRoute
     }
-    '/app/businesses-rma_/business/$businessId/quotation/commercial-notice': {
-      id: '/app/businesses-rma_/business/$businessId/quotation/commercial-notice'
-      path: '/commercial-notice'
-      fullPath: '/app/businesses-rma/business/$businessId/quotation/commercial-notice'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdQuotationCommercialNoticeRouteImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdQuotationRouteImport
+    '/app/tools/formations/delete/$formationId': {
+      id: '/app/tools/formations/delete/$formationId'
+      path: '/delete/$formationId'
+      fullPath: '/app/tools/formations/delete/$formationId'
+      preLoaderRoute: typeof AppToolsFormationsDeleteFormationIdRouteRouteImport
+      parentRoute: typeof AppToolsFormationsRouteRoute
     }
-    '/app/businesses-rma_/business/$businessId/quotation/pdf': {
-      id: '/app/businesses-rma_/business/$businessId/quotation/pdf'
-      path: '/pdf'
-      fullPath: '/app/businesses-rma/business/$businessId/quotation/pdf'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdQuotationPdfRouteImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdQuotationRouteImport
-    }
-    '/app/businesses-rma_/business/$businessId/quotation/update-shipping-price': {
-      id: '/app/businesses-rma_/business/$businessId/quotation/update-shipping-price'
-      path: '/update-shipping-price'
-      fullPath: '/app/businesses-rma/business/$businessId/quotation/update-shipping-price'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdQuotationUpdateShippingPriceRouteImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdQuotationRouteImport
-    }
-    '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId': {
-      id: '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId'
-      path: '/businesses-rma/business/$businessId/assistance/$assistanceId'
-      fullPath: '/app/businesses-rma/business/$businessId/assistance/$assistanceId'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdRouteImport
-      parentRoute: typeof AppRouteImport
-    }
-    '/app/businesses-rma_/business/$businessId_/study/automatic': {
-      id: '/app/businesses-rma_/business/$businessId_/study/automatic'
-      path: '/automatic'
-      fullPath: '/app/businesses-rma/business/$businessId/study/automatic'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdStudyAutomaticRouteImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdStudyRouteImport
-    }
-    '/app/businesses-rma_/business/$businessId_/study/expert': {
-      id: '/app/businesses-rma_/business/$businessId_/study/expert'
-      path: '/expert'
-      fullPath: '/app/businesses-rma/business/$businessId/study/expert'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdStudyExpertRouteImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdStudyRouteImport
-    }
-    '/app/businesses-rma_/rma/$rmaId/delivery/create-detail': {
-      id: '/app/businesses-rma_/rma/$rmaId/delivery/create-detail'
-      path: '/create-detail'
-      fullPath: '/app/businesses-rma/rma/$rmaId/delivery/create-detail'
-      preLoaderRoute: typeof AppBusinessesRmaRmaRmaIdDeliveryCreateDetailRouteImport
-      parentRoute: typeof AppBusinessesRmaRmaRmaIdDeliveryRouteImport
-    }
-    '/app/businesses-rma_/rma/$rmaId/delivery/pdf': {
-      id: '/app/businesses-rma_/rma/$rmaId/delivery/pdf'
-      path: '/pdf'
-      fullPath: '/app/businesses-rma/rma/$rmaId/delivery/pdf'
-      preLoaderRoute: typeof AppBusinessesRmaRmaRmaIdDeliveryPdfRouteImport
-      parentRoute: typeof AppBusinessesRmaRmaRmaIdDeliveryRouteImport
-    }
-    '/app/businesses-rma_/rma/$rmaId/delivery/travel-voucher': {
-      id: '/app/businesses-rma_/rma/$rmaId/delivery/travel-voucher'
-      path: '/travel-voucher'
-      fullPath: '/app/businesses-rma/rma/$rmaId/delivery/travel-voucher'
-      preLoaderRoute: typeof AppBusinessesRmaRmaRmaIdDeliveryTravelVoucherRouteImport
-      parentRoute: typeof AppBusinessesRmaRmaRmaIdDeliveryRouteImport
-    }
-    '/app/businesses-rma_/rma/$rmaId/reception/create-detail': {
-      id: '/app/businesses-rma_/rma/$rmaId/reception/create-detail'
-      path: '/create-detail'
-      fullPath: '/app/businesses-rma/rma/$rmaId/reception/create-detail'
-      preLoaderRoute: typeof AppBusinessesRmaRmaRmaIdReceptionCreateDetailRouteImport
-      parentRoute: typeof AppBusinessesRmaRmaRmaIdReceptionRouteImport
-    }
-    '/app/businesses-rma_/rma/$rmaId/reception/pdf': {
-      id: '/app/businesses-rma_/rma/$rmaId/reception/pdf'
-      path: '/pdf'
-      fullPath: '/app/businesses-rma/rma/$rmaId/reception/pdf'
-      preLoaderRoute: typeof AppBusinessesRmaRmaRmaIdReceptionPdfRouteImport
-      parentRoute: typeof AppBusinessesRmaRmaRmaIdReceptionRouteImport
-    }
-    '/app/businesses-rma_/rma/$rmaId/support/create-detail': {
-      id: '/app/businesses-rma_/rma/$rmaId/support/create-detail'
-      path: '/create-detail'
-      fullPath: '/app/businesses-rma/rma/$rmaId/support/create-detail'
-      preLoaderRoute: typeof AppBusinessesRmaRmaRmaIdSupportCreateDetailRouteImport
-      parentRoute: typeof AppBusinessesRmaRmaRmaIdSupportRouteImport
-    }
-    '/app/businesses-rma_/rma/$rmaId/support/create-ged-directory': {
-      id: '/app/businesses-rma_/rma/$rmaId/support/create-ged-directory'
-      path: '/create-ged-directory'
-      fullPath: '/app/businesses-rma/rma/$rmaId/support/create-ged-directory'
-      preLoaderRoute: typeof AppBusinessesRmaRmaRmaIdSupportCreateGedDirectoryRouteImport
-      parentRoute: typeof AppBusinessesRmaRmaRmaIdSupportRouteImport
-    }
-    '/app/businesses-rma_/rma/$rmaId/support/create-lifesheet': {
-      id: '/app/businesses-rma_/rma/$rmaId/support/create-lifesheet'
-      path: '/create-lifesheet'
-      fullPath: '/app/businesses-rma/rma/$rmaId/support/create-lifesheet'
-      preLoaderRoute: typeof AppBusinessesRmaRmaRmaIdSupportCreateLifesheetRouteImport
-      parentRoute: typeof AppBusinessesRmaRmaRmaIdSupportRouteImport
-    }
-    '/app/businesses-rma_/rma/$rmaId/support/create-link': {
-      id: '/app/businesses-rma_/rma/$rmaId/support/create-link'
-      path: '/create-link'
-      fullPath: '/app/businesses-rma/rma/$rmaId/support/create-link'
-      preLoaderRoute: typeof AppBusinessesRmaRmaRmaIdSupportCreateLinkRouteImport
-      parentRoute: typeof AppBusinessesRmaRmaRmaIdSupportRouteImport
-    }
-    '/app/businesses-rma_/rma/$rmaId/support/import-ged-files': {
-      id: '/app/businesses-rma_/rma/$rmaId/support/import-ged-files'
-      path: '/import-ged-files'
-      fullPath: '/app/businesses-rma/rma/$rmaId/support/import-ged-files'
-      preLoaderRoute: typeof AppBusinessesRmaRmaRmaIdSupportImportGedFilesRouteImport
-      parentRoute: typeof AppBusinessesRmaRmaRmaIdSupportRouteImport
-    }
-    '/app/businesses-rma_/rma/$rmaId/support/pdf': {
-      id: '/app/businesses-rma_/rma/$rmaId/support/pdf'
-      path: '/pdf'
-      fullPath: '/app/businesses-rma/rma/$rmaId/support/pdf'
-      preLoaderRoute: typeof AppBusinessesRmaRmaRmaIdSupportPdfRouteImport
-      parentRoute: typeof AppBusinessesRmaRmaRmaIdSupportRouteImport
-    }
-    '/app/enterprises_/$enterpriseId/address-book/delete/$addressId': {
-      id: '/app/enterprises_/$enterpriseId/address-book/delete/$addressId'
-      path: '/delete/$addressId'
-      fullPath: '/app/enterprises/$enterpriseId/address-book/delete/$addressId'
-      preLoaderRoute: typeof AppEnterprisesEnterpriseIdAddressBookDeleteAddressIdRouteImport
-      parentRoute: typeof AppEnterprisesEnterpriseIdAddressBookRouteImport
-    }
-    '/app/enterprises_/$enterpriseId/address-book/update/$addressId': {
-      id: '/app/enterprises_/$enterpriseId/address-book/update/$addressId'
-      path: '/update/$addressId'
-      fullPath: '/app/enterprises/$enterpriseId/address-book/update/$addressId'
-      preLoaderRoute: typeof AppEnterprisesEnterpriseIdAddressBookUpdateAddressIdRouteImport
-      parentRoute: typeof AppEnterprisesEnterpriseIdAddressBookRouteImport
-    }
-    '/app/enterprises_/$enterpriseId/email-history/email/$emailId': {
-      id: '/app/enterprises_/$enterpriseId/email-history/email/$emailId'
-      path: '/email/$emailId'
-      fullPath: '/app/enterprises/$enterpriseId/email-history/email/$emailId'
-      preLoaderRoute: typeof AppEnterprisesEnterpriseIdEmailHistoryEmailEmailIdRouteImport
-      parentRoute: typeof AppEnterprisesEnterpriseIdEmailHistoryRouteImport
-    }
-    '/app/enterprises_/$enterpriseId/task-email/$taskId/reply': {
-      id: '/app/enterprises_/$enterpriseId/task-email/$taskId/reply'
-      path: '/reply'
-      fullPath: '/app/enterprises/$enterpriseId/task-email/$taskId/reply'
-      preLoaderRoute: typeof AppEnterprisesEnterpriseIdTaskEmailTaskIdReplyRouteImport
-      parentRoute: typeof AppEnterprisesEnterpriseIdTaskEmailTaskIdRouteImport
-    }
-    '/app/faq/ged/$faqId/delete/$itemRelativePath': {
-      id: '/app/faq/ged/$faqId/delete/$itemRelativePath'
-      path: '/delete/$itemRelativePath'
-      fullPath: '/app/faq/ged/$faqId/delete/$itemRelativePath'
-      preLoaderRoute: typeof AppFaqGedFaqIdDeleteItemRelativePathRouteImport
-      parentRoute: typeof AppFaqGedFaqIdRouteImport
-    }
-    '/app/faq/ged/$faqId/rename/$itemRelativePath': {
-      id: '/app/faq/ged/$faqId/rename/$itemRelativePath'
-      path: '/rename/$itemRelativePath'
-      fullPath: '/app/faq/ged/$faqId/rename/$itemRelativePath'
-      preLoaderRoute: typeof AppFaqGedFaqIdRenameItemRelativePathRouteImport
-      parentRoute: typeof AppFaqGedFaqIdRouteImport
-    }
-    '/app/products_/$productId/informations/lifesheet-email/$lifesheetId': {
-      id: '/app/products_/$productId/informations/lifesheet-email/$lifesheetId'
-      path: '/lifesheet-email/$lifesheetId'
-      fullPath: '/app/products/$productId/informations/lifesheet-email/$lifesheetId'
-      preLoaderRoute: typeof AppProductsProductIdInformationsLifesheetEmailLifesheetIdRouteImport
-      parentRoute: typeof AppProductsProductIdInformationsRouteImport
-    }
-    '/app/products_/$productId/informations/task-email/$taskId': {
-      id: '/app/products_/$productId/informations/task-email/$taskId'
-      path: '/task-email/$taskId'
-      fullPath: '/app/products/$productId/informations/task-email/$taskId'
-      preLoaderRoute: typeof AppProductsProductIdInformationsTaskEmailTaskIdRouteImport
-      parentRoute: typeof AppProductsProductIdInformationsRouteImport
-    }
-    '/app/products_/$productId/informations/unlink-task/$taskId': {
-      id: '/app/products_/$productId/informations/unlink-task/$taskId'
-      path: '/unlink-task/$taskId'
-      fullPath: '/app/products/$productId/informations/unlink-task/$taskId'
-      preLoaderRoute: typeof AppProductsProductIdInformationsUnlinkTaskTaskIdRouteImport
-      parentRoute: typeof AppProductsProductIdInformationsRouteImport
-    }
-    '/app/products_/$productId/manage/add-specification/$filterId': {
-      id: '/app/products_/$productId/manage/add-specification/$filterId'
-      path: '/$filterId'
-      fullPath: '/app/products/$productId/manage/add-specification/$filterId'
-      preLoaderRoute: typeof AppProductsProductIdManageAddSpecificationFilterIdRouteImport
-      parentRoute: typeof AppProductsProductIdManageAddSpecificationRouteImport
-    }
-    '/app/products_/$productId/manage/delete-nomenclature-detail/$nomenclatureDetailId': {
-      id: '/app/products_/$productId/manage/delete-nomenclature-detail/$nomenclatureDetailId'
-      path: '/delete-nomenclature-detail/$nomenclatureDetailId'
-      fullPath: '/app/products/$productId/manage/delete-nomenclature-detail/$nomenclatureDetailId'
-      preLoaderRoute: typeof AppProductsProductIdManageDeleteNomenclatureDetailNomenclatureDetailIdRouteImport
-      parentRoute: typeof AppProductsProductIdManageRouteImport
-    }
-    '/app/products_/$productId/manage/delete-specification/$specificationId': {
-      id: '/app/products_/$productId/manage/delete-specification/$specificationId'
-      path: '/delete-specification/$specificationId'
-      fullPath: '/app/products/$productId/manage/delete-specification/$specificationId'
-      preLoaderRoute: typeof AppProductsProductIdManageDeleteSpecificationSpecificationIdRouteImport
-      parentRoute: typeof AppProductsProductIdManageRouteImport
-    }
-    '/app/products_/$productId/manage/delete-stock/$stockId': {
-      id: '/app/products_/$productId/manage/delete-stock/$stockId'
-      path: '/delete-stock/$stockId'
-      fullPath: '/app/products/$productId/manage/delete-stock/$stockId'
-      preLoaderRoute: typeof AppProductsProductIdManageDeleteStockStockIdRouteImport
-      parentRoute: typeof AppProductsProductIdManageRouteImport
-    }
-    '/app/products_/$productId/manage/delete-version/$versionId': {
-      id: '/app/products_/$productId/manage/delete-version/$versionId'
-      path: '/delete-version/$versionId'
-      fullPath: '/app/products/$productId/manage/delete-version/$versionId'
-      preLoaderRoute: typeof AppProductsProductIdManageDeleteVersionVersionIdRouteImport
-      parentRoute: typeof AppProductsProductIdManageRouteImport
-    }
-    '/app/products_/$productId/manage/remove-associated-product/$associatedProductId': {
-      id: '/app/products_/$productId/manage/remove-associated-product/$associatedProductId'
-      path: '/remove-associated-product/$associatedProductId'
-      fullPath: '/app/products/$productId/manage/remove-associated-product/$associatedProductId'
-      preLoaderRoute: typeof AppProductsProductIdManageRemoveAssociatedProductAssociatedProductIdRouteImport
-      parentRoute: typeof AppProductsProductIdManageRouteImport
-    }
-    '/app/products_/$productId/manage/stock-history/$stockId': {
-      id: '/app/products_/$productId/manage/stock-history/$stockId'
-      path: '/stock-history/$stockId'
-      fullPath: '/app/products/$productId/manage/stock-history/$stockId'
-      preLoaderRoute: typeof AppProductsProductIdManageStockHistoryStockIdRouteImport
-      parentRoute: typeof AppProductsProductIdManageRouteImport
-    }
-    '/app/products_/$productId/manage/update-nomenclature-detail/$nomenclatureDetailId': {
-      id: '/app/products_/$productId/manage/update-nomenclature-detail/$nomenclatureDetailId'
-      path: '/update-nomenclature-detail/$nomenclatureDetailId'
-      fullPath: '/app/products/$productId/manage/update-nomenclature-detail/$nomenclatureDetailId'
-      preLoaderRoute: typeof AppProductsProductIdManageUpdateNomenclatureDetailNomenclatureDetailIdRouteImport
-      parentRoute: typeof AppProductsProductIdManageRouteImport
-    }
-    '/app/products_/$productId/manage/update-specification/$specificationId': {
-      id: '/app/products_/$productId/manage/update-specification/$specificationId'
-      path: '/update-specification/$specificationId'
-      fullPath: '/app/products/$productId/manage/update-specification/$specificationId'
-      preLoaderRoute: typeof AppProductsProductIdManageUpdateSpecificationSpecificationIdRouteImport
-      parentRoute: typeof AppProductsProductIdManageRouteImport
-    }
-    '/app/products_/$productId/manage/update-stock/$stockId': {
-      id: '/app/products_/$productId/manage/update-stock/$stockId'
-      path: '/update-stock/$stockId'
-      fullPath: '/app/products/$productId/manage/update-stock/$stockId'
-      preLoaderRoute: typeof AppProductsProductIdManageUpdateStockStockIdRouteImport
-      parentRoute: typeof AppProductsProductIdManageRouteImport
-    }
-    '/app/products_/$productId/manage/update-version/$versionId': {
-      id: '/app/products_/$productId/manage/update-version/$versionId'
-      path: '/update-version/$versionId'
-      fullPath: '/app/products/$productId/manage/update-version/$versionId'
-      preLoaderRoute: typeof AppProductsProductIdManageUpdateVersionVersionIdRouteImport
-      parentRoute: typeof AppProductsProductIdManageRouteImport
-    }
-    '/app/tools/formations/subscribers/$formationDetailId/create': {
-      id: '/app/tools/formations/subscribers/$formationDetailId/create'
-      path: '/create'
-      fullPath: '/app/tools/formations/subscribers/$formationDetailId/create'
-      preLoaderRoute: typeof AppToolsFormationsSubscribersFormationDetailIdCreateRouteImport
-      parentRoute: typeof AppToolsFormationsSubscribersFormationDetailIdRouteImport
-    }
-    '/app/tools/formations/update/$formationId/add-detail': {
-      id: '/app/tools/formations/update/$formationId/add-detail'
-      path: '/add-detail'
-      fullPath: '/app/tools/formations/update/$formationId/add-detail'
-      preLoaderRoute: typeof AppToolsFormationsUpdateFormationIdAddDetailRouteImport
-      parentRoute: typeof AppToolsFormationsUpdateFormationIdRouteImport
-    }
-    '/app/tools/formations/update/$formationId/details': {
-      id: '/app/tools/formations/update/$formationId/details'
+    '/app/tools/formations/create/details': {
+      id: '/app/tools/formations/create/details'
       path: '/details'
-      fullPath: '/app/tools/formations/update/$formationId/details'
-      preLoaderRoute: typeof AppToolsFormationsUpdateFormationIdDetailsRouteImport
-      parentRoute: typeof AppToolsFormationsUpdateFormationIdRouteImport
+      fullPath: '/app/tools/formations/create/details'
+      preLoaderRoute: typeof AppToolsFormationsCreateDetailsRouteRouteImport
+      parentRoute: typeof AppToolsFormationsCreateRouteRoute
     }
-    '/app/tools/scheduler/details/$rdvId/delete': {
-      id: '/app/tools/scheduler/details/$rdvId/delete'
-      path: '/delete'
-      fullPath: '/app/tools/scheduler/details/$rdvId/delete'
-      preLoaderRoute: typeof AppToolsSchedulerDetailsRdvIdDeleteRouteImport
-      parentRoute: typeof AppToolsSchedulerDetailsRdvIdRouteImport
+    '/app/tools/formations/create/add-detail': {
+      id: '/app/tools/formations/create/add-detail'
+      path: '/add-detail'
+      fullPath: '/app/tools/formations/create/add-detail'
+      preLoaderRoute: typeof AppToolsFormationsCreateAddDetailRouteRouteImport
+      parentRoute: typeof AppToolsFormationsCreateRouteRoute
     }
-    '/app/tools/scheduler/details/$rdvId/update': {
-      id: '/app/tools/scheduler/details/$rdvId/update'
-      path: '/update'
-      fullPath: '/app/tools/scheduler/details/$rdvId/update'
-      preLoaderRoute: typeof AppToolsSchedulerDetailsRdvIdUpdateRouteImport
-      parentRoute: typeof AppToolsSchedulerDetailsRdvIdRouteImport
+    '/app/tools/external-links/update/$externalLinkId': {
+      id: '/app/tools/external-links/update/$externalLinkId'
+      path: '/update/$externalLinkId'
+      fullPath: '/app/tools/external-links/update/$externalLinkId'
+      preLoaderRoute: typeof AppToolsExternalLinksUpdateExternalLinkIdRouteRouteImport
+      parentRoute: typeof AppToolsExternalLinksRouteRoute
+    }
+    '/app/tools/external-links/delete/$externalLinkId': {
+      id: '/app/tools/external-links/delete/$externalLinkId'
+      path: '/delete/$externalLinkId'
+      fullPath: '/app/tools/external-links/delete/$externalLinkId'
+      preLoaderRoute: typeof AppToolsExternalLinksDeleteExternalLinkIdRouteRouteImport
+      parentRoute: typeof AppToolsExternalLinksRouteRoute
+    }
+    '/app/tools/external-links/archive/$externalLinkId': {
+      id: '/app/tools/external-links/archive/$externalLinkId'
+      path: '/archive/$externalLinkId'
+      fullPath: '/app/tools/external-links/archive/$externalLinkId'
+      preLoaderRoute: typeof AppToolsExternalLinksArchiveExternalLinkIdRouteRouteImport
+      parentRoute: typeof AppToolsExternalLinksRouteRoute
+    }
+    '/app/tools/emails/$emailId/reply': {
+      id: '/app/tools/emails/$emailId/reply'
+      path: '/reply'
+      fullPath: '/app/tools/emails/$emailId/reply'
+      preLoaderRoute: typeof AppToolsEmailsEmailIdReplyRouteRouteImport
+      parentRoute: typeof AppToolsEmailsEmailIdRouteRoute
+    }
+    '/app/tools/departments/update/$departmentId': {
+      id: '/app/tools/departments/update/$departmentId'
+      path: '/update/$departmentId'
+      fullPath: '/app/tools/departments/update/$departmentId'
+      preLoaderRoute: typeof AppToolsDepartmentsUpdateDepartmentIdRouteRouteImport
+      parentRoute: typeof AppToolsDepartmentsRouteRoute
+    }
+    '/app/tools/departments/delete/$departmentId': {
+      id: '/app/tools/departments/delete/$departmentId'
+      path: '/delete/$departmentId'
+      fullPath: '/app/tools/departments/delete/$departmentId'
+      preLoaderRoute: typeof AppToolsDepartmentsDeleteDepartmentIdRouteRouteImport
+      parentRoute: typeof AppToolsDepartmentsRouteRoute
+    }
+    '/app/tools/ddns/delete/$ddnsId': {
+      id: '/app/tools/ddns/delete/$ddnsId'
+      path: '/delete/$ddnsId'
+      fullPath: '/app/tools/ddns/delete/$ddnsId'
+      preLoaderRoute: typeof AppToolsDdnsDeleteDdnsIdRouteRouteImport
+      parentRoute: typeof AppToolsDdnsRouteRoute
+    }
+    '/app/products_/$productId/manage/create-version': {
+      id: '/app/products_/$productId/manage/create-version'
+      path: '/create-version'
+      fullPath: '/app/products/$productId/manage/create-version'
+      preLoaderRoute: typeof AppProductsProductIdManageCreateVersionRouteRouteImport
+      parentRoute: typeof AppProductsProductIdManageRouteRoute
+    }
+    '/app/products_/$productId/manage/create-stock': {
+      id: '/app/products_/$productId/manage/create-stock'
+      path: '/create-stock'
+      fullPath: '/app/products/$productId/manage/create-stock'
+      preLoaderRoute: typeof AppProductsProductIdManageCreateStockRouteRouteImport
+      parentRoute: typeof AppProductsProductIdManageRouteRoute
+    }
+    '/app/products_/$productId/manage/add-specification': {
+      id: '/app/products_/$productId/manage/add-specification'
+      path: '/add-specification'
+      fullPath: '/app/products/$productId/manage/add-specification'
+      preLoaderRoute: typeof AppProductsProductIdManageAddSpecificationRouteRouteImport
+      parentRoute: typeof AppProductsProductIdManageRouteRoute
+    }
+    '/app/products_/$productId/manage/add-nomenclature-detail': {
+      id: '/app/products_/$productId/manage/add-nomenclature-detail'
+      path: '/add-nomenclature-detail'
+      fullPath: '/app/products/$productId/manage/add-nomenclature-detail'
+      preLoaderRoute: typeof AppProductsProductIdManageAddNomenclatureDetailRouteRouteImport
+      parentRoute: typeof AppProductsProductIdManageRouteRoute
+    }
+    '/app/products_/$productId/manage/add-associated-product': {
+      id: '/app/products_/$productId/manage/add-associated-product'
+      path: '/add-associated-product'
+      fullPath: '/app/products/$productId/manage/add-associated-product'
+      preLoaderRoute: typeof AppProductsProductIdManageAddAssociatedProductRouteRouteImport
+      parentRoute: typeof AppProductsProductIdManageRouteRoute
+    }
+    '/app/products_/$productId/informations/rename-ged-object': {
+      id: '/app/products_/$productId/informations/rename-ged-object'
+      path: '/rename-ged-object'
+      fullPath: '/app/products/$productId/informations/rename-ged-object'
+      preLoaderRoute: typeof AppProductsProductIdInformationsRenameGedObjectRouteRouteImport
+      parentRoute: typeof AppProductsProductIdInformationsRouteRoute
+    }
+    '/app/products_/$productId/informations/import-ged-files': {
+      id: '/app/products_/$productId/informations/import-ged-files'
+      path: '/import-ged-files'
+      fullPath: '/app/products/$productId/informations/import-ged-files'
+      preLoaderRoute: typeof AppProductsProductIdInformationsImportGedFilesRouteRouteImport
+      parentRoute: typeof AppProductsProductIdInformationsRouteRoute
+    }
+    '/app/products_/$productId/informations/delete-ged-object': {
+      id: '/app/products_/$productId/informations/delete-ged-object'
+      path: '/delete-ged-object'
+      fullPath: '/app/products/$productId/informations/delete-ged-object'
+      preLoaderRoute: typeof AppProductsProductIdInformationsDeleteGedObjectRouteRouteImport
+      parentRoute: typeof AppProductsProductIdInformationsRouteRoute
+    }
+    '/app/products_/$productId/informations/create-lifesheet-comment': {
+      id: '/app/products_/$productId/informations/create-lifesheet-comment'
+      path: '/create-lifesheet-comment'
+      fullPath: '/app/products/$productId/informations/create-lifesheet-comment'
+      preLoaderRoute: typeof AppProductsProductIdInformationsCreateLifesheetCommentRouteRouteImport
+      parentRoute: typeof AppProductsProductIdInformationsRouteRoute
+    }
+    '/app/products_/$productId/informations/create-ged-directory': {
+      id: '/app/products_/$productId/informations/create-ged-directory'
+      path: '/create-ged-directory'
+      fullPath: '/app/products/$productId/informations/create-ged-directory'
+      preLoaderRoute: typeof AppProductsProductIdInformationsCreateGedDirectoryRouteRouteImport
+      parentRoute: typeof AppProductsProductIdInformationsRouteRoute
+    }
+    '/app/products/serial-numbers/update/$serialNumberId': {
+      id: '/app/products/serial-numbers/update/$serialNumberId'
+      path: '/update/$serialNumberId'
+      fullPath: '/app/products/serial-numbers/update/$serialNumberId'
+      preLoaderRoute: typeof AppProductsSerialNumbersUpdateSerialNumberIdRouteRouteImport
+      parentRoute: typeof AppProductsSerialNumbersRouteRoute
+    }
+    '/app/products/serial-numbers/remove-from-business/$serialNumberId': {
+      id: '/app/products/serial-numbers/remove-from-business/$serialNumberId'
+      path: '/remove-from-business/$serialNumberId'
+      fullPath: '/app/products/serial-numbers/remove-from-business/$serialNumberId'
+      preLoaderRoute: typeof AppProductsSerialNumbersRemoveFromBusinessSerialNumberIdRouteRouteImport
+      parentRoute: typeof AppProductsSerialNumbersRouteRoute
+    }
+    '/app/products/serial-numbers/delete/$serialNumberId': {
+      id: '/app/products/serial-numbers/delete/$serialNumberId'
+      path: '/delete/$serialNumberId'
+      fullPath: '/app/products/serial-numbers/delete/$serialNumberId'
+      preLoaderRoute: typeof AppProductsSerialNumbersDeleteSerialNumberIdRouteRouteImport
+      parentRoute: typeof AppProductsSerialNumbersRouteRoute
+    }
+    '/app/products/serial-numbers/create-rma/$serialNumberId': {
+      id: '/app/products/serial-numbers/create-rma/$serialNumberId'
+      path: '/create-rma/$serialNumberId'
+      fullPath: '/app/products/serial-numbers/create-rma/$serialNumberId'
+      preLoaderRoute: typeof AppProductsSerialNumbersCreateRmaSerialNumberIdRouteRouteImport
+      parentRoute: typeof AppProductsSerialNumbersRouteRoute
+    }
+    '/app/faq/ged/$faqId/import-files': {
+      id: '/app/faq/ged/$faqId/import-files'
+      path: '/import-files'
+      fullPath: '/app/faq/ged/$faqId/import-files'
+      preLoaderRoute: typeof AppFaqGedFaqIdImportFilesRouteRouteImport
+      parentRoute: typeof AppFaqGedFaqIdRouteRoute
+    }
+    '/app/faq/ged/$faqId/create-directory': {
+      id: '/app/faq/ged/$faqId/create-directory'
+      path: '/create-directory'
+      fullPath: '/app/faq/ged/$faqId/create-directory'
+      preLoaderRoute: typeof AppFaqGedFaqIdCreateDirectoryRouteRouteImport
+      parentRoute: typeof AppFaqGedFaqIdRouteRoute
+    }
+    '/app/enterprises_/$enterpriseId/update-contact/$contactId': {
+      id: '/app/enterprises_/$enterpriseId/update-contact/$contactId'
+      path: '/update-contact/$contactId'
+      fullPath: '/app/enterprises/$enterpriseId/update-contact/$contactId'
+      preLoaderRoute: typeof AppEnterprisesEnterpriseIdUpdateContactContactIdRouteRouteImport
+      parentRoute: typeof AppEnterprisesEnterpriseIdRouteRoute
+    }
+    '/app/enterprises_/$enterpriseId/update-contact-password/$contactId': {
+      id: '/app/enterprises_/$enterpriseId/update-contact-password/$contactId'
+      path: '/update-contact-password/$contactId'
+      fullPath: '/app/enterprises/$enterpriseId/update-contact-password/$contactId'
+      preLoaderRoute: typeof AppEnterprisesEnterpriseIdUpdateContactPasswordContactIdRouteRouteImport
+      parentRoute: typeof AppEnterprisesEnterpriseIdRouteRoute
+    }
+    '/app/enterprises_/$enterpriseId/unrelate-business-rma/$businessRmaId': {
+      id: '/app/enterprises_/$enterpriseId/unrelate-business-rma/$businessRmaId'
+      path: '/unrelate-business-rma/$businessRmaId'
+      fullPath: '/app/enterprises/$enterpriseId/unrelate-business-rma/$businessRmaId'
+      preLoaderRoute: typeof AppEnterprisesEnterpriseIdUnrelateBusinessRmaBusinessRmaIdRouteRouteImport
+      parentRoute: typeof AppEnterprisesEnterpriseIdRouteRoute
+    }
+    '/app/enterprises_/$enterpriseId/unlink-task/$taskId': {
+      id: '/app/enterprises_/$enterpriseId/unlink-task/$taskId'
+      path: '/unlink-task/$taskId'
+      fullPath: '/app/enterprises/$enterpriseId/unlink-task/$taskId'
+      preLoaderRoute: typeof AppEnterprisesEnterpriseIdUnlinkTaskTaskIdRouteRouteImport
+      parentRoute: typeof AppEnterprisesEnterpriseIdRouteRoute
+    }
+    '/app/enterprises_/$enterpriseId/task-email/$taskId': {
+      id: '/app/enterprises_/$enterpriseId/task-email/$taskId'
+      path: '/task-email/$taskId'
+      fullPath: '/app/enterprises/$enterpriseId/task-email/$taskId'
+      preLoaderRoute: typeof AppEnterprisesEnterpriseIdTaskEmailTaskIdRouteRouteImport
+      parentRoute: typeof AppEnterprisesEnterpriseIdRouteRoute
+    }
+    '/app/enterprises_/$enterpriseId/send-email-to-contact/$contactId': {
+      id: '/app/enterprises_/$enterpriseId/send-email-to-contact/$contactId'
+      path: '/send-email-to-contact/$contactId'
+      fullPath: '/app/enterprises/$enterpriseId/send-email-to-contact/$contactId'
+      preLoaderRoute: typeof AppEnterprisesEnterpriseIdSendEmailToContactContactIdRouteRouteImport
+      parentRoute: typeof AppEnterprisesEnterpriseIdRouteRoute
+    }
+    '/app/enterprises_/$enterpriseId/rename-ged-object/$objectRelativePath': {
+      id: '/app/enterprises_/$enterpriseId/rename-ged-object/$objectRelativePath'
+      path: '/rename-ged-object/$objectRelativePath'
+      fullPath: '/app/enterprises/$enterpriseId/rename-ged-object/$objectRelativePath'
+      preLoaderRoute: typeof AppEnterprisesEnterpriseIdRenameGedObjectObjectRelativePathRouteRouteImport
+      parentRoute: typeof AppEnterprisesEnterpriseIdRouteRoute
+    }
+    '/app/enterprises_/$enterpriseId/lifesheet-email/$lifesheetId': {
+      id: '/app/enterprises_/$enterpriseId/lifesheet-email/$lifesheetId'
+      path: '/lifesheet-email/$lifesheetId'
+      fullPath: '/app/enterprises/$enterpriseId/lifesheet-email/$lifesheetId'
+      preLoaderRoute: typeof AppEnterprisesEnterpriseIdLifesheetEmailLifesheetIdRouteRouteImport
+      parentRoute: typeof AppEnterprisesEnterpriseIdRouteRoute
+    }
+    '/app/enterprises_/$enterpriseId/delete-ged-object/$objectRelativePath': {
+      id: '/app/enterprises_/$enterpriseId/delete-ged-object/$objectRelativePath'
+      path: '/delete-ged-object/$objectRelativePath'
+      fullPath: '/app/enterprises/$enterpriseId/delete-ged-object/$objectRelativePath'
+      preLoaderRoute: typeof AppEnterprisesEnterpriseIdDeleteGedObjectObjectRelativePathRouteRouteImport
+      parentRoute: typeof AppEnterprisesEnterpriseIdRouteRoute
+    }
+    '/app/enterprises_/$enterpriseId/delete-contact/$contactId': {
+      id: '/app/enterprises_/$enterpriseId/delete-contact/$contactId'
+      path: '/delete-contact/$contactId'
+      fullPath: '/app/enterprises/$enterpriseId/delete-contact/$contactId'
+      preLoaderRoute: typeof AppEnterprisesEnterpriseIdDeleteContactContactIdRouteRouteImport
+      parentRoute: typeof AppEnterprisesEnterpriseIdRouteRoute
+    }
+    '/app/enterprises_/$enterpriseId/create-contact-business/$contactId': {
+      id: '/app/enterprises_/$enterpriseId/create-contact-business/$contactId'
+      path: '/create-contact-business/$contactId'
+      fullPath: '/app/enterprises/$enterpriseId/create-contact-business/$contactId'
+      preLoaderRoute: typeof AppEnterprisesEnterpriseIdCreateContactBusinessContactIdRouteRouteImport
+      parentRoute: typeof AppEnterprisesEnterpriseIdRouteRoute
+    }
+    '/app/enterprises_/$enterpriseId/address-book/import': {
+      id: '/app/enterprises_/$enterpriseId/address-book/import'
+      path: '/import'
+      fullPath: '/app/enterprises/$enterpriseId/address-book/import'
+      preLoaderRoute: typeof AppEnterprisesEnterpriseIdAddressBookImportRouteRouteImport
+      parentRoute: typeof AppEnterprisesEnterpriseIdAddressBookRouteRoute
+    }
+    '/app/enterprises_/$enterpriseId/address-book/create': {
+      id: '/app/enterprises_/$enterpriseId/address-book/create'
+      path: '/create'
+      fullPath: '/app/enterprises/$enterpriseId/address-book/create'
+      preLoaderRoute: typeof AppEnterprisesEnterpriseIdAddressBookCreateRouteRouteImport
+      parentRoute: typeof AppEnterprisesEnterpriseIdAddressBookRouteRoute
+    }
+    '/app/dashboard/task-email/$taskId/reply': {
+      id: '/app/dashboard/task-email/$taskId/reply'
+      path: '/reply'
+      fullPath: '/app/dashboard/task-email/$taskId/reply'
+      preLoaderRoute: typeof AppDashboardTaskEmailTaskIdReplyRouteRouteImport
+      parentRoute: typeof AppDashboardTaskEmailTaskIdRouteRoute
+    }
+    '/app/businesses-rma_/rma/$rmaId/support': {
+      id: '/app/businesses-rma_/rma/$rmaId/support'
+      path: '/support'
+      fullPath: '/app/businesses-rma/rma/$rmaId/support'
+      preLoaderRoute: typeof AppBusinessesRmaRmaRmaIdSupportRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaRmaRmaIdRouteRoute
+    }
+    '/app/businesses-rma_/rma/$rmaId/reception': {
+      id: '/app/businesses-rma_/rma/$rmaId/reception'
+      path: '/reception'
+      fullPath: '/app/businesses-rma/rma/$rmaId/reception'
+      preLoaderRoute: typeof AppBusinessesRmaRmaRmaIdReceptionRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaRmaRmaIdRouteRoute
+    }
+    '/app/businesses-rma_/rma/$rmaId/delivery': {
+      id: '/app/businesses-rma_/rma/$rmaId/delivery'
+      path: '/delivery'
+      fullPath: '/app/businesses-rma/rma/$rmaId/delivery'
+      preLoaderRoute: typeof AppBusinessesRmaRmaRmaIdDeliveryRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaRmaRmaIdRouteRoute
+    }
+    '/app/businesses-rma_/business/$businessId_/study': {
+      id: '/app/businesses-rma_/business/$businessId_/study'
+      path: '/businesses-rma/business/$businessId/study'
+      fullPath: '/app/businesses-rma/business/$businessId/study'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdStudyRouteRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
+    '/app/businesses-rma_/business/$businessId/quotation': {
+      id: '/app/businesses-rma_/business/$businessId/quotation'
+      path: '/quotation'
+      fullPath: '/app/businesses-rma/business/$businessId/quotation'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdQuotationRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdRouteRoute
+    }
+    '/app/businesses-rma_/business/$businessId/dashboard': {
+      id: '/app/businesses-rma_/business/$businessId/dashboard'
+      path: '/dashboard'
+      fullPath: '/app/businesses-rma/business/$businessId/dashboard'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdRouteRoute
+    }
+    '/app/businesses-rma_/business/$businessId/bp': {
+      id: '/app/businesses-rma_/business/$businessId/bp'
+      path: '/bp'
+      fullPath: '/app/businesses-rma/business/$businessId/bp'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdBpRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdRouteRoute
+    }
+    '/app/businesses-rma_/business/$businessId/bl': {
+      id: '/app/businesses-rma_/business/$businessId/bl'
+      path: '/bl'
+      fullPath: '/app/businesses-rma/business/$businessId/bl'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdBlRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdRouteRoute
+    }
+    '/app/businesses-rma_/business/$businessId/bill': {
+      id: '/app/businesses-rma_/business/$businessId/bill'
+      path: '/bill'
+      fullPath: '/app/businesses-rma/business/$businessId/bill'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdBillRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdRouteRoute
+    }
+    '/app/businesses-rma_/business/$businessId/arc': {
+      id: '/app/businesses-rma_/business/$businessId/arc'
+      path: '/arc'
+      fullPath: '/app/businesses-rma/business/$businessId/arc'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdArcRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdRouteRoute
     }
     '/app/businesses-rma_/business/$businessId_/study/': {
       id: '/app/businesses-rma_/business/$businessId_/study/'
       path: '/'
       fullPath: '/app/businesses-rma/business/$businessId/study/'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdStudyIndexImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdStudyRouteImport
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdStudyIndexRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdStudyRouteRoute
     }
-    '/app/businesses-rma_/business/$businessId/arc/delete-detail/$detailId': {
-      id: '/app/businesses-rma_/business/$businessId/arc/delete-detail/$detailId'
-      path: '/delete-detail/$detailId'
-      fullPath: '/app/businesses-rma/business/$businessId/arc/delete-detail/$detailId'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdArcDeleteDetailDetailIdRouteImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdArcRouteImport
+    '/app/tools/scheduler/details/$rdvId/update': {
+      id: '/app/tools/scheduler/details/$rdvId/update'
+      path: '/update'
+      fullPath: '/app/tools/scheduler/details/$rdvId/update'
+      preLoaderRoute: typeof AppToolsSchedulerDetailsRdvIdUpdateRouteRouteImport
+      parentRoute: typeof AppToolsSchedulerDetailsRdvIdRouteRoute
     }
-    '/app/businesses-rma_/business/$businessId/arc/pdf/send-by-email': {
-      id: '/app/businesses-rma_/business/$businessId/arc/pdf/send-by-email'
-      path: '/send-by-email'
-      fullPath: '/app/businesses-rma/business/$businessId/arc/pdf/send-by-email'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdArcPdfSendByEmailRouteImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdArcPdfRouteImport
-    }
-    '/app/businesses-rma_/business/$businessId/arc/update-detail/$detailId': {
-      id: '/app/businesses-rma_/business/$businessId/arc/update-detail/$detailId'
-      path: '/update-detail/$detailId'
-      fullPath: '/app/businesses-rma/business/$businessId/arc/update-detail/$detailId'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdArcUpdateDetailDetailIdRouteImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdArcRouteImport
-    }
-    '/app/businesses-rma_/business/$businessId/bill/credits/send-by-email': {
-      id: '/app/businesses-rma_/business/$businessId/bill/credits/send-by-email'
-      path: '/send-by-email'
-      fullPath: '/app/businesses-rma/business/$businessId/bill/credits/send-by-email'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdBillCreditsSendByEmailRouteImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdBillCreditsRouteImport
-    }
-    '/app/businesses-rma_/business/$businessId/bl/update/new': {
-      id: '/app/businesses-rma_/business/$businessId/bl/update/new'
-      path: '/new'
-      fullPath: '/app/businesses-rma/business/$businessId/bl/update/new'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdBlUpdateNewRouteImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdBlUpdateRouteImport
-    }
-    '/app/businesses-rma_/business/$businessId/bp/add-serial/$detailId': {
-      id: '/app/businesses-rma_/business/$businessId/bp/add-serial/$detailId'
-      path: '/add-serial/$detailId'
-      fullPath: '/app/businesses-rma/business/$businessId/bp/add-serial/$detailId'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdBpAddSerialDetailIdRouteImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdBpRouteImport
-    }
-    '/app/businesses-rma_/business/$businessId/bp/create-detail-rma/$detailId': {
-      id: '/app/businesses-rma_/business/$businessId/bp/create-detail-rma/$detailId'
-      path: '/create-detail-rma/$detailId'
-      fullPath: '/app/businesses-rma/business/$businessId/bp/create-detail-rma/$detailId'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdBpCreateDetailRmaDetailIdRouteImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdBpRouteImport
-    }
-    '/app/businesses-rma_/business/$businessId/bp/create-serial-rma/$serialId': {
-      id: '/app/businesses-rma_/business/$businessId/bp/create-serial-rma/$serialId'
-      path: '/create-serial-rma/$serialId'
-      fullPath: '/app/businesses-rma/business/$businessId/bp/create-serial-rma/$serialId'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdBpCreateSerialRmaSerialIdRouteImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdBpRouteImport
-    }
-    '/app/businesses-rma_/business/$businessId/bp/delete-detail/$detailId': {
-      id: '/app/businesses-rma_/business/$businessId/bp/delete-detail/$detailId'
-      path: '/delete-detail/$detailId'
-      fullPath: '/app/businesses-rma/business/$businessId/bp/delete-detail/$detailId'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdBpDeleteDetailDetailIdRouteImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdBpRouteImport
-    }
-    '/app/businesses-rma_/business/$businessId/bp/delete-serial/$serialId': {
-      id: '/app/businesses-rma_/business/$businessId/bp/delete-serial/$serialId'
-      path: '/delete-serial/$serialId'
-      fullPath: '/app/businesses-rma/business/$businessId/bp/delete-serial/$serialId'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdBpDeleteSerialSerialIdRouteImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdBpRouteImport
-    }
-    '/app/businesses-rma_/business/$businessId/bp/update-detail/$detailId': {
-      id: '/app/businesses-rma_/business/$businessId/bp/update-detail/$detailId'
-      path: '/update-detail/$detailId'
-      fullPath: '/app/businesses-rma/business/$businessId/bp/update-detail/$detailId'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdBpUpdateDetailDetailIdRouteImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdBpRouteImport
-    }
-    '/app/businesses-rma_/business/$businessId/dashboard/address-book/create': {
-      id: '/app/businesses-rma_/business/$businessId/dashboard/address-book/create'
-      path: '/create'
-      fullPath: '/app/businesses-rma/business/$businessId/dashboard/address-book/create'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardAddressBookCreateRouteImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardAddressBookRouteImport
-    }
-    '/app/businesses-rma_/business/$businessId/dashboard/confirm-quotation-import/$otherBusinessId': {
-      id: '/app/businesses-rma_/business/$businessId/dashboard/confirm-quotation-import/$otherBusinessId'
-      path: '/confirm-quotation-import/$otherBusinessId'
-      fullPath: '/app/businesses-rma/business/$businessId/dashboard/confirm-quotation-import/$otherBusinessId'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardConfirmQuotationImportOtherBusinessIdRouteImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardRouteImport
-    }
-    '/app/businesses-rma_/business/$businessId/dashboard/delete-ged-object/$objectRelativePath': {
-      id: '/app/businesses-rma_/business/$businessId/dashboard/delete-ged-object/$objectRelativePath'
-      path: '/delete-ged-object/$objectRelativePath'
-      fullPath: '/app/businesses-rma/business/$businessId/dashboard/delete-ged-object/$objectRelativePath'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardDeleteGedObjectObjectRelativePathRouteImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardRouteImport
-    }
-    '/app/businesses-rma_/business/$businessId/dashboard/delete-link/$associatedId': {
-      id: '/app/businesses-rma_/business/$businessId/dashboard/delete-link/$associatedId'
-      path: '/delete-link/$associatedId'
-      fullPath: '/app/businesses-rma/business/$businessId/dashboard/delete-link/$associatedId'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardDeleteLinkAssociatedIdRouteImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardRouteImport
-    }
-    '/app/businesses-rma_/business/$businessId/dashboard/email-history/$emailId': {
-      id: '/app/businesses-rma_/business/$businessId/dashboard/email-history/$emailId'
-      path: '/$emailId'
-      fullPath: '/app/businesses-rma/business/$businessId/dashboard/email-history/$emailId'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdRouteImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryRouteImport
-    }
-    '/app/businesses-rma_/business/$businessId/dashboard/lifesheet-email/$lifesheetId': {
-      id: '/app/businesses-rma_/business/$businessId/dashboard/lifesheet-email/$lifesheetId'
-      path: '/lifesheet-email/$lifesheetId'
-      fullPath: '/app/businesses-rma/business/$businessId/dashboard/lifesheet-email/$lifesheetId'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardLifesheetEmailLifesheetIdRouteImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardRouteImport
-    }
-    '/app/businesses-rma_/business/$businessId/dashboard/rename-ged-object/$objectRelativePath': {
-      id: '/app/businesses-rma_/business/$businessId/dashboard/rename-ged-object/$objectRelativePath'
-      path: '/rename-ged-object/$objectRelativePath'
-      fullPath: '/app/businesses-rma/business/$businessId/dashboard/rename-ged-object/$objectRelativePath'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardRenameGedObjectObjectRelativePathRouteImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardRouteImport
-    }
-    '/app/businesses-rma_/business/$businessId/dashboard/task-email/$taskId': {
-      id: '/app/businesses-rma_/business/$businessId/dashboard/task-email/$taskId'
-      path: '/task-email/$taskId'
-      fullPath: '/app/businesses-rma/business/$businessId/dashboard/task-email/$taskId'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardTaskEmailTaskIdRouteImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardRouteImport
-    }
-    '/app/businesses-rma_/business/$businessId/dashboard/unlink-task/$taskId': {
-      id: '/app/businesses-rma_/business/$businessId/dashboard/unlink-task/$taskId'
-      path: '/unlink-task/$taskId'
-      fullPath: '/app/businesses-rma/business/$businessId/dashboard/unlink-task/$taskId'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardUnlinkTaskTaskIdRouteImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardRouteImport
-    }
-    '/app/businesses-rma_/business/$businessId/quotation/commercial-notice/send-by-email': {
-      id: '/app/businesses-rma_/business/$businessId/quotation/commercial-notice/send-by-email'
-      path: '/send-by-email'
-      fullPath: '/app/businesses-rma/business/$businessId/quotation/commercial-notice/send-by-email'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdQuotationCommercialNoticeSendByEmailRouteImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdQuotationCommercialNoticeRouteImport
-    }
-    '/app/businesses-rma_/business/$businessId/quotation/create-associated-detail/$detailId': {
-      id: '/app/businesses-rma_/business/$businessId/quotation/create-associated-detail/$detailId'
-      path: '/create-associated-detail/$detailId'
-      fullPath: '/app/businesses-rma/business/$businessId/quotation/create-associated-detail/$detailId'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdQuotationCreateAssociatedDetailDetailIdRouteImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdQuotationRouteImport
-    }
-    '/app/businesses-rma_/business/$businessId/quotation/create-detail/$subquotationId': {
-      id: '/app/businesses-rma_/business/$businessId/quotation/create-detail/$subquotationId'
-      path: '/create-detail/$subquotationId'
-      fullPath: '/app/businesses-rma/business/$businessId/quotation/create-detail/$subquotationId'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdQuotationCreateDetailSubquotationIdRouteImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdQuotationRouteImport
-    }
-    '/app/businesses-rma_/business/$businessId/quotation/delete-detail/$detailId': {
-      id: '/app/businesses-rma_/business/$businessId/quotation/delete-detail/$detailId'
-      path: '/delete-detail/$detailId'
-      fullPath: '/app/businesses-rma/business/$businessId/quotation/delete-detail/$detailId'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdQuotationDeleteDetailDetailIdRouteImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdQuotationRouteImport
-    }
-    '/app/businesses-rma_/business/$businessId/quotation/delete-subquotation/$subquotationId': {
-      id: '/app/businesses-rma_/business/$businessId/quotation/delete-subquotation/$subquotationId'
-      path: '/delete-subquotation/$subquotationId'
-      fullPath: '/app/businesses-rma/business/$businessId/quotation/delete-subquotation/$subquotationId'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdQuotationDeleteSubquotationSubquotationIdRouteImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdQuotationRouteImport
-    }
-    '/app/businesses-rma_/business/$businessId/quotation/pdf/send-by-email': {
-      id: '/app/businesses-rma_/business/$businessId/quotation/pdf/send-by-email'
-      path: '/send-by-email'
-      fullPath: '/app/businesses-rma/business/$businessId/quotation/pdf/send-by-email'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdQuotationPdfSendByEmailRouteImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdQuotationPdfRouteImport
-    }
-    '/app/businesses-rma_/business/$businessId/quotation/update-detail/$detailId': {
-      id: '/app/businesses-rma_/business/$businessId/quotation/update-detail/$detailId'
-      path: '/update-detail/$detailId'
-      fullPath: '/app/businesses-rma/business/$businessId/quotation/update-detail/$detailId'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdQuotationUpdateDetailDetailIdRouteImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdQuotationRouteImport
-    }
-    '/app/businesses-rma_/business/$businessId/quotation/update-subquotation/$subquotationId': {
-      id: '/app/businesses-rma_/business/$businessId/quotation/update-subquotation/$subquotationId'
-      path: '/update-subquotation/$subquotationId'
-      fullPath: '/app/businesses-rma/business/$businessId/quotation/update-subquotation/$subquotationId'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdQuotationUpdateSubquotationSubquotationIdRouteImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdQuotationRouteImport
-    }
-    '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/create-faq': {
-      id: '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/create-faq'
-      path: '/create-faq'
-      fullPath: '/app/businesses-rma/business/$businessId/assistance/$assistanceId/create-faq'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdCreateFaqRouteImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdRouteImport
-    }
-    '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/create-ged-directory': {
-      id: '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/create-ged-directory'
-      path: '/create-ged-directory'
-      fullPath: '/app/businesses-rma/business/$businessId/assistance/$assistanceId/create-ged-directory'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdCreateGedDirectoryRouteImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdRouteImport
-    }
-    '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/create-lifesheet': {
-      id: '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/create-lifesheet'
-      path: '/create-lifesheet'
-      fullPath: '/app/businesses-rma/business/$businessId/assistance/$assistanceId/create-lifesheet'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdCreateLifesheetRouteImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdRouteImport
-    }
-    '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/create-link': {
-      id: '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/create-link'
-      path: '/create-link'
-      fullPath: '/app/businesses-rma/business/$businessId/assistance/$assistanceId/create-link'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdCreateLinkRouteImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdRouteImport
-    }
-    '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/delete': {
-      id: '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/delete'
+    '/app/tools/scheduler/details/$rdvId/delete': {
+      id: '/app/tools/scheduler/details/$rdvId/delete'
       path: '/delete'
-      fullPath: '/app/businesses-rma/business/$businessId/assistance/$assistanceId/delete'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdDeleteRouteImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdRouteImport
+      fullPath: '/app/tools/scheduler/details/$rdvId/delete'
+      preLoaderRoute: typeof AppToolsSchedulerDetailsRdvIdDeleteRouteRouteImport
+      parentRoute: typeof AppToolsSchedulerDetailsRdvIdRouteRoute
     }
-    '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/edit-cumulated-time': {
-      id: '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/edit-cumulated-time'
-      path: '/edit-cumulated-time'
-      fullPath: '/app/businesses-rma/business/$businessId/assistance/$assistanceId/edit-cumulated-time'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdEditCumulatedTimeRouteImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdRouteImport
+    '/app/tools/formations/update/$formationId/details': {
+      id: '/app/tools/formations/update/$formationId/details'
+      path: '/details'
+      fullPath: '/app/tools/formations/update/$formationId/details'
+      preLoaderRoute: typeof AppToolsFormationsUpdateFormationIdDetailsRouteRouteImport
+      parentRoute: typeof AppToolsFormationsUpdateFormationIdRouteRoute
     }
-    '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/edit-no-billed-time': {
-      id: '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/edit-no-billed-time'
-      path: '/edit-no-billed-time'
-      fullPath: '/app/businesses-rma/business/$businessId/assistance/$assistanceId/edit-no-billed-time'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdEditNoBilledTimeRouteImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdRouteImport
+    '/app/tools/formations/update/$formationId/add-detail': {
+      id: '/app/tools/formations/update/$formationId/add-detail'
+      path: '/add-detail'
+      fullPath: '/app/tools/formations/update/$formationId/add-detail'
+      preLoaderRoute: typeof AppToolsFormationsUpdateFormationIdAddDetailRouteRouteImport
+      parentRoute: typeof AppToolsFormationsUpdateFormationIdRouteRoute
     }
-    '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/edit-subtitle': {
-      id: '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/edit-subtitle'
-      path: '/edit-subtitle'
-      fullPath: '/app/businesses-rma/business/$businessId/assistance/$assistanceId/edit-subtitle'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdEditSubtitleRouteImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdRouteImport
+    '/app/tools/formations/subscribers/$formationDetailId/create': {
+      id: '/app/tools/formations/subscribers/$formationDetailId/create'
+      path: '/create'
+      fullPath: '/app/tools/formations/subscribers/$formationDetailId/create'
+      preLoaderRoute: typeof AppToolsFormationsSubscribersFormationDetailIdCreateRouteRouteImport
+      parentRoute: typeof AppToolsFormationsSubscribersFormationDetailIdRouteRoute
     }
-    '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/import-ged-files': {
-      id: '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/import-ged-files'
-      path: '/import-ged-files'
-      fullPath: '/app/businesses-rma/business/$businessId/assistance/$assistanceId/import-ged-files'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdImportGedFilesRouteImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdRouteImport
+    '/app/products_/$productId/manage/update-version/$versionId': {
+      id: '/app/products_/$productId/manage/update-version/$versionId'
+      path: '/update-version/$versionId'
+      fullPath: '/app/products/$productId/manage/update-version/$versionId'
+      preLoaderRoute: typeof AppProductsProductIdManageUpdateVersionVersionIdRouteRouteImport
+      parentRoute: typeof AppProductsProductIdManageRouteRoute
     }
-    '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/pdf': {
-      id: '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/pdf'
-      path: '/pdf'
-      fullPath: '/app/businesses-rma/business/$businessId/assistance/$assistanceId/pdf'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdPdfRouteImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdRouteImport
+    '/app/products_/$productId/manage/update-stock/$stockId': {
+      id: '/app/products_/$productId/manage/update-stock/$stockId'
+      path: '/update-stock/$stockId'
+      fullPath: '/app/products/$productId/manage/update-stock/$stockId'
+      preLoaderRoute: typeof AppProductsProductIdManageUpdateStockStockIdRouteRouteImport
+      parentRoute: typeof AppProductsProductIdManageRouteRoute
     }
-    '/app/businesses-rma_/rma/$rmaId/delivery/delete-detail/$detailId': {
-      id: '/app/businesses-rma_/rma/$rmaId/delivery/delete-detail/$detailId'
-      path: '/delete-detail/$detailId'
-      fullPath: '/app/businesses-rma/rma/$rmaId/delivery/delete-detail/$detailId'
-      preLoaderRoute: typeof AppBusinessesRmaRmaRmaIdDeliveryDeleteDetailDetailIdRouteImport
-      parentRoute: typeof AppBusinessesRmaRmaRmaIdDeliveryRouteImport
+    '/app/products_/$productId/manage/update-specification/$specificationId': {
+      id: '/app/products_/$productId/manage/update-specification/$specificationId'
+      path: '/update-specification/$specificationId'
+      fullPath: '/app/products/$productId/manage/update-specification/$specificationId'
+      preLoaderRoute: typeof AppProductsProductIdManageUpdateSpecificationSpecificationIdRouteRouteImport
+      parentRoute: typeof AppProductsProductIdManageRouteRoute
     }
-    '/app/businesses-rma_/rma/$rmaId/delivery/pdf/send-by-email': {
-      id: '/app/businesses-rma_/rma/$rmaId/delivery/pdf/send-by-email'
-      path: '/send-by-email'
-      fullPath: '/app/businesses-rma/rma/$rmaId/delivery/pdf/send-by-email'
-      preLoaderRoute: typeof AppBusinessesRmaRmaRmaIdDeliveryPdfSendByEmailRouteImport
-      parentRoute: typeof AppBusinessesRmaRmaRmaIdDeliveryPdfRouteImport
+    '/app/products_/$productId/manage/update-nomenclature-detail/$nomenclatureDetailId': {
+      id: '/app/products_/$productId/manage/update-nomenclature-detail/$nomenclatureDetailId'
+      path: '/update-nomenclature-detail/$nomenclatureDetailId'
+      fullPath: '/app/products/$productId/manage/update-nomenclature-detail/$nomenclatureDetailId'
+      preLoaderRoute: typeof AppProductsProductIdManageUpdateNomenclatureDetailNomenclatureDetailIdRouteRouteImport
+      parentRoute: typeof AppProductsProductIdManageRouteRoute
     }
-    '/app/businesses-rma_/rma/$rmaId/delivery/update-detail/$detailId': {
-      id: '/app/businesses-rma_/rma/$rmaId/delivery/update-detail/$detailId'
-      path: '/update-detail/$detailId'
-      fullPath: '/app/businesses-rma/rma/$rmaId/delivery/update-detail/$detailId'
-      preLoaderRoute: typeof AppBusinessesRmaRmaRmaIdDeliveryUpdateDetailDetailIdRouteImport
-      parentRoute: typeof AppBusinessesRmaRmaRmaIdDeliveryRouteImport
+    '/app/products_/$productId/manage/stock-history/$stockId': {
+      id: '/app/products_/$productId/manage/stock-history/$stockId'
+      path: '/stock-history/$stockId'
+      fullPath: '/app/products/$productId/manage/stock-history/$stockId'
+      preLoaderRoute: typeof AppProductsProductIdManageStockHistoryStockIdRouteRouteImport
+      parentRoute: typeof AppProductsProductIdManageRouteRoute
     }
-    '/app/businesses-rma_/rma/$rmaId/reception/delete-detail/$detailId': {
-      id: '/app/businesses-rma_/rma/$rmaId/reception/delete-detail/$detailId'
-      path: '/delete-detail/$detailId'
-      fullPath: '/app/businesses-rma/rma/$rmaId/reception/delete-detail/$detailId'
-      preLoaderRoute: typeof AppBusinessesRmaRmaRmaIdReceptionDeleteDetailDetailIdRouteImport
-      parentRoute: typeof AppBusinessesRmaRmaRmaIdReceptionRouteImport
+    '/app/products_/$productId/manage/remove-associated-product/$associatedProductId': {
+      id: '/app/products_/$productId/manage/remove-associated-product/$associatedProductId'
+      path: '/remove-associated-product/$associatedProductId'
+      fullPath: '/app/products/$productId/manage/remove-associated-product/$associatedProductId'
+      preLoaderRoute: typeof AppProductsProductIdManageRemoveAssociatedProductAssociatedProductIdRouteRouteImport
+      parentRoute: typeof AppProductsProductIdManageRouteRoute
     }
-    '/app/businesses-rma_/rma/$rmaId/reception/pdf/send-by-email': {
-      id: '/app/businesses-rma_/rma/$rmaId/reception/pdf/send-by-email'
-      path: '/send-by-email'
-      fullPath: '/app/businesses-rma/rma/$rmaId/reception/pdf/send-by-email'
-      preLoaderRoute: typeof AppBusinessesRmaRmaRmaIdReceptionPdfSendByEmailRouteImport
-      parentRoute: typeof AppBusinessesRmaRmaRmaIdReceptionPdfRouteImport
+    '/app/products_/$productId/manage/delete-version/$versionId': {
+      id: '/app/products_/$productId/manage/delete-version/$versionId'
+      path: '/delete-version/$versionId'
+      fullPath: '/app/products/$productId/manage/delete-version/$versionId'
+      preLoaderRoute: typeof AppProductsProductIdManageDeleteVersionVersionIdRouteRouteImport
+      parentRoute: typeof AppProductsProductIdManageRouteRoute
     }
-    '/app/businesses-rma_/rma/$rmaId/reception/update-detail/$detailId': {
-      id: '/app/businesses-rma_/rma/$rmaId/reception/update-detail/$detailId'
-      path: '/update-detail/$detailId'
-      fullPath: '/app/businesses-rma/rma/$rmaId/reception/update-detail/$detailId'
-      preLoaderRoute: typeof AppBusinessesRmaRmaRmaIdReceptionUpdateDetailDetailIdRouteImport
-      parentRoute: typeof AppBusinessesRmaRmaRmaIdReceptionRouteImport
+    '/app/products_/$productId/manage/delete-stock/$stockId': {
+      id: '/app/products_/$productId/manage/delete-stock/$stockId'
+      path: '/delete-stock/$stockId'
+      fullPath: '/app/products/$productId/manage/delete-stock/$stockId'
+      preLoaderRoute: typeof AppProductsProductIdManageDeleteStockStockIdRouteRouteImport
+      parentRoute: typeof AppProductsProductIdManageRouteRoute
     }
-    '/app/businesses-rma_/rma/$rmaId/support/delete-detail/$detailId': {
-      id: '/app/businesses-rma_/rma/$rmaId/support/delete-detail/$detailId'
-      path: '/delete-detail/$detailId'
-      fullPath: '/app/businesses-rma/rma/$rmaId/support/delete-detail/$detailId'
-      preLoaderRoute: typeof AppBusinessesRmaRmaRmaIdSupportDeleteDetailDetailIdRouteImport
-      parentRoute: typeof AppBusinessesRmaRmaRmaIdSupportRouteImport
+    '/app/products_/$productId/manage/delete-specification/$specificationId': {
+      id: '/app/products_/$productId/manage/delete-specification/$specificationId'
+      path: '/delete-specification/$specificationId'
+      fullPath: '/app/products/$productId/manage/delete-specification/$specificationId'
+      preLoaderRoute: typeof AppProductsProductIdManageDeleteSpecificationSpecificationIdRouteRouteImport
+      parentRoute: typeof AppProductsProductIdManageRouteRoute
     }
-    '/app/businesses-rma_/rma/$rmaId/support/delete-ged-object/$relativePath': {
-      id: '/app/businesses-rma_/rma/$rmaId/support/delete-ged-object/$relativePath'
-      path: '/delete-ged-object/$relativePath'
-      fullPath: '/app/businesses-rma/rma/$rmaId/support/delete-ged-object/$relativePath'
-      preLoaderRoute: typeof AppBusinessesRmaRmaRmaIdSupportDeleteGedObjectRelativePathRouteImport
-      parentRoute: typeof AppBusinessesRmaRmaRmaIdSupportRouteImport
+    '/app/products_/$productId/manage/delete-nomenclature-detail/$nomenclatureDetailId': {
+      id: '/app/products_/$productId/manage/delete-nomenclature-detail/$nomenclatureDetailId'
+      path: '/delete-nomenclature-detail/$nomenclatureDetailId'
+      fullPath: '/app/products/$productId/manage/delete-nomenclature-detail/$nomenclatureDetailId'
+      preLoaderRoute: typeof AppProductsProductIdManageDeleteNomenclatureDetailNomenclatureDetailIdRouteRouteImport
+      parentRoute: typeof AppProductsProductIdManageRouteRoute
     }
-    '/app/businesses-rma_/rma/$rmaId/support/delete-link/$associatedId': {
-      id: '/app/businesses-rma_/rma/$rmaId/support/delete-link/$associatedId'
-      path: '/delete-link/$associatedId'
-      fullPath: '/app/businesses-rma/rma/$rmaId/support/delete-link/$associatedId'
-      preLoaderRoute: typeof AppBusinessesRmaRmaRmaIdSupportDeleteLinkAssociatedIdRouteImport
-      parentRoute: typeof AppBusinessesRmaRmaRmaIdSupportRouteImport
+    '/app/products_/$productId/manage/add-specification/$filterId': {
+      id: '/app/products_/$productId/manage/add-specification/$filterId'
+      path: '/$filterId'
+      fullPath: '/app/products/$productId/manage/add-specification/$filterId'
+      preLoaderRoute: typeof AppProductsProductIdManageAddSpecificationFilterIdRouteRouteImport
+      parentRoute: typeof AppProductsProductIdManageAddSpecificationRouteRoute
     }
-    '/app/businesses-rma_/rma/$rmaId/support/lifesheet-email/$lifesheetId': {
-      id: '/app/businesses-rma_/rma/$rmaId/support/lifesheet-email/$lifesheetId'
-      path: '/lifesheet-email/$lifesheetId'
-      fullPath: '/app/businesses-rma/rma/$rmaId/support/lifesheet-email/$lifesheetId'
-      preLoaderRoute: typeof AppBusinessesRmaRmaRmaIdSupportLifesheetEmailLifesheetIdRouteImport
-      parentRoute: typeof AppBusinessesRmaRmaRmaIdSupportRouteImport
-    }
-    '/app/businesses-rma_/rma/$rmaId/support/pdf/send-by-email': {
-      id: '/app/businesses-rma_/rma/$rmaId/support/pdf/send-by-email'
-      path: '/send-by-email'
-      fullPath: '/app/businesses-rma/rma/$rmaId/support/pdf/send-by-email'
-      preLoaderRoute: typeof AppBusinessesRmaRmaRmaIdSupportPdfSendByEmailRouteImport
-      parentRoute: typeof AppBusinessesRmaRmaRmaIdSupportPdfRouteImport
-    }
-    '/app/businesses-rma_/rma/$rmaId/support/rename-ged-object/$objectRelativePath': {
-      id: '/app/businesses-rma_/rma/$rmaId/support/rename-ged-object/$objectRelativePath'
-      path: '/rename-ged-object/$objectRelativePath'
-      fullPath: '/app/businesses-rma/rma/$rmaId/support/rename-ged-object/$objectRelativePath'
-      preLoaderRoute: typeof AppBusinessesRmaRmaRmaIdSupportRenameGedObjectObjectRelativePathRouteImport
-      parentRoute: typeof AppBusinessesRmaRmaRmaIdSupportRouteImport
-    }
-    '/app/businesses-rma_/rma/$rmaId/support/task-email/$taskId': {
-      id: '/app/businesses-rma_/rma/$rmaId/support/task-email/$taskId'
-      path: '/task-email/$taskId'
-      fullPath: '/app/businesses-rma/rma/$rmaId/support/task-email/$taskId'
-      preLoaderRoute: typeof AppBusinessesRmaRmaRmaIdSupportTaskEmailTaskIdRouteImport
-      parentRoute: typeof AppBusinessesRmaRmaRmaIdSupportRouteImport
-    }
-    '/app/businesses-rma_/rma/$rmaId/support/unlink-task/$taskId': {
-      id: '/app/businesses-rma_/rma/$rmaId/support/unlink-task/$taskId'
+    '/app/products_/$productId/informations/unlink-task/$taskId': {
+      id: '/app/products_/$productId/informations/unlink-task/$taskId'
       path: '/unlink-task/$taskId'
-      fullPath: '/app/businesses-rma/rma/$rmaId/support/unlink-task/$taskId'
-      preLoaderRoute: typeof AppBusinessesRmaRmaRmaIdSupportUnlinkTaskTaskIdRouteImport
-      parentRoute: typeof AppBusinessesRmaRmaRmaIdSupportRouteImport
+      fullPath: '/app/products/$productId/informations/unlink-task/$taskId'
+      preLoaderRoute: typeof AppProductsProductIdInformationsUnlinkTaskTaskIdRouteRouteImport
+      parentRoute: typeof AppProductsProductIdInformationsRouteRoute
     }
-    '/app/businesses-rma_/rma/$rmaId/support/update-detail/$detailId': {
-      id: '/app/businesses-rma_/rma/$rmaId/support/update-detail/$detailId'
-      path: '/update-detail/$detailId'
-      fullPath: '/app/businesses-rma/rma/$rmaId/support/update-detail/$detailId'
-      preLoaderRoute: typeof AppBusinessesRmaRmaRmaIdSupportUpdateDetailDetailIdRouteImport
-      parentRoute: typeof AppBusinessesRmaRmaRmaIdSupportRouteImport
+    '/app/products_/$productId/informations/task-email/$taskId': {
+      id: '/app/products_/$productId/informations/task-email/$taskId'
+      path: '/task-email/$taskId'
+      fullPath: '/app/products/$productId/informations/task-email/$taskId'
+      preLoaderRoute: typeof AppProductsProductIdInformationsTaskEmailTaskIdRouteRouteImport
+      parentRoute: typeof AppProductsProductIdInformationsRouteRoute
     }
-    '/app/enterprises_/$enterpriseId/email-history/email/$emailId/reply': {
-      id: '/app/enterprises_/$enterpriseId/email-history/email/$emailId/reply'
+    '/app/products_/$productId/informations/lifesheet-email/$lifesheetId': {
+      id: '/app/products_/$productId/informations/lifesheet-email/$lifesheetId'
+      path: '/lifesheet-email/$lifesheetId'
+      fullPath: '/app/products/$productId/informations/lifesheet-email/$lifesheetId'
+      preLoaderRoute: typeof AppProductsProductIdInformationsLifesheetEmailLifesheetIdRouteRouteImport
+      parentRoute: typeof AppProductsProductIdInformationsRouteRoute
+    }
+    '/app/faq/ged/$faqId/rename/$itemRelativePath': {
+      id: '/app/faq/ged/$faqId/rename/$itemRelativePath'
+      path: '/rename/$itemRelativePath'
+      fullPath: '/app/faq/ged/$faqId/rename/$itemRelativePath'
+      preLoaderRoute: typeof AppFaqGedFaqIdRenameItemRelativePathRouteRouteImport
+      parentRoute: typeof AppFaqGedFaqIdRouteRoute
+    }
+    '/app/faq/ged/$faqId/delete/$itemRelativePath': {
+      id: '/app/faq/ged/$faqId/delete/$itemRelativePath'
+      path: '/delete/$itemRelativePath'
+      fullPath: '/app/faq/ged/$faqId/delete/$itemRelativePath'
+      preLoaderRoute: typeof AppFaqGedFaqIdDeleteItemRelativePathRouteRouteImport
+      parentRoute: typeof AppFaqGedFaqIdRouteRoute
+    }
+    '/app/enterprises_/$enterpriseId/task-email/$taskId/reply': {
+      id: '/app/enterprises_/$enterpriseId/task-email/$taskId/reply'
       path: '/reply'
-      fullPath: '/app/enterprises/$enterpriseId/email-history/email/$emailId/reply'
-      preLoaderRoute: typeof AppEnterprisesEnterpriseIdEmailHistoryEmailEmailIdReplyRouteImport
-      parentRoute: typeof AppEnterprisesEnterpriseIdEmailHistoryEmailEmailIdRouteImport
+      fullPath: '/app/enterprises/$enterpriseId/task-email/$taskId/reply'
+      preLoaderRoute: typeof AppEnterprisesEnterpriseIdTaskEmailTaskIdReplyRouteRouteImport
+      parentRoute: typeof AppEnterprisesEnterpriseIdTaskEmailTaskIdRouteRoute
     }
-    '/app/products_/$productId/informations/task-email/$taskId/reply': {
-      id: '/app/products_/$productId/informations/task-email/$taskId/reply'
-      path: '/reply'
-      fullPath: '/app/products/$productId/informations/task-email/$taskId/reply'
-      preLoaderRoute: typeof AppProductsProductIdInformationsTaskEmailTaskIdReplyRouteImport
-      parentRoute: typeof AppProductsProductIdInformationsTaskEmailTaskIdRouteImport
+    '/app/enterprises_/$enterpriseId/email-history/email/$emailId': {
+      id: '/app/enterprises_/$enterpriseId/email-history/email/$emailId'
+      path: '/email/$emailId'
+      fullPath: '/app/enterprises/$enterpriseId/email-history/email/$emailId'
+      preLoaderRoute: typeof AppEnterprisesEnterpriseIdEmailHistoryEmailEmailIdRouteRouteImport
+      parentRoute: typeof AppEnterprisesEnterpriseIdEmailHistoryRouteRoute
     }
-    '/app/tools/formations/subscribers/$formationDetailId/delete/$subscriptionId': {
-      id: '/app/tools/formations/subscribers/$formationDetailId/delete/$subscriptionId'
-      path: '/delete/$subscriptionId'
-      fullPath: '/app/tools/formations/subscribers/$formationDetailId/delete/$subscriptionId'
-      preLoaderRoute: typeof AppToolsFormationsSubscribersFormationDetailIdDeleteSubscriptionIdRouteImport
-      parentRoute: typeof AppToolsFormationsSubscribersFormationDetailIdRouteImport
+    '/app/enterprises_/$enterpriseId/address-book/update/$addressId': {
+      id: '/app/enterprises_/$enterpriseId/address-book/update/$addressId'
+      path: '/update/$addressId'
+      fullPath: '/app/enterprises/$enterpriseId/address-book/update/$addressId'
+      preLoaderRoute: typeof AppEnterprisesEnterpriseIdAddressBookUpdateAddressIdRouteRouteImport
+      parentRoute: typeof AppEnterprisesEnterpriseIdAddressBookRouteRoute
+    }
+    '/app/enterprises_/$enterpriseId/address-book/delete/$addressId': {
+      id: '/app/enterprises_/$enterpriseId/address-book/delete/$addressId'
+      path: '/delete/$addressId'
+      fullPath: '/app/enterprises/$enterpriseId/address-book/delete/$addressId'
+      preLoaderRoute: typeof AppEnterprisesEnterpriseIdAddressBookDeleteAddressIdRouteRouteImport
+      parentRoute: typeof AppEnterprisesEnterpriseIdAddressBookRouteRoute
+    }
+    '/app/businesses-rma_/rma/$rmaId/support/pdf': {
+      id: '/app/businesses-rma_/rma/$rmaId/support/pdf'
+      path: '/pdf'
+      fullPath: '/app/businesses-rma/rma/$rmaId/support/pdf'
+      preLoaderRoute: typeof AppBusinessesRmaRmaRmaIdSupportPdfRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaRmaRmaIdSupportRouteRoute
+    }
+    '/app/businesses-rma_/rma/$rmaId/support/import-ged-files': {
+      id: '/app/businesses-rma_/rma/$rmaId/support/import-ged-files'
+      path: '/import-ged-files'
+      fullPath: '/app/businesses-rma/rma/$rmaId/support/import-ged-files'
+      preLoaderRoute: typeof AppBusinessesRmaRmaRmaIdSupportImportGedFilesRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaRmaRmaIdSupportRouteRoute
+    }
+    '/app/businesses-rma_/rma/$rmaId/support/create-link': {
+      id: '/app/businesses-rma_/rma/$rmaId/support/create-link'
+      path: '/create-link'
+      fullPath: '/app/businesses-rma/rma/$rmaId/support/create-link'
+      preLoaderRoute: typeof AppBusinessesRmaRmaRmaIdSupportCreateLinkRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaRmaRmaIdSupportRouteRoute
+    }
+    '/app/businesses-rma_/rma/$rmaId/support/create-lifesheet': {
+      id: '/app/businesses-rma_/rma/$rmaId/support/create-lifesheet'
+      path: '/create-lifesheet'
+      fullPath: '/app/businesses-rma/rma/$rmaId/support/create-lifesheet'
+      preLoaderRoute: typeof AppBusinessesRmaRmaRmaIdSupportCreateLifesheetRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaRmaRmaIdSupportRouteRoute
+    }
+    '/app/businesses-rma_/rma/$rmaId/support/create-ged-directory': {
+      id: '/app/businesses-rma_/rma/$rmaId/support/create-ged-directory'
+      path: '/create-ged-directory'
+      fullPath: '/app/businesses-rma/rma/$rmaId/support/create-ged-directory'
+      preLoaderRoute: typeof AppBusinessesRmaRmaRmaIdSupportCreateGedDirectoryRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaRmaRmaIdSupportRouteRoute
+    }
+    '/app/businesses-rma_/rma/$rmaId/support/create-detail': {
+      id: '/app/businesses-rma_/rma/$rmaId/support/create-detail'
+      path: '/create-detail'
+      fullPath: '/app/businesses-rma/rma/$rmaId/support/create-detail'
+      preLoaderRoute: typeof AppBusinessesRmaRmaRmaIdSupportCreateDetailRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaRmaRmaIdSupportRouteRoute
+    }
+    '/app/businesses-rma_/rma/$rmaId/reception/pdf': {
+      id: '/app/businesses-rma_/rma/$rmaId/reception/pdf'
+      path: '/pdf'
+      fullPath: '/app/businesses-rma/rma/$rmaId/reception/pdf'
+      preLoaderRoute: typeof AppBusinessesRmaRmaRmaIdReceptionPdfRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaRmaRmaIdReceptionRouteRoute
+    }
+    '/app/businesses-rma_/rma/$rmaId/reception/create-detail': {
+      id: '/app/businesses-rma_/rma/$rmaId/reception/create-detail'
+      path: '/create-detail'
+      fullPath: '/app/businesses-rma/rma/$rmaId/reception/create-detail'
+      preLoaderRoute: typeof AppBusinessesRmaRmaRmaIdReceptionCreateDetailRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaRmaRmaIdReceptionRouteRoute
+    }
+    '/app/businesses-rma_/rma/$rmaId/delivery/travel-voucher': {
+      id: '/app/businesses-rma_/rma/$rmaId/delivery/travel-voucher'
+      path: '/travel-voucher'
+      fullPath: '/app/businesses-rma/rma/$rmaId/delivery/travel-voucher'
+      preLoaderRoute: typeof AppBusinessesRmaRmaRmaIdDeliveryTravelVoucherRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaRmaRmaIdDeliveryRouteRoute
+    }
+    '/app/businesses-rma_/rma/$rmaId/delivery/pdf': {
+      id: '/app/businesses-rma_/rma/$rmaId/delivery/pdf'
+      path: '/pdf'
+      fullPath: '/app/businesses-rma/rma/$rmaId/delivery/pdf'
+      preLoaderRoute: typeof AppBusinessesRmaRmaRmaIdDeliveryPdfRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaRmaRmaIdDeliveryRouteRoute
+    }
+    '/app/businesses-rma_/rma/$rmaId/delivery/create-detail': {
+      id: '/app/businesses-rma_/rma/$rmaId/delivery/create-detail'
+      path: '/create-detail'
+      fullPath: '/app/businesses-rma/rma/$rmaId/delivery/create-detail'
+      preLoaderRoute: typeof AppBusinessesRmaRmaRmaIdDeliveryCreateDetailRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaRmaRmaIdDeliveryRouteRoute
+    }
+    '/app/businesses-rma_/business/$businessId_/study/expert': {
+      id: '/app/businesses-rma_/business/$businessId_/study/expert'
+      path: '/expert'
+      fullPath: '/app/businesses-rma/business/$businessId/study/expert'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdStudyExpertRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdStudyRouteRoute
+    }
+    '/app/businesses-rma_/business/$businessId_/study/automatic': {
+      id: '/app/businesses-rma_/business/$businessId_/study/automatic'
+      path: '/automatic'
+      fullPath: '/app/businesses-rma/business/$businessId/study/automatic'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdStudyAutomaticRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdStudyRouteRoute
+    }
+    '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId': {
+      id: '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId'
+      path: '/businesses-rma/business/$businessId/assistance/$assistanceId'
+      fullPath: '/app/businesses-rma/business/$businessId/assistance/$assistanceId'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdRouteRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
+    '/app/businesses-rma_/business/$businessId/quotation/update-shipping-price': {
+      id: '/app/businesses-rma_/business/$businessId/quotation/update-shipping-price'
+      path: '/update-shipping-price'
+      fullPath: '/app/businesses-rma/business/$businessId/quotation/update-shipping-price'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdQuotationUpdateShippingPriceRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdQuotationRouteRoute
+    }
+    '/app/businesses-rma_/business/$businessId/quotation/pdf': {
+      id: '/app/businesses-rma_/business/$businessId/quotation/pdf'
+      path: '/pdf'
+      fullPath: '/app/businesses-rma/business/$businessId/quotation/pdf'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdQuotationPdfRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdQuotationRouteRoute
+    }
+    '/app/businesses-rma_/business/$businessId/quotation/commercial-notice': {
+      id: '/app/businesses-rma_/business/$businessId/quotation/commercial-notice'
+      path: '/commercial-notice'
+      fullPath: '/app/businesses-rma/business/$businessId/quotation/commercial-notice'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdQuotationCommercialNoticeRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdQuotationRouteRoute
+    }
+    '/app/businesses-rma_/business/$businessId/dashboard/update-responsible': {
+      id: '/app/businesses-rma_/business/$businessId/dashboard/update-responsible'
+      path: '/update-responsible'
+      fullPath: '/app/businesses-rma/business/$businessId/dashboard/update-responsible'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardUpdateResponsibleRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardRouteRoute
+    }
+    '/app/businesses-rma_/business/$businessId/dashboard/update-representative': {
+      id: '/app/businesses-rma_/business/$businessId/dashboard/update-representative'
+      path: '/update-representative'
+      fullPath: '/app/businesses-rma/business/$businessId/dashboard/update-representative'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardUpdateRepresentativeRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardRouteRoute
+    }
+    '/app/businesses-rma_/business/$businessId/dashboard/update-billing-address': {
+      id: '/app/businesses-rma_/business/$businessId/dashboard/update-billing-address'
+      path: '/update-billing-address'
+      fullPath: '/app/businesses-rma/business/$businessId/dashboard/update-billing-address'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardUpdateBillingAddressRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardRouteRoute
+    }
+    '/app/businesses-rma_/business/$businessId/dashboard/send-email': {
+      id: '/app/businesses-rma_/business/$businessId/dashboard/send-email'
+      path: '/send-email'
+      fullPath: '/app/businesses-rma/business/$businessId/dashboard/send-email'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardSendEmailRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardRouteRoute
+    }
+    '/app/businesses-rma_/business/$businessId/dashboard/import-ged-files': {
+      id: '/app/businesses-rma_/business/$businessId/dashboard/import-ged-files'
+      path: '/import-ged-files'
+      fullPath: '/app/businesses-rma/business/$businessId/dashboard/import-ged-files'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardImportGedFilesRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardRouteRoute
+    }
+    '/app/businesses-rma_/business/$businessId/dashboard/email-history': {
+      id: '/app/businesses-rma_/business/$businessId/dashboard/email-history'
+      path: '/email-history'
+      fullPath: '/app/businesses-rma/business/$businessId/dashboard/email-history'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardRouteRoute
+    }
+    '/app/businesses-rma_/business/$businessId/dashboard/delete': {
+      id: '/app/businesses-rma_/business/$businessId/dashboard/delete'
+      path: '/delete'
+      fullPath: '/app/businesses-rma/business/$businessId/dashboard/delete'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardDeleteRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardRouteRoute
+    }
+    '/app/businesses-rma_/business/$businessId/dashboard/create-link': {
+      id: '/app/businesses-rma_/business/$businessId/dashboard/create-link'
+      path: '/create-link'
+      fullPath: '/app/businesses-rma/business/$businessId/dashboard/create-link'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardCreateLinkRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardRouteRoute
+    }
+    '/app/businesses-rma_/business/$businessId/dashboard/create-lifesheet': {
+      id: '/app/businesses-rma_/business/$businessId/dashboard/create-lifesheet'
+      path: '/create-lifesheet'
+      fullPath: '/app/businesses-rma/business/$businessId/dashboard/create-lifesheet'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardCreateLifesheetRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardRouteRoute
+    }
+    '/app/businesses-rma_/business/$businessId/dashboard/create-ged-directory': {
+      id: '/app/businesses-rma_/business/$businessId/dashboard/create-ged-directory'
+      path: '/create-ged-directory'
+      fullPath: '/app/businesses-rma/business/$businessId/dashboard/create-ged-directory'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardCreateGedDirectoryRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardRouteRoute
+    }
+    '/app/businesses-rma_/business/$businessId/dashboard/address-book': {
+      id: '/app/businesses-rma_/business/$businessId/dashboard/address-book'
+      path: '/address-book'
+      fullPath: '/app/businesses-rma/business/$businessId/dashboard/address-book'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardAddressBookRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardRouteRoute
+    }
+    '/app/businesses-rma_/business/$businessId/bp/travel-voucher': {
+      id: '/app/businesses-rma_/business/$businessId/bp/travel-voucher'
+      path: '/travel-voucher'
+      fullPath: '/app/businesses-rma/business/$businessId/bp/travel-voucher'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdBpTravelVoucherRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdBpRouteRoute
+    }
+    '/app/businesses-rma_/business/$businessId/bl/update': {
+      id: '/app/businesses-rma_/business/$businessId/bl/update'
+      path: '/update'
+      fullPath: '/app/businesses-rma/business/$businessId/bl/update'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdBlUpdateRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdBlRouteRoute
+    }
+    '/app/businesses-rma_/business/$businessId/bl/send-by-email': {
+      id: '/app/businesses-rma_/business/$businessId/bl/send-by-email'
+      path: '/send-by-email'
+      fullPath: '/app/businesses-rma/business/$businessId/bl/send-by-email'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdBlSendByEmailRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdBlRouteRoute
+    }
+    '/app/businesses-rma_/business/$businessId/bill/send-by-email': {
+      id: '/app/businesses-rma_/business/$businessId/bill/send-by-email'
+      path: '/send-by-email'
+      fullPath: '/app/businesses-rma/business/$businessId/bill/send-by-email'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdBillSendByEmailRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdBillRouteRoute
+    }
+    '/app/businesses-rma_/business/$businessId/bill/credits': {
+      id: '/app/businesses-rma_/business/$businessId/bill/credits'
+      path: '/credits'
+      fullPath: '/app/businesses-rma/business/$businessId/bill/credits'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdBillCreditsRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdBillRouteRoute
+    }
+    '/app/businesses-rma_/business/$businessId/arc/update-shipping-price': {
+      id: '/app/businesses-rma_/business/$businessId/arc/update-shipping-price'
+      path: '/update-shipping-price'
+      fullPath: '/app/businesses-rma/business/$businessId/arc/update-shipping-price'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdArcUpdateShippingPriceRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdArcRouteRoute
+    }
+    '/app/businesses-rma_/business/$businessId/arc/pdf': {
+      id: '/app/businesses-rma_/business/$businessId/arc/pdf'
+      path: '/pdf'
+      fullPath: '/app/businesses-rma/business/$businessId/arc/pdf'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdArcPdfRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdArcRouteRoute
     }
     '/app/tools/formations/subscribers/$formationDetailId/send-email/$subscriptionId': {
       id: '/app/tools/formations/subscribers/$formationDetailId/send-email/$subscriptionId'
       path: '/send-email/$subscriptionId'
       fullPath: '/app/tools/formations/subscribers/$formationDetailId/send-email/$subscriptionId'
-      preLoaderRoute: typeof AppToolsFormationsSubscribersFormationDetailIdSendEmailSubscriptionIdRouteImport
-      parentRoute: typeof AppToolsFormationsSubscribersFormationDetailIdRouteImport
+      preLoaderRoute: typeof AppToolsFormationsSubscribersFormationDetailIdSendEmailSubscriptionIdRouteRouteImport
+      parentRoute: typeof AppToolsFormationsSubscribersFormationDetailIdRouteRoute
     }
-    '/app/businesses-rma_/business/$businessId/dashboard/address-book/delete/$addressId': {
-      id: '/app/businesses-rma_/business/$businessId/dashboard/address-book/delete/$addressId'
-      path: '/delete/$addressId'
-      fullPath: '/app/businesses-rma/business/$businessId/dashboard/address-book/delete/$addressId'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardAddressBookDeleteAddressIdRouteImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardAddressBookRouteImport
+    '/app/tools/formations/subscribers/$formationDetailId/delete/$subscriptionId': {
+      id: '/app/tools/formations/subscribers/$formationDetailId/delete/$subscriptionId'
+      path: '/delete/$subscriptionId'
+      fullPath: '/app/tools/formations/subscribers/$formationDetailId/delete/$subscriptionId'
+      preLoaderRoute: typeof AppToolsFormationsSubscribersFormationDetailIdDeleteSubscriptionIdRouteRouteImport
+      parentRoute: typeof AppToolsFormationsSubscribersFormationDetailIdRouteRoute
     }
-    '/app/businesses-rma_/business/$businessId/dashboard/address-book/update/$addressId': {
-      id: '/app/businesses-rma_/business/$businessId/dashboard/address-book/update/$addressId'
-      path: '/update/$addressId'
-      fullPath: '/app/businesses-rma/business/$businessId/dashboard/address-book/update/$addressId'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardAddressBookUpdateAddressIdRouteImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardAddressBookRouteImport
-    }
-    '/app/businesses-rma_/business/$businessId/dashboard/email-history/$emailId/reply': {
-      id: '/app/businesses-rma_/business/$businessId/dashboard/email-history/$emailId/reply'
+    '/app/products_/$productId/informations/task-email/$taskId/reply': {
+      id: '/app/products_/$productId/informations/task-email/$taskId/reply'
       path: '/reply'
-      fullPath: '/app/businesses-rma/business/$businessId/dashboard/email-history/$emailId/reply'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdReplyRouteImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdRouteImport
+      fullPath: '/app/products/$productId/informations/task-email/$taskId/reply'
+      preLoaderRoute: typeof AppProductsProductIdInformationsTaskEmailTaskIdReplyRouteRouteImport
+      parentRoute: typeof AppProductsProductIdInformationsTaskEmailTaskIdRouteRoute
     }
-    '/app/businesses-rma_/business/$businessId/quotation/commercial-notice/send-by-email/predefined-messages': {
-      id: '/app/businesses-rma_/business/$businessId/quotation/commercial-notice/send-by-email/predefined-messages'
-      path: '/predefined-messages'
-      fullPath: '/app/businesses-rma/business/$businessId/quotation/commercial-notice/send-by-email/predefined-messages'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdQuotationCommercialNoticeSendByEmailPredefinedMessagesRouteImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdQuotationCommercialNoticeSendByEmailRouteImport
+    '/app/enterprises_/$enterpriseId/email-history/email/$emailId/reply': {
+      id: '/app/enterprises_/$enterpriseId/email-history/email/$emailId/reply'
+      path: '/reply'
+      fullPath: '/app/enterprises/$enterpriseId/email-history/email/$emailId/reply'
+      preLoaderRoute: typeof AppEnterprisesEnterpriseIdEmailHistoryEmailEmailIdReplyRouteRouteImport
+      parentRoute: typeof AppEnterprisesEnterpriseIdEmailHistoryEmailEmailIdRouteRoute
     }
-    '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/delete-ged-object/$objectRelativePath': {
-      id: '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/delete-ged-object/$objectRelativePath'
-      path: '/delete-ged-object/$objectRelativePath'
-      fullPath: '/app/businesses-rma/business/$businessId/assistance/$assistanceId/delete-ged-object/$objectRelativePath'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdDeleteGedObjectObjectRelativePathRouteImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdRouteImport
+    '/app/businesses-rma_/rma/$rmaId/support/update-detail/$detailId': {
+      id: '/app/businesses-rma_/rma/$rmaId/support/update-detail/$detailId'
+      path: '/update-detail/$detailId'
+      fullPath: '/app/businesses-rma/rma/$rmaId/support/update-detail/$detailId'
+      preLoaderRoute: typeof AppBusinessesRmaRmaRmaIdSupportUpdateDetailDetailIdRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaRmaRmaIdSupportRouteRoute
     }
-    '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/delete-link/$associatedId': {
-      id: '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/delete-link/$associatedId'
-      path: '/delete-link/$associatedId'
-      fullPath: '/app/businesses-rma/business/$businessId/assistance/$assistanceId/delete-link/$associatedId'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdDeleteLinkAssociatedIdRouteImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdRouteImport
+    '/app/businesses-rma_/rma/$rmaId/support/unlink-task/$taskId': {
+      id: '/app/businesses-rma_/rma/$rmaId/support/unlink-task/$taskId'
+      path: '/unlink-task/$taskId'
+      fullPath: '/app/businesses-rma/rma/$rmaId/support/unlink-task/$taskId'
+      preLoaderRoute: typeof AppBusinessesRmaRmaRmaIdSupportUnlinkTaskTaskIdRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaRmaRmaIdSupportRouteRoute
     }
-    '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/lifesheet-email/$lifesheetId': {
-      id: '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/lifesheet-email/$lifesheetId'
-      path: '/lifesheet-email/$lifesheetId'
-      fullPath: '/app/businesses-rma/business/$businessId/assistance/$assistanceId/lifesheet-email/$lifesheetId'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdLifesheetEmailLifesheetIdRouteImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdRouteImport
+    '/app/businesses-rma_/rma/$rmaId/support/task-email/$taskId': {
+      id: '/app/businesses-rma_/rma/$rmaId/support/task-email/$taskId'
+      path: '/task-email/$taskId'
+      fullPath: '/app/businesses-rma/rma/$rmaId/support/task-email/$taskId'
+      preLoaderRoute: typeof AppBusinessesRmaRmaRmaIdSupportTaskEmailTaskIdRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaRmaRmaIdSupportRouteRoute
     }
-    '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/pdf/send-by-email': {
-      id: '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/pdf/send-by-email'
-      path: '/send-by-email'
-      fullPath: '/app/businesses-rma/business/$businessId/assistance/$assistanceId/pdf/send-by-email'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdPdfSendByEmailRouteImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdPdfRouteImport
-    }
-    '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/rename-ged-object/$objectRelativePath': {
-      id: '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/rename-ged-object/$objectRelativePath'
+    '/app/businesses-rma_/rma/$rmaId/support/rename-ged-object/$objectRelativePath': {
+      id: '/app/businesses-rma_/rma/$rmaId/support/rename-ged-object/$objectRelativePath'
       path: '/rename-ged-object/$objectRelativePath'
-      fullPath: '/app/businesses-rma/business/$businessId/assistance/$assistanceId/rename-ged-object/$objectRelativePath'
-      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdRenameGedObjectObjectRelativePathRouteImport
-      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdRouteImport
+      fullPath: '/app/businesses-rma/rma/$rmaId/support/rename-ged-object/$objectRelativePath'
+      preLoaderRoute: typeof AppBusinessesRmaRmaRmaIdSupportRenameGedObjectObjectRelativePathRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaRmaRmaIdSupportRouteRoute
+    }
+    '/app/businesses-rma_/rma/$rmaId/support/pdf/send-by-email': {
+      id: '/app/businesses-rma_/rma/$rmaId/support/pdf/send-by-email'
+      path: '/send-by-email'
+      fullPath: '/app/businesses-rma/rma/$rmaId/support/pdf/send-by-email'
+      preLoaderRoute: typeof AppBusinessesRmaRmaRmaIdSupportPdfSendByEmailRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaRmaRmaIdSupportPdfRouteRoute
+    }
+    '/app/businesses-rma_/rma/$rmaId/support/lifesheet-email/$lifesheetId': {
+      id: '/app/businesses-rma_/rma/$rmaId/support/lifesheet-email/$lifesheetId'
+      path: '/lifesheet-email/$lifesheetId'
+      fullPath: '/app/businesses-rma/rma/$rmaId/support/lifesheet-email/$lifesheetId'
+      preLoaderRoute: typeof AppBusinessesRmaRmaRmaIdSupportLifesheetEmailLifesheetIdRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaRmaRmaIdSupportRouteRoute
+    }
+    '/app/businesses-rma_/rma/$rmaId/support/delete-link/$associatedId': {
+      id: '/app/businesses-rma_/rma/$rmaId/support/delete-link/$associatedId'
+      path: '/delete-link/$associatedId'
+      fullPath: '/app/businesses-rma/rma/$rmaId/support/delete-link/$associatedId'
+      preLoaderRoute: typeof AppBusinessesRmaRmaRmaIdSupportDeleteLinkAssociatedIdRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaRmaRmaIdSupportRouteRoute
+    }
+    '/app/businesses-rma_/rma/$rmaId/support/delete-ged-object/$relativePath': {
+      id: '/app/businesses-rma_/rma/$rmaId/support/delete-ged-object/$relativePath'
+      path: '/delete-ged-object/$relativePath'
+      fullPath: '/app/businesses-rma/rma/$rmaId/support/delete-ged-object/$relativePath'
+      preLoaderRoute: typeof AppBusinessesRmaRmaRmaIdSupportDeleteGedObjectRelativePathRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaRmaRmaIdSupportRouteRoute
+    }
+    '/app/businesses-rma_/rma/$rmaId/support/delete-detail/$detailId': {
+      id: '/app/businesses-rma_/rma/$rmaId/support/delete-detail/$detailId'
+      path: '/delete-detail/$detailId'
+      fullPath: '/app/businesses-rma/rma/$rmaId/support/delete-detail/$detailId'
+      preLoaderRoute: typeof AppBusinessesRmaRmaRmaIdSupportDeleteDetailDetailIdRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaRmaRmaIdSupportRouteRoute
+    }
+    '/app/businesses-rma_/rma/$rmaId/reception/update-detail/$detailId': {
+      id: '/app/businesses-rma_/rma/$rmaId/reception/update-detail/$detailId'
+      path: '/update-detail/$detailId'
+      fullPath: '/app/businesses-rma/rma/$rmaId/reception/update-detail/$detailId'
+      preLoaderRoute: typeof AppBusinessesRmaRmaRmaIdReceptionUpdateDetailDetailIdRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaRmaRmaIdReceptionRouteRoute
+    }
+    '/app/businesses-rma_/rma/$rmaId/reception/pdf/send-by-email': {
+      id: '/app/businesses-rma_/rma/$rmaId/reception/pdf/send-by-email'
+      path: '/send-by-email'
+      fullPath: '/app/businesses-rma/rma/$rmaId/reception/pdf/send-by-email'
+      preLoaderRoute: typeof AppBusinessesRmaRmaRmaIdReceptionPdfSendByEmailRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaRmaRmaIdReceptionPdfRouteRoute
+    }
+    '/app/businesses-rma_/rma/$rmaId/reception/delete-detail/$detailId': {
+      id: '/app/businesses-rma_/rma/$rmaId/reception/delete-detail/$detailId'
+      path: '/delete-detail/$detailId'
+      fullPath: '/app/businesses-rma/rma/$rmaId/reception/delete-detail/$detailId'
+      preLoaderRoute: typeof AppBusinessesRmaRmaRmaIdReceptionDeleteDetailDetailIdRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaRmaRmaIdReceptionRouteRoute
+    }
+    '/app/businesses-rma_/rma/$rmaId/delivery/update-detail/$detailId': {
+      id: '/app/businesses-rma_/rma/$rmaId/delivery/update-detail/$detailId'
+      path: '/update-detail/$detailId'
+      fullPath: '/app/businesses-rma/rma/$rmaId/delivery/update-detail/$detailId'
+      preLoaderRoute: typeof AppBusinessesRmaRmaRmaIdDeliveryUpdateDetailDetailIdRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaRmaRmaIdDeliveryRouteRoute
+    }
+    '/app/businesses-rma_/rma/$rmaId/delivery/pdf/send-by-email': {
+      id: '/app/businesses-rma_/rma/$rmaId/delivery/pdf/send-by-email'
+      path: '/send-by-email'
+      fullPath: '/app/businesses-rma/rma/$rmaId/delivery/pdf/send-by-email'
+      preLoaderRoute: typeof AppBusinessesRmaRmaRmaIdDeliveryPdfSendByEmailRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaRmaRmaIdDeliveryPdfRouteRoute
+    }
+    '/app/businesses-rma_/rma/$rmaId/delivery/delete-detail/$detailId': {
+      id: '/app/businesses-rma_/rma/$rmaId/delivery/delete-detail/$detailId'
+      path: '/delete-detail/$detailId'
+      fullPath: '/app/businesses-rma/rma/$rmaId/delivery/delete-detail/$detailId'
+      preLoaderRoute: typeof AppBusinessesRmaRmaRmaIdDeliveryDeleteDetailDetailIdRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaRmaRmaIdDeliveryRouteRoute
+    }
+    '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/pdf': {
+      id: '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/pdf'
+      path: '/pdf'
+      fullPath: '/app/businesses-rma/business/$businessId/assistance/$assistanceId/pdf'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdPdfRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdRouteRoute
+    }
+    '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/import-ged-files': {
+      id: '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/import-ged-files'
+      path: '/import-ged-files'
+      fullPath: '/app/businesses-rma/business/$businessId/assistance/$assistanceId/import-ged-files'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdImportGedFilesRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdRouteRoute
+    }
+    '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/edit-subtitle': {
+      id: '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/edit-subtitle'
+      path: '/edit-subtitle'
+      fullPath: '/app/businesses-rma/business/$businessId/assistance/$assistanceId/edit-subtitle'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdEditSubtitleRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdRouteRoute
+    }
+    '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/edit-no-billed-time': {
+      id: '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/edit-no-billed-time'
+      path: '/edit-no-billed-time'
+      fullPath: '/app/businesses-rma/business/$businessId/assistance/$assistanceId/edit-no-billed-time'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdEditNoBilledTimeRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdRouteRoute
+    }
+    '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/edit-cumulated-time': {
+      id: '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/edit-cumulated-time'
+      path: '/edit-cumulated-time'
+      fullPath: '/app/businesses-rma/business/$businessId/assistance/$assistanceId/edit-cumulated-time'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdEditCumulatedTimeRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdRouteRoute
+    }
+    '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/delete': {
+      id: '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/delete'
+      path: '/delete'
+      fullPath: '/app/businesses-rma/business/$businessId/assistance/$assistanceId/delete'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdDeleteRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdRouteRoute
+    }
+    '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/create-link': {
+      id: '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/create-link'
+      path: '/create-link'
+      fullPath: '/app/businesses-rma/business/$businessId/assistance/$assistanceId/create-link'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdCreateLinkRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdRouteRoute
+    }
+    '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/create-lifesheet': {
+      id: '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/create-lifesheet'
+      path: '/create-lifesheet'
+      fullPath: '/app/businesses-rma/business/$businessId/assistance/$assistanceId/create-lifesheet'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdCreateLifesheetRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdRouteRoute
+    }
+    '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/create-ged-directory': {
+      id: '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/create-ged-directory'
+      path: '/create-ged-directory'
+      fullPath: '/app/businesses-rma/business/$businessId/assistance/$assistanceId/create-ged-directory'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdCreateGedDirectoryRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdRouteRoute
+    }
+    '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/create-faq': {
+      id: '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/create-faq'
+      path: '/create-faq'
+      fullPath: '/app/businesses-rma/business/$businessId/assistance/$assistanceId/create-faq'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdCreateFaqRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdRouteRoute
+    }
+    '/app/businesses-rma_/business/$businessId/quotation/update-subquotation/$subquotationId': {
+      id: '/app/businesses-rma_/business/$businessId/quotation/update-subquotation/$subquotationId'
+      path: '/update-subquotation/$subquotationId'
+      fullPath: '/app/businesses-rma/business/$businessId/quotation/update-subquotation/$subquotationId'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdQuotationUpdateSubquotationSubquotationIdRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdQuotationRouteRoute
+    }
+    '/app/businesses-rma_/business/$businessId/quotation/update-detail/$detailId': {
+      id: '/app/businesses-rma_/business/$businessId/quotation/update-detail/$detailId'
+      path: '/update-detail/$detailId'
+      fullPath: '/app/businesses-rma/business/$businessId/quotation/update-detail/$detailId'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdQuotationUpdateDetailDetailIdRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdQuotationRouteRoute
+    }
+    '/app/businesses-rma_/business/$businessId/quotation/pdf/send-by-email': {
+      id: '/app/businesses-rma_/business/$businessId/quotation/pdf/send-by-email'
+      path: '/send-by-email'
+      fullPath: '/app/businesses-rma/business/$businessId/quotation/pdf/send-by-email'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdQuotationPdfSendByEmailRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdQuotationPdfRouteRoute
+    }
+    '/app/businesses-rma_/business/$businessId/quotation/delete-subquotation/$subquotationId': {
+      id: '/app/businesses-rma_/business/$businessId/quotation/delete-subquotation/$subquotationId'
+      path: '/delete-subquotation/$subquotationId'
+      fullPath: '/app/businesses-rma/business/$businessId/quotation/delete-subquotation/$subquotationId'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdQuotationDeleteSubquotationSubquotationIdRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdQuotationRouteRoute
+    }
+    '/app/businesses-rma_/business/$businessId/quotation/delete-detail/$detailId': {
+      id: '/app/businesses-rma_/business/$businessId/quotation/delete-detail/$detailId'
+      path: '/delete-detail/$detailId'
+      fullPath: '/app/businesses-rma/business/$businessId/quotation/delete-detail/$detailId'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdQuotationDeleteDetailDetailIdRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdQuotationRouteRoute
+    }
+    '/app/businesses-rma_/business/$businessId/quotation/create-detail/$subquotationId': {
+      id: '/app/businesses-rma_/business/$businessId/quotation/create-detail/$subquotationId'
+      path: '/create-detail/$subquotationId'
+      fullPath: '/app/businesses-rma/business/$businessId/quotation/create-detail/$subquotationId'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdQuotationCreateDetailSubquotationIdRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdQuotationRouteRoute
+    }
+    '/app/businesses-rma_/business/$businessId/quotation/create-associated-detail/$detailId': {
+      id: '/app/businesses-rma_/business/$businessId/quotation/create-associated-detail/$detailId'
+      path: '/create-associated-detail/$detailId'
+      fullPath: '/app/businesses-rma/business/$businessId/quotation/create-associated-detail/$detailId'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdQuotationCreateAssociatedDetailDetailIdRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdQuotationRouteRoute
+    }
+    '/app/businesses-rma_/business/$businessId/quotation/commercial-notice/send-by-email': {
+      id: '/app/businesses-rma_/business/$businessId/quotation/commercial-notice/send-by-email'
+      path: '/send-by-email'
+      fullPath: '/app/businesses-rma/business/$businessId/quotation/commercial-notice/send-by-email'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdQuotationCommercialNoticeSendByEmailRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdQuotationCommercialNoticeRouteRoute
+    }
+    '/app/businesses-rma_/business/$businessId/dashboard/unlink-task/$taskId': {
+      id: '/app/businesses-rma_/business/$businessId/dashboard/unlink-task/$taskId'
+      path: '/unlink-task/$taskId'
+      fullPath: '/app/businesses-rma/business/$businessId/dashboard/unlink-task/$taskId'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardUnlinkTaskTaskIdRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardRouteRoute
+    }
+    '/app/businesses-rma_/business/$businessId/dashboard/task-email/$taskId': {
+      id: '/app/businesses-rma_/business/$businessId/dashboard/task-email/$taskId'
+      path: '/task-email/$taskId'
+      fullPath: '/app/businesses-rma/business/$businessId/dashboard/task-email/$taskId'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardTaskEmailTaskIdRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardRouteRoute
+    }
+    '/app/businesses-rma_/business/$businessId/dashboard/rename-ged-object/$objectRelativePath': {
+      id: '/app/businesses-rma_/business/$businessId/dashboard/rename-ged-object/$objectRelativePath'
+      path: '/rename-ged-object/$objectRelativePath'
+      fullPath: '/app/businesses-rma/business/$businessId/dashboard/rename-ged-object/$objectRelativePath'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardRenameGedObjectObjectRelativePathRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardRouteRoute
+    }
+    '/app/businesses-rma_/business/$businessId/dashboard/lifesheet-email/$lifesheetId': {
+      id: '/app/businesses-rma_/business/$businessId/dashboard/lifesheet-email/$lifesheetId'
+      path: '/lifesheet-email/$lifesheetId'
+      fullPath: '/app/businesses-rma/business/$businessId/dashboard/lifesheet-email/$lifesheetId'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardLifesheetEmailLifesheetIdRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardRouteRoute
+    }
+    '/app/businesses-rma_/business/$businessId/dashboard/email-history/$emailId': {
+      id: '/app/businesses-rma_/business/$businessId/dashboard/email-history/$emailId'
+      path: '/$emailId'
+      fullPath: '/app/businesses-rma/business/$businessId/dashboard/email-history/$emailId'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryRouteRoute
+    }
+    '/app/businesses-rma_/business/$businessId/dashboard/delete-link/$associatedId': {
+      id: '/app/businesses-rma_/business/$businessId/dashboard/delete-link/$associatedId'
+      path: '/delete-link/$associatedId'
+      fullPath: '/app/businesses-rma/business/$businessId/dashboard/delete-link/$associatedId'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardDeleteLinkAssociatedIdRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardRouteRoute
+    }
+    '/app/businesses-rma_/business/$businessId/dashboard/delete-ged-object/$objectRelativePath': {
+      id: '/app/businesses-rma_/business/$businessId/dashboard/delete-ged-object/$objectRelativePath'
+      path: '/delete-ged-object/$objectRelativePath'
+      fullPath: '/app/businesses-rma/business/$businessId/dashboard/delete-ged-object/$objectRelativePath'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardDeleteGedObjectObjectRelativePathRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardRouteRoute
+    }
+    '/app/businesses-rma_/business/$businessId/dashboard/confirm-quotation-import/$otherBusinessId': {
+      id: '/app/businesses-rma_/business/$businessId/dashboard/confirm-quotation-import/$otherBusinessId'
+      path: '/confirm-quotation-import/$otherBusinessId'
+      fullPath: '/app/businesses-rma/business/$businessId/dashboard/confirm-quotation-import/$otherBusinessId'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardConfirmQuotationImportOtherBusinessIdRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardRouteRoute
+    }
+    '/app/businesses-rma_/business/$businessId/dashboard/address-book/create': {
+      id: '/app/businesses-rma_/business/$businessId/dashboard/address-book/create'
+      path: '/create'
+      fullPath: '/app/businesses-rma/business/$businessId/dashboard/address-book/create'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardAddressBookCreateRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardAddressBookRouteRoute
+    }
+    '/app/businesses-rma_/business/$businessId/bp/update-detail/$detailId': {
+      id: '/app/businesses-rma_/business/$businessId/bp/update-detail/$detailId'
+      path: '/update-detail/$detailId'
+      fullPath: '/app/businesses-rma/business/$businessId/bp/update-detail/$detailId'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdBpUpdateDetailDetailIdRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdBpRouteRoute
+    }
+    '/app/businesses-rma_/business/$businessId/bp/delete-serial/$serialId': {
+      id: '/app/businesses-rma_/business/$businessId/bp/delete-serial/$serialId'
+      path: '/delete-serial/$serialId'
+      fullPath: '/app/businesses-rma/business/$businessId/bp/delete-serial/$serialId'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdBpDeleteSerialSerialIdRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdBpRouteRoute
+    }
+    '/app/businesses-rma_/business/$businessId/bp/delete-detail/$detailId': {
+      id: '/app/businesses-rma_/business/$businessId/bp/delete-detail/$detailId'
+      path: '/delete-detail/$detailId'
+      fullPath: '/app/businesses-rma/business/$businessId/bp/delete-detail/$detailId'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdBpDeleteDetailDetailIdRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdBpRouteRoute
+    }
+    '/app/businesses-rma_/business/$businessId/bp/create-serial-rma/$serialId': {
+      id: '/app/businesses-rma_/business/$businessId/bp/create-serial-rma/$serialId'
+      path: '/create-serial-rma/$serialId'
+      fullPath: '/app/businesses-rma/business/$businessId/bp/create-serial-rma/$serialId'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdBpCreateSerialRmaSerialIdRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdBpRouteRoute
+    }
+    '/app/businesses-rma_/business/$businessId/bp/create-detail-rma/$detailId': {
+      id: '/app/businesses-rma_/business/$businessId/bp/create-detail-rma/$detailId'
+      path: '/create-detail-rma/$detailId'
+      fullPath: '/app/businesses-rma/business/$businessId/bp/create-detail-rma/$detailId'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdBpCreateDetailRmaDetailIdRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdBpRouteRoute
+    }
+    '/app/businesses-rma_/business/$businessId/bp/add-serial/$detailId': {
+      id: '/app/businesses-rma_/business/$businessId/bp/add-serial/$detailId'
+      path: '/add-serial/$detailId'
+      fullPath: '/app/businesses-rma/business/$businessId/bp/add-serial/$detailId'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdBpAddSerialDetailIdRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdBpRouteRoute
+    }
+    '/app/businesses-rma_/business/$businessId/bl/update/new': {
+      id: '/app/businesses-rma_/business/$businessId/bl/update/new'
+      path: '/new'
+      fullPath: '/app/businesses-rma/business/$businessId/bl/update/new'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdBlUpdateNewRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdBlUpdateRouteRoute
+    }
+    '/app/businesses-rma_/business/$businessId/bill/credits/send-by-email': {
+      id: '/app/businesses-rma_/business/$businessId/bill/credits/send-by-email'
+      path: '/send-by-email'
+      fullPath: '/app/businesses-rma/business/$businessId/bill/credits/send-by-email'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdBillCreditsSendByEmailRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdBillCreditsRouteRoute
+    }
+    '/app/businesses-rma_/business/$businessId/arc/update-detail/$detailId': {
+      id: '/app/businesses-rma_/business/$businessId/arc/update-detail/$detailId'
+      path: '/update-detail/$detailId'
+      fullPath: '/app/businesses-rma/business/$businessId/arc/update-detail/$detailId'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdArcUpdateDetailDetailIdRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdArcRouteRoute
+    }
+    '/app/businesses-rma_/business/$businessId/arc/pdf/send-by-email': {
+      id: '/app/businesses-rma_/business/$businessId/arc/pdf/send-by-email'
+      path: '/send-by-email'
+      fullPath: '/app/businesses-rma/business/$businessId/arc/pdf/send-by-email'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdArcPdfSendByEmailRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdArcPdfRouteRoute
+    }
+    '/app/businesses-rma_/business/$businessId/arc/delete-detail/$detailId': {
+      id: '/app/businesses-rma_/business/$businessId/arc/delete-detail/$detailId'
+      path: '/delete-detail/$detailId'
+      fullPath: '/app/businesses-rma/business/$businessId/arc/delete-detail/$detailId'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdArcDeleteDetailDetailIdRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdArcRouteRoute
     }
     '/app/businesses-rma_/rma/$rmaId/support/task-email/$taskId/reply': {
       id: '/app/businesses-rma_/rma/$rmaId/support/task-email/$taskId/reply'
       path: '/reply'
       fullPath: '/app/businesses-rma/rma/$rmaId/support/task-email/$taskId/reply'
-      preLoaderRoute: typeof AppBusinessesRmaRmaRmaIdSupportTaskEmailTaskIdReplyRouteImport
-      parentRoute: typeof AppBusinessesRmaRmaRmaIdSupportTaskEmailTaskIdRouteImport
+      preLoaderRoute: typeof AppBusinessesRmaRmaRmaIdSupportTaskEmailTaskIdReplyRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaRmaRmaIdSupportTaskEmailTaskIdRouteRoute
+    }
+    '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/rename-ged-object/$objectRelativePath': {
+      id: '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/rename-ged-object/$objectRelativePath'
+      path: '/rename-ged-object/$objectRelativePath'
+      fullPath: '/app/businesses-rma/business/$businessId/assistance/$assistanceId/rename-ged-object/$objectRelativePath'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdRenameGedObjectObjectRelativePathRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdRouteRoute
+    }
+    '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/pdf/send-by-email': {
+      id: '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/pdf/send-by-email'
+      path: '/send-by-email'
+      fullPath: '/app/businesses-rma/business/$businessId/assistance/$assistanceId/pdf/send-by-email'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdPdfSendByEmailRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdPdfRouteRoute
+    }
+    '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/lifesheet-email/$lifesheetId': {
+      id: '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/lifesheet-email/$lifesheetId'
+      path: '/lifesheet-email/$lifesheetId'
+      fullPath: '/app/businesses-rma/business/$businessId/assistance/$assistanceId/lifesheet-email/$lifesheetId'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdLifesheetEmailLifesheetIdRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdRouteRoute
+    }
+    '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/delete-link/$associatedId': {
+      id: '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/delete-link/$associatedId'
+      path: '/delete-link/$associatedId'
+      fullPath: '/app/businesses-rma/business/$businessId/assistance/$assistanceId/delete-link/$associatedId'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdDeleteLinkAssociatedIdRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdRouteRoute
+    }
+    '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/delete-ged-object/$objectRelativePath': {
+      id: '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/delete-ged-object/$objectRelativePath'
+      path: '/delete-ged-object/$objectRelativePath'
+      fullPath: '/app/businesses-rma/business/$businessId/assistance/$assistanceId/delete-ged-object/$objectRelativePath'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdDeleteGedObjectObjectRelativePathRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdRouteRoute
+    }
+    '/app/businesses-rma_/business/$businessId/quotation/commercial-notice/send-by-email/predefined-messages': {
+      id: '/app/businesses-rma_/business/$businessId/quotation/commercial-notice/send-by-email/predefined-messages'
+      path: '/predefined-messages'
+      fullPath: '/app/businesses-rma/business/$businessId/quotation/commercial-notice/send-by-email/predefined-messages'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdQuotationCommercialNoticeSendByEmailPredefinedMessagesRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdQuotationCommercialNoticeSendByEmailRouteRoute
+    }
+    '/app/businesses-rma_/business/$businessId/dashboard/email-history/$emailId/reply': {
+      id: '/app/businesses-rma_/business/$businessId/dashboard/email-history/$emailId/reply'
+      path: '/reply'
+      fullPath: '/app/businesses-rma/business/$businessId/dashboard/email-history/$emailId/reply'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdReplyRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdRouteRoute
+    }
+    '/app/businesses-rma_/business/$businessId/dashboard/address-book/update/$addressId': {
+      id: '/app/businesses-rma_/business/$businessId/dashboard/address-book/update/$addressId'
+      path: '/update/$addressId'
+      fullPath: '/app/businesses-rma/business/$businessId/dashboard/address-book/update/$addressId'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardAddressBookUpdateAddressIdRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardAddressBookRouteRoute
+    }
+    '/app/businesses-rma_/business/$businessId/dashboard/address-book/delete/$addressId': {
+      id: '/app/businesses-rma_/business/$businessId/dashboard/address-book/delete/$addressId'
+      path: '/delete/$addressId'
+      fullPath: '/app/businesses-rma/business/$businessId/dashboard/address-book/delete/$addressId'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardAddressBookDeleteAddressIdRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardAddressBookRouteRoute
     }
   }
 }
-
-// Create and export the route tree
 
 interface AppBusinessesRmaRouteRouteChildren {
   AppBusinessesRmaRepresentativeTurnoverRouteRoute: typeof AppBusinessesRmaRepresentativeTurnoverRouteRoute
@@ -5955,6 +7607,7 @@ interface AppDashboardRouteRouteChildren {
   AppDashboardCreateProgressiveInfoRouteRoute: typeof AppDashboardCreateProgressiveInfoRouteRoute
   AppDashboardDeleteCollectiveTasksRouteRoute: typeof AppDashboardDeleteCollectiveTasksRouteRoute
   AppDashboardArchivePersonalTaskTaskIdRouteRoute: typeof AppDashboardArchivePersonalTaskTaskIdRouteRoute
+  AppDashboardCreateAircallContactNumberRouteRoute: typeof AppDashboardCreateAircallContactNumberRouteRoute
   AppDashboardDeleteCollectiveTaskTaskIdRouteRoute: typeof AppDashboardDeleteCollectiveTaskTaskIdRouteRoute
   AppDashboardDeleteProgressiveInfoProgressiveInfoIdRouteRoute: typeof AppDashboardDeleteProgressiveInfoProgressiveInfoIdRouteRoute
   AppDashboardLinkPersonalTaskTaskIdRouteRoute: typeof AppDashboardLinkPersonalTaskTaskIdRouteRoute
@@ -5966,6 +7619,7 @@ interface AppDashboardRouteRouteChildren {
   AppDashboardTaskEmailTaskIdRouteRoute: typeof AppDashboardTaskEmailTaskIdRouteRouteWithChildren
   AppDashboardTransferTaskTaskIdRouteRoute: typeof AppDashboardTransferTaskTaskIdRouteRoute
   AppDashboardUnlinkPersonalTaskTaskIdRouteRoute: typeof AppDashboardUnlinkPersonalTaskTaskIdRouteRoute
+  AppDashboardUpdateAircallContactContactIdRouteRoute: typeof AppDashboardUpdateAircallContactContactIdRouteRoute
   AppDashboardUpdatePersonalTaskDeadlineTaskIdRouteRoute: typeof AppDashboardUpdatePersonalTaskDeadlineTaskIdRouteRoute
   AppDashboardUpdateProgressiveInfoProgressiveInfoIdRouteRoute: typeof AppDashboardUpdateProgressiveInfoProgressiveInfoIdRouteRoute
   AppDashboardValidatePersonalTaskTaskIdRouteRoute: typeof AppDashboardValidatePersonalTaskTaskIdRouteRoute
@@ -5982,6 +7636,8 @@ const AppDashboardRouteRouteChildren: AppDashboardRouteRouteChildren = {
     AppDashboardDeleteCollectiveTasksRouteRoute,
   AppDashboardArchivePersonalTaskTaskIdRouteRoute:
     AppDashboardArchivePersonalTaskTaskIdRouteRoute,
+  AppDashboardCreateAircallContactNumberRouteRoute:
+    AppDashboardCreateAircallContactNumberRouteRoute,
   AppDashboardDeleteCollectiveTaskTaskIdRouteRoute:
     AppDashboardDeleteCollectiveTaskTaskIdRouteRoute,
   AppDashboardDeleteProgressiveInfoProgressiveInfoIdRouteRoute:
@@ -6004,6 +7660,8 @@ const AppDashboardRouteRouteChildren: AppDashboardRouteRouteChildren = {
     AppDashboardTransferTaskTaskIdRouteRoute,
   AppDashboardUnlinkPersonalTaskTaskIdRouteRoute:
     AppDashboardUnlinkPersonalTaskTaskIdRouteRoute,
+  AppDashboardUpdateAircallContactContactIdRouteRoute:
+    AppDashboardUpdateAircallContactContactIdRouteRoute,
   AppDashboardUpdatePersonalTaskDeadlineTaskIdRouteRoute:
     AppDashboardUpdatePersonalTaskDeadlineTaskIdRouteRoute,
   AppDashboardUpdateProgressiveInfoProgressiveInfoIdRouteRoute:
@@ -7568,3581 +9226,11 @@ const AuthRouteRouteWithChildren = AuthRouteRoute._addFileChildren(
   AuthRouteRouteChildren,
 )
 
-export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/app': typeof AppRouteRouteWithChildren
-  '/auth': typeof AuthRouteRouteWithChildren
-  '/app/businesses-rma': typeof AppBusinessesRmaRouteRouteWithChildren
-  '/app/dashboard': typeof AppDashboardRouteRouteWithChildren
-  '/app/enterprises': typeof AppEnterprisesRouteRouteWithChildren
-  '/app/external-links': typeof AppExternalLinksRouteRoute
-  '/app/faq': typeof AppFaqRouteRouteWithChildren
-  '/app/products': typeof AppProductsRouteRouteWithChildren
-  '/app/tools': typeof AppToolsRouteRouteWithChildren
-  '/auth/login': typeof AuthLoginRouteRoute
-  '/auth/forgot-password': typeof AuthForgotPasswordRouteLazyRoute
-  '/app/': typeof AppIndexRoute
-  '/auth/': typeof AuthIndexRoute
-  '/app/businesses-rma/representative-turnover': typeof AppBusinessesRmaRepresentativeTurnoverRouteRoute
-  '/app/businesses-rma/search-by-products': typeof AppBusinessesRmaSearchByProductsRouteRoute
-  '/app/dashboard/create-collective-task': typeof AppDashboardCreateCollectiveTaskRouteRoute
-  '/app/dashboard/create-personal-task': typeof AppDashboardCreatePersonalTaskRouteRoute
-  '/app/dashboard/create-progressive-info': typeof AppDashboardCreateProgressiveInfoRouteRoute
-  '/app/dashboard/delete-collective-tasks': typeof AppDashboardDeleteCollectiveTasksRouteRoute
-  '/app/enterprises/create': typeof AppEnterprisesCreateRouteRoute
-  '/app/enterprises/$enterpriseId': typeof AppEnterprisesEnterpriseIdRouteRouteWithChildren
-  '/app/external-links/$externalLinkId': typeof AppExternalLinksExternalLinkIdRouteRoute
-  '/app/faq/create': typeof AppFaqCreateRouteRoute
-  '/app/products/create': typeof AppProductsCreateRouteRoute
-  '/app/products/serial-numbers': typeof AppProductsSerialNumbersRouteRouteWithChildren
-  '/app/products/$productId': typeof AppProductsProductIdRouteRouteWithChildren
-  '/app/tools/credit': typeof AppToolsCreditRouteRouteWithChildren
-  '/app/tools/ddns': typeof AppToolsDdnsRouteRouteWithChildren
-  '/app/tools/departments': typeof AppToolsDepartmentsRouteRouteWithChildren
-  '/app/tools/emails': typeof AppToolsEmailsRouteRouteWithChildren
-  '/app/tools/external-links': typeof AppToolsExternalLinksRouteRouteWithChildren
-  '/app/tools/formations': typeof AppToolsFormationsRouteRouteWithChildren
-  '/app/tools/global-turnover': typeof AppToolsGlobalTurnoverRouteRoute
-  '/app/tools/mails': typeof AppToolsMailsRouteRouteWithChildren
-  '/app/tools/menu': typeof AppToolsMenuRouteRouteWithChildren
-  '/app/tools/news': typeof AppToolsNewsRouteRouteWithChildren
-  '/app/tools/predefined-messages': typeof AppToolsPredefinedMessagesRouteRouteWithChildren
-  '/app/tools/predefined-texts': typeof AppToolsPredefinedTextsRouteRouteWithChildren
-  '/app/tools/product-filters': typeof AppToolsProductFiltersRouteRouteWithChildren
-  '/app/tools/product-inventory': typeof AppToolsProductInventoryRouteRouteWithChildren
-  '/app/tools/product-shelves': typeof AppToolsProductShelvesRouteRouteWithChildren
-  '/app/tools/representatives-map': typeof AppToolsRepresentativesMapRouteRoute
-  '/app/tools/representatives-turnover': typeof AppToolsRepresentativesTurnoverRouteRoute
-  '/app/tools/scheduler': typeof AppToolsSchedulerRouteRouteWithChildren
-  '/app/tools/vva': typeof AppToolsVvaRouteRouteWithChildren
-  '/auth/reset-password/$token': typeof AuthResetPasswordTokenRouteLazyRoute
-  '/app/tools/': typeof AppToolsIndexRoute
-  '/app/businesses-rma/business/$businessId': typeof AppBusinessesRmaBusinessBusinessIdRouteRouteWithChildren
-  '/app/businesses-rma/rma/$rmaId': typeof AppBusinessesRmaRmaRmaIdRouteRouteWithChildren
-  '/app/dashboard/archive-personal-task/$taskId': typeof AppDashboardArchivePersonalTaskTaskIdRouteRoute
-  '/app/dashboard/delete-collective-task/$taskId': typeof AppDashboardDeleteCollectiveTaskTaskIdRouteRoute
-  '/app/dashboard/delete-progressive-info/$progressiveInfoId': typeof AppDashboardDeleteProgressiveInfoProgressiveInfoIdRouteRoute
-  '/app/dashboard/link-personal-task/$taskId': typeof AppDashboardLinkPersonalTaskTaskIdRouteRoute
-  '/app/dashboard/other-personal-tasks/$profileId': typeof AppDashboardOtherPersonalTasksProfileIdRouteRoute
-  '/app/dashboard/personal-task-details/$taskId': typeof AppDashboardPersonalTaskDetailsTaskIdRouteRoute
-  '/app/dashboard/scheduler-event-details/$eventId': typeof AppDashboardSchedulerEventDetailsEventIdRouteRoute
-  '/app/dashboard/take-collective-task/$taskId': typeof AppDashboardTakeCollectiveTaskTaskIdRouteRoute
-  '/app/dashboard/task-comments/$taskId': typeof AppDashboardTaskCommentsTaskIdRouteRoute
-  '/app/dashboard/task-email/$taskId': typeof AppDashboardTaskEmailTaskIdRouteRouteWithChildren
-  '/app/dashboard/transfer-task/$taskId': typeof AppDashboardTransferTaskTaskIdRouteRoute
-  '/app/dashboard/unlink-personal-task/$taskId': typeof AppDashboardUnlinkPersonalTaskTaskIdRouteRoute
-  '/app/dashboard/update-personal-task-deadline/$taskId': typeof AppDashboardUpdatePersonalTaskDeadlineTaskIdRouteRoute
-  '/app/dashboard/update-progressive-info/$progressiveInfoId': typeof AppDashboardUpdateProgressiveInfoProgressiveInfoIdRouteRoute
-  '/app/dashboard/validate-personal-task/$taskId': typeof AppDashboardValidatePersonalTaskTaskIdRouteRoute
-  '/app/enterprises/create-contact-business/$contactId': typeof AppEnterprisesCreateContactBusinessContactIdRouteRoute
-  '/app/enterprises/create-contact-travel-voucher/$contactId': typeof AppEnterprisesCreateContactTravelVoucherContactIdRouteRoute
-  '/app/enterprises/create-contact/$enterpriseId': typeof AppEnterprisesCreateContactEnterpriseIdRouteRoute
-  '/app/enterprises/create-enterprise-rma/$enterpriseId': typeof AppEnterprisesCreateEnterpriseRmaEnterpriseIdRouteRoute
-  '/app/enterprises/delete-contact/$contactId': typeof AppEnterprisesDeleteContactContactIdRouteRoute
-  '/app/enterprises/send-email-to-contact/$contactId': typeof AppEnterprisesSendEmailToContactContactIdRouteRoute
-  '/app/enterprises/update-contact-password/$contactId': typeof AppEnterprisesUpdateContactPasswordContactIdRouteRoute
-  '/app/enterprises/update-contact/$contactId': typeof AppEnterprisesUpdateContactContactIdRouteRoute
-  '/app/enterprises/$enterpriseId/address-book': typeof AppEnterprisesEnterpriseIdAddressBookRouteRouteWithChildren
-  '/app/enterprises/$enterpriseId/create-contact': typeof AppEnterprisesEnterpriseIdCreateContactRouteRoute
-  '/app/enterprises/$enterpriseId/create-ged-directory': typeof AppEnterprisesEnterpriseIdCreateGedDirectoryRouteRoute
-  '/app/enterprises/$enterpriseId/create-lifesheet-comment': typeof AppEnterprisesEnterpriseIdCreateLifesheetCommentRouteRoute
-  '/app/enterprises/$enterpriseId/delete': typeof AppEnterprisesEnterpriseIdDeleteRouteRoute
-  '/app/enterprises/$enterpriseId/email-history': typeof AppEnterprisesEnterpriseIdEmailHistoryRouteRouteWithChildren
-  '/app/enterprises/$enterpriseId/import-contacts': typeof AppEnterprisesEnterpriseIdImportContactsRouteRoute
-  '/app/enterprises/$enterpriseId/import-ged-files': typeof AppEnterprisesEnterpriseIdImportGedFilesRouteRoute
-  '/app/enterprises/$enterpriseId/relate-business-rma': typeof AppEnterprisesEnterpriseIdRelateBusinessRmaRouteRoute
-  '/app/enterprises/$enterpriseId/update': typeof AppEnterprisesEnterpriseIdUpdateRouteRoute
-  '/app/enterprises/$enterpriseId/update-accountability': typeof AppEnterprisesEnterpriseIdUpdateAccountabilityRouteRoute
-  '/app/enterprises/$enterpriseId/update-category': typeof AppEnterprisesEnterpriseIdUpdateCategoryRouteRoute
-  '/app/enterprises/$enterpriseId/update-representative': typeof AppEnterprisesEnterpriseIdUpdateRepresentativeRouteRoute
-  '/app/faq/archive/$faqId': typeof AppFaqArchiveFaqIdRouteRoute
-  '/app/faq/delete/$faqId': typeof AppFaqDeleteFaqIdRouteRoute
-  '/app/faq/ged/$faqId': typeof AppFaqGedFaqIdRouteRouteWithChildren
-  '/app/faq/send-by-email/$faqId': typeof AppFaqSendByEmailFaqIdRouteRoute
-  '/app/faq/update/$faqId': typeof AppFaqUpdateFaqIdRouteRoute
-  '/app/products/serial-numbers/create': typeof AppProductsSerialNumbersCreateRouteRoute
-  '/app/products/$productId/informations': typeof AppProductsProductIdInformationsRouteRouteWithChildren
-  '/app/products/$productId/manage': typeof AppProductsProductIdManageRouteRouteWithChildren
-  '/app/tools/credit/details': typeof AppToolsCreditDetailsRouteRoute
-  '/app/tools/credit/show': typeof AppToolsCreditShowRouteRoute
-  '/app/tools/ddns/create': typeof AppToolsDdnsCreateRouteRoute
-  '/app/tools/departments/create': typeof AppToolsDepartmentsCreateRouteRoute
-  '/app/tools/emails/$emailId': typeof AppToolsEmailsEmailIdRouteRouteWithChildren
-  '/app/tools/external-links/create': typeof AppToolsExternalLinksCreateRouteRoute
-  '/app/tools/formations/create': typeof AppToolsFormationsCreateRouteRouteWithChildren
-  '/app/tools/mails/create': typeof AppToolsMailsCreateRouteRoute
-  '/app/tools/menu/create-enterprise': typeof AppToolsMenuCreateEnterpriseRouteRoute
-  '/app/tools/menu/create-product': typeof AppToolsMenuCreateProductRouteRoute
-  '/app/tools/news/create': typeof AppToolsNewsCreateRouteRoute
-  '/app/tools/predefined-messages/create': typeof AppToolsPredefinedMessagesCreateRouteRoute
-  '/app/tools/predefined-texts/create': typeof AppToolsPredefinedTextsCreateRouteRoute
-  '/app/tools/product-filters/create': typeof AppToolsProductFiltersCreateRouteRoute
-  '/app/tools/product-inventory/validate-quantities': typeof AppToolsProductInventoryValidateQuantitiesRouteRoute
-  '/app/tools/product-shelves/create': typeof AppToolsProductShelvesCreateRouteRoute
-  '/app/tools/scheduler/create': typeof AppToolsSchedulerCreateRouteRoute
-  '/app/tools/vva/create': typeof AppToolsVvaCreateRouteRoute
-  '/app/products/$productId/': typeof AppProductsProductIdIndexRoute
-  '/app/businesses-rma/business/$businessId/arc': typeof AppBusinessesRmaBusinessBusinessIdArcRouteRouteWithChildren
-  '/app/businesses-rma/business/$businessId/bill': typeof AppBusinessesRmaBusinessBusinessIdBillRouteRouteWithChildren
-  '/app/businesses-rma/business/$businessId/bl': typeof AppBusinessesRmaBusinessBusinessIdBlRouteRouteWithChildren
-  '/app/businesses-rma/business/$businessId/bp': typeof AppBusinessesRmaBusinessBusinessIdBpRouteRouteWithChildren
-  '/app/businesses-rma/business/$businessId/dashboard': typeof AppBusinessesRmaBusinessBusinessIdDashboardRouteRouteWithChildren
-  '/app/businesses-rma/business/$businessId/quotation': typeof AppBusinessesRmaBusinessBusinessIdQuotationRouteRouteWithChildren
-  '/app/businesses-rma/business/$businessId/study': typeof AppBusinessesRmaBusinessBusinessIdStudyRouteRouteWithChildren
-  '/app/businesses-rma/rma/$rmaId/delivery': typeof AppBusinessesRmaRmaRmaIdDeliveryRouteRouteWithChildren
-  '/app/businesses-rma/rma/$rmaId/reception': typeof AppBusinessesRmaRmaRmaIdReceptionRouteRouteWithChildren
-  '/app/businesses-rma/rma/$rmaId/support': typeof AppBusinessesRmaRmaRmaIdSupportRouteRouteWithChildren
-  '/app/dashboard/task-email/$taskId/reply': typeof AppDashboardTaskEmailTaskIdReplyRouteRoute
-  '/app/enterprises/$enterpriseId/address-book/create': typeof AppEnterprisesEnterpriseIdAddressBookCreateRouteRoute
-  '/app/enterprises/$enterpriseId/address-book/import': typeof AppEnterprisesEnterpriseIdAddressBookImportRouteRoute
-  '/app/enterprises/$enterpriseId/create-contact-business/$contactId': typeof AppEnterprisesEnterpriseIdCreateContactBusinessContactIdRouteRoute
-  '/app/enterprises/$enterpriseId/delete-contact/$contactId': typeof AppEnterprisesEnterpriseIdDeleteContactContactIdRouteRoute
-  '/app/enterprises/$enterpriseId/delete-ged-object/$objectRelativePath': typeof AppEnterprisesEnterpriseIdDeleteGedObjectObjectRelativePathRouteRoute
-  '/app/enterprises/$enterpriseId/lifesheet-email/$lifesheetId': typeof AppEnterprisesEnterpriseIdLifesheetEmailLifesheetIdRouteRoute
-  '/app/enterprises/$enterpriseId/rename-ged-object/$objectRelativePath': typeof AppEnterprisesEnterpriseIdRenameGedObjectObjectRelativePathRouteRoute
-  '/app/enterprises/$enterpriseId/send-email-to-contact/$contactId': typeof AppEnterprisesEnterpriseIdSendEmailToContactContactIdRouteRoute
-  '/app/enterprises/$enterpriseId/task-email/$taskId': typeof AppEnterprisesEnterpriseIdTaskEmailTaskIdRouteRouteWithChildren
-  '/app/enterprises/$enterpriseId/unlink-task/$taskId': typeof AppEnterprisesEnterpriseIdUnlinkTaskTaskIdRouteRoute
-  '/app/enterprises/$enterpriseId/unrelate-business-rma/$businessRmaId': typeof AppEnterprisesEnterpriseIdUnrelateBusinessRmaBusinessRmaIdRouteRoute
-  '/app/enterprises/$enterpriseId/update-contact-password/$contactId': typeof AppEnterprisesEnterpriseIdUpdateContactPasswordContactIdRouteRoute
-  '/app/enterprises/$enterpriseId/update-contact/$contactId': typeof AppEnterprisesEnterpriseIdUpdateContactContactIdRouteRoute
-  '/app/faq/ged/$faqId/create-directory': typeof AppFaqGedFaqIdCreateDirectoryRouteRoute
-  '/app/faq/ged/$faqId/import-files': typeof AppFaqGedFaqIdImportFilesRouteRoute
-  '/app/products/serial-numbers/create-rma/$serialNumberId': typeof AppProductsSerialNumbersCreateRmaSerialNumberIdRouteRoute
-  '/app/products/serial-numbers/delete/$serialNumberId': typeof AppProductsSerialNumbersDeleteSerialNumberIdRouteRoute
-  '/app/products/serial-numbers/remove-from-business/$serialNumberId': typeof AppProductsSerialNumbersRemoveFromBusinessSerialNumberIdRouteRoute
-  '/app/products/serial-numbers/update/$serialNumberId': typeof AppProductsSerialNumbersUpdateSerialNumberIdRouteRoute
-  '/app/products/$productId/informations/create-ged-directory': typeof AppProductsProductIdInformationsCreateGedDirectoryRouteRoute
-  '/app/products/$productId/informations/create-lifesheet-comment': typeof AppProductsProductIdInformationsCreateLifesheetCommentRouteRoute
-  '/app/products/$productId/informations/delete-ged-object': typeof AppProductsProductIdInformationsDeleteGedObjectRouteRoute
-  '/app/products/$productId/informations/import-ged-files': typeof AppProductsProductIdInformationsImportGedFilesRouteRoute
-  '/app/products/$productId/informations/rename-ged-object': typeof AppProductsProductIdInformationsRenameGedObjectRouteRoute
-  '/app/products/$productId/manage/add-associated-product': typeof AppProductsProductIdManageAddAssociatedProductRouteRoute
-  '/app/products/$productId/manage/add-nomenclature-detail': typeof AppProductsProductIdManageAddNomenclatureDetailRouteRoute
-  '/app/products/$productId/manage/add-specification': typeof AppProductsProductIdManageAddSpecificationRouteRouteWithChildren
-  '/app/products/$productId/manage/create-stock': typeof AppProductsProductIdManageCreateStockRouteRoute
-  '/app/products/$productId/manage/create-version': typeof AppProductsProductIdManageCreateVersionRouteRoute
-  '/app/tools/ddns/delete/$ddnsId': typeof AppToolsDdnsDeleteDdnsIdRouteRoute
-  '/app/tools/departments/delete/$departmentId': typeof AppToolsDepartmentsDeleteDepartmentIdRouteRoute
-  '/app/tools/departments/update/$departmentId': typeof AppToolsDepartmentsUpdateDepartmentIdRouteRoute
-  '/app/tools/emails/$emailId/reply': typeof AppToolsEmailsEmailIdReplyRouteRoute
-  '/app/tools/external-links/archive/$externalLinkId': typeof AppToolsExternalLinksArchiveExternalLinkIdRouteRoute
-  '/app/tools/external-links/delete/$externalLinkId': typeof AppToolsExternalLinksDeleteExternalLinkIdRouteRoute
-  '/app/tools/external-links/update/$externalLinkId': typeof AppToolsExternalLinksUpdateExternalLinkIdRouteRoute
-  '/app/tools/formations/create/add-detail': typeof AppToolsFormationsCreateAddDetailRouteRoute
-  '/app/tools/formations/create/details': typeof AppToolsFormationsCreateDetailsRouteRoute
-  '/app/tools/formations/delete/$formationId': typeof AppToolsFormationsDeleteFormationIdRouteRoute
-  '/app/tools/formations/subscribers/$formationDetailId': typeof AppToolsFormationsSubscribersFormationDetailIdRouteRouteWithChildren
-  '/app/tools/formations/update/$formationId': typeof AppToolsFormationsUpdateFormationIdRouteRouteWithChildren
-  '/app/tools/mails/delete/$mailId': typeof AppToolsMailsDeleteMailIdRouteRoute
-  '/app/tools/mails/show/$mailId': typeof AppToolsMailsShowMailIdRouteRoute
-  '/app/tools/mails/update/$mailId': typeof AppToolsMailsUpdateMailIdRouteRoute
-  '/app/tools/news/delete/$newsId': typeof AppToolsNewsDeleteNewsIdRouteRoute
-  '/app/tools/news/update/$newsId': typeof AppToolsNewsUpdateNewsIdRouteRoute
-  '/app/tools/predefined-messages/delete/$predefinedMessageId': typeof AppToolsPredefinedMessagesDeletePredefinedMessageIdRouteRoute
-  '/app/tools/predefined-messages/update/$predefinedMessageId': typeof AppToolsPredefinedMessagesUpdatePredefinedMessageIdRouteRoute
-  '/app/tools/predefined-texts/delete/$predefinedTextId': typeof AppToolsPredefinedTextsDeletePredefinedTextIdRouteRoute
-  '/app/tools/predefined-texts/update/$predefinedTextId': typeof AppToolsPredefinedTextsUpdatePredefinedTextIdRouteRoute
-  '/app/tools/product-filters/delete/$productFilterId': typeof AppToolsProductFiltersDeleteProductFilterIdRouteRoute
-  '/app/tools/product-filters/update/$productFilterId': typeof AppToolsProductFiltersUpdateProductFilterIdRouteRoute
-  '/app/tools/product-inventory/update/$stockId': typeof AppToolsProductInventoryUpdateStockIdRouteRoute
-  '/app/tools/product-shelves/delete/$productShelfId': typeof AppToolsProductShelvesDeleteProductShelfIdRouteRoute
-  '/app/tools/scheduler/details/$rdvId': typeof AppToolsSchedulerDetailsRdvIdRouteRouteWithChildren
-  '/app/tools/vva/delete/$vvaId': typeof AppToolsVvaDeleteVvaIdRouteRoute
-  '/app/businesses-rma/business/$businessId/': typeof AppBusinessesRmaBusinessBusinessIdIndexRoute
-  '/app/businesses-rma/rma/$rmaId/': typeof AppBusinessesRmaRmaRmaIdIndexRoute
-  '/app/businesses-rma/business/$businessId/arc/pdf': typeof AppBusinessesRmaBusinessBusinessIdArcPdfRouteRouteWithChildren
-  '/app/businesses-rma/business/$businessId/arc/update-shipping-price': typeof AppBusinessesRmaBusinessBusinessIdArcUpdateShippingPriceRouteRoute
-  '/app/businesses-rma/business/$businessId/bill/credits': typeof AppBusinessesRmaBusinessBusinessIdBillCreditsRouteRouteWithChildren
-  '/app/businesses-rma/business/$businessId/bill/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdBillSendByEmailRouteRoute
-  '/app/businesses-rma/business/$businessId/bl/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdBlSendByEmailRouteRoute
-  '/app/businesses-rma/business/$businessId/bl/update': typeof AppBusinessesRmaBusinessBusinessIdBlUpdateRouteRouteWithChildren
-  '/app/businesses-rma/business/$businessId/bp/travel-voucher': typeof AppBusinessesRmaBusinessBusinessIdBpTravelVoucherRouteRoute
-  '/app/businesses-rma/business/$businessId/dashboard/address-book': typeof AppBusinessesRmaBusinessBusinessIdDashboardAddressBookRouteRouteWithChildren
-  '/app/businesses-rma/business/$businessId/dashboard/create-ged-directory': typeof AppBusinessesRmaBusinessBusinessIdDashboardCreateGedDirectoryRouteRoute
-  '/app/businesses-rma/business/$businessId/dashboard/create-lifesheet': typeof AppBusinessesRmaBusinessBusinessIdDashboardCreateLifesheetRouteRoute
-  '/app/businesses-rma/business/$businessId/dashboard/create-link': typeof AppBusinessesRmaBusinessBusinessIdDashboardCreateLinkRouteRoute
-  '/app/businesses-rma/business/$businessId/dashboard/delete': typeof AppBusinessesRmaBusinessBusinessIdDashboardDeleteRouteRoute
-  '/app/businesses-rma/business/$businessId/dashboard/email-history': typeof AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryRouteRouteWithChildren
-  '/app/businesses-rma/business/$businessId/dashboard/import-ged-files': typeof AppBusinessesRmaBusinessBusinessIdDashboardImportGedFilesRouteRoute
-  '/app/businesses-rma/business/$businessId/dashboard/send-email': typeof AppBusinessesRmaBusinessBusinessIdDashboardSendEmailRouteRoute
-  '/app/businesses-rma/business/$businessId/dashboard/update-billing-address': typeof AppBusinessesRmaBusinessBusinessIdDashboardUpdateBillingAddressRouteRoute
-  '/app/businesses-rma/business/$businessId/dashboard/update-representative': typeof AppBusinessesRmaBusinessBusinessIdDashboardUpdateRepresentativeRouteRoute
-  '/app/businesses-rma/business/$businessId/dashboard/update-responsible': typeof AppBusinessesRmaBusinessBusinessIdDashboardUpdateResponsibleRouteRoute
-  '/app/businesses-rma/business/$businessId/quotation/commercial-notice': typeof AppBusinessesRmaBusinessBusinessIdQuotationCommercialNoticeRouteRouteWithChildren
-  '/app/businesses-rma/business/$businessId/quotation/pdf': typeof AppBusinessesRmaBusinessBusinessIdQuotationPdfRouteRouteWithChildren
-  '/app/businesses-rma/business/$businessId/quotation/update-shipping-price': typeof AppBusinessesRmaBusinessBusinessIdQuotationUpdateShippingPriceRouteRoute
-  '/app/businesses-rma/business/$businessId/assistance/$assistanceId': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdRouteRouteWithChildren
-  '/app/businesses-rma/business/$businessId/study/automatic': typeof AppBusinessesRmaBusinessBusinessIdStudyAutomaticRouteRoute
-  '/app/businesses-rma/business/$businessId/study/expert': typeof AppBusinessesRmaBusinessBusinessIdStudyExpertRouteRoute
-  '/app/businesses-rma/rma/$rmaId/delivery/create-detail': typeof AppBusinessesRmaRmaRmaIdDeliveryCreateDetailRouteRoute
-  '/app/businesses-rma/rma/$rmaId/delivery/pdf': typeof AppBusinessesRmaRmaRmaIdDeliveryPdfRouteRouteWithChildren
-  '/app/businesses-rma/rma/$rmaId/delivery/travel-voucher': typeof AppBusinessesRmaRmaRmaIdDeliveryTravelVoucherRouteRoute
-  '/app/businesses-rma/rma/$rmaId/reception/create-detail': typeof AppBusinessesRmaRmaRmaIdReceptionCreateDetailRouteRoute
-  '/app/businesses-rma/rma/$rmaId/reception/pdf': typeof AppBusinessesRmaRmaRmaIdReceptionPdfRouteRouteWithChildren
-  '/app/businesses-rma/rma/$rmaId/support/create-detail': typeof AppBusinessesRmaRmaRmaIdSupportCreateDetailRouteRoute
-  '/app/businesses-rma/rma/$rmaId/support/create-ged-directory': typeof AppBusinessesRmaRmaRmaIdSupportCreateGedDirectoryRouteRoute
-  '/app/businesses-rma/rma/$rmaId/support/create-lifesheet': typeof AppBusinessesRmaRmaRmaIdSupportCreateLifesheetRouteRoute
-  '/app/businesses-rma/rma/$rmaId/support/create-link': typeof AppBusinessesRmaRmaRmaIdSupportCreateLinkRouteRoute
-  '/app/businesses-rma/rma/$rmaId/support/import-ged-files': typeof AppBusinessesRmaRmaRmaIdSupportImportGedFilesRouteRoute
-  '/app/businesses-rma/rma/$rmaId/support/pdf': typeof AppBusinessesRmaRmaRmaIdSupportPdfRouteRouteWithChildren
-  '/app/enterprises/$enterpriseId/address-book/delete/$addressId': typeof AppEnterprisesEnterpriseIdAddressBookDeleteAddressIdRouteRoute
-  '/app/enterprises/$enterpriseId/address-book/update/$addressId': typeof AppEnterprisesEnterpriseIdAddressBookUpdateAddressIdRouteRoute
-  '/app/enterprises/$enterpriseId/email-history/email/$emailId': typeof AppEnterprisesEnterpriseIdEmailHistoryEmailEmailIdRouteRouteWithChildren
-  '/app/enterprises/$enterpriseId/task-email/$taskId/reply': typeof AppEnterprisesEnterpriseIdTaskEmailTaskIdReplyRouteRoute
-  '/app/faq/ged/$faqId/delete/$itemRelativePath': typeof AppFaqGedFaqIdDeleteItemRelativePathRouteRoute
-  '/app/faq/ged/$faqId/rename/$itemRelativePath': typeof AppFaqGedFaqIdRenameItemRelativePathRouteRoute
-  '/app/products/$productId/informations/lifesheet-email/$lifesheetId': typeof AppProductsProductIdInformationsLifesheetEmailLifesheetIdRouteRoute
-  '/app/products/$productId/informations/task-email/$taskId': typeof AppProductsProductIdInformationsTaskEmailTaskIdRouteRouteWithChildren
-  '/app/products/$productId/informations/unlink-task/$taskId': typeof AppProductsProductIdInformationsUnlinkTaskTaskIdRouteRoute
-  '/app/products/$productId/manage/add-specification/$filterId': typeof AppProductsProductIdManageAddSpecificationFilterIdRouteRoute
-  '/app/products/$productId/manage/delete-nomenclature-detail/$nomenclatureDetailId': typeof AppProductsProductIdManageDeleteNomenclatureDetailNomenclatureDetailIdRouteRoute
-  '/app/products/$productId/manage/delete-specification/$specificationId': typeof AppProductsProductIdManageDeleteSpecificationSpecificationIdRouteRoute
-  '/app/products/$productId/manage/delete-stock/$stockId': typeof AppProductsProductIdManageDeleteStockStockIdRouteRoute
-  '/app/products/$productId/manage/delete-version/$versionId': typeof AppProductsProductIdManageDeleteVersionVersionIdRouteRoute
-  '/app/products/$productId/manage/remove-associated-product/$associatedProductId': typeof AppProductsProductIdManageRemoveAssociatedProductAssociatedProductIdRouteRoute
-  '/app/products/$productId/manage/stock-history/$stockId': typeof AppProductsProductIdManageStockHistoryStockIdRouteRoute
-  '/app/products/$productId/manage/update-nomenclature-detail/$nomenclatureDetailId': typeof AppProductsProductIdManageUpdateNomenclatureDetailNomenclatureDetailIdRouteRoute
-  '/app/products/$productId/manage/update-specification/$specificationId': typeof AppProductsProductIdManageUpdateSpecificationSpecificationIdRouteRoute
-  '/app/products/$productId/manage/update-stock/$stockId': typeof AppProductsProductIdManageUpdateStockStockIdRouteRoute
-  '/app/products/$productId/manage/update-version/$versionId': typeof AppProductsProductIdManageUpdateVersionVersionIdRouteRoute
-  '/app/tools/formations/subscribers/$formationDetailId/create': typeof AppToolsFormationsSubscribersFormationDetailIdCreateRouteRoute
-  '/app/tools/formations/update/$formationId/add-detail': typeof AppToolsFormationsUpdateFormationIdAddDetailRouteRoute
-  '/app/tools/formations/update/$formationId/details': typeof AppToolsFormationsUpdateFormationIdDetailsRouteRoute
-  '/app/tools/scheduler/details/$rdvId/delete': typeof AppToolsSchedulerDetailsRdvIdDeleteRouteRoute
-  '/app/tools/scheduler/details/$rdvId/update': typeof AppToolsSchedulerDetailsRdvIdUpdateRouteRoute
-  '/app/businesses-rma/business/$businessId/study/': typeof AppBusinessesRmaBusinessBusinessIdStudyIndexRoute
-  '/app/businesses-rma/business/$businessId/arc/delete-detail/$detailId': typeof AppBusinessesRmaBusinessBusinessIdArcDeleteDetailDetailIdRouteRoute
-  '/app/businesses-rma/business/$businessId/arc/pdf/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdArcPdfSendByEmailRouteRoute
-  '/app/businesses-rma/business/$businessId/arc/update-detail/$detailId': typeof AppBusinessesRmaBusinessBusinessIdArcUpdateDetailDetailIdRouteRoute
-  '/app/businesses-rma/business/$businessId/bill/credits/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdBillCreditsSendByEmailRouteRoute
-  '/app/businesses-rma/business/$businessId/bl/update/new': typeof AppBusinessesRmaBusinessBusinessIdBlUpdateNewRouteRoute
-  '/app/businesses-rma/business/$businessId/bp/add-serial/$detailId': typeof AppBusinessesRmaBusinessBusinessIdBpAddSerialDetailIdRouteRoute
-  '/app/businesses-rma/business/$businessId/bp/create-detail-rma/$detailId': typeof AppBusinessesRmaBusinessBusinessIdBpCreateDetailRmaDetailIdRouteRoute
-  '/app/businesses-rma/business/$businessId/bp/create-serial-rma/$serialId': typeof AppBusinessesRmaBusinessBusinessIdBpCreateSerialRmaSerialIdRouteRoute
-  '/app/businesses-rma/business/$businessId/bp/delete-detail/$detailId': typeof AppBusinessesRmaBusinessBusinessIdBpDeleteDetailDetailIdRouteRoute
-  '/app/businesses-rma/business/$businessId/bp/delete-serial/$serialId': typeof AppBusinessesRmaBusinessBusinessIdBpDeleteSerialSerialIdRouteRoute
-  '/app/businesses-rma/business/$businessId/bp/update-detail/$detailId': typeof AppBusinessesRmaBusinessBusinessIdBpUpdateDetailDetailIdRouteRoute
-  '/app/businesses-rma/business/$businessId/dashboard/address-book/create': typeof AppBusinessesRmaBusinessBusinessIdDashboardAddressBookCreateRouteRoute
-  '/app/businesses-rma/business/$businessId/dashboard/confirm-quotation-import/$otherBusinessId': typeof AppBusinessesRmaBusinessBusinessIdDashboardConfirmQuotationImportOtherBusinessIdRouteRoute
-  '/app/businesses-rma/business/$businessId/dashboard/delete-ged-object/$objectRelativePath': typeof AppBusinessesRmaBusinessBusinessIdDashboardDeleteGedObjectObjectRelativePathRouteRoute
-  '/app/businesses-rma/business/$businessId/dashboard/delete-link/$associatedId': typeof AppBusinessesRmaBusinessBusinessIdDashboardDeleteLinkAssociatedIdRouteRoute
-  '/app/businesses-rma/business/$businessId/dashboard/email-history/$emailId': typeof AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdRouteRouteWithChildren
-  '/app/businesses-rma/business/$businessId/dashboard/lifesheet-email/$lifesheetId': typeof AppBusinessesRmaBusinessBusinessIdDashboardLifesheetEmailLifesheetIdRouteRoute
-  '/app/businesses-rma/business/$businessId/dashboard/rename-ged-object/$objectRelativePath': typeof AppBusinessesRmaBusinessBusinessIdDashboardRenameGedObjectObjectRelativePathRouteRoute
-  '/app/businesses-rma/business/$businessId/dashboard/task-email/$taskId': typeof AppBusinessesRmaBusinessBusinessIdDashboardTaskEmailTaskIdRouteRoute
-  '/app/businesses-rma/business/$businessId/dashboard/unlink-task/$taskId': typeof AppBusinessesRmaBusinessBusinessIdDashboardUnlinkTaskTaskIdRouteRoute
-  '/app/businesses-rma/business/$businessId/quotation/commercial-notice/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdQuotationCommercialNoticeSendByEmailRouteRouteWithChildren
-  '/app/businesses-rma/business/$businessId/quotation/create-associated-detail/$detailId': typeof AppBusinessesRmaBusinessBusinessIdQuotationCreateAssociatedDetailDetailIdRouteRoute
-  '/app/businesses-rma/business/$businessId/quotation/create-detail/$subquotationId': typeof AppBusinessesRmaBusinessBusinessIdQuotationCreateDetailSubquotationIdRouteRoute
-  '/app/businesses-rma/business/$businessId/quotation/delete-detail/$detailId': typeof AppBusinessesRmaBusinessBusinessIdQuotationDeleteDetailDetailIdRouteRoute
-  '/app/businesses-rma/business/$businessId/quotation/delete-subquotation/$subquotationId': typeof AppBusinessesRmaBusinessBusinessIdQuotationDeleteSubquotationSubquotationIdRouteRoute
-  '/app/businesses-rma/business/$businessId/quotation/pdf/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdQuotationPdfSendByEmailRouteRoute
-  '/app/businesses-rma/business/$businessId/quotation/update-detail/$detailId': typeof AppBusinessesRmaBusinessBusinessIdQuotationUpdateDetailDetailIdRouteRoute
-  '/app/businesses-rma/business/$businessId/quotation/update-subquotation/$subquotationId': typeof AppBusinessesRmaBusinessBusinessIdQuotationUpdateSubquotationSubquotationIdRouteRoute
-  '/app/businesses-rma/business/$businessId/assistance/$assistanceId/create-faq': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdCreateFaqRouteRoute
-  '/app/businesses-rma/business/$businessId/assistance/$assistanceId/create-ged-directory': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdCreateGedDirectoryRouteRoute
-  '/app/businesses-rma/business/$businessId/assistance/$assistanceId/create-lifesheet': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdCreateLifesheetRouteRoute
-  '/app/businesses-rma/business/$businessId/assistance/$assistanceId/create-link': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdCreateLinkRouteRoute
-  '/app/businesses-rma/business/$businessId/assistance/$assistanceId/delete': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdDeleteRouteRoute
-  '/app/businesses-rma/business/$businessId/assistance/$assistanceId/edit-cumulated-time': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdEditCumulatedTimeRouteRoute
-  '/app/businesses-rma/business/$businessId/assistance/$assistanceId/edit-no-billed-time': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdEditNoBilledTimeRouteRoute
-  '/app/businesses-rma/business/$businessId/assistance/$assistanceId/edit-subtitle': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdEditSubtitleRouteRoute
-  '/app/businesses-rma/business/$businessId/assistance/$assistanceId/import-ged-files': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdImportGedFilesRouteRoute
-  '/app/businesses-rma/business/$businessId/assistance/$assistanceId/pdf': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdPdfRouteRouteWithChildren
-  '/app/businesses-rma/rma/$rmaId/delivery/delete-detail/$detailId': typeof AppBusinessesRmaRmaRmaIdDeliveryDeleteDetailDetailIdRouteRoute
-  '/app/businesses-rma/rma/$rmaId/delivery/pdf/send-by-email': typeof AppBusinessesRmaRmaRmaIdDeliveryPdfSendByEmailRouteRoute
-  '/app/businesses-rma/rma/$rmaId/delivery/update-detail/$detailId': typeof AppBusinessesRmaRmaRmaIdDeliveryUpdateDetailDetailIdRouteRoute
-  '/app/businesses-rma/rma/$rmaId/reception/delete-detail/$detailId': typeof AppBusinessesRmaRmaRmaIdReceptionDeleteDetailDetailIdRouteRoute
-  '/app/businesses-rma/rma/$rmaId/reception/pdf/send-by-email': typeof AppBusinessesRmaRmaRmaIdReceptionPdfSendByEmailRouteRoute
-  '/app/businesses-rma/rma/$rmaId/reception/update-detail/$detailId': typeof AppBusinessesRmaRmaRmaIdReceptionUpdateDetailDetailIdRouteRoute
-  '/app/businesses-rma/rma/$rmaId/support/delete-detail/$detailId': typeof AppBusinessesRmaRmaRmaIdSupportDeleteDetailDetailIdRouteRoute
-  '/app/businesses-rma/rma/$rmaId/support/delete-ged-object/$relativePath': typeof AppBusinessesRmaRmaRmaIdSupportDeleteGedObjectRelativePathRouteRoute
-  '/app/businesses-rma/rma/$rmaId/support/delete-link/$associatedId': typeof AppBusinessesRmaRmaRmaIdSupportDeleteLinkAssociatedIdRouteRoute
-  '/app/businesses-rma/rma/$rmaId/support/lifesheet-email/$lifesheetId': typeof AppBusinessesRmaRmaRmaIdSupportLifesheetEmailLifesheetIdRouteRoute
-  '/app/businesses-rma/rma/$rmaId/support/pdf/send-by-email': typeof AppBusinessesRmaRmaRmaIdSupportPdfSendByEmailRouteRoute
-  '/app/businesses-rma/rma/$rmaId/support/rename-ged-object/$objectRelativePath': typeof AppBusinessesRmaRmaRmaIdSupportRenameGedObjectObjectRelativePathRouteRoute
-  '/app/businesses-rma/rma/$rmaId/support/task-email/$taskId': typeof AppBusinessesRmaRmaRmaIdSupportTaskEmailTaskIdRouteRouteWithChildren
-  '/app/businesses-rma/rma/$rmaId/support/unlink-task/$taskId': typeof AppBusinessesRmaRmaRmaIdSupportUnlinkTaskTaskIdRouteRoute
-  '/app/businesses-rma/rma/$rmaId/support/update-detail/$detailId': typeof AppBusinessesRmaRmaRmaIdSupportUpdateDetailDetailIdRouteRoute
-  '/app/enterprises/$enterpriseId/email-history/email/$emailId/reply': typeof AppEnterprisesEnterpriseIdEmailHistoryEmailEmailIdReplyRouteRoute
-  '/app/products/$productId/informations/task-email/$taskId/reply': typeof AppProductsProductIdInformationsTaskEmailTaskIdReplyRouteRoute
-  '/app/tools/formations/subscribers/$formationDetailId/delete/$subscriptionId': typeof AppToolsFormationsSubscribersFormationDetailIdDeleteSubscriptionIdRouteRoute
-  '/app/tools/formations/subscribers/$formationDetailId/send-email/$subscriptionId': typeof AppToolsFormationsSubscribersFormationDetailIdSendEmailSubscriptionIdRouteRoute
-  '/app/businesses-rma/business/$businessId/dashboard/address-book/delete/$addressId': typeof AppBusinessesRmaBusinessBusinessIdDashboardAddressBookDeleteAddressIdRouteRoute
-  '/app/businesses-rma/business/$businessId/dashboard/address-book/update/$addressId': typeof AppBusinessesRmaBusinessBusinessIdDashboardAddressBookUpdateAddressIdRouteRoute
-  '/app/businesses-rma/business/$businessId/dashboard/email-history/$emailId/reply': typeof AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdReplyRouteRoute
-  '/app/businesses-rma/business/$businessId/quotation/commercial-notice/send-by-email/predefined-messages': typeof AppBusinessesRmaBusinessBusinessIdQuotationCommercialNoticeSendByEmailPredefinedMessagesRouteRoute
-  '/app/businesses-rma/business/$businessId/assistance/$assistanceId/delete-ged-object/$objectRelativePath': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdDeleteGedObjectObjectRelativePathRouteRoute
-  '/app/businesses-rma/business/$businessId/assistance/$assistanceId/delete-link/$associatedId': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdDeleteLinkAssociatedIdRouteRoute
-  '/app/businesses-rma/business/$businessId/assistance/$assistanceId/lifesheet-email/$lifesheetId': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdLifesheetEmailLifesheetIdRouteRoute
-  '/app/businesses-rma/business/$businessId/assistance/$assistanceId/pdf/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdPdfSendByEmailRouteRoute
-  '/app/businesses-rma/business/$businessId/assistance/$assistanceId/rename-ged-object/$objectRelativePath': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdRenameGedObjectObjectRelativePathRouteRoute
-  '/app/businesses-rma/rma/$rmaId/support/task-email/$taskId/reply': typeof AppBusinessesRmaRmaRmaIdSupportTaskEmailTaskIdReplyRouteRoute
-}
-
-export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/app/businesses-rma': typeof AppBusinessesRmaRouteRouteWithChildren
-  '/app/dashboard': typeof AppDashboardRouteRouteWithChildren
-  '/app/enterprises': typeof AppEnterprisesRouteRouteWithChildren
-  '/app/external-links': typeof AppExternalLinksRouteRoute
-  '/app/faq': typeof AppFaqRouteRouteWithChildren
-  '/app/products': typeof AppProductsRouteRouteWithChildren
-  '/auth/login': typeof AuthLoginRouteRoute
-  '/auth/forgot-password': typeof AuthForgotPasswordRouteLazyRoute
-  '/app': typeof AppIndexRoute
-  '/auth': typeof AuthIndexRoute
-  '/app/businesses-rma/representative-turnover': typeof AppBusinessesRmaRepresentativeTurnoverRouteRoute
-  '/app/businesses-rma/search-by-products': typeof AppBusinessesRmaSearchByProductsRouteRoute
-  '/app/dashboard/create-collective-task': typeof AppDashboardCreateCollectiveTaskRouteRoute
-  '/app/dashboard/create-personal-task': typeof AppDashboardCreatePersonalTaskRouteRoute
-  '/app/dashboard/create-progressive-info': typeof AppDashboardCreateProgressiveInfoRouteRoute
-  '/app/dashboard/delete-collective-tasks': typeof AppDashboardDeleteCollectiveTasksRouteRoute
-  '/app/enterprises/create': typeof AppEnterprisesCreateRouteRoute
-  '/app/enterprises/$enterpriseId': typeof AppEnterprisesEnterpriseIdRouteRouteWithChildren
-  '/app/external-links/$externalLinkId': typeof AppExternalLinksExternalLinkIdRouteRoute
-  '/app/faq/create': typeof AppFaqCreateRouteRoute
-  '/app/products/create': typeof AppProductsCreateRouteRoute
-  '/app/products/serial-numbers': typeof AppProductsSerialNumbersRouteRouteWithChildren
-  '/app/tools/credit': typeof AppToolsCreditRouteRouteWithChildren
-  '/app/tools/ddns': typeof AppToolsDdnsRouteRouteWithChildren
-  '/app/tools/departments': typeof AppToolsDepartmentsRouteRouteWithChildren
-  '/app/tools/emails': typeof AppToolsEmailsRouteRouteWithChildren
-  '/app/tools/external-links': typeof AppToolsExternalLinksRouteRouteWithChildren
-  '/app/tools/formations': typeof AppToolsFormationsRouteRouteWithChildren
-  '/app/tools/global-turnover': typeof AppToolsGlobalTurnoverRouteRoute
-  '/app/tools/mails': typeof AppToolsMailsRouteRouteWithChildren
-  '/app/tools/menu': typeof AppToolsMenuRouteRouteWithChildren
-  '/app/tools/news': typeof AppToolsNewsRouteRouteWithChildren
-  '/app/tools/predefined-messages': typeof AppToolsPredefinedMessagesRouteRouteWithChildren
-  '/app/tools/predefined-texts': typeof AppToolsPredefinedTextsRouteRouteWithChildren
-  '/app/tools/product-filters': typeof AppToolsProductFiltersRouteRouteWithChildren
-  '/app/tools/product-inventory': typeof AppToolsProductInventoryRouteRouteWithChildren
-  '/app/tools/product-shelves': typeof AppToolsProductShelvesRouteRouteWithChildren
-  '/app/tools/representatives-map': typeof AppToolsRepresentativesMapRouteRoute
-  '/app/tools/representatives-turnover': typeof AppToolsRepresentativesTurnoverRouteRoute
-  '/app/tools/scheduler': typeof AppToolsSchedulerRouteRouteWithChildren
-  '/app/tools/vva': typeof AppToolsVvaRouteRouteWithChildren
-  '/auth/reset-password/$token': typeof AuthResetPasswordTokenRouteLazyRoute
-  '/app/tools': typeof AppToolsIndexRoute
-  '/app/dashboard/archive-personal-task/$taskId': typeof AppDashboardArchivePersonalTaskTaskIdRouteRoute
-  '/app/dashboard/delete-collective-task/$taskId': typeof AppDashboardDeleteCollectiveTaskTaskIdRouteRoute
-  '/app/dashboard/delete-progressive-info/$progressiveInfoId': typeof AppDashboardDeleteProgressiveInfoProgressiveInfoIdRouteRoute
-  '/app/dashboard/link-personal-task/$taskId': typeof AppDashboardLinkPersonalTaskTaskIdRouteRoute
-  '/app/dashboard/other-personal-tasks/$profileId': typeof AppDashboardOtherPersonalTasksProfileIdRouteRoute
-  '/app/dashboard/personal-task-details/$taskId': typeof AppDashboardPersonalTaskDetailsTaskIdRouteRoute
-  '/app/dashboard/scheduler-event-details/$eventId': typeof AppDashboardSchedulerEventDetailsEventIdRouteRoute
-  '/app/dashboard/take-collective-task/$taskId': typeof AppDashboardTakeCollectiveTaskTaskIdRouteRoute
-  '/app/dashboard/task-comments/$taskId': typeof AppDashboardTaskCommentsTaskIdRouteRoute
-  '/app/dashboard/task-email/$taskId': typeof AppDashboardTaskEmailTaskIdRouteRouteWithChildren
-  '/app/dashboard/transfer-task/$taskId': typeof AppDashboardTransferTaskTaskIdRouteRoute
-  '/app/dashboard/unlink-personal-task/$taskId': typeof AppDashboardUnlinkPersonalTaskTaskIdRouteRoute
-  '/app/dashboard/update-personal-task-deadline/$taskId': typeof AppDashboardUpdatePersonalTaskDeadlineTaskIdRouteRoute
-  '/app/dashboard/update-progressive-info/$progressiveInfoId': typeof AppDashboardUpdateProgressiveInfoProgressiveInfoIdRouteRoute
-  '/app/dashboard/validate-personal-task/$taskId': typeof AppDashboardValidatePersonalTaskTaskIdRouteRoute
-  '/app/enterprises/create-contact-business/$contactId': typeof AppEnterprisesCreateContactBusinessContactIdRouteRoute
-  '/app/enterprises/create-contact-travel-voucher/$contactId': typeof AppEnterprisesCreateContactTravelVoucherContactIdRouteRoute
-  '/app/enterprises/create-contact/$enterpriseId': typeof AppEnterprisesCreateContactEnterpriseIdRouteRoute
-  '/app/enterprises/create-enterprise-rma/$enterpriseId': typeof AppEnterprisesCreateEnterpriseRmaEnterpriseIdRouteRoute
-  '/app/enterprises/delete-contact/$contactId': typeof AppEnterprisesDeleteContactContactIdRouteRoute
-  '/app/enterprises/send-email-to-contact/$contactId': typeof AppEnterprisesSendEmailToContactContactIdRouteRoute
-  '/app/enterprises/update-contact-password/$contactId': typeof AppEnterprisesUpdateContactPasswordContactIdRouteRoute
-  '/app/enterprises/update-contact/$contactId': typeof AppEnterprisesUpdateContactContactIdRouteRoute
-  '/app/enterprises/$enterpriseId/address-book': typeof AppEnterprisesEnterpriseIdAddressBookRouteRouteWithChildren
-  '/app/enterprises/$enterpriseId/create-contact': typeof AppEnterprisesEnterpriseIdCreateContactRouteRoute
-  '/app/enterprises/$enterpriseId/create-ged-directory': typeof AppEnterprisesEnterpriseIdCreateGedDirectoryRouteRoute
-  '/app/enterprises/$enterpriseId/create-lifesheet-comment': typeof AppEnterprisesEnterpriseIdCreateLifesheetCommentRouteRoute
-  '/app/enterprises/$enterpriseId/delete': typeof AppEnterprisesEnterpriseIdDeleteRouteRoute
-  '/app/enterprises/$enterpriseId/email-history': typeof AppEnterprisesEnterpriseIdEmailHistoryRouteRouteWithChildren
-  '/app/enterprises/$enterpriseId/import-contacts': typeof AppEnterprisesEnterpriseIdImportContactsRouteRoute
-  '/app/enterprises/$enterpriseId/import-ged-files': typeof AppEnterprisesEnterpriseIdImportGedFilesRouteRoute
-  '/app/enterprises/$enterpriseId/relate-business-rma': typeof AppEnterprisesEnterpriseIdRelateBusinessRmaRouteRoute
-  '/app/enterprises/$enterpriseId/update': typeof AppEnterprisesEnterpriseIdUpdateRouteRoute
-  '/app/enterprises/$enterpriseId/update-accountability': typeof AppEnterprisesEnterpriseIdUpdateAccountabilityRouteRoute
-  '/app/enterprises/$enterpriseId/update-category': typeof AppEnterprisesEnterpriseIdUpdateCategoryRouteRoute
-  '/app/enterprises/$enterpriseId/update-representative': typeof AppEnterprisesEnterpriseIdUpdateRepresentativeRouteRoute
-  '/app/faq/archive/$faqId': typeof AppFaqArchiveFaqIdRouteRoute
-  '/app/faq/delete/$faqId': typeof AppFaqDeleteFaqIdRouteRoute
-  '/app/faq/ged/$faqId': typeof AppFaqGedFaqIdRouteRouteWithChildren
-  '/app/faq/send-by-email/$faqId': typeof AppFaqSendByEmailFaqIdRouteRoute
-  '/app/faq/update/$faqId': typeof AppFaqUpdateFaqIdRouteRoute
-  '/app/products/serial-numbers/create': typeof AppProductsSerialNumbersCreateRouteRoute
-  '/app/products/$productId/informations': typeof AppProductsProductIdInformationsRouteRouteWithChildren
-  '/app/products/$productId/manage': typeof AppProductsProductIdManageRouteRouteWithChildren
-  '/app/tools/credit/details': typeof AppToolsCreditDetailsRouteRoute
-  '/app/tools/credit/show': typeof AppToolsCreditShowRouteRoute
-  '/app/tools/ddns/create': typeof AppToolsDdnsCreateRouteRoute
-  '/app/tools/departments/create': typeof AppToolsDepartmentsCreateRouteRoute
-  '/app/tools/emails/$emailId': typeof AppToolsEmailsEmailIdRouteRouteWithChildren
-  '/app/tools/external-links/create': typeof AppToolsExternalLinksCreateRouteRoute
-  '/app/tools/formations/create': typeof AppToolsFormationsCreateRouteRouteWithChildren
-  '/app/tools/mails/create': typeof AppToolsMailsCreateRouteRoute
-  '/app/tools/menu/create-enterprise': typeof AppToolsMenuCreateEnterpriseRouteRoute
-  '/app/tools/menu/create-product': typeof AppToolsMenuCreateProductRouteRoute
-  '/app/tools/news/create': typeof AppToolsNewsCreateRouteRoute
-  '/app/tools/predefined-messages/create': typeof AppToolsPredefinedMessagesCreateRouteRoute
-  '/app/tools/predefined-texts/create': typeof AppToolsPredefinedTextsCreateRouteRoute
-  '/app/tools/product-filters/create': typeof AppToolsProductFiltersCreateRouteRoute
-  '/app/tools/product-inventory/validate-quantities': typeof AppToolsProductInventoryValidateQuantitiesRouteRoute
-  '/app/tools/product-shelves/create': typeof AppToolsProductShelvesCreateRouteRoute
-  '/app/tools/scheduler/create': typeof AppToolsSchedulerCreateRouteRoute
-  '/app/tools/vva/create': typeof AppToolsVvaCreateRouteRoute
-  '/app/products/$productId': typeof AppProductsProductIdIndexRoute
-  '/app/businesses-rma/business/$businessId/arc': typeof AppBusinessesRmaBusinessBusinessIdArcRouteRouteWithChildren
-  '/app/businesses-rma/business/$businessId/bill': typeof AppBusinessesRmaBusinessBusinessIdBillRouteRouteWithChildren
-  '/app/businesses-rma/business/$businessId/bl': typeof AppBusinessesRmaBusinessBusinessIdBlRouteRouteWithChildren
-  '/app/businesses-rma/business/$businessId/bp': typeof AppBusinessesRmaBusinessBusinessIdBpRouteRouteWithChildren
-  '/app/businesses-rma/business/$businessId/dashboard': typeof AppBusinessesRmaBusinessBusinessIdDashboardRouteRouteWithChildren
-  '/app/businesses-rma/business/$businessId/quotation': typeof AppBusinessesRmaBusinessBusinessIdQuotationRouteRouteWithChildren
-  '/app/businesses-rma/rma/$rmaId/delivery': typeof AppBusinessesRmaRmaRmaIdDeliveryRouteRouteWithChildren
-  '/app/businesses-rma/rma/$rmaId/reception': typeof AppBusinessesRmaRmaRmaIdReceptionRouteRouteWithChildren
-  '/app/businesses-rma/rma/$rmaId/support': typeof AppBusinessesRmaRmaRmaIdSupportRouteRouteWithChildren
-  '/app/dashboard/task-email/$taskId/reply': typeof AppDashboardTaskEmailTaskIdReplyRouteRoute
-  '/app/enterprises/$enterpriseId/address-book/create': typeof AppEnterprisesEnterpriseIdAddressBookCreateRouteRoute
-  '/app/enterprises/$enterpriseId/address-book/import': typeof AppEnterprisesEnterpriseIdAddressBookImportRouteRoute
-  '/app/enterprises/$enterpriseId/create-contact-business/$contactId': typeof AppEnterprisesEnterpriseIdCreateContactBusinessContactIdRouteRoute
-  '/app/enterprises/$enterpriseId/delete-contact/$contactId': typeof AppEnterprisesEnterpriseIdDeleteContactContactIdRouteRoute
-  '/app/enterprises/$enterpriseId/delete-ged-object/$objectRelativePath': typeof AppEnterprisesEnterpriseIdDeleteGedObjectObjectRelativePathRouteRoute
-  '/app/enterprises/$enterpriseId/lifesheet-email/$lifesheetId': typeof AppEnterprisesEnterpriseIdLifesheetEmailLifesheetIdRouteRoute
-  '/app/enterprises/$enterpriseId/rename-ged-object/$objectRelativePath': typeof AppEnterprisesEnterpriseIdRenameGedObjectObjectRelativePathRouteRoute
-  '/app/enterprises/$enterpriseId/send-email-to-contact/$contactId': typeof AppEnterprisesEnterpriseIdSendEmailToContactContactIdRouteRoute
-  '/app/enterprises/$enterpriseId/task-email/$taskId': typeof AppEnterprisesEnterpriseIdTaskEmailTaskIdRouteRouteWithChildren
-  '/app/enterprises/$enterpriseId/unlink-task/$taskId': typeof AppEnterprisesEnterpriseIdUnlinkTaskTaskIdRouteRoute
-  '/app/enterprises/$enterpriseId/unrelate-business-rma/$businessRmaId': typeof AppEnterprisesEnterpriseIdUnrelateBusinessRmaBusinessRmaIdRouteRoute
-  '/app/enterprises/$enterpriseId/update-contact-password/$contactId': typeof AppEnterprisesEnterpriseIdUpdateContactPasswordContactIdRouteRoute
-  '/app/enterprises/$enterpriseId/update-contact/$contactId': typeof AppEnterprisesEnterpriseIdUpdateContactContactIdRouteRoute
-  '/app/faq/ged/$faqId/create-directory': typeof AppFaqGedFaqIdCreateDirectoryRouteRoute
-  '/app/faq/ged/$faqId/import-files': typeof AppFaqGedFaqIdImportFilesRouteRoute
-  '/app/products/serial-numbers/create-rma/$serialNumberId': typeof AppProductsSerialNumbersCreateRmaSerialNumberIdRouteRoute
-  '/app/products/serial-numbers/delete/$serialNumberId': typeof AppProductsSerialNumbersDeleteSerialNumberIdRouteRoute
-  '/app/products/serial-numbers/remove-from-business/$serialNumberId': typeof AppProductsSerialNumbersRemoveFromBusinessSerialNumberIdRouteRoute
-  '/app/products/serial-numbers/update/$serialNumberId': typeof AppProductsSerialNumbersUpdateSerialNumberIdRouteRoute
-  '/app/products/$productId/informations/create-ged-directory': typeof AppProductsProductIdInformationsCreateGedDirectoryRouteRoute
-  '/app/products/$productId/informations/create-lifesheet-comment': typeof AppProductsProductIdInformationsCreateLifesheetCommentRouteRoute
-  '/app/products/$productId/informations/delete-ged-object': typeof AppProductsProductIdInformationsDeleteGedObjectRouteRoute
-  '/app/products/$productId/informations/import-ged-files': typeof AppProductsProductIdInformationsImportGedFilesRouteRoute
-  '/app/products/$productId/informations/rename-ged-object': typeof AppProductsProductIdInformationsRenameGedObjectRouteRoute
-  '/app/products/$productId/manage/add-associated-product': typeof AppProductsProductIdManageAddAssociatedProductRouteRoute
-  '/app/products/$productId/manage/add-nomenclature-detail': typeof AppProductsProductIdManageAddNomenclatureDetailRouteRoute
-  '/app/products/$productId/manage/add-specification': typeof AppProductsProductIdManageAddSpecificationRouteRouteWithChildren
-  '/app/products/$productId/manage/create-stock': typeof AppProductsProductIdManageCreateStockRouteRoute
-  '/app/products/$productId/manage/create-version': typeof AppProductsProductIdManageCreateVersionRouteRoute
-  '/app/tools/ddns/delete/$ddnsId': typeof AppToolsDdnsDeleteDdnsIdRouteRoute
-  '/app/tools/departments/delete/$departmentId': typeof AppToolsDepartmentsDeleteDepartmentIdRouteRoute
-  '/app/tools/departments/update/$departmentId': typeof AppToolsDepartmentsUpdateDepartmentIdRouteRoute
-  '/app/tools/emails/$emailId/reply': typeof AppToolsEmailsEmailIdReplyRouteRoute
-  '/app/tools/external-links/archive/$externalLinkId': typeof AppToolsExternalLinksArchiveExternalLinkIdRouteRoute
-  '/app/tools/external-links/delete/$externalLinkId': typeof AppToolsExternalLinksDeleteExternalLinkIdRouteRoute
-  '/app/tools/external-links/update/$externalLinkId': typeof AppToolsExternalLinksUpdateExternalLinkIdRouteRoute
-  '/app/tools/formations/create/add-detail': typeof AppToolsFormationsCreateAddDetailRouteRoute
-  '/app/tools/formations/create/details': typeof AppToolsFormationsCreateDetailsRouteRoute
-  '/app/tools/formations/delete/$formationId': typeof AppToolsFormationsDeleteFormationIdRouteRoute
-  '/app/tools/formations/subscribers/$formationDetailId': typeof AppToolsFormationsSubscribersFormationDetailIdRouteRouteWithChildren
-  '/app/tools/formations/update/$formationId': typeof AppToolsFormationsUpdateFormationIdRouteRouteWithChildren
-  '/app/tools/mails/delete/$mailId': typeof AppToolsMailsDeleteMailIdRouteRoute
-  '/app/tools/mails/show/$mailId': typeof AppToolsMailsShowMailIdRouteRoute
-  '/app/tools/mails/update/$mailId': typeof AppToolsMailsUpdateMailIdRouteRoute
-  '/app/tools/news/delete/$newsId': typeof AppToolsNewsDeleteNewsIdRouteRoute
-  '/app/tools/news/update/$newsId': typeof AppToolsNewsUpdateNewsIdRouteRoute
-  '/app/tools/predefined-messages/delete/$predefinedMessageId': typeof AppToolsPredefinedMessagesDeletePredefinedMessageIdRouteRoute
-  '/app/tools/predefined-messages/update/$predefinedMessageId': typeof AppToolsPredefinedMessagesUpdatePredefinedMessageIdRouteRoute
-  '/app/tools/predefined-texts/delete/$predefinedTextId': typeof AppToolsPredefinedTextsDeletePredefinedTextIdRouteRoute
-  '/app/tools/predefined-texts/update/$predefinedTextId': typeof AppToolsPredefinedTextsUpdatePredefinedTextIdRouteRoute
-  '/app/tools/product-filters/delete/$productFilterId': typeof AppToolsProductFiltersDeleteProductFilterIdRouteRoute
-  '/app/tools/product-filters/update/$productFilterId': typeof AppToolsProductFiltersUpdateProductFilterIdRouteRoute
-  '/app/tools/product-inventory/update/$stockId': typeof AppToolsProductInventoryUpdateStockIdRouteRoute
-  '/app/tools/product-shelves/delete/$productShelfId': typeof AppToolsProductShelvesDeleteProductShelfIdRouteRoute
-  '/app/tools/scheduler/details/$rdvId': typeof AppToolsSchedulerDetailsRdvIdRouteRouteWithChildren
-  '/app/tools/vva/delete/$vvaId': typeof AppToolsVvaDeleteVvaIdRouteRoute
-  '/app/businesses-rma/business/$businessId': typeof AppBusinessesRmaBusinessBusinessIdIndexRoute
-  '/app/businesses-rma/rma/$rmaId': typeof AppBusinessesRmaRmaRmaIdIndexRoute
-  '/app/businesses-rma/business/$businessId/arc/pdf': typeof AppBusinessesRmaBusinessBusinessIdArcPdfRouteRouteWithChildren
-  '/app/businesses-rma/business/$businessId/arc/update-shipping-price': typeof AppBusinessesRmaBusinessBusinessIdArcUpdateShippingPriceRouteRoute
-  '/app/businesses-rma/business/$businessId/bill/credits': typeof AppBusinessesRmaBusinessBusinessIdBillCreditsRouteRouteWithChildren
-  '/app/businesses-rma/business/$businessId/bill/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdBillSendByEmailRouteRoute
-  '/app/businesses-rma/business/$businessId/bl/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdBlSendByEmailRouteRoute
-  '/app/businesses-rma/business/$businessId/bl/update': typeof AppBusinessesRmaBusinessBusinessIdBlUpdateRouteRouteWithChildren
-  '/app/businesses-rma/business/$businessId/bp/travel-voucher': typeof AppBusinessesRmaBusinessBusinessIdBpTravelVoucherRouteRoute
-  '/app/businesses-rma/business/$businessId/dashboard/address-book': typeof AppBusinessesRmaBusinessBusinessIdDashboardAddressBookRouteRouteWithChildren
-  '/app/businesses-rma/business/$businessId/dashboard/create-ged-directory': typeof AppBusinessesRmaBusinessBusinessIdDashboardCreateGedDirectoryRouteRoute
-  '/app/businesses-rma/business/$businessId/dashboard/create-lifesheet': typeof AppBusinessesRmaBusinessBusinessIdDashboardCreateLifesheetRouteRoute
-  '/app/businesses-rma/business/$businessId/dashboard/create-link': typeof AppBusinessesRmaBusinessBusinessIdDashboardCreateLinkRouteRoute
-  '/app/businesses-rma/business/$businessId/dashboard/delete': typeof AppBusinessesRmaBusinessBusinessIdDashboardDeleteRouteRoute
-  '/app/businesses-rma/business/$businessId/dashboard/email-history': typeof AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryRouteRouteWithChildren
-  '/app/businesses-rma/business/$businessId/dashboard/import-ged-files': typeof AppBusinessesRmaBusinessBusinessIdDashboardImportGedFilesRouteRoute
-  '/app/businesses-rma/business/$businessId/dashboard/send-email': typeof AppBusinessesRmaBusinessBusinessIdDashboardSendEmailRouteRoute
-  '/app/businesses-rma/business/$businessId/dashboard/update-billing-address': typeof AppBusinessesRmaBusinessBusinessIdDashboardUpdateBillingAddressRouteRoute
-  '/app/businesses-rma/business/$businessId/dashboard/update-representative': typeof AppBusinessesRmaBusinessBusinessIdDashboardUpdateRepresentativeRouteRoute
-  '/app/businesses-rma/business/$businessId/dashboard/update-responsible': typeof AppBusinessesRmaBusinessBusinessIdDashboardUpdateResponsibleRouteRoute
-  '/app/businesses-rma/business/$businessId/quotation/commercial-notice': typeof AppBusinessesRmaBusinessBusinessIdQuotationCommercialNoticeRouteRouteWithChildren
-  '/app/businesses-rma/business/$businessId/quotation/pdf': typeof AppBusinessesRmaBusinessBusinessIdQuotationPdfRouteRouteWithChildren
-  '/app/businesses-rma/business/$businessId/quotation/update-shipping-price': typeof AppBusinessesRmaBusinessBusinessIdQuotationUpdateShippingPriceRouteRoute
-  '/app/businesses-rma/business/$businessId/assistance/$assistanceId': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdRouteRouteWithChildren
-  '/app/businesses-rma/business/$businessId/study/automatic': typeof AppBusinessesRmaBusinessBusinessIdStudyAutomaticRouteRoute
-  '/app/businesses-rma/business/$businessId/study/expert': typeof AppBusinessesRmaBusinessBusinessIdStudyExpertRouteRoute
-  '/app/businesses-rma/rma/$rmaId/delivery/create-detail': typeof AppBusinessesRmaRmaRmaIdDeliveryCreateDetailRouteRoute
-  '/app/businesses-rma/rma/$rmaId/delivery/pdf': typeof AppBusinessesRmaRmaRmaIdDeliveryPdfRouteRouteWithChildren
-  '/app/businesses-rma/rma/$rmaId/delivery/travel-voucher': typeof AppBusinessesRmaRmaRmaIdDeliveryTravelVoucherRouteRoute
-  '/app/businesses-rma/rma/$rmaId/reception/create-detail': typeof AppBusinessesRmaRmaRmaIdReceptionCreateDetailRouteRoute
-  '/app/businesses-rma/rma/$rmaId/reception/pdf': typeof AppBusinessesRmaRmaRmaIdReceptionPdfRouteRouteWithChildren
-  '/app/businesses-rma/rma/$rmaId/support/create-detail': typeof AppBusinessesRmaRmaRmaIdSupportCreateDetailRouteRoute
-  '/app/businesses-rma/rma/$rmaId/support/create-ged-directory': typeof AppBusinessesRmaRmaRmaIdSupportCreateGedDirectoryRouteRoute
-  '/app/businesses-rma/rma/$rmaId/support/create-lifesheet': typeof AppBusinessesRmaRmaRmaIdSupportCreateLifesheetRouteRoute
-  '/app/businesses-rma/rma/$rmaId/support/create-link': typeof AppBusinessesRmaRmaRmaIdSupportCreateLinkRouteRoute
-  '/app/businesses-rma/rma/$rmaId/support/import-ged-files': typeof AppBusinessesRmaRmaRmaIdSupportImportGedFilesRouteRoute
-  '/app/businesses-rma/rma/$rmaId/support/pdf': typeof AppBusinessesRmaRmaRmaIdSupportPdfRouteRouteWithChildren
-  '/app/enterprises/$enterpriseId/address-book/delete/$addressId': typeof AppEnterprisesEnterpriseIdAddressBookDeleteAddressIdRouteRoute
-  '/app/enterprises/$enterpriseId/address-book/update/$addressId': typeof AppEnterprisesEnterpriseIdAddressBookUpdateAddressIdRouteRoute
-  '/app/enterprises/$enterpriseId/email-history/email/$emailId': typeof AppEnterprisesEnterpriseIdEmailHistoryEmailEmailIdRouteRouteWithChildren
-  '/app/enterprises/$enterpriseId/task-email/$taskId/reply': typeof AppEnterprisesEnterpriseIdTaskEmailTaskIdReplyRouteRoute
-  '/app/faq/ged/$faqId/delete/$itemRelativePath': typeof AppFaqGedFaqIdDeleteItemRelativePathRouteRoute
-  '/app/faq/ged/$faqId/rename/$itemRelativePath': typeof AppFaqGedFaqIdRenameItemRelativePathRouteRoute
-  '/app/products/$productId/informations/lifesheet-email/$lifesheetId': typeof AppProductsProductIdInformationsLifesheetEmailLifesheetIdRouteRoute
-  '/app/products/$productId/informations/task-email/$taskId': typeof AppProductsProductIdInformationsTaskEmailTaskIdRouteRouteWithChildren
-  '/app/products/$productId/informations/unlink-task/$taskId': typeof AppProductsProductIdInformationsUnlinkTaskTaskIdRouteRoute
-  '/app/products/$productId/manage/add-specification/$filterId': typeof AppProductsProductIdManageAddSpecificationFilterIdRouteRoute
-  '/app/products/$productId/manage/delete-nomenclature-detail/$nomenclatureDetailId': typeof AppProductsProductIdManageDeleteNomenclatureDetailNomenclatureDetailIdRouteRoute
-  '/app/products/$productId/manage/delete-specification/$specificationId': typeof AppProductsProductIdManageDeleteSpecificationSpecificationIdRouteRoute
-  '/app/products/$productId/manage/delete-stock/$stockId': typeof AppProductsProductIdManageDeleteStockStockIdRouteRoute
-  '/app/products/$productId/manage/delete-version/$versionId': typeof AppProductsProductIdManageDeleteVersionVersionIdRouteRoute
-  '/app/products/$productId/manage/remove-associated-product/$associatedProductId': typeof AppProductsProductIdManageRemoveAssociatedProductAssociatedProductIdRouteRoute
-  '/app/products/$productId/manage/stock-history/$stockId': typeof AppProductsProductIdManageStockHistoryStockIdRouteRoute
-  '/app/products/$productId/manage/update-nomenclature-detail/$nomenclatureDetailId': typeof AppProductsProductIdManageUpdateNomenclatureDetailNomenclatureDetailIdRouteRoute
-  '/app/products/$productId/manage/update-specification/$specificationId': typeof AppProductsProductIdManageUpdateSpecificationSpecificationIdRouteRoute
-  '/app/products/$productId/manage/update-stock/$stockId': typeof AppProductsProductIdManageUpdateStockStockIdRouteRoute
-  '/app/products/$productId/manage/update-version/$versionId': typeof AppProductsProductIdManageUpdateVersionVersionIdRouteRoute
-  '/app/tools/formations/subscribers/$formationDetailId/create': typeof AppToolsFormationsSubscribersFormationDetailIdCreateRouteRoute
-  '/app/tools/formations/update/$formationId/add-detail': typeof AppToolsFormationsUpdateFormationIdAddDetailRouteRoute
-  '/app/tools/formations/update/$formationId/details': typeof AppToolsFormationsUpdateFormationIdDetailsRouteRoute
-  '/app/tools/scheduler/details/$rdvId/delete': typeof AppToolsSchedulerDetailsRdvIdDeleteRouteRoute
-  '/app/tools/scheduler/details/$rdvId/update': typeof AppToolsSchedulerDetailsRdvIdUpdateRouteRoute
-  '/app/businesses-rma/business/$businessId/study': typeof AppBusinessesRmaBusinessBusinessIdStudyIndexRoute
-  '/app/businesses-rma/business/$businessId/arc/delete-detail/$detailId': typeof AppBusinessesRmaBusinessBusinessIdArcDeleteDetailDetailIdRouteRoute
-  '/app/businesses-rma/business/$businessId/arc/pdf/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdArcPdfSendByEmailRouteRoute
-  '/app/businesses-rma/business/$businessId/arc/update-detail/$detailId': typeof AppBusinessesRmaBusinessBusinessIdArcUpdateDetailDetailIdRouteRoute
-  '/app/businesses-rma/business/$businessId/bill/credits/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdBillCreditsSendByEmailRouteRoute
-  '/app/businesses-rma/business/$businessId/bl/update/new': typeof AppBusinessesRmaBusinessBusinessIdBlUpdateNewRouteRoute
-  '/app/businesses-rma/business/$businessId/bp/add-serial/$detailId': typeof AppBusinessesRmaBusinessBusinessIdBpAddSerialDetailIdRouteRoute
-  '/app/businesses-rma/business/$businessId/bp/create-detail-rma/$detailId': typeof AppBusinessesRmaBusinessBusinessIdBpCreateDetailRmaDetailIdRouteRoute
-  '/app/businesses-rma/business/$businessId/bp/create-serial-rma/$serialId': typeof AppBusinessesRmaBusinessBusinessIdBpCreateSerialRmaSerialIdRouteRoute
-  '/app/businesses-rma/business/$businessId/bp/delete-detail/$detailId': typeof AppBusinessesRmaBusinessBusinessIdBpDeleteDetailDetailIdRouteRoute
-  '/app/businesses-rma/business/$businessId/bp/delete-serial/$serialId': typeof AppBusinessesRmaBusinessBusinessIdBpDeleteSerialSerialIdRouteRoute
-  '/app/businesses-rma/business/$businessId/bp/update-detail/$detailId': typeof AppBusinessesRmaBusinessBusinessIdBpUpdateDetailDetailIdRouteRoute
-  '/app/businesses-rma/business/$businessId/dashboard/address-book/create': typeof AppBusinessesRmaBusinessBusinessIdDashboardAddressBookCreateRouteRoute
-  '/app/businesses-rma/business/$businessId/dashboard/confirm-quotation-import/$otherBusinessId': typeof AppBusinessesRmaBusinessBusinessIdDashboardConfirmQuotationImportOtherBusinessIdRouteRoute
-  '/app/businesses-rma/business/$businessId/dashboard/delete-ged-object/$objectRelativePath': typeof AppBusinessesRmaBusinessBusinessIdDashboardDeleteGedObjectObjectRelativePathRouteRoute
-  '/app/businesses-rma/business/$businessId/dashboard/delete-link/$associatedId': typeof AppBusinessesRmaBusinessBusinessIdDashboardDeleteLinkAssociatedIdRouteRoute
-  '/app/businesses-rma/business/$businessId/dashboard/email-history/$emailId': typeof AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdRouteRouteWithChildren
-  '/app/businesses-rma/business/$businessId/dashboard/lifesheet-email/$lifesheetId': typeof AppBusinessesRmaBusinessBusinessIdDashboardLifesheetEmailLifesheetIdRouteRoute
-  '/app/businesses-rma/business/$businessId/dashboard/rename-ged-object/$objectRelativePath': typeof AppBusinessesRmaBusinessBusinessIdDashboardRenameGedObjectObjectRelativePathRouteRoute
-  '/app/businesses-rma/business/$businessId/dashboard/task-email/$taskId': typeof AppBusinessesRmaBusinessBusinessIdDashboardTaskEmailTaskIdRouteRoute
-  '/app/businesses-rma/business/$businessId/dashboard/unlink-task/$taskId': typeof AppBusinessesRmaBusinessBusinessIdDashboardUnlinkTaskTaskIdRouteRoute
-  '/app/businesses-rma/business/$businessId/quotation/commercial-notice/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdQuotationCommercialNoticeSendByEmailRouteRouteWithChildren
-  '/app/businesses-rma/business/$businessId/quotation/create-associated-detail/$detailId': typeof AppBusinessesRmaBusinessBusinessIdQuotationCreateAssociatedDetailDetailIdRouteRoute
-  '/app/businesses-rma/business/$businessId/quotation/create-detail/$subquotationId': typeof AppBusinessesRmaBusinessBusinessIdQuotationCreateDetailSubquotationIdRouteRoute
-  '/app/businesses-rma/business/$businessId/quotation/delete-detail/$detailId': typeof AppBusinessesRmaBusinessBusinessIdQuotationDeleteDetailDetailIdRouteRoute
-  '/app/businesses-rma/business/$businessId/quotation/delete-subquotation/$subquotationId': typeof AppBusinessesRmaBusinessBusinessIdQuotationDeleteSubquotationSubquotationIdRouteRoute
-  '/app/businesses-rma/business/$businessId/quotation/pdf/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdQuotationPdfSendByEmailRouteRoute
-  '/app/businesses-rma/business/$businessId/quotation/update-detail/$detailId': typeof AppBusinessesRmaBusinessBusinessIdQuotationUpdateDetailDetailIdRouteRoute
-  '/app/businesses-rma/business/$businessId/quotation/update-subquotation/$subquotationId': typeof AppBusinessesRmaBusinessBusinessIdQuotationUpdateSubquotationSubquotationIdRouteRoute
-  '/app/businesses-rma/business/$businessId/assistance/$assistanceId/create-faq': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdCreateFaqRouteRoute
-  '/app/businesses-rma/business/$businessId/assistance/$assistanceId/create-ged-directory': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdCreateGedDirectoryRouteRoute
-  '/app/businesses-rma/business/$businessId/assistance/$assistanceId/create-lifesheet': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdCreateLifesheetRouteRoute
-  '/app/businesses-rma/business/$businessId/assistance/$assistanceId/create-link': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdCreateLinkRouteRoute
-  '/app/businesses-rma/business/$businessId/assistance/$assistanceId/delete': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdDeleteRouteRoute
-  '/app/businesses-rma/business/$businessId/assistance/$assistanceId/edit-cumulated-time': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdEditCumulatedTimeRouteRoute
-  '/app/businesses-rma/business/$businessId/assistance/$assistanceId/edit-no-billed-time': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdEditNoBilledTimeRouteRoute
-  '/app/businesses-rma/business/$businessId/assistance/$assistanceId/edit-subtitle': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdEditSubtitleRouteRoute
-  '/app/businesses-rma/business/$businessId/assistance/$assistanceId/import-ged-files': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdImportGedFilesRouteRoute
-  '/app/businesses-rma/business/$businessId/assistance/$assistanceId/pdf': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdPdfRouteRouteWithChildren
-  '/app/businesses-rma/rma/$rmaId/delivery/delete-detail/$detailId': typeof AppBusinessesRmaRmaRmaIdDeliveryDeleteDetailDetailIdRouteRoute
-  '/app/businesses-rma/rma/$rmaId/delivery/pdf/send-by-email': typeof AppBusinessesRmaRmaRmaIdDeliveryPdfSendByEmailRouteRoute
-  '/app/businesses-rma/rma/$rmaId/delivery/update-detail/$detailId': typeof AppBusinessesRmaRmaRmaIdDeliveryUpdateDetailDetailIdRouteRoute
-  '/app/businesses-rma/rma/$rmaId/reception/delete-detail/$detailId': typeof AppBusinessesRmaRmaRmaIdReceptionDeleteDetailDetailIdRouteRoute
-  '/app/businesses-rma/rma/$rmaId/reception/pdf/send-by-email': typeof AppBusinessesRmaRmaRmaIdReceptionPdfSendByEmailRouteRoute
-  '/app/businesses-rma/rma/$rmaId/reception/update-detail/$detailId': typeof AppBusinessesRmaRmaRmaIdReceptionUpdateDetailDetailIdRouteRoute
-  '/app/businesses-rma/rma/$rmaId/support/delete-detail/$detailId': typeof AppBusinessesRmaRmaRmaIdSupportDeleteDetailDetailIdRouteRoute
-  '/app/businesses-rma/rma/$rmaId/support/delete-ged-object/$relativePath': typeof AppBusinessesRmaRmaRmaIdSupportDeleteGedObjectRelativePathRouteRoute
-  '/app/businesses-rma/rma/$rmaId/support/delete-link/$associatedId': typeof AppBusinessesRmaRmaRmaIdSupportDeleteLinkAssociatedIdRouteRoute
-  '/app/businesses-rma/rma/$rmaId/support/lifesheet-email/$lifesheetId': typeof AppBusinessesRmaRmaRmaIdSupportLifesheetEmailLifesheetIdRouteRoute
-  '/app/businesses-rma/rma/$rmaId/support/pdf/send-by-email': typeof AppBusinessesRmaRmaRmaIdSupportPdfSendByEmailRouteRoute
-  '/app/businesses-rma/rma/$rmaId/support/rename-ged-object/$objectRelativePath': typeof AppBusinessesRmaRmaRmaIdSupportRenameGedObjectObjectRelativePathRouteRoute
-  '/app/businesses-rma/rma/$rmaId/support/task-email/$taskId': typeof AppBusinessesRmaRmaRmaIdSupportTaskEmailTaskIdRouteRouteWithChildren
-  '/app/businesses-rma/rma/$rmaId/support/unlink-task/$taskId': typeof AppBusinessesRmaRmaRmaIdSupportUnlinkTaskTaskIdRouteRoute
-  '/app/businesses-rma/rma/$rmaId/support/update-detail/$detailId': typeof AppBusinessesRmaRmaRmaIdSupportUpdateDetailDetailIdRouteRoute
-  '/app/enterprises/$enterpriseId/email-history/email/$emailId/reply': typeof AppEnterprisesEnterpriseIdEmailHistoryEmailEmailIdReplyRouteRoute
-  '/app/products/$productId/informations/task-email/$taskId/reply': typeof AppProductsProductIdInformationsTaskEmailTaskIdReplyRouteRoute
-  '/app/tools/formations/subscribers/$formationDetailId/delete/$subscriptionId': typeof AppToolsFormationsSubscribersFormationDetailIdDeleteSubscriptionIdRouteRoute
-  '/app/tools/formations/subscribers/$formationDetailId/send-email/$subscriptionId': typeof AppToolsFormationsSubscribersFormationDetailIdSendEmailSubscriptionIdRouteRoute
-  '/app/businesses-rma/business/$businessId/dashboard/address-book/delete/$addressId': typeof AppBusinessesRmaBusinessBusinessIdDashboardAddressBookDeleteAddressIdRouteRoute
-  '/app/businesses-rma/business/$businessId/dashboard/address-book/update/$addressId': typeof AppBusinessesRmaBusinessBusinessIdDashboardAddressBookUpdateAddressIdRouteRoute
-  '/app/businesses-rma/business/$businessId/dashboard/email-history/$emailId/reply': typeof AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdReplyRouteRoute
-  '/app/businesses-rma/business/$businessId/quotation/commercial-notice/send-by-email/predefined-messages': typeof AppBusinessesRmaBusinessBusinessIdQuotationCommercialNoticeSendByEmailPredefinedMessagesRouteRoute
-  '/app/businesses-rma/business/$businessId/assistance/$assistanceId/delete-ged-object/$objectRelativePath': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdDeleteGedObjectObjectRelativePathRouteRoute
-  '/app/businesses-rma/business/$businessId/assistance/$assistanceId/delete-link/$associatedId': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdDeleteLinkAssociatedIdRouteRoute
-  '/app/businesses-rma/business/$businessId/assistance/$assistanceId/lifesheet-email/$lifesheetId': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdLifesheetEmailLifesheetIdRouteRoute
-  '/app/businesses-rma/business/$businessId/assistance/$assistanceId/pdf/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdPdfSendByEmailRouteRoute
-  '/app/businesses-rma/business/$businessId/assistance/$assistanceId/rename-ged-object/$objectRelativePath': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdRenameGedObjectObjectRelativePathRouteRoute
-  '/app/businesses-rma/rma/$rmaId/support/task-email/$taskId/reply': typeof AppBusinessesRmaRmaRmaIdSupportTaskEmailTaskIdReplyRouteRoute
-}
-
-export interface FileRoutesById {
-  __root__: typeof rootRoute
-  '/': typeof IndexRoute
-  '/app': typeof AppRouteRouteWithChildren
-  '/auth': typeof AuthRouteRouteWithChildren
-  '/app/businesses-rma': typeof AppBusinessesRmaRouteRouteWithChildren
-  '/app/dashboard': typeof AppDashboardRouteRouteWithChildren
-  '/app/enterprises': typeof AppEnterprisesRouteRouteWithChildren
-  '/app/external-links': typeof AppExternalLinksRouteRoute
-  '/app/faq': typeof AppFaqRouteRouteWithChildren
-  '/app/products': typeof AppProductsRouteRouteWithChildren
-  '/app/tools': typeof AppToolsRouteRouteWithChildren
-  '/auth/login': typeof AuthLoginRouteRoute
-  '/auth/forgot-password': typeof AuthForgotPasswordRouteLazyRoute
-  '/app/': typeof AppIndexRoute
-  '/auth/': typeof AuthIndexRoute
-  '/app/businesses-rma/representative-turnover': typeof AppBusinessesRmaRepresentativeTurnoverRouteRoute
-  '/app/businesses-rma/search-by-products': typeof AppBusinessesRmaSearchByProductsRouteRoute
-  '/app/dashboard/create-collective-task': typeof AppDashboardCreateCollectiveTaskRouteRoute
-  '/app/dashboard/create-personal-task': typeof AppDashboardCreatePersonalTaskRouteRoute
-  '/app/dashboard/create-progressive-info': typeof AppDashboardCreateProgressiveInfoRouteRoute
-  '/app/dashboard/delete-collective-tasks': typeof AppDashboardDeleteCollectiveTasksRouteRoute
-  '/app/enterprises/create': typeof AppEnterprisesCreateRouteRoute
-  '/app/enterprises_/$enterpriseId': typeof AppEnterprisesEnterpriseIdRouteRouteWithChildren
-  '/app/external-links_/$externalLinkId': typeof AppExternalLinksExternalLinkIdRouteRoute
-  '/app/faq/create': typeof AppFaqCreateRouteRoute
-  '/app/products/create': typeof AppProductsCreateRouteRoute
-  '/app/products/serial-numbers': typeof AppProductsSerialNumbersRouteRouteWithChildren
-  '/app/products_/$productId': typeof AppProductsProductIdRouteRouteWithChildren
-  '/app/tools/credit': typeof AppToolsCreditRouteRouteWithChildren
-  '/app/tools/ddns': typeof AppToolsDdnsRouteRouteWithChildren
-  '/app/tools/departments': typeof AppToolsDepartmentsRouteRouteWithChildren
-  '/app/tools/emails': typeof AppToolsEmailsRouteRouteWithChildren
-  '/app/tools/external-links': typeof AppToolsExternalLinksRouteRouteWithChildren
-  '/app/tools/formations': typeof AppToolsFormationsRouteRouteWithChildren
-  '/app/tools/global-turnover': typeof AppToolsGlobalTurnoverRouteRoute
-  '/app/tools/mails': typeof AppToolsMailsRouteRouteWithChildren
-  '/app/tools/menu': typeof AppToolsMenuRouteRouteWithChildren
-  '/app/tools/news': typeof AppToolsNewsRouteRouteWithChildren
-  '/app/tools/predefined-messages': typeof AppToolsPredefinedMessagesRouteRouteWithChildren
-  '/app/tools/predefined-texts': typeof AppToolsPredefinedTextsRouteRouteWithChildren
-  '/app/tools/product-filters': typeof AppToolsProductFiltersRouteRouteWithChildren
-  '/app/tools/product-inventory': typeof AppToolsProductInventoryRouteRouteWithChildren
-  '/app/tools/product-shelves': typeof AppToolsProductShelvesRouteRouteWithChildren
-  '/app/tools/representatives-map': typeof AppToolsRepresentativesMapRouteRoute
-  '/app/tools/representatives-turnover': typeof AppToolsRepresentativesTurnoverRouteRoute
-  '/app/tools/scheduler': typeof AppToolsSchedulerRouteRouteWithChildren
-  '/app/tools/vva': typeof AppToolsVvaRouteRouteWithChildren
-  '/auth/reset-password/$token': typeof AuthResetPasswordTokenRouteLazyRoute
-  '/app/tools/': typeof AppToolsIndexRoute
-  '/app/businesses-rma_/business/$businessId': typeof AppBusinessesRmaBusinessBusinessIdRouteRouteWithChildren
-  '/app/businesses-rma_/rma/$rmaId': typeof AppBusinessesRmaRmaRmaIdRouteRouteWithChildren
-  '/app/dashboard/archive-personal-task/$taskId': typeof AppDashboardArchivePersonalTaskTaskIdRouteRoute
-  '/app/dashboard/delete-collective-task/$taskId': typeof AppDashboardDeleteCollectiveTaskTaskIdRouteRoute
-  '/app/dashboard/delete-progressive-info/$progressiveInfoId': typeof AppDashboardDeleteProgressiveInfoProgressiveInfoIdRouteRoute
-  '/app/dashboard/link-personal-task/$taskId': typeof AppDashboardLinkPersonalTaskTaskIdRouteRoute
-  '/app/dashboard/other-personal-tasks/$profileId': typeof AppDashboardOtherPersonalTasksProfileIdRouteRoute
-  '/app/dashboard/personal-task-details/$taskId': typeof AppDashboardPersonalTaskDetailsTaskIdRouteRoute
-  '/app/dashboard/scheduler-event-details/$eventId': typeof AppDashboardSchedulerEventDetailsEventIdRouteRoute
-  '/app/dashboard/take-collective-task/$taskId': typeof AppDashboardTakeCollectiveTaskTaskIdRouteRoute
-  '/app/dashboard/task-comments/$taskId': typeof AppDashboardTaskCommentsTaskIdRouteRoute
-  '/app/dashboard/task-email/$taskId': typeof AppDashboardTaskEmailTaskIdRouteRouteWithChildren
-  '/app/dashboard/transfer-task/$taskId': typeof AppDashboardTransferTaskTaskIdRouteRoute
-  '/app/dashboard/unlink-personal-task/$taskId': typeof AppDashboardUnlinkPersonalTaskTaskIdRouteRoute
-  '/app/dashboard/update-personal-task-deadline/$taskId': typeof AppDashboardUpdatePersonalTaskDeadlineTaskIdRouteRoute
-  '/app/dashboard/update-progressive-info/$progressiveInfoId': typeof AppDashboardUpdateProgressiveInfoProgressiveInfoIdRouteRoute
-  '/app/dashboard/validate-personal-task/$taskId': typeof AppDashboardValidatePersonalTaskTaskIdRouteRoute
-  '/app/enterprises/create-contact-business/$contactId': typeof AppEnterprisesCreateContactBusinessContactIdRouteRoute
-  '/app/enterprises/create-contact-travel-voucher/$contactId': typeof AppEnterprisesCreateContactTravelVoucherContactIdRouteRoute
-  '/app/enterprises/create-contact/$enterpriseId': typeof AppEnterprisesCreateContactEnterpriseIdRouteRoute
-  '/app/enterprises/create-enterprise-rma/$enterpriseId': typeof AppEnterprisesCreateEnterpriseRmaEnterpriseIdRouteRoute
-  '/app/enterprises/delete-contact/$contactId': typeof AppEnterprisesDeleteContactContactIdRouteRoute
-  '/app/enterprises/send-email-to-contact/$contactId': typeof AppEnterprisesSendEmailToContactContactIdRouteRoute
-  '/app/enterprises/update-contact-password/$contactId': typeof AppEnterprisesUpdateContactPasswordContactIdRouteRoute
-  '/app/enterprises/update-contact/$contactId': typeof AppEnterprisesUpdateContactContactIdRouteRoute
-  '/app/enterprises_/$enterpriseId/address-book': typeof AppEnterprisesEnterpriseIdAddressBookRouteRouteWithChildren
-  '/app/enterprises_/$enterpriseId/create-contact': typeof AppEnterprisesEnterpriseIdCreateContactRouteRoute
-  '/app/enterprises_/$enterpriseId/create-ged-directory': typeof AppEnterprisesEnterpriseIdCreateGedDirectoryRouteRoute
-  '/app/enterprises_/$enterpriseId/create-lifesheet-comment': typeof AppEnterprisesEnterpriseIdCreateLifesheetCommentRouteRoute
-  '/app/enterprises_/$enterpriseId/delete': typeof AppEnterprisesEnterpriseIdDeleteRouteRoute
-  '/app/enterprises_/$enterpriseId/email-history': typeof AppEnterprisesEnterpriseIdEmailHistoryRouteRouteWithChildren
-  '/app/enterprises_/$enterpriseId/import-contacts': typeof AppEnterprisesEnterpriseIdImportContactsRouteRoute
-  '/app/enterprises_/$enterpriseId/import-ged-files': typeof AppEnterprisesEnterpriseIdImportGedFilesRouteRoute
-  '/app/enterprises_/$enterpriseId/relate-business-rma': typeof AppEnterprisesEnterpriseIdRelateBusinessRmaRouteRoute
-  '/app/enterprises_/$enterpriseId/update': typeof AppEnterprisesEnterpriseIdUpdateRouteRoute
-  '/app/enterprises_/$enterpriseId/update-accountability': typeof AppEnterprisesEnterpriseIdUpdateAccountabilityRouteRoute
-  '/app/enterprises_/$enterpriseId/update-category': typeof AppEnterprisesEnterpriseIdUpdateCategoryRouteRoute
-  '/app/enterprises_/$enterpriseId/update-representative': typeof AppEnterprisesEnterpriseIdUpdateRepresentativeRouteRoute
-  '/app/faq/archive/$faqId': typeof AppFaqArchiveFaqIdRouteRoute
-  '/app/faq/delete/$faqId': typeof AppFaqDeleteFaqIdRouteRoute
-  '/app/faq/ged/$faqId': typeof AppFaqGedFaqIdRouteRouteWithChildren
-  '/app/faq/send-by-email/$faqId': typeof AppFaqSendByEmailFaqIdRouteRoute
-  '/app/faq/update/$faqId': typeof AppFaqUpdateFaqIdRouteRoute
-  '/app/products/serial-numbers/create': typeof AppProductsSerialNumbersCreateRouteRoute
-  '/app/products_/$productId/informations': typeof AppProductsProductIdInformationsRouteRouteWithChildren
-  '/app/products_/$productId/manage': typeof AppProductsProductIdManageRouteRouteWithChildren
-  '/app/tools/credit/details': typeof AppToolsCreditDetailsRouteRoute
-  '/app/tools/credit/show': typeof AppToolsCreditShowRouteRoute
-  '/app/tools/ddns/create': typeof AppToolsDdnsCreateRouteRoute
-  '/app/tools/departments/create': typeof AppToolsDepartmentsCreateRouteRoute
-  '/app/tools/emails/$emailId': typeof AppToolsEmailsEmailIdRouteRouteWithChildren
-  '/app/tools/external-links/create': typeof AppToolsExternalLinksCreateRouteRoute
-  '/app/tools/formations/create': typeof AppToolsFormationsCreateRouteRouteWithChildren
-  '/app/tools/mails/create': typeof AppToolsMailsCreateRouteRoute
-  '/app/tools/menu/create-enterprise': typeof AppToolsMenuCreateEnterpriseRouteRoute
-  '/app/tools/menu/create-product': typeof AppToolsMenuCreateProductRouteRoute
-  '/app/tools/news/create': typeof AppToolsNewsCreateRouteRoute
-  '/app/tools/predefined-messages/create': typeof AppToolsPredefinedMessagesCreateRouteRoute
-  '/app/tools/predefined-texts/create': typeof AppToolsPredefinedTextsCreateRouteRoute
-  '/app/tools/product-filters/create': typeof AppToolsProductFiltersCreateRouteRoute
-  '/app/tools/product-inventory/validate-quantities': typeof AppToolsProductInventoryValidateQuantitiesRouteRoute
-  '/app/tools/product-shelves/create': typeof AppToolsProductShelvesCreateRouteRoute
-  '/app/tools/scheduler/create': typeof AppToolsSchedulerCreateRouteRoute
-  '/app/tools/vva/create': typeof AppToolsVvaCreateRouteRoute
-  '/app/products_/$productId/': typeof AppProductsProductIdIndexRoute
-  '/app/businesses-rma_/business/$businessId/arc': typeof AppBusinessesRmaBusinessBusinessIdArcRouteRouteWithChildren
-  '/app/businesses-rma_/business/$businessId/bill': typeof AppBusinessesRmaBusinessBusinessIdBillRouteRouteWithChildren
-  '/app/businesses-rma_/business/$businessId/bl': typeof AppBusinessesRmaBusinessBusinessIdBlRouteRouteWithChildren
-  '/app/businesses-rma_/business/$businessId/bp': typeof AppBusinessesRmaBusinessBusinessIdBpRouteRouteWithChildren
-  '/app/businesses-rma_/business/$businessId/dashboard': typeof AppBusinessesRmaBusinessBusinessIdDashboardRouteRouteWithChildren
-  '/app/businesses-rma_/business/$businessId/quotation': typeof AppBusinessesRmaBusinessBusinessIdQuotationRouteRouteWithChildren
-  '/app/businesses-rma_/business/$businessId_/study': typeof AppBusinessesRmaBusinessBusinessIdStudyRouteRouteWithChildren
-  '/app/businesses-rma_/rma/$rmaId/delivery': typeof AppBusinessesRmaRmaRmaIdDeliveryRouteRouteWithChildren
-  '/app/businesses-rma_/rma/$rmaId/reception': typeof AppBusinessesRmaRmaRmaIdReceptionRouteRouteWithChildren
-  '/app/businesses-rma_/rma/$rmaId/support': typeof AppBusinessesRmaRmaRmaIdSupportRouteRouteWithChildren
-  '/app/dashboard/task-email/$taskId/reply': typeof AppDashboardTaskEmailTaskIdReplyRouteRoute
-  '/app/enterprises_/$enterpriseId/address-book/create': typeof AppEnterprisesEnterpriseIdAddressBookCreateRouteRoute
-  '/app/enterprises_/$enterpriseId/address-book/import': typeof AppEnterprisesEnterpriseIdAddressBookImportRouteRoute
-  '/app/enterprises_/$enterpriseId/create-contact-business/$contactId': typeof AppEnterprisesEnterpriseIdCreateContactBusinessContactIdRouteRoute
-  '/app/enterprises_/$enterpriseId/delete-contact/$contactId': typeof AppEnterprisesEnterpriseIdDeleteContactContactIdRouteRoute
-  '/app/enterprises_/$enterpriseId/delete-ged-object/$objectRelativePath': typeof AppEnterprisesEnterpriseIdDeleteGedObjectObjectRelativePathRouteRoute
-  '/app/enterprises_/$enterpriseId/lifesheet-email/$lifesheetId': typeof AppEnterprisesEnterpriseIdLifesheetEmailLifesheetIdRouteRoute
-  '/app/enterprises_/$enterpriseId/rename-ged-object/$objectRelativePath': typeof AppEnterprisesEnterpriseIdRenameGedObjectObjectRelativePathRouteRoute
-  '/app/enterprises_/$enterpriseId/send-email-to-contact/$contactId': typeof AppEnterprisesEnterpriseIdSendEmailToContactContactIdRouteRoute
-  '/app/enterprises_/$enterpriseId/task-email/$taskId': typeof AppEnterprisesEnterpriseIdTaskEmailTaskIdRouteRouteWithChildren
-  '/app/enterprises_/$enterpriseId/unlink-task/$taskId': typeof AppEnterprisesEnterpriseIdUnlinkTaskTaskIdRouteRoute
-  '/app/enterprises_/$enterpriseId/unrelate-business-rma/$businessRmaId': typeof AppEnterprisesEnterpriseIdUnrelateBusinessRmaBusinessRmaIdRouteRoute
-  '/app/enterprises_/$enterpriseId/update-contact-password/$contactId': typeof AppEnterprisesEnterpriseIdUpdateContactPasswordContactIdRouteRoute
-  '/app/enterprises_/$enterpriseId/update-contact/$contactId': typeof AppEnterprisesEnterpriseIdUpdateContactContactIdRouteRoute
-  '/app/faq/ged/$faqId/create-directory': typeof AppFaqGedFaqIdCreateDirectoryRouteRoute
-  '/app/faq/ged/$faqId/import-files': typeof AppFaqGedFaqIdImportFilesRouteRoute
-  '/app/products/serial-numbers/create-rma/$serialNumberId': typeof AppProductsSerialNumbersCreateRmaSerialNumberIdRouteRoute
-  '/app/products/serial-numbers/delete/$serialNumberId': typeof AppProductsSerialNumbersDeleteSerialNumberIdRouteRoute
-  '/app/products/serial-numbers/remove-from-business/$serialNumberId': typeof AppProductsSerialNumbersRemoveFromBusinessSerialNumberIdRouteRoute
-  '/app/products/serial-numbers/update/$serialNumberId': typeof AppProductsSerialNumbersUpdateSerialNumberIdRouteRoute
-  '/app/products_/$productId/informations/create-ged-directory': typeof AppProductsProductIdInformationsCreateGedDirectoryRouteRoute
-  '/app/products_/$productId/informations/create-lifesheet-comment': typeof AppProductsProductIdInformationsCreateLifesheetCommentRouteRoute
-  '/app/products_/$productId/informations/delete-ged-object': typeof AppProductsProductIdInformationsDeleteGedObjectRouteRoute
-  '/app/products_/$productId/informations/import-ged-files': typeof AppProductsProductIdInformationsImportGedFilesRouteRoute
-  '/app/products_/$productId/informations/rename-ged-object': typeof AppProductsProductIdInformationsRenameGedObjectRouteRoute
-  '/app/products_/$productId/manage/add-associated-product': typeof AppProductsProductIdManageAddAssociatedProductRouteRoute
-  '/app/products_/$productId/manage/add-nomenclature-detail': typeof AppProductsProductIdManageAddNomenclatureDetailRouteRoute
-  '/app/products_/$productId/manage/add-specification': typeof AppProductsProductIdManageAddSpecificationRouteRouteWithChildren
-  '/app/products_/$productId/manage/create-stock': typeof AppProductsProductIdManageCreateStockRouteRoute
-  '/app/products_/$productId/manage/create-version': typeof AppProductsProductIdManageCreateVersionRouteRoute
-  '/app/tools/ddns/delete/$ddnsId': typeof AppToolsDdnsDeleteDdnsIdRouteRoute
-  '/app/tools/departments/delete/$departmentId': typeof AppToolsDepartmentsDeleteDepartmentIdRouteRoute
-  '/app/tools/departments/update/$departmentId': typeof AppToolsDepartmentsUpdateDepartmentIdRouteRoute
-  '/app/tools/emails/$emailId/reply': typeof AppToolsEmailsEmailIdReplyRouteRoute
-  '/app/tools/external-links/archive/$externalLinkId': typeof AppToolsExternalLinksArchiveExternalLinkIdRouteRoute
-  '/app/tools/external-links/delete/$externalLinkId': typeof AppToolsExternalLinksDeleteExternalLinkIdRouteRoute
-  '/app/tools/external-links/update/$externalLinkId': typeof AppToolsExternalLinksUpdateExternalLinkIdRouteRoute
-  '/app/tools/formations/create/add-detail': typeof AppToolsFormationsCreateAddDetailRouteRoute
-  '/app/tools/formations/create/details': typeof AppToolsFormationsCreateDetailsRouteRoute
-  '/app/tools/formations/delete/$formationId': typeof AppToolsFormationsDeleteFormationIdRouteRoute
-  '/app/tools/formations/subscribers/$formationDetailId': typeof AppToolsFormationsSubscribersFormationDetailIdRouteRouteWithChildren
-  '/app/tools/formations/update/$formationId': typeof AppToolsFormationsUpdateFormationIdRouteRouteWithChildren
-  '/app/tools/mails/delete/$mailId': typeof AppToolsMailsDeleteMailIdRouteRoute
-  '/app/tools/mails/show/$mailId': typeof AppToolsMailsShowMailIdRouteRoute
-  '/app/tools/mails/update/$mailId': typeof AppToolsMailsUpdateMailIdRouteRoute
-  '/app/tools/news/delete/$newsId': typeof AppToolsNewsDeleteNewsIdRouteRoute
-  '/app/tools/news/update/$newsId': typeof AppToolsNewsUpdateNewsIdRouteRoute
-  '/app/tools/predefined-messages/delete/$predefinedMessageId': typeof AppToolsPredefinedMessagesDeletePredefinedMessageIdRouteRoute
-  '/app/tools/predefined-messages/update/$predefinedMessageId': typeof AppToolsPredefinedMessagesUpdatePredefinedMessageIdRouteRoute
-  '/app/tools/predefined-texts/delete/$predefinedTextId': typeof AppToolsPredefinedTextsDeletePredefinedTextIdRouteRoute
-  '/app/tools/predefined-texts/update/$predefinedTextId': typeof AppToolsPredefinedTextsUpdatePredefinedTextIdRouteRoute
-  '/app/tools/product-filters/delete/$productFilterId': typeof AppToolsProductFiltersDeleteProductFilterIdRouteRoute
-  '/app/tools/product-filters/update/$productFilterId': typeof AppToolsProductFiltersUpdateProductFilterIdRouteRoute
-  '/app/tools/product-inventory/update/$stockId': typeof AppToolsProductInventoryUpdateStockIdRouteRoute
-  '/app/tools/product-shelves/delete/$productShelfId': typeof AppToolsProductShelvesDeleteProductShelfIdRouteRoute
-  '/app/tools/scheduler/details/$rdvId': typeof AppToolsSchedulerDetailsRdvIdRouteRouteWithChildren
-  '/app/tools/vva/delete/$vvaId': typeof AppToolsVvaDeleteVvaIdRouteRoute
-  '/app/businesses-rma_/business/$businessId/': typeof AppBusinessesRmaBusinessBusinessIdIndexRoute
-  '/app/businesses-rma_/rma/$rmaId/': typeof AppBusinessesRmaRmaRmaIdIndexRoute
-  '/app/businesses-rma_/business/$businessId/arc/pdf': typeof AppBusinessesRmaBusinessBusinessIdArcPdfRouteRouteWithChildren
-  '/app/businesses-rma_/business/$businessId/arc/update-shipping-price': typeof AppBusinessesRmaBusinessBusinessIdArcUpdateShippingPriceRouteRoute
-  '/app/businesses-rma_/business/$businessId/bill/credits': typeof AppBusinessesRmaBusinessBusinessIdBillCreditsRouteRouteWithChildren
-  '/app/businesses-rma_/business/$businessId/bill/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdBillSendByEmailRouteRoute
-  '/app/businesses-rma_/business/$businessId/bl/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdBlSendByEmailRouteRoute
-  '/app/businesses-rma_/business/$businessId/bl/update': typeof AppBusinessesRmaBusinessBusinessIdBlUpdateRouteRouteWithChildren
-  '/app/businesses-rma_/business/$businessId/bp/travel-voucher': typeof AppBusinessesRmaBusinessBusinessIdBpTravelVoucherRouteRoute
-  '/app/businesses-rma_/business/$businessId/dashboard/address-book': typeof AppBusinessesRmaBusinessBusinessIdDashboardAddressBookRouteRouteWithChildren
-  '/app/businesses-rma_/business/$businessId/dashboard/create-ged-directory': typeof AppBusinessesRmaBusinessBusinessIdDashboardCreateGedDirectoryRouteRoute
-  '/app/businesses-rma_/business/$businessId/dashboard/create-lifesheet': typeof AppBusinessesRmaBusinessBusinessIdDashboardCreateLifesheetRouteRoute
-  '/app/businesses-rma_/business/$businessId/dashboard/create-link': typeof AppBusinessesRmaBusinessBusinessIdDashboardCreateLinkRouteRoute
-  '/app/businesses-rma_/business/$businessId/dashboard/delete': typeof AppBusinessesRmaBusinessBusinessIdDashboardDeleteRouteRoute
-  '/app/businesses-rma_/business/$businessId/dashboard/email-history': typeof AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryRouteRouteWithChildren
-  '/app/businesses-rma_/business/$businessId/dashboard/import-ged-files': typeof AppBusinessesRmaBusinessBusinessIdDashboardImportGedFilesRouteRoute
-  '/app/businesses-rma_/business/$businessId/dashboard/send-email': typeof AppBusinessesRmaBusinessBusinessIdDashboardSendEmailRouteRoute
-  '/app/businesses-rma_/business/$businessId/dashboard/update-billing-address': typeof AppBusinessesRmaBusinessBusinessIdDashboardUpdateBillingAddressRouteRoute
-  '/app/businesses-rma_/business/$businessId/dashboard/update-representative': typeof AppBusinessesRmaBusinessBusinessIdDashboardUpdateRepresentativeRouteRoute
-  '/app/businesses-rma_/business/$businessId/dashboard/update-responsible': typeof AppBusinessesRmaBusinessBusinessIdDashboardUpdateResponsibleRouteRoute
-  '/app/businesses-rma_/business/$businessId/quotation/commercial-notice': typeof AppBusinessesRmaBusinessBusinessIdQuotationCommercialNoticeRouteRouteWithChildren
-  '/app/businesses-rma_/business/$businessId/quotation/pdf': typeof AppBusinessesRmaBusinessBusinessIdQuotationPdfRouteRouteWithChildren
-  '/app/businesses-rma_/business/$businessId/quotation/update-shipping-price': typeof AppBusinessesRmaBusinessBusinessIdQuotationUpdateShippingPriceRouteRoute
-  '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdRouteRouteWithChildren
-  '/app/businesses-rma_/business/$businessId_/study/automatic': typeof AppBusinessesRmaBusinessBusinessIdStudyAutomaticRouteRoute
-  '/app/businesses-rma_/business/$businessId_/study/expert': typeof AppBusinessesRmaBusinessBusinessIdStudyExpertRouteRoute
-  '/app/businesses-rma_/rma/$rmaId/delivery/create-detail': typeof AppBusinessesRmaRmaRmaIdDeliveryCreateDetailRouteRoute
-  '/app/businesses-rma_/rma/$rmaId/delivery/pdf': typeof AppBusinessesRmaRmaRmaIdDeliveryPdfRouteRouteWithChildren
-  '/app/businesses-rma_/rma/$rmaId/delivery/travel-voucher': typeof AppBusinessesRmaRmaRmaIdDeliveryTravelVoucherRouteRoute
-  '/app/businesses-rma_/rma/$rmaId/reception/create-detail': typeof AppBusinessesRmaRmaRmaIdReceptionCreateDetailRouteRoute
-  '/app/businesses-rma_/rma/$rmaId/reception/pdf': typeof AppBusinessesRmaRmaRmaIdReceptionPdfRouteRouteWithChildren
-  '/app/businesses-rma_/rma/$rmaId/support/create-detail': typeof AppBusinessesRmaRmaRmaIdSupportCreateDetailRouteRoute
-  '/app/businesses-rma_/rma/$rmaId/support/create-ged-directory': typeof AppBusinessesRmaRmaRmaIdSupportCreateGedDirectoryRouteRoute
-  '/app/businesses-rma_/rma/$rmaId/support/create-lifesheet': typeof AppBusinessesRmaRmaRmaIdSupportCreateLifesheetRouteRoute
-  '/app/businesses-rma_/rma/$rmaId/support/create-link': typeof AppBusinessesRmaRmaRmaIdSupportCreateLinkRouteRoute
-  '/app/businesses-rma_/rma/$rmaId/support/import-ged-files': typeof AppBusinessesRmaRmaRmaIdSupportImportGedFilesRouteRoute
-  '/app/businesses-rma_/rma/$rmaId/support/pdf': typeof AppBusinessesRmaRmaRmaIdSupportPdfRouteRouteWithChildren
-  '/app/enterprises_/$enterpriseId/address-book/delete/$addressId': typeof AppEnterprisesEnterpriseIdAddressBookDeleteAddressIdRouteRoute
-  '/app/enterprises_/$enterpriseId/address-book/update/$addressId': typeof AppEnterprisesEnterpriseIdAddressBookUpdateAddressIdRouteRoute
-  '/app/enterprises_/$enterpriseId/email-history/email/$emailId': typeof AppEnterprisesEnterpriseIdEmailHistoryEmailEmailIdRouteRouteWithChildren
-  '/app/enterprises_/$enterpriseId/task-email/$taskId/reply': typeof AppEnterprisesEnterpriseIdTaskEmailTaskIdReplyRouteRoute
-  '/app/faq/ged/$faqId/delete/$itemRelativePath': typeof AppFaqGedFaqIdDeleteItemRelativePathRouteRoute
-  '/app/faq/ged/$faqId/rename/$itemRelativePath': typeof AppFaqGedFaqIdRenameItemRelativePathRouteRoute
-  '/app/products_/$productId/informations/lifesheet-email/$lifesheetId': typeof AppProductsProductIdInformationsLifesheetEmailLifesheetIdRouteRoute
-  '/app/products_/$productId/informations/task-email/$taskId': typeof AppProductsProductIdInformationsTaskEmailTaskIdRouteRouteWithChildren
-  '/app/products_/$productId/informations/unlink-task/$taskId': typeof AppProductsProductIdInformationsUnlinkTaskTaskIdRouteRoute
-  '/app/products_/$productId/manage/add-specification/$filterId': typeof AppProductsProductIdManageAddSpecificationFilterIdRouteRoute
-  '/app/products_/$productId/manage/delete-nomenclature-detail/$nomenclatureDetailId': typeof AppProductsProductIdManageDeleteNomenclatureDetailNomenclatureDetailIdRouteRoute
-  '/app/products_/$productId/manage/delete-specification/$specificationId': typeof AppProductsProductIdManageDeleteSpecificationSpecificationIdRouteRoute
-  '/app/products_/$productId/manage/delete-stock/$stockId': typeof AppProductsProductIdManageDeleteStockStockIdRouteRoute
-  '/app/products_/$productId/manage/delete-version/$versionId': typeof AppProductsProductIdManageDeleteVersionVersionIdRouteRoute
-  '/app/products_/$productId/manage/remove-associated-product/$associatedProductId': typeof AppProductsProductIdManageRemoveAssociatedProductAssociatedProductIdRouteRoute
-  '/app/products_/$productId/manage/stock-history/$stockId': typeof AppProductsProductIdManageStockHistoryStockIdRouteRoute
-  '/app/products_/$productId/manage/update-nomenclature-detail/$nomenclatureDetailId': typeof AppProductsProductIdManageUpdateNomenclatureDetailNomenclatureDetailIdRouteRoute
-  '/app/products_/$productId/manage/update-specification/$specificationId': typeof AppProductsProductIdManageUpdateSpecificationSpecificationIdRouteRoute
-  '/app/products_/$productId/manage/update-stock/$stockId': typeof AppProductsProductIdManageUpdateStockStockIdRouteRoute
-  '/app/products_/$productId/manage/update-version/$versionId': typeof AppProductsProductIdManageUpdateVersionVersionIdRouteRoute
-  '/app/tools/formations/subscribers/$formationDetailId/create': typeof AppToolsFormationsSubscribersFormationDetailIdCreateRouteRoute
-  '/app/tools/formations/update/$formationId/add-detail': typeof AppToolsFormationsUpdateFormationIdAddDetailRouteRoute
-  '/app/tools/formations/update/$formationId/details': typeof AppToolsFormationsUpdateFormationIdDetailsRouteRoute
-  '/app/tools/scheduler/details/$rdvId/delete': typeof AppToolsSchedulerDetailsRdvIdDeleteRouteRoute
-  '/app/tools/scheduler/details/$rdvId/update': typeof AppToolsSchedulerDetailsRdvIdUpdateRouteRoute
-  '/app/businesses-rma_/business/$businessId_/study/': typeof AppBusinessesRmaBusinessBusinessIdStudyIndexRoute
-  '/app/businesses-rma_/business/$businessId/arc/delete-detail/$detailId': typeof AppBusinessesRmaBusinessBusinessIdArcDeleteDetailDetailIdRouteRoute
-  '/app/businesses-rma_/business/$businessId/arc/pdf/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdArcPdfSendByEmailRouteRoute
-  '/app/businesses-rma_/business/$businessId/arc/update-detail/$detailId': typeof AppBusinessesRmaBusinessBusinessIdArcUpdateDetailDetailIdRouteRoute
-  '/app/businesses-rma_/business/$businessId/bill/credits/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdBillCreditsSendByEmailRouteRoute
-  '/app/businesses-rma_/business/$businessId/bl/update/new': typeof AppBusinessesRmaBusinessBusinessIdBlUpdateNewRouteRoute
-  '/app/businesses-rma_/business/$businessId/bp/add-serial/$detailId': typeof AppBusinessesRmaBusinessBusinessIdBpAddSerialDetailIdRouteRoute
-  '/app/businesses-rma_/business/$businessId/bp/create-detail-rma/$detailId': typeof AppBusinessesRmaBusinessBusinessIdBpCreateDetailRmaDetailIdRouteRoute
-  '/app/businesses-rma_/business/$businessId/bp/create-serial-rma/$serialId': typeof AppBusinessesRmaBusinessBusinessIdBpCreateSerialRmaSerialIdRouteRoute
-  '/app/businesses-rma_/business/$businessId/bp/delete-detail/$detailId': typeof AppBusinessesRmaBusinessBusinessIdBpDeleteDetailDetailIdRouteRoute
-  '/app/businesses-rma_/business/$businessId/bp/delete-serial/$serialId': typeof AppBusinessesRmaBusinessBusinessIdBpDeleteSerialSerialIdRouteRoute
-  '/app/businesses-rma_/business/$businessId/bp/update-detail/$detailId': typeof AppBusinessesRmaBusinessBusinessIdBpUpdateDetailDetailIdRouteRoute
-  '/app/businesses-rma_/business/$businessId/dashboard/address-book/create': typeof AppBusinessesRmaBusinessBusinessIdDashboardAddressBookCreateRouteRoute
-  '/app/businesses-rma_/business/$businessId/dashboard/confirm-quotation-import/$otherBusinessId': typeof AppBusinessesRmaBusinessBusinessIdDashboardConfirmQuotationImportOtherBusinessIdRouteRoute
-  '/app/businesses-rma_/business/$businessId/dashboard/delete-ged-object/$objectRelativePath': typeof AppBusinessesRmaBusinessBusinessIdDashboardDeleteGedObjectObjectRelativePathRouteRoute
-  '/app/businesses-rma_/business/$businessId/dashboard/delete-link/$associatedId': typeof AppBusinessesRmaBusinessBusinessIdDashboardDeleteLinkAssociatedIdRouteRoute
-  '/app/businesses-rma_/business/$businessId/dashboard/email-history/$emailId': typeof AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdRouteRouteWithChildren
-  '/app/businesses-rma_/business/$businessId/dashboard/lifesheet-email/$lifesheetId': typeof AppBusinessesRmaBusinessBusinessIdDashboardLifesheetEmailLifesheetIdRouteRoute
-  '/app/businesses-rma_/business/$businessId/dashboard/rename-ged-object/$objectRelativePath': typeof AppBusinessesRmaBusinessBusinessIdDashboardRenameGedObjectObjectRelativePathRouteRoute
-  '/app/businesses-rma_/business/$businessId/dashboard/task-email/$taskId': typeof AppBusinessesRmaBusinessBusinessIdDashboardTaskEmailTaskIdRouteRoute
-  '/app/businesses-rma_/business/$businessId/dashboard/unlink-task/$taskId': typeof AppBusinessesRmaBusinessBusinessIdDashboardUnlinkTaskTaskIdRouteRoute
-  '/app/businesses-rma_/business/$businessId/quotation/commercial-notice/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdQuotationCommercialNoticeSendByEmailRouteRouteWithChildren
-  '/app/businesses-rma_/business/$businessId/quotation/create-associated-detail/$detailId': typeof AppBusinessesRmaBusinessBusinessIdQuotationCreateAssociatedDetailDetailIdRouteRoute
-  '/app/businesses-rma_/business/$businessId/quotation/create-detail/$subquotationId': typeof AppBusinessesRmaBusinessBusinessIdQuotationCreateDetailSubquotationIdRouteRoute
-  '/app/businesses-rma_/business/$businessId/quotation/delete-detail/$detailId': typeof AppBusinessesRmaBusinessBusinessIdQuotationDeleteDetailDetailIdRouteRoute
-  '/app/businesses-rma_/business/$businessId/quotation/delete-subquotation/$subquotationId': typeof AppBusinessesRmaBusinessBusinessIdQuotationDeleteSubquotationSubquotationIdRouteRoute
-  '/app/businesses-rma_/business/$businessId/quotation/pdf/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdQuotationPdfSendByEmailRouteRoute
-  '/app/businesses-rma_/business/$businessId/quotation/update-detail/$detailId': typeof AppBusinessesRmaBusinessBusinessIdQuotationUpdateDetailDetailIdRouteRoute
-  '/app/businesses-rma_/business/$businessId/quotation/update-subquotation/$subquotationId': typeof AppBusinessesRmaBusinessBusinessIdQuotationUpdateSubquotationSubquotationIdRouteRoute
-  '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/create-faq': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdCreateFaqRouteRoute
-  '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/create-ged-directory': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdCreateGedDirectoryRouteRoute
-  '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/create-lifesheet': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdCreateLifesheetRouteRoute
-  '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/create-link': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdCreateLinkRouteRoute
-  '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/delete': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdDeleteRouteRoute
-  '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/edit-cumulated-time': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdEditCumulatedTimeRouteRoute
-  '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/edit-no-billed-time': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdEditNoBilledTimeRouteRoute
-  '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/edit-subtitle': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdEditSubtitleRouteRoute
-  '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/import-ged-files': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdImportGedFilesRouteRoute
-  '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/pdf': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdPdfRouteRouteWithChildren
-  '/app/businesses-rma_/rma/$rmaId/delivery/delete-detail/$detailId': typeof AppBusinessesRmaRmaRmaIdDeliveryDeleteDetailDetailIdRouteRoute
-  '/app/businesses-rma_/rma/$rmaId/delivery/pdf/send-by-email': typeof AppBusinessesRmaRmaRmaIdDeliveryPdfSendByEmailRouteRoute
-  '/app/businesses-rma_/rma/$rmaId/delivery/update-detail/$detailId': typeof AppBusinessesRmaRmaRmaIdDeliveryUpdateDetailDetailIdRouteRoute
-  '/app/businesses-rma_/rma/$rmaId/reception/delete-detail/$detailId': typeof AppBusinessesRmaRmaRmaIdReceptionDeleteDetailDetailIdRouteRoute
-  '/app/businesses-rma_/rma/$rmaId/reception/pdf/send-by-email': typeof AppBusinessesRmaRmaRmaIdReceptionPdfSendByEmailRouteRoute
-  '/app/businesses-rma_/rma/$rmaId/reception/update-detail/$detailId': typeof AppBusinessesRmaRmaRmaIdReceptionUpdateDetailDetailIdRouteRoute
-  '/app/businesses-rma_/rma/$rmaId/support/delete-detail/$detailId': typeof AppBusinessesRmaRmaRmaIdSupportDeleteDetailDetailIdRouteRoute
-  '/app/businesses-rma_/rma/$rmaId/support/delete-ged-object/$relativePath': typeof AppBusinessesRmaRmaRmaIdSupportDeleteGedObjectRelativePathRouteRoute
-  '/app/businesses-rma_/rma/$rmaId/support/delete-link/$associatedId': typeof AppBusinessesRmaRmaRmaIdSupportDeleteLinkAssociatedIdRouteRoute
-  '/app/businesses-rma_/rma/$rmaId/support/lifesheet-email/$lifesheetId': typeof AppBusinessesRmaRmaRmaIdSupportLifesheetEmailLifesheetIdRouteRoute
-  '/app/businesses-rma_/rma/$rmaId/support/pdf/send-by-email': typeof AppBusinessesRmaRmaRmaIdSupportPdfSendByEmailRouteRoute
-  '/app/businesses-rma_/rma/$rmaId/support/rename-ged-object/$objectRelativePath': typeof AppBusinessesRmaRmaRmaIdSupportRenameGedObjectObjectRelativePathRouteRoute
-  '/app/businesses-rma_/rma/$rmaId/support/task-email/$taskId': typeof AppBusinessesRmaRmaRmaIdSupportTaskEmailTaskIdRouteRouteWithChildren
-  '/app/businesses-rma_/rma/$rmaId/support/unlink-task/$taskId': typeof AppBusinessesRmaRmaRmaIdSupportUnlinkTaskTaskIdRouteRoute
-  '/app/businesses-rma_/rma/$rmaId/support/update-detail/$detailId': typeof AppBusinessesRmaRmaRmaIdSupportUpdateDetailDetailIdRouteRoute
-  '/app/enterprises_/$enterpriseId/email-history/email/$emailId/reply': typeof AppEnterprisesEnterpriseIdEmailHistoryEmailEmailIdReplyRouteRoute
-  '/app/products_/$productId/informations/task-email/$taskId/reply': typeof AppProductsProductIdInformationsTaskEmailTaskIdReplyRouteRoute
-  '/app/tools/formations/subscribers/$formationDetailId/delete/$subscriptionId': typeof AppToolsFormationsSubscribersFormationDetailIdDeleteSubscriptionIdRouteRoute
-  '/app/tools/formations/subscribers/$formationDetailId/send-email/$subscriptionId': typeof AppToolsFormationsSubscribersFormationDetailIdSendEmailSubscriptionIdRouteRoute
-  '/app/businesses-rma_/business/$businessId/dashboard/address-book/delete/$addressId': typeof AppBusinessesRmaBusinessBusinessIdDashboardAddressBookDeleteAddressIdRouteRoute
-  '/app/businesses-rma_/business/$businessId/dashboard/address-book/update/$addressId': typeof AppBusinessesRmaBusinessBusinessIdDashboardAddressBookUpdateAddressIdRouteRoute
-  '/app/businesses-rma_/business/$businessId/dashboard/email-history/$emailId/reply': typeof AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdReplyRouteRoute
-  '/app/businesses-rma_/business/$businessId/quotation/commercial-notice/send-by-email/predefined-messages': typeof AppBusinessesRmaBusinessBusinessIdQuotationCommercialNoticeSendByEmailPredefinedMessagesRouteRoute
-  '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/delete-ged-object/$objectRelativePath': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdDeleteGedObjectObjectRelativePathRouteRoute
-  '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/delete-link/$associatedId': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdDeleteLinkAssociatedIdRouteRoute
-  '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/lifesheet-email/$lifesheetId': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdLifesheetEmailLifesheetIdRouteRoute
-  '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/pdf/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdPdfSendByEmailRouteRoute
-  '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/rename-ged-object/$objectRelativePath': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdRenameGedObjectObjectRelativePathRouteRoute
-  '/app/businesses-rma_/rma/$rmaId/support/task-email/$taskId/reply': typeof AppBusinessesRmaRmaRmaIdSupportTaskEmailTaskIdReplyRouteRoute
-}
-
-export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths:
-    | '/'
-    | '/app'
-    | '/auth'
-    | '/app/businesses-rma'
-    | '/app/dashboard'
-    | '/app/enterprises'
-    | '/app/external-links'
-    | '/app/faq'
-    | '/app/products'
-    | '/app/tools'
-    | '/auth/login'
-    | '/auth/forgot-password'
-    | '/app/'
-    | '/auth/'
-    | '/app/businesses-rma/representative-turnover'
-    | '/app/businesses-rma/search-by-products'
-    | '/app/dashboard/create-collective-task'
-    | '/app/dashboard/create-personal-task'
-    | '/app/dashboard/create-progressive-info'
-    | '/app/dashboard/delete-collective-tasks'
-    | '/app/enterprises/create'
-    | '/app/enterprises/$enterpriseId'
-    | '/app/external-links/$externalLinkId'
-    | '/app/faq/create'
-    | '/app/products/create'
-    | '/app/products/serial-numbers'
-    | '/app/products/$productId'
-    | '/app/tools/credit'
-    | '/app/tools/ddns'
-    | '/app/tools/departments'
-    | '/app/tools/emails'
-    | '/app/tools/external-links'
-    | '/app/tools/formations'
-    | '/app/tools/global-turnover'
-    | '/app/tools/mails'
-    | '/app/tools/menu'
-    | '/app/tools/news'
-    | '/app/tools/predefined-messages'
-    | '/app/tools/predefined-texts'
-    | '/app/tools/product-filters'
-    | '/app/tools/product-inventory'
-    | '/app/tools/product-shelves'
-    | '/app/tools/representatives-map'
-    | '/app/tools/representatives-turnover'
-    | '/app/tools/scheduler'
-    | '/app/tools/vva'
-    | '/auth/reset-password/$token'
-    | '/app/tools/'
-    | '/app/businesses-rma/business/$businessId'
-    | '/app/businesses-rma/rma/$rmaId'
-    | '/app/dashboard/archive-personal-task/$taskId'
-    | '/app/dashboard/delete-collective-task/$taskId'
-    | '/app/dashboard/delete-progressive-info/$progressiveInfoId'
-    | '/app/dashboard/link-personal-task/$taskId'
-    | '/app/dashboard/other-personal-tasks/$profileId'
-    | '/app/dashboard/personal-task-details/$taskId'
-    | '/app/dashboard/scheduler-event-details/$eventId'
-    | '/app/dashboard/take-collective-task/$taskId'
-    | '/app/dashboard/task-comments/$taskId'
-    | '/app/dashboard/task-email/$taskId'
-    | '/app/dashboard/transfer-task/$taskId'
-    | '/app/dashboard/unlink-personal-task/$taskId'
-    | '/app/dashboard/update-personal-task-deadline/$taskId'
-    | '/app/dashboard/update-progressive-info/$progressiveInfoId'
-    | '/app/dashboard/validate-personal-task/$taskId'
-    | '/app/enterprises/create-contact-business/$contactId'
-    | '/app/enterprises/create-contact-travel-voucher/$contactId'
-    | '/app/enterprises/create-contact/$enterpriseId'
-    | '/app/enterprises/create-enterprise-rma/$enterpriseId'
-    | '/app/enterprises/delete-contact/$contactId'
-    | '/app/enterprises/send-email-to-contact/$contactId'
-    | '/app/enterprises/update-contact-password/$contactId'
-    | '/app/enterprises/update-contact/$contactId'
-    | '/app/enterprises/$enterpriseId/address-book'
-    | '/app/enterprises/$enterpriseId/create-contact'
-    | '/app/enterprises/$enterpriseId/create-ged-directory'
-    | '/app/enterprises/$enterpriseId/create-lifesheet-comment'
-    | '/app/enterprises/$enterpriseId/delete'
-    | '/app/enterprises/$enterpriseId/email-history'
-    | '/app/enterprises/$enterpriseId/import-contacts'
-    | '/app/enterprises/$enterpriseId/import-ged-files'
-    | '/app/enterprises/$enterpriseId/relate-business-rma'
-    | '/app/enterprises/$enterpriseId/update'
-    | '/app/enterprises/$enterpriseId/update-accountability'
-    | '/app/enterprises/$enterpriseId/update-category'
-    | '/app/enterprises/$enterpriseId/update-representative'
-    | '/app/faq/archive/$faqId'
-    | '/app/faq/delete/$faqId'
-    | '/app/faq/ged/$faqId'
-    | '/app/faq/send-by-email/$faqId'
-    | '/app/faq/update/$faqId'
-    | '/app/products/serial-numbers/create'
-    | '/app/products/$productId/informations'
-    | '/app/products/$productId/manage'
-    | '/app/tools/credit/details'
-    | '/app/tools/credit/show'
-    | '/app/tools/ddns/create'
-    | '/app/tools/departments/create'
-    | '/app/tools/emails/$emailId'
-    | '/app/tools/external-links/create'
-    | '/app/tools/formations/create'
-    | '/app/tools/mails/create'
-    | '/app/tools/menu/create-enterprise'
-    | '/app/tools/menu/create-product'
-    | '/app/tools/news/create'
-    | '/app/tools/predefined-messages/create'
-    | '/app/tools/predefined-texts/create'
-    | '/app/tools/product-filters/create'
-    | '/app/tools/product-inventory/validate-quantities'
-    | '/app/tools/product-shelves/create'
-    | '/app/tools/scheduler/create'
-    | '/app/tools/vva/create'
-    | '/app/products/$productId/'
-    | '/app/businesses-rma/business/$businessId/arc'
-    | '/app/businesses-rma/business/$businessId/bill'
-    | '/app/businesses-rma/business/$businessId/bl'
-    | '/app/businesses-rma/business/$businessId/bp'
-    | '/app/businesses-rma/business/$businessId/dashboard'
-    | '/app/businesses-rma/business/$businessId/quotation'
-    | '/app/businesses-rma/business/$businessId/study'
-    | '/app/businesses-rma/rma/$rmaId/delivery'
-    | '/app/businesses-rma/rma/$rmaId/reception'
-    | '/app/businesses-rma/rma/$rmaId/support'
-    | '/app/dashboard/task-email/$taskId/reply'
-    | '/app/enterprises/$enterpriseId/address-book/create'
-    | '/app/enterprises/$enterpriseId/address-book/import'
-    | '/app/enterprises/$enterpriseId/create-contact-business/$contactId'
-    | '/app/enterprises/$enterpriseId/delete-contact/$contactId'
-    | '/app/enterprises/$enterpriseId/delete-ged-object/$objectRelativePath'
-    | '/app/enterprises/$enterpriseId/lifesheet-email/$lifesheetId'
-    | '/app/enterprises/$enterpriseId/rename-ged-object/$objectRelativePath'
-    | '/app/enterprises/$enterpriseId/send-email-to-contact/$contactId'
-    | '/app/enterprises/$enterpriseId/task-email/$taskId'
-    | '/app/enterprises/$enterpriseId/unlink-task/$taskId'
-    | '/app/enterprises/$enterpriseId/unrelate-business-rma/$businessRmaId'
-    | '/app/enterprises/$enterpriseId/update-contact-password/$contactId'
-    | '/app/enterprises/$enterpriseId/update-contact/$contactId'
-    | '/app/faq/ged/$faqId/create-directory'
-    | '/app/faq/ged/$faqId/import-files'
-    | '/app/products/serial-numbers/create-rma/$serialNumberId'
-    | '/app/products/serial-numbers/delete/$serialNumberId'
-    | '/app/products/serial-numbers/remove-from-business/$serialNumberId'
-    | '/app/products/serial-numbers/update/$serialNumberId'
-    | '/app/products/$productId/informations/create-ged-directory'
-    | '/app/products/$productId/informations/create-lifesheet-comment'
-    | '/app/products/$productId/informations/delete-ged-object'
-    | '/app/products/$productId/informations/import-ged-files'
-    | '/app/products/$productId/informations/rename-ged-object'
-    | '/app/products/$productId/manage/add-associated-product'
-    | '/app/products/$productId/manage/add-nomenclature-detail'
-    | '/app/products/$productId/manage/add-specification'
-    | '/app/products/$productId/manage/create-stock'
-    | '/app/products/$productId/manage/create-version'
-    | '/app/tools/ddns/delete/$ddnsId'
-    | '/app/tools/departments/delete/$departmentId'
-    | '/app/tools/departments/update/$departmentId'
-    | '/app/tools/emails/$emailId/reply'
-    | '/app/tools/external-links/archive/$externalLinkId'
-    | '/app/tools/external-links/delete/$externalLinkId'
-    | '/app/tools/external-links/update/$externalLinkId'
-    | '/app/tools/formations/create/add-detail'
-    | '/app/tools/formations/create/details'
-    | '/app/tools/formations/delete/$formationId'
-    | '/app/tools/formations/subscribers/$formationDetailId'
-    | '/app/tools/formations/update/$formationId'
-    | '/app/tools/mails/delete/$mailId'
-    | '/app/tools/mails/show/$mailId'
-    | '/app/tools/mails/update/$mailId'
-    | '/app/tools/news/delete/$newsId'
-    | '/app/tools/news/update/$newsId'
-    | '/app/tools/predefined-messages/delete/$predefinedMessageId'
-    | '/app/tools/predefined-messages/update/$predefinedMessageId'
-    | '/app/tools/predefined-texts/delete/$predefinedTextId'
-    | '/app/tools/predefined-texts/update/$predefinedTextId'
-    | '/app/tools/product-filters/delete/$productFilterId'
-    | '/app/tools/product-filters/update/$productFilterId'
-    | '/app/tools/product-inventory/update/$stockId'
-    | '/app/tools/product-shelves/delete/$productShelfId'
-    | '/app/tools/scheduler/details/$rdvId'
-    | '/app/tools/vva/delete/$vvaId'
-    | '/app/businesses-rma/business/$businessId/'
-    | '/app/businesses-rma/rma/$rmaId/'
-    | '/app/businesses-rma/business/$businessId/arc/pdf'
-    | '/app/businesses-rma/business/$businessId/arc/update-shipping-price'
-    | '/app/businesses-rma/business/$businessId/bill/credits'
-    | '/app/businesses-rma/business/$businessId/bill/send-by-email'
-    | '/app/businesses-rma/business/$businessId/bl/send-by-email'
-    | '/app/businesses-rma/business/$businessId/bl/update'
-    | '/app/businesses-rma/business/$businessId/bp/travel-voucher'
-    | '/app/businesses-rma/business/$businessId/dashboard/address-book'
-    | '/app/businesses-rma/business/$businessId/dashboard/create-ged-directory'
-    | '/app/businesses-rma/business/$businessId/dashboard/create-lifesheet'
-    | '/app/businesses-rma/business/$businessId/dashboard/create-link'
-    | '/app/businesses-rma/business/$businessId/dashboard/delete'
-    | '/app/businesses-rma/business/$businessId/dashboard/email-history'
-    | '/app/businesses-rma/business/$businessId/dashboard/import-ged-files'
-    | '/app/businesses-rma/business/$businessId/dashboard/send-email'
-    | '/app/businesses-rma/business/$businessId/dashboard/update-billing-address'
-    | '/app/businesses-rma/business/$businessId/dashboard/update-representative'
-    | '/app/businesses-rma/business/$businessId/dashboard/update-responsible'
-    | '/app/businesses-rma/business/$businessId/quotation/commercial-notice'
-    | '/app/businesses-rma/business/$businessId/quotation/pdf'
-    | '/app/businesses-rma/business/$businessId/quotation/update-shipping-price'
-    | '/app/businesses-rma/business/$businessId/assistance/$assistanceId'
-    | '/app/businesses-rma/business/$businessId/study/automatic'
-    | '/app/businesses-rma/business/$businessId/study/expert'
-    | '/app/businesses-rma/rma/$rmaId/delivery/create-detail'
-    | '/app/businesses-rma/rma/$rmaId/delivery/pdf'
-    | '/app/businesses-rma/rma/$rmaId/delivery/travel-voucher'
-    | '/app/businesses-rma/rma/$rmaId/reception/create-detail'
-    | '/app/businesses-rma/rma/$rmaId/reception/pdf'
-    | '/app/businesses-rma/rma/$rmaId/support/create-detail'
-    | '/app/businesses-rma/rma/$rmaId/support/create-ged-directory'
-    | '/app/businesses-rma/rma/$rmaId/support/create-lifesheet'
-    | '/app/businesses-rma/rma/$rmaId/support/create-link'
-    | '/app/businesses-rma/rma/$rmaId/support/import-ged-files'
-    | '/app/businesses-rma/rma/$rmaId/support/pdf'
-    | '/app/enterprises/$enterpriseId/address-book/delete/$addressId'
-    | '/app/enterprises/$enterpriseId/address-book/update/$addressId'
-    | '/app/enterprises/$enterpriseId/email-history/email/$emailId'
-    | '/app/enterprises/$enterpriseId/task-email/$taskId/reply'
-    | '/app/faq/ged/$faqId/delete/$itemRelativePath'
-    | '/app/faq/ged/$faqId/rename/$itemRelativePath'
-    | '/app/products/$productId/informations/lifesheet-email/$lifesheetId'
-    | '/app/products/$productId/informations/task-email/$taskId'
-    | '/app/products/$productId/informations/unlink-task/$taskId'
-    | '/app/products/$productId/manage/add-specification/$filterId'
-    | '/app/products/$productId/manage/delete-nomenclature-detail/$nomenclatureDetailId'
-    | '/app/products/$productId/manage/delete-specification/$specificationId'
-    | '/app/products/$productId/manage/delete-stock/$stockId'
-    | '/app/products/$productId/manage/delete-version/$versionId'
-    | '/app/products/$productId/manage/remove-associated-product/$associatedProductId'
-    | '/app/products/$productId/manage/stock-history/$stockId'
-    | '/app/products/$productId/manage/update-nomenclature-detail/$nomenclatureDetailId'
-    | '/app/products/$productId/manage/update-specification/$specificationId'
-    | '/app/products/$productId/manage/update-stock/$stockId'
-    | '/app/products/$productId/manage/update-version/$versionId'
-    | '/app/tools/formations/subscribers/$formationDetailId/create'
-    | '/app/tools/formations/update/$formationId/add-detail'
-    | '/app/tools/formations/update/$formationId/details'
-    | '/app/tools/scheduler/details/$rdvId/delete'
-    | '/app/tools/scheduler/details/$rdvId/update'
-    | '/app/businesses-rma/business/$businessId/study/'
-    | '/app/businesses-rma/business/$businessId/arc/delete-detail/$detailId'
-    | '/app/businesses-rma/business/$businessId/arc/pdf/send-by-email'
-    | '/app/businesses-rma/business/$businessId/arc/update-detail/$detailId'
-    | '/app/businesses-rma/business/$businessId/bill/credits/send-by-email'
-    | '/app/businesses-rma/business/$businessId/bl/update/new'
-    | '/app/businesses-rma/business/$businessId/bp/add-serial/$detailId'
-    | '/app/businesses-rma/business/$businessId/bp/create-detail-rma/$detailId'
-    | '/app/businesses-rma/business/$businessId/bp/create-serial-rma/$serialId'
-    | '/app/businesses-rma/business/$businessId/bp/delete-detail/$detailId'
-    | '/app/businesses-rma/business/$businessId/bp/delete-serial/$serialId'
-    | '/app/businesses-rma/business/$businessId/bp/update-detail/$detailId'
-    | '/app/businesses-rma/business/$businessId/dashboard/address-book/create'
-    | '/app/businesses-rma/business/$businessId/dashboard/confirm-quotation-import/$otherBusinessId'
-    | '/app/businesses-rma/business/$businessId/dashboard/delete-ged-object/$objectRelativePath'
-    | '/app/businesses-rma/business/$businessId/dashboard/delete-link/$associatedId'
-    | '/app/businesses-rma/business/$businessId/dashboard/email-history/$emailId'
-    | '/app/businesses-rma/business/$businessId/dashboard/lifesheet-email/$lifesheetId'
-    | '/app/businesses-rma/business/$businessId/dashboard/rename-ged-object/$objectRelativePath'
-    | '/app/businesses-rma/business/$businessId/dashboard/task-email/$taskId'
-    | '/app/businesses-rma/business/$businessId/dashboard/unlink-task/$taskId'
-    | '/app/businesses-rma/business/$businessId/quotation/commercial-notice/send-by-email'
-    | '/app/businesses-rma/business/$businessId/quotation/create-associated-detail/$detailId'
-    | '/app/businesses-rma/business/$businessId/quotation/create-detail/$subquotationId'
-    | '/app/businesses-rma/business/$businessId/quotation/delete-detail/$detailId'
-    | '/app/businesses-rma/business/$businessId/quotation/delete-subquotation/$subquotationId'
-    | '/app/businesses-rma/business/$businessId/quotation/pdf/send-by-email'
-    | '/app/businesses-rma/business/$businessId/quotation/update-detail/$detailId'
-    | '/app/businesses-rma/business/$businessId/quotation/update-subquotation/$subquotationId'
-    | '/app/businesses-rma/business/$businessId/assistance/$assistanceId/create-faq'
-    | '/app/businesses-rma/business/$businessId/assistance/$assistanceId/create-ged-directory'
-    | '/app/businesses-rma/business/$businessId/assistance/$assistanceId/create-lifesheet'
-    | '/app/businesses-rma/business/$businessId/assistance/$assistanceId/create-link'
-    | '/app/businesses-rma/business/$businessId/assistance/$assistanceId/delete'
-    | '/app/businesses-rma/business/$businessId/assistance/$assistanceId/edit-cumulated-time'
-    | '/app/businesses-rma/business/$businessId/assistance/$assistanceId/edit-no-billed-time'
-    | '/app/businesses-rma/business/$businessId/assistance/$assistanceId/edit-subtitle'
-    | '/app/businesses-rma/business/$businessId/assistance/$assistanceId/import-ged-files'
-    | '/app/businesses-rma/business/$businessId/assistance/$assistanceId/pdf'
-    | '/app/businesses-rma/rma/$rmaId/delivery/delete-detail/$detailId'
-    | '/app/businesses-rma/rma/$rmaId/delivery/pdf/send-by-email'
-    | '/app/businesses-rma/rma/$rmaId/delivery/update-detail/$detailId'
-    | '/app/businesses-rma/rma/$rmaId/reception/delete-detail/$detailId'
-    | '/app/businesses-rma/rma/$rmaId/reception/pdf/send-by-email'
-    | '/app/businesses-rma/rma/$rmaId/reception/update-detail/$detailId'
-    | '/app/businesses-rma/rma/$rmaId/support/delete-detail/$detailId'
-    | '/app/businesses-rma/rma/$rmaId/support/delete-ged-object/$relativePath'
-    | '/app/businesses-rma/rma/$rmaId/support/delete-link/$associatedId'
-    | '/app/businesses-rma/rma/$rmaId/support/lifesheet-email/$lifesheetId'
-    | '/app/businesses-rma/rma/$rmaId/support/pdf/send-by-email'
-    | '/app/businesses-rma/rma/$rmaId/support/rename-ged-object/$objectRelativePath'
-    | '/app/businesses-rma/rma/$rmaId/support/task-email/$taskId'
-    | '/app/businesses-rma/rma/$rmaId/support/unlink-task/$taskId'
-    | '/app/businesses-rma/rma/$rmaId/support/update-detail/$detailId'
-    | '/app/enterprises/$enterpriseId/email-history/email/$emailId/reply'
-    | '/app/products/$productId/informations/task-email/$taskId/reply'
-    | '/app/tools/formations/subscribers/$formationDetailId/delete/$subscriptionId'
-    | '/app/tools/formations/subscribers/$formationDetailId/send-email/$subscriptionId'
-    | '/app/businesses-rma/business/$businessId/dashboard/address-book/delete/$addressId'
-    | '/app/businesses-rma/business/$businessId/dashboard/address-book/update/$addressId'
-    | '/app/businesses-rma/business/$businessId/dashboard/email-history/$emailId/reply'
-    | '/app/businesses-rma/business/$businessId/quotation/commercial-notice/send-by-email/predefined-messages'
-    | '/app/businesses-rma/business/$businessId/assistance/$assistanceId/delete-ged-object/$objectRelativePath'
-    | '/app/businesses-rma/business/$businessId/assistance/$assistanceId/delete-link/$associatedId'
-    | '/app/businesses-rma/business/$businessId/assistance/$assistanceId/lifesheet-email/$lifesheetId'
-    | '/app/businesses-rma/business/$businessId/assistance/$assistanceId/pdf/send-by-email'
-    | '/app/businesses-rma/business/$businessId/assistance/$assistanceId/rename-ged-object/$objectRelativePath'
-    | '/app/businesses-rma/rma/$rmaId/support/task-email/$taskId/reply'
-  fileRoutesByTo: FileRoutesByTo
-  to:
-    | '/'
-    | '/app/businesses-rma'
-    | '/app/dashboard'
-    | '/app/enterprises'
-    | '/app/external-links'
-    | '/app/faq'
-    | '/app/products'
-    | '/auth/login'
-    | '/auth/forgot-password'
-    | '/app'
-    | '/auth'
-    | '/app/businesses-rma/representative-turnover'
-    | '/app/businesses-rma/search-by-products'
-    | '/app/dashboard/create-collective-task'
-    | '/app/dashboard/create-personal-task'
-    | '/app/dashboard/create-progressive-info'
-    | '/app/dashboard/delete-collective-tasks'
-    | '/app/enterprises/create'
-    | '/app/enterprises/$enterpriseId'
-    | '/app/external-links/$externalLinkId'
-    | '/app/faq/create'
-    | '/app/products/create'
-    | '/app/products/serial-numbers'
-    | '/app/tools/credit'
-    | '/app/tools/ddns'
-    | '/app/tools/departments'
-    | '/app/tools/emails'
-    | '/app/tools/external-links'
-    | '/app/tools/formations'
-    | '/app/tools/global-turnover'
-    | '/app/tools/mails'
-    | '/app/tools/menu'
-    | '/app/tools/news'
-    | '/app/tools/predefined-messages'
-    | '/app/tools/predefined-texts'
-    | '/app/tools/product-filters'
-    | '/app/tools/product-inventory'
-    | '/app/tools/product-shelves'
-    | '/app/tools/representatives-map'
-    | '/app/tools/representatives-turnover'
-    | '/app/tools/scheduler'
-    | '/app/tools/vva'
-    | '/auth/reset-password/$token'
-    | '/app/tools'
-    | '/app/dashboard/archive-personal-task/$taskId'
-    | '/app/dashboard/delete-collective-task/$taskId'
-    | '/app/dashboard/delete-progressive-info/$progressiveInfoId'
-    | '/app/dashboard/link-personal-task/$taskId'
-    | '/app/dashboard/other-personal-tasks/$profileId'
-    | '/app/dashboard/personal-task-details/$taskId'
-    | '/app/dashboard/scheduler-event-details/$eventId'
-    | '/app/dashboard/take-collective-task/$taskId'
-    | '/app/dashboard/task-comments/$taskId'
-    | '/app/dashboard/task-email/$taskId'
-    | '/app/dashboard/transfer-task/$taskId'
-    | '/app/dashboard/unlink-personal-task/$taskId'
-    | '/app/dashboard/update-personal-task-deadline/$taskId'
-    | '/app/dashboard/update-progressive-info/$progressiveInfoId'
-    | '/app/dashboard/validate-personal-task/$taskId'
-    | '/app/enterprises/create-contact-business/$contactId'
-    | '/app/enterprises/create-contact-travel-voucher/$contactId'
-    | '/app/enterprises/create-contact/$enterpriseId'
-    | '/app/enterprises/create-enterprise-rma/$enterpriseId'
-    | '/app/enterprises/delete-contact/$contactId'
-    | '/app/enterprises/send-email-to-contact/$contactId'
-    | '/app/enterprises/update-contact-password/$contactId'
-    | '/app/enterprises/update-contact/$contactId'
-    | '/app/enterprises/$enterpriseId/address-book'
-    | '/app/enterprises/$enterpriseId/create-contact'
-    | '/app/enterprises/$enterpriseId/create-ged-directory'
-    | '/app/enterprises/$enterpriseId/create-lifesheet-comment'
-    | '/app/enterprises/$enterpriseId/delete'
-    | '/app/enterprises/$enterpriseId/email-history'
-    | '/app/enterprises/$enterpriseId/import-contacts'
-    | '/app/enterprises/$enterpriseId/import-ged-files'
-    | '/app/enterprises/$enterpriseId/relate-business-rma'
-    | '/app/enterprises/$enterpriseId/update'
-    | '/app/enterprises/$enterpriseId/update-accountability'
-    | '/app/enterprises/$enterpriseId/update-category'
-    | '/app/enterprises/$enterpriseId/update-representative'
-    | '/app/faq/archive/$faqId'
-    | '/app/faq/delete/$faqId'
-    | '/app/faq/ged/$faqId'
-    | '/app/faq/send-by-email/$faqId'
-    | '/app/faq/update/$faqId'
-    | '/app/products/serial-numbers/create'
-    | '/app/products/$productId/informations'
-    | '/app/products/$productId/manage'
-    | '/app/tools/credit/details'
-    | '/app/tools/credit/show'
-    | '/app/tools/ddns/create'
-    | '/app/tools/departments/create'
-    | '/app/tools/emails/$emailId'
-    | '/app/tools/external-links/create'
-    | '/app/tools/formations/create'
-    | '/app/tools/mails/create'
-    | '/app/tools/menu/create-enterprise'
-    | '/app/tools/menu/create-product'
-    | '/app/tools/news/create'
-    | '/app/tools/predefined-messages/create'
-    | '/app/tools/predefined-texts/create'
-    | '/app/tools/product-filters/create'
-    | '/app/tools/product-inventory/validate-quantities'
-    | '/app/tools/product-shelves/create'
-    | '/app/tools/scheduler/create'
-    | '/app/tools/vva/create'
-    | '/app/products/$productId'
-    | '/app/businesses-rma/business/$businessId/arc'
-    | '/app/businesses-rma/business/$businessId/bill'
-    | '/app/businesses-rma/business/$businessId/bl'
-    | '/app/businesses-rma/business/$businessId/bp'
-    | '/app/businesses-rma/business/$businessId/dashboard'
-    | '/app/businesses-rma/business/$businessId/quotation'
-    | '/app/businesses-rma/rma/$rmaId/delivery'
-    | '/app/businesses-rma/rma/$rmaId/reception'
-    | '/app/businesses-rma/rma/$rmaId/support'
-    | '/app/dashboard/task-email/$taskId/reply'
-    | '/app/enterprises/$enterpriseId/address-book/create'
-    | '/app/enterprises/$enterpriseId/address-book/import'
-    | '/app/enterprises/$enterpriseId/create-contact-business/$contactId'
-    | '/app/enterprises/$enterpriseId/delete-contact/$contactId'
-    | '/app/enterprises/$enterpriseId/delete-ged-object/$objectRelativePath'
-    | '/app/enterprises/$enterpriseId/lifesheet-email/$lifesheetId'
-    | '/app/enterprises/$enterpriseId/rename-ged-object/$objectRelativePath'
-    | '/app/enterprises/$enterpriseId/send-email-to-contact/$contactId'
-    | '/app/enterprises/$enterpriseId/task-email/$taskId'
-    | '/app/enterprises/$enterpriseId/unlink-task/$taskId'
-    | '/app/enterprises/$enterpriseId/unrelate-business-rma/$businessRmaId'
-    | '/app/enterprises/$enterpriseId/update-contact-password/$contactId'
-    | '/app/enterprises/$enterpriseId/update-contact/$contactId'
-    | '/app/faq/ged/$faqId/create-directory'
-    | '/app/faq/ged/$faqId/import-files'
-    | '/app/products/serial-numbers/create-rma/$serialNumberId'
-    | '/app/products/serial-numbers/delete/$serialNumberId'
-    | '/app/products/serial-numbers/remove-from-business/$serialNumberId'
-    | '/app/products/serial-numbers/update/$serialNumberId'
-    | '/app/products/$productId/informations/create-ged-directory'
-    | '/app/products/$productId/informations/create-lifesheet-comment'
-    | '/app/products/$productId/informations/delete-ged-object'
-    | '/app/products/$productId/informations/import-ged-files'
-    | '/app/products/$productId/informations/rename-ged-object'
-    | '/app/products/$productId/manage/add-associated-product'
-    | '/app/products/$productId/manage/add-nomenclature-detail'
-    | '/app/products/$productId/manage/add-specification'
-    | '/app/products/$productId/manage/create-stock'
-    | '/app/products/$productId/manage/create-version'
-    | '/app/tools/ddns/delete/$ddnsId'
-    | '/app/tools/departments/delete/$departmentId'
-    | '/app/tools/departments/update/$departmentId'
-    | '/app/tools/emails/$emailId/reply'
-    | '/app/tools/external-links/archive/$externalLinkId'
-    | '/app/tools/external-links/delete/$externalLinkId'
-    | '/app/tools/external-links/update/$externalLinkId'
-    | '/app/tools/formations/create/add-detail'
-    | '/app/tools/formations/create/details'
-    | '/app/tools/formations/delete/$formationId'
-    | '/app/tools/formations/subscribers/$formationDetailId'
-    | '/app/tools/formations/update/$formationId'
-    | '/app/tools/mails/delete/$mailId'
-    | '/app/tools/mails/show/$mailId'
-    | '/app/tools/mails/update/$mailId'
-    | '/app/tools/news/delete/$newsId'
-    | '/app/tools/news/update/$newsId'
-    | '/app/tools/predefined-messages/delete/$predefinedMessageId'
-    | '/app/tools/predefined-messages/update/$predefinedMessageId'
-    | '/app/tools/predefined-texts/delete/$predefinedTextId'
-    | '/app/tools/predefined-texts/update/$predefinedTextId'
-    | '/app/tools/product-filters/delete/$productFilterId'
-    | '/app/tools/product-filters/update/$productFilterId'
-    | '/app/tools/product-inventory/update/$stockId'
-    | '/app/tools/product-shelves/delete/$productShelfId'
-    | '/app/tools/scheduler/details/$rdvId'
-    | '/app/tools/vva/delete/$vvaId'
-    | '/app/businesses-rma/business/$businessId'
-    | '/app/businesses-rma/rma/$rmaId'
-    | '/app/businesses-rma/business/$businessId/arc/pdf'
-    | '/app/businesses-rma/business/$businessId/arc/update-shipping-price'
-    | '/app/businesses-rma/business/$businessId/bill/credits'
-    | '/app/businesses-rma/business/$businessId/bill/send-by-email'
-    | '/app/businesses-rma/business/$businessId/bl/send-by-email'
-    | '/app/businesses-rma/business/$businessId/bl/update'
-    | '/app/businesses-rma/business/$businessId/bp/travel-voucher'
-    | '/app/businesses-rma/business/$businessId/dashboard/address-book'
-    | '/app/businesses-rma/business/$businessId/dashboard/create-ged-directory'
-    | '/app/businesses-rma/business/$businessId/dashboard/create-lifesheet'
-    | '/app/businesses-rma/business/$businessId/dashboard/create-link'
-    | '/app/businesses-rma/business/$businessId/dashboard/delete'
-    | '/app/businesses-rma/business/$businessId/dashboard/email-history'
-    | '/app/businesses-rma/business/$businessId/dashboard/import-ged-files'
-    | '/app/businesses-rma/business/$businessId/dashboard/send-email'
-    | '/app/businesses-rma/business/$businessId/dashboard/update-billing-address'
-    | '/app/businesses-rma/business/$businessId/dashboard/update-representative'
-    | '/app/businesses-rma/business/$businessId/dashboard/update-responsible'
-    | '/app/businesses-rma/business/$businessId/quotation/commercial-notice'
-    | '/app/businesses-rma/business/$businessId/quotation/pdf'
-    | '/app/businesses-rma/business/$businessId/quotation/update-shipping-price'
-    | '/app/businesses-rma/business/$businessId/assistance/$assistanceId'
-    | '/app/businesses-rma/business/$businessId/study/automatic'
-    | '/app/businesses-rma/business/$businessId/study/expert'
-    | '/app/businesses-rma/rma/$rmaId/delivery/create-detail'
-    | '/app/businesses-rma/rma/$rmaId/delivery/pdf'
-    | '/app/businesses-rma/rma/$rmaId/delivery/travel-voucher'
-    | '/app/businesses-rma/rma/$rmaId/reception/create-detail'
-    | '/app/businesses-rma/rma/$rmaId/reception/pdf'
-    | '/app/businesses-rma/rma/$rmaId/support/create-detail'
-    | '/app/businesses-rma/rma/$rmaId/support/create-ged-directory'
-    | '/app/businesses-rma/rma/$rmaId/support/create-lifesheet'
-    | '/app/businesses-rma/rma/$rmaId/support/create-link'
-    | '/app/businesses-rma/rma/$rmaId/support/import-ged-files'
-    | '/app/businesses-rma/rma/$rmaId/support/pdf'
-    | '/app/enterprises/$enterpriseId/address-book/delete/$addressId'
-    | '/app/enterprises/$enterpriseId/address-book/update/$addressId'
-    | '/app/enterprises/$enterpriseId/email-history/email/$emailId'
-    | '/app/enterprises/$enterpriseId/task-email/$taskId/reply'
-    | '/app/faq/ged/$faqId/delete/$itemRelativePath'
-    | '/app/faq/ged/$faqId/rename/$itemRelativePath'
-    | '/app/products/$productId/informations/lifesheet-email/$lifesheetId'
-    | '/app/products/$productId/informations/task-email/$taskId'
-    | '/app/products/$productId/informations/unlink-task/$taskId'
-    | '/app/products/$productId/manage/add-specification/$filterId'
-    | '/app/products/$productId/manage/delete-nomenclature-detail/$nomenclatureDetailId'
-    | '/app/products/$productId/manage/delete-specification/$specificationId'
-    | '/app/products/$productId/manage/delete-stock/$stockId'
-    | '/app/products/$productId/manage/delete-version/$versionId'
-    | '/app/products/$productId/manage/remove-associated-product/$associatedProductId'
-    | '/app/products/$productId/manage/stock-history/$stockId'
-    | '/app/products/$productId/manage/update-nomenclature-detail/$nomenclatureDetailId'
-    | '/app/products/$productId/manage/update-specification/$specificationId'
-    | '/app/products/$productId/manage/update-stock/$stockId'
-    | '/app/products/$productId/manage/update-version/$versionId'
-    | '/app/tools/formations/subscribers/$formationDetailId/create'
-    | '/app/tools/formations/update/$formationId/add-detail'
-    | '/app/tools/formations/update/$formationId/details'
-    | '/app/tools/scheduler/details/$rdvId/delete'
-    | '/app/tools/scheduler/details/$rdvId/update'
-    | '/app/businesses-rma/business/$businessId/study'
-    | '/app/businesses-rma/business/$businessId/arc/delete-detail/$detailId'
-    | '/app/businesses-rma/business/$businessId/arc/pdf/send-by-email'
-    | '/app/businesses-rma/business/$businessId/arc/update-detail/$detailId'
-    | '/app/businesses-rma/business/$businessId/bill/credits/send-by-email'
-    | '/app/businesses-rma/business/$businessId/bl/update/new'
-    | '/app/businesses-rma/business/$businessId/bp/add-serial/$detailId'
-    | '/app/businesses-rma/business/$businessId/bp/create-detail-rma/$detailId'
-    | '/app/businesses-rma/business/$businessId/bp/create-serial-rma/$serialId'
-    | '/app/businesses-rma/business/$businessId/bp/delete-detail/$detailId'
-    | '/app/businesses-rma/business/$businessId/bp/delete-serial/$serialId'
-    | '/app/businesses-rma/business/$businessId/bp/update-detail/$detailId'
-    | '/app/businesses-rma/business/$businessId/dashboard/address-book/create'
-    | '/app/businesses-rma/business/$businessId/dashboard/confirm-quotation-import/$otherBusinessId'
-    | '/app/businesses-rma/business/$businessId/dashboard/delete-ged-object/$objectRelativePath'
-    | '/app/businesses-rma/business/$businessId/dashboard/delete-link/$associatedId'
-    | '/app/businesses-rma/business/$businessId/dashboard/email-history/$emailId'
-    | '/app/businesses-rma/business/$businessId/dashboard/lifesheet-email/$lifesheetId'
-    | '/app/businesses-rma/business/$businessId/dashboard/rename-ged-object/$objectRelativePath'
-    | '/app/businesses-rma/business/$businessId/dashboard/task-email/$taskId'
-    | '/app/businesses-rma/business/$businessId/dashboard/unlink-task/$taskId'
-    | '/app/businesses-rma/business/$businessId/quotation/commercial-notice/send-by-email'
-    | '/app/businesses-rma/business/$businessId/quotation/create-associated-detail/$detailId'
-    | '/app/businesses-rma/business/$businessId/quotation/create-detail/$subquotationId'
-    | '/app/businesses-rma/business/$businessId/quotation/delete-detail/$detailId'
-    | '/app/businesses-rma/business/$businessId/quotation/delete-subquotation/$subquotationId'
-    | '/app/businesses-rma/business/$businessId/quotation/pdf/send-by-email'
-    | '/app/businesses-rma/business/$businessId/quotation/update-detail/$detailId'
-    | '/app/businesses-rma/business/$businessId/quotation/update-subquotation/$subquotationId'
-    | '/app/businesses-rma/business/$businessId/assistance/$assistanceId/create-faq'
-    | '/app/businesses-rma/business/$businessId/assistance/$assistanceId/create-ged-directory'
-    | '/app/businesses-rma/business/$businessId/assistance/$assistanceId/create-lifesheet'
-    | '/app/businesses-rma/business/$businessId/assistance/$assistanceId/create-link'
-    | '/app/businesses-rma/business/$businessId/assistance/$assistanceId/delete'
-    | '/app/businesses-rma/business/$businessId/assistance/$assistanceId/edit-cumulated-time'
-    | '/app/businesses-rma/business/$businessId/assistance/$assistanceId/edit-no-billed-time'
-    | '/app/businesses-rma/business/$businessId/assistance/$assistanceId/edit-subtitle'
-    | '/app/businesses-rma/business/$businessId/assistance/$assistanceId/import-ged-files'
-    | '/app/businesses-rma/business/$businessId/assistance/$assistanceId/pdf'
-    | '/app/businesses-rma/rma/$rmaId/delivery/delete-detail/$detailId'
-    | '/app/businesses-rma/rma/$rmaId/delivery/pdf/send-by-email'
-    | '/app/businesses-rma/rma/$rmaId/delivery/update-detail/$detailId'
-    | '/app/businesses-rma/rma/$rmaId/reception/delete-detail/$detailId'
-    | '/app/businesses-rma/rma/$rmaId/reception/pdf/send-by-email'
-    | '/app/businesses-rma/rma/$rmaId/reception/update-detail/$detailId'
-    | '/app/businesses-rma/rma/$rmaId/support/delete-detail/$detailId'
-    | '/app/businesses-rma/rma/$rmaId/support/delete-ged-object/$relativePath'
-    | '/app/businesses-rma/rma/$rmaId/support/delete-link/$associatedId'
-    | '/app/businesses-rma/rma/$rmaId/support/lifesheet-email/$lifesheetId'
-    | '/app/businesses-rma/rma/$rmaId/support/pdf/send-by-email'
-    | '/app/businesses-rma/rma/$rmaId/support/rename-ged-object/$objectRelativePath'
-    | '/app/businesses-rma/rma/$rmaId/support/task-email/$taskId'
-    | '/app/businesses-rma/rma/$rmaId/support/unlink-task/$taskId'
-    | '/app/businesses-rma/rma/$rmaId/support/update-detail/$detailId'
-    | '/app/enterprises/$enterpriseId/email-history/email/$emailId/reply'
-    | '/app/products/$productId/informations/task-email/$taskId/reply'
-    | '/app/tools/formations/subscribers/$formationDetailId/delete/$subscriptionId'
-    | '/app/tools/formations/subscribers/$formationDetailId/send-email/$subscriptionId'
-    | '/app/businesses-rma/business/$businessId/dashboard/address-book/delete/$addressId'
-    | '/app/businesses-rma/business/$businessId/dashboard/address-book/update/$addressId'
-    | '/app/businesses-rma/business/$businessId/dashboard/email-history/$emailId/reply'
-    | '/app/businesses-rma/business/$businessId/quotation/commercial-notice/send-by-email/predefined-messages'
-    | '/app/businesses-rma/business/$businessId/assistance/$assistanceId/delete-ged-object/$objectRelativePath'
-    | '/app/businesses-rma/business/$businessId/assistance/$assistanceId/delete-link/$associatedId'
-    | '/app/businesses-rma/business/$businessId/assistance/$assistanceId/lifesheet-email/$lifesheetId'
-    | '/app/businesses-rma/business/$businessId/assistance/$assistanceId/pdf/send-by-email'
-    | '/app/businesses-rma/business/$businessId/assistance/$assistanceId/rename-ged-object/$objectRelativePath'
-    | '/app/businesses-rma/rma/$rmaId/support/task-email/$taskId/reply'
-  id:
-    | '__root__'
-    | '/'
-    | '/app'
-    | '/auth'
-    | '/app/businesses-rma'
-    | '/app/dashboard'
-    | '/app/enterprises'
-    | '/app/external-links'
-    | '/app/faq'
-    | '/app/products'
-    | '/app/tools'
-    | '/auth/login'
-    | '/auth/forgot-password'
-    | '/app/'
-    | '/auth/'
-    | '/app/businesses-rma/representative-turnover'
-    | '/app/businesses-rma/search-by-products'
-    | '/app/dashboard/create-collective-task'
-    | '/app/dashboard/create-personal-task'
-    | '/app/dashboard/create-progressive-info'
-    | '/app/dashboard/delete-collective-tasks'
-    | '/app/enterprises/create'
-    | '/app/enterprises_/$enterpriseId'
-    | '/app/external-links_/$externalLinkId'
-    | '/app/faq/create'
-    | '/app/products/create'
-    | '/app/products/serial-numbers'
-    | '/app/products_/$productId'
-    | '/app/tools/credit'
-    | '/app/tools/ddns'
-    | '/app/tools/departments'
-    | '/app/tools/emails'
-    | '/app/tools/external-links'
-    | '/app/tools/formations'
-    | '/app/tools/global-turnover'
-    | '/app/tools/mails'
-    | '/app/tools/menu'
-    | '/app/tools/news'
-    | '/app/tools/predefined-messages'
-    | '/app/tools/predefined-texts'
-    | '/app/tools/product-filters'
-    | '/app/tools/product-inventory'
-    | '/app/tools/product-shelves'
-    | '/app/tools/representatives-map'
-    | '/app/tools/representatives-turnover'
-    | '/app/tools/scheduler'
-    | '/app/tools/vva'
-    | '/auth/reset-password/$token'
-    | '/app/tools/'
-    | '/app/businesses-rma_/business/$businessId'
-    | '/app/businesses-rma_/rma/$rmaId'
-    | '/app/dashboard/archive-personal-task/$taskId'
-    | '/app/dashboard/delete-collective-task/$taskId'
-    | '/app/dashboard/delete-progressive-info/$progressiveInfoId'
-    | '/app/dashboard/link-personal-task/$taskId'
-    | '/app/dashboard/other-personal-tasks/$profileId'
-    | '/app/dashboard/personal-task-details/$taskId'
-    | '/app/dashboard/scheduler-event-details/$eventId'
-    | '/app/dashboard/take-collective-task/$taskId'
-    | '/app/dashboard/task-comments/$taskId'
-    | '/app/dashboard/task-email/$taskId'
-    | '/app/dashboard/transfer-task/$taskId'
-    | '/app/dashboard/unlink-personal-task/$taskId'
-    | '/app/dashboard/update-personal-task-deadline/$taskId'
-    | '/app/dashboard/update-progressive-info/$progressiveInfoId'
-    | '/app/dashboard/validate-personal-task/$taskId'
-    | '/app/enterprises/create-contact-business/$contactId'
-    | '/app/enterprises/create-contact-travel-voucher/$contactId'
-    | '/app/enterprises/create-contact/$enterpriseId'
-    | '/app/enterprises/create-enterprise-rma/$enterpriseId'
-    | '/app/enterprises/delete-contact/$contactId'
-    | '/app/enterprises/send-email-to-contact/$contactId'
-    | '/app/enterprises/update-contact-password/$contactId'
-    | '/app/enterprises/update-contact/$contactId'
-    | '/app/enterprises_/$enterpriseId/address-book'
-    | '/app/enterprises_/$enterpriseId/create-contact'
-    | '/app/enterprises_/$enterpriseId/create-ged-directory'
-    | '/app/enterprises_/$enterpriseId/create-lifesheet-comment'
-    | '/app/enterprises_/$enterpriseId/delete'
-    | '/app/enterprises_/$enterpriseId/email-history'
-    | '/app/enterprises_/$enterpriseId/import-contacts'
-    | '/app/enterprises_/$enterpriseId/import-ged-files'
-    | '/app/enterprises_/$enterpriseId/relate-business-rma'
-    | '/app/enterprises_/$enterpriseId/update'
-    | '/app/enterprises_/$enterpriseId/update-accountability'
-    | '/app/enterprises_/$enterpriseId/update-category'
-    | '/app/enterprises_/$enterpriseId/update-representative'
-    | '/app/faq/archive/$faqId'
-    | '/app/faq/delete/$faqId'
-    | '/app/faq/ged/$faqId'
-    | '/app/faq/send-by-email/$faqId'
-    | '/app/faq/update/$faqId'
-    | '/app/products/serial-numbers/create'
-    | '/app/products_/$productId/informations'
-    | '/app/products_/$productId/manage'
-    | '/app/tools/credit/details'
-    | '/app/tools/credit/show'
-    | '/app/tools/ddns/create'
-    | '/app/tools/departments/create'
-    | '/app/tools/emails/$emailId'
-    | '/app/tools/external-links/create'
-    | '/app/tools/formations/create'
-    | '/app/tools/mails/create'
-    | '/app/tools/menu/create-enterprise'
-    | '/app/tools/menu/create-product'
-    | '/app/tools/news/create'
-    | '/app/tools/predefined-messages/create'
-    | '/app/tools/predefined-texts/create'
-    | '/app/tools/product-filters/create'
-    | '/app/tools/product-inventory/validate-quantities'
-    | '/app/tools/product-shelves/create'
-    | '/app/tools/scheduler/create'
-    | '/app/tools/vva/create'
-    | '/app/products_/$productId/'
-    | '/app/businesses-rma_/business/$businessId/arc'
-    | '/app/businesses-rma_/business/$businessId/bill'
-    | '/app/businesses-rma_/business/$businessId/bl'
-    | '/app/businesses-rma_/business/$businessId/bp'
-    | '/app/businesses-rma_/business/$businessId/dashboard'
-    | '/app/businesses-rma_/business/$businessId/quotation'
-    | '/app/businesses-rma_/business/$businessId_/study'
-    | '/app/businesses-rma_/rma/$rmaId/delivery'
-    | '/app/businesses-rma_/rma/$rmaId/reception'
-    | '/app/businesses-rma_/rma/$rmaId/support'
-    | '/app/dashboard/task-email/$taskId/reply'
-    | '/app/enterprises_/$enterpriseId/address-book/create'
-    | '/app/enterprises_/$enterpriseId/address-book/import'
-    | '/app/enterprises_/$enterpriseId/create-contact-business/$contactId'
-    | '/app/enterprises_/$enterpriseId/delete-contact/$contactId'
-    | '/app/enterprises_/$enterpriseId/delete-ged-object/$objectRelativePath'
-    | '/app/enterprises_/$enterpriseId/lifesheet-email/$lifesheetId'
-    | '/app/enterprises_/$enterpriseId/rename-ged-object/$objectRelativePath'
-    | '/app/enterprises_/$enterpriseId/send-email-to-contact/$contactId'
-    | '/app/enterprises_/$enterpriseId/task-email/$taskId'
-    | '/app/enterprises_/$enterpriseId/unlink-task/$taskId'
-    | '/app/enterprises_/$enterpriseId/unrelate-business-rma/$businessRmaId'
-    | '/app/enterprises_/$enterpriseId/update-contact-password/$contactId'
-    | '/app/enterprises_/$enterpriseId/update-contact/$contactId'
-    | '/app/faq/ged/$faqId/create-directory'
-    | '/app/faq/ged/$faqId/import-files'
-    | '/app/products/serial-numbers/create-rma/$serialNumberId'
-    | '/app/products/serial-numbers/delete/$serialNumberId'
-    | '/app/products/serial-numbers/remove-from-business/$serialNumberId'
-    | '/app/products/serial-numbers/update/$serialNumberId'
-    | '/app/products_/$productId/informations/create-ged-directory'
-    | '/app/products_/$productId/informations/create-lifesheet-comment'
-    | '/app/products_/$productId/informations/delete-ged-object'
-    | '/app/products_/$productId/informations/import-ged-files'
-    | '/app/products_/$productId/informations/rename-ged-object'
-    | '/app/products_/$productId/manage/add-associated-product'
-    | '/app/products_/$productId/manage/add-nomenclature-detail'
-    | '/app/products_/$productId/manage/add-specification'
-    | '/app/products_/$productId/manage/create-stock'
-    | '/app/products_/$productId/manage/create-version'
-    | '/app/tools/ddns/delete/$ddnsId'
-    | '/app/tools/departments/delete/$departmentId'
-    | '/app/tools/departments/update/$departmentId'
-    | '/app/tools/emails/$emailId/reply'
-    | '/app/tools/external-links/archive/$externalLinkId'
-    | '/app/tools/external-links/delete/$externalLinkId'
-    | '/app/tools/external-links/update/$externalLinkId'
-    | '/app/tools/formations/create/add-detail'
-    | '/app/tools/formations/create/details'
-    | '/app/tools/formations/delete/$formationId'
-    | '/app/tools/formations/subscribers/$formationDetailId'
-    | '/app/tools/formations/update/$formationId'
-    | '/app/tools/mails/delete/$mailId'
-    | '/app/tools/mails/show/$mailId'
-    | '/app/tools/mails/update/$mailId'
-    | '/app/tools/news/delete/$newsId'
-    | '/app/tools/news/update/$newsId'
-    | '/app/tools/predefined-messages/delete/$predefinedMessageId'
-    | '/app/tools/predefined-messages/update/$predefinedMessageId'
-    | '/app/tools/predefined-texts/delete/$predefinedTextId'
-    | '/app/tools/predefined-texts/update/$predefinedTextId'
-    | '/app/tools/product-filters/delete/$productFilterId'
-    | '/app/tools/product-filters/update/$productFilterId'
-    | '/app/tools/product-inventory/update/$stockId'
-    | '/app/tools/product-shelves/delete/$productShelfId'
-    | '/app/tools/scheduler/details/$rdvId'
-    | '/app/tools/vva/delete/$vvaId'
-    | '/app/businesses-rma_/business/$businessId/'
-    | '/app/businesses-rma_/rma/$rmaId/'
-    | '/app/businesses-rma_/business/$businessId/arc/pdf'
-    | '/app/businesses-rma_/business/$businessId/arc/update-shipping-price'
-    | '/app/businesses-rma_/business/$businessId/bill/credits'
-    | '/app/businesses-rma_/business/$businessId/bill/send-by-email'
-    | '/app/businesses-rma_/business/$businessId/bl/send-by-email'
-    | '/app/businesses-rma_/business/$businessId/bl/update'
-    | '/app/businesses-rma_/business/$businessId/bp/travel-voucher'
-    | '/app/businesses-rma_/business/$businessId/dashboard/address-book'
-    | '/app/businesses-rma_/business/$businessId/dashboard/create-ged-directory'
-    | '/app/businesses-rma_/business/$businessId/dashboard/create-lifesheet'
-    | '/app/businesses-rma_/business/$businessId/dashboard/create-link'
-    | '/app/businesses-rma_/business/$businessId/dashboard/delete'
-    | '/app/businesses-rma_/business/$businessId/dashboard/email-history'
-    | '/app/businesses-rma_/business/$businessId/dashboard/import-ged-files'
-    | '/app/businesses-rma_/business/$businessId/dashboard/send-email'
-    | '/app/businesses-rma_/business/$businessId/dashboard/update-billing-address'
-    | '/app/businesses-rma_/business/$businessId/dashboard/update-representative'
-    | '/app/businesses-rma_/business/$businessId/dashboard/update-responsible'
-    | '/app/businesses-rma_/business/$businessId/quotation/commercial-notice'
-    | '/app/businesses-rma_/business/$businessId/quotation/pdf'
-    | '/app/businesses-rma_/business/$businessId/quotation/update-shipping-price'
-    | '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId'
-    | '/app/businesses-rma_/business/$businessId_/study/automatic'
-    | '/app/businesses-rma_/business/$businessId_/study/expert'
-    | '/app/businesses-rma_/rma/$rmaId/delivery/create-detail'
-    | '/app/businesses-rma_/rma/$rmaId/delivery/pdf'
-    | '/app/businesses-rma_/rma/$rmaId/delivery/travel-voucher'
-    | '/app/businesses-rma_/rma/$rmaId/reception/create-detail'
-    | '/app/businesses-rma_/rma/$rmaId/reception/pdf'
-    | '/app/businesses-rma_/rma/$rmaId/support/create-detail'
-    | '/app/businesses-rma_/rma/$rmaId/support/create-ged-directory'
-    | '/app/businesses-rma_/rma/$rmaId/support/create-lifesheet'
-    | '/app/businesses-rma_/rma/$rmaId/support/create-link'
-    | '/app/businesses-rma_/rma/$rmaId/support/import-ged-files'
-    | '/app/businesses-rma_/rma/$rmaId/support/pdf'
-    | '/app/enterprises_/$enterpriseId/address-book/delete/$addressId'
-    | '/app/enterprises_/$enterpriseId/address-book/update/$addressId'
-    | '/app/enterprises_/$enterpriseId/email-history/email/$emailId'
-    | '/app/enterprises_/$enterpriseId/task-email/$taskId/reply'
-    | '/app/faq/ged/$faqId/delete/$itemRelativePath'
-    | '/app/faq/ged/$faqId/rename/$itemRelativePath'
-    | '/app/products_/$productId/informations/lifesheet-email/$lifesheetId'
-    | '/app/products_/$productId/informations/task-email/$taskId'
-    | '/app/products_/$productId/informations/unlink-task/$taskId'
-    | '/app/products_/$productId/manage/add-specification/$filterId'
-    | '/app/products_/$productId/manage/delete-nomenclature-detail/$nomenclatureDetailId'
-    | '/app/products_/$productId/manage/delete-specification/$specificationId'
-    | '/app/products_/$productId/manage/delete-stock/$stockId'
-    | '/app/products_/$productId/manage/delete-version/$versionId'
-    | '/app/products_/$productId/manage/remove-associated-product/$associatedProductId'
-    | '/app/products_/$productId/manage/stock-history/$stockId'
-    | '/app/products_/$productId/manage/update-nomenclature-detail/$nomenclatureDetailId'
-    | '/app/products_/$productId/manage/update-specification/$specificationId'
-    | '/app/products_/$productId/manage/update-stock/$stockId'
-    | '/app/products_/$productId/manage/update-version/$versionId'
-    | '/app/tools/formations/subscribers/$formationDetailId/create'
-    | '/app/tools/formations/update/$formationId/add-detail'
-    | '/app/tools/formations/update/$formationId/details'
-    | '/app/tools/scheduler/details/$rdvId/delete'
-    | '/app/tools/scheduler/details/$rdvId/update'
-    | '/app/businesses-rma_/business/$businessId_/study/'
-    | '/app/businesses-rma_/business/$businessId/arc/delete-detail/$detailId'
-    | '/app/businesses-rma_/business/$businessId/arc/pdf/send-by-email'
-    | '/app/businesses-rma_/business/$businessId/arc/update-detail/$detailId'
-    | '/app/businesses-rma_/business/$businessId/bill/credits/send-by-email'
-    | '/app/businesses-rma_/business/$businessId/bl/update/new'
-    | '/app/businesses-rma_/business/$businessId/bp/add-serial/$detailId'
-    | '/app/businesses-rma_/business/$businessId/bp/create-detail-rma/$detailId'
-    | '/app/businesses-rma_/business/$businessId/bp/create-serial-rma/$serialId'
-    | '/app/businesses-rma_/business/$businessId/bp/delete-detail/$detailId'
-    | '/app/businesses-rma_/business/$businessId/bp/delete-serial/$serialId'
-    | '/app/businesses-rma_/business/$businessId/bp/update-detail/$detailId'
-    | '/app/businesses-rma_/business/$businessId/dashboard/address-book/create'
-    | '/app/businesses-rma_/business/$businessId/dashboard/confirm-quotation-import/$otherBusinessId'
-    | '/app/businesses-rma_/business/$businessId/dashboard/delete-ged-object/$objectRelativePath'
-    | '/app/businesses-rma_/business/$businessId/dashboard/delete-link/$associatedId'
-    | '/app/businesses-rma_/business/$businessId/dashboard/email-history/$emailId'
-    | '/app/businesses-rma_/business/$businessId/dashboard/lifesheet-email/$lifesheetId'
-    | '/app/businesses-rma_/business/$businessId/dashboard/rename-ged-object/$objectRelativePath'
-    | '/app/businesses-rma_/business/$businessId/dashboard/task-email/$taskId'
-    | '/app/businesses-rma_/business/$businessId/dashboard/unlink-task/$taskId'
-    | '/app/businesses-rma_/business/$businessId/quotation/commercial-notice/send-by-email'
-    | '/app/businesses-rma_/business/$businessId/quotation/create-associated-detail/$detailId'
-    | '/app/businesses-rma_/business/$businessId/quotation/create-detail/$subquotationId'
-    | '/app/businesses-rma_/business/$businessId/quotation/delete-detail/$detailId'
-    | '/app/businesses-rma_/business/$businessId/quotation/delete-subquotation/$subquotationId'
-    | '/app/businesses-rma_/business/$businessId/quotation/pdf/send-by-email'
-    | '/app/businesses-rma_/business/$businessId/quotation/update-detail/$detailId'
-    | '/app/businesses-rma_/business/$businessId/quotation/update-subquotation/$subquotationId'
-    | '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/create-faq'
-    | '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/create-ged-directory'
-    | '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/create-lifesheet'
-    | '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/create-link'
-    | '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/delete'
-    | '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/edit-cumulated-time'
-    | '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/edit-no-billed-time'
-    | '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/edit-subtitle'
-    | '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/import-ged-files'
-    | '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/pdf'
-    | '/app/businesses-rma_/rma/$rmaId/delivery/delete-detail/$detailId'
-    | '/app/businesses-rma_/rma/$rmaId/delivery/pdf/send-by-email'
-    | '/app/businesses-rma_/rma/$rmaId/delivery/update-detail/$detailId'
-    | '/app/businesses-rma_/rma/$rmaId/reception/delete-detail/$detailId'
-    | '/app/businesses-rma_/rma/$rmaId/reception/pdf/send-by-email'
-    | '/app/businesses-rma_/rma/$rmaId/reception/update-detail/$detailId'
-    | '/app/businesses-rma_/rma/$rmaId/support/delete-detail/$detailId'
-    | '/app/businesses-rma_/rma/$rmaId/support/delete-ged-object/$relativePath'
-    | '/app/businesses-rma_/rma/$rmaId/support/delete-link/$associatedId'
-    | '/app/businesses-rma_/rma/$rmaId/support/lifesheet-email/$lifesheetId'
-    | '/app/businesses-rma_/rma/$rmaId/support/pdf/send-by-email'
-    | '/app/businesses-rma_/rma/$rmaId/support/rename-ged-object/$objectRelativePath'
-    | '/app/businesses-rma_/rma/$rmaId/support/task-email/$taskId'
-    | '/app/businesses-rma_/rma/$rmaId/support/unlink-task/$taskId'
-    | '/app/businesses-rma_/rma/$rmaId/support/update-detail/$detailId'
-    | '/app/enterprises_/$enterpriseId/email-history/email/$emailId/reply'
-    | '/app/products_/$productId/informations/task-email/$taskId/reply'
-    | '/app/tools/formations/subscribers/$formationDetailId/delete/$subscriptionId'
-    | '/app/tools/formations/subscribers/$formationDetailId/send-email/$subscriptionId'
-    | '/app/businesses-rma_/business/$businessId/dashboard/address-book/delete/$addressId'
-    | '/app/businesses-rma_/business/$businessId/dashboard/address-book/update/$addressId'
-    | '/app/businesses-rma_/business/$businessId/dashboard/email-history/$emailId/reply'
-    | '/app/businesses-rma_/business/$businessId/quotation/commercial-notice/send-by-email/predefined-messages'
-    | '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/delete-ged-object/$objectRelativePath'
-    | '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/delete-link/$associatedId'
-    | '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/lifesheet-email/$lifesheetId'
-    | '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/pdf/send-by-email'
-    | '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/rename-ged-object/$objectRelativePath'
-    | '/app/businesses-rma_/rma/$rmaId/support/task-email/$taskId/reply'
-  fileRoutesById: FileRoutesById
-}
-
-export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  AppRouteRoute: typeof AppRouteRouteWithChildren
-  AuthRouteRoute: typeof AuthRouteRouteWithChildren
-}
-
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AppRouteRoute: AppRouteRouteWithChildren,
   AuthRouteRoute: AuthRouteRouteWithChildren,
 }
-
-export const routeTree = rootRoute
+export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-/* ROUTE_MANIFEST_START
-{
-  "routes": {
-    "__root__": {
-      "filePath": "__root.ts",
-      "children": [
-        "/",
-        "/app",
-        "/auth"
-      ]
-    },
-    "/": {
-      "filePath": "index.ts"
-    },
-    "/app": {
-      "filePath": "app/route.ts",
-      "children": [
-        "/app/businesses-rma",
-        "/app/dashboard",
-        "/app/enterprises",
-        "/app/external-links",
-        "/app/faq",
-        "/app/products",
-        "/app/tools",
-        "/app/",
-        "/app/enterprises_/$enterpriseId",
-        "/app/external-links_/$externalLinkId",
-        "/app/products_/$productId",
-        "/app/businesses-rma_/business/$businessId",
-        "/app/businesses-rma_/rma/$rmaId",
-        "/app/businesses-rma_/business/$businessId_/study",
-        "/app/businesses-rma_/business/$businessId_/assistance/$assistanceId"
-      ]
-    },
-    "/auth": {
-      "filePath": "auth/route.ts",
-      "children": [
-        "/auth/login",
-        "/auth/forgot-password",
-        "/auth/",
-        "/auth/reset-password/$token"
-      ]
-    },
-    "/app/businesses-rma": {
-      "filePath": "app/businesses-rma/route.tsx",
-      "parent": "/app",
-      "children": [
-        "/app/businesses-rma/representative-turnover",
-        "/app/businesses-rma/search-by-products"
-      ]
-    },
-    "/app/dashboard": {
-      "filePath": "app/dashboard/route.ts",
-      "parent": "/app",
-      "children": [
-        "/app/dashboard/create-collective-task",
-        "/app/dashboard/create-personal-task",
-        "/app/dashboard/create-progressive-info",
-        "/app/dashboard/delete-collective-tasks",
-        "/app/dashboard/archive-personal-task/$taskId",
-        "/app/dashboard/delete-collective-task/$taskId",
-        "/app/dashboard/delete-progressive-info/$progressiveInfoId",
-        "/app/dashboard/link-personal-task/$taskId",
-        "/app/dashboard/other-personal-tasks/$profileId",
-        "/app/dashboard/personal-task-details/$taskId",
-        "/app/dashboard/scheduler-event-details/$eventId",
-        "/app/dashboard/take-collective-task/$taskId",
-        "/app/dashboard/task-comments/$taskId",
-        "/app/dashboard/task-email/$taskId",
-        "/app/dashboard/transfer-task/$taskId",
-        "/app/dashboard/unlink-personal-task/$taskId",
-        "/app/dashboard/update-personal-task-deadline/$taskId",
-        "/app/dashboard/update-progressive-info/$progressiveInfoId",
-        "/app/dashboard/validate-personal-task/$taskId"
-      ]
-    },
-    "/app/enterprises": {
-      "filePath": "app/enterprises/route.ts",
-      "parent": "/app",
-      "children": [
-        "/app/enterprises/create",
-        "/app/enterprises/create-contact-business/$contactId",
-        "/app/enterprises/create-contact-travel-voucher/$contactId",
-        "/app/enterprises/create-contact/$enterpriseId",
-        "/app/enterprises/create-enterprise-rma/$enterpriseId",
-        "/app/enterprises/delete-contact/$contactId",
-        "/app/enterprises/send-email-to-contact/$contactId",
-        "/app/enterprises/update-contact-password/$contactId",
-        "/app/enterprises/update-contact/$contactId"
-      ]
-    },
-    "/app/external-links": {
-      "filePath": "app/external-links/route.ts",
-      "parent": "/app"
-    },
-    "/app/faq": {
-      "filePath": "app/faq/route.ts",
-      "parent": "/app",
-      "children": [
-        "/app/faq/create",
-        "/app/faq/archive/$faqId",
-        "/app/faq/delete/$faqId",
-        "/app/faq/ged/$faqId",
-        "/app/faq/send-by-email/$faqId",
-        "/app/faq/update/$faqId"
-      ]
-    },
-    "/app/products": {
-      "filePath": "app/products/route.ts",
-      "parent": "/app",
-      "children": [
-        "/app/products/create",
-        "/app/products/serial-numbers"
-      ]
-    },
-    "/app/tools": {
-      "filePath": "app/tools/route.ts",
-      "parent": "/app",
-      "children": [
-        "/app/tools/credit",
-        "/app/tools/ddns",
-        "/app/tools/departments",
-        "/app/tools/emails",
-        "/app/tools/external-links",
-        "/app/tools/formations",
-        "/app/tools/global-turnover",
-        "/app/tools/mails",
-        "/app/tools/menu",
-        "/app/tools/news",
-        "/app/tools/predefined-messages",
-        "/app/tools/predefined-texts",
-        "/app/tools/product-filters",
-        "/app/tools/product-inventory",
-        "/app/tools/product-shelves",
-        "/app/tools/representatives-map",
-        "/app/tools/representatives-turnover",
-        "/app/tools/scheduler",
-        "/app/tools/vva",
-        "/app/tools/"
-      ]
-    },
-    "/auth/login": {
-      "filePath": "auth/login/route.ts",
-      "parent": "/auth"
-    },
-    "/auth/forgot-password": {
-      "filePath": "auth/forgot-password/route.lazy.ts",
-      "parent": "/auth"
-    },
-    "/app/": {
-      "filePath": "app/index.ts",
-      "parent": "/app"
-    },
-    "/auth/": {
-      "filePath": "auth/index.ts",
-      "parent": "/auth"
-    },
-    "/app/businesses-rma/representative-turnover": {
-      "filePath": "app/businesses-rma/representative-turnover/route.tsx",
-      "parent": "/app/businesses-rma"
-    },
-    "/app/businesses-rma/search-by-products": {
-      "filePath": "app/businesses-rma/search-by-products/route.ts",
-      "parent": "/app/businesses-rma"
-    },
-    "/app/dashboard/create-collective-task": {
-      "filePath": "app/dashboard/create-collective-task/route.ts",
-      "parent": "/app/dashboard"
-    },
-    "/app/dashboard/create-personal-task": {
-      "filePath": "app/dashboard/create-personal-task/route.ts",
-      "parent": "/app/dashboard"
-    },
-    "/app/dashboard/create-progressive-info": {
-      "filePath": "app/dashboard/create-progressive-info/route.ts",
-      "parent": "/app/dashboard"
-    },
-    "/app/dashboard/delete-collective-tasks": {
-      "filePath": "app/dashboard/delete-collective-tasks/route.ts",
-      "parent": "/app/dashboard"
-    },
-    "/app/enterprises/create": {
-      "filePath": "app/enterprises/create/route.ts",
-      "parent": "/app/enterprises"
-    },
-    "/app/enterprises_/$enterpriseId": {
-      "filePath": "app/enterprises_.$enterpriseId/route.ts",
-      "parent": "/app",
-      "children": [
-        "/app/enterprises_/$enterpriseId/address-book",
-        "/app/enterprises_/$enterpriseId/create-contact",
-        "/app/enterprises_/$enterpriseId/create-ged-directory",
-        "/app/enterprises_/$enterpriseId/create-lifesheet-comment",
-        "/app/enterprises_/$enterpriseId/delete",
-        "/app/enterprises_/$enterpriseId/email-history",
-        "/app/enterprises_/$enterpriseId/import-contacts",
-        "/app/enterprises_/$enterpriseId/import-ged-files",
-        "/app/enterprises_/$enterpriseId/relate-business-rma",
-        "/app/enterprises_/$enterpriseId/update",
-        "/app/enterprises_/$enterpriseId/update-accountability",
-        "/app/enterprises_/$enterpriseId/update-category",
-        "/app/enterprises_/$enterpriseId/update-representative",
-        "/app/enterprises_/$enterpriseId/create-contact-business/$contactId",
-        "/app/enterprises_/$enterpriseId/delete-contact/$contactId",
-        "/app/enterprises_/$enterpriseId/delete-ged-object/$objectRelativePath",
-        "/app/enterprises_/$enterpriseId/lifesheet-email/$lifesheetId",
-        "/app/enterprises_/$enterpriseId/rename-ged-object/$objectRelativePath",
-        "/app/enterprises_/$enterpriseId/send-email-to-contact/$contactId",
-        "/app/enterprises_/$enterpriseId/task-email/$taskId",
-        "/app/enterprises_/$enterpriseId/unlink-task/$taskId",
-        "/app/enterprises_/$enterpriseId/unrelate-business-rma/$businessRmaId",
-        "/app/enterprises_/$enterpriseId/update-contact-password/$contactId",
-        "/app/enterprises_/$enterpriseId/update-contact/$contactId"
-      ]
-    },
-    "/app/external-links_/$externalLinkId": {
-      "filePath": "app/external-links_.$externalLinkId/route.ts",
-      "parent": "/app"
-    },
-    "/app/faq/create": {
-      "filePath": "app/faq/create/route.ts",
-      "parent": "/app/faq"
-    },
-    "/app/products/create": {
-      "filePath": "app/products/create/route.ts",
-      "parent": "/app/products"
-    },
-    "/app/products/serial-numbers": {
-      "filePath": "app/products/serial-numbers/route.ts",
-      "parent": "/app/products",
-      "children": [
-        "/app/products/serial-numbers/create",
-        "/app/products/serial-numbers/create-rma/$serialNumberId",
-        "/app/products/serial-numbers/delete/$serialNumberId",
-        "/app/products/serial-numbers/remove-from-business/$serialNumberId",
-        "/app/products/serial-numbers/update/$serialNumberId"
-      ]
-    },
-    "/app/products_/$productId": {
-      "filePath": "app/products_.$productId/route.ts",
-      "parent": "/app",
-      "children": [
-        "/app/products_/$productId/informations",
-        "/app/products_/$productId/manage",
-        "/app/products_/$productId/"
-      ]
-    },
-    "/app/tools/credit": {
-      "filePath": "app/tools/credit/route.ts",
-      "parent": "/app/tools",
-      "children": [
-        "/app/tools/credit/details",
-        "/app/tools/credit/show"
-      ]
-    },
-    "/app/tools/ddns": {
-      "filePath": "app/tools/ddns/route.ts",
-      "parent": "/app/tools",
-      "children": [
-        "/app/tools/ddns/create",
-        "/app/tools/ddns/delete/$ddnsId"
-      ]
-    },
-    "/app/tools/departments": {
-      "filePath": "app/tools/departments/route.ts",
-      "parent": "/app/tools",
-      "children": [
-        "/app/tools/departments/create",
-        "/app/tools/departments/delete/$departmentId",
-        "/app/tools/departments/update/$departmentId"
-      ]
-    },
-    "/app/tools/emails": {
-      "filePath": "app/tools/emails/route.ts",
-      "parent": "/app/tools",
-      "children": [
-        "/app/tools/emails/$emailId"
-      ]
-    },
-    "/app/tools/external-links": {
-      "filePath": "app/tools/external-links/route.ts",
-      "parent": "/app/tools",
-      "children": [
-        "/app/tools/external-links/create",
-        "/app/tools/external-links/archive/$externalLinkId",
-        "/app/tools/external-links/delete/$externalLinkId",
-        "/app/tools/external-links/update/$externalLinkId"
-      ]
-    },
-    "/app/tools/formations": {
-      "filePath": "app/tools/formations/route.ts",
-      "parent": "/app/tools",
-      "children": [
-        "/app/tools/formations/create",
-        "/app/tools/formations/delete/$formationId",
-        "/app/tools/formations/subscribers/$formationDetailId",
-        "/app/tools/formations/update/$formationId"
-      ]
-    },
-    "/app/tools/global-turnover": {
-      "filePath": "app/tools/global-turnover/route.ts",
-      "parent": "/app/tools"
-    },
-    "/app/tools/mails": {
-      "filePath": "app/tools/mails/route.ts",
-      "parent": "/app/tools",
-      "children": [
-        "/app/tools/mails/create",
-        "/app/tools/mails/delete/$mailId",
-        "/app/tools/mails/show/$mailId",
-        "/app/tools/mails/update/$mailId"
-      ]
-    },
-    "/app/tools/menu": {
-      "filePath": "app/tools/menu/route.ts",
-      "parent": "/app/tools",
-      "children": [
-        "/app/tools/menu/create-enterprise",
-        "/app/tools/menu/create-product"
-      ]
-    },
-    "/app/tools/news": {
-      "filePath": "app/tools/news/route.ts",
-      "parent": "/app/tools",
-      "children": [
-        "/app/tools/news/create",
-        "/app/tools/news/delete/$newsId",
-        "/app/tools/news/update/$newsId"
-      ]
-    },
-    "/app/tools/predefined-messages": {
-      "filePath": "app/tools/predefined-messages/route.ts",
-      "parent": "/app/tools",
-      "children": [
-        "/app/tools/predefined-messages/create",
-        "/app/tools/predefined-messages/delete/$predefinedMessageId",
-        "/app/tools/predefined-messages/update/$predefinedMessageId"
-      ]
-    },
-    "/app/tools/predefined-texts": {
-      "filePath": "app/tools/predefined-texts/route.ts",
-      "parent": "/app/tools",
-      "children": [
-        "/app/tools/predefined-texts/create",
-        "/app/tools/predefined-texts/delete/$predefinedTextId",
-        "/app/tools/predefined-texts/update/$predefinedTextId"
-      ]
-    },
-    "/app/tools/product-filters": {
-      "filePath": "app/tools/product-filters/route.ts",
-      "parent": "/app/tools",
-      "children": [
-        "/app/tools/product-filters/create",
-        "/app/tools/product-filters/delete/$productFilterId",
-        "/app/tools/product-filters/update/$productFilterId"
-      ]
-    },
-    "/app/tools/product-inventory": {
-      "filePath": "app/tools/product-inventory/route.ts",
-      "parent": "/app/tools",
-      "children": [
-        "/app/tools/product-inventory/validate-quantities",
-        "/app/tools/product-inventory/update/$stockId"
-      ]
-    },
-    "/app/tools/product-shelves": {
-      "filePath": "app/tools/product-shelves/route.ts",
-      "parent": "/app/tools",
-      "children": [
-        "/app/tools/product-shelves/create",
-        "/app/tools/product-shelves/delete/$productShelfId"
-      ]
-    },
-    "/app/tools/representatives-map": {
-      "filePath": "app/tools/representatives-map/route.ts",
-      "parent": "/app/tools"
-    },
-    "/app/tools/representatives-turnover": {
-      "filePath": "app/tools/representatives-turnover/route.ts",
-      "parent": "/app/tools"
-    },
-    "/app/tools/scheduler": {
-      "filePath": "app/tools/scheduler/route.ts",
-      "parent": "/app/tools",
-      "children": [
-        "/app/tools/scheduler/create",
-        "/app/tools/scheduler/details/$rdvId"
-      ]
-    },
-    "/app/tools/vva": {
-      "filePath": "app/tools/vva/route.ts",
-      "parent": "/app/tools",
-      "children": [
-        "/app/tools/vva/create",
-        "/app/tools/vva/delete/$vvaId"
-      ]
-    },
-    "/auth/reset-password/$token": {
-      "filePath": "auth/reset-password.$token/route.lazy.ts",
-      "parent": "/auth"
-    },
-    "/app/tools/": {
-      "filePath": "app/tools/index.ts",
-      "parent": "/app/tools"
-    },
-    "/app/businesses-rma_/business/$businessId": {
-      "filePath": "app/businesses-rma_/business.$businessId/route.ts",
-      "parent": "/app",
-      "children": [
-        "/app/businesses-rma_/business/$businessId/arc",
-        "/app/businesses-rma_/business/$businessId/bill",
-        "/app/businesses-rma_/business/$businessId/bl",
-        "/app/businesses-rma_/business/$businessId/bp",
-        "/app/businesses-rma_/business/$businessId/dashboard",
-        "/app/businesses-rma_/business/$businessId/quotation",
-        "/app/businesses-rma_/business/$businessId/"
-      ]
-    },
-    "/app/businesses-rma_/rma/$rmaId": {
-      "filePath": "app/businesses-rma_/rma.$rmaId/route.ts",
-      "parent": "/app",
-      "children": [
-        "/app/businesses-rma_/rma/$rmaId/delivery",
-        "/app/businesses-rma_/rma/$rmaId/reception",
-        "/app/businesses-rma_/rma/$rmaId/support",
-        "/app/businesses-rma_/rma/$rmaId/"
-      ]
-    },
-    "/app/dashboard/archive-personal-task/$taskId": {
-      "filePath": "app/dashboard/archive-personal-task.$taskId/route.ts",
-      "parent": "/app/dashboard"
-    },
-    "/app/dashboard/delete-collective-task/$taskId": {
-      "filePath": "app/dashboard/delete-collective-task.$taskId/route.ts",
-      "parent": "/app/dashboard"
-    },
-    "/app/dashboard/delete-progressive-info/$progressiveInfoId": {
-      "filePath": "app/dashboard/delete-progressive-info.$progressiveInfoId/route.ts",
-      "parent": "/app/dashboard"
-    },
-    "/app/dashboard/link-personal-task/$taskId": {
-      "filePath": "app/dashboard/link-personal-task.$taskId/route.ts",
-      "parent": "/app/dashboard"
-    },
-    "/app/dashboard/other-personal-tasks/$profileId": {
-      "filePath": "app/dashboard/other-personal-tasks.$profileId/route.ts",
-      "parent": "/app/dashboard"
-    },
-    "/app/dashboard/personal-task-details/$taskId": {
-      "filePath": "app/dashboard/personal-task-details.$taskId/route.ts",
-      "parent": "/app/dashboard"
-    },
-    "/app/dashboard/scheduler-event-details/$eventId": {
-      "filePath": "app/dashboard/scheduler-event-details.$eventId/route.ts",
-      "parent": "/app/dashboard"
-    },
-    "/app/dashboard/take-collective-task/$taskId": {
-      "filePath": "app/dashboard/take-collective-task.$taskId/route.ts",
-      "parent": "/app/dashboard"
-    },
-    "/app/dashboard/task-comments/$taskId": {
-      "filePath": "app/dashboard/task-comments.$taskId/route.ts",
-      "parent": "/app/dashboard"
-    },
-    "/app/dashboard/task-email/$taskId": {
-      "filePath": "app/dashboard/task-email.$taskId/route.ts",
-      "parent": "/app/dashboard",
-      "children": [
-        "/app/dashboard/task-email/$taskId/reply"
-      ]
-    },
-    "/app/dashboard/transfer-task/$taskId": {
-      "filePath": "app/dashboard/transfer-task.$taskId/route.ts",
-      "parent": "/app/dashboard"
-    },
-    "/app/dashboard/unlink-personal-task/$taskId": {
-      "filePath": "app/dashboard/unlink-personal-task.$taskId/route.ts",
-      "parent": "/app/dashboard"
-    },
-    "/app/dashboard/update-personal-task-deadline/$taskId": {
-      "filePath": "app/dashboard/update-personal-task-deadline.$taskId/route.ts",
-      "parent": "/app/dashboard"
-    },
-    "/app/dashboard/update-progressive-info/$progressiveInfoId": {
-      "filePath": "app/dashboard/update-progressive-info.$progressiveInfoId/route.ts",
-      "parent": "/app/dashboard"
-    },
-    "/app/dashboard/validate-personal-task/$taskId": {
-      "filePath": "app/dashboard/validate-personal-task.$taskId/route.ts",
-      "parent": "/app/dashboard"
-    },
-    "/app/enterprises/create-contact-business/$contactId": {
-      "filePath": "app/enterprises/create-contact-business.$contactId/route.ts",
-      "parent": "/app/enterprises"
-    },
-    "/app/enterprises/create-contact-travel-voucher/$contactId": {
-      "filePath": "app/enterprises/create-contact-travel-voucher.$contactId/route.ts",
-      "parent": "/app/enterprises"
-    },
-    "/app/enterprises/create-contact/$enterpriseId": {
-      "filePath": "app/enterprises/create-contact.$enterpriseId/route.ts",
-      "parent": "/app/enterprises"
-    },
-    "/app/enterprises/create-enterprise-rma/$enterpriseId": {
-      "filePath": "app/enterprises/create-enterprise-rma.$enterpriseId/route.ts",
-      "parent": "/app/enterprises"
-    },
-    "/app/enterprises/delete-contact/$contactId": {
-      "filePath": "app/enterprises/delete-contact.$contactId/route.ts",
-      "parent": "/app/enterprises"
-    },
-    "/app/enterprises/send-email-to-contact/$contactId": {
-      "filePath": "app/enterprises/send-email-to-contact.$contactId/route.ts",
-      "parent": "/app/enterprises"
-    },
-    "/app/enterprises/update-contact-password/$contactId": {
-      "filePath": "app/enterprises/update-contact-password.$contactId/route.ts",
-      "parent": "/app/enterprises"
-    },
-    "/app/enterprises/update-contact/$contactId": {
-      "filePath": "app/enterprises/update-contact.$contactId/route.ts",
-      "parent": "/app/enterprises"
-    },
-    "/app/enterprises_/$enterpriseId/address-book": {
-      "filePath": "app/enterprises_.$enterpriseId/address-book/route.ts",
-      "parent": "/app/enterprises_/$enterpriseId",
-      "children": [
-        "/app/enterprises_/$enterpriseId/address-book/create",
-        "/app/enterprises_/$enterpriseId/address-book/import",
-        "/app/enterprises_/$enterpriseId/address-book/delete/$addressId",
-        "/app/enterprises_/$enterpriseId/address-book/update/$addressId"
-      ]
-    },
-    "/app/enterprises_/$enterpriseId/create-contact": {
-      "filePath": "app/enterprises_.$enterpriseId/create-contact/route.ts",
-      "parent": "/app/enterprises_/$enterpriseId"
-    },
-    "/app/enterprises_/$enterpriseId/create-ged-directory": {
-      "filePath": "app/enterprises_.$enterpriseId/create-ged-directory/route.ts",
-      "parent": "/app/enterprises_/$enterpriseId"
-    },
-    "/app/enterprises_/$enterpriseId/create-lifesheet-comment": {
-      "filePath": "app/enterprises_.$enterpriseId/create-lifesheet-comment/route.ts",
-      "parent": "/app/enterprises_/$enterpriseId"
-    },
-    "/app/enterprises_/$enterpriseId/delete": {
-      "filePath": "app/enterprises_.$enterpriseId/delete/route.ts",
-      "parent": "/app/enterprises_/$enterpriseId"
-    },
-    "/app/enterprises_/$enterpriseId/email-history": {
-      "filePath": "app/enterprises_.$enterpriseId/email-history/route.ts",
-      "parent": "/app/enterprises_/$enterpriseId",
-      "children": [
-        "/app/enterprises_/$enterpriseId/email-history/email/$emailId"
-      ]
-    },
-    "/app/enterprises_/$enterpriseId/import-contacts": {
-      "filePath": "app/enterprises_.$enterpriseId/import-contacts/route.ts",
-      "parent": "/app/enterprises_/$enterpriseId"
-    },
-    "/app/enterprises_/$enterpriseId/import-ged-files": {
-      "filePath": "app/enterprises_.$enterpriseId/import-ged-files/route.ts",
-      "parent": "/app/enterprises_/$enterpriseId"
-    },
-    "/app/enterprises_/$enterpriseId/relate-business-rma": {
-      "filePath": "app/enterprises_.$enterpriseId/relate-business-rma/route.ts",
-      "parent": "/app/enterprises_/$enterpriseId"
-    },
-    "/app/enterprises_/$enterpriseId/update": {
-      "filePath": "app/enterprises_.$enterpriseId/update/route.ts",
-      "parent": "/app/enterprises_/$enterpriseId"
-    },
-    "/app/enterprises_/$enterpriseId/update-accountability": {
-      "filePath": "app/enterprises_.$enterpriseId/update-accountability/route.ts",
-      "parent": "/app/enterprises_/$enterpriseId"
-    },
-    "/app/enterprises_/$enterpriseId/update-category": {
-      "filePath": "app/enterprises_.$enterpriseId/update-category/route.ts",
-      "parent": "/app/enterprises_/$enterpriseId"
-    },
-    "/app/enterprises_/$enterpriseId/update-representative": {
-      "filePath": "app/enterprises_.$enterpriseId/update-representative/route.ts",
-      "parent": "/app/enterprises_/$enterpriseId"
-    },
-    "/app/faq/archive/$faqId": {
-      "filePath": "app/faq/archive.$faqId/route.ts",
-      "parent": "/app/faq"
-    },
-    "/app/faq/delete/$faqId": {
-      "filePath": "app/faq/delete.$faqId/route.ts",
-      "parent": "/app/faq"
-    },
-    "/app/faq/ged/$faqId": {
-      "filePath": "app/faq/ged.$faqId/route.ts",
-      "parent": "/app/faq",
-      "children": [
-        "/app/faq/ged/$faqId/create-directory",
-        "/app/faq/ged/$faqId/import-files",
-        "/app/faq/ged/$faqId/delete/$itemRelativePath",
-        "/app/faq/ged/$faqId/rename/$itemRelativePath"
-      ]
-    },
-    "/app/faq/send-by-email/$faqId": {
-      "filePath": "app/faq/send-by-email.$faqId/route.ts",
-      "parent": "/app/faq"
-    },
-    "/app/faq/update/$faqId": {
-      "filePath": "app/faq/update.$faqId/route.ts",
-      "parent": "/app/faq"
-    },
-    "/app/products/serial-numbers/create": {
-      "filePath": "app/products/serial-numbers/create/route.ts",
-      "parent": "/app/products/serial-numbers"
-    },
-    "/app/products_/$productId/informations": {
-      "filePath": "app/products_.$productId/informations/route.ts",
-      "parent": "/app/products_/$productId",
-      "children": [
-        "/app/products_/$productId/informations/create-ged-directory",
-        "/app/products_/$productId/informations/create-lifesheet-comment",
-        "/app/products_/$productId/informations/delete-ged-object",
-        "/app/products_/$productId/informations/import-ged-files",
-        "/app/products_/$productId/informations/rename-ged-object",
-        "/app/products_/$productId/informations/lifesheet-email/$lifesheetId",
-        "/app/products_/$productId/informations/task-email/$taskId",
-        "/app/products_/$productId/informations/unlink-task/$taskId"
-      ]
-    },
-    "/app/products_/$productId/manage": {
-      "filePath": "app/products_.$productId/manage/route.ts",
-      "parent": "/app/products_/$productId",
-      "children": [
-        "/app/products_/$productId/manage/add-associated-product",
-        "/app/products_/$productId/manage/add-nomenclature-detail",
-        "/app/products_/$productId/manage/add-specification",
-        "/app/products_/$productId/manage/create-stock",
-        "/app/products_/$productId/manage/create-version",
-        "/app/products_/$productId/manage/delete-nomenclature-detail/$nomenclatureDetailId",
-        "/app/products_/$productId/manage/delete-specification/$specificationId",
-        "/app/products_/$productId/manage/delete-stock/$stockId",
-        "/app/products_/$productId/manage/delete-version/$versionId",
-        "/app/products_/$productId/manage/remove-associated-product/$associatedProductId",
-        "/app/products_/$productId/manage/stock-history/$stockId",
-        "/app/products_/$productId/manage/update-nomenclature-detail/$nomenclatureDetailId",
-        "/app/products_/$productId/manage/update-specification/$specificationId",
-        "/app/products_/$productId/manage/update-stock/$stockId",
-        "/app/products_/$productId/manage/update-version/$versionId"
-      ]
-    },
-    "/app/tools/credit/details": {
-      "filePath": "app/tools/credit/details/route.ts",
-      "parent": "/app/tools/credit"
-    },
-    "/app/tools/credit/show": {
-      "filePath": "app/tools/credit/show/route.ts",
-      "parent": "/app/tools/credit"
-    },
-    "/app/tools/ddns/create": {
-      "filePath": "app/tools/ddns/create/route.ts",
-      "parent": "/app/tools/ddns"
-    },
-    "/app/tools/departments/create": {
-      "filePath": "app/tools/departments/create/route.ts",
-      "parent": "/app/tools/departments"
-    },
-    "/app/tools/emails/$emailId": {
-      "filePath": "app/tools/emails/$emailId/route.ts",
-      "parent": "/app/tools/emails",
-      "children": [
-        "/app/tools/emails/$emailId/reply"
-      ]
-    },
-    "/app/tools/external-links/create": {
-      "filePath": "app/tools/external-links/create/route.ts",
-      "parent": "/app/tools/external-links"
-    },
-    "/app/tools/formations/create": {
-      "filePath": "app/tools/formations/create/route.ts",
-      "parent": "/app/tools/formations",
-      "children": [
-        "/app/tools/formations/create/add-detail",
-        "/app/tools/formations/create/details"
-      ]
-    },
-    "/app/tools/mails/create": {
-      "filePath": "app/tools/mails/create/route.ts",
-      "parent": "/app/tools/mails"
-    },
-    "/app/tools/menu/create-enterprise": {
-      "filePath": "app/tools/menu/create-enterprise/route.ts",
-      "parent": "/app/tools/menu"
-    },
-    "/app/tools/menu/create-product": {
-      "filePath": "app/tools/menu/create-product/route.ts",
-      "parent": "/app/tools/menu"
-    },
-    "/app/tools/news/create": {
-      "filePath": "app/tools/news/create/route.ts",
-      "parent": "/app/tools/news"
-    },
-    "/app/tools/predefined-messages/create": {
-      "filePath": "app/tools/predefined-messages/create/route.ts",
-      "parent": "/app/tools/predefined-messages"
-    },
-    "/app/tools/predefined-texts/create": {
-      "filePath": "app/tools/predefined-texts/create/route.ts",
-      "parent": "/app/tools/predefined-texts"
-    },
-    "/app/tools/product-filters/create": {
-      "filePath": "app/tools/product-filters/create/route.ts",
-      "parent": "/app/tools/product-filters"
-    },
-    "/app/tools/product-inventory/validate-quantities": {
-      "filePath": "app/tools/product-inventory/validate-quantities/route.ts",
-      "parent": "/app/tools/product-inventory"
-    },
-    "/app/tools/product-shelves/create": {
-      "filePath": "app/tools/product-shelves/create/route.ts",
-      "parent": "/app/tools/product-shelves"
-    },
-    "/app/tools/scheduler/create": {
-      "filePath": "app/tools/scheduler/create/route.ts",
-      "parent": "/app/tools/scheduler"
-    },
-    "/app/tools/vva/create": {
-      "filePath": "app/tools/vva/create/route.ts",
-      "parent": "/app/tools/vva"
-    },
-    "/app/products_/$productId/": {
-      "filePath": "app/products_.$productId/index.ts",
-      "parent": "/app/products_/$productId"
-    },
-    "/app/businesses-rma_/business/$businessId/arc": {
-      "filePath": "app/businesses-rma_/business.$businessId/arc/route.ts",
-      "parent": "/app/businesses-rma_/business/$businessId",
-      "children": [
-        "/app/businesses-rma_/business/$businessId/arc/pdf",
-        "/app/businesses-rma_/business/$businessId/arc/update-shipping-price",
-        "/app/businesses-rma_/business/$businessId/arc/delete-detail/$detailId",
-        "/app/businesses-rma_/business/$businessId/arc/update-detail/$detailId"
-      ]
-    },
-    "/app/businesses-rma_/business/$businessId/bill": {
-      "filePath": "app/businesses-rma_/business.$businessId/bill/route.ts",
-      "parent": "/app/businesses-rma_/business/$businessId",
-      "children": [
-        "/app/businesses-rma_/business/$businessId/bill/credits",
-        "/app/businesses-rma_/business/$businessId/bill/send-by-email"
-      ]
-    },
-    "/app/businesses-rma_/business/$businessId/bl": {
-      "filePath": "app/businesses-rma_/business.$businessId/bl/route.ts",
-      "parent": "/app/businesses-rma_/business/$businessId",
-      "children": [
-        "/app/businesses-rma_/business/$businessId/bl/send-by-email",
-        "/app/businesses-rma_/business/$businessId/bl/update"
-      ]
-    },
-    "/app/businesses-rma_/business/$businessId/bp": {
-      "filePath": "app/businesses-rma_/business.$businessId/bp/route.ts",
-      "parent": "/app/businesses-rma_/business/$businessId",
-      "children": [
-        "/app/businesses-rma_/business/$businessId/bp/travel-voucher",
-        "/app/businesses-rma_/business/$businessId/bp/add-serial/$detailId",
-        "/app/businesses-rma_/business/$businessId/bp/create-detail-rma/$detailId",
-        "/app/businesses-rma_/business/$businessId/bp/create-serial-rma/$serialId",
-        "/app/businesses-rma_/business/$businessId/bp/delete-detail/$detailId",
-        "/app/businesses-rma_/business/$businessId/bp/delete-serial/$serialId",
-        "/app/businesses-rma_/business/$businessId/bp/update-detail/$detailId"
-      ]
-    },
-    "/app/businesses-rma_/business/$businessId/dashboard": {
-      "filePath": "app/businesses-rma_/business.$businessId/dashboard/route.ts",
-      "parent": "/app/businesses-rma_/business/$businessId",
-      "children": [
-        "/app/businesses-rma_/business/$businessId/dashboard/address-book",
-        "/app/businesses-rma_/business/$businessId/dashboard/create-ged-directory",
-        "/app/businesses-rma_/business/$businessId/dashboard/create-lifesheet",
-        "/app/businesses-rma_/business/$businessId/dashboard/create-link",
-        "/app/businesses-rma_/business/$businessId/dashboard/delete",
-        "/app/businesses-rma_/business/$businessId/dashboard/email-history",
-        "/app/businesses-rma_/business/$businessId/dashboard/import-ged-files",
-        "/app/businesses-rma_/business/$businessId/dashboard/send-email",
-        "/app/businesses-rma_/business/$businessId/dashboard/update-billing-address",
-        "/app/businesses-rma_/business/$businessId/dashboard/update-representative",
-        "/app/businesses-rma_/business/$businessId/dashboard/update-responsible",
-        "/app/businesses-rma_/business/$businessId/dashboard/confirm-quotation-import/$otherBusinessId",
-        "/app/businesses-rma_/business/$businessId/dashboard/delete-ged-object/$objectRelativePath",
-        "/app/businesses-rma_/business/$businessId/dashboard/delete-link/$associatedId",
-        "/app/businesses-rma_/business/$businessId/dashboard/lifesheet-email/$lifesheetId",
-        "/app/businesses-rma_/business/$businessId/dashboard/rename-ged-object/$objectRelativePath",
-        "/app/businesses-rma_/business/$businessId/dashboard/task-email/$taskId",
-        "/app/businesses-rma_/business/$businessId/dashboard/unlink-task/$taskId"
-      ]
-    },
-    "/app/businesses-rma_/business/$businessId/quotation": {
-      "filePath": "app/businesses-rma_/business.$businessId/quotation/route.ts",
-      "parent": "/app/businesses-rma_/business/$businessId",
-      "children": [
-        "/app/businesses-rma_/business/$businessId/quotation/commercial-notice",
-        "/app/businesses-rma_/business/$businessId/quotation/pdf",
-        "/app/businesses-rma_/business/$businessId/quotation/update-shipping-price",
-        "/app/businesses-rma_/business/$businessId/quotation/create-associated-detail/$detailId",
-        "/app/businesses-rma_/business/$businessId/quotation/create-detail/$subquotationId",
-        "/app/businesses-rma_/business/$businessId/quotation/delete-detail/$detailId",
-        "/app/businesses-rma_/business/$businessId/quotation/delete-subquotation/$subquotationId",
-        "/app/businesses-rma_/business/$businessId/quotation/update-detail/$detailId",
-        "/app/businesses-rma_/business/$businessId/quotation/update-subquotation/$subquotationId"
-      ]
-    },
-    "/app/businesses-rma_/business/$businessId_/study": {
-      "filePath": "app/businesses-rma_/business.$businessId_/study/route.ts",
-      "parent": "/app",
-      "children": [
-        "/app/businesses-rma_/business/$businessId_/study/automatic",
-        "/app/businesses-rma_/business/$businessId_/study/expert",
-        "/app/businesses-rma_/business/$businessId_/study/"
-      ]
-    },
-    "/app/businesses-rma_/rma/$rmaId/delivery": {
-      "filePath": "app/businesses-rma_/rma.$rmaId/delivery/route.ts",
-      "parent": "/app/businesses-rma_/rma/$rmaId",
-      "children": [
-        "/app/businesses-rma_/rma/$rmaId/delivery/create-detail",
-        "/app/businesses-rma_/rma/$rmaId/delivery/pdf",
-        "/app/businesses-rma_/rma/$rmaId/delivery/travel-voucher",
-        "/app/businesses-rma_/rma/$rmaId/delivery/delete-detail/$detailId",
-        "/app/businesses-rma_/rma/$rmaId/delivery/update-detail/$detailId"
-      ]
-    },
-    "/app/businesses-rma_/rma/$rmaId/reception": {
-      "filePath": "app/businesses-rma_/rma.$rmaId/reception/route.ts",
-      "parent": "/app/businesses-rma_/rma/$rmaId",
-      "children": [
-        "/app/businesses-rma_/rma/$rmaId/reception/create-detail",
-        "/app/businesses-rma_/rma/$rmaId/reception/pdf",
-        "/app/businesses-rma_/rma/$rmaId/reception/delete-detail/$detailId",
-        "/app/businesses-rma_/rma/$rmaId/reception/update-detail/$detailId"
-      ]
-    },
-    "/app/businesses-rma_/rma/$rmaId/support": {
-      "filePath": "app/businesses-rma_/rma.$rmaId/support/route.ts",
-      "parent": "/app/businesses-rma_/rma/$rmaId",
-      "children": [
-        "/app/businesses-rma_/rma/$rmaId/support/create-detail",
-        "/app/businesses-rma_/rma/$rmaId/support/create-ged-directory",
-        "/app/businesses-rma_/rma/$rmaId/support/create-lifesheet",
-        "/app/businesses-rma_/rma/$rmaId/support/create-link",
-        "/app/businesses-rma_/rma/$rmaId/support/import-ged-files",
-        "/app/businesses-rma_/rma/$rmaId/support/pdf",
-        "/app/businesses-rma_/rma/$rmaId/support/delete-detail/$detailId",
-        "/app/businesses-rma_/rma/$rmaId/support/delete-ged-object/$relativePath",
-        "/app/businesses-rma_/rma/$rmaId/support/delete-link/$associatedId",
-        "/app/businesses-rma_/rma/$rmaId/support/lifesheet-email/$lifesheetId",
-        "/app/businesses-rma_/rma/$rmaId/support/rename-ged-object/$objectRelativePath",
-        "/app/businesses-rma_/rma/$rmaId/support/task-email/$taskId",
-        "/app/businesses-rma_/rma/$rmaId/support/unlink-task/$taskId",
-        "/app/businesses-rma_/rma/$rmaId/support/update-detail/$detailId"
-      ]
-    },
-    "/app/dashboard/task-email/$taskId/reply": {
-      "filePath": "app/dashboard/task-email.$taskId/reply/route.ts",
-      "parent": "/app/dashboard/task-email/$taskId"
-    },
-    "/app/enterprises_/$enterpriseId/address-book/create": {
-      "filePath": "app/enterprises_.$enterpriseId/address-book/create/route.ts",
-      "parent": "/app/enterprises_/$enterpriseId/address-book"
-    },
-    "/app/enterprises_/$enterpriseId/address-book/import": {
-      "filePath": "app/enterprises_.$enterpriseId/address-book/import/route.ts",
-      "parent": "/app/enterprises_/$enterpriseId/address-book"
-    },
-    "/app/enterprises_/$enterpriseId/create-contact-business/$contactId": {
-      "filePath": "app/enterprises_.$enterpriseId/create-contact-business.$contactId/route.ts",
-      "parent": "/app/enterprises_/$enterpriseId"
-    },
-    "/app/enterprises_/$enterpriseId/delete-contact/$contactId": {
-      "filePath": "app/enterprises_.$enterpriseId/delete-contact.$contactId/route.ts",
-      "parent": "/app/enterprises_/$enterpriseId"
-    },
-    "/app/enterprises_/$enterpriseId/delete-ged-object/$objectRelativePath": {
-      "filePath": "app/enterprises_.$enterpriseId/delete-ged-object.$objectRelativePath/route.ts",
-      "parent": "/app/enterprises_/$enterpriseId"
-    },
-    "/app/enterprises_/$enterpriseId/lifesheet-email/$lifesheetId": {
-      "filePath": "app/enterprises_.$enterpriseId/lifesheet-email.$lifesheetId/route.ts",
-      "parent": "/app/enterprises_/$enterpriseId"
-    },
-    "/app/enterprises_/$enterpriseId/rename-ged-object/$objectRelativePath": {
-      "filePath": "app/enterprises_.$enterpriseId/rename-ged-object.$objectRelativePath/route.ts",
-      "parent": "/app/enterprises_/$enterpriseId"
-    },
-    "/app/enterprises_/$enterpriseId/send-email-to-contact/$contactId": {
-      "filePath": "app/enterprises_.$enterpriseId/send-email-to-contact.$contactId/route.ts",
-      "parent": "/app/enterprises_/$enterpriseId"
-    },
-    "/app/enterprises_/$enterpriseId/task-email/$taskId": {
-      "filePath": "app/enterprises_.$enterpriseId/task-email.$taskId/route.ts",
-      "parent": "/app/enterprises_/$enterpriseId",
-      "children": [
-        "/app/enterprises_/$enterpriseId/task-email/$taskId/reply"
-      ]
-    },
-    "/app/enterprises_/$enterpriseId/unlink-task/$taskId": {
-      "filePath": "app/enterprises_.$enterpriseId/unlink-task.$taskId/route.ts",
-      "parent": "/app/enterprises_/$enterpriseId"
-    },
-    "/app/enterprises_/$enterpriseId/unrelate-business-rma/$businessRmaId": {
-      "filePath": "app/enterprises_.$enterpriseId/unrelate-business-rma.$businessRmaId/route.ts",
-      "parent": "/app/enterprises_/$enterpriseId"
-    },
-    "/app/enterprises_/$enterpriseId/update-contact-password/$contactId": {
-      "filePath": "app/enterprises_.$enterpriseId/update-contact-password.$contactId/route.ts",
-      "parent": "/app/enterprises_/$enterpriseId"
-    },
-    "/app/enterprises_/$enterpriseId/update-contact/$contactId": {
-      "filePath": "app/enterprises_.$enterpriseId/update-contact.$contactId/route.ts",
-      "parent": "/app/enterprises_/$enterpriseId"
-    },
-    "/app/faq/ged/$faqId/create-directory": {
-      "filePath": "app/faq/ged.$faqId/create-directory/route.ts",
-      "parent": "/app/faq/ged/$faqId"
-    },
-    "/app/faq/ged/$faqId/import-files": {
-      "filePath": "app/faq/ged.$faqId/import-files/route.ts",
-      "parent": "/app/faq/ged/$faqId"
-    },
-    "/app/products/serial-numbers/create-rma/$serialNumberId": {
-      "filePath": "app/products/serial-numbers/create-rma.$serialNumberId/route.ts",
-      "parent": "/app/products/serial-numbers"
-    },
-    "/app/products/serial-numbers/delete/$serialNumberId": {
-      "filePath": "app/products/serial-numbers/delete.$serialNumberId/route.ts",
-      "parent": "/app/products/serial-numbers"
-    },
-    "/app/products/serial-numbers/remove-from-business/$serialNumberId": {
-      "filePath": "app/products/serial-numbers/remove-from-business.$serialNumberId/route.ts",
-      "parent": "/app/products/serial-numbers"
-    },
-    "/app/products/serial-numbers/update/$serialNumberId": {
-      "filePath": "app/products/serial-numbers/update.$serialNumberId/route.ts",
-      "parent": "/app/products/serial-numbers"
-    },
-    "/app/products_/$productId/informations/create-ged-directory": {
-      "filePath": "app/products_.$productId/informations/create-ged-directory/route.ts",
-      "parent": "/app/products_/$productId/informations"
-    },
-    "/app/products_/$productId/informations/create-lifesheet-comment": {
-      "filePath": "app/products_.$productId/informations/create-lifesheet-comment/route.ts",
-      "parent": "/app/products_/$productId/informations"
-    },
-    "/app/products_/$productId/informations/delete-ged-object": {
-      "filePath": "app/products_.$productId/informations/delete-ged-object/route.ts",
-      "parent": "/app/products_/$productId/informations"
-    },
-    "/app/products_/$productId/informations/import-ged-files": {
-      "filePath": "app/products_.$productId/informations/import-ged-files/route.ts",
-      "parent": "/app/products_/$productId/informations"
-    },
-    "/app/products_/$productId/informations/rename-ged-object": {
-      "filePath": "app/products_.$productId/informations/rename-ged-object/route.ts",
-      "parent": "/app/products_/$productId/informations"
-    },
-    "/app/products_/$productId/manage/add-associated-product": {
-      "filePath": "app/products_.$productId/manage/add-associated-product/route.ts",
-      "parent": "/app/products_/$productId/manage"
-    },
-    "/app/products_/$productId/manage/add-nomenclature-detail": {
-      "filePath": "app/products_.$productId/manage/add-nomenclature-detail/route.ts",
-      "parent": "/app/products_/$productId/manage"
-    },
-    "/app/products_/$productId/manage/add-specification": {
-      "filePath": "app/products_.$productId/manage/add-specification/route.ts",
-      "parent": "/app/products_/$productId/manage",
-      "children": [
-        "/app/products_/$productId/manage/add-specification/$filterId"
-      ]
-    },
-    "/app/products_/$productId/manage/create-stock": {
-      "filePath": "app/products_.$productId/manage/create-stock/route.ts",
-      "parent": "/app/products_/$productId/manage"
-    },
-    "/app/products_/$productId/manage/create-version": {
-      "filePath": "app/products_.$productId/manage/create-version/route.ts",
-      "parent": "/app/products_/$productId/manage"
-    },
-    "/app/tools/ddns/delete/$ddnsId": {
-      "filePath": "app/tools/ddns/delete.$ddnsId/route.ts",
-      "parent": "/app/tools/ddns"
-    },
-    "/app/tools/departments/delete/$departmentId": {
-      "filePath": "app/tools/departments/delete.$departmentId/route.ts",
-      "parent": "/app/tools/departments"
-    },
-    "/app/tools/departments/update/$departmentId": {
-      "filePath": "app/tools/departments/update.$departmentId/route.ts",
-      "parent": "/app/tools/departments"
-    },
-    "/app/tools/emails/$emailId/reply": {
-      "filePath": "app/tools/emails/$emailId/reply/route.ts",
-      "parent": "/app/tools/emails/$emailId"
-    },
-    "/app/tools/external-links/archive/$externalLinkId": {
-      "filePath": "app/tools/external-links/archive.$externalLinkId/route.ts",
-      "parent": "/app/tools/external-links"
-    },
-    "/app/tools/external-links/delete/$externalLinkId": {
-      "filePath": "app/tools/external-links/delete.$externalLinkId/route.ts",
-      "parent": "/app/tools/external-links"
-    },
-    "/app/tools/external-links/update/$externalLinkId": {
-      "filePath": "app/tools/external-links/update.$externalLinkId/route.ts",
-      "parent": "/app/tools/external-links"
-    },
-    "/app/tools/formations/create/add-detail": {
-      "filePath": "app/tools/formations/create/add-detail/route.ts",
-      "parent": "/app/tools/formations/create"
-    },
-    "/app/tools/formations/create/details": {
-      "filePath": "app/tools/formations/create/details/route.ts",
-      "parent": "/app/tools/formations/create"
-    },
-    "/app/tools/formations/delete/$formationId": {
-      "filePath": "app/tools/formations/delete.$formationId/route.ts",
-      "parent": "/app/tools/formations"
-    },
-    "/app/tools/formations/subscribers/$formationDetailId": {
-      "filePath": "app/tools/formations/subscribers.$formationDetailId/route.ts",
-      "parent": "/app/tools/formations",
-      "children": [
-        "/app/tools/formations/subscribers/$formationDetailId/create",
-        "/app/tools/formations/subscribers/$formationDetailId/delete/$subscriptionId",
-        "/app/tools/formations/subscribers/$formationDetailId/send-email/$subscriptionId"
-      ]
-    },
-    "/app/tools/formations/update/$formationId": {
-      "filePath": "app/tools/formations/update.$formationId/route.ts",
-      "parent": "/app/tools/formations",
-      "children": [
-        "/app/tools/formations/update/$formationId/add-detail",
-        "/app/tools/formations/update/$formationId/details"
-      ]
-    },
-    "/app/tools/mails/delete/$mailId": {
-      "filePath": "app/tools/mails/delete.$mailId/route.ts",
-      "parent": "/app/tools/mails"
-    },
-    "/app/tools/mails/show/$mailId": {
-      "filePath": "app/tools/mails/show.$mailId/route.ts",
-      "parent": "/app/tools/mails"
-    },
-    "/app/tools/mails/update/$mailId": {
-      "filePath": "app/tools/mails/update.$mailId/route.ts",
-      "parent": "/app/tools/mails"
-    },
-    "/app/tools/news/delete/$newsId": {
-      "filePath": "app/tools/news/delete.$newsId/route.ts",
-      "parent": "/app/tools/news"
-    },
-    "/app/tools/news/update/$newsId": {
-      "filePath": "app/tools/news/update.$newsId/route.ts",
-      "parent": "/app/tools/news"
-    },
-    "/app/tools/predefined-messages/delete/$predefinedMessageId": {
-      "filePath": "app/tools/predefined-messages/delete.$predefinedMessageId/route.ts",
-      "parent": "/app/tools/predefined-messages"
-    },
-    "/app/tools/predefined-messages/update/$predefinedMessageId": {
-      "filePath": "app/tools/predefined-messages/update.$predefinedMessageId/route.ts",
-      "parent": "/app/tools/predefined-messages"
-    },
-    "/app/tools/predefined-texts/delete/$predefinedTextId": {
-      "filePath": "app/tools/predefined-texts/delete.$predefinedTextId/route.ts",
-      "parent": "/app/tools/predefined-texts"
-    },
-    "/app/tools/predefined-texts/update/$predefinedTextId": {
-      "filePath": "app/tools/predefined-texts/update.$predefinedTextId/route.ts",
-      "parent": "/app/tools/predefined-texts"
-    },
-    "/app/tools/product-filters/delete/$productFilterId": {
-      "filePath": "app/tools/product-filters/delete.$productFilterId/route.ts",
-      "parent": "/app/tools/product-filters"
-    },
-    "/app/tools/product-filters/update/$productFilterId": {
-      "filePath": "app/tools/product-filters/update.$productFilterId/route.ts",
-      "parent": "/app/tools/product-filters"
-    },
-    "/app/tools/product-inventory/update/$stockId": {
-      "filePath": "app/tools/product-inventory/update.$stockId/route.ts",
-      "parent": "/app/tools/product-inventory"
-    },
-    "/app/tools/product-shelves/delete/$productShelfId": {
-      "filePath": "app/tools/product-shelves/delete.$productShelfId/route.ts",
-      "parent": "/app/tools/product-shelves"
-    },
-    "/app/tools/scheduler/details/$rdvId": {
-      "filePath": "app/tools/scheduler/details.$rdvId/route.ts",
-      "parent": "/app/tools/scheduler",
-      "children": [
-        "/app/tools/scheduler/details/$rdvId/delete",
-        "/app/tools/scheduler/details/$rdvId/update"
-      ]
-    },
-    "/app/tools/vva/delete/$vvaId": {
-      "filePath": "app/tools/vva/delete.$vvaId/route.ts",
-      "parent": "/app/tools/vva"
-    },
-    "/app/businesses-rma_/business/$businessId/": {
-      "filePath": "app/businesses-rma_/business.$businessId/index.ts",
-      "parent": "/app/businesses-rma_/business/$businessId"
-    },
-    "/app/businesses-rma_/rma/$rmaId/": {
-      "filePath": "app/businesses-rma_/rma.$rmaId/index.ts",
-      "parent": "/app/businesses-rma_/rma/$rmaId"
-    },
-    "/app/businesses-rma_/business/$businessId/arc/pdf": {
-      "filePath": "app/businesses-rma_/business.$businessId/arc/pdf/route.ts",
-      "parent": "/app/businesses-rma_/business/$businessId/arc",
-      "children": [
-        "/app/businesses-rma_/business/$businessId/arc/pdf/send-by-email"
-      ]
-    },
-    "/app/businesses-rma_/business/$businessId/arc/update-shipping-price": {
-      "filePath": "app/businesses-rma_/business.$businessId/arc/update-shipping-price/route.ts",
-      "parent": "/app/businesses-rma_/business/$businessId/arc"
-    },
-    "/app/businesses-rma_/business/$businessId/bill/credits": {
-      "filePath": "app/businesses-rma_/business.$businessId/bill/credits/route.ts",
-      "parent": "/app/businesses-rma_/business/$businessId/bill",
-      "children": [
-        "/app/businesses-rma_/business/$businessId/bill/credits/send-by-email"
-      ]
-    },
-    "/app/businesses-rma_/business/$businessId/bill/send-by-email": {
-      "filePath": "app/businesses-rma_/business.$businessId/bill/send-by-email/route.tsx",
-      "parent": "/app/businesses-rma_/business/$businessId/bill"
-    },
-    "/app/businesses-rma_/business/$businessId/bl/send-by-email": {
-      "filePath": "app/businesses-rma_/business.$businessId/bl/send-by-email/route.tsx",
-      "parent": "/app/businesses-rma_/business/$businessId/bl"
-    },
-    "/app/businesses-rma_/business/$businessId/bl/update": {
-      "filePath": "app/businesses-rma_/business.$businessId/bl/update/route.ts",
-      "parent": "/app/businesses-rma_/business/$businessId/bl",
-      "children": [
-        "/app/businesses-rma_/business/$businessId/bl/update/new"
-      ]
-    },
-    "/app/businesses-rma_/business/$businessId/bp/travel-voucher": {
-      "filePath": "app/businesses-rma_/business.$businessId/bp/travel-voucher/route.ts",
-      "parent": "/app/businesses-rma_/business/$businessId/bp"
-    },
-    "/app/businesses-rma_/business/$businessId/dashboard/address-book": {
-      "filePath": "app/businesses-rma_/business.$businessId/dashboard/address-book/route.ts",
-      "parent": "/app/businesses-rma_/business/$businessId/dashboard",
-      "children": [
-        "/app/businesses-rma_/business/$businessId/dashboard/address-book/create",
-        "/app/businesses-rma_/business/$businessId/dashboard/address-book/delete/$addressId",
-        "/app/businesses-rma_/business/$businessId/dashboard/address-book/update/$addressId"
-      ]
-    },
-    "/app/businesses-rma_/business/$businessId/dashboard/create-ged-directory": {
-      "filePath": "app/businesses-rma_/business.$businessId/dashboard/create-ged-directory/route.ts",
-      "parent": "/app/businesses-rma_/business/$businessId/dashboard"
-    },
-    "/app/businesses-rma_/business/$businessId/dashboard/create-lifesheet": {
-      "filePath": "app/businesses-rma_/business.$businessId/dashboard/create-lifesheet/route.ts",
-      "parent": "/app/businesses-rma_/business/$businessId/dashboard"
-    },
-    "/app/businesses-rma_/business/$businessId/dashboard/create-link": {
-      "filePath": "app/businesses-rma_/business.$businessId/dashboard/create-link/route.ts",
-      "parent": "/app/businesses-rma_/business/$businessId/dashboard"
-    },
-    "/app/businesses-rma_/business/$businessId/dashboard/delete": {
-      "filePath": "app/businesses-rma_/business.$businessId/dashboard/delete/route.ts",
-      "parent": "/app/businesses-rma_/business/$businessId/dashboard"
-    },
-    "/app/businesses-rma_/business/$businessId/dashboard/email-history": {
-      "filePath": "app/businesses-rma_/business.$businessId/dashboard/email-history/route.ts",
-      "parent": "/app/businesses-rma_/business/$businessId/dashboard",
-      "children": [
-        "/app/businesses-rma_/business/$businessId/dashboard/email-history/$emailId"
-      ]
-    },
-    "/app/businesses-rma_/business/$businessId/dashboard/import-ged-files": {
-      "filePath": "app/businesses-rma_/business.$businessId/dashboard/import-ged-files/route.ts",
-      "parent": "/app/businesses-rma_/business/$businessId/dashboard"
-    },
-    "/app/businesses-rma_/business/$businessId/dashboard/send-email": {
-      "filePath": "app/businesses-rma_/business.$businessId/dashboard/send-email/route.ts",
-      "parent": "/app/businesses-rma_/business/$businessId/dashboard"
-    },
-    "/app/businesses-rma_/business/$businessId/dashboard/update-billing-address": {
-      "filePath": "app/businesses-rma_/business.$businessId/dashboard/update-billing-address/route.ts",
-      "parent": "/app/businesses-rma_/business/$businessId/dashboard"
-    },
-    "/app/businesses-rma_/business/$businessId/dashboard/update-representative": {
-      "filePath": "app/businesses-rma_/business.$businessId/dashboard/update-representative/route.ts",
-      "parent": "/app/businesses-rma_/business/$businessId/dashboard"
-    },
-    "/app/businesses-rma_/business/$businessId/dashboard/update-responsible": {
-      "filePath": "app/businesses-rma_/business.$businessId/dashboard/update-responsible/route.ts",
-      "parent": "/app/businesses-rma_/business/$businessId/dashboard"
-    },
-    "/app/businesses-rma_/business/$businessId/quotation/commercial-notice": {
-      "filePath": "app/businesses-rma_/business.$businessId/quotation/commercial-notice/route.ts",
-      "parent": "/app/businesses-rma_/business/$businessId/quotation",
-      "children": [
-        "/app/businesses-rma_/business/$businessId/quotation/commercial-notice/send-by-email"
-      ]
-    },
-    "/app/businesses-rma_/business/$businessId/quotation/pdf": {
-      "filePath": "app/businesses-rma_/business.$businessId/quotation/pdf/route.ts",
-      "parent": "/app/businesses-rma_/business/$businessId/quotation",
-      "children": [
-        "/app/businesses-rma_/business/$businessId/quotation/pdf/send-by-email"
-      ]
-    },
-    "/app/businesses-rma_/business/$businessId/quotation/update-shipping-price": {
-      "filePath": "app/businesses-rma_/business.$businessId/quotation/update-shipping-price/route.ts",
-      "parent": "/app/businesses-rma_/business/$businessId/quotation"
-    },
-    "/app/businesses-rma_/business/$businessId_/assistance/$assistanceId": {
-      "filePath": "app/businesses-rma_/business.$businessId_/assistance.$assistanceId/route.ts",
-      "parent": "/app",
-      "children": [
-        "/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/create-faq",
-        "/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/create-ged-directory",
-        "/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/create-lifesheet",
-        "/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/create-link",
-        "/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/delete",
-        "/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/edit-cumulated-time",
-        "/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/edit-no-billed-time",
-        "/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/edit-subtitle",
-        "/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/import-ged-files",
-        "/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/pdf",
-        "/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/delete-ged-object/$objectRelativePath",
-        "/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/delete-link/$associatedId",
-        "/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/lifesheet-email/$lifesheetId",
-        "/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/rename-ged-object/$objectRelativePath"
-      ]
-    },
-    "/app/businesses-rma_/business/$businessId_/study/automatic": {
-      "filePath": "app/businesses-rma_/business.$businessId_/study/automatic/route.ts",
-      "parent": "/app/businesses-rma_/business/$businessId_/study"
-    },
-    "/app/businesses-rma_/business/$businessId_/study/expert": {
-      "filePath": "app/businesses-rma_/business.$businessId_/study/expert/route.ts",
-      "parent": "/app/businesses-rma_/business/$businessId_/study"
-    },
-    "/app/businesses-rma_/rma/$rmaId/delivery/create-detail": {
-      "filePath": "app/businesses-rma_/rma.$rmaId/delivery/create-detail/route.ts",
-      "parent": "/app/businesses-rma_/rma/$rmaId/delivery"
-    },
-    "/app/businesses-rma_/rma/$rmaId/delivery/pdf": {
-      "filePath": "app/businesses-rma_/rma.$rmaId/delivery/pdf/route.ts",
-      "parent": "/app/businesses-rma_/rma/$rmaId/delivery",
-      "children": [
-        "/app/businesses-rma_/rma/$rmaId/delivery/pdf/send-by-email"
-      ]
-    },
-    "/app/businesses-rma_/rma/$rmaId/delivery/travel-voucher": {
-      "filePath": "app/businesses-rma_/rma.$rmaId/delivery/travel-voucher/route.ts",
-      "parent": "/app/businesses-rma_/rma/$rmaId/delivery"
-    },
-    "/app/businesses-rma_/rma/$rmaId/reception/create-detail": {
-      "filePath": "app/businesses-rma_/rma.$rmaId/reception/create-detail/route.ts",
-      "parent": "/app/businesses-rma_/rma/$rmaId/reception"
-    },
-    "/app/businesses-rma_/rma/$rmaId/reception/pdf": {
-      "filePath": "app/businesses-rma_/rma.$rmaId/reception/pdf/route.ts",
-      "parent": "/app/businesses-rma_/rma/$rmaId/reception",
-      "children": [
-        "/app/businesses-rma_/rma/$rmaId/reception/pdf/send-by-email"
-      ]
-    },
-    "/app/businesses-rma_/rma/$rmaId/support/create-detail": {
-      "filePath": "app/businesses-rma_/rma.$rmaId/support/create-detail/route.ts",
-      "parent": "/app/businesses-rma_/rma/$rmaId/support"
-    },
-    "/app/businesses-rma_/rma/$rmaId/support/create-ged-directory": {
-      "filePath": "app/businesses-rma_/rma.$rmaId/support/create-ged-directory/route.ts",
-      "parent": "/app/businesses-rma_/rma/$rmaId/support"
-    },
-    "/app/businesses-rma_/rma/$rmaId/support/create-lifesheet": {
-      "filePath": "app/businesses-rma_/rma.$rmaId/support/create-lifesheet/route.ts",
-      "parent": "/app/businesses-rma_/rma/$rmaId/support"
-    },
-    "/app/businesses-rma_/rma/$rmaId/support/create-link": {
-      "filePath": "app/businesses-rma_/rma.$rmaId/support/create-link/route.ts",
-      "parent": "/app/businesses-rma_/rma/$rmaId/support"
-    },
-    "/app/businesses-rma_/rma/$rmaId/support/import-ged-files": {
-      "filePath": "app/businesses-rma_/rma.$rmaId/support/import-ged-files/route.ts",
-      "parent": "/app/businesses-rma_/rma/$rmaId/support"
-    },
-    "/app/businesses-rma_/rma/$rmaId/support/pdf": {
-      "filePath": "app/businesses-rma_/rma.$rmaId/support/pdf/route.ts",
-      "parent": "/app/businesses-rma_/rma/$rmaId/support",
-      "children": [
-        "/app/businesses-rma_/rma/$rmaId/support/pdf/send-by-email"
-      ]
-    },
-    "/app/enterprises_/$enterpriseId/address-book/delete/$addressId": {
-      "filePath": "app/enterprises_.$enterpriseId/address-book/delete.$addressId/route.ts",
-      "parent": "/app/enterprises_/$enterpriseId/address-book"
-    },
-    "/app/enterprises_/$enterpriseId/address-book/update/$addressId": {
-      "filePath": "app/enterprises_.$enterpriseId/address-book/update.$addressId/route.ts",
-      "parent": "/app/enterprises_/$enterpriseId/address-book"
-    },
-    "/app/enterprises_/$enterpriseId/email-history/email/$emailId": {
-      "filePath": "app/enterprises_.$enterpriseId/email-history/email.$emailId/route.ts",
-      "parent": "/app/enterprises_/$enterpriseId/email-history",
-      "children": [
-        "/app/enterprises_/$enterpriseId/email-history/email/$emailId/reply"
-      ]
-    },
-    "/app/enterprises_/$enterpriseId/task-email/$taskId/reply": {
-      "filePath": "app/enterprises_.$enterpriseId/task-email.$taskId/reply/route.ts",
-      "parent": "/app/enterprises_/$enterpriseId/task-email/$taskId"
-    },
-    "/app/faq/ged/$faqId/delete/$itemRelativePath": {
-      "filePath": "app/faq/ged.$faqId/delete.$itemRelativePath/route.ts",
-      "parent": "/app/faq/ged/$faqId"
-    },
-    "/app/faq/ged/$faqId/rename/$itemRelativePath": {
-      "filePath": "app/faq/ged.$faqId/rename.$itemRelativePath/route.ts",
-      "parent": "/app/faq/ged/$faqId"
-    },
-    "/app/products_/$productId/informations/lifesheet-email/$lifesheetId": {
-      "filePath": "app/products_.$productId/informations/lifesheet-email.$lifesheetId/route.ts",
-      "parent": "/app/products_/$productId/informations"
-    },
-    "/app/products_/$productId/informations/task-email/$taskId": {
-      "filePath": "app/products_.$productId/informations/task-email.$taskId/route.ts",
-      "parent": "/app/products_/$productId/informations",
-      "children": [
-        "/app/products_/$productId/informations/task-email/$taskId/reply"
-      ]
-    },
-    "/app/products_/$productId/informations/unlink-task/$taskId": {
-      "filePath": "app/products_.$productId/informations/unlink-task.$taskId/route.ts",
-      "parent": "/app/products_/$productId/informations"
-    },
-    "/app/products_/$productId/manage/add-specification/$filterId": {
-      "filePath": "app/products_.$productId/manage/add-specification/$filterId/route.ts",
-      "parent": "/app/products_/$productId/manage/add-specification"
-    },
-    "/app/products_/$productId/manage/delete-nomenclature-detail/$nomenclatureDetailId": {
-      "filePath": "app/products_.$productId/manage/delete-nomenclature-detail.$nomenclatureDetailId/route.ts",
-      "parent": "/app/products_/$productId/manage"
-    },
-    "/app/products_/$productId/manage/delete-specification/$specificationId": {
-      "filePath": "app/products_.$productId/manage/delete-specification.$specificationId/route.ts",
-      "parent": "/app/products_/$productId/manage"
-    },
-    "/app/products_/$productId/manage/delete-stock/$stockId": {
-      "filePath": "app/products_.$productId/manage/delete-stock.$stockId/route.ts",
-      "parent": "/app/products_/$productId/manage"
-    },
-    "/app/products_/$productId/manage/delete-version/$versionId": {
-      "filePath": "app/products_.$productId/manage/delete-version.$versionId/route.ts",
-      "parent": "/app/products_/$productId/manage"
-    },
-    "/app/products_/$productId/manage/remove-associated-product/$associatedProductId": {
-      "filePath": "app/products_.$productId/manage/remove-associated-product.$associatedProductId/route.ts",
-      "parent": "/app/products_/$productId/manage"
-    },
-    "/app/products_/$productId/manage/stock-history/$stockId": {
-      "filePath": "app/products_.$productId/manage/stock-history.$stockId/route.ts",
-      "parent": "/app/products_/$productId/manage"
-    },
-    "/app/products_/$productId/manage/update-nomenclature-detail/$nomenclatureDetailId": {
-      "filePath": "app/products_.$productId/manage/update-nomenclature-detail.$nomenclatureDetailId/route.ts",
-      "parent": "/app/products_/$productId/manage"
-    },
-    "/app/products_/$productId/manage/update-specification/$specificationId": {
-      "filePath": "app/products_.$productId/manage/update-specification.$specificationId/route.ts",
-      "parent": "/app/products_/$productId/manage"
-    },
-    "/app/products_/$productId/manage/update-stock/$stockId": {
-      "filePath": "app/products_.$productId/manage/update-stock.$stockId/route.ts",
-      "parent": "/app/products_/$productId/manage"
-    },
-    "/app/products_/$productId/manage/update-version/$versionId": {
-      "filePath": "app/products_.$productId/manage/update-version.$versionId/route.ts",
-      "parent": "/app/products_/$productId/manage"
-    },
-    "/app/tools/formations/subscribers/$formationDetailId/create": {
-      "filePath": "app/tools/formations/subscribers.$formationDetailId/create/route.ts",
-      "parent": "/app/tools/formations/subscribers/$formationDetailId"
-    },
-    "/app/tools/formations/update/$formationId/add-detail": {
-      "filePath": "app/tools/formations/update.$formationId/add-detail/route.ts",
-      "parent": "/app/tools/formations/update/$formationId"
-    },
-    "/app/tools/formations/update/$formationId/details": {
-      "filePath": "app/tools/formations/update.$formationId/details/route.ts",
-      "parent": "/app/tools/formations/update/$formationId"
-    },
-    "/app/tools/scheduler/details/$rdvId/delete": {
-      "filePath": "app/tools/scheduler/details.$rdvId/delete/route.ts",
-      "parent": "/app/tools/scheduler/details/$rdvId"
-    },
-    "/app/tools/scheduler/details/$rdvId/update": {
-      "filePath": "app/tools/scheduler/details.$rdvId/update/route.ts",
-      "parent": "/app/tools/scheduler/details/$rdvId"
-    },
-    "/app/businesses-rma_/business/$businessId_/study/": {
-      "filePath": "app/businesses-rma_/business.$businessId_/study/index.ts",
-      "parent": "/app/businesses-rma_/business/$businessId_/study"
-    },
-    "/app/businesses-rma_/business/$businessId/arc/delete-detail/$detailId": {
-      "filePath": "app/businesses-rma_/business.$businessId/arc/delete-detail.$detailId/route.ts",
-      "parent": "/app/businesses-rma_/business/$businessId/arc"
-    },
-    "/app/businesses-rma_/business/$businessId/arc/pdf/send-by-email": {
-      "filePath": "app/businesses-rma_/business.$businessId/arc/pdf/send-by-email/route.tsx",
-      "parent": "/app/businesses-rma_/business/$businessId/arc/pdf"
-    },
-    "/app/businesses-rma_/business/$businessId/arc/update-detail/$detailId": {
-      "filePath": "app/businesses-rma_/business.$businessId/arc/update-detail.$detailId/route.ts",
-      "parent": "/app/businesses-rma_/business/$businessId/arc"
-    },
-    "/app/businesses-rma_/business/$businessId/bill/credits/send-by-email": {
-      "filePath": "app/businesses-rma_/business.$businessId/bill/credits/send-by-email/route.tsx",
-      "parent": "/app/businesses-rma_/business/$businessId/bill/credits"
-    },
-    "/app/businesses-rma_/business/$businessId/bl/update/new": {
-      "filePath": "app/businesses-rma_/business.$businessId/bl/update/new/route.ts",
-      "parent": "/app/businesses-rma_/business/$businessId/bl/update"
-    },
-    "/app/businesses-rma_/business/$businessId/bp/add-serial/$detailId": {
-      "filePath": "app/businesses-rma_/business.$businessId/bp/add-serial.$detailId/route.ts",
-      "parent": "/app/businesses-rma_/business/$businessId/bp"
-    },
-    "/app/businesses-rma_/business/$businessId/bp/create-detail-rma/$detailId": {
-      "filePath": "app/businesses-rma_/business.$businessId/bp/create-detail-rma.$detailId/route.ts",
-      "parent": "/app/businesses-rma_/business/$businessId/bp"
-    },
-    "/app/businesses-rma_/business/$businessId/bp/create-serial-rma/$serialId": {
-      "filePath": "app/businesses-rma_/business.$businessId/bp/create-serial-rma.$serialId/route.ts",
-      "parent": "/app/businesses-rma_/business/$businessId/bp"
-    },
-    "/app/businesses-rma_/business/$businessId/bp/delete-detail/$detailId": {
-      "filePath": "app/businesses-rma_/business.$businessId/bp/delete-detail.$detailId/route.ts",
-      "parent": "/app/businesses-rma_/business/$businessId/bp"
-    },
-    "/app/businesses-rma_/business/$businessId/bp/delete-serial/$serialId": {
-      "filePath": "app/businesses-rma_/business.$businessId/bp/delete-serial.$serialId/route.ts",
-      "parent": "/app/businesses-rma_/business/$businessId/bp"
-    },
-    "/app/businesses-rma_/business/$businessId/bp/update-detail/$detailId": {
-      "filePath": "app/businesses-rma_/business.$businessId/bp/update-detail.$detailId/route.ts",
-      "parent": "/app/businesses-rma_/business/$businessId/bp"
-    },
-    "/app/businesses-rma_/business/$businessId/dashboard/address-book/create": {
-      "filePath": "app/businesses-rma_/business.$businessId/dashboard/address-book/create/route.ts",
-      "parent": "/app/businesses-rma_/business/$businessId/dashboard/address-book"
-    },
-    "/app/businesses-rma_/business/$businessId/dashboard/confirm-quotation-import/$otherBusinessId": {
-      "filePath": "app/businesses-rma_/business.$businessId/dashboard/confirm-quotation-import.$otherBusinessId/route.ts",
-      "parent": "/app/businesses-rma_/business/$businessId/dashboard"
-    },
-    "/app/businesses-rma_/business/$businessId/dashboard/delete-ged-object/$objectRelativePath": {
-      "filePath": "app/businesses-rma_/business.$businessId/dashboard/delete-ged-object.$objectRelativePath/route.ts",
-      "parent": "/app/businesses-rma_/business/$businessId/dashboard"
-    },
-    "/app/businesses-rma_/business/$businessId/dashboard/delete-link/$associatedId": {
-      "filePath": "app/businesses-rma_/business.$businessId/dashboard/delete-link.$associatedId/route.ts",
-      "parent": "/app/businesses-rma_/business/$businessId/dashboard"
-    },
-    "/app/businesses-rma_/business/$businessId/dashboard/email-history/$emailId": {
-      "filePath": "app/businesses-rma_/business.$businessId/dashboard/email-history/$emailId/route.ts",
-      "parent": "/app/businesses-rma_/business/$businessId/dashboard/email-history",
-      "children": [
-        "/app/businesses-rma_/business/$businessId/dashboard/email-history/$emailId/reply"
-      ]
-    },
-    "/app/businesses-rma_/business/$businessId/dashboard/lifesheet-email/$lifesheetId": {
-      "filePath": "app/businesses-rma_/business.$businessId/dashboard/lifesheet-email.$lifesheetId/route.ts",
-      "parent": "/app/businesses-rma_/business/$businessId/dashboard"
-    },
-    "/app/businesses-rma_/business/$businessId/dashboard/rename-ged-object/$objectRelativePath": {
-      "filePath": "app/businesses-rma_/business.$businessId/dashboard/rename-ged-object.$objectRelativePath/route.ts",
-      "parent": "/app/businesses-rma_/business/$businessId/dashboard"
-    },
-    "/app/businesses-rma_/business/$businessId/dashboard/task-email/$taskId": {
-      "filePath": "app/businesses-rma_/business.$businessId/dashboard/task-email.$taskId/route.ts",
-      "parent": "/app/businesses-rma_/business/$businessId/dashboard"
-    },
-    "/app/businesses-rma_/business/$businessId/dashboard/unlink-task/$taskId": {
-      "filePath": "app/businesses-rma_/business.$businessId/dashboard/unlink-task.$taskId/route.ts",
-      "parent": "/app/businesses-rma_/business/$businessId/dashboard"
-    },
-    "/app/businesses-rma_/business/$businessId/quotation/commercial-notice/send-by-email": {
-      "filePath": "app/businesses-rma_/business.$businessId/quotation/commercial-notice/send-by-email/route.ts",
-      "parent": "/app/businesses-rma_/business/$businessId/quotation/commercial-notice",
-      "children": [
-        "/app/businesses-rma_/business/$businessId/quotation/commercial-notice/send-by-email/predefined-messages"
-      ]
-    },
-    "/app/businesses-rma_/business/$businessId/quotation/create-associated-detail/$detailId": {
-      "filePath": "app/businesses-rma_/business.$businessId/quotation/create-associated-detail.$detailId/route.ts",
-      "parent": "/app/businesses-rma_/business/$businessId/quotation"
-    },
-    "/app/businesses-rma_/business/$businessId/quotation/create-detail/$subquotationId": {
-      "filePath": "app/businesses-rma_/business.$businessId/quotation/create-detail.$subquotationId/route.ts",
-      "parent": "/app/businesses-rma_/business/$businessId/quotation"
-    },
-    "/app/businesses-rma_/business/$businessId/quotation/delete-detail/$detailId": {
-      "filePath": "app/businesses-rma_/business.$businessId/quotation/delete-detail.$detailId/route.ts",
-      "parent": "/app/businesses-rma_/business/$businessId/quotation"
-    },
-    "/app/businesses-rma_/business/$businessId/quotation/delete-subquotation/$subquotationId": {
-      "filePath": "app/businesses-rma_/business.$businessId/quotation/delete-subquotation.$subquotationId/route.ts",
-      "parent": "/app/businesses-rma_/business/$businessId/quotation"
-    },
-    "/app/businesses-rma_/business/$businessId/quotation/pdf/send-by-email": {
-      "filePath": "app/businesses-rma_/business.$businessId/quotation/pdf/send-by-email/route.tsx",
-      "parent": "/app/businesses-rma_/business/$businessId/quotation/pdf"
-    },
-    "/app/businesses-rma_/business/$businessId/quotation/update-detail/$detailId": {
-      "filePath": "app/businesses-rma_/business.$businessId/quotation/update-detail.$detailId/route.ts",
-      "parent": "/app/businesses-rma_/business/$businessId/quotation"
-    },
-    "/app/businesses-rma_/business/$businessId/quotation/update-subquotation/$subquotationId": {
-      "filePath": "app/businesses-rma_/business.$businessId/quotation/update-subquotation.$subquotationId/route.ts",
-      "parent": "/app/businesses-rma_/business/$businessId/quotation"
-    },
-    "/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/create-faq": {
-      "filePath": "app/businesses-rma_/business.$businessId_/assistance.$assistanceId/create-faq/route.ts",
-      "parent": "/app/businesses-rma_/business/$businessId_/assistance/$assistanceId"
-    },
-    "/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/create-ged-directory": {
-      "filePath": "app/businesses-rma_/business.$businessId_/assistance.$assistanceId/create-ged-directory/route.ts",
-      "parent": "/app/businesses-rma_/business/$businessId_/assistance/$assistanceId"
-    },
-    "/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/create-lifesheet": {
-      "filePath": "app/businesses-rma_/business.$businessId_/assistance.$assistanceId/create-lifesheet/route.ts",
-      "parent": "/app/businesses-rma_/business/$businessId_/assistance/$assistanceId"
-    },
-    "/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/create-link": {
-      "filePath": "app/businesses-rma_/business.$businessId_/assistance.$assistanceId/create-link/route.ts",
-      "parent": "/app/businesses-rma_/business/$businessId_/assistance/$assistanceId"
-    },
-    "/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/delete": {
-      "filePath": "app/businesses-rma_/business.$businessId_/assistance.$assistanceId/delete/route.ts",
-      "parent": "/app/businesses-rma_/business/$businessId_/assistance/$assistanceId"
-    },
-    "/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/edit-cumulated-time": {
-      "filePath": "app/businesses-rma_/business.$businessId_/assistance.$assistanceId/edit-cumulated-time/route.ts",
-      "parent": "/app/businesses-rma_/business/$businessId_/assistance/$assistanceId"
-    },
-    "/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/edit-no-billed-time": {
-      "filePath": "app/businesses-rma_/business.$businessId_/assistance.$assistanceId/edit-no-billed-time/route.ts",
-      "parent": "/app/businesses-rma_/business/$businessId_/assistance/$assistanceId"
-    },
-    "/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/edit-subtitle": {
-      "filePath": "app/businesses-rma_/business.$businessId_/assistance.$assistanceId/edit-subtitle/route.ts",
-      "parent": "/app/businesses-rma_/business/$businessId_/assistance/$assistanceId"
-    },
-    "/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/import-ged-files": {
-      "filePath": "app/businesses-rma_/business.$businessId_/assistance.$assistanceId/import-ged-files/route.ts",
-      "parent": "/app/businesses-rma_/business/$businessId_/assistance/$assistanceId"
-    },
-    "/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/pdf": {
-      "filePath": "app/businesses-rma_/business.$businessId_/assistance.$assistanceId/pdf/route.ts",
-      "parent": "/app/businesses-rma_/business/$businessId_/assistance/$assistanceId",
-      "children": [
-        "/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/pdf/send-by-email"
-      ]
-    },
-    "/app/businesses-rma_/rma/$rmaId/delivery/delete-detail/$detailId": {
-      "filePath": "app/businesses-rma_/rma.$rmaId/delivery/delete-detail.$detailId/route.ts",
-      "parent": "/app/businesses-rma_/rma/$rmaId/delivery"
-    },
-    "/app/businesses-rma_/rma/$rmaId/delivery/pdf/send-by-email": {
-      "filePath": "app/businesses-rma_/rma.$rmaId/delivery/pdf/send-by-email/route.tsx",
-      "parent": "/app/businesses-rma_/rma/$rmaId/delivery/pdf"
-    },
-    "/app/businesses-rma_/rma/$rmaId/delivery/update-detail/$detailId": {
-      "filePath": "app/businesses-rma_/rma.$rmaId/delivery/update-detail.$detailId/route.ts",
-      "parent": "/app/businesses-rma_/rma/$rmaId/delivery"
-    },
-    "/app/businesses-rma_/rma/$rmaId/reception/delete-detail/$detailId": {
-      "filePath": "app/businesses-rma_/rma.$rmaId/reception/delete-detail.$detailId/route.ts",
-      "parent": "/app/businesses-rma_/rma/$rmaId/reception"
-    },
-    "/app/businesses-rma_/rma/$rmaId/reception/pdf/send-by-email": {
-      "filePath": "app/businesses-rma_/rma.$rmaId/reception/pdf/send-by-email/route.tsx",
-      "parent": "/app/businesses-rma_/rma/$rmaId/reception/pdf"
-    },
-    "/app/businesses-rma_/rma/$rmaId/reception/update-detail/$detailId": {
-      "filePath": "app/businesses-rma_/rma.$rmaId/reception/update-detail.$detailId/route.ts",
-      "parent": "/app/businesses-rma_/rma/$rmaId/reception"
-    },
-    "/app/businesses-rma_/rma/$rmaId/support/delete-detail/$detailId": {
-      "filePath": "app/businesses-rma_/rma.$rmaId/support/delete-detail.$detailId/route.ts",
-      "parent": "/app/businesses-rma_/rma/$rmaId/support"
-    },
-    "/app/businesses-rma_/rma/$rmaId/support/delete-ged-object/$relativePath": {
-      "filePath": "app/businesses-rma_/rma.$rmaId/support/delete-ged-object.$relativePath/route.ts",
-      "parent": "/app/businesses-rma_/rma/$rmaId/support"
-    },
-    "/app/businesses-rma_/rma/$rmaId/support/delete-link/$associatedId": {
-      "filePath": "app/businesses-rma_/rma.$rmaId/support/delete-link.$associatedId/route.ts",
-      "parent": "/app/businesses-rma_/rma/$rmaId/support"
-    },
-    "/app/businesses-rma_/rma/$rmaId/support/lifesheet-email/$lifesheetId": {
-      "filePath": "app/businesses-rma_/rma.$rmaId/support/lifesheet-email.$lifesheetId/route.ts",
-      "parent": "/app/businesses-rma_/rma/$rmaId/support"
-    },
-    "/app/businesses-rma_/rma/$rmaId/support/pdf/send-by-email": {
-      "filePath": "app/businesses-rma_/rma.$rmaId/support/pdf/send-by-email/route.tsx",
-      "parent": "/app/businesses-rma_/rma/$rmaId/support/pdf"
-    },
-    "/app/businesses-rma_/rma/$rmaId/support/rename-ged-object/$objectRelativePath": {
-      "filePath": "app/businesses-rma_/rma.$rmaId/support/rename-ged-object.$objectRelativePath/route.ts",
-      "parent": "/app/businesses-rma_/rma/$rmaId/support"
-    },
-    "/app/businesses-rma_/rma/$rmaId/support/task-email/$taskId": {
-      "filePath": "app/businesses-rma_/rma.$rmaId/support/task-email.$taskId/route.ts",
-      "parent": "/app/businesses-rma_/rma/$rmaId/support",
-      "children": [
-        "/app/businesses-rma_/rma/$rmaId/support/task-email/$taskId/reply"
-      ]
-    },
-    "/app/businesses-rma_/rma/$rmaId/support/unlink-task/$taskId": {
-      "filePath": "app/businesses-rma_/rma.$rmaId/support/unlink-task.$taskId/route.ts",
-      "parent": "/app/businesses-rma_/rma/$rmaId/support"
-    },
-    "/app/businesses-rma_/rma/$rmaId/support/update-detail/$detailId": {
-      "filePath": "app/businesses-rma_/rma.$rmaId/support/update-detail.$detailId/route.ts",
-      "parent": "/app/businesses-rma_/rma/$rmaId/support"
-    },
-    "/app/enterprises_/$enterpriseId/email-history/email/$emailId/reply": {
-      "filePath": "app/enterprises_.$enterpriseId/email-history/email.$emailId/reply/route.ts",
-      "parent": "/app/enterprises_/$enterpriseId/email-history/email/$emailId"
-    },
-    "/app/products_/$productId/informations/task-email/$taskId/reply": {
-      "filePath": "app/products_.$productId/informations/task-email.$taskId/reply/route.ts",
-      "parent": "/app/products_/$productId/informations/task-email/$taskId"
-    },
-    "/app/tools/formations/subscribers/$formationDetailId/delete/$subscriptionId": {
-      "filePath": "app/tools/formations/subscribers.$formationDetailId/delete.$subscriptionId/route.ts",
-      "parent": "/app/tools/formations/subscribers/$formationDetailId"
-    },
-    "/app/tools/formations/subscribers/$formationDetailId/send-email/$subscriptionId": {
-      "filePath": "app/tools/formations/subscribers.$formationDetailId/send-email.$subscriptionId/route.ts",
-      "parent": "/app/tools/formations/subscribers/$formationDetailId"
-    },
-    "/app/businesses-rma_/business/$businessId/dashboard/address-book/delete/$addressId": {
-      "filePath": "app/businesses-rma_/business.$businessId/dashboard/address-book/delete.$addressId/route.ts",
-      "parent": "/app/businesses-rma_/business/$businessId/dashboard/address-book"
-    },
-    "/app/businesses-rma_/business/$businessId/dashboard/address-book/update/$addressId": {
-      "filePath": "app/businesses-rma_/business.$businessId/dashboard/address-book/update.$addressId/route.ts",
-      "parent": "/app/businesses-rma_/business/$businessId/dashboard/address-book"
-    },
-    "/app/businesses-rma_/business/$businessId/dashboard/email-history/$emailId/reply": {
-      "filePath": "app/businesses-rma_/business.$businessId/dashboard/email-history/$emailId/reply/route.ts",
-      "parent": "/app/businesses-rma_/business/$businessId/dashboard/email-history/$emailId"
-    },
-    "/app/businesses-rma_/business/$businessId/quotation/commercial-notice/send-by-email/predefined-messages": {
-      "filePath": "app/businesses-rma_/business.$businessId/quotation/commercial-notice/send-by-email/predefined-messages/route.ts",
-      "parent": "/app/businesses-rma_/business/$businessId/quotation/commercial-notice/send-by-email"
-    },
-    "/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/delete-ged-object/$objectRelativePath": {
-      "filePath": "app/businesses-rma_/business.$businessId_/assistance.$assistanceId/delete-ged-object.$objectRelativePath/route.ts",
-      "parent": "/app/businesses-rma_/business/$businessId_/assistance/$assistanceId"
-    },
-    "/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/delete-link/$associatedId": {
-      "filePath": "app/businesses-rma_/business.$businessId_/assistance.$assistanceId/delete-link.$associatedId/route.ts",
-      "parent": "/app/businesses-rma_/business/$businessId_/assistance/$assistanceId"
-    },
-    "/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/lifesheet-email/$lifesheetId": {
-      "filePath": "app/businesses-rma_/business.$businessId_/assistance.$assistanceId/lifesheet-email.$lifesheetId/route.ts",
-      "parent": "/app/businesses-rma_/business/$businessId_/assistance/$assistanceId"
-    },
-    "/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/pdf/send-by-email": {
-      "filePath": "app/businesses-rma_/business.$businessId_/assistance.$assistanceId/pdf/send-by-email/route.tsx",
-      "parent": "/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/pdf"
-    },
-    "/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/rename-ged-object/$objectRelativePath": {
-      "filePath": "app/businesses-rma_/business.$businessId_/assistance.$assistanceId/rename-ged-object.$objectRelativePath/route.ts",
-      "parent": "/app/businesses-rma_/business/$businessId_/assistance/$assistanceId"
-    },
-    "/app/businesses-rma_/rma/$rmaId/support/task-email/$taskId/reply": {
-      "filePath": "app/businesses-rma_/rma.$rmaId/support/task-email.$taskId/reply/route.ts",
-      "parent": "/app/businesses-rma_/rma/$rmaId/support/task-email/$taskId"
-    }
-  }
-}
-ROUTE_MANIFEST_END */

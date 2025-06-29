@@ -14,6 +14,7 @@ import { ExpertStudySynopticCameraNode } from '../../../../../Flow/components/Sy
 import useStore, { RFState } from '../../../../../Flow/utils/store';
 import AppViewStudyViewExpertViewModalProviderComponentPdfModalComponentShowStepComponentPdfComponent from './components/Pdf/Pdf';
 import AppViewStudyViewExpertViewModalProviderComponentPdfModalComponentShowStepComponentSendByEmailModalView from './components/SendByEmailModal/SendByEmailModal';
+import { ExpertStudyDensityCameraNode } from '../../../../../Flow/components/DensityCameraNode/DensityCameraNode';
 
 const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId_/study/expert');
 
@@ -108,6 +109,56 @@ export default function AppViewStudyViewExpertViewModalProviderComponentPdfModal
     return { cameras, hddSpace, hddCalculationDays };
   }, [cams, recorders, products]);
 
+  const densityStats = useMemo(() => {
+    return pages
+      .filter((page) => page.type === 'density')
+      .map((page, index) => {
+        const items = page.nodes
+          .filter((node): node is ExpertStudyDensityCameraNode => node.type === 'densityCamera')
+          .map((node) => {
+            const product = products?.find((product) => product.id === node.data.productId);
+            if (!product) return;
+            const camSpecs = (() => {
+              const hAngle = product.specificationProducts?.find((spec) => spec.specification?.name === 'ANGLE H');
+              const recognition = product.specificationProducts?.find((spec) => spec.specification?.name === 'RECONNAISSANCE');
+              const reading = product.specificationProducts?.find((spec) => spec.specification?.name === 'LECTURE DE PLAQUE');
+              const identification = product.specificationProducts?.find((spec) => spec.specification?.name === 'IDENTIFICATION');
+              return {
+                hAngle: { value: hAngle?.value ?? 0, min: hAngle?.minValue ?? 0, max: hAngle?.maxValue ?? 0 },
+                recognition: { value: recognition?.value ?? 0, min: recognition?.minValue ?? 0, max: recognition?.maxValue ?? 0 },
+                reading: { value: reading?.value ?? 0, min: reading?.minValue ?? 0, max: reading?.maxValue ?? 0 },
+                identification: { value: identification?.value ?? 0, min: identification?.minValue ?? 0, max: identification?.maxValue ?? 0 },
+              };
+            })();
+            const computedData = (['recognition', 'reading', 'identification'] as Array<'recognition' | 'reading' | 'identification'>).reduce(
+              (acc, type) => {
+                if (camSpecs.hAngle.value) acc[type] = camSpecs[type].value;
+                else {
+                  const m = (camSpecs[type].max - camSpecs[type].min) / (camSpecs.hAngle.min - camSpecs.hAngle.max);
+                  const b = camSpecs[type].max - m * camSpecs.hAngle.min;
+                  acc[type] = m * node.data.angle + b;
+                }
+                return acc;
+              },
+              { recognition: NaN, reading: NaN, identification: NaN },
+            );
+            return {
+              recognition: computedData.recognition,
+              reading: computedData.reading,
+              identification: computedData.identification,
+              name: node.data.name,
+              reference: product.reference,
+              angle: node.data.angle,
+            };
+          })
+          .filter(
+            (item): item is { name: string; reference: string; identification: number; reading: number; recognition: number; angle: number } =>
+              item !== undefined,
+          );
+        return { page: { name: page.name ?? `Page ${index + 1}`, id: page.id }, items };
+      });
+  }, [pages, products]);
+
   const onClose = () => {
     setModal(undefined);
   };
@@ -133,6 +184,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentPdfModal
               business={business}
               showDensityImages={showDensityImages}
               hddCalculationHoursPerDay={hddCalculationHoursPerDay}
+              densityStats={densityStats}
             />
           </PDFViewer>
           <div className="mt-6 flex items-center justify-center space-x-2">
@@ -150,6 +202,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentPdfModal
                   business={business}
                   showDensityImages={showDensityImages}
                   hddCalculationHoursPerDay={hddCalculationHoursPerDay}
+                  densityStats={densityStats}
                 />
               }
             >
@@ -166,6 +219,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentPdfModal
                   business={business}
                   showDensityImages={showDensityImages}
                   hddCalculationHoursPerDay={hddCalculationHoursPerDay}
+                  densityStats={densityStats}
                 />
               }
             >

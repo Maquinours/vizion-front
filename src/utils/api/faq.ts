@@ -1,3 +1,4 @@
+import FaqAccessLevel from '../enums/FaqAccessLevel';
 import { privateInstance } from '../functions/axios';
 import FaqRequestDto from '../types/FaqRequestDto';
 import FaqResponseDto from '../types/FaqResponseDto';
@@ -15,13 +16,23 @@ export const getFaqsPageByArchiveState = (archived: boolean, page: number, size:
   }).then((res) => res.data);
 };
 
-export const getFaqsPageByArchiveStateWithSearch = (archived: boolean, searchText: string, fuzzy: boolean, page: number, size: number) => {
+export const getFaqsPageByArchiveStateWithSearch = (
+  archived: boolean,
+  searchText: string | undefined,
+  productId: string | undefined,
+  accessLevel: FaqAccessLevel | undefined,
+  fuzzy: boolean,
+  page: number,
+  size: number,
+) => {
   return privateInstance<Page<FaqResponseDto>>({
     method: 'GET',
     url: `product/v1/faq/search-page/${encodeURIComponent(page)}/${encodeURIComponent(size)}`,
     params: {
       archived,
       searchText,
+      productId,
+      accessLevel,
       fuzzy,
     },
   }).then((res) => res.data);

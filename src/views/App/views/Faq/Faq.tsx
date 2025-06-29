@@ -12,9 +12,9 @@ const routeApi = getRouteApi('/app/faq');
 const size = 15;
 
 export default function AppViewFaqView() {
-  const { page, archived, search, fuzzy } = routeApi.useSearch();
+  const { page, archived, search, productId, accessLevel, fuzzy } = routeApi.useSearch();
 
-  const { data, isLoading } = useQuery(faqs.page({ page, size })._ctx.byArchiveStateAndSearch(archived, search, fuzzy));
+  const { data, isLoading } = useQuery(faqs.page({ page, size })._ctx.byArchiveStateAndSearch(archived, search, productId, accessLevel, fuzzy));
 
   return (
     <>

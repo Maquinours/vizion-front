@@ -1,53 +1,42 @@
-import { createColumnHelper } from '@tanstack/react-table';
-import TableComponent from '../../../../../../../../components/Table/Table';
-import AircallCallResponseDto from '../../../../../../../../utils/types/AircallCallResponseDto';
-import { formatDateAndHourWithSlash } from '../../../../../../../../utils/functions/dates';
-import styles from './Table.module.scss';
-import { useQueries } from '@tanstack/react-query';
-import _ from 'lodash';
-import { queries } from '../../../../../../../../utils/constants/queryKeys';
-import { formatPhoneNumber } from 'react-phone-number-input';
-import { useCallback, useMemo, useState } from 'react';
-import { isAxiosError } from 'axios';
 import { VirtualElement } from '@popperjs/core';
-import AppViewDashboardViewCallsHistoryComponentTableComponentContextMenuComponent from './components/ContextMenu/ContextMenu';
+import { createColumnHelper } from '@tanstack/react-table';
+import { useCallback, useMemo, useState } from 'react';
+import TableComponent from '../../../../../../../../components/Table/Table';
+import { formatDateAndHourWithSlash } from '../../../../../../../../utils/functions/dates';
+import AircallCallResponseDto from '../../../../../../../../utils/types/AircallCallResponseDto';
 import ProfileResponseDto from '../../../../../../../../utils/types/ProfileResponseDto';
+import AppViewDashboardViewCallsHistoryComponentTableComponentContextMenuComponent from './components/ContextMenu/ContextMenu';
+import styles from './Table.module.scss';
+import AircallContactResponseDto from '../../../../../../../../utils/types/AircallContactResponseDto';
 
 const columnHelper = createColumnHelper<AircallCallResponseDto>();
 
 interface AppViewDashboardViewCallsHistoryComponentTableComponentProps {
   data: Array<AircallCallResponseDto> | undefined;
   isLoading: boolean;
+  getProfileFromPhoneNumber: (phoneNumber: string) => ProfileResponseDto | undefined;
 }
 export default function AppViewDashboardViewCallsHistoryComponentTableComponent({
   data,
+  getProfileFromPhoneNumber,
   isLoading,
 }: AppViewDashboardViewCallsHistoryComponentTableComponentProps) {
-  const uniquePhoneNumbers = _.uniq(data?.map((call) => call.raw_digits) || []);
-  const results = useQueries({
-    queries: uniquePhoneNumbers.map((phoneNumber) => ({
-      ...queries.profiles.detail._ctx.byPhoneNumbers([phoneNumber, formatPhoneNumber(phoneNumber)]),
-      staleTime: Infinity,
-      retry: (_failureCount: unknown, error: unknown) => !(isAxiosError(error) && error.response?.status === 404),
-    })),
-  });
-
   const [contextMenuAnchor, setContextMenuAnchor] = useState<VirtualElement>();
-  const [number, setNumber] = useState<string>();
-  const [profile, setProfile] = useState<ProfileResponseDto>();
-
-  const getProfileFromPhoneNumber = useCallback(
-    (phoneNumber: string) => {
-      return results.at(uniquePhoneNumbers.indexOf(phoneNumber))?.data;
-    },
-    [results],
-  );
+  const [contextMenuData, setContextMenuData] = useState<{
+    number: string;
+    contact: AircallContactResponseDto | null;
+    profile: ProfileResponseDto | undefined;
+  }>();
 
   const onCellContextMenu = useCallback(
-    (event: React.MouseEvent<HTMLDivElement, MouseEvent>, number: string, profile: ProfileResponseDto | undefined) => {
+    (
+      event: React.MouseEvent<HTMLDivElement, MouseEvent>,
+      number: string,
+      contact: AircallContactResponseDto | null,
+      profile: ProfileResponseDto | undefined,
+    ) => {
       event.preventDefault();
-      setNumber(number);
-      setProfile(profile);
+      setContextMenuData({ number, contact, profile });
       setContextMenuAnchor({
         getBoundingClientRect: () => ({
           width: 0,
@@ -62,7 +51,7 @@ export default function AppViewDashboardViewCallsHistoryComponentTableComponent(
         }),
       });
     },
-    [setNumber, setContextMenuAnchor],
+    [setContextMenuData, setContextMenuAnchor],
   );
 
   const columns = useMemo(
@@ -78,9 +67,10 @@ export default function AppViewDashboardViewCallsHistoryComponentTableComponent(
             const profile = getProfileFromPhoneNumber(original.raw_digits);
             const result = (() => {
               if (profile) return `${profile.enterprise?.name ?? ''} / ${profile.firstName ?? ''} ${profile.lastName ?? ''}`;
+              else if (original.contact?.information) return `${original.contact.information}`;
               else return `Inconnu ${original.raw_digits}`;
             })();
-            return <div onContextMenu={(e) => onCellContextMenu(e, original.raw_digits, profile)}>{result}</div>;
+            return <div onContextMenu={(e) => onCellContextMenu(e, original.raw_digits, original.contact, profile)}>{result}</div>;
           } else if (original.direction === 'outbound') return original.user?.name;
         },
       }),
@@ -92,14 +82,15 @@ export default function AppViewDashboardViewCallsHistoryComponentTableComponent(
             const profile = getProfileFromPhoneNumber(original.raw_digits);
             const result = (() => {
               if (profile) return `${profile.enterprise?.name ?? ''} / ${profile.firstName ?? ''} ${profile.lastName ?? ''}`;
+              else if (original.contact?.information) return `${original.contact.information}`;
               else return `Inconnu ${original.raw_digits}`;
             })();
-            return <div onContextMenu={(e) => onCellContextMenu(e, original.raw_digits, profile)}>{result}</div>;
+            return <div onContextMenu={(e) => onCellContextMenu(e, original.raw_digits, original.contact, profile)}>{result}</div>;
           }
         },
       }),
     ],
-    [results],
+    [getProfileFromPhoneNumber, onCellContextMenu],
   );
 
   return (
@@ -110,8 +101,7 @@ export default function AppViewDashboardViewCallsHistoryComponentTableComponent(
       <AppViewDashboardViewCallsHistoryComponentTableComponentContextMenuComponent
         anchorElement={contextMenuAnchor}
         setAnchorElement={setContextMenuAnchor}
-        number={number}
-        profile={profile}
+        data={contextMenuData}
       />
     </>
   );

@@ -34,6 +34,10 @@ const levelOptions = [
     text: 'Externe publique',
     value: FaqAccessLevel.PUBLIC,
   },
+  {
+    text: 'VIZIA Comportement',
+    value: FaqAccessLevel.VIZIA_COMPORTEMENT,
+  },
 ];
 
 const yupSchema = yup.object().shape({

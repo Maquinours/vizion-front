@@ -40,6 +40,10 @@ const levelOptions = [
     text: 'Externe publique',
     value: FaqAccessLevel.PUBLIC,
   },
+  {
+    text: 'VIZIA Comportement',
+    value: FaqAccessLevel.VIZIA_COMPORTEMENT,
+  },
 ];
 
 export default function AppViewFaqViewUpdateModalView() {

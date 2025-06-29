@@ -10,6 +10,8 @@ import CategoryClient from '../../../../../../../../utils/enums/CategoryClient';
 import ProfileResponseDto from '../../../../../../../../utils/types/ProfileResponseDto';
 import { useAuthentifiedUserQuery } from '../../../../../../utils/functions/getAuthentifiedUser';
 import styles from './ContactContextMenu.module.scss';
+import { useContext } from 'react';
+import { AircallWorkspaceContext } from '../../../../../../components/AircallWorkspace/utils/context';
 
 const routeApi = getRouteApi('/app/enterprises');
 
@@ -24,6 +26,8 @@ export default function AppViewEnterprisesViewTableComponentContactContextMenu({
   setAnchorElement,
 }: AppViewEnterprisesViewTableComponentContactContextMenuProps) {
   const { data: user } = useAuthentifiedUserQuery();
+
+  const { dialNumber } = useContext(AircallWorkspaceContext)!;
 
   const onClose = () => {
     setAnchorElement(undefined);
@@ -57,6 +61,15 @@ export default function AppViewEnterprisesViewTableComponentContactContextMenu({
       navigator.clipboard.writeText(copyText);
       toast.success('Adresse copiée avec succès');
     }
+  };
+
+  const onCallNumber = (number: string) => {
+    if (number) {
+      dialNumber(number).catch(() => {
+        window.location.href = `tel:${number}`;
+      });
+    }
+    onClose();
   };
 
   const isOpen = !!anchorElement;
@@ -233,10 +246,10 @@ export default function AppViewEnterprisesViewTableComponentContactContextMenu({
                       const number = parsePhoneNumberWithError(phoneNumber, 'FR');
                       return (
                         <MenuItem key={index}>
-                          <a href={`tel:${number.number}`} onClick={onClose}>
+                          <button onClick={() => onCallNumber(number.number)}>
                             <FaPhoneAlt className={styles.icon} />
                             <span className={styles.text}>Appeler le {number.formatNational()}</span>
-                          </a>
+                          </button>
                         </MenuItem>
                       );
                     })}

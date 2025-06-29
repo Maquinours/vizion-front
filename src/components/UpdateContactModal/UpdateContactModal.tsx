@@ -53,7 +53,7 @@ const yupSchema = yup.object().shape({
     .nullable()
     .transform((val) => (typeof val !== 'string' || val.trim() === '' ? null : val)),
   expert: yup.string().oneOf(['yes', 'no']).required('Champs requis'),
-  profileClient: yup.mixed<ProfileClient>().typeError('Format invalide').required('Requis'),
+  profileClient: yup.mixed<ProfileClient>().oneOf(Object.values(ProfileClient), 'Champs requis').required('Requis'),
 });
 
 type UpdateContactModalComponentProps = Readonly<{
