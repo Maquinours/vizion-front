@@ -39,6 +39,7 @@ export default function AppViewBusinessViewBpViewHeaderComponentSectionTwoCompon
 
   const { mutate } = useMutation({
     mutationFn: async ({ serialNumber }: yup.InferType<typeof yupSchema>) => {
+      reset();
       const productSerialNumber = await queryClient.ensureQueryData(queries['product-serial-numbers'].detail._ctx.byNumber(serialNumber));
       const detail = bp.bpDetailsList.find(
         (detail) => detail.productReference === productSerialNumber.productRef && (detail.quantityPrep ?? 0) < (detail.quantity ?? 0),
@@ -61,9 +62,6 @@ export default function AppViewBusinessViewBpViewHeaderComponentSectionTwoCompon
           extern: false,
         }),
       };
-    },
-    onMutate: () => {
-      reset();
     },
     onSuccess: ({ detail, serial }) => {
       queryClient.setQueryData<BusinessBpResponseDto>(queries['business-bps'].detail._ctx.byBusinessId(businessId).queryKey, (old) =>

@@ -441,14 +441,13 @@ export default function AppViewStudyViewExpertViewModalProviderComponentSendStud
   }, [nodesInitialized, currentPage]);
 
   useEffect(() => {
-    if (!studyPdf || commercialNoticePdf == undefined) return;
+    if (!studyPdf || commercialNoticePdf === undefined) return;
     if (commercialNoticePdf === null) {
       setFinalStudyPdf(studyPdf);
       return;
     }
     const merger = new PDFMerger();
     (async () => {
-      console.log('studyPdf', studyPdf);
       await merger.add(new Uint8Array(await studyPdf.arrayBuffer()));
       await merger.add(new Uint8Array(await commercialNoticePdf.arrayBuffer()));
       const result = await merger.saveAsBuffer();
@@ -463,7 +462,6 @@ export default function AppViewStudyViewExpertViewModalProviderComponentSendStud
   }, []);
 
   useEffect(() => {
-    console.log({ finalStudyPdf, quotationPdf, commercialNoticePdf, isFetchingRepresentative });
     if (!!finalStudyPdf && !!quotationPdf && commercialNoticePdf !== undefined && !isFetchingRepresentative)
       onGenerated({ studyPdf: finalStudyPdf, quotationPdf, commercialNoticePdf, representative });
   }, [finalStudyPdf, quotationPdf, commercialNoticePdf, isFetchingRepresentative]);
