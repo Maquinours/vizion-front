@@ -43,6 +43,7 @@ export default function CreateProductModalComponent({ onClose }: CreateProductMo
         vizeo: stepOneData!.isVizeo,
         virtualQty: stepOneData!.isVirtual,
         bom: stepOneData!.isNomenclature,
+        categories: stepOneData!.categories,
       }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queries.product._def });
