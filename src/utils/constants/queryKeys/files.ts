@@ -26,6 +26,10 @@ export const filesQueryKeys = createQueryKeys('files', {
         queryKey: [base64],
         queryFn: () => base64ToBlob(base64),
       }),
+      fromUri: (uri: string) => ({
+        queryKey: [uri],
+        queryFn: () => fetch(uri).then((res) => res.blob()),
+      }),
     },
   },
 });

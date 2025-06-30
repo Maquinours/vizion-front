@@ -1,12 +1,14 @@
-import ReactModal from 'react-modal';
-import { formatDateWithHour } from '../../utils/functions/dates';
 import { useSuspenseQuery } from '@tanstack/react-query';
-import { emails } from '../../utils/constants/queryKeys/email';
-import { PUBLIC_BASE_URL } from '../../utils/constants/api';
 import { Link, LinkProps, Outlet } from '@tanstack/react-router';
-import styles from './EmailModal.module.scss';
-import parse from 'html-react-parser';
 import DOMPurify from 'dompurify';
+import parse from 'html-react-parser';
+import { useState } from 'react';
+import ReactModal from 'react-modal';
+import { PUBLIC_BASE_URL } from '../../utils/constants/api';
+import { emails } from '../../utils/constants/queryKeys/email';
+import { formatDateWithHour } from '../../utils/functions/dates';
+import ResendEmailModalComponent from '../ResendEmailModal/ResendEmailModal';
+import styles from './EmailModal.module.scss';
 
 type EmailModalComponentProps = Readonly<{
   onClose: () => void;
@@ -15,6 +17,8 @@ type EmailModalComponentProps = Readonly<{
 }>;
 export default function EmailModalComponent({ onClose, emailId, replyLink }: EmailModalComponentProps) {
   const { data: email } = useSuspenseQuery(emails.detail(emailId));
+
+  const [showResendModal, setShowResendModal] = useState(false);
 
   return (
     <>
@@ -52,16 +56,23 @@ export default function EmailModalComponent({ onClose, emailId, replyLink }: Ema
               <button className="btn btn-secondary" onClick={() => onClose()}>
                 Fermer
               </button>
-              {replyLink && (
-                <Link {...replyLink} className="btn btn-primary">
-                  Répondre
-                </Link>
-              )}
+              <div className="flex gap-1">
+                <button className="btn btn-primary" onClick={() => setShowResendModal(true)}>
+                  Renvoyer
+                </button>
+                {replyLink && (
+                  <Link {...replyLink} className="btn btn-primary">
+                    Répondre
+                  </Link>
+                )}
+              </div>
             </div>
           </div>
         </div>
       </ReactModal>
       <Outlet />
+
+      <ResendEmailModalComponent isOpen={showResendModal} emailId={emailId} onClose={() => setShowResendModal(false)} />
     </>
   );
 }
