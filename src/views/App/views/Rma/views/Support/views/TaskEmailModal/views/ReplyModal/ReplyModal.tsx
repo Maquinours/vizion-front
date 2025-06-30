@@ -1,5 +1,5 @@
 import { getRouteApi } from '@tanstack/react-router';
-import SendEmailModalComponent from '../../../../../../../../../../components/SendEmailModal/SendEmailModal';
+import ReplyEmailModalComponent from '../../../../../../../../../../components/ReplyEmailModal/ReplyEmailModal';
 
 const routeApi = getRouteApi('/app/businesses-rma_/rma/$rmaId/support/task-email/$taskId/reply');
 
@@ -12,5 +12,5 @@ export default function AppViewRmaViewSupportViewTaskEmailModalViewReplyModalVie
     navigate({ to: '..', search: true, replace: true, resetScroll: false });
   };
 
-  return <SendEmailModalComponent isOpen={true} emailToReply={email} onClose={onClose} />;
+  return <ReplyEmailModalComponent isOpen email={email} onClose={onClose} />;
 }
