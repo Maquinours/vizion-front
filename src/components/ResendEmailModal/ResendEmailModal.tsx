@@ -34,6 +34,7 @@ export default function ResendEmailModalComponent({ email, isOpen, onClose, onEm
       defaultAttachments={files}
       onEmailSent={onEmailSent}
       onClose={onClose}
+      useSignature={false}
     />
   );
 }

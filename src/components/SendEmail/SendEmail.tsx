@@ -106,6 +106,7 @@ export type SendEmailComponentProps = Readonly<{
   };
   onEmailSent?: () => void;
   storageKey?: 'global'; // Used to handle storage in global send email modal
+  useSignature?: boolean;
 }>;
 export default function SendEmailComponent({
   defaultSubject,
@@ -118,6 +119,7 @@ export default function SendEmailComponent({
   lifeSheetInfoDto,
   onEmailSent,
   storageKey,
+  useSignature = true,
 }: SendEmailComponentProps) {
   const pathname = useLocation({ select: (location) => location.pathname });
 
@@ -140,7 +142,7 @@ export default function SendEmailComponent({
       cc: [...(defaultCc ?? [])].filter((item) => item.trim().length > 0),
       bcc: (defaultBcc ?? []).filter((item) => item.trim().length > 0),
       subject: defaultSubject ?? '',
-      content: (defaultContent ?? '') + generateUserEmailSignature(user) + (defaultContentSuffix ?? ''),
+      content: (defaultContent ?? '') + (useSignature ? generateUserEmailSignature(user) : '') + (defaultContentSuffix ?? ''),
       attachments: defaultAttachments?.map((file) => ({ id: file.name, file })) ?? [],
     },
   });
