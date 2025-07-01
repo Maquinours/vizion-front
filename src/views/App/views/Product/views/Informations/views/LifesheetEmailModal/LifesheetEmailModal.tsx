@@ -15,5 +15,12 @@ export default function AppViewProductViewInformationsViewLifesheetEmailModalVie
     navigate({ to: '../..', search: true, replace: true, resetScroll: false });
   };
 
-  return <EmailModalComponent emailId={lifesheet.mailId!} onClose={onClose} />;
+  return (
+    <EmailModalComponent
+      emailId={lifesheet.mailId!}
+      onClose={onClose}
+      replyLink={{ to: '/app/products/$productId/informations/lifesheet-email/$lifesheetId/reply', search: true, replace: true, resetScroll: false }}
+      resendLink={{ to: '/app/products/$productId/informations/lifesheet-email/$lifesheetId/resend', search: true, replace: true, resetScroll: false }}
+    />
+  );
 }

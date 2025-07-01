@@ -11,8 +11,8 @@ import styles from './EmailModal.module.scss';
 type EmailModalComponentProps = Readonly<{
   onClose: () => void;
   emailId: string;
-  resendLink?: LinkProps;
-  replyLink?: LinkProps;
+  resendLink: LinkProps;
+  replyLink: LinkProps;
 }>;
 export default function EmailModalComponent({ onClose, emailId, resendLink, replyLink }: EmailModalComponentProps) {
   const { data: email } = useSuspenseQuery(emails.detail(emailId));
