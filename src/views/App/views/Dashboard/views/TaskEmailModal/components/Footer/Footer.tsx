@@ -10,9 +10,14 @@ export default function AppViewDashboardViewTaskEmailModalViewFooterComponent() 
         <Link from={routeApi.id} to="../.." search replace resetScroll={false} className="btn btn-secondary">
           Fermer
         </Link>
-        <Link from={routeApi.id} to="reply" search replace resetScroll={false} className="btn btn-primary">
-          Répondre
-        </Link>
+        <div className="flex gap-1">
+          <Link from={routeApi.id} to="resend" search replace resetScroll={false} className="btn btn-primary">
+            Renvoyer
+          </Link>
+          <Link from={routeApi.id} to="reply" search replace resetScroll={false} className="btn btn-primary">
+            Répondre
+          </Link>
+        </div>
       </div>
     </div>
   );

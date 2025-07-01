@@ -13,6 +13,7 @@ export default function AppViewBusinessViewDashboardViewEmailHistoryModalViewEma
       onClose={() => navigate({ to: '..', search: true, replace: true, resetScroll: false })}
       emailId={emailId}
       replyLink={{ to: '/app/businesses-rma/business/$businessId/dashboard/email-history/$emailId/reply', search: true, replace: true, resetScroll: false }}
+      resendLink={{ to: '/app/businesses-rma/business/$businessId/dashboard/email-history/$emailId/resend', search: true, replace: true, resetScroll: false }}
     />
   );
 }

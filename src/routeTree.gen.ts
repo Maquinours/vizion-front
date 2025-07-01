@@ -149,6 +149,7 @@ import { Route as AppToolsFormationsCreateAddDetailRouteRouteImport } from './ro
 import { Route as AppToolsExternalLinksUpdateExternalLinkIdRouteRouteImport } from './routes/app/tools/external-links/update.$externalLinkId/route'
 import { Route as AppToolsExternalLinksDeleteExternalLinkIdRouteRouteImport } from './routes/app/tools/external-links/delete.$externalLinkId/route'
 import { Route as AppToolsExternalLinksArchiveExternalLinkIdRouteRouteImport } from './routes/app/tools/external-links/archive.$externalLinkId/route'
+import { Route as AppToolsEmailsEmailIdResendRouteRouteImport } from './routes/app/tools/emails/$emailId/resend/route'
 import { Route as AppToolsEmailsEmailIdReplyRouteRouteImport } from './routes/app/tools/emails/$emailId/reply/route'
 import { Route as AppToolsDepartmentsUpdateDepartmentIdRouteRouteImport } from './routes/app/tools/departments/update.$departmentId/route'
 import { Route as AppToolsDepartmentsDeleteDepartmentIdRouteRouteImport } from './routes/app/tools/departments/delete.$departmentId/route'
@@ -182,6 +183,7 @@ import { Route as AppEnterprisesEnterpriseIdDeleteContactContactIdRouteRouteImpo
 import { Route as AppEnterprisesEnterpriseIdCreateContactBusinessContactIdRouteRouteImport } from './routes/app/enterprises_.$enterpriseId/create-contact-business.$contactId/route'
 import { Route as AppEnterprisesEnterpriseIdAddressBookImportRouteRouteImport } from './routes/app/enterprises_.$enterpriseId/address-book/import/route'
 import { Route as AppEnterprisesEnterpriseIdAddressBookCreateRouteRouteImport } from './routes/app/enterprises_.$enterpriseId/address-book/create/route'
+import { Route as AppDashboardTaskEmailTaskIdResendRouteRouteImport } from './routes/app/dashboard/task-email.$taskId/resend/route'
 import { Route as AppDashboardTaskEmailTaskIdReplyRouteRouteImport } from './routes/app/dashboard/task-email.$taskId/reply/route'
 import { Route as AppBusinessesRmaRmaRmaIdSupportRouteRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/support/route'
 import { Route as AppBusinessesRmaRmaRmaIdReceptionRouteRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/reception/route'
@@ -215,6 +217,7 @@ import { Route as AppProductsProductIdInformationsTaskEmailTaskIdRouteRouteImpor
 import { Route as AppProductsProductIdInformationsLifesheetEmailLifesheetIdRouteRouteImport } from './routes/app/products_.$productId/informations/lifesheet-email.$lifesheetId/route'
 import { Route as AppFaqGedFaqIdRenameItemRelativePathRouteRouteImport } from './routes/app/faq/ged.$faqId/rename.$itemRelativePath/route'
 import { Route as AppFaqGedFaqIdDeleteItemRelativePathRouteRouteImport } from './routes/app/faq/ged.$faqId/delete.$itemRelativePath/route'
+import { Route as AppEnterprisesEnterpriseIdTaskEmailTaskIdResendRouteRouteImport } from './routes/app/enterprises_.$enterpriseId/task-email.$taskId/resend/route'
 import { Route as AppEnterprisesEnterpriseIdTaskEmailTaskIdReplyRouteRouteImport } from './routes/app/enterprises_.$enterpriseId/task-email.$taskId/reply/route'
 import { Route as AppEnterprisesEnterpriseIdEmailHistoryEmailEmailIdRouteRouteImport } from './routes/app/enterprises_.$enterpriseId/email-history/email.$emailId/route'
 import { Route as AppEnterprisesEnterpriseIdAddressBookUpdateAddressIdRouteRouteImport } from './routes/app/enterprises_.$enterpriseId/address-book/update.$addressId/route'
@@ -256,7 +259,9 @@ import { Route as AppBusinessesRmaBusinessBusinessIdArcUpdateShippingPriceRouteR
 import { Route as AppBusinessesRmaBusinessBusinessIdArcPdfRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId/arc/pdf/route'
 import { Route as AppToolsFormationsSubscribersFormationDetailIdSendEmailSubscriptionIdRouteRouteImport } from './routes/app/tools/formations/subscribers.$formationDetailId/send-email.$subscriptionId/route'
 import { Route as AppToolsFormationsSubscribersFormationDetailIdDeleteSubscriptionIdRouteRouteImport } from './routes/app/tools/formations/subscribers.$formationDetailId/delete.$subscriptionId/route'
+import { Route as AppProductsProductIdInformationsTaskEmailTaskIdResendRouteRouteImport } from './routes/app/products_.$productId/informations/task-email.$taskId/resend/route'
 import { Route as AppProductsProductIdInformationsTaskEmailTaskIdReplyRouteRouteImport } from './routes/app/products_.$productId/informations/task-email.$taskId/reply/route'
+import { Route as AppEnterprisesEnterpriseIdEmailHistoryEmailEmailIdResendRouteRouteImport } from './routes/app/enterprises_.$enterpriseId/email-history/email.$emailId/resend/route'
 import { Route as AppEnterprisesEnterpriseIdEmailHistoryEmailEmailIdReplyRouteRouteImport } from './routes/app/enterprises_.$enterpriseId/email-history/email.$emailId/reply/route'
 import { Route as AppBusinessesRmaRmaRmaIdSupportUpdateDetailDetailIdRouteRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/support/update-detail.$detailId/route'
 import { Route as AppBusinessesRmaRmaRmaIdSupportUnlinkTaskTaskIdRouteRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/support/unlink-task.$taskId/route'
@@ -311,6 +316,7 @@ import { Route as AppBusinessesRmaBusinessBusinessIdBillCreditsSendByEmailRouteR
 import { Route as AppBusinessesRmaBusinessBusinessIdArcUpdateDetailDetailIdRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId/arc/update-detail.$detailId/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdArcPdfSendByEmailRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId/arc/pdf/send-by-email/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdArcDeleteDetailDetailIdRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId/arc/delete-detail.$detailId/route'
+import { Route as AppBusinessesRmaRmaRmaIdSupportTaskEmailTaskIdResendRouteRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/support/task-email.$taskId/resend/route'
 import { Route as AppBusinessesRmaRmaRmaIdSupportTaskEmailTaskIdReplyRouteRouteImport } from './routes/app/businesses-rma_/rma.$rmaId/support/task-email.$taskId/reply/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdRenameGedObjectObjectRelativePathRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId_/assistance.$assistanceId/rename-ged-object.$objectRelativePath/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdPdfSendByEmailRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId_/assistance.$assistanceId/pdf/send-by-email/route'
@@ -318,6 +324,7 @@ import { Route as AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdLifesh
 import { Route as AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdDeleteLinkAssociatedIdRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId_/assistance.$assistanceId/delete-link.$associatedId/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdDeleteGedObjectObjectRelativePathRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId_/assistance.$assistanceId/delete-ged-object.$objectRelativePath/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdQuotationCommercialNoticeSendByEmailPredefinedMessagesRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId/quotation/commercial-notice/send-by-email/predefined-messages/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdResendRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/email-history/$emailId/resend/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdReplyRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/email-history/$emailId/reply/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdDashboardAddressBookUpdateAddressIdRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/address-book/update.$addressId/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdDashboardAddressBookDeleteAddressIdRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/address-book/delete.$addressId/route'
@@ -1588,6 +1595,16 @@ const AppToolsExternalLinksArchiveExternalLinkIdRouteRoute =
       './routes/app/tools/external-links/archive.$externalLinkId/route.lazy'
     ).then((d) => d.Route),
   )
+const AppToolsEmailsEmailIdResendRouteRoute =
+  AppToolsEmailsEmailIdResendRouteRouteImport.update({
+    id: '/resend',
+    path: '/resend',
+    getParentRoute: () => AppToolsEmailsEmailIdRouteRoute,
+  } as any).lazy(() =>
+    import('./routes/app/tools/emails/$emailId/resend/route.lazy').then(
+      (d) => d.Route,
+    ),
+  )
 const AppToolsEmailsEmailIdReplyRouteRoute =
   AppToolsEmailsEmailIdReplyRouteRouteImport.update({
     id: '/reply',
@@ -1932,6 +1949,16 @@ const AppEnterprisesEnterpriseIdAddressBookCreateRouteRoute =
       './routes/app/enterprises_.$enterpriseId/address-book/create/route.lazy'
     ).then((d) => d.Route),
   )
+const AppDashboardTaskEmailTaskIdResendRouteRoute =
+  AppDashboardTaskEmailTaskIdResendRouteRouteImport.update({
+    id: '/resend',
+    path: '/resend',
+    getParentRoute: () => AppDashboardTaskEmailTaskIdRouteRoute,
+  } as any).lazy(() =>
+    import('./routes/app/dashboard/task-email.$taskId/resend/route.lazy').then(
+      (d) => d.Route,
+    ),
+  )
 const AppDashboardTaskEmailTaskIdReplyRouteRoute =
   AppDashboardTaskEmailTaskIdReplyRouteRouteImport.update({
     id: '/reply',
@@ -2265,6 +2292,16 @@ const AppFaqGedFaqIdDeleteItemRelativePathRouteRoute =
   } as any).lazy(() =>
     import(
       './routes/app/faq/ged.$faqId/delete.$itemRelativePath/route.lazy'
+    ).then((d) => d.Route),
+  )
+const AppEnterprisesEnterpriseIdTaskEmailTaskIdResendRouteRoute =
+  AppEnterprisesEnterpriseIdTaskEmailTaskIdResendRouteRouteImport.update({
+    id: '/resend',
+    path: '/resend',
+    getParentRoute: () => AppEnterprisesEnterpriseIdTaskEmailTaskIdRouteRoute,
+  } as any).lazy(() =>
+    import(
+      './routes/app/enterprises_.$enterpriseId/task-email.$taskId/resend/route.lazy'
     ).then((d) => d.Route),
   )
 const AppEnterprisesEnterpriseIdTaskEmailTaskIdReplyRouteRoute =
@@ -2717,6 +2754,17 @@ const AppToolsFormationsSubscribersFormationDetailIdDeleteSubscriptionIdRouteRou
       './routes/app/tools/formations/subscribers.$formationDetailId/delete.$subscriptionId/route.lazy'
     ).then((d) => d.Route),
   )
+const AppProductsProductIdInformationsTaskEmailTaskIdResendRouteRoute =
+  AppProductsProductIdInformationsTaskEmailTaskIdResendRouteRouteImport.update({
+    id: '/resend',
+    path: '/resend',
+    getParentRoute: () =>
+      AppProductsProductIdInformationsTaskEmailTaskIdRouteRoute,
+  } as any).lazy(() =>
+    import(
+      './routes/app/products_.$productId/informations/task-email.$taskId/resend/route.lazy'
+    ).then((d) => d.Route),
+  )
 const AppProductsProductIdInformationsTaskEmailTaskIdReplyRouteRoute =
   AppProductsProductIdInformationsTaskEmailTaskIdReplyRouteRouteImport.update({
     id: '/reply',
@@ -2726,6 +2774,19 @@ const AppProductsProductIdInformationsTaskEmailTaskIdReplyRouteRoute =
   } as any).lazy(() =>
     import(
       './routes/app/products_.$productId/informations/task-email.$taskId/reply/route.lazy'
+    ).then((d) => d.Route),
+  )
+const AppEnterprisesEnterpriseIdEmailHistoryEmailEmailIdResendRouteRoute =
+  AppEnterprisesEnterpriseIdEmailHistoryEmailEmailIdResendRouteRouteImport.update(
+    {
+      id: '/resend',
+      path: '/resend',
+      getParentRoute: () =>
+        AppEnterprisesEnterpriseIdEmailHistoryEmailEmailIdRouteRoute,
+    } as any,
+  ).lazy(() =>
+    import(
+      './routes/app/enterprises_.$enterpriseId/email-history/email.$emailId/resend/route.lazy'
     ).then((d) => d.Route),
   )
 const AppEnterprisesEnterpriseIdEmailHistoryEmailEmailIdReplyRouteRoute =
@@ -3375,6 +3436,17 @@ const AppBusinessesRmaBusinessBusinessIdArcDeleteDetailDetailIdRouteRoute =
       './routes/app/businesses-rma_/business.$businessId/arc/delete-detail.$detailId/route.lazy'
     ).then((d) => d.Route),
   )
+const AppBusinessesRmaRmaRmaIdSupportTaskEmailTaskIdResendRouteRoute =
+  AppBusinessesRmaRmaRmaIdSupportTaskEmailTaskIdResendRouteRouteImport.update({
+    id: '/resend',
+    path: '/resend',
+    getParentRoute: () =>
+      AppBusinessesRmaRmaRmaIdSupportTaskEmailTaskIdRouteRoute,
+  } as any).lazy(() =>
+    import(
+      './routes/app/businesses-rma_/rma.$rmaId/support/task-email.$taskId/resend/route.lazy'
+    ).then((d) => d.Route),
+  )
 const AppBusinessesRmaRmaRmaIdSupportTaskEmailTaskIdReplyRouteRoute =
   AppBusinessesRmaRmaRmaIdSupportTaskEmailTaskIdReplyRouteRouteImport.update({
     id: '/reply',
@@ -3459,6 +3531,19 @@ const AppBusinessesRmaBusinessBusinessIdQuotationCommercialNoticeSendByEmailPred
       getParentRoute: () =>
         AppBusinessesRmaBusinessBusinessIdQuotationCommercialNoticeSendByEmailRouteRoute,
     } as any,
+  )
+const AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdResendRouteRoute =
+  AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdResendRouteRouteImport.update(
+    {
+      id: '/resend',
+      path: '/resend',
+      getParentRoute: () =>
+        AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdRouteRoute,
+    } as any,
+  ).lazy(() =>
+    import(
+      './routes/app/businesses-rma_/business.$businessId/dashboard/email-history/$emailId/resend/route.lazy'
+    ).then((d) => d.Route),
   )
 const AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdReplyRouteRoute =
   AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdReplyRouteRouteImport.update(
@@ -3627,6 +3712,7 @@ export interface FileRoutesByFullPath {
   '/app/businesses-rma/rma/$rmaId/reception': typeof AppBusinessesRmaRmaRmaIdReceptionRouteRouteWithChildren
   '/app/businesses-rma/rma/$rmaId/support': typeof AppBusinessesRmaRmaRmaIdSupportRouteRouteWithChildren
   '/app/dashboard/task-email/$taskId/reply': typeof AppDashboardTaskEmailTaskIdReplyRouteRoute
+  '/app/dashboard/task-email/$taskId/resend': typeof AppDashboardTaskEmailTaskIdResendRouteRoute
   '/app/enterprises/$enterpriseId/address-book/create': typeof AppEnterprisesEnterpriseIdAddressBookCreateRouteRoute
   '/app/enterprises/$enterpriseId/address-book/import': typeof AppEnterprisesEnterpriseIdAddressBookImportRouteRoute
   '/app/enterprises/$enterpriseId/create-contact-business/$contactId': typeof AppEnterprisesEnterpriseIdCreateContactBusinessContactIdRouteRoute
@@ -3660,6 +3746,7 @@ export interface FileRoutesByFullPath {
   '/app/tools/departments/delete/$departmentId': typeof AppToolsDepartmentsDeleteDepartmentIdRouteRoute
   '/app/tools/departments/update/$departmentId': typeof AppToolsDepartmentsUpdateDepartmentIdRouteRoute
   '/app/tools/emails/$emailId/reply': typeof AppToolsEmailsEmailIdReplyRouteRoute
+  '/app/tools/emails/$emailId/resend': typeof AppToolsEmailsEmailIdResendRouteRoute
   '/app/tools/external-links/archive/$externalLinkId': typeof AppToolsExternalLinksArchiveExternalLinkIdRouteRoute
   '/app/tools/external-links/delete/$externalLinkId': typeof AppToolsExternalLinksDeleteExternalLinkIdRouteRoute
   '/app/tools/external-links/update/$externalLinkId': typeof AppToolsExternalLinksUpdateExternalLinkIdRouteRoute
@@ -3724,6 +3811,7 @@ export interface FileRoutesByFullPath {
   '/app/enterprises/$enterpriseId/address-book/update/$addressId': typeof AppEnterprisesEnterpriseIdAddressBookUpdateAddressIdRouteRoute
   '/app/enterprises/$enterpriseId/email-history/email/$emailId': typeof AppEnterprisesEnterpriseIdEmailHistoryEmailEmailIdRouteRouteWithChildren
   '/app/enterprises/$enterpriseId/task-email/$taskId/reply': typeof AppEnterprisesEnterpriseIdTaskEmailTaskIdReplyRouteRoute
+  '/app/enterprises/$enterpriseId/task-email/$taskId/resend': typeof AppEnterprisesEnterpriseIdTaskEmailTaskIdResendRouteRoute
   '/app/faq/ged/$faqId/delete/$itemRelativePath': typeof AppFaqGedFaqIdDeleteItemRelativePathRouteRoute
   '/app/faq/ged/$faqId/rename/$itemRelativePath': typeof AppFaqGedFaqIdRenameItemRelativePathRouteRoute
   '/app/products/$productId/informations/lifesheet-email/$lifesheetId': typeof AppProductsProductIdInformationsLifesheetEmailLifesheetIdRouteRoute
@@ -3800,12 +3888,15 @@ export interface FileRoutesByFullPath {
   '/app/businesses-rma/rma/$rmaId/support/unlink-task/$taskId': typeof AppBusinessesRmaRmaRmaIdSupportUnlinkTaskTaskIdRouteRoute
   '/app/businesses-rma/rma/$rmaId/support/update-detail/$detailId': typeof AppBusinessesRmaRmaRmaIdSupportUpdateDetailDetailIdRouteRoute
   '/app/enterprises/$enterpriseId/email-history/email/$emailId/reply': typeof AppEnterprisesEnterpriseIdEmailHistoryEmailEmailIdReplyRouteRoute
+  '/app/enterprises/$enterpriseId/email-history/email/$emailId/resend': typeof AppEnterprisesEnterpriseIdEmailHistoryEmailEmailIdResendRouteRoute
   '/app/products/$productId/informations/task-email/$taskId/reply': typeof AppProductsProductIdInformationsTaskEmailTaskIdReplyRouteRoute
+  '/app/products/$productId/informations/task-email/$taskId/resend': typeof AppProductsProductIdInformationsTaskEmailTaskIdResendRouteRoute
   '/app/tools/formations/subscribers/$formationDetailId/delete/$subscriptionId': typeof AppToolsFormationsSubscribersFormationDetailIdDeleteSubscriptionIdRouteRoute
   '/app/tools/formations/subscribers/$formationDetailId/send-email/$subscriptionId': typeof AppToolsFormationsSubscribersFormationDetailIdSendEmailSubscriptionIdRouteRoute
   '/app/businesses-rma/business/$businessId/dashboard/address-book/delete/$addressId': typeof AppBusinessesRmaBusinessBusinessIdDashboardAddressBookDeleteAddressIdRouteRoute
   '/app/businesses-rma/business/$businessId/dashboard/address-book/update/$addressId': typeof AppBusinessesRmaBusinessBusinessIdDashboardAddressBookUpdateAddressIdRouteRoute
   '/app/businesses-rma/business/$businessId/dashboard/email-history/$emailId/reply': typeof AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdReplyRouteRoute
+  '/app/businesses-rma/business/$businessId/dashboard/email-history/$emailId/resend': typeof AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdResendRouteRoute
   '/app/businesses-rma/business/$businessId/quotation/commercial-notice/send-by-email/predefined-messages': typeof AppBusinessesRmaBusinessBusinessIdQuotationCommercialNoticeSendByEmailPredefinedMessagesRouteRoute
   '/app/businesses-rma/business/$businessId/assistance/$assistanceId/delete-ged-object/$objectRelativePath': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdDeleteGedObjectObjectRelativePathRouteRoute
   '/app/businesses-rma/business/$businessId/assistance/$assistanceId/delete-link/$associatedId': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdDeleteLinkAssociatedIdRouteRoute
@@ -3813,6 +3904,7 @@ export interface FileRoutesByFullPath {
   '/app/businesses-rma/business/$businessId/assistance/$assistanceId/pdf/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdPdfSendByEmailRouteRoute
   '/app/businesses-rma/business/$businessId/assistance/$assistanceId/rename-ged-object/$objectRelativePath': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdRenameGedObjectObjectRelativePathRouteRoute
   '/app/businesses-rma/rma/$rmaId/support/task-email/$taskId/reply': typeof AppBusinessesRmaRmaRmaIdSupportTaskEmailTaskIdReplyRouteRoute
+  '/app/businesses-rma/rma/$rmaId/support/task-email/$taskId/resend': typeof AppBusinessesRmaRmaRmaIdSupportTaskEmailTaskIdResendRouteRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -3934,6 +4026,7 @@ export interface FileRoutesByTo {
   '/app/businesses-rma/rma/$rmaId/reception': typeof AppBusinessesRmaRmaRmaIdReceptionRouteRouteWithChildren
   '/app/businesses-rma/rma/$rmaId/support': typeof AppBusinessesRmaRmaRmaIdSupportRouteRouteWithChildren
   '/app/dashboard/task-email/$taskId/reply': typeof AppDashboardTaskEmailTaskIdReplyRouteRoute
+  '/app/dashboard/task-email/$taskId/resend': typeof AppDashboardTaskEmailTaskIdResendRouteRoute
   '/app/enterprises/$enterpriseId/address-book/create': typeof AppEnterprisesEnterpriseIdAddressBookCreateRouteRoute
   '/app/enterprises/$enterpriseId/address-book/import': typeof AppEnterprisesEnterpriseIdAddressBookImportRouteRoute
   '/app/enterprises/$enterpriseId/create-contact-business/$contactId': typeof AppEnterprisesEnterpriseIdCreateContactBusinessContactIdRouteRoute
@@ -3967,6 +4060,7 @@ export interface FileRoutesByTo {
   '/app/tools/departments/delete/$departmentId': typeof AppToolsDepartmentsDeleteDepartmentIdRouteRoute
   '/app/tools/departments/update/$departmentId': typeof AppToolsDepartmentsUpdateDepartmentIdRouteRoute
   '/app/tools/emails/$emailId/reply': typeof AppToolsEmailsEmailIdReplyRouteRoute
+  '/app/tools/emails/$emailId/resend': typeof AppToolsEmailsEmailIdResendRouteRoute
   '/app/tools/external-links/archive/$externalLinkId': typeof AppToolsExternalLinksArchiveExternalLinkIdRouteRoute
   '/app/tools/external-links/delete/$externalLinkId': typeof AppToolsExternalLinksDeleteExternalLinkIdRouteRoute
   '/app/tools/external-links/update/$externalLinkId': typeof AppToolsExternalLinksUpdateExternalLinkIdRouteRoute
@@ -4031,6 +4125,7 @@ export interface FileRoutesByTo {
   '/app/enterprises/$enterpriseId/address-book/update/$addressId': typeof AppEnterprisesEnterpriseIdAddressBookUpdateAddressIdRouteRoute
   '/app/enterprises/$enterpriseId/email-history/email/$emailId': typeof AppEnterprisesEnterpriseIdEmailHistoryEmailEmailIdRouteRouteWithChildren
   '/app/enterprises/$enterpriseId/task-email/$taskId/reply': typeof AppEnterprisesEnterpriseIdTaskEmailTaskIdReplyRouteRoute
+  '/app/enterprises/$enterpriseId/task-email/$taskId/resend': typeof AppEnterprisesEnterpriseIdTaskEmailTaskIdResendRouteRoute
   '/app/faq/ged/$faqId/delete/$itemRelativePath': typeof AppFaqGedFaqIdDeleteItemRelativePathRouteRoute
   '/app/faq/ged/$faqId/rename/$itemRelativePath': typeof AppFaqGedFaqIdRenameItemRelativePathRouteRoute
   '/app/products/$productId/informations/lifesheet-email/$lifesheetId': typeof AppProductsProductIdInformationsLifesheetEmailLifesheetIdRouteRoute
@@ -4107,12 +4202,15 @@ export interface FileRoutesByTo {
   '/app/businesses-rma/rma/$rmaId/support/unlink-task/$taskId': typeof AppBusinessesRmaRmaRmaIdSupportUnlinkTaskTaskIdRouteRoute
   '/app/businesses-rma/rma/$rmaId/support/update-detail/$detailId': typeof AppBusinessesRmaRmaRmaIdSupportUpdateDetailDetailIdRouteRoute
   '/app/enterprises/$enterpriseId/email-history/email/$emailId/reply': typeof AppEnterprisesEnterpriseIdEmailHistoryEmailEmailIdReplyRouteRoute
+  '/app/enterprises/$enterpriseId/email-history/email/$emailId/resend': typeof AppEnterprisesEnterpriseIdEmailHistoryEmailEmailIdResendRouteRoute
   '/app/products/$productId/informations/task-email/$taskId/reply': typeof AppProductsProductIdInformationsTaskEmailTaskIdReplyRouteRoute
+  '/app/products/$productId/informations/task-email/$taskId/resend': typeof AppProductsProductIdInformationsTaskEmailTaskIdResendRouteRoute
   '/app/tools/formations/subscribers/$formationDetailId/delete/$subscriptionId': typeof AppToolsFormationsSubscribersFormationDetailIdDeleteSubscriptionIdRouteRoute
   '/app/tools/formations/subscribers/$formationDetailId/send-email/$subscriptionId': typeof AppToolsFormationsSubscribersFormationDetailIdSendEmailSubscriptionIdRouteRoute
   '/app/businesses-rma/business/$businessId/dashboard/address-book/delete/$addressId': typeof AppBusinessesRmaBusinessBusinessIdDashboardAddressBookDeleteAddressIdRouteRoute
   '/app/businesses-rma/business/$businessId/dashboard/address-book/update/$addressId': typeof AppBusinessesRmaBusinessBusinessIdDashboardAddressBookUpdateAddressIdRouteRoute
   '/app/businesses-rma/business/$businessId/dashboard/email-history/$emailId/reply': typeof AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdReplyRouteRoute
+  '/app/businesses-rma/business/$businessId/dashboard/email-history/$emailId/resend': typeof AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdResendRouteRoute
   '/app/businesses-rma/business/$businessId/quotation/commercial-notice/send-by-email/predefined-messages': typeof AppBusinessesRmaBusinessBusinessIdQuotationCommercialNoticeSendByEmailPredefinedMessagesRouteRoute
   '/app/businesses-rma/business/$businessId/assistance/$assistanceId/delete-ged-object/$objectRelativePath': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdDeleteGedObjectObjectRelativePathRouteRoute
   '/app/businesses-rma/business/$businessId/assistance/$assistanceId/delete-link/$associatedId': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdDeleteLinkAssociatedIdRouteRoute
@@ -4120,6 +4218,7 @@ export interface FileRoutesByTo {
   '/app/businesses-rma/business/$businessId/assistance/$assistanceId/pdf/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdPdfSendByEmailRouteRoute
   '/app/businesses-rma/business/$businessId/assistance/$assistanceId/rename-ged-object/$objectRelativePath': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdRenameGedObjectObjectRelativePathRouteRoute
   '/app/businesses-rma/rma/$rmaId/support/task-email/$taskId/reply': typeof AppBusinessesRmaRmaRmaIdSupportTaskEmailTaskIdReplyRouteRoute
+  '/app/businesses-rma/rma/$rmaId/support/task-email/$taskId/resend': typeof AppBusinessesRmaRmaRmaIdSupportTaskEmailTaskIdResendRouteRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -4249,6 +4348,7 @@ export interface FileRoutesById {
   '/app/businesses-rma_/rma/$rmaId/reception': typeof AppBusinessesRmaRmaRmaIdReceptionRouteRouteWithChildren
   '/app/businesses-rma_/rma/$rmaId/support': typeof AppBusinessesRmaRmaRmaIdSupportRouteRouteWithChildren
   '/app/dashboard/task-email/$taskId/reply': typeof AppDashboardTaskEmailTaskIdReplyRouteRoute
+  '/app/dashboard/task-email/$taskId/resend': typeof AppDashboardTaskEmailTaskIdResendRouteRoute
   '/app/enterprises_/$enterpriseId/address-book/create': typeof AppEnterprisesEnterpriseIdAddressBookCreateRouteRoute
   '/app/enterprises_/$enterpriseId/address-book/import': typeof AppEnterprisesEnterpriseIdAddressBookImportRouteRoute
   '/app/enterprises_/$enterpriseId/create-contact-business/$contactId': typeof AppEnterprisesEnterpriseIdCreateContactBusinessContactIdRouteRoute
@@ -4282,6 +4382,7 @@ export interface FileRoutesById {
   '/app/tools/departments/delete/$departmentId': typeof AppToolsDepartmentsDeleteDepartmentIdRouteRoute
   '/app/tools/departments/update/$departmentId': typeof AppToolsDepartmentsUpdateDepartmentIdRouteRoute
   '/app/tools/emails/$emailId/reply': typeof AppToolsEmailsEmailIdReplyRouteRoute
+  '/app/tools/emails/$emailId/resend': typeof AppToolsEmailsEmailIdResendRouteRoute
   '/app/tools/external-links/archive/$externalLinkId': typeof AppToolsExternalLinksArchiveExternalLinkIdRouteRoute
   '/app/tools/external-links/delete/$externalLinkId': typeof AppToolsExternalLinksDeleteExternalLinkIdRouteRoute
   '/app/tools/external-links/update/$externalLinkId': typeof AppToolsExternalLinksUpdateExternalLinkIdRouteRoute
@@ -4346,6 +4447,7 @@ export interface FileRoutesById {
   '/app/enterprises_/$enterpriseId/address-book/update/$addressId': typeof AppEnterprisesEnterpriseIdAddressBookUpdateAddressIdRouteRoute
   '/app/enterprises_/$enterpriseId/email-history/email/$emailId': typeof AppEnterprisesEnterpriseIdEmailHistoryEmailEmailIdRouteRouteWithChildren
   '/app/enterprises_/$enterpriseId/task-email/$taskId/reply': typeof AppEnterprisesEnterpriseIdTaskEmailTaskIdReplyRouteRoute
+  '/app/enterprises_/$enterpriseId/task-email/$taskId/resend': typeof AppEnterprisesEnterpriseIdTaskEmailTaskIdResendRouteRoute
   '/app/faq/ged/$faqId/delete/$itemRelativePath': typeof AppFaqGedFaqIdDeleteItemRelativePathRouteRoute
   '/app/faq/ged/$faqId/rename/$itemRelativePath': typeof AppFaqGedFaqIdRenameItemRelativePathRouteRoute
   '/app/products_/$productId/informations/lifesheet-email/$lifesheetId': typeof AppProductsProductIdInformationsLifesheetEmailLifesheetIdRouteRoute
@@ -4422,12 +4524,15 @@ export interface FileRoutesById {
   '/app/businesses-rma_/rma/$rmaId/support/unlink-task/$taskId': typeof AppBusinessesRmaRmaRmaIdSupportUnlinkTaskTaskIdRouteRoute
   '/app/businesses-rma_/rma/$rmaId/support/update-detail/$detailId': typeof AppBusinessesRmaRmaRmaIdSupportUpdateDetailDetailIdRouteRoute
   '/app/enterprises_/$enterpriseId/email-history/email/$emailId/reply': typeof AppEnterprisesEnterpriseIdEmailHistoryEmailEmailIdReplyRouteRoute
+  '/app/enterprises_/$enterpriseId/email-history/email/$emailId/resend': typeof AppEnterprisesEnterpriseIdEmailHistoryEmailEmailIdResendRouteRoute
   '/app/products_/$productId/informations/task-email/$taskId/reply': typeof AppProductsProductIdInformationsTaskEmailTaskIdReplyRouteRoute
+  '/app/products_/$productId/informations/task-email/$taskId/resend': typeof AppProductsProductIdInformationsTaskEmailTaskIdResendRouteRoute
   '/app/tools/formations/subscribers/$formationDetailId/delete/$subscriptionId': typeof AppToolsFormationsSubscribersFormationDetailIdDeleteSubscriptionIdRouteRoute
   '/app/tools/formations/subscribers/$formationDetailId/send-email/$subscriptionId': typeof AppToolsFormationsSubscribersFormationDetailIdSendEmailSubscriptionIdRouteRoute
   '/app/businesses-rma_/business/$businessId/dashboard/address-book/delete/$addressId': typeof AppBusinessesRmaBusinessBusinessIdDashboardAddressBookDeleteAddressIdRouteRoute
   '/app/businesses-rma_/business/$businessId/dashboard/address-book/update/$addressId': typeof AppBusinessesRmaBusinessBusinessIdDashboardAddressBookUpdateAddressIdRouteRoute
   '/app/businesses-rma_/business/$businessId/dashboard/email-history/$emailId/reply': typeof AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdReplyRouteRoute
+  '/app/businesses-rma_/business/$businessId/dashboard/email-history/$emailId/resend': typeof AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdResendRouteRoute
   '/app/businesses-rma_/business/$businessId/quotation/commercial-notice/send-by-email/predefined-messages': typeof AppBusinessesRmaBusinessBusinessIdQuotationCommercialNoticeSendByEmailPredefinedMessagesRouteRoute
   '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/delete-ged-object/$objectRelativePath': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdDeleteGedObjectObjectRelativePathRouteRoute
   '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/delete-link/$associatedId': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdDeleteLinkAssociatedIdRouteRoute
@@ -4435,6 +4540,7 @@ export interface FileRoutesById {
   '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/pdf/send-by-email': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdPdfSendByEmailRouteRoute
   '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/rename-ged-object/$objectRelativePath': typeof AppBusinessesRmaBusinessBusinessIdAssistanceAssistanceIdRenameGedObjectObjectRelativePathRouteRoute
   '/app/businesses-rma_/rma/$rmaId/support/task-email/$taskId/reply': typeof AppBusinessesRmaRmaRmaIdSupportTaskEmailTaskIdReplyRouteRoute
+  '/app/businesses-rma_/rma/$rmaId/support/task-email/$taskId/resend': typeof AppBusinessesRmaRmaRmaIdSupportTaskEmailTaskIdResendRouteRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -4565,6 +4671,7 @@ export interface FileRouteTypes {
     | '/app/businesses-rma/rma/$rmaId/reception'
     | '/app/businesses-rma/rma/$rmaId/support'
     | '/app/dashboard/task-email/$taskId/reply'
+    | '/app/dashboard/task-email/$taskId/resend'
     | '/app/enterprises/$enterpriseId/address-book/create'
     | '/app/enterprises/$enterpriseId/address-book/import'
     | '/app/enterprises/$enterpriseId/create-contact-business/$contactId'
@@ -4598,6 +4705,7 @@ export interface FileRouteTypes {
     | '/app/tools/departments/delete/$departmentId'
     | '/app/tools/departments/update/$departmentId'
     | '/app/tools/emails/$emailId/reply'
+    | '/app/tools/emails/$emailId/resend'
     | '/app/tools/external-links/archive/$externalLinkId'
     | '/app/tools/external-links/delete/$externalLinkId'
     | '/app/tools/external-links/update/$externalLinkId'
@@ -4662,6 +4770,7 @@ export interface FileRouteTypes {
     | '/app/enterprises/$enterpriseId/address-book/update/$addressId'
     | '/app/enterprises/$enterpriseId/email-history/email/$emailId'
     | '/app/enterprises/$enterpriseId/task-email/$taskId/reply'
+    | '/app/enterprises/$enterpriseId/task-email/$taskId/resend'
     | '/app/faq/ged/$faqId/delete/$itemRelativePath'
     | '/app/faq/ged/$faqId/rename/$itemRelativePath'
     | '/app/products/$productId/informations/lifesheet-email/$lifesheetId'
@@ -4738,12 +4847,15 @@ export interface FileRouteTypes {
     | '/app/businesses-rma/rma/$rmaId/support/unlink-task/$taskId'
     | '/app/businesses-rma/rma/$rmaId/support/update-detail/$detailId'
     | '/app/enterprises/$enterpriseId/email-history/email/$emailId/reply'
+    | '/app/enterprises/$enterpriseId/email-history/email/$emailId/resend'
     | '/app/products/$productId/informations/task-email/$taskId/reply'
+    | '/app/products/$productId/informations/task-email/$taskId/resend'
     | '/app/tools/formations/subscribers/$formationDetailId/delete/$subscriptionId'
     | '/app/tools/formations/subscribers/$formationDetailId/send-email/$subscriptionId'
     | '/app/businesses-rma/business/$businessId/dashboard/address-book/delete/$addressId'
     | '/app/businesses-rma/business/$businessId/dashboard/address-book/update/$addressId'
     | '/app/businesses-rma/business/$businessId/dashboard/email-history/$emailId/reply'
+    | '/app/businesses-rma/business/$businessId/dashboard/email-history/$emailId/resend'
     | '/app/businesses-rma/business/$businessId/quotation/commercial-notice/send-by-email/predefined-messages'
     | '/app/businesses-rma/business/$businessId/assistance/$assistanceId/delete-ged-object/$objectRelativePath'
     | '/app/businesses-rma/business/$businessId/assistance/$assistanceId/delete-link/$associatedId'
@@ -4751,6 +4863,7 @@ export interface FileRouteTypes {
     | '/app/businesses-rma/business/$businessId/assistance/$assistanceId/pdf/send-by-email'
     | '/app/businesses-rma/business/$businessId/assistance/$assistanceId/rename-ged-object/$objectRelativePath'
     | '/app/businesses-rma/rma/$rmaId/support/task-email/$taskId/reply'
+    | '/app/businesses-rma/rma/$rmaId/support/task-email/$taskId/resend'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -4872,6 +4985,7 @@ export interface FileRouteTypes {
     | '/app/businesses-rma/rma/$rmaId/reception'
     | '/app/businesses-rma/rma/$rmaId/support'
     | '/app/dashboard/task-email/$taskId/reply'
+    | '/app/dashboard/task-email/$taskId/resend'
     | '/app/enterprises/$enterpriseId/address-book/create'
     | '/app/enterprises/$enterpriseId/address-book/import'
     | '/app/enterprises/$enterpriseId/create-contact-business/$contactId'
@@ -4905,6 +5019,7 @@ export interface FileRouteTypes {
     | '/app/tools/departments/delete/$departmentId'
     | '/app/tools/departments/update/$departmentId'
     | '/app/tools/emails/$emailId/reply'
+    | '/app/tools/emails/$emailId/resend'
     | '/app/tools/external-links/archive/$externalLinkId'
     | '/app/tools/external-links/delete/$externalLinkId'
     | '/app/tools/external-links/update/$externalLinkId'
@@ -4969,6 +5084,7 @@ export interface FileRouteTypes {
     | '/app/enterprises/$enterpriseId/address-book/update/$addressId'
     | '/app/enterprises/$enterpriseId/email-history/email/$emailId'
     | '/app/enterprises/$enterpriseId/task-email/$taskId/reply'
+    | '/app/enterprises/$enterpriseId/task-email/$taskId/resend'
     | '/app/faq/ged/$faqId/delete/$itemRelativePath'
     | '/app/faq/ged/$faqId/rename/$itemRelativePath'
     | '/app/products/$productId/informations/lifesheet-email/$lifesheetId'
@@ -5045,12 +5161,15 @@ export interface FileRouteTypes {
     | '/app/businesses-rma/rma/$rmaId/support/unlink-task/$taskId'
     | '/app/businesses-rma/rma/$rmaId/support/update-detail/$detailId'
     | '/app/enterprises/$enterpriseId/email-history/email/$emailId/reply'
+    | '/app/enterprises/$enterpriseId/email-history/email/$emailId/resend'
     | '/app/products/$productId/informations/task-email/$taskId/reply'
+    | '/app/products/$productId/informations/task-email/$taskId/resend'
     | '/app/tools/formations/subscribers/$formationDetailId/delete/$subscriptionId'
     | '/app/tools/formations/subscribers/$formationDetailId/send-email/$subscriptionId'
     | '/app/businesses-rma/business/$businessId/dashboard/address-book/delete/$addressId'
     | '/app/businesses-rma/business/$businessId/dashboard/address-book/update/$addressId'
     | '/app/businesses-rma/business/$businessId/dashboard/email-history/$emailId/reply'
+    | '/app/businesses-rma/business/$businessId/dashboard/email-history/$emailId/resend'
     | '/app/businesses-rma/business/$businessId/quotation/commercial-notice/send-by-email/predefined-messages'
     | '/app/businesses-rma/business/$businessId/assistance/$assistanceId/delete-ged-object/$objectRelativePath'
     | '/app/businesses-rma/business/$businessId/assistance/$assistanceId/delete-link/$associatedId'
@@ -5058,6 +5177,7 @@ export interface FileRouteTypes {
     | '/app/businesses-rma/business/$businessId/assistance/$assistanceId/pdf/send-by-email'
     | '/app/businesses-rma/business/$businessId/assistance/$assistanceId/rename-ged-object/$objectRelativePath'
     | '/app/businesses-rma/rma/$rmaId/support/task-email/$taskId/reply'
+    | '/app/businesses-rma/rma/$rmaId/support/task-email/$taskId/resend'
   id:
     | '__root__'
     | '/'
@@ -5186,6 +5306,7 @@ export interface FileRouteTypes {
     | '/app/businesses-rma_/rma/$rmaId/reception'
     | '/app/businesses-rma_/rma/$rmaId/support'
     | '/app/dashboard/task-email/$taskId/reply'
+    | '/app/dashboard/task-email/$taskId/resend'
     | '/app/enterprises_/$enterpriseId/address-book/create'
     | '/app/enterprises_/$enterpriseId/address-book/import'
     | '/app/enterprises_/$enterpriseId/create-contact-business/$contactId'
@@ -5219,6 +5340,7 @@ export interface FileRouteTypes {
     | '/app/tools/departments/delete/$departmentId'
     | '/app/tools/departments/update/$departmentId'
     | '/app/tools/emails/$emailId/reply'
+    | '/app/tools/emails/$emailId/resend'
     | '/app/tools/external-links/archive/$externalLinkId'
     | '/app/tools/external-links/delete/$externalLinkId'
     | '/app/tools/external-links/update/$externalLinkId'
@@ -5283,6 +5405,7 @@ export interface FileRouteTypes {
     | '/app/enterprises_/$enterpriseId/address-book/update/$addressId'
     | '/app/enterprises_/$enterpriseId/email-history/email/$emailId'
     | '/app/enterprises_/$enterpriseId/task-email/$taskId/reply'
+    | '/app/enterprises_/$enterpriseId/task-email/$taskId/resend'
     | '/app/faq/ged/$faqId/delete/$itemRelativePath'
     | '/app/faq/ged/$faqId/rename/$itemRelativePath'
     | '/app/products_/$productId/informations/lifesheet-email/$lifesheetId'
@@ -5359,12 +5482,15 @@ export interface FileRouteTypes {
     | '/app/businesses-rma_/rma/$rmaId/support/unlink-task/$taskId'
     | '/app/businesses-rma_/rma/$rmaId/support/update-detail/$detailId'
     | '/app/enterprises_/$enterpriseId/email-history/email/$emailId/reply'
+    | '/app/enterprises_/$enterpriseId/email-history/email/$emailId/resend'
     | '/app/products_/$productId/informations/task-email/$taskId/reply'
+    | '/app/products_/$productId/informations/task-email/$taskId/resend'
     | '/app/tools/formations/subscribers/$formationDetailId/delete/$subscriptionId'
     | '/app/tools/formations/subscribers/$formationDetailId/send-email/$subscriptionId'
     | '/app/businesses-rma_/business/$businessId/dashboard/address-book/delete/$addressId'
     | '/app/businesses-rma_/business/$businessId/dashboard/address-book/update/$addressId'
     | '/app/businesses-rma_/business/$businessId/dashboard/email-history/$emailId/reply'
+    | '/app/businesses-rma_/business/$businessId/dashboard/email-history/$emailId/resend'
     | '/app/businesses-rma_/business/$businessId/quotation/commercial-notice/send-by-email/predefined-messages'
     | '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/delete-ged-object/$objectRelativePath'
     | '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/delete-link/$associatedId'
@@ -5372,6 +5498,7 @@ export interface FileRouteTypes {
     | '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/pdf/send-by-email'
     | '/app/businesses-rma_/business/$businessId_/assistance/$assistanceId/rename-ged-object/$objectRelativePath'
     | '/app/businesses-rma_/rma/$rmaId/support/task-email/$taskId/reply'
+    | '/app/businesses-rma_/rma/$rmaId/support/task-email/$taskId/resend'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -6362,6 +6489,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppToolsExternalLinksArchiveExternalLinkIdRouteRouteImport
       parentRoute: typeof AppToolsExternalLinksRouteRoute
     }
+    '/app/tools/emails/$emailId/resend': {
+      id: '/app/tools/emails/$emailId/resend'
+      path: '/resend'
+      fullPath: '/app/tools/emails/$emailId/resend'
+      preLoaderRoute: typeof AppToolsEmailsEmailIdResendRouteRouteImport
+      parentRoute: typeof AppToolsEmailsEmailIdRouteRoute
+    }
     '/app/tools/emails/$emailId/reply': {
       id: '/app/tools/emails/$emailId/reply'
       path: '/reply'
@@ -6593,6 +6727,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppEnterprisesEnterpriseIdAddressBookCreateRouteRouteImport
       parentRoute: typeof AppEnterprisesEnterpriseIdAddressBookRouteRoute
     }
+    '/app/dashboard/task-email/$taskId/resend': {
+      id: '/app/dashboard/task-email/$taskId/resend'
+      path: '/resend'
+      fullPath: '/app/dashboard/task-email/$taskId/resend'
+      preLoaderRoute: typeof AppDashboardTaskEmailTaskIdResendRouteRouteImport
+      parentRoute: typeof AppDashboardTaskEmailTaskIdRouteRoute
+    }
     '/app/dashboard/task-email/$taskId/reply': {
       id: '/app/dashboard/task-email/$taskId/reply'
       path: '/reply'
@@ -6823,6 +6964,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/app/faq/ged/$faqId/delete/$itemRelativePath'
       preLoaderRoute: typeof AppFaqGedFaqIdDeleteItemRelativePathRouteRouteImport
       parentRoute: typeof AppFaqGedFaqIdRouteRoute
+    }
+    '/app/enterprises_/$enterpriseId/task-email/$taskId/resend': {
+      id: '/app/enterprises_/$enterpriseId/task-email/$taskId/resend'
+      path: '/resend'
+      fullPath: '/app/enterprises/$enterpriseId/task-email/$taskId/resend'
+      preLoaderRoute: typeof AppEnterprisesEnterpriseIdTaskEmailTaskIdResendRouteRouteImport
+      parentRoute: typeof AppEnterprisesEnterpriseIdTaskEmailTaskIdRouteRoute
     }
     '/app/enterprises_/$enterpriseId/task-email/$taskId/reply': {
       id: '/app/enterprises_/$enterpriseId/task-email/$taskId/reply'
@@ -7111,12 +7259,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppToolsFormationsSubscribersFormationDetailIdDeleteSubscriptionIdRouteRouteImport
       parentRoute: typeof AppToolsFormationsSubscribersFormationDetailIdRouteRoute
     }
+    '/app/products_/$productId/informations/task-email/$taskId/resend': {
+      id: '/app/products_/$productId/informations/task-email/$taskId/resend'
+      path: '/resend'
+      fullPath: '/app/products/$productId/informations/task-email/$taskId/resend'
+      preLoaderRoute: typeof AppProductsProductIdInformationsTaskEmailTaskIdResendRouteRouteImport
+      parentRoute: typeof AppProductsProductIdInformationsTaskEmailTaskIdRouteRoute
+    }
     '/app/products_/$productId/informations/task-email/$taskId/reply': {
       id: '/app/products_/$productId/informations/task-email/$taskId/reply'
       path: '/reply'
       fullPath: '/app/products/$productId/informations/task-email/$taskId/reply'
       preLoaderRoute: typeof AppProductsProductIdInformationsTaskEmailTaskIdReplyRouteRouteImport
       parentRoute: typeof AppProductsProductIdInformationsTaskEmailTaskIdRouteRoute
+    }
+    '/app/enterprises_/$enterpriseId/email-history/email/$emailId/resend': {
+      id: '/app/enterprises_/$enterpriseId/email-history/email/$emailId/resend'
+      path: '/resend'
+      fullPath: '/app/enterprises/$enterpriseId/email-history/email/$emailId/resend'
+      preLoaderRoute: typeof AppEnterprisesEnterpriseIdEmailHistoryEmailEmailIdResendRouteRouteImport
+      parentRoute: typeof AppEnterprisesEnterpriseIdEmailHistoryEmailEmailIdRouteRoute
     }
     '/app/enterprises_/$enterpriseId/email-history/email/$emailId/reply': {
       id: '/app/enterprises_/$enterpriseId/email-history/email/$emailId/reply'
@@ -7496,6 +7658,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdArcDeleteDetailDetailIdRouteRouteImport
       parentRoute: typeof AppBusinessesRmaBusinessBusinessIdArcRouteRoute
     }
+    '/app/businesses-rma_/rma/$rmaId/support/task-email/$taskId/resend': {
+      id: '/app/businesses-rma_/rma/$rmaId/support/task-email/$taskId/resend'
+      path: '/resend'
+      fullPath: '/app/businesses-rma/rma/$rmaId/support/task-email/$taskId/resend'
+      preLoaderRoute: typeof AppBusinessesRmaRmaRmaIdSupportTaskEmailTaskIdResendRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaRmaRmaIdSupportTaskEmailTaskIdRouteRoute
+    }
     '/app/businesses-rma_/rma/$rmaId/support/task-email/$taskId/reply': {
       id: '/app/businesses-rma_/rma/$rmaId/support/task-email/$taskId/reply'
       path: '/reply'
@@ -7545,6 +7714,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdQuotationCommercialNoticeSendByEmailPredefinedMessagesRouteRouteImport
       parentRoute: typeof AppBusinessesRmaBusinessBusinessIdQuotationCommercialNoticeSendByEmailRouteRoute
     }
+    '/app/businesses-rma_/business/$businessId/dashboard/email-history/$emailId/resend': {
+      id: '/app/businesses-rma_/business/$businessId/dashboard/email-history/$emailId/resend'
+      path: '/resend'
+      fullPath: '/app/businesses-rma/business/$businessId/dashboard/email-history/$emailId/resend'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdResendRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdRouteRoute
+    }
     '/app/businesses-rma_/business/$businessId/dashboard/email-history/$emailId/reply': {
       id: '/app/businesses-rma_/business/$businessId/dashboard/email-history/$emailId/reply'
       path: '/reply'
@@ -7588,12 +7764,15 @@ const AppBusinessesRmaRouteRouteWithChildren =
 
 interface AppDashboardTaskEmailTaskIdRouteRouteChildren {
   AppDashboardTaskEmailTaskIdReplyRouteRoute: typeof AppDashboardTaskEmailTaskIdReplyRouteRoute
+  AppDashboardTaskEmailTaskIdResendRouteRoute: typeof AppDashboardTaskEmailTaskIdResendRouteRoute
 }
 
 const AppDashboardTaskEmailTaskIdRouteRouteChildren: AppDashboardTaskEmailTaskIdRouteRouteChildren =
   {
     AppDashboardTaskEmailTaskIdReplyRouteRoute:
       AppDashboardTaskEmailTaskIdReplyRouteRoute,
+    AppDashboardTaskEmailTaskIdResendRouteRoute:
+      AppDashboardTaskEmailTaskIdResendRouteRoute,
   }
 
 const AppDashboardTaskEmailTaskIdRouteRouteWithChildren =
@@ -7839,11 +8018,14 @@ const AppToolsDepartmentsRouteRouteWithChildren =
 
 interface AppToolsEmailsEmailIdRouteRouteChildren {
   AppToolsEmailsEmailIdReplyRouteRoute: typeof AppToolsEmailsEmailIdReplyRouteRoute
+  AppToolsEmailsEmailIdResendRouteRoute: typeof AppToolsEmailsEmailIdResendRouteRoute
 }
 
 const AppToolsEmailsEmailIdRouteRouteChildren: AppToolsEmailsEmailIdRouteRouteChildren =
   {
     AppToolsEmailsEmailIdReplyRouteRoute: AppToolsEmailsEmailIdReplyRouteRoute,
+    AppToolsEmailsEmailIdResendRouteRoute:
+      AppToolsEmailsEmailIdResendRouteRoute,
   }
 
 const AppToolsEmailsEmailIdRouteRouteWithChildren =
@@ -8242,12 +8424,15 @@ const AppEnterprisesEnterpriseIdAddressBookRouteRouteWithChildren =
 
 interface AppEnterprisesEnterpriseIdEmailHistoryEmailEmailIdRouteRouteChildren {
   AppEnterprisesEnterpriseIdEmailHistoryEmailEmailIdReplyRouteRoute: typeof AppEnterprisesEnterpriseIdEmailHistoryEmailEmailIdReplyRouteRoute
+  AppEnterprisesEnterpriseIdEmailHistoryEmailEmailIdResendRouteRoute: typeof AppEnterprisesEnterpriseIdEmailHistoryEmailEmailIdResendRouteRoute
 }
 
 const AppEnterprisesEnterpriseIdEmailHistoryEmailEmailIdRouteRouteChildren: AppEnterprisesEnterpriseIdEmailHistoryEmailEmailIdRouteRouteChildren =
   {
     AppEnterprisesEnterpriseIdEmailHistoryEmailEmailIdReplyRouteRoute:
       AppEnterprisesEnterpriseIdEmailHistoryEmailEmailIdReplyRouteRoute,
+    AppEnterprisesEnterpriseIdEmailHistoryEmailEmailIdResendRouteRoute:
+      AppEnterprisesEnterpriseIdEmailHistoryEmailEmailIdResendRouteRoute,
   }
 
 const AppEnterprisesEnterpriseIdEmailHistoryEmailEmailIdRouteRouteWithChildren =
@@ -8272,12 +8457,15 @@ const AppEnterprisesEnterpriseIdEmailHistoryRouteRouteWithChildren =
 
 interface AppEnterprisesEnterpriseIdTaskEmailTaskIdRouteRouteChildren {
   AppEnterprisesEnterpriseIdTaskEmailTaskIdReplyRouteRoute: typeof AppEnterprisesEnterpriseIdTaskEmailTaskIdReplyRouteRoute
+  AppEnterprisesEnterpriseIdTaskEmailTaskIdResendRouteRoute: typeof AppEnterprisesEnterpriseIdTaskEmailTaskIdResendRouteRoute
 }
 
 const AppEnterprisesEnterpriseIdTaskEmailTaskIdRouteRouteChildren: AppEnterprisesEnterpriseIdTaskEmailTaskIdRouteRouteChildren =
   {
     AppEnterprisesEnterpriseIdTaskEmailTaskIdReplyRouteRoute:
       AppEnterprisesEnterpriseIdTaskEmailTaskIdReplyRouteRoute,
+    AppEnterprisesEnterpriseIdTaskEmailTaskIdResendRouteRoute:
+      AppEnterprisesEnterpriseIdTaskEmailTaskIdResendRouteRoute,
   }
 
 const AppEnterprisesEnterpriseIdTaskEmailTaskIdRouteRouteWithChildren =
@@ -8371,12 +8559,15 @@ const AppEnterprisesEnterpriseIdRouteRouteWithChildren =
 
 interface AppProductsProductIdInformationsTaskEmailTaskIdRouteRouteChildren {
   AppProductsProductIdInformationsTaskEmailTaskIdReplyRouteRoute: typeof AppProductsProductIdInformationsTaskEmailTaskIdReplyRouteRoute
+  AppProductsProductIdInformationsTaskEmailTaskIdResendRouteRoute: typeof AppProductsProductIdInformationsTaskEmailTaskIdResendRouteRoute
 }
 
 const AppProductsProductIdInformationsTaskEmailTaskIdRouteRouteChildren: AppProductsProductIdInformationsTaskEmailTaskIdRouteRouteChildren =
   {
     AppProductsProductIdInformationsTaskEmailTaskIdReplyRouteRoute:
       AppProductsProductIdInformationsTaskEmailTaskIdReplyRouteRoute,
+    AppProductsProductIdInformationsTaskEmailTaskIdResendRouteRoute:
+      AppProductsProductIdInformationsTaskEmailTaskIdResendRouteRoute,
   }
 
 const AppProductsProductIdInformationsTaskEmailTaskIdRouteRouteWithChildren =
@@ -8673,12 +8864,15 @@ const AppBusinessesRmaBusinessBusinessIdDashboardAddressBookRouteRouteWithChildr
 
 interface AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdRouteRouteChildren {
   AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdReplyRouteRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdReplyRouteRoute
+  AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdResendRouteRoute: typeof AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdResendRouteRoute
 }
 
 const AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdRouteRouteChildren: AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdRouteRouteChildren =
   {
     AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdReplyRouteRoute:
       AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdReplyRouteRoute,
+    AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdResendRouteRoute:
+      AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdResendRouteRoute,
   }
 
 const AppBusinessesRmaBusinessBusinessIdDashboardEmailHistoryEmailIdRouteRouteWithChildren =
@@ -8982,12 +9176,15 @@ const AppBusinessesRmaRmaRmaIdSupportPdfRouteRouteWithChildren =
 
 interface AppBusinessesRmaRmaRmaIdSupportTaskEmailTaskIdRouteRouteChildren {
   AppBusinessesRmaRmaRmaIdSupportTaskEmailTaskIdReplyRouteRoute: typeof AppBusinessesRmaRmaRmaIdSupportTaskEmailTaskIdReplyRouteRoute
+  AppBusinessesRmaRmaRmaIdSupportTaskEmailTaskIdResendRouteRoute: typeof AppBusinessesRmaRmaRmaIdSupportTaskEmailTaskIdResendRouteRoute
 }
 
 const AppBusinessesRmaRmaRmaIdSupportTaskEmailTaskIdRouteRouteChildren: AppBusinessesRmaRmaRmaIdSupportTaskEmailTaskIdRouteRouteChildren =
   {
     AppBusinessesRmaRmaRmaIdSupportTaskEmailTaskIdReplyRouteRoute:
       AppBusinessesRmaRmaRmaIdSupportTaskEmailTaskIdReplyRouteRoute,
+    AppBusinessesRmaRmaRmaIdSupportTaskEmailTaskIdResendRouteRoute:
+      AppBusinessesRmaRmaRmaIdSupportTaskEmailTaskIdResendRouteRoute,
   }
 
 const AppBusinessesRmaRmaRmaIdSupportTaskEmailTaskIdRouteRouteWithChildren =

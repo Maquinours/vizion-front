@@ -21,6 +21,7 @@ export default function AppViewRmaViewSupportViewTaskEmailModalView() {
       emailId={task.mailId!}
       onClose={onClose}
       replyLink={{ to: '/app/businesses-rma/rma/$rmaId/support/task-email/$taskId/reply', search: true, replace: true, resetScroll: false }}
+      resendLink={{ to: '/app/businesses-rma/rma/$rmaId/support/task-email/$taskId/resend', search: true, replace: true, resetScroll: false }}
     />
   );
 }

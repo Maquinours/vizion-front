@@ -1,0 +1,12 @@
+import { createFileRoute } from '@tanstack/react-router';
+import { queries } from '../../../../../utils/constants/queryKeys';
+import LoaderModal from '../../../../../components/LoaderModal/LoaderModal';
+
+export const Route = createFileRoute('/app/dashboard/task-email/$taskId/resend')({
+  loader: async ({ context: { queryClient }, params: { taskId } }) => {
+    const task = await queryClient.ensureQueryData(queries.tasks.detail(taskId));
+    const email = await queryClient.ensureQueryData(queries.emails.detail(task.mailId!));
+    return { email };
+  },
+  pendingComponent: LoaderModal,
+});

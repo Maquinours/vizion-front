@@ -2,23 +2,20 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 import { Link, LinkProps, Outlet } from '@tanstack/react-router';
 import DOMPurify from 'dompurify';
 import parse from 'html-react-parser';
-import { useState } from 'react';
 import ReactModal from 'react-modal';
 import { PUBLIC_BASE_URL } from '../../utils/constants/api';
 import { emails } from '../../utils/constants/queryKeys/email';
 import { formatDateWithHour } from '../../utils/functions/dates';
-import ResendEmailModalComponent from '../ResendEmailModal/ResendEmailModal';
 import styles from './EmailModal.module.scss';
 
 type EmailModalComponentProps = Readonly<{
   onClose: () => void;
   emailId: string;
+  resendLink?: LinkProps;
   replyLink?: LinkProps;
 }>;
-export default function EmailModalComponent({ onClose, emailId, replyLink }: EmailModalComponentProps) {
+export default function EmailModalComponent({ onClose, emailId, resendLink, replyLink }: EmailModalComponentProps) {
   const { data: email } = useSuspenseQuery(emails.detail(emailId));
-
-  const [showResendModal, setShowResendModal] = useState(false);
 
   return (
     <>
@@ -57,9 +54,11 @@ export default function EmailModalComponent({ onClose, emailId, replyLink }: Ema
                 Fermer
               </button>
               <div className="flex gap-1">
-                <button className="btn btn-primary" onClick={() => setShowResendModal(true)}>
-                  Renvoyer
-                </button>
+                {resendLink && (
+                  <Link {...resendLink} className="btn btn-primary">
+                    Renvoyer
+                  </Link>
+                )}
                 {replyLink && (
                   <Link {...replyLink} className="btn btn-primary">
                     Répondre
@@ -71,8 +70,6 @@ export default function EmailModalComponent({ onClose, emailId, replyLink }: Ema
         </div>
       </ReactModal>
       <Outlet />
-
-      <ResendEmailModalComponent isOpen={showResendModal} emailId={emailId} onClose={() => setShowResendModal(false)} />
     </>
   );
 }

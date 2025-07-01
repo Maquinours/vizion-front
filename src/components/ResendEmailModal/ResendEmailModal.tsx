@@ -1,18 +1,16 @@
-import { useSuspenseQueries, useSuspenseQuery } from '@tanstack/react-query';
-import { queries } from '../../utils/constants/queryKeys';
-import SendEmailModalComponent from '../SendEmailModal/SendEmailModal';
-import { filesQueryKeys } from '../../utils/constants/queryKeys/files';
+import { useSuspenseQueries } from '@tanstack/react-query';
 import { PUBLIC_BASE_URL } from '../../utils/constants/api';
+import { filesQueryKeys } from '../../utils/constants/queryKeys/files';
+import MailResponseDto from '../../utils/types/MailResponseDto';
+import SendEmailModalComponent from '../SendEmailModal/SendEmailModal';
 
 type ResendEmailModalComponentProps = Readonly<{
-  emailId: string;
+  email: MailResponseDto;
   isOpen: boolean;
   onClose: () => void;
   onEmailSent?: () => void;
 }>;
-export default function ResendEmailModalComponent({ emailId, isOpen, onClose, onEmailSent }: ResendEmailModalComponentProps) {
-  const { data: email } = useSuspenseQuery(queries.emails.detail(emailId));
-
+export default function ResendEmailModalComponent({ email, isOpen, onClose, onEmailSent }: ResendEmailModalComponentProps) {
   //   const { data } = useSuspenseQuery(filesQueryKeys.blob._ctx.fromUri());
 
   const fileQuery = useSuspenseQueries({
