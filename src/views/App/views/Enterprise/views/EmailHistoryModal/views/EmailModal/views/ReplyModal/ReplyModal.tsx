@@ -1,5 +1,5 @@
 import { getRouteApi } from '@tanstack/react-router';
-import SendEmailModalComponent from '../../../../../../../../../../components/SendEmailModal/SendEmailModal';
+import ReplyEmailModalComponent from '../../../../../../../../../../components/ReplyEmailModal/ReplyEmailModal';
 
 const routeApi = getRouteApi('/app/enterprises_/$enterpriseId/email-history/email/$emailId/reply');
 
@@ -8,5 +8,5 @@ export default function AppViewEnterpriseViewEmailHistoryModalViewEmailModalView
 
   const { email } = routeApi.useLoaderData();
 
-  return <SendEmailModalComponent isOpen={true} onClose={() => navigate({ to: '..', search: true, replace: true, resetScroll: false })} emailToReply={email} />;
+  return <ReplyEmailModalComponent isOpen onClose={() => navigate({ to: '..', search: true, replace: true, resetScroll: false })} email={email} />;
 }

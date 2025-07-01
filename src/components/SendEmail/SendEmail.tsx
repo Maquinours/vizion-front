@@ -6,9 +6,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import * as yup from 'yup';
-import { formatDateWithHour } from '../../utils/functions/dates';
 import { generateUserEmailSignature } from '../../utils/functions/user';
-import MailResponseDto from '../../utils/types/MailResponseDto';
 import { useAuthentifiedUserQuery } from '../../views/App/utils/functions/getAuthentifiedUser';
 import LoaderModal from '../LoaderModal/LoaderModal';
 import SendEmailPredefinedMessagesModalComponent from '../SendEmailPredefinedMessagesModal/SendEmailPredefinedMessagesModal';
@@ -91,6 +89,7 @@ export type SendEmailComponentProps = Readonly<{
   defaultCc?: Array<string>;
   defaultBcc?: Array<string>;
   defaultContent?: string;
+  defaultContentSuffix?: string;
   defaultAttachments?: Array<File>;
   lifeSheetInfoDto?: {
     author?: string | null;
@@ -105,9 +104,9 @@ export type SendEmailComponentProps = Readonly<{
     productReference?: string | null;
     technicalAssistanceId?: string | null;
   };
-  emailToReply?: MailResponseDto;
   onEmailSent?: () => void;
   storageKey?: 'global'; // Used to handle storage in global send email modal
+  useSignature?: boolean;
 }>;
 export default function SendEmailComponent({
   defaultSubject,
@@ -115,11 +114,12 @@ export default function SendEmailComponent({
   defaultCc,
   defaultBcc,
   defaultContent,
+  defaultContentSuffix,
   defaultAttachments,
   lifeSheetInfoDto,
-  emailToReply,
   onEmailSent,
   storageKey,
+  useSignature = true,
 }: SendEmailComponentProps) {
   const pathname = useLocation({ select: (location) => location.pathname });
 
@@ -138,17 +138,11 @@ export default function SendEmailComponent({
   } = useForm({
     resolver: yupResolver(yupSchema),
     defaultValues: {
-      recipient: [...(emailToReply?.sender ? [emailToReply.sender] : []), ...(defaultRecipient ?? [])].filter((item) => item.trim().length > 0),
-      cc: [
-        ...[...(emailToReply?.cc?.split(';') ?? [])].filter((item) => item.toLowerCase() !== user.userInfo.email.toLowerCase()),
-        ...(defaultCc ?? []),
-      ].filter((item) => item.trim().length > 0),
+      recipient: [...(defaultRecipient ?? [])].filter((item) => item.trim().length > 0),
+      cc: [...(defaultCc ?? [])].filter((item) => item.trim().length > 0),
       bcc: (defaultBcc ?? []).filter((item) => item.trim().length > 0),
-      subject: defaultSubject ?? (emailToReply?.subject ? `Re: ${emailToReply.subject}` : ''),
-      content:
-        (defaultContent ?? '') +
-        generateUserEmailSignature(user) +
-        (emailToReply ? `<br /><br />Le ${formatDateWithHour(emailToReply.sendDate)}, ${emailToReply.sender} a envoyé :<br />${emailToReply.content}` : ''),
+      subject: defaultSubject ?? '',
+      content: (defaultContent ?? '') + (useSignature ? generateUserEmailSignature(user) : '') + (defaultContentSuffix ?? ''),
       attachments: defaultAttachments?.map((file) => ({ id: file.name, file })) ?? [],
     },
   });

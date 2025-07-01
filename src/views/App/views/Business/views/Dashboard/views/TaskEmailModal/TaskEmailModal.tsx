@@ -16,5 +16,12 @@ export default function AppViewBusinessViewDashboardViewTaskEmailModalView() {
     navigate({ to: '../..', search: true, replace: true, resetScroll: false, ignoreBlocker: true });
   };
 
-  return <EmailModalComponent emailId={task.mailId!} onClose={onClose} />;
+  return (
+    <EmailModalComponent
+      emailId={task.mailId!}
+      onClose={onClose}
+      replyLink={{ to: '/app/businesses-rma/business/$businessId/dashboard/task-email/$taskId/reply', search: true, replace: true, resetScroll: false }}
+      resendLink={{ to: '/app/businesses-rma/business/$businessId/dashboard/task-email/$taskId/resend', search: true, replace: true, resetScroll: false }}
+    />
+  );
 }

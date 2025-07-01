@@ -15,5 +15,22 @@ export default function AppViewBusinessViewDashboardViewLifesheetEmailModalView(
     navigate({ to: '../..', search: true, replace: true, resetScroll: false, ignoreBlocker: true });
   };
 
-  return <EmailModalComponent emailId={lifesheet.mailId!} onClose={onClose} />;
+  return (
+    <EmailModalComponent
+      emailId={lifesheet.mailId!}
+      onClose={onClose}
+      replyLink={{
+        to: '/app/businesses-rma/business/$businessId/dashboard/lifesheet-email/$lifesheetId/reply',
+        search: true,
+        replace: true,
+        resetScroll: false,
+      }}
+      resendLink={{
+        to: '/app/businesses-rma/business/$businessId/dashboard/lifesheet-email/$lifesheetId/resend',
+        search: true,
+        replace: true,
+        resetScroll: false,
+      }}
+    />
+  );
 }
