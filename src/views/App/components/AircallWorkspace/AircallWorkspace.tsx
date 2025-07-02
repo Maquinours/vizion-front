@@ -75,8 +75,9 @@ export default function AppViewAircallWorkspaceComponent({ children }: AppViewAi
           // handleSize={[8, 8]}
           maxConstraints={[1600, 800]}
           resizeHandles={['ne', 'e', 'n']}
+          className={classNames({ hidden: !isWorkspaceOpened })}
         >
-          <div id="aircall-workspace" className={classNames('top-6 h-full w-full overflow-hidden rounded-md', { hidden: !isWorkspaceOpened })} />
+          <div id="aircall-workspace" className="top-6 h-full w-full overflow-hidden rounded-md" />
         </ResizableBox>
         <div className="flex w-fit flex-col items-center">
           <div
