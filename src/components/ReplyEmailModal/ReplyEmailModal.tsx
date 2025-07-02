@@ -17,7 +17,7 @@ export default function ReplyEmailModalComponent({ email, isOpen, onClose, onEma
       defaultCc={email.cc?.split(';')}
       defaultBcc={email.bcc?.split(';')}
       defaultContentSuffix={`<br /><br />Le ${formatDateWithHour(email.sendDate)}, ${email.sender} a envoyé :<br />${email.content}`}
-      onEmailSent={onEmailSent}
+      onEmailSent={onEmailSent ?? onClose}
       onClose={onClose}
     />
   );
