@@ -32,7 +32,7 @@ export default function ResendEmailModalComponent({ email, isOpen, onClose, onEm
       defaultBcc={email.bcc?.split(';')}
       defaultContent={email.content}
       defaultAttachments={files}
-      onEmailSent={onEmailSent}
+      onEmailSent={onEmailSent ?? onClose}
       onClose={onClose}
       useSignature={false}
     />
