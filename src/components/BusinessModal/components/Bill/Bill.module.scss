@@ -1,0 +1,54 @@
+@use '/src/assets/styles/mixins';
+
+.container {
+  width: 100%;
+
+  .avoir_container {
+    display: flex;
+    justify-content: flex-end;
+    margin: 1rem 0;
+  }
+
+  .pdf_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    @include mixins.respond-below(sm) {
+      justify-content: inherit;
+      align-items: inherit;
+    }
+
+    .title {
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .pdf_viewer {
+      margin-bottom: 2rem;
+
+      iframe {
+        max-width: 1200px;
+        width: 900px;
+        height: 90vh;
+
+        @include mixins.respond-below(sm) {
+          width: 100%;
+        }
+      }
+    }
+
+    .buttons_container {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+    }
+  }
+
+  .edit_container {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+  }
+}

@@ -1,6 +1,6 @@
 import { Link, LinkProps } from '@tanstack/react-router';
 import classNames from 'classnames';
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useMemo } from 'react';
 import { AiOutlineReload } from 'react-icons/ai';
 import { FiMaximize2 } from 'react-icons/fi';
 import { HiPencilAlt } from 'react-icons/hi';
@@ -14,12 +14,43 @@ type CardComponentProps = Readonly<{
   setMinimized?: (value: boolean) => void;
   addLink?: LinkProps;
   editLink?: LinkProps;
+  onEdit?: () => void;
   onReload?: () => void;
   isReloading?: boolean;
   children: ReactNode;
   className?: string;
 }>;
-export default function CardComponent({ title, isMinimized, setMinimized, addLink, editLink, onReload, isReloading, children, className }: CardComponentProps) {
+export default function CardComponent({
+  title,
+  isMinimized,
+  setMinimized,
+  addLink,
+  editLink,
+  onEdit,
+  onReload,
+  isReloading,
+  children,
+  className,
+}: CardComponentProps) {
+  const editButton = useMemo(() => {
+    if (editLink && onEdit) throw new Error('editLink and onEdit cannot be both defined');
+
+    const children = <HiPencilAlt />;
+
+    if (editLink)
+      return (
+        <Link {...editLink} className={classNames(styles.action, styles.edit)} onClick={onEdit}>
+          {children}
+        </Link>
+      );
+    else if (onEdit)
+      return (
+        <button className={classNames(styles.action, styles.edit)} onClick={onEdit}>
+          {children}
+        </button>
+      );
+  }, [editLink, onEdit]);
+
   return (
     <div className={classNames(styles.card, className)}>
       <div className={styles.header}>
@@ -35,11 +66,12 @@ export default function CardComponent({ title, isMinimized, setMinimized, addLin
               <IoMdAddCircleOutline />
             </Link>
           )}
-          {editLink && (
+          {editButton}
+          {/* {editLink && (
             <Link {...editLink} className={classNames(styles.action, styles.edit)}>
               <HiPencilAlt />
             </Link>
-          )}
+          )} */}
           {onReload && (
             <button className={classNames(styles.action, styles.reload, { [styles.spin]: isReloading })} onClick={onReload} disabled={isReloading}>
               <AiOutlineReload className="" />

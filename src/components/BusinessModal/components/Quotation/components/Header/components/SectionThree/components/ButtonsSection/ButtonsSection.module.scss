@@ -1,0 +1,22 @@
+@use '/src/assets/styles/mixins';
+
+.actions_container {
+  @include mixins.respond-below(sm) {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+  }
+
+  button,
+  a {
+    margin-top: 8px;
+    margin-left: 5px;
+    padding: 0.4rem 0.6rem;
+    height: fit-content;
+
+    @include mixins.respond-below(sm) {
+      margin-left: 0px;
+      padding: 0.5rem;
+    }
+  }
+}

@@ -1,0 +1,28 @@
+@use '/src/assets/styles/mixins';
+
+.pdf_container {
+  .title {
+    text-align: center;
+    font-weight: bold;
+  }
+
+  .pdf_viewer {
+    margin-bottom: 2rem;
+
+    iframe {
+      max-width: 1200px;
+      width: 900px;
+      height: 90vh;
+
+      @include mixins.respond-below(sm) {
+        width: 100%;
+      }
+    }
+  }
+
+  .buttons_container {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+  }
+}

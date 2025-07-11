@@ -17,6 +17,7 @@ import AppViewSendEmailModalComponent from './components/SendEmailModal/SendEmai
 import AppViewTitleManagerComponent from './components/TitleManager/TitleManager';
 import AppViewAircallIntegrationComponent from './components/AircallIntegration/AircallIntegration';
 import AppViewAircallWorkspaceComponent from './components/AircallWorkspace/AircallWorkspace';
+import EnterpriseModal from '../../components/EnterpriseModal/EnterpriseModal';
 
 const routeApi = getRouteApi('/app');
 
@@ -76,6 +77,7 @@ export default function AppLayout() {
           <AppViewSidebarComponent />
           <AppViewFooterComponent />
         </div>
+        <EnterpriseModal enterpriseId="74427819-08d7-49f7-a51f-1b97d88c8d0d" />
       </AppViewAircallWorkspaceComponent>
     </>
   );

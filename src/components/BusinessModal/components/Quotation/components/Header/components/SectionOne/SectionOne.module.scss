@@ -1,0 +1,17 @@
+@use '/src/assets/styles/mixins';
+
+.header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+
+  @include mixins.respond-below(sm) {
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .buttons_container {
+    display: flex;
+    gap: 0.5rem;
+  }
+}

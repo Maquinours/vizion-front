@@ -1,0 +1,17 @@
+.footer_container {
+  width: 100%;
+  display: flex;
+  justify-content: right;
+  margin-top: 1rem;
+
+  span {
+    font: normal normal normal 16px/20px 'DIN2014';
+    color: var(--primary-color);
+    margin-right: 10%;
+  }
+
+  .buttons_container {
+    display: flex;
+    gap: 5px;
+  }
+}

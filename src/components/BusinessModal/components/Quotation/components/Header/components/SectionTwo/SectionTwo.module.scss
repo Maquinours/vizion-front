@@ -1,0 +1,137 @@
+@use '/src/assets/styles/mixins';
+
+._one {
+  width: 100%;
+  display: flex;
+  gap: 1rem;
+
+  form {
+    display: flex;
+    grid-template-columns: 60% auto auto;
+    gap: 1rem;
+    align-items: flex-end;
+
+    .form_group {
+      width: 100%;
+      display: grid;
+      margin-bottom: 0;
+      align-self: center;
+      grid-template-areas:
+        'label'
+        'input'
+        'error';
+      grid-template-columns: repeat(1, 1fr);
+
+      label {
+        grid-area: label;
+        height: 15px;
+      }
+
+      input {
+        grid-area: input;
+        min-width: 200px;
+      }
+
+      p:nth-child(3) {
+        grid-area: error;
+        margin-top: 2px;
+      }
+
+      label {
+        text-align: left;
+        font: normal normal normal 16px/20px 'DIN2014';
+        letter-spacing: 0px;
+        color: var(--primary-light);
+        opacity: 1;
+        width: 100%;
+        margin-bottom: 0.3rem;
+        align-self: center;
+        padding-right: 1rem;
+
+        &.required {
+          font-family: 'DIN2014';
+
+          span {
+            color: var(--secondary-color);
+          }
+        }
+      }
+
+      input {
+        background: var(--grey-color) 0% 0% no-repeat padding-box;
+        border: 1px solid var(--primary-color);
+        border-radius: 5px;
+        padding: 0.5rem 0.5rem;
+        outline: none;
+        height: 30px;
+        width: inherit;
+        max-width: 250px;
+
+        @include mixins.respond-below(sm) {
+          width: 100%;
+          max-width: 100%;
+        }
+
+        &::placeholder {
+          text-align: left;
+          font: normal normal normal 11px/14px 'DIN2014';
+          letter-spacing: 0px;
+          color: #9fa5b9;
+          opacity: 1;
+        }
+
+        &:-ms-input-placeholder {
+          text-align: left;
+          font: normal normal normal 11px/14px 'DIN2014';
+          letter-spacing: 0px;
+          color: #9fa5b9;
+          opacity: 1;
+        }
+
+        &::-ms-input-placeholder {
+          text-align: left;
+          font: normal normal normal 11px/14px 'DIN2014';
+          letter-spacing: 0px;
+          color: #9fa5b9;
+          opacity: 1;
+        }
+      }
+
+      p.__errors {
+        text-align: left;
+        font-family: 'DIN2014';
+        font-style: normal;
+        font-weight: normal;
+        font-variant: normal;
+        font-size: 11px;
+        line-height: 10px;
+        letter-spacing: 0px;
+        color: var(--secondary-color);
+        opacity: 1;
+      }
+
+      div {
+        display: flex;
+        align-items: center;
+      }
+    }
+
+    button {
+      width: fit-content;
+      height: fit-content;
+
+      svg {
+        font-size: 20px;
+      }
+    }
+
+    @include mixins.respond-below(sm) {
+      grid-template-columns: auto auto;
+      gap: 0.5rem 1rem;
+    }
+
+    & > div:nth-child(3) {
+      margin-top: 18px;
+    }
+  }
+}

@@ -1,0 +1,26 @@
+.headers_business_info {
+  margin: 0.5rem 0;
+  text-align: right;
+
+  &_content {
+    p {
+      font-size: 16px;
+      line-height: 20px;
+
+      span:nth-child(1) {
+        font-weight: bold;
+      }
+
+      span:nth-child(3) {
+        font-weight: bold;
+        font-size: 14px;
+        color: var(--primary-color);
+      }
+
+      span:nth-child(2) {
+        font-weight: bolder;
+        color: var(--secondary-color);
+      }
+    }
+  }
+}
