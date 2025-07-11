@@ -7,20 +7,24 @@ import EnterpriseModalComponentContactsComponent from './components/Contacts/Con
 import EnterpriseComponentHeaderComponent from './components/Header/Header';
 import EnterpriseComponentInformationsComponent from './components/Informations/Informations';
 
-import { Suspense, useState } from 'react';
+import { Suspense, useMemo, useState } from 'react';
 import ReactModal from 'react-modal';
 import BusinessModalComponent from '../BusinessModal/BusinessModal';
 import styles from './EnterpriseModal.module.scss';
 import LoaderModal from '../LoaderModal/LoaderModal';
+import RmaModalComponent from '../RmaModal/RmaModal';
 
 enum EnterpriseModal {
   BUSINESS,
+  RMA,
 }
 
-type EnterpriseModalData = {
-  modal: EnterpriseModal.BUSINESS;
-  businessId: string;
-};
+type EnterpriseModalData =
+  | {
+      modal: EnterpriseModal.BUSINESS;
+      businessId: string;
+    }
+  | { modal: EnterpriseModal.RMA; rmaId: string };
 
 type EnterpriseModalComponentProps = Readonly<{
   enterpriseId: string;
@@ -30,7 +34,16 @@ export default function EnterpriseModalComponent({ enterpriseId }: EnterpriseMod
 
   const { data: enterprise } = useSuspenseQuery(enterprises.detail(enterpriseId));
 
-  const [modal, setModal] = useState<EnterpriseModalData>();
+  const [modalData, setModalData] = useState<EnterpriseModalData>();
+
+  const modal = useMemo(() => {
+    switch (modalData?.modal) {
+      case EnterpriseModal.BUSINESS:
+        return <BusinessModalComponent businessId={modalData.businessId} onClose={() => setModalData(undefined)} />;
+      case EnterpriseModal.RMA:
+        return <RmaModalComponent rmaId={modalData.rmaId} onClose={() => setModalData(undefined)} />;
+    }
+  }, [modalData]);
 
   return (
     <ReactModal isOpen className={styles.modal} overlayClassName="Overlay">
@@ -47,7 +60,8 @@ export default function EnterpriseModalComponent({ enterpriseId }: EnterpriseMod
           <div className={styles.two}>
             <EnterpriseModalComponentAllBusinessTableComponent
               enterprise={enterprise}
-              openBusinessModal={(businessId: string) => setModal({ modal: EnterpriseModal.BUSINESS, businessId })}
+              openBusinessModal={(businessId: string) => setModalData({ modal: EnterpriseModal.BUSINESS, businessId })}
+              openRmaModal={(rmaId: string) => setModalData({ modal: EnterpriseModal.RMA, rmaId })}
             />
           </div>
         </div>
@@ -57,9 +71,7 @@ export default function EnterpriseModalComponent({ enterpriseId }: EnterpriseMod
           <AppViewEnterpriseViewWorkloadsComponent /> */}
         </div>
       </div>
-      <Suspense fallback={<LoaderModal />}>
-        {modal?.modal === EnterpriseModal.BUSINESS && <BusinessModalComponent businessId={modal.businessId} onClose={() => setModal(undefined)} />}
-      </Suspense>
+      <Suspense fallback={<LoaderModal />}>{modal}</Suspense>
       {/* <Outlet /> */}
     </ReactModal>
   );

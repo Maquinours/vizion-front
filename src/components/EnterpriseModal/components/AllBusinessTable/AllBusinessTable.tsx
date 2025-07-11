@@ -80,10 +80,12 @@ const columnHelper = createColumnHelper<AllBusinessResponseDto>();
 type EnterpriseModalComponentAllBusinessTableComponentProps = Readonly<{
   enterprise: EnterpriseResponseDto;
   openBusinessModal: (businessId: string) => void;
+  openRmaModal: (rmaId: string) => void;
 }>;
 export default function EnterpriseModalComponentAllBusinessTableComponent({
   enterprise,
   openBusinessModal,
+  openRmaModal,
 }: EnterpriseModalComponentAllBusinessTableComponentProps) {
   // const navigate = routeApi.useNavigate();
 
@@ -102,8 +104,13 @@ export default function EnterpriseModalComponentAllBusinessTableComponent({
   const [contextMenuAnchor, setContextMenuAnchor] = useState<VirtualElement | undefined>();
 
   const onRowClick = (_e: React.MouseEvent, row: Row<AllBusinessResponseDto>) => {
-    if (row.original.category === CategoryBusiness.AFFAIRE) {
-      openBusinessModal(row.original.businessId);
+    switch (row.original.category) {
+      case CategoryBusiness.AFFAIRE:
+        openBusinessModal(row.original.businessId);
+        break;
+      case CategoryBusiness.RMA:
+        openRmaModal(row.original.businessId);
+        break;
     }
     // if (e.metaKey || e.ctrlKey) window.open(`${window.location.origin}/app/businesses-rma/business/${row.original.businessId}`, '_blank');
     // else navigate({ to: '/app/businesses-rma/business/$businessId', params: { businessId: row.original.businessId } });
