@@ -1,7 +1,7 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 // import { useEffect, useMemo, useState } from 'react';
-import { useNavigate } from '@tanstack/react-router';
 import { isAxiosError } from 'axios';
+import { useMemo } from 'react';
 import { formatPhoneNumber } from 'react-phone-number-input';
 import { toast, ToastContentProps } from 'react-toastify';
 import useWebSocket from 'react-use-websocket';
@@ -12,7 +12,6 @@ import { aircallQueryKeys } from '../../../../utils/constants/queryKeys/aircall'
 import AircallWebhookResponseDto from '../../../../utils/types/AircallWebhookResponseDto';
 import ProfileResponseDto from '../../../../utils/types/ProfileResponseDto';
 import { useAuthentifiedUserQuery } from '../../utils/functions/getAuthentifiedUser';
-import { useMemo } from 'react';
 
 type AircallNewCallToastComponentProps = ToastContentProps<{
   caller: ProfileResponseDto;
