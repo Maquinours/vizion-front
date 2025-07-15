@@ -1,13 +1,13 @@
+import { ClickAwayListener, Fade, MenuList, Paper, Popper } from '@mui/material';
 import { VirtualElement } from '@popperjs/core';
-import { ClickAwayListener, Fade, MenuItem, MenuList, Paper, Popper } from '@mui/material';
-import { useAuthentifiedUserQuery } from '../../../../../../views/App/utils/functions/getAuthentifiedUser';
-import FileDataTreeResponseDto from '../../../../../../utils/types/FileDataTreeResponseDto';
+import { useContext } from 'react';
 import { FaFileImport, FaTrash } from 'react-icons/fa';
 import { MdModeEdit } from 'react-icons/md';
-import styles from './ContextMenu.module.scss';
-import { useContext } from 'react';
+import FileDataTreeResponseDto from '../../../../../../utils/types/FileDataTreeResponseDto';
+import { useAuthentifiedUserQuery } from '../../../../../../views/App/utils/functions/getAuthentifiedUser';
 import { GedContext } from '../../../../utils/contexts/ged';
-import { Link } from '@tanstack/react-router';
+import GedComponentTableComponentContextMenuComponentItemComponent from './components/Item/Item';
+import styles from './ContextMenu.module.scss';
 
 type GedComponentTableComponentContextMenuComponentProps = Readonly<{
   anchorElement: VirtualElement | undefined;
@@ -22,7 +22,17 @@ export default function GedComponentTableComponentContextMenuComponent({
 }: GedComponentTableComponentContextMenuComponentProps) {
   const { data: currentUser } = useAuthentifiedUserQuery();
 
-  const { canMakeAction, getCreateDirectoryLink, getImportFilesLink, getRenameLink, getDeleteLink } = useContext(GedContext)!;
+  const {
+    canMakeAction,
+    getCreateDirectoryLink,
+    onCreateDirectoryClick,
+    getImportFilesLink,
+    onImportFilesClick,
+    getRenameLink,
+    onRenameClick,
+    getDeleteLink,
+    onDeleteClick,
+  } = useContext(GedContext)!;
 
   const isVizeoMember = currentUser.userInfo.roles.includes('ROLE_MEMBRE_VIZEO');
   const isOpen = Boolean(anchorElement) && canMakeAction;
@@ -45,34 +55,70 @@ export default function GedComponentTableComponentContextMenuComponent({
                       <span className={styles.text}>Envoyer en PJ</span>
                     </MenuItem>
                   )} */}
-                  {selectedItem?.dir === true && (
+                  <GedComponentTableComponentContextMenuComponentItemComponent
+                    link={getCreateDirectoryLink ? getCreateDirectoryLink(selectedItem) : undefined}
+                    onClick={onCreateDirectoryClick ? () => onCreateDirectoryClick(selectedItem) : undefined}
+                    onClose={onClose}
+                    show={selectedItem?.dir !== true}
+                  >
+                    <FaFileImport className={styles.icon} />
+                    <span className={styles.text}>Nouveau dossier</span>
+                  </GedComponentTableComponentContextMenuComponentItemComponent>
+                  {/* {selectedItem?.dir === true && (
                     <MenuItem>
                       <Link {...getCreateDirectoryLink(selectedItem)} preload="render" onClick={onClose}>
                         <FaFileImport className={styles.icon} />
                         <span className={styles.text}>Nouveau dossier</span>
                       </Link>
                     </MenuItem>
-                  )}
-                  <MenuItem>
+                  )} */}
+                  <GedComponentTableComponentContextMenuComponentItemComponent
+                    link={getImportFilesLink ? getImportFilesLink(selectedItem) : undefined}
+                    onClick={onImportFilesClick ? () => onImportFilesClick(selectedItem) : undefined}
+                    onClose={onClose}
+                    show
+                  >
+                    <FaFileImport className={styles.icon} />
+                    <span className={styles.text}>{selectedItem?.dir ? 'Importer un fichier' : 'Ajouter un fichier'}</span>
+                  </GedComponentTableComponentContextMenuComponentItemComponent>
+                  {/* <MenuItem>
                     <Link {...getImportFilesLink(selectedItem)} preload="render" onClick={onClose}>
                       <FaFileImport className={styles.icon} />
                       <span className={styles.text}>{selectedItem?.dir ? 'Importer un fichier' : 'Ajouter un fichier'}</span>
                     </Link>
-                  </MenuItem>
-                  <MenuItem>
+                  </MenuItem> */}
+                  <GedComponentTableComponentContextMenuComponentItemComponent
+                    link={getRenameLink ? getRenameLink(selectedItem) : undefined}
+                    onClick={onRenameClick ? () => onRenameClick(selectedItem) : undefined}
+                    onClose={onClose}
+                    show
+                  >
+                    <MdModeEdit className={styles.icon} />
+                    <span className={styles.text}>Renommer le {selectedItem?.dir ? 'dossier' : 'fichier'}</span>
+                  </GedComponentTableComponentContextMenuComponentItemComponent>
+                  {/* <MenuItem>
                     <Link {...getRenameLink(selectedItem)} preload="render" onClick={onClose}>
                       <MdModeEdit className={styles.icon} />
                       <span className={styles.text}>Renommer le {selectedItem?.dir ? 'dossier' : 'fichier'}</span>
                     </Link>
-                  </MenuItem>
-                  {isVizeoMember && (
+                  </MenuItem> */}
+                  <GedComponentTableComponentContextMenuComponentItemComponent
+                    link={getDeleteLink ? getDeleteLink(selectedItem) : undefined}
+                    onClick={onDeleteClick ? () => onDeleteClick(selectedItem) : undefined}
+                    onClose={onClose}
+                    show={isVizeoMember}
+                  >
+                    <FaTrash className={styles.icon} />
+                    <span className={styles.text}>Supprimer le {selectedItem?.dir ? 'dossier' : 'fichier'}</span>
+                  </GedComponentTableComponentContextMenuComponentItemComponent>
+                  {/* {isVizeoMember && (
                     <MenuItem>
                       <Link {...getDeleteLink(selectedItem)} preload="render" onClick={onClose}>
                         <FaTrash className={styles.icon} />
                         <span className={styles.text}>Supprimer le {selectedItem?.dir ? 'dossier' : 'fichier'}</span>
                       </Link>
                     </MenuItem>
-                  )}
+                  )} */}
                 </MenuList>
               )}
             </Paper>

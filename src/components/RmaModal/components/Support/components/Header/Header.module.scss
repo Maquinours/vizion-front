@@ -1,0 +1,10 @@
+.header {
+  width: 100%;
+  margin-bottom: 2rem;
+
+  .buttons_container {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+  }
+}

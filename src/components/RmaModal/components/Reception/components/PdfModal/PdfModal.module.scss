@@ -1,0 +1,50 @@
+@use '/src/assets/styles/mixins';
+
+.modal {
+  position: absolute;
+  margin: auto;
+  top: 5%;
+  left: 50%;
+  transform: translate(-50%, -5%);
+  padding: 0;
+  width: 50%;
+  height: auto;
+  background: #fbfcfe 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 5px #10173526;
+  border-radius: 5px;
+  opacity: 1;
+  z-index: 2005;
+
+  .modal_container {
+    padding: 2rem;
+    width: 100%;
+
+    .modal_title {
+      text-align: center;
+      margin-bottom: 1rem;
+
+      h6 {
+        font: normal normal bold 16px/20px 'DIN2014';
+        color: var(--primary-light);
+      }
+    }
+
+    .modal_pdfviewer {
+      iframe {
+        width: 100%;
+        height: 85vh;
+      }
+    }
+
+    .modal_footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1rem;
+
+      button {
+        padding: 0.5rem 2rem;
+      }
+    }
+  }
+}

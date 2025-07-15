@@ -1,4 +1,4 @@
-import { Outlet } from '@tanstack/react-router';
+import { LinkOptions, Outlet } from '@tanstack/react-router';
 import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthentifiedUser';
 import styles from './Support.module.scss';
 import AppViewRmaViewSupportViewGedComponent from './components/Ged/Ged';
@@ -13,6 +13,8 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 import { queries } from '../../../../../../utils/constants/queryKeys';
 import { getRouteApi } from '@tanstack/react-router';
 import AssistanceState from '../../../../../../utils/enums/AssistanceState';
+import { useCallback } from 'react';
+import AllBusinessResponseDto from '../../../../../../utils/types/AllBusinessResponseDto';
 
 const routeApi = getRouteApi('/app/businesses-rma_/rma/$rmaId/support');
 
@@ -21,6 +23,21 @@ export default function AppViewRmaViewSupportView() {
 
   const { rmaId } = routeApi.useParams();
   const { data: rma } = useSuspenseQuery(queries.rmas.detail(rmaId));
+
+  const getBusinessLinkItemLink = useCallback((item: AllBusinessResponseDto): LinkOptions => {
+    switch (item.category) {
+      case CategoryBusiness.AFFAIRE:
+        return {
+          to: '/app/businesses-rma/business/$businessId',
+          params: { businessId: item.businessId },
+        };
+      case CategoryBusiness.RMA:
+        return {
+          to: '/app/businesses-rma/rma/$rmaId',
+          params: { rmaId: item.businessId },
+        };
+    }
+  }, []);
 
   return (
     <>
@@ -39,6 +56,7 @@ export default function AppViewRmaViewSupportView() {
           <BusinessRmaLinksComponent
             category={CategoryBusiness.RMA}
             number={rma.number}
+            getItemLink={getBusinessLinkItemLink}
             canCreate={rma.state !== AssistanceState.ARCHIVE}
             createLink={{ to: '/app/businesses-rma/rma/$rmaId/support/create-link', search: true, replace: true, resetScroll: false, preload: 'intent' }}
             getDeleteLink={(data) => ({

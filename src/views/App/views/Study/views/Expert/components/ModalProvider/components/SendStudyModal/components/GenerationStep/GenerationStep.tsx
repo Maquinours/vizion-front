@@ -424,19 +424,21 @@ export default function AppViewStudyViewExpertViewModalProviderComponentSendStud
 
     if (pages[currentPage].nodes.length === 0) next();
     else if (nodesInitialized) {
-      toBlob(document.querySelector('.react-flow') as HTMLElement, {
-        quality: 1,
-        cacheBust: true,
-      })
-        .then((blob) => {
-          data.current.set(currentPage, blob!);
-          next();
+      setTimeout(() => {
+        toBlob(document.querySelector('.react-flow') as HTMLElement, {
+          quality: 1,
+          cacheBust: true,
         })
-        .catch((error) => {
-          console.error('pdf generation error', error);
-          toast.error('Une erreur est survenue lors de la génération du PDF');
-          onClose();
-        });
+          .then((blob) => {
+            data.current.set(currentPage, blob!);
+            next();
+          })
+          .catch((error) => {
+            console.error('pdf generation error', error);
+            toast.error('Une erreur est survenue lors de la génération du PDF');
+            onClose();
+          });
+      }, 100);
     }
   }, [nodesInitialized, currentPage]);
 

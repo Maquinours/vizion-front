@@ -1,0 +1,273 @@
+import { useQuery } from '@tanstack/react-query';
+import {
+  Link,
+  // getRouteApi
+} from '@tanstack/react-router';
+import { Row, createColumnHelper } from '@tanstack/react-table';
+import styles from './AllBusinessTable.module.scss';
+import classNames from 'classnames';
+import { useMemo, useState } from 'react';
+import { VirtualElement } from '@popperjs/core';
+import AppViewEnterpriseViewAllBusinessTableComponentContextMenuComponent from './components/ContextMenu/ContextMenu';
+import AppViewEnterpriseViewAllBusinessTableComponentSearchSectionComponent from './components/SearchSection/SearchSection';
+import EnterpriseResponseDto from '../../../../utils/types/EnterpriseResponseDto';
+import AllBusinessState from '../../../../utils/enums/AllBusinessState';
+import AllBusinessResponseDto from '../../../../utils/types/AllBusinessResponseDto';
+import { useAuthentifiedUserQuery } from '../../../../views/App/utils/functions/getAuthentifiedUser';
+import { allBusinesses } from '../../../../utils/constants/queryKeys/allBusiness';
+import CategoryBusiness from '../../../../utils/enums/CategoryBusiness';
+import { formatDateAndHourWithSlash } from '../../../../utils/functions/dates';
+import CurrencyFormat from '../../../CurrencyFormat/CurrencyFormat';
+import CardComponent from '../../../Card/Card';
+import TableComponent from '../../../Table/Table';
+import PaginationComponent from '../../../Pagination/Pagination';
+import AllBusinessRowTooltipComponent from '../../../AllBusinessRowTooltip/AllBusinessRowTooltip';
+
+const size = 15;
+
+const states = [
+  {
+    label: 'Créée',
+    value: AllBusinessState.CREATED,
+  },
+  {
+    label: 'Devis',
+    value: AllBusinessState.DEVIS,
+  },
+  {
+    label: 'ARC',
+    value: AllBusinessState.ARC,
+  },
+  {
+    label: 'BP',
+    value: AllBusinessState.BP,
+  },
+  {
+    label: 'BL',
+    value: AllBusinessState.BL,
+  },
+  {
+    label: 'Facture',
+    value: AllBusinessState.FACTURE,
+  },
+  {
+    label: 'Bloqué',
+    value: AllBusinessState.BLOQUE,
+  },
+  {
+    label: 'Reception',
+    value: AllBusinessState.RECEPTION,
+  },
+  {
+    label: 'Prise en charge',
+    value: AllBusinessState.PRISE_EN_CHARGE,
+  },
+  {
+    label: 'Analyse',
+    value: AllBusinessState.ANALYSE_REPARATION_EXPEDITION,
+  },
+  {
+    label: 'Archive',
+    value: AllBusinessState.ARCHIVE,
+  },
+];
+
+// const routeApi = getRouteApi('/app/enterprises_/$enterpriseId');
+// const routePath = '/app/enterprises/$enterpriseId';
+
+const columnHelper = createColumnHelper<AllBusinessResponseDto>();
+
+type EnterpriseModalComponentAllBusinessTableComponentProps = Readonly<{
+  enterprise: EnterpriseResponseDto;
+  openBusinessModal: (businessId: string) => void;
+  openRmaModal: (rmaId: string) => void;
+  defaultAllBusinessProfileId: string | undefined;
+}>;
+export default function EnterpriseModalComponentAllBusinessTableComponent({
+  enterprise,
+  openBusinessModal,
+  openRmaModal,
+  defaultAllBusinessProfileId,
+}: EnterpriseModalComponentAllBusinessTableComponentProps) {
+  // const navigate = routeApi.useNavigate();
+
+  // const { enterpriseId } = routeApi.useParams();
+  // const { allBusinessPage: page, allBusinessProfileId: contactId } = routeApi.useSearch();
+
+  const [page, setPage] = useState(0);
+  const [contactId, setContactId] = useState<string | undefined>(defaultAllBusinessProfileId);
+
+  const { data: authentifiedUser } = useAuthentifiedUserQuery();
+  const { data, isLoading } = useQuery(
+    allBusinesses.page._ctx.byEnterpriseIdAndPossibleProfileId({ enterpriseId: enterprise.id, profileId: contactId, page, size }),
+  );
+
+  const [selectedItem, setSelectedItem] = useState<AllBusinessResponseDto | undefined>();
+  const [contextMenuAnchor, setContextMenuAnchor] = useState<VirtualElement | undefined>();
+
+  const onRowClick = (_e: React.MouseEvent, row: Row<AllBusinessResponseDto>) => {
+    switch (row.original.category) {
+      case CategoryBusiness.AFFAIRE:
+        openBusinessModal(row.original.businessId);
+        break;
+      case CategoryBusiness.RMA:
+        openRmaModal(row.original.businessId);
+        break;
+    }
+    // if (e.metaKey || e.ctrlKey) window.open(`${window.location.origin}/app/businesses-rma/business/${row.original.businessId}`, '_blank');
+    // else navigate({ to: '/app/businesses-rma/business/$businessId', params: { businessId: row.original.businessId } });
+    // } else if (row.original.category === CategoryBusiness.RMA) {
+    //   if (e.metaKey || e.ctrlKey) window.open(`${window.location.origin}/app/businesses-rma/rma/${row.original.businessId}`, '_blank');
+    //   else navigate({ to: '/app/businesses-rma/rma/$rmaId', params: { rmaId: row.original.businessId } });
+    // }
+  };
+
+  const onRowContextMenu = (e: React.MouseEvent, row: Row<AllBusinessResponseDto>) => {
+    if (row.original.enterpriseId === enterprise.id) return;
+    e.preventDefault();
+    setSelectedItem(row.original);
+    setContextMenuAnchor({
+      getBoundingClientRect: () => ({
+        width: 0,
+        height: 0,
+        x: e.clientX,
+        y: e.clientY,
+        top: e.clientY,
+        right: e.clientX,
+        bottom: e.clientY,
+        left: e.clientX,
+        toJSON: () => {},
+      }),
+    });
+  };
+
+  const columns = useMemo(
+    () => [
+      columnHelper.display({
+        header: "N° de l'affaire",
+        cell: ({ row: { original } }) => {
+          const children = <span className={classNames({ italic: original.enterpriseId !== enterprise.id })}>{original.number}</span>;
+          if (original.category === CategoryBusiness.AFFAIRE)
+            return (
+              <Link
+                data-tooltip-id="business-number-tooltip"
+                data-tooltip-content={original.id}
+                data-tooltip-place="left"
+                to="/app/businesses-rma/business/$businessId"
+                params={{ businessId: original.businessId }}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  e.nativeEvent.stopImmediatePropagation();
+                }}
+              >
+                {children}
+              </Link>
+            );
+          else if (original.category === CategoryBusiness.RMA)
+            return (
+              <Link
+                data-tooltip-id="business-number-tooltip"
+                data-tooltip-content={original.id}
+                data-tooltip-place="left"
+                to="/app/businesses-rma/rma/$rmaId"
+                params={{ rmaId: original.businessId }}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  e.nativeEvent.stopImmediatePropagation();
+                }}
+              >
+                {children}
+              </Link>
+            );
+          else return children;
+        },
+      }),
+      columnHelper.display({
+        header: "Nom de l'affaire",
+        cell: ({ row: { original } }) => <span className={classNames({ italic: original.enterpriseId !== enterprise.id })}>{original.title}</span>,
+      }),
+      columnHelper.display({
+        header: 'Client',
+        cell: ({ row: { original } }) => {
+          const related = original.enterpriseId !== enterprise.id;
+          return (
+            <span className={classNames({ italic: related })}>
+              {related ? `${original.enterpriseName} / ` : ''}
+              {original.profileName}
+            </span>
+          );
+        },
+      }),
+      columnHelper.display({
+        header: 'Dernière modification',
+        cell: ({ row: { original } }) => (
+          <span className={classNames({ italic: original.enterpriseId !== enterprise.id })}>{formatDateAndHourWithSlash(original.modifiedDate)}</span>
+        ),
+      }),
+      columnHelper.display({
+        header: 'Montant HT',
+        cell: ({ row: { original } }) => (
+          <span className={classNames({ italic: original.enterpriseId !== enterprise.id })}>
+            {original.category === CategoryBusiness.AFFAIRE ? <CurrencyFormat value={original.totalHt} /> : 'SAV'}
+          </span>
+        ),
+      }),
+      columnHelper.display({
+        header: 'Représentant',
+        cell: ({ row: { original } }) => <span className={classNames({ italic: original.enterpriseId !== enterprise.id })}>{original.representativeName}</span>,
+      }),
+      columnHelper.display({
+        header: 'État',
+        cell: ({ row: { original } }) => (
+          <span className={classNames({ italic: original.enterpriseId !== enterprise.id })}>
+            {`${states.find((state) => state.value === original.state)?.label} ${original.state === AllBusinessState.FACTURE ? original.businessBillNumber : ''}`}
+          </span>
+        ),
+      }),
+    ],
+    [enterprise.id],
+  );
+
+  return (
+    <>
+      <div className={styles.container}>
+        <CardComponent
+          title="Affaires en cours"
+          addLink={
+            authentifiedUser.userInfo.roles.includes('ROLE_MEMBRE_VIZEO')
+              ? { to: '/app/enterprises/$enterpriseId/relate-business-rma', search: true, replace: true, resetScroll: false }
+              : undefined
+          }
+        >
+          <div className={styles.card_container}>
+            <AppViewEnterpriseViewAllBusinessTableComponentSearchSectionComponent enterprise={enterprise} contactId={contactId} setContactId={setContactId} />
+            <div className={styles.table_container}>
+              <TableComponent
+                columns={columns}
+                isLoading={isLoading}
+                data={data?.content ?? []}
+                rowId="id"
+                onRowClick={onRowClick}
+                onRowContextMenu={onRowContextMenu}
+              />
+            </div>
+            <div className={styles.pagination}>
+              <PaginationComponent
+                page={page}
+                totalPages={data?.totalPages}
+                // pageLink={(page) => ({ from: routePath, search: (old) => ({ ...old, allBusinessPage: page }), replace: true, resetScroll: false })}
+                onPageChange={setPage}
+              />
+            </div>
+          </div>
+        </CardComponent>
+      </div>
+      <AppViewEnterpriseViewAllBusinessTableComponentContextMenuComponent
+        anchorElement={contextMenuAnchor}
+        setAnchorElement={setContextMenuAnchor}
+        selectedItem={selectedItem}
+      />
+      {!!data && <AllBusinessRowTooltipComponent items={data.content} />}
+    </>
+  );
+}

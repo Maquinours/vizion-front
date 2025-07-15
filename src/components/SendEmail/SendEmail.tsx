@@ -105,7 +105,7 @@ export type SendEmailComponentProps = Readonly<{
     technicalAssistanceId?: string | null;
   };
   onEmailSent?: () => void;
-  storageKey?: 'global'; // Used to handle storage in global send email modal
+  storageKey?: string; // Used to handle storage in global send email modal
   useSignature?: boolean;
 }>;
 export default function SendEmailComponent({
