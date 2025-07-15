@@ -14,6 +14,8 @@ import BusinessModalComponentBpComponentDeleteSerialModalComponent from './compo
 import BusinessBpSerialResponseDto from '../../../../utils/types/BusinessBpSerialResponseDto';
 import BusinessModalComponentBpComponentCreateSerialRmaModalComponent from './components/CreateSerialRmaModal/CreateSerialRmaModal';
 import BusinessModalComponentBpComponentTravelVoucherModalComponent from './components/TravelVoucherModal/TravelVoucherModal';
+import AssistanceResponseDto from '../../../../utils/types/AssistanceResponseDto';
+import RmaModalComponent from '../../../RmaModal/RmaModal';
 
 enum ModalType {
   CREATE_DETAIL_RMA,
@@ -23,6 +25,7 @@ enum ModalType {
   DELETE_SERIAL,
   CREATE_SERIAL_RMA,
   TRAVEL_VOUCHER,
+  RMA,
 }
 
 type ModalData =
@@ -38,12 +41,15 @@ type ModalData =
       modal: ModalType.CREATE_SERIAL_RMA;
       serialNumber: BusinessBpSerialResponseDto;
     }
-  | { modal: ModalType.TRAVEL_VOUCHER };
+  | { modal: ModalType.TRAVEL_VOUCHER }
+  | { modal: ModalType.RMA; rma: AssistanceResponseDto };
 
 type BusinessModalComponentBpComponentProps = Readonly<{
   business: BusinessResponseDto;
+  goToNextStep: () => void;
+  goToDashboard: () => void;
 }>;
-export default function BusinessModalComponentBpComponent({ business }: BusinessModalComponentBpComponentProps) {
+export default function BusinessModalComponentBpComponent({ business, goToNextStep, goToDashboard }: BusinessModalComponentBpComponentProps) {
   const { data: bp } = useSuspenseQuery(queries['business-bps'].detail._ctx.byBusinessId(business.id));
 
   const [modalData, setModalData] = useState<ModalData>();
@@ -56,6 +62,7 @@ export default function BusinessModalComponentBpComponent({ business }: Business
             business={business}
             detail={modalData.detail}
             onClose={() => setModalData(undefined)}
+            goToRmaModal={(rma) => setModalData({ modal: ModalType.RMA, rma })}
           />
         );
       case ModalType.UPDATE_DETAIL:
@@ -96,10 +103,13 @@ export default function BusinessModalComponentBpComponent({ business }: Business
             bp={bp}
             serialNumber={modalData.serialNumber}
             onClose={() => setModalData(undefined)}
+            goToRmaModal={(rma) => setModalData({ modal: ModalType.RMA, rma })}
           />
         );
       case ModalType.TRAVEL_VOUCHER:
         return <BusinessModalComponentBpComponentTravelVoucherModalComponent business={business} bp={bp} onClose={() => setModalData(undefined)} />;
+      case ModalType.RMA:
+        return <RmaModalComponent rmaId={modalData.rma.id} onClose={() => setModalData(undefined)} />;
     }
   }, [modalData, business, bp]);
 
@@ -120,6 +130,8 @@ export default function BusinessModalComponentBpComponent({ business }: Business
         business={business}
         bp={bp}
         onTravelVoucherClick={() => setModalData({ modal: ModalType.TRAVEL_VOUCHER })}
+        goToNextStep={goToNextStep}
+        goToDashboard={goToDashboard}
       />
       {modal}
       {/* <Outlet /> */}

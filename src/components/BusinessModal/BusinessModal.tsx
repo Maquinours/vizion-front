@@ -51,15 +51,27 @@ export default function BusinessModalComponent({ businessId, onClose }: Business
   const StepComponent = useMemo(() => {
     switch (step) {
       case BusinessStep.DASHBOARD:
-        return <BusinessModalComponentDashboardComponent business={business} />;
+        return <BusinessModalComponentDashboardComponent business={business} goToNextStep={() => setStep(BusinessStep.QUOTATION)} />;
       case BusinessStep.QUOTATION:
-        return <BusinessModalComponentQuotationComponent business={business} />;
+        return <BusinessModalComponentQuotationComponent business={business} goToNextStep={() => setStep(BusinessStep.ARC)} />;
       case BusinessStep.ARC:
-        return <BusinessModalComponentArcComponent business={business} />;
+        return <BusinessModalComponentArcComponent business={business} goToNextStep={() => setStep(BusinessStep.BP)} />;
       case BusinessStep.BP:
-        return <BusinessModalComponentBpComponent business={business} />;
+        return (
+          <BusinessModalComponentBpComponent
+            business={business}
+            goToDashboard={() => setStep(BusinessStep.DASHBOARD)}
+            goToNextStep={() => setStep(BusinessStep.BL)}
+          />
+        );
       case BusinessStep.BL:
-        return <BusinessModalComponentBlComponent business={business} />;
+        return (
+          <BusinessModalComponentBlComponent
+            business={business}
+            goToDashboard={() => setStep(BusinessStep.DASHBOARD)}
+            goToNextStep={() => setStep(BusinessStep.BILL)}
+          />
+        );
       case BusinessStep.BILL:
         return <BusinessModalComponentBillComponent business={business} />;
     }

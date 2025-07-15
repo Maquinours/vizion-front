@@ -81,11 +81,13 @@ type EnterpriseModalComponentAllBusinessTableComponentProps = Readonly<{
   enterprise: EnterpriseResponseDto;
   openBusinessModal: (businessId: string) => void;
   openRmaModal: (rmaId: string) => void;
+  defaultAllBusinessProfileId: string | undefined;
 }>;
 export default function EnterpriseModalComponentAllBusinessTableComponent({
   enterprise,
   openBusinessModal,
   openRmaModal,
+  defaultAllBusinessProfileId,
 }: EnterpriseModalComponentAllBusinessTableComponentProps) {
   // const navigate = routeApi.useNavigate();
 
@@ -93,7 +95,7 @@ export default function EnterpriseModalComponentAllBusinessTableComponent({
   // const { allBusinessPage: page, allBusinessProfileId: contactId } = routeApi.useSearch();
 
   const [page, setPage] = useState(0);
-  const [contactId, setContactId] = useState<string | undefined>();
+  const [contactId, setContactId] = useState<string | undefined>(defaultAllBusinessProfileId);
 
   const { data: authentifiedUser } = useAuthentifiedUserQuery();
   const { data, isLoading } = useQuery(

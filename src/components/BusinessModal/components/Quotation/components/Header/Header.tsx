@@ -16,6 +16,7 @@ type BusinessModalComponentQuotationComponentHeaderComponentProps = Readonly<{
   hideAddresses: boolean;
   setHideAddresses: React.Dispatch<React.SetStateAction<boolean>>;
   onEditClick: () => void;
+  goToNextStep: () => void;
 }>;
 export default function BusinessModalComponentQuotationComponentHeaderComponent({
   business,
@@ -29,10 +30,11 @@ export default function BusinessModalComponentQuotationComponentHeaderComponent(
   hideAddresses,
   setHideAddresses,
   onEditClick,
+  goToNextStep,
 }: BusinessModalComponentQuotationComponentHeaderComponentProps) {
   return (
     <>
-      <BusinessModalComponentQuotationComponentHeaderComponentSectionOneComponent business={business} quotation={quotation} />
+      <BusinessModalComponentQuotationComponentHeaderComponentSectionOneComponent business={business} quotation={quotation} goToNextStep={goToNextStep} />
       <BusinessModalComponentQuotationComponentHeaderComponentSectionTwoComponent business={business} quotation={quotation} />
       <BusinessModalComponentQuotationComponentHeaderComponentSectionThreeComponent
         business={business}

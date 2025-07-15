@@ -13,15 +13,57 @@ import RmaModalComponentSupportComponentTableComponent from './components/Table/
 import RmaModalComponentSupportComponentTasksComponent from './components/Tasks/Tasks';
 import RmaModalComponentSupportComponentCreateDetailModalView from './components/CreateDetailModal/CreateDetailModal';
 import RmaModalComponentSupportComponentPdfModalView from './components/PdfModal/PdfModal';
+import CreateLifesheetModalComponent from '../../../CreateLifesheetModal/CreateLifesheetModal';
+import { LifesheetAssociatedItem } from '../../../../utils/enums/LifesheetAssociatedItem';
+import RenameGedObjectModalComponent from '../../../RenameGedObjectModal/RenameGedObjectModal';
+import FileType from '../../../../utils/enums/FileType';
+import CreateGedDirectoryModalComponent from '../../../CreateGedDirectoryModal/CreateGedDirectoryModal';
+import ImportGedFilesModalComponent from '../../../ImportGedFilesModal/ImportGedFilesModal';
+import DeleteGedObjectModalComponent from '../../../DeleteGedObjectModal/DeleteGedObjectModal';
+import RmaModalComponentSupportoCmponentEmailModalComponent from './components/EmailModal/EmailModal';
+import UnlinkWorkloadModalComponent from '../../../UnlinkWorkloadModal/UnlinkWorkloadModal';
+import CreateBusinessRmaLinkModalComponent from '../../../CreateBusinessRmaLinkModal/CreateBusinessRmaLinkModal';
+import DeleteBusinessRmaLinkModalComponent from '../../../DeleteBusinessRmaLinkModal/DeleteBusinessRmaLinkModal';
 
 // const routeApi = getRouteApi('/app/businesses-rma_/rma/$rmaId/support');
 
 enum ModalType {
   CREATE_DETAIL,
   PDF,
+  CREATE_LIFESHEET,
+  RENAME_GED_OBJECT,
+  CREATE_GED_DIRECTORY,
+  IMPORT_GED_FILES,
+  DELETE_GED_OBJECT,
+  EMAIL,
+  UNLINK_TASK,
+  CREATE_LINK,
+  DELETE_LINK,
 }
 
-type ModalData = { modal: ModalType.CREATE_DETAIL } | { modal: ModalType.PDF };
+type ModalData =
+  | { modal: ModalType.CREATE_DETAIL }
+  | { modal: ModalType.PDF }
+  | { modal: ModalType.CREATE_LIFESHEET }
+  | { modal: ModalType.RENAME_GED_OBJECT; objectRelativePath: string }
+  | { modal: ModalType.CREATE_GED_DIRECTORY; directoryRelativePath: string }
+  | { modal: ModalType.IMPORT_GED_FILES; directoryRelativePath: string }
+  | { modal: ModalType.DELETE_GED_OBJECT; objectRelativePath: string }
+  | {
+      modal: ModalType.EMAIL;
+      emailId: string;
+    }
+  | {
+      modal: ModalType.UNLINK_TASK;
+      taskId: string;
+    }
+  | {
+      modal: ModalType.CREATE_LINK;
+    }
+  | {
+      modal: ModalType.DELETE_LINK;
+      associatedId: string;
+    };
 
 type RmaModalComponentSupportComponentProps = Readonly<{
   rma: AssistanceResponseDto;
@@ -56,6 +98,61 @@ export default function RmaModalComponentSupportComponent({ rma, navigateToNextS
         return <RmaModalComponentSupportComponentCreateDetailModalView rma={rma} onClose={() => setModalData(undefined)} />;
       case ModalType.PDF:
         return <RmaModalComponentSupportComponentPdfModalView rma={rma} onClose={() => setModalData(undefined)} />;
+      case ModalType.CREATE_LIFESHEET:
+        return (
+          <CreateLifesheetModalComponent associatedItemType={LifesheetAssociatedItem.RMA} associatedItemId={rma.id} onClose={() => setModalData(undefined)} />
+        );
+      case ModalType.RENAME_GED_OBJECT:
+        return (
+          <RenameGedObjectModalComponent
+            type={FileType.SAV}
+            id={rma.id}
+            objectRelativePath={modalData.objectRelativePath}
+            onClose={() => setModalData(undefined)}
+          />
+        );
+      case ModalType.CREATE_GED_DIRECTORY:
+        return (
+          <CreateGedDirectoryModalComponent
+            type={FileType.SAV}
+            id={rma.id}
+            directoryRelativePath={modalData.directoryRelativePath}
+            onClose={() => setModalData(undefined)}
+          />
+        );
+      case ModalType.IMPORT_GED_FILES:
+        return (
+          <ImportGedFilesModalComponent
+            type={FileType.SAV}
+            id={rma.id}
+            directoryRelativePath={modalData.directoryRelativePath}
+            onClose={() => setModalData(undefined)}
+          />
+        );
+      case ModalType.DELETE_GED_OBJECT:
+        return (
+          <DeleteGedObjectModalComponent
+            type={FileType.SAV}
+            id={rma.id}
+            objectRelativePath={modalData.objectRelativePath}
+            onClose={() => setModalData(undefined)}
+          />
+        );
+      case ModalType.EMAIL:
+        return <RmaModalComponentSupportoCmponentEmailModalComponent emailId={modalData.emailId} onClose={() => setModalData(undefined)} />;
+      case ModalType.UNLINK_TASK:
+        return <UnlinkWorkloadModalComponent taskId={modalData.taskId} onClose={() => setModalData(undefined)} />;
+      case ModalType.CREATE_LINK:
+        return <CreateBusinessRmaLinkModalComponent category={CategoryBusiness.RMA} number={rma.number} onClose={() => setModalData(undefined)} />;
+      case ModalType.DELETE_LINK:
+        return (
+          <DeleteBusinessRmaLinkModalComponent
+            category={CategoryBusiness.RMA}
+            number={rma.number}
+            associatedId={modalData.associatedId}
+            onClose={() => setModalData(undefined)}
+          />
+        );
     }
   }, [modalData]);
 
@@ -73,16 +170,20 @@ export default function RmaModalComponentSupportComponent({ rma, navigateToNextS
           <RmaModalComponentSupportComponentReturnAddressComponent rma={rma} />
         </div>
         <div className={styles.second_grid}>
-          <RmaModalComponentSupportComponentLifesheetComponent rma={rma} onCreateClick={() => {}} />
+          <RmaModalComponentSupportComponentLifesheetComponent rma={rma} onCreateClick={() => setModalData({ modal: ModalType.CREATE_LIFESHEET })} />
           <RmaModalComponentSupportComponentGedComponent
             rma={rma}
-            onCreateDirectoryClick={() => {}}
-            onImportFilesClick={() => {}}
-            onRenameClick={() => {}}
-            onDeleteClick={() => {}}
+            onCreateDirectoryClick={(data) => setModalData({ modal: ModalType.CREATE_GED_DIRECTORY, directoryRelativePath: data?.relativePath ?? '' })}
+            onImportFilesClick={(data) => setModalData({ modal: ModalType.IMPORT_GED_FILES, directoryRelativePath: data?.relativePath ?? '' })}
+            onRenameClick={(data) => setModalData({ modal: ModalType.RENAME_GED_OBJECT, objectRelativePath: data.relativePath })}
+            onDeleteClick={(data) => setModalData({ modal: ModalType.DELETE_GED_OBJECT, objectRelativePath: data.relativePath })}
           />
           {authentifiedUser.userInfo.roles.some((role) => ['ROLE_MEMBRE_VIZEO', 'ROLE_REPRESENTANT'].includes(role)) && (
-            <RmaModalComponentSupportComponentTasksComponent rma={rma} onEmailClick={() => {}} onUnlinkClick={() => {}} />
+            <RmaModalComponentSupportComponentTasksComponent
+              rma={rma}
+              onEmailClick={(data) => setModalData({ modal: ModalType.EMAIL, emailId: data.mailId! })}
+              onUnlinkClick={(data) => setModalData({ modal: ModalType.UNLINK_TASK, taskId: data.id })}
+            />
           )}
           <BusinessRmaLinksComponent
             category={CategoryBusiness.RMA}
@@ -90,9 +191,9 @@ export default function RmaModalComponentSupportComponent({ rma, navigateToNextS
             // getItemLink={getBusinessLinkItemLink}
             onItemClick={() => {}}
             canCreate={rma.state !== AssistanceState.ARCHIVE}
-            onCreateClick={() => {}}
+            onCreateClick={() => setModalData({ modal: ModalType.CREATE_LINK })}
             // createLink={{ to: '/app/businesses-rma/rma/$rmaId/support/create-link', search: true, replace: true, resetScroll: false, preload: 'intent' }}
-            onDeleteClick={() => {}}
+            onDeleteClick={() => setModalData({ modal: ModalType.DELETE_LINK, associatedId: rma.id })}
             // getDeleteLink={(data) => ({
             //   to: '/app/businesses-rma/rma/$rmaId/support/delete-link/$associatedId',
             //   params: { associatedId: data.id },

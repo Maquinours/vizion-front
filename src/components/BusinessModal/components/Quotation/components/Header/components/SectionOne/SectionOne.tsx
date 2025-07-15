@@ -15,10 +15,12 @@ import styles from './SectionOne.module.scss';
 type BusinessModalComponentQuotationComponentHeaderComponentSectionOneComponentProps = Readonly<{
   business: BusinessResponseDto;
   quotation: BusinessQuotationResponseDto;
+  goToNextStep: () => void;
 }>;
 export default function BusinessModalComponentQuotationComponentHeaderComponentSectionOneComponent({
   business,
   quotation,
+  goToNextStep,
 }: BusinessModalComponentQuotationComponentHeaderComponentSectionOneComponentProps) {
   // const navigate = routeApi.useNavigate();
   const queryClient = useQueryClient();
@@ -67,7 +69,8 @@ export default function BusinessModalComponentQuotationComponentHeaderComponentS
       queryClient.invalidateQueries({ queryKey: queries.businesses.detail._ctx.byId(business.id).queryKey });
       queryClient.setQueryData(queries['business-ARCs'].detail._ctx.byBusinessId(business.id).queryKey, data);
       toast.success('ARC créé avec succès');
-      // navigate({ to: '../arc', replace: true }); // TODO: go to arc modal
+      goToNextStep();
+      // navigate({ to: '../arc', replace: true });
     },
     onError: (error) => {
       console.error(error);
@@ -77,7 +80,8 @@ export default function BusinessModalComponentQuotationComponentHeaderComponentS
 
   const onArcButtonClick = () => {
     if (business.state !== BusinessState.DEVIS) {
-      // navigate({ to: '../arc', replace: true }); // TODO: go to arc modal
+      goToNextStep();
+      // navigate({ to: '../arc', replace: true });
       return;
     }
 

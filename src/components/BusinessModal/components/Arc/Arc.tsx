@@ -28,8 +28,9 @@ type ModalData =
 
 type BusinessModalComponentArcComponentProps = Readonly<{
   business: BusinessResponseDto;
+  goToNextStep: () => void;
 }>;
-export default function BusinessModalComponentArcComponent({ business }: BusinessModalComponentArcComponentProps) {
+export default function BusinessModalComponentArcComponent({ business, goToNextStep }: BusinessModalComponentArcComponentProps) {
   const { data: arc } = useSuspenseQuery(queries['business-ARCs'].detail._ctx.byBusinessId(business.id));
 
   const [hideReferencesPrices, setHideReferencesPrices] = useState(false);
@@ -77,6 +78,7 @@ export default function BusinessModalComponentArcComponent({ business }: Busines
         hideReferencesPrices={hideReferencesPrices}
         setHideReferencesPrices={setHideReferencesPrices}
         onEditClick={() => setModalData({ modal: ModalType.PDF })}
+        goToNextStep={goToNextStep}
       />
       <BusinessModalComponentArcComponentTableComponent
         arc={arc}

@@ -7,6 +7,7 @@ import BusinessBpResponseDto from '../../../../../../utils/types/BusinessBpRespo
 import BusinessResponseDto from '../../../../../../utils/types/BusinessResponseDto';
 import AmountFormat from '../../../../../AmountFormat/AmountFormat';
 import styles from './Footer.module.scss';
+import BusinessState from '../../../../../../utils/enums/BusinessState';
 
 // const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/bp');
 // const routePath = '/app/businesses-rma/business/$businessId/bp';
@@ -15,11 +16,15 @@ type BusinessModalComponentBpComponentFooterComponentProps = Readonly<{
   business: BusinessResponseDto;
   bp: BusinessBpResponseDto;
   onTravelVoucherClick: () => void;
+  goToNextStep: () => void;
+  goToDashboard: () => void;
 }>;
 export default function BusinessModalComponentBpComponentFooterComponent({
   business,
   bp,
   onTravelVoucherClick,
+  goToNextStep,
+  goToDashboard,
 }: BusinessModalComponentBpComponentFooterComponentProps) {
   const queryClient = useQueryClient();
   // const navigate = routeApi.useNavigate();
@@ -83,6 +88,7 @@ export default function BusinessModalComponentBpComponentFooterComponent({
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queries['business-bls'].list._ctx.byBusinessId(business.id).queryKey });
       toast.success('Bon de livraison créé avec succès');
+      goToNextStep();
       // navigate({ to: '../bl', replace: true }); // TODO: go to bl modal
     },
     onError: (error) => {
@@ -95,9 +101,11 @@ export default function BusinessModalComponentBpComponentFooterComponent({
   });
 
   const onBlButtonClick = () => {
-    // if (business.state !== BusinessState.BP) navigate({ to: '../bl', replace: true });
+    if (business.state !== BusinessState.BP) goToNextStep();
+    //  navigate({ to: '../bl', replace: true });
     if (!business.deliveryMode) {
       toast.warning('Veuillez renseigner le mode de livraison');
+      goToDashboard();
       // navigate({ to: '../dashboard', replace: true }); // TODO: go to dashboard modal
     } else mutate();
   };

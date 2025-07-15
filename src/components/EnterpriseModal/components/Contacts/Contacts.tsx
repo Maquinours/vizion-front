@@ -14,12 +14,13 @@ const size = 5;
 
 type EnterpriseModalComponentContactsComponentProps = Readonly<{
   enterprise: EnterpriseResponseDto;
+  defaultContactsSearch: string | undefined;
 }>;
-export default function EnterpriseModalComponentContactsComponent({ enterprise }: EnterpriseModalComponentContactsComponentProps) {
+export default function EnterpriseModalComponentContactsComponent({ enterprise, defaultContactsSearch }: EnterpriseModalComponentContactsComponentProps) {
   // const { contactsSearch: search, contactsPage: page } = routeApi.useSearch();
   // const { enterpriseId } = routeApi.useParams();
 
-  const [search, setSearch] = useState<string>();
+  const [search, setSearch] = useState<string | undefined>(defaultContactsSearch);
   const [page, setPage] = useState(0);
 
   const { data, refetch } = useQuery(queries.profiles.page._ctx.byEnterpriseIdAndSearch(enterprise.id, search, { page, size }));

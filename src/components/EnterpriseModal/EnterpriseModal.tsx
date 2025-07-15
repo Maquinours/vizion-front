@@ -28,8 +28,10 @@ type EnterpriseModalData =
 
 type EnterpriseModalComponentProps = Readonly<{
   enterpriseId: string;
+  defaultContactsSearch?: string;
+  defaultAllBusinessProfileId?: string;
 }>;
-export default function EnterpriseModalComponent({ enterpriseId }: EnterpriseModalComponentProps) {
+export default function EnterpriseModalComponent({ enterpriseId, defaultContactsSearch, defaultAllBusinessProfileId }: EnterpriseModalComponentProps) {
   const { data: user } = useAuthentifiedUserQuery();
 
   const { data: enterprise } = useSuspenseQuery(enterprises.detail(enterpriseId));
@@ -62,11 +64,12 @@ export default function EnterpriseModalComponent({ enterpriseId }: EnterpriseMod
               enterprise={enterprise}
               openBusinessModal={(businessId: string) => setModalData({ modal: EnterpriseModal.BUSINESS, businessId })}
               openRmaModal={(rmaId: string) => setModalData({ modal: EnterpriseModal.RMA, rmaId })}
+              defaultAllBusinessProfileId={defaultAllBusinessProfileId}
             />
           </div>
         </div>
         <div className={styles.grid_two}>
-          <EnterpriseModalComponentContactsComponent enterprise={enterprise} />
+          <EnterpriseModalComponentContactsComponent enterprise={enterprise} defaultContactsSearch={defaultContactsSearch} />
           {/* <AppViewEnterpriseViewLifesheetComponent />
           <AppViewEnterpriseViewWorkloadsComponent /> */}
         </div>

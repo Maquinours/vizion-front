@@ -13,6 +13,7 @@ type BusinessModalComponentArcComponentHeaderComponentProps = Readonly<{
   hideReferencesPrices: boolean;
   setHideReferencesPrices: React.Dispatch<React.SetStateAction<boolean>>;
   onEditClick: () => void;
+  goToNextStep: () => void;
 }>;
 export default function BusinessModalComponentArcComponentHeaderComponent({
   business,
@@ -20,6 +21,7 @@ export default function BusinessModalComponentArcComponentHeaderComponent({
   hideReferencesPrices,
   setHideReferencesPrices,
   onEditClick,
+  goToNextStep,
 }: BusinessModalComponentArcComponentHeaderComponentProps) {
   // const { businessId } = routeApi.useParams();
 
@@ -29,7 +31,12 @@ export default function BusinessModalComponentArcComponentHeaderComponent({
   return (
     <>
       {user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && (
-        <BusinessModalComponentArcComponentHeaderComponentSectionOneComponent business={business} arc={arc} onEditClick={onEditClick} />
+        <BusinessModalComponentArcComponentHeaderComponentSectionOneComponent
+          business={business}
+          arc={arc}
+          onEditClick={onEditClick}
+          goToNextStep={goToNextStep}
+        />
       )}
       <BusinessModalComponentArcComponentHeaderComponentSectionTwoComponent
         business={business}

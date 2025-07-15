@@ -1,13 +1,14 @@
 import { WorkloadAssociatedItem } from '../../../../../../utils/enums/WorkloadAssociatedItem';
 import AssistanceResponseDto from '../../../../../../utils/types/AssistanceResponseDto';
+import TaskResponseDto from '../../../../../../utils/types/TaskResponseDto';
 import WorkloadsComponent from '../../../../../Workloads/Workloads';
 
 // const routeApi = getRouteApi('/app/businesses-rma_/rma/$rmaId/support');
 
 type RmaModalComponentSupportComponentTasksComponentProps = Readonly<{
   rma: AssistanceResponseDto;
-  onEmailClick: () => void;
-  onUnlinkClick: () => void;
+  onEmailClick: (data: TaskResponseDto) => void;
+  onUnlinkClick: (data: TaskResponseDto) => void;
 }>;
 export default function RmaModalComponentSupportComponentTasksComponent({
   rma,

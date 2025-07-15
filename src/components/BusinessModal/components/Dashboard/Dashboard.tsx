@@ -135,8 +135,9 @@ export type BusinessDashboardFormType = yup.InferType<typeof yupSchema>;
 
 type BusinessModalComponentDashboardComponentProps = Readonly<{
   business: BusinessResponseDto;
+  goToNextStep: () => void;
 }>;
-export default function BusinessModalComponentDashboardComponent({ business }: BusinessModalComponentDashboardComponentProps) {
+export default function BusinessModalComponentDashboardComponent({ business, goToNextStep }: BusinessModalComponentDashboardComponentProps) {
   const queryClient = useQueryClient();
 
   // const { businessId } = routeApi.useParams();
@@ -401,7 +402,7 @@ export default function BusinessModalComponentDashboardComponent({ business }: B
               {/* <Link from={routePath} to="../study" className="btn btn-secondary">
                 {"Accès à l'étude"}
               </Link> */}
-              <BusinessModalComponentDashboardComponentQuotationButtonComponent business={business} />
+              <BusinessModalComponentDashboardComponentQuotationButtonComponent business={business} goToNextStep={goToNextStep} />
             </div>
           )}
         </div>

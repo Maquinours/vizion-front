@@ -25,8 +25,10 @@ type ModalData = { modal: ModalType.LOADING } | { modal: ModalType.SEND_BY_EMAIL
 
 type BusinessModalComponentBlComponentProps = Readonly<{
   business: BusinessResponseDto;
+  goToNextStep: () => void;
+  goToDashboard: () => void;
 }>;
-export default function BusinessModalComponentBlComponent({ business }: BusinessModalComponentBlComponentProps) {
+export default function BusinessModalComponentBlComponent({ business, goToNextStep, goToDashboard }: BusinessModalComponentBlComponentProps) {
   // const { businessId } = routeApi.useParams();
   // const { page } = routeApi.useSearch();
 
@@ -79,7 +81,7 @@ export default function BusinessModalComponentBlComponent({ business }: Business
   return (
     <>
       <div className={styles.container}>
-        <BusinessModalComponentBlComponentHeaderComponent business={business} />
+        <BusinessModalComponentBlComponentHeaderComponent business={business} goToNextStep={goToNextStep} goToDashboard={goToDashboard} />
         <BusinessModalComponentBlComponentBodyComponent business={business} bls={bls} page={page} onSendByEmailClick={onSendByEmailClick} />
         <div>
           <PaginationComponent

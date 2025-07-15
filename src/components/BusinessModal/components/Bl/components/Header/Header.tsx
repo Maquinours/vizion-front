@@ -11,8 +11,14 @@ import styles from './Header.module.scss';
 
 type BusinessModalComponentBlComponentHeaderComponentProps = Readonly<{
   business: BusinessResponseDto;
+  goToNextStep: () => void;
+  goToDashboard: () => void;
 }>;
-export default function BusinessModalComponentBlComponentHeaderComponent({ business }: BusinessModalComponentBlComponentHeaderComponentProps) {
+export default function BusinessModalComponentBlComponentHeaderComponent({
+  business,
+  goToNextStep,
+  goToDashboard,
+}: BusinessModalComponentBlComponentHeaderComponentProps) {
   const queryClient = useQueryClient();
   // const navigate = routeApi.useNavigate();
 
@@ -31,7 +37,8 @@ export default function BusinessModalComponentBlComponentHeaderComponent({ busin
       queryClient.invalidateQueries({ queryKey: queries['business-bills']._def });
       queryClient.invalidateQueries({ queryKey: queries['businesses']._def });
       toast.success('Facture créée avec succès');
-      // navigate({ to: '../bill', replace: true }); // TODO: go to bill modal
+      goToNextStep();
+      // navigate({ to: '../bill', replace: true });
     },
     onError: (error) => {
       console.error(error);
@@ -42,7 +49,8 @@ export default function BusinessModalComponentBlComponentHeaderComponent({ busin
   const onCreateBill = () => {
     if (!business.deliverAddressZipCode || business.deliverAddressZipCode.length < 2) {
       toast.warning('Impossible de passer en facture : Le CP de livraison est invalide.');
-      // navigate({ to: '/app/businesses-rma/business/$businessId/dashboard', params: { businessId }, replace: true }); // TODO: go to dashboard modal
+      goToDashboard();
+      // navigate({ to: '/app/businesses-rma/business/$businessId/dashboard', params: { businessId }, replace: true });
     } else createBill();
   };
 

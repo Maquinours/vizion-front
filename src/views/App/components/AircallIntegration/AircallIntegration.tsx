@@ -40,9 +40,12 @@ const isUserEvent = (data: AircallWebhookResponseDto<'number' | 'user' | 'contac
   return data.resource === 'user';
 };
 
-export default function AppViewAircallIntegrationComponent() {
+type AppViewAircallIntegrationComponentProps = Readonly<{
+  openEnterpriseModal: (enterpriseId: string, filter: { defaultContactsSearch?: string; defaultAllBusinessProfileId?: string }) => void;
+}>;
+export default function AppViewAircallIntegrationComponent({ openEnterpriseModal }: AppViewAircallIntegrationComponentProps) {
   const queryClient = useQueryClient();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const { data: currentUser } = useAuthentifiedUserQuery();
 
@@ -105,14 +108,18 @@ export default function AppViewAircallIntegrationComponent() {
                         queries['all-businesses'].page._ctx.byEnterpriseIdAndPossibleProfileId({ enterpriseId: enterprise.id, page: 0, size: 15 }),
                       )
                       .then((allBusinesses) => {
-                        navigate({
-                          to: '/app/enterprises/$enterpriseId',
-                          params: { enterpriseId: enterprise.id },
-                          search: {
-                            contactsSearch: `${profile.firstName ?? ''} ${profile.lastName ?? ''}`.trim(),
-                            allBusinessProfileId: allBusinesses.totalElements > 15 ? profile.id : undefined, // We filter by the profile only if there is less or equal than 15 businesses
-                          },
+                        openEnterpriseModal(enterprise.id, {
+                          defaultContactsSearch: `${profile.firstName ?? ''} ${profile.lastName ?? ''}`.trim(),
+                          defaultAllBusinessProfileId: allBusinesses.totalElements > 15 ? profile.id : undefined,
                         });
+                        // navigate({
+                        //   to: '/app/enterprises/$enterpriseId',
+                        //   params: { enterpriseId: enterprise.id },
+                        //   search: {
+                        //     contactsSearch: `${profile.firstName ?? ''} ${profile.lastName ?? ''}`.trim(),
+                        //     allBusinessProfileId: allBusinesses.totalElements > 15 ? profile.id : undefined, // We filter by the profile only if there is less or equal than 15 businesses
+                        //   },
+                        // });
                       })
                       .catch((error) => {
                         toast.error(`Erreur lors de la récupération des affaires de l'entreprise ${enterprise.name}`);

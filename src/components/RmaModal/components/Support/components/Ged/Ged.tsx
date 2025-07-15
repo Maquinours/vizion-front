@@ -1,15 +1,16 @@
 import FileType from '../../../../../../utils/enums/FileType';
 import AssistanceResponseDto from '../../../../../../utils/types/AssistanceResponseDto';
+import FileDataTreeResponseDto from '../../../../../../utils/types/FileDataTreeResponseDto';
 import GedComponent from '../../../../../Ged/Ged';
 
 // const routeApi = getRouteApi('/app/businesses-rma_/rma/$rmaId/support');
 
 type RmaModalComponentSupportComponentGedComponentProps = Readonly<{
   rma: AssistanceResponseDto;
-  onCreateDirectoryClick: () => void;
-  onImportFilesClick: () => void;
-  onRenameClick: () => void;
-  onDeleteClick: () => void;
+  onCreateDirectoryClick: (data?: FileDataTreeResponseDto) => void;
+  onImportFilesClick: (data?: FileDataTreeResponseDto) => void;
+  onRenameClick: (data: FileDataTreeResponseDto) => void;
+  onDeleteClick: (data: FileDataTreeResponseDto) => void;
 }>;
 export default function RmaModalComponentSupportComponentGedComponent({
   rma,

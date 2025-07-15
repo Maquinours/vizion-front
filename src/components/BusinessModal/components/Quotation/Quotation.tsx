@@ -36,8 +36,9 @@ type ModalData =
 
 type BusinessModalComponentQuotationComponentProps = Readonly<{
   business: BusinessResponseDto;
+  goToNextStep: () => void;
 }>;
-export default function BusinessModalComponentQuotationComponent({ business }: BusinessModalComponentQuotationComponentProps) {
+export default function BusinessModalComponentQuotationComponent({ business, goToNextStep }: BusinessModalComponentQuotationComponentProps) {
   const { data: quotation } = useSuspenseQuery(queries['business-quotations'].detail._ctx.byBusinessId(business.id));
 
   const [hideTotal, setHideTotal] = useState(false);
@@ -130,6 +131,7 @@ export default function BusinessModalComponentQuotationComponent({ business }: B
         hideAddresses={hideAddresses}
         setHideAddresses={setHideAddresses}
         onEditClick={() => setModalData({ modal: ModalType.PDF })}
+        goToNextStep={goToNextStep}
       />
       <BusinessModalComponentQuotationComponentTableComponent
         business={business}

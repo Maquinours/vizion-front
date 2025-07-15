@@ -6,6 +6,7 @@ import BusinessArcResponseDto from '../../../../../../../../utils/types/Business
 import BusinessBpDetailsRequestDto from '../../../../../../../../utils/types/BusinessBpDetailsRequestDto';
 import BusinessResponseDto from '../../../../../../../../utils/types/BusinessResponseDto';
 import styles from './SectionOne.module.scss';
+import BusinessState from '../../../../../../../../utils/enums/BusinessState';
 
 // const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/arc');
 // const routePath = '/app/businesses-rma/business/$businessId/arc';
@@ -14,11 +15,13 @@ type BusinessModalComponentArcComponentHeaderComponentSectionOneComponentProps =
   business: BusinessResponseDto;
   arc: BusinessArcResponseDto;
   onEditClick: () => void;
+  goToNextStep: () => void;
 }>;
 export default function BusinessModalComponentArcComponentHeaderComponentSectionOneComponent({
   business,
   arc,
   onEditClick,
+  goToNextStep,
 }: BusinessModalComponentArcComponentHeaderComponentSectionOneComponentProps) {
   const queryClient = useQueryClient();
   // const navigate = routeApi.useNavigate();
@@ -103,7 +106,8 @@ export default function BusinessModalComponentArcComponentHeaderComponentSection
       queryClient.invalidateQueries({ queryKey: queries['all-businesses']._def });
       queryClient.setQueryData(queries['business-bps'].detail._ctx.byBusinessId(business.id).queryKey, data);
       toast.success('Le BP a été créé avec succès');
-      // navigate({ to: '../bp', replace: true }); // TODO: go to bp modal
+      goToNextStep();
+      // navigate({ to: '../bp', replace: true });
     },
     onError: (error) => {
       if (error.message === 'No details found') toast.warning("Veuillez ajouter des détails à l'ARC avant de passer en BP");
@@ -115,9 +119,9 @@ export default function BusinessModalComponentArcComponentHeaderComponentSection
   });
 
   const onBpButtonClick = async () => {
-    // if (business.state !== BusinessState.ARC) navigate({ to: '../bp', replace: true }); // TODO: go to bp modal
-    // else
-    if (!arc.numOrder) toast.warning("Veuillez sauvegarder l'ARC avec un numéro de commande avant de passer en BP");
+    if (business.state !== BusinessState.ARC) goToNextStep();
+    //  navigate({ to: '../bp', replace: true });
+    else if (!arc.numOrder) toast.warning("Veuillez sauvegarder l'ARC avec un numéro de commande avant de passer en BP");
     else mutate();
   };
 

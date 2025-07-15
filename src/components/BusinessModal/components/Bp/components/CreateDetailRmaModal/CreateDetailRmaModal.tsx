@@ -12,6 +12,7 @@ import BusinessBpSerialResponseDto from '../../../../../../utils/types/BusinessB
 import BusinessResponseDto from '../../../../../../utils/types/BusinessResponseDto';
 import CustomSelect from '../../../../../CustomSelect/CustomSelect';
 import styles from './CreateDetailRmaModal.module.scss';
+import AssistanceResponseDto from '../../../../../../utils/types/AssistanceResponseDto';
 
 // const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/bp/create-detail-rma/$detailId');
 
@@ -23,11 +24,13 @@ type BusinessModalComponentBpComponentCreateDetailRmaModalComponentProps = Reado
   business: BusinessResponseDto;
   detail: BusinessBpDetailsResponseDto;
   onClose: () => void;
+  goToRmaModal: (rma: AssistanceResponseDto) => void;
 }>;
 export default function BusinessModalComponentBpComponentCreateDetailRmaModalComponent({
   business,
   detail,
   onClose,
+  goToRmaModal,
 }: BusinessModalComponentBpComponentCreateDetailRmaModalComponentProps) {
   //   const navigate = routeApi.useNavigate();
 
@@ -51,9 +54,10 @@ export default function BusinessModalComponentBpComponentCreateDetailRmaModalCom
         business.numBusiness,
         serialNumbers.map((s) => s.numSerie),
       ),
-    onSuccess: (_rma) => {
+    onSuccess: (rma) => {
       toast.success('Le RMA a été généré avec succès');
-      //   navigate({ to: '/app/businesses-rma/rma/$rmaId', params: { rmaId: rma.id } }); // TODO: go to rma modal
+      goToRmaModal(rma);
+      //   navigate({ to: '/app/businesses-rma/rma/$rmaId', params: { rmaId: rma.id } });
     },
     onError: (error) => {
       console.error(error);

@@ -9,9 +9,11 @@ import BusinessResponseDto from '../../../../../../utils/types/BusinessResponseD
 
 type BusinessModalComponentDashboardComponentQuotationButtonComponentProps = Readonly<{
   business: BusinessResponseDto;
+  goToNextStep: () => void;
 }>;
 export default function BusinessModalComponentDashboardComponentQuotationButtonComponent({
   business,
+  goToNextStep,
 }: BusinessModalComponentDashboardComponentQuotationButtonComponentProps) {
   // const navigate = routeApi.useNavigate();
   const queryClient = useQueryClient();
@@ -41,6 +43,7 @@ export default function BusinessModalComponentDashboardComponentQuotationButtonC
       queryClient.invalidateQueries({ queryKey: queries['all-businesses']._def });
       queryClient.setQueryData(queries['business-quotations'].detail._ctx.byBusinessId(business.id).queryKey, data);
       toast.success('Devis créé avec succès');
+      goToNextStep();
       // navigate({ to: '../quotation', replace: true }); // TODO: go to quotation modal
     },
     onError: (error) => {
@@ -51,7 +54,8 @@ export default function BusinessModalComponentDashboardComponentQuotationButtonC
 
   const onClick = () => {
     if (business.state === BusinessState.CREATED) mutate();
-    // else navigate({ to: '../quotation', replace: true }); // TODO: go to quotation modal
+    else goToNextStep();
+    //  navigate({ to: '../quotation', replace: true });
   };
 
   return (
