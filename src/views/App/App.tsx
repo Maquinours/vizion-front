@@ -32,7 +32,7 @@ export default function AppLayout() {
 
   const { data: authentifiedUser } = useAuthentifiedUserQuery();
 
-  const [modalData, setModalData] = useState<ModalData>();
+  const [modalData, setModalData] = useState<ModalData | undefined>({ modal: ModalType.ENTERPRISE, enterpriseId: authentifiedUser.profile.enterprise!.id }); // TODO: set default to undefined (not undefined now cause of a test)
 
   const modal = useMemo(() => {
     switch (modalId) {
@@ -94,6 +94,7 @@ export default function AppLayout() {
             enterpriseId={modalData.enterpriseId}
             defaultContactsSearch={modalData.defaultContactsSearch}
             defaultAllBusinessProfileId={modalData.defaultAllBusinessProfileId}
+            onClose={() => setModalData(undefined)}
           />
         )}
       </AppViewAircallWorkspaceComponent>

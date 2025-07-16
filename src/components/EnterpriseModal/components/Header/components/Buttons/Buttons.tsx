@@ -1,18 +1,24 @@
-import { Link } from '@tanstack/react-router';
 import styles from './Buttons.module.scss';
-import { useAuthentifiedUserQuery } from '../../../../../../views/App/utils/functions/getAuthentifiedUser';
 
-const routePath = '/app/enterprises/$enterpriseId';
+// const routePath = '/app/enterprises/$enterpriseId';
 
-export default function EnterpriseModalComponentHeaderComponentButtonsComponent() {
-  const { data: currentUser } = useAuthentifiedUserQuery();
+type EnterpriseModalComponentHeaderComponentButtonsComponentProps = Readonly<{
+  onEmailHistoryClick: () => void;
+}>;
+export default function EnterpriseModalComponentHeaderComponentButtonsComponent({
+  onEmailHistoryClick,
+}: EnterpriseModalComponentHeaderComponentButtonsComponentProps) {
+  // const { data: currentUser } = useAuthentifiedUserQuery();
 
   return (
     <div className={styles.container}>
-      <Link from={routePath} to="email-history" search replace resetScroll={false} preload="intent" className="btn btn-primary">
+      <button className="btn btn-primary" onClick={onEmailHistoryClick}>
         Historique des mails
-      </Link>
-      <Link
+      </button>
+      {/* <Link from={routePath} to="email-history" search replace resetScroll={false} preload="intent" className="btn btn-primary">
+        Historique des mails
+      </Link> */}
+      {/* <Link
         from={routePath}
         to="./address-book"
         search={(old) => ({ ...old, search: undefined, page: 0, size: 9 })}
@@ -22,12 +28,12 @@ export default function EnterpriseModalComponentHeaderComponentButtonsComponent(
         className="btn btn-primary"
       >
         {"Carnet d'adresse"}
-      </Link>
-      {currentUser.userInfo.roles.some((role) => ['ROLE_MEMBRE_VIZEO', 'ROLE_REPRESENTANT'].includes(role)) && (
+      </Link> */}
+      {/* {currentUser.userInfo.roles.some((role) => ['ROLE_MEMBRE_VIZEO', 'ROLE_REPRESENTANT'].includes(role)) && (
         <Link from={routePath} to="./delete" search replace resetScroll={false} preload="intent" className="btn btn-secondary">
           Supprimer cette entreprise
         </Link>
-      )}
+      )} */}
     </div>
   );
 }

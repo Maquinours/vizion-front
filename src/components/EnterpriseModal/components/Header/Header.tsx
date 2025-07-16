@@ -4,11 +4,12 @@ import EnterpriseComponentHeaderComponentInformationsComponent from './component
 
 type EnterpriseModalComponentHeaderComponentProps = Readonly<{
   enterprise: EnterpriseResponseDto;
+  onEmailHistoryClick: () => void;
 }>;
-export default function EnterpriseModalComponentHeaderComponent({ enterprise }: EnterpriseModalComponentHeaderComponentProps) {
+export default function EnterpriseModalComponentHeaderComponent({ enterprise, onEmailHistoryClick }: EnterpriseModalComponentHeaderComponentProps) {
   return (
     <>
-      <EnterpriseComponentHeaderComponentButtonsComponent />
+      <EnterpriseComponentHeaderComponentButtonsComponent onEmailHistoryClick={onEmailHistoryClick} />
       <EnterpriseComponentHeaderComponentInformationsComponent enterprise={enterprise} />
     </>
   );
