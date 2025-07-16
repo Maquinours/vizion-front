@@ -26,6 +26,14 @@ import EnterpriseModalComponentWorkloadsComponent from './components/Workloads/W
 import UnlinkWorkloadModalComponent from '../UnlinkWorkloadModal/UnlinkWorkloadModal';
 import EnterpriseModalComponentEmailModalComponent from './components/EmailModal/EmailModal';
 import EnterpriseModalComponentEmailHistoryModalComponent from './components/EmailHistoryModal/EmailHistoryModal';
+import CreateBusinessModalComponent from '../CreateBusinessModal/CreateBusinessModal';
+import ProfileResponseDto from '../../utils/types/ProfileResponseDto';
+import SendEmailModalComponent from '../SendEmailModal/SendEmailModal';
+import DeleteContactModalComponent from '../DeleteContactModal/DeleteContactModal';
+import UpdateContactModalComponent from '../UpdateContactModal/UpdateContactModal';
+import UpdateContactPasswordModalComponent from '../UpdateContactPasswordModal/UpdateContactPasswordModal';
+import EnterpriseModalComponentImportContactsModalComponent from './components/ImportContactsModal/ImportContactsModal';
+import CreateContactModalComponent from '../CreateContactModal/CreateContactModal';
 
 enum EnterpriseModal {
   BUSINESS,
@@ -38,6 +46,14 @@ enum EnterpriseModal {
   UNLINK_TASK,
   EMAIL,
   EMAIL_HISTORY,
+  CREATE_CONTACT_BUSINESS,
+  SEND_EMAIL_TO_CONTACT,
+  DELETE_CONTACT,
+  UPDATE_CONTACT,
+  UPDATE_CONTACT_PASSWORD,
+  CONTACT_EMAIL_HISTORY,
+  IMPORT_CONTACTS,
+  CREATE_CONTACT,
 }
 
 type EnterpriseModalData =
@@ -75,7 +91,35 @@ type EnterpriseModalData =
     }
   | {
       modal: EnterpriseModal.EMAIL_HISTORY;
-    };
+    }
+  | {
+      modal: EnterpriseModal.CREATE_CONTACT_BUSINESS;
+      contact: ProfileResponseDto;
+    }
+  | {
+      modal: EnterpriseModal.SEND_EMAIL_TO_CONTACT;
+      contact: ProfileResponseDto;
+    }
+  | {
+      modal: EnterpriseModal.DELETE_CONTACT;
+      contact: ProfileResponseDto;
+    }
+  | {
+      modal: EnterpriseModal.UPDATE_CONTACT;
+      contact: ProfileResponseDto;
+    }
+  | {
+      modal: EnterpriseModal.UPDATE_CONTACT_PASSWORD;
+      contact: ProfileResponseDto;
+    }
+  | {
+      modal: EnterpriseModal.CONTACT_EMAIL_HISTORY;
+      contact: ProfileResponseDto;
+    }
+  | {
+      modal: EnterpriseModal.IMPORT_CONTACTS;
+    }
+  | { modal: EnterpriseModal.CREATE_CONTACT };
 
 type EnterpriseModalComponentProps = Readonly<{
   enterpriseId: string;
@@ -146,6 +190,28 @@ export default function EnterpriseModalComponent({ enterpriseId, defaultContacts
         return <EnterpriseModalComponentEmailModalComponent emailId={modalData.emailId} onClose={() => setModalData(undefined)} />;
       case EnterpriseModal.EMAIL_HISTORY:
         return <EnterpriseModalComponentEmailHistoryModalComponent enterprise={enterprise} onClose={() => setModalData(undefined)} />;
+      case EnterpriseModal.CREATE_CONTACT_BUSINESS:
+        return <CreateBusinessModalComponent contactId={modalData.contact.id} onClose={() => setModalData(undefined)} />;
+      case EnterpriseModal.SEND_EMAIL_TO_CONTACT:
+        return <SendEmailModalComponent isOpen={true} defaultRecipient={[modalData.contact.email!]} onClose={() => setModalData(undefined)} />;
+      case EnterpriseModal.DELETE_CONTACT:
+        return <DeleteContactModalComponent contactId={modalData.contact.id} onClose={() => setModalData(undefined)} />;
+      case EnterpriseModal.UPDATE_CONTACT:
+        return <UpdateContactModalComponent contactId={modalData.contact.id} onClose={() => setModalData(undefined)} />;
+      case EnterpriseModal.UPDATE_CONTACT_PASSWORD:
+        return <UpdateContactPasswordModalComponent contactId={modalData.contact.id} onClose={() => setModalData(undefined)} />;
+      case EnterpriseModal.CONTACT_EMAIL_HISTORY:
+        return (
+          <EnterpriseModalComponentEmailHistoryModalComponent
+            enterprise={enterprise}
+            onClose={() => setModalData(undefined)}
+            defaultAddresses={[modalData.contact.email!.toLowerCase()]}
+          />
+        );
+      case EnterpriseModal.IMPORT_CONTACTS:
+        return <EnterpriseModalComponentImportContactsModalComponent enterprise={enterprise} onClose={() => setModalData(undefined)} />;
+      case EnterpriseModal.CREATE_CONTACT:
+        return <CreateContactModalComponent enterpriseId={enterprise.id} onClose={() => setModalData(undefined)} />;
     }
   }, [modalData]);
 
@@ -181,7 +247,18 @@ export default function EnterpriseModalComponent({ enterpriseId, defaultContacts
           </div>
         </div>
         <div className={styles.grid_two}>
-          <EnterpriseModalComponentContactsComponent enterprise={enterprise} defaultContactsSearch={defaultContactsSearch} />
+          <EnterpriseModalComponentContactsComponent
+            enterprise={enterprise}
+            defaultContactsSearch={defaultContactsSearch}
+            onImportContactsClick={() => setModalData({ modal: EnterpriseModal.IMPORT_CONTACTS })}
+            onCreateContactClick={() => setModalData({ modal: EnterpriseModal.CREATE_CONTACT })}
+            onCreateContactBusinessClick={(contact) => setModalData({ modal: EnterpriseModal.CREATE_CONTACT_BUSINESS, contact })}
+            onSendEmailToContactClick={(contact) => setModalData({ modal: EnterpriseModal.SEND_EMAIL_TO_CONTACT, contact })}
+            onDeleteContactClick={(contact) => setModalData({ modal: EnterpriseModal.DELETE_CONTACT, contact })}
+            onUpdateContactClick={(contact) => setModalData({ modal: EnterpriseModal.UPDATE_CONTACT, contact })}
+            onUpdateContactPasswordClick={(contact) => setModalData({ modal: EnterpriseModal.UPDATE_CONTACT_PASSWORD, contact })}
+            onContactEmailHistoryClick={(contact) => setModalData({ modal: EnterpriseModal.CONTACT_EMAIL_HISTORY, contact })}
+          />
           <EnterpriseModalComponentLifesheetComponent enterprise={enterprise} onCreateClick={() => setModalData({ modal: EnterpriseModal.CREATE_LIFESHEET })} />
           <EnterpriseModalComponentWorkloadsComponent
             enterprise={enterprise}
