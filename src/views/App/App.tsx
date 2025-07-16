@@ -94,6 +94,7 @@ export default function AppLayout() {
             enterpriseId={modalData.enterpriseId}
             defaultContactsSearch={modalData.defaultContactsSearch}
             defaultAllBusinessProfileId={modalData.defaultAllBusinessProfileId}
+            onClose={() => setModalData(undefined)}
           />
         )}
       </AppViewAircallWorkspaceComponent>
