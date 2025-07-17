@@ -41,7 +41,7 @@ export default function CardComponent({
 
     if (editLink)
       return (
-        <Link {...editLink} className={classNames(styles.action, styles.edit)} onClick={onEdit}>
+        <Link {...editLink} className={classNames(styles.action, styles.edit)}>
           {children}
         </Link>
       );
@@ -60,13 +60,13 @@ export default function CardComponent({
 
     if (addLink)
       return (
-        <Link {...addLink} className={classNames(styles.action, styles.edit)} onClick={onEdit}>
+        <Link {...addLink} className={classNames(styles.action, styles.add)}>
           {children}
         </Link>
       );
     else if (onAdd)
       return (
-        <button className={classNames(styles.action, styles.edit)} onClick={onAdd}>
+        <button className={classNames(styles.action, styles.add)} onClick={onAdd}>
           {children}
         </button>
       );

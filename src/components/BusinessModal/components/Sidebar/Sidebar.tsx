@@ -1,12 +1,11 @@
-import { Link, useLocation } from '@tanstack/react-router';
 import classNames from 'classnames';
 import { useMemo } from 'react';
 import { useWindowSize } from 'usehooks-ts';
-import BusinessResponseDto from '../../../../utils/types/BusinessResponseDto';
-import styles from './Sidebar.module.scss';
 import BusinessState from '../../../../utils/enums/BusinessState';
+import BusinessResponseDto from '../../../../utils/types/BusinessResponseDto';
 import { useAuthentifiedUserQuery } from '../../../../views/App/utils/functions/getAuthentifiedUser';
 import { BusinessStep } from '../../utils/enums/BusinessStep';
+import styles from './Sidebar.module.scss';
 
 const stepsData: Array<{
   label: string;
@@ -52,9 +51,17 @@ type BusinessModalComponentSidebarComponentProps = Readonly<{
   business: BusinessResponseDto;
   step: BusinessStep;
   setStep: (step: BusinessStep) => void;
+  onAssistanceButtonClick: () => void;
+  onArchiveButtonClick: () => void;
 }>;
-export default function BusinessModalComponentSidebarComponent({ business, step, setStep }: BusinessModalComponentSidebarComponentProps) {
-  const location = useLocation(); // We need to use useLocation to trigger a rerender of the links when the user navigates
+export default function BusinessModalComponentSidebarComponent({
+  business,
+  step,
+  setStep,
+  onAssistanceButtonClick,
+  onArchiveButtonClick,
+}: BusinessModalComponentSidebarComponentProps) {
+  // const location = useLocation(); // We need to use useLocation to trigger a rerender of the links when the user navigates
 
   // const { businessId } = routeApi.useParams();
 
@@ -99,20 +106,23 @@ export default function BusinessModalComponentSidebarComponent({ business, step,
       </div>
       <div className={styles.buttons}>
         {user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && business.state !== BusinessState.ARCHIVE && (
-          <Link
-            to={location.pathname}
-            search={(old) => ({ ...old, businessModal: 'assistances' })}
-            replace
-            resetScroll={false}
-            preload="intent"
-            ignoreBlocker
-            className="btn btn-primary"
-          >
+          <button type="button" className="btn btn-primary" onClick={onAssistanceButtonClick}>
+            {/* <Link
+              to={location.pathname}
+              search={(old) => ({ ...old, businessModal: 'assistances' })}
+              replace
+              resetScroll={false}
+              preload="intent"
+              ignoreBlocker
+              className="btn btn-primary"
+            > */}
             Assistance
-          </Link>
+            {/* </Link> */}
+          </button>
         )}
         {user.userInfo.roles.includes('ROLE_DIRECTION_VIZEO') && business.state !== BusinessState.ARCHIVE && (
-          <Link
+          <button type="button" className="btn btn-primary" onClick={onArchiveButtonClick}>
+            {/* <Link
             to={location.pathname}
             search={(old) => ({ ...old, businessModal: 'archive' })}
             replace
@@ -120,9 +130,10 @@ export default function BusinessModalComponentSidebarComponent({ business, step,
             preload="intent"
             ignoreBlocker
             className="btn btn-primary"
-          >
+          > */}
             Archiver
-          </Link>
+            {/* </Link> */}
+          </button>
         )}
       </div>
     </div>

@@ -1,0 +1,8 @@
+.card {
+  grid-row: 4 / 6;
+  grid-column: 1 / 7;
+
+  & > div:nth-child(2) {
+    height: 400px;
+  }
+}
