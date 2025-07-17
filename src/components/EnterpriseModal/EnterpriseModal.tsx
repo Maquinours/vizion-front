@@ -9,31 +9,34 @@ import EnterpriseComponentInformationsComponent from './components/Informations/
 
 import { Suspense, useMemo, useState } from 'react';
 import ReactModal from 'react-modal';
-import BusinessModalComponent from '../BusinessModal/BusinessModal';
-import styles from './EnterpriseModal.module.scss';
-import LoaderModal from '../LoaderModal/LoaderModal';
-import RmaModalComponent from '../RmaModal/RmaModal';
-import EnterpriseModalComponentGedComponent from './components/Ged/Ged';
-import RenameGedObjectModalComponent from '../RenameGedObjectModal/RenameGedObjectModal';
 import FileType from '../../utils/enums/FileType';
-import CreateGedDirectoryModalComponent from '../CreateGedDirectoryModal/CreateGedDirectoryModal';
-import ImportGedFilesModalComponent from '../ImportGedFilesModal/ImportGedFilesModal';
-import DeleteGedObjectModalComponent from '../DeleteGedObjectModal/DeleteGedObjectModal';
-import CreateLifesheetModalComponent from '../CreateLifesheetModal/CreateLifesheetModal';
 import { LifesheetAssociatedItem } from '../../utils/enums/LifesheetAssociatedItem';
-import EnterpriseModalComponentLifesheetComponent from './components/Lifesheet/Lifesheet';
-import EnterpriseModalComponentWorkloadsComponent from './components/Workloads/Workloads';
-import UnlinkWorkloadModalComponent from '../UnlinkWorkloadModal/UnlinkWorkloadModal';
-import EnterpriseModalComponentEmailModalComponent from './components/EmailModal/EmailModal';
-import EnterpriseModalComponentEmailHistoryModalComponent from './components/EmailHistoryModal/EmailHistoryModal';
-import CreateBusinessModalComponent from '../CreateBusinessModal/CreateBusinessModal';
 import ProfileResponseDto from '../../utils/types/ProfileResponseDto';
-import SendEmailModalComponent from '../SendEmailModal/SendEmailModal';
+import BusinessModalComponent from '../BusinessModal/BusinessModal';
+import CreateContactModalComponent from '../CreateContactModal/CreateContactModal';
+import CreateGedDirectoryModalComponent from '../CreateGedDirectoryModal/CreateGedDirectoryModal';
+import CreateLifesheetModalComponent from '../CreateLifesheetModal/CreateLifesheetModal';
 import DeleteContactModalComponent from '../DeleteContactModal/DeleteContactModal';
+import DeleteGedObjectModalComponent from '../DeleteGedObjectModal/DeleteGedObjectModal';
+import ImportGedFilesModalComponent from '../ImportGedFilesModal/ImportGedFilesModal';
+import LoaderModal from '../LoaderModal/LoaderModal';
+import RenameGedObjectModalComponent from '../RenameGedObjectModal/RenameGedObjectModal';
+import RmaModalComponent from '../RmaModal/RmaModal';
+import SendEmailModalComponent from '../SendEmailModal/SendEmailModal';
+import UnlinkWorkloadModalComponent from '../UnlinkWorkloadModal/UnlinkWorkloadModal';
 import UpdateContactModalComponent from '../UpdateContactModal/UpdateContactModal';
 import UpdateContactPasswordModalComponent from '../UpdateContactPasswordModal/UpdateContactPasswordModal';
+import EnterpriseModalComponentCreateBusinessModalComponent from './components/CreateBusinessModal/CreateBusinessModal';
+import EnterpriseModalComponentEmailHistoryModalComponent from './components/EmailHistoryModal/EmailHistoryModal';
+import EnterpriseModalComponentEmailModalComponent from './components/EmailModal/EmailModal';
+import EnterpriseModalComponentGedComponent from './components/Ged/Ged';
 import EnterpriseModalComponentImportContactsModalComponent from './components/ImportContactsModal/ImportContactsModal';
-import CreateContactModalComponent from '../CreateContactModal/CreateContactModal';
+import EnterpriseModalComponentLifesheetComponent from './components/Lifesheet/Lifesheet';
+import EnterpriseModalComponentWorkloadsComponent from './components/Workloads/Workloads';
+import styles from './EnterpriseModal.module.scss';
+import EnterpriseModalComponentUpdateModalComponent from './components/UpdateModal/UpdateModal';
+import EnterpriseModalComponentRelateBusinessRmaComponent from './components/RelateBusinessRma/RelateBusinessRma';
+import EnterpriseModalComponentUpdateAccountabilityModalComponent from './components/UpdateAccountabilityModal/UpdateAccountability';
 
 enum EnterpriseModal {
   BUSINESS,
@@ -54,6 +57,9 @@ enum EnterpriseModal {
   CONTACT_EMAIL_HISTORY,
   IMPORT_CONTACTS,
   CREATE_CONTACT,
+  UPDATE,
+  RELATE_BUSINESS_RMA,
+  UPDATE_ACCOUNTABILITY,
 }
 
 type EnterpriseModalData =
@@ -119,7 +125,12 @@ type EnterpriseModalData =
   | {
       modal: EnterpriseModal.IMPORT_CONTACTS;
     }
-  | { modal: EnterpriseModal.CREATE_CONTACT };
+  | { modal: EnterpriseModal.CREATE_CONTACT }
+  | { modal: EnterpriseModal.UPDATE }
+  | { modal: EnterpriseModal.RELATE_BUSINESS_RMA }
+  | {
+      modal: EnterpriseModal.UPDATE_ACCOUNTABILITY;
+    };
 
 type EnterpriseModalComponentProps = Readonly<{
   enterpriseId: string;
@@ -191,7 +202,14 @@ export default function EnterpriseModalComponent({ enterpriseId, defaultContacts
       case EnterpriseModal.EMAIL_HISTORY:
         return <EnterpriseModalComponentEmailHistoryModalComponent enterprise={enterprise} onClose={() => setModalData(undefined)} />;
       case EnterpriseModal.CREATE_CONTACT_BUSINESS:
-        return <CreateBusinessModalComponent contactId={modalData.contact.id} onClose={() => setModalData(undefined)} />;
+        return (
+          <EnterpriseModalComponentCreateBusinessModalComponent
+            enterprise={enterprise}
+            contact={modalData.contact}
+            onClose={() => setModalData(undefined)}
+            openBusinessModal={(business) => setModalData({ modal: EnterpriseModal.BUSINESS, businessId: business.id })}
+          />
+        );
       case EnterpriseModal.SEND_EMAIL_TO_CONTACT:
         return <SendEmailModalComponent isOpen={true} defaultRecipient={[modalData.contact.email!]} onClose={() => setModalData(undefined)} />;
       case EnterpriseModal.DELETE_CONTACT:
@@ -212,6 +230,12 @@ export default function EnterpriseModalComponent({ enterpriseId, defaultContacts
         return <EnterpriseModalComponentImportContactsModalComponent enterprise={enterprise} onClose={() => setModalData(undefined)} />;
       case EnterpriseModal.CREATE_CONTACT:
         return <CreateContactModalComponent enterpriseId={enterprise.id} onClose={() => setModalData(undefined)} />;
+      case EnterpriseModal.UPDATE:
+        return <EnterpriseModalComponentUpdateModalComponent enterprise={enterprise} onClose={() => setModalData(undefined)} />;
+      case EnterpriseModal.RELATE_BUSINESS_RMA:
+        return <EnterpriseModalComponentRelateBusinessRmaComponent enterprise={enterprise} onClose={() => setModalData(undefined)} />;
+      case EnterpriseModal.UPDATE_ACCOUNTABILITY:
+        return <EnterpriseModalComponentUpdateAccountabilityModalComponent enterprise={enterprise} onClose={() => setModalData(undefined)} />;
     }
   }, [modalData]);
 
@@ -221,7 +245,11 @@ export default function EnterpriseModalComponent({ enterpriseId, defaultContacts
       <div className={styles.info_section}>
         <div className={styles.grid_one}>
           <div className={styles.one}>
-            <EnterpriseComponentInformationsComponent enterprise={enterprise} />
+            <EnterpriseComponentInformationsComponent
+              enterprise={enterprise}
+              onEditEnterpriseClick={() => setModalData({ modal: EnterpriseModal.UPDATE })}
+              onUpdateAccountabilityClick={() => setModalData({ modal: EnterpriseModal.UPDATE_ACCOUNTABILITY })}
+            />
             {user.userInfo.roles.some((role) => ['ROLE_MEMBRE_VIZEO', 'ROLE_REPRESENTANT'].includes(role)) && (
               <EnterpriseModalComponentCategoryComponent enterprise={enterprise} />
             )}
@@ -243,6 +271,7 @@ export default function EnterpriseModalComponent({ enterpriseId, defaultContacts
               openBusinessModal={(businessId: string) => setModalData({ modal: EnterpriseModal.BUSINESS, businessId })}
               openRmaModal={(rmaId: string) => setModalData({ modal: EnterpriseModal.RMA, rmaId })}
               defaultAllBusinessProfileId={defaultAllBusinessProfileId}
+              onAddBusinessClick={() => setModalData({ modal: EnterpriseModal.RELATE_BUSINESS_RMA })}
             />
           </div>
         </div>

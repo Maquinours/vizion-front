@@ -1,28 +1,34 @@
-import { Link } from '@tanstack/react-router';
 import { HiPencilAlt } from 'react-icons/hi';
 import EnterpriseResponseDto from '../../../../utils/types/EnterpriseResponseDto';
 import { useAuthentifiedUserQuery } from '../../../../views/App/utils/functions/getAuthentifiedUser';
 import CardComponent from '../../../Card/Card';
 import styles from './Informations.module.scss';
 
-const routePath = '/app/enterprises/$enterpriseId';
+// const routePath = '/app/enterprises/$enterpriseId';
 
 type EnterpriseComponentInformationsComponentProps = Readonly<{
   enterprise: EnterpriseResponseDto;
+  onEditEnterpriseClick: () => void;
+  onUpdateAccountabilityClick: () => void;
 }>;
-export default function EnterpriseComponentInformationsComponent({ enterprise }: EnterpriseComponentInformationsComponentProps) {
+export default function EnterpriseComponentInformationsComponent({
+  enterprise,
+  onEditEnterpriseClick,
+  onUpdateAccountabilityClick,
+}: EnterpriseComponentInformationsComponentProps) {
   const { data: currentUser } = useAuthentifiedUserQuery();
 
   return (
     <CardComponent
       title="Informations de l'entreprise"
-      editLink={
-        currentUser.userInfo.roles.some(
-          (role) => ['ROLE_MEMBRE_VIZEO', 'ROLE_REPRESENTANT'].includes(role) && !currentUser.userInfo.roles.includes('ROLE_STAGIAIRE_VIZEO'),
-        )
-          ? { to: '/app/enterprises/$enterpriseId/update', params: { enterpriseId: enterprise.id }, search: true, replace: true, preload: 'intent' }
-          : undefined
-      }
+      onEdit={onEditEnterpriseClick}
+      // editLink={
+      //   currentUser.userInfo.roles.some(
+      //     (role) => ['ROLE_MEMBRE_VIZEO', 'ROLE_REPRESENTANT'].includes(role) && !currentUser.userInfo.roles.includes('ROLE_STAGIAIRE_VIZEO'),
+      //   )
+      //     ? { to: '/app/enterprises/$enterpriseId/update', params: { enterpriseId: enterprise.id }, search: true, replace: true, preload: 'intent' }
+      //     : undefined
+      // }
     >
       <div className={styles.container}>
         <div className={styles.detail}>
@@ -54,9 +60,12 @@ export default function EnterpriseComponentInformationsComponent({ enterprise }:
             {currentUser.userInfo.roles.some(
               (role) => ['ROLE_MEMBRE_VIZEO', 'ROLE_REPRESENTANT'].includes(role) && !currentUser.userInfo.roles.includes('ROLE_STAGIAIRE_VIZEO'),
             ) && (
-              <Link from={routePath} to="./update-accountability" params={{ enterpriseId: enterprise.id }} search replace resetScroll={false}>
+              <button type="button" onClick={onUpdateAccountabilityClick}>
                 <HiPencilAlt className={styles.icon} />
-              </Link>
+              </button>
+              // <Link from={routePath} to="./update-accountability" params={{ enterpriseId: enterprise.id }} search replace resetScroll={false}>
+              //   <HiPencilAlt className={styles.icon} />
+              // </Link>
             )}
           </div>
         </div>
