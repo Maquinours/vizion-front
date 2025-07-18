@@ -13,6 +13,7 @@ type CardComponentProps = Readonly<{
   isMinimized?: boolean;
   setMinimized?: (value: boolean) => void;
   addLink?: LinkProps;
+  onAdd?: () => void;
   editLink?: LinkProps;
   onEdit?: () => void;
   onReload?: () => void;
@@ -25,6 +26,7 @@ export default function CardComponent({
   isMinimized,
   setMinimized,
   addLink,
+  onAdd,
   editLink,
   onEdit,
   onReload,
@@ -39,7 +41,7 @@ export default function CardComponent({
 
     if (editLink)
       return (
-        <Link {...editLink} className={classNames(styles.action, styles.edit)} onClick={onEdit}>
+        <Link {...editLink} className={classNames(styles.action, styles.edit)}>
           {children}
         </Link>
       );
@@ -51,6 +53,25 @@ export default function CardComponent({
       );
   }, [editLink, onEdit]);
 
+  const addButton = useMemo(() => {
+    if (addLink && onAdd) throw new Error('addLink and onAdd cannot be both defined');
+
+    const children = <IoMdAddCircleOutline />;
+
+    if (addLink)
+      return (
+        <Link {...addLink} className={classNames(styles.action, styles.add)}>
+          {children}
+        </Link>
+      );
+    else if (onAdd)
+      return (
+        <button className={classNames(styles.action, styles.add)} onClick={onAdd}>
+          {children}
+        </button>
+      );
+  }, [addLink, onAdd]);
+
   return (
     <div className={classNames(styles.card, className)}>
       <div className={styles.header}>
@@ -61,11 +82,12 @@ export default function CardComponent({
               {React.createElement(isMinimized ? FiMaximize2 : VscChromeMinimize)}
             </button>
           )}
-          {addLink && (
+          {addButton}
+          {/* {addLink && (
             <Link {...addLink} className={classNames(styles.action, styles.add)}>
               <IoMdAddCircleOutline />
             </Link>
-          )}
+          )} */}
           {editButton}
           {/* {editLink && (
             <Link {...editLink} className={classNames(styles.action, styles.edit)}>

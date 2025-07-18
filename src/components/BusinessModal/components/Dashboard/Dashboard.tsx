@@ -46,6 +46,7 @@ import BusinessModalComponentDashboardComponentUpdateRepresentativeModalComponen
 import BusinessModalComponentDashboardComponentUpdateResponsibleModalComponent from './components/UpdateResponsibleModal/UpdateResponsibleModal';
 import { BusinessDashboardContext } from './utils/contexts/context';
 import BusinessModalComponentDashboardComponentUpdateBillingAddressModalComponent from './components/UpdateBillingAddressModal/UpdateBillingAddressModal';
+import BusinessModalComponentConfirmOtherQuotationImportModalComponent from './components/ConfirmOtherQuotationImportModal/ConfirmOtherQuotationImportModal';
 
 // const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/dashboard');
 // const routePath = '/app/businesses-rma/business/$businessId/dashboard';
@@ -65,6 +66,7 @@ enum BusinessDashboardModal {
   EMAIL_HISTORY,
   UPDATE_REPRESPONSIBLE,
   UPDATE_BILLING_ADDRESS,
+  CONFIRM_OTHER_QUOTATION_IMPORT,
 }
 
 type BusinessDashboardModalData =
@@ -114,7 +116,8 @@ type BusinessDashboardModalData =
   | {
       modal: BusinessDashboardModal.UPDATE_REPRESPONSIBLE;
     }
-  | { modal: BusinessDashboardModal.UPDATE_BILLING_ADDRESS };
+  | { modal: BusinessDashboardModal.UPDATE_BILLING_ADDRESS }
+  | { modal: BusinessDashboardModal.CONFIRM_OTHER_QUOTATION_IMPORT; otherBusiness: BusinessResponseDto };
 
 const yupSchema = yup.object({
   businessName: yup.string().required('Champs requis.'),
@@ -263,6 +266,14 @@ export default function BusinessModalComponentDashboardComponent({ business, goT
         return <BusinessModalComponentDashboardComponentUpdateResponsibleModalComponent business={business} onClose={() => setModalData(undefined)} />;
       case BusinessDashboardModal.UPDATE_BILLING_ADDRESS:
         return <BusinessModalComponentDashboardComponentUpdateBillingAddressModalComponent business={business} onClose={() => setModalData(undefined)} />;
+      case BusinessDashboardModal.CONFIRM_OTHER_QUOTATION_IMPORT:
+        return (
+          <BusinessModalComponentConfirmOtherQuotationImportModalComponent
+            business={business}
+            otherBusiness={modalData.otherBusiness}
+            onClose={() => setModalData(undefined)}
+          />
+        );
     }
   }, [modalData, business]);
 
@@ -522,7 +533,10 @@ export default function BusinessModalComponentDashboardComponent({ business, goT
                 onDeleteClick={(data) => setModalData({ modal: BusinessDashboardModal.DELETE_GED_OBJECT, objectRelativePath: data.relativePath })}
               />
               {user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && (
-                <BusinessModalComponentDashboardComponentImportOtherBusinessQuotationComponent business={business} />
+                <BusinessModalComponentDashboardComponentImportOtherBusinessQuotationComponent
+                  business={business}
+                  onConfirm={(otherBusiness) => setModalData({ modal: BusinessDashboardModal.CONFIRM_OTHER_QUOTATION_IMPORT, otherBusiness })}
+                />
               )}
             </div>
           </div>

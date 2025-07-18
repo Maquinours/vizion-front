@@ -25,8 +25,22 @@ const columns = [
 
 type EnterpriseModalComponentContactsComponentTableComponentProps = Readonly<{
   data: Array<ProfileResponseDto> | undefined;
+  onCreateContactBusinessClick: (contact: ProfileResponseDto) => void;
+  onSendEmailToContactClick: (contact: ProfileResponseDto) => void;
+  onDeleteContactClick: (contact: ProfileResponseDto) => void;
+  onUpdateContactClick: (contact: ProfileResponseDto) => void;
+  onUpdateContactPasswordClick: (contact: ProfileResponseDto) => void;
+  onContactEmailHistoryClick: (contact: ProfileResponseDto) => void;
 }>;
-export default function EnterpriseModalComponentContactsComponentTableComponent({ data }: EnterpriseModalComponentContactsComponentTableComponentProps) {
+export default function EnterpriseModalComponentContactsComponentTableComponent({
+  data,
+  onCreateContactBusinessClick,
+  onSendEmailToContactClick,
+  onDeleteContactClick,
+  onUpdateContactClick,
+  onUpdateContactPasswordClick,
+  onContactEmailHistoryClick,
+}: EnterpriseModalComponentContactsComponentTableComponentProps) {
   const [contextMenuAnchor, setContextMenuAnchor] = useState<VirtualElement>();
   const [contact, setContact] = useState<ProfileResponseDto>();
 
@@ -57,6 +71,12 @@ export default function EnterpriseModalComponentContactsComponentTableComponent(
         anchorElement={contextMenuAnchor}
         setAnchorElement={setContextMenuAnchor}
         profile={contact}
+        onCreateContactBusinessClick={onCreateContactBusinessClick}
+        onSendEmailToContactClick={onSendEmailToContactClick}
+        onDeleteContactClick={onDeleteContactClick}
+        onUpdateContactClick={onUpdateContactClick}
+        onUpdateContactPasswordClick={onUpdateContactPasswordClick}
+        onContactEmailHistoryClick={onContactEmailHistoryClick}
       />
     </>
   );

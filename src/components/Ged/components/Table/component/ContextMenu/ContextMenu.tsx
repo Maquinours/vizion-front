@@ -42,7 +42,7 @@ export default function GedComponentTableComponentContextMenuComponent({
   };
 
   return (
-    <Popper open={isOpen} anchorEl={anchorElement} transition placement="bottom-start">
+    <Popper open={isOpen} anchorEl={anchorElement} transition placement="bottom-start" className="z-[9999]">
       {({ TransitionProps }) => (
         <ClickAwayListener mouseEvent="onMouseUp" onClickAway={onClose}>
           <Fade {...TransitionProps}>

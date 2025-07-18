@@ -11,15 +11,21 @@ const size = 15;
 type EnterpriseModalComponentEmailHistoryModalComponentProps = Readonly<{
   enterprise: EnterpriseResponseDto;
   onClose: () => void;
+  defaultAddresses?: string[];
 }>;
-export default function EnterpriseModalComponentEmailHistoryModalComponent({ enterprise, onClose }: EnterpriseModalComponentEmailHistoryModalComponentProps) {
+export default function EnterpriseModalComponentEmailHistoryModalComponent({
+  enterprise,
+  onClose,
+  defaultAddresses,
+}: EnterpriseModalComponentEmailHistoryModalComponentProps) {
   const [page, setPage] = useState(0);
   const [addresses, setAddresses] = useState<string[]>(
-    _.uniq(
-      [enterprise.email, ...enterprise.profiles.map((profile) => profile.email)]
-        .filter((address): address is string => !!address)
-        .map((address) => address.toLowerCase()),
-    ),
+    defaultAddresses ??
+      _.uniq(
+        [enterprise.email, ...enterprise.profiles.map((profile) => profile.email)]
+          .filter((address): address is string => !!address)
+          .map((address) => address.toLowerCase()),
+      ),
   );
   const [emailModalData, setEmailModalData] = useState<{ email: MailResponseDto }>();
 

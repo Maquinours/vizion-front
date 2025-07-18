@@ -1,27 +1,23 @@
+import { VirtualElement } from '@popperjs/core';
 import { useQuery } from '@tanstack/react-query';
-import {
-  Link,
-  // getRouteApi
-} from '@tanstack/react-router';
 import { Row, createColumnHelper } from '@tanstack/react-table';
-import styles from './AllBusinessTable.module.scss';
 import classNames from 'classnames';
 import { useMemo, useState } from 'react';
-import { VirtualElement } from '@popperjs/core';
-import AppViewEnterpriseViewAllBusinessTableComponentContextMenuComponent from './components/ContextMenu/ContextMenu';
-import AppViewEnterpriseViewAllBusinessTableComponentSearchSectionComponent from './components/SearchSection/SearchSection';
-import EnterpriseResponseDto from '../../../../utils/types/EnterpriseResponseDto';
-import AllBusinessState from '../../../../utils/enums/AllBusinessState';
-import AllBusinessResponseDto from '../../../../utils/types/AllBusinessResponseDto';
-import { useAuthentifiedUserQuery } from '../../../../views/App/utils/functions/getAuthentifiedUser';
 import { allBusinesses } from '../../../../utils/constants/queryKeys/allBusiness';
+import AllBusinessState from '../../../../utils/enums/AllBusinessState';
 import CategoryBusiness from '../../../../utils/enums/CategoryBusiness';
 import { formatDateAndHourWithSlash } from '../../../../utils/functions/dates';
-import CurrencyFormat from '../../../CurrencyFormat/CurrencyFormat';
-import CardComponent from '../../../Card/Card';
-import TableComponent from '../../../Table/Table';
-import PaginationComponent from '../../../Pagination/Pagination';
+import AllBusinessResponseDto from '../../../../utils/types/AllBusinessResponseDto';
+import EnterpriseResponseDto from '../../../../utils/types/EnterpriseResponseDto';
+import { useAuthentifiedUserQuery } from '../../../../views/App/utils/functions/getAuthentifiedUser';
 import AllBusinessRowTooltipComponent from '../../../AllBusinessRowTooltip/AllBusinessRowTooltip';
+import CardComponent from '../../../Card/Card';
+import CurrencyFormat from '../../../CurrencyFormat/CurrencyFormat';
+import PaginationComponent from '../../../Pagination/Pagination';
+import TableComponent from '../../../Table/Table';
+import styles from './AllBusinessTable.module.scss';
+import AppViewEnterpriseViewAllBusinessTableComponentContextMenuComponent from './components/ContextMenu/ContextMenu';
+import AppViewEnterpriseViewAllBusinessTableComponentSearchSectionComponent from './components/SearchSection/SearchSection';
 
 const size = 15;
 
@@ -82,12 +78,14 @@ type EnterpriseModalComponentAllBusinessTableComponentProps = Readonly<{
   openBusinessModal: (businessId: string) => void;
   openRmaModal: (rmaId: string) => void;
   defaultAllBusinessProfileId: string | undefined;
+  onAddBusinessClick: () => void;
 }>;
 export default function EnterpriseModalComponentAllBusinessTableComponent({
   enterprise,
   openBusinessModal,
   openRmaModal,
   defaultAllBusinessProfileId,
+  onAddBusinessClick,
 }: EnterpriseModalComponentAllBusinessTableComponentProps) {
   // const navigate = routeApi.useNavigate();
 
@@ -145,42 +143,7 @@ export default function EnterpriseModalComponentAllBusinessTableComponent({
     () => [
       columnHelper.display({
         header: "N° de l'affaire",
-        cell: ({ row: { original } }) => {
-          const children = <span className={classNames({ italic: original.enterpriseId !== enterprise.id })}>{original.number}</span>;
-          if (original.category === CategoryBusiness.AFFAIRE)
-            return (
-              <Link
-                data-tooltip-id="business-number-tooltip"
-                data-tooltip-content={original.id}
-                data-tooltip-place="left"
-                to="/app/businesses-rma/business/$businessId"
-                params={{ businessId: original.businessId }}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  e.nativeEvent.stopImmediatePropagation();
-                }}
-              >
-                {children}
-              </Link>
-            );
-          else if (original.category === CategoryBusiness.RMA)
-            return (
-              <Link
-                data-tooltip-id="business-number-tooltip"
-                data-tooltip-content={original.id}
-                data-tooltip-place="left"
-                to="/app/businesses-rma/rma/$rmaId"
-                params={{ rmaId: original.businessId }}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  e.nativeEvent.stopImmediatePropagation();
-                }}
-              >
-                {children}
-              </Link>
-            );
-          else return children;
-        },
+        cell: ({ row: { original } }) => <span className={classNames({ italic: original.enterpriseId !== enterprise.id })}>{original.number}</span>,
       }),
       columnHelper.display({
         header: "Nom de l'affaire",
@@ -233,11 +196,12 @@ export default function EnterpriseModalComponentAllBusinessTableComponent({
       <div className={styles.container}>
         <CardComponent
           title="Affaires en cours"
-          addLink={
-            authentifiedUser.userInfo.roles.includes('ROLE_MEMBRE_VIZEO')
-              ? { to: '/app/enterprises/$enterpriseId/relate-business-rma', search: true, replace: true, resetScroll: false }
-              : undefined
-          }
+          onAdd={authentifiedUser.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') ? onAddBusinessClick : undefined}
+          // addLink={
+          //   authentifiedUser.userInfo.roles.includes('ROLE_MEMBRE_VIZEO')
+          //     ? { to: '/app/enterprises/$enterpriseId/relate-business-rma', search: true, replace: true, resetScroll: false }
+          //     : undefined
+          // }
         >
           <div className={styles.card_container}>
             <AppViewEnterpriseViewAllBusinessTableComponentSearchSectionComponent enterprise={enterprise} contactId={contactId} setContactId={setContactId} />

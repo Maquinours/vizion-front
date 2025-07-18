@@ -69,7 +69,7 @@
             background-color: #fff;
           }
 
-          &:not([aria-disabled='true'])::after {
+          &.isClickable::after {
             color: #fff;
             border: 1px solid var(--primary-color);
             background-color: var(--primary-color);
@@ -139,6 +139,12 @@
             background-color: var(--primary-color);
           }
 
+          &:not([aria-disabled='true'])::after {
+            color: #fff;
+            border: 1px solid var(--primary-color);
+            background-color: var(--primary-color);
+          }
+
           &.isActive {
             color: #fff;
             text-align: center;
@@ -174,7 +180,8 @@
       flex-direction: row;
     }
 
-    a {
+    a,
+    button {
       width: fit-content;
 
       &[aria-disabled='true'] {
