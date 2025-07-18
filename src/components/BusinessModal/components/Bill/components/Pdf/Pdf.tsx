@@ -392,6 +392,7 @@ export default function BusinessModalComponentBillComponentPdfComponent({ busine
               <Text style={pageStyles.phone}>04 72 12 27 96</Text>
               <Text style={pageStyles.website}>https://www.vizeo.eu</Text>
               <Text style={pageStyles.rc}>N°RC: 44494781600062</Text>
+              <Text style={pageStyles.rc}>N°TVA: FR76444947816</Text>
             </View>
             <View style={pageStyles.sectionOneGridTwo}>
               <View style={pageStyles.enterprise}>
