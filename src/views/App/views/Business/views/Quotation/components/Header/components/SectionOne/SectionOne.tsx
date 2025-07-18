@@ -93,6 +93,7 @@ export default function AppViewBusinessViewQuotationViewHeaderComponentSectionOn
     <div className={styles.header}>
       <div className={styles.business_info}>
         <span>{business.enterpriseName}</span> / <span>{business.title}</span>
+        <span className="ml-2 text-xl text-[var(--primary-color)]">{business.numBusiness}</span>
       </div>
       <div className={styles.buttons_container}>
         <Link from={routePath} to="../study" className="btn btn-secondary">
