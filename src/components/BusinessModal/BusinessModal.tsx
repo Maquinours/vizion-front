@@ -19,6 +19,7 @@ import BusinessModalComponentDashboardComponent from './components/Dashboard/Das
 import BusinessModalComponentQuotationComponent from './components/Quotation/Quotation';
 import BusinessModalComponentSidebarComponent from './components/Sidebar/Sidebar';
 import { BusinessStep } from './utils/enums/BusinessStep';
+import LoaderModal from '../LoaderModal/LoaderModal';
 
 enum ModalType {
   CREATE_ASSISTANCE,
@@ -144,7 +145,7 @@ export default function BusinessModalComponent({ businessId, onClose }: Business
           </div>
         </div>
       </div>
-      {modal}
+      <React.Suspense fallback={<LoaderModal />}>{modal}</React.Suspense>
       {/* <BusinessModalComponentBeforeCloseModalComponent /> */}
     </ReactModal>
   );

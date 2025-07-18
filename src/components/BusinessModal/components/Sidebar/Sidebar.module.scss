@@ -180,7 +180,8 @@
       flex-direction: row;
     }
 
-    a {
+    a,
+    button {
       width: fit-content;
 
       &[aria-disabled='true'] {

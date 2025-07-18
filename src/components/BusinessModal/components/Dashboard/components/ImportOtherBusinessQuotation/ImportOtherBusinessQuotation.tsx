@@ -16,9 +16,11 @@ const yupSchema = yup.object().shape({
 
 type BusinessModalComponentDashboardComponentImportOtherBusinessQuotationComponentProps = Readonly<{
   business: BusinessResponseDto;
+  onConfirm: (business: BusinessResponseDto) => void;
 }>;
 export default function BusinessModalComponentDashboardComponentImportOtherBusinessQuotationComponent({
   business,
+  onConfirm,
 }: BusinessModalComponentDashboardComponentImportOtherBusinessQuotationComponentProps) {
   // const navigate = routeApi.useNavigate();
   // const { businessId } = routeApi.useParams();
@@ -41,7 +43,7 @@ export default function BusinessModalComponentDashboardComponentImportOtherBusin
   });
 
   const onSubmit = ({ fromBusiness }: yup.InferType<typeof yupSchema>) => {
-    console.log(fromBusiness);
+    onConfirm(fromBusiness);
     // navigate({ // TODO: go to confirm quotation import modal
     //   to: 'confirm-quotation-import/$otherBusinessId',
     //   params: { otherBusinessId: fromBusiness.id },
