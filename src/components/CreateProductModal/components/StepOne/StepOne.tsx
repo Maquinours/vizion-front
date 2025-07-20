@@ -1,4 +1,4 @@
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import styles from './StepOne.module.scss';
@@ -6,12 +6,9 @@ import { useQuery } from '@tanstack/react-query';
 import EnterpriseResponseDto from '../../../../utils/types/EnterpriseResponseDto';
 import { queries } from '../../../../utils/constants/queryKeys';
 import CardComponent from '../../../Card/Card';
+import CustomSelect from '../../../CustomSelect/CustomSelect';
 
-const categories = [
-  {
-    value: '',
-    text: 'Choisir une catégorie',
-  },
+const categoryOptions = [
   {
     value: 'Caméra universelle',
     text: 'Caméra conseillée FULL COLOR',
@@ -64,6 +61,7 @@ const yupSchema = yup.object().shape({
   longDescription: yup.string().nullable(),
   provider: yup.mixed<EnterpriseResponseDto>().required('Le représentant est requis'),
   category: yup.string().required('La catégorie est requise'),
+  categories: yup.array().of(yup.string().required('La catégorie est requise')).required('Les catégories sont requises'),
   isVizeo: yup.boolean().required('Champs requis'),
   isVirtual: yup.boolean().required('Champs requis'),
   isNomenclature: yup.boolean().required('Champs requis'),
@@ -79,6 +77,7 @@ export default function CreateProductModalComponentStepOneComponent({ show, onSu
   const { data: providers, isLoading: isLoadingProviders } = useQuery(queries.enterprise.list._ctx.providers);
 
   const {
+    control,
     register,
     formState: { errors },
     handleSubmit,
@@ -124,14 +123,31 @@ export default function CreateProductModalComponentStepOneComponent({ show, onSu
                 <p className={styles.errors}>{errors.provider?.message}</p>
               </div>
               <div className={styles.form_group}>
-                <label htmlFor="productCategory">Catégorie :</label>
-                <select id="productCategory" {...register('category')}>
+                <label htmlFor="productCategories">Catégories :</label>
+                <Controller
+                  control={control}
+                  name="categories"
+                  render={({ field: { onChange, value } }) => (
+                    <CustomSelect
+                      id="productCategories"
+                      options={categoryOptions}
+                      getOptionLabel={(opt) => opt.text}
+                      getOptionValue={(opt) => opt.value}
+                      placeholder="Sélectionner des catégories"
+                      isLoading={false}
+                      value={value?.map((val) => categoryOptions.find((opt) => val === opt.value)).filter((item) => item !== undefined)}
+                      isMulti
+                      onChange={(e) => onChange(e.map((item) => item.value))}
+                    />
+                  )}
+                />
+                {/* <select id="productCategory" {...register('categories')}>
                   {categories.map((item) => (
                     <option key={item.value} value={item.value}>
                       {item.text}
                     </option>
                   ))}
-                </select>
+                </select> */}
                 <p className={styles.errors}>{errors.category?.message}</p>
               </div>
               <div className={styles.form_group}>

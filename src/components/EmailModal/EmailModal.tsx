@@ -1,20 +1,76 @@
-import ReactModal from 'react-modal';
-import { formatDateWithHour } from '../../utils/functions/dates';
 import { useSuspenseQuery } from '@tanstack/react-query';
-import { emails } from '../../utils/constants/queryKeys/email';
-import { PUBLIC_BASE_URL } from '../../utils/constants/api';
 import { Link, LinkProps, Outlet } from '@tanstack/react-router';
-import styles from './EmailModal.module.scss';
-import parse from 'html-react-parser';
 import DOMPurify from 'dompurify';
+import parse from 'html-react-parser';
+import ReactModal from 'react-modal';
+import { PUBLIC_BASE_URL } from '../../utils/constants/api';
+import { emails } from '../../utils/constants/queryKeys/email';
+import { formatDateWithHour } from '../../utils/functions/dates';
+import styles from './EmailModal.module.scss';
+import { useMemo } from 'react';
 
 type EmailModalComponentProps = Readonly<{
   onClose: () => void;
   emailId: string;
+  resendLink?: LinkProps;
+  onResendClick?: () => void;
   replyLink?: LinkProps;
+  onReplyClick?: () => void;
 }>;
-export default function EmailModalComponent({ onClose, emailId, replyLink }: EmailModalComponentProps) {
+export default function EmailModalComponent({ onClose, emailId, resendLink, onResendClick, replyLink, onReplyClick }: EmailModalComponentProps) {
   const { data: email } = useSuspenseQuery(emails.detail(emailId));
+
+  const replyButton = useMemo(() => {
+    if (replyLink && onReplyClick) throw new Error('replyLink and onReplyClick cannot be both defined');
+
+    const text = 'Répondre';
+
+    if (replyLink)
+      return (
+        <Link {...replyLink} className="btn btn-primary">
+          {text}
+        </Link>
+      );
+    else if (onReplyClick)
+      return (
+        <button
+          type="button"
+          onClick={() => {
+            onReplyClick();
+          }}
+          className="btn btn-primary"
+        >
+          {text}
+        </button>
+      );
+    // else throw new Error('replyLink or onReplyClick must be defined');
+  }, [replyLink, onReplyClick]);
+
+  const resendButton = useMemo(() => {
+    if (resendLink && onResendClick) throw new Error('resendLink and onResendClick cannot be both defined');
+
+    const text = 'Renvoyer';
+
+    if (resendLink)
+      return (
+        <Link {...resendLink} className="btn btn-primary">
+          {text}
+        </Link>
+      );
+    else if (onResendClick)
+      return (
+        <button
+          type="button"
+          onClick={() => {
+            onResendClick();
+          }}
+          className="btn btn-primary"
+        >
+          {text}
+        </button>
+      );
+    // else throw new Error('resendLink or onResendClick must be defined');
+  }, [resendLink, onResendClick]);
 
   return (
     <>
@@ -52,11 +108,20 @@ export default function EmailModalComponent({ onClose, emailId, replyLink }: Ema
               <button className="btn btn-secondary" onClick={() => onClose()}>
                 Fermer
               </button>
-              {replyLink && (
-                <Link {...replyLink} className="btn btn-primary">
-                  Répondre
-                </Link>
-              )}
+              <div className="flex gap-1">
+                {resendButton}
+                {replyButton}
+                {/* {resendLink && (
+                  <Link {...resendLink} className="btn btn-primary">
+                    Renvoyer
+                  </Link>
+                )}
+                {replyLink && (
+                  <Link {...replyLink} className="btn btn-primary">
+                    Répondre
+                  </Link>
+                )} */}
+              </div>
             </div>
           </div>
         </div>

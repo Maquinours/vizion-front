@@ -24,6 +24,7 @@ import { ExpertStudyTransmitterNode } from '../../../../../Flow/components/Trans
 import useStore, { RFState } from '../../../../../Flow/utils/store';
 import AppViewStudyViewExpertViewModalProviderComponentPdfModalComponentShowStepComponentPdfComponent from '../../../PdfModal/components/ShowStep/components/Pdf/Pdf';
 import PDFMerger from 'pdf-merger-js';
+import { ExpertStudyDensityCameraNode } from '../../../../../Flow/components/DensityCameraNode/DensityCameraNode';
 
 type ProductNode = ExpertStudySynopticCameraNode | ExpertStudyMonitorNode | ExpertStudyRecorderNode | ExpertStudyTransmitterNode | ExpertStudyMiscProductNode;
 
@@ -334,6 +335,54 @@ export default function AppViewStudyViewExpertViewModalProviderComponentSendStud
 
       const showDensityImages = !pages.some((page) => page.type === 'density');
 
+      const densityStats = pages
+        .filter((page) => page.type === 'density')
+        .map((page, index) => {
+          const items = page.nodes
+            .filter((node): node is ExpertStudyDensityCameraNode => node.type === 'densityCamera')
+            .map((node) => {
+              const product = products?.find((product) => product.id === node.data.productId);
+              if (!product) return;
+              const camSpecs = (() => {
+                const hAngle = product.specificationProducts?.find((spec) => spec.specification?.name === 'ANGLE H');
+                const recognition = product.specificationProducts?.find((spec) => spec.specification?.name === 'RECONNAISSANCE');
+                const reading = product.specificationProducts?.find((spec) => spec.specification?.name === 'LECTURE DE PLAQUE');
+                const identification = product.specificationProducts?.find((spec) => spec.specification?.name === 'IDENTIFICATION');
+                return {
+                  hAngle: { value: hAngle?.value ?? 0, min: hAngle?.minValue ?? 0, max: hAngle?.maxValue ?? 0 },
+                  recognition: { value: recognition?.value ?? 0, min: recognition?.minValue ?? 0, max: recognition?.maxValue ?? 0 },
+                  reading: { value: reading?.value ?? 0, min: reading?.minValue ?? 0, max: reading?.maxValue ?? 0 },
+                  identification: { value: identification?.value ?? 0, min: identification?.minValue ?? 0, max: identification?.maxValue ?? 0 },
+                };
+              })();
+              const computedData = (['recognition', 'reading', 'identification'] as Array<'recognition' | 'reading' | 'identification'>).reduce(
+                (acc, type) => {
+                  if (camSpecs.hAngle.value) acc[type] = camSpecs[type].value;
+                  else {
+                    const m = (camSpecs[type].max - camSpecs[type].min) / (camSpecs.hAngle.min - camSpecs.hAngle.max);
+                    const b = camSpecs[type].max - m * camSpecs.hAngle.min;
+                    acc[type] = m * node.data.angle + b;
+                  }
+                  return acc;
+                },
+                { recognition: NaN, reading: NaN, identification: NaN },
+              );
+              return {
+                recognition: computedData.recognition,
+                reading: computedData.reading,
+                identification: computedData.identification,
+                name: node.data.name,
+                reference: product.reference,
+                angle: node.data.angle,
+              };
+            })
+            .filter(
+              (item): item is { name: string; reference: string; identification: number; reading: number; recognition: number; angle: number } =>
+                item !== undefined,
+            );
+          return { page: { name: page.name ?? `Page ${index + 1}`, id: page.id }, items };
+        });
+
       return pdf(
         <AppViewStudyViewExpertViewModalProviderComponentPdfModalComponentShowStepComponentPdfComponent
           images={images}
@@ -343,6 +392,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentSendStud
           business={business}
           showDensityImages={showDensityImages}
           hddCalculationHoursPerDay={hoursPerDay}
+          densityStats={densityStats}
         />,
       ).toBlob();
     },
@@ -374,19 +424,21 @@ export default function AppViewStudyViewExpertViewModalProviderComponentSendStud
 
     if (pages[currentPage].nodes.length === 0) next();
     else if (nodesInitialized) {
-      toBlob(document.querySelector('.react-flow') as HTMLElement, {
-        quality: 1,
-        cacheBust: true,
-      })
-        .then((blob) => {
-          data.current.set(currentPage, blob!);
-          next();
+      setTimeout(() => {
+        toBlob(document.querySelector('.react-flow') as HTMLElement, {
+          quality: 1,
+          cacheBust: true,
         })
-        .catch((error) => {
-          console.error('pdf generation error', error);
-          toast.error('Une erreur est survenue lors de la génération du PDF');
-          onClose();
-        });
+          .then((blob) => {
+            data.current.set(currentPage, blob!);
+            next();
+          })
+          .catch((error) => {
+            console.error('pdf generation error', error);
+            toast.error('Une erreur est survenue lors de la génération du PDF');
+            onClose();
+          });
+      }, 100);
     }
   }, [nodesInitialized, currentPage]);
 

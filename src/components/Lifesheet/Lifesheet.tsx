@@ -22,10 +22,12 @@ type LifesheetComponentProps = Readonly<{
   associatedItemId: string;
   page: number;
   size?: number;
-  createLink: LinkProps;
+  createLink?: LinkProps;
+  onCreateClick?: () => void;
   pageLink?: (page: number) => LinkProps;
+  onPageChange?: (page: number) => void;
   className?: string;
-  getEmailLink: (data: LifeSheetResponseDto) => LinkProps;
+  getEmailLink?: (data: LifeSheetResponseDto) => LinkProps;
 }>;
 export default function LifesheetComponent({
   associatedItemType,
@@ -33,7 +35,9 @@ export default function LifesheetComponent({
   page,
   size = 5,
   createLink,
+  onCreateClick,
   pageLink,
+  onPageChange,
   className,
   getEmailLink,
 }: LifesheetComponentProps) {
@@ -58,12 +62,14 @@ export default function LifesheetComponent({
             .join('; ');
 
           const content = <div className="ql-editor">{parse(DOMPurify.sanitize(`${receiver ? `à [${receiver}] - ` : ''}${original.description}`))}</div>;
-          if (original.mailId)
-            return (
-              <Link {...getEmailLink(original)} replace resetScroll={false} preload="intent" className="flex justify-center">
-                {content}
-              </Link>
-            );
+          if (original.mailId) {
+            if (getEmailLink)
+              return (
+                <Link {...getEmailLink(original)} replace resetScroll={false} preload="intent" className="flex justify-center">
+                  {content}
+                </Link>
+              );
+          }
           return content;
         },
       }),
@@ -71,17 +77,47 @@ export default function LifesheetComponent({
     [getEmailLink],
   );
 
+  const createButton = useMemo(() => {
+    if (createLink && onCreateClick) throw new Error('createLink and onCreateClick cannot be both defined');
+
+    if (createLink)
+      return (
+        <Link {...createLink} preload="intent" className={classNames('btn btn-primary', styles.link)}>
+          Ajouter
+        </Link>
+      );
+    else if (onCreateClick)
+      return (
+        <button
+          type="button"
+          onClick={() => {
+            onCreateClick();
+          }}
+          className={classNames('btn btn-primary', styles.link)}
+        >
+          Ajouter
+        </button>
+      );
+    else throw new Error('createLink or onCreateClick must be defined');
+  }, [createLink, onCreateClick]);
+
+  const pagination = useMemo(() => {
+    if (pageLink && onPageChange) throw new Error('pageLink and onPageChange cannot be both defined');
+
+    if (pageLink) return <PaginationComponent page={page} totalPages={data?.totalPages} pageLink={pageLink} />;
+    else if (onPageChange) return <PaginationComponent page={page} totalPages={data?.totalPages} onPageChange={onPageChange} />;
+  }, [pageLink, onPageChange]);
+
   return (
     <CardComponent title="Fiche de vie" className={className}>
       <div className={styles.container}>
-        <Link {...createLink} preload="intent" className={classNames('btn btn-primary', styles.link)}>
-          Ajouter un commentaire
-        </Link>
+        {createButton}
         <RefreshButtonComponent className={classNames('btn btn-primary', styles.button)} onRefresh={refetch} isRefreshing={isRefetching} />
 
         <div className={styles.table_container}>
           <TableComponent columns={columns} data={data?.content} isLoading={isLoading} rowId={'id'} />
-          {pageLink && <PaginationComponent page={page} totalPages={data?.totalPages} pageLink={pageLink} />}
+          {pagination}
+          {/* {pageLink && <PaginationComponent page={page} totalPages={data?.totalPages} pageLink={pageLink} />} */}
         </div>
       </div>
     </CardComponent>

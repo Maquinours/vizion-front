@@ -13,6 +13,7 @@ export default function AppViewToolsViewEmailsViewEmailModalView() {
       onClose={() => navigate({ to: '..', search: true, replace: true, resetScroll: false })}
       emailId={emailId}
       replyLink={{ to: '/app/tools/emails/$emailId/reply', params: { emailId }, search: true, replace: true, resetScroll: false }}
+      resendLink={{ to: '/app/tools/emails/$emailId/resend', params: { emailId }, search: true, replace: true, resetScroll: false }}
     />
   );
 }

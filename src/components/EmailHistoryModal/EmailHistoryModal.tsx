@@ -38,10 +38,22 @@ type EmailHistoryModalComponentProps = Readonly<{
   addresses: Array<string>;
   onClose: () => void;
   onSubmit: (data: yup.InferType<typeof yupSchema>) => void;
-  getEmailLink: (email: MailResponseDto) => LinkProps;
-  getPageLink: (page: number) => LinkProps;
+  getEmailLink?: (email: MailResponseDto) => LinkProps;
+  onEmailClick?: (email: MailResponseDto) => void;
+  getPageLink?: (page: number) => LinkProps;
+  onPageChange?: (page: number) => void;
 }>;
-export default function EmailHistoryModalComponent({ page, size, addresses, onClose, onSubmit, getEmailLink, getPageLink }: EmailHistoryModalComponentProps) {
+export default function EmailHistoryModalComponent({
+  page,
+  size,
+  addresses,
+  onClose,
+  onSubmit,
+  getEmailLink,
+  onEmailClick,
+  getPageLink,
+  onPageChange,
+}: EmailHistoryModalComponentProps) {
   const router = useRouter();
   const navigate = useNavigate();
 
@@ -81,16 +93,44 @@ export default function EmailHistoryModalComponent({ page, size, addresses, onCl
       }),
       columnHelper.display({
         header: 'Objet',
-        cell: ({ row: { original } }) => (
-          <Link
-            {...getEmailLink(original)}
-            onClick={(e) => {
-              e.stopPropagation();
-            }}
-          >
-            {original.subject}
-          </Link>
-        ),
+        cell: ({ row: { original } }) => {
+          const children = original.subject;
+          if (getEmailLink && onEmailClick) throw new Error('getEmailLink and onEmailClick cannot be both defined');
+
+          if (getEmailLink)
+            return (
+              <Link
+                {...getEmailLink(original)}
+                onClick={(e) => {
+                  e.stopPropagation();
+                }}
+              >
+                {children}
+              </Link>
+            );
+          else if (onEmailClick)
+            return (
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onEmailClick(original);
+                }}
+              >
+                {children}
+              </button>
+            );
+          else throw new Error('getEmailLink or onEmailClick must be defined');
+        },
+        // <Link
+        //   {...getEmailLink(original)}
+        //   onClick={(e) => {
+        //     e.stopPropagation();
+        //   }}
+        // >
+        //   {original.subject}
+        // </Link>;
+        // },
       }),
       columnHelper.display({
         header: 'Pièces jointes',
@@ -122,11 +162,16 @@ export default function EmailHistoryModalComponent({ page, size, addresses, onCl
   );
 
   const onRowClick = (e: React.MouseEvent, row: Row<MailResponseDto>) => {
-    const emailLink = getEmailLink(row.original);
-    if (e.metaKey || e.ctrlKey) {
-      const location = router.buildLocation(emailLink);
-      window.open(location.href, '_blank');
-    } else navigate(emailLink);
+    if (getEmailLink && onEmailClick) throw new Error('getEmailLink and onEmailClick cannot be both defined');
+
+    if (getEmailLink) {
+      const emailLink = getEmailLink(row.original);
+      if (e.metaKey || e.ctrlKey) {
+        const location = router.buildLocation(emailLink);
+        window.open(location.href, '_blank');
+      } else navigate(emailLink);
+    } else if (onEmailClick) onEmailClick(row.original);
+    else throw new Error('getEmailLink or onEmailClick must be defined');
   };
 
   useEffect(() => {
@@ -165,7 +210,7 @@ export default function EmailHistoryModalComponent({ page, size, addresses, onCl
             <div className={styles.table_container}>
               <TableComponent columns={columns} data={data?.content} isLoading={isLoading} onRowClick={onRowClick} />
             </div>
-            <PaginationComponent page={page} totalPages={data?.totalPages} pageLink={getPageLink} />
+            <PaginationComponent page={page} totalPages={data?.totalPages} pageLink={getPageLink} onPageChange={onPageChange} />
 
             <div className={styles.modal_buttons}>
               <button className="btn btn-secondary" onClick={onClose}>

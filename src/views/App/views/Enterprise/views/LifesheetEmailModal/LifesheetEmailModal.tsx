@@ -5,7 +5,7 @@ import EmailModalComponent from '../../../../../../components/EmailModal/EmailMo
 
 const routeApi = getRouteApi('/app/enterprises_/$enterpriseId/lifesheet-email/$lifesheetId');
 
-export default function appViewEnterpriseViewLifesheetEmailModalView() {
+export default function AppViewEnterpriseViewLifesheetEmailModalView() {
   const navigate = routeApi.useNavigate();
   const { lifesheetId } = routeApi.useParams();
 
@@ -15,5 +15,12 @@ export default function appViewEnterpriseViewLifesheetEmailModalView() {
     navigate({ to: '../..', search: true, replace: true, resetScroll: false });
   };
 
-  return <EmailModalComponent emailId={lifesheet.mailId!} onClose={onClose} />;
+  return (
+    <EmailModalComponent
+      emailId={lifesheet.mailId!}
+      onClose={onClose}
+      replyLink={{ to: '/app/enterprises/$enterpriseId/lifesheet-email/$lifesheetId/reply', search: true, replace: true, resetScroll: false }}
+      resendLink={{ to: '/app/enterprises/$enterpriseId/lifesheet-email/$lifesheetId/resend', search: true, replace: true, resetScroll: false }}
+    />
+  );
 }

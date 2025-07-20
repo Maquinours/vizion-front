@@ -1,0 +1,41 @@
+.sub_row {
+  padding: 1rem;
+  background: #b4cafcab 0% 0% no-repeat padding-box;
+
+  .sub_row_title {
+    text-align: left;
+    font: normal normal bold 14px/18px 'DIN2014';
+    letter-spacing: 0px;
+    color: #16204e;
+    opacity: 1;
+  }
+}
+
+.sub_row_content {
+  background: #b4cafcab;
+
+  td {
+    &:nth-child(1) {
+      width: 76%;
+    }
+
+    &:nth-child(2) {
+      width: 15%;
+      text-align: center;
+
+      div {
+        ul li {
+          font-size: 13px;
+        }
+      }
+    }
+
+    &:nth-child(3) {
+      width: 8%;
+    }
+
+    &:nth-child(4) {
+      width: 2%;
+    }
+  }
+}

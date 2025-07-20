@@ -1,0 +1,19 @@
+.container {
+  .grid {
+    margin-top: 1rem;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+
+    .rma_number {
+      display: flex;
+      justify-content: flex-start;
+      margin-bottom: 1rem;
+
+      span {
+        font-weight: bold;
+        color: var(--secondary-color);
+      }
+    }
+  }
+}

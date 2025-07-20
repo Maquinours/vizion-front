@@ -7,41 +7,17 @@ import TableComponent from '../../../../../../../../components/Table/Table';
 import { queries } from '../../../../../../../../utils/constants/queryKeys';
 import FormationSubscriptionResponseDto from '../../../../../../../../utils/types/FormationSubscriptionResponseDto';
 import styles from './SubscribersModal.module.scss';
+import { useCallback, useContext, useMemo } from 'react';
+import { AircallWorkspaceContext } from '../../../../../../components/AircallWorkspace/utils/context';
 
 const routeApi = getRouteApi('/app/tools/formations/subscribers/$formationDetailId');
 
 const columnHelper = createColumnHelper<FormationSubscriptionResponseDto>();
-const columns = [
-  columnHelper.display({
-    header: 'Nom complet',
-    cell: ({ row: { original } }) => `${original.firstName} ${original.lastName}`,
-  }),
-  columnHelper.display({
-    header: 'Email',
-    cell: ({ row: { original } }) => (
-      <Link from={routeApi.id} to="send-email/$subscriptionId" params={{ subscriptionId: original.id }} search replace resetScroll={false} preload="intent">
-        {original.email}
-      </Link>
-    ),
-  }),
-  columnHelper.display({
-    header: 'Téléphone',
-    cell: ({ row: { original } }) => <a href={`tel:${original.phoneNumber}`}>{original.phoneNumber}</a>,
-  }),
-  columnHelper.display({
-    id: 'actions',
-    cell: ({ row: { original } }) => (
-      <div className={styles.action_buttons}>
-        <Link from={routeApi.id} to="delete/$subscriptionId" params={{ subscriptionId: original.id }} search replace resetScroll={false} preload="intent">
-          <FaTrash width="25" height="25" color="#F24C52" />
-        </Link>
-      </div>
-    ),
-  }),
-];
 
 export default function AppViewToolsViewFormationsViewSubscribersModalView() {
   const navigate = routeApi.useNavigate();
+
+  const { dialNumber } = useContext(AircallWorkspaceContext)!;
 
   const { formationDetailId } = routeApi.useParams();
 
@@ -50,6 +26,59 @@ export default function AppViewToolsViewFormationsViewSubscribersModalView() {
   const onClose = () => {
     navigate({ to: '../..', search: true, replace: true });
   };
+
+  const onCallNumber = useCallback(
+    (number: string) => {
+      if (number) {
+        dialNumber(number).catch(() => {
+          window.location.href = `tel:${number}`;
+        });
+      }
+    },
+    [dialNumber],
+  );
+
+  const columns = useMemo(
+    () => [
+      columnHelper.display({
+        header: 'Nom complet',
+        cell: ({ row: { original } }) => `${original.firstName} ${original.lastName}`,
+      }),
+      columnHelper.display({
+        header: 'Email',
+        cell: ({ row: { original } }) => (
+          <Link from={routeApi.id} to="send-email/$subscriptionId" params={{ subscriptionId: original.id }} search replace resetScroll={false} preload="intent">
+            {original.email}
+          </Link>
+        ),
+      }),
+      columnHelper.display({
+        header: 'Téléphone',
+        cell: ({ row: { original } }) => (
+          <a
+            href={`tel:${original.phoneNumber}`}
+            onClick={(e) => {
+              e.preventDefault();
+              if (original.phoneNumber) onCallNumber(original.phoneNumber);
+            }}
+          >
+            {original.phoneNumber}
+          </a>
+        ),
+      }),
+      columnHelper.display({
+        id: 'actions',
+        cell: ({ row: { original } }) => (
+          <div className={styles.action_buttons}>
+            <Link from={routeApi.id} to="delete/$subscriptionId" params={{ subscriptionId: original.id }} search replace resetScroll={false} preload="intent">
+              <FaTrash width="25" height="25" color="#F24C52" />
+            </Link>
+          </div>
+        ),
+      }),
+    ],
+    [onCallNumber],
+  );
 
   return (
     <>

@@ -1,9 +1,10 @@
 import { Row } from '@tanstack/react-table';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { IoMdArrowDropdown, IoMdArrowDropright } from 'react-icons/io';
 import EnterpriseResponseDto from '../../../../../../../../utils/types/EnterpriseResponseDto';
 import ProfileResponseDto from '../../../../../../../../utils/types/ProfileResponseDto';
 import styles from './ContactsCell.module.scss';
+import { AircallWorkspaceContext } from '../../../../../../components/AircallWorkspace/utils/context';
 
 type AppViewEnterprisesViewTableComponentContactsCellComponentProps = Readonly<{
   row: Row<EnterpriseResponseDto>;
@@ -16,9 +17,19 @@ export default function AppViewEnterprisesViewTableComponentContactsCellComponen
 }: AppViewEnterprisesViewTableComponentContactsCellComponentProps) {
   const [isOpen, setIsOpen] = useState(false);
 
+  const { dialNumber } = useContext(AircallWorkspaceContext)!;
+
   const onClick = (e: React.MouseEvent) => {
     e.stopPropagation();
     e.nativeEvent.stopImmediatePropagation();
+  };
+
+  const onCallNumber = (number: string) => {
+    if (number) {
+      dialNumber(number).catch(() => {
+        window.location.href = `tel:${number}`;
+      });
+    }
   };
 
   return (
@@ -49,10 +60,11 @@ export default function AppViewEnterprisesViewTableComponentContactsCellComponen
                 <div className="w-[45%] p-1">
                   {contact.standardPhoneNumber ? (
                     <a
-                      href={`tel:${contact.standardPhoneNumber}`}
+                      href={`tel:${contact.standardPhoneNumber!}`}
                       onClick={(e) => {
-                        e.stopPropagation();
-                        e.nativeEvent.stopImmediatePropagation();
+                        onClick(e);
+                        e.preventDefault();
+                        onCallNumber(contact.standardPhoneNumber!);
                       }}
                       className="text-blue-600 underline visited:text-purple-600 hover:text-blue-800"
                     >

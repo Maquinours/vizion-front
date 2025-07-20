@@ -30,6 +30,7 @@ type ProductResponseDto = {
   qty: number | null;
   productBOMDetails: ProductBomDetailsResponseDto[] | null;
   faqList: Array<ProductFaqResponseDto> | null;
+  categories: string[];
   createdDate: Date;
   modifiedDate: Date | null;
   createdBy: string | null;

@@ -18,6 +18,7 @@ type ProductRequestDto = {
   qty?: number | null;
   virtualQty?: boolean | null;
   bom?: boolean | null;
+  categories: string[];
 };
 
 export default ProductRequestDto;

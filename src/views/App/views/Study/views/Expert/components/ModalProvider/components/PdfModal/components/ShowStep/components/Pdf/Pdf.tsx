@@ -198,6 +198,163 @@ const hddCalculationPageStyle = StyleSheet.create({
   },
 });
 
+const densityStatsPageStyle = StyleSheet.create({
+  page: {
+    width: '100%',
+    height: '100%',
+    fontFamily: 'DIN',
+  },
+  pageTitle: {
+    margin: 10,
+    fontSize: 22,
+    color: '#16204E',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  pageName: {
+    margin: 10,
+    fontSize: 18,
+    fontFamily: 'Din',
+    fontWeight: 'bold',
+    textAlign: 'center',
+    color: '#16204E',
+  },
+  statsSection: {
+    height: 'auto',
+    width: '100%',
+    marginBottom: 15,
+  },
+  table: {
+    margin: 5,
+    fontFamily: 'Din',
+    position: 'relative',
+  },
+  tableHeader: {
+    backgroundColor: '#16204E',
+    display: 'flex',
+    width: '100%',
+    height: 'auto',
+    flexDirection: 'row',
+    flexWrap: 'nowrap',
+    gap: 0,
+    fontFamily: 'Din',
+    fontWeight: 'bold',
+  },
+  tableHeaderName: {
+    padding: 5,
+    color: 'white',
+    fontSize: 13,
+    width: '20%',
+    borderRight: '1px solid white',
+    textAlign: 'center',
+  },
+  tableHeaderReference: {
+    padding: 5,
+    color: 'white',
+    fontSize: 13,
+    width: '20%',
+    borderRight: '1px solid white',
+    textAlign: 'center',
+  },
+  tableHeaderIdentification: {
+    padding: 5,
+    color: 'white',
+    fontSize: 13,
+    width: '15%',
+    borderRight: '1px solid white',
+    textAlign: 'center',
+  },
+  tableHeaderReading: {
+    padding: 5,
+    color: 'white',
+    fontSize: 13,
+    width: '15%',
+    borderRight: '1px solid white',
+    textAlign: 'center',
+  },
+  tableHeaderRecognition: {
+    padding: 5,
+    color: 'white',
+    fontSize: 13,
+    width: '15%',
+    borderRight: '1px solid white',
+    textAlign: 'center',
+  },
+  tableHeaderAngle: {
+    padding: 5,
+    color: 'white',
+    fontSize: 13,
+    width: '15%',
+    borderRight: '1px solid white',
+    textAlign: 'center',
+  },
+  tableBodyContainer: {
+    width: '100%',
+    height: 'auto',
+  },
+  tableBody: {
+    display: 'flex',
+    width: '100%',
+    height: 'auto',
+    flexDirection: 'row',
+    gap: 0,
+    borderBottom: '1px solid #16204E',
+    borderLeft: '1px solid #16204E',
+    borderRight: '1px solid #16204E',
+  },
+  tableBodyName: {
+    padding: 5,
+    color: '#16204E',
+    fontSize: 10,
+    width: '20%',
+    borderRight: '1px solid #16204E',
+    textAlign: 'center',
+  },
+  tableBodyReference: {
+    padding: 5,
+    color: '#16204E',
+    fontSize: 10,
+    width: '20%',
+    borderRight: '1px solid #16204E',
+    textAlign: 'center',
+  },
+  tableBodyIdentification: {
+    padding: 5,
+    color: '#16204E',
+    fontSize: 10,
+    width: '15%',
+    borderRight: '1px solid #16204E',
+    textAlign: 'center',
+  },
+  tableBodyReading: {
+    padding: 5,
+    color: '#16204E',
+    fontSize: 10,
+    width: '15%',
+    borderRight: '1px solid #16204E',
+    textAlign: 'center',
+  },
+  tableBodyRecognition: {
+    padding: 5,
+    color: '#16204E',
+    fontSize: 10,
+    width: '15%',
+    borderRight: '1px solid #16204E',
+    textAlign: 'center',
+  },
+  tableBodyAngle: {
+    padding: 5,
+    color: '#16204E',
+    fontSize: 10,
+    width: '15%',
+    textAlign: 'center',
+  },
+});
+
+const amountFormatter = (value: number) => {
+  return value.toLocaleString('fr-FR').replaceAll('\u202f', ' ');
+};
+
 type AppViewStudyViewExpertViewModalProviderComponentPdfModalComponentShowStepComponentPdfComponentProps = Readonly<{
   images: Array<Blob>;
   cameras: Array<{ product: ProductResponseDto; quantity: number }>;
@@ -206,6 +363,10 @@ type AppViewStudyViewExpertViewModalProviderComponentPdfModalComponentShowStepCo
   hddCalculationHoursPerDay: number;
   business: BusinessResponseDto;
   showDensityImages: boolean;
+  densityStats: Array<{
+    page: { name: string; id: string };
+    items: Array<{ name: string; reference: string; identification: number; reading: number; recognition: number; angle: number }>;
+  }>;
 }>;
 export default function AppViewStudyViewExpertViewModalProviderComponentPdfModalComponentShowStepComponentPdfComponent({
   images,
@@ -215,6 +376,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentPdfModal
   hddCalculationHoursPerDay,
   business,
   showDensityImages,
+  densityStats,
 }: AppViewStudyViewExpertViewModalProviderComponentPdfModalComponentShowStepComponentPdfComponentProps) {
   return (
     <Document title="VIZEO" author="VIZEO" creator="VIZEO" producer="VIZEO">
@@ -247,6 +409,38 @@ export default function AppViewStudyViewExpertViewModalProviderComponentPdfModal
               </Page>
             ))
         : null}
+      {densityStats.length > 0 && (
+        <Page size="A4" style={densityStatsPageStyle.page} orientation="landscape">
+          <Text style={densityStatsPageStyle.pageTitle}>Densités</Text>
+          {densityStats.map(({ page, items }, index) => (
+            <View key={index} style={densityStatsPageStyle.statsSection}>
+              <Text style={densityStatsPageStyle.pageName}>{page.name}</Text>
+              <View style={densityStatsPageStyle.table}>
+                <View style={densityStatsPageStyle.tableHeader}>
+                  <Text style={densityStatsPageStyle.tableHeaderName}>Nom</Text>
+                  <Text style={densityStatsPageStyle.tableHeaderReference}>Référence</Text>
+                  <Text style={densityStatsPageStyle.tableHeaderIdentification}>Identification</Text>
+                  <Text style={densityStatsPageStyle.tableHeaderReading}>Lecture de plaque</Text>
+                  <Text style={densityStatsPageStyle.tableHeaderRecognition}>Reconnaissance</Text>
+                  <Text style={densityStatsPageStyle.tableHeaderAngle}>Angle</Text>
+                </View>
+                <View style={densityStatsPageStyle.tableBodyContainer}>
+                  {items.map((item, index) => (
+                    <View style={densityStatsPageStyle.tableBody}>
+                      <Text style={densityStatsPageStyle.tableBodyName}>{item.name?.trim() ?? `CAM${index + 1}`}</Text>
+                      <Text style={densityStatsPageStyle.tableBodyReference}>{item.reference}</Text>
+                      <Text style={densityStatsPageStyle.tableBodyIdentification}>{amountFormatter(item.identification)}m</Text>
+                      <Text style={densityStatsPageStyle.tableBodyReading}>{amountFormatter(item.reading)}m</Text>
+                      <Text style={densityStatsPageStyle.tableBodyRecognition}>{amountFormatter(item.recognition)}m</Text>
+                      <Text style={densityStatsPageStyle.tableBodyAngle}>{amountFormatter(item.angle)}°</Text>
+                    </View>
+                  ))}
+                </View>
+              </View>
+            </View>
+          ))}
+        </Page>
+      )}
       {!!hddSpace && !!hddCalculationDays && Number.isFinite(hddCalculationDays) && (
         <Page size="A4" style={hddCalculationPageStyle.page} orientation="landscape">
           <View style={hddCalculationPageStyle.sectionOne}>

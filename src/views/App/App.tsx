@@ -1,7 +1,7 @@
 import * as Sentry from '@sentry/react';
 import { Outlet, getRouteApi } from '@tanstack/react-router';
 import classNames from 'classnames';
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import styles from './App.module.scss';
 import AppViewBusinessGedModalComponent from './components/BusinessGedModal/BusinessGedModal';
 import AppViewChatWebsocketComponent from './components/ChatWebsocket/ChatWebsocket';
@@ -16,13 +16,23 @@ import { useAuthentifiedUserQuery } from './utils/functions/getAuthentifiedUser'
 import AppViewSendEmailModalComponent from './components/SendEmailModal/SendEmailModal';
 import AppViewTitleManagerComponent from './components/TitleManager/TitleManager';
 import AppViewAircallIntegrationComponent from './components/AircallIntegration/AircallIntegration';
+import AppViewAircallWorkspaceComponent from './components/AircallWorkspace/AircallWorkspace';
+import EnterpriseModalComponent from '../../components/EnterpriseModal/EnterpriseModal';
 
 const routeApi = getRouteApi('/app');
+
+enum ModalType {
+  ENTERPRISE,
+}
+
+type ModalData = { modal: ModalType.ENTERPRISE; enterpriseId: string; defaultContactsSearch?: string; defaultAllBusinessProfileId?: string };
 
 export default function AppLayout() {
   const { mobileSidebar, appModal: modalId } = routeApi.useSearch();
 
   const { data: authentifiedUser } = useAuthentifiedUserQuery();
+
+  const [modalData, setModalData] = useState<ModalData>();
 
   const modal = useMemo(() => {
     switch (modalId) {
@@ -57,23 +67,37 @@ export default function AppLayout() {
     <>
       <AppViewLoadingProgressBarComponent />
       <AppViewChatWebsocketComponent />
-      <AppViewAircallIntegrationComponent />
-      <AppViewTitleManagerComponent />
-      <div className={styles.container}>
-        <AppViewTopbarComponent />
-        <main className={classNames(styles.content, { [styles.mobile_menu_opened]: mobileSidebar })}>
-          <div className={styles.wrapper}>
-            <AppViewTabsContainerComponent>
-              <div className={styles.outlet_container}>
-                <Outlet />
-              </div>
-              {modal}
-            </AppViewTabsContainerComponent>
-          </div>
-        </main>
-        <AppViewSidebarComponent />
-        <AppViewFooterComponent />
-      </div>
+      <AppViewAircallIntegrationComponent
+        openEnterpriseModal={(enterpriseId, { defaultContactsSearch, defaultAllBusinessProfileId }) =>
+          setModalData({ modal: ModalType.ENTERPRISE, enterpriseId, defaultContactsSearch, defaultAllBusinessProfileId })
+        }
+      />
+      <AppViewAircallWorkspaceComponent>
+        <AppViewTitleManagerComponent />
+        <div className={styles.container}>
+          <AppViewTopbarComponent />
+          <main className={classNames(styles.content, { [styles.mobile_menu_opened]: mobileSidebar })}>
+            <div className={styles.wrapper}>
+              <AppViewTabsContainerComponent>
+                <div className={styles.outlet_container}>
+                  <Outlet />
+                </div>
+                {modal}
+              </AppViewTabsContainerComponent>
+            </div>
+          </main>
+          <AppViewSidebarComponent />
+          <AppViewFooterComponent />
+        </div>
+        {modalData?.modal === ModalType.ENTERPRISE && (
+          <EnterpriseModalComponent
+            enterpriseId={modalData.enterpriseId}
+            defaultContactsSearch={modalData.defaultContactsSearch}
+            defaultAllBusinessProfileId={modalData.defaultAllBusinessProfileId}
+            onClose={() => setModalData(undefined)}
+          />
+        )}
+      </AppViewAircallWorkspaceComponent>
     </>
   );
 }

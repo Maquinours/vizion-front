@@ -44,9 +44,10 @@ const routePath = '/app/businesses-rma/business/$businessId/assistance/$assistan
 export default function AppViewAssistanceView() {
   const queryClient = useQueryClient();
 
-  const { assistanceId } = routeApi.useParams();
+  const { businessId, assistanceId } = routeApi.useParams();
   const { assistanceModal } = routeApi.useSearch();
 
+  const { data: business } = useSuspenseQuery(queries.businesses.detail._ctx.byId(businessId));
   const { data: assistance } = useSuspenseQuery(queries['technical-supports'].detail._ctx.byId(assistanceId));
 
   const modal = useMemo(() => {
@@ -95,9 +96,14 @@ export default function AppViewAssistanceView() {
 
   return (
     <AssistanceContext.Provider value={contextValue}>
-      <Link from={routePath} to="/app/businesses-rma/business/$businessId" title="Retourner dans l'affaire" className="btn btn-primary mb-2 flex w-fit">
-        <TiArrowBack size={16} />
-      </Link>
+      <div className="flex flex-row gap-x-3 py-2">
+        <Link from={routePath} to="/app/businesses-rma/business/$businessId" title="Retourner dans l'affaire" className="btn btn-primary flex w-fit">
+          <TiArrowBack size={16} />
+        </Link>
+        <span className="content-center font-bold text-[var(--primary-color)]">
+          {business.numBusiness} - {business.title ?? ''}
+        </span>
+      </div>
       <div className={styles.container}>
         <div className={styles.content_grid}>
           <div className={styles.first_grid}>

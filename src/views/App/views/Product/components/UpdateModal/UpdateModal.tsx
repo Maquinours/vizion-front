@@ -22,6 +22,7 @@ const stepOneYupSchema = yup.object({
   longDescription: yup.string().nullable(),
   provider: yup.mixed<EnterpriseResponseDto>().required('Le fournisseur est requis'),
   category: yup.string().required('La catégorie est requise'),
+  categories: yup.array().of(yup.string().required('La catégorie est requise')).required('Les catégories sont requises'),
   isVizeo: yup.mixed<'yes' | 'no'>().required('Champs requis').defined(),
   isVirtual: yup.mixed<'yes' | 'no'>().required('Champs requis').defined(),
   isNomenclature: yup.mixed<'yes' | 'no'>().required('Champs requis').defined(),
@@ -98,6 +99,7 @@ export default function AppViewProductViewUpdateModalComponent() {
         vizeo: stepOneData.isVizeo === 'yes',
         virtualQty: stepOneData.isVirtual === 'yes',
         bom: stepOneData.isNomenclature === 'yes',
+        categories: stepOneData.categories,
       });
     },
     onSuccess: () => {
@@ -131,6 +133,7 @@ export default function AppViewProductViewUpdateModalComponent() {
       if (provider) stepOneSetValue('provider', provider);
     });
     if (product.category) stepOneSetValue('category', product.category);
+    stepOneSetValue('categories', product.categories);
     stepOneSetValue('isVizeo', product.vizeo ? 'yes' : 'no');
     stepOneSetValue('isVirtual', product.virtualQty ? 'yes' : 'no');
     stepOneSetValue('isNomenclature', product.bom ? 'yes' : 'no');

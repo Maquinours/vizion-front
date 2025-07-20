@@ -1,0 +1,148 @@
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { toast } from 'react-toastify';
+import { createBusinessBp } from '../../../../../../../../utils/api/businessBps';
+import { queries } from '../../../../../../../../utils/constants/queryKeys';
+import BusinessArcResponseDto from '../../../../../../../../utils/types/BusinessArcResponseDto';
+import BusinessBpDetailsRequestDto from '../../../../../../../../utils/types/BusinessBpDetailsRequestDto';
+import BusinessResponseDto from '../../../../../../../../utils/types/BusinessResponseDto';
+import styles from './SectionOne.module.scss';
+import BusinessState from '../../../../../../../../utils/enums/BusinessState';
+
+// const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/arc');
+// const routePath = '/app/businesses-rma/business/$businessId/arc';
+
+type BusinessModalComponentArcComponentHeaderComponentSectionOneComponentProps = Readonly<{
+  business: BusinessResponseDto;
+  arc: BusinessArcResponseDto;
+  onEditClick: () => void;
+  goToNextStep: () => void;
+}>;
+export default function BusinessModalComponentArcComponentHeaderComponentSectionOneComponent({
+  business,
+  arc,
+  onEditClick,
+  goToNextStep,
+}: BusinessModalComponentArcComponentHeaderComponentSectionOneComponentProps) {
+  const queryClient = useQueryClient();
+  // const navigate = routeApi.useNavigate();
+
+  // const { businessId } = routeApi.useParams();
+
+  // const { data: business } = useSuspenseQuery(queries.businesses.detail._ctx.byId(businessId));
+  // const { data: arc } = useSuspenseQuery(queries['business-ARCs'].detail._ctx.byBusinessId(businessId));
+
+  const { mutate, isPending } = useMutation({
+    mutationFn: async () => {
+      const products = await queryClient.ensureQueryData(queries.product.list);
+
+      const list =
+        arc.arcDetailsList?.reduce((acc: Array<BusinessBpDetailsRequestDto>, el) => {
+          const product = products.find((p) => p.reference === el.productReference);
+          if (el.bom) {
+            for (const detail of product?.productBOMDetails ?? []) {
+              const detailProduct = products.find((p) => p.id === detail.product?.id);
+              const detailVersion = detailProduct?.productVersions && detailProduct.productVersions.length === 1 ? detailProduct.productVersions[0] : null;
+              acc.push({
+                numDetails: arc.number,
+                productReference: detail?.product?.reference,
+                productId: detail?.product?.id,
+                productVersionReference: detailVersion?.reference,
+                productVersionId: detailVersion?.id,
+                quantity: Number(el.quantity * (detail?.qte ?? 0)),
+                quantityRemain: Number(el.quantity * (detail?.qte ?? 0)),
+                quantityPrep: 0,
+                productDesignation: detail?.product?.shortDescription,
+                productDescription: detail?.product?.description,
+                productName: detail?.product?.reference,
+                publicUnitPrice: detail?.product?.publicPrice,
+                comment: el.productReference,
+                unitPrice: detail?.product?.publicPrice,
+                totalPrice: Number(el.quantity * (detail?.qte ?? 0)) * (detail?.product?.publicPrice ?? 0),
+                bpSerialList: [],
+                virtualQty: detail?.product?.virtualQty,
+              });
+            }
+          } else {
+            const productVersion = Array.isArray(product?.productVersions) && product.productVersions.length === 1 ? product.productVersions[0] : null;
+            acc.push({
+              numDetails: el.numDetails,
+              productReference: el.productReference,
+              productId: el.productId,
+              productVersionReference: productVersion?.reference,
+              productVersionId: productVersion?.id,
+              quantity: el.quantity,
+              quantityRemain: el.quantity,
+              quantityPrep: 0,
+              productDesignation: el.productDesignation,
+              productName: el.productName,
+              publicUnitPrice: el.unitPrice,
+              comment: null,
+              unitPrice: el.unitPrice,
+              totalPrice: el.totalPrice,
+              bpSerialList: [],
+              virtualQty: el.virtualQty,
+            });
+          }
+          return acc;
+        }, []) ?? [];
+
+      if (list.length === 0) throw new Error('No details found');
+
+      return createBusinessBp({
+        number: arc.number,
+        globalPrep: 0,
+        vat: arc.vat,
+        shippingServicePrice: (arc.totalAmountHT ?? 0) > 1200 ? 0 : 25,
+        numOrder: arc.numOrder,
+        businessId: business.id,
+        bpDetailsList: list,
+        totalAmountHT: arc.totalAmountHT,
+        totalAmount: arc.totalAmount,
+        bom: arc.bom,
+      });
+    },
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: queries.businesses._def });
+      queryClient.invalidateQueries({ queryKey: queries['all-businesses']._def });
+      queryClient.setQueryData(queries['business-bps'].detail._ctx.byBusinessId(business.id).queryKey, data);
+      toast.success('Le BP a été créé avec succès');
+      goToNextStep();
+      // navigate({ to: '../bp', replace: true });
+    },
+    onError: (error) => {
+      if (error.message === 'No details found') toast.warning("Veuillez ajouter des détails à l'ARC avant de passer en BP");
+      else {
+        console.error(error);
+        toast.error('Une erreur est survenue lors de la création du BP');
+      }
+    },
+  });
+
+  const onBpButtonClick = async () => {
+    if (business.state !== BusinessState.ARC) goToNextStep();
+    //  navigate({ to: '../bp', replace: true });
+    else if (!arc.numOrder) toast.warning("Veuillez sauvegarder l'ARC avec un numéro de commande avant de passer en BP");
+    else mutate();
+  };
+
+  return (
+    <div className={styles.header}>
+      <div className={styles.business_info}>
+        <span>{business.enterpriseName}</span> / <span>{business.title}</span>
+      </div>
+      <div>
+        <button type="button" className="btn btn-primary-light" onClick={() => onEditClick()}>
+          Éditer
+        </button>
+        {/* <Link from={routePath} to="pdf" search replace resetScroll={false} preload="intent" ignoreBlocker className="btn btn-primary-light">
+          Éditer
+        </Link> */}
+        {!business.archived && (
+          <button disabled={isPending} className="btn btn-secondary" onClick={() => onBpButtonClick()}>
+            {isPending ? 'Création du BP...' : 'Passer en BP'}
+          </button>
+        )}
+      </div>
+    </div>
+  );
+}

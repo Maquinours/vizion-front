@@ -1,8 +1,8 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { Link, Outlet, getRouteApi, useBlocker } from '@tanstack/react-router';
+import { Link, LinkOptions, Outlet, getRouteApi, useBlocker } from '@tanstack/react-router';
 import classNames from 'classnames';
-import { useEffect, useMemo } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import { FaTrash } from 'react-icons/fa';
 import { HiPencilAlt } from 'react-icons/hi';
@@ -30,6 +30,7 @@ import AppViewBusinessViewDashboardViewQuotationButtonComponent from './componen
 import AppViewBusinessViewDashboardViewResponsibleComponent from './components/Responsible/Responsible';
 import AppViewBusinessViewDashboardViewTransferDataButtonComponent from './components/TransferDataButton/TransferDataButton';
 import { BusinessDashboardContext } from './utils/contexts/context';
+import AllBusinessResponseDto from '../../../../../../utils/types/AllBusinessResponseDto';
 
 const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/dashboard');
 const routePath = '/app/businesses-rma/business/$businessId/dashboard';
@@ -179,6 +180,21 @@ export default function AppViewBusinessViewDashboardView() {
 
   const onSave = handleSubmit((data) => save(data));
 
+  const getBusinessLinkItemLink = useCallback((item: AllBusinessResponseDto): LinkOptions => {
+    switch (item.category) {
+      case CategoryBusiness.AFFAIRE:
+        return {
+          to: '/app/businesses-rma/business/$businessId',
+          params: { businessId: item.businessId },
+        };
+      case CategoryBusiness.RMA:
+        return {
+          to: '/app/businesses-rma/rma/$rmaId',
+          params: { rmaId: item.businessId },
+        };
+    }
+  }, []);
+
   useEffect(() => {
     resetForm(formDefaultValues, { keepDirtyValues: true });
   }, [formDefaultValues]);
@@ -230,6 +246,7 @@ export default function AppViewBusinessViewDashboardView() {
             <BusinessRmaLinksComponent
               category={CategoryBusiness.AFFAIRE}
               number={business.numBusiness}
+              getItemLink={getBusinessLinkItemLink}
               canCreate={user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO')}
               createLink={{
                 to: '/app/businesses-rma/business/$businessId/dashboard/create-link',

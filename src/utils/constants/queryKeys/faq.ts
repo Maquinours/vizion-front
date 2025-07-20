@@ -1,15 +1,21 @@
 import { createQueryKeys } from '@lukemorales/query-key-factory';
-import { getFaqById, getFaqsPageByArchiveState, getFaqsPageByArchiveStateWithSearch } from '../../api/faq';
+import { getFaqById, getFaqsPageByArchiveStateWithSearch } from '../../api/faq';
+import FaqAccessLevel from '../../enums/FaqAccessLevel';
 
 export const faqs = createQueryKeys('faq', {
   page: ({ page, size }: { page: number; size: number }) => ({
     queryKey: [page, size],
     contextQueries: {
-      byArchiveStateAndSearch: (archived: boolean, searchText: string | undefined, fuzzy: boolean) => ({
+      byArchiveStateAndSearch: (
+        archived: boolean,
+        searchText: string | undefined,
+        productId: string | undefined,
+        accessLevel: FaqAccessLevel | undefined,
+        fuzzy: boolean,
+      ) => ({
         // eslint-disable-next-line @tanstack/query/exhaustive-deps
-        queryKey: [archived, searchText, fuzzy],
-        queryFn: () =>
-          searchText ? getFaqsPageByArchiveStateWithSearch(archived, searchText, fuzzy, page, size) : getFaqsPageByArchiveState(archived, page, size),
+        queryKey: [archived, searchText, productId, accessLevel, fuzzy],
+        queryFn: () => getFaqsPageByArchiveStateWithSearch(archived, searchText, productId, accessLevel, fuzzy, page, size),
       }),
     },
   }),

@@ -1,7 +1,7 @@
 import { DndContext, DragEndEvent, KeyboardSensor, MouseSensor, PointerSensor, TouchSensor, useSensor, useSensors } from '@dnd-kit/core';
 import { restrictToHorizontalAxis } from '@dnd-kit/modifiers';
 import { horizontalListSortingStrategy, SortableContext } from '@dnd-kit/sortable';
-import usePagination from '@mui/material/usePagination/usePagination';
+import usePagination from '@mui/material/usePagination';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import { useShallow } from 'zustand/react/shallow';
 import useStore, { RFState } from '../../../Flow/utils/store';

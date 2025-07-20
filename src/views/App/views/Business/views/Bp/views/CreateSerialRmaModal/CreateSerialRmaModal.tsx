@@ -7,6 +7,8 @@ import { createRmaFromBusiness } from '../../../../../../../../utils/api/rma';
 import { queries } from '../../../../../../../../utils/constants/queryKeys';
 import CategoryBusiness from '../../../../../../../../utils/enums/CategoryBusiness';
 import styles from './CreateSerialRmaModal.module.scss';
+import { updateBusinessBpDetail } from '../../../../../../../../utils/api/businessBpDetails';
+import BusinessBpResponseDto from '../../../../../../../../utils/types/BusinessBpResponseDto';
 
 const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/bp/create-serial-rma/$serialId');
 
@@ -17,18 +19,68 @@ export default function AppViewBusinessViewBpViewCreateSerialRmaModalView() {
   const { businessId, serialId } = routeApi.useParams();
 
   const { data: business } = useSuspenseQuery(queries.businesses.detail._ctx.byId(businessId));
+  const { data: bp } = useSuspenseQuery(queries['business-bps'].detail._ctx.byBusinessId(businessId));
   const { data: serialNumber } = useSuspenseQuery(queries['business-bp-serials'].detail._ctx.byId(serialId));
 
   const onClose = () => {
     navigate({ to: '../..', search: true, replace: true, resetScroll: false });
   };
 
+  const { mutate: mutateDetailComment } = useMutation({
+    mutationFn: (comment: string) => {
+      const detail = bp.bpDetailsList?.find((d) => d.bpSerialList?.findIndex((s) => s.id == serialNumber.id) !== -1)!;
+      return updateBusinessBpDetail(detail.id, {
+        bpId: bp.id,
+        numDetails: detail.numDetails,
+        productId: detail.productId,
+        productVersionId: detail.productVersionId,
+        productReference: detail.productReference,
+        productVersionReference: detail.productVersionReference,
+        packageNumber: detail.packageNumber,
+        quantity: detail.quantity,
+        quantityRemain: detail.quantityRemain,
+        quantityPrep: detail.quantityPrep,
+        productDesignation: detail.productDesignation,
+        productDescription: detail.productDescription,
+        productName: detail.productName,
+        publicUnitPrice: detail.publicUnitPrice,
+        comment: comment,
+        unitPrice: detail.unitPrice,
+        virtualQty: detail.virtualQty,
+      });
+    },
+    onSuccess: (data) => {
+      queryClient.setQueryData<BusinessBpResponseDto>(queries['business-bps'].detail._ctx.byBusinessId(businessId).queryKey, (old) =>
+        old
+          ? {
+              ...old,
+              bpDetailsList: old.bpDetailsList?.map((d) => (d.id === data.id ? data : d)),
+            }
+          : old,
+      );
+      queryClient.setQueryData(queries['business-bp-details'].detail._ctx.byId(data.id).queryKey, data);
+      queryClient.invalidateQueries({ queryKey: queries['business-bps']._def });
+      toast.success('Détail modifié avec succès');
+      onClose();
+    },
+    onError: (error) => {
+      console.error(error);
+      toast.error('Une erreur est survenue lors de la modification du détail');
+    },
+  });
+
   const { mutate, isPending } = useMutation({
     mutationFn: () => createRmaFromBusiness(CategoryBusiness.AFFAIRE, business.numBusiness, [serialNumber.numSerie]),
     onSuccess: (rma) => {
       queryClient.invalidateQueries({ queryKey: queries.rmas._def });
-      toast.success('Le RMA a été généré avec succès');
-      navigate({ to: '/app/businesses-rma/rma/$rmaId', params: { rmaId: rma.id } });
+      try {
+        const detail = bp.bpDetailsList?.find((d) => d.bpSerialList?.findIndex((s) => s.id == serialNumber.id) !== -1)!;
+        const comment = `${detail.comment}\n${rma.number}`.trim();
+        mutateDetailComment(comment);
+      } finally {
+        toast.success('Le RMA a été généré avec succès');
+        navigate({ to: '/app/businesses-rma/rma/$rmaId', params: { rmaId: rma.id } });
+      }
     },
     onError: (error) => {
       console.error(error);

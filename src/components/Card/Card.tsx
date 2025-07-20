@@ -1,6 +1,6 @@
 import { Link, LinkProps } from '@tanstack/react-router';
 import classNames from 'classnames';
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useMemo } from 'react';
 import { AiOutlineReload } from 'react-icons/ai';
 import { FiMaximize2 } from 'react-icons/fi';
 import { HiPencilAlt } from 'react-icons/hi';
@@ -13,13 +13,65 @@ type CardComponentProps = Readonly<{
   isMinimized?: boolean;
   setMinimized?: (value: boolean) => void;
   addLink?: LinkProps;
+  onAdd?: () => void;
   editLink?: LinkProps;
+  onEdit?: () => void;
   onReload?: () => void;
   isReloading?: boolean;
   children: ReactNode;
   className?: string;
 }>;
-export default function CardComponent({ title, isMinimized, setMinimized, addLink, editLink, onReload, isReloading, children, className }: CardComponentProps) {
+export default function CardComponent({
+  title,
+  isMinimized,
+  setMinimized,
+  addLink,
+  onAdd,
+  editLink,
+  onEdit,
+  onReload,
+  isReloading,
+  children,
+  className,
+}: CardComponentProps) {
+  const editButton = useMemo(() => {
+    if (editLink && onEdit) throw new Error('editLink and onEdit cannot be both defined');
+
+    const children = <HiPencilAlt />;
+
+    if (editLink)
+      return (
+        <Link {...editLink} className={classNames(styles.action, styles.edit)}>
+          {children}
+        </Link>
+      );
+    else if (onEdit)
+      return (
+        <button className={classNames(styles.action, styles.edit)} onClick={onEdit}>
+          {children}
+        </button>
+      );
+  }, [editLink, onEdit]);
+
+  const addButton = useMemo(() => {
+    if (addLink && onAdd) throw new Error('addLink and onAdd cannot be both defined');
+
+    const children = <IoMdAddCircleOutline />;
+
+    if (addLink)
+      return (
+        <Link {...addLink} className={classNames(styles.action, styles.add)}>
+          {children}
+        </Link>
+      );
+    else if (onAdd)
+      return (
+        <button className={classNames(styles.action, styles.add)} onClick={onAdd}>
+          {children}
+        </button>
+      );
+  }, [addLink, onAdd]);
+
   return (
     <div className={classNames(styles.card, className)}>
       <div className={styles.header}>
@@ -30,16 +82,18 @@ export default function CardComponent({ title, isMinimized, setMinimized, addLin
               {React.createElement(isMinimized ? FiMaximize2 : VscChromeMinimize)}
             </button>
           )}
-          {addLink && (
+          {addButton}
+          {/* {addLink && (
             <Link {...addLink} className={classNames(styles.action, styles.add)}>
               <IoMdAddCircleOutline />
             </Link>
-          )}
-          {editLink && (
+          )} */}
+          {editButton}
+          {/* {editLink && (
             <Link {...editLink} className={classNames(styles.action, styles.edit)}>
               <HiPencilAlt />
             </Link>
-          )}
+          )} */}
           {onReload && (
             <button className={classNames(styles.action, styles.reload, { [styles.spin]: isReloading })} onClick={onReload} disabled={isReloading}>
               <AiOutlineReload className="" />

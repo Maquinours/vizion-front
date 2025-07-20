@@ -5,12 +5,9 @@ import { UpdateProductStepOneSchema } from '../../UpdateModal';
 import { useQuery } from '@tanstack/react-query';
 import { enterprises } from '../../../../../../../../utils/constants/queryKeys/enterprise';
 import styles from './StepOne.module.scss';
+import CustomSelect from '../../../../../../../../components/CustomSelect/CustomSelect';
 
-const categoryOptions = [
-  {
-    value: '',
-    text: 'Choisir une catégorie',
-  },
+const categoryOptions: Array<{ value: string; text: string }> = [
   {
     value: 'Caméra universelle',
     text: 'Caméra conseillée FULL COLOR',
@@ -122,15 +119,32 @@ export default function AppViewProductViewUpdateModalComponentStepOneComponent({
             <p className={styles.errors}>{errors.provider?.message}</p>
           </div>
           <div className={styles.form_group}>
-            <label htmlFor="category">Catégorie :</label>
-            <select id="category" {...register('category')}>
+            <label htmlFor="categories">Catégories :</label>
+            <Controller
+              control={control}
+              name="categories"
+              render={({ field: { onChange, value } }) => (
+                <CustomSelect
+                  id="categories"
+                  options={categoryOptions}
+                  getOptionLabel={(opt) => opt.text}
+                  getOptionValue={(opt) => opt.value}
+                  placeholder="Sélectionner des catégories"
+                  isLoading={false}
+                  value={value?.map((val) => categoryOptions.find((opt) => val === opt.value)).filter((item) => item !== undefined)}
+                  isMulti
+                  onChange={(e) => onChange(e.map((item) => item.value))}
+                />
+              )}
+            />
+            {/* <select id="category" {...register('category')}>
               {categoryOptions.map((item) => (
                 <option key={item.value} value={item.value}>
                   {item.text}
                 </option>
               ))}
-            </select>
-            <p className={styles.errors}>{errors.category?.message}</p>
+            </select> */}
+            <p className={styles.errors}>{errors.categories?.message}</p>
           </div>
           <div className={styles.form_group}>
             <label htmlFor="isVizeo">Marque VIZEO :</label>

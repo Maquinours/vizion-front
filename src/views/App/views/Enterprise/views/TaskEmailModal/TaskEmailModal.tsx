@@ -24,6 +24,13 @@ export default function AppViewEnterpriseViewTaskEmailModalView() {
         replace: true,
         resetScroll: false,
       }}
+      resendLink={{
+        from: routePath,
+        to: '/app/enterprises/$enterpriseId/task-email/$taskId/resend',
+        search: true,
+        replace: true,
+        resetScroll: false,
+      }}
     />
   );
 }

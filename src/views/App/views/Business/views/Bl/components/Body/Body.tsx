@@ -26,7 +26,10 @@ export default function AppViewBusinessViewBlViewBodyComponent() {
       <div className={styles.title}>Bon de Livraison {bl.number}</div>
 
       <div className={styles.pdf_viewer}>
-        <PDFViewer showToolbar={!user.userInfo.roles.some((role) => ['ROLE_CLIENT', 'ROLE_REPRESENTANT_VIZEO'].includes(role)) && !business.archived}>
+        <PDFViewer
+          key={Date.now()}
+          showToolbar={!user.userInfo.roles.some((role) => ['ROLE_CLIENT', 'ROLE_REPRESENTANT_VIZEO'].includes(role)) && !business.archived}
+        >
           <AppViewBusinessViewBlViewBodyComponentPdfComponent business={business} bl={bl} />
         </PDFViewer>
       </div>
@@ -41,7 +44,11 @@ export default function AppViewBusinessViewBlViewBodyComponent() {
           {(user.userInfo.roles.some((role) => ['ROLE_MEMBRE_VIZEO', 'ROLE_REPRESENTANT'].includes(role)) ||
             user.profile.categoryClient === 'DISTRIBUTEUR' ||
             user.profile.categoryClient === 'DISTRIBUTEUR_VVA') && (
-            <PDFDownloadLink document={<AppViewBusinessViewBlViewBodyComponentPdfComponent business={business} bl={bl} />} fileName={bl.number + '.pdf'}>
+            <PDFDownloadLink
+              key={Date.now()}
+              document={<AppViewBusinessViewBlViewBodyComponentPdfComponent business={business} bl={bl} />}
+              fileName={bl.number + '.pdf'}
+            >
               {({ loading }) => <button className="btn btn-secondary">{loading ? 'Chargement...' : 'Télécharger'}</button>}
             </PDFDownloadLink>
           )}

@@ -191,3 +191,15 @@ export const getAllBusinessPageByEnterpriseIdAndProfileId = async (enterpriseId:
     })
   ).data;
 };
+
+export const updateAllBusinessModifyDate = (category: CategoryBusiness, numBusiness: string, userId: string) => {
+  return privateInstance<void>({
+    method: 'POST',
+    url: `/all-business/v1/all-business-and-rma/update-lazy`,
+    params: {
+      category,
+      numBusiness,
+      userId,
+    },
+  });
+};

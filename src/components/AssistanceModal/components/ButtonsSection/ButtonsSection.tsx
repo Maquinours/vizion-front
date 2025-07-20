@@ -1,0 +1,46 @@
+import styles from './ButtonsSection.module.scss';
+
+// const routePath = '/app/businesses-rma/business/$businessId/assistance/$assistanceId';
+
+type AssistanceModalComponentButtonsSectionComponentProps = Readonly<{
+  onCreateFaqButtonClick: () => void;
+  onEditButtonClick: () => void;
+}>;
+export default function AssistanceModalComponentButtonsSectionComponent({
+  onCreateFaqButtonClick,
+  onEditButtonClick,
+}: AssistanceModalComponentButtonsSectionComponentProps) {
+  return (
+    <div className={styles.buttons_container}>
+      <div className="flex flex-1 flex-col gap-y-2">
+        {/* <Link to="/app/faq" className="btn btn-primary" style={{ fontSize: '14px', lineHeight: '20px' }}>
+          FAQ
+        </Link> */}
+        <button type="button" className="btn btn-secondary" onClick={onCreateFaqButtonClick}>
+          {/* <Link from={routePath} to="create-faq" search replace resetScroll={false} preload="intent" className="btn btn-secondary"> */}
+          Ajouter une FAQ
+          {/* </Link> */}
+        </button>
+        {/* <Link from={routePath} to="/app/businesses-rma/business/$businessId/study" className="btn btn-primary">
+          Accès dossier technique
+        </Link>
+        <Link from={routePath} to="/app/businesses-rma/business/$businessId/quotation" className="btn btn-primary">
+          Accès liste du matériel
+        </Link> */}
+      </div>
+      <div className="flex flex-1 flex-col gap-y-2">
+        {/* <Link to="/app/tools/ddns/create" className="btn btn-primary">
+          Créer DDNS
+        </Link> */}
+        <button type="button" className="btn btn-secondary" onClick={onEditButtonClick}>
+          {/* <Link from={routePath} to="pdf" search replace resetScroll={false} preload="intent" className="btn btn-secondary"> */}
+          {"Éditer l'AT"}
+          {/* </Link> */}
+        </button>
+        {/* <Link from={routePath} to="delete" search replace resetScroll={false} preload="intent" className="btn btn-secondary">
+          {"Supprimer l'AT"}
+        </Link> */}
+      </div>
+    </div>
+  );
+}

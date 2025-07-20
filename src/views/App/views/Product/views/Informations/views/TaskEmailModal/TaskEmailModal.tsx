@@ -17,6 +17,7 @@ export default function AppViewProductViewInformationsViewTaskEmailModalView() {
       emailId={task.mailId!}
       onClose={() => navigate({ to: '../..', search: true, replace: true, resetScroll: false })}
       replyLink={{ to: '/app/products/$productId/informations/task-email/$taskId/reply', search: true, replace: true, resetScroll: false }}
+      resendLink={{ to: '/app/products/$productId/informations/task-email/$taskId/resend', search: true, replace: true, resetScroll: false }}
     />
   );
 }
