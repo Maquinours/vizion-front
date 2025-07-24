@@ -20,6 +20,7 @@ export default function AppViewBusinessViewBillView() {
   const { data: user } = useAuthentifiedUserQuery();
   const { data: business } = useSuspenseQuery(queries.businesses.detail._ctx.byId(businessId));
   const { data: bills } = useSuspenseQuery(queries['business-bills'].list._ctx.byBusinessId(businessId));
+  const { data: enterprise } = useSuspenseQuery(queries.enterprise.detail(business.enterpriseId));
 
   const credits = useMemo(() => bills.filter((bill) => bill.type === BillType.AVOIR), [bills]);
   const bill = useMemo(() => bills.find((bill) => bill.type === BillType.FACTURE), [bills]);
@@ -79,7 +80,7 @@ export default function AppViewBusinessViewBillView() {
 
             <div className={styles.pdf_viewer}>
               <PDFViewer showToolbar={!user.userInfo.roles.some((role) => ['ROLE_CLIENT', 'ROLE_REPRESENTANT_VIZEO'].includes(role)) && !business.archived}>
-                <AppViewBusinessViewBillViewPdfComponent bill={bill} business={business} />
+                <AppViewBusinessViewBillViewPdfComponent bill={bill} business={business} enterprise={enterprise} />
               </PDFViewer>
             </div>
             {!business.archived && (
@@ -92,7 +93,10 @@ export default function AppViewBusinessViewBillView() {
                 {(user.userInfo.roles.some((role) => ['ROLE_MEMBRE_VIZEO', 'ROLE_REPRESENTANT'].includes(role)) ||
                   user.profile.categoryClient === 'DISTRIBUTEUR' ||
                   user.profile.categoryClient === 'DISTRIBUTEUR_VVA') && (
-                  <PDFDownloadLink document={<AppViewBusinessViewBillViewPdfComponent bill={bill} business={business} />} fileName={`${bill.number}.pdf`}>
+                  <PDFDownloadLink
+                    document={<AppViewBusinessViewBillViewPdfComponent bill={bill} business={business} enterprise={enterprise} />}
+                    fileName={`${bill.number}.pdf`}
+                  >
                     {({ loading }) => <button className="btn btn-secondary">{loading ? 'Chargement...' : 'Télécharger'}</button>}
                   </PDFDownloadLink>
                 )}

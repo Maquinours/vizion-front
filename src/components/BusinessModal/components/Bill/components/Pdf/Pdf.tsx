@@ -5,6 +5,7 @@ import Logo from '../../../../../../assets/images/logo-vizeo-fond-blanc-baseline
 import BusinessResponseDto from '../../../../../../utils/types/BusinessResponseDto';
 import BusinessBillResponseDto from '../../../../../../utils/types/BusinessBillResponseDto';
 import { formatDateWithSlash } from '../../../../../../utils/functions/dates';
+import EnterpriseResponseDto from '../../../../../../utils/types/EnterpriseResponseDto';
 
 Font.register({
   family: 'Din',
@@ -113,6 +114,12 @@ const pageStyles = StyleSheet.create({
     color: '#16204E',
   },
   enterpriseAddress: {
+    lineHeight: 1.2,
+    fontSize: 13,
+    color: '#16204E',
+  },
+  enterpriseSiren: {
+    marginTop: 7,
     lineHeight: 1.2,
     fontSize: 13,
     color: '#16204E',
@@ -374,8 +381,9 @@ const currencyFormatter = (value: number) => {
 type BusinessModalComponentBillComponentPdfComponentProps = Readonly<{
   business: BusinessResponseDto;
   bill: BusinessBillResponseDto;
+  enterprise?: EnterpriseResponseDto;
 }>;
-export default function BusinessModalComponentBillComponentPdfComponent({ business, bill }: BusinessModalComponentBillComponentPdfComponentProps) {
+export default function BusinessModalComponentBillComponentPdfComponent({ business, bill, enterprise }: BusinessModalComponentBillComponentPdfComponentProps) {
   const ecoTax = bill.billDetails.reduce((acc, item) => acc + (item.taxDEEE ?? 0), 0);
 
   return (
@@ -402,6 +410,9 @@ export default function BusinessModalComponentBillComponentPdfComponent({ busine
                 <Text style={pageStyles.enterpriseAddress}>
                   {business.billingZipCode} {business.billingCity}
                 </Text>
+
+                <Text style={pageStyles.enterpriseSiren}>N°SIREN: {enterprise?.accountability?.siren}</Text>
+                <Text style={pageStyles.enterpriseAddress}>N°TVA: {enterprise?.accountability?.tvaNumber}</Text>
               </View>
             </View>
           </View>
