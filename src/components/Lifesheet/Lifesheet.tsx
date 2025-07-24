@@ -77,7 +77,7 @@ export default function LifesheetComponent({
     [getEmailLink],
   );
 
-  const createButton = useMemo(() => {
+  const createButton = (() => {
     if (createLink && onCreateClick) throw new Error('createLink and onCreateClick cannot be both defined');
 
     if (createLink)
@@ -99,14 +99,14 @@ export default function LifesheetComponent({
         </button>
       );
     else throw new Error('createLink or onCreateClick must be defined');
-  }, [createLink, onCreateClick]);
+  })();
 
-  const pagination = useMemo(() => {
+  const pagination = (() => {
     if (pageLink && onPageChange) throw new Error('pageLink and onPageChange cannot be both defined');
 
     if (pageLink) return <PaginationComponent page={page} totalPages={data?.totalPages} pageLink={pageLink} />;
     else if (onPageChange) return <PaginationComponent page={page} totalPages={data?.totalPages} onPageChange={onPageChange} />;
-  }, [pageLink, onPageChange]);
+  })();
 
   return (
     <CardComponent title="Fiche de vie" className={className}>
