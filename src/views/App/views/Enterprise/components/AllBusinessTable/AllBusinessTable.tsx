@@ -1,6 +1,10 @@
+import { VirtualElement } from '@popperjs/core';
 import { useQuery } from '@tanstack/react-query';
 import { Link, getRouteApi } from '@tanstack/react-router';
-import { Row, createColumnHelper } from '@tanstack/react-table';
+import { OnChangeFn, Row, SortingState, createColumnHelper } from '@tanstack/react-table';
+import classNames from 'classnames';
+import { useMemo, useState } from 'react';
+import AllBusinessRowTooltipComponent from '../../../../../../components/AllBusinessRowTooltip/AllBusinessRowTooltip';
 import CardComponent from '../../../../../../components/Card/Card';
 import CurrencyFormat from '../../../../../../components/CurrencyFormat/CurrencyFormat';
 import PaginationComponent from '../../../../../../components/Pagination/Pagination';
@@ -10,14 +14,10 @@ import AllBusinessState from '../../../../../../utils/enums/AllBusinessState';
 import CategoryBusiness from '../../../../../../utils/enums/CategoryBusiness';
 import { formatDateAndHourWithSlash } from '../../../../../../utils/functions/dates';
 import AllBusinessResponseDto from '../../../../../../utils/types/AllBusinessResponseDto';
-import styles from './AllBusinessTable.module.scss';
 import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthentifiedUser';
-import classNames from 'classnames';
-import { useMemo, useState } from 'react';
-import { VirtualElement } from '@popperjs/core';
+import styles from './AllBusinessTable.module.scss';
 import AppViewEnterpriseViewAllBusinessTableComponentContextMenuComponent from './components/ContextMenu/ContextMenu';
 import AppViewEnterpriseViewAllBusinessTableComponentSearchSectionComponent from './components/SearchSection/SearchSection';
-import AllBusinessRowTooltipComponent from '../../../../../../components/AllBusinessRowTooltip/AllBusinessRowTooltip';
 
 const size = 15;
 
@@ -77,10 +77,12 @@ export default function AppViewEnterpriseViewAllBusinessTableComponent() {
   const navigate = routeApi.useNavigate();
 
   const { enterpriseId } = routeApi.useParams();
-  const { allBusinessPage: page, allBusinessProfileId: contactId } = routeApi.useSearch();
+  const { allBusinessPage: page, allBusinessProfileId: contactId, allBusinessSortBy: sortBy, allBusinessSortDirection: sortDirection } = routeApi.useSearch();
 
   const { data: authentifiedUser } = useAuthentifiedUserQuery();
-  const { data, isLoading } = useQuery(allBusinesses.page._ctx.byEnterpriseIdAndPossibleProfileId({ enterpriseId, profileId: contactId, page, size }));
+  const { data, isLoading } = useQuery(
+    allBusinesses.page._ctx.byEnterpriseIdAndPossibleProfileId({ enterpriseId, profileId: contactId, page, size, sortBy, sortDirection }),
+  );
 
   const [selectedItem, setSelectedItem] = useState<AllBusinessResponseDto | undefined>();
   const [contextMenuAnchor, setContextMenuAnchor] = useState<VirtualElement | undefined>();
@@ -116,7 +118,7 @@ export default function AppViewEnterpriseViewAllBusinessTableComponent() {
 
   const columns = useMemo(
     () => [
-      columnHelper.display({
+      columnHelper.accessor('number', {
         header: "N° de l'affaire",
         cell: ({ row: { original } }) => {
           const children = <span className={classNames({ italic: original.enterpriseId !== enterpriseId })}>{original.number}</span>;
@@ -155,11 +157,11 @@ export default function AppViewEnterpriseViewAllBusinessTableComponent() {
           else return children;
         },
       }),
-      columnHelper.display({
+      columnHelper.accessor('title', {
         header: "Nom de l'affaire",
         cell: ({ row: { original } }) => <span className={classNames({ italic: original.enterpriseId !== enterpriseId })}>{original.title}</span>,
       }),
-      columnHelper.display({
+      columnHelper.accessor('enterpriseName', {
         header: 'Client',
         cell: ({ row: { original } }) => {
           const related = original.enterpriseId !== enterpriseId;
@@ -171,13 +173,13 @@ export default function AppViewEnterpriseViewAllBusinessTableComponent() {
           );
         },
       }),
-      columnHelper.display({
+      columnHelper.accessor('modifiedDate', {
         header: 'Dernière modification',
         cell: ({ row: { original } }) => (
           <span className={classNames({ italic: original.enterpriseId !== enterpriseId })}>{formatDateAndHourWithSlash(original.modifiedDate)}</span>
         ),
       }),
-      columnHelper.display({
+      columnHelper.accessor('totalHt', {
         header: 'Montant HT',
         cell: ({ row: { original } }) => (
           <span className={classNames({ italic: original.enterpriseId !== enterpriseId })}>
@@ -185,11 +187,11 @@ export default function AppViewEnterpriseViewAllBusinessTableComponent() {
           </span>
         ),
       }),
-      columnHelper.display({
+      columnHelper.accessor('representativeName', {
         header: 'Représentant',
         cell: ({ row: { original } }) => <span className={classNames({ italic: original.enterpriseId !== enterpriseId })}>{original.representativeName}</span>,
       }),
-      columnHelper.display({
+      columnHelper.accessor('state', {
         header: 'État',
         cell: ({ row: { original } }) => (
           <span className={classNames({ italic: original.enterpriseId !== enterpriseId })}>
@@ -200,6 +202,27 @@ export default function AppViewEnterpriseViewAllBusinessTableComponent() {
     ],
     [enterpriseId],
   );
+
+  const sortingState: SortingState | undefined = useMemo(() => {
+    if ((sortBy === undefined && sortDirection !== undefined) || (sortBy !== undefined && sortDirection === undefined))
+      throw new Error('Sorting by and direction should be defined together');
+    if (sortBy === undefined || sortDirection === undefined) return [];
+    return [{ id: sortBy, desc: sortDirection === 'desc' }];
+  }, [sortBy, sortDirection]);
+
+  const onSortingChange: OnChangeFn<SortingState> = (sorting) => {
+    const newSorting = typeof sorting === 'function' ? sorting(sortingState) : sorting;
+    console.log(newSorting);
+    if (newSorting.length > 1) throw new Error('Multiple sorting is not supported');
+    if (newSorting.length === 0)
+      navigate({ search: (old) => ({ ...old, allBusinessSortBy: undefined, allBusinessSortDirection: undefined }), replace: true, resetScroll: false });
+    else
+      navigate({
+        search: (old) => ({ ...old, allBusinessSortBy: newSorting[0]?.id, allBusinessSortDirection: newSorting[0]?.desc ? 'desc' : 'asc' }),
+        replace: true,
+        resetScroll: false,
+      });
+  };
 
   return (
     <>
@@ -222,6 +245,8 @@ export default function AppViewEnterpriseViewAllBusinessTableComponent() {
                 rowId="id"
                 onRowClick={onRowClick}
                 onRowContextMenu={onRowContextMenu}
+                sorting={sortingState}
+                onSortingChange={onSortingChange}
               />
             </div>
             <div className={styles.pagination}>

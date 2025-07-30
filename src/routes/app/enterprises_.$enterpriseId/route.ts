@@ -18,6 +18,21 @@ const searchSchema = z.object({
   contactsPage: z.number().int().min(0).catch(0),
   lifesheetPage: z.number().int().min(0).catch(0),
   allBusinessProfileId: z.string().uuid().optional().catch(undefined),
+  allBusinessSortBy: z
+    .union([
+      z.literal('number'),
+      z.literal('title'),
+      z.literal('enterpriseName'),
+      z.literal('modifiedDate'),
+      z.literal('representativeName'),
+      z.literal('state'),
+    ])
+    .optional()
+    .catch(undefined),
+  allBusinessSortDirection: z
+    .union([z.literal('asc'), z.literal('desc')])
+    .optional()
+    .catch(undefined),
 });
 
 export const Route = createFileRoute('/app/enterprises_/$enterpriseId')({

@@ -1,10 +1,20 @@
-import { useReactTable, getCoreRowModel, ColumnDef, Row, getExpandedRowModel, RowSelectionState } from '@tanstack/react-table';
+import {
+  useReactTable,
+  getCoreRowModel,
+  ColumnDef,
+  Row,
+  getExpandedRowModel,
+  RowSelectionState,
+  getSortedRowModel,
+  SortingState,
+  OnChangeFn,
+} from '@tanstack/react-table';
 import TableComponentHeaderComponent from './components/Header/Header';
 import TableComponentBodyComponent from './components/Body/Body';
 import React from 'react';
 
 type TableComponentProps<T> = Readonly<{
-  columns: ColumnDef<T>[];
+  columns: ColumnDef<T, any>[];
   data?: T[];
   isLoading?: boolean;
   onRowClick?: (e: React.MouseEvent, row: Row<T>) => void;
@@ -21,6 +31,8 @@ type TableComponentProps<T> = Readonly<{
   enableMultiRowSelection?: boolean;
   getRowId?: (row: T) => string;
   enableRowSelection?: (row: Row<T>) => boolean;
+  sorting?: SortingState;
+  onSortingChange?: OnChangeFn<SortingState>;
 }>;
 export default function TableComponent<T>({
   columns,
@@ -40,12 +52,15 @@ export default function TableComponent<T>({
   enableMultiRowSelection,
   getRowId,
   enableRowSelection,
+  sorting,
+  onSortingChange,
 }: TableComponentProps<T>) {
   const { getHeaderGroups, getRowModel } = useReactTable({
     data,
     columns,
     state: {
       rowSelection,
+      sorting,
     },
     onRowSelectionChange: setRowSelection,
     getCoreRowModel: getCoreRowModel(),
@@ -55,6 +70,8 @@ export default function TableComponent<T>({
     getRowId: rowId ? (row) => row[rowId] as string : undefined,
     enableMultiRowSelection: enableMultiRowSelection,
     enableRowSelection,
+    getSortedRowModel: getSortedRowModel(), //client-side sorting
+    onSortingChange: onSortingChange, //optionally control sorting state in your own scope for easy access
   });
 
   return (

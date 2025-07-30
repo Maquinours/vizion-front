@@ -15,7 +15,13 @@ export const getAllBusinesses = async () => {
   ).data;
 };
 
-export const getAllBusinessPageByEnterpriseId = async (enterpriseId: string, page: number, size: number) => {
+export const getAllBusinessPageByEnterpriseId = async (
+  enterpriseId: string,
+  page: number,
+  size: number,
+  sortBy: keyof AllBusinessResponseDto | undefined,
+  sortDirection: 'asc' | 'desc' | undefined,
+) => {
   return (
     await privateInstance<Page<AllBusinessResponseDto>>({
       method: 'GET',
@@ -24,6 +30,8 @@ export const getAllBusinessPageByEnterpriseId = async (enterpriseId: string, pag
         enterpriseId,
         page,
         size,
+        sortBy,
+        sortDirection,
       },
     })
   ).data;
@@ -177,7 +185,14 @@ export const unrelateAllBusinessToEnterprise = (allBusinessId: string, enterpris
   }).then((res) => res.data);
 };
 
-export const getAllBusinessPageByEnterpriseIdAndProfileId = async (enterpriseId: string, profileId: string, page: number, size: number) => {
+export const getAllBusinessPageByEnterpriseIdAndProfileId = async (
+  enterpriseId: string,
+  profileId: string,
+  page: number,
+  size: number,
+  sortBy: keyof AllBusinessResponseDto | undefined,
+  sortDirection: 'asc' | 'desc' | undefined,
+) => {
   return (
     await privateInstance<Page<AllBusinessResponseDto>>({
       method: 'GET',
@@ -187,6 +202,8 @@ export const getAllBusinessPageByEnterpriseIdAndProfileId = async (enterpriseId:
         profileId,
         page,
         size,
+        sortBy,
+        sortDirection,
       },
     })
   ).data;

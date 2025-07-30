@@ -9,10 +9,11 @@ import {
   getAllBusinessesNotAssociatedByEnterpriseId,
   searchAllBusiness,
 } from '../../api/allBusiness';
-import CategoryBusiness from '../../enums/CategoryBusiness';
 import AllBusinessState from '../../enums/AllBusinessState';
+import CategoryBusiness from '../../enums/CategoryBusiness';
 import CategoryClient from '../../enums/CategoryClient';
 import AllBusinessQInfoRequestDto from '../../types/AllBusinessQInfoRequestDto';
+import AllBusinessResponseDto from '../../types/AllBusinessResponseDto';
 
 export const allBusinesses = createQueryKeys('all-businesses', {
   list: {
@@ -41,17 +42,21 @@ export const allBusinesses = createQueryKeys('all-businesses', {
         profileId,
         page,
         size,
+        sortBy,
+        sortDirection,
       }: {
         enterpriseId: string;
         profileId?: string;
         page: number;
         size: number;
+        sortBy?: keyof AllBusinessResponseDto;
+        sortDirection?: 'asc' | 'desc';
       }) => ({
-        queryKey: [{ enterpriseId, profileId, page, size }],
+        queryKey: [{ enterpriseId, profileId, page, size, sortBy, sortDirection }],
         queryFn: () =>
           profileId
-            ? getAllBusinessPageByEnterpriseIdAndProfileId(enterpriseId, profileId, page, size)
-            : getAllBusinessPageByEnterpriseId(enterpriseId, page, size),
+            ? getAllBusinessPageByEnterpriseIdAndProfileId(enterpriseId, profileId, page, size, sortBy, sortDirection)
+            : getAllBusinessPageByEnterpriseId(enterpriseId, page, size, sortBy, sortDirection),
       }),
       search: (
         searchData: {
