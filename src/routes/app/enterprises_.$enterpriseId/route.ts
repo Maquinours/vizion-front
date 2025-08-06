@@ -36,7 +36,7 @@ export const Route = createFileRoute('/app/enterprises_/$enterpriseId')({
       contactsPage?: number;
       lifesheetPage?: number;
       allBusinessProfileId?: string;
-      allBusinessSortBy?: keyof EnterpriseResponseDto;
+      allBusinessSortBy?: 'number' | 'totalHt' | 'modifiedDate' | 'state';
       allBusinessSortOrder?: 'ASC' | 'DESC';
     } & SearchSchemaInput,
   ) => searchSchema.parse(data),

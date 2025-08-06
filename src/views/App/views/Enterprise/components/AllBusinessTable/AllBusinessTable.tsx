@@ -220,7 +220,7 @@ export default function AppViewEnterpriseViewAllBusinessTableComponent() {
       navigate({ search: (old) => ({ ...old, allBusinessSortBy: undefined, allBusinessSortOrder: undefined }), replace: true, resetScroll: false });
     else
       navigate({
-        search: (old) => ({ ...old, allBusinessSortBy: newSorting[0]?.id, allBusinessSortOrder: newSorting[0]?.desc ? 'DESC' : 'ASC' }),
+        search: (old) => ({ ...old, allBusinessSortBy: newSorting[0]?.id as 'number' | 'totalHt' | 'modifiedDate' | 'state', allBusinessSortOrder: newSorting[0]?.desc ? 'DESC' : 'ASC' }),
         replace: true,
         resetScroll: false,
       });
