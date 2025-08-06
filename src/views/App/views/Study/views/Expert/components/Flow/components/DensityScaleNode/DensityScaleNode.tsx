@@ -1,11 +1,11 @@
 import { Node, NodeProps, NodeResizeControl, OnResize, Position, useReactFlow, useUpdateNodeInternals } from '@xyflow/react';
-import { useEffect, useRef } from 'react';
 import { drag } from 'd3-drag';
 import { select } from 'd3-selection';
-import AmountFormat from '../../../../../../../../../../components/AmountFormat/AmountFormat';
+import { useEffect, useRef } from 'react';
 import { OnValueChange } from 'react-number-format';
-import useStore, { RFState } from '../../utils/store';
 import { useShallow } from 'zustand/react/shallow';
+import AmountFormat from '../../../../../../../../../../components/AmountFormat/AmountFormat';
+import useStore, { RFState } from '../../utils/store';
 
 export const isExpertStudyDensityScaleNode = (node: Node): node is ExpertStudyDensityScaleNode => {
   return node.type === 'densityScale' && 'rotation' in node.data && typeof node.data.rotation === 'number';
@@ -38,7 +38,7 @@ export default function AppViewStudyViewExpertViewFlowComponentDensityScaleNodeC
   };
 
   const onChangeRealWidth: OnValueChange = (values) => {
-    setPageScale({ real: Number(values.value) });
+    setPageScale({ real: values.floatValue });
   };
 
   useEffect(() => {
@@ -71,7 +71,7 @@ export default function AppViewStudyViewExpertViewFlowComponentDensityScaleNodeC
       <div
         id="calibreNode-rotator"
         ref={rotateControlRef}
-        className="nodrag absolute -top-8 left-2/4 h-2.5 w-2.5 translate-x-[-50%] translate-y-[-50%] cursor-alias rounded-[100%] bg-[#3367d9] after:absolute after:left-1 after:top-1 after:block after:h-8 after:w-px after:bg-[#3367d9] after:content-['']"
+        className="nodrag absolute -top-8 left-2/4 h-2.5 w-2.5 translate-x-[-50%] translate-y-[-50%] cursor-alias rounded-[100%] bg-[#3367d9] after:absolute after:top-1 after:left-1 after:block after:h-8 after:w-px after:bg-[#3367d9] after:content-['']"
         style={{ display: selected ? 'block' : 'none' }}
       />
       <div className="flex flex-col items-center">
