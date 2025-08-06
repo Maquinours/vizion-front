@@ -20,7 +20,7 @@ export const getAllBusinessPageByEnterpriseId = async (
   page: number,
   size: number,
   sortBy: keyof AllBusinessResponseDto | undefined,
-  sortDirection: 'asc' | 'desc' | undefined,
+  sortOrder: 'ASC' | 'DESC' | undefined,
 ) => {
   return (
     await privateInstance<Page<AllBusinessResponseDto>>({
@@ -31,7 +31,7 @@ export const getAllBusinessPageByEnterpriseId = async (
         page,
         size,
         sortBy,
-        sortDirection,
+        sortOrder,
       },
     })
   ).data;
@@ -111,6 +111,8 @@ export const searchAllBusiness = (
     excludedList,
     qInfos,
     fuzzy,
+    sortBy,
+    sortOrder,
   }: {
     startDate?: Date | null;
     endDate?: Date | null;
@@ -129,6 +131,8 @@ export const searchAllBusiness = (
     excludedList?: Array<CategoryClient> | null;
     qInfos?: Array<AllBusinessQInfoRequestDto> | null;
     fuzzy: boolean;
+    sortBy?: keyof AllBusinessResponseDto;
+    sortOrder?: 'ASC' | 'DESC';
   },
   { page, size }: { page: number; size: number },
 ) => {
@@ -152,6 +156,8 @@ export const searchAllBusiness = (
       state,
       excludedList,
       fuzzy,
+      sortBy,
+      sortOrder,
     },
     data: qInfos,
   }).then((res) => res.data);
@@ -191,7 +197,7 @@ export const getAllBusinessPageByEnterpriseIdAndProfileId = async (
   page: number,
   size: number,
   sortBy: keyof AllBusinessResponseDto | undefined,
-  sortDirection: 'asc' | 'desc' | undefined,
+  sortOrder: 'ASC' | 'DESC' | undefined,
 ) => {
   return (
     await privateInstance<Page<AllBusinessResponseDto>>({
@@ -203,7 +209,7 @@ export const getAllBusinessPageByEnterpriseIdAndProfileId = async (
         page,
         size,
         sortBy,
-        sortDirection,
+        sortOrder,
       },
     })
   ).data;

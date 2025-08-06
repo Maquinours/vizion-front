@@ -1,5 +1,6 @@
-import { Link, getRouteApi, useNavigate } from '@tanstack/react-router';
-import { Row, createColumnHelper } from '@tanstack/react-table';
+import { Link, getRouteApi } from '@tanstack/react-router';
+import { OnChangeFn, Row, SortingState, createColumnHelper } from '@tanstack/react-table';
+import moment from 'moment';
 import React, { useMemo } from 'react';
 import AllBusinessRowTooltipComponent from '../../../../../../components/AllBusinessRowTooltip/AllBusinessRowTooltip';
 import CurrencyFormat from '../../../../../../components/CurrencyFormat/CurrencyFormat';
@@ -11,7 +12,6 @@ import { formatDateAndHourWithSlash } from '../../../../../../utils/functions/da
 import AllBusinessResponseDto from '../../../../../../utils/types/AllBusinessResponseDto';
 import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthentifiedUser';
 import styles from './Table.module.scss';
-import moment from 'moment';
 
 const routeApi = getRouteApi('/app/businesses-rma');
 
@@ -71,9 +71,9 @@ type AppViewBusinessesRmaViewTableComponent = Readonly<{
   endDate: Date | undefined;
 }>;
 export default function AppViewBusinessesRmaViewTableComponent({ data, isLoading, startDate, endDate }: AppViewBusinessesRmaViewTableComponent) {
-  const navigate = useNavigate();
+  const navigate = routeApi.useNavigate();
 
-  const { state } = routeApi.useSearch();
+  const { state, sortBy, sortOrder } = routeApi.useSearch();
 
   const { data: user } = useAuthentifiedUserQuery();
 
@@ -81,18 +81,20 @@ export default function AppViewBusinessesRmaViewTableComponent({ data, isLoading
 
   const columns = useMemo(
     () => [
-      columnHelper.display({
+      columnHelper.accessor('modifiedDate', {
         header: `Date de ${state === AllBusinessState.FACTURE ? 'création' : 'modification'}`,
         cell: ({ row: { original } }) => formatDateAndHourWithSlash(state === AllBusinessState.FACTURE ? original.billDate : original.modifiedDate),
       }),
-      columnHelper.display({
+      columnHelper.accessor('number', {
         header: "Nr d'affaire",
         cell: ({ row: { original } }) => {
           const children = (
             <>
               <span>{original.number}</span>
               <span>{original.businessBillNumber}</span>
-              {original.creditNotes?.map((num, idx) => <span key={idx}>Avoir : {num.number}</span>)}
+              {original.creditNotes?.map((num, idx) => (
+                <span key={idx}>Avoir : {num.number}</span>
+              ))}
             </>
           );
 
@@ -182,7 +184,7 @@ export default function AppViewBusinessesRmaViewTableComponent({ data, isLoading
         header: 'Installateur ou info',
         cell: ({ row: { original } }) => original.installerProfileName ?? '',
       }),
-      columnHelper.display({
+      columnHelper.accessor('totalHt', {
         header: 'Montant HT',
         cell: ({ row: { original } }) => {
           if (original.category === CategoryBusiness.AFFAIRE) {
@@ -252,7 +254,7 @@ export default function AppViewBusinessesRmaViewTableComponent({ data, isLoading
           </ul>
         ),
       }),
-      columnHelper.display({
+      columnHelper.accessor('state', {
         header: 'État',
         cell: ({ row: { original } }) => STATES.find((state) => original.state === state.value)?.label,
       }),
@@ -262,6 +264,13 @@ export default function AppViewBusinessesRmaViewTableComponent({ data, isLoading
     ],
     [state, user, startDate, endDate],
   );
+
+  const sortingState: SortingState | undefined = useMemo(() => {
+    if ((sortBy === undefined && sortOrder !== undefined) || (sortBy !== undefined && sortOrder === undefined))
+      throw new Error('Sorting by and order should be defined together');
+    if (sortBy === undefined || sortOrder === undefined) return [];
+    return [{ id: sortBy, desc: sortOrder === 'DESC' }];
+  }, [sortBy, sortOrder]);
 
   const getRowClassName = (row: AllBusinessResponseDto) => (row.enterpriseCategory === CategoryClient.FOURNISSEUR ? styles.provider : undefined);
   const onRowClick = (e: React.MouseEvent, row: Row<AllBusinessResponseDto>) => {
@@ -274,10 +283,31 @@ export default function AppViewBusinessesRmaViewTableComponent({ data, isLoading
     }
   };
 
+  const onSortingChange: OnChangeFn<SortingState> = (sorting) => {
+    const newSorting = typeof sorting === 'function' ? sorting(sortingState) : sorting;
+    console.log(newSorting);
+    if (newSorting.length > 1) throw new Error('Multiple sorting is not supported');
+    if (newSorting.length === 0) navigate({ search: (old) => ({ ...old, sortBy: undefined, sortOrder: undefined }), replace: true, resetScroll: false });
+    else
+      navigate({
+        search: (old) => ({ ...old, sortBy: newSorting[0]?.id as keyof AllBusinessResponseDto, sortOrder: newSorting[0]?.desc ? 'DESC' : 'ASC' }),
+        replace: true,
+        resetScroll: false,
+      });
+  };
+
   return (
     <>
       <div className={styles.table_container}>
-        <TableComponent columns={columns} data={data} isLoading={isLoading} onRowClick={onRowClick} getRowClassName={getRowClassName} />
+        <TableComponent
+          columns={columns}
+          data={data}
+          isLoading={isLoading}
+          onRowClick={onRowClick}
+          getRowClassName={getRowClassName}
+          sorting={sortingState}
+          onSortingChange={onSortingChange}
+        />
       </div>
       {!!data && <AllBusinessRowTooltipComponent items={data} />}
     </>

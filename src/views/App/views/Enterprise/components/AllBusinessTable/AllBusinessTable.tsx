@@ -77,11 +77,11 @@ export default function AppViewEnterpriseViewAllBusinessTableComponent() {
   const navigate = routeApi.useNavigate();
 
   const { enterpriseId } = routeApi.useParams();
-  const { allBusinessPage: page, allBusinessProfileId: contactId, allBusinessSortBy: sortBy, allBusinessSortDirection: sortDirection } = routeApi.useSearch();
+  const { allBusinessPage: page, allBusinessProfileId: contactId, allBusinessSortBy: sortBy, allBusinessSortOrder: sortOrder } = routeApi.useSearch();
 
   const { data: authentifiedUser } = useAuthentifiedUserQuery();
   const { data, isLoading } = useQuery(
-    allBusinesses.page._ctx.byEnterpriseIdAndPossibleProfileId({ enterpriseId, profileId: contactId, page, size, sortBy, sortDirection }),
+    allBusinesses.page._ctx.byEnterpriseIdAndPossibleProfileId({ enterpriseId, profileId: contactId, page, size, sortBy, sortOrder }),
   );
 
   const [selectedItem, setSelectedItem] = useState<AllBusinessResponseDto | undefined>();
@@ -160,6 +160,7 @@ export default function AppViewEnterpriseViewAllBusinessTableComponent() {
       columnHelper.accessor('title', {
         header: "Nom de l'affaire",
         cell: ({ row: { original } }) => <span className={classNames({ italic: original.enterpriseId !== enterpriseId })}>{original.title}</span>,
+        enableSorting: false,
       }),
       columnHelper.accessor('enterpriseName', {
         header: 'Client',
@@ -172,6 +173,7 @@ export default function AppViewEnterpriseViewAllBusinessTableComponent() {
             </span>
           );
         },
+        enableSorting: false,
       }),
       columnHelper.accessor('modifiedDate', {
         header: 'Dernière modification',
@@ -190,6 +192,7 @@ export default function AppViewEnterpriseViewAllBusinessTableComponent() {
       columnHelper.accessor('representativeName', {
         header: 'Représentant',
         cell: ({ row: { original } }) => <span className={classNames({ italic: original.enterpriseId !== enterpriseId })}>{original.representativeName}</span>,
+        enableSorting: false,
       }),
       columnHelper.accessor('state', {
         header: 'État',
@@ -204,21 +207,20 @@ export default function AppViewEnterpriseViewAllBusinessTableComponent() {
   );
 
   const sortingState: SortingState | undefined = useMemo(() => {
-    if ((sortBy === undefined && sortDirection !== undefined) || (sortBy !== undefined && sortDirection === undefined))
-      throw new Error('Sorting by and direction should be defined together');
-    if (sortBy === undefined || sortDirection === undefined) return [];
-    return [{ id: sortBy, desc: sortDirection === 'desc' }];
-  }, [sortBy, sortDirection]);
+    if ((sortBy === undefined && sortOrder !== undefined) || (sortBy !== undefined && sortOrder === undefined))
+      throw new Error('Sorting by and order should be defined together');
+    if (sortBy === undefined || sortOrder === undefined) return [];
+    return [{ id: sortBy, desc: sortOrder === 'DESC' }];
+  }, [sortBy, sortOrder]);
 
   const onSortingChange: OnChangeFn<SortingState> = (sorting) => {
     const newSorting = typeof sorting === 'function' ? sorting(sortingState) : sorting;
-    console.log(newSorting);
     if (newSorting.length > 1) throw new Error('Multiple sorting is not supported');
     if (newSorting.length === 0)
-      navigate({ search: (old) => ({ ...old, allBusinessSortBy: undefined, allBusinessSortDirection: undefined }), replace: true, resetScroll: false });
+      navigate({ search: (old) => ({ ...old, allBusinessSortBy: undefined, allBusinessSortOrder: undefined }), replace: true, resetScroll: false });
     else
       navigate({
-        search: (old) => ({ ...old, allBusinessSortBy: newSorting[0]?.id, allBusinessSortDirection: newSorting[0]?.desc ? 'desc' : 'asc' }),
+        search: (old) => ({ ...old, allBusinessSortBy: newSorting[0]?.id, allBusinessSortOrder: newSorting[0]?.desc ? 'DESC' : 'ASC' }),
         replace: true,
         resetScroll: false,
       });

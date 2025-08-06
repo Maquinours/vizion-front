@@ -72,6 +72,7 @@ export default function TableComponent<T>({
     enableRowSelection,
     getSortedRowModel: getSortedRowModel(), //client-side sorting
     onSortingChange: onSortingChange, //optionally control sorting state in your own scope for easy access
+    manualSorting: true, //use pre-sorted row model instead of sorted row model
   });
 
   return (

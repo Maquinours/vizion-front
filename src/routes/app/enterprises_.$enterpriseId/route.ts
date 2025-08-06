@@ -19,18 +19,11 @@ const searchSchema = z.object({
   lifesheetPage: z.number().int().min(0).catch(0),
   allBusinessProfileId: z.string().uuid().optional().catch(undefined),
   allBusinessSortBy: z
-    .union([
-      z.literal('number'),
-      z.literal('title'),
-      z.literal('enterpriseName'),
-      z.literal('modifiedDate'),
-      z.literal('representativeName'),
-      z.literal('state'),
-    ])
+    .union([z.literal('number'), z.literal('totalHt'), z.literal('modifiedDate'), z.literal('state')])
     .optional()
     .catch(undefined),
-  allBusinessSortDirection: z
-    .union([z.literal('asc'), z.literal('desc')])
+  allBusinessSortOrder: z
+    .union([z.literal('ASC'), z.literal('DESC')])
     .optional()
     .catch(undefined),
 });
@@ -43,19 +36,25 @@ export const Route = createFileRoute('/app/enterprises_/$enterpriseId')({
       contactsPage?: number;
       lifesheetPage?: number;
       allBusinessProfileId?: string;
+      allBusinessSortBy?: keyof EnterpriseResponseDto;
+      allBusinessSortOrder?: 'ASC' | 'DESC';
     } & SearchSchemaInput,
   ) => searchSchema.parse(data),
-  loaderDeps: ({ search: { allBusinessPage, contactsSearch, contactsPage, lifesheetPage, allBusinessProfileId } }) => ({
+  loaderDeps: ({
+    search: { allBusinessPage, contactsSearch, contactsPage, lifesheetPage, allBusinessProfileId, allBusinessSortBy, allBusinessSortOrder },
+  }) => ({
     allBusinessPage,
     contactsSearch,
     contactsPage,
     lifesheetPage,
     allBusinessProfileId,
+    allBusinessSortBy,
+    allBusinessSortOrder,
   }),
   loader: async ({
     context: { queryClient },
     params: { enterpriseId },
-    deps: { allBusinessPage, contactsSearch, contactsPage, lifesheetPage, allBusinessProfileId },
+    deps: { allBusinessPage, contactsSearch, contactsPage, lifesheetPage, allBusinessProfileId, allBusinessSortBy, allBusinessSortOrder },
   }) => {
     const allBusinessSize = 15;
     const contactsSize = 5;
@@ -84,6 +83,8 @@ export const Route = createFileRoute('/app/enterprises_/$enterpriseId')({
         profileId: allBusinessProfileId,
         page: allBusinessPage,
         size: allBusinessSize,
+        sortBy: allBusinessSortBy,
+        sortOrder: allBusinessSortOrder,
       }),
     );
     queryClient.prefetchQuery(queries.profiles.page._ctx.byEnterpriseIdAndSearch(enterpriseId, contactsSearch, { page: contactsPage, size: contactsSize }));

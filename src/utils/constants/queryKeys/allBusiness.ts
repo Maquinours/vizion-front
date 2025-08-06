@@ -43,20 +43,20 @@ export const allBusinesses = createQueryKeys('all-businesses', {
         page,
         size,
         sortBy,
-        sortDirection,
+        sortOrder,
       }: {
         enterpriseId: string;
         profileId?: string;
         page: number;
         size: number;
         sortBy?: keyof AllBusinessResponseDto;
-        sortDirection?: 'asc' | 'desc';
+        sortOrder?: 'ASC' | 'DESC';
       }) => ({
-        queryKey: [{ enterpriseId, profileId, page, size, sortBy, sortDirection }],
+        queryKey: [{ enterpriseId, profileId, page, size, sortBy, sortOrder }],
         queryFn: () =>
           profileId
-            ? getAllBusinessPageByEnterpriseIdAndProfileId(enterpriseId, profileId, page, size, sortBy, sortDirection)
-            : getAllBusinessPageByEnterpriseId(enterpriseId, page, size, sortBy, sortDirection),
+            ? getAllBusinessPageByEnterpriseIdAndProfileId(enterpriseId, profileId, page, size, sortBy, sortOrder)
+            : getAllBusinessPageByEnterpriseId(enterpriseId, page, size, sortBy, sortOrder),
       }),
       search: (
         searchData: {
@@ -77,6 +77,8 @@ export const allBusinesses = createQueryKeys('all-businesses', {
           excludedList?: Array<CategoryClient> | null;
           qInfos?: Array<AllBusinessQInfoRequestDto> | null;
           fuzzy: boolean;
+          sortBy?: keyof AllBusinessResponseDto;
+          sortOrder?: 'ASC' | 'DESC';
         },
         pageData: { page: number; size: number },
       ) => ({
