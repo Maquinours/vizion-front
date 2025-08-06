@@ -32,7 +32,7 @@ export default function AppLayout() {
 
   const { data: authentifiedUser } = useAuthentifiedUserQuery();
 
-  const [modalData, setModalData] = useState<ModalData | undefined>({ modal: ModalType.ENTERPRISE, enterpriseId: 'f8ac7d99-5ac1-42bc-ace2-bad6aaf14bea' });
+  const [modalData, setModalData] = useState<ModalData | undefined>();
 
   const modal = useMemo(() => {
     switch (modalId) {
