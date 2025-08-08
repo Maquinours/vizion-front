@@ -1,17 +1,24 @@
+import { Link } from '@tanstack/react-router';
+import EnterpriseResponseDto from '../../../../../../utils/types/EnterpriseResponseDto';
 import styles from './Buttons.module.scss';
 
 // const routePath = '/app/enterprises/$enterpriseId';
 
 type EnterpriseModalComponentHeaderComponentButtonsComponentProps = Readonly<{
+  enterprise: EnterpriseResponseDto;
   onEmailHistoryClick: () => void;
 }>;
 export default function EnterpriseModalComponentHeaderComponentButtonsComponent({
+  enterprise,
   onEmailHistoryClick,
 }: EnterpriseModalComponentHeaderComponentButtonsComponentProps) {
   // const { data: currentUser } = useAuthentifiedUserQuery();
 
   return (
     <div className={styles.container}>
+      <Link to="/app/enterprises/$enterpriseId" params={{ enterpriseId: enterprise.id }} className="btn btn-secondary">
+        Ouvrir l&apos;entreprise
+      </Link>
       <button className="btn btn-primary" onClick={onEmailHistoryClick}>
         Historique des mails
       </button>

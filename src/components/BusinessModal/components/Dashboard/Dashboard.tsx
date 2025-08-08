@@ -47,6 +47,7 @@ import BusinessModalComponentDashboardComponentUpdateResponsibleModalComponent f
 import { BusinessDashboardContext } from './utils/contexts/context';
 import BusinessModalComponentDashboardComponentUpdateBillingAddressModalComponent from './components/UpdateBillingAddressModal/UpdateBillingAddressModal';
 import BusinessModalComponentConfirmOtherQuotationImportModalComponent from './components/ConfirmOtherQuotationImportModal/ConfirmOtherQuotationImportModal';
+import { Link } from '@tanstack/react-router';
 
 // const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/dashboard');
 // const routePath = '/app/businesses-rma/business/$businessId/dashboard';
@@ -389,6 +390,17 @@ export default function BusinessModalComponentDashboardComponent({ business, goT
             <div className={styles.right_buttons}>
               {user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && (
                 <>
+                  <Link
+                    to="/app/businesses-rma/business/$businessId/dashboard"
+                    params={{ businessId: business.id }}
+                    replace
+                    resetScroll={false}
+                    ignoreBlocker
+                    preload="intent"
+                    className="btn btn-secondary"
+                  >
+                    Ouvrir l&apos;affaire
+                  </Link>
                   <button className="btn btn-primary" onClick={() => setModalData({ modal: BusinessDashboardModal.SEND_EMAIL })}>
                     Envoyer un mail
                   </button>

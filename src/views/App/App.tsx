@@ -1,5 +1,5 @@
 import * as Sentry from '@sentry/react';
-import { Outlet, getRouteApi } from '@tanstack/react-router';
+import { Outlet, getRouteApi, useRouterState } from '@tanstack/react-router';
 import classNames from 'classnames';
 import { useEffect, useMemo, useState } from 'react';
 import styles from './App.module.scss';
@@ -28,6 +28,8 @@ enum ModalType {
 type ModalData = { modal: ModalType.ENTERPRISE; enterpriseId: string; defaultContactsSearch?: string; defaultAllBusinessProfileId?: string };
 
 export default function AppLayout() {
+  const isRouterLoading = useRouterState({ select: (state) => state.isLoading });
+
   const { mobileSidebar, appModal: modalId } = routeApi.useSearch();
 
   const { data: authentifiedUser } = useAuthentifiedUserQuery();
@@ -62,6 +64,10 @@ export default function AppLayout() {
     authentifiedUser.userInfo.username,
     authentifiedUser.profile.email,
   ]);
+
+  useEffect(() => {
+    if (isRouterLoading) setModalData(undefined);
+  }, [isRouterLoading]);
 
   return (
     <>

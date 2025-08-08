@@ -8,6 +8,7 @@ import BusinessQuotationResponseDto from '../../../../../../../../utils/types/Bu
 import BusinessResponseDto from '../../../../../../../../utils/types/BusinessResponseDto';
 import { useAuthentifiedUserQuery } from '../../../../../../../../views/App/utils/functions/getAuthentifiedUser';
 import styles from './SectionOne.module.scss';
+import { Link } from '@tanstack/react-router';
 
 // const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/quotation');
 // const routePath = '/app/businesses-rma/business/$businessId/quotation';
@@ -104,6 +105,9 @@ export default function BusinessModalComponentQuotationComponentHeaderComponentS
         <span className="ml-2 text-xl text-[var(--primary-color)]">{business.numBusiness}</span>
       </div>
       <div className={styles.buttons_container}>
+        <Link to="/app/businesses-rma/business/$businessId/quotation" params={{ businessId: business.id }} className="btn btn-secondary">
+          Ouvrir l&apos;affaire
+        </Link>
         {/* <Link from={routePath} to="../study" className="btn btn-secondary">
           Accès à l&apos;étude
         </Link>
