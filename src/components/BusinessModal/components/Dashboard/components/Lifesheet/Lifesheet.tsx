@@ -1,5 +1,6 @@
 import { LifesheetAssociatedItem } from '../../../../../../utils/enums/LifesheetAssociatedItem';
 import BusinessResponseDto from '../../../../../../utils/types/BusinessResponseDto';
+import LifeSheetResponseDto from '../../../../../../utils/types/LifeSheetResponseDto';
 import LifesheetComponent from '../../../../../Lifesheet/Lifesheet';
 
 // const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/dashboard');
@@ -8,10 +9,12 @@ import LifesheetComponent from '../../../../../Lifesheet/Lifesheet';
 type BusinessModalComponentDashboardComponentLifesheetComponentProps = Readonly<{
   business: BusinessResponseDto;
   onCreateButtonClick: () => void;
+  onDeleteButtonClick: (lifesheet: LifeSheetResponseDto) => void;
 }>;
 export default function BusinessModalComponentDashboardComponentLifesheetComponent({
   business,
   onCreateButtonClick,
+  onDeleteButtonClick,
 }: BusinessModalComponentDashboardComponentLifesheetComponentProps) {
   // const { businessId } = routeApi.useParams();
   return (
@@ -21,6 +24,7 @@ export default function BusinessModalComponentDashboardComponentLifesheetCompone
       page={0}
       size={100}
       onCreateClick={onCreateButtonClick}
+      onDeleteClick={onDeleteButtonClick}
       // createLink={{
       //   from: routePath,
       //   to: '/app/businesses-rma/business/$businessId/dashboard/create-lifesheet',

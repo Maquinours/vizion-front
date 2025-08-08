@@ -48,6 +48,8 @@ import { BusinessDashboardContext } from './utils/contexts/context';
 import BusinessModalComponentDashboardComponentUpdateBillingAddressModalComponent from './components/UpdateBillingAddressModal/UpdateBillingAddressModal';
 import BusinessModalComponentConfirmOtherQuotationImportModalComponent from './components/ConfirmOtherQuotationImportModal/ConfirmOtherQuotationImportModal';
 import { Link } from '@tanstack/react-router';
+import LifeSheetResponseDto from '../../../../utils/types/LifeSheetResponseDto';
+import { DeleteLifesheetModalComponent } from '../../../DeleteLifesheetModal/DeleteLifesheetModal';
 
 // const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/dashboard');
 // const routePath = '/app/businesses-rma/business/$businessId/dashboard';
@@ -68,6 +70,7 @@ enum BusinessDashboardModal {
   UPDATE_REPRESPONSIBLE,
   UPDATE_BILLING_ADDRESS,
   CONFIRM_OTHER_QUOTATION_IMPORT,
+  DELETE_LIFESHEET,
 }
 
 type BusinessDashboardModalData =
@@ -118,7 +121,11 @@ type BusinessDashboardModalData =
       modal: BusinessDashboardModal.UPDATE_REPRESPONSIBLE;
     }
   | { modal: BusinessDashboardModal.UPDATE_BILLING_ADDRESS }
-  | { modal: BusinessDashboardModal.CONFIRM_OTHER_QUOTATION_IMPORT; otherBusiness: BusinessResponseDto };
+  | { modal: BusinessDashboardModal.CONFIRM_OTHER_QUOTATION_IMPORT; otherBusiness: BusinessResponseDto }
+  | {
+      modal: BusinessDashboardModal.DELETE_LIFESHEET;
+      lifesheet: LifeSheetResponseDto;
+    };
 
 const yupSchema = yup.object({
   businessName: yup.string().required('Champs requis.'),
@@ -275,6 +282,8 @@ export default function BusinessModalComponentDashboardComponent({ business, goT
             onClose={() => setModalData(undefined)}
           />
         );
+      case BusinessDashboardModal.DELETE_LIFESHEET:
+        return <DeleteLifesheetModalComponent lifesheet={modalData.lifesheet} onClose={() => setModalData(undefined)} />;
     }
   }, [modalData, business]);
 
@@ -445,6 +454,7 @@ export default function BusinessModalComponentDashboardComponent({ business, goT
             {user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && (
               <BusinessModalComponentDashboardComponentLifesheetComponent
                 onCreateButtonClick={() => setModalData({ modal: BusinessDashboardModal.CREATE_LIFESHEET })}
+                onDeleteButtonClick={(lifesheet) => setModalData({ modal: BusinessDashboardModal.DELETE_LIFESHEET, lifesheet })}
                 business={business}
               />
             )}

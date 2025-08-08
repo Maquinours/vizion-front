@@ -5,6 +5,7 @@
 import { useState } from 'react';
 import { LifesheetAssociatedItem } from '../../../../utils/enums/LifesheetAssociatedItem';
 import EnterpriseResponseDto from '../../../../utils/types/EnterpriseResponseDto';
+import LifeSheetResponseDto from '../../../../utils/types/LifeSheetResponseDto';
 import LifesheetComponent from '../../../Lifesheet/Lifesheet';
 
 // const routeApi = getRouteApi('/app/enterprises_/$enterpriseId');
@@ -13,8 +14,13 @@ import LifesheetComponent from '../../../Lifesheet/Lifesheet';
 type EnterpriseModalComponentLifesheetComponentProps = Readonly<{
   enterprise: EnterpriseResponseDto;
   onCreateClick: () => void;
+  onDeleteClick: (data: LifeSheetResponseDto) => void;
 }>;
-export default function EnterpriseModalComponentLifesheetComponent({ enterprise, onCreateClick }: EnterpriseModalComponentLifesheetComponentProps) {
+export default function EnterpriseModalComponentLifesheetComponent({
+  enterprise,
+  onCreateClick,
+  onDeleteClick,
+}: EnterpriseModalComponentLifesheetComponentProps) {
   // const { enterpriseId } = routeApi.useParams();
   // const { lifesheetPage: page } = routeApi.useSearch();
 
@@ -27,6 +33,7 @@ export default function EnterpriseModalComponentLifesheetComponent({ enterprise,
       page={page}
       onPageChange={setPage}
       onCreateClick={onCreateClick}
+      onDeleteClick={onDeleteClick}
       // pageLink={(page) => ({ from: routePath, search: (old) => ({ ...old, lifesheetPage: page }), replace: true, resetScroll: false })}
       // createLink={{
       //   from: routePath,

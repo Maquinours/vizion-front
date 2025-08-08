@@ -21,6 +21,13 @@ export default function AppViewRmaViewSupportViewLifesheetComponent() {
         params: { lifesheetId: data.id },
         search: true,
       })}
+      getDeleteLink={(data) => ({
+        to: '/app/businesses-rma/rma/$rmaId/support/delete-lifesheet/$lifesheetId',
+        params: { lifesheetId: data.id },
+        search: true,
+        replace: true,
+        preload: 'intent',
+      })}
     />
   );
 }

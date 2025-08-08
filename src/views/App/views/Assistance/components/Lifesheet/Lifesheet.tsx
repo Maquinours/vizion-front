@@ -20,6 +20,13 @@ export default function AppViewAssistanceViewLifesheetComponent({ assistance }: 
         params: { lifesheetId: data.id },
         search: true,
       })}
+      getDeleteLink={(data) => ({
+        to: '/app/businesses-rma/business/$businessId/assistance/$assistanceId/delete-lifesheet/$lifesheetId',
+        params: { lifesheetId: data.id },
+        search: true,
+        replace: true,
+        preload: 'intent',
+      })}
     />
   );
 }
