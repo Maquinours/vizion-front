@@ -13,6 +13,7 @@ import AppViewDashboardViewCallsHistoryComponentPaginationComponent from './comp
 import _ from 'lodash';
 import { formatPhoneNumber } from 'react-phone-number-input';
 import { isAxiosError } from 'axios';
+import CategoryBusiness from '../../../../../../utils/enums/CategoryBusiness';
 
 const routeApi = getRouteApi('/app/dashboard');
 
@@ -30,7 +31,7 @@ export default function AppViewDashboardViewCallsHistoryComponent() {
   }, [profiles, profileId]);
 
   const {
-    data,
+    data: calls,
     isLoading,
     refetch: refetchCalls,
     isRefetching,
@@ -39,7 +40,18 @@ export default function AppViewDashboardViewCallsHistoryComponent() {
     enabled: !!profileId && isLoadingProfiles ? false : true,
   });
 
-  const uniquePhoneNumbers = _.uniq(data?.calls.map((call) => call.raw_digits) || []);
+  const uniquePhoneNumbers = _.uniq(calls?.calls.map((call) => call.raw_digits) || []);
+  const uniqueBusinessNumbers = _.uniq(
+    calls?.calls
+      .map(
+        (call) =>
+          call.contact?.information
+            ?.trim()
+            .toUpperCase()
+            .match(/VZO\s\d{4}(?:\d{2})?/)?.[0],
+      )
+      .filter((information): information is string => !!information),
+  );
 
   const callProfiles = useQueries({
     queries: uniquePhoneNumbers.map((phoneNumber) => ({
@@ -49,30 +61,52 @@ export default function AppViewDashboardViewCallsHistoryComponent() {
     })),
   });
 
-  const getProfileFromPhoneNumber = useCallback(
-    (phoneNumber: string) => {
-      return callProfiles.at(uniquePhoneNumbers.indexOf(phoneNumber))?.data;
-    },
-    [callProfiles, uniquePhoneNumbers],
-  );
+  const allBusinesses = useQueries({
+    queries: uniqueBusinessNumbers.map((number) => {
+      const category = (() => {
+        switch (number.length) {
+          case 10:
+            return CategoryBusiness.AFFAIRE;
+          case 8:
+            return CategoryBusiness.RMA;
+          default:
+            throw new Error('Invalid business number');
+        }
+      })();
+      return {
+        ...queries['all-businesses'].detail._ctx.byCategoryAndNumber({ category, number }),
+        staleTime: Infinity,
+        retry: (_failureCount: unknown, error: unknown) => !(isAxiosError(error) && error.response?.status === 404),
+      };
+    }),
+  });
+
+  const data = useMemo(() => {
+    return calls?.calls.map((call) => {
+      const profile = callProfiles.at(uniquePhoneNumbers.indexOf(call.raw_digits))?.data;
+      const businessNumber = call.contact?.information
+        ?.trim()
+        .toUpperCase()
+        .match(/VZO\s\d{4}(?:\d{2})?/)?.[0];
+      const allBusiness = allBusinesses.find((business) => business.data?.number === businessNumber)?.data;
+      return { call, profile, allBusiness };
+    });
+  }, [calls, callProfiles, allBusinesses]);
 
   const refetch = useCallback(() => {
     refetchCalls();
     callProfiles.forEach((query) => query.refetch());
-  }, [refetchCalls, callProfiles]);
+    allBusinesses.forEach((query) => query.refetch());
+  }, [refetchCalls, callProfiles, allBusinesses]);
 
   return (
     <CardComponent title="Historique des appels" onReload={() => refetch()} isReloading={isRefetching} isMinimized={isMinimized} setMinimized={setMinimized}>
       <div className={styles.container}>
         <AppViewDashboardViewCallsHistoryComponentSearchSectionComponent />
-        <AppViewDashboardViewCallsHistoryComponentTableComponent
-          data={data?.calls}
-          isLoading={isLoading}
-          getProfileFromPhoneNumber={getProfileFromPhoneNumber}
-        />
+        <AppViewDashboardViewCallsHistoryComponentTableComponent data={data} isLoading={isLoading} />
         <AppViewDashboardViewCallsHistoryComponentPaginationComponent
           page={page}
-          totalPages={data ? Math.ceil(data.meta.total / data.meta.per_page) : undefined}
+          totalPages={calls ? Math.ceil(calls.meta.total / calls.meta.per_page) : undefined}
         />
       </div>
     </CardComponent>

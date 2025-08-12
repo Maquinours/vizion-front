@@ -226,3 +226,14 @@ export const updateAllBusinessModifyDate = (category: CategoryBusiness, numBusin
     },
   });
 };
+
+export const getByCategoryAndNumber = ({ category, number }: { category: CategoryBusiness; number: string }) => {
+  return privateInstance<AllBusinessResponseDto>({
+    method: 'GET',
+    url: `/all-business/v1/all-business-and-rma/find-by-category-and-number`,
+    params: {
+      category,
+      number,
+    },
+  }).then((res) => res.data);
+};
