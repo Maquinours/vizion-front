@@ -5,7 +5,7 @@ export default interface AircallContactResponseDto {
   last_name: string;
   company_name: string;
   description: string;
-  information: string;
+  information: string | null;
   is_shared: boolean;
   phone_numbers: Array<object>; // TODO: Phone numbers
   emails: Array<object>; // TODO: Emails

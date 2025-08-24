@@ -5,6 +5,7 @@ import Logo from '../../../../../../../../assets/images/logo-vizeo-fond-blanc-ba
 import BusinessResponseDto from '../../../../../../../../utils/types/BusinessResponseDto';
 import BusinessBillResponseDto from '../../../../../../../../utils/types/BusinessBillResponseDto';
 import { formatDateWithSlash } from '../../../../../../../../utils/functions/dates';
+import EnterpriseResponseDto from '../../../../../../../../utils/types/EnterpriseResponseDto';
 
 Font.register({
   family: 'Din',
@@ -113,6 +114,12 @@ const pageStyles = StyleSheet.create({
     color: '#16204E',
   },
   enterpriseAddress: {
+    lineHeight: 1.2,
+    fontSize: 13,
+    color: '#16204E',
+  },
+  enterpriseSiren: {
+    marginTop: 7,
     lineHeight: 1.2,
     fontSize: 13,
     color: '#16204E',
@@ -374,8 +381,9 @@ const currencyFormatter = (value: number) => {
 type AppViewBusinessViewBillViewPdfComponentProps = Readonly<{
   business: BusinessResponseDto;
   bill: BusinessBillResponseDto;
+  enterprise: EnterpriseResponseDto | undefined;
 }>;
-export default function AppViewBusinessViewBillViewPdfComponent({ business, bill }: AppViewBusinessViewBillViewPdfComponentProps) {
+export default function AppViewBusinessViewBillViewPdfComponent({ business, bill, enterprise }: AppViewBusinessViewBillViewPdfComponentProps) {
   const ecoTax = bill.billDetails.reduce((acc, item) => acc + (item.taxDEEE ?? 0), 0);
 
   return (
@@ -392,6 +400,7 @@ export default function AppViewBusinessViewBillViewPdfComponent({ business, bill
               <Text style={pageStyles.phone}>04 72 12 27 96</Text>
               <Text style={pageStyles.website}>https://www.vizeo.eu</Text>
               <Text style={pageStyles.rc}>N°RC: 44494781600062</Text>
+              <Text style={pageStyles.rc}>N°TVA: FR76444947816</Text>
             </View>
             <View style={pageStyles.sectionOneGridTwo}>
               <View style={pageStyles.enterprise}>
@@ -401,6 +410,8 @@ export default function AppViewBusinessViewBillViewPdfComponent({ business, bill
                 <Text style={pageStyles.enterpriseAddress}>
                   {business.billingZipCode} {business.billingCity}
                 </Text>
+                <Text style={pageStyles.enterpriseSiren}>N°SIREN: {enterprise?.accountability?.siren}</Text>
+                <Text style={pageStyles.enterpriseAddress}>N°TVA: {enterprise?.accountability?.tvaNumber}</Text>
               </View>
             </View>
           </View>

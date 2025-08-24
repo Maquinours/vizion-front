@@ -69,7 +69,7 @@ export default function AppViewAircallIntegrationComponent({ openEnterpriseModal
     {
       onOpen: () => {
         console.log('Aircall websocket connected');
-        queryClient.invalidateQueries({ queryKey: aircallQueryKeys.allUsers.queryKey });
+        queryClient.invalidateQueries({ queryKey: aircallQueryKeys.availabilities.queryKey });
       },
       onClose: () => {
         console.log('Aircall websocket closed');
@@ -81,7 +81,7 @@ export default function AppViewAircallIntegrationComponent({ openEnterpriseModal
         if (message.data === 'pong') return;
         const data = JSON.parse(message.data) as AircallWebhookResponseDto<'number' | 'user' | 'contact' | 'call'>;
         console.log('Aircall websocket message', data);
-        if (isUserEvent(data)) queryClient.invalidateQueries({ queryKey: aircallQueryKeys.allUsers.queryKey });
+        if (isUserEvent(data)) queryClient.invalidateQueries({ queryKey: aircallQueryKeys.availabilities.queryKey });
         else if (isCallEvent(data))
           switch (data.event) {
             case 'call.created':
@@ -90,7 +90,7 @@ export default function AppViewAircallIntegrationComponent({ openEnterpriseModal
               break;
             case 'call.answered':
             case 'call.transferred':
-              queryClient.invalidateQueries({ queryKey: aircallQueryKeys.allUsers.queryKey });
+              queryClient.invalidateQueries({ queryKey: aircallQueryKeys.availabilities.queryKey });
               if (
                 data.data.direction === 'inbound' &&
                 data.data.user?.name?.toLowerCase().trim() ===
@@ -136,7 +136,7 @@ export default function AppViewAircallIntegrationComponent({ openEnterpriseModal
               break;
             case 'call.ended':
             case 'call.hungup':
-              queryClient.invalidateQueries({ queryKey: aircallQueryKeys.allUsers.queryKey });
+              queryClient.invalidateQueries({ queryKey: aircallQueryKeys.availabilities.queryKey });
               break;
           }
       },

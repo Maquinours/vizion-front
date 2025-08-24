@@ -24,6 +24,8 @@ import RmaModalComponentSupportoCmponentEmailModalComponent from './components/E
 import UnlinkWorkloadModalComponent from '../../../UnlinkWorkloadModal/UnlinkWorkloadModal';
 import CreateBusinessRmaLinkModalComponent from '../../../CreateBusinessRmaLinkModal/CreateBusinessRmaLinkModal';
 import DeleteBusinessRmaLinkModalComponent from '../../../DeleteBusinessRmaLinkModal/DeleteBusinessRmaLinkModal';
+import LifeSheetResponseDto from '../../../../utils/types/LifeSheetResponseDto';
+import { DeleteLifesheetModalComponent } from '../../../DeleteLifesheetModal/DeleteLifesheetModal';
 
 // const routeApi = getRouteApi('/app/businesses-rma_/rma/$rmaId/support');
 
@@ -39,6 +41,7 @@ enum ModalType {
   UNLINK_TASK,
   CREATE_LINK,
   DELETE_LINK,
+  DELETE_LIFESHEET,
 }
 
 type ModalData =
@@ -63,6 +66,10 @@ type ModalData =
   | {
       modal: ModalType.DELETE_LINK;
       associatedId: string;
+    }
+  | {
+      modal: ModalType.DELETE_LIFESHEET;
+      lifesheet: LifeSheetResponseDto;
     };
 
 type RmaModalComponentSupportComponentProps = Readonly<{
@@ -153,6 +160,8 @@ export default function RmaModalComponentSupportComponent({ rma, navigateToNextS
             onClose={() => setModalData(undefined)}
           />
         );
+      case ModalType.DELETE_LIFESHEET:
+        return <DeleteLifesheetModalComponent lifesheet={modalData.lifesheet} onClose={() => setModalData(undefined)} />;
     }
   }, [modalData]);
 
@@ -170,7 +179,11 @@ export default function RmaModalComponentSupportComponent({ rma, navigateToNextS
           <RmaModalComponentSupportComponentReturnAddressComponent rma={rma} />
         </div>
         <div className={styles.second_grid}>
-          <RmaModalComponentSupportComponentLifesheetComponent rma={rma} onCreateClick={() => setModalData({ modal: ModalType.CREATE_LIFESHEET })} />
+          <RmaModalComponentSupportComponentLifesheetComponent
+            rma={rma}
+            onCreateClick={() => setModalData({ modal: ModalType.CREATE_LIFESHEET })}
+            onDeleteClick={(lifesheet) => setModalData({ modal: ModalType.DELETE_LIFESHEET, lifesheet })}
+          />
           <RmaModalComponentSupportComponentGedComponent
             rma={rma}
             onCreateDirectoryClick={(data) => setModalData({ modal: ModalType.CREATE_GED_DIRECTORY, directoryRelativePath: data?.relativePath ?? '' })}

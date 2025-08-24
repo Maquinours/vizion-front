@@ -16,7 +16,7 @@ export default function AppViewEnterpriseViewContactsComponent() {
   const { contactsSearch: search, contactsPage: page } = routeApi.useSearch();
   const { enterpriseId } = routeApi.useParams();
 
-  const { data, refetch } = useQuery(queries.profiles.page._ctx.byEnterpriseIdAndSearch(enterpriseId, search, { page, size }));
+  const { data, refetch, isLoading } = useQuery(queries.profiles.page._ctx.byEnterpriseIdAndSearch(enterpriseId, search, { page, size }));
 
   return (
     <CardComponent title="Contacts">
@@ -26,7 +26,7 @@ export default function AppViewEnterpriseViewContactsComponent() {
           <AppViewEnterpriseViewContactsComponentSearchSectionComponent />
         </div>
         <div className={styles.body}>
-          <AppViewEnterpriseViewContactsComponentTableComponent data={data?.content} />
+          <AppViewEnterpriseViewContactsComponentTableComponent data={data?.content} isLoading={isLoading} />
           <AppViewEnterpriseViewContactsComponentPaginationComponent data={data} />
         </div>
       </div>

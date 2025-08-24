@@ -25,8 +25,9 @@ const columns = [
 
 type AppViewEnterpriseViewContactsComponentTableComponentProps = Readonly<{
   data: Array<ProfileResponseDto> | undefined;
+  isLoading: boolean;
 }>;
-export default function AppViewEnterpriseViewContactsComponentTableComponent({ data }: AppViewEnterpriseViewContactsComponentTableComponentProps) {
+export default function AppViewEnterpriseViewContactsComponentTableComponent({ data, isLoading }: AppViewEnterpriseViewContactsComponentTableComponentProps) {
   const [contextMenuAnchor, setContextMenuAnchor] = useState<VirtualElement>();
   const [contact, setContact] = useState<ProfileResponseDto>();
 
@@ -51,7 +52,7 @@ export default function AppViewEnterpriseViewContactsComponentTableComponent({ d
   return (
     <>
       <div className={styles.container}>
-        <TableComponent<ProfileResponseDto> data={data} columns={columns} isLoading={false} rowId="email" onRowContextMenu={onRowContextMenu} />
+        <TableComponent<ProfileResponseDto> data={data} columns={columns} isLoading={isLoading} rowId="email" onRowContextMenu={onRowContextMenu} />
       </div>
       <AppViewEnterpriseViewContactsComponentTableComponentContextMenuComponent
         anchorElement={contextMenuAnchor}

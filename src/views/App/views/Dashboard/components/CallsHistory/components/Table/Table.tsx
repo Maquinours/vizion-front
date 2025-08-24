@@ -8,17 +8,22 @@ import ProfileResponseDto from '../../../../../../../../utils/types/ProfileRespo
 import AppViewDashboardViewCallsHistoryComponentTableComponentContextMenuComponent from './components/ContextMenu/ContextMenu';
 import styles from './Table.module.scss';
 import AircallContactResponseDto from '../../../../../../../../utils/types/AircallContactResponseDto';
+import AllBusinessResponseDto from '../../../../../../../../utils/types/AllBusinessResponseDto';
+import { Link } from '@tanstack/react-router';
+import CategoryBusiness from '../../../../../../../../utils/enums/CategoryBusiness';
 
-const columnHelper = createColumnHelper<AircallCallResponseDto>();
+const columnHelper = createColumnHelper<{
+  call: AircallCallResponseDto;
+  profile: ProfileResponseDto | undefined;
+  allBusiness: AllBusinessResponseDto | undefined;
+}>();
 
 interface AppViewDashboardViewCallsHistoryComponentTableComponentProps {
-  data: Array<AircallCallResponseDto> | undefined;
+  data: Array<{ call: AircallCallResponseDto; profile: ProfileResponseDto | undefined; allBusiness: AllBusinessResponseDto | undefined }> | undefined;
   isLoading: boolean;
-  getProfileFromPhoneNumber: (phoneNumber: string) => ProfileResponseDto | undefined;
 }
 export default function AppViewDashboardViewCallsHistoryComponentTableComponent({
   data,
-  getProfileFromPhoneNumber,
   isLoading,
 }: AppViewDashboardViewCallsHistoryComponentTableComponentProps) {
   const [contextMenuAnchor, setContextMenuAnchor] = useState<VirtualElement>();
@@ -29,12 +34,7 @@ export default function AppViewDashboardViewCallsHistoryComponentTableComponent(
   }>();
 
   const onCellContextMenu = useCallback(
-    (
-      event: React.MouseEvent<HTMLDivElement, MouseEvent>,
-      number: string,
-      contact: AircallContactResponseDto | null,
-      profile: ProfileResponseDto | undefined,
-    ) => {
+    (event: React.MouseEvent, number: string, contact: AircallContactResponseDto | null, profile: ProfileResponseDto | undefined) => {
       event.preventDefault();
       setContextMenuData({ number, contact, profile });
       setContextMenuAnchor({
@@ -58,39 +58,89 @@ export default function AppViewDashboardViewCallsHistoryComponentTableComponent(
     () => [
       columnHelper.display({
         header: 'Date & Heure',
-        cell: ({ row: { original } }) => formatDateAndHourWithSlash(original.started_at * 1_000),
+        cell: ({ row: { original } }) => formatDateAndHourWithSlash(original.call.started_at * 1_000),
       }),
       columnHelper.display({
         header: 'De',
         cell: ({ row: { original } }) => {
-          if (original.direction === 'inbound') {
-            const profile = getProfileFromPhoneNumber(original.raw_digits);
+          if (original.call.direction === 'inbound') {
             const result = (() => {
-              if (profile) return `${profile.enterprise?.name ?? ''} / ${profile.firstName ?? ''} ${profile.lastName ?? ''}`;
-              else if (original.contact?.information) return `${original.contact.information}`;
-              else return `Inconnu ${original.raw_digits}`;
+              if (original.profile)
+                return `${original.profile.enterprise?.name ?? ''} / ${original.profile.firstName ?? ''} ${original.profile.lastName ?? ''}`;
+              else if (original.call.contact?.information) return `${original.call.contact.information}`;
+              else return `Inconnu ${original.call.raw_digits}`;
             })();
-            return <div onContextMenu={(e) => onCellContextMenu(e, original.raw_digits, original.contact, profile)}>{result}</div>;
-          } else if (original.direction === 'outbound') return original.user?.name;
+            if (original.allBusiness) {
+              switch (original.allBusiness.category) {
+                case CategoryBusiness.AFFAIRE:
+                  return (
+                    <Link
+                      to="/app/businesses-rma/business/$businessId"
+                      params={{ businessId: original.allBusiness.businessId }}
+                      onContextMenu={(e) => onCellContextMenu(e, original.call.raw_digits, original.call.contact, original.profile)}
+                    >
+                      {result}
+                    </Link>
+                  );
+                case CategoryBusiness.RMA:
+                  return (
+                    <Link
+                      to="/app/businesses-rma/rma/$rmaId"
+                      params={{ rmaId: original.allBusiness.businessId }}
+                      onContextMenu={(e) => onCellContextMenu(e, original.call.raw_digits, original.call.contact, original.profile)}
+                    >
+                      {result}
+                    </Link>
+                  );
+                default:
+                  throw new Error('Invalid business category');
+              }
+            } else return <div onContextMenu={(e) => onCellContextMenu(e, original.call.raw_digits, original.call.contact, original.profile)}>{result}</div>;
+          } else if (original.call.direction === 'outbound') return original.call.user?.name;
         },
       }),
       columnHelper.display({
         header: 'À',
         cell: ({ row: { original } }) => {
-          if (original.direction === 'inbound') return original.user?.name ?? <b>Non répondu</b>;
-          else if (original.direction === 'outbound') {
-            const profile = getProfileFromPhoneNumber(original.raw_digits);
+          if (original.call.direction === 'inbound') return original.call.user?.name ?? <b>Non répondu</b>;
+          else if (original.call.direction === 'outbound') {
             const result = (() => {
-              if (profile) return `${profile.enterprise?.name ?? ''} / ${profile.firstName ?? ''} ${profile.lastName ?? ''}`;
-              else if (original.contact?.information) return `${original.contact.information}`;
-              else return `Inconnu ${original.raw_digits}`;
+              if (original.profile)
+                return `${original.profile.enterprise?.name ?? ''} / ${original.profile.firstName ?? ''} ${original.profile.lastName ?? ''}`;
+              else if (original.call.contact?.information) return `${original.call.contact.information}`;
+              else return `Inconnu ${original.call.raw_digits}`;
             })();
-            return <div onContextMenu={(e) => onCellContextMenu(e, original.raw_digits, original.contact, profile)}>{result}</div>;
+            if (original.allBusiness) {
+              switch (original.allBusiness.category) {
+                case CategoryBusiness.AFFAIRE:
+                  return (
+                    <Link
+                      to="/app/businesses-rma/business/$businessId"
+                      params={{ businessId: original.allBusiness.businessId }}
+                      onContextMenu={(e) => onCellContextMenu(e, original.call.raw_digits, original.call.contact, original.profile)}
+                    >
+                      {result}
+                    </Link>
+                  );
+                case CategoryBusiness.RMA:
+                  return (
+                    <Link
+                      to="/app/businesses-rma/rma/$rmaId"
+                      params={{ rmaId: original.allBusiness.businessId }}
+                      onContextMenu={(e) => onCellContextMenu(e, original.call.raw_digits, original.call.contact, original.profile)}
+                    >
+                      {result}
+                    </Link>
+                  );
+                default:
+                  throw new Error('Invalid business category');
+              }
+            } else return <div onContextMenu={(e) => onCellContextMenu(e, original.call.raw_digits, original.call.contact, original.profile)}>{result}</div>;
           }
         },
       }),
     ],
-    [getProfileFromPhoneNumber, onCellContextMenu],
+    [onCellContextMenu],
   );
 
   return (

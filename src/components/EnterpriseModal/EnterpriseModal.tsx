@@ -37,6 +37,8 @@ import styles from './EnterpriseModal.module.scss';
 import EnterpriseModalComponentUpdateModalComponent from './components/UpdateModal/UpdateModal';
 import EnterpriseModalComponentRelateBusinessRmaComponent from './components/RelateBusinessRma/RelateBusinessRma';
 import EnterpriseModalComponentUpdateAccountabilityModalComponent from './components/UpdateAccountabilityModal/UpdateAccountability';
+import LifeSheetResponseDto from '../../utils/types/LifeSheetResponseDto';
+import { DeleteLifesheetModalComponent } from '../DeleteLifesheetModal/DeleteLifesheetModal';
 
 enum EnterpriseModal {
   BUSINESS,
@@ -60,6 +62,7 @@ enum EnterpriseModal {
   UPDATE,
   RELATE_BUSINESS_RMA,
   UPDATE_ACCOUNTABILITY,
+  DELETE_LIFESHEET,
 }
 
 type EnterpriseModalData =
@@ -130,6 +133,10 @@ type EnterpriseModalData =
   | { modal: EnterpriseModal.RELATE_BUSINESS_RMA }
   | {
       modal: EnterpriseModal.UPDATE_ACCOUNTABILITY;
+    }
+  | {
+      modal: EnterpriseModal.DELETE_LIFESHEET;
+      lifesheet: LifeSheetResponseDto;
     };
 
 type EnterpriseModalComponentProps = Readonly<{
@@ -236,6 +243,8 @@ export default function EnterpriseModalComponent({ enterpriseId, defaultContacts
         return <EnterpriseModalComponentRelateBusinessRmaComponent enterprise={enterprise} onClose={() => setModalData(undefined)} />;
       case EnterpriseModal.UPDATE_ACCOUNTABILITY:
         return <EnterpriseModalComponentUpdateAccountabilityModalComponent enterprise={enterprise} onClose={() => setModalData(undefined)} />;
+      case EnterpriseModal.DELETE_LIFESHEET:
+        return <DeleteLifesheetModalComponent lifesheet={modalData.lifesheet} onClose={() => setModalData(undefined)} />;
     }
   }, [modalData]);
 
@@ -288,7 +297,11 @@ export default function EnterpriseModalComponent({ enterpriseId, defaultContacts
             onUpdateContactPasswordClick={(contact) => setModalData({ modal: EnterpriseModal.UPDATE_CONTACT_PASSWORD, contact })}
             onContactEmailHistoryClick={(contact) => setModalData({ modal: EnterpriseModal.CONTACT_EMAIL_HISTORY, contact })}
           />
-          <EnterpriseModalComponentLifesheetComponent enterprise={enterprise} onCreateClick={() => setModalData({ modal: EnterpriseModal.CREATE_LIFESHEET })} />
+          <EnterpriseModalComponentLifesheetComponent
+            enterprise={enterprise}
+            onCreateClick={() => setModalData({ modal: EnterpriseModal.CREATE_LIFESHEET })}
+            onDeleteClick={(lifesheet) => setModalData({ modal: EnterpriseModal.DELETE_LIFESHEET, lifesheet })}
+          />
           <EnterpriseModalComponentWorkloadsComponent
             enterprise={enterprise}
             onEmailClick={(data) => setModalData({ modal: EnterpriseModal.EMAIL, emailId: data.mailId! })}

@@ -3,6 +3,7 @@ import { z } from 'zod';
 import AllBusinessState from '../../../utils/enums/AllBusinessState';
 import CategoryClient from '../../../utils/enums/CategoryClient';
 import { queries } from '../../../utils/constants/queryKeys';
+import AllBusinessResponseDto from '../../../utils/types/AllBusinessResponseDto';
 
 const searchSchema = z.object({
   number: z.string().min(1).optional().catch(undefined),
@@ -20,6 +21,14 @@ const searchSchema = z.object({
   fuzzy: z.boolean().catch(true),
   page: z.number().catch(0),
   size: z.union([z.literal(20), z.literal(30), z.literal(40), z.literal(50), z.literal(100), z.literal(150), z.literal(200), z.literal(400)]).catch(50),
+  sortBy: z
+    .union([z.literal('number'), z.literal('modifiedDate'), z.literal('state'), z.literal('totalHt')])
+    .optional()
+    .catch(undefined),
+  sortOrder: z
+    .union([z.literal('ASC'), z.literal('DESC')])
+    .optional()
+    .catch(undefined),
 });
 
 export const Route = createFileRoute('/app/businesses-rma')({
@@ -40,10 +49,30 @@ export const Route = createFileRoute('/app/businesses-rma')({
       fuzzy?: boolean;
       page?: number;
       size?: 20 | 30 | 40 | 50 | 100 | 150 | 200 | 400;
+      sortBy?: keyof AllBusinessResponseDto;
+      sortOrder?: 'ASC' | 'DESC';
     } & SearchSchemaInput,
   ) => searchSchema.parse(data),
   loaderDeps: ({
-    search: { number, numOrder, name, contact, zipCode, representative, amounts, installer, enterpriseName, state, dates, excludeds, fuzzy, page, size },
+    search: {
+      number,
+      numOrder,
+      name,
+      contact,
+      zipCode,
+      representative,
+      amounts,
+      installer,
+      enterpriseName,
+      state,
+      dates,
+      excludeds,
+      fuzzy,
+      page,
+      size,
+      sortBy,
+      sortOrder,
+    },
   }) => ({
     number,
     numOrder,
@@ -60,10 +89,30 @@ export const Route = createFileRoute('/app/businesses-rma')({
     fuzzy,
     page,
     size,
+    sortBy,
+    sortOrder,
   }),
   loader: ({
     context: { queryClient },
-    deps: { number, numOrder, name, contact, zipCode, representative, installer, amounts, enterpriseName, state, dates, excludeds, fuzzy, page, size },
+    deps: {
+      number,
+      numOrder,
+      name,
+      contact,
+      zipCode,
+      representative,
+      installer,
+      amounts,
+      enterpriseName,
+      state,
+      dates,
+      excludeds,
+      fuzzy,
+      page,
+      size,
+      sortBy,
+      sortOrder,
+    },
     location: {
       state: { qInfos },
     },
@@ -87,6 +136,8 @@ export const Route = createFileRoute('/app/businesses-rma')({
           excludedList: excludeds,
           fuzzy,
           qInfos,
+          sortBy,
+          sortOrder,
         },
         { page, size },
       ),

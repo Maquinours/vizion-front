@@ -91,3 +91,13 @@ export const getLifesheetById = async (id: string) => {
     })
   ).data;
 };
+
+export const deleteLifesheet = async (lifesheet: LifeSheetResponseDto) => {
+  return (
+    await privateInstance<LifeSheetResponseDto>({
+      method: 'DELETE',
+      url: '/life-sheet/v1/hist/delete',
+      params: { id: lifesheet.id },
+    })
+  ).data;
+};

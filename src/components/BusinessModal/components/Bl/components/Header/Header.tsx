@@ -6,6 +6,7 @@ import BusinessState from '../../../../../../utils/enums/BusinessState';
 import CategoryClient from '../../../../../../utils/enums/CategoryClient';
 import BusinessResponseDto from '../../../../../../utils/types/BusinessResponseDto';
 import styles from './Header.module.scss';
+import { Link } from '@tanstack/react-router';
 
 // const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/bl');
 
@@ -59,6 +60,9 @@ export default function BusinessModalComponentBlComponentHeaderComponent({
       <div className={styles.business_info}>
         <span>{business.enterpriseName}</span> / <span>{business.title}</span>
       </div>
+      <Link to="/app/businesses-rma/business/$businessId/bl" params={{ businessId: business.id }} className="btn btn-secondary">
+        Ouvrir l&apos;affaire
+      </Link>
       {!business.archived && business.state === BusinessState.BL && business.enterpriseCategory !== CategoryClient.FOURNISSEUR && (
         <button disabled={isCreatingBill} className="btn btn-secondary" onClick={onCreateBill}>
           {isCreatingBill ? 'Édition de la facture...' : 'Éditer Facture'}

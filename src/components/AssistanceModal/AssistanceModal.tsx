@@ -38,6 +38,8 @@ import AppViewAssistanceViewSummaryCardComponent from './components/SummaryCard/
 import AppViewAssistanceViewTitleCardComponent from './components/TitleCard/TitleCard';
 import { AssistanceContext } from './utils/contexts/context';
 import ReactModal from 'react-modal';
+import LifeSheetResponseDto from '../../utils/types/LifeSheetResponseDto';
+import { DeleteLifesheetModalComponent } from '../DeleteLifesheetModal/DeleteLifesheetModal';
 
 enum ModalType {
   EDIT_SUBTITLE,
@@ -52,6 +54,7 @@ enum ModalType {
   DELETE_GED_OBJECT,
   CREATE_FAQ,
   PDF,
+  DELETE_LIFESHEET,
 }
 
 type ModalData =
@@ -85,6 +88,10 @@ type ModalData =
     }
   | {
       modal: ModalType.PDF;
+    }
+  | {
+      modal: ModalType.DELETE_LIFESHEET;
+      lifesheet: LifeSheetResponseDto;
     };
 
 const amountFormatter = (value: number) => {
@@ -190,6 +197,8 @@ export default function AssistanceModalComponent({ business, assistanceId, onClo
         return <AssistanceModalComponentCreateFaqModalComponent business={business} assistance={assistance} onClose={() => setModalData(undefined)} />;
       case ModalType.PDF:
         return <AssistanceModalComponentPdfModalComponent assistance={assistance} onClose={() => setModalData(undefined)} />;
+      case ModalType.DELETE_LIFESHEET:
+        return <DeleteLifesheetModalComponent lifesheet={modalData.lifesheet} onClose={() => setModalData(undefined)} />;
     }
   }, [modalData, assistance]);
 
@@ -261,6 +270,7 @@ export default function AssistanceModalComponent({ business, assistanceId, onClo
               <AppViewAssistanceViewLifesheetComponent
                 assistance={assistance}
                 onCreateButtonClick={() => setModalData({ modal: ModalType.CREATE_LIFESHEET })}
+                onDeleteButtonClick={(lifesheet) => setModalData({ modal: ModalType.DELETE_LIFESHEET, lifesheet })}
               />
               <AppViewAssistanceViewGedComponent
                 assistance={assistance}

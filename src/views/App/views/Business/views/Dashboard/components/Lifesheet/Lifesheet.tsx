@@ -28,6 +28,15 @@ export default function AppViewBusinessViewDashboardViewLifesheetComponent() {
         search: true,
         ignoreBlocker: true,
       })}
+      getDeleteLink={(data) => ({
+        from: routePath,
+        to: '/app/businesses-rma/business/$businessId/dashboard/delete-lifesheet/$lifesheetId',
+        params: { lifesheetId: data.id },
+        search: true,
+        replace: true,
+        resetScroll: false,
+        ignoreBlocker: true,
+      })}
       className="flex-1"
     />
   );

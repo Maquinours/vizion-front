@@ -1,5 +1,5 @@
 import { createQueryKeys } from '@lukemorales/query-key-factory';
-import { getAircallContactById, getAllAircallCalls, getAllAircallUsers, searchAircallCalls } from '../../api/aircall';
+import { getAircallAvailabilities, getAircallContactById, getAllAircallCalls, getAllAircallUsers, searchAircallCalls } from '../../api/aircall';
 
 export const aircallQueryKeys = createQueryKeys('aircall', {
   allUsers: {
@@ -23,6 +23,15 @@ export const aircallQueryKeys = createQueryKeys('aircall', {
         queryKey: [id],
         queryFn: () => getAircallContactById(id),
       }),
+    },
+  },
+  availabilities: {
+    queryKey: null,
+    contextQueries: {
+      list: {
+        queryKey: null,
+        queryFn: getAircallAvailabilities,
+      },
     },
   },
 });

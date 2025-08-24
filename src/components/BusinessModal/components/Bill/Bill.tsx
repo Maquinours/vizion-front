@@ -8,7 +8,8 @@ import BillType from '../../../../utils/enums/BillType';
 import BusinessResponseDto from '../../../../utils/types/BusinessResponseDto';
 import { useAuthentifiedUserQuery } from '../../../../views/App/utils/functions/getAuthentifiedUser';
 import styles from './Bill.module.scss';
-import AppViewBusinessViewBillViewPdfComponent from './components/Pdf/Pdf';
+import BusinessModalComponentBillComponentPdfComponent from './components/Pdf/Pdf';
+import { Link } from '@tanstack/react-router';
 
 // const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/bill');
 // const routePath = '/app/businesses-rma/business/$businessId/bill';
@@ -23,8 +24,9 @@ export default function BusinessModalComponentBillComponent({ business }: Busine
   const { data: user } = useAuthentifiedUserQuery();
   // const { data: business } = useSuspenseQuery(queries.businesses.detail._ctx.byId(businessId));
   const { data: bills } = useSuspenseQuery(queries['business-bills'].list._ctx.byBusinessId(business.id));
+  const { data: enterprise } = useSuspenseQuery(queries.enterprise.detail(business.enterpriseId));
 
-  const credits = useMemo(() => bills.filter((bill) => bill.type === BillType.AVOIR), [bills]);
+  // const credits = useMemo(() => bills.filter((bill) => bill.type === BillType.AVOIR), [bills]);
   const bill = useMemo(() => bills.find((bill) => bill.type === BillType.FACTURE), [bills]);
 
   const { mutate: refreshBill, isPending: isRefreshingBill } = useMutation({
@@ -69,20 +71,23 @@ export default function BusinessModalComponentBillComponent({ business }: Busine
   return (
     <>
       <div className={styles.container}>
-        {!business.archived && credits.length > 0 && user.userInfo.roles.some((role) => ['ROLE_MEMBRE_VIZEO', 'ROLE_REPRESENTANT'].includes(role)) && (
-          <div className={styles.avoir_container}>
-            {/* <Link from={routePath} to="credits" search replace resetScroll={false} preload="intent" className="btn btn-secondary">
+        <div className={styles.avoir_container}>
+          <Link to="/app/businesses-rma/business/$businessId/bill" params={{ businessId: business.id }} className="btn btn-secondary">
+            Ouvrir l&apos;affaire
+          </Link>
+          {/* {!business.archived && credits.length > 0 && user.userInfo.roles.some((role) => ['ROLE_MEMBRE_VIZEO', 'ROLE_REPRESENTANT'].includes(role)) && (
+            <Link from={routePath} to="credits" search replace resetScroll={false} preload="intent" className="btn btn-secondary">
               Voir les avoirs
-            </Link> */}
-          </div>
-        )}
+            </Link>
+          )} */}
+        </div>
         {!!bill && (
           <div className={styles.pdf_container}>
             <div className={styles.title}>Facture : {bill.number}</div>
 
             <div className={styles.pdf_viewer}>
               <PDFViewer showToolbar={!user.userInfo.roles.some((role) => ['ROLE_CLIENT', 'ROLE_REPRESENTANT_VIZEO'].includes(role)) && !business.archived}>
-                <AppViewBusinessViewBillViewPdfComponent bill={bill} business={business} />
+                <BusinessModalComponentBillComponentPdfComponent bill={bill} business={business} enterprise={enterprise} />
               </PDFViewer>
             </div>
             {!business.archived && (
@@ -95,7 +100,10 @@ export default function BusinessModalComponentBillComponent({ business }: Busine
                 {(user.userInfo.roles.some((role) => ['ROLE_MEMBRE_VIZEO', 'ROLE_REPRESENTANT'].includes(role)) ||
                   user.profile.categoryClient === 'DISTRIBUTEUR' ||
                   user.profile.categoryClient === 'DISTRIBUTEUR_VVA') && (
-                  <PDFDownloadLink document={<AppViewBusinessViewBillViewPdfComponent bill={bill} business={business} />} fileName={`${bill.number}.pdf`}>
+                  <PDFDownloadLink
+                    document={<BusinessModalComponentBillComponentPdfComponent bill={bill} business={business} enterprise={enterprise} />}
+                    fileName={`${bill.number}.pdf`}
+                  >
                     {({ loading }) => <button className="btn btn-secondary">{loading ? 'Chargement...' : 'Télécharger'}</button>}
                   </PDFDownloadLink>
                 )}

@@ -11,8 +11,25 @@ import AppViewBusinessesRmaViewButtonsSectionComponent from './components/Button
 const routeApi = getRouteApi('/app/businesses-rma');
 
 export default function AppViewBusinessesRmaView() {
-  const { number, numOrder, name, contact, zipCode, representative, installer, amounts, enterpriseName, state, dates, excludeds, fuzzy, page, size } =
-    routeApi.useSearch();
+  const {
+    number,
+    numOrder,
+    name,
+    contact,
+    zipCode,
+    representative,
+    installer,
+    amounts,
+    enterpriseName,
+    state,
+    dates,
+    excludeds,
+    fuzzy,
+    page,
+    size,
+    sortBy,
+    sortOrder,
+  } = routeApi.useSearch();
 
   const qInfos = useRouterState({ select: (state) => state.location.state.qInfos });
 
@@ -38,6 +55,8 @@ export default function AppViewBusinessesRmaView() {
         excludedList: excludeds,
         fuzzy,
         qInfos,
+        sortBy,
+        sortOrder,
       },
       { page, size },
     ),

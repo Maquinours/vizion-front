@@ -17,12 +17,12 @@ export const Route = createFileRoute('/app/businesses-rma_/business/$businessId/
 
     if (!bill) throw redirect({ from: Route.fullPath, to: '..', replace: true });
 
-    const blob = await pdf(<AppViewBusinessViewBillViewPdfComponent bill={bill} business={business} />).toBlob();
+    const enterprise = await enterprisePromise;
+
+    const blob = await pdf(<AppViewBusinessViewBillViewPdfComponent bill={bill} business={business} enterprise={enterprise} />).toBlob();
     const file = new File([blob], formatFileName(`${bill.number}.pdf`), {
       type: blob.type,
     });
-
-    const enterprise = await enterprisePromise;
 
     queryClient.prefetchQuery(queries['predefined-message'].list);
 

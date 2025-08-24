@@ -15,7 +15,13 @@ export const getAllBusinesses = async () => {
   ).data;
 };
 
-export const getAllBusinessPageByEnterpriseId = async (enterpriseId: string, page: number, size: number) => {
+export const getAllBusinessPageByEnterpriseId = async (
+  enterpriseId: string,
+  page: number,
+  size: number,
+  sortBy: keyof AllBusinessResponseDto | undefined,
+  sortOrder: 'ASC' | 'DESC' | undefined,
+) => {
   return (
     await privateInstance<Page<AllBusinessResponseDto>>({
       method: 'GET',
@@ -24,6 +30,8 @@ export const getAllBusinessPageByEnterpriseId = async (enterpriseId: string, pag
         enterpriseId,
         page,
         size,
+        sortBy,
+        sortOrder,
       },
     })
   ).data;
@@ -103,6 +111,8 @@ export const searchAllBusiness = (
     excludedList,
     qInfos,
     fuzzy,
+    sortBy,
+    sortOrder,
   }: {
     startDate?: Date | null;
     endDate?: Date | null;
@@ -121,6 +131,8 @@ export const searchAllBusiness = (
     excludedList?: Array<CategoryClient> | null;
     qInfos?: Array<AllBusinessQInfoRequestDto> | null;
     fuzzy: boolean;
+    sortBy?: keyof AllBusinessResponseDto;
+    sortOrder?: 'ASC' | 'DESC';
   },
   { page, size }: { page: number; size: number },
 ) => {
@@ -144,6 +156,8 @@ export const searchAllBusiness = (
       state,
       excludedList,
       fuzzy,
+      sortBy,
+      sortOrder,
     },
     data: qInfos,
   }).then((res) => res.data);
@@ -177,7 +191,14 @@ export const unrelateAllBusinessToEnterprise = (allBusinessId: string, enterpris
   }).then((res) => res.data);
 };
 
-export const getAllBusinessPageByEnterpriseIdAndProfileId = async (enterpriseId: string, profileId: string, page: number, size: number) => {
+export const getAllBusinessPageByEnterpriseIdAndProfileId = async (
+  enterpriseId: string,
+  profileId: string,
+  page: number,
+  size: number,
+  sortBy: keyof AllBusinessResponseDto | undefined,
+  sortOrder: 'ASC' | 'DESC' | undefined,
+) => {
   return (
     await privateInstance<Page<AllBusinessResponseDto>>({
       method: 'GET',
@@ -187,6 +208,8 @@ export const getAllBusinessPageByEnterpriseIdAndProfileId = async (enterpriseId:
         profileId,
         page,
         size,
+        sortBy,
+        sortOrder,
       },
     })
   ).data;
@@ -202,4 +225,15 @@ export const updateAllBusinessModifyDate = (category: CategoryBusiness, numBusin
       userId,
     },
   });
+};
+
+export const getByCategoryAndNumber = ({ category, number }: { category: CategoryBusiness; number: string }) => {
+  return privateInstance<AllBusinessResponseDto>({
+    method: 'GET',
+    url: `/all-business/v1/all-business-and-rma/find-by-category-and-number`,
+    params: {
+      category,
+      number,
+    },
+  }).then((res) => res.data);
 };

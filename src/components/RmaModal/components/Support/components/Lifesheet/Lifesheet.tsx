@@ -2,14 +2,20 @@ import { useState } from 'react';
 import { LifesheetAssociatedItem } from '../../../../../../utils/enums/LifesheetAssociatedItem';
 import AssistanceResponseDto from '../../../../../../utils/types/AssistanceResponseDto';
 import LifesheetComponent from '../../../../../Lifesheet/Lifesheet';
+import LifeSheetResponseDto from '../../../../../../utils/types/LifeSheetResponseDto';
 
 // const routeApi = getRouteApi('/app/businesses-rma_/rma/$rmaId/support');
 
 type RmaModalComponentSupportComponentLifesheetComponentProps = Readonly<{
   rma: AssistanceResponseDto;
   onCreateClick: () => void;
+  onDeleteClick: (data: LifeSheetResponseDto) => void;
 }>;
-export default function RmaModalComponentSupportComponentLifesheetComponent({ rma, onCreateClick }: RmaModalComponentSupportComponentLifesheetComponentProps) {
+export default function RmaModalComponentSupportComponentLifesheetComponent({
+  rma,
+  onCreateClick,
+  onDeleteClick,
+}: RmaModalComponentSupportComponentLifesheetComponentProps) {
   // const { rmaId } = routeApi.useParams();
   // const { lifesheetPage } = routeApi.useSearch();
 
@@ -22,6 +28,7 @@ export default function RmaModalComponentSupportComponentLifesheetComponent({ rm
       page={page}
       size={5}
       onCreateClick={onCreateClick}
+      onDeleteClick={onDeleteClick}
       // createLink={{ to: '/app/businesses-rma/rma/$rmaId/support/create-lifesheet', params: true, search: true, replace: true, resetScroll: false }}
       onPageChange={setPage}
       // pageLink={(page) => ({ search: (old) => ({ ...old, lifesheetPage: page }), replace: true, resetScroll: false })}

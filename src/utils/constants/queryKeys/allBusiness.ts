@@ -7,12 +7,14 @@ import {
   getAllBusinessesAssociated,
   getAllBusinessesNotAssociated,
   getAllBusinessesNotAssociatedByEnterpriseId,
+  getByCategoryAndNumber,
   searchAllBusiness,
 } from '../../api/allBusiness';
-import CategoryBusiness from '../../enums/CategoryBusiness';
 import AllBusinessState from '../../enums/AllBusinessState';
+import CategoryBusiness from '../../enums/CategoryBusiness';
 import CategoryClient from '../../enums/CategoryClient';
 import AllBusinessQInfoRequestDto from '../../types/AllBusinessQInfoRequestDto';
+import AllBusinessResponseDto from '../../types/AllBusinessResponseDto';
 
 export const allBusinesses = createQueryKeys('all-businesses', {
   list: {
@@ -41,17 +43,21 @@ export const allBusinesses = createQueryKeys('all-businesses', {
         profileId,
         page,
         size,
+        sortBy,
+        sortOrder,
       }: {
         enterpriseId: string;
         profileId?: string;
         page: number;
         size: number;
+        sortBy?: keyof AllBusinessResponseDto;
+        sortOrder?: 'ASC' | 'DESC';
       }) => ({
-        queryKey: [{ enterpriseId, profileId, page, size }],
+        queryKey: [{ enterpriseId, profileId, page, size, sortBy, sortOrder }],
         queryFn: () =>
           profileId
-            ? getAllBusinessPageByEnterpriseIdAndProfileId(enterpriseId, profileId, page, size)
-            : getAllBusinessPageByEnterpriseId(enterpriseId, page, size),
+            ? getAllBusinessPageByEnterpriseIdAndProfileId(enterpriseId, profileId, page, size, sortBy, sortOrder)
+            : getAllBusinessPageByEnterpriseId(enterpriseId, page, size, sortBy, sortOrder),
       }),
       search: (
         searchData: {
@@ -72,6 +78,8 @@ export const allBusinesses = createQueryKeys('all-businesses', {
           excludedList?: Array<CategoryClient> | null;
           qInfos?: Array<AllBusinessQInfoRequestDto> | null;
           fuzzy: boolean;
+          sortBy?: keyof AllBusinessResponseDto;
+          sortOrder?: 'ASC' | 'DESC';
         },
         pageData: { page: number; size: number },
       ) => ({
@@ -86,6 +94,10 @@ export const allBusinesses = createQueryKeys('all-businesses', {
       byId: (id: string) => ({
         queryKey: [id],
         queryFn: () => getAllBusinessById(id),
+      }),
+      byCategoryAndNumber: ({ category, number }: { category: CategoryBusiness; number: string }) => ({
+        queryKey: [category, number],
+        queryFn: () => getByCategoryAndNumber({ category, number }),
       }),
     },
   },

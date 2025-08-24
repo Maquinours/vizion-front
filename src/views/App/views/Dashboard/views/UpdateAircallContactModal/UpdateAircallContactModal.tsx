@@ -60,7 +60,7 @@ export default function AppViewDashboardViewUpdateAircallContactModalView() {
   });
 
   useEffect(() => {
-    reset({ note: contact.contact.information });
+    reset({ note: contact.contact.information ?? '' });
   }, [contact.contact.information]);
 
   return (

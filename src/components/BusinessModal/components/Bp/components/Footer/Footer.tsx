@@ -8,6 +8,7 @@ import BusinessResponseDto from '../../../../../../utils/types/BusinessResponseD
 import AmountFormat from '../../../../../AmountFormat/AmountFormat';
 import styles from './Footer.module.scss';
 import BusinessState from '../../../../../../utils/enums/BusinessState';
+import { Link } from '@tanstack/react-router';
 
 // const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/bp');
 // const routePath = '/app/businesses-rma/business/$businessId/bp';
@@ -115,6 +116,9 @@ export default function BusinessModalComponentBpComponentFooterComponent({
       <AmountFormat value={bp.totalWeight} prefix="Poids total : " suffix="kg" className="font-bold" decimalScale={2} />
       {!business.archived && (
         <div className={styles.buttons_container}>
+          <Link to="/app/businesses-rma/business/$businessId/bp" params={{ businessId: business.id }} className="btn btn-secondary">
+            Ouvrir l&apos;affaire
+          </Link>
           <button className="btn btn-primary" onClick={onTravelVoucherClick}>
             Éditer BT
           </button>
