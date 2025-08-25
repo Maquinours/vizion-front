@@ -67,8 +67,7 @@ export default function AppViewDashboardViewCallsHistoryComponentTableComponent(
             const result = (() => {
               if (original.profile)
                 return `${original.profile.enterprise?.name ?? ''} / ${original.profile.firstName ?? ''} ${original.profile.lastName ?? ''}`;
-              else if (original.call.contact?.information) return `${original.call.contact.information}`;
-              else return `Inconnu ${original.call.raw_digits}`;
+              else return `${original.call.contact?.last_name?.trim() || original.call.contact?.information?.trim() || `Inconnu ${original.call.raw_digits}`}`;
             })();
             if (original.allBusiness) {
               switch (original.allBusiness.category) {
@@ -107,8 +106,7 @@ export default function AppViewDashboardViewCallsHistoryComponentTableComponent(
             const result = (() => {
               if (original.profile)
                 return `${original.profile.enterprise?.name ?? ''} / ${original.profile.firstName ?? ''} ${original.profile.lastName ?? ''}`;
-              else if (original.call.contact?.information) return `${original.call.contact.information}`;
-              else return `Inconnu ${original.call.raw_digits}`;
+              else return `${original.call.contact?.last_name?.trim() || original.call.contact?.information?.trim() || `Inconnu ${original.call.raw_digits}`}`;
             })();
             if (original.allBusiness) {
               switch (original.allBusiness.category) {

@@ -40,7 +40,7 @@ export default function AppViewDashboardViewCreateAircallContactModalView() {
   const { mutate, isPending } = useMutation({
     mutationFn: ({ note }: yup.InferType<typeof yupSchema>) =>
       createAircallContact({
-        information: note,
+        last_name: note,
         phone_numbers: [{ label: 'other', value: number.replaceAll(' ', '') }],
         emails: [],
       }),

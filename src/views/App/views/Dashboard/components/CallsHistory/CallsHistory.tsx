@@ -43,13 +43,7 @@ export default function AppViewDashboardViewCallsHistoryComponent() {
   const uniquePhoneNumbers = _.uniq(calls?.calls.map((call) => call.raw_digits) || []);
   const uniqueBusinessNumbers = _.uniq(
     calls?.calls
-      .map(
-        (call) =>
-          call.contact?.information
-            ?.trim()
-            .toUpperCase()
-            .match(/VZO\s\d{4}(?:\d{2})?/)?.[0],
-      )
+      .map((call) => (call.contact?.last_name?.trim() || call.contact?.information?.trim())?.toUpperCase().match(/VZO\s\d{4}(?:\d{2})?/)?.[0])
       .filter((information): information is string => !!information),
   );
 
@@ -84,10 +78,7 @@ export default function AppViewDashboardViewCallsHistoryComponent() {
   const data = useMemo(() => {
     return calls?.calls.map((call) => {
       const profile = callProfiles.at(uniquePhoneNumbers.indexOf(call.raw_digits))?.data;
-      const businessNumber = call.contact?.information
-        ?.trim()
-        .toUpperCase()
-        .match(/VZO\s\d{4}(?:\d{2})?/)?.[0];
+      const businessNumber = (call.contact?.last_name?.trim() || call.contact?.information?.trim())?.toUpperCase().match(/VZO\s\d{4}(?:\d{2})?/)?.[0];
       const allBusiness = allBusinesses.find((business) => business.data?.number === businessNumber)?.data;
       return { call, profile, allBusiness };
     });
