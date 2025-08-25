@@ -33,7 +33,7 @@ export default function AppViewDashboardViewCallsHistoryComponent() {
 
   const {
     data: calls,
-    isLoading,
+    isLoading: isLoadingCalls,
     refetch: refetchCalls,
     isRefetching,
   } = useQuery({
@@ -76,6 +76,8 @@ export default function AppViewDashboardViewCallsHistoryComponent() {
       return { call, profile, allBusiness };
     });
   }, [calls, profiles, allBusinesses]);
+
+  const isLoading = useMemo(() => isLoadingCalls || isLoadingProfiles || allBusinesses.some((query) => query.isLoading), [isLoadingCalls, isLoadingProfiles, allBusinesses]);
 
   const refetch = useCallback(() => {
     refetchCalls();
