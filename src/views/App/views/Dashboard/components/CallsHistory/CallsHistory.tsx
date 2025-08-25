@@ -22,9 +22,10 @@ export default function AppViewDashboardViewCallsHistoryComponent() {
 
   const { callsHistoryDates: dates, callsHistoryProfileId: profileId, callsHistoryPage: page } = routeApi.useSearch();
 
-  const { data: profiles, isLoading: isLoadingProfiles } = useQuery(queries.profiles.list);
+  const { data: profiles, isLoading: isLoadingProfiles, refetch: refetchProfiles } = useQuery(queries.profiles.list);
 
   const phoneNumber = useMemo(() => {
+    if (!profileId) return undefined;
     const phoneNumber = profiles?.find((profile) => profile.id === profileId)?.standardPhoneNumber;
     if (!phoneNumber) return undefined;
     return parsePhoneNumberWithError(phoneNumber, 'FR').formatInternational();
@@ -40,20 +41,11 @@ export default function AppViewDashboardViewCallsHistoryComponent() {
     enabled: !!profileId && isLoadingProfiles ? false : true,
   });
 
-  const uniquePhoneNumbers = _.uniq(calls?.calls.map((call) => call.raw_digits) || []);
   const uniqueBusinessNumbers = _.uniq(
     calls?.calls
       .map((call) => (call.contact?.last_name?.trim() || call.contact?.information?.trim())?.toUpperCase().match(/VZO\s\d{4}(?:\d{2})?/)?.[0])
       .filter((information): information is string => !!information),
   );
-
-  const callProfiles = useQueries({
-    queries: uniquePhoneNumbers.map((phoneNumber) => ({
-      ...queries.profiles.detail._ctx.byPhoneNumbers([phoneNumber, formatPhoneNumber(phoneNumber)]),
-      staleTime: Infinity,
-      retry: (_failureCount: unknown, error: unknown) => !(isAxiosError(error) && error.response?.status === 404),
-    })),
-  });
 
   const allBusinesses = useQueries({
     queries: uniqueBusinessNumbers.map((number) => {
@@ -77,18 +69,19 @@ export default function AppViewDashboardViewCallsHistoryComponent() {
 
   const data = useMemo(() => {
     return calls?.calls.map((call) => {
-      const profile = callProfiles.at(uniquePhoneNumbers.indexOf(call.raw_digits))?.data;
+      const possiblePhoneNumbers = [call.raw_digits.replace(/\s/g,''), formatPhoneNumber(call.raw_digits).replace(/\s/g,'')];
+      const profile = profiles?.find((profile) => (profile.phoneNumber && possiblePhoneNumbers.includes(profile.phoneNumber.replace(/\s/g,''))) || (profile.standardPhoneNumber && possiblePhoneNumbers.includes(profile.standardPhoneNumber.replace(/\s/g,''))))
       const businessNumber = (call.contact?.last_name?.trim() || call.contact?.information?.trim())?.toUpperCase().match(/VZO\s\d{4}(?:\d{2})?/)?.[0];
       const allBusiness = allBusinesses.find((business) => business.data?.number === businessNumber)?.data;
       return { call, profile, allBusiness };
     });
-  }, [calls, callProfiles, allBusinesses]);
+  }, [calls, profiles, allBusinesses]);
 
   const refetch = useCallback(() => {
     refetchCalls();
-    callProfiles.forEach((query) => query.refetch());
+    refetchProfiles();
     allBusinesses.forEach((query) => query.refetch());
-  }, [refetchCalls, callProfiles, allBusinesses]);
+  }, [refetchCalls, profiles, allBusinesses]);
 
   return (
     <CardComponent title="Historique des appels" onReload={() => refetch()} isReloading={isRefetching} isMinimized={isMinimized} setMinimized={setMinimized}>
