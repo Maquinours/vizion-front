@@ -1,21 +1,21 @@
-import { DndContext, KeyboardSensor, MouseSensor, TouchSensor, UniqueIdentifier, closestCenter, useSensor, useSensors, type DragEndEvent } from '@dnd-kit/core';
+import { closestCenter, DndContext, KeyboardSensor, MouseSensor, TouchSensor, UniqueIdentifier, useSensor, useSensors, type DragEndEvent } from '@dnd-kit/core';
 import { restrictToVerticalAxis } from '@dnd-kit/modifiers';
 import { arrayMove, SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
+import { VirtualElement } from '@popperjs/core';
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import { getRouteApi } from '@tanstack/react-router';
-import CurrencyFormat from '../../../../../../../../components/CurrencyFormat/CurrencyFormat';
-import { queries } from '../../../../../../../../utils/constants/queryKeys';
-import styles from './Table.module.scss';
 import React, { useMemo, useState } from 'react';
-import AppViewBusinessViewQuotationViewTableComponentQuotationDetailRowComponent from './components/QuotationDetailRow/QuotationDetailRow';
-import AppViewBusinessViewQuotationViewTableComponentSubQuotationRowComponent from './components/SubQuotationRow/SubQuotationRow';
+import CurrencyFormat from '../../../../../../../../components/CurrencyFormat/CurrencyFormat';
 import { reorderBusinessSubQuotation } from '../../../../../../../../utils/api/businessSubQuotations';
+import { queries } from '../../../../../../../../utils/constants/queryKeys';
+import BusinessQuotationDetailsResponseDto from '../../../../../../../../utils/types/BusinessQuotationDetailsResponseDto';
 import BusinessQuotationResponseDto from '../../../../../../../../utils/types/BusinessQuotationResponseDto';
-import AppViewBusinessViewQuotationViewTableComponentSubQuotationContextMenuComponent from './components/SubQuotationContextMenu/SubQuotationContextMenu';
-import { VirtualElement } from '@popperjs/core';
 import BusinessSubQuotationResponseDto from '../../../../../../../../utils/types/BusinessSubQuotationResponseDto';
 import AppViewBusinessViewQuotationViewTableComponentQuotationDetailContextMenuComponent from './components/QuotationDetailContextMenu/QuotationDetailContextMenu';
-import BusinessQuotationDetailsResponseDto from '../../../../../../../../utils/types/BusinessQuotationDetailsResponseDto';
+import AppViewBusinessViewQuotationViewTableComponentQuotationDetailRowComponent from './components/QuotationDetailRow/QuotationDetailRow';
+import AppViewBusinessViewQuotationViewTableComponentSubQuotationContextMenuComponent from './components/SubQuotationContextMenu/SubQuotationContextMenu';
+import AppViewBusinessViewQuotationViewTableComponentSubQuotationRowComponent from './components/SubQuotationRow/SubQuotationRow';
+import styles from './Table.module.scss';
 
 const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/quotation');
 
@@ -35,7 +35,10 @@ const getAnchor = (e: React.MouseEvent) => {
   };
 };
 
-export default function AppViewBusinessViewQuotationViewTableComponent() {
+type AppViewBusinessViewQuotationViewTableComponentProps = Readonly<{
+  showAmounts: boolean;
+}>;
+export default function AppViewBusinessViewQuotationViewTableComponent({ showAmounts }: AppViewBusinessViewQuotationViewTableComponentProps) {
   const queryClient = useQueryClient();
 
   const { businessId } = routeApi.useParams();
@@ -140,9 +143,10 @@ export default function AppViewBusinessViewQuotationViewTableComponent() {
                         key={detail.id}
                         detail={detail}
                         onContextMenu={onQuotationDetailRowContextMenu}
+                        showAmounts={showAmounts}
                       />
                     ))}
-                    {subQuotation.name !== 'Default' && !hideTotal && (
+                    {subQuotation.name !== 'Default' && showAmounts && !hideTotal && (
                       <tr>
                         <td colSpan={8} style={{ width: '88%', textAlign: 'right' }}>
                           SOUS TOTAL {subQuotation.name} HT

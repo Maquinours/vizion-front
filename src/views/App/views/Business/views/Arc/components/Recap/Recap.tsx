@@ -9,13 +9,18 @@ import { HiPencilAlt } from 'react-icons/hi';
 const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/arc');
 const routePath = '/app/businesses-rma/business/$businessId/arc';
 
-export default function AppViewBusinessViewArcViewRecapComponent() {
+type AppViewBusinessViewArcViewRecapComponentProps = Readonly<{
+  showAmounts: boolean;
+}>;
+export default function AppViewBusinessViewArcViewRecapComponent({ showAmounts }: AppViewBusinessViewArcViewRecapComponentProps) {
   const { businessId } = routeApi.useParams();
 
   const { data: user } = useAuthentifiedUserQuery();
   const { data: business } = useSuspenseQuery(queries.businesses.detail._ctx.byId(businessId));
   const { data: arc } = useSuspenseQuery(queries['business-ARCs'].detail._ctx.byBusinessId(businessId));
 
+  if (!showAmounts) return null;
+  
   return (
     <div className={styles.quote_recap}>
       <div className={styles.quote_container}>

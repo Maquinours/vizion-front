@@ -382,8 +382,9 @@ type AppViewBusinessViewBillViewPdfComponentProps = Readonly<{
   business: BusinessResponseDto;
   bill: BusinessBillResponseDto;
   enterprise: EnterpriseResponseDto | undefined;
+  showAmounts: boolean;
 }>;
-export default function AppViewBusinessViewBillViewPdfComponent({ business, bill, enterprise }: AppViewBusinessViewBillViewPdfComponentProps) {
+export default function AppViewBusinessViewBillViewPdfComponent({ business, bill, enterprise, showAmounts }: AppViewBusinessViewBillViewPdfComponentProps) {
   const ecoTax = bill.billDetails.reduce((acc, item) => acc + (item.taxDEEE ?? 0), 0);
 
   return (
@@ -479,10 +480,14 @@ export default function AppViewBusinessViewBillViewPdfComponent({ business, bill
                   <Text style={pageStyles.tableBodyReference}>{item.productReference}</Text>
                   <Text style={pageStyles.tableBodyDesignation}>{item.productDesignation}</Text>
                   <View style={pageStyles.tableBodyEcoTax}>
-                    <Text>{currencyFormatter(item.unitPrice ?? 0)}</Text>
-                    {(item.taxDEEE ?? 0) > 0 && <Text style={pageStyles.tableBodyEcoTaxValue}>EcoTaxe : {currencyFormatter(item.taxDEEE!)}</Text>}
+                    {showAmounts && (
+                      <>
+                        <Text>{currencyFormatter(item.unitPrice ?? 0)}</Text>
+                        {(item.taxDEEE ?? 0) > 0 && <Text style={pageStyles.tableBodyEcoTaxValue}>EcoTaxe : {currencyFormatter(item.taxDEEE!)}</Text>}
+                      </>
+                    )}
                   </View>
-                  <Text style={pageStyles.tableBodyComment}>{currencyFormatter(item.totalPrice ?? 0)}</Text>
+                  {showAmounts && <Text style={pageStyles.tableBodyComment}>{currencyFormatter(item.totalPrice ?? 0)}</Text>}
                 </View>
               ))}
             </View>
@@ -490,23 +495,23 @@ export default function AppViewBusinessViewBillViewPdfComponent({ business, bill
               <View style={pageStyles.recapTable}>
                 <View style={pageStyles.recapTableContent}>
                   <Text style={pageStyles.recapTableContentText}>Total general HT :</Text>
-                  <Text style={pageStyles.recapTableContentValue}>{currencyFormatter(bill.totalAmountHT ?? 0)}</Text>
+                  <Text style={pageStyles.recapTableContentValue}>{showAmounts ? currencyFormatter(bill.totalAmountHT ?? 0) : ''}</Text>
                 </View>
                 <View style={pageStyles.recapTableContent}>
                   <Text style={pageStyles.recapTableContentText}>Frais de port :</Text>
-                  <Text style={pageStyles.recapTableContentValue}>{currencyFormatter(bill.shippingServicePrice)}</Text>
+                  <Text style={pageStyles.recapTableContentValue}>{showAmounts ? currencyFormatter(bill.shippingServicePrice) : ''}</Text>
                 </View>
                 <View style={pageStyles.recapTableContent}>
                   <Text style={pageStyles.recapTableContentText}>Total EcoTaxe :</Text>
-                  <Text style={pageStyles.recapTableContentValue}>{currencyFormatter(ecoTax)}</Text>
+                  <Text style={pageStyles.recapTableContentValue}>{showAmounts ? currencyFormatter(ecoTax) : ''}</Text>
                 </View>
                 <View style={pageStyles.recapTableContent}>
                   <Text style={pageStyles.recapTableContentText}>Total TVA (Taux de TVA 20.0%) :</Text>
-                  <Text style={pageStyles.recapTableContentValue}>{currencyFormatter(bill.vat)}</Text>
+                  <Text style={pageStyles.recapTableContentValue}>{showAmounts ? currencyFormatter(bill.vat) : ''}</Text>
                 </View>
                 <View style={pageStyles.recapTableTotal}>
                   <Text style={pageStyles.recapTableTotalText}>Total TTC :</Text>
-                  <Text style={pageStyles.recapTableContentValue}>{currencyFormatter(bill.totalAmount ?? 0)}</Text>
+                  <Text style={pageStyles.recapTableContentValue}>{showAmounts ? currencyFormatter(bill.totalAmount ?? 0) : ''}</Text>
                 </View>
               </View>
             </View>

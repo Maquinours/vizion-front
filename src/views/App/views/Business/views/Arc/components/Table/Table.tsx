@@ -16,7 +16,10 @@ const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/arc');
 
 const columnHelper = createColumnHelper<BusinessArcDetailsResponseDto>();
 
-export default function AppViewBusinessViewArcViewTableComponent() {
+type AppViewBusinessViewArcViewTableComponentProps = Readonly<{
+  showAmounts: boolean;
+}>;
+export default function AppViewBusinessViewArcViewTableComponent({ showAmounts }: AppViewBusinessViewArcViewTableComponentProps) {
   const { businessId } = routeApi.useParams();
   const { hideReferencesPrices } = routeApi.useSearch();
 
@@ -39,7 +42,7 @@ export default function AppViewBusinessViewArcViewTableComponent() {
       }),
       columnHelper.display({
         header: 'Référence',
-        cell: ({ row: { original } }) => !hideReferencesPrices && <p>{original.productReference}</p>,
+        cell: ({ row: { original } }) => !hideReferencesPrices && showAmounts && <p>{original.productReference}</p>,
       }),
       columnHelper.display({
         header: 'Désignation',
@@ -60,25 +63,25 @@ export default function AppViewBusinessViewArcViewTableComponent() {
         header: 'Prix',
         cell: ({ row: { original } }) =>
           user.userInfo.roles.some((role) => ['ROLE_MEMBRE_VIZEO', 'ROLE_REPRESENTANT'].includes(role)) &&
-          !hideReferencesPrices && <CurrencyFormat value={original.publicUnitPrice} />,
+          !hideReferencesPrices && showAmounts && <CurrencyFormat value={original.publicUnitPrice} />,
       }),
       columnHelper.display({
         header: 'Remise',
         cell: ({ row: { original } }) =>
-          user.userInfo.roles.some((role) => ['ROLE_MEMBRE_VIZEO', 'ROLE_REPRESENTANT_VIZEO'].includes(role)) && (
+          user.userInfo.roles.some((role) => ['ROLE_MEMBRE_VIZEO', 'ROLE_REPRESENTANT_VIZEO'].includes(role)) && showAmounts && (
             <AmountFormat value={original.reduction} decimalScale={0} suffix="%" displayType="text" />
           ),
       }),
       columnHelper.display({
         header: 'Prix unitaire',
-        cell: ({ row: { original } }) => !hideReferencesPrices && <CurrencyFormat value={original.unitPrice} />,
+        cell: ({ row: { original } }) => !hideReferencesPrices && showAmounts && <CurrencyFormat value={original.unitPrice} />,
       }),
       columnHelper.display({
         header: 'Montant',
-        cell: ({ row: { original } }) => <CurrencyFormat value={original.totalPrice} />,
+        cell: ({ row: { original } }) => showAmounts && <CurrencyFormat value={original.totalPrice} />,
       }),
     ],
-    [user, hideReferencesPrices, stocks],
+    [user, hideReferencesPrices, stocks, showAmounts],
   );
 
   const onRowContextMenu = (e: React.MouseEvent, row: Row<BusinessArcDetailsResponseDto>) => {

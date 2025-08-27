@@ -183,11 +183,17 @@ export default function AppViewEnterpriseViewAllBusinessTableComponent() {
       }),
       columnHelper.accessor('totalHt', {
         header: 'Montant HT',
-        cell: ({ row: { original } }) => (
-          <span className={classNames({ italic: original.enterpriseId !== enterpriseId })}>
-            {original.category === CategoryBusiness.AFFAIRE ? <CurrencyFormat value={original.totalHt} /> : 'SAV'}
-          </span>
-        ),
+        cell: ({ row: { original } }) => {
+          const showAmounts =
+            authentifiedUser.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') ||
+            (!!authentifiedUser.profile.enterprise && authentifiedUser.profile.enterprise.id === original.enterpriseId);
+          if (showAmounts)
+            return (
+              <span className={classNames({ italic: original.enterpriseId !== enterpriseId })}>
+                {original.category === CategoryBusiness.AFFAIRE ? <CurrencyFormat value={original.totalHt} /> : 'SAV'}
+              </span>
+            );
+        },
       }),
       columnHelper.accessor('representativeName', {
         header: 'Représentant',
@@ -203,7 +209,7 @@ export default function AppViewEnterpriseViewAllBusinessTableComponent() {
         ),
       }),
     ],
-    [enterpriseId],
+    [enterpriseId, authentifiedUser],
   );
 
   const sortingState: SortingState | undefined = useMemo(() => {
@@ -220,7 +226,11 @@ export default function AppViewEnterpriseViewAllBusinessTableComponent() {
       navigate({ search: (old) => ({ ...old, allBusinessSortBy: undefined, allBusinessSortOrder: undefined }), replace: true, resetScroll: false });
     else
       navigate({
-        search: (old) => ({ ...old, allBusinessSortBy: newSorting[0]?.id as 'number' | 'totalHt' | 'modifiedDate' | 'state', allBusinessSortOrder: newSorting[0]?.desc ? 'DESC' : 'ASC' }),
+        search: (old) => ({
+          ...old,
+          allBusinessSortBy: newSorting[0]?.id as 'number' | 'totalHt' | 'modifiedDate' | 'state',
+          allBusinessSortOrder: newSorting[0]?.desc ? 'DESC' : 'ASC',
+        }),
         replace: true,
         resetScroll: false,
       });
