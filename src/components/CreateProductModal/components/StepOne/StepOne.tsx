@@ -1,12 +1,12 @@
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useQuery } from '@tanstack/react-query';
 import { Controller, useForm } from 'react-hook-form';
 import * as yup from 'yup';
-import { yupResolver } from '@hookform/resolvers/yup';
-import styles from './StepOne.module.scss';
-import { useQuery } from '@tanstack/react-query';
-import EnterpriseResponseDto from '../../../../utils/types/EnterpriseResponseDto';
 import { queries } from '../../../../utils/constants/queryKeys';
+import EnterpriseResponseDto from '../../../../utils/types/EnterpriseResponseDto';
 import CardComponent from '../../../Card/Card';
 import CustomSelect from '../../../CustomSelect/CustomSelect';
+import styles from './StepOne.module.scss';
 
 const categoryOptions = [
   {
@@ -60,8 +60,8 @@ const yupSchema = yup.object().shape({
   shortDescription: yup.string().required('La description est requise.'),
   longDescription: yup.string().nullable(),
   provider: yup.mixed<EnterpriseResponseDto>().required('Le représentant est requis'),
-  category: yup.string().required('La catégorie est requise'),
-  categories: yup.array().of(yup.string().required('La catégorie est requise')).required('Les catégories sont requises'),
+  // category: yup.string().required('La catégorie est requise'),
+  categories: yup.array().of(yup.string().required('La catégorie est requise')).min(1, 'Au moins une catégorie est requise').required('Les catégories sont requises'),
   isVizeo: yup.boolean().required('Champs requis'),
   isVirtual: yup.boolean().required('Champs requis'),
   isNomenclature: yup.boolean().required('Champs requis'),
@@ -148,7 +148,7 @@ export default function CreateProductModalComponentStepOneComponent({ show, onSu
                     </option>
                   ))}
                 </select> */}
-                <p className={styles.errors}>{errors.category?.message}</p>
+                <p className={styles.errors}>{errors.categories?.message}</p>
               </div>
               <div className={styles.form_group}>
                 <label htmlFor="isVizeo">Marque VIZEO :</label>
