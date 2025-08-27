@@ -26,7 +26,7 @@ const columns = [
         <div className="flex h-full items-center justify-between">
           <span>
             {original.profile ? `${original.profile.firstName} ${original.profile.lastName}` : original.event.fullName || original.event.username || 'Inconnu'}
-            {original.profile?.enterprise ? ` de l'entreprise ${original.profile.enterprise.name}` : ''}
+            {original.profile?.enterprise ? ` de ${original.profile.enterprise.name}` : ''}
             {/* {state?.label ?? 'Événement inconnu'} de {original.fullName || original.username || 'inconnu'} {original.en} */}
           </span>
           {!!state && <BsFillCircleFill color={state.color} height={20} width={20} />}

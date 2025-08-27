@@ -9,12 +9,17 @@ import { HiPencilAlt } from 'react-icons/hi';
 const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/quotation');
 const routePath = '/app/businesses-rma/business/$businessId/quotation';
 
-export default function AppViewBusinessViewQuotationViewRecapComponent() {
+type AppViewBusinessViewQuotationViewRecapComponentProps = Readonly<{
+  showAmounts: boolean;
+}>;
+export default function AppViewBusinessViewQuotationViewRecapComponent({ showAmounts }: AppViewBusinessViewQuotationViewRecapComponentProps) {
   const { businessId } = routeApi.useParams();
 
   const { data: user } = useAuthentifiedUserQuery();
   const { data: business } = useSuspenseQuery(queries['businesses'].detail._ctx.byId(businessId));
   const { data: quotation } = useSuspenseQuery(queries['business-quotations'].detail._ctx.byBusinessId(businessId));
+
+  if (!showAmounts) return null;
 
   return (
     <div className={styles.quote_recap}>

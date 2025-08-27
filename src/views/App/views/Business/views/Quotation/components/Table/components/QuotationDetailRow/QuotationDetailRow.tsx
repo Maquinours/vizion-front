@@ -11,10 +11,12 @@ const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/quotatio
 type AppViewBusinessViewQuotationViewTableComponentQuotationDetailRowComponentProps = Readonly<{
   detail: BusinessQuotationDetailsResponseDto;
   onContextMenu: (e: React.MouseEvent, detail: BusinessQuotationDetailsResponseDto) => void;
+  showAmounts: boolean;
 }>;
 export default function AppViewBusinessViewQuotationViewTableComponentQuotationDetailRowComponent({
   detail,
   onContextMenu,
+  showAmounts,
 }: AppViewBusinessViewQuotationViewTableComponentQuotationDetailRowComponentProps) {
   const { hideReferences, hidePrices } = routeApi.useSearch();
 
@@ -44,18 +46,18 @@ export default function AppViewBusinessViewQuotationViewTableComponentQuotationD
         )}
       </td>
       <td>
-        {user.userInfo.roles.some((role) => ['ROLE_MEMBRE_VIZEO', 'ROLE_REPRESENTANT'].includes(role)) && !hidePrices && (
+        {user.userInfo.roles.some((role) => ['ROLE_MEMBRE_VIZEO', 'ROLE_REPRESENTANT'].includes(role)) && !hidePrices && showAmounts && (
           <CurrencyFormat value={detail.publicUnitPrice} />
         )}
       </td>
       <td>
-        {user.userInfo.roles.some((role) => ['ROLE_MEMBRE_VIZEO', 'ROLE_REPRESENTANT'].includes(role)) && (
+        {user.userInfo.roles.some((role) => ['ROLE_MEMBRE_VIZEO', 'ROLE_REPRESENTANT'].includes(role)) && showAmounts && (
           <AmountFormat value={detail.reduction} decimalScale={0} suffix="%" />
         )}
       </td>
-      <td>{!hidePrices && <CurrencyFormat value={detail.unitPrice} />}</td>
+      <td>{!hidePrices && showAmounts && <CurrencyFormat value={detail.unitPrice} />}</td>
       <td>
-        <CurrencyFormat style={{ fontWeight: '900' }} value={detail.totalPrice} />
+        {showAmounts && <CurrencyFormat style={{ fontWeight: '900' }} value={detail.totalPrice} />}
       </td>
     </tr>
   );

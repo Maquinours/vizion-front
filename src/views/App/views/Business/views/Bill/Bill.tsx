@@ -64,6 +64,11 @@ export default function AppViewBusinessViewBillView() {
     }
   }, [bill]);
 
+  const showAmounts = useMemo(
+    () => user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') || (!!user.profile.enterprise && user.profile.enterprise.id === business.enterpriseId),
+    [user, business],
+  );
+
   return (
     <>
       <div className={styles.container}>
@@ -80,7 +85,7 @@ export default function AppViewBusinessViewBillView() {
 
             <div className={styles.pdf_viewer}>
               <PDFViewer showToolbar={!user.userInfo.roles.some((role) => ['ROLE_CLIENT', 'ROLE_REPRESENTANT_VIZEO'].includes(role)) && !business.archived}>
-                <AppViewBusinessViewBillViewPdfComponent bill={bill} business={business} enterprise={enterprise} />
+                <AppViewBusinessViewBillViewPdfComponent bill={bill} business={business} enterprise={enterprise} showAmounts={showAmounts} />
               </PDFViewer>
             </div>
             {!business.archived && (
@@ -94,7 +99,7 @@ export default function AppViewBusinessViewBillView() {
                   user.profile.categoryClient === 'DISTRIBUTEUR' ||
                   user.profile.categoryClient === 'DISTRIBUTEUR_VVA') && (
                   <PDFDownloadLink
-                    document={<AppViewBusinessViewBillViewPdfComponent bill={bill} business={business} enterprise={enterprise} />}
+                    document={<AppViewBusinessViewBillViewPdfComponent bill={bill} business={business} enterprise={enterprise} showAmounts={showAmounts} />}
                     fileName={`${bill.number}.pdf`}
                   >
                     {({ loading }) => <button className="btn btn-secondary">{loading ? 'Chargement...' : 'Télécharger'}</button>}

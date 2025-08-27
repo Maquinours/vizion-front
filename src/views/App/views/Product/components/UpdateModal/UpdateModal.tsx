@@ -21,8 +21,8 @@ const stepOneYupSchema = yup.object({
   shortDescription: yup.string().required('La description est requise.'),
   longDescription: yup.string().nullable(),
   provider: yup.mixed<EnterpriseResponseDto>().required('Le fournisseur est requis'),
-  category: yup.string().required('La catégorie est requise'),
-  categories: yup.array().of(yup.string().required('La catégorie est requise')).required('Les catégories sont requises'),
+  // category: yup.string().required('La catégorie est requise'),
+  categories: yup.array().of(yup.string().required('La catégorie est requise')).min(1, 'Au moins une catégorie est requise').required('Les catégories sont requises'),
   isVizeo: yup.mixed<'yes' | 'no'>().required('Champs requis').defined(),
   isVirtual: yup.mixed<'yes' | 'no'>().required('Champs requis').defined(),
   isNomenclature: yup.mixed<'yes' | 'no'>().required('Champs requis').defined(),
@@ -94,7 +94,7 @@ export default function AppViewProductViewUpdateModalComponent() {
         customsTax: stepTwoData.tax,
         ecoTaxDEEE: stepTwoData.ecoTax,
         publicPrice: stepTwoData.price,
-        productCategoryName: stepOneData.category,
+        productCategoryName: stepOneData.categories[0],
         assistanceTime: Number(stepTwoData.assistanceHour) || null,
         vizeo: stepOneData.isVizeo === 'yes',
         virtualQty: stepOneData.isVirtual === 'yes',
@@ -132,7 +132,7 @@ export default function AppViewProductViewUpdateModalComponent() {
       const provider = data.find(({ id }) => product.providerId === id);
       if (provider) stepOneSetValue('provider', provider);
     });
-    if (product.category) stepOneSetValue('category', product.category);
+    // if (product.category) stepOneSetValue('category', product.category);
     stepOneSetValue('categories', product.categories);
     stepOneSetValue('isVizeo', product.vizeo ? 'yes' : 'no');
     stepOneSetValue('isVirtual', product.virtualQty ? 'yes' : 'no');

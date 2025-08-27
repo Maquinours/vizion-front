@@ -2,13 +2,24 @@ import { Outlet } from '@tanstack/react-router';
 import AppViewBusinessViewArcViewHeaderComponent from './components/Header/Header';
 import AppViewBusinessViewArcViewRecapComponent from './components/Recap/Recap';
 import AppViewBusinessViewArcViewTableComponent from './components/Table/Table';
+import { getRouteApi } from '@tanstack/react-router';
+import { useSuspenseQuery } from '@tanstack/react-query';
+import { queries } from '../../../../../../utils/constants/queryKeys';
+import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthentifiedUser';
+import { useMemo } from 'react';
 
-// const routeApi = getRouteApi('/app/businesses-rma/business/$businessId/arc');
+const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/arc');
 
 export default function AppViewBusinessViewArcView() {
-  // const { businessId } = routeApi.useParams();
+  const { businessId } = routeApi.useParams();
 
-  // const { data: business } = useSuspenseQuery(queries.businesses.detail._ctx.byId(businessId));
+  const { data: user } = useAuthentifiedUserQuery();
+  const { data: business } = useSuspenseQuery(queries.businesses.detail._ctx.byId(businessId));
+
+  const showAmounts = useMemo(
+    () => user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') || (!!user.profile.enterprise && user.profile.enterprise.id === business.enterpriseId),
+    [user, business],
+  );
   // const { data: arc, dataUpdatedAt: arcDataUpdatedAt } = useSuspenseQuery(queries['business-ARCs'].detail._ctx.byBusinessId(businessId));
 
   // const { mutate, isPending } = useMutation({
@@ -59,8 +70,8 @@ export default function AppViewBusinessViewArcView() {
   return (
     <>
       <AppViewBusinessViewArcViewHeaderComponent />
-      <AppViewBusinessViewArcViewTableComponent />
-      <AppViewBusinessViewArcViewRecapComponent />
+      <AppViewBusinessViewArcViewTableComponent showAmounts={showAmounts} />
+      <AppViewBusinessViewArcViewRecapComponent showAmounts={showAmounts} />
       <Outlet />
       {/* <LoaderModal isLoading={isPending} /> */}
     </>

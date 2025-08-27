@@ -8,6 +8,7 @@ import { formatFileName } from '../../../../../../utils/functions/files';
 
 export const Route = createFileRoute('/app/businesses-rma_/business/$businessId/bill/send-by-email')({
   loader: async ({ context: { queryClient }, params: { businessId } }) => {
+    const user = await queryClient.ensureQueryData(queries.user.authentified());
     const businessPromise = queryClient.ensureQueryData(queries.businesses.detail._ctx.byId(businessId));
     const billsPromise = queryClient.ensureQueryData(queries['business-bills'].list._ctx.byBusinessId(businessId));
     const business = await businessPromise;
@@ -18,8 +19,9 @@ export const Route = createFileRoute('/app/businesses-rma_/business/$businessId/
     if (!bill) throw redirect({ from: Route.fullPath, to: '..', replace: true });
 
     const enterprise = await enterprisePromise;
+    const showAmounts = user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') || (!!user.profile.enterprise && user.profile.enterprise.id === business.enterpriseId);
 
-    const blob = await pdf(<AppViewBusinessViewBillViewPdfComponent bill={bill} business={business} enterprise={enterprise} />).toBlob();
+    const blob = await pdf(<AppViewBusinessViewBillViewPdfComponent bill={bill} business={business} enterprise={enterprise} showAmounts={showAmounts} />).toBlob();
     const file = new File([blob], formatFileName(`${bill.number}.pdf`), {
       type: blob.type,
     });
