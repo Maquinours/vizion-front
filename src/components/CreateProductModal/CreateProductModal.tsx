@@ -38,7 +38,7 @@ export default function CreateProductModalComponent({ onClose }: CreateProductMo
         customsTax: data.tax,
         ecoTaxDEEE: data.ecoTax,
         publicPrice: data.price,
-        productCategoryName: stepOneData!.category,
+        productCategoryName: stepOneData!.categories[0],
         assistanceTime: data.assistanceHour ? (data.assistanceHour === 'More' ? Number(data.assistanceHourMore) : Number(data.assistanceHour)) : null,
         vizeo: stepOneData!.isVizeo,
         virtualQty: stepOneData!.isVirtual,
