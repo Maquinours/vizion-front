@@ -29,7 +29,7 @@ export default function AppViewBusinessViewQuotationViewPdfModalViewSendByEmailM
         .map((service) => service.email!)
         .filter((email) => !!email)}
       defaultSubject={`Devis ${quotation.number} ${business.title ?? ''}`}
-      defaultContent={`Bonjour <br /><br /><p>Suite à votre demande, ci-joint le devis ainsi que les documents avec :</p> <br /><ul><li>Offre de prix HT pour vous</li><li>Dossier technique pour votre client</li><li>Notices commerciales pour votre client</li></ul>`}
+      defaultContent={`Bonjour <br /><br /><p>Suite à la demande, ci-joint le devis, accompagné des documents suivants :</p> <br /><ul><li>L'offre de prix HT</li><li>Le dossier technique pour le client</li><li>Les notices commerciales pour le client</li></ul>`}
       lifeSheetInfoDto={{
         businessNumber: business.numBusiness,
         businessName: business.title ?? '',
