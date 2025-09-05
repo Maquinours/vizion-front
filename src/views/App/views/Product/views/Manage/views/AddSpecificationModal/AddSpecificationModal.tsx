@@ -6,6 +6,7 @@ import TableComponent from '../../../../../../../../components/Table/Table';
 import { queries } from '../../../../../../../../utils/constants/queryKeys';
 import AdvancedProductSpecificationResponseDto from '../../../../../../../../utils/types/AdvancedProductSpecificationResponseDto';
 import styles from './AddSpecificationModal.module.scss';
+import _ from 'lodash';
 
 const route = '/app/products/$productId/manage/add-specification';
 const routeApi = getRouteApi('/app/products_/$productId/manage/add-specification');
@@ -41,7 +42,7 @@ const columns = [
 export default function AppViewProductViewManageViewAddSpecificationModalView() {
   const navigate = routeApi.useNavigate();
 
-  const { data, isLoading } = useQuery(queries['product-filter'].list);
+  const { data, isLoading } = useQuery({...queries['product-filter'].list, select: (data) => _.sortBy(data, 'name') });
 
   const onClose = () => {
     navigate({ to: '..', search: true, replace: true, resetScroll: false });
