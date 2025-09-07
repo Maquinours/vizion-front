@@ -109,7 +109,7 @@ export default function CreateEnterpriseModalComponentAddContactModalComponent({
   const { setContacts, closeModal } = useContext(CreateEnterpriseContext)!;
 
   const {
-    reset,
+    resetField,
     register,
     control,
     setValue,
@@ -169,7 +169,7 @@ export default function CreateEnterpriseModalComponentAddContactModalComponent({
   }, [password]);
 
   useEffect(() => {
-    if (!isDirty) reset({ phoneNumber: defaultPhoneNumber });
+    if (!isDirty) resetField('phoneNumber', {defaultValue: defaultPhoneNumber});
   }, [defaultPhoneNumber]);
 
   return (

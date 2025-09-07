@@ -135,6 +135,7 @@ const pageStyles = StyleSheet.create({
     justifyContent: 'space-between',
     flexDirection: 'row',
     flexWrap: 'wrap',
+    textAlign: 'center',
     gap: 0,
     fontWeight: 'bold',
   },
@@ -142,7 +143,7 @@ const pageStyles = StyleSheet.create({
     padding: 5,
     color: 'white',
     fontSize: 13,
-    width: '15%',
+    width: '12.5%',
     borderRight: '1px solid white',
   },
   tableHeaderNumber: {
@@ -177,14 +178,14 @@ const pageStyles = StyleSheet.create({
     padding: 5,
     color: 'white',
     fontSize: 13,
-    width: '10%',
+    width: '7.5%',
     borderRight: '1px solid white',
   },
   tableHeaderSolution: {
     padding: 5,
     color: 'white',
     fontSize: 13,
-    width: '20%',
+    width: '25%',
   },
   tableBody: {
     width: '100%',
@@ -197,6 +198,7 @@ const pageStyles = StyleSheet.create({
     flexWrap: 'wrap',
     width: '100%',
     height: 'auto',
+    textAlign: 'center',
     gap: 0,
     borderBottom: '1px solid #16204E',
   },
@@ -204,7 +206,7 @@ const pageStyles = StyleSheet.create({
     padding: 5,
     color: '#16204E',
     fontSize: 12,
-    width: '15%',
+    width: '12.5%',
     borderRight: '1px solid #16204E',
   },
   tableBodyNumber: {
@@ -216,7 +218,6 @@ const pageStyles = StyleSheet.create({
   },
   tableBodyWarranty: {
     padding: 5,
-    minHeight: 30,
     color: '#16204E',
     fontSize: 12,
     width: '10%',
@@ -233,7 +234,7 @@ const pageStyles = StyleSheet.create({
     padding: 5,
     color: '#16204E',
     fontSize: 12,
-    width: '10%',
+    width: '7.5%',
     borderRight: '1px solid #16204E',
   },
   tableBodyComment: {
@@ -247,7 +248,7 @@ const pageStyles = StyleSheet.create({
     padding: 5,
     color: '#16204E',
     fontSize: 12,
-    width: '20%',
+    width: '25%',
   },
 
   pageTexteOne: {

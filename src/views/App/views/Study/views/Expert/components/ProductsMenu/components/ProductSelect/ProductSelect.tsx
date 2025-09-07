@@ -48,24 +48,29 @@ export default function AppViewStudyViewExpertViewProductsMenuComponentProductSe
     select: (products) =>
       products.filter((product) => {
         if (!product.reference) return false;
-        switch (product.category) {
-          case 'Caméra interieure':
-          case 'Caméra exterieure':
-          case 'Dôme motorisé':
-            return CAMERAS_INCLUDED_PRODUCTS.includes(product.reference);
-          case 'Caméra universelle':
-            return UNIVERSAL_CAMERAS_INCLUDED_PRODUCTS.includes(product.reference);
-          case 'Autres cameras':
-          case 'Moniteur':
-          case 'Services':
-            return pageType === 'synoptic';
-          case 'NVR':
-            return pageType === 'synoptic' && RECORDERS_INCLUDED_PRODUCTS.includes(product.reference);
-          case 'Transmission':
-            return pageType === 'synoptic' && TRANSMITTERS_INCLUDED_PRODUCTS.includes(product.reference);
-          default:
+
+        if (
+          ['Caméra interieure', 'Caméra exterieure', 'Dôme motorisé'].some((category) => product.categories.includes(category)) &&
+          CAMERAS_INCLUDED_PRODUCTS.includes(product.reference!)
+        )
+          return true;
+        if (product.categories.includes('Caméra universelle') && UNIVERSAL_CAMERAS_INCLUDED_PRODUCTS.includes(product.reference!)) return true;
+        if (product.categories.includes('Autres cameras')) {
+          if (pageType === 'synoptic') return true;
+          else if (
+            pageType === 'density' &&
+            product.specificationProducts?.some((spec) => spec.specification?.name === 'ANGLE H') &&
+            product.specificationProducts?.some((spec) => spec.specification?.name === 'RECONNAISSANCE') &&
+            product.specificationProducts?.some((spec) => spec.specification?.name === 'LECTURE DE PLAQUE') &&
+            product.specificationProducts?.some((spec) => spec.specification?.name === 'IDENTIFICATION')
+          )
             return true;
         }
+        if (['Moniteur', 'Services'].some((category) => product.categories.includes(category))) return pageType === 'synoptic';
+        if (product.categories.includes('NVR')) return pageType === 'synoptic' && RECORDERS_INCLUDED_PRODUCTS.includes(product.reference!);
+        if (product.categories.includes('Transmission')) return pageType === 'synoptic' && TRANSMITTERS_INCLUDED_PRODUCTS.includes(product.reference!);
+
+        return false;
       }),
   });
 

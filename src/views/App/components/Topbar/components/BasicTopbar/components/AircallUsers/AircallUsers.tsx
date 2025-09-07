@@ -9,7 +9,7 @@ const AVAILABILITY_DATA = [
   { name: 'Disponible', value: 'available', backgroundColor: 'bg-green-400' },
   { name: 'Déconnecté', value: 'offline', backgroundColor: 'bg-gray-400' },
   { name: 'En appel', value: 'in_call', backgroundColor: 'bg-red-400' },
-  { name: 'Ne pas déra nger', value: 'do_not_disturb', backgroundColor: 'bg-yellow-400' },
+  { name: 'Ne pas déranger', value: 'do_not_disturb', backgroundColor: 'bg-orange-400' },
 ];
 
 export default function AppLayoutTopbarComponentBasicTopbarComponentAircallUsersComponent() {
