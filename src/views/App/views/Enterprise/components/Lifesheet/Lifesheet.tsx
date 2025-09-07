@@ -30,6 +30,14 @@ export default function AppViewEnterpriseViewLifesheetComponent() {
         replace: true,
         resetScroll: false,
       })}
+      getDeleteLink={(data) => ({
+        from: routePath,
+        to: '/app/enterprises/$enterpriseId/delete-lifesheet/$lifesheetId',
+        params: { lifesheetId: data.id },
+        search: true,
+        replace: true,
+        resetScroll: false,
+      })}
     />
   );
 }

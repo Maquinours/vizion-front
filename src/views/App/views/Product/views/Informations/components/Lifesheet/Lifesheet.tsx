@@ -28,6 +28,14 @@ export default function AppViewProductViewInformationsViewLifesheetComponent() {
         params: { lifesheetId: data.id },
         search: true,
       })}
+      getDeleteLink={(data) => ({
+        from: routePath,
+        to: '/app/products/$productId/informations/delete-lifesheet-comment/$lifesheetId',
+        params: { lifesheetId: data.id },
+        search: true,
+        replace: true,
+        resetScroll: false,
+      })}
     />
   );
 }

@@ -40,8 +40,9 @@ export default function AppViewDashboardViewCreateAircallContactModalView() {
   const { mutate, isPending } = useMutation({
     mutationFn: ({ note }: yup.InferType<typeof yupSchema>) =>
       createAircallContact({
-        information: note,
-        phone_numbers: [{ label: null, value: number }],
+        last_name: note,
+        phone_numbers: [{ label: 'other', value: number.replaceAll(' ', '') }],
+        emails: [],
       }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: aircallQueryKeys._def });

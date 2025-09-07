@@ -9,7 +9,7 @@ type EnterpriseModalComponentHeaderComponentProps = Readonly<{
 export default function EnterpriseModalComponentHeaderComponent({ enterprise, onEmailHistoryClick }: EnterpriseModalComponentHeaderComponentProps) {
   return (
     <>
-      <EnterpriseComponentHeaderComponentButtonsComponent onEmailHistoryClick={onEmailHistoryClick} />
+      <EnterpriseComponentHeaderComponentButtonsComponent enterprise={enterprise} onEmailHistoryClick={onEmailHistoryClick} />
       <EnterpriseComponentHeaderComponentInformationsComponent enterprise={enterprise} />
     </>
   );

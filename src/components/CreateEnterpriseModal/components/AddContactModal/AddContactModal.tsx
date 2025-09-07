@@ -25,7 +25,7 @@ const profileClientOptions = [
 ];
 
 const yupSchema = yup.object().shape({
-  civility: yup.string().required('La civilité est requise.'),
+  civility: yup.string().oneOf(['Monsieur', 'Madame', 'Service']).required('La civilité est requise.'),
   lastName: yup.string().required('Le nom est requis'),
   firstName: yup.string().nullable(),
   phoneNumber: yup
@@ -109,7 +109,7 @@ export default function CreateEnterpriseModalComponentAddContactModalComponent({
   const { setContacts, closeModal } = useContext(CreateEnterpriseContext)!;
 
   const {
-    reset,
+    resetField,
     register,
     control,
     setValue,
@@ -118,6 +118,7 @@ export default function CreateEnterpriseModalComponentAddContactModalComponent({
     handleSubmit,
   } = useForm({
     resolver: yupResolver(yupSchema),
+    defaultValues: { civility: 'Monsieur', expert: 'no', profileClient: ProfileClient.COMMERCIAL },
   });
 
   const email = useWatch({ name: 'email', control });
@@ -168,7 +169,7 @@ export default function CreateEnterpriseModalComponentAddContactModalComponent({
   }, [password]);
 
   useEffect(() => {
-    if (!isDirty) reset({ phoneNumber: defaultPhoneNumber });
+    if (!isDirty) resetField('phoneNumber', {defaultValue: defaultPhoneNumber});
   }, [defaultPhoneNumber]);
 
   return (

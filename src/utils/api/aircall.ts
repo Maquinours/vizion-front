@@ -5,6 +5,7 @@ import AircallUsersResponseDto from '../types/AircallUsersResponseDto';
 import AircallCreateContactResponseDto from '../types/AircallCreateContactRequestDto';
 import AircallContactResponseDto from '../types/AircallContactResponseDto';
 import AircallUpdateContactRequestDto from '../types/AircallUpdateContactRequestDto';
+import AircallAvailabilitiesResponseDto from '../types/AircallAvailabilitiesResponseDto';
 
 export const getAllAircallUsers = async () => {
   return aircallInstance<AircallUsersResponseDto>({ method: 'GET', url: '/users' }).then((res) => res.data);
@@ -65,4 +66,11 @@ export const updateAircallContact = async (id: number, data: AircallUpdateContac
 
 export const getAircallContactById = async (id: number) => {
   return aircallInstance<{ contact: AircallContactResponseDto }>({ method: 'GET', url: `/contacts/${id}` }).then((res) => res.data);
+};
+
+export const getAircallAvailabilities = async () => {
+  return aircallInstance<AircallAvailabilitiesResponseDto>({
+    method: 'GET',
+    url: `/users/availabilities`,
+  }).then((res) => res.data);
 };

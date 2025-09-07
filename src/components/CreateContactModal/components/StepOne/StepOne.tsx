@@ -118,6 +118,7 @@ export default function CreateContactModalComponentStepOneComponent({
     formState: { errors },
   } = useForm({
     resolver: yupResolver(yupSchema),
+    defaultValues: { civility: 'Monsieur', expert: 'no', profileClient: ProfileClient.COMMERCIAL },
   });
 
   const pass = useWatch({ name: 'password', control });

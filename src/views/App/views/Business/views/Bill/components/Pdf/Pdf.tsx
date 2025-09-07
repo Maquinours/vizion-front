@@ -5,6 +5,7 @@ import Logo from '../../../../../../../../assets/images/logo-vizeo-fond-blanc-ba
 import BusinessResponseDto from '../../../../../../../../utils/types/BusinessResponseDto';
 import BusinessBillResponseDto from '../../../../../../../../utils/types/BusinessBillResponseDto';
 import { formatDateWithSlash } from '../../../../../../../../utils/functions/dates';
+import EnterpriseResponseDto from '../../../../../../../../utils/types/EnterpriseResponseDto';
 
 Font.register({
   family: 'Din',
@@ -113,6 +114,12 @@ const pageStyles = StyleSheet.create({
     color: '#16204E',
   },
   enterpriseAddress: {
+    lineHeight: 1.2,
+    fontSize: 13,
+    color: '#16204E',
+  },
+  enterpriseSiren: {
+    marginTop: 7,
     lineHeight: 1.2,
     fontSize: 13,
     color: '#16204E',
@@ -374,8 +381,10 @@ const currencyFormatter = (value: number) => {
 type AppViewBusinessViewBillViewPdfComponentProps = Readonly<{
   business: BusinessResponseDto;
   bill: BusinessBillResponseDto;
+  enterprise: EnterpriseResponseDto | undefined;
+  showAmounts: boolean;
 }>;
-export default function AppViewBusinessViewBillViewPdfComponent({ business, bill }: AppViewBusinessViewBillViewPdfComponentProps) {
+export default function AppViewBusinessViewBillViewPdfComponent({ business, bill, enterprise, showAmounts }: AppViewBusinessViewBillViewPdfComponentProps) {
   const ecoTax = bill.billDetails.reduce((acc, item) => acc + (item.taxDEEE ?? 0), 0);
 
   return (
@@ -392,6 +401,7 @@ export default function AppViewBusinessViewBillViewPdfComponent({ business, bill
               <Text style={pageStyles.phone}>04 72 12 27 96</Text>
               <Text style={pageStyles.website}>https://www.vizeo.eu</Text>
               <Text style={pageStyles.rc}>N°RC: 44494781600062</Text>
+              <Text style={pageStyles.rc}>N°TVA: FR76444947816</Text>
             </View>
             <View style={pageStyles.sectionOneGridTwo}>
               <View style={pageStyles.enterprise}>
@@ -401,6 +411,8 @@ export default function AppViewBusinessViewBillViewPdfComponent({ business, bill
                 <Text style={pageStyles.enterpriseAddress}>
                   {business.billingZipCode} {business.billingCity}
                 </Text>
+                <Text style={pageStyles.enterpriseSiren}>N°SIREN: {enterprise?.accountability?.siren}</Text>
+                <Text style={pageStyles.enterpriseAddress}>N°TVA: {enterprise?.accountability?.tvaNumber}</Text>
               </View>
             </View>
           </View>
@@ -468,10 +480,14 @@ export default function AppViewBusinessViewBillViewPdfComponent({ business, bill
                   <Text style={pageStyles.tableBodyReference}>{item.productReference}</Text>
                   <Text style={pageStyles.tableBodyDesignation}>{item.productDesignation}</Text>
                   <View style={pageStyles.tableBodyEcoTax}>
-                    <Text>{currencyFormatter(item.unitPrice ?? 0)}</Text>
-                    {(item.taxDEEE ?? 0) > 0 && <Text style={pageStyles.tableBodyEcoTaxValue}>EcoTaxe : {currencyFormatter(item.taxDEEE!)}</Text>}
+                    {showAmounts && (
+                      <>
+                        <Text>{currencyFormatter(item.unitPrice ?? 0)}</Text>
+                        {(item.taxDEEE ?? 0) > 0 && <Text style={pageStyles.tableBodyEcoTaxValue}>EcoTaxe : {currencyFormatter(item.taxDEEE!)}</Text>}
+                      </>
+                    )}
                   </View>
-                  <Text style={pageStyles.tableBodyComment}>{currencyFormatter(item.totalPrice ?? 0)}</Text>
+                  {showAmounts && <Text style={pageStyles.tableBodyComment}>{currencyFormatter(item.totalPrice ?? 0)}</Text>}
                 </View>
               ))}
             </View>
@@ -479,23 +495,23 @@ export default function AppViewBusinessViewBillViewPdfComponent({ business, bill
               <View style={pageStyles.recapTable}>
                 <View style={pageStyles.recapTableContent}>
                   <Text style={pageStyles.recapTableContentText}>Total general HT :</Text>
-                  <Text style={pageStyles.recapTableContentValue}>{currencyFormatter(bill.totalAmountHT ?? 0)}</Text>
+                  <Text style={pageStyles.recapTableContentValue}>{showAmounts ? currencyFormatter(bill.totalAmountHT ?? 0) : ''}</Text>
                 </View>
                 <View style={pageStyles.recapTableContent}>
                   <Text style={pageStyles.recapTableContentText}>Frais de port :</Text>
-                  <Text style={pageStyles.recapTableContentValue}>{currencyFormatter(bill.shippingServicePrice)}</Text>
+                  <Text style={pageStyles.recapTableContentValue}>{showAmounts ? currencyFormatter(bill.shippingServicePrice) : ''}</Text>
                 </View>
                 <View style={pageStyles.recapTableContent}>
                   <Text style={pageStyles.recapTableContentText}>Total EcoTaxe :</Text>
-                  <Text style={pageStyles.recapTableContentValue}>{currencyFormatter(ecoTax)}</Text>
+                  <Text style={pageStyles.recapTableContentValue}>{showAmounts ? currencyFormatter(ecoTax) : ''}</Text>
                 </View>
                 <View style={pageStyles.recapTableContent}>
                   <Text style={pageStyles.recapTableContentText}>Total TVA (Taux de TVA 20.0%) :</Text>
-                  <Text style={pageStyles.recapTableContentValue}>{currencyFormatter(bill.vat)}</Text>
+                  <Text style={pageStyles.recapTableContentValue}>{showAmounts ? currencyFormatter(bill.vat) : ''}</Text>
                 </View>
                 <View style={pageStyles.recapTableTotal}>
                   <Text style={pageStyles.recapTableTotalText}>Total TTC :</Text>
-                  <Text style={pageStyles.recapTableContentValue}>{currencyFormatter(bill.totalAmount ?? 0)}</Text>
+                  <Text style={pageStyles.recapTableContentValue}>{showAmounts ? currencyFormatter(bill.totalAmount ?? 0) : ''}</Text>
                 </View>
               </View>
             </View>

@@ -7,6 +7,7 @@ import BusinessBpDetailsRequestDto from '../../../../../../../../utils/types/Bus
 import BusinessResponseDto from '../../../../../../../../utils/types/BusinessResponseDto';
 import styles from './SectionOne.module.scss';
 import BusinessState from '../../../../../../../../utils/enums/BusinessState';
+import { Link } from '@tanstack/react-router';
 
 // const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/arc');
 // const routePath = '/app/businesses-rma/business/$businessId/arc';
@@ -131,6 +132,16 @@ export default function BusinessModalComponentArcComponentHeaderComponentSection
         <span>{business.enterpriseName}</span> / <span>{business.title}</span>
       </div>
       <div>
+        <Link
+          to="/app/businesses-rma/business/$businessId/arc"
+          params={{ businessId: business.id }}
+          resetScroll={false}
+          preload="intent"
+          ignoreBlocker
+          className="btn btn-secondary"
+        >
+          Ouvrir l&apos;affaire
+        </Link>
         <button type="button" className="btn btn-primary-light" onClick={() => onEditClick()}>
           Éditer
         </button>

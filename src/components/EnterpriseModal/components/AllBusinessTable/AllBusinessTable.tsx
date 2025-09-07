@@ -1,6 +1,6 @@
 import { VirtualElement } from '@popperjs/core';
 import { useQuery } from '@tanstack/react-query';
-import { Row, createColumnHelper } from '@tanstack/react-table';
+import { Row, SortingState, createColumnHelper } from '@tanstack/react-table';
 import classNames from 'classnames';
 import { useMemo, useState } from 'react';
 import { allBusinesses } from '../../../../utils/constants/queryKeys/allBusiness';
@@ -94,10 +94,18 @@ export default function EnterpriseModalComponentAllBusinessTableComponent({
 
   const [page, setPage] = useState(0);
   const [contactId, setContactId] = useState<string | undefined>(defaultAllBusinessProfileId);
+  const [sorting, setSorting] = useState<SortingState>([]);
 
   const { data: authentifiedUser } = useAuthentifiedUserQuery();
   const { data, isLoading } = useQuery(
-    allBusinesses.page._ctx.byEnterpriseIdAndPossibleProfileId({ enterpriseId: enterprise.id, profileId: contactId, page, size }),
+    allBusinesses.page._ctx.byEnterpriseIdAndPossibleProfileId({
+      enterpriseId: enterprise.id,
+      profileId: contactId,
+      page,
+      size,
+      sortBy: sorting[0]?.id as keyof AllBusinessResponseDto,
+      sortOrder: sorting[0] ? (sorting[0].desc ? 'DESC' : 'ASC') : undefined,
+    }),
   );
 
   const [selectedItem, setSelectedItem] = useState<AllBusinessResponseDto | undefined>();
@@ -141,15 +149,16 @@ export default function EnterpriseModalComponentAllBusinessTableComponent({
 
   const columns = useMemo(
     () => [
-      columnHelper.display({
+      columnHelper.accessor('number', {
         header: "N° de l'affaire",
         cell: ({ row: { original } }) => <span className={classNames({ italic: original.enterpriseId !== enterprise.id })}>{original.number}</span>,
       }),
-      columnHelper.display({
+      columnHelper.accessor('title', {
         header: "Nom de l'affaire",
         cell: ({ row: { original } }) => <span className={classNames({ italic: original.enterpriseId !== enterprise.id })}>{original.title}</span>,
+        enableSorting: false,
       }),
-      columnHelper.display({
+      columnHelper.accessor('enterpriseName', {
         header: 'Client',
         cell: ({ row: { original } }) => {
           const related = original.enterpriseId !== enterprise.id;
@@ -160,14 +169,15 @@ export default function EnterpriseModalComponentAllBusinessTableComponent({
             </span>
           );
         },
+        enableSorting: false,
       }),
-      columnHelper.display({
+      columnHelper.accessor('modifiedDate', {
         header: 'Dernière modification',
         cell: ({ row: { original } }) => (
           <span className={classNames({ italic: original.enterpriseId !== enterprise.id })}>{formatDateAndHourWithSlash(original.modifiedDate)}</span>
         ),
       }),
-      columnHelper.display({
+      columnHelper.accessor('totalHt', {
         header: 'Montant HT',
         cell: ({ row: { original } }) => (
           <span className={classNames({ italic: original.enterpriseId !== enterprise.id })}>
@@ -175,11 +185,12 @@ export default function EnterpriseModalComponentAllBusinessTableComponent({
           </span>
         ),
       }),
-      columnHelper.display({
+      columnHelper.accessor('representativeName', {
         header: 'Représentant',
         cell: ({ row: { original } }) => <span className={classNames({ italic: original.enterpriseId !== enterprise.id })}>{original.representativeName}</span>,
+        enableSorting: false,
       }),
-      columnHelper.display({
+      columnHelper.accessor('state', {
         header: 'État',
         cell: ({ row: { original } }) => (
           <span className={classNames({ italic: original.enterpriseId !== enterprise.id })}>
@@ -213,6 +224,8 @@ export default function EnterpriseModalComponentAllBusinessTableComponent({
                 rowId="id"
                 onRowClick={onRowClick}
                 onRowContextMenu={onRowContextMenu}
+                sorting={sorting}
+                onSortingChange={setSorting}
               />
             </div>
             <div className={styles.pagination}>

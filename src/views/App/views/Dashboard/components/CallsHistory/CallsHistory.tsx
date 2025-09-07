@@ -13,6 +13,7 @@ import AppViewDashboardViewCallsHistoryComponentPaginationComponent from './comp
 import _ from 'lodash';
 import { formatPhoneNumber } from 'react-phone-number-input';
 import { isAxiosError } from 'axios';
+import CategoryBusiness from '../../../../../../utils/enums/CategoryBusiness';
 
 const routeApi = getRouteApi('/app/dashboard');
 
@@ -21,17 +22,18 @@ export default function AppViewDashboardViewCallsHistoryComponent() {
 
   const { callsHistoryDates: dates, callsHistoryProfileId: profileId, callsHistoryPage: page } = routeApi.useSearch();
 
-  const { data: profiles, isLoading: isLoadingProfiles } = useQuery(queries.profiles.list);
+  const { data: profiles, isLoading: isLoadingProfiles, refetch: refetchProfiles } = useQuery(queries.profiles.list);
 
   const phoneNumber = useMemo(() => {
+    if (!profileId) return undefined;
     const phoneNumber = profiles?.find((profile) => profile.id === profileId)?.standardPhoneNumber;
     if (!phoneNumber) return undefined;
     return parsePhoneNumberWithError(phoneNumber, 'FR').formatInternational();
   }, [profiles, profileId]);
 
   const {
-    data,
-    isLoading,
+    data: calls,
+    isLoading: isLoadingCalls,
     refetch: refetchCalls,
     isRefetching,
   } = useQuery({
@@ -39,40 +41,58 @@ export default function AppViewDashboardViewCallsHistoryComponent() {
     enabled: !!profileId && isLoadingProfiles ? false : true,
   });
 
-  const uniquePhoneNumbers = _.uniq(data?.calls.map((call) => call.raw_digits) || []);
+  const uniqueBusinessNumbers = _.uniq(
+    calls?.calls
+      .map((call) => (call.contact?.last_name?.trim() || call.contact?.information?.trim())?.toUpperCase().match(/VZO\s\d{4}(?:\d{2})?/)?.[0])
+      .filter((information): information is string => !!information),
+  );
 
-  const callProfiles = useQueries({
-    queries: uniquePhoneNumbers.map((phoneNumber) => ({
-      ...queries.profiles.detail._ctx.byPhoneNumbers([phoneNumber, formatPhoneNumber(phoneNumber)]),
-      staleTime: Infinity,
-      retry: (_failureCount: unknown, error: unknown) => !(isAxiosError(error) && error.response?.status === 404),
-    })),
+  const allBusinesses = useQueries({
+    queries: uniqueBusinessNumbers.map((number) => {
+      const category = (() => {
+        switch (number.length) {
+          case 10:
+            return CategoryBusiness.AFFAIRE;
+          case 8:
+            return CategoryBusiness.RMA;
+          default:
+            throw new Error('Invalid business number');
+        }
+      })();
+      return {
+        ...queries['all-businesses'].detail._ctx.byCategoryAndNumber({ category, number }),
+        staleTime: Infinity,
+        retry: (_failureCount: unknown, error: unknown) => !(isAxiosError(error) && error.response?.status === 404),
+      };
+    }),
   });
 
-  const getProfileFromPhoneNumber = useCallback(
-    (phoneNumber: string) => {
-      return callProfiles.at(uniquePhoneNumbers.indexOf(phoneNumber))?.data;
-    },
-    [callProfiles, uniquePhoneNumbers],
-  );
+  const data = useMemo(() => {
+    return calls?.calls.map((call) => {
+      const possiblePhoneNumbers = [call.raw_digits.replace(/\s/g,''), formatPhoneNumber(call.raw_digits).replace(/\s/g,'')];
+      const profile = profiles?.find((profile) => (profile.phoneNumber && possiblePhoneNumbers.includes(profile.phoneNumber.replace(/\s/g,''))) || (profile.standardPhoneNumber && possiblePhoneNumbers.includes(profile.standardPhoneNumber.replace(/\s/g,''))))
+      const businessNumber = (call.contact?.last_name?.trim() || call.contact?.information?.trim())?.toUpperCase().match(/VZO\s\d{4}(?:\d{2})?/)?.[0];
+      const allBusiness = allBusinesses.find((business) => business.data?.number === businessNumber)?.data;
+      return { call, profile, allBusiness };
+    });
+  }, [calls, profiles, allBusinesses]);
+
+  const isLoading = useMemo(() => isLoadingCalls || isLoadingProfiles || allBusinesses.some((query) => query.isLoading), [isLoadingCalls, isLoadingProfiles, allBusinesses]);
 
   const refetch = useCallback(() => {
     refetchCalls();
-    callProfiles.forEach((query) => query.refetch());
-  }, [refetchCalls, callProfiles]);
+    refetchProfiles();
+    allBusinesses.forEach((query) => query.refetch());
+  }, [refetchCalls, profiles, allBusinesses]);
 
   return (
     <CardComponent title="Historique des appels" onReload={() => refetch()} isReloading={isRefetching} isMinimized={isMinimized} setMinimized={setMinimized}>
       <div className={styles.container}>
         <AppViewDashboardViewCallsHistoryComponentSearchSectionComponent />
-        <AppViewDashboardViewCallsHistoryComponentTableComponent
-          data={data?.calls}
-          isLoading={isLoading}
-          getProfileFromPhoneNumber={getProfileFromPhoneNumber}
-        />
+        <AppViewDashboardViewCallsHistoryComponentTableComponent data={data} isLoading={isLoading} />
         <AppViewDashboardViewCallsHistoryComponentPaginationComponent
           page={page}
-          totalPages={data ? Math.ceil(data.meta.total / data.meta.per_page) : undefined}
+          totalPages={calls ? Math.ceil(calls.meta.total / calls.meta.per_page) : undefined}
         />
       </div>
     </CardComponent>

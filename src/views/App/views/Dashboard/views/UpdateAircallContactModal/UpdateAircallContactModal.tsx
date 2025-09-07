@@ -46,7 +46,7 @@ export default function AppViewDashboardViewUpdateAircallContactModalView() {
   const { mutate, isPending } = useMutation({
     mutationFn: ({ note }: yup.InferType<typeof yupSchema>) =>
       updateAircallContact(numberedContactId, {
-        information: note,
+        last_name: note,
       }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: aircallQueryKeys._def });
@@ -60,8 +60,8 @@ export default function AppViewDashboardViewUpdateAircallContactModalView() {
   });
 
   useEffect(() => {
-    reset({ note: contact.contact.information });
-  }, [contact.contact.information]);
+    reset({ note: contact.contact.last_name?.trim() || contact.contact.information?.trim() || '' });
+  }, [contact.contact.last_name, contact.contact.information]);
 
   return (
     <ReactModal isOpen={true} onRequestClose={onClose} className={styles.modal} overlayClassName="Overlay">

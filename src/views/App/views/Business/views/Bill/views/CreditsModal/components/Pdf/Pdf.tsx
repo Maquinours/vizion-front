@@ -379,6 +379,7 @@ export default function AppViewBusinessViewBillViewCreditsModalViewPdfComponent(
             <Text style={pageStyles.phone}>04 72 12 27 96</Text>
             <Text style={pageStyles.website}>https://www.vizeo.eu</Text>
             <Text style={pageStyles.rc}>N°RC: 44494781600062</Text>
+            <Text style={pageStyles.rc}>N°TVA: FR76444947816</Text>
           </View>
           <View style={pageStyles.sectionTwo}>
             <View style={pageStyles.enterprise}>
