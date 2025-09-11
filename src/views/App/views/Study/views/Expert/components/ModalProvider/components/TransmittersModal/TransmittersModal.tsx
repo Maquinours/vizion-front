@@ -30,7 +30,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentTransmit
     ...queries.product.list,
     staleTime: Infinity,
     select: (products) =>
-      products.filter((product) => product.category === 'Transmission' && !!product.reference && includedProducts.includes(product.reference)),
+      products.filter((product) => product.category === 'Transmission' && !!product.reference && includedProducts.includes(product.reference) && product.vizeo),
   });
 
   const { setValue, getValues, control, handleSubmit } = useForm({
