@@ -28,10 +28,7 @@ export default function AppViewEnterpriseView() {
         <div className={styles.grid_one}>
           <div className={styles.one}>
             <AppViewEnterpriseViewInformationsComponent enterprise={enterprise} />
-            {user.userInfo.roles.some((role) => ['ROLE_MEMBRE_VIZEO', 'ROLE_REPRESENTANT'].includes(role)) && (
-              <AppViewEnterpriseViewCategoryComponent enterprise={enterprise} />
-            )}
-            {user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && <AppViewEnterpriseViewGedComponent />}
+            <AppViewEnterpriseViewLifesheetComponent />
           </div>
           <div className={styles.two}>
             <EnterpriseAllBusinessTable />
@@ -39,7 +36,10 @@ export default function AppViewEnterpriseView() {
         </div>
         <div className={styles.grid_two}>
           <AppViewEnterpriseViewContactsComponent />
-          <AppViewEnterpriseViewLifesheetComponent />
+            {user.userInfo.roles.some((role) => ['ROLE_MEMBRE_VIZEO', 'ROLE_REPRESENTANT'].includes(role)) && (
+              <AppViewEnterpriseViewCategoryComponent enterprise={enterprise} />
+            )}
+            {user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && <AppViewEnterpriseViewGedComponent />}
           <AppViewEnterpriseViewWorkloadsComponent />
         </div>
       </div>
