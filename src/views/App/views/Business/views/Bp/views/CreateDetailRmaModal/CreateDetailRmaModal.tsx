@@ -1,5 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useMutation, useSuspenseQuery } from '@tanstack/react-query';
+import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import { getRouteApi } from '@tanstack/react-router';
 import { Controller, useForm } from 'react-hook-form';
 import ReactModal from 'react-modal';
@@ -12,6 +12,8 @@ import { queries } from '../../../../../../../../utils/constants/queryKeys';
 import CategoryBusiness from '../../../../../../../../utils/enums/CategoryBusiness';
 import BusinessBpSerialResponseDto from '../../../../../../../../utils/types/BusinessBpSerialResponseDto';
 import styles from './CreateDetailRmaModal.module.scss';
+import { updateBusinessBpDetail } from '../../../../../../../../utils/api/businessBpDetails';
+import BusinessBpResponseDto from '../../../../../../../../utils/types/BusinessBpResponseDto';
 
 const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/bp/create-detail-rma/$detailId');
 
@@ -20,11 +22,14 @@ const yupSchema = yup.object().shape({
 });
 
 export default function AppViewBusinessViewBpViewCreateDetailRmaModalView() {
+  const queryClient = useQueryClient();
+
   const navigate = routeApi.useNavigate();
 
   const { businessId, detailId } = routeApi.useParams();
 
   const { data: business } = useSuspenseQuery(queries.businesses.detail._ctx.byId(businessId));
+  const { data: bp } = useSuspenseQuery(queries['business-bps'].detail._ctx.byBusinessId(businessId));
   const { data: detail } = useSuspenseQuery(queries['business-bp-details'].detail._ctx.byId(detailId));
 
   const { control, handleSubmit } = useForm({
@@ -35,6 +40,48 @@ export default function AppViewBusinessViewBpViewCreateDetailRmaModalView() {
     navigate({ to: '../..', search: true, replace: true, resetScroll: false });
   };
 
+  const { mutate: mutateDetailComment } = useMutation({
+    mutationFn: (comment: string) => {
+      return updateBusinessBpDetail(detail.id, {
+        bpId: bp.id,
+        numDetails: detail.numDetails,
+        productId: detail.productId,
+        productVersionId: detail.productVersionId,
+        productReference: detail.productReference,
+        productVersionReference: detail.productVersionReference,
+        packageNumber: detail.packageNumber,
+        quantity: detail.quantity,
+        quantityRemain: detail.quantityRemain,
+        quantityPrep: detail.quantityPrep,
+        productDesignation: detail.productDesignation,
+        productDescription: detail.productDescription,
+        productName: detail.productName,
+        publicUnitPrice: detail.publicUnitPrice,
+        comment: comment,
+        unitPrice: detail.unitPrice,
+        virtualQty: detail.virtualQty,
+      });
+    },
+    onSuccess: (data) => {
+      queryClient.setQueryData<BusinessBpResponseDto>(queries['business-bps'].detail._ctx.byBusinessId(business.id).queryKey, (old) =>
+        old
+          ? {
+              ...old,
+              bpDetailsList: old.bpDetailsList?.map((d) => (d.id === data.id ? data : d)),
+            }
+          : old,
+      );
+      queryClient.setQueryData(queries['business-bp-details'].detail._ctx.byId(data.id).queryKey, data);
+      queryClient.invalidateQueries({ queryKey: queries['business-bps']._def });
+      toast.success('Détail modifié avec succès');
+      onClose();
+    },
+    onError: (error) => {
+      console.error(error);
+      toast.error('Une erreur est survenue lors de la modification du détail');
+    },
+  });
+
   const { mutate, isPending } = useMutation({
     mutationFn: ({ serialNumbers }: yup.InferType<typeof yupSchema>) =>
       createRmaFromBusiness(
@@ -43,8 +90,13 @@ export default function AppViewBusinessViewBpViewCreateDetailRmaModalView() {
         serialNumbers.map((s) => s.numSerie),
       ),
     onSuccess: (rma) => {
-      toast.success('Le RMA a été généré avec succès');
-      navigate({ to: '/app/businesses-rma/rma/$rmaId', params: { rmaId: rma.id } });
+      try {
+        const comment = `${detail.comment}\n${rma.number}`.trim();
+        mutateDetailComment(comment);
+      } finally {
+        toast.success('Le RMA a été généré avec succès');
+        navigate({ to: '/app/businesses-rma/rma/$rmaId', params: { rmaId: rma.id } });
+      }
     },
     onError: (error) => {
       console.error(error);
