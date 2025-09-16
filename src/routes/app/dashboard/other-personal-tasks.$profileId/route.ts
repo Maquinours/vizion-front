@@ -5,7 +5,7 @@ import TaskState from '../../../../utils/enums/TaskState';
 import LoaderModal from '../../../../components/LoaderModal/LoaderModal';
 
 const searchSchema = z.object({
-  otherPersonalTaskState: z.nativeEnum(TaskState).catch(TaskState.CREATED),
+  otherPersonalTaskState: z.enum(TaskState).catch(TaskState.CREATED),
   otherPersonalTaskSize: z.number().int().min(10).max(10).catch(10),
   otherPersonalTaskPage: z.number().int().min(0).catch(0),
 });
