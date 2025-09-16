@@ -8,7 +8,7 @@ import TaskState from '../../../utils/enums/TaskState';
 import WorkloadType from '../../../utils/enums/WorkloadType';
 
 const searchSchema = z.object({
-  personalTaskState: z.nativeEnum(TaskState).catch(TaskState.CREATED),
+  personalTaskState: z.enum(TaskState).catch(TaskState.CREATED),
   personalTaskPage: z.number().int().min(0).default(0),
   schedulerView: z.enum([Views.DAY, Views.WORK_WEEK]).catch(Views.DAY),
   schedulerDate: z.coerce.date().catch(new Date()),

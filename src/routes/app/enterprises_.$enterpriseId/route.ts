@@ -17,7 +17,7 @@ const searchSchema = z.object({
   contactsSearch: z.string().optional().catch(undefined),
   contactsPage: z.number().int().min(0).catch(0),
   lifesheetPage: z.number().int().min(0).catch(0),
-  allBusinessProfileId: z.string().uuid().optional().catch(undefined),
+  allBusinessProfileId: z.uuid().optional().catch(undefined),
   allBusinessSortBy: z
     .union([z.literal('number'), z.literal('totalHt'), z.literal('modifiedDate'), z.literal('state')])
     .optional()
