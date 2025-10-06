@@ -381,7 +381,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentSendStud
                 item !== undefined,
             );
           return { page: { name: page.name ?? `Page ${index + 1}`, id: page.id }, items };
-        });
+        }).filter((page) => page.items.length > 0);
 
       return pdf(
         <AppViewStudyViewExpertViewModalProviderComponentPdfModalComponentShowStepComponentPdfComponent
