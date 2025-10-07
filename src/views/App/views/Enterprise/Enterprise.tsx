@@ -11,15 +11,25 @@ import AppViewEnterpriseViewContactsComponent from './components/Contacts/Contac
 import AppViewEnterpriseViewLifesheetComponent from './components/Lifesheet/Lifesheet';
 import AppViewEnterpriseViewWorkloadsComponent from './components/Workloads/Workloads';
 import AppViewEnterpriseViewGedComponent from './components/Ged/Ged';
+import { useMemo } from 'react';
+import AppViewEnterpriseViewBeforeCloseModalComponent from './components/BeforeCloseModal/BeforeCloseModal';
 
 const routeApi = getRouteApi('/app/enterprises_/$enterpriseId');
 
 export default function AppViewEnterpriseView() {
   const { enterpriseId } = routeApi.useParams();
+  const { enterpriseModal } = routeApi.useSearch();
 
   const { data: user } = useAuthentifiedUserQuery();
 
   const { data: enterprise } = useSuspenseQuery(enterprises.detail(enterpriseId));
+
+  const modal = useMemo(() => {
+    switch (enterpriseModal) {
+      case 'before-close':
+        return <AppViewEnterpriseViewBeforeCloseModalComponent />;
+    }
+  }, [enterpriseModal]);
 
   return (
     <>
@@ -43,6 +53,7 @@ export default function AppViewEnterpriseView() {
           <AppViewEnterpriseViewWorkloadsComponent />
         </div>
       </div>
+      {modal}
       <Outlet />
     </>
   );
