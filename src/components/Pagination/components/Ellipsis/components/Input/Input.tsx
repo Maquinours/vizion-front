@@ -2,6 +2,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Controller, useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import AmountFormat from '../../../../../AmountFormat/AmountFormat';
+import { useEffect, useRef } from 'react';
 
 const yupSchema = yup.object({
   page: yup.number().required('Le champ page est requis'),
@@ -16,12 +17,19 @@ export default function PaginationComponentEllipsisComponentInputComponent({ onS
     resolver: yupResolver(yupSchema),
   });
 
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (inputRef.current) inputRef.current.focus();
+  }, [inputRef]);
+
   return (
     <Controller
       control={control}
       name="page"
       render={({ field: { value, onChange } }) => (
         <AmountFormat
+          getInputRef={inputRef}
           value={value}
           onKeyDown={(e) => {
             if (e.key === 'Enter') handleSubmit(onSubmit)();
