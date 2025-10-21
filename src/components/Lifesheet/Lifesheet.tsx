@@ -62,6 +62,14 @@ export default function LifesheetComponent({
         header: 'Date & heure',
         cell: ({ row: { original } }) => formatDateAndHourWithSlash(original.modifiedDate),
       }),
+      ...(associatedItemType === LifesheetAssociatedItem.ENTERPRISE
+        ? [
+            columnHelper.display({
+              header: 'Qui',
+              cell: ({ row: { original } }) => original.concernedName,
+            }),
+          ]
+        : []),
       columnHelper.display({
         header: 'Description',
         cell: ({ row: { original } }) => {
@@ -83,7 +91,7 @@ export default function LifesheetComponent({
         },
       }),
     ],
-    [getEmailLink],
+    [getEmailLink, associatedItemType],
   );
 
   const createButton = (() => {
