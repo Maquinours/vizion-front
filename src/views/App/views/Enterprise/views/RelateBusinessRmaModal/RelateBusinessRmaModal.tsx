@@ -11,6 +11,7 @@ import CustomSelect from '../../../../../../components/CustomSelect/CustomSelect
 import { PulseLoader } from 'react-spinners';
 import { relateAllBusinessToEnterprise } from '../../../../../../utils/api/allBusiness';
 import { toast } from 'react-toastify';
+import { useEffect } from 'react';
 
 const routeApi = getRouteApi('/app/enterprises_/$enterpriseId/relate-business-rma');
 
@@ -23,8 +24,9 @@ export default function AppViewEnterpriseViewRelateBusinessRmaModalView() {
   const navigate = routeApi.useNavigate();
 
   const { enterpriseId } = routeApi.useParams();
+  const { defaultBusinessRmaId } = routeApi.useSearch();
 
-  const { control, handleSubmit } = useForm({
+  const { control, resetField, handleSubmit } = useForm({
     resolver: yupResolver(yupSchema),
   });
 
@@ -46,6 +48,11 @@ export default function AppViewEnterpriseViewRelateBusinessRmaModalView() {
       toast.error("Une erreur est survenue lors de l'ajout de cette affaire à votre entreprise");
     },
   });
+
+  useEffect(() => {
+    const option = options?.find((option) => option.businessId === defaultBusinessRmaId);
+    resetField('associatedBusiness', { defaultValue: option });
+  }, [defaultBusinessRmaId, options]);
 
   return (
     <ReactModal isOpen onRequestClose={onClose} className={styles.modal} overlayClassName="Overlay" shouldCloseOnOverlayClick={!isPending}>
