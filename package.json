@@ -6,8 +6,8 @@
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "dev": "vite",
-    "build": "set NODE_OPTIONS=--max_old_space_size=4096 && tsc && vite build",
-    "lint": "set NODE_OPTIONS=--max_old_space_size=4096 && eslint ./src/ --report-unused-disable-directives",
+    "build": "set NODE_OPTIONS=--max_old_space_size=8192 && tsc && vite build",
+    "lint": "set NODE_OPTIONS=--max_old_space_size=8192 && eslint ./src/ --report-unused-disable-directives",
     "format": "prettier --write .",
     "preview": "vite preview"
   },
