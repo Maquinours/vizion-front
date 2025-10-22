@@ -18,7 +18,7 @@ export const Route = createFileRoute('/app/enterprises_/$enterpriseId/relate-bus
     if (!user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO')) throw notFound();
   },
   loader: ({ context: { queryClient }, params: { enterpriseId } }) => {
-    queryClient.prefetchQuery(queries['all-businesses'].list._ctx.notAssociatedByEnterpriseId(enterpriseId));
+    queryClient.prefetchQuery(queries['all-businesses'].partial._ctx.list._ctx.notAssociatedByEnterpriseId(enterpriseId));
   },
   pendingComponent: LoaderModal,
 });

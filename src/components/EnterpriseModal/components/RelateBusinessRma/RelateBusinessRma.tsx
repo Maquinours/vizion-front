@@ -7,15 +7,15 @@ import { toast } from 'react-toastify';
 import * as yup from 'yup';
 import { relateAllBusinessToEnterprise } from '../../../../utils/api/allBusiness';
 import { queries } from '../../../../utils/constants/queryKeys';
-import AllBusinessResponseDto from '../../../../utils/types/AllBusinessResponseDto';
 import EnterpriseResponseDto from '../../../../utils/types/EnterpriseResponseDto';
+import PartialAllBusinessResponseDto from '../../../../utils/types/PartialAllBusinessResponseDto';
 import CustomSelect from '../../../CustomSelect/CustomSelect';
 import styles from './RelateBusinessRmaModal.module.scss';
 
 // const routeApi = getRouteApi('/app/enterprises_/$enterpriseId/relate-business-rma');
 
 const yupSchema = yup.object().shape({
-  associatedBusiness: yup.mixed<AllBusinessResponseDto>().required('Veuillez sélectionner une affaire'),
+  associatedBusiness: yup.mixed<PartialAllBusinessResponseDto>().required('Veuillez sélectionner une affaire'),
 });
 
 type EnterpriseModalComponentRelateBusinessRmaComponentProps = Readonly<{
@@ -32,7 +32,7 @@ export default function EnterpriseModalComponentRelateBusinessRmaComponent({ ent
     resolver: yupResolver(yupSchema),
   });
 
-  const { data: options, isLoading: isLoadingOptions } = useQuery(queries['all-businesses'].list._ctx.notAssociatedByEnterpriseId(enterprise.id));
+  const { data: options, isLoading: isLoadingOptions } = useQuery(queries['all-businesses'].partial._ctx.list._ctx.notAssociatedByEnterpriseId(enterprise.id));
 
   //   const onClose = () => {
   //     navigate({ to: '..', search: true, replace: true, resetScroll: false });

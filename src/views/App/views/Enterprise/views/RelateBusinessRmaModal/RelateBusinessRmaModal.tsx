@@ -1,22 +1,22 @@
-import { getRouteApi } from '@tanstack/react-router';
-import ReactModal from 'react-modal';
-import styles from './RelateBusinessRmaModal.module.scss';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { queries } from '../../../../../../utils/constants/queryKeys';
-import { Controller, useForm } from 'react-hook-form';
-import * as yup from 'yup';
-import AllBusinessResponseDto from '../../../../../../utils/types/AllBusinessResponseDto';
 import { yupResolver } from '@hookform/resolvers/yup';
-import CustomSelect from '../../../../../../components/CustomSelect/CustomSelect';
-import { PulseLoader } from 'react-spinners';
-import { relateAllBusinessToEnterprise } from '../../../../../../utils/api/allBusiness';
-import { toast } from 'react-toastify';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { getRouteApi } from '@tanstack/react-router';
 import { useEffect } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import ReactModal from 'react-modal';
+import { PulseLoader } from 'react-spinners';
+import { toast } from 'react-toastify';
+import * as yup from 'yup';
+import CustomSelect from '../../../../../../components/CustomSelect/CustomSelect';
+import { relateAllBusinessToEnterprise } from '../../../../../../utils/api/allBusiness';
+import { queries } from '../../../../../../utils/constants/queryKeys';
+import PartialAllBusinessResponseDto from '../../../../../../utils/types/PartialAllBusinessResponseDto';
+import styles from './RelateBusinessRmaModal.module.scss';
 
 const routeApi = getRouteApi('/app/enterprises_/$enterpriseId/relate-business-rma');
 
 const yupSchema = yup.object().shape({
-  associatedBusiness: yup.mixed<AllBusinessResponseDto>().required('Veuillez sélectionner une affaire'),
+  associatedBusiness: yup.mixed<PartialAllBusinessResponseDto>().required('Veuillez sélectionner une affaire'),
 });
 
 export default function AppViewEnterpriseViewRelateBusinessRmaModalView() {
@@ -30,7 +30,7 @@ export default function AppViewEnterpriseViewRelateBusinessRmaModalView() {
     resolver: yupResolver(yupSchema),
   });
 
-  const { data: options, isLoading: isLoadingOptions } = useQuery(queries['all-businesses'].list._ctx.notAssociatedByEnterpriseId(enterpriseId));
+  const { data: options, isLoading: isLoadingOptions } = useQuery(queries['all-businesses'].partial._ctx.list._ctx.notAssociatedByEnterpriseId(enterpriseId));
 
   const onClose = () => {
     navigate({ to: '..', search: true, replace: true, resetScroll: false });
