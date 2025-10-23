@@ -113,7 +113,6 @@
     "@types/react-modal": "^3.16.3",
     "@types/react-resizable": "^3.0.8",
     "@types/svg-intersections": "^0.4.4",
-    "@types/uuid": "^11.0.0",
     "@typescript-eslint/eslint-plugin": "^8.46.2",
     "@typescript-eslint/parser": "^8.46.2",
     "@vitejs/plugin-react": "^5.0.4",
