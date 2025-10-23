@@ -56,6 +56,8 @@
       }
 
       .form_input_save {
+        display: flex;
+        
         input {
           background: var(--grey-color) 0% 0% no-repeat padding-box;
           border: 1px solid var(--primary-color);
@@ -92,7 +94,7 @@
           }
         }
 
-        button {
+        button, a {
           margin-left: 5px;
 
           svg {

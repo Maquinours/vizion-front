@@ -56,6 +56,7 @@ export type ExpertStudySynopticCameraNode = Node<
     quantity?: number;
     option?: boolean;
     orientation?: ExpertStudySynopticCameraNodeOrientation;
+    image?: string;
   },
   'synopticCamera'
 >;
@@ -108,7 +109,7 @@ export default function AppViewStudyViewExpertViewFlowComponentSynopticCameraNod
   if (!product) return;
 
   const orientation = 'orientation' in data ? data.orientation : undefined;
-  const image = `https://bd.vizeo.eu/6-Photos/${product.reference}/${product.category !== 'Autres cameras' && orientation === undefined ? 'PLUG_' : ''}${product.reference}.png`;
+  const image = data.image ?? `https://bd.vizeo.eu/6-Photos/${product.reference}/${product.category !== 'Autres cameras' && orientation === undefined ? 'PLUG_' : ''}${product.reference}.png`;
   const name = !data.name || data.name === product.reference ? product.reference : `${data.name} (${product.reference})`;
 
   const quantity = data.quantity ?? 1;

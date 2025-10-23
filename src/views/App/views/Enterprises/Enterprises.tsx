@@ -17,7 +17,7 @@ const size = 20;
 export default function AppViewEnterprisesView() {
   const queryClient = useQueryClient();
 
-  const { enterprise, contact, zipCode, city, phoneNumber, category, representativeId, fuzzy, page } = routeApi.useSearch();
+  const { enterprise, contact, zipCode, city, phoneNumber, category, representativeId, fuzzy, page, linkToBusinessId } = routeApi.useSearch();
 
   const { data, isLoading } = useQuery({
     ...enterprises.page({
@@ -59,7 +59,7 @@ export default function AppViewEnterprisesView() {
       <div className={styles.container}>
         <AppViewEnterprisesViewButtonsComponent />
         <AppViewEnterprisesViewSearchSectionComponent />
-        <AppViewEnterprisesViewTableComponent data={data?.content} isLoading={isLoading} />
+        <AppViewEnterprisesViewTableComponent data={data?.content} isLoading={isLoading} linkToBusinessId={linkToBusinessId} />
         <PaginationComponent
           page={page}
           totalPages={data?.totalPages}

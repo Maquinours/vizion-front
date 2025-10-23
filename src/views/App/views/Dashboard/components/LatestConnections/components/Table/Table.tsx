@@ -11,6 +11,7 @@ import KeycloakEventDetailsResponseDto from '../../../../../../../../utils/types
 import ProfileResponseDto from '../../../../../../../../utils/types/ProfileResponseDto';
 import { KEYCLOACK_STATES } from '../../utils/constants/states';
 import styles from './Table.module.scss';
+import { Link } from '@tanstack/react-router';
 
 const columnHelper = createColumnHelper<{ event: KeycloakEventDetailsResponseDto; profile: ProfileResponseDto | undefined; id: string }>();
 const columns = [
@@ -26,7 +27,14 @@ const columns = [
         <div className="flex h-full items-center justify-between">
           <span>
             {original.profile ? `${original.profile.firstName} ${original.profile.lastName}` : original.event.fullName || original.event.username || 'Inconnu'}
-            {original.profile?.enterprise ? ` de ${original.profile.enterprise.name}` : ''}
+            {original.profile?.enterprise && (
+              <>
+                {' '}de{' '}
+                <Link to="/app/enterprises/$enterpriseId" params={{ enterpriseId: original.profile.enterprise.id }}>
+                  {original.profile.enterprise.name}
+                </Link>
+              </>
+            )}
             {/* {state?.label ?? 'Événement inconnu'} de {original.fullName || original.username || 'inconnu'} {original.en} */}
           </span>
           {!!state && <BsFillCircleFill color={state.color} height={20} width={20} />}

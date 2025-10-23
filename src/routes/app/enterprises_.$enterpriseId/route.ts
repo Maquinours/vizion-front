@@ -17,7 +17,7 @@ const searchSchema = z.object({
   contactsSearch: z.string().optional().catch(undefined),
   contactsPage: z.number().int().min(0).catch(0),
   lifesheetPage: z.number().int().min(0).catch(0),
-  allBusinessProfileId: z.string().uuid().optional().catch(undefined),
+  allBusinessProfileId: z.uuid().optional().catch(undefined),
   allBusinessSortBy: z
     .union([z.literal('number'), z.literal('totalHt'), z.literal('modifiedDate'), z.literal('state')])
     .optional()
@@ -26,6 +26,8 @@ const searchSchema = z.object({
     .union([z.literal('ASC'), z.literal('DESC')])
     .optional()
     .catch(undefined),
+  fromCall: z.boolean().optional().catch(undefined),
+  enterpriseModal: z.enum(['before-close']).optional().catch(undefined),
 });
 
 export const Route = createFileRoute('/app/enterprises_/$enterpriseId')({
@@ -38,6 +40,7 @@ export const Route = createFileRoute('/app/enterprises_/$enterpriseId')({
       allBusinessProfileId?: string;
       allBusinessSortBy?: 'number' | 'totalHt' | 'modifiedDate' | 'state';
       allBusinessSortOrder?: 'ASC' | 'DESC';
+      fromCall?: boolean;
     } & SearchSchemaInput,
   ) => searchSchema.parse(data),
   loaderDeps: ({
@@ -70,7 +73,7 @@ export const Route = createFileRoute('/app/enterprises_/$enterpriseId')({
           const item = value?.content.find((item) => item.id === enterpriseId);
           if (item) {
             initialDataKey = key;
-            return value;
+            return item;
           }
         }
       },
@@ -108,7 +111,15 @@ export const Route = createFileRoute('/app/enterprises_/$enterpriseId')({
     await enterprisePromise;
   },
   staticData: {
-    getTitle: (queryClient, match) =>
-      queryClient.ensureQueryData(queries.enterprise.detail((match.params as { enterpriseId: string }).enterpriseId)).then((enterprise) => enterprise.name),
+    getTitle: async (queryClient, match) => {
+      const enterpriseId = (match.params as { enterpriseId: string }).enterpriseId;
+      const enterprise = await queryClient.ensureQueryData({...queries.enterprise.detail(enterpriseId)});
+      return enterprise.name;
+    },
+    getCloseTabRoute: (prev) => prev.search.fromCall ? ({
+      to: prev.to,
+      params: prev.params,
+      search: { ...prev.search, enterpriseModal: 'before-close' },
+    }) : undefined,
   },
 });

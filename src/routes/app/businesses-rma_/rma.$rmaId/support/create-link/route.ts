@@ -7,7 +7,7 @@ export const Route = createFileRoute('/app/businesses-rma_/rma/$rmaId/support/cr
   loader: ({ context: { queryClient }, params: { rmaId } }) => {
     queryClient.ensureQueryData(queries.rmas.detail(rmaId)).then((rma) => {
       queryClient.prefetchQuery(
-        queries['all-businesses'].list._ctx.notAssociated({
+        queries['all-businesses'].partial._ctx.list._ctx.notAssociated({
           category: CategoryBusiness.RMA,
           number: rma.number,
         }),

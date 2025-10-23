@@ -4,7 +4,7 @@ import LoaderModal from '../../../../../components/LoaderModal/LoaderModal';
 
 const searchSchema = z.object({
   dates: z.array(z.coerce.date()).length(2).optional().catch(undefined),
-  participant: z.string().uuid().optional().catch(undefined),
+  participant: z.uuid().optional().catch(undefined),
 });
 
 export const Route = createFileRoute('/app/tools/scheduler/create')({

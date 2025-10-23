@@ -2,7 +2,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import { getRouteApi, Outlet } from '@tanstack/react-router';
 import { createColumnHelper } from '@tanstack/react-table';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
@@ -60,7 +60,7 @@ export default function AppViewBusinessViewBlViewUpdateModalView() {
 
   const items = useWatch({ name: 'items', control });
 
-  const columns = [
+  const columns = useMemo(() => [
     columnHelper.display({
       header: 'Référence',
       cell: ({ row: { index } }) => (
@@ -82,7 +82,7 @@ export default function AppViewBusinessViewBlViewUpdateModalView() {
     columnHelper.display({
       id: 'scrollbar_compensator',
     }),
-  ];
+  ], [register, errors]);
 
   const onClose = () => {
     navigate({ to: '..', search: true, replace: true, resetScroll: false });

@@ -26,12 +26,16 @@ import 'react-datepicker/dist/react-datepicker.css';
 import moment from 'moment';
 import { updateAllBusinessModifyDate } from '../../utils/api/allBusiness';
 import CategoryBusiness from '../../utils/enums/CategoryBusiness';
+import CreateLifesheetModalComponentConcernedSectionComponent from './components/ConcernedSection/ConcernedSection';
 
 const yupSchema = yup.object({
   description: yup.string().required('Ce champ est requis'),
   deadline: yup.date(),
   receivers: yup.array().of(yup.mixed<ProfileResponseDto>().required()).required(),
+  concerned: yup.mixed<ProfileResponseDto>().required().nullable()
 });
+
+export type CreateLifesheetSchema = yup.InferType<typeof yupSchema>;
 
 type CreateLifesheetModalComponentProps = Readonly<{
   isOpen?: boolean;
@@ -70,13 +74,17 @@ export default function CreateLifesheetModalComponent({
     defaultValues: {
       receivers: [],
       description: '',
+      concerned: null,
     },
   });
 
   const receivers = useWatch({ name: 'receivers', control });
 
+  const concerned = useWatch({name: 'concerned', control});
+  console.log({concerned});
+
   const { mutate, isPending } = useMutation({
-    mutationFn: async ({ receivers, description, deadline }: yup.InferType<typeof yupSchema>) => {
+    mutationFn: async ({ receivers, description, deadline, concerned }: yup.InferType<typeof yupSchema>) => {
       // If the description is the same as the first predefined text, we ignore it, but we update the modify date if it's business or RMA.
       if (predefinedTexts && description.trim() === predefinedTexts[0]?.description.trim()) {
         switch (associatedItemType) {
@@ -107,6 +115,8 @@ export default function CreateLifesheetModalComponent({
           data = {
             enterpriseId: associatedItemId,
             enterpriseName: (await queryClient.ensureQueryData(enterprises.detail(associatedItemId))).name,
+            concernedId: concerned ? concerned.id : undefined,
+            concernedName: concerned ? `${concerned.firstName} ${concerned.lastName}` : undefined,
           };
           break;
         case LifesheetAssociatedItem.RMA:
@@ -197,6 +207,7 @@ export default function CreateLifesheetModalComponent({
           </div>
 
           <form onSubmit={handleSubmit((data) => mutate(data))} onReset={() => onClose()}>
+            {associatedItemType === LifesheetAssociatedItem.ENTERPRISE && <CreateLifesheetModalComponentConcernedSectionComponent enterpriseId={associatedItemId} control={control} />}
             <div className={styles.editor}>
               <Controller
                 control={control}

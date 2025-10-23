@@ -4,8 +4,8 @@ import { queries } from '../../../../utils/constants/queryKeys';
 
 const searchSchema = z.object({
   page: z.number().min(0).catch(0),
-  shelfId: z.string().uuid().optional().catch(undefined),
-  versionId: z.string().uuid().optional().catch(undefined),
+  shelfId: z.uuid().optional().catch(undefined),
+  versionId: z.uuid().optional().catch(undefined),
 });
 
 export const Route = createFileRoute('/app/tools/product-inventory')({

@@ -1,9 +1,10 @@
 import { Link, getRouteApi } from '@tanstack/react-router';
 import { Row, createColumnHelper } from '@tanstack/react-table';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useContext, useMemo, useState } from 'react';
 import TableComponent from '../../../../../../components/Table/Table';
 import EnterpriseResponseDto from '../../../../../../utils/types/EnterpriseResponseDto';
 import ProfileResponseDto from '../../../../../../utils/types/ProfileResponseDto';
+import { TabsContext } from '../../../../components/TabsContainer/utils/contexts/context';
 import AppViewEnterprisesViewTableComponentContactContextMenu from './components/ContactContextMenu/ContactContextMenu';
 import AppViewEnterprisesViewTableComponentContactsCellComponent from './components/ContactsCell/ContactsCell';
 import styles from './Table.module.scss';
@@ -15,9 +16,12 @@ const columnHelper = createColumnHelper<EnterpriseResponseDto>();
 type AppViewEnterprisesViewTableComponentProps = Readonly<{
   data: Array<EnterpriseResponseDto> | undefined;
   isLoading: boolean;
+  linkToBusinessId?: string;
 }>;
-export default function AppViewEnterprisesViewTableComponent({ data, isLoading }: AppViewEnterprisesViewTableComponentProps) {
+export default function AppViewEnterprisesViewTableComponent({ data, isLoading, linkToBusinessId }: AppViewEnterprisesViewTableComponentProps) {
   const navigate = routeApi.useNavigate();
+
+  const { getCurrentTab, updateTabRoute } = useContext(TabsContext)!;
 
   const [contactContextMenuAnchor, setContactContextMenuAnchor] = useState<HTMLElement>();
   const [contact, setContact] = useState<ProfileResponseDto>();
@@ -31,23 +35,50 @@ export default function AppViewEnterprisesViewTableComponent({ data, isLoading }
     [setContact, setContactContextMenuAnchor],
   );
 
+  const removeLinkToBusinessId = useCallback(() => {
+    const currentTabId = getCurrentTab()?.id;
+    if (currentTabId)
+      updateTabRoute(currentTabId, (tab) => ({
+        search: { ...(typeof tab.route.search === 'object' && tab.route.search !== null ? tab.route.search : {}), linkToBusinessId: undefined },
+      }));
+  }, [getCurrentTab, updateTabRoute]);
+
   const columns = useMemo(
     () => [
       columnHelper.display({
         header: 'Entreprise',
-        cell: ({ row: { original } }) => (
-          <Link
-            from={routeApi.id}
-            to="$enterpriseId"
-            params={{ enterpriseId: original.id }}
-            onClick={(e) => {
-              e.stopPropagation();
-              e.nativeEvent.stopImmediatePropagation();
-            }}
-          >
-            {original.name}
-          </Link>
-        ),
+        cell: ({ row: { original } }) => {
+          if (linkToBusinessId)
+            return (
+              <Link
+                from={routeApi.id}
+                to="$enterpriseId/relate-business-rma"
+                params={{ enterpriseId: original.id }}
+                search={{ defaultBusinessRmaId: linkToBusinessId }}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  e.nativeEvent.stopImmediatePropagation();
+                  removeLinkToBusinessId();
+                }}
+              >
+                {original.name}
+              </Link>
+            );
+          else
+            return (
+              <Link
+                from={routeApi.id}
+                to="$enterpriseId"
+                params={{ enterpriseId: original.id }}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  e.nativeEvent.stopImmediatePropagation();
+                }}
+              >
+                {original.name}
+              </Link>
+            );
+        },
       }),
       columnHelper.display({
         header: 'Contacts',
@@ -92,12 +123,22 @@ export default function AppViewEnterprisesViewTableComponent({ data, isLoading }
         id: 'scrollbar_compensator',
       }),
     ],
-    [onContactContextMenu],
+    [onContactContextMenu, linkToBusinessId, removeLinkToBusinessId],
   );
 
   const onRowClick = (e: React.MouseEvent, row: Row<EnterpriseResponseDto>) => {
-    if (e.metaKey || e.ctrlKey) window.open(`${window.location.origin}/app/enterprises/${row.original.id}`, '_blank');
-    else navigate({ to: '$enterpriseId', params: { enterpriseId: row.original.id } });
+    if (linkToBusinessId) {
+      removeLinkToBusinessId();
+      if (e.metaKey || e.ctrlKey)
+        window.open(
+          `${window.location.origin}/app/enterprises/${row.original.id}/relate-business-rma?defaultBusinessRmaId=${encodeURIComponent(linkToBusinessId)}`,
+          '_blank',
+        );
+      else navigate({ to: '$enterpriseId/relate-business-rma', params: { enterpriseId: row.original.id }, search: { defaultBusinessRmaId: linkToBusinessId } });
+    } else {
+      if (e.metaKey || e.ctrlKey) window.open(`${window.location.origin}/app/enterprises/${row.original.id}`, '_blank');
+      else navigate({ to: '$enterpriseId', params: { enterpriseId: row.original.id } });
+    }
   };
 
   return (

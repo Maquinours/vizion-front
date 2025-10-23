@@ -17,8 +17,8 @@ import { router } from '../../../../router';
 const routeApi = getRouteApi('/auth/login');
 
 const yupSchema = object({
-  username: string().required("L'identifiant est requis."),
-  password: string().required('Le mot de passe est requis'),
+  username: string().required("L'identifiant est requis.").trim(),
+  password: string().required('Le mot de passe est requis').trim(),
   // remember_me: boolean().required(), // TODO: implement this
 });
 

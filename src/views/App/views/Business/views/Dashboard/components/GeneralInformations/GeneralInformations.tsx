@@ -1,4 +1,4 @@
-import { getRouteApi } from '@tanstack/react-router';
+import { getRouteApi, Link } from '@tanstack/react-router';
 import styles from './GeneralInformations.module.scss';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { queries } from '../../../../../../../../utils/constants/queryKeys';
@@ -9,6 +9,7 @@ import { FieldErrors, UseFormRegister } from 'react-hook-form';
 import { BusinessDashboardFormType } from '../../Dashboard';
 import { MdSave } from 'react-icons/md';
 import classNames from 'classnames';
+import { FaLink } from 'react-icons/fa';
 
 const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/dashboard');
 
@@ -77,9 +78,14 @@ export default function AppViewBusinessViewDashboardViewGeneralInformationsCompo
           <label htmlFor="businessInstaller">Installateur</label>
           <div className={styles.form_input_save}>
             <input id="businessInstaller" {...register('businessInstaller')} placeholder="..." disabled={!isUpdatable} />
-            <button disabled={isSavePending} onClick={onSave}>
-              <MdSave />
-            </button>
+            <div>
+              <button disabled={isSavePending} onClick={onSave}>
+                <MdSave />
+              </button>
+              <Link to="/app/enterprises" search={{ linkToBusinessId: businessId }}>
+                <FaLink title="Relier l'affaire à une entreprise" />
+              </Link>
+            </div>
           </div>
           <p className={styles.__errors}>{errors.businessInstaller?.message}</p>
         </div>
