@@ -426,7 +426,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentPdfModal
                 </View>
                 <View style={densityStatsPageStyle.tableBodyContainer}>
                   {items.map((item, index) => (
-                    <View style={densityStatsPageStyle.tableBody}>
+                    <View key={index} style={densityStatsPageStyle.tableBody}>
                       <Text style={densityStatsPageStyle.tableBodyName}>{item.name?.trim() ?? `CAM${index + 1}`}</Text>
                       <Text style={densityStatsPageStyle.tableBodyReference}>{item.reference}</Text>
                       <Text style={densityStatsPageStyle.tableBodyIdentification}>{amountFormatter(item.identification)}m</Text>

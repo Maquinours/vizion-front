@@ -175,9 +175,9 @@ export default function AppViewTabsContainerComponentTabContextMenuComponentBusi
   }
 
   return [
-    <Separator />,
+    <Separator key={"separator"} />,
     result,
-    <StudyItem business={business} />,
-    <AppViewTabsContainerComponentTabContextMenuComponentBusinessItemsComponentBusinessAssistanceItemsComponent business={business} />,
+    <StudyItem key="studyItem" business={business} />,
+    <AppViewTabsContainerComponentTabContextMenuComponentBusinessItemsComponentBusinessAssistanceItemsComponent key="assistances" business={business} />,
   ];
 }

@@ -3,7 +3,7 @@ import { Link, LinkProps } from '@tanstack/react-router';
 import { createColumnHelper } from '@tanstack/react-table';
 import DOMPurify from 'dompurify';
 import parse from 'html-react-parser';
-import { useMemo } from 'react';
+import { JSX, useMemo } from 'react';
 import { queries } from '../../utils/constants/queryKeys';
 import { WorkloadAssociatedItem } from '../../utils/enums/WorkloadAssociatedItem';
 import { formatDate } from '../../utils/functions/dates';
@@ -77,8 +77,9 @@ export default function WorkloadsComponent({
       columnHelper.display({
         header: 'Description',
         cell: ({ row: { original } }) => {
+          let children: JSX.Element;
           if (original.mailId) {
-            var children = (() => {
+            children = (() => {
               const subChildren = (
                 <>
                   {parse(DOMPurify.sanitize(original.content ?? ''))}
@@ -109,7 +110,7 @@ export default function WorkloadsComponent({
               } else throw new Error('emailLink or onEmailClick must be defined');
             })();
           } else {
-            var children = (
+            children = (
               <>
                 <div className="ql-editor">{parse(DOMPurify.sanitize(original.content ?? ''))}</div>
                 {original.enterpriseName && <div className={styles.content}>{original.enterpriseName}</div>}
@@ -141,14 +142,15 @@ export default function WorkloadsComponent({
         id: 'actions',
         cell: ({ row: { original } }) => {
           const subChildren = <FaTrash width={16} height={16} color={'#F24C52'} />;
+          let children: JSX.Element;
           if (unlinkLink)
-            var children = (
+            children = (
               <Link {...unlinkLink(original)} preload="intent">
                 {subChildren}
               </Link>
             );
           else if (onUnlinkClick)
-            var children = (
+            children = (
               <button type="button" onClick={() => onUnlinkClick(original)}>
                 {subChildren}
               </button>

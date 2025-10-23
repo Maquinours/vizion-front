@@ -32,7 +32,7 @@ export default function AppViewAircallWorkspaceComponent({ children }: AppViewAi
         if (success) {
           setIsWorkspaceOpened(true);
           resolve();
-        } else reject(new Error(data));
+        } else reject(data);
       });
     });
   };

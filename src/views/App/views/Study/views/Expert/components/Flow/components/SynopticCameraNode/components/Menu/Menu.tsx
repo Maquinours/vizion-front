@@ -263,11 +263,11 @@ export default function AppViewStudyViewExpertViewFlowComponentSynopticCameraNod
           <div className="flex gap-y-2 border-t-2 border-t-[#1a192b] p-2 flex-col items-center">
             <span>Image</span>
             {images.map((img) => (
-              <div key={img.url} className='flex flex-row gap-x-2 items-center cursor-pointer' onClick={() => onImageChange(img.url)}>
+              <button key={img.url} className='flex flex-row gap-x-2 items-center cursor-pointer' onClick={() => onImageChange(img.url)}>
                 <input type='radio' name='image' value={img.url} checked={image === img.url} />
                 <img src={img.url} alt={img.name} className='h-12 w-12' />
                 <span className="w-40 text-left">{img.name}</span>
-              </div>
+              </button>
             ))}
           </div>
         )}

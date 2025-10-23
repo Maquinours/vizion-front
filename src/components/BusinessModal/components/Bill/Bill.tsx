@@ -47,7 +47,7 @@ export default function BusinessModalComponentBillComponent({ business }: Busine
   });
 
   useEffect(() => {
-    if (!!bill) {
+    if (bill) {
       const totalAmountHT = Number(bill.billDetails.reduce((acc, item) => acc + item.quantity * (item.unitPrice ?? 0), 0).toFixed(2));
       const vat = Number((business.exportTva ? (totalAmountHT + bill.shippingServicePrice) * 0.2 : 0).toFixed(2));
       const totalAmount = Number((totalAmountHT + bill.shippingServicePrice + vat).toFixed(2));

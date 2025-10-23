@@ -14,7 +14,7 @@ import TableComponentBodyComponent from './components/Body/Body';
 import React from 'react';
 
 type TableComponentProps<T> = Readonly<{
-  columns: ColumnDef<T, any>[];
+  columns: ColumnDef<T, unknown>[];
   data?: T[];
   isLoading?: boolean;
   onRowClick?: (e: React.MouseEvent, row: Row<T>) => void;

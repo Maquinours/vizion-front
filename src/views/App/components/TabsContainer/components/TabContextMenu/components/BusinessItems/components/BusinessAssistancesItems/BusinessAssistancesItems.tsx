@@ -69,5 +69,5 @@ export default function AppViewTabsContainerComponentTabContextMenuComponentBusi
 
   if (!result || result.length === 0) return;
 
-  return [<Separator />, ...result];
+  return [<Separator key="separator" />, ...result];
 }

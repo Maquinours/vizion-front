@@ -36,19 +36,19 @@ export default function AppViewEnterprisesViewTableComponentContactsCellComponen
     <button type="button" className="h-fit w-full cursor-default" onClick={onClick}>
       <div className={styles.container}>
         {original.profiles.length > 1 && !isOpen ? (
-          <div className="flex flex-row" onClick={() => setIsOpen(true)}>
+          <button className="flex flex-row" onClick={() => setIsOpen(true)}>
             <div className="flex-1 text-right">
               <span>{original.profiles.length} contacts</span>
             </div>
             <div>
               <IoMdArrowDropright />
             </div>
-          </div>
+          </button>
         ) : (
           original.profiles.map((contact, index, arr) => {
             const isDropDownItem = index === 0 && arr.length > 1;
             return (
-              <div
+              <button
                 key={contact.id}
                 onContextMenu={(e) => onContactContextMenu(e, contact)}
                 onClick={() => isDropDownItem && setIsOpen(false)}
@@ -77,7 +77,7 @@ export default function AppViewEnterprisesViewTableComponentContactsCellComponen
                   )}
                 </div>
                 <div className="w-[10%] p-1">{isDropDownItem && <IoMdArrowDropdown />}</div>
-              </div>
+              </button>
             );
           })
         )}

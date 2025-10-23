@@ -114,6 +114,6 @@ declare module 'aircall-everywhere' {
      */
     removeListener(event: EventType): void;
 
-    send(event: 'dial_number', payload: { phone_number: string }, callback: (success: boolean, data: any) => void): void;
+    send(event: 'dial_number', payload: { phone_number: string }, callback: (success: boolean, data: unknown) => void): void;
   }
 }

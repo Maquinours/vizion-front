@@ -16,12 +16,13 @@ export default function CreateLifesheetModalComponentConcernedSectionComponent({
 
   return (
     <div className="mb-4 flex items-center gap-x-1">
-      <label>Qui :</label>
+      <label htmlFor="concerned">Qui :</label>
       <Controller
         control={control}
         name="concerned"
         render={({ field: { value, onBlur, onChange } }) => (
           <CustomSelect
+            name="concerned"
             options={profiles}
             getOptionValue={(opt) => opt.id}
             getOptionLabel={(opt) => `${opt.firstName} ${opt.lastName}`}
