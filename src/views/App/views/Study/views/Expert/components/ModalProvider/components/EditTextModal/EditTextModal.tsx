@@ -59,7 +59,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentEditText
       overlayClassName="Overlay"
       onRequestClose={onClose}
     >
-      <h2 className="flex h-10 items-center justify-center rounded-t-md bg-[var(--primary-color)] text-white">Modifier un texte</h2>
+      <h2 className="flex h-10 items-center justify-center rounded-t-md bg-(--primary-color) text-white">Modifier un texte</h2>
       <form onSubmit={handleSubmit(onSubmit)} className="flex w-full flex-col gap-4 rounded-md bg-white p-4">
         <div>
           <Controller
@@ -67,7 +67,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentEditText
             name="text"
             render={({ field: { value, onChange } }) => <Quill value={value} onChange={onChange} modules={quillModules} />}
           />
-          <p className="text-center text-sm text-[var(--secondary-color)]">{errors.text?.message}</p>
+          <p className="text-center text-sm text-(--secondary-color)">{errors.text?.message}</p>
         </div>
         <div className="flex flex-row items-center justify-center gap-2">
           <button type="button" onClick={onClose} className="btn btn-secondary">

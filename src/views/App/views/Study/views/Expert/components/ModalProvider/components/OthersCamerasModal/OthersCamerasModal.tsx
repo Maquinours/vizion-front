@@ -91,7 +91,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentOthersCa
         onRequestClose={onClose}
       >
         <form className="w-full rounded-md bg-white pb-2" onSubmit={handleSubmit(onSubmit)}>
-          <h2 className="flex h-10 items-center justify-center rounded-t-md bg-[var(--primary-color)] text-white">AUTRES CAMÉRAS</h2>
+          <h2 className="flex h-10 items-center justify-center rounded-t-md bg-(--primary-color) text-white">AUTRES CAMÉRAS</h2>
           <div className="mx-2 mt-4 overflow-hidden rounded-md border border-[#16204e] bg-white">
             <Controller
               control={control}

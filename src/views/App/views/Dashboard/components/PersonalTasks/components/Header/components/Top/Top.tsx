@@ -50,7 +50,7 @@ export default function AppViewDashboardViewPersonalTasksComponentHeaderComponen
             <div className="flex flex-col items-center">
               <BsFillCircleFill color={item.color} className={classNames(styles.icon, { [styles.isActive]: item.value === state })} />
               {counts && item.countField && (
-                <span className={classNames('absolute text-sm text-[var(--white-color)]', { 'leading-[22px]': item.value === state })}>
+                <span className={classNames('absolute text-sm text-(--white-color)', { 'leading-[22px]': item.value === state })}>
                   {counts[item.countField]}
                 </span>
               )}

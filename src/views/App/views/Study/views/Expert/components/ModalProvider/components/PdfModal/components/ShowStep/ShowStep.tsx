@@ -174,7 +174,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentPdfModal
         overlayClassName="Overlay"
       >
         <div className="w-full rounded-md bg-white pb-2">
-          <h2 className="flex h-10 items-center justify-center rounded-t-md bg-[var(--primary-color)] text-white">FICHIER PDF</h2>
+          <h2 className="flex h-10 items-center justify-center rounded-t-md bg-(--primary-color) text-white">FICHIER PDF</h2>
           <PDFViewer style={{ height: '85vh', width: '70vw' }}>
             <AppViewStudyViewExpertViewModalProviderComponentPdfModalComponentShowStepComponentPdfComponent
               images={images}

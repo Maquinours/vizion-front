@@ -179,12 +179,12 @@ export default function AppViewStudyViewExpertViewModalProviderComponentRecorder
       onRequestClose={onClose}
     >
       <form className="w-full rounded-md bg-white pb-2" onSubmit={handleSubmit(onSubmit)}>
-        <h2 className="flex h-10 items-center justify-center rounded-t-md bg-[var(--primary-color)] text-white">ENREGISTREURS</h2>
+        <h2 className="flex h-10 items-center justify-center rounded-t-md bg-(--primary-color) text-white">ENREGISTREURS</h2>
         <Controller
           control={control}
           name="models"
           render={({ field: { value, onChange } }) => (
-            <div className="max-h-[30rem] overflow-y-scroll">
+            <div className="max-h-120 overflow-y-scroll">
               {value.map((model) => (
                 <button
                   key={model.product.id}
@@ -192,7 +192,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentRecorder
                   className="mt-4 flex items-center justify-center space-x-4 px-4"
                   onClick={() => onChange(value.map((m) => (m.product.id === model.product.id ? { ...m, selected: !m.selected } : m)))}
                 >
-                  <div className="flex h-36 w-[30rem] items-center justify-center rounded-md border border-slate-800 px-2">
+                  <div className="flex h-36 w-120 items-center justify-center rounded-md border border-slate-800 px-2">
                     <div className="flex items-center justify-center space-x-2">
                       <div className="h-16 w-36 rounded-md p-4">
                         <img
@@ -218,7 +218,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentRecorder
           )}
         />
         <div className="mt-6 flex flex-col items-center justify-center gap-y-2">
-          <span className="text-center text-[var(--primary-color)]">
+          <span className="text-center text-(--primary-color)">
             {selectedModelsLength} élément{selectedModelsLength > 1 ? 's' : ''} sélectionné{selectedModelsLength > 1 ? 's' : ''}
           </span>
           <div className="flex items-center justify-center space-x-2">

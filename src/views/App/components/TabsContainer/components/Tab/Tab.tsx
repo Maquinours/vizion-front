@@ -29,15 +29,15 @@ export default function AppViewTabsContainerComponentTabComponent({ tab, onClose
         {...tab.route}
         preload="intent"
         disabled={isDragging}
-        className="flex h-8 w-auto max-w-[auto] items-center justify-between gap-x-8 border-r-[1.5px] border-solid border-r-[color:var(--white-color)] bg-[color:var(--bg-color)] px-2 text-left font-[DIN2014] text-sm not-italic leading-[18px] tracking-[0px] text-[color:var(--primary-color)] no-underline"
+        className="flex h-8 w-auto max-w-[auto] items-center justify-between gap-x-8 border-r-[1.5px] border-solid border-r-(--white-color) bg-(--bg-color) px-2 text-left font-[DIN2014] text-sm not-italic leading-[18px] tracking-[0px] text-(--primary-color) no-underline"
         activeOptions={{ exact: true, includeSearch: false }}
-        activeProps={{ className: 'bg-[color:var(--white-color)] rounded-tr-[5px] border-r-[none]' }}
+        activeProps={{ className: 'bg-(--white-color) rounded-tr-[5px] border-r-[none]' }}
         style={{ pointerEvents: isDragging ? 'none' : undefined }}
       >
         <span className="flex h-full w-full items-center py-0">{tab.name}</span>
         {(tab.closable === undefined || tab.closable) && (
           <button disabled={isDragging} onClick={(e) => onCloseTab(e, tab)}>
-            <MdClose className="font-[bold] text-[17px] text-[color:var(--primary-color)]" />
+            <MdClose className="font-[bold] text-[17px] text-(--primary-color)" />
           </button>
         )}
       </Link>

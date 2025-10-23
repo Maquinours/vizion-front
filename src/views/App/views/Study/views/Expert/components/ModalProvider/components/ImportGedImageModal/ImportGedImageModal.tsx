@@ -206,7 +206,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentImportGe
       overlayClassName="Overlay"
     >
       <form onSubmit={onValidate} className="w-full rounded-md bg-white pb-2">
-        <h2 className="flex h-10 items-center justify-center rounded-t-md bg-[var(--primary-color)] text-white">{title}</h2>
+        <h2 className="flex h-10 items-center justify-center rounded-t-md bg-(--primary-color) text-white">{title}</h2>
         <div className="w-full bg-white">
           <TableComponent
             columns={columns}

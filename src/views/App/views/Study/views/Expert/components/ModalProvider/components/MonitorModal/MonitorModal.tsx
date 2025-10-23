@@ -87,7 +87,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentMonitorM
       onRequestClose={onClose}
     >
       <form onSubmit={handleSubmit(onSubmit)} className="w-full rounded-md bg-white pb-2">
-        <h2 className="flex h-10 items-center justify-center rounded-t-md bg-[var(--primary-color)] text-white">MONITEURS</h2>
+        <h2 className="flex h-10 items-center justify-center rounded-t-md bg-(--primary-color) text-white">MONITEURS</h2>
         <Controller
           control={control}
           name="models"

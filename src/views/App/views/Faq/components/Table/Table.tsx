@@ -58,7 +58,7 @@ export default function AppViewFaqViewTableComponent({ data, isLoading }: AppVie
                 key={product.id}
                 to="/app/products/$productId"
                 params={{ productId: product.id }}
-                className="w-fit text-[var(--primary-color)] hover:text-[var(--secondary-color)]"
+                className="w-fit text-(--primary-color) hover:text-(--secondary-color)"
               >
                 {product.reference}
               </Link>
@@ -77,7 +77,7 @@ export default function AppViewFaqViewTableComponent({ data, isLoading }: AppVie
             <Link
               to="/app/businesses-rma/business/$businessId/assistance/$assistanceId"
               params={{ businessId: row.original.businessId, assistanceId: row.original.assistanceId }}
-              className="w-fit text-[var(--primary-color)] hover:text-[var(--secondary-color)]"
+              className="w-fit text-(--primary-color) hover:text-(--secondary-color)"
             >
               {row.original.assistanceName}
             </Link>

@@ -189,7 +189,7 @@ export default function EmailHistoryModalComponent({
             <h6>Historique des mails</h6>
           </div>
           <div className={styles.modal_content}>
-            <div className="mb-2 flex flex-row items-center gap-x-1 self-end text-[var(--primary-color)]">
+            <div className="mb-2 flex flex-row items-center gap-x-1 self-end text-(--primary-color)">
               <span className="font-semibold">Adresses recherchées :</span>
               <form onSubmit={handleSubmit(onSubmit)} className="flex flex-row gap-x-2">
                 <div className="flex w-96 flex-col gap-y-1">
@@ -200,7 +200,7 @@ export default function EmailHistoryModalComponent({
                       <ReactMultiEmail emails={value} onChange={onChange} onBlur={onBlur} getLabel={getEmailLabel} />
                     )}
                   />
-                  <span className="text-[var(--secondary-color)]">{errors.addresses?.message}</span>
+                  <span className="text-(--secondary-color)">{errors.addresses?.message}</span>
                 </div>
                 <button type="submit" className="btn btn-secondary w-fit self-center">
                   Rechercher

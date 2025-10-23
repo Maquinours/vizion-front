@@ -135,7 +135,7 @@ function Separator() {
   return (
     <MenuItem disabled className={styles.item}>
       <div className="flex w-full flex-col justify-center">
-        <span className="h-0 w-full border-b border-b-[var(--primary-color)] py-0.5"></span>
+        <span className="h-0 w-full border-b border-b-(--primary-color) py-0.5"></span>
         <span className="h-0 py-0.5"></span>
       </div>
     </MenuItem>

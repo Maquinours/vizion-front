@@ -81,7 +81,7 @@ export default function AppViewAircallWorkspaceComponent({ children }: AppViewAi
         </ResizableBox>
         <div className="flex w-fit flex-col items-center">
           <div
-            className={classNames('h-0 w-0 border-r-4 border-b-4 border-l-4 border-transparent border-b-[var(--grey-line)]', { hidden: !isWorkspaceOpened })}
+            className={classNames('h-0 w-0 border-r-4 border-b-4 border-l-4 border-transparent border-b-(--grey-line)', { hidden: !isWorkspaceOpened })}
           />
           <button onClick={onButtonClick}>
             <AircallIcon className="h-8 w-8" />

@@ -16,9 +16,9 @@ export default function AppViewStudyViewExpertViewModalProviderComponentSendStud
       overlayClassName="Overlay"
     >
       <div className="w-full rounded-md bg-white pb-2">
-        <h2 className="flex h-10 items-center justify-center rounded-t-md bg-[var(--primary-color)] text-white">Attention</h2>
+        <h2 className="flex h-10 items-center justify-center rounded-t-md bg-(--primary-color) text-white">Attention</h2>
         <div className="flex flex-col gap-y-4 p-4">
-          <p className="text-center text-[var(--primary-color)]">
+          <p className="text-center text-(--primary-color)">
             Des produits importés ne seront pas valorisés dans le chiffrage.
             <br />
             Voulez-vous continuer ?

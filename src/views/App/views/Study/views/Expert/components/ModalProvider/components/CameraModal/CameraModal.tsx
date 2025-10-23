@@ -173,7 +173,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentCameraMo
       onRequestClose={onClose}
     >
       <div className="w-full">
-        <h1 className="flex h-8 w-full items-center justify-center rounded-t-md bg-[var(--primary-color)] text-white">Choix de la densité</h1>
+        <h1 className="flex h-8 w-full items-center justify-center rounded-t-md bg-(--primary-color) text-white">Choix de la densité</h1>
         <div className="bg-[#FFFFFF] pb-1">
           <div className="mb-4 ml-4 mr-4">
             <form onSubmit={handleSubmit(onSubmit)}>
