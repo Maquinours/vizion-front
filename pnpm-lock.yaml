@@ -264,6 +264,9 @@ importers:
         specifier: ^5.0.8
         version: 5.0.8(@types/react@19.2.2)(react@19.2.0)(use-sync-external-store@1.6.0(react@19.2.0))
     devDependencies:
+      '@eslint/js':
+        specifier: ^9.38.0
+        version: 9.38.0
       '@tanstack/eslint-plugin-query':
         specifier: ^5.91.2
         version: 5.91.2(eslint@9.38.0(jiti@2.6.1))(typescript@5.9.3)
