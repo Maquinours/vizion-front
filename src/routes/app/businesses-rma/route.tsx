@@ -11,7 +11,7 @@ const searchSchema = z.object({
   name: z.string().min(1).optional().catch(undefined),
   contact: z.string().min(1).optional().catch(undefined),
   zipCode: z.string().min(1).optional().catch(undefined),
-  representative: z.string().min(1).uuid().optional().catch(undefined),
+  representative: z.uuid().min(1).optional().catch(undefined),
   installer: z.string().min(1).optional().catch(undefined),
   amounts: z.array(z.number().int()).length(2).optional().catch(undefined),
   enterpriseName: z.string().min(1).optional().catch(undefined),
