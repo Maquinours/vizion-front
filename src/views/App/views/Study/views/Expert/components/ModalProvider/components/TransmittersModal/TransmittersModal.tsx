@@ -11,7 +11,7 @@ import ProductResponseDto from '../../../../../../../../../../utils/types/Produc
 import ExpertStudyContext from '../../../../utils/context';
 import { ExpertStudyTransmitterNode } from '../../../Flow/components/TransmitterNode/TransmitterNode';
 
-const includedProducts = ['KIT50M', 'KITFIBRE', 'POE04', 'POE04LD', 'POE08', 'POE16', 'PONTWIFI', 'SG05'];
+const includedProducts = ['KIT50M', 'KITFIBRE', 'POE08', 'POE16', 'PONTWIFI', 'SG05'];
 
 type Model = {
   product: ProductResponseDto;
