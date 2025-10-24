@@ -56,6 +56,7 @@ export default function LoginPage() {
 
   const onSubmit = (data: InferType<typeof yupSchema>) => {
     if (data.username.toUpperCase().startsWith('B011')) window.location.replace(`https://myvizeo.fr/webproxy/home?id=${data.username}`);
+    else if(data.username.toLowerCase() == "admin") window.location.replace('https://myvizeo.fr');
     else mutate(data);
   };
 
