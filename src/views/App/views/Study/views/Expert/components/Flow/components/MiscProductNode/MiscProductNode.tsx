@@ -113,7 +113,7 @@ export default function AppViewStudyViewExpertViewFlowComponentMiscProductNodeCo
         <div style={{ transform: `rotate(${data.rotation}deg)` }}>
           <NodeResizer onResize={onResize} isVisible={selected ?? false} keepAspectRatio handleStyle={{ width: 10, height: 10, borderRadius: '100%' }} />
           <div className="absolute top-[-20px] w-full text-center">
-            <div className="absolute right-1 top-[calc(50%-30px)] ml-auto flex h-fit w-fit gap-x-1">
+            <div className="absolute top-[calc(50%-30px)] right-1 ml-auto flex h-fit w-fit gap-x-1">
               {data.option && <span className="rounded-md bg-purple-300 p-[1px] text-center text-sm font-medium text-white">OPTION</span>}
               {quantity !== 0 && (
                 <AmountFormat

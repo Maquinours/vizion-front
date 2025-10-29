@@ -126,7 +126,7 @@ export default function AppViewStudyViewExpertViewFlowComponentMonitorNodeCompon
           <div className="absolute left-full -z-50 ml-[5%] flex h-full flex-row items-center justify-center space-x-2 overflow-hidden p-0 text-xs">
             {options.map((option) => (
               <div key={option.product.id}>
-                <span className="relative z-50 -mb-4 mr-2 inline-flex items-center rounded-full bg-amber-300 px-2 py-0.5 text-sm font-medium text-white">
+                <span className="relative z-50 mr-2 -mb-4 inline-flex items-center rounded-full bg-amber-300 px-2 py-0.5 text-sm font-medium text-white">
                   {option.quantity}
                 </span>
                 <img
@@ -138,7 +138,7 @@ export default function AppViewStudyViewExpertViewFlowComponentMonitorNodeCompon
             ))}
           </div>
           <div className="absolute top-[-20px] w-full text-center">
-            <div className="absolute right-1 top-[calc(50%-30px)] ml-auto flex h-fit w-fit gap-x-1">
+            <div className="absolute top-[calc(50%-30px)] right-1 ml-auto flex h-fit w-fit gap-x-1">
               {data.option && <span className="rounded-md bg-purple-300 p-[1px] text-center text-sm font-medium text-white">OPTION</span>}
               {quantity !== 0 && (
                 <AmountFormat

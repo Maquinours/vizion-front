@@ -8,7 +8,7 @@ import {
   getAllBusinessesNotAssociatedPartial,
   getAllBusinessesPartial,
   getByCategoryAndNumber,
-  searchAllBusiness
+  searchAllBusiness,
 } from '../../api/allBusiness';
 import AllBusinessState from '../../enums/AllBusinessState';
 import CategoryBusiness from '../../enums/CategoryBusiness';
@@ -106,9 +106,9 @@ export const allBusinesses = createQueryKeys('all-businesses', {
           notAssociatedByEnterpriseId: (enterpriseId: string) => ({
             queryKey: [enterpriseId],
             queryFn: () => getAllBusinessesNotAssociatedByEnterpriseIdPartial(enterpriseId),
-          })
-        }
-      }
-    }
-  }
+          }),
+        },
+      },
+    },
+  },
 });

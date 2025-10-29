@@ -22,7 +22,11 @@ const stepOneYupSchema = yup.object({
   longDescription: yup.string().nullable(),
   provider: yup.mixed<EnterpriseResponseDto>().required('Le fournisseur est requis'),
   // category: yup.string().required('La catégorie est requise'),
-  categories: yup.array().of(yup.string().required('La catégorie est requise')).min(1, 'Au moins une catégorie est requise').required('Les catégories sont requises'),
+  categories: yup
+    .array()
+    .of(yup.string().required('La catégorie est requise'))
+    .min(1, 'Au moins une catégorie est requise')
+    .required('Les catégories sont requises'),
   isVizeo: yup.mixed<'yes' | 'no'>().required('Champs requis').defined(),
   isVirtual: yup.mixed<'yes' | 'no'>().required('Champs requis').defined(),
   isNomenclature: yup.mixed<'yes' | 'no'>().required('Champs requis').defined(),

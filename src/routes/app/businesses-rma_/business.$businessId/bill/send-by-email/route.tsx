@@ -19,9 +19,12 @@ export const Route = createFileRoute('/app/businesses-rma_/business/$businessId/
     if (!bill) throw redirect({ from: Route.fullPath, to: '..', replace: true });
 
     const enterprise = await enterprisePromise;
-    const showAmounts = user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') || (!!user.profile.enterprise && user.profile.enterprise.id === business.enterpriseId);
+    const showAmounts =
+      user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') || (!!user.profile.enterprise && user.profile.enterprise.id === business.enterpriseId);
 
-    const blob = await pdf(<AppViewBusinessViewBillViewPdfComponent bill={bill} business={business} enterprise={enterprise} showAmounts={showAmounts} />).toBlob();
+    const blob = await pdf(
+      <AppViewBusinessViewBillViewPdfComponent bill={bill} business={business} enterprise={enterprise} showAmounts={showAmounts} />,
+    ).toBlob();
     const file = new File([blob], formatFileName(`${bill.number}.pdf`), {
       type: blob.type,
     });

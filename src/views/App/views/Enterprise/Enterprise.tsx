@@ -46,10 +46,10 @@ export default function AppViewEnterpriseView() {
         </div>
         <div className={styles.grid_two}>
           <AppViewEnterpriseViewContactsComponent />
-            {user.userInfo.roles.some((role) => ['ROLE_MEMBRE_VIZEO', 'ROLE_REPRESENTANT'].includes(role)) && (
-              <AppViewEnterpriseViewCategoryComponent enterprise={enterprise} />
-            )}
-            {user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && <AppViewEnterpriseViewGedComponent />}
+          {user.userInfo.roles.some((role) => ['ROLE_MEMBRE_VIZEO', 'ROLE_REPRESENTANT'].includes(role)) && (
+            <AppViewEnterpriseViewCategoryComponent enterprise={enterprise} />
+          )}
+          {user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && <AppViewEnterpriseViewGedComponent />}
           <AppViewEnterpriseViewWorkloadsComponent />
         </div>
       </div>

@@ -33,13 +33,16 @@ type BusinessModalComponentDashboardComponentUpdateBillingAddressModalComponentP
   business: BusinessResponseDto;
   onClose: () => void;
 }>;
-export default function BusinessModalComponentDashboardComponentUpdateBillingAddressModalComponent({ business, onClose} : BusinessModalComponentDashboardComponentUpdateBillingAddressModalComponentProps) {
+export default function BusinessModalComponentDashboardComponentUpdateBillingAddressModalComponent({
+  business,
+  onClose,
+}: BusinessModalComponentDashboardComponentUpdateBillingAddressModalComponentProps) {
   const queryClient = useQueryClient();
-//   const navigate = routeApi.useNavigate();
+  //   const navigate = routeApi.useNavigate();
 
-//   const { businessId } = routeApi.useParams();
+  //   const { businessId } = routeApi.useParams();
 
-//   const { data: business } = useSuspenseQuery(queries.businesses.detail._ctx.byId(businessId));
+  //   const { data: business } = useSuspenseQuery(queries.businesses.detail._ctx.byId(businessId));
 
   const {
     register,
@@ -59,9 +62,9 @@ export default function BusinessModalComponentDashboardComponentUpdateBillingAdd
     },
   });
 
-//   const onClose = () => {
-//     navigate({ to: '..', search: true, replace: true, resetScroll: false, ignoreBlocker: true });
-//   };
+  //   const onClose = () => {
+  //     navigate({ to: '..', search: true, replace: true, resetScroll: false, ignoreBlocker: true });
+  //   };
 
   const { mutate, isPending } = useMutation({
     mutationFn: (data: yup.InferType<typeof yupSchema>) =>

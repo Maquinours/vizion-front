@@ -504,7 +504,9 @@ export default function AppViewBusinessViewBillViewPdfComponent({ business, bill
                 </View>
                 <View style={pageStyles.recapTableContent}>
                   <Text style={pageStyles.recapTableContentText}>Total general HT :</Text>
-                  <Text style={pageStyles.recapTableContentValue}>{showAmounts ? currencyFormatter((bill.totalAmountHT ?? 0) + bill.shippingServicePrice) : ''}</Text>
+                  <Text style={pageStyles.recapTableContentValue}>
+                    {showAmounts ? currencyFormatter((bill.totalAmountHT ?? 0) + bill.shippingServicePrice) : ''}
+                  </Text>
                 </View>
                 <View style={pageStyles.recapTableContent}>
                   <Text style={pageStyles.recapTableContentText}>Total EcoTaxe :</Text>

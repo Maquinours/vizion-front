@@ -75,9 +75,7 @@ export default function AppViewDashboardViewOtherPersonalTasksModalViewTableComp
               <>
                 {parse(DOMPurify.sanitize(original.content ?? ''))}
                 <div className={styles.tag}>
-                  {original.profileId !== original.senderId && (
-                    <span>{sender ? `De ${sender.firstName} ${sender.lastName}` : ''} </span>
-                  )}
+                  {original.profileId !== original.senderId && <span>{sender ? `De ${sender.firstName} ${sender.lastName}` : ''} </span>}
                   {original.receiverState === TaskState.ARCHIVED &&
                     original.profileId !== original.senderId &&
                     [TaskState.CREATED, TaskState.CLOSED].includes(original.state!) && (

@@ -63,14 +63,14 @@ export default function AppViewBusinessViewArcViewTableComponent({ showAmounts }
         header: 'Prix',
         cell: ({ row: { original } }) =>
           user.userInfo.roles.some((role) => ['ROLE_MEMBRE_VIZEO', 'ROLE_REPRESENTANT'].includes(role)) &&
-          !hideReferencesPrices && showAmounts && <CurrencyFormat value={original.publicUnitPrice} />,
+          !hideReferencesPrices &&
+          showAmounts && <CurrencyFormat value={original.publicUnitPrice} />,
       }),
       columnHelper.display({
         header: 'Remise',
         cell: ({ row: { original } }) =>
-          user.userInfo.roles.some((role) => ['ROLE_MEMBRE_VIZEO', 'ROLE_REPRESENTANT_VIZEO'].includes(role)) && showAmounts && (
-            <AmountFormat value={original.reduction} decimalScale={0} suffix="%" displayType="text" />
-          ),
+          user.userInfo.roles.some((role) => ['ROLE_MEMBRE_VIZEO', 'ROLE_REPRESENTANT_VIZEO'].includes(role)) &&
+          showAmounts && <AmountFormat value={original.reduction} decimalScale={0} suffix="%" displayType="text" />,
       }),
       columnHelper.display({
         header: 'Prix unitaire',

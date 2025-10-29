@@ -42,7 +42,7 @@ const columns = [
 export default function AppViewProductViewManageViewAddSpecificationModalView() {
   const navigate = routeApi.useNavigate();
 
-  const { data, isLoading } = useQuery({...queries['product-filter'].list, select: (data) => _.sortBy(data, 'name') });
+  const { data, isLoading } = useQuery({ ...queries['product-filter'].list, select: (data) => _.sortBy(data, 'name') });
 
   const onClose = () => {
     navigate({ to: '..', search: true, replace: true, resetScroll: false });

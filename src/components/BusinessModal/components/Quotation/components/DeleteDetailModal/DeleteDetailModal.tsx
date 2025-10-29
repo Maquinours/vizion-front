@@ -18,19 +18,24 @@ type BusinessModalComponentQuotationComponentDeleteDetailModalComponentProps = R
   detail: BusinessQuotationDetailsResponseDto;
   onClose: () => void;
 }>;
-export default function BusinessModalComponentQuotationComponentDeleteDetailModalComponent({ business, quotation, detail, onClose }: BusinessModalComponentQuotationComponentDeleteDetailModalComponentProps) {
+export default function BusinessModalComponentQuotationComponentDeleteDetailModalComponent({
+  business,
+  quotation,
+  detail,
+  onClose,
+}: BusinessModalComponentQuotationComponentDeleteDetailModalComponentProps) {
   const queryClient = useQueryClient();
-//   const navigate = routeApi.useNavigate();
+  //   const navigate = routeApi.useNavigate();
 
-//   const { businessId, detailId } = routeApi.useParams();
+  //   const { businessId, detailId } = routeApi.useParams();
 
-//   const { data: quotation } = useSuspenseQuery(queries['business-quotations'].detail._ctx.byBusinessId(businessId));
-//   const { data: business } = useSuspenseQuery(queries.businesses.detail._ctx.byId(businessId));
-//   const { data: detail } = useSuspenseQuery(queries['business-quotation-details'].detail._ctx.byId(detailId));
+  //   const { data: quotation } = useSuspenseQuery(queries['business-quotations'].detail._ctx.byBusinessId(businessId));
+  //   const { data: business } = useSuspenseQuery(queries.businesses.detail._ctx.byId(businessId));
+  //   const { data: detail } = useSuspenseQuery(queries['business-quotation-details'].detail._ctx.byId(detailId));
 
-//   const onClose = () => {
-//     navigate({ to: '../..', search: true, replace: true, resetScroll: false, ignoreBlocker: true });
-//   };
+  //   const onClose = () => {
+  //     navigate({ to: '../..', search: true, replace: true, resetScroll: false, ignoreBlocker: true });
+  //   };
 
   const { mutate, isPending } = useMutation({
     mutationFn: () => {

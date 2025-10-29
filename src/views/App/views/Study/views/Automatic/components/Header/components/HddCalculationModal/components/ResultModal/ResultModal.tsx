@@ -31,12 +31,12 @@ export default function AppViewStudyViewAutomaticViewHeaderComponentHddCalculati
     <ReactModal
       isOpen
       onRequestClose={onClose}
-      className="absolute left-2/4 top-2/4 z-2005 m-auto h-auto w-auto min-w-[70%] max-w-[1000px] -translate-x-2/4 -translate-y-2/4 rounded-[5px] p-0 opacity-100"
+      className="absolute top-2/4 left-2/4 z-2005 m-auto h-auto w-auto max-w-[1000px] min-w-[70%] -translate-x-2/4 -translate-y-2/4 rounded-[5px] p-0 opacity-100"
       overlayClassName="Overlay"
     >
       <div className="mx-auto mt-4 flex max-h-[750px] max-w-6xl flex-col space-y-2 overflow-auto rounded-md border-2 border-t-0 border-[#1a192b] bg-white pb-4">
         <h1 className="flex h-8 w-full items-center justify-center rounded-t-md bg-[#16204e] text-white">Résultat</h1>
-        <div className="flex flex-col gap-4 overflow-auto p-4 pl-5 pr-5">
+        <div className="flex flex-col gap-4 overflow-auto p-4 pr-5 pl-5">
           <div className="grid-row-2 grid">
             <div className="flex items-center pb-4">
               <span className="pr-4 text-sm font-bold text-[#16204E]">Configuration</span>
@@ -57,7 +57,7 @@ export default function AppViewStudyViewAutomaticViewHeaderComponentHddCalculati
                   />
                   <span>{"Durée de l'enregistrement"}</span>
                 </div>
-                <div className="grid grid-rows-2 border-b border-r border-t border-black p-2 text-center">
+                <div className="grid grid-rows-2 border-t border-r border-b border-black p-2 text-center">
                   <AmountFormat value={config.settings.hddSpace} decimalScale={2} suffix=" To" className="font-bold text-red-600" />
                   <span>{"d'espace sur disque dur"}</span>
                 </div>

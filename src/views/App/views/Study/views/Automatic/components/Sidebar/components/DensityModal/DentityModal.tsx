@@ -14,7 +14,7 @@ export default function AppViewStudyViewAutomaticViewSidebarComponentDensityModa
       isOpen
       overlayClassName="Overlay"
       onRequestClose={onClose}
-      className="absolute left-2/4 top-2/4 m-auto h-auto w-auto min-w-[40%] max-w-[1000px] -translate-x-2/4 -translate-y-2/4 rounded-[5px] p-0 opacity-100"
+      className="absolute top-2/4 left-2/4 m-auto h-auto w-auto max-w-[1000px] min-w-[40%] -translate-x-2/4 -translate-y-2/4 rounded-[5px] p-0 opacity-100"
     >
       <div className="relative mx-auto mt-2 flex h-fit w-[1000px] flex-col space-y-4 rounded-md border-2 border-t-0 border-[#31385a] bg-slate-50 px-7 py-0 pb-4 text-[#31385a]">
         <div className="absolute inset-x-0 mt-0 flex h-12 border-collapse items-center justify-center rounded-t-md border-t border-t-[#31385a] bg-[#31385a] text-center text-white">

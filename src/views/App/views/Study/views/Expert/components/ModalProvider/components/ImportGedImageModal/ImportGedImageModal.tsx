@@ -202,7 +202,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentImportGe
     <ReactModal
       isOpen
       onRequestClose={onClose}
-      className="absolute left-2/4 top-2/4 z-2005 m-auto h-auto w-auto min-w-[70%] max-w-[1000px] -translate-x-2/4 -translate-y-2/4 rounded-[5px] p-0 opacity-100"
+      className="absolute top-2/4 left-2/4 z-2005 m-auto h-auto w-auto max-w-[1000px] min-w-[70%] -translate-x-2/4 -translate-y-2/4 rounded-[5px] p-0 opacity-100"
       overlayClassName="Overlay"
     >
       <form onSubmit={onValidate} className="w-full rounded-md bg-white pb-2">
@@ -219,7 +219,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentImportGe
             enableRowSelection={enableRowSelection}
             className="w-full"
           />
-          <div className="grid grid-cols-2 gap-x-1 pb-2 pt-4">
+          <div className="grid grid-cols-2 gap-x-1 pt-4 pb-2">
             <div className="text-right">
               <button type="button" className="btn btn-secondary w-fit" onClick={onClose}>
                 Annuler

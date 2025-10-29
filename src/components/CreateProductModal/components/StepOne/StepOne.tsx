@@ -61,7 +61,11 @@ const yupSchema = yup.object().shape({
   longDescription: yup.string().nullable(),
   provider: yup.mixed<EnterpriseResponseDto>().required('Le représentant est requis'),
   // category: yup.string().required('La catégorie est requise'),
-  categories: yup.array().of(yup.string().required('La catégorie est requise')).min(1, 'Au moins une catégorie est requise').required('Les catégories sont requises'),
+  categories: yup
+    .array()
+    .of(yup.string().required('La catégorie est requise'))
+    .min(1, 'Au moins une catégorie est requise')
+    .required('Les catégories sont requises'),
   isVizeo: yup.boolean().required('Champs requis'),
   isVirtual: yup.boolean().required('Champs requis'),
   isNomenclature: yup.boolean().required('Champs requis'),

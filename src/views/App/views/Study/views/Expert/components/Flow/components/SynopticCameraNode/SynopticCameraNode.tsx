@@ -109,7 +109,9 @@ export default function AppViewStudyViewExpertViewFlowComponentSynopticCameraNod
   if (!product) return;
 
   const orientation = 'orientation' in data ? data.orientation : undefined;
-  const image = data.image ?? `https://bd.vizeo.eu/6-Photos/${product.reference}/${product.category !== 'Autres cameras' && orientation === undefined ? 'PLUG_' : ''}${product.reference}.png`;
+  const image =
+    data.image ??
+    `https://bd.vizeo.eu/6-Photos/${product.reference}/${product.category !== 'Autres cameras' && orientation === undefined ? 'PLUG_' : ''}${product.reference}.png`;
   const name = !data.name || data.name === product.reference ? product.reference : `${data.name} (${product.reference})`;
 
   const quantity = data.quantity ?? 1;
@@ -145,7 +147,7 @@ export default function AppViewStudyViewExpertViewFlowComponentSynopticCameraNod
                 ))}
               </div>
               <div className="my-auto ml-auto">
-                <div className="absolute right-1 top-[calc(50%-30px)] ml-auto flex h-fit w-fit gap-x-1">
+                <div className="absolute top-[calc(50%-30px)] right-1 ml-auto flex h-fit w-fit gap-x-1">
                   {data.option && <span className="rounded-md bg-purple-300 p-[1px] text-center text-sm font-medium text-white">OPTION</span>}
                   {quantity !== 0 && (
                     <AmountFormat

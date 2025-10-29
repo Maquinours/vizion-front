@@ -34,7 +34,9 @@ export default function AppViewBusinessViewBpViewTableComponentSubRowComponent({
                 <ul>
                   {row.original.bpSerialList
                     ?.filter((serial) => serial.productVersionReference === stock.productVersionRef)
-                    .map((serial) => <li key={serial.id}>{serial.numSerie}</li>)}
+                    .map((serial) => (
+                      <li key={serial.id}>{serial.numSerie}</li>
+                    ))}
                 </ul>
               </div>
             </td>

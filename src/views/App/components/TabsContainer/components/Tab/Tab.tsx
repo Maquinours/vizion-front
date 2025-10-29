@@ -29,7 +29,7 @@ export default function AppViewTabsContainerComponentTabComponent({ tab, onClose
         {...tab.route}
         preload="intent"
         disabled={isDragging}
-        className="flex h-8 w-auto max-w-[auto] items-center justify-between gap-x-8 border-r-[1.5px] border-solid border-r-(--white-color) bg-(--bg-color) px-2 text-left font-[DIN2014] text-sm not-italic leading-[18px] tracking-[0px] text-(--primary-color) no-underline"
+        className="flex h-8 w-auto max-w-[auto] items-center justify-between gap-x-8 border-r-[1.5px] border-solid border-r-(--white-color) bg-(--bg-color) px-2 text-left font-[DIN2014] text-sm leading-[18px] tracking-[0px] text-(--primary-color) not-italic no-underline"
         activeOptions={{ exact: true, includeSearch: false }}
         activeProps={{ className: 'bg-(--white-color) rounded-tr-[5px] border-r-[none]' }}
         style={{ pointerEvents: isDragging ? 'none' : undefined }}

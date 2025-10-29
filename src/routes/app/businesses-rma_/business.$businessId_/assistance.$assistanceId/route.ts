@@ -15,7 +15,7 @@ export const Route = createFileRoute('/app/businesses-rma_/business/$businessId_
   validateSearch: searchSchema,
   loader: async ({ context: { queryClient }, params: { assistanceId, businessId } }) => {
     const assistance = await queryClient.ensureQueryData(queries['technical-supports'].detail._ctx.byId(assistanceId));
-    if(assistance.businessId !== businessId) throw notFound();
+    if (assistance.businessId !== businessId) throw notFound();
     queryClient.prefetchQuery(technicalSupportRecapOptionsQueryKeys.list._ctx.byTechnicalSupportId(assistanceId));
     queryClient.prefetchQuery(
       lifesheets.page({ page: 0, size: 100 })._ctx.byAssociatedItem({
