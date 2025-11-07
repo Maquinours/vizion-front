@@ -155,7 +155,7 @@ export default function AppViewStudyViewExpertViewFlowComponentSynopticCameraNod
       );
       setImages(checked.filter((x): x is { name: string; url: string } => x !== null));
     })();
-  }, []);
+  }, [product.reference]);
 
   return (
     <NodeToolbar position={position} align="center" offset={offset}>
