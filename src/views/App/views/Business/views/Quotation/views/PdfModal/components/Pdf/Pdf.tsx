@@ -581,34 +581,32 @@ export default function AppViewBusinessViewQuotationViewPdfModalViewPdfComponent
             </View>
           </View>
 
-          {!hideTotal && (
-            <View style={pageStyles.recapContainer} wrap={false}>
-              <View style={pageStyles.recap}>
-                <View style={pageStyles.recapHeader}>
-                  <Text style={pageStyles.recapHeaderText}>
-                    TOTAL GÉNÉRAL HT{subQuotations?.some((subQuotation) => subQuotation.name === 'Options') ? ' avec options' : ''}
-                  </Text>
-                  <Text style={pageStyles.recapHeaderValue}>{currencyFormatter(quotation.totalAmountHT ?? 0)}</Text>
-                </View>
-                <View style={pageStyles.recapBody}>
-                  <Text style={pageStyles.recapBodyText}>Frais de port</Text>
-                  <Text style={pageStyles.recapBodyValue}>{currencyFormatter(quotation.shippingServicePrice)}</Text>
-                  <Text style={pageStyles.recapBodyValue}>
-                    {quotation.shippingServicePrice > 0 ? `${currencyFormatter(quotation.shippingServicePrice)}` : 'Offert'}
-                  </Text>
-                </View>
-                <View style={pageStyles.recapBody}>
-                  <Text style={pageStyles.recapBodyText}>TVA</Text>
-                  <Text style={pageStyles.recapBodyValue}>20%</Text>
-                  <Text style={pageStyles.recapBodyValue}>{currencyFormatter(quotation.vat)}</Text>
-                </View>
-                <View style={pageStyles.recapFooter}>
-                  <Text style={pageStyles.recapFooterText}>Total TTC</Text>
-                  <Text style={pageStyles.recapFooterValue}>{currencyFormatter(quotation.totalAmount ?? 0)}</Text>
-                </View>
+          <View style={pageStyles.recapContainer} wrap={false}>
+            <View style={pageStyles.recap}>
+              <View style={pageStyles.recapHeader}>
+                <Text style={pageStyles.recapHeaderText}>
+                  TOTAL GÉNÉRAL HT{subQuotations?.some((subQuotation) => subQuotation.name === 'Options') ? ' avec options' : ''}
+                </Text>
+                <Text style={pageStyles.recapHeaderValue}>{currencyFormatter(quotation.totalAmountHT ?? 0)}</Text>
+              </View>
+              <View style={pageStyles.recapBody}>
+                <Text style={pageStyles.recapBodyText}>Frais de port</Text>
+                <Text style={pageStyles.recapBodyValue}>{currencyFormatter(quotation.shippingServicePrice)}</Text>
+                <Text style={pageStyles.recapBodyValue}>
+                  {quotation.shippingServicePrice > 0 ? `${currencyFormatter(quotation.shippingServicePrice)}` : 'Offert'}
+                </Text>
+              </View>
+              <View style={pageStyles.recapBody}>
+                <Text style={pageStyles.recapBodyText}>TVA</Text>
+                <Text style={pageStyles.recapBodyValue}>20%</Text>
+                <Text style={pageStyles.recapBodyValue}>{currencyFormatter(quotation.vat)}</Text>
+              </View>
+              <View style={pageStyles.recapFooter}>
+                <Text style={pageStyles.recapFooterText}>Total TTC</Text>
+                <Text style={pageStyles.recapFooterValue}>{currencyFormatter(quotation.totalAmount ?? 0)}</Text>
               </View>
             </View>
-          )}
+          </View>
         </View>
         <Text fixed style={pageStyles.pageTextOne}>
           La T.V.A sur les prestations {"n'est"} déductible que sur le montant effectivement payé. Conformément à {"l'article"} L. 441-6 du code decommerce, des
