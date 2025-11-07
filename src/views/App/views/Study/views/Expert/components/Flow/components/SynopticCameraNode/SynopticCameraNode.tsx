@@ -42,7 +42,8 @@ export const isExpertStudySynopticCameraNode = (node: Node): node is ExpertStudy
     (!('option' in node.data) || typeof node.data.option === 'boolean' || node.data.option === undefined) &&
     (!('orientation' in node.data) ||
       (typeof node.data.orientation === 'number' && Object.values(ExpertStudySynopticCameraNodeOrientation).includes(node.data.orientation)) ||
-      node.data.orientation === undefined)
+      node.data.orientation === undefined) &&
+      (!('image' in node.data) || typeof node.data.image === 'string' || node.data.image === undefined)
   );
 };
 
