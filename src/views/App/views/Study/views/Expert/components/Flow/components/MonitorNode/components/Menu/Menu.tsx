@@ -32,10 +32,12 @@ export default function AppViewStudyViewExpertViewFlowComponentMonitorNodeCompon
   const { y: viewportY, zoom: viewportZoom } = useViewport();
 
   const quantity = data.quantity ?? 1;
+  const image = data.image ?? `https://bd.vizeo.eu/6-Photos/${product.reference}/${product.reference}.png`;
 
   const [ref, setRef] = useState<HTMLDivElement | null>(null);
 
   const [offset, setOffset] = useState<number | undefined>(0);
+  const [images, setImages] = useState<Array<{ name: string; url: string }>>([]);
 
   const options: Array<Option> | undefined = product.associatedProduct
     ?.map((option) => ({
@@ -92,6 +94,10 @@ export default function AppViewStudyViewExpertViewFlowComponentMonitorNodeCompon
     updateNodeData(nodeId, { option: e.target.checked });
   };
 
+  const onImageChange = (imageUrl: string) => {
+    updateNodeData(nodeId, { image: imageUrl });
+  };
+
   useEffect(() => {
     const offset = (() => {
       const element = ref;
@@ -111,9 +117,33 @@ export default function AppViewStudyViewExpertViewFlowComponentMonitorNodeCompon
     setOffset(offset);
   }, [ref, position, nodePositionY, nodeHeight]);
 
+  useEffect(() => {
+    (async () => {
+      const baseUrl = `https://bd.vizeo.eu/6-Photos/${product.reference}/`;
+      const res = await fetch(baseUrl);
+      const html = await res.text();
+
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, 'text/html');
+
+      const anchors = Array.from(doc.querySelectorAll('table>tbody>tr>td>a')).slice(1);
+      const checked = await Promise.all(
+        anchors.map(async (a) => {
+          const name = a.innerHTML;
+          const url = `${baseUrl}${name}`;
+          if (!url) return null;
+          const response = await fetch(url, { method: 'HEAD' });
+          const isImage = response.headers.get('content-type')?.startsWith('image/') === true;
+          return isImage ? { name, url } : null;
+        }),
+      );
+      setImages(checked.filter((x): x is { name: string; url: string } => x !== null));
+    })();
+  }, [product.reference]);
+
   return (
     <NodeToolbar position={position} align="center" offset={offset}>
-      <div ref={setRef} className="nopan rounded-md border-2 border-[#1a192b] bg-slate-50 px-2">
+      <div ref={setRef} className="nopan nowheel max-h-128 overflow-y-auto rounded-md border-2 border-[#1a192b] bg-slate-50 px-2">
         <div className="flex items-center justify-between border-b-2 border-b-[#1a192b] p-2">
           <div className="flex items-center justify-center space-x-2">
             <AiTwotoneSetting className="fill-[#1a192b]" />
@@ -183,6 +213,18 @@ export default function AppViewStudyViewExpertViewFlowComponentMonitorNodeCompon
             <label htmlFor="option">Option :</label>
             <input id="option" type={'checkbox'} checked={data.option} onChange={onOptionChange} className="flex-auto" />
           </div>
+          {images.length > 0 && (
+            <div className="flex flex-col items-center gap-y-2 border-t-2 border-t-[#1a192b] p-2">
+              <span>Image</span>
+              {images.map((img) => (
+                <button key={img.url} className="flex cursor-pointer flex-row items-center gap-x-2" onClick={() => onImageChange(img.url)}>
+                  <input type="radio" name="image" value={img.url} checked={image === img.url} />
+                  <img src={img.url} alt={img.name} className="h-12 w-12" />
+                  <span className="w-40 text-left">{img.name}</span>
+                </button>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </NodeToolbar>

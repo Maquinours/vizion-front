@@ -33,7 +33,8 @@ export const isExpertStudyMonitorNode = (node: Node): node is ExpertStudyMonitor
     'opacity' in node.data &&
     typeof node.data.opacity === 'number' &&
     (!('quantity' in node.data) || typeof node.data.quantity === 'number' || node.data.quantity === undefined) &&
-    (!('option' in node.data) || typeof node.data.option === 'boolean' || node.data.option === undefined)
+    (!('option' in node.data) || typeof node.data.option === 'boolean' || node.data.option === undefined) &&
+    (!('image' in node.data) || typeof node.data.image === 'string' || node.data.image === undefined)
   );
 };
 
@@ -46,6 +47,7 @@ export type ExpertStudyMonitorNode = Node<
     opacity: number;
     quantity?: number;
     option?: boolean;
+    image?: string;
   },
   'monitor'
 >;
@@ -97,7 +99,7 @@ export default function AppViewStudyViewExpertViewFlowComponentMonitorNodeCompon
     `${!selected ? 'Clic gauche pour sélectionner' : 'Touche Suppr. pour supprimer les objets selectionnés'}\n` +
     `Clic droit pour ${showMenu ? 'fermer la fenêtre des' : 'accéder aux'} options du moniteur\n` +
     `Maintenez le clic gauche et déplacez la souris pour déplacer le moniteur`;
-  const image = `https://bd.vizeo.eu/6-Photos/${product?.reference}/${product?.reference}.png`;
+  const image = data.image ?? `https://bd.vizeo.eu/6-Photos/${product.reference}/${product.reference}.png`;
   const quantity = data.quantity ?? 1;
 
   return (
