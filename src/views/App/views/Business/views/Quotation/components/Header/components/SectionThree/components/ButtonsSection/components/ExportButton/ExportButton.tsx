@@ -80,11 +80,14 @@ export default function AppViewBusinessViewQuotationViewHeaderComponentSectionTh
               ref: item.productReference,
               designation: item.productDesignation,
               qty: item.quantity,
-              price: `${item.publicUnitPrice} €`,
-              total: `${item.totalPrice} €`,
-              costPrice: product ? `${product.purchasePriceEUR} €` : '',
+              price: item.publicUnitPrice,
+              total: item.totalPrice,
+              costPrice: product?.purchasePriceEUR,
             };
             worksheet.addRow(Object.values(details));
+            worksheet.getCell(`D${worksheet.rowCount}`).numFmt = '#,##0.00 €';
+            worksheet.getCell(`E${worksheet.rowCount}`).numFmt = '#,##0.00 €';
+            worksheet.getCell(`F${worksheet.rowCount}`).numFmt = '#,##0.00 €';
           });
         } else {
           worksheet.addRow([el.name]).alignment = {
@@ -99,14 +102,17 @@ export default function AppViewBusinessViewQuotationViewHeaderComponentSectionTh
               ref: item.productReference,
               designation: item.productDesignation,
               qty: item.quantity,
-              price: `${item.publicUnitPrice} €`,
-              total: `${item.totalPrice} €`,
-              costPrice: product ? `${product.purchasePriceEUR} €` : '',
+              price: item.publicUnitPrice,
+              total: item.totalPrice,
+              costPrice: product?.purchasePriceEUR,
             };
             worksheet.addRow(Object.values(details));
+            worksheet.getCell(`D${worksheet.rowCount}`).numFmt = '#,##0.00 €';
+            worksheet.getCell(`E${worksheet.rowCount}`).numFmt = '#,##0.00 €';
+            worksheet.getCell(`F${worksheet.rowCount}`).numFmt = '#,##0.00 €';
           });
 
-          worksheet.addRow([`Total ${el.name} : ${el.quotationDetails?.reduce((acc, detail) => acc + (detail.totalPrice ?? 0), 0)} €`]).alignment = {
+          worksheet.addRow([`Total ${el.name} : ${el.quotationDetails?.reduce((acc, detail) => acc + (detail.totalPrice ?? 0), 0).toFixed(2)} €`]).alignment = {
             vertical: 'middle',
             horizontal: 'right',
           };
