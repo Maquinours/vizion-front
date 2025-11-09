@@ -20,7 +20,7 @@ export default function AppViewBusinessViewArcViewRecapComponent({ showAmounts }
   const { data: arc } = useSuspenseQuery(queries['business-ARCs'].detail._ctx.byBusinessId(businessId));
 
   if (!showAmounts) return null;
-  
+
   return (
     <div className={styles.quote_recap}>
       <div className={styles.quote_container}>

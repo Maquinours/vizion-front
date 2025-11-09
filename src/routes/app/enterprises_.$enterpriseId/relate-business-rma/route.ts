@@ -10,7 +10,7 @@ const searchSchema = z.object({
 export const Route = createFileRoute('/app/enterprises_/$enterpriseId/relate-business-rma')({
   validateSearch: (
     data: {
-      defaultBusinessRmaId?: string
+      defaultBusinessRmaId?: string;
     } & SearchSchemaInput,
   ) => searchSchema.parse(data),
   beforeLoad: async ({ context: { queryClient } }) => {

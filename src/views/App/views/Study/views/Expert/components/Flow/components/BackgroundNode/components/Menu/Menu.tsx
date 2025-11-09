@@ -68,7 +68,7 @@ export default function AppViewStudyViewExpertViewFlowComponentBackgroundNodeCom
     <NodeToolbar
       isVisible
       style={{ transform: `translate(${position.left}px, ${position.top}px) translate(0%, ${yPosition === Position.Top ? '-100%' : '0%'})`, zIndex: 1 }}
-      className="nodrag nopan absolute left-0 top-0"
+      className="nodrag nopan absolute top-0 left-0"
     >
       <ClickAwayListener mouseEvent="onPointerDown" onClickAway={onClose}>
         <div className="flex w-60 flex-col items-center rounded-md border-2 border-black bg-white p-2">

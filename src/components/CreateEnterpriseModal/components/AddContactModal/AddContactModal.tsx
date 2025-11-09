@@ -169,7 +169,7 @@ export default function CreateEnterpriseModalComponentAddContactModalComponent({
   }, [password]);
 
   useEffect(() => {
-    if (!isDirty) resetField('phoneNumber', {defaultValue: defaultPhoneNumber});
+    if (!isDirty) resetField('phoneNumber', { defaultValue: defaultPhoneNumber });
   }, [defaultPhoneNumber]);
 
   return (

@@ -237,9 +237,9 @@ export default function AppViewTabsContainerComponent({ children }: AppViewTabsC
               name: title,
               route: tabRoute,
               closeRoute: match.staticData.getCloseTabRoute
-                ? (match.staticData.getCloseTabRoute(
-                    tabRoute as { to: string; params: { [key: string]: unknown }; search: { [key: string]: unknown } },
-                  ) as ToOptions | undefined)
+                ? (match.staticData.getCloseTabRoute(tabRoute as { to: string; params: { [key: string]: unknown }; search: { [key: string]: unknown } }) as
+                    | ToOptions
+                    | undefined)
                 : undefined,
             };
             setTabs((tabs: Array<Tab> | null | undefined) => {

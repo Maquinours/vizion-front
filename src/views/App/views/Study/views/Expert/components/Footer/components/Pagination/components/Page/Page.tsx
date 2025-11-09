@@ -49,7 +49,7 @@ export default function AppViewStudyViewExpertViewFooterComponentPaginationCompo
           'z-20 border-2 border-black': selected,
         })}
       >
-        <span className="absolute right-0 top-0 text-xs font-bold text-amber-300">{page.type[0].toUpperCase()}</span>
+        <span className="absolute top-0 right-0 text-xs font-bold text-amber-300">{page.type[0].toUpperCase()}</span>
         <span className="font-bold text-white">{pageNumber}</span>
       </button>
     </li>

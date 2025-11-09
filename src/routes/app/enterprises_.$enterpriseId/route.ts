@@ -113,13 +113,16 @@ export const Route = createFileRoute('/app/enterprises_/$enterpriseId')({
   staticData: {
     getTitle: async (queryClient, match) => {
       const enterpriseId = (match.params as { enterpriseId: string }).enterpriseId;
-      const enterprise = await queryClient.ensureQueryData({...queries.enterprise.detail(enterpriseId)});
+      const enterprise = await queryClient.ensureQueryData({ ...queries.enterprise.detail(enterpriseId) });
       return enterprise.name;
     },
-    getCloseTabRoute: (prev) => prev.search.fromCall ? ({
-      to: prev.to,
-      params: prev.params,
-      search: { ...prev.search, enterpriseModal: 'before-close' },
-    }) : undefined,
+    getCloseTabRoute: (prev) =>
+      prev.search.fromCall
+        ? {
+            to: prev.to,
+            params: prev.params,
+            search: { ...prev.search, enterpriseModal: 'before-close' },
+          }
+        : undefined,
   },
 });

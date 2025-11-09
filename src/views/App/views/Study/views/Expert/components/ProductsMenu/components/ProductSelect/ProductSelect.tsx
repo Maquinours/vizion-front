@@ -1,6 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import { useReactFlow } from '@xyflow/react';
+import { useEffect } from 'react';
 import { Controller, useForm, useWatch } from 'react-hook-form';
 import { v4 as uuidv4 } from 'uuid';
 import * as yup from 'yup';
@@ -10,17 +11,13 @@ import { queries } from '../../../../../../../../../../utils/constants/queryKeys
 import ProductResponseDto from '../../../../../../../../../../utils/types/ProductResponseDto';
 import { ExpertStudyDensityCameraNode } from '../../../Flow/components/DensityCameraNode/DensityCameraNode';
 import { ExpertStudyImageNode } from '../../../Flow/components/ImageNode/ImageNode';
+import { ExpertStudyMiscProductNode } from '../../../Flow/components/MiscProductNode/MiscProductNode';
 import { ExpertStudyMonitorNode } from '../../../Flow/components/MonitorNode/MonitorNode';
 import { ExpertStudyRecorderNode } from '../../../Flow/components/RecorderNode/RecorderNode';
-import { ExpertStudyMiscProductNode } from '../../../Flow/components/MiscProductNode/MiscProductNode';
 import { ExpertStudySynopticCameraNode } from '../../../Flow/components/SynopticCameraNode/SynopticCameraNode';
-import useStore, { RFState } from '../../../Flow/utils/store';
-import { RECORDER_NODES_DEFAULT_OPTIONS, RECORDERS_INCLUDED_PRODUCTS } from '../../../ModalProvider/components/RecorderModal/RecorderModal';
 import { ExpertStudyTransmitterNode } from '../../../Flow/components/TransmitterNode/TransmitterNode';
-import { CAMERAS_INCLUDED_PRODUCTS } from '../../../ModalProvider/components/CameraModal/CameraModal';
-import { UNIVERSAL_CAMERAS_INCLUDED_PRODUCTS } from '../../../ModalProvider/components/UniversalCameraModal/UniversalCameraModal';
-import { TRANSMITTERS_INCLUDED_PRODUCTS } from '../../../ModalProvider/components/TransmittersModal/TransmittersModal';
-import { useEffect } from 'react';
+import useStore, { RFState } from '../../../Flow/utils/store';
+import { RECORDER_NODES_DEFAULT_OPTIONS } from '../../../ModalProvider/components/RecorderModal/RecorderModal';
 
 const yupSchema = yup.object().shape({
   product: yup.mixed<ProductResponseDto>().required('Champs requis').defined('Champs requis'),
@@ -45,33 +42,33 @@ export default function AppViewStudyViewExpertViewProductsMenuComponentProductSe
   const { data: products } = useSuspenseQuery({
     ...queries.product.list,
     staleTime: Infinity,
-    select: (products) =>
-      products.filter((product) => {
-        if (!product.reference) return false;
+    // select: (products) =>
+    //   products.filter((product) => {
+    //     if (!product.reference) return false;
 
-        if (
-          ['Caméra interieure', 'Caméra exterieure', 'Dôme motorisé'].some((category) => product.categories.includes(category)) &&
-          CAMERAS_INCLUDED_PRODUCTS.includes(product.reference!)
-        )
-          return true;
-        if (product.categories.includes('Caméra universelle') && UNIVERSAL_CAMERAS_INCLUDED_PRODUCTS.includes(product.reference!)) return true;
-        if (product.categories.includes('Autres cameras')) {
-          if (pageType === 'synoptic') return true;
-          else if (
-            pageType === 'density' &&
-            product.specificationProducts?.some((spec) => spec.specification?.name === 'ANGLE H') &&
-            product.specificationProducts?.some((spec) => spec.specification?.name === 'RECONNAISSANCE') &&
-            product.specificationProducts?.some((spec) => spec.specification?.name === 'LECTURE DE PLAQUE') &&
-            product.specificationProducts?.some((spec) => spec.specification?.name === 'IDENTIFICATION')
-          )
-            return true;
-        }
-        if (['Moniteur', 'Services'].some((category) => product.categories.includes(category))) return pageType === 'synoptic';
-        if (product.categories.includes('NVR')) return pageType === 'synoptic' && RECORDERS_INCLUDED_PRODUCTS.includes(product.reference!);
-        if (product.categories.includes('Transmission')) return pageType === 'synoptic' && TRANSMITTERS_INCLUDED_PRODUCTS.includes(product.reference!);
+    //     if (
+    //       ['Caméra interieure', 'Caméra exterieure', 'Dôme motorisé'].some((category) => product.categories.includes(category)) &&
+    //       CAMERAS_INCLUDED_PRODUCTS.includes(product.reference!)
+    //     )
+    //       return true;
+    //     if (product.categories.includes('Caméra universelle') && UNIVERSAL_CAMERAS_INCLUDED_PRODUCTS.includes(product.reference!)) return true;
+    //     if (product.categories.includes('Autres cameras')) {
+    //       if (pageType === 'synoptic') return true;
+    //       else if (
+    //         pageType === 'density' &&
+    //         product.specificationProducts?.some((spec) => spec.specification?.name === 'ANGLE H') &&
+    //         product.specificationProducts?.some((spec) => spec.specification?.name === 'RECONNAISSANCE') &&
+    //         product.specificationProducts?.some((spec) => spec.specification?.name === 'LECTURE DE PLAQUE') &&
+    //         product.specificationProducts?.some((spec) => spec.specification?.name === 'IDENTIFICATION')
+    //       )
+    //         return true;
+    //     }
+    //     if (['Moniteur', 'Services'].some((category) => product.categories.includes(category))) return pageType === 'synoptic';
+    //     if (product.categories.includes('NVR')) return pageType === 'synoptic' && RECORDERS_INCLUDED_PRODUCTS.includes(product.reference!);
+    //     if (product.categories.includes('Transmission')) return pageType === 'synoptic' && TRANSMITTERS_INCLUDED_PRODUCTS.includes(product.reference!);
 
-        return false;
-      }),
+    //     return false;
+    //   }),
   });
 
   const onSubmit = ({ product }: yup.InferType<typeof yupSchema>) => {

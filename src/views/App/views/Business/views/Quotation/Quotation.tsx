@@ -11,10 +11,10 @@ const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/quotatio
 
 export default function AppViewBusinessViewQuotationView() {
   const { businessId } = routeApi.useParams();
-  
+
   const { data: user } = useAuthentifiedUserQuery();
   const { data: business } = useSuspenseQuery(queries['businesses'].detail._ctx.byId(businessId));
-  
+
   const showAmounts = useMemo(
     () => user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') || (!!user.profile.enterprise && user.profile.enterprise.id === business.enterpriseId),
     [user, business],

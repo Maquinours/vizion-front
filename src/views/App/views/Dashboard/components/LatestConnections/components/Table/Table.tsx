@@ -29,7 +29,8 @@ const columns = [
             {original.profile ? `${original.profile.firstName} ${original.profile.lastName}` : original.event.fullName || original.event.username || 'Inconnu'}
             {original.profile?.enterprise && (
               <>
-                {' '}de{' '}
+                {' '}
+                de{' '}
                 <Link to="/app/enterprises/$enterpriseId" params={{ enterpriseId: original.profile.enterprise.id }}>
                   {original.profile.enterprise.name}
                 </Link>

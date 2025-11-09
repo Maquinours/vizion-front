@@ -26,10 +26,8 @@ export default function AppViewFaqViewButtonsComponent() {
       );
     },
     onSuccess: (response) => {
-      if(response.data.success)
-        toast.success(`Cache de VIZIA mis à jour avec succès avec ${response.data.data.faqs_count} FAQs`);
-      else if(!response.data.success)
-        toast.error(response.data.message);
+      if (response.data.success) toast.success(`Cache de VIZIA mis à jour avec succès avec ${response.data.data.faqs_count} FAQs`);
+      else if (!response.data.success) toast.error(response.data.message);
     },
     onError: () => {
       toast.error('Erreur lors de la mise à jour du cache');
@@ -37,7 +35,7 @@ export default function AppViewFaqViewButtonsComponent() {
   });
 
   return (
-    <div className='flex flex-row gap-x-2'>
+    <div className="flex flex-row gap-x-2">
       {user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && (
         <>
           <button type="button" className="btn btn-secondary" onClick={() => updateViziaCache()} disabled={isUpdatingViziaCache}>
@@ -48,13 +46,7 @@ export default function AppViewFaqViewButtonsComponent() {
           </Link>
         </>
       )}
-      <Link
-        from={routeApi.id}
-        search={(old) => ({ ...old, archived: !archived })}
-        replace
-        resetScroll={false}
-        className="btn btn-secondary"
-      >
+      <Link from={routeApi.id} search={(old) => ({ ...old, archived: !archived })} replace resetScroll={false} className="btn btn-secondary">
         {archived ? 'Voir non archivés' : 'Voir archivés'}
       </Link>
     </div>

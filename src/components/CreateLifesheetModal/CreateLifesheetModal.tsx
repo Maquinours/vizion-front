@@ -27,12 +27,13 @@ import moment from 'moment';
 import { updateAllBusinessModifyDate } from '../../utils/api/allBusiness';
 import CategoryBusiness from '../../utils/enums/CategoryBusiness';
 import CreateLifesheetModalComponentConcernedSectionComponent from './components/ConcernedSection/ConcernedSection';
+import CreateLifesheetModalComponentBusinessConcernedSectionComponent from './components/BusinessConcernedSection/BusinessConcernedSection';
 
 const yupSchema = yup.object({
   description: yup.string().required('Ce champ est requis'),
   deadline: yup.date(),
   receivers: yup.array().of(yup.mixed<ProfileResponseDto>().required()).required(),
-  concerned: yup.mixed<ProfileResponseDto>().required().nullable()
+  concerned: yup.mixed<ProfileResponseDto>().required().nullable(),
 });
 
 export type CreateLifesheetSchema = yup.InferType<typeof yupSchema>;
@@ -80,8 +81,8 @@ export default function CreateLifesheetModalComponent({
 
   const receivers = useWatch({ name: 'receivers', control });
 
-  const concerned = useWatch({name: 'concerned', control});
-  console.log({concerned});
+  const concerned = useWatch({ name: 'concerned', control });
+  console.log({ concerned });
 
   const { mutate, isPending } = useMutation({
     mutationFn: async ({ receivers, description, deadline, concerned }: yup.InferType<typeof yupSchema>) => {
@@ -207,7 +208,11 @@ export default function CreateLifesheetModalComponent({
           </div>
 
           <form onSubmit={handleSubmit((data) => mutate(data))} onReset={() => onClose()}>
-            {associatedItemType === LifesheetAssociatedItem.ENTERPRISE && <CreateLifesheetModalComponentConcernedSectionComponent enterpriseId={associatedItemId} control={control} />}
+            {associatedItemType === LifesheetAssociatedItem.ENTERPRISE ? (
+              <CreateLifesheetModalComponentConcernedSectionComponent enterpriseId={associatedItemId} control={control} />
+            ) : associatedItemType === LifesheetAssociatedItem.BUSINESS ? (
+              <CreateLifesheetModalComponentBusinessConcernedSectionComponent businessId={associatedItemId} control={control} />
+            ) : null}
             <div className={styles.editor}>
               <Controller
                 control={control}

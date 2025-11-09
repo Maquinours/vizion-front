@@ -60,29 +60,32 @@ export default function AppViewBusinessViewBlViewUpdateModalView() {
 
   const items = useWatch({ name: 'items', control });
 
-  const columns = useMemo(() => [
-    columnHelper.display({
-      header: 'Référence',
-      cell: ({ row: { index } }) => (
-        <div className="flex w-auto flex-col gap-y-1">
-          <input type="text" {...register(`items.${index}.productReference`)} className="box-border flex w-full border border-black p-1 text-center" />
-          <p className={styles.__errors}>{errors.items?.[index]?.productReference?.message}</p>
-        </div>
-      ),
-    }),
-    columnHelper.display({
-      header: 'Désignation',
-      cell: ({ row: { index } }) => (
-        <div className="flex w-auto flex-col gap-y-1">
-          <input type="text" {...register(`items.${index}.productDesignation`)} className="box-border w-full border border-black p-1 text-center" />
-          <p className={styles.__errors}>{errors.items?.[index]?.productDesignation?.message}</p>
-        </div>
-      ),
-    }),
-    columnHelper.display({
-      id: 'scrollbar_compensator',
-    }),
-  ], [register, errors]);
+  const columns = useMemo(
+    () => [
+      columnHelper.display({
+        header: 'Référence',
+        cell: ({ row: { index } }) => (
+          <div className="flex w-auto flex-col gap-y-1">
+            <input type="text" {...register(`items.${index}.productReference`)} className="box-border flex w-full border border-black p-1 text-center" />
+            <p className={styles.__errors}>{errors.items?.[index]?.productReference?.message}</p>
+          </div>
+        ),
+      }),
+      columnHelper.display({
+        header: 'Désignation',
+        cell: ({ row: { index } }) => (
+          <div className="flex w-auto flex-col gap-y-1">
+            <input type="text" {...register(`items.${index}.productDesignation`)} className="box-border w-full border border-black p-1 text-center" />
+            <p className={styles.__errors}>{errors.items?.[index]?.productDesignation?.message}</p>
+          </div>
+        ),
+      }),
+      columnHelper.display({
+        id: 'scrollbar_compensator',
+      }),
+    ],
+    [register, errors],
+  );
 
   const onClose = () => {
     navigate({ to: '..', search: true, replace: true, resetScroll: false });

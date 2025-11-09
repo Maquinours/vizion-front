@@ -88,7 +88,7 @@ export default function AppViewStudyViewAutomaticViewSidebarComponentCameraSelec
     <>
       <ReactModal
         isOpen
-        className="absolute left-2/4 top-2/4 m-auto h-auto w-auto min-w-[70%] max-w-[1000px] -translate-x-2/4 -translate-y-2/4 rounded-[5px] p-0 opacity-100"
+        className="absolute top-2/4 left-2/4 m-auto h-auto w-auto max-w-[1000px] min-w-[70%] -translate-x-2/4 -translate-y-2/4 rounded-[5px] p-0 opacity-100"
         overlayClassName="Overlay"
         onRequestClose={onClose}
       >
@@ -96,7 +96,7 @@ export default function AppViewStudyViewAutomaticViewSidebarComponentCameraSelec
           <div className="w-full">
             <h1 className="flex h-8 w-full items-center justify-center rounded-t-md bg-[#31385A] text-white">Choix de la densité</h1>
             <div className="bg-[#FFFFFF] pb-1">
-              <div className="mb-4 ml-4 mr-4">
+              <div className="mr-4 mb-4 ml-4">
                 <div className="flex text-[#16204E]">
                   <p className="text-start text-sm font-bold">{"*Schémas à l'échelle"}</p>
                 </div>

@@ -69,15 +69,22 @@ export default function AppViewDashboardViewCallsHistoryComponent() {
 
   const data = useMemo(() => {
     return calls?.calls.map((call) => {
-      const possiblePhoneNumbers = [call.raw_digits.replace(/\s/g,''), formatPhoneNumber(call.raw_digits).replace(/\s/g,'')];
-      const profile = profiles?.find((profile) => (profile.phoneNumber && possiblePhoneNumbers.includes(profile.phoneNumber.replace(/\s/g,''))) || (profile.standardPhoneNumber && possiblePhoneNumbers.includes(profile.standardPhoneNumber.replace(/\s/g,''))))
+      const possiblePhoneNumbers = [call.raw_digits.replace(/\s/g, ''), formatPhoneNumber(call.raw_digits).replace(/\s/g, '')];
+      const profile = profiles?.find(
+        (profile) =>
+          (profile.phoneNumber && possiblePhoneNumbers.includes(profile.phoneNumber.replace(/\s/g, ''))) ||
+          (profile.standardPhoneNumber && possiblePhoneNumbers.includes(profile.standardPhoneNumber.replace(/\s/g, ''))),
+      );
       const businessNumber = (call.contact?.last_name?.trim() || call.contact?.information?.trim())?.toUpperCase().match(/VZO\s\d{4}(?:\d{2})?/)?.[0];
       const allBusiness = allBusinesses.find((business) => business.data?.number === businessNumber)?.data;
       return { call, profile, allBusiness };
     });
   }, [calls, profiles, allBusinesses]);
 
-  const isLoading = useMemo(() => isLoadingCalls || isLoadingProfiles || allBusinesses.some((query) => query.isLoading), [isLoadingCalls, isLoadingProfiles, allBusinesses]);
+  const isLoading = useMemo(
+    () => isLoadingCalls || isLoadingProfiles || allBusinesses.some((query) => query.isLoading),
+    [isLoadingCalls, isLoadingProfiles, allBusinesses],
+  );
 
   const refetch = useCallback(() => {
     refetchCalls();

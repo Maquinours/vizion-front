@@ -32,7 +32,9 @@ export default function AppLayoutTopbarComponentBasicTopbarComponent({ logout }:
           </div>
         </div>
         {currentUser.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && <AppLayoutTopbarComponentBasicTopbarComponentAircallUsersComponent />}
-        <a href="https://vizia.vizeo.eu/VF/admin/" target="_blank" rel='noreferrer' className="btn btn-primary-light">Admin chatbot</a>
+        <a href="https://vizia.vizeo.eu/VF/admin/" target="_blank" rel="noreferrer" className="btn btn-primary-light">
+          Admin chatbot
+        </a>
       </div>
 
       {currentUser.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && <AppLayoutTopbarComponentBasicTopbarComponentSearchFieldsComponent />}

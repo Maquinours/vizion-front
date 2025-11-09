@@ -13,7 +13,7 @@ import { useEffect } from 'react';
 const routeApi = getRouteApi('/app/products/serial-numbers/update/$serialNumberId');
 
 const yupSchema = yup.object({
-  note: yup.string().nullable().max(255, 'La note ne peut excéder 255 caractères'),
+  note: yup.string().nullable().max(2048, 'La note ne peut excéder 2048 caractères'),
 });
 
 export default function AppViewProductsViewSerialNumbersModalViewUpdateModalView() {

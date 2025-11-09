@@ -47,7 +47,9 @@ export default function AppViewStudyViewExpertViewFlowComponentSynopticCameraNod
 
   const orientation = 'orientation' in data ? data.orientation : undefined;
 
-  const image = data.image ?? `https://bd.vizeo.eu/6-Photos/${product.reference}/${product.category !== 'Autres cameras' && orientation === undefined ? 'PLUG_' : ''}${product.reference}.png`;
+  const image =
+    data.image ??
+    `https://bd.vizeo.eu/6-Photos/${product.reference}/${product.category !== 'Autres cameras' && orientation === undefined ? 'PLUG_' : ''}${product.reference}.png`;
 
   const position = useMemo(() => {
     if (nodeHeight !== undefined) {
@@ -153,11 +155,11 @@ export default function AppViewStudyViewExpertViewFlowComponentSynopticCameraNod
       );
       setImages(checked.filter((x): x is { name: string; url: string } => x !== null));
     })();
-  }, []);
+  }, [product.reference]);
 
   return (
     <NodeToolbar position={position} align="center" offset={offset}>
-      <div ref={setRef} className="nopan rounded-md border-2 border-[#1a192b] bg-slate-50 px-2 text-center max-h-128 overflow-y-auto nowheel">
+      <div ref={setRef} className="nopan nowheel max-h-128 overflow-y-auto rounded-md border-2 border-[#1a192b] bg-slate-50 px-2 text-center">
         <div className="flex items-center justify-between border-b-2 border-b-[#1a192b] p-2">
           <AiTwotoneSetting className="fill-[#1a192b]" />
           <p className="text-sm font-bold text-[#1a192b]">Paramétrage de votre produit {product.reference}</p>
@@ -260,12 +262,12 @@ export default function AppViewStudyViewExpertViewFlowComponentSynopticCameraNod
           <input id="option" type={'checkbox'} checked={data.option} onChange={onOptionChange} className="flex-auto" />
         </div>
         {images.length > 0 && (
-          <div className="flex gap-y-2 border-t-2 border-t-[#1a192b] p-2 flex-col items-center">
+          <div className="flex flex-col items-center gap-y-2 border-t-2 border-t-[#1a192b] p-2">
             <span>Image</span>
             {images.map((img) => (
-              <button key={img.url} className='flex flex-row gap-x-2 items-center cursor-pointer' onClick={() => onImageChange(img.url)}>
-                <input type='radio' name='image' value={img.url} checked={image === img.url} />
-                <img src={img.url} alt={img.name} className='h-12 w-12' />
+              <button key={img.url} className="flex cursor-pointer flex-row items-center gap-x-2" onClick={() => onImageChange(img.url)}>
+                <input type="radio" name="image" value={img.url} checked={image === img.url} />
+                <img src={img.url} alt={img.name} className="h-12 w-12" />
                 <span className="w-40 text-left">{img.name}</span>
               </button>
             ))}

@@ -294,9 +294,7 @@ export default function EnterpriseModalComponent({ enterpriseId, defaultContacts
           {user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && (
             <EnterpriseModalComponentGedComponent
               enterprise={enterprise}
-              onCreateDirectoryClick={(data) =>
-                setModalData({ modal: EnterpriseModal.CREATE_GED_DIRECTORY, directoryRelativePath: data?.relativePath ?? '' })
-              }
+              onCreateDirectoryClick={(data) => setModalData({ modal: EnterpriseModal.CREATE_GED_DIRECTORY, directoryRelativePath: data?.relativePath ?? '' })}
               onImportFilesClick={(data) => setModalData({ modal: EnterpriseModal.IMPORT_GED_FILES, directoryRelativePath: data?.relativePath ?? '' })}
               onDeleteClick={(data) => setModalData({ modal: EnterpriseModal.DELETE_GED_OBJECT, objectRelativePath: data.relativePath })}
               onRenameClick={(data) => setModalData({ modal: EnterpriseModal.RENAME_GED_OBJECT, objectRelativePath: data.relativePath })}

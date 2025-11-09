@@ -130,7 +130,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentUniversa
     <>
       <ReactModal
         isOpen
-        className="absolute left-2/4 top-2/4 m-auto h-auto w-auto min-w-72 -translate-x-2/4 -translate-y-2/4 rounded-md opacity-100"
+        className="absolute top-2/4 left-2/4 m-auto h-auto w-auto min-w-72 -translate-x-2/4 -translate-y-2/4 rounded-md opacity-100"
         overlayClassName="Overlay"
         onRequestClose={onClose}
       >

@@ -21,7 +21,7 @@
         border-top: 1px solid #9fa5b9;
         border-bottom: 1px solid #9fa5b9;
 
-        &:has(>:nth-child(4):last-child) {
+        &:has(> :nth-child(4):last-child) {
           th:nth-child(3) {
             width: 20%;
           }

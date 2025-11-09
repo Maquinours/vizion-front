@@ -62,7 +62,7 @@ export default function LifesheetComponent({
         header: 'Date & heure',
         cell: ({ row: { original } }) => formatDateAndHourWithSlash(original.modifiedDate),
       }),
-      ...(associatedItemType === LifesheetAssociatedItem.ENTERPRISE
+      ...([LifesheetAssociatedItem.ENTERPRISE, LifesheetAssociatedItem.BUSINESS].includes(associatedItemType)
         ? [
             columnHelper.display({
               header: 'Qui',
