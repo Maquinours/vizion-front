@@ -1,6 +1,7 @@
 import { privateInstance } from '../functions/axios';
 import BusinessRequestDto from '../types/BusinessRequestDto';
 import BusinessResponseDto from '../types/BusinessResponseDto';
+import PrintLabelRequestDto from '../types/PrintLabelRequestDto';
 
 export const createBusiness = async (business: BusinessRequestDto) => {
   return (
@@ -72,5 +73,13 @@ export const getBusinesses = () => {
   return privateInstance<Array<BusinessResponseDto>>({
     method: 'GET',
     url: `/business/v1/business/list`,
+  }).then((res) => res.data);
+};
+
+export const printLabel = (data: PrintLabelRequestDto) => {
+  return privateInstance<void>({
+    method: 'POST',
+    url: `/business/v1/business/print-label`,
+    data,
   }).then((res) => res.data);
 };
