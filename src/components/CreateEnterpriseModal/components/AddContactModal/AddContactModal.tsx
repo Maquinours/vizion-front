@@ -30,7 +30,7 @@ const yupSchema = yup.object().shape({
   firstName: yup.string().nullable(),
   phoneNumber: yup
     .string()
-    .min(8, '8 caractères minimum')
+    .min(2, '2 caractères minimum')
     .max(25, '25 caractères maximum')
     .nullable()
     .transform((value) => (value ? value : null)),
