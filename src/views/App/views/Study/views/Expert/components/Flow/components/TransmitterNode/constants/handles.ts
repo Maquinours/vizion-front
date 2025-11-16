@@ -215,7 +215,7 @@ export const handlesData: Array<{
         style: {
           width: '8px',
           height: '8px',
-          left: '33.5%',
+          left: '8.4%',
           zIndex: 1,
         },
         data: {
@@ -229,7 +229,7 @@ export const handlesData: Array<{
         style: {
           width: '8px',
           height: '8px',
-          left: '37.5%',
+          left: '14%',
           zIndex: 1,
         },
         data: {
@@ -243,7 +243,7 @@ export const handlesData: Array<{
         style: {
           width: '8px',
           height: '8px',
-          left: '41%',
+          left: '19.6%',
           zIndex: 1,
         },
         data: {
@@ -257,7 +257,7 @@ export const handlesData: Array<{
         style: {
           width: '8px',
           height: '8px',
-          left: '44.5%',
+          left: '25.3%',
           zIndex: 1,
         },
         data: {
@@ -271,7 +271,7 @@ export const handlesData: Array<{
         style: {
           width: '8px',
           height: '8px',
-          left: '33%',
+          left: '31.5%',
           zIndex: 1,
         },
         data: {
@@ -285,7 +285,7 @@ export const handlesData: Array<{
         style: {
           width: '8px',
           height: '8px',
-          left: '37%',
+          left: '37.2%',
           zIndex: 1,
         },
         data: {
@@ -299,7 +299,7 @@ export const handlesData: Array<{
         style: {
           width: '8px',
           height: '8px',
-          left: '40%',
+          left: '43%',
           zIndex: 1,
         },
         data: {
@@ -313,7 +313,7 @@ export const handlesData: Array<{
         style: {
           width: '8px',
           height: '8px',
-          left: '44%',
+          left: '48.6%',
           zIndex: 1,
         },
         data: {
@@ -327,7 +327,21 @@ export const handlesData: Array<{
         style: {
           width: '8px',
           height: '8px',
-          left: '65%',
+          left: '58%',
+          zIndex: 1,
+        },
+        data: {
+          type: 'RJ45',
+        },
+      },
+      {
+        id: '10',
+        type: 'source',
+        position: Position.Bottom,
+        style: {
+          width: '8px',
+          height: '8px',
+          left: '64%',
           zIndex: 1,
         },
         data: {
