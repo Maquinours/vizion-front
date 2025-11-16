@@ -259,20 +259,11 @@ export default function EnterpriseModalComponent({ enterpriseId, defaultContacts
               onEditEnterpriseClick={() => setModalData({ modal: EnterpriseModal.UPDATE })}
               onUpdateAccountabilityClick={() => setModalData({ modal: EnterpriseModal.UPDATE_ACCOUNTABILITY })}
             />
-            {user.userInfo.roles.some((role) => ['ROLE_MEMBRE_VIZEO', 'ROLE_REPRESENTANT'].includes(role)) && (
-              <EnterpriseModalComponentCategoryComponent enterprise={enterprise} />
-            )}
-            {user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && (
-              <EnterpriseModalComponentGedComponent
-                enterprise={enterprise}
-                onCreateDirectoryClick={(data) =>
-                  setModalData({ modal: EnterpriseModal.CREATE_GED_DIRECTORY, directoryRelativePath: data?.relativePath ?? '' })
-                }
-                onImportFilesClick={(data) => setModalData({ modal: EnterpriseModal.IMPORT_GED_FILES, directoryRelativePath: data?.relativePath ?? '' })}
-                onDeleteClick={(data) => setModalData({ modal: EnterpriseModal.DELETE_GED_OBJECT, objectRelativePath: data.relativePath })}
-                onRenameClick={(data) => setModalData({ modal: EnterpriseModal.RENAME_GED_OBJECT, objectRelativePath: data.relativePath })}
-              />
-            )}
+            <EnterpriseModalComponentLifesheetComponent
+              enterprise={enterprise}
+              onCreateClick={() => setModalData({ modal: EnterpriseModal.CREATE_LIFESHEET })}
+              onDeleteClick={(lifesheet) => setModalData({ modal: EnterpriseModal.DELETE_LIFESHEET, lifesheet })}
+            />
           </div>
           <div className={styles.two}>
             <EnterpriseModalComponentAllBusinessTableComponent
@@ -297,11 +288,18 @@ export default function EnterpriseModalComponent({ enterpriseId, defaultContacts
             onUpdateContactPasswordClick={(contact) => setModalData({ modal: EnterpriseModal.UPDATE_CONTACT_PASSWORD, contact })}
             onContactEmailHistoryClick={(contact) => setModalData({ modal: EnterpriseModal.CONTACT_EMAIL_HISTORY, contact })}
           />
-          <EnterpriseModalComponentLifesheetComponent
-            enterprise={enterprise}
-            onCreateClick={() => setModalData({ modal: EnterpriseModal.CREATE_LIFESHEET })}
-            onDeleteClick={(lifesheet) => setModalData({ modal: EnterpriseModal.DELETE_LIFESHEET, lifesheet })}
-          />
+          {user.userInfo.roles.some((role) => ['ROLE_MEMBRE_VIZEO', 'ROLE_REPRESENTANT'].includes(role)) && (
+            <EnterpriseModalComponentCategoryComponent enterprise={enterprise} />
+          )}
+          {user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && (
+            <EnterpriseModalComponentGedComponent
+              enterprise={enterprise}
+              onCreateDirectoryClick={(data) => setModalData({ modal: EnterpriseModal.CREATE_GED_DIRECTORY, directoryRelativePath: data?.relativePath ?? '' })}
+              onImportFilesClick={(data) => setModalData({ modal: EnterpriseModal.IMPORT_GED_FILES, directoryRelativePath: data?.relativePath ?? '' })}
+              onDeleteClick={(data) => setModalData({ modal: EnterpriseModal.DELETE_GED_OBJECT, objectRelativePath: data.relativePath })}
+              onRenameClick={(data) => setModalData({ modal: EnterpriseModal.RENAME_GED_OBJECT, objectRelativePath: data.relativePath })}
+            />
+          )}
           <EnterpriseModalComponentWorkloadsComponent
             enterprise={enterprise}
             onEmailClick={(data) => setModalData({ modal: EnterpriseModal.EMAIL, emailId: data.mailId! })}

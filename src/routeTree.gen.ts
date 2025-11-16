@@ -314,6 +314,7 @@ import { Route as AppBusinessesRmaBusinessBusinessIdDashboardDeleteGedObjectObje
 import { Route as AppBusinessesRmaBusinessBusinessIdDashboardConfirmQuotationImportOtherBusinessIdRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/confirm-quotation-import.$otherBusinessId/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdDashboardAddressBookCreateRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId/dashboard/address-book/create/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdBpUpdateDetailDetailIdRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId/bp/update-detail.$detailId/route'
+import { Route as AppBusinessesRmaBusinessBusinessIdBpPrintLabelDetailIdRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId/bp/print-label.$detailId/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdBpDeleteSerialSerialIdRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId/bp/delete-serial.$serialId/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdBpDeleteDetailDetailIdRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId/bp/delete-detail.$detailId/route'
 import { Route as AppBusinessesRmaBusinessBusinessIdBpCreateSerialRmaSerialIdRouteRouteImport } from './routes/app/businesses-rma_/business.$businessId/bp/create-serial-rma.$serialId/route'
@@ -3437,6 +3438,18 @@ const AppBusinessesRmaBusinessBusinessIdBpUpdateDetailDetailIdRouteRoute =
       './routes/app/businesses-rma_/business.$businessId/bp/update-detail.$detailId/route.lazy'
     ).then((d) => d.Route),
   )
+const AppBusinessesRmaBusinessBusinessIdBpPrintLabelDetailIdRouteRoute =
+  AppBusinessesRmaBusinessBusinessIdBpPrintLabelDetailIdRouteRouteImport.update(
+    {
+      id: '/print-label/$detailId',
+      path: '/print-label/$detailId',
+      getParentRoute: () => AppBusinessesRmaBusinessBusinessIdBpRouteRoute,
+    } as any,
+  ).lazy(() =>
+    import(
+      './routes/app/businesses-rma_/business.$businessId/bp/print-label.$detailId/route.lazy'
+    ).then((d) => d.Route),
+  )
 const AppBusinessesRmaBusinessBusinessIdBpDeleteSerialSerialIdRouteRoute =
   AppBusinessesRmaBusinessBusinessIdBpDeleteSerialSerialIdRouteRouteImport.update(
     {
@@ -4081,6 +4094,7 @@ export interface FileRoutesByFullPath {
   '/app/businesses-rma/business/$businessId/bp/create-serial-rma/$serialId': typeof AppBusinessesRmaBusinessBusinessIdBpCreateSerialRmaSerialIdRouteRoute
   '/app/businesses-rma/business/$businessId/bp/delete-detail/$detailId': typeof AppBusinessesRmaBusinessBusinessIdBpDeleteDetailDetailIdRouteRoute
   '/app/businesses-rma/business/$businessId/bp/delete-serial/$serialId': typeof AppBusinessesRmaBusinessBusinessIdBpDeleteSerialSerialIdRouteRoute
+  '/app/businesses-rma/business/$businessId/bp/print-label/$detailId': typeof AppBusinessesRmaBusinessBusinessIdBpPrintLabelDetailIdRouteRoute
   '/app/businesses-rma/business/$businessId/bp/update-detail/$detailId': typeof AppBusinessesRmaBusinessBusinessIdBpUpdateDetailDetailIdRouteRoute
   '/app/businesses-rma/business/$businessId/dashboard/address-book/create': typeof AppBusinessesRmaBusinessBusinessIdDashboardAddressBookCreateRouteRoute
   '/app/businesses-rma/business/$businessId/dashboard/confirm-quotation-import/$otherBusinessId': typeof AppBusinessesRmaBusinessBusinessIdDashboardConfirmQuotationImportOtherBusinessIdRouteRoute
@@ -4412,6 +4426,7 @@ export interface FileRoutesByTo {
   '/app/businesses-rma/business/$businessId/bp/create-serial-rma/$serialId': typeof AppBusinessesRmaBusinessBusinessIdBpCreateSerialRmaSerialIdRouteRoute
   '/app/businesses-rma/business/$businessId/bp/delete-detail/$detailId': typeof AppBusinessesRmaBusinessBusinessIdBpDeleteDetailDetailIdRouteRoute
   '/app/businesses-rma/business/$businessId/bp/delete-serial/$serialId': typeof AppBusinessesRmaBusinessBusinessIdBpDeleteSerialSerialIdRouteRoute
+  '/app/businesses-rma/business/$businessId/bp/print-label/$detailId': typeof AppBusinessesRmaBusinessBusinessIdBpPrintLabelDetailIdRouteRoute
   '/app/businesses-rma/business/$businessId/bp/update-detail/$detailId': typeof AppBusinessesRmaBusinessBusinessIdBpUpdateDetailDetailIdRouteRoute
   '/app/businesses-rma/business/$businessId/dashboard/address-book/create': typeof AppBusinessesRmaBusinessBusinessIdDashboardAddressBookCreateRouteRoute
   '/app/businesses-rma/business/$businessId/dashboard/confirm-quotation-import/$otherBusinessId': typeof AppBusinessesRmaBusinessBusinessIdDashboardConfirmQuotationImportOtherBusinessIdRouteRoute
@@ -4751,6 +4766,7 @@ export interface FileRoutesById {
   '/app/businesses-rma_/business/$businessId/bp/create-serial-rma/$serialId': typeof AppBusinessesRmaBusinessBusinessIdBpCreateSerialRmaSerialIdRouteRoute
   '/app/businesses-rma_/business/$businessId/bp/delete-detail/$detailId': typeof AppBusinessesRmaBusinessBusinessIdBpDeleteDetailDetailIdRouteRoute
   '/app/businesses-rma_/business/$businessId/bp/delete-serial/$serialId': typeof AppBusinessesRmaBusinessBusinessIdBpDeleteSerialSerialIdRouteRoute
+  '/app/businesses-rma_/business/$businessId/bp/print-label/$detailId': typeof AppBusinessesRmaBusinessBusinessIdBpPrintLabelDetailIdRouteRoute
   '/app/businesses-rma_/business/$businessId/bp/update-detail/$detailId': typeof AppBusinessesRmaBusinessBusinessIdBpUpdateDetailDetailIdRouteRoute
   '/app/businesses-rma_/business/$businessId/dashboard/address-book/create': typeof AppBusinessesRmaBusinessBusinessIdDashboardAddressBookCreateRouteRoute
   '/app/businesses-rma_/business/$businessId/dashboard/confirm-quotation-import/$otherBusinessId': typeof AppBusinessesRmaBusinessBusinessIdDashboardConfirmQuotationImportOtherBusinessIdRouteRoute
@@ -5091,6 +5107,7 @@ export interface FileRouteTypes {
     | '/app/businesses-rma/business/$businessId/bp/create-serial-rma/$serialId'
     | '/app/businesses-rma/business/$businessId/bp/delete-detail/$detailId'
     | '/app/businesses-rma/business/$businessId/bp/delete-serial/$serialId'
+    | '/app/businesses-rma/business/$businessId/bp/print-label/$detailId'
     | '/app/businesses-rma/business/$businessId/bp/update-detail/$detailId'
     | '/app/businesses-rma/business/$businessId/dashboard/address-book/create'
     | '/app/businesses-rma/business/$businessId/dashboard/confirm-quotation-import/$otherBusinessId'
@@ -5422,6 +5439,7 @@ export interface FileRouteTypes {
     | '/app/businesses-rma/business/$businessId/bp/create-serial-rma/$serialId'
     | '/app/businesses-rma/business/$businessId/bp/delete-detail/$detailId'
     | '/app/businesses-rma/business/$businessId/bp/delete-serial/$serialId'
+    | '/app/businesses-rma/business/$businessId/bp/print-label/$detailId'
     | '/app/businesses-rma/business/$businessId/bp/update-detail/$detailId'
     | '/app/businesses-rma/business/$businessId/dashboard/address-book/create'
     | '/app/businesses-rma/business/$businessId/dashboard/confirm-quotation-import/$otherBusinessId'
@@ -5760,6 +5778,7 @@ export interface FileRouteTypes {
     | '/app/businesses-rma_/business/$businessId/bp/create-serial-rma/$serialId'
     | '/app/businesses-rma_/business/$businessId/bp/delete-detail/$detailId'
     | '/app/businesses-rma_/business/$businessId/bp/delete-serial/$serialId'
+    | '/app/businesses-rma_/business/$businessId/bp/print-label/$detailId'
     | '/app/businesses-rma_/business/$businessId/bp/update-detail/$detailId'
     | '/app/businesses-rma_/business/$businessId/dashboard/address-book/create'
     | '/app/businesses-rma_/business/$businessId/dashboard/confirm-quotation-import/$otherBusinessId'
@@ -7979,6 +7998,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdBpUpdateDetailDetailIdRouteRouteImport
       parentRoute: typeof AppBusinessesRmaBusinessBusinessIdBpRouteRoute
     }
+    '/app/businesses-rma_/business/$businessId/bp/print-label/$detailId': {
+      id: '/app/businesses-rma_/business/$businessId/bp/print-label/$detailId'
+      path: '/print-label/$detailId'
+      fullPath: '/app/businesses-rma/business/$businessId/bp/print-label/$detailId'
+      preLoaderRoute: typeof AppBusinessesRmaBusinessBusinessIdBpPrintLabelDetailIdRouteRouteImport
+      parentRoute: typeof AppBusinessesRmaBusinessBusinessIdBpRouteRoute
+    }
     '/app/businesses-rma_/business/$businessId/bp/delete-serial/$serialId': {
       id: '/app/businesses-rma_/business/$businessId/bp/delete-serial/$serialId'
       path: '/delete-serial/$serialId'
@@ -9311,6 +9337,7 @@ interface AppBusinessesRmaBusinessBusinessIdBpRouteRouteChildren {
   AppBusinessesRmaBusinessBusinessIdBpCreateSerialRmaSerialIdRouteRoute: typeof AppBusinessesRmaBusinessBusinessIdBpCreateSerialRmaSerialIdRouteRoute
   AppBusinessesRmaBusinessBusinessIdBpDeleteDetailDetailIdRouteRoute: typeof AppBusinessesRmaBusinessBusinessIdBpDeleteDetailDetailIdRouteRoute
   AppBusinessesRmaBusinessBusinessIdBpDeleteSerialSerialIdRouteRoute: typeof AppBusinessesRmaBusinessBusinessIdBpDeleteSerialSerialIdRouteRoute
+  AppBusinessesRmaBusinessBusinessIdBpPrintLabelDetailIdRouteRoute: typeof AppBusinessesRmaBusinessBusinessIdBpPrintLabelDetailIdRouteRoute
   AppBusinessesRmaBusinessBusinessIdBpUpdateDetailDetailIdRouteRoute: typeof AppBusinessesRmaBusinessBusinessIdBpUpdateDetailDetailIdRouteRoute
 }
 
@@ -9328,6 +9355,8 @@ const AppBusinessesRmaBusinessBusinessIdBpRouteRouteChildren: AppBusinessesRmaBu
       AppBusinessesRmaBusinessBusinessIdBpDeleteDetailDetailIdRouteRoute,
     AppBusinessesRmaBusinessBusinessIdBpDeleteSerialSerialIdRouteRoute:
       AppBusinessesRmaBusinessBusinessIdBpDeleteSerialSerialIdRouteRoute,
+    AppBusinessesRmaBusinessBusinessIdBpPrintLabelDetailIdRouteRoute:
+      AppBusinessesRmaBusinessBusinessIdBpPrintLabelDetailIdRouteRoute,
     AppBusinessesRmaBusinessBusinessIdBpUpdateDetailDetailIdRouteRoute:
       AppBusinessesRmaBusinessBusinessIdBpUpdateDetailDetailIdRouteRoute,
   }

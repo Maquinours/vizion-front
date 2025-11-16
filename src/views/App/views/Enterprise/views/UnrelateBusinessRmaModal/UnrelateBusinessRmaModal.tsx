@@ -57,8 +57,8 @@ export default function AppViewEnterpriseViewUnrelateBusinessRmaModalView() {
         <div className={styles.modal_title}>
           <h6>
             Êtes-vous certain.e de vouloir <span style={{ color: 'var(--primary-color)', fontWeight: 'bold' }}>supprimer</span> le lien entre l&apos;entreprise{' '}
-            <span className="font-bold text-[var(--secondary-color)]">{enterprise.name}</span> et {businessTypeString}{' '}
-            <span className="font-bold text-[var(--secondary-color)]">
+            <span className="font-bold text-(--secondary-color)">{enterprise.name}</span> et {businessTypeString}{' '}
+            <span className="font-bold text-(--secondary-color)">
               {businessRma.title ? `${businessRma.title} / ` : ''}
               {businessRma.number}
             </span>{' '}

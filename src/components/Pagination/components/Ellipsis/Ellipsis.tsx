@@ -18,7 +18,7 @@ export default function PaginationComponentEllipsisComponent({ totalPages, chang
     }
     case 'input': {
       const onSubmit = ({ page }: { page: number }) => {
-        if (!Number.isSafeInteger(page) || page < 0 || page > totalPages) return;
+        if (!Number.isSafeInteger(page) || page < 1 || page > totalPages) return;
         setStep('button');
         changePage(page - 1);
       };

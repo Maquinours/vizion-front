@@ -45,7 +45,7 @@ export default function AppViewStudyViewAutomaticViewSidebarComponentCameraSelec
   return (
     <div className="flex w-fit min-w-[660px] flex-1 flex-col items-center justify-start rounded-md border-2 border-t-0 border-[#31385A]">
       <h1 className="flex h-8 w-full items-center justify-center rounded-t-md bg-[#31385A] text-white">Faire quoi à quelle distance</h1>
-      <div className="w-full pl-6 pr-6 pt-6">
+      <div className="w-full pt-6 pr-6 pl-6">
         <div className="flex">
           <div className="flex-[2_2_0%]"></div>
           {models.map((model) => (
@@ -77,7 +77,7 @@ export default function AppViewStudyViewAutomaticViewSidebarComponentCameraSelec
               ))}
             </tr>
             <tr className="flex">
-              <th className="flex-[2_2_0%] rounded-tl-md border-b-2 border-l-2 border-t-2 border-[#31385A] bg-[#101735] text-white">
+              <th className="flex-[2_2_0%] rounded-tl-md border-t-2 border-b-2 border-l-2 border-[#31385A] bg-[#101735] text-white">
                 <div className="flex">
                   <div className="flex items-center p-2">
                     <LogoIdentification fill="white" width={36} height={36} />
@@ -89,7 +89,7 @@ export default function AppViewStudyViewAutomaticViewSidebarComponentCameraSelec
                 </div>
               </th>
               {models.map((model) => (
-                <td key={model.product.id} className="flex flex-1 items-center justify-center border-b-2 border-r-2 border-[#313751] text-[#16204E]">
+                <td key={model.product.id} className="flex flex-1 items-center justify-center border-r-2 border-b-2 border-[#313751] text-[#16204E]">
                   {model.data.identification}m{!!model.data.pir && model.data.identification > model.data.pir ? '¹' : ''}
                 </td>
               ))}
@@ -107,7 +107,7 @@ export default function AppViewStudyViewAutomaticViewSidebarComponentCameraSelec
                 </div>
               </th>
               {models.map((model) => (
-                <td key={model.product.id} className="flex flex-1 items-center justify-center border-b-2 border-r-2 border-[#313751] text-[#16204E]">
+                <td key={model.product.id} className="flex flex-1 items-center justify-center border-r-2 border-b-2 border-[#313751] text-[#16204E]">
                   {model.data.plaque}m{!!model.data.pir && model.data.plaque > model.data.pir ? '¹' : ''}
                 </td>
               ))}
@@ -127,7 +127,7 @@ export default function AppViewStudyViewAutomaticViewSidebarComponentCameraSelec
               {models.map((model, index, arr) => (
                 <td
                   key={model.product.id}
-                  className={`flex flex-1 items-center justify-center border-b-2 border-r-2 border-[#313751] text-[#16204E] ${classNames({ 'rounded-br-md': index === arr.length - 1 })}`}
+                  className={`flex flex-1 items-center justify-center border-r-2 border-b-2 border-[#313751] text-[#16204E] ${classNames({ 'rounded-br-md': index === arr.length - 1 })}`}
                 >
                   {model.data.reconnaissance}m{model.data.pir && model.data.reconnaissance > model.data.pir ? '¹' : ''}
                 </td>
@@ -148,7 +148,7 @@ export default function AppViewStudyViewAutomaticViewSidebarComponentCameraSelec
               {models.map((model) => (
                 <td
                   key={model.product.id}
-                  className={`flex-1 border-b-2 border-r-2 border-t-2 border-[#31385A] text-[#16204E] ${
+                  className={`flex-1 border-t-2 border-r-2 border-b-2 border-[#31385A] text-[#16204E] ${
                     model == models[models.length - 1] ? 'rounded-r-md' : ''
                   }`}
                 >

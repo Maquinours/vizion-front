@@ -7,6 +7,7 @@ import BusinessState from '../../../../../../utils/enums/BusinessState';
 import { useAuthentifiedUserQuery } from '../../../../utils/functions/getAuthentifiedUser';
 import styles from './Sidebar.module.scss';
 import classNames from 'classnames';
+import AppViewBusinessViewSidebarComponentAssistanceButtonComponent from './components/AssistanceButton/AssistanceButton';
 
 const stepsData: Array<{
   label: string;
@@ -84,17 +85,7 @@ export default function AppViewBusinessViewSidebarComponent() {
       </div>
       <div className={styles.buttons}>
         {user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && business.state !== BusinessState.ARCHIVE && (
-          <Link
-            to={location.pathname}
-            search={(old) => ({ ...old, businessModal: 'assistances' })}
-            replace
-            resetScroll={false}
-            preload="intent"
-            ignoreBlocker
-            className="btn btn-primary"
-          >
-            Assistance
-          </Link>
+          <AppViewBusinessViewSidebarComponentAssistanceButtonComponent business={business} />
         )}
         {user.userInfo.roles.includes('ROLE_DIRECTION_VIZEO') && business.state !== BusinessState.ARCHIVE && (
           <Link

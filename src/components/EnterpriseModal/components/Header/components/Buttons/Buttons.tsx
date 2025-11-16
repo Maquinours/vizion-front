@@ -16,7 +16,7 @@ export default function EnterpriseModalComponentHeaderComponentButtonsComponent(
 
   return (
     <div className={styles.container}>
-      <Link to="/app/enterprises/$enterpriseId" params={{ enterpriseId: enterprise.id }} className="btn btn-secondary">
+      <Link to="/app/enterprises/$enterpriseId" params={{ enterpriseId: enterprise.id }} search={{ fromCall: true }} className="btn btn-secondary">
         Ouvrir l&apos;entreprise
       </Link>
       <button className="btn btn-primary" onClick={onEmailHistoryClick}>

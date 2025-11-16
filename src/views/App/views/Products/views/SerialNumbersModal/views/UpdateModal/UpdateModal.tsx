@@ -13,7 +13,7 @@ import { useEffect } from 'react';
 const routeApi = getRouteApi('/app/products/serial-numbers/update/$serialNumberId');
 
 const yupSchema = yup.object({
-  note: yup.string().nullable().max(255, 'La note ne peut excéder 255 caractères'),
+  note: yup.string().nullable().max(2048, 'La note ne peut excéder 2048 caractères'),
 });
 
 export default function AppViewProductsViewSerialNumbersModalViewUpdateModalView() {
@@ -63,7 +63,7 @@ export default function AppViewProductsViewSerialNumbersModalViewUpdateModalView
       shouldCloseOnOverlayClick={!isPending}
       shouldCloseOnEsc={!isPending}
     >
-      <p className="w-full rounded-t-md bg-[var(--primary-color)] p-2 text-center font-bold text-white">Modification du numéro de série</p>
+      <p className="w-full rounded-t-md bg-(--primary-color) p-2 text-center font-bold text-white">Modification du numéro de série</p>
       <form onSubmit={handleSubmit((data) => mutate(data))} className="flex flex-col gap-y-2 p-4">
         <div className="flex justify-center gap-x-1">
           <span>Numéro de série :</span>
@@ -76,7 +76,7 @@ export default function AppViewProductsViewSerialNumbersModalViewUpdateModalView
         <div className="flex flex-col justify-center gap-y-1 text-center">
           <label htmlFor="note">Note :</label>
           <textarea id="note" {...register('note')} className="w-full rounded-md border border-black" />
-          <p className="text-xs text-[var(--secondary-color)]">{errors.note?.message}</p>
+          <p className="text-xs text-(--secondary-color)">{errors.note?.message}</p>
         </div>
         <div className="mt-2 flex justify-between gap-y-1">
           <button type="button" className="btn btn-secondary" onClick={onClose} disabled={isPending}>

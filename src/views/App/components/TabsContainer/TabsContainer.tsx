@@ -227,18 +227,19 @@ export default function AppViewTabsContainerComponent({ children }: AppViewTabsC
             const route = matches.at(-1)!;
             const tabRoute = { to: route.fullPath, params: route.params, search: route.search, state: resolvedLocation?.state } as ToOptions;
 
+            let tabId: string;
             if (match.routeId.startsWith('/app/businesses-rma_/business/$businessId') && 'businessId' in match.params)
-              var tabId = `/app/businesses-rma_/business/$businessId/${match.params.businessId}`;
-            else var tabId = match.pathname;
+              tabId = `/app/businesses-rma_/business/$businessId/${match.params.businessId}`;
+            else tabId = match.pathname;
 
             const tab: Tab = {
               id: tabId,
               name: title,
               route: tabRoute,
               closeRoute: match.staticData.getCloseTabRoute
-                ? (match.staticData.getCloseTabRoute(
-                    tabRoute as { to: string; params: { [key: string]: unknown }; search: { [key: string]: unknown } },
-                  ) as ToOptions)
+                ? (match.staticData.getCloseTabRoute(tabRoute as { to: string; params: { [key: string]: unknown }; search: { [key: string]: unknown } }) as
+                    | ToOptions
+                    | undefined)
                 : undefined,
             };
             setTabs((tabs: Array<Tab> | null | undefined) => {

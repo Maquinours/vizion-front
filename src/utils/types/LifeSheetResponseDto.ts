@@ -15,6 +15,8 @@ type LifeSheetResponseDto = {
   rmaNumber?: string | null;
   mailId?: string | null;
   comments?: string | null;
+  concernedId: string | null;
+  concernedName: string | null;
   createdDate?: Date | null;
   modifiedDate?: Date | null;
   createdBy?: string | null;

@@ -168,14 +168,14 @@ export default function AppViewStudyViewExpertViewModalProviderComponentCameraMo
   return (
     <ReactModal
       isOpen
-      className="absolute left-2/4 top-2/4 m-auto h-auto w-auto min-w-[70%] max-w-[1000px] -translate-x-2/4 -translate-y-2/4 rounded-[5px] p-0 opacity-100"
+      className="absolute top-2/4 left-2/4 m-auto h-auto w-auto max-w-[1000px] min-w-[70%] -translate-x-2/4 -translate-y-2/4 rounded-[5px] p-0 opacity-100"
       overlayClassName="Overlay"
       onRequestClose={onClose}
     >
       <div className="w-full">
-        <h1 className="flex h-8 w-full items-center justify-center rounded-t-md bg-[var(--primary-color)] text-white">Choix de la densité</h1>
+        <h1 className="flex h-8 w-full items-center justify-center rounded-t-md bg-(--primary-color) text-white">Choix de la densité</h1>
         <div className="bg-[#FFFFFF] pb-1">
-          <div className="mb-4 ml-4 mr-4">
+          <div className="mr-4 mb-4 ml-4">
             <form onSubmit={handleSubmit(onSubmit)}>
               <div className="camselection_div xxl:flex-row xxl:gap-x-6 flex flex-col gap-y-10">
                 <Controller

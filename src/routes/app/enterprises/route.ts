@@ -11,10 +11,11 @@ const searchSchema = z.object({
   zipCode: z.string().optional().catch(undefined),
   city: z.string().optional().catch(undefined),
   phoneNumber: z.string().optional().catch(undefined),
-  category: z.nativeEnum(CategoryClient).optional().catch(undefined),
-  representativeId: z.string().uuid().optional().catch(undefined),
+  category: z.enum(CategoryClient).optional().catch(undefined),
+  representativeId: z.uuid().optional().catch(undefined),
   fuzzy: z.boolean().catch(true),
   page: z.number().int().min(0).catch(0),
+  linkToBusinessId: z.uuid().optional().catch(undefined),
 });
 
 export const Route = createFileRoute('/app/enterprises')({
@@ -29,6 +30,7 @@ export const Route = createFileRoute('/app/enterprises')({
       representativeId?: string;
       fuzzy?: boolean;
       page?: number;
+      linkToBusinessId?: string;
     } & SearchSchemaInput,
   ) => searchSchema.parse(data),
   beforeLoad: async ({ context: { queryClient } }) => {

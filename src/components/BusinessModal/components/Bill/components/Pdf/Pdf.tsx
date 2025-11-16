@@ -166,6 +166,11 @@ const pageStyles = StyleSheet.create({
     fontSize: 10,
     textAlign: 'center',
   },
+  billDetailOneDate: {
+    color: 'black',
+    fontSize: 10,
+    textAlign: 'center',
+  },
   billDetailTwoContent: {
     color: '#F24C52',
     fontSize: 10,
@@ -460,7 +465,7 @@ export default function BusinessModalComponentBillComponentPdfComponent({ busine
               <View style={pageStyles.billDetailFour}>
                 <View style={pageStyles.billDetailOneContainer}>
                   <Text style={pageStyles.billDetailOneTitle}>Date de la facture</Text>
-                  <Text style={pageStyles.billDetailOneContent}>{formatDateWithSlash(bill.createdDate)}</Text>
+                  <Text style={pageStyles.billDetailOneDate}>{formatDateWithSlash(bill.createdDate)}</Text>
                 </View>
               </View>
             </View>
@@ -490,12 +495,12 @@ export default function BusinessModalComponentBillComponentPdfComponent({ busine
             <View wrap={false} style={pageStyles.recapContainer}>
               <View style={pageStyles.recapTable}>
                 <View style={pageStyles.recapTableContent}>
-                  <Text style={pageStyles.recapTableContentText}>Total general HT :</Text>
-                  <Text style={pageStyles.recapTableContentValue}>{currencyFormatter(bill.totalAmountHT ?? 0)}</Text>
-                </View>
-                <View style={pageStyles.recapTableContent}>
                   <Text style={pageStyles.recapTableContentText}>Frais de port :</Text>
                   <Text style={pageStyles.recapTableContentValue}>{currencyFormatter(bill.shippingServicePrice)}</Text>
+                </View>
+                <View style={pageStyles.recapTableContent}>
+                  <Text style={pageStyles.recapTableContentText}>Total general HT :</Text>
+                  <Text style={pageStyles.recapTableContentValue}>{currencyFormatter((bill.totalAmountHT ?? 0) + bill.shippingServicePrice)}</Text>
                 </View>
                 <View style={pageStyles.recapTableContent}>
                   <Text style={pageStyles.recapTableContentText}>Total EcoTaxe :</Text>

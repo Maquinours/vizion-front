@@ -100,7 +100,7 @@ export default function AppViewAssistanceView() {
         <Link from={routePath} to="/app/businesses-rma/business/$businessId" title="Retourner dans l'affaire" className="btn btn-primary flex w-fit">
           <TiArrowBack size={16} />
         </Link>
-        <span className="content-center font-bold text-[var(--primary-color)]">
+        <span className="content-center font-bold text-(--primary-color)">
           {business.numBusiness} - {business.title ?? ''}
         </span>
       </div>

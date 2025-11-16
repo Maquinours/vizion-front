@@ -32,7 +32,7 @@ export default function AppViewAircallWorkspaceComponent({ children }: AppViewAi
         if (success) {
           setIsWorkspaceOpened(true);
           resolve();
-        } else reject(new Error(data));
+        } else reject(data);
       });
     });
   };
@@ -80,9 +80,7 @@ export default function AppViewAircallWorkspaceComponent({ children }: AppViewAi
           <div id="aircall-workspace" className="top-6 h-full w-full overflow-hidden rounded-md" />
         </ResizableBox>
         <div className="flex w-fit flex-col items-center">
-          <div
-            className={classNames('h-0 w-0 border-r-4 border-b-4 border-l-4 border-transparent border-b-[var(--grey-line)]', { hidden: !isWorkspaceOpened })}
-          />
+          <div className={classNames('h-0 w-0 border-r-4 border-b-4 border-l-4 border-transparent border-b-(--grey-line)', { hidden: !isWorkspaceOpened })} />
           <button onClick={onButtonClick}>
             <AircallIcon className="h-8 w-8" />
           </button>

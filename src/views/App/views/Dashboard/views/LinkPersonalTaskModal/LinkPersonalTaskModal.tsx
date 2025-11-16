@@ -14,8 +14,8 @@ import { allBusinesses } from '../../../../../../utils/constants/queryKeys/allBu
 import { enterprises } from '../../../../../../utils/constants/queryKeys/enterprise';
 import CategoryBusiness from '../../../../../../utils/enums/CategoryBusiness';
 import WorkloadType from '../../../../../../utils/enums/WorkloadType';
-import AllBusinessResponseDto from '../../../../../../utils/types/AllBusinessResponseDto';
 import EnterpriseResponseDto from '../../../../../../utils/types/EnterpriseResponseDto';
+import PartialAllBusinessResponseDto from '../../../../../../utils/types/PartialAllBusinessResponseDto';
 import ProductResponseDto from '../../../../../../utils/types/ProductResponseDto';
 import TaskRequestDto from '../../../../../../utils/types/TaskRequestDto';
 import styles from './LinkPersonalTaskModal.module.scss';
@@ -30,7 +30,7 @@ const routeApi = getRouteApi('/app/dashboard/link-personal-task/$taskId');
 
 const yupSchema = yup.object({
   type: yup.mixed<LinkType>().required(),
-  business: yup.mixed<AllBusinessResponseDto>().when('type', {
+  business: yup.mixed<PartialAllBusinessResponseDto>().when('type', {
     is: (type: LinkType) => type === LinkType.BUSINESS,
     then: (schema) => schema.required(),
     otherwise: (schema) => schema.nullable(),
@@ -56,7 +56,7 @@ export default function AppViewDashboardViewLinkPersonalTaskModalView() {
   const { data: task } = useSuspenseQuery(queries.tasks.detail(taskId));
 
   const { data: enterprisesList, isLoading: isLoadingEnterprises } = useQuery(enterprises.list);
-  const { data: businesses, isLoading: isLoadingBusinesses } = useQuery(allBusinesses.list);
+  const { data: businesses, isLoading: isLoadingBusinesses } = useQuery(allBusinesses.partial._ctx.list);
   const { data: products, isLoading: isLoadingProducts } = useQuery(queries.product.list);
 
   const { register, control, handleSubmit } = useForm({

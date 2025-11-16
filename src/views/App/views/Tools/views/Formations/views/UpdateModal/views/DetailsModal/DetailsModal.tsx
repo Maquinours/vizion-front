@@ -46,7 +46,11 @@ export default function AppViewToolsViewFormationsViewUpdateModalViewDetailsModa
         header: 'Formateurs',
         cell: ({ row: { original } }) => (
           <div className={styles.trainers_list}>
-            <ul>{original?.trainers?.map((item) => <li key={item.id}>{item.name}</li>)}</ul>
+            <ul>
+              {original?.trainers?.map((item) => (
+                <li key={item.id}>{item.name}</li>
+              ))}
+            </ul>
           </div>
         ),
       }),

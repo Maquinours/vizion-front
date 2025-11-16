@@ -63,7 +63,7 @@ export default function AppViewDashboardViewCallsHistoryComponentTableComponentC
                     <MenuItem>
                       <Link to="/app/enterprises/$enterpriseId" params={{ enterpriseId: data.profile.enterprise!.id }} onClick={onClose}>
                         <MdGroups width={16} height={16} color={'#16204E'} className={styles.icon} />
-                        <span className={styles.text}>Accéder à l'entreprise</span>
+                        <span className={styles.text}>Accéder à l&apos;entreprise</span>
                       </Link>
                     </MenuItem>
                   ) : data.contact ? (

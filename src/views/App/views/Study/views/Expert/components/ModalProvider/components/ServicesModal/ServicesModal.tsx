@@ -79,12 +79,12 @@ export default function AppViewStudyViewExpertViewModalProviderComponentServices
   return (
     <ReactModal
       isOpen
-      className="absolute left-2/4 top-2/4 m-auto h-auto w-auto min-w-72 max-w-[80%] -translate-x-2/4 -translate-y-2/4 rounded-md opacity-100"
+      className="absolute top-2/4 left-2/4 m-auto h-auto w-auto max-w-[80%] min-w-72 -translate-x-2/4 -translate-y-2/4 rounded-md opacity-100"
       overlayClassName="Overlay"
       onRequestClose={onClose}
     >
       <form className="w-full rounded-md bg-white pb-2" onSubmit={handleSubmit(onSubmit)}>
-        <h2 className="flex h-10 items-center justify-center rounded-t-md bg-[var(--primary-color)] text-white">SERVICES</h2>
+        <h2 className="flex h-10 items-center justify-center rounded-t-md bg-(--primary-color) text-white">SERVICES</h2>
         <div className="mx-2 mt-4 rounded-md border border-[#16204e] bg-white">
           <Controller
             control={control}

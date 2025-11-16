@@ -3,7 +3,7 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 import { Link, getRouteApi } from '@tanstack/react-router';
 import { FaTrash } from 'react-icons/fa';
 import { HiPencilAlt } from 'react-icons/hi';
-import { MdBusinessCenter } from 'react-icons/md';
+import { MdBusinessCenter, MdPrint } from 'react-icons/md';
 import { queries } from '../../../../../../../../../../utils/constants/queryKeys';
 import BusinessState from '../../../../../../../../../../utils/enums/BusinessState';
 import styles from './DetailContextMenu.module.scss';
@@ -84,6 +84,21 @@ export default function AppViewBusinessViewBpViewTableComponentDetailContextMenu
                     >
                       <FaTrash width={16} height={16} color={'#16204E'} className={styles.icon} />
                       <span className={styles.text}>Supprimer le produit</span>
+                    </Link>
+                  </MenuItem>
+                  <MenuItem>
+                    <Link
+                      from={routePath}
+                      to="print-label/$detailId"
+                      params={{ detailId: item.id }}
+                      search
+                      replace
+                      resetScroll={false}
+                      preload="render"
+                      onClick={onClose}
+                    >
+                      <MdPrint width={16} height={16} color={'#16204E'} className={styles.icon} />
+                      <span className={styles.text}>Imprimer une étiquette</span>
                     </Link>
                   </MenuItem>
                   {business.state === BusinessState.FACTURE && (

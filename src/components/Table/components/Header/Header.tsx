@@ -16,13 +16,13 @@ export default function TableComponentHeaderComponent<T>({ getHeaderGroups, clas
             // Apply the header cell props
             <th key={header.id}>
               {header.isPlaceholder ? null : (
-                <div className={header.column.getCanSort() ? 'cursor-pointer select-none' : ''} onClick={header.column.getToggleSortingHandler()}>
+                <button className={header.column.getCanSort() ? 'cursor-pointer select-none' : ''} onClick={header.column.getToggleSortingHandler()}>
                   {flexRender(header.column.columnDef.header, header.getContext())}
                   {{
                     asc: <IoIosArrowUp className="ml-1" />,
                     desc: <IoIosArrowDown className="ml-1" />,
                   }[header.column.getIsSorted() as string] ?? null}
-                </div>
+                </button>
               )}
             </th>
           ))}

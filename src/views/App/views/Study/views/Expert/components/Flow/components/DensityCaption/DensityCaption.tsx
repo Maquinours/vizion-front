@@ -43,15 +43,15 @@ export default function AppViewStudyViewExpertViewFlowComponentDensityCaptionCom
   if (pageType !== 'density' || !colorsData) return null;
   return (
     <Panel position="bottom-left" style={{ margin: 0 }}>
-      <div className="border-1 flex gap-x-2 rounded-tr-md border-[#31385A] px-2" style={{ backgroundColor: colorsData.colors.identification }}>
+      <div className="flex gap-x-2 rounded-tr-md border-1 border-[#31385A] px-2" style={{ backgroundColor: colorsData.colors.identification }}>
         <LogoIdentification fill="white" width={24} height={24} />
         <span className="text-left text-sm font-bold text-white">Identification</span>
       </div>
-      <div className="border-1 flex gap-x-2 border-[#31385A] px-2" style={{ backgroundColor: colorsData.colors.reading }}>
+      <div className="flex gap-x-2 border-1 border-[#31385A] px-2" style={{ backgroundColor: colorsData.colors.reading }}>
         <LogoLecturePlaque fill="white" width={24} height={24} />
         <span className="text-left text-sm font-bold text-white">Lecture de plaque</span>
       </div>
-      <div className="border-1 flex gap-x-2 border-[#31385A] px-2" style={{ backgroundColor: colorsData.colors.recognition }}>
+      <div className="flex gap-x-2 border-1 border-[#31385A] px-2" style={{ backgroundColor: colorsData.colors.recognition }}>
         <LogoReconnaissance fill="black" width={24} height={24} />
         <span className="text-left text-sm font-bold text-black">Reconnaissance</span>
       </div>

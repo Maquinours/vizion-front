@@ -5,12 +5,22 @@ import { privateInstance } from '../functions/axios';
 import AllBusinessQInfoRequestDto from '../types/AllBusinessQInfoRequestDto';
 import AllBusinessResponseDto from '../types/AllBusinessResponseDto';
 import Page from '../types/Page';
+import PartialAllBusinessResponseDto from '../types/PartialAllBusinessResponseDto';
 
 export const getAllBusinesses = async () => {
   return (
     await privateInstance<Array<AllBusinessResponseDto>>({
       method: 'GET',
       url: `/all-business/v1/all-business-and-rma/`,
+    })
+  ).data;
+};
+
+export const getAllBusinessesPartial = async () => {
+  return (
+    await privateInstance<Array<PartialAllBusinessResponseDto>>({
+      method: 'GET',
+      url: `/all-business/v1/all-business-and-rma/all-partial`,
     })
   ).data;
 };
@@ -37,10 +47,10 @@ export const getAllBusinessPageByEnterpriseId = async (
   ).data;
 };
 
-export const getAllBusinessesNotAssociated = ({ category, number }: { category: CategoryBusiness; number: string }) => {
+export const getAllBusinessesNotAssociatedPartial = ({ category, number }: { category: CategoryBusiness; number: string }) => {
   return privateInstance<Array<AllBusinessResponseDto>>({
     method: 'GET',
-    url: `/all-business/v1/all-business-and-rma/find-all-not-associated-by-number-and-category`,
+    url: `/all-business/v1/all-business-and-rma/find-all-not-associated-by-number-and-category-partial`,
     params: {
       category,
       number,
@@ -170,10 +180,10 @@ export const indexAllBusinesses = () => {
   }).then((res) => res.data);
 };
 
-export const getAllBusinessesNotAssociatedByEnterpriseId = (enterpriseId: string) => {
-  return privateInstance<Array<AllBusinessResponseDto>>({
+export const getAllBusinessesNotAssociatedByEnterpriseIdPartial = (enterpriseId: string) => {
+  return privateInstance<Array<PartialAllBusinessResponseDto>>({
     method: 'GET',
-    url: `/all-business/v1/all-business-and-rma/all-not-associated-by-enterprise/${encodeURIComponent(enterpriseId)}`,
+    url: `/all-business/v1/all-business-and-rma/all-not-associated-by-enterprise-partial/${encodeURIComponent(enterpriseId)}`,
   }).then((res) => res.data);
 };
 

@@ -95,13 +95,13 @@ export default function AppViewStudyViewAutomaticViewHeaderComponentHddCalculati
     <ReactModal
       isOpen
       onRequestClose={onClose}
-      className="absolute left-2/4 top-2/4 z-2005 m-auto h-auto w-auto min-w-[70%] max-w-[1000px] -translate-x-2/4 -translate-y-2/4 rounded-[5px] p-0 opacity-100"
+      className="absolute top-2/4 left-2/4 z-2005 m-auto h-auto w-auto max-w-[1000px] min-w-[70%] -translate-x-2/4 -translate-y-2/4 rounded-[5px] p-0 opacity-100"
       overlayClassName="Overlay"
     >
       <form onSubmit={handleSubmit(onSubmit)} className="mx-auto flex max-h-[750px] flex-col space-y-2 overflow-auto rounded-md bg-white pb-4">
         <h1 className="flex h-8 w-full items-center justify-center rounded-t-md bg-[#16204e] text-white">Paramétrage</h1>
 
-        <div className="grid grid-rows-1 gap-4 p-4 pl-5 pr-5">
+        <div className="grid grid-rows-1 gap-4 p-4 pr-5 pl-5">
           <div className="grid-row-3 grid">
             <div className="flex items-center">
               <span className="pr-4 text-sm font-bold text-[#16204E]">Paramétrage personnalisé</span>

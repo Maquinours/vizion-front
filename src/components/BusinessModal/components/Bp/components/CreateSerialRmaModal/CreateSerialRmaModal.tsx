@@ -43,7 +43,7 @@ export default function BusinessModalComponentBpComponentCreateSerialRmaModalCom
 
   const { mutate: mutateDetailComment } = useMutation({
     mutationFn: (comment: string) => {
-      const detail = bp.bpDetailsList?.find((d) => d.bpSerialList?.findIndex((s) => s.id == serialNumber.id) !== -1)!;
+      const detail = bp.bpDetailsList.find((d) => d.bpSerialList?.findIndex((s) => s.id == serialNumber.id) !== -1)!;
       return updateBusinessBpDetail(detail.id, {
         bpId: bp.id,
         numDetails: detail.numDetails,
@@ -89,7 +89,7 @@ export default function BusinessModalComponentBpComponentCreateSerialRmaModalCom
     onSuccess: (rma) => {
       queryClient.invalidateQueries({ queryKey: queries.rmas._def });
       try {
-        const detail = bp.bpDetailsList?.find((d) => d.bpSerialList?.findIndex((s) => s.id == serialNumber.id) !== -1)!;
+        const detail = bp.bpDetailsList.find((d) => d.bpSerialList?.findIndex((s) => s.id == serialNumber.id) !== -1)!;
         const comment = `${detail.comment}\n${rma.number}`.trim();
         mutateDetailComment(comment);
       } finally {

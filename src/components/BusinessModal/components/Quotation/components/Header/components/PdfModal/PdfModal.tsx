@@ -64,7 +64,7 @@ export default function BusinessModalComponentQuotationComponentPdfModalComponen
     switch (modalData?.modal) {
       case ModalType.LOADING:
         return <LoaderModal />;
-      case ModalType.SEND_BY_EMAIL:
+      case ModalType.SEND_BY_EMAIL: {
         const defaultRecipient = (() => {
           if (business.enterpriseName === 'DIVERS CLIENTS') {
             if (business.billingEmail) return [business.billingEmail];
@@ -91,6 +91,7 @@ export default function BusinessModalComponentQuotationComponentPdfModalComponen
             storageKey={`business-modal-quotation-pdf-${business.id}`}
           />
         );
+      }
     }
   }, [modalData, business, quotation]);
 

@@ -2,7 +2,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import { getRouteApi, Outlet } from '@tanstack/react-router';
 import { createColumnHelper } from '@tanstack/react-table';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 import ReactModal from 'react-modal';
 import { PulseLoader } from 'react-spinners';
@@ -60,29 +60,32 @@ export default function AppViewBusinessViewBlViewUpdateModalView() {
 
   const items = useWatch({ name: 'items', control });
 
-  const columns = [
-    columnHelper.display({
-      header: 'Référence',
-      cell: ({ row: { index } }) => (
-        <div className="flex w-auto flex-col gap-y-1">
-          <input type="text" {...register(`items.${index}.productReference`)} className="box-border flex w-full border border-black p-1 text-center" />
-          <p className={styles.__errors}>{errors.items?.[index]?.productReference?.message}</p>
-        </div>
-      ),
-    }),
-    columnHelper.display({
-      header: 'Désignation',
-      cell: ({ row: { index } }) => (
-        <div className="flex w-auto flex-col gap-y-1">
-          <input type="text" {...register(`items.${index}.productDesignation`)} className="box-border w-full border border-black p-1 text-center" />
-          <p className={styles.__errors}>{errors.items?.[index]?.productDesignation?.message}</p>
-        </div>
-      ),
-    }),
-    columnHelper.display({
-      id: 'scrollbar_compensator',
-    }),
-  ];
+  const columns = useMemo(
+    () => [
+      columnHelper.display({
+        header: 'Référence',
+        cell: ({ row: { index } }) => (
+          <div className="flex w-auto flex-col gap-y-1">
+            <input type="text" {...register(`items.${index}.productReference`)} className="box-border flex w-full border border-black p-1 text-center" />
+            <p className={styles.__errors}>{errors.items?.[index]?.productReference?.message}</p>
+          </div>
+        ),
+      }),
+      columnHelper.display({
+        header: 'Désignation',
+        cell: ({ row: { index } }) => (
+          <div className="flex w-auto flex-col gap-y-1">
+            <input type="text" {...register(`items.${index}.productDesignation`)} className="box-border w-full border border-black p-1 text-center" />
+            <p className={styles.__errors}>{errors.items?.[index]?.productDesignation?.message}</p>
+          </div>
+        ),
+      }),
+      columnHelper.display({
+        id: 'scrollbar_compensator',
+      }),
+    ],
+    [register, errors],
+  );
 
   const onClose = () => {
     navigate({ to: '..', search: true, replace: true, resetScroll: false });

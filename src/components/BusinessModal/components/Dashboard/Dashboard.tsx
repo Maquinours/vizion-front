@@ -478,10 +478,10 @@ export default function BusinessModalComponentDashboardComponent({ business, goT
                   {user.userInfo.roles.includes('ROLE_DIRECTION_VIZEO') && (
                     <div className="flex gap-x-1">
                       <span className="m-auto font-[DIN2014] text-sm">
-                        Représentant : <span className="font-bold text-[var(--primary-color)]">{business.representativeName || 'Aucun'}</span>
+                        Représentant : <span className="font-bold text-(--primary-color)">{business.representativeName || 'Aucun'}</span>
                       </span>
                       <button className="m-auto flex" onClick={() => setModalData({ modal: BusinessDashboardModal.UPDATE_REPRESENTATIVE })}>
-                        <HiPencilAlt className="text-[var(--primary-color)]" />
+                        <HiPencilAlt className="text-(--primary-color)" />
                       </button>
                       {/* <Link
                         from={routePath}
@@ -493,7 +493,7 @@ export default function BusinessModalComponentDashboardComponent({ business, goT
                         ignoreBlocker
                         className="m-auto flex"
                       >
-                        <HiPencilAlt className="text-[var(--primary-color)]" />
+                        <HiPencilAlt className="text-(--primary-color)" />
                       </Link> */}
                     </div>
                   )}

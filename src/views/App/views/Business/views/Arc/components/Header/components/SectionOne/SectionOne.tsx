@@ -108,7 +108,10 @@ export default function AppViewBusinessViewArcViewHeaderComponentSectionOneCompo
   const onBpButtonClick = async () => {
     if (business.state !== BusinessState.ARC) navigate({ to: '../bp', replace: true });
     else if (!arc.numOrder) toast.warning("Veuillez sauvegarder l'ARC avec un numéro de commande avant de passer en BP");
-    else mutate();
+    else if (!business.deliverAddressOne?.trim()) {
+      toast.warning('Veuillez renseigner une adresse de livraison avant de passer en BP');
+      navigate({ to: '../dashboard', replace: true });
+    } else mutate();
   };
 
   return (

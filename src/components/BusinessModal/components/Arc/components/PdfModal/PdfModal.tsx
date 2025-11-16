@@ -55,7 +55,7 @@ export default function BusinessModalComponentArcComponentPdfModalComponent({
     switch (modalData?.modal) {
       case ModalType.LOADING:
         return <LoaderModal />;
-      case ModalType.SEND_BY_EMAIL:
+      case ModalType.SEND_BY_EMAIL: {
         const recipient = business.profileEmail ?? business.deliverEmail ?? undefined;
         return (
           <SendEmailModalComponent
@@ -77,6 +77,7 @@ export default function BusinessModalComponentArcComponentPdfModalComponent({
             }}
           />
         );
+      }
     }
   }, [modalData]);
 

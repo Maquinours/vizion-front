@@ -102,7 +102,7 @@ export default function BusinessModalComponentQuotationComponentHeaderComponentS
     <div className={styles.header}>
       <div className={styles.business_info}>
         <span>{business.enterpriseName}</span> / <span>{business.title}</span>
-        <span className="ml-2 text-xl text-[var(--primary-color)]">{business.numBusiness}</span>
+        <span className="ml-2 text-xl text-(--primary-color)">{business.numBusiness}</span>
       </div>
       <div className={styles.buttons_container}>
         <Link to="/app/businesses-rma/business/$businessId/quotation" params={{ businessId: business.id }} className="btn btn-secondary">

@@ -82,12 +82,12 @@ export default function AppViewStudyViewExpertViewModalProviderComponentMonitorM
   return (
     <ReactModal
       isOpen
-      className="absolute left-2/4 top-2/4 m-auto h-auto w-auto min-w-72 -translate-x-2/4 -translate-y-2/4 rounded-md opacity-100"
+      className="absolute top-2/4 left-2/4 m-auto h-auto w-auto min-w-72 -translate-x-2/4 -translate-y-2/4 rounded-md opacity-100"
       overlayClassName="Overlay"
       onRequestClose={onClose}
     >
       <form onSubmit={handleSubmit(onSubmit)} className="w-full rounded-md bg-white pb-2">
-        <h2 className="flex h-10 items-center justify-center rounded-t-md bg-[var(--primary-color)] text-white">MONITEURS</h2>
+        <h2 className="flex h-10 items-center justify-center rounded-t-md bg-(--primary-color) text-white">MONITEURS</h2>
         <Controller
           control={control}
           name="models"

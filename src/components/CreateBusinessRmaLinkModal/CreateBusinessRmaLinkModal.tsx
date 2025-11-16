@@ -24,7 +24,9 @@ type CreateBusinessRmaLinkModalComponentProps = Readonly<{
 export default function CreateBusinessRmaLinkModalComponent({ category, number, onClose }: CreateBusinessRmaLinkModalComponentProps) {
   const queryClient = useQueryClient();
 
-  const { data: options, isLoading: isLoadingOptions } = useQuery(queries['all-businesses'].list._ctx.notAssociated({ category: category, number: number }));
+  const { data: options, isLoading: isLoadingOptions } = useQuery(
+    queries['all-businesses'].partial._ctx.list._ctx.notAssociated({ category: category, number: number }),
+  );
 
   const { control, handleSubmit } = useForm({
     resolver: yupResolver(yupSchema),

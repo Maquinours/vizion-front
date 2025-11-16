@@ -41,7 +41,7 @@ export default function BusinessModalComponentBlComponent({ business, goToNextSt
     switch (modalData?.modal) {
       case ModalType.LOADING:
         return <LoaderModal />;
-      case ModalType.SEND_BY_EMAIL:
+      case ModalType.SEND_BY_EMAIL: {
         const bl = bls.at(page);
         if (!bl) return;
         const defaultRecipient = _.uniq(
@@ -63,6 +63,7 @@ export default function BusinessModalComponentBlComponent({ business, goToNextSt
             storageKey={`business-modal-bl-${business.id}`}
           />
         );
+      }
     }
   }, [modalData, business, bls, page]);
 

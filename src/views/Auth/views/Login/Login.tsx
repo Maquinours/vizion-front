@@ -17,8 +17,8 @@ import { router } from '../../../../router';
 const routeApi = getRouteApi('/auth/login');
 
 const yupSchema = object({
-  username: string().required("L'identifiant est requis."),
-  password: string().required('Le mot de passe est requis'),
+  username: string().required("L'identifiant est requis.").trim(),
+  password: string().required('Le mot de passe est requis').trim(),
   // remember_me: boolean().required(), // TODO: implement this
 });
 
@@ -56,6 +56,7 @@ export default function LoginPage() {
 
   const onSubmit = (data: InferType<typeof yupSchema>) => {
     if (data.username.toUpperCase().startsWith('B011')) window.location.replace(`https://myvizeo.fr/webproxy/home?id=${data.username}`);
+    else if (data.username.toLowerCase() == 'admin') window.location.replace('https://myvizeo.fr');
     else mutate(data);
   };
 

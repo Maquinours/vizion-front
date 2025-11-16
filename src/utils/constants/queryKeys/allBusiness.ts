@@ -3,10 +3,10 @@ import {
   getAllBusinessById,
   getAllBusinessPageByEnterpriseId,
   getAllBusinessPageByEnterpriseIdAndProfileId,
-  getAllBusinesses,
   getAllBusinessesAssociated,
-  getAllBusinessesNotAssociated,
-  getAllBusinessesNotAssociatedByEnterpriseId,
+  getAllBusinessesNotAssociatedByEnterpriseIdPartial,
+  getAllBusinessesNotAssociatedPartial,
+  getAllBusinessesPartial,
   getByCategoryAndNumber,
   searchAllBusiness,
 } from '../../api/allBusiness';
@@ -19,19 +19,10 @@ import AllBusinessResponseDto from '../../types/AllBusinessResponseDto';
 export const allBusinesses = createQueryKeys('all-businesses', {
   list: {
     queryKey: null,
-    queryFn: getAllBusinesses,
     contextQueries: {
-      notAssociated: ({ category, number }: { category: CategoryBusiness; number: string }) => ({
-        queryKey: [category, number],
-        queryFn: () => getAllBusinessesNotAssociated({ category, number }),
-      }),
       associated: ({ category, number }: { category: CategoryBusiness; number: string }) => ({
         queryKey: [category, number],
         queryFn: () => getAllBusinessesAssociated({ category, number }),
-      }),
-      notAssociatedByEnterpriseId: (enterpriseId: string) => ({
-        queryKey: [enterpriseId],
-        queryFn: () => getAllBusinessesNotAssociatedByEnterpriseId(enterpriseId),
       }),
     },
   },
@@ -99,6 +90,25 @@ export const allBusinesses = createQueryKeys('all-businesses', {
         queryKey: [category, number],
         queryFn: () => getByCategoryAndNumber({ category, number }),
       }),
+    },
+  },
+  partial: {
+    queryKey: null,
+    contextQueries: {
+      list: {
+        queryKey: null,
+        queryFn: getAllBusinessesPartial,
+        contextQueries: {
+          notAssociated: ({ category, number }: { category: CategoryBusiness; number: string }) => ({
+            queryKey: [category, number],
+            queryFn: () => getAllBusinessesNotAssociatedPartial({ category, number }),
+          }),
+          notAssociatedByEnterpriseId: (enterpriseId: string) => ({
+            queryKey: [enterpriseId],
+            queryFn: () => getAllBusinessesNotAssociatedByEnterpriseIdPartial(enterpriseId),
+          }),
+        },
+      },
     },
   },
 });

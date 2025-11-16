@@ -15,7 +15,7 @@ export default function UnsavedChangesBlockingModalComponent({ proceed, reset, s
         <h1 className={styles.title}>
           Des modifications n&apos;ont pas été sauvegardées.
           <br />
-          Voulez vous tout de même <span className="text-[var(--secondary-color)]">quitter</span> la page ?
+          Voulez vous tout de même <span className="text-(--secondary-color)">quitter</span> la page ?
         </h1>
         <div className="flex items-center justify-center">
           <PulseLoader color="#31385A" loading={isSaving} className="m-4" size={10} speedMultiplier={0.5} />

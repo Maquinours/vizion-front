@@ -102,8 +102,8 @@ export default function AppViewStudyViewExpertViewModalProviderComponentSendStud
       overlayClassName="Overlay"
     >
       <div className="w-full rounded-md bg-white pb-2">
-        <h2 className="flex h-10 items-center justify-center rounded-t-md bg-[var(--primary-color)] text-white">Récapitulatif de l&apos;étude</h2>
-        <div className="flex flex-col gap-y-4 p-4 text-[var(--primary-color)]">
+        <h2 className="flex h-10 items-center justify-center rounded-t-md bg-(--primary-color) text-white">Récapitulatif de l&apos;étude</h2>
+        <div className="flex flex-col gap-y-4 p-4 text-(--primary-color)">
           <div className="flex flex-row gap-x-1">
             <span className="flex-1 text-right">Entreprise :</span> <span className="flex-1 text-left">{business.enterpriseName}</span>
           </div>

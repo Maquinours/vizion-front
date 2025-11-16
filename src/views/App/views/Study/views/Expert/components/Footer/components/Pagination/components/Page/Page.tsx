@@ -34,10 +34,10 @@ export default function AppViewStudyViewExpertViewFooterComponentPaginationCompo
       {...attributes}
       {...listeners}
       className={classNames(
-        'my-auto box-border flex h-8 w-8 min-w-8 items-center justify-center rounded-[5px] border border-solid border-[color:var(--primary-color)] p-0 text-center text-[13px] leading-[1.43] tracking-[0.01071em] text-[rgba(0,0,0,0.87)] opacity-100 shadow-[0px_3px_5px_#10173526] hover:bg-[#10173526]',
+        'my-auto box-border flex h-8 w-8 min-w-8 items-center justify-center rounded-[5px] border border-solid border-(--primary-color) p-0 text-center text-[13px] leading-[1.43] tracking-[0.01071em] text-[rgba(0,0,0,0.87)] opacity-100 shadow-[0px_3px_5px_#10173526] hover:bg-[#10173526]',
         {
-          'bg-[var(--primary-color)] text-white': selected,
-          ['pointer-events-none text-[var(--grey-line)]']: disabled,
+          'bg-(--primary-color) text-white': selected,
+          ['pointer-events-none text-(--grey-line)']: disabled,
         },
       )}
     >
@@ -49,7 +49,7 @@ export default function AppViewStudyViewExpertViewFooterComponentPaginationCompo
           'z-20 border-2 border-black': selected,
         })}
       >
-        <span className="absolute right-0 top-0 text-xs font-bold text-amber-300">{page.type[0].toUpperCase()}</span>
+        <span className="absolute top-0 right-0 text-xs font-bold text-amber-300">{page.type[0].toUpperCase()}</span>
         <span className="font-bold text-white">{pageNumber}</span>
       </button>
     </li>

@@ -20,7 +20,7 @@ const AircallNewCallToastComponent = ({ data }: AircallNewCallToastComponentProp
   return (
     <div className="flex flex-col pl-12">
       <AircallIcon className="absolute top-1/2 left-2 z-10 grid size-10 -translate-y-1/2 place-items-center rounded-full bg-gradient-to-r text-white shadow-lg" />
-      <p className="font-semibold text-[var(--primary-color)]">
+      <p className="font-semibold text-(--primary-color)">
         {data.caller.firstName} {data.caller.lastName}
       </p>
       <p className="text-sm text-zinc-400">

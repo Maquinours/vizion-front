@@ -11,15 +11,25 @@ import AppViewEnterpriseViewContactsComponent from './components/Contacts/Contac
 import AppViewEnterpriseViewLifesheetComponent from './components/Lifesheet/Lifesheet';
 import AppViewEnterpriseViewWorkloadsComponent from './components/Workloads/Workloads';
 import AppViewEnterpriseViewGedComponent from './components/Ged/Ged';
+import { useMemo } from 'react';
+import AppViewEnterpriseViewBeforeCloseModalComponent from './components/BeforeCloseModal/BeforeCloseModal';
 
 const routeApi = getRouteApi('/app/enterprises_/$enterpriseId');
 
 export default function AppViewEnterpriseView() {
   const { enterpriseId } = routeApi.useParams();
+  const { enterpriseModal } = routeApi.useSearch();
 
   const { data: user } = useAuthentifiedUserQuery();
 
   const { data: enterprise } = useSuspenseQuery(enterprises.detail(enterpriseId));
+
+  const modal = useMemo(() => {
+    switch (enterpriseModal) {
+      case 'before-close':
+        return <AppViewEnterpriseViewBeforeCloseModalComponent />;
+    }
+  }, [enterpriseModal]);
 
   return (
     <>
@@ -28,10 +38,7 @@ export default function AppViewEnterpriseView() {
         <div className={styles.grid_one}>
           <div className={styles.one}>
             <AppViewEnterpriseViewInformationsComponent enterprise={enterprise} />
-            {user.userInfo.roles.some((role) => ['ROLE_MEMBRE_VIZEO', 'ROLE_REPRESENTANT'].includes(role)) && (
-              <AppViewEnterpriseViewCategoryComponent enterprise={enterprise} />
-            )}
-            {user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && <AppViewEnterpriseViewGedComponent />}
+            <AppViewEnterpriseViewLifesheetComponent />
           </div>
           <div className={styles.two}>
             <EnterpriseAllBusinessTable />
@@ -39,10 +46,14 @@ export default function AppViewEnterpriseView() {
         </div>
         <div className={styles.grid_two}>
           <AppViewEnterpriseViewContactsComponent />
-          <AppViewEnterpriseViewLifesheetComponent />
+          {user.userInfo.roles.some((role) => ['ROLE_MEMBRE_VIZEO', 'ROLE_REPRESENTANT'].includes(role)) && (
+            <AppViewEnterpriseViewCategoryComponent enterprise={enterprise} />
+          )}
+          {user.userInfo.roles.includes('ROLE_MEMBRE_VIZEO') && <AppViewEnterpriseViewGedComponent />}
           <AppViewEnterpriseViewWorkloadsComponent />
         </div>
       </div>
+      {modal}
       <Outlet />
     </>
   );

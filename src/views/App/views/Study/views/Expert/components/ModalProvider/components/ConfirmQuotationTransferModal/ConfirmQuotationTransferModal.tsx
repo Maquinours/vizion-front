@@ -191,7 +191,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentConfirmQ
       <div className="w-full rounded-b-md bg-white p-2">
         <div className="flex flex-col gap-y-1 p-2 text-center">
           <span className="text-center">Vous êtes sur le point de transférer les produits de la synoptique vers l&apos;affaire.</span>
-          <span className="font-bold text-[var(--secondary-color)]">Si un devis existe déjà, il sera écrasé.</span>
+          <span className="font-bold text-(--secondary-color)">Si un devis existe déjà, il sera écrasé.</span>
           <span>Voulez-vous continuer ?</span>
         </div>
         <div className="flex justify-center gap-x-1 py-2">

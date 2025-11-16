@@ -11,7 +11,7 @@ import ProductResponseDto from '../../../../../../../../../../utils/types/Produc
 import ExpertStudyContext from '../../../../utils/context';
 import { ExpertStudyTransmitterNode } from '../../../Flow/components/TransmitterNode/TransmitterNode';
 
-const includedProducts = ['KIT50M', 'KITFIBRE', 'POE04', 'POE04LD', 'POE08', 'POE16', 'PONTWIFI', 'SG05'];
+const includedProducts = ['KIT50M', 'KITFIBRE', 'POE08', 'POE16', 'PONTWIFI', 'SG05'];
 
 type Model = {
   product: ProductResponseDto;
@@ -30,7 +30,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentTransmit
     ...queries.product.list,
     staleTime: Infinity,
     select: (products) =>
-      products.filter((product) => product.category === 'Transmission' && !!product.reference && includedProducts.includes(product.reference)),
+      products.filter((product) => product.category === 'Transmission' && !!product.reference && includedProducts.includes(product.reference) && product.vizeo),
   });
 
   const { setValue, getValues, control, handleSubmit } = useForm({
@@ -86,12 +86,12 @@ export default function AppViewStudyViewExpertViewModalProviderComponentTransmit
   return (
     <ReactModal
       isOpen
-      className="absolute left-2/4 top-2/4 m-auto h-auto w-auto min-w-72 -translate-x-2/4 -translate-y-2/4 rounded-md opacity-100"
+      className="absolute top-2/4 left-2/4 m-auto h-auto w-auto min-w-72 -translate-x-2/4 -translate-y-2/4 rounded-md opacity-100"
       overlayClassName="Overlay"
       onRequestClose={onClose}
     >
       <form className="w-full rounded-md bg-white pb-2" onSubmit={handleSubmit(onSubmit)}>
-        <h2 className="flex h-10 items-center justify-center rounded-t-md bg-[var(--primary-color)] text-white">TRANSMISSIONS</h2>
+        <h2 className="flex h-10 items-center justify-center rounded-t-md bg-(--primary-color) text-white">TRANSMISSIONS</h2>
         <Controller
           control={control}
           name="models"

@@ -105,7 +105,7 @@ export default function AppViewBusinessesRmaViewTableComponent({ data, isLoading
                 data-tooltip-content={original.id}
                 to="/app/businesses-rma/business/$businessId"
                 params={{ businessId: original.businessId }}
-                className="text-[var(--secondary-color)]"
+                className="text-(--secondary-color)"
                 onClick={(e) => {
                   e.stopPropagation();
                   e.nativeEvent.stopImmediatePropagation();
@@ -121,7 +121,7 @@ export default function AppViewBusinessesRmaViewTableComponent({ data, isLoading
                 data-tooltip-content={original.id}
                 to="/app/businesses-rma/rma/$rmaId"
                 params={{ rmaId: original.businessId }}
-                className="text-[var(--secondary-color)]"
+                className="text-(--secondary-color)"
                 onClick={(e) => {
                   e.stopPropagation();
                   e.nativeEvent.stopImmediatePropagation();

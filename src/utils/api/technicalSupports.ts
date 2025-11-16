@@ -22,6 +22,16 @@ export const createTechnicalSupport = (data: TechnicalSupportRequestDto) => {
   }).then((res) => res.data);
 };
 
+export const createTechnicalSupports = (data: Array<TechnicalSupportRequestDto>) => {
+  if(data.length === 0) return Promise.resolve([]);
+  
+  return privateInstance<Array<TechnicalSupportResponseDto>>({
+    method: 'POST',
+    url: '/all-business/v1/technical-assistance/list',
+    data,
+  }).then((res) => res.data);
+};
+
 export const getTechnicalSupportById = (id: string) => {
   return privateInstance<TechnicalSupportResponseDto>({
     method: 'GET',

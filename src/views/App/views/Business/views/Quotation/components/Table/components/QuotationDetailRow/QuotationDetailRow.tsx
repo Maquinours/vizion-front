@@ -56,9 +56,7 @@ export default function AppViewBusinessViewQuotationViewTableComponentQuotationD
         )}
       </td>
       <td>{!hidePrices && showAmounts && <CurrencyFormat value={detail.unitPrice} />}</td>
-      <td>
-        {showAmounts && <CurrencyFormat style={{ fontWeight: '900' }} value={detail.totalPrice} />}
-      </td>
+      <td>{showAmounts && <CurrencyFormat style={{ fontWeight: '900' }} value={detail.totalPrice} />}</td>
     </tr>
   );
 }

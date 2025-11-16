@@ -5,8 +5,8 @@ import FaqAccessLevel from '../../../utils/enums/FaqAccessLevel';
 
 const searchSchema = z.object({
   search: z.string().optional().catch(undefined),
-  productId: z.string().uuid().optional().catch(undefined),
-  accessLevel: z.nativeEnum(FaqAccessLevel).optional().catch(undefined),
+  productId: z.uuid().optional().catch(undefined),
+  accessLevel: z.enum(FaqAccessLevel).optional().catch(undefined),
   page: z.number().catch(0),
   archived: z.boolean().catch(false),
   fuzzy: z.boolean().catch(false),

@@ -32,9 +32,9 @@ export const addProductSpecificationToProduct = async (
     method: 'POST',
     url: `/product/v1/add-advanced-specs/${encodeURIComponent(productId)}/${encodeURIComponent(specificationId)}`,
     params: {
-      value,
-      minValue,
-      maxValue,
+      value: value ?? 0,
+      minValue: minValue ?? 0,
+      maxValue: maxValue ?? 0,
     },
   }).then((res) => res.data);
 };
@@ -51,9 +51,9 @@ export const updateProductSpecification = async (
     method: 'POST',
     url: `/product/v1/add-advanced-specs/${encodeURIComponent(productId)}/${encodeURIComponent(specificationId)}`,
     params: {
-      value,
-      minValue,
-      maxValue,
+      value: value ?? 0,
+      minValue: minValue ?? 0,
+      maxValue: maxValue ?? 0,
     },
   }).then((res) => res.data);
 };
