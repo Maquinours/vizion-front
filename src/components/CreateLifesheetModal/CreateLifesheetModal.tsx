@@ -116,8 +116,6 @@ export default function CreateLifesheetModalComponent({
           data = {
             enterpriseId: associatedItemId,
             enterpriseName: (await queryClient.ensureQueryData(enterprises.detail(associatedItemId))).name,
-            concernedId: concerned ? concerned.id : undefined,
-            concernedName: concerned ? `${concerned.firstName} ${concerned.lastName}` : undefined,
           };
           break;
         case LifesheetAssociatedItem.RMA:
@@ -150,6 +148,8 @@ export default function CreateLifesheetModalComponent({
         receiver: receivers.map((receiver) => `${receiver.firstName?.split(' ').at(0)} ${receiver.lastName?.charAt(0)}.`).join('; '),
         name: `${currentUser.userInfo.firstName.split(' ')[0]} ${currentUser.userInfo.lastName.charAt(0)}.`,
         description,
+        concernedId: concerned ? concerned.id : undefined,
+        concernedName: concerned ? `${concerned.firstName} ${concerned.lastName}` : undefined,
         ...data,
         tasksDtoList: receivers.map((receiver) => ({
           name: `${receiver.firstName?.split(' ').at(0)} ${receiver.lastName?.at(0)}.`,
