@@ -38,6 +38,7 @@ export const Route = createFileRoute('/app/tools/representatives-turnover')({
       queryClient.prefetchQuery(
         queries['sales-vva'].list._ctx.byDepartmentCodesYearAndMonth({
           departmentCodes: representative.departments?.map((dep) => dep.code) ?? [],
+          representativeId: representative.id,
           year,
           month,
         }),

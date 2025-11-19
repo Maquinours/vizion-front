@@ -20,7 +20,7 @@ export const Route = createFileRoute('/app/businesses-rma/representative-turnove
     const user = await queryClient.ensureQueryData(queries.user.authentified());
     const enterprise = await queryClient.ensureQueryData(queries.enterprise.detail(user.profile.enterprise!.id));
     queryClient.prefetchQuery(
-      queries['sales-vva'].list._ctx.byDepartmentCodesYearAndMonth({ departmentCodes: enterprise.departments?.map((d) => d.code) ?? [], year, month }),
+      queries['sales-vva'].list._ctx.byDepartmentCodesYearAndMonth({ departmentCodes: enterprise.departments?.map((d) => d.code) ?? [], representativeId: enterprise.id, year, month }),
     );
   },
   pendingComponent: LoaderModal,
