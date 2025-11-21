@@ -12,6 +12,7 @@ export const getExcelTurnoversByRepresentativeMonthAndYear = async (representati
       url: `/business/v1/business/sales-and-vva/download-representative`,
       params: {
         repCodes: representative.departments.map((department) => department.code),
+        representativeId: representative.id,
         year,
         month,
       },

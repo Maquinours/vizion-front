@@ -36,12 +36,13 @@ export const getSaleVvaById = (id: string) => {
   }).then((res) => res.data);
 };
 
-export const getSalesVvaByDepartmentCodesYearAndMonth = ({ repCodes, year, month }: { repCodes?: Array<string> | null; year: number; month: number }) => {
+export const getSalesVvaByDepartmentCodesYearAndMonth = ({ repCodes, representativeId, year, month }: { repCodes?: Array<string> | null; representativeId?: string | null; year: number; month: number }) => {
   return privateInstance<Array<SalesVvaResponseDto>>({
     method: 'GET',
     url: `/business/v1/business/sales-and-vva/sales`,
     params: {
       repCodes,
+      representativeId,
       year,
       month,
     },

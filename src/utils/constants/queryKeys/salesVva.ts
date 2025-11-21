@@ -5,11 +5,11 @@ export const salesVva = createQueryKeys('sales-vva', {
   list: {
     queryKey: null,
     contextQueries: {
-      byDepartmentCodesYearAndMonth: ({ departmentCodes, year, month }: { departmentCodes?: Array<string> | null; year: number; month: number }) => ({
-        queryKey: [{ departmentCodes, year, month }],
+      byDepartmentCodesYearAndMonth: ({ departmentCodes, representativeId, year, month }: { departmentCodes?: Array<string> | null; representativeId?: string | null; year: number; month: number }) => ({
+        queryKey: [{ departmentCodes, representativeId, year, month }],
         queryFn: () =>
           !!departmentCodes && departmentCodes.length > 0
-            ? getSalesVvaByDepartmentCodesYearAndMonth({ repCodes: departmentCodes, year, month })
+            ? getSalesVvaByDepartmentCodesYearAndMonth({ repCodes: departmentCodes, representativeId, year, month })
             : Promise.resolve([]),
       }),
     },

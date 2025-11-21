@@ -86,7 +86,7 @@ export default function BusinessModalComponentBillComponent({ business }: Busine
             <div className={styles.title}>Facture : {bill.number}</div>
 
             <div className={styles.pdf_viewer}>
-              <PDFViewer showToolbar={!user.userInfo.roles.some((role) => ['ROLE_CLIENT', 'ROLE_REPRESENTANT_VIZEO'].includes(role)) && !business.archived}>
+              <PDFViewer key={Date.now()} showToolbar={!user.userInfo.roles.some((role) => ['ROLE_CLIENT', 'ROLE_REPRESENTANT_VIZEO'].includes(role)) && !business.archived}>
                 <BusinessModalComponentBillComponentPdfComponent bill={bill} business={business} enterprise={enterprise} />
               </PDFViewer>
             </div>
@@ -101,6 +101,7 @@ export default function BusinessModalComponentBillComponent({ business }: Busine
                   user.profile.categoryClient === 'DISTRIBUTEUR' ||
                   user.profile.categoryClient === 'DISTRIBUTEUR_VVA') && (
                   <PDFDownloadLink
+                    key={Date.now()}
                     document={<BusinessModalComponentBillComponentPdfComponent bill={bill} business={business} enterprise={enterprise} />}
                     fileName={`${bill.number}.pdf`}
                   >
