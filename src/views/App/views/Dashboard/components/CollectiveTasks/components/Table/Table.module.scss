@@ -35,6 +35,10 @@
     position: relative;
     z-index: 1;
 
+    thead {
+      display: none;
+    }
+
     tbody {
       position: relative;
       z-index: 1;

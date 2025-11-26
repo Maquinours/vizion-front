@@ -84,7 +84,7 @@ export default function AppViewBusinessViewBillView() {
             <div className={styles.title}>Facture : {bill.number}</div>
 
             <div className={styles.pdf_viewer}>
-              <PDFViewer showToolbar={!user.userInfo.roles.some((role) => ['ROLE_CLIENT', 'ROLE_REPRESENTANT_VIZEO'].includes(role)) && !business.archived}>
+              <PDFViewer key={Date.now()} showToolbar={!user.userInfo.roles.some((role) => ['ROLE_CLIENT', 'ROLE_REPRESENTANT_VIZEO'].includes(role)) && !business.archived}>
                 <AppViewBusinessViewBillViewPdfComponent bill={bill} business={business} enterprise={enterprise} showAmounts={showAmounts} />
               </PDFViewer>
             </div>
@@ -99,6 +99,7 @@ export default function AppViewBusinessViewBillView() {
                   user.profile.categoryClient === 'DISTRIBUTEUR' ||
                   user.profile.categoryClient === 'DISTRIBUTEUR_VVA') && (
                   <PDFDownloadLink
+                    key={Date.now()}
                     document={<AppViewBusinessViewBillViewPdfComponent bill={bill} business={business} enterprise={enterprise} showAmounts={showAmounts} />}
                     fileName={`${bill.number}.pdf`}
                   >

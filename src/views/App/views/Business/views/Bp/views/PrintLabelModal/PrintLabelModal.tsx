@@ -9,8 +9,10 @@ import * as yup from 'yup';
 import { printLabel } from '../../../../../../../../utils/api/business';
 import { queries } from '../../../../../../../../utils/constants/queryKeys';
 import styles from './PrintLabelModal.module.scss';
+import { useEffect } from 'react';
 
 const yupSchema = yup.object().shape({
+  reference: yup.string().required(),
   text: yup.string().optional(),
 });
 
@@ -26,6 +28,7 @@ export default function AppViewBusinessViewBpViewPrintLabelModalView() {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(yupSchema),
@@ -36,7 +39,7 @@ export default function AppViewBusinessViewBpViewPrintLabelModalView() {
   };
 
   const { mutate, isPending } = useMutation({
-    mutationFn: ({ text }: yup.InferType<typeof yupSchema>) => printLabel({ bigText: detail.productReference, smallText: text }),
+    mutationFn: ({ reference, text }: yup.InferType<typeof yupSchema>) => printLabel({ bigText: reference, smallText: text }),
     onSuccess: () => {
       toast.success("L'étiquette a été imprimée avec succès");
     },
@@ -45,6 +48,10 @@ export default function AppViewBusinessViewBpViewPrintLabelModalView() {
       toast.error("Une erreur est survenue lors de l'impression de l'étiquette");
     },
   });
+
+  useEffect(() => {
+    reset({ reference: detail.productReference }, { keepDirtyValues: true });
+  }, [detail.productReference]);
 
   return (
     <ReactModal isOpen={true} onRequestClose={onClose} className={styles.modal} overlayClassName="Overlay">
@@ -55,8 +62,9 @@ export default function AppViewBusinessViewBpViewPrintLabelModalView() {
         <form onSubmit={handleSubmit((data) => mutate(data))} onReset={onClose}>
           <div className={styles.modal_content}>
             <div className={styles.form_group}>
-              <label htmlFor="product">Référence :</label>
-              <input type="text" value={detail.productReference} readOnly />
+              <label htmlFor="reference">Référence :</label>
+              <input id="reference" {...register('reference')} type="text" />
+              <p className={styles.__errors}>{errors.reference?.message}</p>
             </div>
             <div className={styles.form_group}>
               <label htmlFor="text">Texte libre :</label>

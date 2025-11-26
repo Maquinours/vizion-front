@@ -19,7 +19,7 @@ export default function AppViewBusinessesRmaViewRepresentativeTurnoverModalView(
   const { data: enterprise } = useSuspenseQuery(queries.enterprise.detail(user.profile.enterprise!.id));
 
   const { data, isLoading } = useQuery(
-    queries['sales-vva'].list._ctx.byDepartmentCodesYearAndMonth({ departmentCodes: enterprise.departments?.map((d) => d.code) ?? [], year, month }),
+    queries['sales-vva'].list._ctx.byDepartmentCodesYearAndMonth({ departmentCodes: enterprise.departments?.map((d) => d.code) ?? [], representativeId: enterprise.id, year, month }),
   );
 
   const onClose = () => {
