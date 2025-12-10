@@ -13,6 +13,7 @@ import { queries } from '../../../../../../../../utils/constants/queryKeys';
 import CategoryClient from '../../../../../../../../utils/enums/CategoryClient';
 import EnterpriseResponseDto from '../../../../../../../../utils/types/EnterpriseResponseDto';
 import styles from './UpdateRepresentativeModal.module.scss';
+import BusinessState from '../../../../../../../../utils/enums/BusinessState';
 
 const routeApi = getRouteApi('/app/businesses-rma_/business/$businessId/dashboard/update-representative');
 
@@ -57,6 +58,12 @@ export default function AppViewBusinessViewDashboardViewUpdateRepresentativeModa
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queries.businesses._def });
       toast.success('Le représentant a bien été modifié');
+      const state = business.oldState ?? business.state;
+      if (state && [BusinessState.FACTURE].includes(state))
+        toast.info('Veuillez rafraîchir la facture pour mettre à jour les informations du représentant', {
+          onClick: () => navigate({ to: '../../bill', search: true, replace: true, resetScroll: false, ignoreBlocker: true }),
+          className: 'cursor-pointer',
+        });
       onClose();
     },
     onError: (error) => {
