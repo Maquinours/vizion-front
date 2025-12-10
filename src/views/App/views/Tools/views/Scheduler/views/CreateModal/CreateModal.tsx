@@ -175,7 +175,7 @@ export default function AppViewToolsViewSchedulerViewCreateModalView() {
                             })}
                             key={item.id}
                           >
-                            <button className={styles.icon} onClick={() => onChange(isSelected ? value.filter((el) => el.id !== item.id) : [...value, item])}>
+                            <button className={styles.icon} onClick={() => onChange(isSelected ? value?.filter((el) => el.id !== item.id) : [...(value ?? []), item])}>
                               <MdPerson color="#16204E" />
                             </button>
                             <div className={styles.name}>
@@ -193,8 +193,8 @@ export default function AppViewToolsViewSchedulerViewCreateModalView() {
                 control={control}
                 name="dates"
                 render={({ field: { value, onChange } }) => {
-                  const startDate = value.at(0);
-                  const endDate = value.at(1);
+                  const startDate = value?.at(0);
+                  const endDate = value?.at(1);
 
                   return (
                     <>

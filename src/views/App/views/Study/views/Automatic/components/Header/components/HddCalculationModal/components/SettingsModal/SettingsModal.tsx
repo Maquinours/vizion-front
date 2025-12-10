@@ -161,7 +161,7 @@ export default function AppViewStudyViewAutomaticViewHeaderComponentHddCalculati
                           className="w-24 border border-black p-1 text-center font-bold text-[#16204E]"
                           displayType="input"
                           decimalScale={2}
-                          suffix={value < 2 ? ' jour' : ' jours'}
+                          suffix={value !== undefined && value < 2 ? ' jour' : ' jours'}
                           value={value}
                           onValueChange={(v, info) => {
                             if (info.source === 'event') {

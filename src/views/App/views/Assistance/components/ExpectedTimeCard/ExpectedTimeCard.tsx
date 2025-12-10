@@ -39,12 +39,12 @@ export default function AppViewAssistanceViewExpectedTimeCardComponent({ assista
           <div className={styles.container}>
             <div className={styles.text}>{value}h</div>
             <div className={styles.buttons_container}>
-              <button onClick={() => onChange(value + 1)}>
+              <button onClick={() => onChange(value ?? 0 + 1)}>
                 <svg width={'11'} height={'9'}>
                   <polygon strokeWidth={'0'} points="0,9 11,9 5.5,0" />
                 </svg>
               </button>
-              <button onClick={() => onChange(Math.max(0, value - 1))}>
+              <button onClick={() => onChange(Math.max(0, value ?? 0 - 1))}>
                 <svg width={'11'} height={'9'}>
                   <polygon strokeWidth="0" points="0,0 11,0 5.5,9" />
                 </svg>

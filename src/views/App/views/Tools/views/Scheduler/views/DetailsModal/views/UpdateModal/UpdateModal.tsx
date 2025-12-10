@@ -213,7 +213,7 @@ export default function AppViewToolsViewSchedulerViewDetailsModalViewUpdateModal
                             <button
                               type="button"
                               className={styles.icon}
-                              onClick={() => onChange(isSelected ? value.filter((el) => el.id !== item.id) : [...value, item])}
+                              onClick={() => onChange(isSelected ? value?.filter((el) => el.id !== item.id) : [...(value ?? []), item])}
                             >
                               <MdPerson color="#16204E" />
                             </button>
@@ -232,8 +232,8 @@ export default function AppViewToolsViewSchedulerViewDetailsModalViewUpdateModal
                 control={control}
                 name="dates"
                 render={({ field: { value, onChange } }) => {
-                  const startDate = value.at(0);
-                  const endDate = value.at(1);
+                  const startDate = value?.at(0);
+                  const endDate = value?.at(1);
 
                   return (
                     <>

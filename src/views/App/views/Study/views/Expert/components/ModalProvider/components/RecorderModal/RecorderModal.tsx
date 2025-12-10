@@ -185,7 +185,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentRecorder
           name="models"
           render={({ field: { value, onChange } }) => (
             <div className="max-h-120 overflow-y-scroll">
-              {value.map((model) => (
+              {value && value.map((model) => (
                 <button
                   key={model.product.id}
                   type="button"
