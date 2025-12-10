@@ -41,12 +41,12 @@ export default function AppViewFaqViewButtonsComponent() {
           <button type="button" className="btn btn-secondary" onClick={() => updateViziaCache()} disabled={isUpdatingViziaCache}>
             Mettre à jour le cache de VIZIA
           </button>
-          <Link from={routeApi.id} to="./create" search replace resetScroll={false} preload="intent" className="btn btn-secondary">
+          <Link from={routeApi.id} to="./create" search replace resetScroll={false} preload="intent" className="btn btn-secondary flex items-center">
             Ajouter
           </Link>
         </>
       )}
-      <Link from={routeApi.id} search={(old) => ({ ...old, archived: !archived })} replace resetScroll={false} className="btn btn-secondary">
+      <Link from={routeApi.id} search={(old) => ({ ...old, archived: !archived })} replace resetScroll={false} className="btn btn-secondary flex items-center">
         {archived ? 'Voir non archivés' : 'Voir archivés'}
       </Link>
     </div>
