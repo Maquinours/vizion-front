@@ -141,7 +141,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentUniversa
             name="models"
             render={({ field: { value, onChange } }) => (
               <div className="flex flex-row">
-                {value.map((model) => (
+                {value && value.map((model) => (
                   <button
                     key={model.product.id}
                     type="button"

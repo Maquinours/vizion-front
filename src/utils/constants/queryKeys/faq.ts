@@ -12,10 +12,11 @@ export const faqs = createQueryKeys('faq', {
         productId: string | undefined,
         accessLevel: FaqAccessLevel | undefined,
         fuzzy: boolean,
+        titleOnly: boolean,
       ) => ({
         // eslint-disable-next-line @tanstack/query/exhaustive-deps
-        queryKey: [archived, searchText, productId, accessLevel, fuzzy],
-        queryFn: () => getFaqsPageByArchiveStateWithSearch(archived, searchText, productId, accessLevel, fuzzy, page, size),
+        queryKey: [archived, searchText, productId, accessLevel, fuzzy, titleOnly],
+        queryFn: () => getFaqsPageByArchiveStateWithSearch(archived, searchText, productId, accessLevel, fuzzy, titleOnly, page, size),
       }),
     },
   }),

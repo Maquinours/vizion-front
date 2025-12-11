@@ -138,7 +138,7 @@ export default function AppViewToolsViewNewsViewCreateModalView() {
                       name="files"
                       render={({ field: { value, onChange } }) => (
                         <>
-                          {value.length > 0 && (
+                          {value && value.length > 0 && (
                             <div className={styles.selected_files}>
                               <h4>Fichiers</h4>
                               <ul>

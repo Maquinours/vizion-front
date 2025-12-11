@@ -22,6 +22,7 @@ export const getFaqsPageByArchiveStateWithSearch = (
   productId: string | undefined,
   accessLevel: FaqAccessLevel | undefined,
   fuzzy: boolean,
+  titleOnly: boolean,
   page: number,
   size: number,
 ) => {
@@ -34,6 +35,7 @@ export const getFaqsPageByArchiveStateWithSearch = (
       productId,
       accessLevel,
       fuzzy,
+      titleOnly,
     },
   }).then((res) => res.data);
 };

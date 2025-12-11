@@ -17,6 +17,7 @@ const yupSchema = yup.object({
   product: yup.mixed<ProductResponseDto>(),
   accessLevel: yup.mixed<FaqAccessLevel>(),
   fuzzy: yup.boolean(),
+  titleOnly: yup.boolean(),
 });
 
 const faqAccessLevelOptions: Array<{ label: string; value: FaqAccessLevel }> = [
@@ -41,7 +42,7 @@ const faqAccessLevelOptions: Array<{ label: string; value: FaqAccessLevel }> = [
 export default function AppViewFaqViewSearchSectionComponent() {
   const navigate = routeApi.useNavigate();
 
-  const { search, productId, accessLevel, fuzzy } = routeApi.useSearch();
+  const { search, productId, accessLevel, fuzzy, titleOnly } = routeApi.useSearch();
 
   const { data: products, isLoading: isLoadingProducts } = useQuery(queries.product.list);
 
@@ -49,9 +50,9 @@ export default function AppViewFaqViewSearchSectionComponent() {
     resolver: yupResolver(yupSchema),
   });
 
-  const onSubmit = ({ searchText, product, accessLevel, fuzzy }: yup.InferType<typeof yupSchema>) => {
+  const onSubmit = ({ searchText, product, accessLevel, fuzzy, titleOnly }: yup.InferType<typeof yupSchema>) => {
     navigate({
-      search: (old) => ({ ...old, search: searchText || undefined, productId: product?.id, accessLevel: accessLevel || undefined, fuzzy, page: 0 }),
+      search: (old) => ({ ...old, search: searchText || undefined, productId: product?.id, accessLevel: accessLevel || undefined, fuzzy, titleOnly, page: 0 }),
       replace: true,
       resetScroll: false,
     });
@@ -60,7 +61,7 @@ export default function AppViewFaqViewSearchSectionComponent() {
   const onReset = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     navigate({
-      search: (old) => ({ ...old, search: undefined, productId: undefined, accessLevel: undefined, fuzzy: undefined, page: 0 }),
+      search: (old) => ({ ...old, search: undefined, productId: undefined, accessLevel: undefined, fuzzy: undefined, titleOnly: undefined, page: 0 }),
       replace: true,
       resetScroll: false,
     });
@@ -79,12 +80,12 @@ export default function AppViewFaqViewSearchSectionComponent() {
   useEffect(() => {
     const product = products?.find((item) => item.id === productId);
 
-    reset({ searchText: search ?? '', accessLevel, fuzzy, product });
+    reset({ searchText: search ?? '', accessLevel, fuzzy, product, titleOnly });
     // resetField('searchText', { defaultValue: search ?? '' });
     // resetField('accessLevel', { defaultValue: accessLevel });
     // resetField('fuzzy', { defaultValue: fuzzy });
     // reset({ searchText: search ?? '', accessLevel, fuzzy });
-  }, [search, accessLevel, productId, fuzzy]);
+  }, [search, accessLevel, productId, fuzzy, titleOnly]);
 
   useEffect(() => {
     const product = products?.find((item) => item.id === productId);
@@ -138,12 +139,32 @@ export default function AppViewFaqViewSearchSectionComponent() {
           name="fuzzy"
           render={({ field: { value, onChange } }) => (
             <div className="flex items-center gap-1">
-              <label htmlFor="fuzzy" className="font-['DIN2014'] text-base text-[color:var(--primary-color)]">
+              <label htmlFor="fuzzy" className="font-['DIN2014'] text-base text-(--primary-color)">
                 Recherche floue
               </label>
               <input
                 type="checkbox"
                 id="fuzzy"
+                checked={!!value}
+                onChange={(e) => {
+                  onChange(e);
+                  handleSubmit(onSubmit)();
+                }}
+              />
+            </div>
+          )}
+        />
+        <Controller
+          control={control}
+          name="titleOnly"
+          render={({ field: { value, onChange } }) => (
+            <div className="flex items-center gap-1">
+              <label htmlFor="titleOnly" className="font-['DIN2014'] text-base text-(--primary-color)">
+                Recherche dans le titre uniquement
+              </label>
+              <input
+                type="checkbox"
+                id="titleOnly"
                 checked={!!value}
                 onChange={(e) => {
                   onChange(e);

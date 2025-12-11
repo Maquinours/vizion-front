@@ -3,7 +3,7 @@ import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-q
 import { Link, LinkOptions, Outlet, getRouteApi, useBlocker } from '@tanstack/react-router';
 import classNames from 'classnames';
 import { useCallback, useEffect, useMemo } from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, useWatch } from 'react-hook-form';
 import { FaTrash } from 'react-icons/fa';
 import { HiPencilAlt } from 'react-icons/hi';
 import { toast } from 'react-toastify';
@@ -59,6 +59,7 @@ export default function AppViewBusinessViewDashboardView() {
 
   const { data: user } = useAuthentifiedUserQuery();
   const { data: business } = useSuspenseQuery(queries.businesses.detail._ctx.byId(businessId));
+  const { data: departments } = useSuspenseQuery(queries.departments.list);
 
   const formDefaultValues = useMemo(
     () => ({
@@ -91,6 +92,7 @@ export default function AppViewBusinessViewDashboardView() {
   );
 
   const {
+    control,
     register,
     formState: { errors, isDirty },
     setValue,
@@ -101,7 +103,18 @@ export default function AppViewBusinessViewDashboardView() {
     defaultValues: formDefaultValues,
   });
 
+  const [receiverZipCode, businessInstaller] = useWatch({ control, name: ['receiverZipCode', 'businessInstaller'] });
+
   const contextValue = useMemo(() => ({ setValue }), [setValue]);
+
+  const possibleDepartmentCodes = useMemo(() => {
+    return [receiverZipCode?.toString().trim().slice(0, 2), businessInstaller?.toString().trim().slice(0, 3)];
+  }, [receiverZipCode, businessInstaller]);
+
+  const defaultRepresentative = useMemo(
+    () => departments.find((department) => possibleDepartmentCodes.includes(department.code))?.repEnterprise,
+    [departments, possibleDepartmentCodes],
+  );
 
   const copyBusinessNumber = () => {
     navigator.clipboard
@@ -121,10 +134,10 @@ export default function AppViewBusinessViewDashboardView() {
 
   const { mutate: save, isPending: isSavePending } = useMutation({
     mutationFn: async (data: BusinessDashboardFormType) => {
-      const possibleDepartmentCodes = [data.receiverZipCode?.toString().trim().slice(0, 2), data?.businessInstaller?.toString().trim().slice(0, 3)];
-      const representative = (await queryClient.ensureQueryData(queries.departments.list)).find((department) =>
-        possibleDepartmentCodes.includes(department.code),
-      )?.repEnterprise;
+      // const possibleDepartmentCodes = [data.receiverZipCode?.toString().trim().slice(0, 2), data?.businessInstaller?.toString().trim().slice(0, 3)];
+      // const representative = (await queryClient.ensureQueryData(queries.departments.list)).find((department) =>
+      //   possibleDepartmentCodes.includes(department.code),
+      // )?.repEnterprise;
       return updateBusiness(business.id, {
         title: data.businessName,
         billingAddressOne: business.billingAddressOne,
@@ -149,9 +162,9 @@ export default function AppViewBusinessViewDashboardView() {
         enterpriseName: business.enterpriseName,
         enterpriseCategory: business.enterpriseCategory,
         reduction: business.reduction ?? 0,
-        representativeId: representative?.id,
-        representativeName: representative?.name,
-        representativeZipCode: representative?.zipCode,
+        representativeId: business.representativeId,
+        representativeName: business.representativeName,
+        representativeZipCode: business.representativeZipCode,
         zipCode: data.receiverZipCode,
         profileId: business.profileId,
         profileName: business.profileName,
@@ -282,7 +295,12 @@ export default function AppViewBusinessViewDashboardView() {
                   {user.userInfo.roles.includes('ROLE_DIRECTION_VIZEO') && (
                     <div className="flex gap-x-1">
                       <span className="m-auto font-[DIN2014] text-sm">
-                        Représentant : <span className="font-bold text-(--primary-color)">{business.representativeName || 'Aucun'}</span>
+                        Représentant :{' '}
+                        {business.representativeName ? (
+                          <span className="font-bold text-(--primary-color)">{business.representativeName}</span>
+                        ) : (
+                          <span className="font-bold text-gray-500">{defaultRepresentative?.name ?? 'Aucun'}</span>
+                        )}
                       </span>
                       <Link
                         from={routePath}
