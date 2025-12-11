@@ -1,7 +1,7 @@
 {
   "name": "vizion-front-v3",
   "private": true,
-  "version": "2.12.1-beta",
+  "version": "2.12.2",
   "type": "module",
   "scripts": {
     "preinstall": "npx only-allow pnpm",
