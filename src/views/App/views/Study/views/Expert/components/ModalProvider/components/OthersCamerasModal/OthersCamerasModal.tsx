@@ -98,7 +98,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentOthersCa
               name="models"
               render={({ field: { value, onChange } }) => (
                 <div className="flex items-center justify-center">
-                  {value && value.map((model) => (
+                  {value.map((model) => (
                     <button
                       key={model.product.id}
                       type="button"

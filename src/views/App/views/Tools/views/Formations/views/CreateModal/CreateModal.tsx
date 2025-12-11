@@ -181,7 +181,7 @@ export default function AppViewToolsViewFormationsViewCreateModalView() {
                     control={control}
                     name="files"
                     render={({ field: { value, onChange } }) =>
-                      value && value.length > 0 ? (
+                      value.length > 0 ? (
                         <div className={styles.selected_files}>
                           <h4>Fichiers</h4>
                           <ul>
