@@ -90,7 +90,7 @@ export default function AppViewStudyViewAutomaticViewHeaderComponentHddCalculati
           name="models"
           render={({ field: { value, onChange } }) => (
             <div className="grid grid-cols-5 gap-4 overflow-auto p-4 pr-5 pl-5">
-              {value && value.map((model) => (
+              {value.map((model) => (
                 <div key={model.product.id}>
                   <div className="shadow-black-800 flex flex-col rounded-t-md border-b-0 p-4 shadow-lg">
                     <div className="flex items-center justify-center space-x-8 text-center">

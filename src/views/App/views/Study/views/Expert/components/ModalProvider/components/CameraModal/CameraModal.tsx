@@ -182,7 +182,7 @@ export default function AppViewStudyViewExpertViewModalProviderComponentCameraMo
                   control={control}
                   name="models"
                   render={({ field: { value, onChange } }) => (
-                    <AppViewStudyViewExpertViewModalProviderComponentTableComponent models={value ?? []} setModels={onChange} />
+                    <AppViewStudyViewExpertViewModalProviderComponentTableComponent models={value} setModels={onChange} />
                   )}
                 />
               </div>

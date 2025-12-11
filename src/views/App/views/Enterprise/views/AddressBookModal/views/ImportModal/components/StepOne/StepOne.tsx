@@ -93,12 +93,10 @@ export default function AppViewEnterpriseViewAddressBookModalViewImportModalView
               control={control}
               name="file"
               render={({ field: { value } }) =>
-                value ? (
+                !!value && (
                   <p>
                     {value.name} - <AmountFormat displayType="text" value={value.size} suffix=" octets" />
                   </p>
-                ) : (
-                  <></>
                 )
               }
             />

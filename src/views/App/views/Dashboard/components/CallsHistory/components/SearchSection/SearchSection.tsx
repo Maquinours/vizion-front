@@ -77,8 +77,8 @@ export default function AppViewDashboardViewCallsHistoryComponentSearchSectionCo
                 onChange(v);
                 onChangeDates(v);
               }}
-              startDate={value ? value[0] : undefined}
-              endDate={value ? value[1] : undefined}
+              startDate={value[0]}
+              endDate={value[1]}
               allowSameDay
               withPortal
               locale="fr"

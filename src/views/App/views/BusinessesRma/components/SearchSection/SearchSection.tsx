@@ -258,8 +258,8 @@ export default function AppViewBusinessesRmaViewSearchSectionComponent() {
               <ReactDatePicker
                 selectsRange
                 onChange={onChange}
-                startDate={value ? value[0] : undefined}
-                endDate={value ? value[1] : undefined}
+                startDate={value[0]}
+                endDate={value[1]}
                 allowSameDay
                 withPortal
                 locale="fr"
@@ -284,8 +284,8 @@ export default function AppViewBusinessesRmaViewSearchSectionComponent() {
             control={control}
             name="amounts"
             render={({ field: { value, onChange } }) => {
-              const minAmount = value ? value[0] : 0;
-              const maxAmount = value ? value[1] : 0;
+              const minAmount = value[0];
+              const maxAmount = value[1];
 
               const minPossible = 0;
               const maxPossible = 80_000;
@@ -331,7 +331,7 @@ export default function AppViewBusinessesRmaViewSearchSectionComponent() {
                             step={100}
                             min={0}
                             max={maxPossible}
-                            values={value ?? [0, 0]}
+                            values={value}
                             onChange={(values) => onChange(values)}
                             renderTrack={({ props, children }) => (
                               <button
@@ -352,7 +352,7 @@ export default function AppViewBusinessesRmaViewSearchSectionComponent() {
                                     borderRadius: '4px',
                                     background: getTrackBackground({
                                       colors: ['#ccc', '#31385A', '#ccc'],
-                                      values: value ?? [0, 0],
+                                      values: value,
                                       min: minPossible,
                                       max: maxPossible,
                                     }),
@@ -434,7 +434,7 @@ export default function AppViewBusinessesRmaViewSearchSectionComponent() {
                       placeholder="Catégories à exclure"
                       options={CATEGORY_OPTIONS}
                       isMulti
-                      value={CATEGORY_OPTIONS.filter((opt) => value?.some((val) => val === opt.value))}
+                      value={CATEGORY_OPTIONS.filter((opt) => value.some((val) => val === opt.value))}
                       onChange={(e) => {
                         onChange(e.map((opt) => opt.value));
                         handleSubmit(onSubmit)();
@@ -462,7 +462,7 @@ export default function AppViewBusinessesRmaViewSearchSectionComponent() {
               name="fuzzy"
               render={({ field: { value, onChange } }) => (
                 <div className="flex flex-wrap gap-1">
-                  <label htmlFor="fuzzy" className="font-['DIN2014'] text-base text-(--primary-color)">
+                  <label htmlFor="fuzzy" className="font-['DIN2014'] text-base text-[color:var(--primary-color)]">
                     Recherche floue
                   </label>
                   <input
